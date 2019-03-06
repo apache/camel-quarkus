@@ -1,4 +1,4 @@
-package io.quarkus.camel.runtime;
+package io.quarkus.camel.core.runtime;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;

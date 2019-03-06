@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.quarkus.camel.runtime;
+package io.quarkus.camel.core.runtime;
 
 import java.io.InputStream;
 import java.util.List;

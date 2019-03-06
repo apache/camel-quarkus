@@ -1,4 +1,4 @@
-package io.quarkus.camel.netty4.http;
+package io.quarkus.camel.component.netty4http.runtime;
 
 import org.apache.camel.component.netty4.NettyHelper;
 import org.apache.camel.util.concurrent.CamelThreadFactory;

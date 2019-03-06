@@ -1,4 +1,4 @@
-package io.quarkus.camel.runtime.graal;
+package io.quarkus.camel.core.runtime.graal;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
