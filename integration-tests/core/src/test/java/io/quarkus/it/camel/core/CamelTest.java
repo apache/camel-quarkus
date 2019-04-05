@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.core;
+package io.quarkus.it.camel.core;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;

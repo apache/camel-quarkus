@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.salesforce;
+package io.quarkus.it.camel.aws;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

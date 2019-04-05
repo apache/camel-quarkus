@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.core;
+package io.quarkus.it.camel.core;
 
 import io.quarkus.test.junit.SubstrateTest;
 

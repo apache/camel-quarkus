@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.salesforce;
+package io.quarkus.it.camel.aws;
 
 import org.apache.camel.builder.RouteBuilder;
 
@@ -9,11 +9,12 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("direct:case")
-                .autoStartup(false)
-                .setHeader("sObjectName").constant("Case")
-                .to("salesforce:getSObject?rawPayload=true")
+        from("timer:quarkus?repeatCount=1")
+                .setHeader("CamelAwsS3Key", constant("testquarkus"))
+                .setBody(constant("Quarkus is great!"))
+                .to("aws-s3://devvox1")
                 .to("log:sf?showAll=true");
 
     }
+
 }

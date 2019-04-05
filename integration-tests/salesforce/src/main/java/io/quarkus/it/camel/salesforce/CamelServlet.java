@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.salesforce;
+package io.quarkus.it.camel.salesforce;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

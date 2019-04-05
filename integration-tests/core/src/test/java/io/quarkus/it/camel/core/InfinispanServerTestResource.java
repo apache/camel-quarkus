@@ -1,4 +1,4 @@
-package io.quarkus.camel.it.core;
+package io.quarkus.it.camel.core;
 
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
