@@ -1,0 +1,9 @@
+language: java
+jdk:
+  - openjdk8
+cache:
+  directories:
+    - $HOME/.m2/repository
+    - $HOME/.m2/wrapper
+script:
+  - ./mvnw clean verify -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
