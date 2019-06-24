@@ -1,0 +1,19 @@
+= Apache Camel extensions for Quarkus
+
+== What is this
+
+This project hosts the efforts to port and package the 280+ Camel components as Quarkus extensions.
+
+http://camel.apache.org/[Apache Camel] is the Swiss knife of integrating heterogeneous systems with more than a decade
+of history and a lively community of users and developers.
+
+https://quarkus.io/[Quarkus] is a Java platform offering fast boot times and low memory footprint. It targets both stock
+JVMs (OpenJDK in the first place) and https://www.graalvm.org/[GraalVM].
+
+https://quarkus.io/extensions/[Quarkus extensions] are units of Quarkus distribution. They configure, boot and integrate
+a technology (in our case Camel components) into your Quarkus application. You will typically use them as dependencies
+in your project.
+
+== Licensing
+
+This software is licensed under the terms you may find in the file named `LICENSE.txt` in this directory.
