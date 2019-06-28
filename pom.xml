@@ -40,7 +40,28 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <camel.version>3.0.0-M2</camel.version>
+        <quarkus.version>0.17.0</quarkus.version>
+
+        <version.compiler.plugin>3.8.0-jboss-2</version.compiler.plugin>
+      <maven.compiler.target>1.8</maven.compiler.target>
+      <maven.compiler.source>1.8</maven.compiler.source>
+      <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
+      <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+      <maven.compiler.argument.target>${maven.compiler.target}</maven.compiler.argument.target>
+      <maven.compiler.argument.source>${maven.compiler.source}</maven.compiler.argument.source>
+      <maven.compiler.argument.testTarget>${maven.compiler.testTarget}</maven.compiler.argument.testTarget>
+      <maven.compiler.argument.testSource>${maven.compiler.testSource}</maven.compiler.argument.testSource>
+
     </properties>
+
+    <modules>
+        <module>bom</module>
+        <module>build-parent</module>
+        <module>extensions</module>
+        <module>integration-tests</module>
+    </modules>
 
     <developers>
         <developer>
@@ -87,5 +108,59 @@
         <system>GitHub</system>
         <url>https://github.com/apache/camel-quarkus/issues</url>
     </issueManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.compiler.plugin}</version>
+                    <configuration>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                        <source>${maven.compiler.argument.source}</source>
+                        <target>${maven.compiler.argument.target}</target>
+                        <testSource>${maven.compiler.argument.testSource}</testSource>
+                        <testTarget>${maven.compiler.argument.testTarget}</testTarget>
+                        <compilerArgs>
+                            <arg>-Xlint:unchecked</arg>
+                        </compilerArgs>
+                    </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                </plugin>
+
+            </plugins>
+        </pluginManagement>
+    </build>
+
+
+    <!-- Some plugins are available in the jboss repository only -->
+    <pluginRepositories>
+      <pluginRepository>
+        <id>jboss-public-repository</id>
+        <name>JBoss Public Maven Repository</name>
+        <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        <layout>default</layout>
+        <releases>
+          <enabled>true</enabled>
+        </releases>
+        <snapshots>
+          <enabled>false</enabled>
+        </snapshots>
+      </pluginRepository>
+    </pluginRepositories>
 
 </project>

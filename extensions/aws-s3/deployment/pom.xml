@@ -3,14 +3,13 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>quarkus-camel-aws-parent</artifactId>
-        <groupId>io.quarkus</groupId>
-        <version>0.18.0</version>
-        <relativePath>../</relativePath>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-aws-s3-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-camel-aws-s3-deployment</artifactId>
+    <artifactId>camel-quarkus-aws-s3-deployment</artifactId>
     <name>Quarkus - Camel - AWS S3 - Deployment</name>
 
     <dependencies>
@@ -27,8 +26,8 @@
 
         <!-- camel -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-camel-aws-s3</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-s3</artifactId>
         </dependency>
 
     </dependencies>
@@ -42,7 +41,7 @@
                         <path>
                             <groupId>io.quarkus</groupId>
                             <artifactId>quarkus-extension-processor</artifactId>
-                            <version>${project.version}</version>
+                            <version>${quarkus.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

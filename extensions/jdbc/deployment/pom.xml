@@ -2,22 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>quarkus-camel-jdbc-parent</artifactId>
-        <groupId>io.quarkus</groupId>
-        <version>0.18.0</version>
-        <relativePath>../</relativePath>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-jdbc-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-camel-jdbc-deployment</artifactId>
+    <artifactId>camel-quarkus-jdbc-deployment</artifactId>
     <name>Quarkus - Camel - JDBC - Deployment</name>
 
     <dependencies>
 
         <!-- quarkus -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-camel-core-deployment</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -28,8 +27,8 @@
             <artifactId>quarkus-narayana-jta-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-camel-jdbc</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jdbc</artifactId>
         </dependency>
 
     </dependencies>
@@ -43,7 +42,7 @@
                         <path>
                             <groupId>io.quarkus</groupId>
                             <artifactId>quarkus-extension-processor</artifactId>
-                            <version>${project.version}</version>
+                            <version>${quarkus.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
