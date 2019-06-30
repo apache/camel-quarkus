@@ -1,5 +1,11 @@
 = Apache Camel extensions for Quarkus
 
+image:https://img.shields.io/maven-central/v/org.apache.camel.quarkus/camel-quarkus-bom.svg["Maven Central", link="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.camel.quarkus"]
+image:https://img.shields.io/travis/apache/camel-quarkus/master.svg?logo=travis&color=white&label=Travis+CI["Travis CI build status", link="http://travis-ci.org/apache/camel-quarkus"]
+image:https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000["Licensed under Apache License version 2.0", link="https://www.apache.org/licenses/LICENSE-2.0"]
+image:https://badges.gitter.im/apache/camel-quarkus.svg["Chat on Gitter", link="https://gitter.im/apache/camel-quarkus"]
+
+
 == What is this
 
 This project hosts the efforts to port and package the 280+ Camel components as Quarkus extensions.
@@ -13,6 +19,39 @@ JVMs (OpenJDK in the first place) and https://www.graalvm.org/[GraalVM].
 https://quarkus.io/extensions/[Quarkus extensions] are units of Quarkus distribution. They configure, boot and integrate
 a technology (in our case Camel components) into your Quarkus application. You will typically use them as dependencies
 in your project.
+
+
+== How to build
+
+Prerequisites:
+
+* Java 8
+* Maven 3.5.4+ or you can use the provided Maven Wrapper, a.k.a. `mvnw`
+* GraalVM
+** Check link:.travis.yml[.travis.yml] for the version and steps to install
+** Set the `GRAALVM_HOME` environment variable to point at the root directory of your GraalVM installation
+
+Fast build without tests:
+
+[source,shell]
+----
+./mvnw clean install -DskipTests
+----
+
+Build with tests only in JVM mode:
+
+[source,shell]
+----
+./mvnw clean install
+----
+
+Build with tests in JVM mode and native mode:
+
+[source,shell]
+----
+./mvnw clean install -Dnative -Dnative-image.xmx=5g
+----
+
 
 == Licensing
 
