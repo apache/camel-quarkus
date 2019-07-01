@@ -42,7 +42,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <camel.version>3.0.0-M2</camel.version>
-        <quarkus.version>0.17.0</quarkus.version>
+        <quarkus.version>0.18.0</quarkus.version>
 
         <version.compiler.plugin>3.8.0</version.compiler.plugin>
         <maven.compiler.target>1.8</maven.compiler.target>
