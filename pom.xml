@@ -43,17 +43,16 @@
 
         <camel.version>3.0.0-M2</camel.version>
         <quarkus.version>0.17.0</quarkus.version>
-
+      
         <version.compiler.plugin>3.8.0</version.compiler.plugin>
-      <maven.compiler.target>1.8</maven.compiler.target>
-      <maven.compiler.source>1.8</maven.compiler.source>
-      <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
-      <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
-      <maven.compiler.argument.target>${maven.compiler.target}</maven.compiler.argument.target>
-      <maven.compiler.argument.source>${maven.compiler.source}</maven.compiler.argument.source>
-      <maven.compiler.argument.testTarget>${maven.compiler.testTarget}</maven.compiler.argument.testTarget>
-      <maven.compiler.argument.testSource>${maven.compiler.testSource}</maven.compiler.argument.testSource>
-
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
+        <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+        <maven.compiler.argument.target>${maven.compiler.target}</maven.compiler.argument.target>
+        <maven.compiler.argument.source>${maven.compiler.source}</maven.compiler.argument.source>
+        <maven.compiler.argument.testTarget>${maven.compiler.testTarget}</maven.compiler.argument.testTarget>
+        <maven.compiler.argument.testSource>${maven.compiler.testSource}</maven.compiler.argument.testSource>
     </properties>
 
     <modules>
