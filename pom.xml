@@ -175,6 +175,7 @@
                         <artifactId>license-maven-plugin</artifactId>
                         <version>${mycila-license.version}</version>
                         <configuration>
+                            <failIfUnknown>true</failIfUnknown>
                             <header>header.txt</header>
                             <excludes>
                                 <exclude>KEYS</exclude>
@@ -192,7 +193,8 @@
                                 <exclude>.mvn/**</exclude>
                                 <exclude>mvnw*</exclude>
                                 <exclude>**/META-INF/persistence*.xsd</exclude>
-                                <exclude>**/MyRoutesWithPackage.java</exclude>
+                                <exclude>**/pom.xml.versionsBackup</exclude>
+                                <exclude>ide-config/**</exclude>
                             </excludes>
                             <mapping>
                                 <java>SLASHSTAR_STYLE</java>
