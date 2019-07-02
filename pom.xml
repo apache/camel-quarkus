@@ -44,7 +44,7 @@
         <camel.version>3.0.0-M2</camel.version>
         <quarkus.version>0.17.0</quarkus.version>
 
-        <version.compiler.plugin>3.8.0-jboss-2</version.compiler.plugin>
+        <version.compiler.plugin>3.8.0</version.compiler.plugin>
       <maven.compiler.target>1.8</maven.compiler.target>
       <maven.compiler.source>1.8</maven.compiler.source>
       <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
