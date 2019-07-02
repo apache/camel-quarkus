@@ -1,1 +1,1 @@
-io.quarkus.camel.core.deployment.devmode.CamelHotReplacementSetup
+org.apache.camel.quarkus.core.deployment.devmode.CamelHotReplacementSetup

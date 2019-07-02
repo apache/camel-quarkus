@@ -14,33 +14,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkus.it.camel.salesforce;
+package org.apache.camel.quarkus.core.runtime;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.enterprise.inject.Produces;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.spi.Registry;
 
-@Path("/")
 @ApplicationScoped
-public class CamelServlet {
-    @Inject
-    CamelRuntime runtime;
+public class CamelProducers {
 
-    @Path("/case/{id}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object getCase(@PathParam("id") String id) {
-        CamelContext context = runtime.getContext();
-        ProducerTemplate template = context.createProducerTemplate();
+    CamelRuntime camelRuntime;
 
-        return template.requestBody("direct:case", id);
+    @Produces
+    public CamelContext getCamelContext() {
+        return camelRuntime.getContext();
     }
+
+    @Produces
+    public Registry getCamelRegistry() {
+        return camelRuntime.getRegistry();
+    }
+
+    @Produces
+    public CamelConfig.BuildTime getCamelBuildTimeConfig() {
+        return camelRuntime.getBuildTimeConfig();
+    }
+
+    @Produces
+    public CamelConfig.Runtime getCamelRuntimeConfig() {
+        return camelRuntime.getRuntimeConfig();
+    }
+
+    public void setCamelRuntime(CamelRuntime camelRuntime) {
+        this.camelRuntime = camelRuntime;
+    }
+
 }

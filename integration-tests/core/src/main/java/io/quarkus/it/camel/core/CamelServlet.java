@@ -28,8 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Route;
-
-import io.quarkus.camel.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 
 @Path("/")
 @ApplicationScoped
