@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-sns</artifactId>
-    <name>Quarkus - Camel - AWS SNS - Runtime</name>
+    <name>Camel Quarkus :: AWS SNS :: Runtime</name>
 
     <dependencies>
 

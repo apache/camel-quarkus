@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-aws-sns</artifactId>
-    <name>Quarkus - Integration Tests - Camel - AWS SNS</name>
+    <artifactId>camel-quarkus-integration-test-aws-sns</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS SNS</name>
     <description>The camel integration tests</description>
 
 

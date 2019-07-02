@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-netty4-http-parent</artifactId>
-    <name>Quarkus - Camel - Netty 4 HTTP</name>
+    <name>Camel Quarkus :: Netty 4 HTTP</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-core</artifactId>
-    <name>Quarkus - Camel - Core - Runtime</name>
+    <name>Camel Quarkus :: Core :: Runtime</name>
 
     <dependencies>
 

@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-jdbc</artifactId>
-    <name>Quarkus - Integration Tests - Camel - JDBC</name>
+    <artifactId>camel-quarkus-integration-test-jdbc</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: JDBC</name>
     <description>Integration tests for Camel JDBC extension</description>
 
 

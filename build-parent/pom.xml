@@ -30,7 +30,7 @@
     <artifactId>camel-quarkus-build-parent</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Build parent</name>
+    <name>Camel Quarkus :: Build Parent</name>
 
     <properties>
         <supported-maven-versions>[3.5.3,)</supported-maven-versions>

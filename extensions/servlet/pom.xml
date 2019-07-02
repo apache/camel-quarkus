@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-servlet-parent</artifactId>
-    <name>Quarkus - Camel - Servlet</name>
+    <name>Camel Quarkus :: Servlet</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

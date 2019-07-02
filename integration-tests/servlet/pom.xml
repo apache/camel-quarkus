@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-servlet</artifactId>
-    <name>Quarkus - Integration Tests - Camel - Servlet</name>
+    <artifactId>camel-quarkus-integration-test-servlet</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Servlet</name>
     <description>Integration tests for Camel Servlet component</description>
 
 

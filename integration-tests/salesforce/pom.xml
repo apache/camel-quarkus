@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-salesforce</artifactId>
-    <name>Quarkus - Integration Tests - Camel - Salesforce</name>
+    <artifactId>camel-quarkus-integration-test-salesforce</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Salesforce</name>
     <description>The camel integration tests</description>
 
 

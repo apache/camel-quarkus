@@ -31,7 +31,7 @@
     <artifactId>camel-quarkus-integration-tests</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration tests</name>
+    <name>Camel Quarkus :: Integration Tests</name>
 
     <modules>
         <module>core</module>
