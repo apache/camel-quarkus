@@ -27,9 +27,7 @@ Prerequisites:
 
 * Java 8
 * Maven 3.5.4+ or you can use the provided Maven Wrapper, a.k.a. `mvnw`
-* GraalVM
-** Check link:.travis.yml[.travis.yml] for the version and steps to install
-** Set the `GRAALVM_HOME` environment variable to point at the root directory of your GraalVM installation
+* Docker
 
 Fast build without tests:
 
@@ -49,7 +47,7 @@ Build with tests in JVM mode and native mode:
 
 [source,shell]
 ----
-./mvnw clean install -Dnative -Dnative-image.xmx=5g
+./mvnw clean install -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g
 ----
 
 
