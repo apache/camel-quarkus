@@ -1,10 +1,8 @@
+services:
+  - docker
 language: java
 jdk:
   - openjdk8
-env:
-  global:
-    - GRAALVM_VERSION=19.0.2
-    - GRAALVM_HOME=/opt/graalvm-ce-$GRAALVM_VERSION
 cache:
   directories:
     - $HOME/.m2/repository
@@ -12,10 +10,5 @@ cache:
     - $GRAALVM_HOME
 # skip the built-in install step
 install: true
-before_script:
-  - if [ ! -f "$GRAALVM_HOME/bin/java" ]; then
-      curl -L https://github.com/oracle/graal/releases/download/vm-${GRAALVM_VERSION}/graalvm-ce-linux-amd64-${GRAALVM_VERSION}.tar.gz | tar xvz -C $(dirname $GRAALVM_HOME);
-      $GRAALVM_HOME/bin/gu install native-image;
-    fi
 script:
-  - ./mvnw clean verify -Dnative -Dnative-image.xmx=5g -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
+  - ./mvnw clean verify -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn
