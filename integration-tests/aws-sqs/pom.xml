@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-aws-sqs</artifactId>
-    <name>Quarkus - Integration Tests - Camel - AWS SQS</name>
+    <artifactId>camel-quarkus-integration-test-aws-sqs</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS SQS</name>
     <description>The camel integration tests</description>
 
 

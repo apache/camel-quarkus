@@ -28,7 +28,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>camel-quarkus-infinispan-deployment</artifactId>
-  <name>Quarkus - Camel - Infinispan - Deployment</name>
+  <name>Camel Quarkus :: Infinispan :: Deployment</name>
 
   <dependencies>
 

@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-sqs</artifactId>
-    <name>Quarkus - Camel - AWS SQS - Runtime</name>
+    <name>Camel Quarkus :: AWS SQS :: Runtime</name>
 
     <dependencies>
 

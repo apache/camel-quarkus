@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-jdbc-parent</artifactId>
-    <name>Quarkus - Camel - JDBC</name>
+    <name>Camel Quarkus :: JDBC</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

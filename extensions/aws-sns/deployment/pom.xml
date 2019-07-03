@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-sns-deployment</artifactId>
-    <name>Quarkus - Camel - AWS SNS - Deployment</name>
+    <name>Camel Quarkus :: AWS SNS :: Deployment</name>
 
     <dependencies>
 

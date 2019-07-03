@@ -30,7 +30,7 @@
     <artifactId>camel-quarkus-extensions</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Extensions Parent POM</name>
+    <name>Camel Quarkus :: Extensions</name>
 
     <modules>
         <module>netty4-http</module>

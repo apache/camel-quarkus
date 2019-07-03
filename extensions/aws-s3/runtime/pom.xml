@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-s3</artifactId>
-    <name>Quarkus - Camel - AWS S3 - Runtime</name>
+    <name>Camel Quarkus :: AWS S3 :: Runtime</name>
 
     <dependencies>
 

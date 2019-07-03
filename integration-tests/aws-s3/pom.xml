@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-aws-s3</artifactId>
-    <name>Quarkus - Integration Tests - Camel - AWS S3</name>
+    <artifactId>camel-quarkus-integration-test-aws-s3</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS S3</name>
     <description>The camel integration tests</description>
 
 

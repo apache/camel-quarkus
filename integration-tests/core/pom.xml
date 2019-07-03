@@ -27,8 +27,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>quarkus-integration-test-camel-core</artifactId>
-    <name>Quarkus - Integration Tests - Camel - Core</name>
+    <artifactId>camel-quarkus-integration-test-core</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Core</name>
     <description>The camel integration tests</description>
 
 

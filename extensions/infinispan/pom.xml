@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-infinispan-parent</artifactId>
-    <name>Quarkus - Camel - Infinispan</name>
+    <name>Camel Quarkus :: Infinispan</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

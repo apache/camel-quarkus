@@ -28,7 +28,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>camel-quarkus-servlet-deployment</artifactId>
-  <name>Quarkus - Camel - Servlet - Deployment</name>
+  <name>Camel Quarkus :: Servlet :: Deployment</name>
 
   <dependencies>
 
