@@ -25,11 +25,10 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.InitializingEvent;
+import org.apache.camel.quarkus.core.runtime.StartingEvent;
 import org.jboss.logging.Logger;
-
-import io.quarkus.camel.core.runtime.CamelRuntime;
-import io.quarkus.camel.core.runtime.InitializingEvent;
-import io.quarkus.camel.core.runtime.StartingEvent;
 
 @ApplicationScoped
 public class CamelLifecycle {

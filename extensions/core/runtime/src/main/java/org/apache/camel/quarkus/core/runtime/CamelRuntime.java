@@ -14,33 +14,35 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkus.it.camel.salesforce;
+package org.apache.camel.quarkus.core.runtime;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import java.util.Properties;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.spi.Registry;
 
-@Path("/")
-@ApplicationScoped
-public class CamelServlet {
-    @Inject
-    CamelRuntime runtime;
+public interface CamelRuntime {
 
-    @Path("/case/{id}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object getCase(@PathParam("id") String id) {
-        CamelContext context = runtime.getContext();
-        ProducerTemplate template = context.createProducerTemplate();
+    String PFX_CAMEL = "camel.";
+    String PFX_CAMEL_PROPERTIES = PFX_CAMEL + "component.properties.";
+    String PFX_CAMEL_CONTEXT = PFX_CAMEL + "context.";
 
-        return template.requestBody("direct:case", id);
-    }
+    CamelContext getContext();
+
+    Registry getRegistry();
+
+    CamelConfig.BuildTime getBuildTimeConfig();
+
+    CamelConfig.Runtime getRuntimeConfig();
+
+    void init(CamelConfig.BuildTime buildTimeConfig);
+
+    void start(CamelConfig.Runtime runtimeConfig) throws Exception;
+
+    void stop() throws Exception;
+
+    void addProperties(Properties properties);
+
+    void addProperty(String key, Object value);
+
 }
