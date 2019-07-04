@@ -59,4 +59,55 @@
         </dependencies>
     </dependencyManagement>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test-jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>test-project-sanity-checks</id>
+            <activation>
+                <file>
+                    <!-- Run the script only for the child projects  -->
+                    <exists>../test-project-sanity-checks.groovy</exists>
+                </file>
+            </activation>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>test-project-sanity-checks</id>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <source>${project.basedir}/../test-project-sanity-checks.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+
+        </profile>
+    </profiles>
+
+
 </project>
