@@ -26,9 +26,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
+import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
+import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
+import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.Consumer;
 import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
@@ -48,20 +59,6 @@ import org.jboss.jandex.IndexView;
 import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
-import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
-import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 
 class CamelProcessor {
 
@@ -117,13 +114,6 @@ class CamelProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FeatureBuildItem.CAMEL_CORE);
-    }
-
-    @BuildStep
-    SubstrateConfigBuildItem processSystemProperties() {
-        return SubstrateConfigBuildItem.builder()
-                .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
-                .build();
     }
 
     @BuildStep
