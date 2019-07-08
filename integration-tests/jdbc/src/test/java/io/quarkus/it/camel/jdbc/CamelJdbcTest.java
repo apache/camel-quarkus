@@ -16,46 +16,27 @@
  */
 package io.quarkus.it.camel.jdbc;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import io.quarkus.test.junit.QuarkusTest;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CamelJdbcTest {
 
     @Test
-    public void selectToFile() throws Throwable {
-        final long timeoutMs = 10000;
-        final long deadline = System.currentTimeMillis() + timeoutMs;
-        final Path outCsv = Paths.get("target/out.txt");
-        Throwable lastException = null;
-        final String expectedCsv = "[{SPECIES=Camelus dromedarius}]";
-        while (System.currentTimeMillis() <= deadline) {
-            try {
-                Thread.sleep(100);
-                if (!Files.exists(outCsv)) {
-                    lastException = new AssertionError(String.format("%s does not exist", outCsv));
-                } else {
-                    final String actual = new String(Files.readAllBytes(outCsv), StandardCharsets.UTF_8);
-                    if (expectedCsv.equals(actual)) {
-                        /* Test passed */
-                        return;
-                    } else {
-                        lastException = new AssertionError(String.format("expected: <%s> but was: <%s>", expectedCsv, actual));
-                    }
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw e;
-            } catch (Exception e) {
-                lastException = e;
-            }
-        }
-        throw lastException;
+    void testGetSpeciesById() {
+        RestAssured.when().get("/test/species/1").then().body(is("[{SPECIES=Camelus dromedarius}]"));
+        RestAssured.when().get("/test/species/2").then().body(is("[{SPECIES=Camelus bactrianus}]"));
+        RestAssured.when().get("/test/species/3").then().body(is("[{SPECIES=Camelus ferus}]"));
+    }
+    @Test
+    void testExecuteStatement() {
+        RestAssured.given()
+            .contentType(ContentType.TEXT).body("select id from camels order by id desc")
+            .post("/test/execute")
+            .then().body(is("[{ID=3}, {ID=2}, {ID=1}]"));
     }
 }
