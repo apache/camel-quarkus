@@ -19,35 +19,33 @@ package io.quarkus.it.camel.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
-import javax.sql.DataSource;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.InitializingEvent;
-import org.apache.camel.quarkus.core.runtime.StartingEvent;
-import org.jboss.logging.Logger;
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.agroal.DataSource;
+import org.apache.camel.ProducerTemplate;
 
+@Path("/test")
 @ApplicationScoped
-public class CamelLifecycle {
-
-    private static final Logger log = Logger.getLogger(CamelLifecycle.class);
+public class CamelResource {
+    @Inject
+    @DataSource("camel-ds")
+    AgroalDataSource dataSource;
 
     @Inject
-    CamelRuntime runtime;
+    ProducerTemplate template;
 
-    @Inject
-    DataSource dataSource;
-
-    public void initializing(@Observes InitializingEvent event) {
-        log.debug("Binding camelsDs");
-        runtime.getRegistry().bind("camelsDs", dataSource);
-    }
-
-    public void starting(@Observes StartingEvent event) throws SQLException {
-        log.debug("Initializing camels table");
+    @PostConstruct
+    void postConstruct() throws SQLException {
         try (Connection con = dataSource.getConnection()) {
             try (Statement statement = con.createStatement()) {
                 try {
@@ -59,8 +57,21 @@ public class CamelLifecycle {
                 statement.execute("insert into camels (id, species) values (2, 'Camelus bactrianus')");
                 statement.execute("insert into camels (id, species) values (3, 'Camelus ferus')");
             }
-            log.info("Initialized camels table");
         }
     }
 
+    @Path("/species/{id}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSpeciesById(@PathParam("id") String id ) throws Exception {
+        return template.requestBody("direct:execute", "select species from camels where id = " + id, String.class);
+    }
+
+    @Path("/execute")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String executeStatement(String statement) throws Exception {
+        return template.requestBody("direct:execute", statement, String.class);
+    }
 }
