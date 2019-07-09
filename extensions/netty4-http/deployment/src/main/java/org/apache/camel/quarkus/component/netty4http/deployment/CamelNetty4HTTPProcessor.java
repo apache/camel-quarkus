@@ -21,8 +21,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class CamelNetty4HTTPProcessor {
 
+    private static final String FEATURE = "camel-netty-http4";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_NETTY4_HTTP);
+        return new FeatureBuildItem(FEATURE);
     }
 }

@@ -51,9 +51,11 @@ class CamelAwsSQSProcessor {
 
     public static final String AWS_SQS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 
+    private static final String FEATURE = "camel-aws-sqs";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_AWS_SQS);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep

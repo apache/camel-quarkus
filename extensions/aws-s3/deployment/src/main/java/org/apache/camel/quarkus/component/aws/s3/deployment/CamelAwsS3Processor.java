@@ -53,9 +53,11 @@ class CamelAwsS3Processor {
 
     public static final String AWS_S3_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 
+    private static final String FEATURE = "camel-aws-s3";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_AWS_S3);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep

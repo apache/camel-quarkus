@@ -24,6 +24,8 @@ import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 
 class CamelInfinispanProcessor {
 
+    private static final String FEATURE = "camel-infinispan";
+
     @BuildStep
     ReflectiveClassBuildItem reflection() {
         return new ReflectiveClassBuildItem(true, true, InfinispanConfiguration.class);
@@ -31,6 +33,6 @@ class CamelInfinispanProcessor {
 
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_INFINISPAN);
+        return new FeatureBuildItem(FEATURE);
     }
 }
