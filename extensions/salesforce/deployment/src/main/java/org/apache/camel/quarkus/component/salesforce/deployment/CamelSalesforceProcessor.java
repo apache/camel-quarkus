@@ -25,9 +25,11 @@ import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 
 class CamelSalesforceProcessor {
 
+    private static final String FEATURE = "camel-salesforce";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_SALESFORCE);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep

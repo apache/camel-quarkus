@@ -72,6 +72,8 @@ class CamelProcessor {
 
     private static final List<Class<? extends Annotation>> CAMEL_REFLECTIVE_ANNOTATIONS = Arrays.asList();
 
+    private static final String FEATURE = "camel-core";
+
     @Inject
     BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
     @Inject
@@ -113,7 +115,7 @@ class CamelProcessor {
 
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_CORE);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep

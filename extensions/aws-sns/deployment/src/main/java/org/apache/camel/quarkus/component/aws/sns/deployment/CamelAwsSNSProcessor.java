@@ -51,9 +51,11 @@ class CamelAwsSNSProcessor {
 
     public static final String AWS_SNS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 
+    private static final String FEATURE = "camel-aws-sns";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_AWS_SNS);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep

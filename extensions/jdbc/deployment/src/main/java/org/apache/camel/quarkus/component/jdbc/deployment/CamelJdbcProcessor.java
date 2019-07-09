@@ -21,9 +21,11 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class CamelJdbcProcessor {
 
+    private static final String FEATURE = "camel-jdbc";
+
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_JDBC);
+        return new FeatureBuildItem(FEATURE);
     }
 
 }

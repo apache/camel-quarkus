@@ -32,12 +32,13 @@ import io.quarkus.undertow.deployment.ServletBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem.Builder;
 
 class CamelServletProcessor {
+    private static final String FEATURE = "camel-servlet";
 
     CamelServletConfig camelServletConfig;
 
     @BuildStep
     FeatureBuildItem feature() {
-        return new FeatureBuildItem(FeatureBuildItem.CAMEL_SERVLET);
+        return new FeatureBuildItem(FEATURE);
     }
 
     @BuildStep
