@@ -31,12 +31,12 @@
   <name>Camel Quarkus :: Infinispan :: Deployment</name>
 
   <dependencies>
+    <dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-core-deployment</artifactId>
+    </dependency>
 
     <!-- quarkus -->
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-core-deployment</artifactId>
-    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-arc-deployment</artifactId>

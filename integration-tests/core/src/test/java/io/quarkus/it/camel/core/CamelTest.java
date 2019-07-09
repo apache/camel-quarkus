@@ -28,7 +28,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
 @QuarkusTest
-@QuarkusTestResource(InfinispanServerTestResource.class)
 public class CamelTest {
     @Test
     public void testRoutes() {

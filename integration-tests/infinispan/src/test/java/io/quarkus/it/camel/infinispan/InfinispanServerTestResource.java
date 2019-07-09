@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkus.it.camel.core;
+package io.quarkus.it.camel.infinispan;
 
 import java.util.Collections;
 import java.util.Map;
