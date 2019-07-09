@@ -20,6 +20,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
 
 @ApplicationScoped
@@ -35,6 +37,16 @@ public class CamelProducers {
     @Produces
     public Registry getCamelRegistry() {
         return camelRuntime.getRegistry();
+    }
+
+    @Produces
+    public ProducerTemplate getCamelProducerTemplate() {
+        return camelRuntime.getContext().createProducerTemplate();
+    }
+
+    @Produces
+    public ConsumerTemplate getCamelConsumerTemplate() {
+        return camelRuntime.getContext().createConsumerTemplate();
     }
 
     @Produces
