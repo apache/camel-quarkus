@@ -46,12 +46,6 @@
             <artifactId>quarkus-jdbc-h2</artifactId>
         </dependency>
 
-        <!-- Undertow is here only for the test runner to be able to detect that the server has started -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow</artifactId>
-        </dependency>
-
         <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>

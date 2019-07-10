@@ -31,23 +31,14 @@
     <name>Camel Quarkus :: AWS S3 :: Deployment</name>
 
     <dependencies>
-
-        <!-- quarkus -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-core-deployment</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc-deployment</artifactId>
-        </dependency>
-
-        <!-- camel -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws-s3</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
