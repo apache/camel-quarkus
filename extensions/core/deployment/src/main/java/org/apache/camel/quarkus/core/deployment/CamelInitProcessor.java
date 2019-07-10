@@ -35,8 +35,8 @@ import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.core.runtime.CamelConfig;
 import org.apache.camel.quarkus.core.runtime.CamelProducers;
+import org.apache.camel.quarkus.core.runtime.CamelRecorder;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.CamelTemplate;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
 import org.eclipse.microprofile.config.Config;
@@ -70,7 +70,7 @@ class CamelInitProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    CamelRuntimeBuildItem createInitTask(RecorderContext recorderContext, CamelTemplate template,
+    CamelRuntimeBuildItem createInitTask(RecorderContext recorderContext, CamelRecorder recorder,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
         Properties properties = new Properties();
         Config configProvider = ConfigProvider.getConfig();
@@ -93,7 +93,7 @@ class CamelInitProcessor {
                     recorderContext.newInstance(type.getName()));
         });
 
-        RuntimeValue<CamelRuntime> camelRuntime = template.create(registry, properties, builders);
+        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties, builders);
 
         runtimeBeans
                 .produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
@@ -106,11 +106,11 @@ class CamelInitProcessor {
     AdditionalBeanBuildItem createCamelProducers(
             RecorderContext recorderContext,
             CamelRuntimeBuildItem runtime,
-            CamelTemplate template,
+            CamelRecorder recorder,
             BuildProducer<BeanContainerListenerBuildItem> listeners) {
 
         listeners
-                .produce(new BeanContainerListenerBuildItem(template.initRuntimeInjection(runtime.getRuntime())));
+                .produce(new BeanContainerListenerBuildItem(recorder.initRuntimeInjection(runtime.getRuntime())));
 
         return AdditionalBeanBuildItem.unremovableOf(CamelProducers.class);
     }
@@ -120,21 +120,21 @@ class CamelInitProcessor {
     void createInitTask(
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
-            CamelTemplate template) throws Exception {
+            CamelRecorder recorder) throws Exception {
 
-        template.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
+        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
     void createRuntimeInitTask(
-            CamelTemplate template,
+            CamelRecorder recorder,
             CamelRuntimeBuildItem runtime,
             ShutdownContextBuildItem shutdown,
             CamelConfig.Runtime runtimeConfig)
             throws Exception {
 
-        template.start(shutdown, runtime.getRuntime(), runtimeConfig);
+        recorder.start(shutdown, runtime.getRuntime(), runtimeConfig);
     }
 
     protected Stream<String> getBuildTimeRouteBuilderClasses() {

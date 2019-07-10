@@ -20,18 +20,17 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.quarkus.core.runtime.support.FastCamelRuntime;
-import org.apache.camel.spi.Registry;
-
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
-import io.quarkus.runtime.annotations.Template;
+import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.quarkus.core.runtime.support.FastCamelRuntime;
+import org.apache.camel.spi.Registry;
 
-@Template
-public class CamelTemplate {
+@Recorder
+public class CamelRecorder {
 
     public RuntimeValue<CamelRuntime> create(
             Registry registry,
