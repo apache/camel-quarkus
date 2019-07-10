@@ -89,8 +89,8 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.codehaus.gmavenplus</groupId>
+                        <artifactId>gmavenplus-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>test-project-sanity-checks</id>
@@ -99,7 +99,9 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>${project.basedir}/../test-project-sanity-checks.groovy</source>
+                                    <scripts>
+                                        <script>file:///${project.basedir}/../test-project-sanity-checks.groovy</script>
+                                    </scripts>
                                 </configuration>
                             </execution>
                         </executions>

@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-final List badDeps = project.dependencies.findAll { 'test'.equals(it.scope) }
-if (!badDeps.isEmpty()) {
+def badDeps = project.dependencies.findAll { 'test' == it.scope }
+if (badDeps) {
     throw new RuntimeException("\nRemove <scope>test</scope> from the following dependencies:\n\n    "
         + badDeps.join("\n    ")
         + "\n\nThis is necessary to be able to build and run the test projects externally, e.g. inside Quarkus Platform")
