@@ -38,11 +38,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc-deployment</artifactId>
         </dependency>
-        <!-- camel -->
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxb-deployment</artifactId>
@@ -50,6 +45,11 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-caffeine-deployment</artifactId>
+        </dependency>
+        <!-- camel -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core</artifactId>
         </dependency>
     </dependencies>
     <build>

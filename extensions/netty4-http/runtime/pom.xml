@@ -31,31 +31,23 @@
     <name>Camel Quarkus :: Netty 4 HTTP :: Runtime</name>
 
     <dependencies>
-
-        <!-- quarkus -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-core</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-netty</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
-        </dependency>
-
-        <!-- camel -->
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-netty4-http</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.oracle.substratevm</groupId>
+            <artifactId>svm</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

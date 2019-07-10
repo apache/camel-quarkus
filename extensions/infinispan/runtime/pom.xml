@@ -31,16 +31,9 @@
     <name>Camel Quarkus :: Infinispan :: Runtime</name>
 
     <dependencies>
-
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
-        </dependency>
-
-        <!-- quarkus -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -51,16 +44,14 @@
             <artifactId>infinispan-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
-        </dependency>
-
-        <!-- camel -->
-        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-infinispan</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.oracle.substratevm</groupId>
+            <artifactId>svm</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

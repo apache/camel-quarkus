@@ -31,7 +31,6 @@
     <name>Camel Quarkus :: Integration Tests :: Servlet</name>
     <description>Integration tests for Camel Servlet component</description>
 
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
