@@ -38,8 +38,6 @@ public class MinimalConfigTest {
 
     @Test
     public void minimal() {
-        RestAssured.when().get("/rest-get").then().body(IsEqual.equalTo("GET: /rest-get"));
-        RestAssured.when().post("/rest-post").then().body(IsEqual.equalTo("POST: /rest-post"));
         RestAssured.when().get("/hello").then().body(IsEqual.equalTo("GET: /hello"));
     }
 
@@ -47,17 +45,6 @@ public class MinimalConfigTest {
 
         @Override
         public void configure() {
-
-            rest()
-                    .get("/rest-get")
-                    .route()
-                    .setBody(constant("GET: /rest-get"))
-                    .endRest()
-                    .post("/rest-post")
-                    .route()
-                    .setBody(constant("POST: /rest-post"))
-                    .endRest();
-
             from("servlet://hello?matchOnUriPrefix=true")
                     .setBody(constant("GET: /hello"));
         }

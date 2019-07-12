@@ -44,6 +44,7 @@
         <module>servlet</module>
         <module>log</module>
         <module>direct</module>
+        <module>rest</module>
     </modules>
 
 </project>
