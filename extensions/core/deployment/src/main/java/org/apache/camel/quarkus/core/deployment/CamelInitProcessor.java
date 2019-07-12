@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core.deployment;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -84,8 +85,13 @@ class CamelInitProcessor {
         }
 
         RuntimeRegistry registry = new RuntimeRegistry();
-        List<RuntimeValue<?>> builders = getBuildTimeRouteBuilderClasses().map(recorderContext::newInstance)
-                .collect(Collectors.toList());
+        final List<RuntimeValue<?>> builders;
+        if (buildTimeConfig.deferInitPhase) {
+            builders = getBuildTimeRouteBuilderClasses().map(recorderContext::newInstance)
+                    .collect(Collectors.toList());
+        } else {
+            builders = new ArrayList<>();
+        }
 
         visitServices((name, type) -> {
             LoggerFactory.getLogger(CamelInitProcessor.class).debug("Binding camel service {} with type {}", name, type);
@@ -93,7 +99,7 @@ class CamelInitProcessor {
                     recorderContext.newInstance(type.getName()));
         });
 
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties, builders);
+        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties, builders, buildTimeConfig);
 
         runtimeBeans
                 .produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
@@ -117,12 +123,18 @@ class CamelInitProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    void createInitTask(
+    void initTask(
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
             CamelRecorder recorder) throws Exception {
 
-        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
+        final List<String> builders;
+        if (!buildTimeConfig.deferInitPhase) {
+            builders = getBuildTimeRouteBuilderClasses().collect(Collectors.toList());
+        } else {
+            builders = new ArrayList<>();
+        }
+        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), builders, buildTimeConfig);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
