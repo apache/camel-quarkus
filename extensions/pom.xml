@@ -53,4 +53,25 @@
         <module>xml</module>
     </modules>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <version>999-SNAPSHOT</version>
+                <inherited>false</inherited>
+                <!-- Setting for stubbing new extensions via
+                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=my-new-extension
+                -->
+                <configuration>
+                    <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                    <namePrefix xml:space="preserve">Camel Quarkus :: </namePrefix>
+                    <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
+                    <javaPackageInfix>component</javaPackageInfix>
+                    <templatesUriBase>file:create-extension-templates</templatesUriBase>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>
