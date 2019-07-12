@@ -43,6 +43,7 @@
         <module>salesforce</module>
         <module>servlet</module>
         <module>log</module>
+        <module>direct</module>
     </modules>
 
 </project>
