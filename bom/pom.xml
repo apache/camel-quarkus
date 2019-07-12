@@ -162,6 +162,11 @@
                 <artifactId>camel-servlet</artifactId>
                 <version>${camel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-timer</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
 
             <!-- Quarkus Camel -->
             <dependency>
@@ -222,6 +227,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-infinispan</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-timer</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
