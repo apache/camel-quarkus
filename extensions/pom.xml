@@ -42,6 +42,7 @@
         <module>jdbc</module>
         <module>salesforce</module>
         <module>servlet</module>
+        <module>log</module>
     </modules>
 
 </project>
