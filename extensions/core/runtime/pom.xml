@@ -59,6 +59,10 @@
                     <groupId>org.apache.camel</groupId>
                     <artifactId>camel-direct</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-rest</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
 
