@@ -35,16 +35,17 @@ public class CamelRecorder {
     public RuntimeValue<CamelRuntime> create(
             Registry registry,
             Properties properties,
-            List<RuntimeValue<?>> builders) {
+            List<RuntimeValue<?>> builders,
+            CamelConfig.BuildTime buildTimeConfig) {
 
         FastCamelRuntime runtime = new FastCamelRuntime();
 
         runtime.setRegistry(registry);
         runtime.setProperties(properties);
-        runtime.setBuilders(builders.stream()
+        builders.stream()
                 .map(RuntimeValue::getValue)
                 .map(RoutesBuilder.class::cast)
-                .collect(Collectors.toList()));
+                .forEach(runtime.getBuilders()::add);
 
         return new RuntimeValue<>(runtime);
     }
@@ -52,10 +53,22 @@ public class CamelRecorder {
     public void init(
             BeanContainer beanContainer,
             RuntimeValue<CamelRuntime> runtime,
+            List<String> builders,
             CamelConfig.BuildTime buildTimeConfig) throws Exception {
 
-        ((FastCamelRuntime) runtime.getValue()).setBeanContainer(beanContainer);
-        runtime.getValue().init(buildTimeConfig);
+        FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
+        fcr.setBeanContainer(beanContainer);
+
+        builders.stream()
+                .forEach(name -> {
+                    try {
+                        fcr.getBuilders().add((RoutesBuilder) Class.forName(name).newInstance());
+                    } catch (Throwable t) {
+                        throw new RuntimeException(t);
+                    }
+                });
+
+        fcr.init(buildTimeConfig);
     }
 
     public void start(

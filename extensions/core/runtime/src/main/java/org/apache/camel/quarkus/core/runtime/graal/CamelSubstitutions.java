@@ -27,13 +27,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
+import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Producer;
-import org.apache.camel.builder.xml.XPathBuilder;
-import org.apache.camel.converter.jaxp.DomConverter;
-import org.apache.camel.converter.jaxp.StaxConverter;
-import org.apache.camel.converter.jaxp.XmlConverter;
+import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.LoadBalancerDefinition;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.reifier.dataformat.DataFormatReifier;
+import org.apache.camel.reifier.loadbalancer.LoadBalancerReifier;
+import org.apache.camel.reifier.transformer.TransformerReifier;
+import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.support.IntrospectionSupport.ClassInfo;
 import org.apache.camel.support.LRUCacheFactory;
 
@@ -41,6 +48,7 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+
 
 class CamelSubstitutions {
 }
@@ -94,46 +102,12 @@ final class Target_java_beans_Introspector {
 
 }
 
-@TargetClass(className = "org.apache.camel.model.ModelHelper")
-final class Target_org_apache_camel_model_ModelHelper {
-
-    @Substitute
-    private static XmlConverter newXmlConverter(CamelContext context) {
-        return new XmlConverter();
-    }
-
-}
-
 @TargetClass(className = "org.apache.camel.support.IntrospectionSupport")
 final class Target_org_apache_camel_support_IntrospectionSupport {
 
     @Alias
     @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
     private static Map<Class<?>, ClassInfo> CACHE = LRUCacheFactory.newLRUWeakCache(256);
-
-}
-
-@TargetClass(className = "org.apache.camel.component.bean.BeanInfo")
-final class Target_org_apache_camel_component_bean_BeanInfo {
-
-    @Alias
-    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static List<Method> EXCLUDED_METHODS;
-
-    static {
-        EXCLUDED_METHODS = new ArrayList<>();
-        // exclude all java.lang.Object methods as we dont want to invoke them
-        EXCLUDED_METHODS.addAll(Arrays.asList(Object.class.getMethods()));
-        // exclude all java.lang.reflect.Proxy methods as we dont want to invoke them
-        EXCLUDED_METHODS.addAll(Arrays.asList(Proxy.class.getMethods()));
-        try {
-            // but keep toString as this method is okay
-            EXCLUDED_METHODS.remove(Object.class.getDeclaredMethod("toString"));
-            EXCLUDED_METHODS.remove(Proxy.class.getDeclaredMethod("toString"));
-        } catch (Throwable e) {
-            // ignore
-        }
-    }
 
 }
 
@@ -146,45 +120,47 @@ final class Target_org_apache_camel_util_HostUtils {
     }
 }
 
-@TargetClass(className = "org.apache.camel.builder.xml.XPathBuilder", onlyWith = XmlDisabled.class)
-final class Target_org_apache_camel_builder_xml_XPathBuilder {
+@TargetClass(className = "org.apache.camel.reifier.ProcessorReifier")
+final class Target_org_apache_camel_reifier_ProcessorReifier {
 
-    @Substitute
-    public static XPathBuilder xpath(String text) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Substitute
-    public static XPathBuilder xpath(String text, Class<?> resultType) {
-        throw new UnsupportedOperationException();
-    }
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<ProcessorDefinition<?>, ProcessorReifier<? extends ProcessorDefinition<?>>>> PROCESSORS = null;
 
 }
 
-@TargetClass(className = "org.apache.camel.component.validator.ValidatorEndpoint", onlyWith = XmlDisabled.class)
-final class Target_org_apache_camel_component_validator_ValidatorEndpoint {
+@TargetClass(className = "org.apache.camel.reifier.dataformat.DataFormatReifier")
+final class Target_org_apache_camel_reifier_dataformat_DataFormatReifier {
 
-    @Substitute
-    public Producer createProducer() throws Exception {
-        throw new UnsupportedOperationException();
-    }
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<DataFormatDefinition, DataFormatReifier<? extends DataFormatDefinition>>> DATAFORMATS = null;
+
 }
 
-@TargetClass(className = "org.apache.camel.impl.converter.CoreStaticTypeConverterLoader", onlyWith = XmlDisabled.class)
-final class Target_org_apache_camel_impl_converter_CoreStaticTypeConverterLoader {
+@TargetClass(className = "org.apache.camel.reifier.loadbalancer.LoadBalancerReifier")
+final class Target_org_apache_camel_reifier_loadbalancer_LoadBalancerReifier {
 
-    @Substitute
-    private XmlConverter getXmlConverter() {
-        throw new UnsupportedOperationException();
-    }
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<LoadBalancerDefinition, LoadBalancerReifier<? extends LoadBalancerDefinition>>> LOAD_BALANCERS = null;
 
-    @Substitute
-    private DomConverter getDomConverter() {
-        throw new UnsupportedOperationException();
-    }
+}
 
-    @Substitute
-    private StaxConverter getStaxConverter() {
-        throw new UnsupportedOperationException();
-    }
+@TargetClass(className = "org.apache.camel.reifier.transformer.TransformerReifier")
+final class Target_org_apache_camel_reifier_transformer_TransformerReifier {
+
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<TransformerDefinition, TransformerReifier<? extends TransformerDefinition>>> TRANSFORMERS = null;
+
+}
+
+@TargetClass(className = "org.apache.camel.reifier.validator.ValidatorReifier")
+final class Target_org_apache_camel_reifier_validator_ValidatorReifier {
+
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<ValidatorDefinition, ValidatorReifier<? extends ValidatorDefinition>>> VALIDATORS = null;
+
 }
