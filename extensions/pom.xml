@@ -46,6 +46,7 @@
         <module>direct</module>
         <module>rest</module>
         <module>timer</module>
+        <module>bean</module>
     </modules>
 
 </project>
