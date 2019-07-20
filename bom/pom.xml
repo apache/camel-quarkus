@@ -168,6 +168,13 @@
                 <version>${camel.version}</version>
             </dependency>
 
+            <!-- Quarkus Common-->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jetty-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Quarkus Camel -->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
