@@ -28,7 +28,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-jetty-common</artifactId>
-    <name>Camel Quarkus :: Jetty :: Common</name>
+    <name>Camel Quarkus :: Jetty :: Common :: Runtime</name>
 
     <dependencies>
         <dependency>
