@@ -14,24 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.quarkus.it.camel.core;
+package io.quarkus.it.camel.netty4http;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import io.quarkus.test.junit.SubstrateTest;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-
-@QuarkusTest
-public class CamelTest {
-    @Test
-    public void testRoutes() {
-        RestAssured.when().get("/test/routes").then().body(containsString("timer"));
-    }
-
-    @Test
-    public void testProperties() {
-        RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
-    }
+@SubstrateTest
+public class CamelITCase extends CamelTest {
 }

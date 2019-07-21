@@ -57,9 +57,6 @@ public class CamelRoute extends RouteBuilder {
                 // log out
                 .to("log:out");
 
-        from("netty4-http:http://0.0.0.0:8999/foo")
-                .transform().constant("Netty Hello World");
-
     }
 
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
