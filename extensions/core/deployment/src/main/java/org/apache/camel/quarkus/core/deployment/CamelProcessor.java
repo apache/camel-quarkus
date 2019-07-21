@@ -36,6 +36,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
+import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
 import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
@@ -105,17 +106,27 @@ class CamelProcessor {
             return null;
         } else {
             return Arrays.asList(
-                    new ReflectiveClassBuildItem(false, false,
-                            "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"),
-                    new ReflectiveClassBuildItem(false, false,
-                            "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"),
-                    new ReflectiveClassBuildItem(false, false, "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl"));
+                new ReflectiveClassBuildItem(false, false,
+                    "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"),
+                new ReflectiveClassBuildItem(false, false,
+                    "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"),
+                new ReflectiveClassBuildItem(false, false,
+                    "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl"));
         }
     }
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    SubstrateConfigBuildItem substrate() {
+        return SubstrateConfigBuildItem.builder()
+            // TODO: switch back to caffeine once https://github.com/apache/camel-quarkus/issues/80 gets fixed
+            .addNativeImageSystemProperty("CamelWarmUpLRUCacheFactory", "true")
+            .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
+            .build();
     }
 
     @BuildStep
