@@ -74,6 +74,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-aws-eks</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.sun.xml.messaging.saaj</groupId>
+                        <artifactId>saaj-impl</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-sns</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -189,6 +200,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-aws-s3</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws-eks</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
