@@ -31,7 +31,6 @@
     <name>Camel Quarkus :: Integration Tests :: AWS SNS</name>
     <description>The camel integration tests</description>
 
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -45,12 +44,14 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
         </dependency>
+
+        <!-- test dependencies -->
+        <!--
+        Not needed as we do not have tests
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
-
-        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -63,6 +64,7 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>
@@ -111,7 +113,7 @@
             <id>native-image</id>
             <activation>
                 <property>
-                    <name>native-camel</name>
+                    <name>native</name>
                 </property>
             </activation>
             <build>
@@ -151,6 +153,10 @@
                                     <graalvmHome>${graalvmHome}</graalvmHome>
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
+                                    <additionalBuildArgs>
+
+
+                                    </additionalBuildArgs>
                                 </configuration>
                             </execution>
                         </executions>

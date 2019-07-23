@@ -45,12 +45,12 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
         </dependency>
+        <!-- test dependencies -->
+        <!--
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
-
-        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -63,6 +63,7 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
+        -->
     </dependencies>
 
     <build>
@@ -111,7 +112,7 @@
             <id>native-image</id>
             <activation>
                 <property>
-                    <name>native-camel</name>
+                    <name>native</name>
                 </property>
             </activation>
             <build>

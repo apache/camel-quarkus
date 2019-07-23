@@ -34,8 +34,10 @@
     <name>Camel Quarkus :: Integration Tests</name>
 
     <modules>
+        <!-- build those first -->
         <module>core</module>
         <module>netty4-http</module>
+
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
