@@ -36,6 +36,7 @@
     <modules>
         <!-- build those first -->
         <module>core</module>
+        <module>core-cdi</module>
         <module>netty4-http</module>
 
         <module>aws-s3</module>
