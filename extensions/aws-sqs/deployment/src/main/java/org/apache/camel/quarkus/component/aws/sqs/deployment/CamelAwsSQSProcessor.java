@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.aws.sqs.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.apache.camel.component.aws.sqs.SqsConfiguration;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.jboss.jandex.ClassInfo;
@@ -92,6 +93,7 @@ class CamelAwsSQSProcessor {
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
                 AWS4Signer.class.getCanonicalName(),
+                SqsConfiguration.class.getCanonicalName(),
                 "com.sun.org.apache.xerces.internal.parsers.SAXParser",
                 "com.sun.xml.internal.stream.XMLInputFactoryImpl",
                 "org.apache.camel.converter.jaxp.XmlConverter"));
