@@ -28,9 +28,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-aws</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: AWS Integration tests</name>
+    <name>Camel Quarkus :: Integration Tests :: AWS</name>
     <description>The camel integration tests</description>
-
 
     <dependencies>
         <dependency>
@@ -71,10 +70,6 @@
             <artifactId>quarkus-junit5</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.glassfish</groupId>
-            <artifactId>javax.json</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
         </dependency>
@@ -82,12 +77,6 @@
     </dependencies>
 
     <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
         <plugins>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -111,13 +100,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
         </plugins>
     </build>

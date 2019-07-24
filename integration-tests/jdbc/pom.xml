@@ -31,7 +31,6 @@
     <name>Camel Quarkus :: Integration Tests :: JDBC</name>
     <description>Integration tests for Camel JDBC extension</description>
 
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
