@@ -27,7 +27,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-aws-itests</artifactId>
+    <artifactId>camel-quarkus-integration-test-aws</artifactId>
     <name>Camel Quarkus :: Integration Tests :: AWS Integration tests</name>
     <description>The camel integration tests</description>
 

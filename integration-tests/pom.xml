@@ -39,7 +39,7 @@
         <module>core-cdi</module>
         <module>netty4-http</module>
 
-        <module>aws-itests</module>
+        <module>aws</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>salesforce</module>
