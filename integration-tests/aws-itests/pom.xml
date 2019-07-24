@@ -27,14 +27,27 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-aws-sns</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: AWS SNS</name>
+    <artifactId>camel-quarkus-integration-test-aws-itests</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS Integration tests</name>
     <description>The camel integration tests</description>
+
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-sqs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws-sns</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-eks</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -45,13 +58,14 @@
             <artifactId>camel-quarkus-timer</artifactId>
         </dependency>
 
+
         <!-- test dependencies -->
         <!--
-        Not needed as we do not have tests
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -153,10 +167,6 @@
                                     <graalvmHome>${graalvmHome}</graalvmHome>
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
-                                    <additionalBuildArgs>
-
-
-                                    </additionalBuildArgs>
                                 </configuration>
                             </execution>
                         </executions>

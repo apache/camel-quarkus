@@ -38,10 +38,7 @@
         <module>core</module>
         <module>netty4-http</module>
 
-        <module>aws-s3</module>
-        <module>aws-sns</module>
-        <module>aws-sqs</module>
-        <module>aws-eks</module>
+        <module>aws-itests</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>salesforce</module>
