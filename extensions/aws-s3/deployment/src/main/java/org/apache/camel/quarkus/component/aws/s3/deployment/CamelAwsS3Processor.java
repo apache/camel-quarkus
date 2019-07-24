@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.aws.s3.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.apache.camel.component.aws.s3.S3Configuration;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.jboss.jandex.ClassInfo;
@@ -99,6 +100,7 @@ class CamelAwsS3Processor {
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
                 AWSS3V4Signer.class.getCanonicalName(),
+                S3Configuration.class.getCanonicalName(),
                 "com.sun.org.apache.xerces.internal.parsers.SAXParser",
                 "com.sun.xml.internal.stream.XMLInputFactoryImpl",
                 "org.apache.camel.converter.jaxp.XmlConverter"));
