@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.aws.eks.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.apache.camel.component.aws.eks.EKSConfiguration;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.jboss.jandex.ClassInfo;
@@ -91,6 +92,7 @@ class CamelAwsEKSProcessor {
                 CredentialScope.class.getCanonicalName(),
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
+                EKSConfiguration.class.getCanonicalName(),
                 "com.sun.org.apache.xerces.internal.parsers.SAXParser",
                 "com.sun.xml.internal.stream.XMLInputFactoryImpl",
                 "org.apache.camel.converter.jaxp.XmlConverter"));
