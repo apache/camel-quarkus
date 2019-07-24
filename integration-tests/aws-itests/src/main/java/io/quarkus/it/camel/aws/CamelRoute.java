@@ -25,11 +25,26 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("timer:quarkus?repeatCount=1")
+        from("timer:quarkus-s3?repeatCount=1")
+                .setHeader("CamelAwsS3Key", constant("testquarkus"))
+                .setBody(constant("Quarkus is great!"))
+                .to("aws-s3://camel-kafka-connector")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-sqs?repeatCount=1")
                 .setBody(constant("Quarkus is great!"))
                 .to("aws-sqs://camel-1")
                 .to("log:sf?showAll=true");
-
+        
+        from("timer:quarkus-eks?repeatCount=1")
+                .setHeader("CamelAwsEKSOperation", constant("listClusters"))
+                .to("aws-eks://cluster")
+                .to("log:sf?showAll=true");
+        
+        from("timer:quarkus-sns?repeatCount=1")
+               .setBody(constant("Quarkus is great!"))
+               .to("aws-sns://topic1")
+               .to("log:sf?showAll=true");
     }
 
 }
