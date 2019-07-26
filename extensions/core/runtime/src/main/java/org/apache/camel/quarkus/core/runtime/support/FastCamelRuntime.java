@@ -29,6 +29,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.ShutdownableService;
 import org.apache.camel.component.properties.PropertiesComponent;
+import org.apache.camel.model.Model;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.Runtime;
@@ -109,9 +110,16 @@ public class FastCamelRuntime implements CamelRuntime {
                 }
             }
             this.context.init();
+
+            /* Create the model before firing InitializedEvent so that the listeners can add routes */
+            FastModel model = new FastModel(context);
+            context.adapt(FastCamelContext.class).setModel(model);
+
             fireEvent(InitializedEvent.class, new InitializedEvent());
 
-            loadRoutes(context);
+            if (!buildTimeConfig.deferInitPhase) {
+                loadRoutes(context);
+            }
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
@@ -119,6 +127,11 @@ public class FastCamelRuntime implements CamelRuntime {
 
     public void doStart() throws Exception {
         fireEvent(StartingEvent.class, new StartingEvent());
+
+        if (buildTimeConfig.deferInitPhase) {
+            loadRoutes(context);
+        }
+
         context.start();
         fireEvent(StartedEvent.class, new StartedEvent());
 
@@ -137,14 +150,13 @@ public class FastCamelRuntime implements CamelRuntime {
     }
 
     protected void loadRoutes(CamelContext context) throws Exception {
-        FastModel model = new FastModel(context);
-        context.adapt(FastCamelContext.class).setModel(model);
+        final Model model = context.adapt(FastCamelContext.class).getExtension(Model.class);
 
         for (RoutesBuilder b : builders) {
             context.addRoutes(b);
         }
 
-        List<String> routesUris = buildTimeConfig.routesUris.stream()
+        final List<String> routesUris = buildTimeConfig.routesUris.stream()
                 .filter(ObjectHelper::isNotEmpty)
                 .collect(Collectors.toList());
         if (ObjectHelper.isNotEmpty(routesUris)) {
@@ -162,7 +174,7 @@ public class FastCamelRuntime implements CamelRuntime {
 
         model.startRouteDefinitions();
         // context.adapt(FastCamelContext.class).clearModel(); Disabled, see https://github.com/apache/camel-quarkus/issues/69
-        builders.clear();
+        // builders.clear();
     }
 
     protected CamelContext createContext() {

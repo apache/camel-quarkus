@@ -19,6 +19,7 @@ package io.quarkus.it.camel.core.cdi;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
@@ -27,8 +28,8 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.InitializingEvent;
 import org.apache.camel.quarkus.core.runtime.StartedEvent;
+import org.apache.camel.quarkus.core.runtime.StartingEvent;
 import org.apache.camel.quarkus.core.runtime.StoppedEvent;
 import org.apache.camel.quarkus.core.runtime.StoppingEvent;
 
@@ -37,7 +38,7 @@ public class CamelApplication {
     @Inject
     CamelRuntime runtime;
 
-    public void initializing(@Observes InitializingEvent event) {
+    public void initializing(@Observes StartingEvent event) {
         runtime.addProperty("initializing", "true");
 
         addRoute("src/main/resources/hello.xml");
