@@ -92,10 +92,7 @@ class CamelAwsEKSProcessor {
                 CredentialScope.class.getCanonicalName(),
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
-                EKSConfiguration.class.getCanonicalName(),
-                "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-                "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-                "org.apache.camel.converter.jaxp.XmlConverter"));
+                EKSConfiguration.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

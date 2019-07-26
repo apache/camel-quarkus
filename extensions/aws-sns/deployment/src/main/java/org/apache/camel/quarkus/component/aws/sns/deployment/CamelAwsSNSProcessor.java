@@ -93,10 +93,7 @@ class CamelAwsSNSProcessor {
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
                 AWS4Signer.class.getCanonicalName(),
-                SnsConfiguration.class.getCanonicalName(),
-                "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-                "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-                "org.apache.camel.converter.jaxp.XmlConverter"));
+                SnsConfiguration.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {
