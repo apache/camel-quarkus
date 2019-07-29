@@ -35,7 +35,6 @@ import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
-import org.apache.camel.impl.RouteService;
 import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseRouteService;
@@ -60,6 +59,7 @@ import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.HeadersMapFactoryResolver;
+import org.apache.camel.impl.engine.ReactiveExecutorResolver;
 import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
 import org.apache.camel.impl.engine.ServicePool;
 import org.apache.camel.impl.transformer.TransformerKey;
@@ -92,6 +92,7 @@ import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.ProcessorFactory;
 import org.apache.camel.spi.PropertiesComponent;
+import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
@@ -326,6 +327,11 @@ public class FastCamelContext extends AbstractCamelContext {
         return new DefaultValidatorRegistry(this);
     }
 
+    @Override
+    protected ReactiveExecutor createReactiveExecutor() {
+        return new ReactiveExecutorResolver().resolve(this);
+    }
+
     public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
             boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, (AggregationStrategy) null, true, executor, shutdownExecutorService,
@@ -355,4 +361,5 @@ public class FastCamelContext extends AbstractCamelContext {
 
         forceLazyInitialization();
     }
+
 }
