@@ -24,6 +24,7 @@ import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.WeakHashMap;
 
+import org.apache.camel.support.IntrospectionSupport;
 import org.apache.camel.support.IntrospectionSupport.ClassInfo;
 import org.apache.camel.support.LRUCacheFactory;
 
@@ -85,7 +86,7 @@ final class Target_java_beans_Introspector {
 
 }
 
-@TargetClass(className = "org.apache.camel.support.IntrospectionSupport")
+@TargetClass(IntrospectionSupport.class)
 final class Target_org_apache_camel_support_IntrospectionSupport {
 
     @Alias

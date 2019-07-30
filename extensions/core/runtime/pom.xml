@@ -37,15 +37,17 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-caffeine</artifactId>
-        </dependency>
 
         <!-- camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-core-engine</artifactId>
+            <exclusions>
+                <exclusion><!-- See https://github.com/apache/camel-quarkus/issues/80 -->
+                    <groupId>org.apache.camel</groupId>
+                    <artifactId>camel-caffeine-lrucache</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
