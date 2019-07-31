@@ -49,6 +49,8 @@
         <module>rest</module>
         <module>timer</module>
         <module>twitter</module>
+        <module>bean</module>
+        <module>xml</module>
     </modules>
 
 </project>

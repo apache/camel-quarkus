@@ -100,10 +100,7 @@ class CamelAwsS3Processor {
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
                 AWSS3V4Signer.class.getCanonicalName(),
-                S3Configuration.class.getCanonicalName(),
-                "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-                "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-                "org.apache.camel.converter.jaxp.XmlConverter"));
+                S3Configuration.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

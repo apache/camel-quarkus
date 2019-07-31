@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <camel.version>3.0.0-M2</camel.version>
+        <camel.version>3.0.0-M4</camel.version>
         <quarkus.version>0.19.1</quarkus.version>
 
         <version.compiler.plugin>3.8.0</version.compiler.plugin>

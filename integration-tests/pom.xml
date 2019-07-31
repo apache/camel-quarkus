@@ -37,8 +37,8 @@
         <module>core</module>
         <module>core-cdi</module>
         <module>netty4-http</module>
-
         <module>aws</module>
+        <module>bean</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>salesforce</module>

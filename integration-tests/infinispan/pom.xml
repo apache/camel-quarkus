@@ -100,7 +100,7 @@
             <id>native-image</id>
             <activation>
                 <property>
-                    <name>native</name>
+                    <name>native-off</name><!-- See https://github.com/apache/camel-quarkus/issues/80 -->
                 </property>
             </activation>
             <build>
