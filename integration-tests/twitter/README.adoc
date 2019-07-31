@@ -1,0 +1,19 @@
+== Camel Quarkus Twitter Integration Tests
+
+To run `camel-quarkus-twitter` integration tests, you must first create a Twitter API application at https://developer.twitter.com/.
+
+In order to produce / consume Twitter direct messages, you must enable access permissions `Read, write, and Direct Messages`. You may need to regenerate your access
+token afterwards.
+
+Then set the following environment variables:
+
+[source,shell]
+----
+export TWITTER_CONSUMER_KEY=my-consumer-key
+export TWITTER_CONSUMER_SECRET=my-consumer-secret
+export TWITTER_ACCESS_TOKEN=my-access-token
+export TWITTER_ACCESS_TOKEN_SECRET=my-access-token-secret
+export TWITTER_USER_NAME=my-twitter-username
+----
+
+

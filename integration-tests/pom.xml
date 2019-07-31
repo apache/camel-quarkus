@@ -43,6 +43,7 @@
         <module>jdbc</module>
         <module>salesforce</module>
         <module>servlet</module>
+        <module>twitter</module>
     </modules>
 
 

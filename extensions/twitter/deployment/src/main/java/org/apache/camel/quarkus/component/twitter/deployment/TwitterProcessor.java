@@ -14,18 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.timer.deployment;
+package org.apache.camel.quarkus.component.twitter.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 
-class TimerProcessor {
+import org.apache.camel.component.twitter.AbstractTwitterComponent;
+import org.apache.camel.component.twitter.TwitterConfiguration;
 
-    private static final String FEATURE = "camel-timer";
+class TwitterProcessor {
+    private static final String FEATURE = "camel-twitter";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
+                AbstractTwitterComponent.class,
+                TwitterConfiguration.class
+        ));
+    }
 }
