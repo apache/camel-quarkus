@@ -14,18 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.timer.deployment;
+package org.apache.camel.quarkus.component.twitter;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
-class TimerProcessor {
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-    private static final String FEATURE = "camel-timer";
+@RegisterForReflection
+public class CamelRoute extends RouteBuilder {
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    @ConfigProperty(name = "twitter.user.name")
+    String twitterUserName;
+
+    @Override
+    public void configure() {
+        from("twitter-timeline:user?user=ApacheCamel&count=1")
+            .to("log:timeline?showAll=true");
+
+        from("twitter-search:#ApacheCamel?count=1")
+            .to("log:search?showAll=true");
+
+        fromF("twitter-directmessage://%s?count=1", twitterUserName)
+            .to("log:directmessage?showAll=true");
     }
-
 }

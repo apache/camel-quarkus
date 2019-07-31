@@ -51,6 +51,7 @@ import org.apache.camel.component.file.GenericFileProcessStrategy;
 import org.apache.camel.component.file.strategy.GenericFileProcessStrategyFactory;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.spi.ExchangeFormatter;
+import org.apache.camel.spi.ScheduledPollConsumerScheduler;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
@@ -69,7 +70,8 @@ class CamelProcessor {
             Producer.class,
             TypeConverter.class,
             ExchangeFormatter.class,
-            GenericFileProcessStrategy.class);
+            GenericFileProcessStrategy.class,
+            ScheduledPollConsumerScheduler.class);
 
     private static final List<Class<? extends Annotation>> CAMEL_REFLECTIVE_ANNOTATIONS = Arrays.asList();
 

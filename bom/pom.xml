@@ -177,6 +177,11 @@
                 <artifactId>camel-timer</artifactId>
                 <version>${camel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-twitter</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
 
             <!-- Quarkus Common-->
             <dependency>
@@ -261,7 +266,11 @@
                 <artifactId>camel-quarkus-timer</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-twitter</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
