@@ -14,21 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.infinispan.deployment;
+package org.apache.camel.quarkus.component.netty4.http.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import org.apache.camel.component.infinispan.InfinispanConfiguration;
 
-class CamelInfinispanProcessor {
+class Netty4HTTPProcessor {
 
-    private static final String FEATURE = "camel-infinispan";
-
-    @BuildStep
-    ReflectiveClassBuildItem reflection() {
-        return new ReflectiveClassBuildItem(true, true, InfinispanConfiguration.class);
-    }
+    private static final String FEATURE = "camel-netty-http4";
 
     @BuildStep
     FeatureBuildItem feature() {

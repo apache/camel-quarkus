@@ -30,7 +30,7 @@ import io.quarkus.undertow.deployment.ServletBuildItem.Builder;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig;
 import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig;
 
-class CamelServletProcessor {
+class ServletProcessor {
     private static final String FEATURE = "camel-servlet";
 
     CamelServletConfig camelServletConfig;

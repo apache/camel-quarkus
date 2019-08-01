@@ -14,37 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.salesforce.deployment;
+package org.apache.camel.quarkus.component.infinispan.deployment;
 
-import java.util.Arrays;
-import java.util.List;
-
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.ProtocolHandlers;
+import org.apache.camel.component.infinispan.InfinispanConfiguration;
 
-class CamelSalesforceProcessor {
-    private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
-        HttpClient.class,
-        ProtocolHandlers.class
-    );
+class InfinispanProcessor {
 
-    private static final String FEATURE = "camel-salesforce";
+    private static final String FEATURE = "camel-infinispan";
+
+    @BuildStep
+    ReflectiveClassBuildItem reflection() {
+        return new ReflectiveClassBuildItem(true, true, InfinispanConfiguration.class);
+    }
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        for (Class<?> type : SALESFORCE_REFLECTIVE_CLASSES) {
-            reflectiveClass.produce(
-                new ReflectiveClassBuildItem(true, true, type)
-            );
-        }
     }
 }

@@ -14,11 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws.eks.deployment;
+package org.apache.camel.quarkus.component.aws.sns.deployment;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import com.amazonaws.auth.AWS4Signer;
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
 import com.amazonaws.partitions.model.Partition;
@@ -38,18 +39,18 @@ import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
-import org.apache.camel.component.aws.eks.EKSConfiguration;
+import org.apache.camel.component.aws.sns.SnsConfiguration;
 import org.apache.commons.logging.impl.Jdk14Logger;
 import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
-class CamelAwsEKSProcessor {
+class AwsSNSProcessor {
 
-    public static final String AWS_EKS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
+    public static final String AWS_SNS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 
-    private static final String FEATURE = "camel-aws-eks";
+    private static final String FEATURE = "camel-aws-sns";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -62,7 +63,7 @@ class CamelAwsEKSProcessor {
                 "org.apache.http.pool.ConnPoolControl", "com.amazonaws.http.conn.Wrapped");
     }
 
-    @BuildStep(applicationArchiveMarkers = { AWS_EKS_APPLICATION_ARCHIVE_MARKERS })
+    @BuildStep(applicationArchiveMarkers = { AWS_SNS_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod,
@@ -89,7 +90,8 @@ class CamelAwsEKSProcessor {
                 CredentialScope.class.getCanonicalName(),
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
-                EKSConfiguration.class.getCanonicalName()));
+                AWS4Signer.class.getCanonicalName(),
+                SnsConfiguration.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

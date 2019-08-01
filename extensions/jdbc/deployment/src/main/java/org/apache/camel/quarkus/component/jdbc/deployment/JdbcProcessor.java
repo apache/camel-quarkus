@@ -14,17 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty4.http.deployment;
+package org.apache.camel.quarkus.component.jdbc.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-class CamelNetty4HTTPProcessor {
+class JdbcProcessor {
 
-    private static final String FEATURE = "camel-netty-http4";
+    private static final String FEATURE = "camel-jdbc";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
 }
