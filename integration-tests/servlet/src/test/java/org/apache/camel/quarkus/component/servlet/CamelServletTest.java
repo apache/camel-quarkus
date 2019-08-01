@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.servlet;
 
-import org.apache.camel.quarkus.component.servlet.CustomServlet;
-import org.hamcrest.core.IsEqual;
-import org.junit.jupiter.api.Test;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.hamcrest.core.IsEqual;
+import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class CamelServletTest {

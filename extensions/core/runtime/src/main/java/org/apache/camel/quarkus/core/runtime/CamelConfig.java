@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.core.runtime;
 
 import java.util.List;
 
-import org.apache.camel.quarkus.core.runtime.graal.JaxbDisabled;
-import org.apache.camel.quarkus.core.runtime.graal.XmlDisabled;
-
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import org.apache.camel.quarkus.core.runtime.graal.JaxbDisabled;
+import org.apache.camel.quarkus.core.runtime.graal.XmlDisabled;
 
 public class CamelConfig {
 

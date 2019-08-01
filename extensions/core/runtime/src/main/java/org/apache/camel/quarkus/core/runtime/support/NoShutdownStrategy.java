@@ -130,7 +130,7 @@ public class NoShutdownStrategy implements ShutdownStrategy {
     }
 
     @Override
-    public void start(){
+    public void start() {
     }
 
     @Override

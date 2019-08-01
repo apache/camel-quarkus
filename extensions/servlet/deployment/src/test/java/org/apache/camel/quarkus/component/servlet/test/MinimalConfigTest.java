@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.servlet.test;
 
+import io.quarkus.test.QuarkusUnitTest;
+import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
 import org.hamcrest.core.IsEqual;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -24,17 +26,12 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import io.quarkus.test.QuarkusUnitTest;
-import io.restassured.RestAssured;
-
 public class MinimalConfigTest {
-
     @RegisterExtension
-    static final QuarkusUnitTest config = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(Routes.class)
-                    .addAsResource(new StringAsset("quarkus.camel.servlet.url-patterns=/*\n"),
-                            "application.properties"));
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+        .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+            .addClasses(Routes.class)
+            .addAsResource(new StringAsset("quarkus.camel.servlet.url-patterns=/*\n"), "application.properties"));
 
     @Test
     public void minimal() {
@@ -42,12 +39,10 @@ public class MinimalConfigTest {
     }
 
     public static class Routes extends RouteBuilder {
-
         @Override
         public void configure() {
             from("servlet://hello?matchOnUriPrefix=true")
                     .setBody(constant("GET: /hello"));
         }
     }
-
 }

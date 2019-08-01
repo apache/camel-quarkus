@@ -19,7 +19,6 @@ package io.quarkus.it.camel.core.cdi;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;

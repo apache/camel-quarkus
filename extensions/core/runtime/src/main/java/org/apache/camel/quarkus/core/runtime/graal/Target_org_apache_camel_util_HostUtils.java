@@ -14,25 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.servlet;
+package org.apache.camel.quarkus.core.runtime.graal;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
 
-@SuppressWarnings("serial")
-@WebServlet
-public class CustomServlet extends CamelHttpTransportServlet {
+@TargetClass(className = "org.apache.camel.util.HostUtils")
+final class Target_org_apache_camel_util_HostUtils {
 
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /* Set this header and assert in the test that the request was served by this servlet */
-        resp.setHeader("x-servlet-class-name", this.getClass().getName());
-        super.service(req, resp);
+    @Substitute
+    private static InetAddress chooseAddress() throws UnknownHostException {
+        return InetAddress.getByName("0.0.0.0");
     }
-
 }

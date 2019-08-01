@@ -19,13 +19,6 @@ package org.apache.camel.quarkus.component.aws.s3.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import org.apache.camel.component.aws.s3.S3Configuration;
-import org.apache.commons.logging.impl.Jdk14Logger;
-import org.apache.commons.logging.impl.LogFactoryImpl;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
-
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
 import com.amazonaws.partitions.model.Partition;
@@ -36,7 +29,6 @@ import com.amazonaws.services.s3.internal.AWSS3V4Signer;
 import com.amazonaws.services.s3.model.CryptoConfiguration;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
@@ -49,6 +41,12 @@ import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import org.apache.camel.component.aws.s3.S3Configuration;
+import org.apache.commons.logging.impl.Jdk14Logger;
+import org.apache.commons.logging.impl.LogFactoryImpl;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 class CamelAwsS3Processor {
 

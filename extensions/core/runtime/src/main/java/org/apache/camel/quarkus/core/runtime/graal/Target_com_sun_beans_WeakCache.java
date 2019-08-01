@@ -18,24 +18,11 @@ package org.apache.camel.quarkus.core.runtime.graal;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-import java.lang.reflect.Method;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.Map;
 import java.util.WeakHashMap;
 
-import org.apache.camel.support.IntrospectionSupport;
-import org.apache.camel.support.IntrospectionSupport.ClassInfo;
-import org.apache.camel.support.LRUCacheFactory;
-
-import com.oracle.svm.core.annotate.Alias;
-import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-
-
-class CamelSubstitutions {
-}
 
 @TargetClass(className = "com.sun.beans.WeakCache")
 @Substitute
@@ -75,31 +62,4 @@ final class Target_com_sun_beans_WeakCache<K, V> {
         this.map.clear();
     }
 
-}
-
-@TargetClass(className = "java.beans.Introspector")
-final class Target_java_beans_Introspector {
-
-    @Alias
-    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Target_com_sun_beans_WeakCache<Class<?>, Method[]> declaredMethodCache = new Target_com_sun_beans_WeakCache<>();
-
-}
-
-@TargetClass(IntrospectionSupport.class)
-final class Target_org_apache_camel_support_IntrospectionSupport {
-
-    @Alias
-    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Map<Class<?>, ClassInfo> CACHE = LRUCacheFactory.newLRUWeakCache(256);
-
-}
-
-@TargetClass(className = "org.apache.camel.util.HostUtils")
-final class Target_org_apache_camel_util_HostUtils {
-
-    @Substitute
-    private static InetAddress chooseAddress() throws UnknownHostException {
-        return InetAddress.getByName("0.0.0.0");
-    }
 }

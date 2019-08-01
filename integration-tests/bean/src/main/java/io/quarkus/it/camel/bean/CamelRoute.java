@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.Exchange;
@@ -29,8 +30,6 @@ import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.bean.BeanProcessor;
 import org.apache.camel.support.DefaultExchange;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 public class CamelRoute extends RouteBuilder {
 
@@ -53,11 +52,12 @@ public class CamelRoute extends RouteBuilder {
 
     }
 
+    @SuppressWarnings("unchecked")
     public Exchange aggregate(Exchange oldExchange, Exchange newExchange) {
         // put order together in old exchange by adding the order from new exchange
         List<String> orders;
         if (oldExchange != null) {
-            orders = (List<String>) oldExchange.getIn().getBody();
+            orders = oldExchange.getIn().getBody(List.class);
         } else {
             orders = new ArrayList<>();
             oldExchange = new DefaultExchange(newExchange.getContext());

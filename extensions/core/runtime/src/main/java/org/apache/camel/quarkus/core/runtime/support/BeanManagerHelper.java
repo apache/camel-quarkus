@@ -16,14 +16,11 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
-import static java.util.stream.Collectors.toSet;
-
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 import javax.enterprise.inject.Vetoed;
 import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanAttributes;
@@ -54,14 +51,14 @@ final class BeanManagerHelper {
 
     static <T> Set<T> getReferencesByType(BeanManager manager, Class<T> type, Annotation... qualifiers) {
         return manager.getBeans(type, qualifiers).stream()
-                .map(bean -> getReference(manager, type, bean))
-                .collect(toSet());
+            .map(bean -> getReference(manager, type, bean))
+            .collect(Collectors.toSet());
     }
 
     static <T> Optional<T> getReferenceByName(BeanManager manager, String name, Class<T> type) {
         return Optional.of(manager.getBeans(name))
-                .<Bean<?>> map(manager::resolve)
-                .map(bean -> getReference(manager, type, bean));
+            .<Bean<?>> map(manager::resolve)
+            .map(bean -> getReference(manager, type, bean));
     }
 
     static <T> T getReference(BeanManager manager, Class<T> type, Bean<?> bean) {
@@ -70,9 +67,7 @@ final class BeanManagerHelper {
 
     static <T> Map<String, T> getReferencesByTypeWithName(BeanManager manager, Class<T> type, Annotation... qualifiers) {
         return manager.getBeans(type, qualifiers).stream()
-                .collect(Collectors.toMap(
-                        BeanAttributes::getName,
-                        b -> getReference(manager, type, b)));
+            .collect(Collectors.toMap(BeanAttributes::getName, b -> getReference(manager, type, b)));
     }
 
 }

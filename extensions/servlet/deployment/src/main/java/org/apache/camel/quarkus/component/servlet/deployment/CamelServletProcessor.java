@@ -19,9 +19,6 @@ package org.apache.camel.quarkus.component.servlet.deployment;
 import java.io.IOException;
 import java.util.Map.Entry;
 
-import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig;
-import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -30,6 +27,8 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem;
 import io.quarkus.undertow.deployment.ServletBuildItem.Builder;
+import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig;
+import org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletConfig;
 
 class CamelServletProcessor {
     private static final String FEATURE = "camel-servlet";

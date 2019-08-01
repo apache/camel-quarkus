@@ -28,23 +28,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import javax.inject.Inject;
-
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.quarkus.core.runtime.CamelConfig;
-import org.apache.camel.quarkus.core.runtime.CamelProducers;
-import org.apache.camel.quarkus.core.runtime.CamelRecorder;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
-import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.slf4j.LoggerFactory;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -59,6 +43,20 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.core.runtime.CamelConfig;
+import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
+import org.apache.camel.quarkus.core.runtime.CamelProducers;
+import org.apache.camel.quarkus.core.runtime.CamelRecorder;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.slf4j.LoggerFactory;
 
 class CamelInitProcessor {
 

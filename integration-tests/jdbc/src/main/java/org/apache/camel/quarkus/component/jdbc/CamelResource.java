@@ -63,7 +63,7 @@ public class CamelResource {
     @Path("/species/{id}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getSpeciesById(@PathParam("id") String id ) throws Exception {
+    public String getSpeciesById(@PathParam("id") String id) throws Exception {
         return template.requestBody("direct:execute", "select species from camels where id = " + id, String.class);
     }
 

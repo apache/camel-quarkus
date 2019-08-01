@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.infinispan;
 import java.util.Collections;
 import java.util.Map;
 
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
 import org.infinispan.configuration.global.GlobalConfigurationBuilder;
 import org.infinispan.manager.EmbeddedCacheManager;
@@ -26,8 +27,6 @@ import org.infinispan.server.hotrod.HotRodServer;
 import org.infinispan.server.hotrod.test.HotRodTestingUtil;
 import org.infinispan.test.fwk.TestCacheManagerFactory;
 import org.infinispan.test.fwk.TestResourceTracker;
-
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private HotRodServer hotRodServer;

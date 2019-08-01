@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.twitter;
 
-import io.quarkus.runtime.StartupEvent;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import io.quarkus.runtime.StartupEvent;
 import org.apache.camel.ProducerTemplate;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 

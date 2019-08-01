@@ -16,11 +16,10 @@
  */
 package org.apache.camel.quarkus.component.infinispan.deployment;
 
-import org.apache.camel.component.infinispan.InfinispanConfiguration;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
+import org.apache.camel.component.infinispan.InfinispanConfiguration;
 
 class CamelInfinispanProcessor {
 

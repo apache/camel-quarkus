@@ -22,6 +22,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
+import io.quarkus.arc.Arc;
+import io.quarkus.arc.runtime.BeanContainer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
@@ -47,12 +49,8 @@ import org.graalvm.nativeimage.ImageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.quarkus.arc.Arc;
-import io.quarkus.arc.runtime.BeanContainer;
-
 public class FastCamelRuntime implements CamelRuntime {
-
-    private static final Logger log = LoggerFactory.getLogger(FastCamelRuntime.class);
+    private static final Logger LOG = LoggerFactory.getLogger(FastCamelRuntime.class);
 
     protected CamelContext context;
     protected BeanContainer beanContainer;
@@ -160,7 +158,7 @@ public class FastCamelRuntime implements CamelRuntime {
                 .filter(ObjectHelper::isNotEmpty)
                 .collect(Collectors.toList());
         if (ObjectHelper.isNotEmpty(routesUris)) {
-            log.debug("Loading xml routes from {}", routesUris);
+            LOG.debug("Loading xml routes from {}", routesUris);
             for (String routesUri : routesUris) {
                 // TODO: if pointing to a directory, we should load all xmls in it
                 //   (maybe with glob support in it to be complete)
@@ -169,7 +167,7 @@ public class FastCamelRuntime implements CamelRuntime {
                 }
             }
         } else {
-            log.debug("No xml routes configured");
+            LOG.debug("No xml routes configured");
         }
 
         model.startRouteDefinitions();
@@ -244,12 +242,12 @@ public class FastCamelRuntime implements CamelRuntime {
     protected void dumpRoutes() {
         List<Route> routes = getContext().getRoutes();
         if (routes.isEmpty()) {
-            log.info("No route definitions");
+            LOG.info("No route definitions");
         } else {
-            log.info("Route definitions:");
+            LOG.info("Route definitions:");
             for (Route route : routes) {
                 RouteDefinition def = (RouteDefinition) route.getRouteContext().getRoute();
-                log.info(def.toString());
+                LOG.info(def.toString());
             }
         }
     }
