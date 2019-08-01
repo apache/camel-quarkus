@@ -19,13 +19,6 @@ package org.apache.camel.quarkus.component.aws.sqs.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import org.apache.camel.component.aws.sqs.SqsConfiguration;
-import org.apache.commons.logging.impl.Jdk14Logger;
-import org.apache.commons.logging.impl.LogFactoryImpl;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
-
 import com.amazonaws.auth.AWS4Signer;
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
@@ -35,7 +28,6 @@ import com.amazonaws.partitions.model.Region;
 import com.amazonaws.partitions.model.Service;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
@@ -47,8 +39,14 @@ import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import org.apache.camel.component.aws.sqs.SqsConfiguration;
+import org.apache.commons.logging.impl.Jdk14Logger;
+import org.apache.commons.logging.impl.LogFactoryImpl;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
-class CamelAwsSQSProcessor {
+class AwsSQSProcessor {
 
     public static final String AWS_SQS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 

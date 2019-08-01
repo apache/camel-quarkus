@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.core.runtime;
 
 import java.util.List;
 import java.util.Properties;
-import java.util.stream.Collectors;
 
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.arc.runtime.BeanContainerListener;

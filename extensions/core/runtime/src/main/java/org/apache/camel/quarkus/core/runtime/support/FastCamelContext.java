@@ -1,4 +1,3 @@
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -65,14 +64,14 @@ import org.apache.camel.impl.engine.ServicePool;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
 import org.apache.camel.processor.MulticastProcessor;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.FastModel.FastRouteContext;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.BeanProcessorFactory;
 import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.support.FastModel.FastRouteContext;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;

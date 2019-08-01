@@ -14,17 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty4.http.deployment;
+package org.apache.camel.quarkus.core.runtime.graal;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
-class CamelNetty4HTTPProcessor {
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
 
-    private static final String FEATURE = "camel-netty-http4";
+@TargetClass(className = "org.apache.camel.util.HostUtils")
+final class Target_org_apache_camel_util_HostUtils {
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    @Substitute
+    private static InetAddress chooseAddress() throws UnknownHostException {
+        return InetAddress.getByName("0.0.0.0");
     }
 }

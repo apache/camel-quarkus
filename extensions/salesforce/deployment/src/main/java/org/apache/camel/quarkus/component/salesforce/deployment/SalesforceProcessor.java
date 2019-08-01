@@ -14,17 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml.deployment;
+package org.apache.camel.quarkus.component.salesforce.deployment;
+
+import java.util.Arrays;
+import java.util.List;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import org.apache.camel.converter.jaxp.XmlConverter;
+import org.eclipse.jetty.client.HttpClient;
+import org.eclipse.jetty.client.ProtocolHandlers;
 
-class XmlProcessor {
+class SalesforceProcessor {
+    private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
+        HttpClient.class,
+        ProtocolHandlers.class
+    );
 
-    private static final String FEATURE = "camel-xml";
+    private static final String FEATURE = "camel-salesforce";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -32,11 +40,11 @@ class XmlProcessor {
     }
 
     @BuildStep
-    void reflective(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
-            "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-            "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-            XmlConverter.class.getCanonicalName()));
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        for (Class<?> type : SALESFORCE_REFLECTIVE_CLASSES) {
+            reflectiveClass.produce(
+                new ReflectiveClassBuildItem(true, true, type)
+            );
+        }
     }
-
 }

@@ -41,7 +41,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <camel.version>3.0.0-M4</camel.version>
-        <quarkus.version>0.19.1</quarkus.version>
+        <quarkus.version>0.20.0</quarkus.version>
 
         <version.compiler.plugin>3.8.0</version.compiler.plugin>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -228,8 +228,7 @@
                             <dependency>
                                 <groupId>org.apache.camel</groupId>
                                 <artifactId>camel-buildtools</artifactId>
-                                <!-- TODO not in M2 -->
-                                <version>3.0.0-M3</version>
+                                <version>${camel.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -308,7 +307,7 @@
         <profile>
             <id>quarkus-snapshots</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <quarkus.version>999-SNAPSHOT</quarkus.version>

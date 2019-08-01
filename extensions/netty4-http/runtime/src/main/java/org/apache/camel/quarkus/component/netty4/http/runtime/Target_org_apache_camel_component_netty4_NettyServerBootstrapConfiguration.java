@@ -14,25 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.infinispan.deployment;
+package org.apache.camel.quarkus.component.netty4.http.runtime;
 
-import org.apache.camel.component.infinispan.InfinispanConfiguration;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
+@TargetClass(className = "org.apache.camel.component.netty4.NettyServerBootstrapConfiguration")
+final class Target_org_apache_camel_component_netty4_NettyServerBootstrapConfiguration {
 
-class CamelInfinispanProcessor {
-
-    private static final String FEATURE = "camel-infinispan";
-
-    @BuildStep
-    ReflectiveClassBuildItem reflection() {
-        return new ReflectiveClassBuildItem(true, true, InfinispanConfiguration.class);
+    @Substitute
+    public boolean isNativeTransport() {
+        return false;
     }
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 }

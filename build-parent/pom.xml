@@ -238,8 +238,7 @@
                             <dependency>
                                 <groupId>org.apache.camel</groupId>
                                 <artifactId>camel-buildtools</artifactId>
-                                <!-- TODO not in M2 -->
-                                <version>3.0.0-M3</version>
+                                <version>${camel.version}</version>
                             </dependency>
                             <dependency>
                                 <groupId>com.puppycrawl.tools</groupId>
@@ -264,7 +263,7 @@
                                     </sourceDirectories>
                                     <headerLocation>header-java.txt</headerLocation>
                                     <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
-                                    <excludes>**/MyRoutes*.java</excludes>
+                                    <excludes>**/MyRoutes*.java,**/Target*.java,**/*Substitutions.java</excludes>
                                 </configuration>
                                 <goals>
                                     <goal>checkstyle</goal>

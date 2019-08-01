@@ -23,9 +23,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.stream.Stream;
 
-import org.jboss.jandex.ClassInfo;
-
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import org.jboss.jandex.ClassInfo;
 
 public final class CamelSupport {
 

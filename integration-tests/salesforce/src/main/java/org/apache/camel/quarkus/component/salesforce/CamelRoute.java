@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
-import org.apache.camel.builder.RouteBuilder;
-
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.builder.RouteBuilder;
 
 @RegisterForReflection
 public class CamelRoute extends RouteBuilder {

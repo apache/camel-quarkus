@@ -14,25 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.servlet;
+package org.apache.camel.quarkus.core.runtime.graal;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
-import org.apache.camel.component.servlet.CamelHttpTransportServlet;
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.support.IntrospectionSupport;
+import org.apache.camel.support.LRUCacheFactory;
 
-@SuppressWarnings("serial")
-@WebServlet
-public class CustomServlet extends CamelHttpTransportServlet {
+@TargetClass(IntrospectionSupport.class)
+final class Target_org_apache_camel_support_IntrospectionSupport {
 
-    @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /* Set this header and assert in the test that the request was served by this servlet */
-        resp.setHeader("x-servlet-class-name", this.getClass().getName());
-        super.service(req, resp);
-    }
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, IntrospectionSupport.ClassInfo> CACHE = LRUCacheFactory.newLRUWeakCache(256);
 
 }

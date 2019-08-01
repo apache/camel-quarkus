@@ -14,29 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml.deployment;
+package org.apache.camel.quarkus.component.jdbc.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import org.apache.camel.converter.jaxp.XmlConverter;
 
-class XmlProcessor {
+class JdbcProcessor {
 
-    private static final String FEATURE = "camel-xml";
+    private static final String FEATURE = "camel-jdbc";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void reflective(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
-            "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-            "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-            XmlConverter.class.getCanonicalName()));
     }
 
 }

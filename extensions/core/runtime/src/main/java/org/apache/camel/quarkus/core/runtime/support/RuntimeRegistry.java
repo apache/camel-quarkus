@@ -22,12 +22,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.NoSuchBeanException;
 import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.quarkus.runtime.RuntimeValue;
 
 /**
  * A {@link Map}-based registry.

@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.twitter;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection
 public class CamelRoute extends RouteBuilder {

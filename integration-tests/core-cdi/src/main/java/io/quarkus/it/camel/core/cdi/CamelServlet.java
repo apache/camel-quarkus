@@ -18,7 +18,6 @@ package io.quarkus.it.camel.core.cdi;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;

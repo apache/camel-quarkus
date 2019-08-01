@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws.s3.deployment;
+package org.apache.camel.quarkus.component.aws.eks.deployment;
 
 import java.util.Collection;
 import java.util.stream.Collectors;
-
-import org.apache.camel.component.aws.s3.S3Configuration;
-import org.apache.commons.logging.impl.Jdk14Logger;
-import org.apache.commons.logging.impl.LogFactoryImpl;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
@@ -32,11 +25,8 @@ import com.amazonaws.partitions.model.Partition;
 import com.amazonaws.partitions.model.Partitions;
 import com.amazonaws.partitions.model.Region;
 import com.amazonaws.partitions.model.Service;
-import com.amazonaws.services.s3.internal.AWSS3V4Signer;
-import com.amazonaws.services.s3.model.CryptoConfiguration;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
@@ -44,26 +34,26 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.substrate.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import org.apache.camel.component.aws.eks.EKSConfiguration;
+import org.apache.commons.logging.impl.Jdk14Logger;
+import org.apache.commons.logging.impl.LogFactoryImpl;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
-class CamelAwsS3Processor {
+class AwsEKSProcessor {
 
-    public static final String AWS_S3_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
+    public static final String AWS_EKS_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
 
-    private static final String FEATURE = "camel-aws-s3";
+    private static final String FEATURE = "camel-aws-eks";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem cryptoConfiguration() {
-        return new RuntimeInitializedClassBuildItem(CryptoConfiguration.class.getCanonicalName());
     }
 
     @BuildStep
@@ -72,7 +62,7 @@ class CamelAwsS3Processor {
                 "org.apache.http.pool.ConnPoolControl", "com.amazonaws.http.conn.Wrapped");
     }
 
-    @BuildStep(applicationArchiveMarkers = { AWS_S3_APPLICATION_ARCHIVE_MARKERS })
+    @BuildStep(applicationArchiveMarkers = { AWS_EKS_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod,
@@ -99,8 +89,7 @@ class CamelAwsS3Processor {
                 CredentialScope.class.getCanonicalName(),
                 LogFactoryImpl.class.getCanonicalName(),
                 Jdk14Logger.class.getCanonicalName(),
-                AWSS3V4Signer.class.getCanonicalName(),
-                S3Configuration.class.getCanonicalName()));
+                EKSConfiguration.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

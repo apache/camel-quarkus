@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 
 public final class CamelRuntimeBuildItem extends SimpleBuildItem {
 
