@@ -1,4 +1,108 @@
 [[contributor-guide]]
 = Contributor guide
 
-TBD
+[[prerequisites]]
+== Prerequisites
+
+* Git
+* Docker or GraalVM with `native-image` installed for the native mode, see https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus documentation.
+* Java 8
+* Maven 3.5.0+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
+
+[[how-to-build]]
+== How to build
+
+Checkout the code
+
+[code,shell]
+----
+git clone https://github.com/apache/camel-quarkus.git
+cd camel-quarkus
+----
+
+A fast build without tests:
+
+[code,shell]
+----
+mvn clean install -DskipTests
+----
+
+A build with integration tests in the JVM mode only:
+
+[code,shell]
+----
+mvn clean install
+----
+
+There are two options how to perform a build with integration tests in both the JVM mode and the native mode:
+
+A. Using Docker (easier in most cases):
++
+[code,shell]
+----
+mvn clean install -Dnative -Dnative-image.docker-build=true /
+    -Dnative-image.xmx=5g
+----
+
+B. Using GraalVM directly:
++
+[code,shell]
+----
+mvn clean install -Dnative -Dnative-image.xmx=5g
+----
+
+
+== Create a new extension
+
+1. You should know link:#how-to-build[how to build].
+
+2. Go through the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] to get an idea
+   what is expecting you.
+
+3. Make sure that nobody else works on the same extension already by searching through the
+   https://github.com/apache/camel-quarkus/issues[GitHub issues].
+
+4. Let others know that you work on the given extension by either creating a
+   https://github.com/apache/camel-quarkus/issues/new[new issue] or asking to assign an existing one to you.
+
+5. Scaffold the necessary Maven modules using `quarkus-maven-plugin`. As an example let's add a new extension for
+   supporting an imaginary Camel component `foo`:
++
+[code,shell]
+----
+cd camel-quarkus
+cd extensions
+mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo \
+    -Dquarkus.nameBase="Foo"
+----
++
+where:
++
+* `foo` is the unique part of the new extension's `artifactId` without the `camel-quarkus-` prefix
+* `Foo` is the unique part of the artifact name without the `Camel Quarkus :: ` prefix
++
+The `artifactId` and artifact `name` prefixes and suffixes are added automatically by the plugin.
++
+The above sequence of commands does the following:
+* It creates three new Maven modules under the `extensions` directory: `camel-quarkus-foo-parent`, `camel-quarkus-foo`
+  (a.k.a. the runtime module) and `camel-quarkus-foo-deployment`.
+* It also creates a basic `FooProcessor` class in the deployment module.
++
+As of Quarkus 0.20.0, a Maven build performed immediately after generating the modules will fail due to missing version
+of `camel-quarkus-foo` in `camel-quarkus-foo-deployment`. To solve that, you need to add `camel-quarkus-foo` to
+dependency management of `bom/pom.xml` manually.
++
+TIP: The `nameBase` parameter of the mojo is optional. If you do not specify it on the command line, the plugin will
+derive it from `artifactIdBase` by replacing dashes with spaces and uppercasing each token. So you may consider omitting
+explicit `nameBase` in some cases.
+
+6. Add `org.apache.camel:camel-foo` to dependency management of `bom/pom.xml` and add the dependency on
+   `org.apache.camel:camel-foo` to `camel-quarkus-foo`.
+
+7. Add an integration test under the `integration-tests` directory to make sure that your new extension works both in
+   the JVM mode and in the native mode.
+
+8. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
+   ask for help in the given GitHub issue or via https://gitter.im/apache/camel-quarkus[Camel Quarkus chat].
+
+Good luck!
