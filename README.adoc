@@ -1,7 +1,6 @@
 = Apache Camel extensions for Quarkus
 
 image:https://img.shields.io/maven-central/v/org.apache.camel.quarkus/camel-quarkus-bom.svg["Maven Central", link="http://search.maven.org/#search%7Cga%7C1%7Corg.apache.camel.quarkus"]
-image:https://img.shields.io/travis/apache/camel-quarkus/master.svg?logo=travis&color=white&label=Travis+CI["Travis CI build status", link="http://travis-ci.org/apache/camel-quarkus"]
 image:https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000["Licensed under Apache License version 2.0", link="https://www.apache.org/licenses/LICENSE-2.0"]
 image:https://badges.gitter.im/apache/camel-quarkus.svg["Chat on Gitter", link="https://gitter.im/apache/camel-quarkus"]
 
