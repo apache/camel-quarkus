@@ -70,6 +70,7 @@
         <module>build-parent</module>
         <module>extensions</module>
         <module>integration-tests</module>
+        <module>docs</module>
     </modules>
 
     <developers>
