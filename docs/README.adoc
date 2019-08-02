@@ -1,0 +1,33 @@
+= Apache Camel extensions for Quarkus Documentation
+
+== Environment Setup
+
+To setup the environment you need to execute the following command once (and every time you change yarn dependencies):
+
+[code,shell]
+----
+yarn install
+----
+
+== Build the Documentation Website
+
+To generate the documentation website, execute:
+
+[code,shell]
+----
+yarn build
+----
+
+To preview it in the local browser, execute:
+
+[code,shell]
+----
+yarn preview
+----
+
+To both build and preview, execute:
+
+[code,shell]
+----
+yarn dev
+----

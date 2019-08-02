@@ -1,0 +1,15 @@
+site:
+  title: Apache Camel extensions for Quarkus
+  url: https://camel.apache.org/staging
+  start_page: camel-quarkus::index.adoc
+content:
+  sources:
+  - url: ../
+    branches: HEAD
+    start_path: docs
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+output:
+  dir: ./target/site
