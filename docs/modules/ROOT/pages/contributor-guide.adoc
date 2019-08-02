@@ -14,7 +14,7 @@
 
 Checkout the code
 
-[code,shell]
+[source,shell]
 ----
 git clone https://github.com/apache/camel-quarkus.git
 cd camel-quarkus
@@ -22,14 +22,14 @@ cd camel-quarkus
 
 A fast build without tests:
 
-[code,shell]
+[source,shell]
 ----
 mvn clean install -DskipTests
 ----
 
 A build with integration tests in the JVM mode only:
 
-[code,shell]
+[source,shell]
 ----
 mvn clean install
 ----
@@ -38,7 +38,7 @@ There are two options how to perform a build with integration tests in both the 
 
 A. Using Docker (easier in most cases):
 +
-[code,shell]
+[source,shell]
 ----
 mvn clean install -Dnative -Dnative-image.docker-build=true /
     -Dnative-image.xmx=5g
@@ -46,7 +46,7 @@ mvn clean install -Dnative -Dnative-image.docker-build=true /
 
 B. Using GraalVM directly:
 +
-[code,shell]
+[source,shell]
 ----
 mvn clean install -Dnative -Dnative-image.xmx=5g
 ----
@@ -68,7 +68,7 @@ mvn clean install -Dnative -Dnative-image.xmx=5g
 5. Scaffold the necessary Maven modules using `quarkus-maven-plugin`. As an example let's add a new extension for
    supporting an imaginary Camel component `foo`:
 +
-[code,shell]
+[source,shell]
 ----
 cd camel-quarkus
 cd extensions
