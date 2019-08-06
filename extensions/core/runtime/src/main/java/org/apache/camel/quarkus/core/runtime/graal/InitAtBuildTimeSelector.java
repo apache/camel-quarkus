@@ -20,10 +20,9 @@ import java.util.function.BooleanSupplier;
 
 import org.eclipse.microprofile.config.ConfigProvider;
 
-public final class JaxbDisabled implements BooleanSupplier {
+public final class InitAtBuildTimeSelector implements BooleanSupplier {
     @Override
     public boolean getAsBoolean() {
-        return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-jaxb", Boolean.class).orElse(Boolean.FALSE);
+        return !ConfigProvider.getConfig().getOptionalValue("quarkus.camel.defer-init-phase", Boolean.class).orElse(Boolean.TRUE);
     }
 }
-
