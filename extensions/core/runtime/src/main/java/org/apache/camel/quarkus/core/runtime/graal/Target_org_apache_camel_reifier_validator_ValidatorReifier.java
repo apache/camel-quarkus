@@ -16,14 +16,18 @@
  */
 package org.apache.camel.quarkus.core.runtime.graal;
 
-import java.util.function.BooleanSupplier;
+import java.util.Map;
+import java.util.function.Function;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.reifier.validator.ValidatorReifier;
 
-public final class JaxbDisabled implements BooleanSupplier {
-    @Override
-    public boolean getAsBoolean() {
-        return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-jaxb", Boolean.class).orElse(Boolean.FALSE);
-    }
+@TargetClass(className = "org.apache.camel.reifier.validator.ValidatorReifier", onlyWith = InitAtBuildTimeSelector.class)
+final class Target_org_apache_camel_reifier_validator_ValidatorReifier {
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static Map<Class<?>, Function<ValidatorDefinition, ValidatorReifier<? extends ValidatorDefinition>>> VALIDATORS = null;
 }
-
