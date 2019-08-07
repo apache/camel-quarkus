@@ -37,8 +37,8 @@ public class CamelApplication {
     @Inject
     CamelRuntime runtime;
 
-    public void initializing(@Observes StartingEvent event) {
-        runtime.addProperty("initializing", "true");
+    public void starting(@Observes StartingEvent event) {
+        runtime.addProperty("starting", "true");
 
         addRoute("src/main/resources/hello.xml");
     }

@@ -32,7 +32,7 @@ public class CamelTest {
 
     @Test
     public void testProperties() {
-        RestAssured.when().get("/test/property/initializing").then().body(is("true"));
+        RestAssured.when().get("/test/property/starting").then().body(is("true"));
         RestAssured.when().get("/test/property/started").then().body(is("true"));
     }
 
