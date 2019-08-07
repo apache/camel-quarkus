@@ -36,6 +36,9 @@
         <groovy.version>2.5.7</groovy.version>
         <xstream.version>1.4.11</xstream.version>
 
+        <!-- maven-surefire-plugin -->
+        <failIfNoTests>false</failIfNoTests>
+
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <maven-checkstyle.version>7.6.1</maven-checkstyle.version>
         <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
@@ -93,16 +96,6 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <configuration>
-                        <failIfNoTests>false</failIfNoTests>
-                        <systemProperties>
-                            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        </systemProperties>
-                    </configuration>
-                </plugin>
                 <plugin>
                     <groupId>io.quarkus</groupId>
                     <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
