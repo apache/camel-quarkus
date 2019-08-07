@@ -145,7 +145,7 @@
     <build>
         <pluginManagement>
             <plugins>
-
+                <!-- Only plugins relevant to both end user applications and Camel Quarkus extensions -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -157,12 +157,6 @@
                             <arg>-Xlint:unchecked</arg>
                         </compilerArgs>
                     </configuration>
-                </plugin>
-
-                <plugin>
-                    <groupId>io.quarkus</groupId>
-                    <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
-                    <version>${quarkus.version}</version>
                 </plugin>
 
                 <plugin>
