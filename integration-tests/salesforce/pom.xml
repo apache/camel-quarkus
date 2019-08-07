@@ -29,14 +29,6 @@
     <name>Camel Quarkus :: Integration Tests :: Salesforce</name>
     <description>The camel integration tests</description>
 
-    <properties>
-        <!--
-            Skip enforcer plugin because of dependency convergence error between
-            camel-salesforce and the version of jetty used by cometd
-        -->
-        <enforcer.skip>true</enforcer.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

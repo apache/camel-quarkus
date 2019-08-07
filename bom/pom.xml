@@ -323,6 +323,14 @@
                 <artifactId>camel-quarkus-xml-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!-- Other third party dependencies -->
+            <dependency>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-client</artifactId>
+                <version>${jetty.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

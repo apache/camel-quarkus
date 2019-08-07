@@ -42,12 +42,17 @@
 
         <camel.version>3.0.0-M4</camel.version>
         <quarkus.version>0.20.0</quarkus.version>
+        <jetty.version>9.4.18.v20190429</jetty.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
         <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+
+        <!-- maven-enforcer-plugin -->
+        <supported-maven-versions>[3.5.3,)</supported-maven-versions>
+
 
         <mycila-license.version>3.0</mycila-license.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -157,6 +162,27 @@
                             <arg>-Xlint:unchecked</arg>
                         </compilerArgs>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>enforce-maven-version</id>
+                            <goals>
+                                <goal>enforce</goal>
+                            </goals>
+                            <configuration>
+                                <rules>
+                                    <dependencyConvergence />
+                                    <requireMavenVersion>
+                                        <version>${supported-maven-versions}</version>
+                                    </requireMavenVersion>
+                                </rules>
+                            </configuration>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
