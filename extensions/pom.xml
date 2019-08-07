@@ -58,7 +58,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
-                <version>999-SNAPSHOT</version>
+                <version>${quarkus.version}</version>
                 <inherited>false</inherited>
                 <!-- Setting for stubbing new extensions via
                        mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=my-new-extension
