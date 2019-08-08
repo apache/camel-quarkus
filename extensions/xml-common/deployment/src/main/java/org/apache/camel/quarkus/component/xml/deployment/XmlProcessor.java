@@ -37,6 +37,13 @@ class XmlProcessor {
             "com.sun.xml.internal.stream.XMLInputFactoryImpl",
             "com.sun.org.apache.xerces.internal.parsers.SAXParser",
             XmlConverter.class.getCanonicalName()));
+
+        // javax.xml.namespace.QName is needed as it is used as part of the processor
+        // definitions in the DSL and parsers like Jackson (used in camel-k YAML DSL)
+        // fails if this class is cannot be instantiated reflectively.
+        reflectiveClass.produce(
+            new ReflectiveClassBuildItem(true, false, "javax.xml.namespace.QName")
+        );
     }
 
 }
