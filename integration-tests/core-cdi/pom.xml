@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml</artifactId>
+            <artifactId>camel-quarkus-xml-common</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

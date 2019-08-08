@@ -320,7 +320,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-xml</artifactId>
+                <artifactId>camel-quarkus-xml-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

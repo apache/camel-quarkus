@@ -3,31 +3,37 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-xml-parent</artifactId>
+        <artifactId>camel-quarkus-xml-common-parent</artifactId>
         <version>0.1.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-xml-deployment</artifactId>
-    <name>Camel Quarkus :: XML :: Deployment</name>
+    <artifactId>camel-quarkus-xml-common</artifactId>
+    <name>Camel Quarkus :: XML :: Common :: Runtime</name>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxb-deployment</artifactId>
+            <artifactId>quarkus-jaxb</artifactId>
         </dependency>
+
+        <!-- camel -->
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxp</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -43,5 +49,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
