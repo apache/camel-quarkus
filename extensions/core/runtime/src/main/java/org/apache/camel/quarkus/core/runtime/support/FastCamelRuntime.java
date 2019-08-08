@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.core.runtime.support;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,6 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
-import org.apache.camel.ShutdownableService;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.RouteDefinition;
@@ -43,6 +44,7 @@ import org.apache.camel.quarkus.core.runtime.StartingEvent;
 import org.apache.camel.quarkus.core.runtime.StoppedEvent;
 import org.apache.camel.quarkus.core.runtime.StoppingEvent;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.graalvm.nativeimage.ImageInfo;
@@ -77,21 +79,17 @@ public class FastCamelRuntime implements CamelRuntime {
         doStop();
     }
 
+    @SuppressWarnings("unchecked")
     public void doInit() {
         try {
             this.context = createContext();
 
-            // Configure the camel context using properties in the form:
-            //
-            //     camel.context.${name} = ${value}
-            //
-            RuntimeSupport.bindProperties(properties, context, PFX_CAMEL_CONTEXT);
+            if (properties != null) {
+                PropertyBindingSupport.bindProperties(context, context, new HashMap<>((Map)properties), PFX_CAMEL_CONTEXT);
+            }
 
             context.setLoadTypeConverters(false);
-
-            PropertiesComponent pc = createPropertiesComponent(properties);
-            RuntimeSupport.bindProperties(pc.getInitialProperties(), pc, PFX_CAMEL_PROPERTIES);
-            context.addComponent("properties", pc);
+            context.addComponent("properties", createPropertiesComponent(properties));
 
             this.context.getTypeConverterRegistry().setInjector(this.context.getInjector());
             fireEvent(InitializingEvent.class, new InitializingEvent());
@@ -141,10 +139,9 @@ public class FastCamelRuntime implements CamelRuntime {
     protected void doStop() throws Exception {
         fireEvent(StoppingEvent.class, new StoppingEvent());
         context.stop();
+
         fireEvent(StoppedEvent.class, new StoppedEvent());
-        if (context instanceof ShutdownableService) {
-            ((ShutdownableService) context).shutdown();
-        }
+        context.shutdown();
     }
 
     protected void loadRoutes(CamelContext context) throws Exception {
@@ -230,11 +227,14 @@ public class FastCamelRuntime implements CamelRuntime {
         return runtimeConfig;
     }
 
-    protected PropertiesComponent createPropertiesComponent(Properties initialPoperties) {
+    @SuppressWarnings("unchecked")
+    protected PropertiesComponent createPropertiesComponent(Properties initialProperties) {
         PropertiesComponent pc = new PropertiesComponent();
-        pc.setInitialProperties(initialPoperties);
+        pc.setInitialProperties(initialProperties);
 
-        RuntimeSupport.bindProperties(properties, pc, PFX_CAMEL_PROPERTIES);
+        if (initialProperties != null) {
+            PropertyBindingSupport.bindProperties(context, pc, new HashMap<>((Map)initialProperties), PFX_CAMEL_PROPERTIES);
+        }
 
         return pc;
     }
