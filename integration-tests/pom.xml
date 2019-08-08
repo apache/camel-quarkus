@@ -59,44 +59,34 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>test-project-sanity-checks</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <scripts>
+                                <script>file:///${project.basedir}/test-project-sanity-checks.groovy</script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-xml</artifactId>
+                        <version>${groovy.version}</version>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>test-project-sanity-checks</id>
-            <activation>
-                <file>
-                    <!-- Run the script only for the child projects  -->
-                    <exists>../test-project-sanity-checks.groovy</exists>
-                </file>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.gmavenplus</groupId>
-                        <artifactId>gmavenplus-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>test-project-sanity-checks</id>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <scripts>
-                                        <script>file:///${project.basedir}/../test-project-sanity-checks.groovy</script>
-                                    </scripts>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-
-        </profile>
-    </profiles>
-
 
 </project>

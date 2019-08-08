@@ -20,8 +20,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <!-- Test that the BOM can serve as parent for user apps, see also https://github.com/apache/camel-quarkus/issues/118 -->
+        <artifactId>camel-quarkus-bom</artifactId>
         <version>0.1.1-SNAPSHOT</version>
+        <relativePath>../../bom/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
