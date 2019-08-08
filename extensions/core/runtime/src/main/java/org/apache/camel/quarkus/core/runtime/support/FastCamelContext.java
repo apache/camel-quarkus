@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
+import java.util.regex.Matcher;
 
 import org.apache.camel.AggregationStrategy;
 import org.apache.camel.AsyncProcessor;
@@ -102,6 +103,8 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
+import org.apache.camel.util.FilePathResolver;
+import org.apache.camel.util.StringHelper;
 
 public class FastCamelContext extends AbstractCamelContext {
 
@@ -313,7 +316,26 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected StreamCachingStrategy createStreamCachingStrategy() {
-        return new DefaultStreamCachingStrategy();
+        return new DefaultStreamCachingStrategy() {
+            @Override
+            protected String resolveSpoolDirectory(String path) {
+                StringHelper.notEmpty(path, "path");
+
+                // must quote the names to have it work as literal replacement
+                String name = Matcher.quoteReplacement(getName());
+
+                // replace tokens
+                String answer = path;
+                answer = answer.replaceFirst("#camelId#", name);
+                answer = answer.replaceFirst("#name#", name);
+
+                if (answer.contains("#uuid#")) {
+                    answer = answer.replaceFirst("#uuid#", getUuidGenerator().generateUuid());
+                }
+
+                return FilePathResolver.resolvePath(answer);
+            }
+        };
     }
 
     @Override
