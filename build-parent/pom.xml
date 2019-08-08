@@ -80,7 +80,7 @@
 
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-xml-deployment</artifactId>
+                <artifactId>camel-quarkus-xml-common-deployment</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>

@@ -8,8 +8,8 @@
         <relativePath>../../build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-xml-parent</artifactId>
-    <name>Camel Quarkus :: XML</name>
+    <artifactId>camel-quarkus-xml-common-parent</artifactId>
+    <name>Camel Quarkus :: XML :: Common</name>
     <packaging>pom</packaging>
 
     <modules>

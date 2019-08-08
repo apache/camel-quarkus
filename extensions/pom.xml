@@ -32,10 +32,14 @@
     <name>Camel Quarkus :: Extensions</name>
 
     <modules>
+        <!-- common/shared extensions -->
         <module>jetty-common</module>
         <module>xstream-common</module>
-        <module>netty4-http</module>
+        <module>xml-common</module>
         <module>core</module>
+
+        <!-- components -->
+        <module>netty4-http</module>
         <module>infinispan</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
@@ -50,7 +54,6 @@
         <module>timer</module>
         <module>twitter</module>
         <module>bean</module>
-        <module>xml</module>
     </modules>
 
     <build>
