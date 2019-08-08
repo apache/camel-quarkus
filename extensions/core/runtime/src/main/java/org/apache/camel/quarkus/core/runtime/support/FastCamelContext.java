@@ -17,12 +17,12 @@
 package org.apache.camel.quarkus.core.runtime.support;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.regex.Matcher;
 
-import org.apache.camel.AggregationStrategy;
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
@@ -91,7 +91,6 @@ import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.ProcessorFactory;
-import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestRegistryFactory;
@@ -105,6 +104,7 @@ import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.util.FilePathResolver;
 import org.apache.camel.util.StringHelper;
+import org.apache.camel.support.PropertyBindingSupport;
 
 public class FastCamelContext extends AbstractCamelContext {
 
@@ -353,26 +353,27 @@ public class FastCamelContext extends AbstractCamelContext {
         return new ReactiveExecutorResolver().resolve(this);
     }
 
-    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
-            boolean shutdownExecutorService) {
-        return new MulticastProcessor(this, processors, (AggregationStrategy) null, true, executor, shutdownExecutorService,
-                false, false, 0L, (Processor) null, false, false);
+    @Override
+    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor, boolean shutdownExecutorService) {
+        return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
+                false, false, 0L, null, false, false);
     }
 
+    @SuppressWarnings("unchecked")
     protected <T> T resolve(Class<T> clazz, String type, String name, CamelContext context) {
         T result = context.getRegistry().lookupByNameAndType(name, clazz);
-        if (result instanceof CamelContextAware) {
-            ((CamelContextAware) result).setCamelContext(context);
+
+        CamelContextAware.trySetCamelContext(result, context);
+
+        Properties props = getPropertiesComponent().loadProperties();
+        if (props != null && !props.isEmpty()) {
+            PropertyBindingSupport.bindProperties(
+                this,
+                result,
+                new HashMap<>((Map) props),
+                CamelRuntime.PFX_CAMEL + type + "." + name);
         }
-        PropertiesComponent comp = getPropertiesComponent();
-        if (comp instanceof org.apache.camel.component.properties.PropertiesComponent) {
-            Properties props = ((org.apache.camel.component.properties.PropertiesComponent) comp).getInitialProperties();
-            if (props != null) {
-                String pfx = CamelRuntime.PFX_CAMEL + type + "." + name;
-                log.debug("Binding {} {} with prefix {}", type, name, pfx);
-                RuntimeSupport.bindProperties(this, props, result, pfx);
-            }
-        }
+
         return result;
     }
 
