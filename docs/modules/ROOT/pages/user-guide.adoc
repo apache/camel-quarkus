@@ -1,0 +1,190 @@
+[[user-guide]]
+= User guide
+
+This guide is for developers writing Camel applications on top of Quarkus.
+
+WARNING: Camel extensions for Quarkus is a new project and this guide is a work in progress.
+https://github.com/apache/camel-quarkus/issues[Issue reports] and fixes are welcome.
+
+== Which Camel components are supported on Quarkus?
+
+The answer is very easy: those ones that have a Quarkus extension - see the
+xref:list-of-camel-quarkus-extensions.adoc[complete list].
+
+== Your first application
+
+As long as we do not have self-contained examples, we can only offer some of the Camel Quarkus integration tests as a
+replacement. Only a few manual steps are needed to turn e.g. the servlet integration test into a standalone application
+that can further serve as a base for your real world project.
+
+=== Prerequisites
+
+To transform one of our integration tests to a standalone example, you need:
+
+* A `git` client
+* An IDE
+* JDK 1.8+ with JAVA_HOME configured appropriately
+* Apache Maven 3.5.3+
+* Docker or GraalVM with `native-image` installed for the native mode, see
+  https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
+  documentation.
+
+=== Turn the servlet integration test into a standalone application
+
+1. Clone Camel Quarkus and checkout the latest release tag
++
+[source,shell]
+----
+git clone https://github.com/apache/camel-quarkus.git
+cd camel-quarkus
+# checkout the latest tag
+git checkout $(git describe --abbrev=0)
+----
+
+2. Copy the servlet integration test out of the Camel Quarkus source tree.
++
+[source,shell]
+----
+cd ..
+cp -r camel-quarkus/integration-tests/servlet/ .
+cd servlet
+----
+
+3. Open the `pom.xml` file in your IDE.
++
+Make sure that the parent is `org.apache.camel.quarkus:camel-quarkus-bom` and do the changes as
+sketched below:
++
+[source,xml,subs="attributes+"]
+----
+<project>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-bom</artifactId>
+        <version>{camel-quarkus-last-release}</version>
+        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--1-->
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.my-org</groupId><!--2-->
+    <artifactId>my-app</artifactId><!--3-->
+    <version>0.0.1-SNAPSHOT</version><!--4-->
+
+    ...
+
+</project>
+----
+<1> Remove the `<relativePath>` element.
+<2> Add a `groupId` of your choice.
+<3> Change the `artifactId` to whatever you like
+<4> Add the `version`
+
+=== Explore the application code
+
+The application has just two compile dependencies:
+
+[source,xml,subs="attributes+"]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-servlet</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-rest</artifactId>
+</dependency>
+----
+
+They are managed in `camel-quarkus-bom` that we use as the Maven parent. `camel-quarkus-bom` also manages plugins
+necessary for a typical Camel Quarkus application.
+
+There are only two classes in the application: `CamelRoute` defining the Camel routes and
+`CustomServlet`.
+
+`src/main/resources/application.properties` configure the application. E.g. the `CustomServlet` is set
+there to serve the requests for the path `/my-named-folder/*`.
+
+There are two test classes there: `CamelServletTest` is for the JVM mode while `CamelServletIT` is there for the native
+mode.
+
+The JVM mode tests are run by `maven-surefire-plugin` in the `test` Maven phase:
+
+[source,shell]
+----
+mvn clean test
+----
+
+This should take about half a minute.
+
+The native mode tests are verified by `maven-failsafe-plugin` in the `verify` phase. Pass the `native` property to
+activate the profile that runs them:
+
+[source,shell]
+----
+mvn clean verify -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g
+----
+
+This takes about three minutes.
+
+=== Run the application
+
+==== JVM mode
+
+`mvn package` prepares a thin `jar` for running on a stock JVM:
+
+[source,shell]
+----
+mvn clean package
+ls -lh target
+...
+-rw-r--r--. 1 ppalaga ppalaga 157K Aug  9 18:55  my-app-0.0.1-SNAPSHOT-runner.jar
+...
+----
+
+You can run it as follows:
+
+[source,shell]
+----
+java -jar target/*-runner.jar
+...
+[io.quarkus] (main) Quarkus 0.20.0 started in 0.805s. Listening on: http://[::]:8080
+----
+
+Notice the boot time under a second.
+
+The thin `jar` contains just the application code. To run it, the dependencies in `target/lib` are required too.
+
+==== Native mode
+
+To prepare a native executable using GraalVM, run the following command:
+
+[source,shell]
+----
+mvn clean package -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g
+ls -lh target
+...
+-rwxr-xr-x. 1 ppalaga ppalaga  32M Aug  9 18:57  my-app-0.0.1-SNAPSHOT-runner
+...
+----
+
+Note that the `runner` in the listing above has no `.jar` extension and has the `x` (executable) permission set. Thus
+it can be run directly:
+
+[source,shell]
+----
+./target/*-runner
+...
+[io.quarkus] (main) Quarkus 0.20.0 started in 0.017s. Listening on: http://[::]:8080
+...
+----
+
+Check how fast it started and check how little memory it consumes:
+
+[source,shell]
+----
+ps -o rss,command -p $(pgrep my-app)
+  RSS COMMAND
+21932 ./target/my-app-0.0.1-SNAPSHOT-runner
+----
+
+That's under 22 MB of RAM!

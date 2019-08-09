@@ -1,0 +1,10 @@
+[list-of-camel-quarkus-extensions]
+= List of Apache Camel extensions for Quarkus
+
+As of Camel Quarkus {camel-quarkus-last-release} the following Camel components are supported on Quarkus:
+
+include::{partialsdir}/component-extensions.adoc[]
+
+In addition to the above extensions there are the following ancillary extensions:
+
+include::{partialsdir}/common-extensions.adoc[]

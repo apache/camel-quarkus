@@ -1,1 +1,3 @@
+* xref:user-guide.adoc[User guide]
 * xref:contributor-guide.adoc[Contributor guide]
+* xref:list-of-camel-quarkus-extensions.adoc[List of Camel Quarkus extensions]

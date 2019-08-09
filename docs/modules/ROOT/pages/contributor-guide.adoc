@@ -7,7 +7,7 @@
 * Git
 * Docker or GraalVM with `native-image` installed for the native mode, see https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus documentation.
 * Java 8
-* Maven 3.5.0+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
+* Maven 3.5.3+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
 
 [[how-to-build]]
 == How to build
