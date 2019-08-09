@@ -317,6 +317,9 @@ public class FastCamelContext extends AbstractCamelContext {
     @Override
     protected StreamCachingStrategy createStreamCachingStrategy() {
         return new DefaultStreamCachingStrategy() {
+            // TODO: this has been fixed on camel master by Claus with commit
+            //       https://github.com/apache/camel/commit/087b5a7db18c8070e37b119cb9db0513e3dd0865
+            //       we should remove this overloaded method once migration to Camel 3.0.0-M5 is
             @Override
             protected String resolveSpoolDirectory(String path) {
                 StringHelper.notEmpty(path, "path");
