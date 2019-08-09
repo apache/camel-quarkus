@@ -29,14 +29,6 @@
     <name>Camel Quarkus :: Integration Tests :: Salesforce</name>
     <description>The camel integration tests</description>
 
-    <properties>
-        <!--
-            Skip enforcer plugin because of dependency convergence error between
-            camel-salesforce and the version of jetty used by cometd
-        -->
-        <enforcer.skip>true</enforcer.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -68,18 +60,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>

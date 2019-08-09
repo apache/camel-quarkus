@@ -29,11 +29,6 @@
     <name>Camel Quarkus :: Integration Tests :: Infinispan</name>
     <description>Integration tests for Camel Infinispan component</description>
 
-    <properties>
-        <!-- Skip enforcer plugin as we want to use jboss marshalling for test class -->
-        <enforcer.skip>true</enforcer.skip>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

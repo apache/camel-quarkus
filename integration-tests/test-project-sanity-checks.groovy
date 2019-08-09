@@ -15,7 +15,19 @@
  * limitations under the License.
  */
 
-def badDeps = project.dependencies.findAll { 'test' == it.scope }
+import groovy.io.FileType
+
+def badDeps = []
+project.basedir.eachFile FileType.DIRECTORIES, { dir ->
+    final File pomXml = new File(dir, "pom.xml")
+    if (pomXml.exists()) {
+        def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
+        pomXmlProject.dependencies.dependency
+            .findAll { dep -> dep.scope.text() == 'test' }.stream()
+            .map { dep -> "in "+ project.basedir.name +"/"+ dir.name +"/pom.xml : "+ dep.groupId.text() +":"+ dep.artifactId.text() }
+            .each { key -> badDeps.add(key) }
+    }
+}
 if (badDeps) {
     throw new RuntimeException("\nRemove <scope>test</scope> from the following dependencies:\n\n    "
         + badDeps.join("\n    ")

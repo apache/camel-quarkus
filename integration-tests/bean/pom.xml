@@ -68,14 +68,6 @@
             </resource>
         </resources>
         <plugins>
-            <!-- Skip enforcer plugin as we want to use jboss marshalling for test class -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
