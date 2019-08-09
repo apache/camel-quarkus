@@ -37,6 +37,7 @@
         <module>xstream-common</module>
         <module>xml-common</module>
         <module>core</module>
+        <module>core-cloud</module>
 
         <!-- components -->
         <module>netty4-http</module>
