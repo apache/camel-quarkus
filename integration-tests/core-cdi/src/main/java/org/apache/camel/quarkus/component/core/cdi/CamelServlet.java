@@ -46,10 +46,7 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getProperty(@PathParam("name") String name) throws Exception {
-        String prefix = runtime.getContext().getPropertyPrefixToken();
-        String suffix = runtime.getContext().getPropertySuffixToken();
-
-        return runtime.getContext().resolvePropertyPlaceholders(prefix + name + suffix);
+        return runtime.getContext().resolvePropertyPlaceholders("{{" + name + "}}");
     }
 
     @Path("/hello/{name}")

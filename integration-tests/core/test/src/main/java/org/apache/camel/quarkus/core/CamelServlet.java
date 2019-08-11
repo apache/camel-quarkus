@@ -53,17 +53,14 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getProperty(@PathParam("name") String name) throws Exception {
-        String prefix = runtime.getContext().getPropertyPrefixToken();
-        String suffix = runtime.getContext().getPropertySuffixToken();
-
-        return runtime.getContext().resolvePropertyPlaceholders(prefix + name + suffix);
+        return runtime.getContext().resolvePropertyPlaceholders("{{" + name + "}}");
     }
 
-    @Path("/timer/resolve-property-placeholders")
+    @Path("/timer/property-binding")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public boolean timerResolvePropertyPlaceholders() throws Exception {
-        return runtime.getContext().getComponent("timer", TimerComponent.class).isResolvePropertyPlaceholders();
+        return runtime.getContext().getComponent("timer", TimerComponent.class).isBasicPropertyBinding();
     }
 
 

@@ -41,7 +41,7 @@
         <module>http-common</module>
 
         <!-- components -->
-        <module>netty4-http</module>
+        <module>netty-http</module>
         <module>infinispan</module>
         <module>aws-s3</module>
         <module>aws-sns</module>

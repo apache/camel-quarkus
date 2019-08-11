@@ -61,7 +61,7 @@
         <module>core-impl</module>
         <module>core-cdi</module>
 
-        <module>netty4-http</module>
+        <module>netty-http</module>
         <module>aws</module>
         <module>bean</module>
         <module>csv</module>

@@ -85,7 +85,7 @@ class SubstrateProcessor {
             .build();
     }
 
-    @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
+    @BuildStep
     void process() {
         IndexView view = combinedIndexBuildItem.getIndex();
 

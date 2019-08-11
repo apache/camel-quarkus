@@ -51,8 +51,6 @@ import org.apache.camel.quarkus.core.runtime.CamelProducers;
 import org.apache.camel.quarkus.core.runtime.CamelRecorder;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.slf4j.Logger;
@@ -73,20 +71,8 @@ class BuildProcessor {
             List<CamelRegistryBuildItem> registryItems,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
 
-        Properties properties = new Properties();
-        Config configProvider = ConfigProvider.getConfig();
-        for (String property : configProvider.getPropertyNames()) {
-            if (property.startsWith("camel.")) {
-                properties.put(property, configProvider.getValue(property, String.class));
-            }
-            if (property.startsWith("integration.")) {
-                properties.put(property.substring("integration.".length()), configProvider.getValue(property, String.class));
-            }
-        }
-
-
         RuntimeRegistry registry = new RuntimeRegistry();
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties);
+        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry);
 
         getBuildTimeRouteBuilderClasses().forEach(
             b -> recorder.addBuilder(camelRuntime, b)

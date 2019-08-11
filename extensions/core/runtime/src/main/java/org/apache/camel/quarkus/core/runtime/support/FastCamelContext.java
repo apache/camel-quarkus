@@ -17,18 +17,15 @@
 package org.apache.camel.quarkus.core.runtime.support;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
-import java.util.regex.Matcher;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
-import org.apache.camel.NoFactoryAvailableException;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -41,6 +38,7 @@ import org.apache.camel.impl.engine.BaseRouteService;
 import org.apache.camel.impl.engine.BeanProcessorFactoryResolver;
 import org.apache.camel.impl.engine.BeanProxyFactoryResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
+import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
@@ -54,6 +52,7 @@ import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.impl.engine.DefaultProcessorFactory;
 import org.apache.camel.impl.engine.DefaultRouteController;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
+import org.apache.camel.impl.engine.DefaultTracer;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
 import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
@@ -68,6 +67,7 @@ import org.apache.camel.processor.MulticastProcessor;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.FastModel.FastRouteContext;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
+import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.spi.BeanProcessorFactory;
 import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.CamelBeanPostProcessor;
@@ -78,7 +78,6 @@ import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.ExecutorServiceManager;
-import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
@@ -97,16 +96,18 @@ import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
+import org.apache.camel.spi.Tracer;
 import org.apache.camel.spi.TransformerRegistry;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
-import org.apache.camel.util.FilePathResolver;
-import org.apache.camel.util.StringHelper;
 import org.apache.camel.support.PropertyBindingSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FastCamelContext extends AbstractCamelContext {
+    private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
 
     private Object model;
 
@@ -201,13 +202,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected Injector createInjector() {
-        FactoryFinder finder = getDefaultFactoryFinder();
-        try {
-            return (Injector) finder.newInstance("Injector");
-        } catch (NoFactoryAvailableException e) {
-            // lets use the default injector
-            return new DefaultInjector(this);
-        }
+        return getDefaultFactoryFinder().newInstance("Injector", Injector.class).orElseGet(() -> new DefaultInjector(this));
     }
 
     @Override
@@ -305,6 +300,33 @@ public class FastCamelContext extends AbstractCamelContext {
     }
 
     @Override
+    protected BeanIntrospection createBeanIntrospection() {
+        return new DefaultBeanIntrospection();
+    }
+
+    @Override
+    protected Tracer createTracer() {
+        Tracer tracer = null;
+        if (getRegistry() != null) {
+            Map<String, Tracer> map = this.getRegistry().findByTypeWithName(Tracer.class);
+            if (map.size() == 1) {
+                tracer = map.values().iterator().next();
+            }
+        }
+
+        if (tracer == null) {
+            tracer = getExtension(Tracer.class);
+        }
+
+        if (tracer == null) {
+            tracer = new DefaultTracer();
+            setExtension(Tracer.class, tracer);
+        }
+
+        return tracer;
+    }
+
+    @Override
     protected RestRegistryFactory createRestRegistryFactory() {
         return new RestRegistryFactoryResolver().resolve(this);
     }
@@ -316,29 +338,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected StreamCachingStrategy createStreamCachingStrategy() {
-        return new DefaultStreamCachingStrategy() {
-            // TODO: this has been fixed on camel master by Claus with commit
-            //       https://github.com/apache/camel/commit/087b5a7db18c8070e37b119cb9db0513e3dd0865
-            //       we should remove this overloaded method once migration to Camel 3.0.0-M5 is
-            @Override
-            protected String resolveSpoolDirectory(String path) {
-                StringHelper.notEmpty(path, "path");
-
-                // must quote the names to have it work as literal replacement
-                String name = Matcher.quoteReplacement(getName());
-
-                // replace tokens
-                String answer = path;
-                answer = answer.replaceFirst("#camelId#", name);
-                answer = answer.replaceFirst("#name#", name);
-
-                if (answer.contains("#uuid#")) {
-                    answer = answer.replaceFirst("#uuid#", getUuidGenerator().generateUuid());
-                }
-
-                return FilePathResolver.resolvePath(answer);
-            }
-        };
+        return new DefaultStreamCachingStrategy();
     }
 
     @Override
@@ -364,17 +364,20 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @SuppressWarnings("unchecked")
     protected <T> T resolve(Class<T> clazz, String type, String name, CamelContext context) {
-        T result = context.getRegistry().lookupByNameAndType(name, clazz);
+        final T result = context.getRegistry().lookupByNameAndType(name, clazz);
+        final String prefix = CamelRuntime.PFX_CAMEL + type + "." + name + ".";
+        final Properties props = getPropertiesComponent().loadProperties(k -> k.startsWith(prefix));
 
         CamelContextAware.trySetCamelContext(result, context);
 
-        Properties props = getPropertiesComponent().loadProperties();
-        if (props != null && !props.isEmpty()) {
-            PropertyBindingSupport.bindProperties(
-                this,
-                result,
-                new HashMap<>((Map) props),
-                CamelRuntime.PFX_CAMEL + type + "." + name + ".");
+        if (!props.isEmpty()) {
+            PropertyBindingSupport.build()
+                .withCamelContext(context)
+                .withOptionPrefix(prefix)
+                .withRemoveParameters(false)
+                .withProperties((Map) props)
+                .withTarget(result)
+                .bind();
         }
 
         return result;
