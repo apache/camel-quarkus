@@ -18,21 +18,21 @@ package org.apache.camel.quarkus.core.runtime.support;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.Arc;
+import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.component.properties.PropertiesComponent;
 import org.apache.camel.model.Model;
-import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.Runtime;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
@@ -55,7 +55,6 @@ public class FastCamelRuntime implements CamelRuntime {
 
     protected CamelContext context;
     protected Registry registry;
-    protected Properties properties;
     protected List<RoutesBuilder> builders = new ArrayList<>();
     protected BuildTime buildTimeConfig;
     protected Runtime runtimeConfig;
@@ -80,19 +79,13 @@ public class FastCamelRuntime implements CamelRuntime {
     @SuppressWarnings("unchecked")
     public void doInit() {
         try {
-            this.context = createContext();
-
-            if (properties != null) {
-                PropertyBindingSupport.bindProperties(context, context, new HashMap<>((Map)properties), PFX_CAMEL_CONTEXT);
-            }
-
+            context = createContext();
             context.setLoadTypeConverters(false);
-            context.addComponent("properties", createPropertiesComponent(properties));
+            context.getTypeConverterRegistry().setInjector(context.getInjector());
 
-            this.context.getTypeConverterRegistry().setInjector(this.context.getInjector());
             fireEvent(InitializingEvent.class, new InitializingEvent());
             if (buildTimeConfig.disableJaxb) {
-                this.context.adapt(ExtendedCamelContext.class).setModelJAXBContextFactory(() -> {
+                context.adapt(ExtendedCamelContext.class).setModelJAXBContextFactory(() -> {
                     throw new UnsupportedOperationException();
                 });
             } else {
@@ -103,7 +96,8 @@ public class FastCamelRuntime implements CamelRuntime {
                     context.adapt(ExtendedCamelContext.class).getModelJAXBContextFactory().newJAXBContext();
                 }
             }
-            this.context.init();
+
+            context.init();
 
             /* Create the model before firing InitializedEvent so that the listeners can add routes */
             FastModel model = new FastModel(context);
@@ -152,6 +146,7 @@ public class FastCamelRuntime implements CamelRuntime {
         final List<String> routesUris = buildTimeConfig.routesUris.stream()
                 .filter(ObjectHelper::isNotEmpty)
                 .collect(Collectors.toList());
+
         if (ObjectHelper.isNotEmpty(routesUris)) {
             LOG.debug("Loading xml routes from {}", routesUris);
             for (String routesUri : routesUris) {
@@ -170,9 +165,24 @@ public class FastCamelRuntime implements CamelRuntime {
         // builders.clear();
     }
 
+    @SuppressWarnings("unchecked")
     protected CamelContext createContext() {
+        PropertiesComponent pc = new PropertiesComponent();
+        pc.setAutoDiscoverPropertiesSources(false);
+        pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
+
         FastCamelContext context = new FastCamelContext();
         context.setRegistry(registry);
+        context.addComponent("properties", pc);
+
+        PropertyBindingSupport.build()
+            .withCamelContext(context)
+            .withOptionPrefix(PFX_CAMEL_CONTEXT)
+            .withRemoveParameters(false)
+            .withProperties((Map)pc.loadProperties(k -> k.startsWith(PFX_CAMEL_CONTEXT)))
+            .withTarget(context)
+            .bind();
+
         return context;
     }
 
@@ -185,21 +195,35 @@ public class FastCamelRuntime implements CamelRuntime {
     }
 
     public void setProperties(Properties properties) {
-        this.properties = properties;
+        context.getComponent("properties", PropertiesComponent.class).setInitialProperties(properties);
     }
 
     @Override
     public void addProperties(Properties properties) {
-        this.properties.putAll(properties);
+        context.getComponent("properties", PropertiesComponent.class).getInitialProperties().putAll(properties);
     }
 
     @Override
     public void addProperty(String key, Object value) {
-        this.properties.put(key, value);
+        context.getComponent("properties", PropertiesComponent.class).getInitialProperties().put(key, value);
     }
 
     public List<RoutesBuilder> getBuilders() {
         return builders;
+    }
+
+    @SafeVarargs
+    public final void addBuilders(RoutesBuilder... builders) {
+        for (RoutesBuilder builder: builders) {
+            this.builders.add(builder);
+        }
+    }
+
+    @SafeVarargs
+    public final void addBuilders(RuntimeValue<RoutesBuilder>... builders) {
+        for (RuntimeValue<RoutesBuilder> builder: builders) {
+            this.builders.add(builder.getValue());
+        }
     }
 
     public CamelContext getContext() {
@@ -221,18 +245,6 @@ public class FastCamelRuntime implements CamelRuntime {
         return runtimeConfig;
     }
 
-    @SuppressWarnings("unchecked")
-    protected PropertiesComponent createPropertiesComponent(Properties initialProperties) {
-        PropertiesComponent pc = new PropertiesComponent();
-        pc.setInitialProperties(initialProperties);
-
-        if (initialProperties != null) {
-            PropertyBindingSupport.bindProperties(context, pc, new HashMap<>((Map)initialProperties), PFX_CAMEL_PROPERTIES);
-        }
-
-        return pc;
-    }
-
     protected void dumpRoutes() {
         List<Route> routes = getContext().getRoutes();
         if (routes.isEmpty()) {
@@ -240,8 +252,7 @@ public class FastCamelRuntime implements CamelRuntime {
         } else {
             LOG.info("Route definitions:");
             for (Route route : routes) {
-                RouteDefinition def = (RouteDefinition) route.getRouteContext().getRoute();
-                LOG.info(def.toString());
+                LOG.info(route.getRouteContext().getRoute().toString());
             }
         }
     }

@@ -40,7 +40,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-netty4-http</artifactId>
+            <artifactId>camel-quarkus-netty-http</artifactId>
         </dependency>
 
         <!-- Undertow is here only for the test runner to be able to detect that the server has started -->
@@ -100,7 +100,7 @@
             <id>native-image</id>
             <activation>
                 <property>
-                    <name>native-off</name><!-- See https://github.com/apache/camel-quarkus/issues/80 -->
+                    <name>native</name>
                 </property>
             </activation>
             <build>

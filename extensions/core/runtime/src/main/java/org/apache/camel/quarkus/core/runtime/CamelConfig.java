@@ -21,7 +21,7 @@ import java.util.List;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
-import org.apache.camel.quarkus.core.runtime.graal.XmlDisabled;
+import org.apache.camel.quarkus.core.runtime.support.Flags;
 
 public class CamelConfig {
 
@@ -46,7 +46,7 @@ public class CamelConfig {
          * at runtime. This is useful when routes at loaded at build time and
          * thus the camel route model is not used at runtime anymore.
          *
-         * @see JaxbDisabled
+         * @see Flags.JaxbDisabled
          */
         @ConfigItem(defaultValue = "false")
         public boolean disableJaxb;
@@ -57,7 +57,7 @@ public class CamelConfig {
          * a lot of code space in the native binary (and a lot of cpu resources
          * when building), this allows to disable both libraries.
          *
-         * @see XmlDisabled
+         * @see Flags.XmlDisabled
          */
         @ConfigItem(defaultValue = "false")
         public boolean disableXml;

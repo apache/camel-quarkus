@@ -9,7 +9,7 @@
 * `camel-quarkus-infinispan`
 * `camel-quarkus-jdbc`
 * `camel-quarkus-log`
-* `camel-quarkus-netty4-http`
+* `camel-quarkus-netty-http`
 * `camel-quarkus-rest`
 * `camel-quarkus-salesforce`
 * `camel-quarkus-servlet`

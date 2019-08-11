@@ -21,7 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
-import org.apache.camel.quarkus.core.runtime.JaxbDisabled;
+import org.apache.camel.quarkus.core.runtime.support.Flags;
 
 class XmlProcessor {
     @BuildStep
@@ -29,12 +29,12 @@ class XmlProcessor {
         return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
     }
 
-    @BuildStep(onlyIfNot = JaxbDisabled.class)
+    @BuildStep(onlyIfNot = Flags.JaxbDisabled.class)
     JaxbEnabledBuildItem handleJaxbSupport() {
         return new JaxbEnabledBuildItem();
     }
 
-    @BuildStep(onlyIfNot = JaxbDisabled.class)
+    @BuildStep(onlyIfNot = Flags.JaxbDisabled.class)
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
             new ReflectiveClassBuildItem(

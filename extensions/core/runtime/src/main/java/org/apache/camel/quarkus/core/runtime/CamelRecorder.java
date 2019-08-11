@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.core.runtime;
 
-import java.util.Properties;
-
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
@@ -29,13 +27,10 @@ import org.apache.camel.spi.Registry;
 @Recorder
 public class CamelRecorder {
 
-    public RuntimeValue<CamelRuntime> create(
-            Registry registry,
-            Properties properties) {
+    public RuntimeValue<CamelRuntime> create(Registry registry) {
 
         FastCamelRuntime fcr = new FastCamelRuntime();
         fcr.setRegistry(registry);
-        fcr.setProperties(properties);
 
         return new RuntimeValue<>(fcr);
     }

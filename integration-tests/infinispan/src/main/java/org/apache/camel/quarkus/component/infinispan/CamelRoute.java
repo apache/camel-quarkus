@@ -27,7 +27,7 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("netty4-http:http://0.0.0.0:8999/put")
+        from("netty-http:http://0.0.0.0:8999/put")
                 .convertBodyTo(byte[].class)
                 .to("log:cache?showAll=true")
                 .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
@@ -35,7 +35,7 @@ public class CamelRoute extends RouteBuilder {
                 .setHeader(InfinispanConstants.VALUE).body()
                 .to("infinispan:default?hosts=localhost:11232");
 
-        from("netty4-http:http://0.0.0.0:8999/get")
+        from("netty-http:http://0.0.0.0:8999/get")
                 .setHeader(InfinispanConstants.OPERATION)
                 .constant(InfinispanOperation.GET)
                 .setHeader(InfinispanConstants.KEY)

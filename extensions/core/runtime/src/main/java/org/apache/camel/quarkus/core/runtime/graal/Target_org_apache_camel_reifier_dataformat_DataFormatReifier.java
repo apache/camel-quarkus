@@ -23,10 +23,10 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.quarkus.core.runtime.InitAtBuildTimeSelector;
+import org.apache.camel.quarkus.core.runtime.support.Flags;
 import org.apache.camel.reifier.dataformat.DataFormatReifier;
 
-@TargetClass(className = "org.apache.camel.reifier.dataformat.DataFormatReifier", onlyWith = InitAtBuildTimeSelector.class)
+@TargetClass(className = "org.apache.camel.reifier.dataformat.DataFormatReifier", onlyWith = Flags.InitAtBuildTime.class)
 final class Target_org_apache_camel_reifier_dataformat_DataFormatReifier {
     @Alias
     @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)

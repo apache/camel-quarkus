@@ -147,7 +147,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-netty4-http</artifactId>
+                <artifactId>camel-microprofile-config</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-netty-http</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -271,7 +276,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-netty4-http</artifactId>
+                <artifactId>camel-quarkus-netty-http</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

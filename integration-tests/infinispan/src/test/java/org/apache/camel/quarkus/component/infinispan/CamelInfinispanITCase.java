@@ -17,13 +17,7 @@
 package org.apache.camel.quarkus.component.infinispan;
 
 import io.quarkus.test.junit.SubstrateTest;
-import org.junit.jupiter.api.Disabled;
 
-/**
- * If CamelSimpleLRUCacheFactory=true, infinispan fails.
- * It needs to be investigated on camel side.
- */
-@Disabled("https://github.com/apache/camel-quarkus/issues/80")
 @SubstrateTest
 public class CamelInfinispanITCase extends CamelInfinispanTest {
 }
