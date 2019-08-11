@@ -28,7 +28,7 @@ final Set componentExtensions = new TreeSet()
 final Set commonExtensions = new TreeSet()
 pom.modules.module.each { node ->
     final String key = node.text().trim()
-    if (key.endsWith("core") || key.endsWith("-common")) {
+    if (key.startsWith("core") || key.endsWith("-common")) {
         commonExtensions.add(key)
     } else {
         componentExtensions.add(key)
