@@ -41,6 +41,8 @@ import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
 import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
+
+import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
@@ -67,7 +69,8 @@ class CamelProcessor {
             Producer.class,
             TypeConverter.class,
             ExchangeFormatter.class,
-            ScheduledPollConsumerScheduler.class);
+            ScheduledPollConsumerScheduler.class,
+            Component.class);
 
     private static final List<Class<? extends Annotation>> CAMEL_REFLECTIVE_ANNOTATIONS = Arrays.asList();
 

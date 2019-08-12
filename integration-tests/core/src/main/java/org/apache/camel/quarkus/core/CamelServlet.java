@@ -27,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Route;
+import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 
 @Path("/")
@@ -50,5 +51,12 @@ public class CamelServlet {
         String suffix = runtime.getContext().getPropertySuffixToken();
 
         return runtime.getContext().resolvePropertyPlaceholders(prefix + name + suffix);
+    }
+
+    @Path("/timer/resolve-property-placeholders")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean timerResolvePropertyPlaceholders() throws Exception {
+        return runtime.getContext().getComponent("timer", TimerComponent.class).isResolvePropertyPlaceholders();
     }
 }
