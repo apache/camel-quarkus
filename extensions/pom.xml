@@ -71,7 +71,7 @@
                     <namePrefix xml:space="preserve">Camel Quarkus :: </namePrefix>
                     <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
                     <javaPackageInfix>component</javaPackageInfix>
-                    <templatesUriBase>file:create-extension-templates</templatesUriBase>
+                    <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                 </configuration>
             </plugin>
             <plugin>
