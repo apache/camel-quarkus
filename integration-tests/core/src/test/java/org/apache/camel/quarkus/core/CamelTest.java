@@ -16,15 +16,17 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
-
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.Test;
+
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+
 @QuarkusTest
 public class CamelTest {
+
     @Test
     public void testRoutes() {
         RestAssured.when().get("/test/routes").then().body(containsString("timer"));
@@ -34,4 +36,11 @@ public class CamelTest {
     public void testProperties() {
         RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
     }
+
+    @Test
+    public void timerPropertyPropagated() {
+        RestAssured.when().get("/test/property/camel.component.timer.resolve-property-placeholders").then().body(is("false"));
+        RestAssured.when().get("/test/timer/resolve-property-placeholders").then().body(is("false"));
+    }
+
 }

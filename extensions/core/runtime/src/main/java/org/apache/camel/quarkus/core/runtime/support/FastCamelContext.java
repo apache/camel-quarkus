@@ -374,7 +374,7 @@ public class FastCamelContext extends AbstractCamelContext {
                 this,
                 result,
                 new HashMap<>((Map) props),
-                CamelRuntime.PFX_CAMEL + type + "." + name);
+                CamelRuntime.PFX_CAMEL + type + "." + name + ".");
         }
 
         return result;
