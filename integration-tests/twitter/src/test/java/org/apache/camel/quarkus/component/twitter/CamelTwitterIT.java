@@ -16,25 +16,12 @@
  */
 package org.apache.camel.quarkus.component.twitter;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.camel.builder.RouteBuilder;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-@RegisterForReflection
-public class CamelRoute extends RouteBuilder {
+import io.quarkus.test.junit.SubstrateTest;
 
-    @ConfigProperty(name = "twitter.user.name")
-    String twitterUserName;
+@SubstrateTest
+@EnabledIfEnvironmentVariable(named = "TWITTER_CONSUMER_KEY", matches = "[a-zA-Z0-9]+")
+public class CamelTwitterIT extends CamelTwitterTest {
 
-    @Override
-    public void configure() {
-        from("twitter-timeline:user?user=ApacheCamel&count=1")
-            .to("log:timeline?showAll=true");
-
-        from("twitter-search:#ApacheCamel?count=1")
-            .to("log:search?showAll=true");
-
-        fromF("twitter-directmessage://%s?count=1", twitterUserName)
-            .to("log:directmessage?showAll=true");
-    }
 }
