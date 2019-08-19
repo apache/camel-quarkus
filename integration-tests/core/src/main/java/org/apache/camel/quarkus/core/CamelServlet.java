@@ -21,6 +21,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -28,9 +30,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Route;
+import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.quarkus.core.runtime.CamelConfig;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
 @ApplicationScoped
@@ -60,6 +64,22 @@ public class CamelServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean timerResolvePropertyPlaceholders() throws Exception {
         return runtime.getContext().getComponent("timer", TimerComponent.class).isResolvePropertyPlaceholders();
+    }
+
+
+    @Path("/registry/log/exchange-formatter")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject exchangeFormatterConfig() {
+        LogComponent component = runtime.getRegistry().lookupByNameAndType("log", LogComponent.class);
+        DefaultExchangeFormatter def = (DefaultExchangeFormatter)component.getExchangeFormatter();
+
+        JsonObject result = Json.createObjectBuilder()
+            .add("show-all", def.isShowAll())
+            .add("multi-line", def.isMultiline())
+            .build();
+
+        return result;
     }
 
     @Path("/registry/produces-config-build")

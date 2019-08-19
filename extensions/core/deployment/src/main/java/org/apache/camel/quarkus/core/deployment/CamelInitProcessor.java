@@ -20,12 +20,13 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.inject.Inject;
@@ -56,9 +57,11 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class CamelInitProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelInitProcessor.class);
 
     @Inject
     ApplicationArchivesBuildItem applicationArchivesBuildItem;
@@ -69,8 +72,12 @@ class CamelInitProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    CamelRuntimeBuildItem createInitTask(RecorderContext recorderContext, CamelRecorder recorder,
+    CamelRuntimeBuildItem createInitTask(
+            RecorderContext recorderContext,
+            CamelRecorder recorder,
+            List<CamelRegistryBuildItem> registryItems,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
+
         Properties properties = new Properties();
         Config configProvider = ConfigProvider.getConfig();
         for (String property : configProvider.getPropertyNames()) {
@@ -85,22 +92,37 @@ class CamelInitProcessor {
         RuntimeRegistry registry = new RuntimeRegistry();
         final List<RuntimeValue<?>> builders;
         if (buildTimeConfig.deferInitPhase) {
-            builders = getBuildTimeRouteBuilderClasses().map(recorderContext::newInstance)
-                    .collect(Collectors.toList());
+            builders = getBuildTimeRouteBuilderClasses()
+                .map(recorderContext::newInstance)
+                .collect(Collectors.toList());
         } else {
             builders = new ArrayList<>();
         }
 
-        visitServices((name, type) -> {
-            LoggerFactory.getLogger(CamelInitProcessor.class).debug("Binding camel service {} with type {}", name, type);
-            registry.bind(name, type,
-                    recorderContext.newInstance(type.getName()));
-        });
+        services().filter(
+            si -> registryItems.stream().noneMatch(
+                c -> Objects.equals(si.name, c.getName()) && c.getType().isAssignableFrom(si.type)
+            )
+        ).forEach(
+            si -> {
+                LOGGER.debug("Binding camel service {} with type {}", si.name, si.type);
+
+                registry.bind(
+                    si.name,
+                    si.type,
+                    recorderContext.newInstance(si.type.getName())
+                );
+            }
+        );
 
         RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties, builders, buildTimeConfig);
 
-        runtimeBeans
-                .produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
+        runtimeBeans.produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
+
+        for (CamelRegistryBuildItem item: registryItems) {
+            LOGGER.debug("Binding item with name: {}, type {}", item.getName(), item.getType());
+            recorder.bind(camelRuntime, item.getName(), item.getType(), item.getValue());
+        }
 
         return new CamelRuntimeBuildItem(camelRuntime);
     }
@@ -113,8 +135,7 @@ class CamelInitProcessor {
             CamelRecorder recorder,
             BuildProducer<BeanContainerListenerBuildItem> listeners) {
 
-        listeners
-                .produce(new BeanContainerListenerBuildItem(recorder.initRuntimeInjection(runtime.getRuntime())));
+        listeners.produce(new BeanContainerListenerBuildItem(recorder.initRuntimeInjection(runtime.getRuntime())));
 
         return AdditionalBeanBuildItem.unremovableOf(CamelProducers.class);
     }
@@ -163,12 +184,15 @@ class CamelInitProcessor {
                 .map(ClassInfo::toString);
     }
 
-    protected void visitServices(BiConsumer<String, Class<?>> consumer) {
-        CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                .forEach(p -> visitService(p, consumer));
+    protected Stream<ServiceInfo> services() {
+        return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
+            .map(this::services)
+            .flatMap(Collection::stream);
     }
 
-    protected void visitService(Path p, BiConsumer<String, Class<?>> consumer) {
+    protected List<ServiceInfo> services(Path p) {
+        List<ServiceInfo> answer = new ArrayList<>();
+
         String name = p.getFileName().toString();
         try (InputStream is = Files.newInputStream(p)) {
             Properties props = new Properties();
@@ -179,11 +203,33 @@ class CamelInitProcessor {
                     String clazz = entry.getValue().toString();
                     Class<?> cl = Class.forName(clazz);
 
-                    consumer.accept(name, cl);
+                    answer.add(new ServiceInfo(name, cl));
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
+        return answer;
     }
+
+    static class ServiceInfo {
+        final String name;
+        final Class<?> type;
+
+        public ServiceInfo(String name, Class<?> type) {
+            this.name = name;
+            this.type = type;
+        }
+
+        @Override
+        public String toString() {
+            return "ServiceInfo{" +
+                "name='" + name + '\'' +
+                ", type=" + type +
+                '}';
+        }
+    }
+
+
 }

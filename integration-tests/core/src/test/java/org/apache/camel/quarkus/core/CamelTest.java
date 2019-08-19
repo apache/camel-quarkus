@@ -16,12 +16,17 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.net.HttpURLConnection;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 public class CamelTest {
@@ -46,5 +51,14 @@ public class CamelTest {
     public void testRegistry() {
         RestAssured.when().get("/test/registry/produces-config-build").then().body(is("true"));
         RestAssured.when().get("/test/registry/produces-config-runtime").then().body(is("true"));
+    }
+
+    @Test
+    public void testRegistryBuildItem() {
+        Response response = RestAssured.get("/test/registry/log/exchange-formatter").andReturn();
+
+        assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
+        assertTrue(response.jsonPath().getBoolean("show-all"));
+        assertTrue(response.jsonPath().getBoolean("multi-line"));
     }
 }
