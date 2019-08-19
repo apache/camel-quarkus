@@ -49,6 +49,15 @@ public class CamelRecorder {
         return new RuntimeValue<>(runtime);
     }
 
+    public void bind(
+            RuntimeValue<CamelRuntime> runtime,
+            String name,
+            Class<?> type,
+            Object instance) {
+
+        runtime.getValue().getRegistry().bind(name, type, instance);
+    }
+
     public void init(
             BeanContainer beanContainer,
             RuntimeValue<CamelRuntime> runtime,
