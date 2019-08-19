@@ -16,13 +16,12 @@
  */
 package org.apache.camel.quarkus.core;
 
-import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
-
-import org.junit.jupiter.api.Test;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CamelTest {
@@ -43,4 +42,9 @@ public class CamelTest {
         RestAssured.when().get("/test/timer/resolve-property-placeholders").then().body(is("false"));
     }
 
+    @Test
+    public void testRegistry() {
+        RestAssured.when().get("/test/registry/produces-config-build").then().body(is("true"));
+        RestAssured.when().get("/test/registry/produces-config-runtime").then().body(is("true"));
+    }
 }

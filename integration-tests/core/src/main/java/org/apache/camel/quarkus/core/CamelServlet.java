@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,9 +29,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Route;
 import org.apache.camel.component.timer.TimerComponent;
+import org.apache.camel.quarkus.core.runtime.CamelConfig;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 
-@Path("/")
+@Path("/test")
 @ApplicationScoped
 public class CamelServlet {
     @Inject
@@ -58,5 +60,29 @@ public class CamelServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean timerResolvePropertyPlaceholders() throws Exception {
         return runtime.getContext().getComponent("timer", TimerComponent.class).isResolvePropertyPlaceholders();
+    }
+
+    @Path("/registry/produces-config-build")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean producesBuildTimeConfig() {
+        return lookupSingleInstanceFromRegistry(CamelConfig.BuildTime.class) != null;
+    }
+
+    @Path("/registry/produces-config-runtime")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean producesRuntimeConfig() {
+        return lookupSingleInstanceFromRegistry(CamelConfig.Runtime.class) != null;
+    }
+
+    private <T> T lookupSingleInstanceFromRegistry(Class<T> type) {
+        final Set<T> answer = runtime.getContext().getRegistry().findByType(type);
+
+        if (answer.size() == 1) {
+            return answer.iterator().next();
+        }
+
+        return null;
     }
 }

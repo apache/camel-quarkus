@@ -109,5 +109,4 @@ public class RuntimeRegistry extends HashMap<String, Map<Class<?>, Object>> impl
         result.addAll(BeanManagerHelper.getReferencesByType(type));
         return result;
     }
-
 }
