@@ -38,6 +38,7 @@
         <module>xml-common</module>
         <module>core</module>
         <module>core-cloud</module>
+        <module>http-common</module>
 
         <!-- components -->
         <module>netty4-http</module>
