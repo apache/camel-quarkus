@@ -7,7 +7,7 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent</artifactId>
         <version>[=version]</version>
-        <relativePath>../../build-parent/pom.xml</relativePath>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>[=artifactId]-parent</artifactId>
