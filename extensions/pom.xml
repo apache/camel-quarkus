@@ -73,6 +73,8 @@
                     <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
                     <javaPackageInfix>component</javaPackageInfix>
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
+                    <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
+                    <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
                 </configuration>
             </plugin>
             <plugin>
