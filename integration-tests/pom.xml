@@ -85,39 +85,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmavenplus</groupId>
-                <artifactId>gmavenplus-plugin</artifactId>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>test-project-sanity-checks</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <scripts>
-                                <script>file:///${project.basedir}/test-project-sanity-checks.groovy</script>
-                            </scripts>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-ant</artifactId>
-                        <version>${groovy.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-xml</artifactId>
-                        <version>${groovy.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 
