@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.support.deployment;
+package org.apache.camel.quarkus.core.support;
 
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.Component;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Recorder
 public class SupportRecorder {
-    CamelRegistryBuildItem logComponent() {
+    public Component logComponent() {
         DefaultExchangeFormatter def = new DefaultExchangeFormatter();
         def.setShowAll(true);
         def.setMultiline(true);
@@ -31,10 +31,6 @@ public class SupportRecorder {
         LogComponent component = new LogComponent();
         component.setExchangeFormatter(def);
 
-        return new CamelRegistryBuildItem(
-            "log",
-            LogComponent.class,
-            component
-        );
+        return component;
     }
 }
