@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-test-core-support-parent</artifactId>
+        <artifactId>camel-quarkus-integration-test-core-parent</artifactId>
         <version>0.1.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core-support-deployment</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core :: Support :: Deployment</name>
-    <description>The camel integration tests</description>
+    <artifactId>camel-quarkus-integration-test-core-ext-deployment</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Core :: Extension :: Deployment</name>
+    <description>A test extension</description>
 
     <dependencyManagement>
         <dependencies>
@@ -31,12 +31,10 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log-deployment</artifactId>
-            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-core-support</artifactId>
-            <version>${project.version}</version>
+            <artifactId>camel-quarkus-integration-test-core-ext</artifactId>
         </dependency>
     </dependencies>
 
