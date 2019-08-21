@@ -99,15 +99,9 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-ant</artifactId>
+                        <artifactId>groovy-all</artifactId>
                         <version>${groovy.version}</version>
-                        <scope>runtime</scope>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-xml</artifactId>
-                        <version>${groovy.version}</version>
-                        <scope>runtime</scope>
+                        <type>pom</type>
                     </dependency>
                 </dependencies>
             </plugin>

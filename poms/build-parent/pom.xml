@@ -82,14 +82,51 @@
                     <dependencies>
                         <dependency>
                             <groupId>org.codehaus.groovy</groupId>
-                            <artifactId>groovy</artifactId>
+                            <artifactId>groovy-all</artifactId>
                             <version>${groovy.version}</version>
-                            <scope>runtime</scope>
+                            <type>pom</type>
                         </dependency>
                     </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>sanity-checks</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <scripts>
+                                <script><![CDATA[
+                                final List<String> badDeps = []
+                                final File pomXml = new File(project.basedir, "pom.xml")
+                                if (pomXml.exists()) {
+                                    def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
+                                    pomXmlProject.dependencies.dependency
+                                        .findAll { dep ->
+                                            !dep.version.text().isEmpty()
+                                        }.stream()
+                                        .map { dep -> "in "+ project.basedir +"/pom.xml : "+ dep.groupId.text() +":"+ dep.artifactId.text() }
+                                        .each { key -> badDeps.add(key) }
+                                }
+                                if (!badDeps.isEmpty()) {
+                                    throw new RuntimeException("\nRemove explicit version from the following dependencies and rather manage them in one of the BOMs:\n\n    "
+                                        + badDeps.join("\n    "))
+                                }
+                            ]]></script>
+                            </scripts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
     </build>
 
     <profiles>

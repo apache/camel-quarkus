@@ -173,7 +173,7 @@
                     <artifactId>maven-enforcer-plugin</artifactId>
                     <executions>
                         <execution>
-                            <id>enforce-maven-version</id>
+                            <id>camel-quarkus-enforcer-rules</id>
                             <goals>
                                 <goal>enforce</goal>
                             </goals>
@@ -183,6 +183,11 @@
                                     <requireMavenVersion>
                                         <version>${supported-maven-versions}</version>
                                     </requireMavenVersion>
+                                    <bannedDependencies>
+                                        <excludes>
+                                            <exclude>com.sun.xml.messaging.saaj:saaj-impl</exclude>
+                                        </excludes>
+                                    </bannedDependencies>
                                 </rules>
                             </configuration>
                         </execution>
