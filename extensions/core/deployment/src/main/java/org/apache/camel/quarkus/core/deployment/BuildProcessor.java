@@ -65,8 +65,6 @@ class BuildProcessor {
     ApplicationArchivesBuildItem applicationArchivesBuildItem;
     @Inject
     CombinedIndexBuildItem combinedIndexBuildItem;
-    @Inject
-    BuildTime buildTimeConfig;
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
@@ -90,9 +88,9 @@ class BuildProcessor {
         RuntimeRegistry registry = new RuntimeRegistry();
         RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties);
 
-        if (buildTimeConfig.deferInitPhase) {
-            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(camelRuntime, b));
-        }
+        getBuildTimeRouteBuilderClasses().forEach(
+            b -> recorder.addBuilder(camelRuntime, b)
+        );
 
         services().filter(
             si -> registryItems.stream().noneMatch(
@@ -143,11 +141,8 @@ class BuildProcessor {
     void init(
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
-            CamelRecorder recorder) {
-
-        if (!buildTimeConfig.deferInitPhase) {
-            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(runtime.getRuntime(), b));
-        }
+            CamelRecorder recorder,
+            BuildTime buildTimeConfig) {
 
         recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
     }
