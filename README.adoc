@@ -22,32 +22,8 @@ in your project.
 
 == How to build
 
-Prerequisites:
-
-* Java 8
-* Maven 3.5.4+ or you can use the provided Maven Wrapper, a.k.a. `mvnw`
-* Docker
-
-Fast build without tests:
-
-[source,shell]
-----
-./mvnw clean install -DskipTests
-----
-
-Build with tests only in JVM mode:
-
-[source,shell]
-----
-./mvnw clean install
-----
-
-Build with tests in JVM mode and native mode:
-
-[source,shell]
-----
-./mvnw clean install -Dnative -Dnative-image.docker-build=true -Dnative-image.xmx=5g
-----
+See the contributor guide docs/modules/ROOT/pages/contributor-guide.adoc[in the source tree] or on the
+https://camel.apache.org/camel-quarkus/latest/contributor-guide.html[Apache Camel website].
 
 
 == Licensing
