@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.io.InputStream;
-import java.lang.annotation.Annotation;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -32,26 +31,19 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
-import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
-import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
-
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
-import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
@@ -61,8 +53,7 @@ import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class CamelProcessor {
-
+class SubstrateProcessor {
     private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
             Endpoint.class,
             Consumer.class,
@@ -71,12 +62,6 @@ class CamelProcessor {
             ExchangeFormatter.class,
             ScheduledPollConsumerScheduler.class,
             Component.class);
-
-    private static final List<Class<? extends Annotation>> CAMEL_REFLECTIVE_ANNOTATIONS = Arrays.asList();
-
-    private static final String FEATURE = "camel-core";
-
-    private static final Class<? extends Annotation> CAMEL_CONVERTER_ANNOTATION = Converter.class;
 
     @Inject
     BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
@@ -90,38 +75,6 @@ class CamelProcessor {
     ApplicationArchivesBuildItem applicationArchivesBuildItem;
     @Inject
     CombinedIndexBuildItem combinedIndexBuildItem;
-    @Inject
-    BuildTime buildTimeConfig;
-
-    @BuildStep
-    JaxbFileRootBuildItem fileRoot() {
-        return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
-    }
-
-    @BuildStep
-    JaxbEnabledBuildItem handleJaxbSupport() {
-        return buildTimeConfig.disableJaxb ? null : new JaxbEnabledBuildItem();
-    }
-
-    @BuildStep
-    List<ReflectiveClassBuildItem> handleXmlSupport() {
-        if (buildTimeConfig.disableXml) {
-            return null;
-        } else {
-            return Arrays.asList(
-                new ReflectiveClassBuildItem(false, false,
-                    "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"),
-                new ReflectiveClassBuildItem(false, false,
-                    "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl"),
-                new ReflectiveClassBuildItem(false, false,
-                    "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl"));
-        }
-    }
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 
     @BuildStep
     SubstrateConfigBuildItem substrate() {
@@ -130,16 +83,6 @@ class CamelProcessor {
             .addNativeImageSystemProperty("CamelWarmUpLRUCacheFactory", "true")
             .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
             .build();
-    }
-
-    @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> configFile() {
-        return buildTimeConfig.routesUris.stream()
-                .map(String::trim)
-                .filter(s -> s.startsWith("file:"))
-                .map(s -> s.substring("file:".length()))
-                .map(HotDeploymentWatchedFileBuildItem::new)
-                .collect(Collectors.toList());
     }
 
     @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
@@ -154,21 +97,7 @@ class CamelProcessor {
                 .filter(CamelSupport::isPublic)
                 .forEach(v -> addReflectiveClass(true, v.name().toString()));
 
-        CAMEL_REFLECTIVE_ANNOTATIONS.stream()
-                .map(Class::getName)
-                .map(DotName::createSimple)
-                .map(view::getAnnotations)
-                .flatMap(Collection::stream)
-                .forEach(v -> {
-                    if (v.target().kind() == AnnotationTarget.Kind.CLASS) {
-                        addReflectiveClass(true, v.target().asClass().name().toString());
-                    }
-                    if (v.target().kind() == AnnotationTarget.Kind.METHOD) {
-                        addReflectiveMethod(v.target().asMethod());
-                    }
-                });
-
-        Logger log = LoggerFactory.getLogger(CamelProcessor.class);
+        Logger log = LoggerFactory.getLogger(SubstrateProcessor.class);
         DotName converter = DotName.createSimple(Converter.class.getName());
         List<ClassInfo> converterClasses = view.getAnnotations(converter)
                 .stream()
@@ -191,6 +120,7 @@ class CamelProcessor {
                 })
                 .map(ai -> ai.target().asClass())
                 .collect(Collectors.toList());
+
         log.debug("Converter classes: " + converterClasses);
         converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
 

@@ -23,6 +23,7 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.model.LoadBalancerDefinition;
+import org.apache.camel.quarkus.core.runtime.InitAtBuildTimeSelector;
 import org.apache.camel.reifier.loadbalancer.LoadBalancerReifier;
 
 @TargetClass(className = "org.apache.camel.reifier.loadbalancer.LoadBalancerReifier", onlyWith = InitAtBuildTimeSelector.class)

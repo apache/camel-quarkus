@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core.runtime;
 
-import java.util.List;
 import java.util.Properties;
 
 import io.quarkus.arc.runtime.BeanContainer;
@@ -33,49 +32,22 @@ public class CamelRecorder {
 
     public RuntimeValue<CamelRuntime> create(
             Registry registry,
-            Properties properties,
-            List<RuntimeValue<?>> builders,
-            CamelConfig.BuildTime buildTimeConfig) {
+            Properties properties) {
 
-        FastCamelRuntime runtime = new FastCamelRuntime();
+        FastCamelRuntime fcr = new FastCamelRuntime();
+        fcr.setRegistry(registry);
+        fcr.setProperties(properties);
 
-        runtime.setRegistry(registry);
-        runtime.setProperties(properties);
-        builders.stream()
-                .map(RuntimeValue::getValue)
-                .map(RoutesBuilder.class::cast)
-                .forEach(runtime.getBuilders()::add);
-
-        return new RuntimeValue<>(runtime);
-    }
-
-    public void bind(
-            RuntimeValue<CamelRuntime> runtime,
-            String name,
-            Class<?> type,
-            Object instance) {
-
-        runtime.getValue().getRegistry().bind(name, type, instance);
+        return new RuntimeValue<>(fcr);
     }
 
     public void init(
             BeanContainer beanContainer,
             RuntimeValue<CamelRuntime> runtime,
-            List<String> builders,
-            CamelConfig.BuildTime buildTimeConfig) throws Exception {
+            CamelConfig.BuildTime buildTimeConfig) {
 
         FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
         fcr.setBeanContainer(beanContainer);
-
-        builders.stream()
-                .forEach(name -> {
-                    try {
-                        fcr.getBuilders().add((RoutesBuilder) Class.forName(name).newInstance());
-                    } catch (Throwable t) {
-                        throw new RuntimeException(t);
-                    }
-                });
-
         fcr.init(buildTimeConfig);
     }
 
@@ -99,8 +71,41 @@ public class CamelRecorder {
         });
     }
 
+    public void addBuilder(
+        RuntimeValue<CamelRuntime> runtime,
+        String className) {
+
+        FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
+
+        try {
+            fcr.getBuilders().add((RoutesBuilder) Class.forName(className).newInstance());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void bind(
+        RuntimeValue<CamelRuntime> runtime,
+        String name,
+        Class<?> type,
+        Object instance) {
+
+        runtime.getValue().getRegistry().bind(name, type, instance);
+    }
+
+    public void bind(
+        RuntimeValue<CamelRuntime> runtime,
+        String name,
+        Class<?> type) {
+
+        try {
+            runtime.getValue().getRegistry().bind(name, type, type.newInstance());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public BeanContainerListener initRuntimeInjection(RuntimeValue<CamelRuntime> runtime) {
         return container -> container.instance(CamelProducers.class).setCamelRuntime(runtime.getValue());
     }
-
 }
