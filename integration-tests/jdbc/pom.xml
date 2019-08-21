@@ -128,6 +128,7 @@
                                     <graalvmHome>${graalvmHome}</graalvmHome>
                                     <enableJni>false</enableJni>
                                     <debugBuildProcess>false</debugBuildProcess>
+                                    <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
                         </executions>
