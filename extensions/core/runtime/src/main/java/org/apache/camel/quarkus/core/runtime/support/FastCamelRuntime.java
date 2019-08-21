@@ -25,7 +25,6 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.Arc;
-import io.quarkus.arc.runtime.BeanContainer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
@@ -55,7 +54,6 @@ public class FastCamelRuntime implements CamelRuntime {
     private static final Logger LOG = LoggerFactory.getLogger(FastCamelRuntime.class);
 
     protected CamelContext context;
-    protected BeanContainer beanContainer;
     protected Registry registry;
     protected Properties properties;
     protected List<RoutesBuilder> builders = new ArrayList<>();
@@ -180,10 +178,6 @@ public class FastCamelRuntime implements CamelRuntime {
 
     protected <T> void fireEvent(Class<T> clazz, T event) {
         Arc.container().beanManager().getEvent().select(clazz).fire(event);
-    }
-
-    public void setBeanContainer(BeanContainer beanContainer) {
-        this.beanContainer = beanContainer;
     }
 
     public void setRegistry(Registry registry) {

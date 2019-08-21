@@ -139,12 +139,15 @@ class BuildProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     void init(
+            // TODO: keep this field as we need to be sure ArC is initialized before starting events
+            //       We need to re-evaluate the need of fire events from context once doing
+            //       https://github.com/apache/camel-quarkus/issues/9
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
             CamelRecorder recorder,
             BuildTime buildTimeConfig) {
 
-        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
+        recorder.init(runtime.getRuntime(), buildTimeConfig);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
