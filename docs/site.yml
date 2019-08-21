@@ -1,6 +1,6 @@
 site:
   title: Apache Camel extensions for Quarkus
-  url: https://camel.apache.org/staging
+  url: https://camel.apache.org
   start_page: camel-quarkus::index.adoc
 content:
   sources:
