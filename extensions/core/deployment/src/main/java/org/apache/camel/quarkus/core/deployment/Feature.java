@@ -14,16 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.graal;
+package org.apache.camel.quarkus.core.deployment;
 
-import java.util.function.BooleanSupplier;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+class Feature {
+    private static final String FEATURE = "camel-core";
 
-public final class JaxbDisabled implements BooleanSupplier {
-    @Override
-    public boolean getAsBoolean() {
-        return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-jaxb", Boolean.class).orElse(Boolean.FALSE);
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }
-

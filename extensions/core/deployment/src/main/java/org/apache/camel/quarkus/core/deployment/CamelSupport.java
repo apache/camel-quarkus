@@ -27,9 +27,7 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.jboss.jandex.ClassInfo;
 
 public final class CamelSupport {
-
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
-
     public static final String CAMEL_ROOT_PACKAGE_DIRECTORY = "org/apache/camel";
 
     private CamelSupport() {
@@ -53,9 +51,9 @@ public final class CamelSupport {
 
     public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {
         return archives.getAllApplicationArchives().stream()
-                .map(arch -> arch.getArchiveRoot().resolve(path))
-                .filter(Files::isDirectory)
-                .flatMap(CamelSupport::safeWalk)
-                .filter(Files::isRegularFile);
+            .map(arch -> arch.getArchiveRoot().resolve(path))
+            .filter(Files::isDirectory)
+            .flatMap(CamelSupport::safeWalk)
+            .filter(Files::isRegularFile);
     }
 }

@@ -23,6 +23,7 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.quarkus.core.runtime.InitAtBuildTimeSelector;
 import org.apache.camel.reifier.transformer.TransformerReifier;
 
 @TargetClass(className = "org.apache.camel.reifier.transformer.TransformerReifier", onlyWith = InitAtBuildTimeSelector.class)

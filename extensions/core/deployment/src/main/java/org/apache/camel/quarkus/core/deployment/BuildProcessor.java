@@ -27,7 +27,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import javax.inject.Inject;
 
@@ -42,7 +41,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -60,8 +58,8 @@ import org.jboss.jandex.DotName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class CamelInitProcessor {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelInitProcessor.class);
+class BuildProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
 
     @Inject
     ApplicationArchivesBuildItem applicationArchivesBuildItem;
@@ -71,9 +69,8 @@ class CamelInitProcessor {
     BuildTime buildTimeConfig;
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    CamelRuntimeBuildItem createInitTask(
-            RecorderContext recorderContext,
+    @BuildStep
+    CamelRuntimeBuildItem create(
             CamelRecorder recorder,
             List<CamelRegistryBuildItem> registryItems,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
@@ -89,14 +86,12 @@ class CamelInitProcessor {
             }
         }
 
+
         RuntimeRegistry registry = new RuntimeRegistry();
-        final List<RuntimeValue<?>> builders;
+        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties);
+
         if (buildTimeConfig.deferInitPhase) {
-            builders = getBuildTimeRouteBuilderClasses()
-                .map(recorderContext::newInstance)
-                .collect(Collectors.toList());
-        } else {
-            builders = new ArrayList<>();
+            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(camelRuntime, b));
         }
 
         services().filter(
@@ -107,30 +102,33 @@ class CamelInitProcessor {
             si -> {
                 LOGGER.debug("Binding camel service {} with type {}", si.name, si.type);
 
-                registry.bind(
+                recorder.bind(
+                    camelRuntime,
                     si.name,
-                    si.type,
-                    recorderContext.newInstance(si.type.getName())
+                    si.type
                 );
             }
         );
 
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties, builders, buildTimeConfig);
-
-        runtimeBeans.produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
-
         for (CamelRegistryBuildItem item: registryItems) {
             LOGGER.debug("Binding item with name: {}, type {}", item.getName(), item.getType());
-            recorder.bind(camelRuntime, item.getName(), item.getType(), item.getValue());
+
+            recorder.bind(
+                camelRuntime,
+                item.getName(),
+                item.getType(),
+                item.getValue()
+            );
         }
+
+        runtimeBeans.produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
 
         return new CamelRuntimeBuildItem(camelRuntime);
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    AdditionalBeanBuildItem createCamelProducers(
-            RecorderContext recorderContext,
+    @BuildStep
+    AdditionalBeanBuildItem createProducers(
             CamelRuntimeBuildItem runtime,
             CamelRecorder recorder,
             BuildProducer<BeanContainerListenerBuildItem> listeners) {
@@ -141,24 +139,22 @@ class CamelInitProcessor {
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    void initTask(
+    @BuildStep
+    void init(
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
-            CamelRecorder recorder) throws Exception {
+            CamelRecorder recorder) {
 
-        final List<String> builders;
         if (!buildTimeConfig.deferInitPhase) {
-            builders = getBuildTimeRouteBuilderClasses().collect(Collectors.toList());
-        } else {
-            builders = new ArrayList<>();
+            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(runtime.getRuntime(), b));
         }
-        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), builders, buildTimeConfig);
+
+        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
-    @BuildStep(applicationArchiveMarkers = { CamelSupport.CAMEL_SERVICE_BASE_PATH, CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY })
-    void createRuntimeInitTask(
+    @BuildStep
+    void start(
             CamelRecorder recorder,
             CamelRuntimeBuildItem runtime,
             ShutdownContextBuildItem shutdown,
@@ -230,6 +226,4 @@ class CamelInitProcessor {
                 '}';
         }
     }
-
-
 }

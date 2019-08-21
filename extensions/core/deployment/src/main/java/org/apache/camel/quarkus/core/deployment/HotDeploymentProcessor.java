@@ -14,15 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.graal;
+package org.apache.camel.quarkus.core.deployment;
 
-import java.util.function.BooleanSupplier;
+import java.util.List;
+import java.util.stream.Collectors;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
+import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 
-public final class InitAtBuildTimeSelector implements BooleanSupplier {
-    @Override
-    public boolean getAsBoolean() {
-        return !ConfigProvider.getConfig().getOptionalValue("quarkus.camel.defer-init-phase", Boolean.class).orElse(Boolean.TRUE);
+class HotDeploymentProcessor {
+    @BuildStep
+    List<HotDeploymentWatchedFileBuildItem> configFile(BuildTime buildTimeConfig) {
+        return buildTimeConfig.routesUris.stream()
+            .map(String::trim)
+            .filter(s -> s.startsWith("file:"))
+            .map(s -> s.substring("file:".length()))
+            .map(HotDeploymentWatchedFileBuildItem::new)
+            .collect(Collectors.toList());
     }
 }
