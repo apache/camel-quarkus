@@ -65,8 +65,6 @@ class BuildProcessor {
     ApplicationArchivesBuildItem applicationArchivesBuildItem;
     @Inject
     CombinedIndexBuildItem combinedIndexBuildItem;
-    @Inject
-    BuildTime buildTimeConfig;
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
@@ -90,9 +88,9 @@ class BuildProcessor {
         RuntimeRegistry registry = new RuntimeRegistry();
         RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, properties);
 
-        if (buildTimeConfig.deferInitPhase) {
-            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(camelRuntime, b));
-        }
+        getBuildTimeRouteBuilderClasses().forEach(
+            b -> recorder.addBuilder(camelRuntime, b)
+        );
 
         services().filter(
             si -> registryItems.stream().noneMatch(
@@ -141,15 +139,15 @@ class BuildProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     void init(
+            // TODO: keep this field as we need to be sure ArC is initialized before starting events
+            //       We need to re-evaluate the need of fire events from context once doing
+            //       https://github.com/apache/camel-quarkus/issues/9
             BeanContainerBuildItem beanContainerBuildItem,
             CamelRuntimeBuildItem runtime,
-            CamelRecorder recorder) {
+            CamelRecorder recorder,
+            BuildTime buildTimeConfig) {
 
-        if (!buildTimeConfig.deferInitPhase) {
-            getBuildTimeRouteBuilderClasses().forEach(b -> recorder.addBuilder(runtime.getRuntime(), b));
-        }
-
-        recorder.init(beanContainerBuildItem.getValue(), runtime.getRuntime(), buildTimeConfig);
+        recorder.init(runtime.getRuntime(), buildTimeConfig);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)

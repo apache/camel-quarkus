@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.core.runtime;
 
 import java.util.Properties;
 
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
@@ -42,12 +41,10 @@ public class CamelRecorder {
     }
 
     public void init(
-            BeanContainer beanContainer,
             RuntimeValue<CamelRuntime> runtime,
             CamelConfig.BuildTime buildTimeConfig) {
 
         FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
-        fcr.setBeanContainer(beanContainer);
         fcr.init(buildTimeConfig);
     }
 
