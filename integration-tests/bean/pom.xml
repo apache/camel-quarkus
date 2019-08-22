@@ -89,8 +89,7 @@
             <id>native-image</id>
             <activation>
                 <property>
-                    <!-- TODO: excluded from the default native due to https://github.com/apache/camel-quarkus/issues/70 -->
-                    <name>nativeBean</name>
+                    <name>native</name>
                 </property>
             </activation>
             <build>
