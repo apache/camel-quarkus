@@ -53,56 +53,26 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-eks</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-s3</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-sns</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-sqs</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-base</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -123,12 +93,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-core</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -144,12 +108,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-headersmap</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -165,22 +123,12 @@
                         <groupId>org.infinispan</groupId>
                         <artifactId>infinispan-core</artifactId>
                     </exclusion>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jaxp</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -196,12 +144,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-netty4-http</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -217,12 +159,6 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-salesforce</artifactId>
                 <version>${camel.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.sun.xml.messaging.saaj</groupId>
-                        <artifactId>saaj-impl</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>

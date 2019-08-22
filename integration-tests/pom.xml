@@ -57,7 +57,6 @@
 
     <modules>
         <!-- build those first -->
-        <module>core-support</module>
         <module>core</module>
         <module>core-impl</module>
         <module>core-cdi</module>
