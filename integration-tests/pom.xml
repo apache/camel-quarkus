@@ -69,6 +69,7 @@
         <module>salesforce</module>
         <module>servlet</module>
         <module>twitter</module>
+        <module>zipfile</module>
     </modules>
 
     <build>
