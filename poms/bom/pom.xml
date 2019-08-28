@@ -175,6 +175,11 @@
                 <artifactId>camel-twitter</artifactId>
                 <version>${camel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-zipfile</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
 
             <!-- Camel Quarkus Common (in alphabetical order) -->
             <dependency>
@@ -295,6 +300,11 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-zipfile</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
         </dependencies>
