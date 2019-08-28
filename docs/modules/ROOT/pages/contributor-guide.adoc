@@ -62,7 +62,8 @@ mvn clean install -Dnative
 ----
 cd camel-quarkus
 cd extensions
-mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo \
+mvn quarkus:create-extension groovy:execute@scaffold-integration-test -N \
+    -Dquarkus.artifactIdBase=foo \
     -Dquarkus.nameBase="Foo"
 ----
 +
@@ -76,22 +77,28 @@ The `artifactId` and artifact `name` prefixes and suffixes are added automatical
 The above sequence of commands does the following:
 * It creates three new Maven modules under the `extensions` directory: `camel-quarkus-foo-parent`, `camel-quarkus-foo`
   (a.k.a. the runtime module) and `camel-quarkus-foo-deployment`.
-* These three modules are liked where necessary:
+* These three modules are linked where necessary:
 ** `camel-quarkus-foo-parent` is added to the `<modules>` of `camel-quarkus-extensions`
 ** `camel-quarkus-foo` is added to the `<dependencyManagement>` of the runtime BOM (Bill of Materials) `poms/bom/pom.xml`
 ** `camel-quarkus-foo-deployment` is added to the `<dependencyManagement>` of the deployment BOM (Bill of Materials) `poms/bom-deployment/pom.xml`
-* It also creates a basic `FooProcessor` class in the deployment module.
+* It creates a basic `FooProcessor` class in the deployment module.
+* It also creates a stub of an integration test module under `integration-tests/foo`.
 +
-A Maven build performed immediately after generating the modules should pass flawlessly.
+A compilation performed immediately after generating the modules should pass flawlessly but running the tests will fail
+because the test project needs to get finished.
 +
 TIP: The `nameBase` parameter of the mojo is optional. If you do not specify it on the command line, the plugin will
 derive it from `artifactIdBase` by replacing dashes with spaces and uppercasing each token. So you may consider omitting
 explicit `nameBase` in some cases.
 
-6. Add an integration test under the `integration-tests` directory to make sure that your new extension works both in
-   the JVM mode and in the native mode.
+6. Complete the extension by adding dependencies to the runtime module. You probably want to add a dependency on
+   on the given Camel component - in our case `org.apache.camel:camel-foo`.
 
-7. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
+7. Complete the integration test module under `integration-tests/foo`. Make sure you test both the consumer and the
+   producer of the component (if the component supports both). Make sure the tests are passing both in the JVM mode
+   (`mvn test`) and in the native mode (`mvn verify -Dnative`).
+
+8. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
    ask for help in the given GitHub issue or via https://gitter.im/apache/camel-quarkus[Camel Quarkus chat].
 
 Good luck!
