@@ -101,6 +101,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-csv</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-direct</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -241,6 +246,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-csv</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-direct</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -289,6 +299,11 @@
                 <artifactId>camel-quarkus-twitter</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-zipfile</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Other third party dependencies (in alphabetical order by groupId:artifactId) -->
             <dependency>
@@ -300,11 +315,6 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-zipfile</artifactId>
-                <version>${project.version}</version>
             </dependency>
 
         </dependencies>
