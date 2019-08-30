@@ -64,6 +64,7 @@
         <module>netty4-http</module>
         <module>aws</module>
         <module>bean</module>
+        <module>csv</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>salesforce</module>

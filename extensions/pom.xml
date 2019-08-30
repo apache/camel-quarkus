@@ -57,6 +57,7 @@
         <module>twitter</module>
         <module>bean</module>
         <module>zipfile</module>
+        <module>csv</module>
     </modules>
 
     <build>
