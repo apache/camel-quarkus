@@ -45,6 +45,17 @@ pipeline {
 
     stages {
 
+        stage('Website update') {
+            when {
+                branch 'master'
+                changeset 'docs/**/*'
+            }
+
+            steps {
+                build job: 'Camel.website', wait: false
+            }
+        }
+
         stage('Build & Deploy') {
             when {
                 branch 'master'
