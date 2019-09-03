@@ -104,10 +104,6 @@ public class FastCamelRuntime implements CamelRuntime {
             context.adapt(FastCamelContext.class).setModel(model);
 
             fireEvent(InitializedEvent.class, new InitializedEvent());
-
-            if (!buildTimeConfig.deferInitPhase) {
-                loadRoutes(context);
-            }
         } catch (Exception e) {
             throw RuntimeCamelException.wrapRuntimeCamelException(e);
         }
@@ -116,9 +112,7 @@ public class FastCamelRuntime implements CamelRuntime {
     public void doStart() throws Exception {
         fireEvent(StartingEvent.class, new StartingEvent());
 
-        if (buildTimeConfig.deferInitPhase) {
-            loadRoutes(context);
-        }
+        loadRoutes(context);
 
         context.start();
         fireEvent(StartedEvent.class, new StartedEvent());

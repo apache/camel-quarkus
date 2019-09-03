@@ -38,10 +38,4 @@ public final class Flags {
         }
     }
 
-    public static final class InitAtBuildTime implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return !ConfigProvider.getConfig().getOptionalValue("quarkus.camel.defer-init-phase", Boolean.class).orElse(Boolean.TRUE);
-        }
-    }
 }

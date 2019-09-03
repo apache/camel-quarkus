@@ -35,12 +35,6 @@ public class CamelConfig {
         public List<String> routesUris;
 
         /**
-         * Defer Camel context initialization phase until runtime.
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean deferInitPhase;
-
-        /**
          * Camel jaxb support is enabled by default, but in order to trim
          * down the size of applications, it is possible to disable jaxb support
          * at runtime. This is useful when routes at loaded at build time and
