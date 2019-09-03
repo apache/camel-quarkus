@@ -155,8 +155,6 @@ public class FastCamelRuntime implements CamelRuntime {
         }
 
         model.startRouteDefinitions();
-        // context.adapt(FastCamelContext.class).clearModel(); Disabled, see https://github.com/apache/camel-quarkus/issues/69
-        // builders.clear();
     }
 
     @SuppressWarnings("unchecked")
