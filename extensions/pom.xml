@@ -58,6 +58,7 @@
         <module>bean</module>
         <module>zipfile</module>
         <module>csv</module>
+        <module>microprofile-metrics</module>
     </modules>
 
     <build>
