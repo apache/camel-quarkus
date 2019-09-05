@@ -50,6 +50,10 @@ public class CamelRoute extends RouteBuilder {
             // log out
             .to("log:out");
 
+        from("direct:hello")
+            .bean(HelloBean.class, "hello")
+            .to("log:out");
+
     }
 
     @SuppressWarnings("unchecked")
@@ -100,6 +104,12 @@ public class CamelRoute extends RouteBuilder {
                 return bp;
             }
         };
+    }
+
+    public static class HelloBean {
+        public String hello(String person) {
+            return "Hello " + person;
+        }
     }
 
     @RegisterForReflection

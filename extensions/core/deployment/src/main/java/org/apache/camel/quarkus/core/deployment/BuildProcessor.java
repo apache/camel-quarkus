@@ -21,14 +21,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Stream;
+
 import javax.inject.Inject;
+
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.quarkus.core.runtime.CamelConfig;
+import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
+import org.apache.camel.quarkus.core.runtime.CamelProducers;
+import org.apache.camel.quarkus.core.runtime.CamelRecorder;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
+import org.jboss.jandex.DotName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -42,19 +52,6 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.quarkus.core.runtime.CamelConfig;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
-import org.apache.camel.quarkus.core.runtime.CamelProducers;
-import org.apache.camel.quarkus.core.runtime.CamelRecorder;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
@@ -69,13 +66,14 @@ class BuildProcessor {
     CamelRuntimeBuildItem create(
             CamelRecorder recorder,
             List<CamelRegistryBuildItem> registryItems,
-            BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
+            BuildProducer<RuntimeBeanBuildItem> runtimeBeans,
+            List<RouteBuilderBuildItem> buildTimeRouteBuilderBuildItems) {
 
         RuntimeRegistry registry = new RuntimeRegistry();
         RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry);
 
-        getBuildTimeRouteBuilderClasses().forEach(
-            b -> recorder.addBuilder(camelRuntime, b)
+        buildTimeRouteBuilderBuildItems.forEach(
+            b -> recorder.addBuilder(camelRuntime, b.getClassName())
         );
 
         services().filter(
@@ -148,20 +146,16 @@ class BuildProcessor {
         recorder.start(shutdown, runtime.getRuntime(), runtimeConfig);
     }
 
-    protected Stream<String> getBuildTimeRouteBuilderClasses() {
-        Set<ClassInfo> allKnownImplementors = new HashSet<>();
-        allKnownImplementors.addAll(
-                combinedIndexBuildItem.getIndex().getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-        allKnownImplementors.addAll(
-                combinedIndexBuildItem.getIndex().getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-        allKnownImplementors.addAll(combinedIndexBuildItem.getIndex()
-                .getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
-
-        return allKnownImplementors
+    @BuildStep
+    @Record(ExecutionTime.STATIC_INIT)
+    void buildTimeRouteBuilders(CombinedIndexBuildItem combinedIndexBuildItem,
+            BuildProducer<RouteBuilderBuildItem> routeBuilderProducer) {
+        combinedIndexBuildItem.getIndex()
+                .getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName()))
                 .stream()
                 .filter(CamelSupport::isConcrete)
                 .filter(CamelSupport::isPublic)
-                .map(ClassInfo::toString);
+                .forEach(classInfo -> routeBuilderProducer.produce(new RouteBuilderBuildItem(classInfo.toString())));
     }
 
     protected Stream<ServiceInfo> services() {
