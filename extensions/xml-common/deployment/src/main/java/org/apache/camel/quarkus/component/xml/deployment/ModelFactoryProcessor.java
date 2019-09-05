@@ -14,28 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.support;
+package org.apache.camel.quarkus.component.xml.deployment;
 
-import java.util.function.BooleanSupplier;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import org.apache.camel.quarkus.component.xml.runtime.SupportRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+public class ModelFactoryProcessor {
 
-public final class Flags {
-    private Flags() {
-    }
-
-    public static final class JaxbDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-jaxb", Boolean.class).orElse(Boolean.FALSE);
-        }
-    }
-
-    public static final class XmlDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-xml", Boolean.class).orElse(Boolean.FALSE);
-        }
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelRegistryBuildItem jaxbContextFactory(SupportRecorder recorder) {
+            return new CamelRegistryBuildItem(
+                    "log",
+                    ModelJAXBContextFactory.class,
+                    recorder.jaxbContextFactory()
+            );
     }
 
 }

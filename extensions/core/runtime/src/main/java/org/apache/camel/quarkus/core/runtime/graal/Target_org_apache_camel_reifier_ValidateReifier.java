@@ -14,35 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime;
+package org.apache.camel.quarkus.core.runtime.graal;
 
-import java.util.List;
+import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.spi.RouteContext;
+import org.apache.camel.support.processor.validation.PredicateValidatingProcessor;
 
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConfigPhase;
-import io.quarkus.runtime.annotations.ConfigRoot;
+@TargetClass(className = "org.apache.camel.reifier.ValidateReifier")
+final class Target_org_apache_camel_reifier_ValidateReifier {
 
-public class CamelConfig {
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-    public static class BuildTime {
-
-        /**
-         * Uri to an xml containing camel routes to be loaded and initialized at build time.
-         */
-        @ConfigItem
-        public List<String> routesUris;
-
-    }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
-
-        /**
-         * Dump loaded routes when starting
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean dumpRoutes;
+    @Substitute
+    public PredicateValidatingProcessor createProcessor(RouteContext routeContext) throws Exception {
+        throw new UnsupportedOperationException();
     }
 
 }

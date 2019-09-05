@@ -16,11 +16,17 @@
  */
 package org.apache.camel.quarkus.component.xml.deployment;
 
+import javax.enterprise.inject.Produces;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
+import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
+import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.converter.jaxp.XmlConverter;
+import org.apache.camel.quarkus.core.deployment.CamelSupport;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
 class XmlProcessor {
 
@@ -32,12 +38,25 @@ class XmlProcessor {
     }
 
     @BuildStep
+    JaxbFileRootBuildItem fileRoot() {
+        return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
+    }
+
+    @BuildStep
+    JaxbEnabledBuildItem handleJaxbSupport() {
+        return new JaxbEnabledBuildItem();
+    }
+
+    @BuildStep
     void reflective(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
             "com.sun.xml.internal.stream.XMLInputFactoryImpl",
             "com.sun.org.apache.xerces.internal.parsers.SAXParser",
-            XmlConverter.class.getCanonicalName()));
-
+            XmlConverter.class.getCanonicalName(),
+            "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
+            "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
+            "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl")
+        );
         // javax.xml.namespace.QName is needed as it is used as part of the processor
         // definitions in the DSL and parsers like Jackson (used in camel-k YAML DSL)
         // fails if this class is cannot be instantiated reflectively.
