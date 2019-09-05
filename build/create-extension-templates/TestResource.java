@@ -36,7 +36,7 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class [=artifactIdBaseCamelCase]Resource {
 
-    private static final Logger log = Logger.getLogger([=artifactIdBaseCamelCase]Resource.class);
+    private static final Logger LOG = Logger.getLogger([=artifactIdBaseCamelCase]Resource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -49,7 +49,7 @@ public class [=artifactIdBaseCamelCase]Resource {
     @Produces(MediaType.TEXT_PLAIN)
     public String get() throws Exception {
         final String message = consumerTemplate.receiveBodyNoWait("[=artifactIdBase]:--fix-me--", String.class);
-        log.infof("Received from [=artifactIdBase]: %s", message);
+        LOG.infof("Received from [=artifactIdBase]: %s", message);
         return message;
     }
 
@@ -58,9 +58,9 @@ public class [=artifactIdBaseCamelCase]Resource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response post(String message) throws Exception {
-        log.infof("Sending to [=artifactIdBase]: %s", message);
+        LOG.infof("Sending to [=artifactIdBase]: %s", message);
         final String response = producerTemplate.requestBody("[=artifactIdBase]:--fix-me--", message, String.class);
-        log.infof("Got response from [=artifactIdBase]: %s", response);
+        LOG.infof("Got response from [=artifactIdBase]: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)

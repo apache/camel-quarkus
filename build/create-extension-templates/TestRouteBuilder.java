@@ -18,7 +18,6 @@ package [=javaPackageBase].it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-
 public class [=artifactIdBaseCamelCase]RouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
