@@ -34,7 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CamelProducersTest {
     @RegisterExtension
-    static final QuarkusUnitTest config = new QuarkusUnitTest()
+    static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
         .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
             .addClasses(BeanUsingProducerTemplate.class)
             .addClasses(BeanUsingConsumerTemplate.class)

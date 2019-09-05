@@ -40,7 +40,7 @@ import twitter4j.Status;
 @ApplicationScoped
 public class CamelResource {
 
-    private static final Logger log = Logger.getLogger(CamelResource.class);
+    private static final Logger LOG = Logger.getLogger(CamelResource.class);
 
     @ConfigProperty(name = "twitter.user.name")
     String twitterUserName;
@@ -56,8 +56,8 @@ public class CamelResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getTimeline(@QueryParam("sinceId") String sinceId) {
         final String tweets = consumerTemplate.receiveBodyNoWait(String.format("twitter-timeline://home?sinceId=%s&count=1", sinceId), String.class);
-        log.infof("Received tweets from user's timeline: %s", tweets);
-        return tweets ;
+        LOG.infof("Received tweets from user's timeline: %s", tweets);
+        return tweets;
     }
 
     @Path("/timeline")
@@ -66,7 +66,7 @@ public class CamelResource {
     @Produces(MediaType.TEXT_PLAIN)
     public Response postTweet(String message) throws Exception {
         final Status s = producerTemplate.requestBody("twitter-timeline://user", message, Status.class);
-        log.infof("Posted a tweet %s", s.getText());
+        LOG.infof("Posted a tweet %s", s.getText());
         return Response
                 .created(new URI(String.format("https://twitter.com/%s/status/%d", s.getUser().getName(), s.getId())))
                 .header("messageId", s.getId())
@@ -78,9 +78,9 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String search(@QueryParam("keywords") String keywords) {
-        log.infof("Searching for keywords on twitter: %s", keywords);
+        LOG.infof("Searching for keywords on twitter: %s", keywords);
         final String tweets = consumerTemplate.receiveBodyNoWait("twitter-search://" + keywords + "?count=1", String.class);
-        log.infof("Received tweets from twitter search: %s", tweets);
+        LOG.infof("Received tweets from twitter search: %s", tweets);
         return tweets;
     }
 
@@ -88,9 +88,9 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getDirectmessages() {
-        log.infof("Polling direct messages of user '%s'", twitterUserName);
+        LOG.infof("Polling direct messages of user '%s'", twitterUserName);
         final String result = consumerTemplate.receiveBodyNoWait(String.format("twitter-directmessage://%s?count=16&type=polling&delay=3000", twitterUserName), String.class);
-        log.infof("Received direct messages: %s", result);
+        LOG.infof("Received direct messages: %s", result);
         return result;
     }
 
@@ -99,9 +99,9 @@ public class CamelResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response postDirectmessage(String message) throws Exception {
-        log.infof("Sending direct message to user '%s': %s", twitterUserName, message);
+        LOG.infof("Sending direct message to user '%s': %s", twitterUserName, message);
         producerTemplate.requestBody(String.format("twitter-directmessage:%s", twitterUserName), message);
-        log.infof("Sent direct message to user '%s': %s", twitterUserName, message);
+        LOG.infof("Sent direct message to user '%s': %s", twitterUserName, message);
         return Response.created(new URI("https://twitter.com/")).build();
     }
 
