@@ -41,6 +41,7 @@
          -->
         <native-image.docker-build>true</native-image.docker-build>
         <native-image.container-runtime>docker</native-image.container-runtime>
+        <native-image.docker-build>quay.io/quarkus/ubi-quarkus-native-image:19.2.0</native-image.docker-build>
     </properties>
 
     <dependencyManagement>
