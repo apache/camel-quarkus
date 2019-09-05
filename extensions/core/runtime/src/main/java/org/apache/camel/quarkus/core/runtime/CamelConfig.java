@@ -27,16 +27,16 @@ public class CamelConfig {
     @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
     public static class BuildTime {
 
+    }
+
+    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
+    public static class Runtime {
+
         /**
          * Uri to an xml containing camel routes to be loaded and initialized at build time.
          */
         @ConfigItem
         public List<String> routesUris;
-
-    }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
 
         /**
          * Dump loaded routes when starting

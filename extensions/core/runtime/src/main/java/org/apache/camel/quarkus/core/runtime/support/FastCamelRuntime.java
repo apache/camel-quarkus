@@ -125,7 +125,7 @@ public class FastCamelRuntime implements CamelRuntime {
             context.addRoutes(b);
         }
 
-        final List<String> routesUris = buildTimeConfig.routesUris.stream()
+        final List<String> routesUris = runtimeConfig.routesUris.stream()
                 .filter(ObjectHelper::isNotEmpty)
                 .collect(Collectors.toList());
 
