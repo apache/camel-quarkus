@@ -18,14 +18,14 @@ package org.apache.camel.quarkus.component.twitter;
 
 import java.util.UUID;
 
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+
 import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
-
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 
 @QuarkusTest
 @EnabledIfEnvironmentVariable(named = "TWITTER_CONSUMER_KEY", matches = "[a-zA-Z0-9]+")
@@ -61,7 +61,7 @@ public class CamelTwitterTest {
             }
         }
         if (!passed) {
-            Assertions.fail("Could not find a message containing 'camel-quarkus-twitter' in user's direct messages within ~"+ (retries * delayMs) +" ms; got messages: "+ body);
+            Assertions.fail("Could not find a message containing 'camel-quarkus-twitter' in user's direct messages within ~" + (retries * delayMs) + " ms; got messages: " + body);
         }
     }
 
@@ -98,7 +98,7 @@ public class CamelTwitterTest {
                 }
             }
             if (!passed) {
-                Assertions.fail("Could not find the expected message '"+ expectedMessage +"' in user's timeline within ~"+ (retries * delayMs) +" ms; got messages: "+ body);
+                Assertions.fail("Could not find the expected message '" + expectedMessage + "' in user's timeline within ~" + (retries * delayMs) + " ms; got messages: " + body);
             }
         }
 
@@ -126,7 +126,7 @@ public class CamelTwitterTest {
                 }
             }
             if (!passed) {
-                Assertions.fail("Could not find the expected message '"+ uuid +"' via twitter-search within "+ (retries * delayMs) +" ms; got messages: "+ body);
+                Assertions.fail("Could not find the expected message '" + uuid + "' via twitter-search within " + (retries * delayMs) + " ms; got messages: " + body);
             }
         }
     }

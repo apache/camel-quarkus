@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.zipfile.it;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -35,7 +33,7 @@ import org.jboss.logging.Logger;
 @ApplicationScoped
 public class ZipfileResource {
 
-    private static final Logger log = Logger.getLogger(ZipfileResource.class);
+    private static final Logger LOG = Logger.getLogger(ZipfileResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -45,9 +43,9 @@ public class ZipfileResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response post(String message) throws Exception {
-        log.infof("Sending to zipfile: %s", message);
+        LOG.infof("Sending to zipfile: %s", message);
         final byte[] response = producerTemplate.requestBody("direct:start", message, byte[].class);
-        log.infof("Got response from zipfile: %s", response);
+        LOG.infof("Got response from zipfile: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .header("content-length", response.length)

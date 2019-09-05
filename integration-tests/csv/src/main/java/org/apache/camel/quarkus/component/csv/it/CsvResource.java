@@ -27,17 +27,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.apache.camel.ProducerTemplate;
+import org.jboss.logging.Logger;
 
 @Path("/csv")
 @ApplicationScoped
 public class CsvResource {
 
-    private static final Logger log = Logger.getLogger(CsvResource.class);
+    private static final Logger LOG = Logger.getLogger(CsvResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -47,8 +47,8 @@ public class CsvResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String json2csv(String json) throws Exception {
-        log.infof("Transforming json %s", json);
-        final List<Map<String, Object>> objects = new ObjectMapper().readValue(json,  new TypeReference<List<Map<String, Object>>>() {});
+        LOG.infof("Transforming json %s", json);
+        final List<Map<String, Object>> objects = new ObjectMapper().readValue(json,  new TypeReference<List<Map<String, Object>>>() { });
         return producerTemplate.requestBody(
                 "direct:json-to-csv",
                 objects,

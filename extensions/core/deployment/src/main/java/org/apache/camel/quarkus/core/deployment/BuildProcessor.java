@@ -204,10 +204,10 @@ class BuildProcessor {
 
         @Override
         public String toString() {
-            return "ServiceInfo{" +
-                "name='" + name + '\'' +
-                ", type=" + type +
-                '}';
+            return "ServiceInfo{"
+                + "name='" + name + '\''
+                + ", type=" + type
+                + '}';
         }
     }
 }

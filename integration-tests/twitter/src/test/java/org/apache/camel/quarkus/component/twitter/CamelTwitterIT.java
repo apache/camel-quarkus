@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.twitter;
 
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
-
 import io.quarkus.test.junit.SubstrateTest;
+
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @SubstrateTest
 @EnabledIfEnvironmentVariable(named = "TWITTER_CONSUMER_KEY", matches = "[a-zA-Z0-9]+")
