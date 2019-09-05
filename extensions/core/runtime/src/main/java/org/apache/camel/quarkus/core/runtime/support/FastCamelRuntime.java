@@ -84,18 +84,6 @@ public class FastCamelRuntime implements CamelRuntime {
             context.getTypeConverterRegistry().setInjector(context.getInjector());
 
             fireEvent(InitializingEvent.class, new InitializingEvent());
-            if (buildTimeConfig.disableJaxb) {
-                context.adapt(ExtendedCamelContext.class).setModelJAXBContextFactory(() -> {
-                    throw new UnsupportedOperationException();
-                });
-            } else {
-                // The creation of the JAXB context is very time consuming, so always prepare it
-                // when running in native mode, but lazy create it in java mode so that we don't
-                // waste time if using java routes
-                if (ImageInfo.inImageBuildtimeCode()) {
-                    context.adapt(ExtendedCamelContext.class).getModelJAXBContextFactory().newJAXBContext();
-                }
-            }
 
             context.init();
 

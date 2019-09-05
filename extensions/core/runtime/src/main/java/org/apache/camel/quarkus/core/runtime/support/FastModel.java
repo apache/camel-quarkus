@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,11 @@ public class FastModel extends DefaultModel {
 
     public FastModel(CamelContext camelContext) {
         super(camelContext);
+    }
+
+    @Override
+    public void addRouteDefinitions(InputStream is) throws Exception {
+        throw new UnsupportedOperationException();
     }
 
     protected void start(RouteDefinition routeDefinition) throws Exception {

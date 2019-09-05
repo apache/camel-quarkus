@@ -19,7 +19,11 @@ package org.apache.camel.quarkus.core.runtime.support;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
@@ -29,6 +33,7 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
@@ -103,6 +108,7 @@ import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.support.PropertyBindingSupport;
+import org.graalvm.nativeimage.ImageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -212,7 +218,25 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected ModelJAXBContextFactory createModelJAXBContextFactory() {
-        return new DefaultModelJAXBContextFactory();
+        Set<ModelJAXBContextFactory> cfs = getRegistry().findByType(ModelJAXBContextFactory.class);
+        if (cfs.size() == 1) {
+            ModelJAXBContextFactory cf = cfs.iterator().next();
+            // The creation of the JAXB context is very time consuming, so always prepare it
+            // when running in native mode, but lazy create it in java mode so that we don't
+            // waste time if using java routes
+            if (ImageInfo.inImageBuildtimeCode()) {
+                try {
+                    cf.newJAXBContext();
+                } catch (JAXBException e) {
+                    throw RuntimeCamelException.wrapRuntimeCamelException(e);
+                }
+            }
+            return cf;
+        } else {
+            return () -> {
+                throw new UnsupportedOperationException();
+            };
+        }
     }
 
     @Override

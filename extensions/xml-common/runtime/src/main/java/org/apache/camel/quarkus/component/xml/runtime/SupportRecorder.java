@@ -14,35 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime;
+package org.apache.camel.quarkus.component.xml.runtime;
 
-import java.util.List;
+import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.impl.DefaultModelJAXBContextFactory;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConfigPhase;
-import io.quarkus.runtime.annotations.ConfigRoot;
+@Recorder
+public class SupportRecorder {
 
-public class CamelConfig {
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-    public static class BuildTime {
-
-        /**
-         * Uri to an xml containing camel routes to be loaded and initialized at build time.
-         */
-        @ConfigItem
-        public List<String> routesUris;
-
-    }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
-
-        /**
-         * Dump loaded routes when starting
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean dumpRoutes;
+    public ModelJAXBContextFactory jaxbContextFactory() {
+        return new DefaultModelJAXBContextFactory();
     }
 
 }
