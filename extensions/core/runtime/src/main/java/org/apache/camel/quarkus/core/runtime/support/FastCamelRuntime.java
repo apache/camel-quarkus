@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 import io.quarkus.arc.Arc;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
@@ -45,12 +44,12 @@ import org.apache.camel.quarkus.core.runtime.StoppingEvent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.ResourceHelper;
+import org.apache.camel.support.service.ServiceSupport;
 import org.apache.camel.util.ObjectHelper;
-import org.graalvm.nativeimage.ImageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FastCamelRuntime implements CamelRuntime {
+public class FastCamelRuntime extends ServiceSupport implements CamelRuntime {
     private static final Logger LOG = LoggerFactory.getLogger(FastCamelRuntime.class);
 
     protected CamelContext context;
@@ -59,25 +58,16 @@ public class FastCamelRuntime implements CamelRuntime {
     protected BuildTime buildTimeConfig;
     protected Runtime runtimeConfig;
 
-    @Override
-    public void init(BuildTime buildTimeConfig) {
+    public void setBuildTimeConfig(BuildTime buildTimeConfig) {
         this.buildTimeConfig = buildTimeConfig;
-        doInit();
     }
 
-    @Override
-    public void start(Runtime runtimeConfig) throws Exception {
+    public void setRuntimeConfig(Runtime runtimeConfig) {
         this.runtimeConfig = runtimeConfig;
-        doStart();
     }
 
     @Override
-    public void stop() throws Exception {
-        doStop();
-    }
-
-    @SuppressWarnings("unchecked")
-    public void doInit() {
+    protected void doInit() throws Exception {
         try {
             context = createContext();
             context.setLoadTypeConverters(false);
@@ -97,7 +87,8 @@ public class FastCamelRuntime implements CamelRuntime {
         }
     }
 
-    public void doStart() throws Exception {
+    @Override
+    protected void doStart() throws Exception {
         fireEvent(StartingEvent.class, new StartingEvent());
 
         loadRoutes(context);
@@ -110,6 +101,7 @@ public class FastCamelRuntime implements CamelRuntime {
         }
     }
 
+    @Override
     protected void doStop() throws Exception {
         fireEvent(StoppingEvent.class, new StoppingEvent());
         context.stop();

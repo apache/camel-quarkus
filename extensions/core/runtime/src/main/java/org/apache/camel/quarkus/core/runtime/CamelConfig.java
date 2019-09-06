@@ -31,7 +31,6 @@ public class CamelConfig {
 
     @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
     public static class Runtime {
-
         /**
          * Uri to an xml containing camel routes to be loaded and initialized at build time.
          */
@@ -43,6 +42,12 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean dumpRoutes;
+
+        /**
+         * Automatically start camel context
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean autoStartup;
     }
 
 }

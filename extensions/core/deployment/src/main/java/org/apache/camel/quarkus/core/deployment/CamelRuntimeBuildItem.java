@@ -18,17 +18,17 @@ package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.FastCamelRuntime;
 
 public final class CamelRuntimeBuildItem extends SimpleBuildItem {
 
-    private final RuntimeValue<CamelRuntime> runtime;
+    private final RuntimeValue<FastCamelRuntime> runtime;
 
-    public CamelRuntimeBuildItem(RuntimeValue<CamelRuntime> runtime) {
+    public CamelRuntimeBuildItem(RuntimeValue<FastCamelRuntime> runtime) {
         this.runtime = runtime;
     }
 
-    public RuntimeValue<CamelRuntime> getRuntime() {
+    public RuntimeValue<FastCamelRuntime> getRuntime() {
         return runtime;
     }
 }

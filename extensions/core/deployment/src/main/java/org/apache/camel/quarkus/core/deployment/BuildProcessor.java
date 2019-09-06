@@ -34,6 +34,7 @@ import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanContainerListenerBuildItem;
 import io.quarkus.arc.deployment.RuntimeBeanBuildItem;
+import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -41,10 +42,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
-import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateSystemPropertyBuildItem;
-import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
-import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
@@ -54,6 +51,7 @@ import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.quarkus.core.runtime.CamelProducers;
 import org.apache.camel.quarkus.core.runtime.CamelRecorder;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.FastCamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -76,7 +74,7 @@ class BuildProcessor {
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
 
         RuntimeRegistry registry = new RuntimeRegistry();
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry);
+        RuntimeValue<FastCamelRuntime> camelRuntime = recorder.create(registry);
 
         getBuildTimeRouteBuilderClasses().forEach(
             b -> recorder.addBuilder(camelRuntime, b)
@@ -121,7 +119,8 @@ class BuildProcessor {
             CamelRecorder recorder,
             BuildProducer<BeanContainerListenerBuildItem> listeners) {
 
-        listeners.produce(new BeanContainerListenerBuildItem(recorder.initRuntimeInjection(runtime.getRuntime())));
+        BeanContainerListener l = recorder.initRuntimeInjection(runtime.getRuntime());
+        listeners.produce(new BeanContainerListenerBuildItem(l));
 
         return AdditionalBeanBuildItem.unremovableOf(CamelProducers.class);
     }
@@ -137,7 +136,8 @@ class BuildProcessor {
             CamelRecorder recorder,
             BuildTime buildTimeConfig) {
 
-        recorder.init(runtime.getRuntime(), buildTimeConfig);
+        recorder.setBuildTimeConfig(runtime.getRuntime(), buildTimeConfig);
+        recorder.init(runtime.getRuntime());
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
@@ -149,7 +149,10 @@ class BuildProcessor {
             CamelConfig.Runtime runtimeConfig)
             throws Exception {
 
-        recorder.start(shutdown, runtime.getRuntime(), runtimeConfig);
+        recorder.setRuntimeConfig(runtime.getRuntime(), runtimeConfig);
+        if (runtimeConfig.autoStartup) {
+            recorder.start(shutdown, runtime.getRuntime());
+        }
     }
 
     protected Stream<String> getBuildTimeRouteBuilderClasses() {

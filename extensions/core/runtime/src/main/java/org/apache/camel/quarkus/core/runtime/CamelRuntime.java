@@ -35,9 +35,9 @@ public interface CamelRuntime {
 
     CamelConfig.Runtime getRuntimeConfig();
 
-    void init(CamelConfig.BuildTime buildTimeConfig);
+    void init();
 
-    void start(CamelConfig.Runtime runtimeConfig) throws Exception;
+    void start() throws Exception;
 
     void stop() throws Exception;
 

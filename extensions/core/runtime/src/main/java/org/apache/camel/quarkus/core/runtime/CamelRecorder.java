@@ -27,7 +27,7 @@ import org.apache.camel.spi.Registry;
 @Recorder
 public class CamelRecorder {
 
-    public RuntimeValue<CamelRuntime> create(Registry registry) {
+    public RuntimeValue<FastCamelRuntime> create(Registry registry) {
 
         FastCamelRuntime fcr = new FastCamelRuntime();
         fcr.setRegistry(registry);
@@ -35,20 +35,29 @@ public class CamelRecorder {
         return new RuntimeValue<>(fcr);
     }
 
-    public void init(
-            RuntimeValue<CamelRuntime> runtime,
-            CamelConfig.BuildTime buildTimeConfig) {
 
-        FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
-        fcr.init(buildTimeConfig);
+    public void setBuildTimeConfig(
+            RuntimeValue<FastCamelRuntime> runtime,
+            CamelConfig.BuildTime buildTimeConfig) {
+        runtime.getValue().setBuildTimeConfig(buildTimeConfig);
+    }
+
+    public void setRuntimeConfig(
+            RuntimeValue<FastCamelRuntime> runtime,
+            CamelConfig.Runtime runtimeConfig) {
+        runtime.getValue().setRuntimeConfig(runtimeConfig);
+    }
+    public void init(
+            RuntimeValue<FastCamelRuntime> runtime) {
+
+        runtime.getValue().init();
     }
 
     public void start(
             ShutdownContext shutdown,
-            RuntimeValue<CamelRuntime> runtime,
-            CamelConfig.Runtime runtimeConfig) throws Exception {
+            RuntimeValue<FastCamelRuntime> runtime) throws Exception {
 
-        runtime.getValue().start(runtimeConfig);
+        runtime.getValue().start();
 
         //in development mode undertow is started eagerly
         shutdown.addShutdownTask(new Runnable() {
@@ -64,10 +73,10 @@ public class CamelRecorder {
     }
 
     public void addBuilder(
-        RuntimeValue<CamelRuntime> runtime,
+        RuntimeValue<FastCamelRuntime> runtime,
         String className) {
 
-        FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
+        FastCamelRuntime fcr = runtime.getValue();
 
         try {
             fcr.getBuilders().add((RoutesBuilder) Class.forName(className).newInstance());
@@ -77,7 +86,7 @@ public class CamelRecorder {
     }
 
     public void bind(
-        RuntimeValue<CamelRuntime> runtime,
+        RuntimeValue<FastCamelRuntime> runtime,
         String name,
         Class<?> type,
         Object instance) {
@@ -86,7 +95,7 @@ public class CamelRecorder {
     }
 
     public void bind(
-        RuntimeValue<CamelRuntime> runtime,
+        RuntimeValue<FastCamelRuntime> runtime,
         String name,
         Class<?> type) {
 
@@ -97,7 +106,7 @@ public class CamelRecorder {
         }
     }
 
-    public BeanContainerListener initRuntimeInjection(RuntimeValue<CamelRuntime> runtime) {
+    public BeanContainerListener initRuntimeInjection(RuntimeValue<FastCamelRuntime> runtime) {
         return container -> container.instance(CamelProducers.class).setCamelRuntime(runtime.getValue());
     }
 }
