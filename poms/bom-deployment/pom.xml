@@ -181,11 +181,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-<<<<<<< Updated upstream
                 <artifactId>camel-quarkus-zipfile-deployment</artifactId>
-=======
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-jira-deployment</artifactId>
->>>>>>> Stashed changes
                 <version>${project.version}</version>
             </dependency>
 
