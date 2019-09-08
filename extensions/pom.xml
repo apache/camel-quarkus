@@ -56,9 +56,13 @@
         <module>timer</module>
         <module>twitter</module>
         <module>bean</module>
+<<<<<<< Updated upstream
         <module>zipfile</module>
         <module>csv</module>
         <module>microprofile-metrics</module>
+=======
+        <module>jira</module>
+>>>>>>> Stashed changes
     </modules>
 
     <build>

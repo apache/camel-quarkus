@@ -70,8 +70,12 @@
         <module>salesforce</module>
         <module>servlet</module>
         <module>twitter</module>
+<<<<<<< Updated upstream
         <module>zipfile</module>
         <module>microprofile-metrics</module>
+=======
+        <module>jira</module>
+>>>>>>> Stashed changes
     </modules>
 
     <build>

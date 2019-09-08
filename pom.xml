@@ -40,7 +40,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
+<<<<<<< Updated upstream
         <camel.version>3.0.0-RC1</camel.version>
+=======
+        <camel.version>3.0.0-M4</camel.version>
+        <jira.guava.version>20.0</jira.guava.version>
+>>>>>>> Stashed changes
         <quarkus.version>0.21.1</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>

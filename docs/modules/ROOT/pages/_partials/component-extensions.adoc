@@ -8,6 +8,7 @@
 * `camel-quarkus-direct`
 * `camel-quarkus-infinispan`
 * `camel-quarkus-jdbc`
+* `camel-quarkus-jira`
 * `camel-quarkus-log`
 * `camel-quarkus-microprofile-metrics`
 * `camel-quarkus-netty-http`
