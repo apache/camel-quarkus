@@ -87,7 +87,78 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>generate-test-poms</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <source>file:///${project.basedir}/../build/scripts/generate-test-poms.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!-- installs and deploys the test jar under a separate artifactId and with a modified pom.
+                 See /build/scripts/generate-test-poms.groovy -->
+            <id>install-reusable-test-jar</id>
+            <activation>
+                <file>
+                    <!-- activate only in the submodules -->
+                    <exists>../install-reusable-test-jar.txt</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-install-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>install-reusable-test-jar</id>
+                                <goals>
+                                    <goal>install-file</goal>
+                                </goals>
+                                <phase>install</phase>
+                                <configuration>
+                                    <pomFile>${basedir}/../target/${project.artifactId}-tests-pom.xml</pomFile>
+                                    <version>${project.version}</version>
+                                    <file>${basedir}/target/${project.artifactId}-${project.version}-tests.jar</file>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-deploy-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>deploy-reusable-test-jar</id>
+                                <goals>
+                                    <goal>deploy-file</goal>
+                                </goals>
+                                <phase>deploy</phase>
+                                <configuration>
+                                    <pomFile>${basedir}/../target/${project.artifactId}-tests-pom.xml</pomFile>
+                                    <version>${project.version}</version>
+                                    <file>${basedir}/target/${project.artifactId}-${project.version}-tests.jar</file>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
