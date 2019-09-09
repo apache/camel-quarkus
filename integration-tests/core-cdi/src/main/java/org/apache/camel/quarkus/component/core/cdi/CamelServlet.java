@@ -55,4 +55,12 @@ public class CamelServlet {
     public String sayHello(@PathParam("name") String name) {
         return runtime.getContext().createProducerTemplate().requestBody("direct:hello", name, String.class);
     }
+
+    @Path("/registry/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String lookupByName(@PathParam("name") String name) {
+        Object answer = runtime.getContext().getRegistry().lookupByName(name);
+        return answer != null ? answer.getClass().getName() : "";
+    }
 }

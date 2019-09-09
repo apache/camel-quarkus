@@ -23,6 +23,8 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
+import io.quarkus.arc.Arc;
+import io.vertx.core.Vertx;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
@@ -39,6 +41,13 @@ public class CamelApplication {
 
     public void starting(@Observes StartingEvent event) {
         runtime.addProperty("starting", "true");
+
+        // invoking Arc.::instance(...) before the container is fully
+        // started may result in a null reference being returned
+        Vertx instance = Arc.container().instance(Vertx.class).get();
+        if (instance != null) {
+            runtime.getRegistry().bind("my-vertx", Arc.container().instance(Vertx.class).get());
+        }
 
         addRoute("src/main/resources/hello.xml");
     }
