@@ -346,6 +346,11 @@
                 <artifactId>camel-quarkus-jira</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-cache</artifactId>
+                <version>${httpclient.cache.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
