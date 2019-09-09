@@ -75,6 +75,19 @@
     </modules>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.version}</version>
+                    <configuration>
+                        <!-- this is needed to make hot-reload working in multi-module projects-->
+                        <noDeps>true</noDeps>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -105,6 +118,7 @@
                 </executions>
             </plugin>
         </plugins>
+
     </build>
 
     <profiles>
