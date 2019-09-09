@@ -24,11 +24,13 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
@@ -101,5 +103,20 @@ public class CamelServlet {
         }
 
         return null;
+    }
+
+    @Path("/context/name")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getCamelContextName() {
+        return runtime.getContext().getName();
+    }
+
+    @Path("/context/name")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String setCamelContextName(String name) {
+        runtime.getContext().adapt(ExtendedCamelContext.class).setName(name);
+        return runtime.getContext().getName();
     }
 }

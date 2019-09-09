@@ -36,6 +36,7 @@ import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
 import org.apache.camel.Converter;
@@ -44,6 +45,7 @@ import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
+import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
@@ -61,7 +63,10 @@ class SubstrateProcessor {
             TypeConverter.class,
             ExchangeFormatter.class,
             ScheduledPollConsumerScheduler.class,
-            Component.class);
+            Component.class,
+            CamelContext.class,
+            StreamCachingStrategy.class,
+            StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class);
 
     @Inject
     BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
