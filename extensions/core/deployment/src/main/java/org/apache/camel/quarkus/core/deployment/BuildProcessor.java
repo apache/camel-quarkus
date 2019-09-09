@@ -40,6 +40,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.RoutesBuilder;
@@ -142,6 +143,9 @@ class BuildProcessor {
             CamelRecorder recorder,
             CamelRuntimeBuildItem runtime,
             ShutdownContextBuildItem shutdown,
+            // TODO: keep this list as placeholder to ensure the ArC container is fully
+            //       started before starting the runtime
+            List<ServiceStartBuildItem> startList,
             CamelConfig.Runtime runtimeConfig)
             throws Exception {
 
