@@ -31,17 +31,15 @@ public class MailTest {
 
     @Test
     public void testSendAsMail() throws Exception {
-        Mailbox.clearAll();
-
         RestAssured.given().contentType(ContentType.TEXT).body("Hi how are you")
                 .post("/mail/mailtext");
 
-        Mailbox mailbox = Mailbox.get("james@localhost");
-        assertEquals(1, mailbox.size());
-        Object body = mailbox.get(0).getContent();
-        assertEquals("Hi how are you", body);
-        Object subject = mailbox.get(0).getSubject();
-        assertEquals("Hello World", subject);
+        assertEquals("1", RestAssured.given().get("/mock/{username}/size",
+                "james@localhost").asString());
+        assertEquals("Hi how are you", RestAssured.given().get("/mock/{username}/{id}/content",
+                "james@localhost", 0).asString());
+        assertEquals("Hello World", RestAssured.given().get("/mock/{username}/{id}/subject",
+                "james@localhost", 0).asString());
     }
 
 }

@@ -65,6 +65,11 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-core-deployment</artifactId>
+                <version>${quarkus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
