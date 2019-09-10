@@ -48,6 +48,7 @@
         <module>aws-sqs</module>
         <module>aws-eks</module>
         <module>jdbc</module>
+        <module>mail</module>
         <module>salesforce</module>
         <module>servlet</module>
         <module>log</module>
