@@ -60,6 +60,7 @@
         <module>zipfile</module>
         <module>csv</module>
         <module>microprofile-metrics</module>
+        <module>paho</module>
     </modules>
 
     <build>

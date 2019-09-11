@@ -41,8 +41,8 @@
          -->
         <native-image.docker-build>true</native-image.docker-build>
         <native-image.container-runtime>docker</native-image.container-runtime>
-
         <mock-javamail-version>1.9</mock-javamail-version>
+        <activemq-version>5.15.9</activemq-version>
     </properties>
 
     <dependencyManagement>
@@ -70,6 +70,21 @@
                 <artifactId>quarkus-core-deployment</artifactId>
                 <version>${quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-kahadb-store</artifactId>
+                <version>${activemq-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-mqtt</artifactId>
+                <version>${activemq-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-broker</artifactId>
+                <version>${activemq-version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -91,6 +106,7 @@
         <module>twitter</module>
         <module>zipfile</module>
         <module>microprofile-metrics</module>
+        <module>paho</module>
     </modules>
 
     <build>
