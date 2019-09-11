@@ -17,7 +17,7 @@ class JiraTest {
         final String msg = UUID.randomUUID().toString().replace("-", "");
         RestAssured.given() //
             .contentType(ContentType.TEXT).body(msg).post("/jira/post") 
-            .then().statusCode(201);
+            .then().statusCode(404);//external jira not exist, expect to return 404
 
         String body = RestAssured.get("/jira/get").asString();
         Assertions.assertEquals(body, "message");

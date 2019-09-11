@@ -16,12 +16,32 @@
  */
 package org.apache.camel.quarkus.component.jira.it;
 
+
+
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jira.JiraConstants;
+
 
 
 public class JiraRouteBuilder extends RouteBuilder {
+    String TEST_JIRA_URL = "https://somerepo.atlassian.net";
+    String PROJECT = "TST";
+    String USERNAME = "someguy";
+    String PASSWORD = "my_password";
+    String JIRA_CREDENTIALS = TEST_JIRA_URL + "&username=" + USERNAME + "&password=" + PASSWORD;
+
+    
+    
     @Override
     public void configure() {
-        // Add some routes or remove this class
+        
+        from("direct:start")
+            .setHeader(JiraConstants.ISSUE_PROJECT_KEY, constant("camel-jira"))
+            .setHeader(JiraConstants.ISSUE_TYPE_NAME, constant("Task"))
+            .setHeader(JiraConstants.ISSUE_SUMMARY, constant("Demo Bug jira"))
+            .setHeader(JiraConstants.ISSUE_PRIORITY_NAME, constant("Low"))
+            .setHeader(JiraConstants.ISSUE_ASSIGNEE, constant("Freeman"))
+            .to("jira://addIssue?jiraUrl=" + JIRA_CREDENTIALS);
+            
     }
 }

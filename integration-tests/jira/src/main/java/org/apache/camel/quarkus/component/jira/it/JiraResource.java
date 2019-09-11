@@ -17,9 +17,6 @@
 package org.apache.camel.quarkus.component.jira.it;
 
 import java.net.URI;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -31,9 +28,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.atlassian.jira.rest.client.api.RestClientException;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.jira.JiraConstants;
 import org.jboss.logging.Logger;
 
 
@@ -69,23 +67,22 @@ public class JiraResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response post(String message) throws Exception {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put(JiraConstants.ISSUE_PROJECT_KEY, "camel-jira");
-        headers.put(JiraConstants.ISSUE_TYPE_NAME, "Task");
-        headers.put(JiraConstants.ISSUE_SUMMARY, "Demo Bug jira " + (new Date()));
-        headers.put(JiraConstants.ISSUE_PRIORITY_NAME, "Low");
-        headers.put(JiraConstants.ISSUE_ASSIGNEE, "tom");
+        
         log.infof("Sending to jira: %s", message);
         String response = null;
+        int statusCode = 0;
         try {
-            response = (String)producerTemplate.requestBodyAndHeaders("jira://addIssue?jiraUrl=" + JIRA_CREDENTIALS, message, headers);
-        } catch (Exception ex) {
-            //no jira server setup, suppose to fail
+            response = (String)producerTemplate.requestBody("direct:start", message, String.class);
+        } catch (CamelExecutionException ex) {
+            
+            statusCode = ((RestClientException)ex.getCause()).getStatusCode().get();
         }
+        
         log.infof("Got response from jira: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)
+                .status(statusCode)
                 .build();
     }
 }
