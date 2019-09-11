@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.Arc;
@@ -46,15 +47,15 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
-import org.graalvm.nativeimage.ImageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FastCamelRuntime implements CamelRuntime {
     private static final Logger LOG = LoggerFactory.getLogger(FastCamelRuntime.class);
 
-    protected CamelContext context;
+    protected Supplier<CamelContext> contextSupplier;
     protected Registry registry;
+    protected CamelContext context;
     protected List<RoutesBuilder> builders = new ArrayList<>();
     protected BuildTime buildTimeConfig;
     protected Runtime runtimeConfig;
@@ -79,17 +80,13 @@ public class FastCamelRuntime implements CamelRuntime {
     @SuppressWarnings("unchecked")
     public void doInit() {
         try {
-            context = createContext();
+            context = setupContext(contextSupplier);
             context.setLoadTypeConverters(false);
             context.getTypeConverterRegistry().setInjector(context.getInjector());
 
             fireEvent(InitializingEvent.class, new InitializingEvent());
 
             context.init();
-
-            /* Create the model before firing InitializedEvent so that the listeners can add routes */
-            FastModel model = new FastModel(context);
-            context.adapt(FastCamelContext.class).setModel(model);
 
             fireEvent(InitializedEvent.class, new InitializedEvent());
         } catch (Exception e) {
@@ -146,13 +143,13 @@ public class FastCamelRuntime implements CamelRuntime {
     }
 
     @SuppressWarnings("unchecked")
-    protected CamelContext createContext() {
+    protected CamelContext setupContext(Supplier<CamelContext> contextSupplier) {
         PropertiesComponent pc = new PropertiesComponent();
         pc.setAutoDiscoverPropertiesSources(false);
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
 
-        FastCamelContext context = new FastCamelContext();
-        context.setRegistry(registry);
+        CamelContext context = contextSupplier.get();
+        context.adapt(ExtendedCamelContext.class).setRegistry(registry);
         context.addComponent("properties", pc);
 
         PropertyBindingSupport.build()
@@ -172,6 +169,10 @@ public class FastCamelRuntime implements CamelRuntime {
 
     public void setRegistry(Registry registry) {
         this.registry = registry;
+    }
+
+    public void setContextSupplier(Supplier<CamelContext> contextSupplier) {
+        this.contextSupplier = contextSupplier;
     }
 
     public void setProperties(Properties properties) {

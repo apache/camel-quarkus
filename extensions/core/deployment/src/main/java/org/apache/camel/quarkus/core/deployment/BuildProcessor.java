@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 import javax.inject.Inject;
 
@@ -42,19 +43,17 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
-import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateSystemPropertyBuildItem;
-import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
-import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.core.runtime.CamelConfig;
 import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
 import org.apache.camel.quarkus.core.runtime.CamelProducers;
-import org.apache.camel.quarkus.core.runtime.CamelRecorder;
+import org.apache.camel.quarkus.core.runtime.support.CamelRecorder;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.quarkus.core.runtime.support.FastCamelContextSupplier;
 import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -74,10 +73,17 @@ class BuildProcessor {
     CamelRuntimeBuildItem create(
             CamelRecorder recorder,
             List<CamelRegistryBuildItem> registryItems,
+            List<CamelContextBuildItem> contexts,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
 
+        Supplier<CamelContext> contextSupplier;
+        if (contexts.size() == 0) {
+            contextSupplier = new FastCamelContextSupplier();
+        } else {
+            contextSupplier = contexts.get(0).getContext();
+        }
         RuntimeRegistry registry = new RuntimeRegistry();
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry);
+        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry, contextSupplier);
 
         getBuildTimeRouteBuilderClasses().forEach(
             b -> recorder.addBuilder(camelRuntime, b)
@@ -218,4 +224,5 @@ class BuildProcessor {
                 + '}';
         }
     }
+
 }

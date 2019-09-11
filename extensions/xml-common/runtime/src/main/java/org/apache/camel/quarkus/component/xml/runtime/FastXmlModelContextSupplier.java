@@ -18,20 +18,13 @@ package org.apache.camel.quarkus.component.xml.runtime;
 
 import java.util.function.Supplier;
 
-import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultModelJAXBContextFactory;
-import org.apache.camel.spi.ModelJAXBContextFactory;
 
-@Recorder
-public class SupportRecorder {
+public class FastXmlModelContextSupplier implements Supplier<CamelContext> {
 
-    public ModelJAXBContextFactory jaxbContextFactory() {
-        return new DefaultModelJAXBContextFactory();
-    }
-
-    public Supplier<CamelContext> camelContext() {
-        return new FastXmlModelContextSupplier();
+    @Override
+    public CamelContext get() {
+        return new FastXmlModelContext();
     }
 
 }

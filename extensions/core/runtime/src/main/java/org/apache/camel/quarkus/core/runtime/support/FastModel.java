@@ -52,6 +52,11 @@ public class FastModel extends DefaultModel {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public void addRestDefinitions(InputStream is, boolean addToRoutes) throws Exception {
+        throw new UnsupportedOperationException();
+    }
+
     protected void start(RouteDefinition routeDefinition) throws Exception {
         // indicate we are staring the route using this thread so
         // we are able to query this if needed

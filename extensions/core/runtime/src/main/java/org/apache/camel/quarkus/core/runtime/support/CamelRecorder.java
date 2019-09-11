@@ -14,30 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime;
+package org.apache.camel.quarkus.core.runtime.support;
+
+import java.util.function.Supplier;
 
 import io.quarkus.arc.runtime.BeanContainerListener;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
+import org.apache.camel.quarkus.core.runtime.CamelConfig.Runtime;
+import org.apache.camel.quarkus.core.runtime.CamelProducers;
+import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.FastCamelRuntime;
 import org.apache.camel.spi.Registry;
 
 @Recorder
 public class CamelRecorder {
 
-    public RuntimeValue<CamelRuntime> create(Registry registry) {
+    public RuntimeValue<CamelRuntime> create(Registry registry, Supplier<CamelContext> contextSupplier) {
 
         FastCamelRuntime fcr = new FastCamelRuntime();
         fcr.setRegistry(registry);
+        fcr.setContextSupplier(contextSupplier);
 
         return new RuntimeValue<>(fcr);
     }
 
     public void init(
             RuntimeValue<CamelRuntime> runtime,
-            CamelConfig.BuildTime buildTimeConfig) {
+            BuildTime buildTimeConfig) {
 
         FastCamelRuntime fcr = (FastCamelRuntime) runtime.getValue();
         fcr.init(buildTimeConfig);
@@ -46,7 +54,7 @@ public class CamelRecorder {
     public void start(
             ShutdownContext shutdown,
             RuntimeValue<CamelRuntime> runtime,
-            CamelConfig.Runtime runtimeConfig) throws Exception {
+            Runtime runtimeConfig) throws Exception {
 
         runtime.getValue().start(runtimeConfig);
 

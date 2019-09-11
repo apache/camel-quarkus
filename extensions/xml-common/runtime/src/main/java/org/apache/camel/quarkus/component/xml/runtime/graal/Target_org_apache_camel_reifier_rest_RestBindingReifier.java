@@ -23,12 +23,13 @@ import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.model.rest.RestBindingDefinition;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.RestConfiguration;
-import org.apache.camel.spi.RouteContext;
-import org.apache.camel.support.processor.validation.PredicateValidatingProcessor;
 
+/**
+ * TODO: we should not use a substitution here, so we need to find a better way to plug
+ *   our own modified reifier
+ */
 @TargetClass(className = "org.apache.camel.reifier.rest.RestBindingReifier")
 final class Target_org_apache_camel_reifier_rest_RestBindingReifier {
 

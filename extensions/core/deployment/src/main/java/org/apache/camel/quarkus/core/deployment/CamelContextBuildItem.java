@@ -14,25 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml.deployment;
+package org.apache.camel.quarkus.core.deployment;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
-import org.apache.camel.quarkus.component.xml.runtime.SupportRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem;
-import org.apache.camel.spi.ModelJAXBContextFactory;
+import java.util.function.Supplier;
 
-public class ModelFactoryProcessor {
+import io.quarkus.builder.item.MultiBuildItem;
+import org.apache.camel.CamelContext;
 
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelRegistryBuildItem jaxbContextFactory(SupportRecorder recorder) {
-            return new CamelRegistryBuildItem(
-                    "log",
-                    ModelJAXBContextFactory.class,
-                    recorder.jaxbContextFactory()
-            );
+public final class CamelContextBuildItem extends MultiBuildItem {
+
+    private final Supplier<CamelContext> context;
+
+    public CamelContextBuildItem(Supplier<CamelContext> context) {
+        this.context = context;
     }
 
+    public Supplier<CamelContext> getContext() {
+        return context;
+    }
 }

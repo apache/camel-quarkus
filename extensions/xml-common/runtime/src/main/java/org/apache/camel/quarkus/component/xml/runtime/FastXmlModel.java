@@ -14,32 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml.runtime.graal;
+package org.apache.camel.quarkus.component.xml.runtime;
 
 import java.io.InputStream;
 
-import com.oracle.svm.core.annotate.Substitute;
-import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.CamelContext;
-import org.apache.camel.impl.DefaultModel;
 import org.apache.camel.model.ModelHelper;
 import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
+import org.apache.camel.quarkus.core.runtime.support.FastModel;
 
-@TargetClass(className = "org.apache.camel.quarkus.core.runtime.support.FastModel")
-@Substitute
-public class Target_org_apache_camel_quarkus_core_runtime_support_FastModel extends DefaultModel {
+public class FastXmlModel extends FastModel {
 
-    public Target_org_apache_camel_quarkus_core_runtime_support_FastModel(CamelContext camelContext) {
+    public FastXmlModel(CamelContext camelContext) {
         super(camelContext);
     }
 
-    @Substitute
+    @Override
     public void addRouteDefinitions(InputStream is) throws Exception {
         RoutesDefinition def = ModelHelper.loadRoutesDefinition(getCamelContext(), is);
         if (def != null) {
             this.addRouteDefinitions(def.getRoutes());
         }
+    }
 
+    @Override
+    public void addRestDefinitions(InputStream is, boolean addToRoutes) throws Exception {
+        RestsDefinition rests = ModelHelper.loadRestsDefinition(getCamelContext(), is);
+        if (rests != null) {
+            this.addRestDefinitions(rests.getRests(), addToRoutes);
+        }
     }
 
 }

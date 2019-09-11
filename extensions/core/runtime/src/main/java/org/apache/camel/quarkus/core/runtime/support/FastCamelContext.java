@@ -68,6 +68,7 @@ import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
 import org.apache.camel.impl.engine.ServicePool;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
+import org.apache.camel.model.Model;
 import org.apache.camel.processor.MulticastProcessor;
 import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.FastModel.FastRouteContext;
@@ -115,7 +116,7 @@ import org.slf4j.LoggerFactory;
 public class FastCamelContext extends AbstractCamelContext {
     private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
 
-    private Object model;
+    private Model model;
 
     public FastCamelContext() {
         super(false);
@@ -125,8 +126,8 @@ public class FastCamelContext extends AbstractCamelContext {
         setMessageHistory(Boolean.FALSE);
     }
 
-    public void setModel(Object model) {
-        this.model = model;
+    protected Model createModel() {
+        return new FastModel(this);
     }
 
     public void clearModel() {
@@ -409,6 +410,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     public void doInit() throws Exception {
+        model = createModel();
         super.doInit();
 
         forceLazyInitialization();

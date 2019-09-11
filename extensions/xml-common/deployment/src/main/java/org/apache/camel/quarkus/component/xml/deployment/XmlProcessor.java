@@ -16,15 +16,18 @@
  */
 package org.apache.camel.quarkus.component.xml.deployment;
 
-import javax.enterprise.inject.Produces;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.converter.jaxp.XmlConverter;
+import org.apache.camel.quarkus.component.xml.runtime.SupportRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelSupport;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 
@@ -45,6 +48,22 @@ class XmlProcessor {
     @BuildStep
     JaxbEnabledBuildItem handleJaxbSupport() {
         return new JaxbEnabledBuildItem();
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelRegistryBuildItem jaxbContextFactory(SupportRecorder recorder) {
+        return new CamelRegistryBuildItem(
+                "jaxbContextFactory",
+                ModelJAXBContextFactory.class,
+                recorder.jaxbContextFactory()
+        );
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextBuildItem camelContext(SupportRecorder recorder) {
+        return new CamelContextBuildItem(recorder.camelContext());
     }
 
     @BuildStep
