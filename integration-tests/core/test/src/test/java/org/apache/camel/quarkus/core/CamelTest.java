@@ -20,12 +20,14 @@ import java.net.HttpURLConnection;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
@@ -60,5 +62,18 @@ public class CamelTest {
         assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
         assertTrue(response.jsonPath().getBoolean("show-all"));
         assertTrue(response.jsonPath().getBoolean("multi-line"));
+    }
+
+    @Test
+    public void testSetCamelContextName() {
+        Response response = RestAssured.get("/test/context/name").andReturn();
+
+        assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
+        assertNotEquals("my-ctx-name", response.body().asString());
+
+        RestAssured.given()
+            .contentType(ContentType.TEXT).body("my-ctx-name")
+            .post("/test/context/name")
+            .then().body(is("my-ctx-name"));
     }
 }

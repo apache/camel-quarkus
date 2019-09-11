@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.core.cdi;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.vertx.core.impl.VertxImpl;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
@@ -39,5 +40,10 @@ public class CamelTest {
     @Test
     public void testHello() {
         RestAssured.when().get("/test/hello/quarkus").then().body(is("hello quarkus"));
+    }
+
+    @Test
+    public void restLookupBeanByName() {
+        RestAssured.when().get("/test/registry/my-vertx").then().body(is(VertxImpl.class.getName()));
     }
 }
