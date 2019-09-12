@@ -23,6 +23,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
+import io.restassured.internal.assertion.Assertion;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -33,9 +34,15 @@ class PahoTest {
     @Test
     public void test() {
         final String msg = UUID.randomUUID().toString().replace("-", "");
-        RestAssured.given() //
-            .contentType(ContentType.TEXT).body(msg).post("/paho/publish") //
+
+        // publish the message to the queue
+        RestAssured.given()
+            .contentType(ContentType.TEXT).body(msg).post("/paho/queue") //
             .then().statusCode(200);
+
+        // receive the message from the queue
+        String body = RestAssured.get("/paho/queue").asString();
+        Assertions.assertEquals(msg, body);
     }
 
 }
