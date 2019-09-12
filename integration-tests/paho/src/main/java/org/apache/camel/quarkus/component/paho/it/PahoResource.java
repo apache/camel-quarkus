@@ -16,16 +16,19 @@
  */
 package org.apache.camel.quarkus.component.paho.it;
 
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 @Path("/paho")
 @ApplicationScoped
@@ -36,14 +39,26 @@ public class PahoResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/publish")
+    @Inject
+    ConsumerTemplate consumerTemplate;
+
+    @Path("/queue")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String get() {
+        final String message = consumerTemplate.receiveBody("paho:test/queue", String.class);
+        return message;
+    }
+
+    @Path("/queue")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String post(String message) throws Exception {
+    public Response publish(String message) {
         LOG.infof("Sending to paho: %s", message);
-        final String response = producerTemplate.requestBody("direct:paho", message, String.class);
-        LOG.infof("Got response from paho: %s", response);
-        return response;
+        producerTemplate.requestBody("paho:test/queue?retained=true", message, String.class);
+        LOG.infof("Sent to paho: %s", message);
+
+        return Response.ok().build();
     }
 }
