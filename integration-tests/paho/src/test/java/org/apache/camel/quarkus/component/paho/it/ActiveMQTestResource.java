@@ -17,13 +17,13 @@
 
 package org.apache.camel.quarkus.component.paho.it;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.TransportConnector;
-
 import java.net.URI;
 import java.util.Collections;
 import java.util.Map;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.broker.TransportConnector;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private BrokerService broker;

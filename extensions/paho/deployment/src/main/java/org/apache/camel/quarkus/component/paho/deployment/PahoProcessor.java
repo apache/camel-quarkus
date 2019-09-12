@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.component.paho.deployment;
 
+import java.util.Arrays;
+import java.util.List;
+
+import javax.inject.Inject;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -27,25 +32,21 @@ import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModuleFactory;
 import org.eclipse.paho.client.mqttv3.logging.JSR47Logger;
 import org.eclipse.paho.client.mqttv3.spi.NetworkModuleFactory;
 
-import javax.inject.Inject;
-import java.util.Arrays;
-import java.util.List;
-
 class PahoProcessor {
 
     private static final String FEATURE = "camel-paho";
-
-    @Inject
-    BuildProducer<SubstrateResourceBuildItem> resource;
-
-    @Inject
-    BuildProducer<SubstrateResourceBundleBuildItem> resourceBundle;
 
     private static final List<Class<?>> PAHO_REFLECTIVE_CLASSES = Arrays.asList(
             JSR47Logger.class,
             TCPNetworkModuleFactory.class,
             SSLNetworkModuleFactory.class
     );
+
+    @Inject
+    BuildProducer<SubstrateResourceBuildItem> resource;
+
+    @Inject
+    BuildProducer<SubstrateResourceBundleBuildItem> resourceBundle;
 
     @BuildStep
     FeatureBuildItem feature() {
