@@ -114,7 +114,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FastCamelContext extends AbstractCamelContext {
-    private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
 
     private Model model;
 

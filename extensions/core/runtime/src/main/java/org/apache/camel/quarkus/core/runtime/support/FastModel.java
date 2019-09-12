@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +27,6 @@ import org.apache.camel.Navigate;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
-import org.apache.camel.impl.DefaultModel;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseRouteService;
 import org.apache.camel.impl.engine.DefaultRouteContext;
@@ -41,20 +39,10 @@ import org.apache.camel.processor.channel.DefaultChannel;
 import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.support.CamelContextHelper;
 
-public class FastModel extends DefaultModel {
+public class FastModel extends BaseModel {
 
     public FastModel(CamelContext camelContext) {
         super(camelContext);
-    }
-
-    @Override
-    public void addRouteDefinitions(InputStream is) throws Exception {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void addRestDefinitions(InputStream is, boolean addToRoutes) throws Exception {
-        throw new UnsupportedOperationException();
     }
 
     protected void start(RouteDefinition routeDefinition) throws Exception {
