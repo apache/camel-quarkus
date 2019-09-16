@@ -59,7 +59,7 @@ public class JiraResource {
     public String get() throws Exception {
         final String message = consumerTemplate.receiveBodyNoWait("jira:newIssues?jiraUrl=" + JIRA_CREDENTIALS, String.class);
         log.infof("Received from jira: %s", message);
-        return "message";
+        return message;
     }
 
     @Path("/post")
