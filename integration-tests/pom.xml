@@ -138,9 +138,9 @@
             <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
-                <inherited>false</inherited>
                 <executions>
                     <execution>
+                        <inherited>false</inherited>
                         <id>generate-test-poms</id>
                         <goals>
                             <goal>execute</goal>
@@ -188,6 +188,26 @@
                         </executions>
                     </plugin>
                     <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>set-deployer-properties</id>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>deploy</phase>
+                                <configuration>
+                                    <source><![CDATA[
+                                        def distManagementRepo = project.version.endsWith('-SNAPSHOT') ? project.distributionManagement.snapshotRepository : project.distributionManagement.repository
+                                        project.properties.setProperty('deploy.test.jar.repositoryId', distManagementRepo.id)
+                                        project.properties.setProperty('deploy.test.jar.url', distManagementRepo.url)
+                                    ]]></source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-deploy-plugin</artifactId>
                         <executions>
@@ -198,6 +218,8 @@
                                 </goals>
                                 <phase>deploy</phase>
                                 <configuration>
+                                    <repositoryId>${deploy.test.jar.repositoryId}</repositoryId><!-- set via groovy above -->
+                                    <url>${deploy.test.jar.url}</url><!-- set via groovy above -->
                                     <pomFile>${basedir}/../target/${project.artifactId}-tests-pom.xml</pomFile>
                                     <version>${project.version}</version>
                                     <file>${basedir}/target/${project.artifactId}-${project.version}-tests.jar</file>
