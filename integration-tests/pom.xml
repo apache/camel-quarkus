@@ -140,96 +140,46 @@
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
                     <execution>
-                        <inherited>false</inherited>
-                        <id>generate-test-poms</id>
+                        <id>install-test-poms</id>
                         <goals>
                             <goal>execute</goal>
                         </goals>
-                        <phase>validate</phase>
+                        <phase>install</phase>
                         <configuration>
-                            <source>file:///${project.basedir}/../build/scripts/generate-test-poms.groovy</source>
+                            <source><![CDATA[
+                                File dir = project.basedir
+                                for (; dir != null && !new File(dir, '.mvn').exists(); dir = dir.getParentFile()) {}
+                                new GroovyShell().parse(new File(dir, 'build/scripts/generate-test-poms.groovy'))
+                                    .install(project, session)
+                            ]]></source>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>deploy-test-poms</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>install</phase>
+                        <configuration>
+                            <source><![CDATA[
+                                File dir = project.basedir
+                                for (; dir != null && !new File(dir, '.mvn').exists(); dir = dir.getParentFile()) {}
+                                new GroovyShell().parse(new File(dir, 'build/scripts/generate-test-poms.groovy'))
+                                    .deploy(project, session)
+                            ]]></source>
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.twdata.maven</groupId>
+                        <artifactId>mojo-executor</artifactId>
+                        <version>2.3.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
 
     </build>
-
-    <profiles>
-        <profile>
-            <!-- installs and deploys the test jar under a separate artifactId and with a modified pom.
-                 See /build/scripts/generate-test-poms.groovy -->
-            <id>install-reusable-test-jar</id>
-            <activation>
-                <file>
-                    <!-- activate only in the submodules -->
-                    <exists>../install-reusable-test-jar.txt</exists>
-                </file>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-install-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>install-reusable-test-jar</id>
-                                <goals>
-                                    <goal>install-file</goal>
-                                </goals>
-                                <phase>install</phase>
-                                <configuration>
-                                    <pomFile>${basedir}/../target/${project.artifactId}-tests-pom.xml</pomFile>
-                                    <version>${project.version}</version>
-                                    <file>${basedir}/target/${project.artifactId}-${project.version}-tests.jar</file>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>set-deployer-properties</id>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>deploy</phase>
-                                <configuration>
-                                    <source><![CDATA[
-                                        def distManagementRepo = project.version.endsWith('-SNAPSHOT') ? project.distributionManagement.snapshotRepository : project.distributionManagement.repository
-                                        project.properties.setProperty('deploy.test.jar.repositoryId', distManagementRepo.id)
-                                        project.properties.setProperty('deploy.test.jar.url', distManagementRepo.url)
-                                    ]]></source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-deploy-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>deploy-reusable-test-jar</id>
-                                <goals>
-                                    <goal>deploy-file</goal>
-                                </goals>
-                                <phase>deploy</phase>
-                                <configuration>
-                                    <repositoryId>${deploy.test.jar.repositoryId}</repositoryId><!-- set via groovy above -->
-                                    <url>${deploy.test.jar.url}</url><!-- set via groovy above -->
-                                    <pomFile>${basedir}/../target/${project.artifactId}-tests-pom.xml</pomFile>
-                                    <version>${project.version}</version>
-                                    <file>${basedir}/target/${project.artifactId}-${project.version}-tests.jar</file>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>

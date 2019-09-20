@@ -53,15 +53,25 @@
  */
 
 import groovy.io.FileType
+import static org.twdata.maven.mojoexecutor.MojoExecutor.Element
+import static org.twdata.maven.mojoexecutor.MojoExecutor.*
+import org.apache.maven.project.MavenProject
+import org.apache.maven.execution.MavenSession
+import org.apache.maven.model.Plugin
 
-new File(project.basedir, 'target').mkdirs()
+final String command = properties['itest.jar.command']
 
-project.basedir.eachFile FileType.DIRECTORIES, { dir ->
-    final File pomXml = new File(dir, 'pom.xml')
-    if (pomXml.exists()) {
-        def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
+static boolean isItestModule(MavenProject project) {
+    return 'jar'.equals(project.packaging) && new File(project.basedir, 'pom.xml').getText('UTF-8').contains('<goal>native-image</goal>')
+}
+
+static void install(MavenProject project, MavenSession session) {
+
+    if (isItestModule(project)) {
+        def pomXmlProject = new XmlParser().parseText(new File(project.basedir, 'pom.xml').getText('UTF-8'))
         final String oldArtifactId = pomXmlProject.artifactId.text()
         final String newArtifactId = oldArtifactId + '-tests'
+
         pomXmlProject.artifactId[0].value = newArtifactId
 
         pomXmlProject.name.each { n -> n.value = n.text() + ' :: Tests' }
@@ -82,10 +92,89 @@ project.basedir.eachFile FileType.DIRECTORIES, { dir ->
         pomXmlProject.build.each { n -> n.parent().remove(n) }
         pomXmlProject.profiles.each { n -> n.parent().remove(n) }
 
-        new File(project.basedir, 'target/'+ newArtifactId + '-pom.xml').withWriter( 'UTF-8' ) { out ->
+        final File outputPom = newPomPath(project, project.artifactId)
+        outputPom.withWriter( 'UTF-8' ) { out ->
             final XmlNodePrinter printer = new XmlNodePrinter(new PrintWriter(out))
             printer.preserveWhitespace = true
             printer.print(pomXmlProject)
         }
+        final File testJar = testJarPath(project, project.basedir, project.artifactId)
+
+        Class bpmClass = Class.forName("org.apache.maven.plugin.BuildPluginManager");
+        Object buildPluginManager = session.lookup(bpmClass.getName());
+        executeMojo(
+            managedPlugin("org.apache.maven.plugins", "maven-install-plugin", project),
+            goal("install-file"),
+            configuration(
+                element("pomFile", outputPom.toString()),
+                element("version", project.version),
+                element("file", testJar.toString())
+            ),
+            executionEnvironment(
+                project,
+                session,
+                buildPluginManager
+            )
+        )
+    }
+
+}
+
+static Plugin managedPlugin(String groupId, String artifactId, MavenProject project) {
+    for (p in project.build.plugins) {
+        if (groupId.equals(p.groupId) && artifactId.equals(p.artifactId)) {
+            println 'Resolved version ' + p.version + ' for ' + groupId +':'+artifactId
+            return plugin(groupId, artifactId, p.version)
+        }
+    }
+    throw new IllegalStateException('Could not find a managed version of '+ groupId + ':' + artifactId)
+}
+
+
+static File newPomPath(MavenProject project, String oldArtifactId) {
+    return new File(project.basedir, 'target/'+ oldArtifactId + '-tests-pom.xml')
+}
+static File testJarPath(MavenProject project, File oldDir, String oldArtifactId) {
+    return new File(oldDir, 'target/' + oldArtifactId + '-' + project.version + '-tests.jar')
+}
+
+static void deploy(MavenProject project, MavenSession session) {
+    if (isItestModule(project)) {
+        def distManagementRepo = project.version.endsWith('-SNAPSHOT') ? project.distributionManagement.snapshotRepository : project.distributionManagement.repository
+
+        final File outputPom = newPomPath(project, project.artifactId)
+        final File testJar = testJarPath(project, project.basedir, project.artifactId)
+
+        Class bpmClass = Class.forName("org.apache.maven.plugin.BuildPluginManager");
+        Object buildPluginManager = session.lookup(bpmClass.getName());
+
+        List<Element> config = [];
+        config.add(element("repositoryId", distManagementRepo.id))
+        config.add(element("url", distManagementRepo.url))
+        config.add(element("pomFile", outputPom.toString()))
+        config.add(element("version", project.version))
+        config.add(element("file", testJar.toString()))
+
+        final File testSources = new File(testJar.toString().replace('.jar', '-sources.jar'))
+        if (testSources.exists()) {
+            config.add(element("sources", testSources.toString()))
+        }
+        final File testJavaDoc = new File(testJar.toString().replace('.jar', '-javadoc.jar'))
+        if (testJavaDoc.exists()) {
+            config.add(element("javadoc", testJavaDoc.toString()))
+        }
+
+        executeMojo(
+            managedPlugin("org.apache.maven.plugins", "maven-deploy-plugin", project),
+            goal("deploy-file"),
+            configuration(config.toArray(new Element[config.size()])),
+            executionEnvironment(
+                project,
+                session,
+                buildPluginManager
+            )
+        )
     }
 }
+
+
