@@ -154,6 +154,7 @@
                             ]]></source>
                         </configuration>
                     </execution>
+                    <!-- The synthetic test poms are missing signatures see https://github.com/apache/camel-quarkus/issues/207
                     <execution>
                         <id>deploy-test-poms</id>
                         <goals>
@@ -169,6 +170,7 @@
                             ]]></source>
                         </configuration>
                     </execution>
+                    -->
                 </executions>
                 <dependencies>
                     <dependency>
