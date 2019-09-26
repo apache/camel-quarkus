@@ -17,22 +17,12 @@
 package org.apache.camel.quarkus.component.microprofile.metrics.it;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.MicroProfileMetricsExchangeEventNotifier;
-import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
-import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
-import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_HISTOGRAM_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_METER_MARK;
 
 public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        // Configure (optional) factories & event notifiers
-        getContext().addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
-        getContext().setMessageHistoryFactory(new MicroProfileMetricsMessageHistoryFactory());
-        getContext().getManagementStrategy().addEventNotifier(new MicroProfileMetricsExchangeEventNotifier());
-        getContext().getManagementStrategy().addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
-
         from("direct:counter")
             .to("microprofile-metrics:counter:camel-quarkus-counter");
 

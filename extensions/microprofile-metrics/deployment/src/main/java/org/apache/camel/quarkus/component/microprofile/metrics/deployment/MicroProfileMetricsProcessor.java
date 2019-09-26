@@ -16,11 +16,13 @@
  */
 package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 
+import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem;
 import org.eclipse.microprofile.metrics.MetricRegistry;
@@ -43,5 +45,11 @@ class MicroProfileMetricsProcessor {
             MetricRegistry.class,
             recorder.createApplicationRegistry()
         );
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    public void configureCamelContext(CamelMicroProfileMetricsRecorder recorder, CamelMicroProfileMetricsConfig config, BeanContainerBuildItem beanContainer) {
+        recorder.configureCamelContext(config, beanContainer.getValue());
     }
 }
