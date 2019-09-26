@@ -13,6 +13,7 @@
 * `camel-quarkus-microprofile-metrics`
 * `camel-quarkus-netty-http`
 * `camel-quarkus-paho`
+* `camel-quarkus-platform-http`
 * `camel-quarkus-rest`
 * `camel-quarkus-salesforce`
 * `camel-quarkus-servlet`
