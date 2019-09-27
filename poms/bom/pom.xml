@@ -159,6 +159,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-microprofile-metrics</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.microprofile.metrics</groupId>
+                        <artifactId>microprofile-metrics-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>

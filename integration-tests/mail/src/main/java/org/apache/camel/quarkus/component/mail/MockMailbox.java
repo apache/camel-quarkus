@@ -17,16 +17,12 @@
 package org.apache.camel.quarkus.component.mail;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ProducerTemplate;
 import org.jvnet.mock_javamail.Mailbox;
 
 @Path("/mock/{username}")
