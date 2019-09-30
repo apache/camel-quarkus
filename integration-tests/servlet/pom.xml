@@ -123,10 +123,8 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
-                                    <reportErrorsAtRuntime>true</reportErrorsAtRuntime>
                                     <cleanupServer>true</cleanupServer>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <graalvmHome>${graalvmHome}</graalvmHome>
                                     <enableJni>false</enableJni>
                                     <debugBuildProcess>false</debugBuildProcess>
                                     <disableReports>true</disableReports>

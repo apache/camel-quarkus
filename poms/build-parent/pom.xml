@@ -34,6 +34,7 @@
     <description>Maven plugins configuration</description>
 
     <properties>
+        <mock-javamail.version>1.9</mock-javamail.version>
 
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
@@ -45,6 +46,21 @@
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jvnet.mock-javamail</groupId>
+                <artifactId>mock-javamail</artifactId>
+                <version>${mock-javamail.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <pluginManagement>
             <plugins>

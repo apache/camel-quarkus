@@ -26,7 +26,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-mail</artifactId>
-    <name>Camel Quarkus :: Integration Tests Mail :: Test</name>
+    <name>Camel Quarkus :: Integration Tests :: Mail</name>
     <description>Integration tests for Camel Mail extension</description>
 
     <dependencies>
@@ -46,10 +46,6 @@
 <!--            <groupId>org.apache.camel.quarkus</groupId>-->
 <!--            <artifactId>camel-quarkus-integration-test-mail-mailbox</artifactId>-->
 <!--        </dependency>-->
-        <dependency>
-            <groupId>org.jvnet.mock-javamail</groupId>
-            <artifactId>mock-javamail</artifactId>
-        </dependency>
 
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -141,12 +137,10 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
-                                    <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
                                     <cleanupServer>true</cleanupServer>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
                                     <enableServer>false</enableServer>
                                     <dumpProxies>false</dumpProxies>
-                                    <graalvmHome>${graalvmHome}</graalvmHome>
                                     <enableJni>false</enableJni>
                                     <disableReports>true</disableReports>
                                 </configuration>
