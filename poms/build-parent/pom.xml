@@ -44,6 +44,7 @@
         <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
+        <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -109,6 +110,23 @@
 
         <plugins>
             <plugin>
+                <groupId>org.commonjava.maven.plugins</groupId>
+                <artifactId>directory-maven-plugin</artifactId>
+                <version>${directory-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>directories</id>
+                        <goals>
+                            <goal>highest-basedir</goal>
+                        </goals>
+                        <phase>validate</phase>
+                        <configuration>
+                            <property>camel.quarkus.project.root</property>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.codehaus.gmaven</groupId>
                 <artifactId>groovy-maven-plugin</artifactId>
                 <executions>
@@ -119,24 +137,7 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <useSharedClassLoader>false</useSharedClassLoader>
-                            <source><![CDATA[
-                                final List<String> badDeps = []
-                                final File pomXml = new File(project.basedir, "pom.xml")
-                                if (pomXml.exists()) {
-                                    def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
-                                    pomXmlProject.dependencies.dependency
-                                        .findAll { dep ->
-                                            !dep.version.text().isEmpty()
-                                        }.stream()
-                                        .map { dep -> "in "+ project.basedir +"/pom.xml : "+ dep.groupId.text() +":"+ dep.artifactId.text() }
-                                        .each { key -> badDeps.add(key) }
-                                }
-                                if (!badDeps.isEmpty()) {
-                                    throw new RuntimeException("\nRemove explicit version from the following dependencies and rather manage them in one of the BOMs:\n\n    "
-                                        + badDeps.join("\n    "))
-                                }
-                            ]]></source>
+                            <source>file://${camel.quarkus.project.root}/build/scripts/validate-dependencies.groovy</source>
                         </configuration>
                     </execution>
                 </executions>
