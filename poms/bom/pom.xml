@@ -212,6 +212,18 @@
                 <version>${camel.version}</version>
             </dependency>
 
+            <!-- Camel Quarkus Support (in alphabetical order) -->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-jetty</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-xstream</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+
             <!-- Camel Quarkus Common (in alphabetical order) -->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
@@ -230,17 +242,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-jetty-common</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-xml-common</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-xstream-common</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
 
