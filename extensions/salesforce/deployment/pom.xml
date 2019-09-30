@@ -47,11 +47,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-jetty-common-deployment</artifactId>
+            <artifactId>camel-quarkus-support-jetty-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xstream-common-deployment</artifactId>
+            <artifactId>camel-quarkus-support-xstream-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

@@ -32,9 +32,10 @@
     <name>Camel Quarkus :: Extensions</name>
 
     <modules>
+        <!-- support extensions -->
+        <module>support</module>
+
         <!-- common/shared extensions -->
-        <module>jetty-common</module>
-        <module>xstream-common</module>
         <module>xml-common</module>
         <module>core</module>
         <module>core-cloud</module>

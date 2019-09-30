@@ -16,6 +16,7 @@
 * `camel-quarkus-rest`
 * `camel-quarkus-salesforce`
 * `camel-quarkus-servlet`
+* `camel-quarkus-support`
 * `camel-quarkus-timer`
 * `camel-quarkus-twitter`
 * `camel-quarkus-zipfile`
