@@ -62,7 +62,7 @@ mvn clean install -Dnative
 ----
 cd camel-quarkus
 cd extensions
-mvn quarkus:create-extension groovy:execute@scaffold-integration-test -N \
+mvn quarkus:create-extension -N \
     -Dquarkus.artifactIdBase=foo \
     -Dquarkus.nameBase="Foo"
 ----

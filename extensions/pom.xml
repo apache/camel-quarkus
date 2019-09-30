@@ -71,7 +71,7 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <inherited>false</inherited>
                 <!-- Setting for stubbing new extensions via
-                       mvn quarkus:create-extension groovy:execute@scaffold-integration-test -N -Dquarkus.artifactIdBase=my-new-extension
+                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=my-new-extension
                 -->
                 <configuration>
                     <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
@@ -81,6 +81,7 @@
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
+                    <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
             </plugin>
             <plugin>
@@ -111,44 +112,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>scaffold-integration-test</id>
-            <activation>
-                <property><name>quarkus.artifactIdBase</name></property>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
-                        <inherited>false</inherited>
-                        <executions>
-                            <execution>
-                                <id>scaffold-integration-test</id>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <source>file://${basedir}/../build/scripts/scaffold-integration-test.groovy</source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>io.quarkus</groupId>
-                                <artifactId>quarkus-maven-plugin</artifactId>
-                                <version>${quarkus.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
 </project>
