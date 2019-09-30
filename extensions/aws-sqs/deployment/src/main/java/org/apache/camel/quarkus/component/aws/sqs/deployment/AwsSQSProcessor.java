@@ -30,18 +30,13 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
 import org.apache.camel.component.aws.sqs.SqsConfiguration;
-import org.apache.commons.logging.impl.Jdk14Logger;
-import org.apache.commons.logging.impl.LogFactoryImpl;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -58,6 +53,11 @@ class AwsSQSProcessor {
     }
 
     @BuildStep
+    ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
     SubstrateProxyDefinitionBuildItem httpProxies() {
         return new SubstrateProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
                 "org.apache.http.pool.ConnPoolControl", "com.amazonaws.http.conn.Wrapped");
@@ -66,11 +66,7 @@ class AwsSQSProcessor {
     @BuildStep(applicationArchiveMarkers = { AWS_SQS_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod,
-            BuildProducer<SubstrateResourceBuildItem> resource,
-            BuildProducer<SubstrateResourceBundleBuildItem> resourceBundle,
-            BuildProducer<ServiceProviderBuildItem> serviceProvider,
-            ApplicationArchivesBuildItem applicationArchivesBuildItem) {
+            BuildProducer<SubstrateResourceBuildItem> resource) {
 
         IndexView view = combinedIndexBuildItem.getIndex();
 
@@ -88,8 +84,8 @@ class AwsSQSProcessor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                LogFactoryImpl.class.getCanonicalName(),
-                Jdk14Logger.class.getCanonicalName(),
+                "org.apache.commons.logging.impl.LogFactoryImpl",
+                "org.apache.commons.logging.impl.Jdk14Logger",
                 AWS4Signer.class.getCanonicalName(),
                 SqsConfiguration.class.getCanonicalName()));
     }
