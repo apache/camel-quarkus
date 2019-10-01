@@ -1,44 +1,47 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.apache.camel.quarkus.component.mail.deployment;
 
 import java.io.BufferedReader;
-import java.io.IOError;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 import java.util.Spliterator;
 import java.util.Spliterators;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
-
 import javax.inject.Inject;
 import javax.mail.Provider;
-import javax.mail.Session;
 
-import io.quarkus.arc.ResourceProvider;
-import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.util.ServiceUtil;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.Runtime;
 
 class MailProcessor {
 
@@ -150,17 +153,19 @@ class MailProcessor {
             throw new UncheckedIOException(e);
         }
     }
-private <T> Stream<T> enumerationAsStream(Enumeration<T> e) {
+
+    private <T> Stream<T> enumerationAsStream(Enumeration<T> e) {
         return StreamSupport.stream(
-                Spliterators.spliteratorUnknownSize(
-                        new Iterator<T>() {
-                            public T next() {
-                                return e.nextElement();
-                            }
-                            public boolean hasNext() {
-                                return e.hasMoreElements();
-                            }
-                        },
-                        Spliterator.ORDERED), false);
+            Spliterators.spliteratorUnknownSize(
+                new Iterator<T>() {
+                    public T next() {
+                        return e.nextElement();
+                    }
+                    public boolean hasNext() {
+                        return e.hasMoreElements();
+                    }
+                },
+                Spliterator.ORDERED),
+            false);
     }
 }
