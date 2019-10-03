@@ -23,8 +23,8 @@ import io.quarkus.builder.item.MultiBuildItem;
 /**
  * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during
  * static initialization phase.
- * Can be produced only by methods that do not depend on {@linke CamelRuntime} because otherwise
- * there is a circular dependency.
+ * Can be produced only by methods that do not depend on {@link org.apache.camel.quarkus.core.runtime.CamelRuntime}
+ * because otherwise there is a circular dependency.
  */
 public final class CamelBeanBuildItem extends MultiBuildItem {
     private final String name;
