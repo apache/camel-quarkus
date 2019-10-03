@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -28,9 +28,10 @@ import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import org.apache.camel.cloud.ServiceDefinition;
 import org.apache.camel.cloud.ServiceDiscovery;
+import org.apache.camel.impl.cloud.CachingServiceDiscovery;
 
-@TargetClass(className = "org.apache.camel.impl.cloud.CachingServiceDiscovery")
-final class Target_org_apache_camel_impl_cloud_CachingServiceDiscovery {
+@TargetClass(CachingServiceDiscovery.class)
+final class SubstituteCachingServiceDiscovery {
     @Alias
     private ServiceDiscovery delegate;
     @Alias
