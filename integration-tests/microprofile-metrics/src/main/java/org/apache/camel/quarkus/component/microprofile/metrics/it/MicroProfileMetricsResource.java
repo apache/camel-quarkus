@@ -73,4 +73,11 @@ public class MicroProfileMetricsResource {
         template.sendBody("direct:timer", null);
         return Response.ok().build();
     }
+
+    @Path("/log")
+    @GET
+    public Response logMessage() throws Exception {
+        template.sendBody("log:message", "Test log message");
+        return Response.ok().build();
+    }
 }
