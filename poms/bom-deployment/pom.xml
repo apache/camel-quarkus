@@ -65,6 +65,11 @@
             <!-- Camel Quarkus support deployment modules, in alphabetical order -->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-common-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-jetty-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>

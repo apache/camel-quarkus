@@ -75,6 +75,10 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-microprofile-config</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-common</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.oracle.substratevm</groupId>
