@@ -16,30 +16,14 @@
  */
 package org.apache.camel.quarkus.component.netty.http.runtime;
 
-import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import org.apache.camel.util.concurrent.CamelThreadFactory;
+import org.apache.camel.component.netty.NettyServerBootstrapConfiguration;
 
-@TargetClass(className = "org.apache.camel.component.netty.NettyServerBossPoolBuilder")
-final class Target_org_apache_camel_component_netty_NettyServerBossPoolBuilder {
-
-    @Alias
-    private String name = "NettyServerBoss";
-    @Alias
-    private String pattern;
-    @Alias
-    private int bossCount = 1;
-    @Alias
-    private boolean nativeTransport;
-
-    /**
-     * Creates a new boss pool.
-     */
+@TargetClass(NettyServerBootstrapConfiguration.class)
+final class SubstituteNettyServerBootstrapConfiguration {
     @Substitute
-    public EventLoopGroup build() {
-        return new NioEventLoopGroup(bossCount, new CamelThreadFactory(pattern, name, false));
+    public boolean isNativeTransport() {
+        return false;
     }
 }

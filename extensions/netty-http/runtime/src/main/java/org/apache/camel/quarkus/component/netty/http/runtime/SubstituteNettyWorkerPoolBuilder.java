@@ -22,10 +22,11 @@ import com.oracle.svm.core.annotate.TargetClass;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import org.apache.camel.component.netty.NettyHelper;
+import org.apache.camel.component.netty.NettyWorkerPoolBuilder;
 import org.apache.camel.util.concurrent.CamelThreadFactory;
 
-@TargetClass(className = "org.apache.camel.component.netty.NettyWorkerPoolBuilder")
-final class Target_org_apache_camel_component_netty_NettyWorkerPoolBuilder {
+@TargetClass(NettyWorkerPoolBuilder.class)
+final class SubstituteNettyWorkerPoolBuilder {
 
     @Alias
     private String name = "NettyWorker";
