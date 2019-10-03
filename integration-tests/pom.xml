@@ -95,6 +95,7 @@
         <module>zipfile</module>
         <module>microprofile-metrics</module>
         <module>paho</module>
+        <module>platform-http</module>
     </modules>
 
     <build>
