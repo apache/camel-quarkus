@@ -69,7 +69,7 @@ class BuildProcessor {
     @BuildStep
     CamelRuntimeBuildItem create(
             CamelRecorder recorder,
-            List<CamelRegistryBuildItem> registryItems,
+            List<CamelBeanBuildItem> camelBeans,
             BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
 
         RuntimeRegistry registry = new RuntimeRegistry();
@@ -80,7 +80,7 @@ class BuildProcessor {
         );
 
         services().filter(
-            si -> registryItems.stream().noneMatch(
+            si -> camelBeans.stream().noneMatch(
                 c -> Objects.equals(si.name, c.getName()) && c.getType().isAssignableFrom(si.type)
             )
         ).forEach(
@@ -95,7 +95,7 @@ class BuildProcessor {
             }
         );
 
-        for (CamelRegistryBuildItem item: registryItems) {
+        for (CamelBeanBuildItem item: camelBeans) {
             LOGGER.debug("Binding item with name: {}, type {}", item.getName(), item.getType());
 
             recorder.bind(
