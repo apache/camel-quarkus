@@ -16,17 +16,22 @@
  */
 package org.apache.camel.quarkus.core.runtime.graal;
 
-import java.lang.reflect.Method;
+import java.util.Map;
 
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
+import com.oracle.svm.core.annotate.TargetElement;
+import org.apache.camel.spi.BeanIntrospection;
+import org.apache.camel.support.LRUCacheFactory;
 
-@TargetClass(className = "java.beans.Introspector")
-final class Target_java_beans_Introspector {
-
+//
+// Don't use class here to avoid warning triggered by IntrospectionSupport deprecation
+//
+@TargetClass(className = "org.apache.camel.support.IntrospectionSupport")
+final class SubstituteIntrospectionSupport {
     @Alias
+    @TargetElement(name = "CACHE")
     @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Target_com_sun_beans_WeakCache<Class<?>, Method[]> declaredMethodCache = new Target_com_sun_beans_WeakCache<>();
-
+    private static Map<Class<?>, BeanIntrospection.ClassInfo> cache = LRUCacheFactory.newLRUWeakCache(256);
 }

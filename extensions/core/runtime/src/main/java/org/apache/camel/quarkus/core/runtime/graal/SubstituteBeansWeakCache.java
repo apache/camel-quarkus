@@ -26,13 +26,13 @@ import com.oracle.svm.core.annotate.TargetClass;
 
 @TargetClass(className = "com.sun.beans.WeakCache")
 @Substitute
-final class Target_com_sun_beans_WeakCache<K, V> {
+final class SubstituteBeansWeakCache<K, V> {
 
     @Substitute
     private Map<K, Reference<V>> map = new WeakHashMap<>();
 
     @Substitute
-    public Target_com_sun_beans_WeakCache() {
+    public SubstituteBeansWeakCache() {
     }
 
     @Substitute

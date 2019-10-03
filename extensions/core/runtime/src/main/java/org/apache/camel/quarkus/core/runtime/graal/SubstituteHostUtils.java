@@ -21,9 +21,10 @@ import java.net.UnknownHostException;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.util.HostUtils;
 
-@TargetClass(className = "org.apache.camel.util.HostUtils")
-final class Target_org_apache_camel_util_HostUtils {
+@TargetClass(HostUtils.class)
+final class SubstituteHostUtils {
 
     @Substitute
     private static InetAddress chooseAddress() throws UnknownHostException {
