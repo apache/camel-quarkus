@@ -20,18 +20,24 @@ import java.util.Objects;
 
 import io.quarkus.builder.item.MultiBuildItem;
 
-public final class CamelRegistryBuildItem extends MultiBuildItem {
+/**
+ * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during
+ * static initialization phase.
+ * Can be produced only by methods that do not depend on {@linke CamelRuntime} because otherwise
+ * there is a circular dependency.
+ */
+public final class CamelBeanBuildItem extends MultiBuildItem {
     private final String name;
     private final Class<?> type;
     private final Object value;
 
-    public CamelRegistryBuildItem(String name, Object value) {
+    public CamelBeanBuildItem(String name, Object value) {
         this.name = Objects.requireNonNull(name);
         this.value = Objects.requireNonNull(value);
         this.type = Objects.requireNonNull(value).getClass();
     }
 
-    public CamelRegistryBuildItem(String name, Class<?> type, Object value) {
+    public CamelBeanBuildItem(String name, Class<?> type, Object value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
         this.value = Objects.requireNonNull(value);
