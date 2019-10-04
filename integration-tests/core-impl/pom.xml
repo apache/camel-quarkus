@@ -26,7 +26,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-core-impl</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core :: Impl</name>
+    <name>Camel Quarkus :: Integration Tests :: Core Impl</name>
     <description>The camel integration tests</description>
 
     <dependencies>

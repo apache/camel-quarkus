@@ -21,7 +21,7 @@ import javax.inject.Inject;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.quarkus.core.CamelMain;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.junit.jupiter.api.Test;
 

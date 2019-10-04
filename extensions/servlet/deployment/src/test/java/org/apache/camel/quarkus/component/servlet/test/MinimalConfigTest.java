@@ -24,7 +24,6 @@ import java.util.Properties;
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.hamcrest.core.IsEqual;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -37,19 +36,13 @@ public class MinimalConfigTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
         .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+            .addClass(CustomDefaultServletClassTest.Routes.class)
             .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
     public void minimal() throws Exception {
-        DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new Routes());
-        context.start();
-
-        try {
-            RestAssured.when().get("/hello").then().body(IsEqual.equalTo("GET: /hello"));
-        } finally {
-            context.stop();
-        }
+        RestAssured.when().get("/hello")
+            .then().body(IsEqual.equalTo("GET: /hello"));
     }
 
     public static final class Routes extends RouteBuilder {

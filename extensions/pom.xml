@@ -42,7 +42,6 @@
         <module>http-common</module>
 
         <!-- components -->
-        <module>main</module>
         <module>netty-http</module>
         <module>infinispan</module>
         <module>aws-s3</module>
