@@ -16,18 +16,29 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.support.DefaultRegistry;
+import java.util.Map;
+import java.util.Set;
 
-public class RuntimeRegistry extends DefaultRegistry {
-    public RuntimeRegistry() {
-        super(new RuntimeBeanRepository());
+import org.apache.camel.spi.BeanRepository;
+
+public final class RuntimeBeanRepository implements BeanRepository {
+    @Override
+    public Object lookupByName(String name) {
+        return lookupByNameAndType(name, Object.class);
     }
 
     @Override
-    public Object unwrap(Object value) {
-        return (value instanceof RuntimeValue)
-            ? ((RuntimeValue)value).getValue()
-            : value;
+    public <T> T lookupByNameAndType(String name, Class<T> type) {
+        return BeanManagerHelper.getReferenceByName(name, type).orElse(null);
+    }
+
+    @Override
+    public <T> Map<String, T> findByTypeWithName(Class<T> type) {
+        return BeanManagerHelper.getReferencesByTypeWithName(type);
+    }
+
+    @Override
+    public <T> Set<T> findByType(Class<T> type) {
+        return BeanManagerHelper.getReferencesByType(type);
     }
 }
