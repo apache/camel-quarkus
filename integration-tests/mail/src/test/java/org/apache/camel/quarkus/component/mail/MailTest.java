@@ -19,27 +19,33 @@ package org.apache.camel.quarkus.component.mail;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.Exchange;
 import org.junit.jupiter.api.Test;
-import org.jvnet.mock_javamail.Mailbox;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 public class MailTest {
-
     @Test
     public void testSendAsMail() throws Exception {
-        RestAssured.given().contentType(ContentType.TEXT).body("Hi how are you")
-                .post("/mail/mailtext");
+        RestAssured.given()
+            .contentType(ContentType.TEXT)
+            .body("Hi how are you")
+            .post("/mail/mailtext")
+            .then()
+                .statusCode(200);
 
-        assertEquals("1", RestAssured.given().get("/mock/{username}/size",
-                "james@localhost").asString());
-        assertEquals("Hi how are you", RestAssured.given().get("/mock/{username}/{id}/content",
-                "james@localhost", 0).asString());
-        assertEquals("Hello World", RestAssured.given().get("/mock/{username}/{id}/subject",
-                "james@localhost", 0).asString());
+        RestAssured.given()
+            .get("/mock/{username}/size", "james@localhost")
+            .then()
+                .body(is("1"));
+        RestAssured.given()
+            .get("/mock/{username}/{id}/content", "james@localhost", 0)
+            .then()
+                .body(is("Hi how are you"));
+        RestAssured.given()
+            .get("/mock/{username}/{id}/subject", "james@localhost", 0)
+            .then()
+                .body(is("Hello World"));
     }
 
 }

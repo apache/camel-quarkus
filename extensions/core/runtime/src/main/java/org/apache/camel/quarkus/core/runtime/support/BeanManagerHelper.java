@@ -27,7 +27,11 @@ import javax.enterprise.inject.spi.Bean;
 import javax.enterprise.inject.spi.BeanManager;
 
 import io.quarkus.arc.Arc;
+import io.quarkus.arc.ArcContainer;
 
+/**
+ * Helper methods to retrieve beans from the {@link Arc} container.
+ */
 @Vetoed
 final class BeanManagerHelper {
 
@@ -35,17 +39,23 @@ final class BeanManagerHelper {
     }
 
     static <T> Set<T> getReferencesByType(Class<T> type, Annotation... qualifiers) {
-        BeanManager manager = Arc.container().beanManager();
+        final ArcContainer container = Arc.container();
+        final BeanManager manager = container.beanManager();
+
         return getReferencesByType(manager, type, qualifiers);
     }
 
     static <T> Optional<T> getReferenceByName(String name, Class<T> type) {
-        BeanManager manager = Arc.container().beanManager();
+        final ArcContainer container = Arc.container();
+        final BeanManager manager = container.beanManager();
+
         return getReferenceByName(manager, name, type);
     }
 
     static <T> Map<String, T> getReferencesByTypeWithName(Class<T> type, Annotation... qualifiers) {
-        BeanManager manager = Arc.container().beanManager();
+        final ArcContainer container = Arc.container();
+        final BeanManager manager = container.beanManager();
+
         return getReferencesByTypeWithName(manager, type, qualifiers);
     }
 

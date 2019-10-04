@@ -16,51 +16,44 @@
  */
 package org.apache.camel.quarkus.core.runtime;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
+import javax.inject.Singleton;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
 
-@ApplicationScoped
+/**
+ * Producers of beans that are injectable via CDI.
+ */
+@Singleton
 public class CamelProducers {
+    private volatile CamelContext context;
 
-    CamelRuntime camelRuntime;
-
-    @Produces
-    public CamelContext getCamelContext() {
-        return camelRuntime.getContext();
+    public void setContext(CamelContext context) {
+        this.context = context;
     }
 
+    @Singleton
     @Produces
-    public Registry getCamelRegistry() {
-        return camelRuntime.getRegistry();
+    CamelContext camelContext() {
+        return this.context;
     }
 
+    @Singleton
     @Produces
-    public ProducerTemplate getCamelProducerTemplate() {
-        return camelRuntime.getContext().createProducerTemplate();
-    }
-
-    @Produces
-    public ConsumerTemplate getCamelConsumerTemplate() {
-        return camelRuntime.getContext().createConsumerTemplate();
+    Registry camelRegistry() {
+        return this.context.getRegistry();
     }
 
     @Produces
-    public CamelConfig.BuildTime getCamelBuildTimeConfig() {
-        return camelRuntime.getBuildTimeConfig();
+    ProducerTemplate camelProducerTemplate() {
+        return this.context.createProducerTemplate();
     }
 
     @Produces
-    public CamelConfig.Runtime getCamelRuntimeConfig() {
-        return camelRuntime.getRuntimeConfig();
+    ConsumerTemplate camelConsumerTemplate() {
+        return this.context.createConsumerTemplate();
     }
-
-    public void setCamelRuntime(CamelRuntime camelRuntime) {
-        this.camelRuntime = camelRuntime;
-    }
-
 }

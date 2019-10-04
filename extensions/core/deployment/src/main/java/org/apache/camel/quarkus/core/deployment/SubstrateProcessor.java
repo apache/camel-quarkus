@@ -44,6 +44,7 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.spi.ExchangeFormatter;
+import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.jboss.jandex.AnnotationTarget.Kind;
@@ -66,7 +67,8 @@ class SubstrateProcessor {
             Component.class,
             CamelContext.class,
             StreamCachingStrategy.class,
-            StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class);
+            StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
+            PropertiesComponent.class);
 
     @Inject
     BuildProducer<ReflectiveClassBuildItem> reflectiveClass;

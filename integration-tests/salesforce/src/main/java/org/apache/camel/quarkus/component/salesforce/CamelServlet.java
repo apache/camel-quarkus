@@ -26,19 +26,17 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 
 @Path("/test")
 @ApplicationScoped
 public class CamelServlet {
     @Inject
-    CamelRuntime runtime;
+    CamelContext context;
 
     @Path("/case/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Object getCase(@PathParam("id") String id) {
-        CamelContext context = runtime.getContext();
         ProducerTemplate template = context.createProducerTemplate();
 
         return template.requestBody("direct:case", id);
