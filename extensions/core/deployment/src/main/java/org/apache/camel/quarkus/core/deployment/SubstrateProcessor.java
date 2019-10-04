@@ -35,7 +35,6 @@ import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
@@ -43,6 +42,7 @@ import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
@@ -57,7 +57,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class SubstrateProcessor {
-    private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
+    /*
+     * SubstrateVM configuration steps related to camel core.
+     */
+    public static class Core {
+        private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
             Endpoint.class,
             Consumer.class,
             Producer.class,
@@ -70,33 +74,29 @@ class SubstrateProcessor {
             StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
             PropertiesComponent.class);
 
-    @Inject
-    BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
-    @Inject
-    BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod;
-    @Inject
-    BuildProducer<SubstrateResourceBuildItem> resource;
-    @Inject
-    BuildProducer<SubstrateResourceBundleBuildItem> resourceBundle;
-    @Inject
-    ApplicationArchivesBuildItem applicationArchivesBuildItem;
-    @Inject
-    CombinedIndexBuildItem combinedIndexBuildItem;
+        @Inject
+        BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
+        @Inject
+        BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod;
+        @Inject
+        BuildProducer<SubstrateResourceBuildItem> resource;
+        @Inject
+        ApplicationArchivesBuildItem applicationArchivesBuildItem;
 
-    @BuildStep
-    SubstrateConfigBuildItem substrate() {
-        return SubstrateConfigBuildItem.builder()
-            // TODO: switch back to caffeine once https://github.com/apache/camel-quarkus/issues/80 gets fixed
-            .addNativeImageSystemProperty("CamelWarmUpLRUCacheFactory", "true")
-            .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
-            .build();
-    }
+        @BuildStep
+        SubstrateConfigBuildItem cache() {
+            return SubstrateConfigBuildItem.builder()
+                // TODO: switch back to caffeine once https://github.com/apache/camel-quarkus/issues/80 gets fixed
+                .addNativeImageSystemProperty("CamelWarmUpLRUCacheFactory", "true")
+                .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
+                .build();
+        }
 
-    @BuildStep
-    void process() {
-        IndexView view = combinedIndexBuildItem.getIndex();
+        @BuildStep
+        void process(CombinedIndexBuildItem combinedIndex) {
+            IndexView view = combinedIndex.getIndex();
 
-        CAMEL_REFLECTIVE_CLASSES.stream()
+            CAMEL_REFLECTIVE_CLASSES.stream()
                 .map(Class::getName)
                 .map(DotName::createSimple)
                 .map(view::getAllKnownImplementors)
@@ -104,9 +104,9 @@ class SubstrateProcessor {
                 .filter(CamelSupport::isPublic)
                 .forEach(v -> addReflectiveClass(true, v.name().toString()));
 
-        Logger log = LoggerFactory.getLogger(SubstrateProcessor.class);
-        DotName converter = DotName.createSimple(Converter.class.getName());
-        List<ClassInfo> converterClasses = view.getAnnotations(converter)
+            Logger log = LoggerFactory.getLogger(SubstrateProcessor.class);
+            DotName converter = DotName.createSimple(Converter.class.getName());
+            List<ClassInfo> converterClasses = view.getAnnotations(converter)
                 .stream()
                 .filter(ai -> ai.target().kind() == Kind.CLASS)
                 .filter(ai -> {
@@ -128,63 +128,85 @@ class SubstrateProcessor {
                 .map(ai -> ai.target().asClass())
                 .collect(Collectors.toList());
 
-        log.debug("Converter classes: " + converterClasses);
-        converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
+            log.debug("Converter classes: " + converterClasses);
+            converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
 
-        view.getAnnotations(converter)
+            view.getAnnotations(converter)
                 .stream()
                 .filter(ai -> ai.target().kind() == Kind.METHOD)
                 .filter(ai -> converterClasses.contains(ai.target().asMethod().declaringClass()))
                 .map(ai -> ai.target().asMethod())
                 .forEach(this::addReflectiveMethod);
 
-        CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-core")
+            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-core")
                 .forEach(this::addResource);
-
-        addCamelServices();
-    }
-
-    // Camel services files
-    protected void addCamelServices() {
-        CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
+            CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
                 .forEach(this::addCamelService);
-    }
+        }
 
-    protected void addCamelService(Path p) {
-        try (InputStream is = Files.newInputStream(p)) {
-            Properties props = new Properties();
-            props.load(is);
-            for (Map.Entry<Object, Object> entry : props.entrySet()) {
-                String k = entry.getKey().toString();
-                if (k.equals("class")) {
-                    addReflectiveClass(true, entry.getValue().toString());
-                } else if (k.endsWith(".class")) {
-                    addReflectiveClass(true, entry.getValue().toString());
-                    addResource(p);
+        protected void addCamelService(Path p) {
+            try (InputStream is = Files.newInputStream(p)) {
+                Properties props = new Properties();
+                props.load(is);
+                for (Map.Entry<Object, Object> entry : props.entrySet()) {
+                    String k = entry.getKey().toString();
+                    if (k.equals("class")) {
+                        addReflectiveClass(true, entry.getValue().toString());
+                    } else if (k.endsWith(".class")) {
+                        addReflectiveClass(true, entry.getValue().toString());
+                        addResource(p);
+                    }
                 }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        }
+
+        protected void addResource(Path p) {
+            addResource(p.toString().substring(1));
+        }
+
+        protected void addResource(String r) {
+            resource.produce(new SubstrateResourceBuildItem(r));
+        }
+
+        protected void addReflectiveClass(boolean methods, String... className) {
+            reflectiveClass.produce(new ReflectiveClassBuildItem(methods, false, className));
+        }
+
+        protected void addReflectiveMethod(MethodInfo mi) {
+            reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi));
         }
     }
 
-    protected void addResource(Path p) {
-        addResource(p.toString().substring(1));
-    }
+    /*
+     * SubstrateVM configuration steps related to camel main that are activated by default but can be
+     * disabled by setting quarkus.camel.disable-main = true
+     */
+    public static class Main {
+        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        void process(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
 
-    protected void addResource(String r) {
-        resource.produce(new SubstrateResourceBuildItem(r));
-    }
+            IndexView view = combinedIndex.getIndex();
 
-    protected void addReflectiveClass(boolean methods, String... className) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(methods, false, className));
-    }
+            //
+            // Register routes as reflection aware as camel-main main use reflection
+            // to bind beans to the registry
+            //
+            CamelSupport.getRouteBuilderClasses(view).forEach(name -> {
+                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, name));
+            });
 
-    protected void addReflectiveMethod(MethodInfo mi) {
-        reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi));
-    }
-
-    protected void addResourceBundle(String bundle) {
-        resourceBundle.produce(new SubstrateResourceBundleBuildItem(bundle));
+            reflectiveClass.produce(new ReflectiveClassBuildItem(
+                true,
+                false,
+                org.apache.camel.main.DefaultConfigurationProperties.class,
+                org.apache.camel.main.MainConfigurationProperties.class,
+                org.apache.camel.main.HystrixConfigurationProperties.class,
+                org.apache.camel.main.RestConfigurationProperties.class)
+            );
+        }
     }
 }

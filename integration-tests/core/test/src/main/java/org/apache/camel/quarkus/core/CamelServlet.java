@@ -64,4 +64,11 @@ public class CamelServlet {
     public boolean lookupContext() {
         return registry.findByType(CamelContext.class).size() == 1;
     }
+
+    @Path("/registry/lookup-main")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean lookupMain() {
+        return registry.findByType(CamelMain.class).size() == 1;
+    }
 }

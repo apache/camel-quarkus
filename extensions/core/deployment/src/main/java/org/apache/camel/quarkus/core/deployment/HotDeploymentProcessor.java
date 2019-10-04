@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
+import org.apache.camel.quarkus.core.CamelConfig.BuildTime;
 
 class HotDeploymentProcessor {
     @BuildStep

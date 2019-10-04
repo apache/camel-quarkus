@@ -24,7 +24,6 @@ import io.quarkus.deployment.devmode.HotReplacementContext;
 import io.quarkus.deployment.devmode.HotReplacementSetup;
 
 public class CamelHotReplacementSetup implements HotReplacementSetup {
-
     private static final long TWO_SECS = TimeUnit.SECONDS.toMillis(2);
 
     @Override

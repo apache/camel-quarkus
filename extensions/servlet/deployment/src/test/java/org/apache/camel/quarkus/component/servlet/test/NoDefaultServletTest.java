@@ -24,7 +24,6 @@ import java.util.Properties;
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
 import org.hamcrest.core.IsEqual;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -37,21 +36,14 @@ public class NoDefaultServletTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
         .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+            .addClass(CustomDefaultServletClassTest.Routes.class)
             .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
     public void noDefaultServlet() throws Exception {
-        DefaultCamelContext context = new DefaultCamelContext();
-        context.addRoutes(new Routes());
-        context.start();
-
-        try {
-            RestAssured.when().get("/my-path/custom").then()
-                .body(IsEqual.equalTo("GET: /custom"))
-                .and().header("x-servlet-class-name", CustomServlet.class.getName());
-        } finally {
-            context.stop();
-        }
+        RestAssured.when().get("/my-path/custom").then()
+            .body(IsEqual.equalTo("GET: /custom"))
+            .and().header("x-servlet-class-name", CustomServlet.class.getName());
     }
 
     public static final class Routes extends RouteBuilder {

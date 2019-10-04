@@ -79,8 +79,8 @@
     <modules>
         <!-- build those first -->
         <module>core</module>
+        <module>core-main</module>
         <module>core-impl</module>
-        <module>main</module>
 
         <module>netty-http</module>
         <module>aws</module>

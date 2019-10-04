@@ -33,6 +33,7 @@ public class CamelTest {
     public void testContainerLookupFromRegistry() {
         RestAssured.when().get("/test/registry/lookup-registry").then().body(is("true"));
         RestAssured.when().get("/test/registry/lookup-context").then().body(is("true"));
+        RestAssured.when().get("/test/registry/lookup-main").then().body(is("false"));
     }
 
     @Test
