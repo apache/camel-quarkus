@@ -30,20 +30,38 @@ import org.infinispan.test.fwk.TestResourceTracker;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private HotRodServer hotRodServer;
+    private CamelTest camelTest;
 
     @Override
     public Map<String, String> start() {
         TestResourceTracker.setThreadTestName("InfinispanServer");
         EmbeddedCacheManager ecm = TestCacheManagerFactory.createCacheManager(
-                new GlobalConfigurationBuilder().nonClusteredDefault().defaultCacheName("default"),
-                new ConfigurationBuilder());
+            new GlobalConfigurationBuilder().nonClusteredDefault().defaultCacheName("default"),
+            new ConfigurationBuilder()
+        );
+
         // Client connects to a non default port
         hotRodServer = HotRodTestingUtil.startHotRodServer(ecm, 11232);
+
         return Collections.emptyMap();
     }
 
     @Override
+    public void inject(Object testInstance) {
+        if (testInstance instanceof CamelTest) {
+            this.camelTest = (CamelTest)testInstance;
+        }
+    }
+
+    @Override
     public void stop() {
+        //
+        // This is needed to properly stop the resources in the right order and
+        // avoid spurious exceptions shown in the logs.
+        //
+        if (camelTest != null && camelTest.cacheManager != null) {
+            camelTest.cacheManager.stop();
+        }
         if (hotRodServer != null) {
             hotRodServer.stop();
         }

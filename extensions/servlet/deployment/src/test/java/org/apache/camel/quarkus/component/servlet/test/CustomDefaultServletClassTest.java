@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.servlet.test;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
+
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.DefaultCamelContext;
 import org.hamcrest.core.IsEqual;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -30,25 +37,45 @@ public class CustomDefaultServletClassTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
         .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClasses(Routes.class)
-            .addAsResource(new StringAsset(
-        "quarkus.camel.servlet.url-patterns=/*\n"
-                + "quarkus.camel.servlet.servlet-name=my-named-servlet\n"
-                + "quarkus.camel.servlet.servlet-class=" + CustomServlet.class.getName() + "\n"),
-        "application.properties"));
+            .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
-    public void customDefaultServletClass() {
-        RestAssured.when().get("/custom").then()
-            .body(IsEqual.equalTo("GET: /custom"))
-            .and().header("x-servlet-class-name", CustomServlet.class.getName());
+    public void customDefaultServletClass() throws Exception {
+        DefaultCamelContext context = new DefaultCamelContext();
+        context.addRoutes(new Routes());
+        context.start();
+
+        try {
+            RestAssured.when().get("/custom").then()
+                .body(IsEqual.equalTo("GET: /custom"))
+                .and().header("x-servlet-class-name", CustomServlet.class.getName());
+        } finally {
+            context.stop();
+        }
     }
 
-    public static class Routes extends RouteBuilder {
+    public static final class Routes extends RouteBuilder {
         @Override
         public void configure() {
             from("servlet://custom?servletName=my-named-servlet")
                 .setBody(constant("GET: /custom"));
         }
+    }
+
+    public static final Asset applicationProperties() {
+        Writer writer = new StringWriter();
+
+        Properties props = new Properties();
+        props.setProperty("quarkus.camel.servlet.url-patterns", "/*");
+        props.setProperty("quarkus.camel.servlet.servlet-name", "my-named-servlet");
+        props.setProperty("quarkus.camel.servlet.servlet-class", CustomServlet.class.getName());
+
+        try {
+            props.store(writer, "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new StringAsset(writer.toString());
     }
 }

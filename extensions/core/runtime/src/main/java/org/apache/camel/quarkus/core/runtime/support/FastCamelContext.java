@@ -18,18 +18,18 @@ package org.apache.camel.quarkus.core.runtime.support;
 
 import java.util.Collection;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
+import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
 import org.apache.camel.impl.converter.DefaultTypeConverter;
@@ -61,10 +61,11 @@ import org.apache.camel.impl.engine.HeadersMapFactoryResolver;
 import org.apache.camel.impl.engine.ReactiveExecutorResolver;
 import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
 import org.apache.camel.impl.engine.ServicePool;
+import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
+import org.apache.camel.model.Model;
 import org.apache.camel.processor.MulticastProcessor;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
 import org.apache.camel.quarkus.core.runtime.support.FastModel.FastRouteContext;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.BeanIntrospection;
@@ -90,6 +91,7 @@ import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.ProcessorFactory;
+import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestRegistryFactory;
@@ -102,14 +104,16 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
-import org.apache.camel.support.PropertyBindingSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class FastCamelContext extends AbstractCamelContext {
+    public static final String PFX_CAMEL = "camel.";
+    public static final String PFX_CAMEL_CONTEXT = PFX_CAMEL + "context.";
+    public static final String PFX_CAMEL_PROPERTIES = PFX_CAMEL + "component.properties.";
     private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
 
-    private Object model;
+    private Model model;
 
     public FastCamelContext() {
         super(false);
@@ -117,9 +121,11 @@ public class FastCamelContext extends AbstractCamelContext {
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);
+
+        setDefaultExtension(HealthCheckRegistry.class, DefaultHealthCheckRegistry::new);
     }
 
-    public void setModel(Object model) {
+    public void setModel(Model model) {
         this.model = model;
     }
 
@@ -127,6 +133,13 @@ public class FastCamelContext extends AbstractCamelContext {
         this.model = null;
         for (BaseRouteService rs : getRouteServices().values()) {
             ((FastRouteContext) rs.getRouteContext()).clearModel();
+        }
+    }
+
+    @Override
+    protected void startRouteDefinitions() throws Exception {
+        if (model != null) {
+            model.startRouteDefinitions();
         }
     }
 
@@ -160,12 +173,18 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected ComponentResolver createComponentResolver() {
-        return (name, context) -> resolve(Component.class, "component", name, context);
+        // components are automatically discovered by build steps so we can reduce the
+        // operations done by the standard resolver by looking them up directly from the
+        // registry
+        return (name, context) -> context.getRegistry().lookupByNameAndType(name, Component.class);
     }
 
     @Override
     protected LanguageResolver createLanguageResolver() {
-        return (name, context) -> resolve(Language.class, "language", name, context);
+        // languages are automatically discovered by build steps so we can reduce the
+        // operations done by the standard resolver by looking them up directly from the
+        // registry
+        return (name, context) -> context.getRegistry().lookupByNameAndType(name, Language.class);
     }
 
     @Override
@@ -178,7 +197,10 @@ public class FastCamelContext extends AbstractCamelContext {
 
             @Override
             public DataFormat createDataFormat(String name, CamelContext context) {
-                return resolve(DataFormat.class, "dataformat", name, context);
+                // data formats are automatically discovered by build steps so we can reduce the
+                // operations done by the standard resolver by looking them up directly from the
+                // registry
+                return context.getRegistry().lookupByNameAndType(name, DataFormat.class);
             }
         };
     }
@@ -187,8 +209,11 @@ public class FastCamelContext extends AbstractCamelContext {
     protected TypeConverter createTypeConverter() {
         // lets use the new fast type converter registry
         return new DefaultTypeConverter(
-                this, getPackageScanClassResolver(),
-                getInjector(), getDefaultFactoryFinder(), isLoadTypeConverters());
+            this,
+            getPackageScanClassResolver(),
+            getInjector(),
+            getDefaultFactoryFinder(),
+            isLoadTypeConverters());
     }
 
     @Override
@@ -305,6 +330,15 @@ public class FastCamelContext extends AbstractCamelContext {
     }
 
     @Override
+    protected PropertiesComponent createPropertiesComponent() {
+        org.apache.camel.component.properties.PropertiesComponent pc = new org.apache.camel.component.properties.PropertiesComponent();
+        pc.setAutoDiscoverPropertiesSources(false);
+        pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
+
+        return pc;
+    }
+
+    @Override
     protected Tracer createTracer() {
         Tracer tracer = null;
         if (getRegistry() != null) {
@@ -360,27 +394,6 @@ public class FastCamelContext extends AbstractCamelContext {
     public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor, boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
                 false, false, 0L, null, false, false);
-    }
-
-    @SuppressWarnings("unchecked")
-    protected <T> T resolve(Class<T> clazz, String type, String name, CamelContext context) {
-        final T result = context.getRegistry().lookupByNameAndType(name, clazz);
-        final String prefix = CamelRuntime.PFX_CAMEL + type + "." + name + ".";
-        final Properties props = getPropertiesComponent().loadProperties(k -> k.startsWith(prefix));
-
-        CamelContextAware.trySetCamelContext(result, context);
-
-        if (!props.isEmpty()) {
-            PropertyBindingSupport.build()
-                .withCamelContext(context)
-                .withOptionPrefix(prefix)
-                .withRemoveParameters(false)
-                .withProperties((Map) props)
-                .withTarget(result)
-                .bind();
-        }
-
-        return result;
     }
 
     @Override

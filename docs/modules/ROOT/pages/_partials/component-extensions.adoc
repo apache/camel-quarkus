@@ -10,6 +10,7 @@
 * `camel-quarkus-jdbc`
 * `camel-quarkus-log`
 * `camel-quarkus-mail`
+* `camel-quarkus-main`
 * `camel-quarkus-microprofile-metrics`
 * `camel-quarkus-netty-http`
 * `camel-quarkus-paho`

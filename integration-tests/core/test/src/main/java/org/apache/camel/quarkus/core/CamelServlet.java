@@ -16,61 +16,31 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.Route;
+import org.apache.camel.CamelContext;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.component.timer.TimerComponent;
-import org.apache.camel.quarkus.core.runtime.CamelConfig;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
+import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
 @ApplicationScoped
 public class CamelServlet {
     @Inject
-    CamelRuntime runtime;
-
-    @Path("/routes")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public List<String> getRoutes() {
-        return runtime.getContext().getRoutes().stream().map(Route::getId).collect(Collectors.toList());
-    }
-
-    @Path("/property/{name}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getProperty(@PathParam("name") String name) throws Exception {
-        return runtime.getContext().resolvePropertyPlaceholders("{{" + name + "}}");
-    }
-
-    @Path("/timer/property-binding")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean timerResolvePropertyPlaceholders() throws Exception {
-        return runtime.getContext().getComponent("timer", TimerComponent.class).isBasicPropertyBinding();
-    }
-
+    Registry registry;
 
     @Path("/registry/log/exchange-formatter")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject exchangeFormatterConfig() {
-        LogComponent component = runtime.getRegistry().lookupByNameAndType("log", LogComponent.class);
+        LogComponent component = registry.lookupByNameAndType("log", LogComponent.class);
         DefaultExchangeFormatter def = (DefaultExchangeFormatter)component.getExchangeFormatter();
 
         JsonObject result = Json.createObjectBuilder()
@@ -81,42 +51,17 @@ public class CamelServlet {
         return result;
     }
 
-    @Path("/registry/produces-config-build")
+    @Path("/registry/lookup-registry")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesBuildTimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.BuildTime.class) != null;
+    public boolean lookupRegistry() {
+        return registry.findByType(Registry.class).size() == 1;
     }
 
-    @Path("/registry/produces-config-runtime")
+    @Path("/registry/lookup-context")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesRuntimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.Runtime.class) != null;
-    }
-
-    private <T> T lookupSingleInstanceFromRegistry(Class<T> type) {
-        final Set<T> answer = runtime.getContext().getRegistry().findByType(type);
-
-        if (answer.size() == 1) {
-            return answer.iterator().next();
-        }
-
-        return null;
-    }
-
-    @Path("/context/name")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getCamelContextName() {
-        return runtime.getContext().getName();
-    }
-
-    @Path("/context/name")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String setCamelContextName(String name) {
-        runtime.getContext().adapt(ExtendedCamelContext.class).setName(name);
-        return runtime.getContext().getName();
+    public boolean lookupContext() {
+        return registry.findByType(CamelContext.class).size() == 1;
     }
 }

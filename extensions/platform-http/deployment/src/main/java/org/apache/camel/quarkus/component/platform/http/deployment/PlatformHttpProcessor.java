@@ -21,9 +21,8 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
-
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
 
 class PlatformHttpProcessor {
 
@@ -36,8 +35,8 @@ class PlatformHttpProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    void platformHttpComponent(PlatformHttpRecorder recorder, CamelRuntimeBuildItem runtime, VertxWebRouterBuildItem router) {
-        recorder.registerPlatformHttpComponent(runtime.getRuntime(), router.getRouter());
+    void platformHttpComponent(PlatformHttpRecorder recorder, CamelContextBuildItem context, VertxWebRouterBuildItem router) {
+        recorder.registerPlatformHttpComponent(context.getCamelContext(), router.getRouter());
     }
 
 }

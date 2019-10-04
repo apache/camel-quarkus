@@ -29,7 +29,6 @@ import org.apache.camel.ProducerTemplate;
 @Path("/bean")
 @ApplicationScoped
 public class CamelResource {
-
     @Inject
     ProducerTemplate template;
 
@@ -37,7 +36,7 @@ public class CamelResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrder(String statement) throws Exception {
+    public String processOrder(String statement) {
         return template.requestBody("direct:process-order", statement, String.class);
     }
 }

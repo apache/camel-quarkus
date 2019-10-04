@@ -80,7 +80,7 @@
         <!-- build those first -->
         <module>core</module>
         <module>core-impl</module>
-        <module>core-cdi</module>
+        <module>main</module>
 
         <module>netty-http</module>
         <module>aws</module>
