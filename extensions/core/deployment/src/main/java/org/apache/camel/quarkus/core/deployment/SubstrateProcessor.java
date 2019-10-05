@@ -33,7 +33,6 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateConfigBuildItem;
 import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
@@ -82,15 +81,6 @@ class SubstrateProcessor {
         BuildProducer<SubstrateResourceBuildItem> resource;
         @Inject
         ApplicationArchivesBuildItem applicationArchivesBuildItem;
-
-        @BuildStep
-        SubstrateConfigBuildItem cache() {
-            return SubstrateConfigBuildItem.builder()
-                // TODO: switch back to caffeine once https://github.com/apache/camel-quarkus/issues/80 gets fixed
-                .addNativeImageSystemProperty("CamelWarmUpLRUCacheFactory", "true")
-                .addNativeImageSystemProperty("CamelSimpleLRUCacheFactory", "true")
-                .build();
-        }
 
         @BuildStep
         void process(CombinedIndexBuildItem combinedIndex) {
