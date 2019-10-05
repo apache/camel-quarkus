@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.List;
-import java.util.Objects;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -61,29 +60,25 @@ class BuildProcessor {
         @BuildStep
         CamelRegistryBuildItem registry(
             CamelRecorder recorder,
+            RecorderContext recorderContext,
             ApplicationArchivesBuildItem applicationArchives,
             List<CamelBeanBuildItem> registryItems) {
 
             RuntimeValue<Registry> registry = recorder.createRegistry();
 
-            CamelSupport.services(applicationArchives).filter(
-                si -> registryItems.stream().noneMatch(
-                    c -> Objects.equals(si.name, c.getName()) && c.getType().isAssignableFrom(si.type)
-                )
-            ).forEach(
-                si -> {
-                    LOGGER.debug("Binding camel service {} with type {}", si.name, si.type);
+            CamelSupport.services(applicationArchives).forEach(si -> {
+                    LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
 
                     recorder.bind(
                         registry,
                         si.name,
-                        si.type
+                        recorderContext.classProxy(si.type)
                     );
                 }
             );
 
             for (CamelBeanBuildItem item : registryItems) {
-                LOGGER.debug("Binding item with name: {}, type {}", item.getName(), item.getType());
+                LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
 
                 recorder.bind(
                     registry,
@@ -126,11 +121,11 @@ class BuildProcessor {
         CamelMainBuildItem main(
             CombinedIndexBuildItem combinedIndex,
             CamelMainRecorder recorder,
+            RecorderContext recorderContext,
             CamelContextBuildItem context,
             List<CamelMainListenerBuildItem> listeners,
             List<CamelRoutesBuilderBuildItem> routesBuilders,
             BeanContainerBuildItem beanContainer,
-            RecorderContext recorderContext,
             CamelConfig.BuildTime buildTimeConfig) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(context.getCamelContext(), beanContainer.getValue());

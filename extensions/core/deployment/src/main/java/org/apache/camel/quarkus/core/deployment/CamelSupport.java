@@ -102,10 +102,7 @@ public final class CamelSupport {
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String k = entry.getKey().toString();
                 if (k.equals("class")) {
-                    String clazz = entry.getValue().toString();
-                    Class<?> cl = Class.forName(clazz);
-
-                    answer.add(new ServiceInfo(name, cl));
+                    answer.add(new ServiceInfo(name, entry.getValue().toString()));
                 }
             }
         } catch (Exception e) {
@@ -121,9 +118,9 @@ public final class CamelSupport {
      */
     public static class ServiceInfo {
         public final String name;
-        public final Class<?> type;
+        public final String type;
 
-        public ServiceInfo(String name, Class<?> type) {
+        public ServiceInfo(String name, String type) {
             this.name = name;
             this.type = type;
         }
