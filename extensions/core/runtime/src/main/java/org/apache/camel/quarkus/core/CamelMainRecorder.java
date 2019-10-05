@@ -38,7 +38,6 @@ public class CamelMainRecorder {
 
         CamelMain main = new CamelMain();
         main.setCamelContext(runtime.getValue());
-        main.disableHangupSupport();
         main.addMainListener(new CamelMainEventDispatcher());
 
         // register to the container
@@ -83,7 +82,7 @@ public class CamelMainRecorder {
 
         if (ObjectHelper.isNotEmpty(location)) {
             // TODO: if pointing to a directory, we should load all xmls in it
-            //   (maybe with glob support in it to be complete)
+            //       (maybe with glob support in it to be complete)
             try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(main.getValue().getCamelContext(), location)) {
                 main.getValue().getCamelContext().getExtension(Model.class).addRouteDefinitions(is);
             } catch (Exception e) {
