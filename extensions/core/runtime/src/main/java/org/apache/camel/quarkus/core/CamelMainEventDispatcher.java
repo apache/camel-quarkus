@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.core;
 
 import io.quarkus.arc.Arc;
 import org.apache.camel.CamelContext;
+import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainSupport;
 
 /**
@@ -25,27 +26,27 @@ import org.apache.camel.main.MainSupport;
  */
 public class CamelMainEventDispatcher implements org.apache.camel.main.MainListener {
     @Override
-    public void beforeStart(MainSupport main) {
-        fireEvent(CamelMainEvents.BeforeStart.class, new CamelMainEvents.BeforeStart());
-    }
-
-    @Override
     public void configure(CamelContext context) {
         fireEvent(CamelMainEvents.Configure.class, new CamelMainEvents.Configure());
     }
 
     @Override
-    public void afterStart(MainSupport main) {
+    public void beforeStart(BaseMainSupport main) {
+        fireEvent(CamelMainEvents.BeforeStart.class, new CamelMainEvents.BeforeStart());
+    }
+
+    @Override
+    public void afterStart(BaseMainSupport main) {
         fireEvent(CamelMainEvents.AfterStart.class, new CamelMainEvents.AfterStart());
     }
 
     @Override
-    public void beforeStop(MainSupport main) {
+    public void beforeStop(BaseMainSupport main) {
         fireEvent(CamelMainEvents.BeforeStop.class, new CamelMainEvents.BeforeStop());
     }
 
     @Override
-    public void afterStop(MainSupport main) {
+    public void afterStop(BaseMainSupport main) {
         fireEvent(CamelMainEvents.AfterStop.class, new CamelMainEvents.AfterStop());
     }
 

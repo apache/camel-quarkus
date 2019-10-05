@@ -18,8 +18,8 @@ package org.apache.camel.quarkus.core.runtime.support;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
-import org.apache.camel.main.MainSupport;
 
 public class SupportListener implements MainListener {
     @Override
@@ -39,18 +39,18 @@ public class SupportListener implements MainListener {
     }
 
     @Override
-    public void beforeStart(MainSupport main) {
+    public void beforeStart(BaseMainSupport main) {
     }
 
     @Override
-    public void afterStart(MainSupport main) {
+    public void afterStart(BaseMainSupport main) {
     }
 
     @Override
-    public void beforeStop(MainSupport main) {
+    public void beforeStop(BaseMainSupport main) {
     }
 
     @Override
-    public void afterStop(MainSupport main) {
+    public void afterStop(BaseMainSupport main) {
     }
 }
