@@ -22,6 +22,7 @@ import io.restassured.http.ContentType;
 
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -32,10 +33,10 @@ class FreemarkerTest {
         RestAssured.given() //
             .contentType(ContentType.JSON)
             .accept(ContentType.TEXT)
-            .body("Best regards, Maria")
-            .post("/freemarker/template")
+            .post("/freemarker/a")
             .then()
-            .statusCode(200);
+            .statusCode(200)
+            .body(equalTo("Dear Feria, Carlos"));
     }
 
 }

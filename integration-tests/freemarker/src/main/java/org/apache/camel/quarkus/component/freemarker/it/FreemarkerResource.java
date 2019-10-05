@@ -43,21 +43,18 @@ public class FreemarkerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/template")
+    @Path("/a")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String json2csv(String body) throws Exception {
-        LOG.infof("Using body %s", body);
-
+    public String a() throws Exception {
         final Map<String, Object> headers = new HashMap<>();
-        headers.put("firstName", "Carlos");
         headers.put("lastName", "Feria");
-        headers.put("item", "Book");
+        headers.put("firstName", "Carlos");
 
         return producerTemplate.requestBodyAndHeaders(
-                "direct:template",
-                body,
+                "direct:a",
+                null,
                 headers,
                 String.class);
     }

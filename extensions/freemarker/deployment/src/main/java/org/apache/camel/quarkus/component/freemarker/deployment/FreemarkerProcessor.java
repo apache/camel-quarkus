@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.freemarker.deployment;
 
+import freemarker.ext.jython.JythonModel;
+import freemarker.ext.jython.JythonWrapper;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.substrate.RuntimeInitializedClassBuildItem;
 
 class FreemarkerProcessor {
     private static final String FEATURE = "camel-freemarker";
@@ -26,12 +29,15 @@ class FreemarkerProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
-//
-//    @BuildStep
-//    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-//        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
-//                AbstractTwitterComponent.class,
-//                TwitterConfiguration.class
-//        ));
-//    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem config1() {
+        return new RuntimeInitializedClassBuildItem(JythonModel.class.getCanonicalName());
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem config2() {
+        return new RuntimeInitializedClassBuildItem(JythonWrapper.class.getCanonicalName());
+    }
+
 }
