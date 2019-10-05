@@ -22,12 +22,16 @@ import java.util.Collections;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
-import org.apache.camel.main.MainSupport;
 import org.apache.camel.support.service.ServiceHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CamelMain extends MainSupport implements CamelContextAware {
+public class CamelMain extends BaseMainSupport implements CamelContextAware {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
+
     @Override
     public void setCamelContext(CamelContext camelContext) {
         this.camelContext = camelContext;
@@ -40,9 +44,15 @@ public class CamelMain extends MainSupport implements CamelContextAware {
 
     @Override
     protected void doStart() throws Exception {
-        beforeStart();
+        for (MainListener listener : listeners) {
+            listener.beforeStart(this);
+        }
+
         getCamelContext().start();
-        afterStart();
+
+        for (MainListener listener : listeners) {
+            listener.afterStart(this);
+        }
     }
 
     @Override
@@ -53,12 +63,18 @@ public class CamelMain extends MainSupport implements CamelContextAware {
                 camelTemplate = null;
             }
         } catch (Exception e) {
-            MainSupport.LOG.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
+            LOGGER.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
         }
 
-        beforeStop();
+        for (MainListener listener : listeners) {
+            listener.beforeStop(this);
+        }
+
         getCamelContext().stop();
-        afterStop();
+
+        for (MainListener listener : listeners) {
+            listener.afterStop(this);
+        }
     }
 
     @Override
