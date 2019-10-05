@@ -96,6 +96,7 @@
         <module>microprofile-metrics</module>
         <module>paho</module>
         <module>platform-http</module>
+        <module>freemarker</module>
     </modules>
 
     <build>

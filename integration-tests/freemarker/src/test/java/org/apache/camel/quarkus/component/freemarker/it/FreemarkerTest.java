@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.csv.it;
+package org.apache.camel.quarkus.component.freemarker.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -25,30 +25,17 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-class CsvTest {
+class FreemarkerTest {
 
     @Test
     public void json2csv() {
         RestAssured.given() //
             .contentType(ContentType.JSON)
             .accept(ContentType.TEXT)
-            .body("[{\"name\":\"Melwah\", \"species\":\"Camelus Dromedarius\"},{\"name\":\"Al Hamra\", \"species\":\"Camelus Dromedarius\"}]")
-            .post("/csv/json-to-csv")
+            .body("Best regards, Maria")
+            .post("/freemarker/template")
             .then()
-            .statusCode(200)
-            .body(is("Melwah,Camelus Dromedarius\r\nAl Hamra,Camelus Dromedarius\r\n"));
-    }
-
-    @Test
-    public void csv2json() {
-        RestAssured.given() //
-            .contentType(ContentType.TEXT)
-            .accept(ContentType.JSON)
-            .body("Melwah,Camelus Dromedarius\r\nAl Hamra,Camelus Dromedarius\r\n")
-            .post("/csv/csv-to-json")
-            .then()
-            .statusCode(200)
-            .body(is("[[\"Melwah\",\"Camelus Dromedarius\"],[\"Al Hamra\",\"Camelus Dromedarius\"]]"));
+            .statusCode(200);
     }
 
 }

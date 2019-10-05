@@ -6,6 +6,7 @@
 * `camel-quarkus-bean`
 * `camel-quarkus-csv`
 * `camel-quarkus-direct`
+* `camel-quarkus-freemarker`
 * `camel-quarkus-infinispan`
 * `camel-quarkus-jdbc`
 * `camel-quarkus-log`

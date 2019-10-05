@@ -14,11 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.csv.it;
+package org.apache.camel.quarkus.component.freemarker.it;
 
-import io.quarkus.test.junit.SubstrateTest;
+import org.apache.camel.builder.RouteBuilder;
 
-@SubstrateTest
-class CsvIT extends CsvTest {
 
+public class FreemarkerRouteBuilder extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:template")
+                .to("freemarker:template.ftl")
+                .to("log:sf?showAll=true");
+    }
 }

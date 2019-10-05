@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.csv.it;
+package org.apache.camel.quarkus.component.freemarker.it;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,34 +34,31 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
-@Path("/csv")
+@Path("/freemarker")
 @ApplicationScoped
-public class CsvResource {
+public class FreemarkerResource {
 
-    private static final Logger LOG = Logger.getLogger(CsvResource.class);
+    private static final Logger LOG = Logger.getLogger(FreemarkerResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/json-to-csv")
+    @Path("/template")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String json2csv(String json) throws Exception {
-        LOG.infof("Transforming json %s", json);
-        final List<Map<String, Object>> objects = new ObjectMapper().readValue(json,  new TypeReference<List<Map<String, Object>>>() { });
-        return producerTemplate.requestBody(
-                "direct:json-to-csv",
-                objects,
-                String.class);
-    }
+    public String json2csv(String body) throws Exception {
+        LOG.infof("Using body %s", body);
 
-    @SuppressWarnings("unchecked")
-    @Path("/csv-to-json")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<List<Object>> csv2json(String csv) throws Exception {
-        return producerTemplate.requestBody("direct:csv-to-json", csv, List.class);
+        final Map<String, Object> headers = new HashMap<>();
+        headers.put("firstName", "Carlos");
+        headers.put("lastName", "Feria");
+        headers.put("item", "Book");
+
+        return producerTemplate.requestBodyAndHeaders(
+                "direct:template",
+                body,
+                headers,
+                String.class);
     }
 }

@@ -14,15 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.csv.it;
+package org.apache.camel.quarkus.component.freemarker.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.test.junit.SubstrateTest;
 
+@SubstrateTest
+class CsvIT extends CsvTest {
 
-public class CsvRouteBuilder extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:json-to-csv").marshal().csv();
-        from("direct:csv-to-json").unmarshal().csv();
-    }
 }

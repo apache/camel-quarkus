@@ -226,6 +226,11 @@
                 <artifactId>spi-annotations</artifactId>
                 <version>${camel.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-freemarker</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
 
             <!-- Camel Quarkus Support (in alphabetical order) -->
             <dependency>
@@ -356,6 +361,11 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-zipfile</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-freemarker</artifactId>
+                <version>${camel-quarkus.version}</version>
             </dependency>
 
             <!-- Other third party dependencies (in alphabetical order by groupId:artifactId) -->
