@@ -29,8 +29,10 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
@@ -49,6 +51,7 @@ class BuildProcessor {
      * Build steps related to camel core.
      */
     public static class Core {
+
         @BuildStep
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelProducers.class));
@@ -117,6 +120,7 @@ class BuildProcessor {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
 
+        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIfNot = Flags.MainDisabled.class)
         CamelMainBuildItem main(
@@ -126,6 +130,7 @@ class BuildProcessor {
             List<CamelMainListenerBuildItem> listeners,
             List<CamelRoutesBuilderBuildItem> routesBuilders,
             BeanContainerBuildItem beanContainer,
+            RecorderContext recorderContext,
             CamelConfig.BuildTime buildTimeConfig) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(context.getCamelContext(), beanContainer.getValue());
@@ -134,7 +139,7 @@ class BuildProcessor {
             }
 
             CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex()).forEach(name -> {
-                recorder.addRouteBuilder(main, name);
+                recorder.addRouteBuilder(main, (Class<RoutesBuilder>)recorderContext.classProxy(name));
             });
             routesBuilders.forEach(routesBuilder -> {
                 recorder.addRouteBuilder(main, routesBuilder.getInstance());
