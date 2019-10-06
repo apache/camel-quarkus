@@ -104,15 +104,8 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class FastCamelContext extends AbstractCamelContext {
-    public static final String PFX_CAMEL = "camel.";
-    public static final String PFX_CAMEL_CONTEXT = PFX_CAMEL + "context.";
-    public static final String PFX_CAMEL_PROPERTIES = PFX_CAMEL + "component.properties.";
-    private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
-
     private Model model;
 
     public FastCamelContext() {
