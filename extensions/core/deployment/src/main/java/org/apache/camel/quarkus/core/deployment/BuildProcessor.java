@@ -66,7 +66,22 @@ class BuildProcessor {
 
             RuntimeValue<Registry> registry = recorder.createRegistry();
 
-            CamelSupport.services(applicationArchives).forEach(si -> {
+            CamelSupport.services(applicationArchives)
+                .filter(si -> {
+                    //
+                    // by default all the service found in META-INF/service/org/apache/camel are
+                    // bound to the registry but some of the services are then replaced or set
+                    // to the camel context directly by extension so it does not make sense to
+                    // instantiate them in this phase.
+                    //
+                    boolean blacklisted = si.path.endsWith("reactive-executor") || si.path.endsWith("platform-http");
+                    if (blacklisted) {
+                        LOGGER.debug("Ignore service: {}", si);
+                    }
+
+                    return !blacklisted;
+                })
+                .forEach(si -> {
                     LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
 
                     recorder.bind(
@@ -174,12 +189,20 @@ class BuildProcessor {
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
             // TODO: keep this as placeholder to ensure the registry is fully configured
-            //       befire startuing the camel context
+            //       before starting the camel context
             CamelRuntimeRegistryBuildItem registry,
+            // TODO: replace with @Overridable
+            List<CamelReactiveExecutorBuildItem> reactiveExecutors,
             ShutdownContextBuildItem shutdown,
             // TODO: keep this list as placeholder to ensure the ArC container is fully
             //       started before starting main
             List<ServiceStartBuildItem> startList) {
+
+            if (reactiveExecutors.size() > 1) {
+                throw new IllegalArgumentException("Detected multiple reactive executors");
+            } else if (reactiveExecutors.size() == 1) {
+                recorder.setReactiveExecutor(main.getInstance(), reactiveExecutors.get(0).getInstance());
+            }
 
             recorder.start(shutdown, main.getInstance());
         }

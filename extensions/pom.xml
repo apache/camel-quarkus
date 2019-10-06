@@ -40,6 +40,7 @@
         <module>core</module>
         <module>core-cloud</module>
         <module>http-common</module>
+        <module>reactive-executor</module>
 
         <!-- components -->
         <module>netty-http</module>
