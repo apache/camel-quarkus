@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.platform.http.it;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.spi.Registry;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
 
@@ -25,5 +27,23 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
         from("platform-http:/platform-http/get-post?httpMethodRestrict=GET,POST").setBody(simple("Hello ${body}"));
         from("platform-http:/platform-http/multipart?httpMethodRestrict=POST").setBody(simple("Hello ${body}"));
+
+        fromF("platform-http:/platform-http/registry/%s", PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME).process().message(m -> {
+            Registry registry = m.getExchange().getContext().getRegistry();
+            Object answer = registry.lookupByName(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME);
+
+            if (answer != null) {
+                m.setBody(answer.getClass().getName());
+            }
+        });
+
+        fromF("platform-http:/platform-http/registry/%s", PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME).process().message(m -> {
+            Registry registry = m.getExchange().getContext().getRegistry();
+            Object answer = registry.lookupByName(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
+
+            if (answer != null) {
+                m.setBody(answer.getClass().getName());
+            }
+        });
     }
 }

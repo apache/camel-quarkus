@@ -17,22 +17,16 @@
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
 import io.vertx.ext.web.Router;
-
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
-import org.jboss.logging.Logger;
 
 
 public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
-
-    static final Logger LOG = Logger.getLogger(QuarkusPlatformHttpEngine.class);
-
     private final Router router;
 
     public QuarkusPlatformHttpEngine(Router router) {
-        super();
         this.router = router;
     }
 

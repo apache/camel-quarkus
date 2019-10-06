@@ -23,15 +23,15 @@ import io.quarkus.runtime.RuntimeValue;
 
 /**
  * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during
- * static initialization phase. Note that the field type should refer to the most specialized
+ * runtime initialization phase. Note that the field type should refer to the most specialized
  * class to avoid the issue described in https://issues.apache.org/jira/browse/CAMEL-13948.
  */
-public final class CamelBeanBuildItem extends MultiBuildItem {
+public final class CamelRuntimeBeanBuildItem extends MultiBuildItem {
     private final String name;
     private final Class<?> type;
     private final RuntimeValue<?> value;
 
-    public CamelBeanBuildItem(String name, Class<?> type, RuntimeValue<?> value) {
+    public CamelRuntimeBeanBuildItem(String name, Class<?> type, RuntimeValue<?> value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
         this.value = Objects.requireNonNull(value);
