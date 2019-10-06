@@ -14,24 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.support;
+package org.apache.camel.quarkus.core.deployment;
 
+import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.Component;
-import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.support.processor.DefaultExchangeFormatter;
+import org.apache.camel.spi.Registry;
 
-@Recorder
-public class SupportRecorder {
-    public RuntimeValue<Component> logComponent() {
-        DefaultExchangeFormatter def = new DefaultExchangeFormatter();
-        def.setShowAll(true);
-        def.setMultiline(true);
+/**
+ * Holds the {@link Registry} {@link RuntimeValue}.
+ */
+public final class CamelRuntimeRegistryBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<Registry> value;
 
-        LogComponent component = new LogComponent();
-        component.setExchangeFormatter(def);
+    public CamelRuntimeRegistryBuildItem(RuntimeValue<Registry> value) {
+        this.value = value;
+    }
 
-        return new RuntimeValue<>(component);
+    public RuntimeValue<Registry> getRegistry() {
+        return value;
     }
 }

@@ -24,13 +24,20 @@ import org.apache.camel.Producer;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.spi.HeaderFilterStrategyAware;
+import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.UriEndpoint;
 import org.apache.camel.spi.UriParam;
+import org.apache.camel.spi.UriPath;
 import org.apache.camel.support.DefaultEndpoint;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@UriEndpoint(/* firstVersion = "3.?.0", */ scheme = "platform-http", title = "Platform HTTP", syntax = "platform-http:[methods:]path", label = "http")
+@UriEndpoint(/* firstVersion = "3.?.0", */ scheme = "platform-http", title = "Platform HTTP", syntax = "platform-http:path", label = "http", consumerOnly = true)
 public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoint, HeaderFilterStrategyAware {
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformHttpEndpoint.class);
 
+    @UriPath
+    @Metadata(required = true)
     private final String path;
 
     @UriParam(label = "consumer", description = "A comma separated list of HTTP methods to serve, e.g. GET,POST ."
@@ -91,16 +98,17 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
     @Override
     protected void doStart() throws Exception {
         super.doStart();
+
         if (platformHttpEngine == null) {
+            LOGGER.debug("Lookup platform http engine from registry");
+
             platformHttpEngine = getCamelContext().getRegistry()
                     .lookupByNameAndType(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class);
+
             if (platformHttpEngine == null) {
                 throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this "
                         + PlatformHttpEndpoint.class.getSimpleName() + " neither found in Camel Registry.");
             }
         }
     }
-
-
-
 }

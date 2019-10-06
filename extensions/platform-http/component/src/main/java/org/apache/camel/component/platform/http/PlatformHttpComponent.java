@@ -20,6 +20,8 @@ import java.util.Map;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
+import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
+import org.apache.camel.spi.Metadata;
 import org.apache.camel.spi.annotations.Component;
 import org.apache.camel.support.DefaultComponent;
 
@@ -28,6 +30,8 @@ import org.apache.camel.support.DefaultComponent;
  */
 @Component("platform-http")
 public class PlatformHttpComponent extends DefaultComponent {
+    @Metadata(label = "advanced")
+    private PlatformHttpEngine engine;
 
     public PlatformHttpComponent() {
         super();
@@ -39,7 +43,21 @@ public class PlatformHttpComponent extends DefaultComponent {
 
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
-        return new PlatformHttpEndpoint(uri, remaining, this);
+        PlatformHttpEndpoint endpoint = new PlatformHttpEndpoint(uri, remaining, this);
+        endpoint.setPlatformHttpEngine(engine);
+
+        return endpoint;
     }
 
+    public PlatformHttpEngine getEngine() {
+        return engine;
+    }
+
+    /**
+     * Sets the {@link PlatformHttpEngine} to use.
+     */
+    public PlatformHttpComponent setEngine(PlatformHttpEngine engine) {
+        this.engine = engine;
+        return this;
+    }
 }

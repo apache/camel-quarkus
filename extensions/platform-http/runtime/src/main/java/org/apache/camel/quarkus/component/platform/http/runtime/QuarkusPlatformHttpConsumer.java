@@ -144,7 +144,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         super.doResume();
     }
 
-    Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
+    static Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
         final Exchange exchange = message.getExchange();
         final boolean failed = exchange.isFailed();
         final int defaultCode = failed ? 500 : 200;
@@ -214,7 +214,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return body;
     }
 
-    void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
+    static void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
         final Object body = toHttpResponse(ctx.response(), camelExchange.getMessage(), headerFilterStrategy);
 
         final HttpServerResponse response = ctx.response();
@@ -254,7 +254,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     }
 
-    Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
+    static Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
         Message in = toCamelMessage(ctx, exchange, headerFilterStrategy);
 
         final String charset = ctx.parsedHeaders().contentType().parameter("charset");
@@ -267,7 +267,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return exchange;
     }
 
-    void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
+    static void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
             HeaderFilterStrategy headerFilterStrategy) {
 
         final HttpServerRequest request = ctx.request();
@@ -327,7 +327,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         headersMap.put(Exchange.HTTP_RAW_QUERY, request.query());
     }
 
-    Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
+    static Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
         Message result = new DefaultMessage(exchange);
 
         populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy);

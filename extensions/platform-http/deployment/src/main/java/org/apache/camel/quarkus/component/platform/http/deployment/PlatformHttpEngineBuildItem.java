@@ -14,24 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.support;
+package org.apache.camel.quarkus.component.platform.http.deployment;
 
+import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.Component;
-import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.support.processor.DefaultExchangeFormatter;
+import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 
-@Recorder
-public class SupportRecorder {
-    public RuntimeValue<Component> logComponent() {
-        DefaultExchangeFormatter def = new DefaultExchangeFormatter();
-        def.setShowAll(true);
-        def.setMultiline(true);
+/**
+ * Holds the {@link PlatformHttpEngine} {@link RuntimeValue}.
+ */
+public final class PlatformHttpEngineBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<PlatformHttpEngine> instance;
 
-        LogComponent component = new LogComponent();
-        component.setExchangeFormatter(def);
+    public PlatformHttpEngineBuildItem(RuntimeValue<PlatformHttpEngine> instance) {
+        this.instance = instance;
+    }
 
-        return new RuntimeValue<>(component);
+    public RuntimeValue<PlatformHttpEngine> getInstance() {
+        return instance;
     }
 }

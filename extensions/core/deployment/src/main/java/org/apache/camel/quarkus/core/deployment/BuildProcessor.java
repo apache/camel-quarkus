@@ -102,6 +102,28 @@ class BuildProcessor {
             RuntimeValue<CamelContext> context = recorder.createContext(registry.getRegistry(), beanContainer.getValue(), buildTimeConfig);
             return new CamelContextBuildItem(context);
         }
+
+        @Record(ExecutionTime.RUNTIME_INIT)
+        @BuildStep
+        CamelRuntimeRegistryBuildItem bindRuntimeBeransToRegistry(
+            CamelRecorder recorder,
+            CamelRegistryBuildItem registry,
+            List<CamelRuntimeBeanBuildItem> registryItems) {
+
+
+            for (CamelRuntimeBeanBuildItem item : registryItems) {
+                LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
+
+                recorder.bind(
+                    registry.getRegistry(),
+                    item.getName(),
+                    item.getType(),
+                    item.getValue()
+                );
+            }
+
+            return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
+        }
     }
 
     /*
@@ -151,6 +173,9 @@ class BuildProcessor {
         void start(
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
+            // TODO: keep this as placeholder to ensure the registry is fully configured
+            //       befire startuing the camel context
+            CamelRuntimeRegistryBuildItem registry,
             ShutdownContextBuildItem shutdown,
             // TODO: keep this list as placeholder to ensure the ArC container is fully
             //       started before starting main
