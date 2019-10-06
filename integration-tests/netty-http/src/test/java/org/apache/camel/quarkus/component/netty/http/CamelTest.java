@@ -16,18 +16,27 @@
  */
 package org.apache.camel.quarkus.component.netty.http;
 
+import static org.hamcrest.Matchers.is;
+
 import java.net.URI;
+
+import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CamelTest {
+
     @Test
     public void testNetty4Http() throws Exception {
         RestAssured.when().get(new URI("http://localhost:8999/foo")).then().body(is("Netty Hello World"));
     }
+
+    @Test
+    public void netty4HttpProducer() throws Exception {
+        RestAssured.when().get(new URI("http://localhost:8999/producer")) //
+            .then().statusCode(200).body(is("Netty Hello World"));
+    }
+
 }
