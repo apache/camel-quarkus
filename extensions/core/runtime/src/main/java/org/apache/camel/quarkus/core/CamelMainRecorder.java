@@ -24,7 +24,6 @@ import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.model.Model;
 import org.apache.camel.support.ResourceHelper;
@@ -62,17 +61,10 @@ public class CamelMainRecorder {
             RuntimeValue<CamelMain> main,
             RuntimeValue<RoutesBuilder> routesBuilder) {
 
-        RoutesBuilder builder = routesBuilder.getValue();
-
-        // TODO: camel main may need to support RoutesBuilder instead of RouteBuilder only
-        if (!(builder instanceof RouteBuilder)) {
-            throw new IllegalArgumentException("Cannot handle routes builder of type: '" + builder.getClass().getName() + "'");
-        }
-
         try {
-            main.getValue().addRouteBuilder((RouteBuilder)builder);
+            main.getValue().addRoutesBuilder(routesBuilder.getValue());
         } catch (Exception e) {
-            throw new RuntimeException("Could not add route builder '" + builder.getClass().getName() + "'", e);
+            throw new RuntimeException("Could not add route builder '" + routesBuilder.getValue().getClass().getName() + "'", e);
         }
     }
 
