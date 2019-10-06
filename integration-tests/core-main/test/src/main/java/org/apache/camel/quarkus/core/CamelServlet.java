@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -33,6 +34,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
+import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
+import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
@@ -123,7 +126,7 @@ public class CamelServlet {
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
         JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
-        main.getRouteBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
+        main.getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
 
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
@@ -134,5 +137,22 @@ public class CamelServlet {
             .add("routes", routes)
             .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
             .build();
+    }
+
+    @Path("/context/reactive-executor")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public JsonObject reactiveExecutor() {
+        ReactiveExecutor executor = context.getReactiveExecutor();
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        builder.add("class", executor.getClass().getName());
+
+        if (executor instanceof VertXReactiveExecutor) {
+            builder.add("configured", ((VertXReactiveExecutor)executor).getVertx() != null);
+
+        }
+
+        return builder.build();
     }
 }

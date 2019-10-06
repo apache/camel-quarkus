@@ -102,7 +102,7 @@ public final class CamelSupport {
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String k = entry.getKey().toString();
                 if (k.equals("class")) {
-                    answer.add(new ServiceInfo(name, entry.getValue().toString()));
+                    answer.add(new ServiceInfo(p, name, entry.getValue().toString()));
                 }
             }
         } catch (Exception e) {
@@ -117,10 +117,12 @@ public final class CamelSupport {
      * services from resources belonging to META-INF/services/org/apache/camel.
      */
     public static class ServiceInfo {
+        public final Path path;
         public final String name;
         public final String type;
 
-        public ServiceInfo(String name, String type) {
+        public ServiceInfo(Path path, String name, String type) {
+            this.path = path;
             this.name = name;
             this.type = type;
         }
@@ -128,7 +130,8 @@ public final class CamelSupport {
         @Override
         public String toString() {
             return "ServiceInfo{"
-                + "name='" + name + '\''
+                + "path='" + path.toString() + '\''
+                + ", name=" + name
                 + ", type=" + type
                 + '}';
         }

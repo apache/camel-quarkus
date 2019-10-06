@@ -25,6 +25,7 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.core.runtime.support.SupportListener;
+import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -79,5 +80,18 @@ public class CamelTest {
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
 
+    }
+
+    @Test
+    public void testReactiveExecutor() {
+        JsonPath executor = RestAssured.when().get("/test/context/reactive-executor")
+            .then()
+                .statusCode(200)
+            .extract()
+                .body()
+                .jsonPath();
+
+        assertThat(executor.getString("class")).isEqualTo(VertXReactiveExecutor.class.getName());
+        assertThat(executor.getBoolean("configured")).isTrue();
     }
 }
