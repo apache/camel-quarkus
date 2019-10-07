@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.graal;
+package org.apache.camel.quarkus.common.runtime.graal;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
@@ -26,13 +26,13 @@ import com.oracle.svm.core.annotate.TargetClass;
 
 @TargetClass(className = "com.sun.beans.WeakCache")
 @Substitute
-final class Target_com_sun_beans_WeakCache<K, V> {
+final class SubstituteBeansWeakCache<K, V> {
 
     @Substitute
     private Map<K, Reference<V>> map = new WeakHashMap<>();
 
     @Substitute
-    public Target_com_sun_beans_WeakCache() {
+    public SubstituteBeansWeakCache() {
     }
 
     @Substitute

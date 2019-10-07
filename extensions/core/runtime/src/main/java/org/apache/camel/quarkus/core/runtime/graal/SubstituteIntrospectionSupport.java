@@ -21,14 +21,17 @@ import java.util.Map;
 import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
+import com.oracle.svm.core.annotate.TargetElement;
 import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.support.LRUCacheFactory;
 
+//
+// Don't use class here to avoid warning triggered by IntrospectionSupport deprecation
+//
 @TargetClass(className = "org.apache.camel.support.IntrospectionSupport")
-final class Target_org_apache_camel_support_IntrospectionSupport {
-
+final class SubstituteIntrospectionSupport {
     @Alias
+    @TargetElement(name = "CACHE")
     @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Map<Class<?>, BeanIntrospection.ClassInfo> CACHE = LRUCacheFactory.newLRUWeakCache(256);
-
+    private static Map<Class<?>, BeanIntrospection.ClassInfo> cache = LRUCacheFactory.newLRUWeakCache(256);
 }

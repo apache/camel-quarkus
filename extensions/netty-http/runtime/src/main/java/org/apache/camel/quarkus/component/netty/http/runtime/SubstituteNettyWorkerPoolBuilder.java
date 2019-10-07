@@ -16,13 +16,31 @@
  */
 package org.apache.camel.quarkus.component.netty.http.runtime;
 
+import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import org.apache.camel.component.netty.NettyHelper;
+import org.apache.camel.component.netty.NettyWorkerPoolBuilder;
+import org.apache.camel.util.concurrent.CamelThreadFactory;
 
-@TargetClass(className = "org.apache.camel.component.netty.NettyServerBootstrapConfiguration")
-final class Target_org_apache_camel_component_netty_NettyServerBootstrapConfiguration {
+@TargetClass(NettyWorkerPoolBuilder.class)
+final class SubstituteNettyWorkerPoolBuilder {
+
+    @Alias
+    private String name = "NettyWorker";
+    @Alias
+    private String pattern;
+    @Alias
+    private int workerCount;
+    @Alias
+    private volatile EventLoopGroup workerPool;
+
     @Substitute
-    public boolean isNativeTransport() {
-        return false;
+    public EventLoopGroup build() {
+        int count = workerCount > 0 ? workerCount : NettyHelper.DEFAULT_IO_THREADS;
+        workerPool = new NioEventLoopGroup(count, new CamelThreadFactory(pattern, name, false));
+        return workerPool;
     }
 }

@@ -14,32 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http.runtime;
+package org.apache.camel.quarkus.core.runtime.graal;
 
-import com.oracle.svm.core.annotate.Alias;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import org.apache.camel.component.netty.NettyHelper;
-import org.apache.camel.util.concurrent.CamelThreadFactory;
+import org.apache.camel.util.HostUtils;
 
-@TargetClass(className = "org.apache.camel.component.netty.NettyWorkerPoolBuilder")
-final class Target_org_apache_camel_component_netty_NettyWorkerPoolBuilder {
-
-    @Alias
-    private String name = "NettyWorker";
-    @Alias
-    private String pattern;
-    @Alias
-    private int workerCount;
-    @Alias
-    private volatile EventLoopGroup workerPool;
+@TargetClass(HostUtils.class)
+final class SubstituteHostUtils {
 
     @Substitute
-    public EventLoopGroup build() {
-        int count = workerCount > 0 ? workerCount : NettyHelper.DEFAULT_IO_THREADS;
-        workerPool = new NioEventLoopGroup(count, new CamelThreadFactory(pattern, name, false));
-        return workerPool;
+    private static InetAddress chooseAddress() throws UnknownHostException {
+        return InetAddress.getByName("0.0.0.0");
     }
 }

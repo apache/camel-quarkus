@@ -14,19 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.graal;
+package org.apache.camel.quarkus.common.runtime.graal;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
+import java.lang.reflect.Method;
 
-import com.oracle.svm.core.annotate.Substitute;
+import com.oracle.svm.core.annotate.Alias;
+import com.oracle.svm.core.annotate.RecomputeFieldValue;
 import com.oracle.svm.core.annotate.TargetClass;
 
-@TargetClass(className = "org.apache.camel.util.HostUtils")
-final class Target_org_apache_camel_util_HostUtils {
-
-    @Substitute
-    private static InetAddress chooseAddress() throws UnknownHostException {
-        return InetAddress.getByName("0.0.0.0");
-    }
+@TargetClass(className = "java.beans.Introspector")
+final class SubstituteBeansIntrospector {
+    @Alias
+    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
+    private static SubstituteBeansWeakCache<Class<?>, Method[]> declaredMethodCache = new SubstituteBeansWeakCache<>();
 }

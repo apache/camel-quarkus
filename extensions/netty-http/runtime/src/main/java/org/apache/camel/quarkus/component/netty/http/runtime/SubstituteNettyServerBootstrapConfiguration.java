@@ -14,19 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.graal;
+package org.apache.camel.quarkus.component.netty.http.runtime;
 
-import java.lang.reflect.Method;
-
-import com.oracle.svm.core.annotate.Alias;
-import com.oracle.svm.core.annotate.RecomputeFieldValue;
+import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import org.apache.camel.component.netty.NettyServerBootstrapConfiguration;
 
-@TargetClass(className = "java.beans.Introspector")
-final class Target_java_beans_Introspector {
-
-    @Alias
-    @RecomputeFieldValue(kind = RecomputeFieldValue.Kind.FromAlias)
-    private static Target_com_sun_beans_WeakCache<Class<?>, Method[]> declaredMethodCache = new Target_com_sun_beans_WeakCache<>();
-
+@TargetClass(NettyServerBootstrapConfiguration.class)
+final class SubstituteNettyServerBootstrapConfiguration {
+    @Substitute
+    public boolean isNativeTransport() {
+        return false;
+    }
 }
