@@ -19,11 +19,10 @@ package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.spi.ReactiveExecutor;
 
 /**
- * Holds the {@link CamelMain} {@link RuntimeValue}.
+ * Holds the {@link ReactiveExecutor} {@link RuntimeValue}.
  *
  * TODO: should extend SimpleBuildItem when moving to quarkus snapshots or 0.24
  *       as we can then use the @Overridable annotation which allow to provide
