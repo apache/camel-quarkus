@@ -18,29 +18,54 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <artifactId>camel-quarkus-examples</artifactId>
         <version>0.2.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-servlet</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Servlet</name>
-    <description>Integration tests for Camel Servlet component</description>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>camel-quarkus-examples-rest-json</artifactId>
+    <name>Camel Quarkus :: Examples :: Rest Json</name>
+    <description>Camel Quarkus Example :: Rest Json</description>
+
+    <properties>
+        <!--
+            Make quarkus use docker by default as native-image does not
+            work anymore due to a Fedora upgrade
+
+            See https://github.com/oracle/graal/issues/1582
+         -->
+        <native-image.docker-build>true</native-image.docker-build>
+        <native-image.container-runtime>docker</native-image.container-runtime>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-servlet</artifactId>
+            <artifactId>camel-quarkus-platform-http</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-rest</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jackson</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-cloud</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -63,6 +88,7 @@
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>build</id>
                         <goals>
                             <goal>build</goal>
                         </goals>
@@ -109,11 +135,9 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
+                                    <enableServer>false</enableServer>
                                     <cleanupServer>true</cleanupServer>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <enableJni>false</enableJni>
-                                    <debugBuildProcess>false</debugBuildProcess>
-                                    <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
                         </executions>

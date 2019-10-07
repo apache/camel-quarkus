@@ -1,0 +1,20 @@
+# rest-json
+
+
+This example is a port of Quarkus' quickstart https://github.com/quarkusio/quarkus-quickstarts/blob/master/rest-json[rest-json] to Camel.
+
+
+To run it:
+
+[source]
+----
+$ mvn clean compile quarkus:dev -DnoDeps
+----
+
+Then point your browser to one of the endpoints:
+
+[source]
+----
+http://localhost:8080/fruits.html
+http://localhost:8080/legumes.html
+----
