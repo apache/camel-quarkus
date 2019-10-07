@@ -24,9 +24,13 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.broker.TransportConnector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
+    private final static Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
     private BrokerService broker;
+
 
     @Override
     public Map<String, String> start() {
@@ -38,7 +42,8 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             broker.setDataDirectory("target");
             broker.start();
         } catch (Exception e) {
-
+            LOGGER.error("Starting the ActiveMQ broker with exception.", e);
+            throw new RuntimeException("Starting the ActiveMQ broker with exception.", e);
         }
         return Collections.emptyMap();
     }
@@ -50,7 +55,8 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 broker.stop();
             }
         } catch (Exception e) {
-
+            LOGGER.error("Stopping the ActiveMQ broker with exception.", e);
+            throw new RuntimeException("Stopping the ActiveMQ broker with exception.", e);
         }
     }
 }
