@@ -19,12 +19,18 @@ package org.apache.camel.quarkus.core.deployment;
 import java.util.Objects;
 
 import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
 
 /**
  * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during
- * static initialization phase. Note that the field type should refer to the most specialized
- * class to avoid the issue described in https://issues.apache.org/jira/browse/CAMEL-13948.
+ * {@link ExecutionTime#STATIC_INIT} phase.
+ * <p>
+ * You can use the sibling {@link CamelRuntimeBeanBuildItem} to register beans in the {@link ExecutionTime#RUNTIME_INIT}
+ * phase - i.e. those ones that cannot be produced during {@link ExecutionTime#STATIC_INIT} phase.
+ * <p>
+ * Note that the field type should refer to the most specialized class to avoid the issue described in
+ * https://issues.apache.org/jira/browse/CAMEL-13948.
  */
 public final class CamelBeanBuildItem extends MultiBuildItem {
     private final String name;
