@@ -25,24 +25,23 @@ import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformH
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class PlatformHttpTest {
-    @Disabled("looks like adding resteasy break the component")
     @Test
     public void testRegistrySetUp() {
-
         JsonPath p = RestAssured.given()
             .get("/test/registry/inspect")
             .then()
                 .statusCode(200)
                 .extract()
-                .body()
-                .jsonPath();
+                    .body()
+                    .jsonPath();
 
-        //assertThat(p.getString(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME)).isEqualTo(QuarkusPlatformHttpEngine.class.getName());
-        //assertThat(p.getString(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME)).isEqualTo(PlatformHttpComponent.class.getName());
+        assertThat(p.getString(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME)).isEqualTo(QuarkusPlatformHttpEngine.class.getName());
+        assertThat(p.getString(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME)).isEqualTo(PlatformHttpComponent.class.getName());
     }
 
     @Test
@@ -54,27 +53,24 @@ class PlatformHttpTest {
                 .statusCode(200)
                 .body(equalTo("Hello Kermit"));
 
-        RestAssured.post("/platform-http/hello").then().statusCode(405);
-
         RestAssured.given()
             .body("Camel")
             .post("/platform-http/get-post")
             .then()
                 .statusCode(200)
-            .body(equalTo("Hello Camel"));
+                .body(equalTo("Hello Camel"));
+
         RestAssured.given()
             .get("/platform-http/get-post")
             .then()
                 .statusCode(200)
                 .body(equalTo("Hello ")); // there is no body for get
+    }
 
-        RestAssured.given().get("/platform-http/registry/" + PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME)
-            .then()
-                .statusCode(200)
-                .body(equalTo(QuarkusPlatformHttpEngine.class.getName()));
-        RestAssured.given().get("/platform-http/registry/" + PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME)
-            .then()
-                .statusCode(200)
-                .body(equalTo(PlatformHttpComponent.class.getName()));
+    @Disabled("See https://github.com/quarkusio/quarkus/issues/4408")
+    @Test
+    public void testInvalidMethod() {
+        RestAssured.post("/platform-http/hello")
+            .then().statusCode(405);
     }
 }

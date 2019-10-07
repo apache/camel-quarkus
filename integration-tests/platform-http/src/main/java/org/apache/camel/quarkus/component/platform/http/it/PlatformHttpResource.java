@@ -16,11 +16,22 @@
  */
 package org.apache.camel.quarkus.component.platform.http.it;
 
-// TODO: investigate why adding resteasy break the platform http component
-//@Path("/test")
-//@ApplicationScoped
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonObjectBuilder;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.spi.Registry;
+
+@Path("/test")
+@ApplicationScoped
 public class PlatformHttpResource {
-    /*
     @Inject
     Registry registry;
 
@@ -36,12 +47,11 @@ public class PlatformHttpResource {
         if (engine != null) {
             builder.add(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, engine.getClass().getName());
 
-        }if (component != null) {
+        }
+        if (component != null) {
             builder.add(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component.getClass().getName());
-
         }
 
         return builder.build();
     }
-    */
 }
