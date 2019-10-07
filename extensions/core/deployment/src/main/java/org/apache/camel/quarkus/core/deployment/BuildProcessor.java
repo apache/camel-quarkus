@@ -89,8 +89,7 @@ class BuildProcessor {
                         si.name,
                         recorderContext.classProxy(si.type)
                     );
-                }
-            );
+                });
 
             for (CamelBeanBuildItem item : registryItems) {
                 LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
