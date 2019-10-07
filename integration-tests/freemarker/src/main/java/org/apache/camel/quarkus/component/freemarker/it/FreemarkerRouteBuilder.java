@@ -22,7 +22,7 @@ import org.apache.camel.builder.RouteBuilder;
 public class FreemarkerRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        from("direct:a")
-                .to("freemarker:file:src/test/resources/header.ftl");
+        from("direct:template")
+                .to("freemarker:file:src/test/resources/template.ftl");
     }
 }

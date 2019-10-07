@@ -29,14 +29,14 @@ import static org.hamcrest.Matchers.is;
 class FreemarkerTest {
 
     @Test
-    public void json2csv() {
+    public void template() {
         RestAssured.given() //
             .contentType(ContentType.JSON)
             .accept(ContentType.TEXT)
-            .post("/freemarker/a")
+            .post("/freemarker/template")
             .then()
             .statusCode(200)
-            .body(equalTo("Dear Feria, Carlos"));
+            .body(equalTo("Dear Feria, Carlos. Have a nice day!"));
     }
 
 }

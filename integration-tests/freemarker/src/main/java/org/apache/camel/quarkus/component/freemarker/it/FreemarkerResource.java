@@ -43,18 +43,20 @@ public class FreemarkerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/a")
+    @Path("/template")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String a() throws Exception {
+    public String template() throws Exception {
+        String body = "Have a nice day!";
+
         final Map<String, Object> headers = new HashMap<>();
         headers.put("lastName", "Feria");
         headers.put("firstName", "Carlos");
 
         return producerTemplate.requestBodyAndHeaders(
-                "direct:a",
-                null,
+                "direct:template",
+                body,
                 headers,
                 String.class);
     }

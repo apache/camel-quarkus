@@ -16,4 +16,4 @@
     limitations under the License.
 
 -->
-Dear ${headers.lastName}, ${headers.firstName}
+Dear ${headers.lastName}, ${headers.firstName}. ${body}

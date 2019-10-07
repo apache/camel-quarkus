@@ -31,12 +31,12 @@ class FreemarkerProcessor {
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem config1() {
+    RuntimeInitializedClassBuildItem jythonModel() {
         return new RuntimeInitializedClassBuildItem(JythonModel.class.getCanonicalName());
     }
 
     @BuildStep
-    RuntimeInitializedClassBuildItem config2() {
+    RuntimeInitializedClassBuildItem jythonWrapper() {
         return new RuntimeInitializedClassBuildItem(JythonWrapper.class.getCanonicalName());
     }
 
