@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.carlos.it;
+package org.apache.camel.quarkus.component.csv.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
