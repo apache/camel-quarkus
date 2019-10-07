@@ -413,9 +413,6 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <quarkus.version>999-SNAPSHOT</quarkus.version>
-            </properties>
             <repositories>
                 <repository>
                     <id>oss-snapshots-repo</id>
