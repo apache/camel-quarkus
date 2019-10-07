@@ -119,7 +119,7 @@ class BuildProcessor {
 
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep
-        CamelRuntimeRegistryBuildItem bindRuntimeBeransToRegistry(
+        CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
             CamelRecorder recorder,
             CamelRegistryBuildItem registry,
             List<CamelRuntimeBeanBuildItem> registryItems) {
