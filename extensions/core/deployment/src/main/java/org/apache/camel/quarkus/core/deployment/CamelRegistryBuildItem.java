@@ -17,11 +17,21 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.spi.Registry;
 
 /**
- * Holds the {@link Registry} {@link RuntimeValue}.
+ * Holds the {@link Registry} {@link RuntimeValue}. It is made available after the beans from
+ * {@link CamelBeanBuildItem}s were registered in the underlying {@link Registry}.
+ *
+ * <h3>{@link CamelRuntimeRegistryBuildItem} vs. {@link CamelRegistryBuildItem}</h3>
+ *
+ * They both refer to the same instance of {@link Registry} but in a different phase of the application bootstrap:
+ * {@link CamelRuntimeBeanBuildItem} is bound to {@link ExecutionTime#RUNTIME_INIT} phase while
+ * {@link org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem} is bound to {@link ExecutionTime#STATIC_INIT}
+ * phase.
+ *
  */
 public final class CamelRegistryBuildItem extends SimpleBuildItem {
     private final RuntimeValue<Registry> value;
