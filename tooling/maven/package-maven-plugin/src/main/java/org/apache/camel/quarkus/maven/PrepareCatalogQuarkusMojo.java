@@ -23,11 +23,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -37,7 +41,13 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
+import org.apache.maven.project.ProjectBuilder;
+import org.apache.maven.project.ProjectBuildingException;
+import org.apache.maven.project.ProjectBuildingResult;
+import org.apache.maven.repository.RepositorySystem;
+import org.mvel2.templates.TemplateRuntime;
 
+import static org.apache.camel.quarkus.maven.PackageHelper.camelDashToTitle;
 import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 
 /**
@@ -45,6 +55,10 @@ import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
  */
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
+
+    private static final String[] EXCLUDE_EXTENSIONS = {
+            "http-common", "jetty-common", "support", "xml-common", "xstream-common"
+    };
 
     private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
     private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
@@ -56,7 +70,20 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     @Parameter(property = "project", required = true, readonly = true)
     protected MavenProject project;
 
+    @Component
+    private RepositorySystem repositorySystem;
+
+    @Component
+    private ProjectBuilder mavenProjectBuilder;
+
+    @Parameter(defaultValue = "${session}", readonly = true)
+    private MavenSession session;
+
+    @Component
+    private MavenProjectHelper projectHelper;
+
     /**
+     *
      * The output directory for components catalog
      */
     @Parameter(defaultValue = "${project.build.directory}/classes/org/apache/camel/catalog/quarkus/components")
@@ -87,12 +114,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     protected File extensionsDir;
 
     /**
-     * Maven ProjectHelper.
-     */
-    @Component
-    private MavenProjectHelper projectHelper;
-
-    /**
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
@@ -105,6 +126,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         executeComponents(extensions);
         executeLanguages(extensions);
         executeDataFormats(extensions);
+        executeOthers(extensions);
     }
 
     protected void executeComponents(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
@@ -325,6 +347,103 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         }
     }
 
+    protected void executeOthers(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
+        // make sure to create out dir
+        othersOutDir.mkdirs();
+
+
+        for (String extension : extensions) {
+            // skip if the extension is already one of the following
+            boolean component = new File(componentsOutDir, extension + ".json").exists();
+            boolean language = new File(languagesOutDir, extension + ".json").exists();
+            boolean dataFormat = new File(dataFormatsOutDir, extension + ".json").exists();
+            if (component || language || dataFormat) {
+                continue;
+            }
+
+            try {
+                MavenProject extPom = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension, project.getVersion());
+
+                Map<String, Object> model = new HashMap<>();
+                model.put("name", extension);
+                String title = extPom.getProperties().getProperty("title");
+                if (title == null) {
+                    title = camelDashToTitle(extension);
+                }
+                model.put("title", title);
+                model.put("description", extPom.getDescription());
+                if (extPom.getName() != null && extPom.getName().contains("(deprecated)")) {
+                    model.put("deprecated", "true");
+                } else {
+                    model.put("deprecated", "false");
+                }
+                model.put("firstVersion", extPom.getProperties().getOrDefault("firstVersion", "1.0.0"));
+                model.put("label", extPom.getProperties().getOrDefault("label", "quarkus"));
+                model.put("groupId", "org.apache.camel.quarkus");
+                model.put("artifactId", "camel-quarkus-" + extension);
+                model.put("version", project.getVersion());
+
+                String text = templateOther(model);
+
+                // write new json file
+                File to = new File(othersOutDir, extension + ".json");
+                FileOutputStream fos = new FileOutputStream(to, false);
+
+                fos.write(text.getBytes());
+
+                fos.close();
+
+            } catch (IOException e) {
+                throw new MojoFailureException("Cannot write json file " + extension, e);
+            } catch (ProjectBuildingException e) {
+                throw new MojoFailureException("Error loading pom.xml from extension " + extension, e);
+            }
+        }
+
+        File all = new File(othersOutDir, "../others.properties");
+        try {
+            FileOutputStream fos = new FileOutputStream(all, false);
+
+            String[] names = othersOutDir.list();
+            List<String> others = new ArrayList<>();
+            // sort the names
+            for (String name : names) {
+                if (name.endsWith(".json")) {
+                    // strip out .json from the name
+                    String otherName = name.substring(0, name.length() - 5);
+                    others.add(otherName);
+                }
+            }
+
+            Collections.sort(others);
+            for (String name : others) {
+                fos.write(name.getBytes());
+                fos.write("\n".getBytes());
+            }
+
+            fos.close();
+
+        } catch (IOException e) {
+            throw new MojoFailureException("Error writing to file " + all);
+        }
+    }
+
+    private MavenProject getMavenProject(String groupId, String artifactId, String version) throws ProjectBuildingException {
+        Artifact pomArtifact = repositorySystem.createProjectArtifact(groupId, artifactId, version);
+        ProjectBuildingResult build = mavenProjectBuilder.build(pomArtifact, session.getProjectBuildingRequest());
+        return build.getProject();
+    }
+
+    private String templateOther(Map model) throws MojoExecutionException {
+        try {
+            String template = loadText(getClass().getClassLoader().getResourceAsStream("other-template.mvel"));
+            String out = (String) TemplateRuntime.eval(template, model);
+            return out;
+        } catch (Exception e) {
+            throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
+        }
+    }
+
     private static boolean isCamelComponent(List<String> components, String name) {
         return components.stream().anyMatch(c -> c.equals(name));
     }
@@ -344,7 +463,11 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         if (names != null) {
             for (File name : names) {
                 if (name.isDirectory()) {
-                    answer.add(name.getName());
+                    boolean excluded = isExcludedExtension(name.getName());
+                    boolean active = new File(name, "pom.xml").exists();
+                    if (!excluded && active) {
+                        answer.add(name.getName());
+                    }
                 }
             }
         }
@@ -352,6 +475,15 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         getLog().info("Found " + answer.size() + " Camel Quarkus Extensions from: " + extensionsDir);
 
         return answer;
+    }
+
+    private static boolean isExcludedExtension(String name) {
+        for (String exclude : EXCLUDE_EXTENSIONS) {
+            if (exclude.equals(name)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

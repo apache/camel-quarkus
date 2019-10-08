@@ -31,6 +31,7 @@
     <artifactId>camel-quarkus-reactive-executor-parent</artifactId>
     <name>Camel Quarkus :: Core :: Reactive Executor</name>
     <packaging>pom</packaging>
+
     <modules>
         <module>deployment</module>
         <module>runtime</module>

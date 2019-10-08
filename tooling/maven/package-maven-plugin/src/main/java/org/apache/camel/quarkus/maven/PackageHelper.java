@@ -67,6 +67,35 @@ public final class PackageHelper {
         }
     }
 
+    /**
+     * Converts the value to use title style instead of dash cased
+     */
+    public static String camelDashToTitle(String value) {
+        StringBuilder sb = new StringBuilder(value.length());
+        boolean dash = false;
+
+        for (char c : value.toCharArray()) {
+            if ('-' == c) {
+                dash = true;
+                continue;
+            }
+
+            if (dash) {
+                sb.append(' ');
+                sb.append(Character.toUpperCase(c));
+            } else {
+                // upper case first
+                if (sb.length() == 0) {
+                    sb.append(Character.toUpperCase(c));
+                } else {
+                    sb.append(c);
+                }
+            }
+            dash = false;
+        }
+        return sb.toString();
+    }
+
     public static void writeText(File file, String text) throws IOException {
         FileOutputStream fos = new FileOutputStream(file, false);
         try {
