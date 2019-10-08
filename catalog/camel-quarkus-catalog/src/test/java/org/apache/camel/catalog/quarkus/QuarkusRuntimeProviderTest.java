@@ -21,7 +21,6 @@ import java.util.List;
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -29,9 +28,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-// TODO: Update
-
-@Ignore
 public class QuarkusRuntimeProviderTest {
 
     static CamelCatalog catalog;
@@ -64,9 +60,15 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("file"));
-        assertTrue(names.contains("ftp"));
-        assertTrue(names.contains("jms"));
+        assertTrue(names.contains("aws-eks"));
+        assertTrue(names.contains("bean"));
+        assertTrue(names.contains("direct"));
+        assertTrue(names.contains("imap"));
+        assertTrue(names.contains("imaps"));
+        assertTrue(names.contains("jdbc"));
+        assertTrue(names.contains("log"));
+        assertTrue(names.contains("servlet"));
+        assertTrue(names.contains("twitter-search"));
         // camel-pax-logging does not work in quarkus
         assertFalse(names.contains("paxlogging"));
     }
@@ -78,8 +80,8 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("bindy-csv"));
-        assertTrue(names.contains("zipdeflater"));
+        assertTrue(names.contains("csv"));
+        assertTrue(names.contains("mime-multipart"));
         assertTrue(names.contains("zipfile"));
     }
 
@@ -90,9 +92,15 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
+        // core languages
+        assertTrue(names.contains("constant"));
         assertTrue(names.contains("simple"));
-        assertTrue(names.contains("spel"));
-        assertTrue(names.contains("xpath"));
+
+        // quarkus-bean
+        assertTrue(names.contains("bean"));
+
+        // spring expression language are not in quarkus
+        assertFalse(names.contains("spel"));
     }
 
     @Test
@@ -102,43 +110,44 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("hystrix"));
-        assertTrue(names.contains("spring-boot"));
-        assertTrue(names.contains("zipkin"));
+        assertTrue(names.contains("core-cloud"));
+        assertTrue(names.contains("platform-http"));
+        assertTrue(names.contains("reactive-executor"));
 
         assertFalse(names.contains("blueprint"));
+        assertFalse(names.contains("hystrix"));
     }
 
     @Test
     public void testComponentArtifactId() throws Exception {
-        String json = catalog.componentJSonSchema("ftp");
+        String json = catalog.componentJSonSchema("salesforce");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-ftp-starter"));
+        assertTrue(json.contains("camel-quarkus-salesforce"));
     }
 
     @Test
     public void testDataFormatArtifactId() throws Exception {
-        String json = catalog.dataFormatJSonSchema("bindy-csv");
+        String json = catalog.dataFormatJSonSchema("csv");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-bindy-starter"));
+        assertTrue(json.contains("camel-quarkus-csv"));
     }
 
     @Test
     public void testLanguageArtifactId() throws Exception {
-        String json = catalog.languageJSonSchema("spel");
+        String json = catalog.languageJSonSchema("bean");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-spring-starter"));
+        assertTrue(json.contains("camel-quarkus-bean"));
     }
 
     @Test
     public void testOtherArtifactId() throws Exception {
-        String json = catalog.otherJSonSchema("zipkin");
+        String json = catalog.otherJSonSchema("reactive-executor");
 
         assertNotNull(json);
-        assertTrue(json.contains("camel-zipkin-starter"));
+        assertTrue(json.contains("camel-quarkus-reactive-executor"));
     }
 
 }

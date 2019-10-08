@@ -160,7 +160,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     }
 
     protected void executeLanguages(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
-        doExecute(artifactIds, "languages", languagesOutDir);
+        // include core languages (simple, header etc) and refer to camel-quarkus-core
+        Set<String> set = new LinkedHashSet<>();
+        set.add("camel-base");
+        set.addAll(artifactIds);
+
+        doExecute(set, "languages", languagesOutDir);
     }
 
     protected void executeDataFormats(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
@@ -174,7 +179,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/" + kind + ".properties");
             String text = loadText(is);
             catalog = Arrays.asList(text.split("\n"));
-            getLog().info("Loaded " + catalog.size() + " " + kind + " from camel-catalog");
+            getLog().debug("Loaded " + catalog.size() + " " + kind + " from camel-catalog");
         } catch (IOException e) {
             throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
         }
@@ -200,7 +205,11 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
             for (String text : jsonFiles) {
                 text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                if ("camel-base".equals(artifactId)) {
+                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-core\"");
+                } else {
+                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                }
                 text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
 
                 Pattern pattern = null;
@@ -253,6 +262,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             fos.close();
+
+            getLog().info("Added " + lines.size() + " " + kind + " to quarkus-camel-catalog");
 
         } catch (IOException e) {
             throw new MojoFailureException("Error writing to file " + all);
@@ -337,6 +348,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             fos.close();
+
+            getLog().info("Added " + others.size() + " others to quarkus-camel-catalog");
 
         } catch (IOException e) {
             throw new MojoFailureException("Error writing to file " + all);
