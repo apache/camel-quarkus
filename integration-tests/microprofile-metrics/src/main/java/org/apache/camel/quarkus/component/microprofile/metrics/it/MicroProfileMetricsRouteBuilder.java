@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.microprofile.metrics.it;
 
 import org.apache.camel.builder.RouteBuilder;
+import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_GAUGE_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_HISTOGRAM_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_METER_MARK;
 
@@ -26,11 +27,15 @@ public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
         from("direct:counter")
             .to("microprofile-metrics:counter:camel-quarkus-counter");
 
-        from("direct:gaugeIncrement")
-            .to("microprofile-metrics:concurrent gauge:camel-quarkus-gauge?gaugeIncrement=true");
+        from("direct:concurrentGaugeIncrement")
+            .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeIncrement=true");
 
-        from("direct:gaugeDecrement")
-            .to("microprofile-metrics:concurrent gauge:camel-quarkus-gauge?gaugeDecrement=true");
+        from("direct:concurrentGaugeDecrement")
+            .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeDecrement=true");
+
+        from("direct:gauge")
+            .setHeader(HEADER_GAUGE_VALUE, simple("${body}"))
+            .to("microprofile-metrics:gauge:camel-quarkus-gauge");
 
         from("direct:histogram")
             .setHeader(HEADER_HISTOGRAM_VALUE, simple("${body}"))

@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 
+import org.apache.camel.ServiceStatus;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,20 +41,28 @@ class MicroProfileMetricsTest {
     }
 
     @Test
-    public void testMicroProfileMetricsGauge() {
+    public void testMicroProfileMetricsConcurrentGauge() {
         for (int i = 0; i < 10; i++) {
-            RestAssured.get("/microprofile-metrics/gauge/increment")
+            RestAssured.get("/microprofile-metrics/gauge/concurrent/increment")
                 .then()
                 .statusCode(200);
         }
-        assertEquals(10, getMetricIntValue("camel-quarkus-gauge.current"));
+        assertEquals(10, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
 
         for (int i = 0; i < 3; i++) {
-            RestAssured.get("/microprofile-metrics/gauge/decrement")
+            RestAssured.get("/microprofile-metrics/gauge/concurrent/decrement")
                 .then()
                 .statusCode(200);
         }
-        assertEquals(7, getMetricIntValue("camel-quarkus-gauge.current"));
+        assertEquals(7, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
+    }
+
+    @Test
+    public void testMicroProfileMetricsGauge() {
+        RestAssured.get("/microprofile-metrics/gauge?value=10")
+            .then()
+            .statusCode(200);
+        assertEquals(10, getMetricIntValue("camel-quarkus-gauge"));
     }
 
     @Test
@@ -85,7 +94,7 @@ class MicroProfileMetricsTest {
         RestAssured.get("/microprofile-metrics/timer")
             .then()
             .statusCode(200);
-        assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=route6") > 0);
+        assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=route7") > 0);
     }
 
     @Test
@@ -104,8 +113,8 @@ class MicroProfileMetricsTest {
 
     @Test
     public void testMicroProfileMetricsRouteEventNotifier() throws InterruptedException {
-        assertEquals(6, getMetricIntValue("camel.route.count"));
-        assertEquals(6, getMetricIntValue("camel.route.running.count"));
+        assertEquals(7, getMetricIntValue("camel.route.count"));
+        assertEquals(7, getMetricIntValue("camel.route.running.count"));
     }
 
     @Test
@@ -114,6 +123,12 @@ class MicroProfileMetricsTest {
             .then()
             .statusCode(200);
         assertTrue(getMetricIntValue("camel.context.exchanges.total") > 0);
+    }
+
+    @Test
+    public void testMicroProfileMetricsCamelContextEventNotifier() {
+        assertEquals(ServiceStatus.Started.ordinal(), getMetricIntValue("camel.context.status"));
+        assertTrue(getMetricIntValue("camel.context.uptime") > 0);
     }
 
     private int getMetricIntValue(String metricName, String... tags) {

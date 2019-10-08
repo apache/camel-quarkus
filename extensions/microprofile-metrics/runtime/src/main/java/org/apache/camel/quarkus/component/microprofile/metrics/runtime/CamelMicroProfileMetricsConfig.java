@@ -53,4 +53,11 @@ public final class CamelMicroProfileMetricsConfig {
      */
     @ConfigItem(defaultValue = "true")
     public boolean enableRouteEventNotifier;
+
+    /**
+     * Set whether to enable the MicroProfileMetricsCamelContextEventNotifier for capturing metrics
+     * about the CamelContext, such as status and uptime.
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean enableCamelContextEventNotifier;
 }

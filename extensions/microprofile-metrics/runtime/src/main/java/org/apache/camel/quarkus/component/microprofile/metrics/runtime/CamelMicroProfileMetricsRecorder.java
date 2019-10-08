@@ -22,6 +22,7 @@ import io.quarkus.runtime.annotations.Recorder;
 import io.smallrye.metrics.MetricRegistries;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.microprofile.metrics.event.notifier.context.MicroProfileMetricsCamelContextEventNotifier;
 import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.MicroProfileMetricsExchangeEventNotifier;
 import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
@@ -55,6 +56,10 @@ public class CamelMicroProfileMetricsRecorder {
 
         if (config.enableRouteEventNotifier) {
             managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
+        }
+
+        if (config.enableCamelContextEventNotifier) {
+            managementStrategy.addEventNotifier(new MicroProfileMetricsCamelContextEventNotifier());
         }
     }
 }
