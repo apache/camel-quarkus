@@ -31,7 +31,9 @@
     <description>To use Quarkus reactive executor with Camel</description>
 
     <properties>
+        <title>Camel Quarkus Reactive Executor</title>
         <firstVersion>0.2.1</firstVersion>
+        <label>core</label>
     </properties>
 
     <dependencyManagement>

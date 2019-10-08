@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -131,7 +132,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         executeComponents(artifacts);
         executeLanguages(artifacts);
         executeDataFormats(artifacts);
-//        executeOthers(artifacts); // TODO: implement me
+        executeOthers(extensions);
     }
 
     private Set<String> extractArtifactIds(Set<String> extensions) throws MojoFailureException {
@@ -264,11 +265,15 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
         for (String extension : extensions) {
             // skip if the extension is already one of the following
-            boolean component = new File(componentsOutDir, extension + ".json").exists();
-            boolean language = new File(languagesOutDir, extension + ".json").exists();
-            boolean dataFormat = new File(dataFormatsOutDir, extension + ".json").exists();
-            if (component || language || dataFormat) {
-                continue;
+            try {
+                boolean component = isComponent(extension);
+                boolean language = isLanguage(extension);
+                boolean dataFormat = isDataFormat(extension);
+                if (component || language || dataFormat) {
+                    continue;
+                }
+            } catch (IOException e) {
+                throw new MojoFailureException("Error reading generated files for extension " + extension, e);
             }
 
             try {
@@ -336,6 +341,42 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoFailureException("Error writing to file " + all);
         }
+    }
+
+    private boolean isComponent(String extension) throws IOException {
+        for (File file : componentsOutDir.listFiles()) {
+            FileInputStream fis = new FileInputStream(file);
+            String text = loadText(fis);
+            fis.close();
+            if (text.contains("camel-quarkus-" + extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isLanguage(String extension) throws IOException {
+        for (File file : languagesOutDir.listFiles()) {
+            FileInputStream fis = new FileInputStream(file);
+            String text = loadText(fis);
+            fis.close();
+            if (text.contains("camel-quarkus-" + extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean isDataFormat(String extension) throws IOException {
+        for (File file : dataFormatsOutDir.listFiles()) {
+            FileInputStream fis = new FileInputStream(file);
+            String text = loadText(fis);
+            fis.close();
+            if (text.contains("camel-quarkus-" + extension)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private MavenProject getMavenProject(String groupId, String artifactId, String version) throws ProjectBuildingException {
