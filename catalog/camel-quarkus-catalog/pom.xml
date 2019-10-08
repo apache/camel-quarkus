@@ -76,6 +76,14 @@
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-package-maven-plugin</artifactId>
                 <version>${project.version}</version>
+                <dependencies>
+                    <!-- include camel-catalog on classpath -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-catalog</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <goals>

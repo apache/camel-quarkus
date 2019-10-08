@@ -17,17 +17,15 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.File;
-import java.io.FileFilter;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Pattern;
 
 import org.apache.maven.plugin.AbstractMojo;
@@ -36,6 +34,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 
@@ -44,12 +43,12 @@ import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
  */
-@Mojo(name = "prepare-catalog-quarkus", threadSafe = true)
+@Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
-    public static final int BUFFER_SIZE = 128 * 1024;
-
+    private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
     private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("\"version\": \"(.*)\"");
 
     /**
      * The maven project.
@@ -102,76 +101,43 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Set<String> starters = findExtensions();
-        //executeComponents(starters);
+        Set<String> extensions = findExtensions();
+        executeComponents(extensions);
     }
 
-    /*protected void executeComponents(Set<String> starters) throws MojoExecutionException, MojoFailureException {
-        getLog().info("Copying all Camel component json descriptors");
+    protected void executeComponents(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
+        getLog().info("Copying all Camel extension json descriptors");
 
-        // lets use sorted set/maps
-        Set<File> jsonFiles = new TreeSet<>();
-        Set<File> componentFiles = new TreeSet<>();
-
-        // find all json files in components and camel-core
-        if (componentsDir != null && componentsDir.isDirectory()) {
-            File[] components = componentsDir.listFiles();
-            if (components != null) {
-                for (File dir : components) {
-                    if (dir.isDirectory() && !"target".equals(dir.getName())) {
-                        File target = new File(dir, "target/classes");
-
-                        // the directory must be in the list of known features
-                        if (!starters.contains(dir.getName())) {
-                            continue;
-                        }
-
-                        // special for some which is in a sub dir
-                        if ("camel-as2".equals(dir.getName())) {
-                            target = new File(dir, "camel-as2-component/target/classes");
-                        } else if ("camel-box".equals(dir.getName())) {
-                            target = new File(dir, "camel-box-component/target/classes");
-                        } else if ("camel-salesforce".equals(dir.getName())) {
-                            target = new File(dir, "camel-salesforce-component/target/classes");
-                        } else if ("camel-linkedin".equals(dir.getName())) {
-                            target = new File(dir, "camel-linkedin-component/target/classes");
-                        } else if ("camel-servicenow".equals(dir.getName())) {
-                            target = new File(dir, "camel-servicenow-component/target/classes");
-                        } else {
-                            // this module must be active with a source folder
-                            File src = new File(dir, "src");
-                            boolean active = src.isDirectory() && src.exists();
-                            if (!active) {
-                                continue;
-                            }
-                        }
-
-
-                        findComponentFilesRecursive(target, jsonFiles, componentFiles, new CamelComponentsFileFilter());
-                    }
-                }
-            }
+        // grab components from camel-catalog
+        List catalogComponents = null;
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components.properties");
+            String text = loadText(is);
+            catalogComponents = Arrays.asList(text.split("\n"));
+            getLog().info("Loaded " + catalogComponents.size() + " components from camel-catalog");
+        } catch (IOException e) {
+            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
         }
-        if (coreDir != null && coreDir.isDirectory()) {
-            File target = new File(coreDir, "target/classes");
-            findComponentFilesRecursive(target, jsonFiles, componentFiles, new CamelComponentsFileFilter());
-        }
-
-        getLog().info("Found " + componentFiles.size() + " component.properties files");
-        getLog().info("Found " + jsonFiles.size() + " component json files");
 
         // make sure to create out dir
         componentsOutDir.mkdirs();
 
-        for (File file : jsonFiles) {
-            // for spring-boot we need to amend the json file to use -starter as the artifact-id
-            try {
-                String text = loadText(new FileInputStream(file));
+        for (String extension : extensions) {
+            if (!isCamelComponent(catalogComponents, extension)) {
+                continue;
+            }
 
-                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-$1-starter\"");
+            // for quarkus we need to amend the json file to use the quarkus maven GAV
+            try {
+                InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components/" + extension + ".json");
+                String text = loadText(is);
+
+                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
+                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
 
                 // write new json file
-                File to = new File(componentsOutDir, file.getName());
+                File to = new File(componentsOutDir, extension + ".json");
                 FileOutputStream fos = new FileOutputStream(to, false);
 
                 fos.write(text.getBytes());
@@ -179,7 +145,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                 fos.close();
 
             } catch (IOException e) {
-                throw new MojoFailureException("Cannot write json file " + file, e);
+                throw new MojoFailureException("Cannot write json file " + extension, e);
             }
         }
 
@@ -209,186 +175,10 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         } catch (IOException e) {
             throw new MojoFailureException("Error writing to file " + all);
         }
-    } */
-
-    private void findComponentFilesRecursive(File dir, Set<File> found, Set<File> components, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        if (files != null) {
-            for (File file : files) {
-                // skip files in root dirs as Camel does not store information there but others may do
-                boolean rootDir = "classes".equals(dir.getName()) || "META-INF".equals(dir.getName());
-                boolean jsonFile = !rootDir && file.isFile() && file.getName().endsWith(".json");
-                boolean componentFile = !rootDir && file.isFile() && file.getName().equals("component.properties");
-                if (jsonFile) {
-                    found.add(file);
-                } else if (componentFile) {
-                    components.add(file);
-                } else if (file.isDirectory()) {
-                    findComponentFilesRecursive(file, found, components, filter);
-                }
-            }
-        }
     }
 
-    private void findDataFormatFilesRecursive(File dir, Set<File> found, Set<File> dataFormats, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        if (files != null) {
-            for (File file : files) {
-                // skip files in root dirs as Camel does not store information there but others may do
-                boolean rootDir = "classes".equals(dir.getName()) || "META-INF".equals(dir.getName());
-                boolean jsonFile = !rootDir && file.isFile() && file.getName().endsWith(".json");
-                boolean dataFormatFile = !rootDir && file.isFile() && file.getName().equals("dataformat.properties");
-                if (jsonFile) {
-                    found.add(file);
-                } else if (dataFormatFile) {
-                    dataFormats.add(file);
-                } else if (file.isDirectory()) {
-                    findDataFormatFilesRecursive(file, found, dataFormats, filter);
-                }
-            }
-        }
-    }
-
-    private void findLanguageFilesRecursive(File dir, Set<File> found, Set<File> languages, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        if (files != null) {
-            for (File file : files) {
-                // skip files in root dirs as Camel does not store information there but others may do
-                boolean rootDir = "classes".equals(dir.getName()) || "META-INF".equals(dir.getName());
-                boolean jsonFile = !rootDir && file.isFile() && file.getName().endsWith(".json");
-                boolean languageFile = !rootDir && file.isFile() && file.getName().equals("language.properties");
-                if (jsonFile) {
-                    found.add(file);
-                } else if (languageFile) {
-                    languages.add(file);
-                } else if (file.isDirectory()) {
-                    findLanguageFilesRecursive(file, found, languages, filter);
-                }
-            }
-        }
-    }
-
-    private void findOtherFilesRecursive(File dir, Set<File> found, Set<File> others, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        if (files != null) {
-            for (File file : files) {
-                // skip files in root dirs as Camel does not store information there but others may do
-                boolean rootDir = "classes".equals(dir.getName()) || "META-INF".equals(dir.getName());
-                boolean jsonFile = rootDir && file.isFile() && file.getName().endsWith(".json");
-                boolean otherFile = !rootDir && file.isFile() && file.getName().equals("other.properties");
-                if (jsonFile) {
-                    found.add(file);
-                } else if (otherFile) {
-                    others.add(file);
-                } else if (file.isDirectory()) {
-                    findOtherFilesRecursive(file, found, others, filter);
-                }
-            }
-        }
-    }
-
-    private class CamelComponentsFileFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            if (pathname.isDirectory() && pathname.getName().equals("model")) {
-                // do not check the camel-core model packages as there is no components there
-                return false;
-            }
-            if (pathname.isFile() && pathname.getName().endsWith(".json")) {
-                // must be a components json file
-                try {
-                    String json = loadText(new FileInputStream(pathname));
-                    return json != null && json.contains("\"kind\": \"component\"");
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-            return pathname.isDirectory() || (pathname.isFile() && pathname.getName().equals("component.properties"));
-        }
-    }
-
-    private class CamelDataFormatsFileFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            if (pathname.isDirectory() && pathname.getName().equals("model")) {
-                // do not check the camel-core model packages as there is no components there
-                return false;
-            }
-            if (pathname.isFile() && pathname.getName().endsWith(".json")) {
-                // must be a dataformat json file
-                try {
-                    String json = loadText(new FileInputStream(pathname));
-                    return json != null && json.contains("\"kind\": \"dataformat\"");
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-            return pathname.isDirectory() || (pathname.isFile() && pathname.getName().equals("dataformat.properties"));
-        }
-    }
-
-    private class CamelLanguagesFileFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            if (pathname.isDirectory() && pathname.getName().equals("model")) {
-                // do not check the camel-core model packages as there is no components there
-                return false;
-            }
-            if (pathname.isFile() && pathname.getName().endsWith(".json")) {
-                // must be a language json file
-                try {
-                    String json = loadText(new FileInputStream(pathname));
-                    return json != null && json.contains("\"kind\": \"language\"");
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-            return pathname.isDirectory() || (pathname.isFile() && pathname.getName().equals("language.properties"));
-        }
-    }
-
-    private class CamelOthersFileFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            if (pathname.isFile() && pathname.getName().endsWith(".json")) {
-                // must be a language json file
-                try {
-                    String json = loadText(new FileInputStream(pathname));
-                    return json != null && json.contains("\"kind\": \"other\"");
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-            return pathname.isDirectory() || (pathname.isFile() && pathname.getName().equals("other.properties"));
-        }
-    }
-
-    public static void copyFile(File from, File to) throws IOException {
-        FileChannel in = null;
-        FileChannel out = null;
-        try (FileInputStream fis = new FileInputStream(from); FileOutputStream fos = new FileOutputStream(to)) {
-            try {
-                in = fis.getChannel();
-                out = fos.getChannel();
-
-                long size = in.size();
-                long position = 0;
-                while (position < size) {
-                    position += in.transferTo(position, BUFFER_SIZE, out);
-                }
-            } finally {
-                if (in != null) {
-                    in.close();
-                }
-                if (out != null) {
-                    out.close();
-                }
-            }
-        }
+    private static boolean isCamelComponent(List<String> components, String name) {
+        return components.stream().anyMatch(c -> c.equals(name));
     }
 
     private Set<String> findExtensions() {
