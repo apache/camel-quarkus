@@ -59,8 +59,6 @@ import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
-    // TODO: match by artifact-id instead of directory name (mail -> camel-mail JAR -> component names (alias files, so copy over)
-
     private static final String[] EXCLUDE_EXTENSIONS = {
             "http-common", "jetty-common", "support", "xml-common", "xstream-common"
     };
@@ -133,7 +131,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         executeComponents(artifacts);
         executeLanguages(artifacts);
         executeDataFormats(artifacts);
-//        executeOthers(artifacts);
+//        executeOthers(artifacts); // TODO: implement me
     }
 
     private Set<String> extractArtifactIds(Set<String> extensions) throws MojoFailureException {
@@ -378,12 +376,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     }
 
     private static boolean isExcludedExtension(String name) {
-        for (String exclude : EXCLUDE_EXTENSIONS) {
-            if (exclude.equals(name)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.asList(EXCLUDE_EXTENSIONS).contains(name);
     }
 
 }
