@@ -34,8 +34,6 @@
     <description>Camel Quarkus Tooling Parent POM</description>
 
     <properties>
-
-        <!-- TODO: Update these -->
         <maven-version>3.6.2</maven-version>
         <maven-maven-plugin-descriptor-version>2.2.1</maven-maven-plugin-descriptor-version>
         <maven-project-version>2.2.1</maven-project-version>

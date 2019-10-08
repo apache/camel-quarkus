@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -53,6 +52,7 @@ import org.mvel2.templates.TemplateRuntime;
 
 import static org.apache.camel.quarkus.maven.PackageHelper.camelDashToTitle;
 import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
+import static org.apache.camel.quarkus.maven.PackageHelper.writeText;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
@@ -226,13 +226,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     String scheme = matcher.group(1);
 
                     try {
-                        // write new json file
                         File to = new File(outsDir, scheme + ".json");
-                        FileOutputStream fos = new FileOutputStream(to, false);
-
-                        fos.write(text.getBytes());
-
-                        fos.close();
+                        writeText(to, text);
                     } catch (IOException e) {
                         throw new MojoFailureException("Cannot write json file " + scheme, e);
                     }
@@ -242,11 +237,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
         File all = new File(outsDir, "../" + kind + ".properties");
         try {
-            FileOutputStream fos = new FileOutputStream(all, false);
-
             String[] names = outsDir.list();
             List<String> lines = new ArrayList<>();
-            // sort the names
             for (String name : names) {
                 if (name.endsWith(".json")) {
                     // strip out .json from the name
@@ -254,14 +246,11 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     lines.add(shortName);
                 }
             }
-
+            // sort lines
             Collections.sort(lines);
-            for (String name : lines) {
-                fos.write(name.getBytes());
-                fos.write("\n".getBytes());
-            }
-
-            fos.close();
+            // write properties file
+            String text = String.join("\n", lines);
+            writeText(all, text);
 
             getLog().info("Added " + lines.size() + " " + kind + " to quarkus-camel-catalog");
 
@@ -313,11 +302,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
                 // write new json file
                 File to = new File(othersOutDir, extension + ".json");
-                FileOutputStream fos = new FileOutputStream(to, false);
-
-                fos.write(text.getBytes());
-
-                fos.close();
+                writeText(to, text);
 
             } catch (IOException e) {
                 throw new MojoFailureException("Cannot write json file " + extension, e);
@@ -328,8 +313,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
         File all = new File(othersOutDir, "../others.properties");
         try {
-            FileOutputStream fos = new FileOutputStream(all, false);
-
             String[] names = othersOutDir.list();
             List<String> others = new ArrayList<>();
             // sort the names
@@ -342,12 +325,9 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             Collections.sort(others);
-            for (String name : others) {
-                fos.write(name.getBytes());
-                fos.write("\n".getBytes());
-            }
-
-            fos.close();
+            // write properties file
+            String text = String.join("\n", others);
+            writeText(all, text);
 
             getLog().info("Added " + others.size() + " others to quarkus-camel-catalog");
 

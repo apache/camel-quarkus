@@ -18,20 +18,11 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.LineNumberReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
-// TODO: Remove not needed stuff
 
 public final class PackageHelper {
 
@@ -102,106 +93,6 @@ public final class PackageHelper {
             fos.write(text.getBytes());
         } finally {
             fos.close();
-        }
-    }
-
-    public static String after(String text, String after) {
-        if (!text.contains(after)) {
-            return null;
-        }
-        return text.substring(text.indexOf(after) + after.length());
-    }
-
-    /**
-     * Parses the text as a map (eg key=value)
-     * @param data the data
-     * @return the map
-     */
-    public static Map<String, String> parseAsMap(String data) {
-        Map<String, String> answer = new HashMap<>();
-        if (data != null) {
-            String[] lines = data.split("\n");
-            for (String line : lines) {
-                int idx = line.indexOf('=');
-                if (idx != -1) {
-                    String key = line.substring(0, idx);
-                    String value = line.substring(idx + 1);
-                    // remove ending line break for the values
-                    value = value.trim().replaceAll("\n", "");
-                    answer.put(key.trim(), value);
-                }
-            }
-        }
-        return answer;
-    }
-
-    public static Set<File> findJsonFiles(File dir, FileFilter filter) {
-        Set<File> files = new TreeSet<>();
-        findJsonFiles(dir, files, filter);
-
-        return files;
-    }
-
-    public static void findJsonFiles(File dir, Set<File> found, FileFilter filter) {
-        File[] files = dir.listFiles(filter);
-        if (files != null) {
-            for (File file : files) {
-                // skip files in root dirs as Camel does not store information there but others may do
-                boolean jsonFile = file.isFile() && file.getName().endsWith(".json");
-                if (jsonFile) {
-                    found.add(file);
-                } else if (file.isDirectory()) {
-                    findJsonFiles(file, found, filter);
-                }
-            }
-        }
-    }
-
-    public static class CamelComponentsModelFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            return pathname.isDirectory() || pathname.getName().endsWith(".json");
-        }
-    }
-
-    public static class CamelOthersModelFilter implements FileFilter {
-
-        @Override
-        public boolean accept(File pathname) {
-            String name = pathname.getName();
-            boolean special = "camel-core-osgi".equals(name)
-                || "camel-core-xml".equals(name)
-                || "camel-http-common".equals(name)
-                || "camel-jetty-common".equals(name);
-            boolean special2 = "camel-as2".equals(name)
-                || "camel-box".equals(name)
-                || "camel-linkedin".equals(name)
-                || "camel-olingo2".equals(name)
-                || "camel-olingo4".equals(name)
-                || "camel-salesforce".equals(name);
-            if (special || special2) {
-                return false;
-            }
-
-            return pathname.isDirectory() || name.endsWith(".json");
-        }
-    }
-
-    public static File findCamelCoreDirectory(File dir) {
-        return findCamelDirectory(dir, "core/camel-core-engine");
-    }
-
-    public static File findCamelDirectory(File dir, String path) {
-        if (dir == null) {
-            return null;
-        }
-        Path p = dir.toPath().resolve(path);
-        if (Files.isDirectory(p)) {
-            return p.toFile();
-        } else {
-            // okay walk up the parent dir
-            return findCamelDirectory(dir.getParentFile(), path);
         }
     }
 
