@@ -66,6 +66,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     };
 
     private static final Pattern SCHEME_PATTERN = Pattern.compile("\"scheme\": \"(.*)\"");
+    private static final Pattern NAME_PATTERN = Pattern.compile("\"name\": \"(.*)\"");
     private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
     private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
     private static final Pattern VERSION_PATTERN = Pattern.compile("\"version\": \"(.*)\"");
@@ -89,7 +90,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     private MavenProjectHelper projectHelper;
 
     /**
-     *
      * The output directory for components catalog
      */
     @Parameter(defaultValue = "${project.build.directory}/classes/org/apache/camel/catalog/quarkus/components")
@@ -123,39 +123,22 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *                                                        threads it generated failed.
+     *                                threads it generated failed.
      * @throws MojoFailureException   something bad happened...
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         Set<String> extensions = findExtensions();
-        executeComponents(extensions);
-//        executeLanguages(extensions);
-//        executeDataFormats(extensions);
-//        executeOthers(extensions);
+        Set<String> artifacts = extractArtifactIds(extensions);
+        executeComponents(artifacts);
+        executeLanguages(artifacts);
+        executeDataFormats(artifacts);
+//        executeOthers(artifacts);
     }
 
-    protected void executeComponents(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
-        getLog().info("Copying all Camel extension json descriptors");
-
-        // grab components from camel-catalog
-        List<String> catalogComponents;
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components.properties");
-            String text = loadText(is);
-            catalogComponents = Arrays.asList(text.split("\n"));
-            getLog().info("Loaded " + catalogComponents.size() + " components from camel-catalog");
-        } catch (IOException e) {
-            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
-        }
-
-        // make sure to create out dir
-        componentsOutDir.mkdirs();
-
+    private Set<String> extractArtifactIds(Set<String> extensions) throws MojoFailureException {
+        Set<String> answer = new LinkedHashSet<>();
         for (String extension : extensions) {
-
-            // grab GAB
-            String artifactId = null;
             try {
                 MavenProject extProject = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension, project.getVersion());
                 // grab camel artifact
@@ -163,25 +146,50 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                         .filter(p -> "org.apache.camel".equals(p.getGroupId()) && "compile".equals(p.getScope()))
                         .findFirst();
                 if (artifact.isPresent()) {
-                    artifactId = artifact.get().getArtifactId();
+                    String artifactId = artifact.get().getArtifactId();
+                    answer.add(artifactId);
                 }
             } catch (ProjectBuildingException e) {
                 throw new MojoFailureException("Cannot read pom.xml for extension " + extension, e);
             }
+        }
+        return answer;
+    }
 
-            if (artifactId == null) {
-                continue;
-            }
+    protected void executeComponents(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
+        doExecute(artifactIds, "components", componentsOutDir);
+    }
 
-            getLog().info("Discovered camel-quarkus extension org.apache.camel.quarkus:" + artifactId);
+    protected void executeLanguages(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
+        doExecute(artifactIds, "languages", languagesOutDir);
+    }
 
+    protected void executeDataFormats(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
+        doExecute(artifactIds, "dataformats", dataFormatsOutDir);
+    }
+
+    protected void doExecute(Set<String> artifactIds, String kind, File outsDir) throws MojoExecutionException, MojoFailureException {
+        // grab from camel-catalog
+        List<String> catalog;
+        try {
+            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/" + kind + ".properties");
+            String text = loadText(is);
+            catalog = Arrays.asList(text.split("\n"));
+            getLog().info("Loaded " + catalog.size() + " " + kind + " from camel-catalog");
+        } catch (IOException e) {
+            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
+        }
+
+        // make sure to create out dir
+        outsDir.mkdirs();
+
+        for (String artifactId : artifactIds) {
             // for quarkus we need to amend the json file to use the quarkus maven GAV
             List<String> jsonFiles = new ArrayList<>();
             try {
-                for (String component : catalogComponents) {
-                    InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components/" + component + ".json");
+                for (String name : catalog) {
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/" + kind + "/" + name + ".json");
                     String text = loadText(is);
-                    // see if it its a
                     boolean match = text.contains("\"artifactId\": \"" + artifactId + "\"");
                     if (match) {
                         jsonFiles.add(text);
@@ -192,192 +200,55 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             for (String text : jsonFiles) {
-                try {
-                    text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                    text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
+                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
+                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
 
-                    Matcher matcher = SCHEME_PATTERN.matcher(text);
-                    if (matcher.find()) {
-                        String scheme = matcher.group(1);
+                Pattern pattern = null;
+                if ("components".equals(kind)) {
+                    pattern = SCHEME_PATTERN;
+                } else if ("languages".equals(kind)) {
+                    pattern = NAME_PATTERN;
+                } else if ("dataformats".equals(kind)) {
+                    pattern = NAME_PATTERN;
+                }
 
+                Matcher matcher = pattern.matcher(text);
+                if (matcher.find()) {
+                    String scheme = matcher.group(1);
+
+                    try {
                         // write new json file
-                        File to = new File(componentsOutDir, scheme + ".json");
+                        File to = new File(outsDir, scheme + ".json");
                         FileOutputStream fos = new FileOutputStream(to, false);
 
                         fos.write(text.getBytes());
 
                         fos.close();
+                    } catch (IOException e) {
+                        throw new MojoFailureException("Cannot write json file " + scheme, e);
                     }
-                } catch (IOException e) {
-                    throw new MojoFailureException("Cannot write json file " + extension, e);
                 }
             }
         }
 
-        File all = new File(componentsOutDir, "../components.properties");
+        File all = new File(outsDir, "../" + kind + ".properties");
         try {
             FileOutputStream fos = new FileOutputStream(all, false);
 
-            String[] names = componentsOutDir.list();
-            List<String> components = new ArrayList<>();
+            String[] names = outsDir.list();
+            List<String> lines = new ArrayList<>();
             // sort the names
             for (String name : names) {
                 if (name.endsWith(".json")) {
                     // strip out .json from the name
-                    String componentName = name.substring(0, name.length() - 5);
-                    components.add(componentName);
+                    String shortName = name.substring(0, name.length() - 5);
+                    lines.add(shortName);
                 }
             }
 
-            Collections.sort(components);
-            for (String name : components) {
-                fos.write(name.getBytes());
-                fos.write("\n".getBytes());
-            }
-
-            fos.close();
-
-        } catch (IOException e) {
-            throw new MojoFailureException("Error writing to file " + all);
-        }
-    }
-
-    protected void executeLanguages(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
-        // TODO: include core languages
-        getLog().info("Copying all Camel extension json descriptors");
-
-        // grab languages from camel-catalog
-        List catalogLanguages;
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/languages.properties");
-            String text = loadText(is);
-            catalogLanguages = Arrays.asList(text.split("\n"));
-            getLog().info("Loaded " + catalogLanguages.size() + " languages from camel-catalog");
-        } catch (IOException e) {
-            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
-        }
-
-        // make sure to create out dir
-        languagesOutDir.mkdirs();
-
-        for (String extension : extensions) {
-            if (!isCamelLanguage(catalogLanguages, extension)) {
-                continue;
-            }
-
-            // for quarkus we need to amend the json file to use the quarkus maven GAV
-            try {
-                InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/languages/" + extension + ".json");
-                String text = loadText(is);
-
-                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
-
-                // write new json file
-                File to = new File(languagesOutDir, extension + ".json");
-                FileOutputStream fos = new FileOutputStream(to, false);
-
-                fos.write(text.getBytes());
-
-                fos.close();
-
-            } catch (IOException e) {
-                throw new MojoFailureException("Cannot write json file " + extension, e);
-            }
-        }
-
-        File all = new File(languagesOutDir, "../languages.properties");
-        try {
-            FileOutputStream fos = new FileOutputStream(all, false);
-
-            String[] names = languagesOutDir.list();
-            List<String> languages = new ArrayList<>();
-            // sort the names
-            for (String name : names) {
-                if (name.endsWith(".json")) {
-                    // strip out .json from the name
-                    String languageName = name.substring(0, name.length() - 5);
-                    languages.add(languageName);
-                }
-            }
-
-            Collections.sort(languages);
-            for (String name : languages) {
-                fos.write(name.getBytes());
-                fos.write("\n".getBytes());
-            }
-
-            fos.close();
-
-        } catch (IOException e) {
-            throw new MojoFailureException("Error writing to file " + all);
-        }
-    }
-
-    protected void executeDataFormats(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
-        // TODO: include core data formats
-        getLog().info("Copying all Camel extension json descriptors");
-
-        // grab dataformats from camel-catalog
-        List catalogDataFormats;
-        try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/dataformats.properties");
-            String text = loadText(is);
-            catalogDataFormats = Arrays.asList(text.split("\n"));
-            getLog().info("Loaded " + catalogDataFormats.size() + " dataformats from camel-catalog");
-        } catch (IOException e) {
-            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
-        }
-
-        // make sure to create out dir
-        dataFormatsOutDir.mkdirs();
-
-        for (String extension : extensions) {
-            if (!isCamelDataFormat(catalogDataFormats, extension)) {
-                continue;
-            }
-
-            // for quarkus we need to amend the json file to use the quarkus maven GAV
-            try {
-                InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/dataformats/" + extension + ".json");
-                String text = loadText(is);
-
-                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
-
-                // write new json file
-                File to = new File(dataFormatsOutDir, extension + ".json");
-                FileOutputStream fos = new FileOutputStream(to, false);
-
-                fos.write(text.getBytes());
-
-                fos.close();
-
-            } catch (IOException e) {
-                throw new MojoFailureException("Cannot write json file " + extension, e);
-            }
-        }
-
-        File all = new File(dataFormatsOutDir, "../dataformats.properties");
-        try {
-            FileOutputStream fos = new FileOutputStream(all, false);
-
-            String[] names = dataFormatsOutDir.list();
-            List<String> dataFormats = new ArrayList<>();
-            // sort the names
-            for (String name : names) {
-                if (name.endsWith(".json")) {
-                    // strip out .json from the name
-                    String dataFormatName = name.substring(0, name.length() - 5);
-                    dataFormats.add(dataFormatName);
-                }
-            }
-
-            Collections.sort(dataFormats);
-            for (String name : dataFormats) {
+            Collections.sort(lines);
+            for (String name : lines) {
                 fos.write(name.getBytes());
                 fos.write("\n".getBytes());
             }
@@ -392,7 +263,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     protected void executeOthers(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
         // make sure to create out dir
         othersOutDir.mkdirs();
-
 
         for (String extension : extensions) {
             // skip if the extension is already one of the following
@@ -484,18 +354,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
         }
-    }
-
-    private static boolean isCamelComponent(List<String> components, String name) {
-        return components.stream().anyMatch(c -> c.equals(name));
-    }
-
-    private static boolean isCamelLanguage(List<String> languages, String name) {
-        return languages.stream().anyMatch(c -> c.equals(name));
-    }
-
-    private static boolean isCamelDataFormat(List<String> dataFormats, String name) {
-        return dataFormats.stream().anyMatch(c -> c.equals(name));
     }
 
     private Set<String> findExtensions() {
