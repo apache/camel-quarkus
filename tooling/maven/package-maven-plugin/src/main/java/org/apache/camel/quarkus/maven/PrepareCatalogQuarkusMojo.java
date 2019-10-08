@@ -27,11 +27,14 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -56,10 +59,13 @@ import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
+    // TODO: match by artifact-id instead of directory name (mail -> camel-mail JAR -> component names (alias files, so copy over)
+
     private static final String[] EXCLUDE_EXTENSIONS = {
             "http-common", "jetty-common", "support", "xml-common", "xstream-common"
     };
 
+    private static final Pattern SCHEME_PATTERN = Pattern.compile("\"scheme\": \"(.*)\"");
     private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
     private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
     private static final Pattern VERSION_PATTERN = Pattern.compile("\"version\": \"(.*)\"");
@@ -124,16 +130,16 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         Set<String> extensions = findExtensions();
         executeComponents(extensions);
-        executeLanguages(extensions);
-        executeDataFormats(extensions);
-        executeOthers(extensions);
+//        executeLanguages(extensions);
+//        executeDataFormats(extensions);
+//        executeOthers(extensions);
     }
 
     protected void executeComponents(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
         getLog().info("Copying all Camel extension json descriptors");
 
         // grab components from camel-catalog
-        List catalogComponents;
+        List<String> catalogComponents;
         try {
             InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components.properties");
             String text = loadText(is);
@@ -147,29 +153,65 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         componentsOutDir.mkdirs();
 
         for (String extension : extensions) {
-            if (!isCamelComponent(catalogComponents, extension)) {
+
+            // grab GAB
+            String artifactId = null;
+            try {
+                MavenProject extProject = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension, project.getVersion());
+                // grab camel artifact
+                Optional<Dependency> artifact = extProject.getDependencies().stream()
+                        .filter(p -> "org.apache.camel".equals(p.getGroupId()) && "compile".equals(p.getScope()))
+                        .findFirst();
+                if (artifact.isPresent()) {
+                    artifactId = artifact.get().getArtifactId();
+                }
+            } catch (ProjectBuildingException e) {
+                throw new MojoFailureException("Cannot read pom.xml for extension " + extension, e);
+            }
+
+            if (artifactId == null) {
                 continue;
             }
 
+            getLog().info("Discovered camel-quarkus extension org.apache.camel.quarkus:" + artifactId);
+
             // for quarkus we need to amend the json file to use the quarkus maven GAV
+            List<String> jsonFiles = new ArrayList<>();
             try {
-                InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components/" + extension + ".json");
-                String text = loadText(is);
-
-                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
-
-                // write new json file
-                File to = new File(componentsOutDir, extension + ".json");
-                FileOutputStream fos = new FileOutputStream(to, false);
-
-                fos.write(text.getBytes());
-
-                fos.close();
-
+                for (String component : catalogComponents) {
+                    InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/components/" + component + ".json");
+                    String text = loadText(is);
+                    // see if it its a
+                    boolean match = text.contains("\"artifactId\": \"" + artifactId + "\"");
+                    if (match) {
+                        jsonFiles.add(text);
+                    }
+                }
             } catch (IOException e) {
-                throw new MojoFailureException("Cannot write json file " + extension, e);
+                throw new MojoFailureException("Cannot read camel-catalog", e);
+            }
+
+            for (String text : jsonFiles) {
+                try {
+                    text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
+                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                    text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
+
+                    Matcher matcher = SCHEME_PATTERN.matcher(text);
+                    if (matcher.find()) {
+                        String scheme = matcher.group(1);
+
+                        // write new json file
+                        File to = new File(componentsOutDir, scheme + ".json");
+                        FileOutputStream fos = new FileOutputStream(to, false);
+
+                        fos.write(text.getBytes());
+
+                        fos.close();
+                    }
+                } catch (IOException e) {
+                    throw new MojoFailureException("Cannot write json file " + extension, e);
+                }
             }
         }
 
