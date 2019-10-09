@@ -28,6 +28,13 @@
 
     <artifactId>camel-quarkus-core-cloud</artifactId>
     <name>Camel Quarkus :: Core :: Cloud :: Runtime</name>
+    <description>The Camel Quarkus core cloud module</description>
+
+    <properties>
+        <title>Camel Quarkus Core Cloud</title>
+        <firstVersion>0.2.0</firstVersion>
+        <label>core,cloud</label>
+    </properties>
 
     <dependencyManagement>
         <dependencies>

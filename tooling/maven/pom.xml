@@ -17,24 +17,23 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <parent>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent/pom.xml</relativePath>
-    </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-tooling</artifactId>
+        <version>0.2.1-SNAPSHOT</version>
+    </parent>
 
-    <artifactId>camel-quarkus-reactive-executor-parent</artifactId>
-    <name>Camel Quarkus :: Core :: Reactive Executor</name>
+    <artifactId>camel-quarkus-tooling-maven</artifactId>
     <packaging>pom</packaging>
 
+    <name>Camel Quarkus :: Tooling :: Maven</name>
+
     <modules>
-        <module>deployment</module>
-        <module>runtime</module>
+        <module>package-maven-plugin</module>
     </modules>
 
 </project>

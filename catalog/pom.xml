@@ -19,22 +19,20 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent</artifactId>
+        <artifactId>camel-quarkus-parent</artifactId>
         <version>0.2.1-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>camel-quarkus-reactive-executor-parent</artifactId>
-    <name>Camel Quarkus :: Core :: Reactive Executor</name>
+    <artifactId>catalog</artifactId>
     <packaging>pom</packaging>
 
+    <name>Camel Quarkus :: Catalog</name>
+
     <modules>
-        <module>deployment</module>
-        <module>runtime</module>
+        <module>camel-quarkus-catalog</module>
     </modules>
 
 </project>
