@@ -188,6 +188,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
+            // TODO: update websiteDocFile
+
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
         }
@@ -249,6 +251,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
+            // TODO: update websiteDocFile
+
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
         }
@@ -304,6 +308,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
+            // TODO: update websiteDocFile
+
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
         }
@@ -352,6 +358,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
             } else {
                 getLog().warn("No readme.adoc file: " + file);
             }
+
+            // TODO: update websiteDocFile
 
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
