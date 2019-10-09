@@ -48,10 +48,15 @@ import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 import static org.apache.camel.quarkus.maven.PackageHelper.writeText;
 
 /**
- * Prepares the extensions/readme.adoc files content up to date with all the extensions that Apache Camel Quarkus ships.
+ * Updates the documentation in:
+ *
+ * - extensions/readme.adoc
+ * - docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc
+ *
+ * to be up to date with all the extensions that Apache Camel Quarkus ships.
  */
-@Mojo(name = "prepare-extensions-readme", threadSafe = true)
-public class PrepareExtensionsReadmeMojo extends AbstractMojo {
+@Mojo(name = "update-doc-extensions-list", threadSafe = true)
+public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
     /**
      * The maven project.
@@ -365,7 +370,7 @@ public class PrepareExtensionsReadmeMojo extends AbstractMojo {
 
     private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(PrepareExtensionsReadmeMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
+            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("components", models);
             map.put("numberOfArtifacts", artifacts);
@@ -379,7 +384,7 @@ public class PrepareExtensionsReadmeMojo extends AbstractMojo {
 
     private String templateOthers(List<OtherModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(PrepareExtensionsReadmeMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
+            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("others", models);
             map.put("numberOfArtifacts", artifacts);
@@ -393,7 +398,7 @@ public class PrepareExtensionsReadmeMojo extends AbstractMojo {
 
     private String templateDataFormats(List<DataFormatModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(PrepareExtensionsReadmeMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
+            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("dataformats", models);
             map.put("numberOfArtifacts", artifacts);
@@ -407,7 +412,7 @@ public class PrepareExtensionsReadmeMojo extends AbstractMojo {
 
     private String templateLanguages(List<LanguageModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(PrepareExtensionsReadmeMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
+            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("languages", models);
             map.put("numberOfArtifacts", artifacts);
