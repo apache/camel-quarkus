@@ -50,9 +50,9 @@ import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.repository.RepositorySystem;
 import org.mvel2.templates.TemplateRuntime;
 
-import static org.apache.camel.quarkus.maven.PackageHelper.camelDashToTitle;
 import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 import static org.apache.camel.quarkus.maven.PackageHelper.writeText;
+import static org.apache.camel.quarkus.maven.StringHelper.camelDashToTitle;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
