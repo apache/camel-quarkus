@@ -132,7 +132,7 @@ public class OtherModel {
     }
 
     public String getDocLink() {
-        return artifactId + "/src/main/docs";
+        return "https://camel.apache.org/components/latest/" + name + ".html";
     }
 
     public String getFirstVersionShort() {

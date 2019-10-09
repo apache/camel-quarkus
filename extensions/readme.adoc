@@ -7,70 +7,70 @@ Number of Components: 22 in 18 JAR artifacts (0 deprecated)
 |===
 | Component | Available From | Description
 
-| link:camel-quarkus-aws-eks/src/main/docs/aws-eks-component.adoc[AWS EKS] (camel-quarkus-aws-eks) +
+| link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | 3.0 | The aws-kms is used for managing Amazon EKS
 
-| link:camel-quarkus-aws-s3/src/main/docs/aws-s3-component.adoc[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
+| link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | 2.8 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
 
-| link:camel-quarkus-aws-sns/src/main/docs/aws-sns-component.adoc[AWS Simple Notification System] (camel-quarkus-aws-sns) +
+| link:https://camel.apache.org/components/latest/aws-sns-component.html[AWS Simple Notification System] (camel-quarkus-aws-sns) +
 `aws-sns:topicNameOrArn` | 2.8 | The aws-sns component is used for sending messages to an Amazon Simple Notification Topic.
 
-| link:camel-quarkus-aws-sqs/src/main/docs/aws-sqs-component.adoc[AWS Simple Queue Service] (camel-quarkus-aws-sqs) +
+| link:https://camel.apache.org/components/latest/aws-sqs-component.html[AWS Simple Queue Service] (camel-quarkus-aws-sqs) +
 `aws-sqs:queueNameOrArn` | 2.6 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
-| link:camel-quarkus-bean/src/main/docs/bean-component.adoc[Bean] (camel-quarkus-bean) +
+| link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 1.0 | The bean component is for invoking Java beans from Camel.
 
-| link:camel-quarkus-bean/src/main/docs/class-component.adoc[Class] (camel-quarkus-bean) +
+| link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 2.4 | The class component is for invoking Java classes (Java beans) from Camel.
 
-| link:camel-quarkus-direct/src/main/docs/direct-component.adoc[Direct] (camel-quarkus-direct) +
+| link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | 1.0 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
 
-| link:camel-quarkus-infinispan/src/main/docs/infinispan-component.adoc[Infinispan] (camel-quarkus-infinispan) +
+| link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 2.13 | For reading/writing from/to Infinispan distributed key/value store and data grid.
 
-| link:camel-quarkus-jdbc/src/main/docs/jdbc-component.adoc[JDBC] (camel-quarkus-jdbc) +
+| link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | 1.2 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
 
-| link:camel-quarkus-log/src/main/docs/log-component.adoc[Log] (camel-quarkus-log) +
+| link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | 1.1 | The log component logs message exchanges to the underlying logging mechanism.
 
-| link:camel-quarkus-mail/src/main/docs/mail-component.adoc[Mail] (camel-quarkus-mail) +
+| link:https://camel.apache.org/components/latest/mail-component.html[Mail] (camel-quarkus-mail) +
 `imap:host:port` | 1.0 | To send or receive emails using imap/pop3 or smtp protocols.
 
-| link:camel-quarkus-microprofile-metrics/src/main/docs/microprofile-metrics-component.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
+| link:https://camel.apache.org/components/latest/microprofile-metrics-component.html[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 3.0 | Camel metrics exposed with Eclipse MicroProfile Metrics
 
-| link:camel-quarkus-netty-http/src/main/docs/netty-http-component.adoc[Netty HTTP] (camel-quarkus-netty-http) +
+| link:https://camel.apache.org/components/latest/netty-http-component.html[Netty HTTP] (camel-quarkus-netty-http) +
 `netty-http:protocol:host:port/path` | 2.14 | Netty HTTP server and client using the Netty 4.x library.
 
-| link:camel-quarkus-paho/src/main/docs/paho-component.adoc[Paho] (camel-quarkus-paho) +
+| link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | 2.16 | Component for communicating with MQTT M2M message brokers using Eclipse Paho MQTT Client.
 
-| link:camel-quarkus-rest/src/main/docs/rest-component.adoc[REST] (camel-quarkus-rest) +
+| link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 2.14 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
 
-| link:camel-quarkus-rest/src/main/docs/rest-api-component.adoc[REST API] (camel-quarkus-rest) +
+| link:https://camel.apache.org/components/latest/rest-api-component.html[REST API] (camel-quarkus-rest) +
 `rest-api:path/contextIdPattern` | 2.16 | The rest-api component is used for providing Swagger API of the REST services which has been defined using the rest-dsl in Camel.
 
-| link:camel-quarkus-salesforce/src/main/docs/salesforce-component.adoc[Salesforce] (camel-quarkus-salesforce) +
+| link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | 2.12 | The salesforce component is used for integrating Camel with the massive Salesforce API.
 
-| link:camel-quarkus-servlet/src/main/docs/servlet-component.adoc[Servlet] (camel-quarkus-servlet) +
+| link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | 2.0 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
 
-| link:camel-quarkus-timer/src/main/docs/timer-component.adoc[Timer] (camel-quarkus-timer) +
+| link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 1.0 | The timer component is used for generating message exchanges when a timer fires.
 
-| link:camel-quarkus-twitter/src/main/docs/twitter-directmessage-component.adoc[Twitter Direct Message] (camel-quarkus-twitter) +
+| link:https://camel.apache.org/components/latest/twitter-directmessage-component.html[Twitter Direct Message] (camel-quarkus-twitter) +
 `twitter-directmessage:user` | 2.10 | The Twitter Direct Message Component consumes/produces user's direct messages.
 
-| link:camel-quarkus-twitter/src/main/docs/twitter-search-component.adoc[Twitter Search] (camel-quarkus-twitter) +
+| link:https://camel.apache.org/components/latest/twitter-search-component.html[Twitter Search] (camel-quarkus-twitter) +
 `twitter-search:keywords` | 2.10 | The Twitter Search component consumes search results.
 
-| link:camel-quarkus-twitter/src/main/docs/twitter-timeline-component.adoc[Twitter Timeline] (camel-quarkus-twitter) +
+| link:https://camel.apache.org/components/latest/twitter-timeline-component.html[Twitter Timeline] (camel-quarkus-twitter) +
 `twitter-timeline:timelineType` | 2.10 | The Twitter Timeline component consumes twitter timeline or update the status of specific user.
 
 |===
@@ -86,11 +86,11 @@ Number of Data Formats: 3 in 3 JAR artifacts (0 deprecated)
 |===
 | Data Format | Available From | Description
 
-| link:camel-quarkus-csv/src/main/docs/csv-dataformat.adoc[CSV] (camel-quarkus-csv) | 1.3 | The CSV data format is used for handling CSV payloads.
+| link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 1.3 | The CSV data format is used for handling CSV payloads.
 
-| link:camel-quarkus-mail/src/main/docs/mime-multipart-dataformat.adoc[MIME Multipart] (camel-quarkus-mail) | 2.17 | The MIME Multipart data format can marshal a Camel message with attachments into a Camel message having a MIME-Multipart message as message body (and no attachments), and vise-versa when unmarshalling.
+| link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 2.17 | The MIME Multipart data format can marshal a Camel message with attachments into a Camel message having a MIME-Multipart message as message body (and no attachments), and vise-versa when unmarshalling.
 
-| link:camel-quarkus-zipfile/src/main/docs/zipfile-dataformat.adoc[Zip File] (camel-quarkus-zipfile) | 2.11 | The Zip File data format is a message compression and de-compression format of zip files.
+| link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 2.11 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
 // dataformats: END
 
@@ -104,21 +104,21 @@ Number of Languages: 8 in 2 JAR artifacts (0 deprecated)
 |===
 | Language | Available From | Description
 
-| link:camel-quarkus-bean/src/main/docs/bean-language.adoc[Bean method] (camel-quarkus-bean) | 1.3 | To use a Java bean (aka method call) in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/bean-language.html[Bean method] (camel-quarkus-bean) | 1.3 | To use a Java bean (aka method call) in Camel expressions or predicates.
 
-| link:camel-quarkus-core/src/main/docs/constant-language.adoc[Constant] (camel-quarkus-core) | 1.5 | To use a constant value in Camel expressions or predicates. Important: this is a fixed constant value that is only set once during starting up the route, do not use this if you want dynamic values during routing.
+| link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | 1.5 | To use a constant value in Camel expressions or predicates. Important: this is a fixed constant value that is only set once during starting up the route, do not use this if you want dynamic values during routing.
 
-| link:camel-quarkus-core/src/main/docs/exchangeProperty-language.adoc[ExchangeProperty] (camel-quarkus-core) | 2.0 | To use a Camel Exchange property in expressions or predicates.
+| link:https://camel.apache.org/components/latest/exchangeProperty-language.html[ExchangeProperty] (camel-quarkus-core) | 2.0 | To use a Camel Exchange property in expressions or predicates.
 
-| link:camel-quarkus-core/src/main/docs/file-language.adoc[File] (camel-quarkus-core) | 1.1 | For expressions and predicates using the file/simple language
+| link:https://camel.apache.org/components/latest/file-language.html[File] (camel-quarkus-core) | 1.1 | For expressions and predicates using the file/simple language
 
-| link:camel-quarkus-core/src/main/docs/header-language.adoc[Header] (camel-quarkus-core) | 1.5 | To use a Camel Message header in expressions or predicates.
+| link:https://camel.apache.org/components/latest/header-language.html[Header] (camel-quarkus-core) | 1.5 | To use a Camel Message header in expressions or predicates.
 
-| link:camel-quarkus-core/src/main/docs/ref-language.adoc[Ref] (camel-quarkus-core) | 2.8 | Reference to an existing Camel expression or predicate, which is looked up from the Camel registry.
+| link:https://camel.apache.org/components/latest/ref-language.html[Ref] (camel-quarkus-core) | 2.8 | Reference to an existing Camel expression or predicate, which is looked up from the Camel registry.
 
-| link:camel-quarkus-core/src/main/docs/simple-language.adoc[Simple] (camel-quarkus-core) | 1.1 | To use Camels built-in Simple language in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/simple-language.html[Simple] (camel-quarkus-core) | 1.1 | To use Camels built-in Simple language in Camel expressions or predicates.
 
-| link:camel-quarkus-core/src/main/docs/tokenize-language.adoc[Tokenize] (camel-quarkus-core) | 2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
 |===
 // languages: END
 
@@ -132,11 +132,11 @@ Number of Miscellaneous Components: 3 in 3 JAR artifacts (0 deprecated)
 |===
 | Component | Available From | Description
 
-| link:camel-quarkus-core-cloud/src/main/docs/core-cloud.adoc[Camel Quarkus Core Cloud] (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
+| (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
-| link:camel-quarkus-platform-http/src/main/docs/platform-http.adoc[Camel Quarkus Platform HTTP] (camel-quarkus-platform-http) | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
+| (camel-quarkus-platform-http) | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
-| link:camel-quarkus-reactive-executor/src/main/docs/reactive-executor.adoc[Camel Quarkus Reactive Executor] (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
+| (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
 |===
 // others: END
 

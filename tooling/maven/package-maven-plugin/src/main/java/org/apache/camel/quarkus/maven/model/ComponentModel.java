@@ -181,7 +181,7 @@ public class ComponentModel {
     }
 
     public String getDocLink() {
-        return artifactId + "/src/main/docs";
+        return "https://camel.apache.org/components/latest/" + scheme + "-component.html";
     }
 
     public String getFirstVersionShort() {

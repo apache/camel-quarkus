@@ -145,7 +145,7 @@ public class DataFormatModel {
     }
 
     public String getDocLink() {
-        return artifactId + "/src/main/docs";
+        return "https://camel.apache.org/components/latest/" + name + "-dataformat.html";
     }
 
     public String getFirstVersionShort() {
