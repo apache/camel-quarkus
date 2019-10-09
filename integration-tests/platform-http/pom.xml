@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-platform-http</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: platform-http</name>
+    <name>Camel Quarkus :: Integration Tests :: Platform HTTP</name>
     <description>Integration tests for Camel Quarkus platform-http extension</description>
 
     <dependencies>

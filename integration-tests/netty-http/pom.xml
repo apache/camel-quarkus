@@ -26,7 +26,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-netty-http</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Netty Http</name>
+    <name>Camel Quarkus :: Integration Tests :: Netty HTTP</name>
     <description>The camel integration tests</description>
 
     <dependencies>
