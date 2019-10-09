@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-bean</artifactId>
     <name>Camel Quarkus :: Bean :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

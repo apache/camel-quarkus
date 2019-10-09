@@ -50,15 +50,17 @@ import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.repository.RepositorySystem;
 import org.mvel2.templates.TemplateRuntime;
 
-import static org.apache.camel.quarkus.maven.PackageHelper.camelDashToTitle;
 import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
 import static org.apache.camel.quarkus.maven.PackageHelper.writeText;
+import static org.apache.camel.quarkus.maven.StringHelper.camelDashToTitle;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
  */
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
+
+    private static final String DEFAULT_FIRST_VERSION = "0.2.0";
 
     private static final String[] EXCLUDE_EXTENSIONS = {
             "http-common", "jetty-common", "support", "xml-common", "xstream-common"
@@ -69,6 +71,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
     private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
     private static final Pattern VERSION_PATTERN = Pattern.compile("\"version\": \"(.*)\"");
+    private static final Pattern FIRST_VERSION_PATTERN = Pattern.compile("\"firstVersion\": \"(.*)\"");
 
     /**
      * The maven project.
@@ -196,6 +199,30 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     String text = loadText(is);
                     boolean match = text.contains("\"artifactId\": \"" + artifactId + "\"");
                     if (match) {
+                        try {
+                            String qaid;
+                            if ("camel-base".equals(artifactId)) {
+                                qaid = "camel-quarkus-core";
+                            } else {
+                                qaid = artifactId.replaceFirst("camel-", "camel-quarkus-");
+                            }
+                            MavenProject extPom = getMavenProject("org.apache.camel.quarkus", qaid, project.getVersion());
+                            String firstVersion = (String) extPom.getProperties().getOrDefault("firstVersion", DEFAULT_FIRST_VERSION);
+                            // lets use the camel-quarkus version as first version instead of Apache Camel version
+                            text = FIRST_VERSION_PATTERN.matcher(text).replaceFirst("\"firstVersion\": \"" + firstVersion + "\"");
+
+                            // update json metadata to adapt to camel-quarkus-catalog
+                            text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
+                            if ("camel-base".equals(artifactId)) {
+                                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-core\"");
+                            } else {
+                                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
+                            }
+                            text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
+                        } catch (ProjectBuildingException e) {
+                            throw new MojoFailureException("Error loading pom.xml from extension " + name, e);
+                        }
+
                         jsonFiles.add(text);
                     }
                 }
@@ -204,32 +231,26 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             for (String text : jsonFiles) {
-                text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                if ("camel-base".equals(artifactId)) {
-                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-core\"");
-                } else {
-                    text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                }
-                text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
-
-                Pattern pattern = null;
+                // compute the name depending on what kind it is
+                Pattern pattern;
                 if ("components".equals(kind)) {
                     pattern = SCHEME_PATTERN;
                 } else if ("languages".equals(kind)) {
                     pattern = NAME_PATTERN;
                 } else if ("dataformats".equals(kind)) {
                     pattern = NAME_PATTERN;
+                } else {
+                    throw new IllegalArgumentException("Unknown kind " + kind);
                 }
 
                 Matcher matcher = pattern.matcher(text);
                 if (matcher.find()) {
-                    String scheme = matcher.group(1);
-
+                    String name = matcher.group(1);
                     try {
-                        File to = new File(outsDir, scheme + ".json");
+                        File to = new File(outsDir, name + ".json");
                         writeText(to, text);
                     } catch (IOException e) {
-                        throw new MojoFailureException("Cannot write json file " + scheme, e);
+                        throw new MojoFailureException("Cannot write json file " + name, e);
                     }
                 }
             }
@@ -292,7 +313,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                 } else {
                     model.put("deprecated", "false");
                 }
-                model.put("firstVersion", extPom.getProperties().getOrDefault("firstVersion", "1.0.0"));
+                model.put("firstVersion", extPom.getProperties().getOrDefault("firstVersion", "0.2.0"));
                 model.put("label", extPom.getProperties().getOrDefault("label", "quarkus"));
                 model.put("groupId", "org.apache.camel.quarkus");
                 model.put("artifactId", "camel-quarkus-" + extension);

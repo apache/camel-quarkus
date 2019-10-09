@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-microprofile-metrics</artifactId>
     <name>Camel Quarkus :: MicroProfile Metrics :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

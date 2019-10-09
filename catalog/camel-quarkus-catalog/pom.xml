@@ -86,8 +86,10 @@
                 </dependencies>
                 <executions>
                     <execution>
+                        <!-- prepare the catalog, readme files, etc. -->
                         <goals>
                             <goal>prepare-catalog-quarkus</goal>
+                            <goal>prepare-extensions-readme</goal>
                         </goals>
                         <phase>process-resources</phase>
                     </execution>
