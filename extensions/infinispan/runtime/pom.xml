@@ -28,6 +28,10 @@
     <artifactId>camel-quarkus-infinispan</artifactId>
     <name>Camel Quarkus :: Infinispan :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

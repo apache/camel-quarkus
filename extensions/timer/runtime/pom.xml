@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-timer</artifactId>
     <name>Camel Quarkus :: Timer :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

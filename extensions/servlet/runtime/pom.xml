@@ -28,6 +28,10 @@
     <artifactId>camel-quarkus-servlet</artifactId>
     <name>Camel Quarkus :: Servlet :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

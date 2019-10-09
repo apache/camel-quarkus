@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-twitter</artifactId>
     <name>Camel Quarkus :: Twitter :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
