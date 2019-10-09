@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Components: 22 in 18 JAR artifacts (0 deprecated)
+Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -84,7 +84,7 @@ Number of Components: 22 in 18 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Data Formats: 3 in 3 JAR artifacts (0 deprecated)
+Number of Camel data formats: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -102,7 +102,7 @@ Number of Data Formats: 3 in 3 JAR artifacts (0 deprecated)
 == Camel Languages
 
 // languages: START
-Number of Languages: 8 in 2 JAR artifacts (0 deprecated)
+Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -130,11 +130,11 @@ Number of Languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of Miscellaneous Components: 3 in 3 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Component | Available From | Description
+| Extension | Available From | Description
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
