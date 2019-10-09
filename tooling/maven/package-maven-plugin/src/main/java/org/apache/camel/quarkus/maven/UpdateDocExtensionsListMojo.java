@@ -89,10 +89,16 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
     protected File othersDir;
 
     /**
-     * The directory for components
+     * The directory for extensions
      */
     @Parameter(defaultValue = "${project.directory}/../../../extensions")
-    protected File readmeComponentsDir;
+    protected File readmeExtensionsDir;
+
+    /**
+     * The website doc for extensions
+     */
+    @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc")
+    protected File websiteDocFile;
 
     /**
      * Maven ProjectHelper.
@@ -109,63 +115,10 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        // update readme file in extensions
         executeComponentsReadme();
-        executeLanguagesReadme();
         executeDataFormatsReadme();
+        executeLanguagesReadme();
         executeOthersReadme();
-    }
-
-    protected void executeOthersReadme() throws MojoExecutionException, MojoFailureException {
-        Set<File> otherFiles = new TreeSet<>();
-
-        if (othersDir != null && othersDir.isDirectory()) {
-            File[] files = othersDir.listFiles();
-            if (files != null) {
-                otherFiles.addAll(Arrays.asList(files));
-            }
-        }
-
-        try {
-            List<OtherModel> others = new ArrayList<>();
-            for (File file : otherFiles) {
-                String json = loadText(new FileInputStream(file));
-                OtherModel model = generateOtherModel(json);
-                others.add(model);
-            }
-
-            // sort the models
-            Collections.sort(others, new OtherComparator());
-
-            // how many different artifacts
-            int count = others.stream()
-                    .map(OtherModel::getArtifactId)
-                    .collect(toSet()).size();
-
-            // how many deprecated
-            long deprecated = others.stream()
-                    .filter(o -> "true".equals(o.getDeprecated()))
-                    .count();
-
-            // update the big readme file in the components dir
-            File file = new File(readmeComponentsDir, "readme.adoc");
-
-            // update regular components
-            boolean exists = file.exists();
-            String changed = templateOthers(others, count, deprecated);
-            boolean updated = updateOthers(file, changed);
-
-            if (updated) {
-                getLog().info("Updated readme.adoc file: " + file);
-            } else if (exists) {
-                getLog().debug("No changes to readme.adoc file: " + file);
-            } else {
-                getLog().warn("No readme.adoc file: " + file);
-            }
-
-        } catch (IOException e) {
-            throw new MojoFailureException("Error due " + e.getMessage(), e);
-        }
     }
 
     protected void executeComponentsReadme() throws MojoExecutionException, MojoFailureException {
@@ -224,7 +177,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
             // update the big readme file in the core/components dir
             File file;
-            file = new File(readmeComponentsDir, "readme.adoc");
+            file = new File(readmeExtensionsDir, "readme.adoc");
 
             // update regular components
             boolean exists = file.exists();
@@ -273,8 +226,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
             // how many different artifacts
             int count = models.stream()
-                        .map(DataFormatModel::getArtifactId)
-                        .collect(toSet()).size();
+                    .map(DataFormatModel::getArtifactId)
+                    .collect(toSet()).size();
 
             // how many deprecated
             long deprecated = models.stream()
@@ -289,7 +242,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
             // update the big readme file in the core/components dir
             File file;
-            file = new File(readmeComponentsDir, "readme.adoc");
+            file = new File(readmeExtensionsDir, "readme.adoc");
 
             // update regular data formats
             boolean exists = file.exists();
@@ -348,7 +301,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
             // update the big readme file in the core/components dir
             File file;
-            file = new File(readmeComponentsDir, "readme.adoc");
+            file = new File(readmeExtensionsDir, "readme.adoc");
 
             // update regular data formats
             boolean exists = file.exists();
@@ -368,25 +321,63 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
     }
 
+    protected void executeOthersReadme() throws MojoExecutionException, MojoFailureException {
+        Set<File> otherFiles = new TreeSet<>();
+
+        if (othersDir != null && othersDir.isDirectory()) {
+            File[] files = othersDir.listFiles();
+            if (files != null) {
+                otherFiles.addAll(Arrays.asList(files));
+            }
+        }
+
+        try {
+            List<OtherModel> others = new ArrayList<>();
+            for (File file : otherFiles) {
+                String json = loadText(new FileInputStream(file));
+                OtherModel model = generateOtherModel(json);
+                others.add(model);
+            }
+
+            // sort the models
+            Collections.sort(others, new OtherComparator());
+
+            // how many different artifacts
+            int count = others.stream()
+                    .map(OtherModel::getArtifactId)
+                    .collect(toSet()).size();
+
+            // how many deprecated
+            long deprecated = others.stream()
+                    .filter(o -> "true".equals(o.getDeprecated()))
+                    .count();
+
+            // update the big readme file in the components dir
+            File file = new File(readmeExtensionsDir, "readme.adoc");
+
+            // update regular components
+            boolean exists = file.exists();
+            String changed = templateOthers(others, count, deprecated);
+            boolean updated = updateOthers(file, changed);
+
+            if (updated) {
+                getLog().info("Updated readme.adoc file: " + file);
+            } else if (exists) {
+                getLog().debug("No changes to readme.adoc file: " + file);
+            } else {
+                getLog().warn("No readme.adoc file: " + file);
+            }
+
+        } catch (IOException e) {
+            throw new MojoFailureException("Error due " + e.getMessage(), e);
+        }
+    }
+
     private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
             String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("components", models);
-            map.put("numberOfArtifacts", artifacts);
-            map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
-            return out;
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
-        }
-    }
-
-    private String templateOthers(List<OtherModel> models, int artifacts, long deprecated) throws MojoExecutionException {
-        try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
-            Map<String, Object> map = new HashMap<>();
-            map.put("others", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
             String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
@@ -424,6 +415,20 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
     }
 
+    private String templateOthers(List<OtherModel> models, int artifacts, long deprecated) throws MojoExecutionException {
+        try {
+            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
+            Map<String, Object> map = new HashMap<>();
+            map.put("others", models);
+            map.put("numberOfArtifacts", artifacts);
+            map.put("numberOfDeprecated", deprecated);
+            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            return out;
+        } catch (Exception e) {
+            throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
+        }
+    }
+
     private boolean updateComponents(File file, String changed) throws MojoExecutionException {
         if (!file.exists()) {
             return false;
@@ -451,40 +456,6 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("Add the following markers");
                 getLog().warn("\t// components: START");
                 getLog().warn("\t// components: END");
-                return false;
-            }
-        } catch (Exception e) {
-            throw new MojoExecutionException("Error reading file " + file + " Reason: " + e, e);
-        }
-    }
-
-    private boolean updateOthers(File file, String changed) throws MojoExecutionException {
-        if (!file.exists()) {
-            return false;
-        }
-
-        try {
-            String text = loadText(new FileInputStream(file));
-
-            String existing = StringHelper.between(text, "// others: START", "// others: END");
-            if (existing != null) {
-                // remove leading line breaks etc
-                existing = existing.trim();
-                changed = changed.trim();
-                if (existing.equals(changed)) {
-                    return false;
-                } else {
-                    String before = StringHelper.before(text, "// others: START");
-                    String after = StringHelper.after(text, "// others: END");
-                    text = before + "// others: START\n" + changed + "\n// others: END" + after;
-                    writeText(file, text);
-                    return true;
-                }
-            } else {
-                getLog().warn("Cannot find markers in file " + file);
-                getLog().warn("Add the following markers");
-                getLog().warn("\t// others: START");
-                getLog().warn("\t// others: END");
                 return false;
             }
         } catch (Exception e) {
@@ -560,19 +531,44 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
     }
 
+    private boolean updateOthers(File file, String changed) throws MojoExecutionException {
+        if (!file.exists()) {
+            return false;
+        }
+
+        try {
+            String text = loadText(new FileInputStream(file));
+
+            String existing = StringHelper.between(text, "// others: START", "// others: END");
+            if (existing != null) {
+                // remove leading line breaks etc
+                existing = existing.trim();
+                changed = changed.trim();
+                if (existing.equals(changed)) {
+                    return false;
+                } else {
+                    String before = StringHelper.before(text, "// others: START");
+                    String after = StringHelper.after(text, "// others: END");
+                    text = before + "// others: START\n" + changed + "\n// others: END" + after;
+                    writeText(file, text);
+                    return true;
+                }
+            } else {
+                getLog().warn("Cannot find markers in file " + file);
+                getLog().warn("Add the following markers");
+                getLog().warn("\t// others: START");
+                getLog().warn("\t// others: END");
+                return false;
+            }
+        } catch (Exception e) {
+            throw new MojoExecutionException("Error reading file " + file + " Reason: " + e, e);
+        }
+    }
+
     private static class ComponentComparator implements Comparator<ComponentModel> {
 
         @Override
         public int compare(ComponentModel o1, ComponentModel o2) {
-            // lets sort by title
-            return o1.getTitle().compareToIgnoreCase(o2.getTitle());
-        }
-    }
-
-    private static class OtherComparator implements Comparator<OtherModel> {
-
-        @Override
-        public int compare(OtherModel o1, OtherModel o2) {
             // lets sort by title
             return o1.getTitle().compareToIgnoreCase(o2.getTitle());
         }
@@ -594,6 +590,17 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
             // lets sort by title
             return o1.getTitle().compareToIgnoreCase(o2.getTitle());
         }
+
+    }
+
+    private static class OtherComparator implements Comparator<OtherModel> {
+
+        @Override
+        public int compare(OtherModel o1, OtherModel o2) {
+            // lets sort by title
+            return o1.getTitle().compareToIgnoreCase(o2.getTitle());
+        }
+
     }
 
     private ComponentModel generateComponentModel(String json) {
@@ -618,24 +625,6 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         component.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
 
         return component;
-    }
-
-    private OtherModel generateOtherModel(String json) {
-        List<Map<String, String>> rows = JSonSchemaHelper.parseJsonSchema("other", json, false);
-
-        OtherModel other = new OtherModel();
-        other.setName(JSonSchemaHelper.getSafeValue("name", rows));
-        other.setTitle(JSonSchemaHelper.getSafeValue("title", rows));
-        other.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
-        other.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
-        other.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
-        other.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
-        other.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
-        other.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
-        other.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
-        other.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
-
-        return other;
     }
 
     private DataFormatModel generateDataFormatModel(String json) {
@@ -676,6 +665,24 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         language.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
 
         return language;
+    }
+
+    private OtherModel generateOtherModel(String json) {
+        List<Map<String, String>> rows = JSonSchemaHelper.parseJsonSchema("other", json, false);
+
+        OtherModel other = new OtherModel();
+        other.setName(JSonSchemaHelper.getSafeValue("name", rows));
+        other.setTitle(JSonSchemaHelper.getSafeValue("title", rows));
+        other.setDescription(JSonSchemaHelper.getSafeValue("description", rows));
+        other.setFirstVersion(JSonSchemaHelper.getSafeValue("firstVersion", rows));
+        other.setLabel(JSonSchemaHelper.getSafeValue("label", rows));
+        other.setDeprecated(JSonSchemaHelper.getSafeValue("deprecated", rows));
+        other.setDeprecationNote(JSonSchemaHelper.getSafeValue("deprecationNote", rows));
+        other.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
+        other.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
+        other.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
+
+        return other;
     }
 
 }
