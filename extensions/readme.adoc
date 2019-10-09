@@ -1,4 +1,8 @@
-= Components
+= Extensions
+
+Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extensions
+
+== Camel Components
 
 // components: START
 Number of Components: 22 in 18 JAR artifacts (0 deprecated)
@@ -77,7 +81,7 @@ Number of Components: 22 in 18 JAR artifacts (0 deprecated)
 // components: END
 
 
-== Data Formats
+== Camel Data Formats
 
 // dataformats: START
 Number of Data Formats: 3 in 3 JAR artifacts (0 deprecated)
@@ -95,7 +99,7 @@ Number of Data Formats: 3 in 3 JAR artifacts (0 deprecated)
 // dataformats: END
 
 
-== Expression Languages
+== Camel Languages
 
 // languages: START
 Number of Languages: 8 in 2 JAR artifacts (0 deprecated)
@@ -123,7 +127,7 @@ Number of Languages: 8 in 2 JAR artifacts (0 deprecated)
 // languages: END
 
 
-== Miscellaneous Components
+== Miscellaneous Extensions
 
 // others: START
 Number of Miscellaneous Components: 3 in 3 JAR artifacts (0 deprecated)
