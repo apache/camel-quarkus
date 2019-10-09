@@ -151,6 +151,13 @@ class BuildProcessor {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
 
+        /**
+         * This method is responsible to configure camel-main during static init phase which means
+         * discovering routes, listeners and services that need to be bound to the camel-main.
+         * <p>
+         * This method should not attempt to start or initialize camel-main as this need to be done
+         * at runtime.
+         */
         @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIfNot = Flags.MainDisabled.class)
@@ -182,25 +189,36 @@ class BuildProcessor {
             return new CamelMainBuildItem(main);
         }
 
+        /**
+         * This method is responsible to start camel-main ar runtime.
+         *
+         * @param recorder  the recorder.
+         * @param main      a reference to a {@link CamelMain}.
+         * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
+         *                  ensure the {@link Registry} is fully configured before starting camel-main.
+         * @param executors the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                  threads and so on. Note that we now expect a list of executors but that's because there is
+         *                  no way as of quarkus 0.23.x to have optional items.
+         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
+         *                  is required as under the hoods the camel registry may look-up beans form the
+         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
+         */
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep(onlyIfNot = Flags.MainDisabled.class)
         void start(
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
-            // TODO: keep this as placeholder to ensure the registry is fully configured
-            //       before starting the camel context
             CamelRuntimeRegistryBuildItem registry,
-            // TODO: replace with @Overridable
-            List<CamelReactiveExecutorBuildItem> reactiveExecutors,
+            List<CamelReactiveExecutorBuildItem> executors,  // TODO: replace with @Overridable
             ShutdownContextBuildItem shutdown,
-            // TODO: keep this list as placeholder to ensure the ArC container is fully
-            //       started before starting main
             List<ServiceStartBuildItem> startList) {
 
-            if (reactiveExecutors.size() > 1) {
+            if (executors.size() > 1) {
                 throw new IllegalArgumentException("Detected multiple reactive executors");
-            } else if (reactiveExecutors.size() == 1) {
-                recorder.setReactiveExecutor(main.getInstance(), reactiveExecutors.get(0).getInstance());
+            } else if (executors.size() == 1) {
+                recorder.setReactiveExecutor(main.getInstance(), executors.get(0).getInstance());
             }
 
             recorder.start(shutdown, main.getInstance());
