@@ -9,7 +9,7 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Component | Available From | Description
+| Component | Since | Description
 
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | 0.2 | The aws-kms is used for managing Amazon EKS
@@ -88,7 +88,7 @@ Number of Camel data formats: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Data Format | Available From | Description
+| Data Format | Since | Description
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2 | The CSV data format is used for handling CSV payloads.
 
@@ -106,7 +106,7 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Language | Available From | Description
+| Language | Since | Description
 
 | link:https://camel.apache.org/components/latest/bean-language.html[Bean method] (camel-quarkus-bean) | 0.2 | To use a Java bean (aka method call) in Camel expressions or predicates.
 
@@ -134,7 +134,7 @@ Number of miscellaneous extensions: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Extension | Available From | Description
+| Extension | Since | Description
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
