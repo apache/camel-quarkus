@@ -50,13 +50,13 @@ pipeline {
                 branch 'master'
             }
             steps {
-                sh "./mvnw $MAVEN_PARAMS clean install -Pquarkus-snapshots -Dquarkus.version=999-SNAPSHOT"
+                sh "./mvnw $MAVEN_PARAMS clean install -U -Pquarkus-snapshots -Dquarkus.version=999-SNAPSHOT"
             }
         }
 
         stage('Test') {
             steps {
-                sh "./mvnw $MAVEN_PARAMS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify -Pquarkus-snapshots -Dquarkus.version=999-SNAPSHOT -Dnative -Dnative-image.docker-build=true -f pom.xml"
+                sh "./mvnw $MAVEN_PARAMS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify -U -Pquarkus-snapshots -Dquarkus.version=999-SNAPSHOT -Dnative -Dnative-image.docker-build=true -f pom.xml"
             }
             post {
                 always {
