@@ -9,7 +9,7 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Component | Available From | Description
+| Component | Since | Description
 
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | 0.2 | The aws-kms is used for managing Amazon EKS
@@ -88,11 +88,11 @@ Number of Camel data formats: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Data Format | Available From | Description
+| Data Format | Since | Description
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2 | The CSV data format is used for handling CSV payloads.
 
-| link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2 | The MIME Multipart data format can marshal a Camel message with attachments into a Camel message having a MIME-Multipart message as message body (and no attachments), and vise-versa when unmarshalling.
+| link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
@@ -106,15 +106,15 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Language | Available From | Description
+| Language | Since | Description
 
 | link:https://camel.apache.org/components/latest/bean-language.html[Bean method] (camel-quarkus-bean) | 0.2 | To use a Java bean (aka method call) in Camel expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | 0.2 | To use a constant value in Camel expressions or predicates. Important: this is a fixed constant value that is only set once during starting up the route, do not use this if you want dynamic values during routing.
+| link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | 0.2 | To use a constant value in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/exchangeProperty-language.html[ExchangeProperty] (camel-quarkus-core) | 0.2 | To use a Camel Exchange property in expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/file-language.html[File] (camel-quarkus-core) | 0.2 | For expressions and predicates using the file/simple language
+| link:https://camel.apache.org/components/latest/file-language.html[File] (camel-quarkus-core) | 0.2 | For expressions and predicates using the file/simple language.
 
 | link:https://camel.apache.org/components/latest/header-language.html[Header] (camel-quarkus-core) | 0.2 | To use a Camel Message header in expressions or predicates.
 
@@ -134,7 +134,7 @@ Number of miscellaneous extensions: 3 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
-| Extension | Available From | Description
+| Extension | Since | Description
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 

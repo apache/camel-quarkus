@@ -86,32 +86,6 @@
                     <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <version>${groovy-maven-plugin.version}</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>list-camel-quarkus-extensions</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <source>file:///${project.basedir}/../build/scripts/list-camel-quarkus-extensions.groovy</source>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${groovy.version}</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
     </build>
 </project>
