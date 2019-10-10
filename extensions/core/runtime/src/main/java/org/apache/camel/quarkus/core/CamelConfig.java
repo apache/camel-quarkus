@@ -56,12 +56,6 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean disableMain;
-
-        /**
-         * Uri to an xml containing camel routes to be loaded and initialized at build time.
-         */
-        @ConfigItem
-        public List<String> routesUris;
     }
 
     @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
@@ -72,6 +66,15 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean dumpRoutes;
+
+        /**
+         * A list of URIs containing the camel routes in the XML format to be
+         * loaded at runtime. Files can be loaded from either classpath or file
+         * system by prefixing the URI with {@code classpath:} or {@code file:}
+         * respectively.
+         */
+        @ConfigItem
+        public List<String> routesUris;
     }
 
 }

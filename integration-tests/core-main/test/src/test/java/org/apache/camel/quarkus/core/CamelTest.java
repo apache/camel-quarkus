@@ -75,8 +75,7 @@ public class CamelTest {
         assertThat(p.getList("routeBuilders", String.class))
             .containsOnly(CamelRoute.class.getName());
         assertThat(p.getList("routes", String.class))
-            .hasSize(2)
-            .containsOnly("keep-alive", "listener");
+            .containsOnly("keep-alive", "listener", "my-xml-route");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
 
