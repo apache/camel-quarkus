@@ -124,51 +124,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>install-test-poms</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>install</phase>
-                        <configuration>
-                            <source><![CDATA[
-                                File dir = project.basedir
-                                for (; dir != null && !new File(dir, '.mvn').exists(); dir = dir.getParentFile()) {}
-                                new GroovyShell().parse(new File(dir, 'build/scripts/generate-test-poms.groovy'))
-                                    .install(project, session)
-                            ]]></source>
-                        </configuration>
-                    </execution>
-                    <!-- The synthetic test poms are missing signatures see https://github.com/apache/camel-quarkus/issues/207
-                    <execution>
-                        <id>deploy-test-poms</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>install</phase>
-                        <configuration>
-                            <source><![CDATA[
-                                File dir = project.basedir
-                                for (; dir != null && !new File(dir, '.mvn').exists(); dir = dir.getParentFile()) {}
-                                new GroovyShell().parse(new File(dir, 'build/scripts/generate-test-poms.groovy'))
-                                    .deploy(project, session)
-                            ]]></source>
-                        </configuration>
-                    </execution>
-                    -->
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.twdata.maven</groupId>
-                        <artifactId>mojo-executor</artifactId>
-                        <version>2.3.0</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
         </plugins>
 
     </build>
