@@ -188,7 +188,18 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
-            // TODO: update websiteDocFile
+            // update doc in the website dir
+            file = websiteDocFile;
+            exists = file.exists();
+            changed = templateComponents(components, count, deprecated);
+            updated = updateComponents(file, changed);
+            if (updated) {
+                getLog().info("Updated website doc file: " + file);
+            } else if (exists) {
+                getLog().debug("No changes to website doc file: " + file);
+            } else {
+                getLog().warn("No website doc file: " + file);
+            }
 
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
@@ -251,7 +262,18 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
-            // TODO: update websiteDocFile
+            // update doc in the website dir
+            file = websiteDocFile;
+            exists = file.exists();
+            changed = templateDataFormats(dataFormats, count, deprecated);
+            updated = updateDataFormats(file, changed);
+            if (updated) {
+                getLog().info("Updated website doc file: " + file);
+            } else if (exists) {
+                getLog().debug("No changes to website doc file: " + file);
+            } else {
+                getLog().warn("No website doc file: " + file);
+            }
 
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
@@ -308,7 +330,18 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
-            // TODO: update websiteDocFile
+            // update doc in the website dir
+            file = websiteDocFile;
+            exists = file.exists();
+            changed = templateLanguages(languages, count, deprecated);
+            updated = updateLanguages(file, changed);
+            if (updated) {
+                getLog().info("Updated website doc file: " + file);
+            } else if (exists) {
+                getLog().debug("No changes to website doc file: " + file);
+            } else {
+                getLog().warn("No website doc file: " + file);
+            }
 
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
@@ -359,7 +392,18 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 getLog().warn("No readme.adoc file: " + file);
             }
 
-            // TODO: update websiteDocFile
+            // update doc in the website dir
+            file = websiteDocFile;
+            exists = file.exists();
+            changed = templateOthers(others, count, deprecated);
+            updated = updateOthers(file, changed);
+            if (updated) {
+                getLog().info("Updated website doc file: " + file);
+            } else if (exists) {
+                getLog().debug("No changes to website doc file: " + file);
+            } else {
+                getLog().warn("No website doc file: " + file);
+            }
 
         } catch (IOException e) {
             throw new MojoFailureException("Error due " + e.getMessage(), e);
