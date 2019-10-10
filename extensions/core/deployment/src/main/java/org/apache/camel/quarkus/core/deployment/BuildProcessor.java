@@ -168,8 +168,7 @@ class BuildProcessor {
             CamelContextBuildItem context,
             List<CamelMainListenerBuildItem> listeners,
             List<CamelRoutesBuilderBuildItem> routesBuilders,
-            BeanContainerBuildItem beanContainer,
-            CamelConfig.BuildTime buildTimeConfig) {
+            BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(context.getCamelContext(), beanContainer.getValue());
             for (CamelMainListenerBuildItem listener : listeners) {
@@ -182,9 +181,6 @@ class BuildProcessor {
             routesBuilders.forEach(routesBuilder -> {
                 recorder.addRouteBuilder(main, routesBuilder.getInstance());
             });
-            buildTimeConfig.routesUris.forEach(location -> {
-                recorder.addRoutesFromLocation(main, location);
-            });
 
             return new CamelMainBuildItem(main);
         }
@@ -196,6 +192,7 @@ class BuildProcessor {
          * @param main      a reference to a {@link CamelMain}.
          * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
          *                  ensure the {@link Registry} is fully configured before starting camel-main.
+         * @param config    runtime configuration.
          * @param executors the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
          *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
          *                  threads and so on. Note that we now expect a list of executors but that's because there is
@@ -211,9 +208,19 @@ class BuildProcessor {
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
             CamelRuntimeRegistryBuildItem registry,
+            CamelConfig.Runtime config,
             List<CamelReactiveExecutorBuildItem> executors,  // TODO: replace with @Overridable
             ShutdownContextBuildItem shutdown,
             List<ServiceStartBuildItem> startList) {
+
+            //
+            // Note that this functionality may be incorporated by camel-main, see:
+            //
+            //     https://issues.apache.org/jira/browse/CAMEL-14050
+            //
+            config.routesUris.forEach(location -> {
+                recorder.addRoutesFromLocation(main.getInstance(), location);
+            });
 
             if (executors.size() > 1) {
                 throw new IllegalArgumentException("Detected multiple reactive executors");

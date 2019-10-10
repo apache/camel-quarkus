@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.CamelConfig.BuildTime;
+import org.apache.camel.quarkus.core.CamelConfig;
 
 class HotDeploymentProcessor {
     @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> configFile(BuildTime buildTimeConfig) {
-        return buildTimeConfig.routesUris.stream()
+    List<HotDeploymentWatchedFileBuildItem> configFile(CamelConfig.Runtime config) {
+        return config.routesUris.stream()
             .map(String::trim)
             .filter(s -> s.startsWith("file:"))
             .map(s -> s.substring("file:".length()))
