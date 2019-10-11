@@ -172,6 +172,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-microprofile-health</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-microprofile-metrics</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -330,6 +335,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-log</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-microprofile-health</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

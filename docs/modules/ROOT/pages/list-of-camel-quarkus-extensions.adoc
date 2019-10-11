@@ -130,7 +130,7 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 3 in 3 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 4 in 4 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -141,5 +141,7 @@ Number of miscellaneous extensions: 3 in 3 JAR artifacts (0 deprecated)
 | (camel-quarkus-platform-http) | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
 | (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
+
+| (camel-quarkus-microprofile-health) | 0.2.1 | Integration with the Quarkus MicroProfile Health extension
 |===
 // others: END

@@ -89,6 +89,7 @@
         <module>infinispan</module>
         <module>jdbc</module>
         <module>mail</module>
+        <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>netty-http</module>
         <module>paho</module>
