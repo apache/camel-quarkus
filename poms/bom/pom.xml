@@ -305,7 +305,7 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-csv</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
@@ -330,7 +330,7 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-microprofile-metrics</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
@@ -375,7 +375,7 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-zipfile</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
 
             <!-- Other third party dependencies (in alphabetical order by groupId:artifactId) -->
@@ -392,17 +392,17 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-paho</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-platform-http</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-platform-http-component</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
             </dependency>
 
         </dependencies>

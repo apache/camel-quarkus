@@ -17,33 +17,32 @@
 package org.acme.rest.json;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.dataformat.JsonLibrary;
 
+/**
+ * Camel route definitions.
+ */
 public class Routes extends RouteBuilder {
-    private final Set<Fruit> fruits;
-    private final Set<Legume> legumes;
+    private final Set<Fruit> fruits = Collections.synchronizedSet(new LinkedHashSet<>());
+    private final Set<Legume> legumes = Collections.synchronizedSet(new LinkedHashSet<>());
 
     public Routes() {
-        this.fruits =  Collections.newSetFromMap(Collections.synchronizedMap(new LinkedHashMap<>()));
+
+        /* Let's add some initial fruits */
         this.fruits.add(new Fruit("Apple", "Winter fruit"));
         this.fruits.add(new Fruit("Pineapple", "Tropical fruit"));
 
-        this.legumes = Collections.synchronizedSet(new LinkedHashSet<>());
+        /* Let's add some initial legumes */
         this.legumes.add(new Legume("Carrot", "Root vegetable, usually orange"));
         this.legumes.add(new Legume("Zucchini", "Summer squash"));
     }
 
     @Override
     public void configure() throws Exception {
-        from("platform-http:/legumes?httpMethodRestrict=GET")
-            .setBody().constant(legumes)
-            .marshal().json();
-
         from("platform-http:/fruits?httpMethodRestrict=GET,POST")
             .choice()
                 .when(simple("${header.CamelHttpMethod} == 'GET'"))
@@ -60,5 +59,10 @@ public class Routes extends RouteBuilder {
                     .endChoice()
             .end()
             .marshal().json();
+
+        from("platform-http:/legumes?httpMethodRestrict=GET")
+            .setBody().constant(legumes)
+            .marshal().json();
+
     }
 }
