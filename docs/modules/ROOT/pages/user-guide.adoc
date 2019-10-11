@@ -46,7 +46,7 @@ git checkout $(git describe --abbrev=0)
 [source,shell]
 ----
 cd ..
-cp -r camel-quarkus/integration-tests/servlet/ .
+cp -r camel-quarkus/integration-tests/servlet .
 cd servlet
 ----
 
