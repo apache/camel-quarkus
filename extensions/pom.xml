@@ -54,6 +54,7 @@
         <module>jdbc</module>
         <module>log</module>
         <module>mail</module>
+        <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>netty-http</module>
         <module>paho</module>
