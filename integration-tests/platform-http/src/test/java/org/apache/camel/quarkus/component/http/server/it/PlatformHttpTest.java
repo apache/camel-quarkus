@@ -30,8 +30,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class PlatformHttpTest {
+
     @Test
-    public void testRegistrySetUp() {
+    public void registrySetUp() {
         JsonPath p = RestAssured.given()
             .get("/test/registry/inspect")
             .then()
@@ -67,10 +68,23 @@ class PlatformHttpTest {
                 .body(equalTo("Hello ")); // there is no body for get
     }
 
+    @Test
+    public void rest() throws Throwable {
+        RestAssured.get("/platform-http/rest-get")
+            .then().body(equalTo("GET: /rest-get"));
+        RestAssured.post("/platform-http/rest-post")
+            .then().body(equalTo("POST: /rest-post"));
+    }
+
     @Disabled("See https://github.com/quarkusio/quarkus/issues/4408")
     @Test
-    public void testInvalidMethod() {
+    public void invalidMethod() {
         RestAssured.post("/platform-http/hello")
             .then().statusCode(405);
+        RestAssured.post("/platform-http/rest-get")
+            .then().statusCode(405);
+        RestAssured.get("/platform-http/rest-post")
+            .then().statusCode(405);
     }
+
 }
