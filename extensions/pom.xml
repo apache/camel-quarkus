@@ -43,28 +43,28 @@
         <module>reactive-executor</module>
 
         <!-- components -->
-        <module>netty-http</module>
-        <module>infinispan</module>
+        <module>aws-eks</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
-        <module>aws-eks</module>
-        <module>jdbc</module>
-        <module>mail</module>
-        <module>salesforce</module>
-        <module>servlet</module>
-        <module>log</module>
-        <module>direct</module>
-        <module>rest</module>
-        <module>timer</module>
-        <module>twitter</module>
         <module>bean</module>
-        <module>zipfile</module>
         <module>csv</module>
+        <module>direct</module>
+        <module>infinispan</module>
+        <module>jdbc</module>
+        <module>log</module>
+        <module>mail</module>
         <module>microprofile-metrics</module>
+        <module>netty-http</module>
         <module>paho</module>
         <module>platform-http</module>
+        <module>rest</module>
+        <module>salesforce</module>
+        <module>servlet</module>
         <module>tarfile</module>
+        <module>timer</module>
+        <module>twitter</module>
+        <module>zipfile</module>
     </modules>
 
     <build>

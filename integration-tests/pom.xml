@@ -82,21 +82,21 @@
         <module>core-main</module>
         <module>core-impl</module>
 
-        <module>netty-http</module>
         <module>aws</module>
         <module>bean</module>
         <module>csv</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>mail</module>
-        <module>salesforce</module>
-        <module>servlet</module>
-        <module>twitter</module>
-        <module>zipfile</module>
         <module>microprofile-metrics</module>
+        <module>netty-http</module>
         <module>paho</module>
         <module>platform-http</module>
+        <module>salesforce</module>
+        <module>servlet</module>
         <module>tarfile</module>
+        <module>twitter</module>
+        <module>zipfile</module>
     </modules>
 
     <build>
