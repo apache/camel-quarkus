@@ -181,6 +181,13 @@ class BuildProcessor {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
 
+        @Overridable
+        @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        CamelReactiveExecutorBuildItem reactiveExecutor(CamelMainRecorder recorder) {
+            return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
+        }
+
         /**
          * This method is responsible to configure camel-main during static init phase which means
          * discovering routes, listeners and services that need to be bound to the camel-main.
@@ -223,10 +230,9 @@ class BuildProcessor {
          * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
          *                  ensure the {@link Registry} is fully configured before starting camel-main.
          * @param config    runtime configuration.
-         * @param executors the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
          *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *                  threads and so on. Note that we now expect a list of executors but that's because there is
-         *                  no way as of quarkus 0.23.x to have optional items.
+         *                  threads and so on.
          * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
          * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
          *                  is required as under the hoods the camel registry may look-up beans form the
@@ -239,7 +245,7 @@ class BuildProcessor {
             CamelMainBuildItem main,
             CamelRuntimeRegistryBuildItem registry,
             CamelConfig.Runtime config,
-            List<CamelReactiveExecutorBuildItem> executors,  // TODO: replace with @Overridable
+            CamelReactiveExecutorBuildItem executor,
             ShutdownContextBuildItem shutdown,
             List<ServiceStartBuildItem> startList) {
 
@@ -252,12 +258,7 @@ class BuildProcessor {
                 recorder.addRoutesFromLocation(main.getInstance(), location);
             });
 
-            if (executors.size() > 1) {
-                throw new IllegalArgumentException("Detected multiple reactive executors");
-            } else if (executors.size() == 1) {
-                recorder.setReactiveExecutor(main.getInstance(), executors.get(0).getInstance());
-            }
-
+            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             recorder.start(shutdown, main.getInstance());
         }
     }

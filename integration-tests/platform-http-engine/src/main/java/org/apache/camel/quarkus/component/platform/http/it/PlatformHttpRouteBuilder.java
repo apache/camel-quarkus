@@ -14,24 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.component.platform.http.it;
 
+import org.apache.camel.builder.RouteBuilder;
 
-import io.quarkus.builder.item.SimpleBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.spi.ReactiveExecutor;
-
-/**
- * Holds the {@link ReactiveExecutor} {@link RuntimeValue}.
- */
-public final class CamelReactiveExecutorBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<ReactiveExecutor> instance;
-
-    public CamelReactiveExecutorBuildItem(RuntimeValue<ReactiveExecutor> instance) {
-        this.instance = instance;
-    }
-
-    public RuntimeValue<ReactiveExecutor> getInstance() {
-        return instance;
+public class PlatformHttpRouteBuilder extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("platform-http:/platform-http/hello?httpMethodRestrict=GET")
+            .setBody().constant("platform-http/hello");
     }
 }

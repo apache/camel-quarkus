@@ -99,6 +99,7 @@
         <module>netty-http</module>
         <module>opentracing</module>
         <module>paho</module>
+        <module>platform-http-engine</module>
         <module>platform-http</module>
         <module>salesforce</module>
         <module>servlet</module>

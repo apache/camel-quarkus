@@ -25,7 +25,7 @@ import org.apache.camel.quarkus.core.deployment.CamelReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.reactive.executor.ReactiveExecutorRecorder;
 
 public class BuildProcessor {
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     @BuildStep(onlyIfNot = Flags.MainDisabled.class)
     CamelReactiveExecutorBuildItem reactiveExecutor(ReactiveExecutorRecorder recorder, VertxBuildItem vertx) {
         return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor(vertx.getVertx()));

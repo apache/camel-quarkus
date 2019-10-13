@@ -16,7 +16,13 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
@@ -25,14 +31,19 @@ import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 
 public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
     private final Router router;
+    private final List<Handler<RoutingContext>> handlers;
 
-    public QuarkusPlatformHttpEngine(Router router) {
+    public QuarkusPlatformHttpEngine(Router router, List<Handler<RoutingContext>> handlers) {
         this.router = router;
+        this.handlers = new ArrayList<>(handlers);
     }
 
     @Override
     public Consumer createConsumer(PlatformHttpEndpoint endpoint, Processor processor) {
-        return new QuarkusPlatformHttpConsumer(endpoint, processor, router);
+        return new QuarkusPlatformHttpConsumer(endpoint, processor, router, handlers);
     }
 
+    public List<Handler<RoutingContext>> getHandlers() {
+        return Collections.unmodifiableList(this.handlers);
+    }
 }
