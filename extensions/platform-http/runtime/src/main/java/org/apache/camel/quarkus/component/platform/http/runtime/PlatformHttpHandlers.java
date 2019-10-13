@@ -14,24 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.component.platform.http.runtime;
 
 
-import io.quarkus.builder.item.SimpleBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.spi.ReactiveExecutor;
+import io.vertx.core.Handler;
+import io.vertx.ext.web.RoutingContext;
 
-/**
- * Holds the {@link ReactiveExecutor} {@link RuntimeValue}.
- */
-public final class CamelReactiveExecutorBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<ReactiveExecutor> instance;
-
-    public CamelReactiveExecutorBuildItem(RuntimeValue<ReactiveExecutor> instance) {
-        this.instance = instance;
+public final class PlatformHttpHandlers {
+    private PlatformHttpHandlers() {
     }
 
-    public RuntimeValue<ReactiveExecutor> getInstance() {
-        return instance;
+    public static class Resumer implements Handler<RoutingContext> {
+        @Override
+        public void handle(RoutingContext context) {
+            // Workaround for route paused when resteasy is added to the game
+            // on quarkus >= 0.24.0
+            context.request().resume();
+            context.next();
+        }
     }
 }

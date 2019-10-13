@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
@@ -37,8 +38,6 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.BodyHandler;
-
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -56,8 +55,6 @@ import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.support.ObjectHelper;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 /**
@@ -67,11 +64,13 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private static final Logger LOG = Logger.getLogger(QuarkusPlatformHttpConsumer.class);
 
     private final Router router;
+    private final List<Handler<RoutingContext>> handlers;
     private Route route;
 
-    public QuarkusPlatformHttpConsumer(Endpoint endpoint, Processor processor, Router router) {
+    public QuarkusPlatformHttpConsumer(Endpoint endpoint, Processor processor, Router router, List<Handler<RoutingContext>> handlers) {
         super(endpoint, processor);
         this.router = router;
+        this.handlers = handlers;
     }
 
     @Override
@@ -91,40 +90,22 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             methods.stream().forEach(m -> newRoute.method(HttpMethod.valueOf(m.name())));
         }
 
-        Config cfg = ConfigProvider.getConfig();
-        final BodyHandler bodyHandler = BodyHandler.create();
-        /*
-         * Keep in sync with how the BodyHandler is configured in io.quarkus.vertx.web.runtime.VertxWebRecorder
-         * Eventually, VertxWebRecorder should have a method to do this for us.
-         *
-         * TODO: remove this code when moving to quarkus 0.24.x, see https://github.com/quarkusio/quarkus/pull/4314
-         */
-        cfg.getOptionalValue("quarkus.http.body.handle-file-uploads", boolean.class).ifPresent(bodyHandler::setHandleFileUploads);
-        cfg.getOptionalValue("quarkus.http.body.uploads-directory", String.class).ifPresent(bodyHandler::setUploadsDirectory);
-        cfg.getOptionalValue("quarkus.http.body.delete-uploaded-files-on-end", boolean.class).ifPresent(bodyHandler::setDeleteUploadedFilesOnEnd);
-        cfg.getOptionalValue("quarkus.http.body.merge-form-attributes", boolean.class).ifPresent(bodyHandler::setMergeFormAttributes);
-        cfg.getOptionalValue("quarkus.http.body.preallocate-body-buffer", boolean.class).ifPresent(bodyHandler::setPreallocateBodyBuffer);
+        handlers.forEach(newRoute::handler);
 
-        newRoute
-            .handler(ctx -> {
-                // Workaround for route blocking and not handling any request
-                // on quarkus 0.24.0
-                ctx.request().resume();
-                ctx.next();
-            })
-            .handler(bodyHandler)
-            .handler(ctx -> {
+        newRoute.handler(
+            ctx -> {
                 try {
                     final PlatformHttpEndpoint endpoint = getEndpoint();
                     final HeaderFilterStrategy headerFilterStrategy = endpoint.getHeaderFilterStrategy();
                     final Exchange e = toExchange(ctx, endpoint.createExchange(), headerFilterStrategy);
                     getProcessor().process(e);
                     writeResponse(ctx, e, headerFilterStrategy);
-                } catch (Exception e1) {
-                    LOG.debugf(e1, "Could not handle '%s'", path);
-                    ctx.fail(e1);
+                } catch (Exception e) {
+                    LOG.debugf(e, "Could not handle '%s'", path);
+                    ctx.fail(e);
                 }
-            });
+            }
+        );
 
         this.route = newRoute;
     }

@@ -27,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
 import org.apache.camel.spi.Registry;
 
 @Path("/test")
@@ -37,7 +38,7 @@ public class PlatformHttpResource {
 
     @Path("/registry/inspect")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public JsonObject inspectRegistry() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
 
@@ -47,7 +48,11 @@ public class PlatformHttpResource {
         if (engine != null) {
             builder.add(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, engine.getClass().getName());
 
+            if (engine instanceof QuarkusPlatformHttpEngine) {
+                builder.add("handlers-size", ((QuarkusPlatformHttpEngine)engine).getHandlers().size());
+            }
         }
+
         if (component != null) {
             builder.add(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, component.getClass().getName());
         }

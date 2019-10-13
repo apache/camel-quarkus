@@ -16,16 +16,20 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
+import java.util.List;
+
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 
 @Recorder
 public class PlatformHttpRecorder {
-    public RuntimeValue<PlatformHttpEngine> createEngine(RuntimeValue<Router> router) {
-        return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue()));
+    public RuntimeValue<PlatformHttpEngine> createEngine(RuntimeValue<Router> router, List<Handler<RoutingContext>> handlers) {
+        return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue(), handlers));
     }
 
     public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
