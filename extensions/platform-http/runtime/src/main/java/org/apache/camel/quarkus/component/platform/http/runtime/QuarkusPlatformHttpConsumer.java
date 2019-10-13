@@ -38,7 +38,6 @@ import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
-
 import org.apache.camel.Consumer;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -98,6 +97,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
          * Eventually, VertxWebRecorder should have a method to do this for us.
          *
          * TODO: remove this code when moving to quarkus 0.24.x, see https://github.com/quarkusio/quarkus/pull/4314
+         * TODO: it does not apply to our case, https://github.com/quarkusio/quarkus/issues/4536
          */
         cfg.getOptionalValue("quarkus.http.body.handle-file-uploads", boolean.class).ifPresent(bodyHandler::setHandleFileUploads);
         cfg.getOptionalValue("quarkus.http.body.uploads-directory", String.class).ifPresent(bodyHandler::setUploadsDirectory);
@@ -106,14 +106,12 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         cfg.getOptionalValue("quarkus.http.body.preallocate-body-buffer", boolean.class).ifPresent(bodyHandler::setPreallocateBodyBuffer);
 
         newRoute
-            //
-            // This should not be needed but because the default route added by quarkus (i.e. in case
-            // the quarkus-resteasy extension is in the classpath) is a catch all, it is required to
-            // configure the route to be evaluated before the default one.
-            //
-            // TODO: remove this after https://github.com/quarkusio/quarkus/issues/4407 is fixed.
-            //
-            .order(-1)
+            .handler(ctx -> {
+                // Workaround for route blocking and not handling any request
+                // on quarkus 0.24.0
+                ctx.request().resume();
+                ctx.next();
+            })
             .handler(bodyHandler)
             .handler(ctx -> {
                 try {
