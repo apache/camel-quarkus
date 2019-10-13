@@ -41,7 +41,7 @@
          -->
         <native-image.docker-build>true</native-image.docker-build>
         <native-image.container-runtime>docker</native-image.container-runtime>
-        <activemq-version>5.15.9</activemq-version>
+        <activemq-version>5.15.10</activemq-version>
     </properties>
 
     <dependencyManagement>
