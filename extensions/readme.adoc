@@ -51,7 +51,7 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 `netty-http:protocol:host:port/path` | 0.2 | Netty HTTP server and client using the Netty 4.x library.
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
-`paho:topic` | 0.2 | Component for communicating with MQTT M2M message brokers using Eclipse Paho MQTT Client.
+`paho:topic` | 0.2 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
