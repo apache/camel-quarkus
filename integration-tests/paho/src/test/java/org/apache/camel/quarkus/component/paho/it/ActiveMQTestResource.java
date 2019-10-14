@@ -28,7 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
-    private final static Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
     private BrokerService broker;
 
 
