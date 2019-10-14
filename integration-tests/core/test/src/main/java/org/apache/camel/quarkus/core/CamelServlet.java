@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -70,5 +72,13 @@ public class CamelServlet {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean lookupMain() {
         return registry.findByType(CamelMain.class).size() == 1;
+    }
+
+    @Path("/context/version")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String contextVersion() {
+        Set<CamelContext> camelContexts = registry.findByType(CamelContext.class);
+        return camelContexts.isEmpty() ? "" : camelContexts.iterator().next().getVersion();
     }
 }
