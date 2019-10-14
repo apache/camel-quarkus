@@ -82,6 +82,7 @@
         <module>core-main</module>
         <module>core-impl</module>
 
+        <!-- extensions a..z -->
         <module>aws</module>
         <module>bean</module>
         <module>csv</module>

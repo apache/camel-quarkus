@@ -42,7 +42,7 @@
         <module>http-common</module>
         <module>reactive-executor</module>
 
-        <!-- components -->
+        <!-- extensions a..z -->
         <module>aws-eks</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
