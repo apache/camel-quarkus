@@ -218,6 +218,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-tarfile</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-timer</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -360,6 +365,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-servlet</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-tarfile</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
