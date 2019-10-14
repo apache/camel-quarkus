@@ -128,7 +128,7 @@ class SubstrateProcessor {
                 .map(ai -> ai.target().asMethod())
                 .forEach(this::addReflectiveMethod);
 
-            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-core")
+            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
                 .forEach(this::addResource);
             CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
                 .forEach(this::addCamelService);
