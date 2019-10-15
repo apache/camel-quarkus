@@ -50,6 +50,7 @@
         <module>bean</module>
         <module>csv</module>
         <module>direct</module>
+        <module>fhir</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>log</module>
