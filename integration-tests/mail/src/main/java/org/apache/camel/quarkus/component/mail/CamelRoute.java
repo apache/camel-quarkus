@@ -24,16 +24,15 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mail.MailComponent;
 
 public class CamelRoute extends RouteBuilder {
-
     @Override
     public void configure() {
         bindToRegistry("smtp", smtp());
 
         from("direct:mailtext")
-                .setHeader("Subject", constant("Hello World"))
-                .setHeader("To", constant("james@localhost"))
-                .setHeader("From", constant("claus@localhost"))
-                .to("smtp://localhost?consumer.initialDelay=100&consumer.delay=100");
+            .setHeader("Subject", constant("Hello World"))
+            .setHeader("To", constant("james@localhost"))
+            .setHeader("From", constant("claus@localhost"))
+            .to("smtp://localhost?initialDelay=100&delay=100");
     }
 
     @Produces
@@ -43,5 +42,4 @@ public class CamelRoute extends RouteBuilder {
         mail.getConfiguration().setSession(session);
         return mail;
     }
-
 }

@@ -28,6 +28,10 @@
     <artifactId>camel-quarkus-netty-http</artifactId>
     <name>Camel Quarkus :: Netty HTTP :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

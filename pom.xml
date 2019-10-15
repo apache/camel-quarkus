@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <camel.version>3.0.0-RC1</camel.version>
+        <camel.version>3.0.0-SNAPSHOT</camel.version>
         <quarkus.version>0.23.2</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
@@ -74,8 +74,11 @@
         <module>poms/bom</module>
         <module>poms/bom-deployment</module>
         <module>poms/build-parent</module>
+        <module>tooling</module>
         <module>extensions</module>
+        <module>catalog</module>
         <module>integration-tests</module>
+        <module>examples</module>
         <module>docs</module>
     </modules>
 
@@ -413,9 +416,6 @@
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
-            <properties>
-                <quarkus.version>999-SNAPSHOT</quarkus.version>
-            </properties>
             <repositories>
                 <repository>
                     <id>oss-snapshots-repo</id>

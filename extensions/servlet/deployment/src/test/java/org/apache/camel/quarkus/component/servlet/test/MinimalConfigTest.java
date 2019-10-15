@@ -16,11 +16,17 @@
  */
 package org.apache.camel.quarkus.component.servlet.test;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
+
 import io.quarkus.test.QuarkusUnitTest;
 import io.restassured.RestAssured;
 import org.apache.camel.builder.RouteBuilder;
 import org.hamcrest.core.IsEqual;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -30,19 +36,35 @@ public class MinimalConfigTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
         .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClasses(Routes.class)
-            .addAsResource(new StringAsset("quarkus.camel.servlet.url-patterns=/*\n"), "application.properties"));
+            .addClass(CustomDefaultServletClassTest.Routes.class)
+            .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
-    public void minimal() {
-        RestAssured.when().get("/hello").then().body(IsEqual.equalTo("GET: /hello"));
+    public void minimal() throws Exception {
+        RestAssured.when().get("/hello")
+            .then().body(IsEqual.equalTo("GET: /hello"));
     }
 
-    public static class Routes extends RouteBuilder {
+    public static final class Routes extends RouteBuilder {
         @Override
         public void configure() {
             from("servlet://hello?matchOnUriPrefix=true")
                     .setBody(constant("GET: /hello"));
         }
+    }
+
+    public static final Asset applicationProperties() {
+        Writer writer = new StringWriter();
+
+        Properties props = new Properties();
+        props.setProperty("quarkus.camel.servlet.url-patterns", "/*");
+
+        try {
+            props.store(writer, "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new StringAsset(writer.toString());
     }
 }

@@ -39,17 +39,24 @@ public class MicroProfileMetricsResource {
         return Response.ok().build();
     }
 
-    @Path("/gauge/increment")
+    @Path("/gauge/concurrent/increment")
     @GET
     public Response gaugeIncrement() throws Exception {
-        template.sendBody("direct:gaugeIncrement", null);
+        template.sendBody("direct:concurrentGaugeIncrement", null);
         return Response.ok().build();
     }
 
-    @Path("/gauge/decrement")
+    @Path("/gauge/concurrent/decrement")
     @GET
     public Response gaugeDecrement() throws Exception {
-        template.sendBody("direct:gaugeDecrement", null);
+        template.sendBody("direct:concurrentGaugeDecrement", null);
+        return Response.ok().build();
+    }
+
+    @Path("/gauge")
+    @GET
+    public Response gaugeSetValue(@QueryParam("value") int value) throws Exception {
+        template.sendBody("direct:gauge", value);
         return Response.ok().build();
     }
 
@@ -71,6 +78,13 @@ public class MicroProfileMetricsResource {
     @GET
     public Response timerStartStop() throws Exception {
         template.sendBody("direct:timer", null);
+        return Response.ok().build();
+    }
+
+    @Path("/log")
+    @GET
+    public Response logMessage() throws Exception {
+        template.sendBody("log:message", "Test log message");
         return Response.ok().build();
     }
 }

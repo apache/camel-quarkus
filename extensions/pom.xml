@@ -40,29 +40,32 @@
         <module>core</module>
         <module>core-cloud</module>
         <module>http-common</module>
+        <module>reactive-executor</module>
 
-        <!-- components -->
-        <module>netty-http</module>
-        <module>infinispan</module>
+        <!-- extensions a..z -->
+        <module>aws-eks</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
-        <module>aws-eks</module>
-        <module>jdbc</module>
-        <module>mail</module>
-        <module>salesforce</module>
-        <module>servlet</module>
-        <module>log</module>
-        <module>direct</module>
-        <module>rest</module>
-        <module>timer</module>
-        <module>twitter</module>
         <module>bean</module>
-        <module>zipfile</module>
         <module>csv</module>
+        <module>direct</module>
+        <module>infinispan</module>
+        <module>jdbc</module>
+        <module>log</module>
+        <module>mail</module>
+        <module>microprofile-health</module>
         <module>microprofile-metrics</module>
+        <module>netty-http</module>
         <module>paho</module>
         <module>platform-http</module>
+        <module>rest</module>
+        <module>salesforce</module>
+        <module>servlet</module>
+        <module>tarfile</module>
+        <module>timer</module>
+        <module>twitter</module>
+        <module>zipfile</module>
         <module>freemarker</module>
     </modules>
 
@@ -83,34 +86,11 @@
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
+                    <!-- The bomEntryVersion should come with the upgrade to Quarkus 0.25
+                         see https://github.com/quarkusio/quarkus/pull/4514
+                    <bomEntryVersion>%{camel-quarkus.version}</bomEntryVersion> -->
                     <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <version>${groovy-maven-plugin.version}</version>
-                <inherited>false</inherited>
-                <executions>
-                    <execution>
-                        <id>list-camel-quarkus-extensions</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <source>file:///${project.basedir}/../build/scripts/list-camel-quarkus-extensions.groovy</source>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.codehaus.groovy</groupId>
-                        <artifactId>groovy-all</artifactId>
-                        <version>${groovy.version}</version>
-                        <type>pom</type>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -23,25 +23,25 @@ import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.component.infinispan.InfinispanOperation;
 
 public class CamelRoute extends RouteBuilder {
-
     @Override
     public void configure() {
+        // we do not need to set any information about the target infinispan server
+        // as the RemoteConnectionManager is produced by the infinispan extension
+        // and camel-main automatically bind it to the component
 
-        from("netty-http:http://0.0.0.0:8999/put")
-                .convertBodyTo(byte[].class)
-                .to("log:cache?showAll=true")
-                .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
-                .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
-                .setHeader(InfinispanConstants.VALUE).body()
-                .to("infinispan:default?hosts=localhost:11232");
+        from("direct:put")
+            .convertBodyTo(byte[].class)
+            .to("log:cache?showAll=true")
+            .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
+            .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
+            .setHeader(InfinispanConstants.VALUE).body()
+            .to("infinispan:default")
+            .to("log:put?showAll=true");
 
-        from("netty-http:http://0.0.0.0:8999/get")
-                .setHeader(InfinispanConstants.OPERATION)
-                .constant(InfinispanOperation.GET)
-                .setHeader(InfinispanConstants.KEY)
-                .constant("the-key".getBytes(StandardCharsets.UTF_8))
-                .to("infinispan:default?hosts=localhost:11232")
-                .to("log:cache?showAll=true");
+        from("direct:get")
+            .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.GET)
+            .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
+            .to("infinispan:default")
+            .to("log:get?showAll=true");
     }
-
 }

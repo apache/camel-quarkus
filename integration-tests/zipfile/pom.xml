@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-zipfile</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: zipfile</name>
+    <name>Camel Quarkus :: Integration Tests :: Zipfile</name>
     <description>Integration tests for Camel Quarkus zipfile extension</description>
 
     <dependencies>

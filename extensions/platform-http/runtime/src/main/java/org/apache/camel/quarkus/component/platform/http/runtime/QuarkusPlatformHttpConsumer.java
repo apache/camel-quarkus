@@ -93,8 +93,12 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
         Config cfg = ConfigProvider.getConfig();
         final BodyHandler bodyHandler = BodyHandler.create();
-        /* Keep in sync with how the BodyHandler is configured in io.quarkus.vertx.web.runtime.VertxWebRecorder
-         * Eventually, VertxWebRecorder should have a method to do this for us. */
+        /*
+         * Keep in sync with how the BodyHandler is configured in io.quarkus.vertx.web.runtime.VertxWebRecorder
+         * Eventually, VertxWebRecorder should have a method to do this for us.
+         *
+         * TODO: remove this code when moving to quarkus 0.24.x, see https://github.com/quarkusio/quarkus/pull/4314
+         */
         cfg.getOptionalValue("quarkus.http.body.handle-file-uploads", boolean.class).ifPresent(bodyHandler::setHandleFileUploads);
         cfg.getOptionalValue("quarkus.http.body.uploads-directory", String.class).ifPresent(bodyHandler::setUploadsDirectory);
         cfg.getOptionalValue("quarkus.http.body.delete-uploaded-files-on-end", boolean.class).ifPresent(bodyHandler::setDeleteUploadedFilesOnEnd);
@@ -102,6 +106,14 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         cfg.getOptionalValue("quarkus.http.body.preallocate-body-buffer", boolean.class).ifPresent(bodyHandler::setPreallocateBodyBuffer);
 
         newRoute
+            //
+            // This should not be needed but because the default route added by quarkus (i.e. in case
+            // the quarkus-resteasy extension is in the classpath) is a catch all, it is required to
+            // configure the route to be evaluated before the default one.
+            //
+            // TODO: remove this after https://github.com/quarkusio/quarkus/issues/4407 is fixed.
+            //
+            .order(-1)
             .handler(bodyHandler)
             .handler(ctx -> {
                 try {
@@ -144,7 +156,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         super.doResume();
     }
 
-    Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
+    static Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
         final Exchange exchange = message.getExchange();
         final boolean failed = exchange.isFailed();
         final int defaultCode = failed ? 500 : 200;
@@ -214,7 +226,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return body;
     }
 
-    void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
+    static void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
         final Object body = toHttpResponse(ctx.response(), camelExchange.getMessage(), headerFilterStrategy);
 
         final HttpServerResponse response = ctx.response();
@@ -254,7 +266,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     }
 
-    Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
+    static Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
         Message in = toCamelMessage(ctx, exchange, headerFilterStrategy);
 
         final String charset = ctx.parsedHeaders().contentType().parameter("charset");
@@ -267,7 +279,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return exchange;
     }
 
-    void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
+    static void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
             HeaderFilterStrategy headerFilterStrategy) {
 
         final HttpServerRequest request = ctx.request();
@@ -327,7 +339,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         headersMap.put(Exchange.HTTP_RAW_QUERY, request.query());
     }
 
-    Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
+    static Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
         Message result = new DefaultMessage(exchange);
 
         populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy);

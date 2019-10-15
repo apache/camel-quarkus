@@ -19,9 +19,18 @@ package org.apache.camel.quarkus.component.platform.http.it;
 import org.apache.camel.builder.RouteBuilder;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
-
     @Override
     public void configure() {
+        rest()
+            .get("/platform-http/rest-get")
+                .route()
+                .setBody(constant("GET: /rest-get"))
+                .endRest()
+            .post("/platform-http/rest-post")
+                .route()
+                .setBody(constant("POST: /rest-post"))
+                .endRest();
+
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
         from("platform-http:/platform-http/get-post?httpMethodRestrict=GET,POST").setBody(simple("Hello ${body}"));
         from("platform-http:/platform-http/multipart?httpMethodRestrict=POST").setBody(simple("Hello ${body}"));

@@ -1,0 +1,14 @@
+{
+ "other": {
+    "name": "@{name}",
+    "kind": "other",
+    "title": "@{title}",
+    "description": "@{description}",
+    "deprecated": @{deprecated},
+    "firstVersion": "@{firstVersion}",
+    "label": "@{label}",
+    "groupId": "@{groupId}",
+    "artifactId": "@{artifactId}",
+    "version": "@{version}"
+  }
+}

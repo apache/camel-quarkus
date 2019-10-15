@@ -20,43 +20,25 @@ import java.net.HttpURLConnection;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 public class CamelTest {
-
     @Test
-    public void testRoutes() {
-        RestAssured.when().get("/test/routes").then().body(containsString("timer"));
+    public void testContainerLookupFromRegistry() {
+        RestAssured.when().get("/test/registry/lookup-registry").then().body(is("true"));
+        RestAssured.when().get("/test/registry/lookup-context").then().body(is("true"));
+        RestAssured.when().get("/test/registry/lookup-main").then().body(is("false"));
     }
 
     @Test
-    public void testProperties() {
-        RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
-        RestAssured.when().get("/test/property/camel.component.timer.basic-property-binding").then().body(is("true"));
-    }
-
-    @Test
-    public void timerPropertyPropagated() {
-        RestAssured.when().get("/test/timer/property-binding").then().body(is("true"));
-    }
-
-    @Test
-    public void testRegistry() {
-        RestAssured.when().get("/test/registry/produces-config-build").then().body(is("true"));
-        RestAssured.when().get("/test/registry/produces-config-runtime").then().body(is("true"));
-    }
-
-    @Test
-    public void testRegistryBuildItem() {
+    public void testCamelBeanBuildItem() {
         Response response = RestAssured.get("/test/registry/log/exchange-formatter").andReturn();
 
         assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
@@ -65,15 +47,7 @@ public class CamelTest {
     }
 
     @Test
-    public void testSetCamelContextName() {
-        Response response = RestAssured.get("/test/context/name").andReturn();
-
-        assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        assertNotEquals("my-ctx-name", response.body().asString());
-
-        RestAssured.given()
-            .contentType(ContentType.TEXT).body("my-ctx-name")
-            .post("/test/context/name")
-            .then().body(is("my-ctx-name"));
+    public void testCamelContextVersion() {
+        RestAssured.when().get("/test/context/version").then().body(not(""));
     }
 }

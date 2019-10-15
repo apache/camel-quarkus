@@ -27,6 +27,13 @@
 
     <artifactId>camel-quarkus-core</artifactId>
     <name>Camel Quarkus :: Core :: Runtime</name>
+    <description>The Camel Quarkus core module</description>
+
+    <properties>
+        <title>Camel Quarkus Core</title>
+        <firstVersion>0.2.0</firstVersion>
+        <label>core</label>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -57,15 +64,15 @@
         <!-- camel -->
         <dependency>
             <groupId>org.apache.camel</groupId>
+            <artifactId>camel-main</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
             <artifactId>camel-core-engine</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-base</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-properties</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>

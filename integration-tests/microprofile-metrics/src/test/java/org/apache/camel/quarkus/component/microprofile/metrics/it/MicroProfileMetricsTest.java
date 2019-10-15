@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 
+import org.apache.camel.ServiceStatus;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -40,20 +41,28 @@ class MicroProfileMetricsTest {
     }
 
     @Test
-    public void testMicroProfileMetricsGauge() {
+    public void testMicroProfileMetricsConcurrentGauge() {
         for (int i = 0; i < 10; i++) {
-            RestAssured.get("/microprofile-metrics/gauge/increment")
+            RestAssured.get("/microprofile-metrics/gauge/concurrent/increment")
                 .then()
                 .statusCode(200);
         }
-        assertEquals(10, getMetricIntValue("camel-quarkus-gauge.current"));
+        assertEquals(10, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
 
         for (int i = 0; i < 3; i++) {
-            RestAssured.get("/microprofile-metrics/gauge/decrement")
+            RestAssured.get("/microprofile-metrics/gauge/concurrent/decrement")
                 .then()
                 .statusCode(200);
         }
-        assertEquals(7, getMetricIntValue("camel-quarkus-gauge.current"));
+        assertEquals(7, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
+    }
+
+    @Test
+    public void testMicroProfileMetricsGauge() {
+        RestAssured.get("/microprofile-metrics/gauge?value=10")
+            .then()
+            .statusCode(200);
+        assertEquals(10, getMetricIntValue("camel-quarkus-gauge"));
     }
 
     @Test
@@ -85,45 +94,16 @@ class MicroProfileMetricsTest {
         RestAssured.get("/microprofile-metrics/timer")
             .then()
             .statusCode(200);
-
-        Map<String, Object> routeMetrics = getMetricMapValue("'org.apache.camel.route'");
-        routeMetrics.forEach((k, v) -> {
-            if (k.startsWith("count")) {
-                assertTrue((Integer) v > 0);
-            }
-        });
+        assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=route7") > 0);
     }
 
     @Test
     public void testMicroProfileMetricsMessageHistoryFactory() {
-        Map<String, Object> messageHistoryMetrics = getMetricMapValue("'org.apache.camel.message.history'");
-        messageHistoryMetrics.forEach((k, v) -> {
-            if (k.startsWith("count")) {
-                assertTrue((Integer) v > 0);
-            }
-        });
-    }
+        RestAssured.get("/microprofile-metrics/log")
+            .then()
+            .statusCode(200);
 
-    @Test
-    public void testMicroProfileMetricsRouteEventNotifier() {
-        Map<String, Object> routeMetrics = getMetricMapValue("'org.apache.camel.route.total'");
-        routeMetrics.forEach((k, v) -> {
-            if (k.startsWith("current")) {
-                assertEquals(6, v);
-            }
-        });
-
-        Map<String, Object> runningRouteMetrics = getMetricMapValue("'org.apache.camel.route.running.total'");
-        runningRouteMetrics.forEach((k, v) -> {
-            if (k.startsWith("current")) {
-                assertEquals(6, v);
-            }
-        });
-    }
-
-    @Test
-    public void testMicroProfileMetricsExchangeEventNotifier() {
-        Map<String, Object> exchangeMetrics = getMetricMapValue("'org.apache.camel.exchange'");
+        Map<String, Object> exchangeMetrics = getApplicationMetrics().getMap("'camel.message.history.processing'");
         exchangeMetrics.forEach((k, v) -> {
             if (k.startsWith("total")) {
                 assertTrue((Integer) v > 0);
@@ -131,16 +111,47 @@ class MicroProfileMetricsTest {
         });
     }
 
-    private int getMetricIntValue(String metricName) {
-        return getApplicationMetrics().getInt(metricName + CAMEL_CONTEXT_METRIC_TAG);
+    @Test
+    public void testMicroProfileMetricsRouteEventNotifier() throws InterruptedException {
+        assertEquals(7, getMetricIntValue("camel.route.count"));
+        assertEquals(7, getMetricIntValue("camel.route.running.count"));
     }
 
-    private float getMetricFloatValue(String metricName) {
-        return getApplicationMetrics().getFloat(metricName + CAMEL_CONTEXT_METRIC_TAG);
+    @Test
+    public void testMicroProfileMetricsExchangeEventNotifier() {
+        RestAssured.get("/microprofile-metrics/log")
+            .then()
+            .statusCode(200);
+        assertTrue(getMetricIntValue("camel.context.exchanges.total") > 0);
     }
 
-    private Map<String, Object> getMetricMapValue(String metricName) {
-        return getApplicationMetrics().getMap(metricName);
+    @Test
+    public void testMicroProfileMetricsCamelContextEventNotifier() {
+        assertEquals(ServiceStatus.Started.ordinal(), getMetricIntValue("camel.context.status"));
+        assertTrue(getMetricIntValue("camel.context.uptime") > 0);
+    }
+
+    private int getMetricIntValue(String metricName, String... tags) {
+        return getApplicationMetrics().getInt(sanitizeMetricName(metricName, tags));
+    }
+
+    private float getMetricFloatValue(String metricName, String... tags) {
+        return getApplicationMetrics().getFloat(sanitizeMetricName(metricName, tags));
+    }
+
+    private Map<String, Object> getMetricMapValue(String metricName, String... tags) {
+        return getApplicationMetrics().getMap(sanitizeMetricName(metricName, tags));
+    }
+
+    private String sanitizeMetricName(String metricName, String... tags) {
+        if (tags.length == 0) {
+            tags = new String[] {CAMEL_CONTEXT_METRIC_TAG};
+        }
+
+        if (metricName.contains(".") && metricName.split("\\.").length > 2) {
+            return String.format("'%s%s'", metricName, String.join(";", tags));
+        }
+        return metricName + String.join(";", tags);
     }
 
     private JsonPath getApplicationMetrics() {

@@ -17,10 +17,12 @@
 package org.apache.camel.quarkus.component.microprofile.metrics.runtime;
 
 import io.quarkus.arc.runtime.BeanContainer;
+import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.smallrye.metrics.MetricRegistries;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.component.microprofile.metrics.event.notifier.context.MicroProfileMetricsCamelContextEventNotifier;
 import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.MicroProfileMetricsExchangeEventNotifier;
 import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
@@ -31,8 +33,8 @@ import org.eclipse.microprofile.metrics.MetricRegistry;
 @Recorder
 public class CamelMicroProfileMetricsRecorder {
 
-    public MetricRegistry createApplicationRegistry() {
-        return MetricRegistries.get(MetricRegistry.Type.APPLICATION);
+    public RuntimeValue<MetricRegistry> createApplicationRegistry() {
+        return new RuntimeValue(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
     }
 
     public void configureCamelContext(CamelMicroProfileMetricsConfig config, BeanContainer beanContainer) {
@@ -54,6 +56,10 @@ public class CamelMicroProfileMetricsRecorder {
 
         if (config.enableRouteEventNotifier) {
             managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
+        }
+
+        if (config.enableCamelContextEventNotifier) {
+            managementStrategy.addEventNotifier(new MicroProfileMetricsCamelContextEventNotifier());
         }
     }
 }

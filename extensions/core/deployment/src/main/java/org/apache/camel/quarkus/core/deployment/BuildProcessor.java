@@ -16,24 +16,10 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Properties;
-import java.util.Set;
-import java.util.stream.Stream;
-import javax.inject.Inject;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
-import io.quarkus.arc.deployment.BeanContainerListenerBuildItem;
-import io.quarkus.arc.deployment.RuntimeBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -42,176 +28,207 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.quarkus.core.runtime.CamelConfig;
-import org.apache.camel.quarkus.core.runtime.CamelConfig.BuildTime;
-import org.apache.camel.quarkus.core.runtime.CamelProducers;
-import org.apache.camel.quarkus.core.runtime.CamelRecorder;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.quarkus.core.runtime.support.RuntimeRegistry;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.core.CamelMainProducers;
+import org.apache.camel.quarkus.core.CamelMainRecorder;
+import org.apache.camel.quarkus.core.CamelProducers;
+import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
 
-    @Inject
-    ApplicationArchivesBuildItem applicationArchivesBuildItem;
-    @Inject
-    CombinedIndexBuildItem combinedIndexBuildItem;
+    /*
+     * Build steps related to camel core.
+     */
+    public static class Core {
 
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelRuntimeBuildItem create(
+        @BuildStep
+        void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
+            beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelProducers.class));
+        }
+
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        CamelRegistryBuildItem registry(
             CamelRecorder recorder,
-            List<CamelBeanBuildItem> camelBeans,
-            BuildProducer<RuntimeBeanBuildItem> runtimeBeans) {
+            RecorderContext recorderContext,
+            ApplicationArchivesBuildItem applicationArchives,
+            List<CamelBeanBuildItem> registryItems) {
 
-        RuntimeRegistry registry = new RuntimeRegistry();
-        RuntimeValue<CamelRuntime> camelRuntime = recorder.create(registry);
+            RuntimeValue<Registry> registry = recorder.createRegistry();
 
-        getBuildTimeRouteBuilderClasses().forEach(
-            b -> recorder.addBuilder(camelRuntime, b)
-        );
+            CamelSupport.services(applicationArchives)
+                .filter(si -> {
+                    //
+                    // by default all the service found in META-INF/service/org/apache/camel are
+                    // bound to the registry but some of the services are then replaced or set
+                    // to the camel context directly by extension so it does not make sense to
+                    // instantiate them in this phase.
+                    //
+                    boolean blacklisted = si.path.endsWith("reactive-executor") || si.path.endsWith("platform-http");
+                    if (blacklisted) {
+                        LOGGER.debug("Ignore service: {}", si);
+                    }
 
-        services().filter(
-            si -> camelBeans.stream().noneMatch(
-                c -> Objects.equals(si.name, c.getName()) && c.getType().isAssignableFrom(si.type)
-            )
-        ).forEach(
-            si -> {
-                LOGGER.debug("Binding camel service {} with type {}", si.name, si.type);
+                    return !blacklisted;
+                })
+                .forEach(si -> {
+                    LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
+
+                    recorder.bind(
+                        registry,
+                        si.name,
+                        recorderContext.classProxy(si.type)
+                    );
+                });
+
+            for (CamelBeanBuildItem item : registryItems) {
+                LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
 
                 recorder.bind(
-                    camelRuntime,
-                    si.name,
-                    si.type
+                    registry,
+                    item.getName(),
+                    item.getType(),
+                    item.getValue()
                 );
             }
-        );
 
-        for (CamelBeanBuildItem item: camelBeans) {
-            LOGGER.debug("Binding item with name: {}, type {}", item.getName(), item.getType());
-
-            recorder.bind(
-                camelRuntime,
-                item.getName(),
-                item.getType(),
-                item.getValue()
-            );
+            return new CamelRegistryBuildItem(registry);
         }
 
-        runtimeBeans.produce(RuntimeBeanBuildItem.builder(CamelRuntime.class).setRuntimeValue(camelRuntime).build());
-
-        return new CamelRuntimeBuildItem(camelRuntime);
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    AdditionalBeanBuildItem createProducers(
-            CamelRuntimeBuildItem runtime,
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        CamelContextBuildItem context(
             CamelRecorder recorder,
-            BuildProducer<BeanContainerListenerBuildItem> listeners) {
+            CamelRegistryBuildItem registry,
+            BeanContainerBuildItem beanContainer,
+            CamelConfig.BuildTime buildTimeConfig) {
 
-        listeners.produce(new BeanContainerListenerBuildItem(recorder.initRuntimeInjection(runtime.getRuntime())));
+            RuntimeValue<CamelContext> context = recorder.createContext(registry.getRegistry(), beanContainer.getValue(), buildTimeConfig);
+            return new CamelContextBuildItem(context);
+        }
 
-        return AdditionalBeanBuildItem.unremovableOf(CamelProducers.class);
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    void init(
-            // TODO: keep this field as we need to be sure ArC is initialized before starting events
-            //       We need to re-evaluate the need of fire events from context once doing
-            //       https://github.com/apache/camel-quarkus/issues/9
-            BeanContainerBuildItem beanContainerBuildItem,
-            CamelRuntimeBuildItem runtime,
+        @Record(ExecutionTime.RUNTIME_INIT)
+        @BuildStep
+        CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
             CamelRecorder recorder,
-            BuildTime buildTimeConfig) {
+            CamelRegistryBuildItem registry,
+            List<CamelRuntimeBeanBuildItem> registryItems) {
 
-        recorder.init(runtime.getRuntime(), buildTimeConfig);
-    }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
-    @BuildStep
-    void start(
-            CamelRecorder recorder,
-            CamelRuntimeBuildItem runtime,
-            ShutdownContextBuildItem shutdown,
-            // TODO: keep this list as placeholder to ensure the ArC container is fully
-            //       started before starting the runtime
-            List<ServiceStartBuildItem> startList,
-            CamelConfig.Runtime runtimeConfig)
-            throws Exception {
+            for (CamelRuntimeBeanBuildItem item : registryItems) {
+                LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
-        recorder.start(shutdown, runtime.getRuntime(), runtimeConfig);
-    }
-
-    protected Stream<String> getBuildTimeRouteBuilderClasses() {
-        Set<ClassInfo> allKnownImplementors = new HashSet<>();
-        allKnownImplementors.addAll(
-                combinedIndexBuildItem.getIndex().getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-        allKnownImplementors.addAll(
-                combinedIndexBuildItem.getIndex().getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-        allKnownImplementors.addAll(combinedIndexBuildItem.getIndex()
-                .getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
-
-        return allKnownImplementors
-                .stream()
-                .filter(CamelSupport::isConcrete)
-                .filter(CamelSupport::isPublic)
-                .map(ClassInfo::toString);
-    }
-
-    protected Stream<ServiceInfo> services() {
-        return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-            .map(this::services)
-            .flatMap(Collection::stream);
-    }
-
-    protected List<ServiceInfo> services(Path p) {
-        List<ServiceInfo> answer = new ArrayList<>();
-
-        String name = p.getFileName().toString();
-        try (InputStream is = Files.newInputStream(p)) {
-            Properties props = new Properties();
-            props.load(is);
-            for (Map.Entry<Object, Object> entry : props.entrySet()) {
-                String k = entry.getKey().toString();
-                if (k.equals("class")) {
-                    String clazz = entry.getValue().toString();
-                    Class<?> cl = Class.forName(clazz);
-
-                    answer.add(new ServiceInfo(name, cl));
-                }
+                recorder.bind(
+                    registry.getRegistry(),
+                    item.getName(),
+                    item.getType(),
+                    item.getValue()
+                );
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
 
-        return answer;
+            return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
+        }
     }
 
-    static class ServiceInfo {
-        final String name;
-        final Class<?> type;
+    /*
+     * Build steps related to camel main that are activated by default but can be
+     * disabled by setting quarkus.camel.disable-main = true
+     */
+    public static class Main {
 
-        public ServiceInfo(String name, Class<?> type) {
-            this.name = name;
-            this.type = type;
+        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
+            beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
 
-        @Override
-        public String toString() {
-            return "ServiceInfo{"
-                + "name='" + name + '\''
-                + ", type=" + type
-                + '}';
+        /**
+         * This method is responsible to configure camel-main during static init phase which means
+         * discovering routes, listeners and services that need to be bound to the camel-main.
+         * <p>
+         * This method should not attempt to start or initialize camel-main as this need to be done
+         * at runtime.
+         */
+        @SuppressWarnings("unchecked")
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        CamelMainBuildItem main(
+            CombinedIndexBuildItem combinedIndex,
+            CamelMainRecorder recorder,
+            RecorderContext recorderContext,
+            CamelContextBuildItem context,
+            List<CamelMainListenerBuildItem> listeners,
+            List<CamelRoutesBuilderBuildItem> routesBuilders,
+            BeanContainerBuildItem beanContainer) {
+
+            RuntimeValue<CamelMain> main = recorder.createCamelMain(context.getCamelContext(), beanContainer.getValue());
+            for (CamelMainListenerBuildItem listener : listeners) {
+                recorder.addListener(main, listener.getListener());
+            }
+
+            CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex()).forEach(name -> {
+                recorder.addRouteBuilder(main, (Class<RoutesBuilder>)recorderContext.classProxy(name));
+            });
+            routesBuilders.forEach(routesBuilder -> {
+                recorder.addRouteBuilder(main, routesBuilder.getInstance());
+            });
+
+            return new CamelMainBuildItem(main);
+        }
+
+        /**
+         * This method is responsible to start camel-main ar runtime.
+         *
+         * @param recorder  the recorder.
+         * @param main      a reference to a {@link CamelMain}.
+         * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
+         *                  ensure the {@link Registry} is fully configured before starting camel-main.
+         * @param config    runtime configuration.
+         * @param executors the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                  threads and so on. Note that we now expect a list of executors but that's because there is
+         *                  no way as of quarkus 0.23.x to have optional items.
+         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
+         *                  is required as under the hoods the camel registry may look-up beans form the
+         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
+         */
+        @Record(ExecutionTime.RUNTIME_INIT)
+        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        void start(
+            CamelMainRecorder recorder,
+            CamelMainBuildItem main,
+            CamelRuntimeRegistryBuildItem registry,
+            CamelConfig.Runtime config,
+            List<CamelReactiveExecutorBuildItem> executors,  // TODO: replace with @Overridable
+            ShutdownContextBuildItem shutdown,
+            List<ServiceStartBuildItem> startList) {
+
+            //
+            // Note that this functionality may be incorporated by camel-main, see:
+            //
+            //     https://issues.apache.org/jira/browse/CAMEL-14050
+            //
+            config.routesUris.forEach(location -> {
+                recorder.addRoutesFromLocation(main.getInstance(), location);
+            });
+
+            if (executors.size() > 1) {
+                throw new IllegalArgumentException("Detected multiple reactive executors");
+            } else if (executors.size() == 1) {
+                recorder.setReactiveExecutor(main.getInstance(), executors.get(0).getInstance());
+            }
+
+            recorder.start(shutdown, main.getInstance());
         }
     }
 }

@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-microprofile-metrics</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: microprofile-metrics</name>
+    <name>Camel Quarkus :: Integration Tests :: Microprofile Metrics</name>
     <description>Integration tests for Camel Quarkus microprofile-metrics extension</description>
 
     <dependencies>
@@ -37,6 +37,10 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>

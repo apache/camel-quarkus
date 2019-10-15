@@ -19,23 +19,19 @@ package org.apache.camel.quarkus.component.platform.http.runtime;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.ext.web.Router;
-
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
-import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
-import org.apache.camel.quarkus.core.runtime.CamelRuntime;
-import org.apache.camel.spi.Registry;
 
 @Recorder
 public class PlatformHttpRecorder {
-
-    public void registerPlatformHttpComponent(RuntimeValue<CamelRuntime> runtime, RuntimeValue<Router> router) {
-        final Registry registry = runtime.getValue().getRegistry();
-        final PlatformHttpEngine engine = new QuarkusPlatformHttpEngine(router.getValue());
-        registry.bind(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class, engine);
-
-        final PlatformHttpComponent component = new PlatformHttpComponent(runtime.getValue().getContext());
-        registry.bind(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, PlatformHttpComponent.class, component);
+    public RuntimeValue<PlatformHttpEngine> createEngine(RuntimeValue<Router> router) {
+        return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue()));
     }
 
+    public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
+        PlatformHttpComponent component = new PlatformHttpComponent();
+        component.setEngine(engine.getValue());
+
+        return new RuntimeValue<>(component);
+    }
 }

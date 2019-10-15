@@ -13,6 +13,7 @@
 
     <properties>
         <jakarta-mail-version>1.6.4</jakarta-mail-version>
+        <firstVersion>0.2.0</firstVersion>
     </properties>
 
     <dependencyManagement>

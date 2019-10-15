@@ -28,6 +28,10 @@
     <artifactId>camel-quarkus-aws-s3</artifactId>
     <name>Camel Quarkus :: AWS S3 :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

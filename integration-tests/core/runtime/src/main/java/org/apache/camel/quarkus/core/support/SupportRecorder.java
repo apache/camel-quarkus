@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.support;
 
+import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.Component;
 import org.apache.camel.component.log.LogComponent;
@@ -23,7 +24,7 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Recorder
 public class SupportRecorder {
-    public Component logComponent() {
+    public RuntimeValue<Component> logComponent() {
         DefaultExchangeFormatter def = new DefaultExchangeFormatter();
         def.setShowAll(true);
         def.setMultiline(true);
@@ -31,6 +32,6 @@ public class SupportRecorder {
         LogComponent component = new LogComponent();
         component.setExchangeFormatter(def);
 
-        return component;
+        return new RuntimeValue<>(component);
     }
 }

@@ -26,14 +26,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-core-impl</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core :: Impl</name>
+    <name>Camel Quarkus :: Integration Tests :: Core Impl</name>
     <description>The camel integration tests</description>
 
     <dependencies>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core-cloud</artifactId>

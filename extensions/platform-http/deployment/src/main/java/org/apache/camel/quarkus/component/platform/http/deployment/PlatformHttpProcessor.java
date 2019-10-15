@@ -21,9 +21,11 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
-
+import org.apache.camel.component.platform.http.PlatformHttpComponent;
+import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBuildItem;
+import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
+import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 
 class PlatformHttpProcessor {
 
@@ -36,8 +38,30 @@ class PlatformHttpProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    void platformHttpComponent(PlatformHttpRecorder recorder, CamelRuntimeBuildItem runtime, VertxWebRouterBuildItem router) {
-        recorder.registerPlatformHttpComponent(runtime.getRuntime(), router.getRouter());
+    PlatformHttpEngineBuildItem platformHttpEngine(PlatformHttpRecorder recorder, VertxWebRouterBuildItem router) {
+        return new PlatformHttpEngineBuildItem(
+            recorder.createEngine(router.getRouter())
+        );
     }
 
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    CamelRuntimeBeanBuildItem platformHttpEngineBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
+        return new CamelRuntimeBeanBuildItem(
+            PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME,
+            QuarkusPlatformHttpEngine.class,
+            engine.getInstance()
+        );
+    }
+
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    CamelRuntimeBeanBuildItem platformHttpComponentBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
+        return new CamelRuntimeBeanBuildItem(
+            PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
+            PlatformHttpComponent.class,
+            recorder.createComponent(engine.getInstance())
+        );
+    }
 }

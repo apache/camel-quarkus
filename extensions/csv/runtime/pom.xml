@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-csv</artifactId>
     <name>Camel Quarkus :: CSV :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.2.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

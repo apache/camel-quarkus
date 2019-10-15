@@ -21,7 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import io.quarkus.jaxb.deployment.JaxbEnabledBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
-import org.apache.camel.quarkus.core.runtime.support.Flags;
+import org.apache.camel.quarkus.core.Flags;
 
 class XmlProcessor {
     @BuildStep
