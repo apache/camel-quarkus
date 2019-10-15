@@ -1,0 +1,34 @@
+[[fhir]]
+= FHIR Extension
+
+*Available as of Camel Quarkus version 0.21*
+
+The FHIR extension integrates with the
+http://hapifhir.io/[HAPI-FHIR] library which is an open-source implementation of the
+http://hl7.org/implement/standards/fhir/[FHIR] (Fast Healthcare Interoperability Resources) specification in Java.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-fhir</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension supports the Camel https://camel.apache.org/components/latest/fhirJson-dataformat.html[FHIR Json Dataformat], https://camel.apache.org/components/latest/fhirXml-dataformat.html[FHIR XML Dataformat] and https://camel.apache.org/components/latest/fhir-component.html[FHIR Component]. DSTU2, DSTU3 and R4 are supported.
+
+=== Configuration
+
+The https://hapifhir.io/download.html[hapi-fhir] library, on which camel-fhir depends on, heavily uses reflection which affects performance in Quarkus (memory footprint, build time, CPU resources etc...). The following options are provided to improve on this:
+
+* `camel.fhir.enable-dstu2`: enables dstu2 resources, default `true`
+* `camel.fhir.enable-dstu3`: enables dstu3 resources, default `true`
+* `camel.fhir.enable-r4`: : enables r4 resources, default `true`
+
+which can be configured within the `application.properties` configuration file.
+
+Enjoy !

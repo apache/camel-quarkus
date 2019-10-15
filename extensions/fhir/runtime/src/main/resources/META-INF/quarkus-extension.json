@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus FHIR",
+  "labels": [
+    "integration",
+    "camel",
+    "healthcare"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

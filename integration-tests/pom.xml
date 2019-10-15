@@ -91,6 +91,7 @@
         <module>aws</module>
         <module>bean</module>
         <module>csv</module>
+        <module>fhir</module>
         <module>infinispan</module>
         <module>jdbc</module>
         <module>mail</module>
