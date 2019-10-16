@@ -27,6 +27,8 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.model.Model;
+import org.apache.camel.model.ModelHelper;
+import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -81,8 +83,10 @@ public class CamelMainRecorder {
         if (ObjectHelper.isNotEmpty(location)) {
             // TODO: if pointing to a directory, we should load all xmls in it
             //       (maybe with glob support in it to be complete)
-            try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(main.getValue().getCamelContext(), location)) {
-                main.getValue().getCamelContext().getExtension(Model.class).addRouteDefinitions(is);
+            CamelContext camelContext = main.getValue().getCamelContext();
+            try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(camelContext, location)) {
+                RoutesDefinition routes = ModelHelper.loadRoutesDefinition(camelContext, is);
+                camelContext.getExtension(Model.class).addRouteDefinitions(routes.getRoutes());
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
