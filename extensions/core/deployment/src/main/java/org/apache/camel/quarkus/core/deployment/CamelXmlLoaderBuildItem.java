@@ -14,20 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.deployment;
 
-import java.util.function.BooleanSupplier;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.quarkus.core.XmlLoader;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+/**
+ * Holds the {@link ModelJAXBContextFactory} instance.
+ */
+public final class CamelXmlLoaderBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<XmlLoader> value;
 
-public final class Flags {
-    private Flags() {
+    public CamelXmlLoaderBuildItem(RuntimeValue<XmlLoader> value) {
+        this.value = value;
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
-        }
+    public RuntimeValue<XmlLoader> getXmlLoader() {
+        return value;
     }
 }

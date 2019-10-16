@@ -16,18 +16,21 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import org.apache.camel.CamelContext;
+import org.apache.camel.model.validator.PredicateValidatorDefinition;
+import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.Validator;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+public class DisabledPredicateValidatorReifier extends ValidatorReifier<PredicateValidatorDefinition> {
 
-public final class Flags {
-    private Flags() {
+    public DisabledPredicateValidatorReifier(ValidatorDefinition definition) {
+        super((PredicateValidatorDefinition) definition);
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
-        }
+    @Override
+    protected Validator doCreateValidator(CamelContext context) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
+
 }

@@ -16,18 +16,20 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import org.apache.camel.Processor;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.ValidateDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.spi.RouteContext;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+public class DisabledValidateReifier extends ProcessorReifier<ValidateDefinition> {
 
-public final class Flags {
-    private Flags() {
+    public DisabledValidateReifier(ProcessorDefinition<?> definition) {
+        super((ValidateDefinition) definition);
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
-        }
+    @Override
+    public Processor createProcessor(RouteContext routeContext) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
 }

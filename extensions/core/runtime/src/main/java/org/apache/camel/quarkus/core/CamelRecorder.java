@@ -20,10 +20,12 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.RuntimeCamelException;
+import org.apache.camel.model.ValidateDefinition;
+import org.apache.camel.model.validator.PredicateValidatorDefinition;
+import org.apache.camel.reifier.ProcessorReifier;
+import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.Registry;
-import org.graalvm.nativeimage.ImageInfo;
 
 @Recorder
 public class CamelRecorder {
@@ -32,28 +34,19 @@ public class CamelRecorder {
     }
 
     @SuppressWarnings("unchecked")
-    public RuntimeValue<CamelContext> createContext(RuntimeValue<Registry> registry, BeanContainer beanContainer, CamelConfig.BuildTime buildTimeConfig) {
+    public RuntimeValue<CamelContext> createContext(
+                RuntimeValue<Registry> registry,
+                RuntimeValue<ModelJAXBContextFactory> contextFactory,
+                RuntimeValue<XmlLoader> xmlLoader,
+                BeanContainer beanContainer,
+                CamelConfig.BuildTime buildTimeConfig) {
         FastCamelContext context = new FastCamelContext();
         context.setRegistry(registry.getValue());
         context.setLoadTypeConverters(false);
         context.getTypeConverterRegistry().setInjector(context.getInjector());
+        context.setModelJAXBContextFactory(contextFactory.getValue());
 
-        try {
-            // The creation of the JAXB context is very time consuming, so always prepare it
-            // when running in native mode, but lazy create it in java mode so that we don't
-            // waste time if using java routes
-            if (buildTimeConfig.disableJaxb) {
-                context.adapt(ExtendedCamelContext.class).setModelJAXBContextFactory(() -> {
-                    throw new UnsupportedOperationException();
-                });
-            } else if (ImageInfo.inImageBuildtimeCode()) {
-                context.adapt(ExtendedCamelContext.class).getModelJAXBContextFactory().newJAXBContext();
-            }
-        } catch (Exception e) {
-            throw RuntimeCamelException.wrapRuntimeCamelException(e);
-        }
-
-        FastModel model = new FastModel(context);
+        FastModel model = new FastModel(context, xmlLoader.getValue());
 
         context.setModel(model);
         context.init();
@@ -92,5 +85,18 @@ public class CamelRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void disableXmlReifiers() {
+        ProcessorReifier.registerReifier(ValidateDefinition.class, DisabledValidateReifier::new);
+        ValidatorReifier.registerReifier(PredicateValidatorDefinition.class, DisabledPredicateValidatorReifier::new);
+    }
+
+    public RuntimeValue<ModelJAXBContextFactory> newDisabledModelJAXBContextFactory() {
+        return new RuntimeValue<>(new DisabledModelJAXBContextFactory());
+    }
+
+    public RuntimeValue<XmlLoader> newDisabledXmlLoader() {
+        return new RuntimeValue<>(new DisabledXmlLoader());
     }
 }
