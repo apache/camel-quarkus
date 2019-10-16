@@ -16,18 +16,22 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import java.io.InputStream;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.CamelContext;
+import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 
-public final class Flags {
-    private Flags() {
+public class DisabledXmlLoader implements XmlLoader {
+
+    @Override
+    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
-        }
+    @Override
+    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
+
 }

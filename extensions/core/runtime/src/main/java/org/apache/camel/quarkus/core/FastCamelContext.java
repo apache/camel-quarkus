@@ -31,7 +31,6 @@ import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
-import org.apache.camel.impl.DefaultModelJAXBContextFactory;
 import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseRouteService;
@@ -230,7 +229,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected ModelJAXBContextFactory createModelJAXBContextFactory() {
-        return new DefaultModelJAXBContextFactory();
+        return new DisabledModelJAXBContextFactory();
     }
 
     @Override

@@ -27,28 +27,6 @@ public class CamelConfig {
     @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
     public static class BuildTime {
         /**
-         * Camel jaxb support is enabled by default, but in order to trim
-         * down the size of applications, it is possible to disable jaxb support
-         * at runtime. This is useful when routes at loaded at build time and
-         * thus the camel route model is not used at runtime anymore.
-         *
-         * @see Flags.JaxbDisabled
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableJaxb;
-
-        /**
-         * Disable XML support in various parts of Camel.
-         * Because xml parsing using xerces/xalan libraries can consume
-         * a lot of code space in the native binary (and a lot of cpu resources
-         * when building), this allows to disable both libraries.
-         *
-         * @see Flags.XmlDisabled
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableXml;
-
-        /**
          * Disable camel-main.
          * When main is disabled, routes won't be automatically be loaded and
          * started and the entire lifecycle of the Camel Context is under user

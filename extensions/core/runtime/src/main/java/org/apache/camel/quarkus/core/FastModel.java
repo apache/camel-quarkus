@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,14 +37,19 @@ import org.apache.camel.model.OnExceptionDefinition;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteDefinitionHelper;
+import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.processor.channel.DefaultChannel;
 import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.support.CamelContextHelper;
 
-public class FastModel extends DefaultModel {
+public class FastModel extends BaseModel {
 
-    public FastModel(CamelContext camelContext) {
+    private final XmlLoader xmlLoader;
+
+    public FastModel(CamelContext camelContext, XmlLoader xmlLoader) {
         super(camelContext);
+        this.xmlLoader = xmlLoader;
     }
 
     @Override

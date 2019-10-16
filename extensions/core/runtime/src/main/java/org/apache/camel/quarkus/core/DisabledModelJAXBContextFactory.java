@@ -16,18 +16,16 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
-public final class Flags {
-    private Flags() {
+public class DisabledModelJAXBContextFactory implements ModelJAXBContextFactory {
+
+    @Override
+    public JAXBContext newJAXBContext() throws JAXBException {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
-        }
-    }
 }

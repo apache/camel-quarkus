@@ -23,9 +23,11 @@ import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
@@ -38,6 +40,8 @@ import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
+import org.apache.camel.quarkus.core.DisabledXmlLoader;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
@@ -105,15 +109,41 @@ class BuildProcessor {
             return new CamelRegistryBuildItem(registry);
         }
 
+        @Overridable
+        @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelModelJAXBContextFactoryBuildItem createJaxbContextFactory(CamelRecorder recorder) {
+            return new CamelModelJAXBContextFactoryBuildItem(recorder.newDisabledModelJAXBContextFactory());
+        }
+
+        @Overridable
+        @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelXmlLoaderBuildItem createXmlLoader(CamelRecorder recorder) {
+            return new CamelXmlLoaderBuildItem(recorder.newDisabledXmlLoader());
+        }
+
+        @BuildStep
+        @Record(ExecutionTime.STATIC_INIT)
+        void disableXmlReifiers(CamelRecorder recorder, List<FeatureBuildItem> features) {
+            if (features.stream().map(FeatureBuildItem::getInfo).noneMatch("camel-xml"::equals)) {
+                recorder.disableXmlReifiers();
+            }
+        }
+
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelContextBuildItem context(
             CamelRecorder recorder,
             CamelRegistryBuildItem registry,
+            CamelModelJAXBContextFactoryBuildItem contextFactory,
+            CamelXmlLoaderBuildItem xmlLoader,
             BeanContainerBuildItem beanContainer,
             CamelConfig.BuildTime buildTimeConfig) {
 
-            RuntimeValue<CamelContext> context = recorder.createContext(registry.getRegistry(), beanContainer.getValue(), buildTimeConfig);
+            RuntimeValue<CamelContext> context = recorder.createContext(registry.getRegistry(),
+                    contextFactory.getContextFactory(), xmlLoader.getXmlLoader(),
+                    beanContainer.getValue(), buildTimeConfig);
             return new CamelContextBuildItem(context);
         }
 
