@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Tarfile",
+  "labels": [
+    "integration",
+    "camel",
+    "tar",
+    "file"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}

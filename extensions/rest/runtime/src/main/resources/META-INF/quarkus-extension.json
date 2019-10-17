@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Rest",
+  "labels": [
+    "integration",
+    "camel",
+    "rest"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

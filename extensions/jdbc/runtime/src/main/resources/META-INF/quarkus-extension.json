@@ -1,0 +1,11 @@
+{
+  "name": "Camel Quarkus JDBC",
+  "labels": [
+    "integration",
+    "camel",
+    "jdbc",
+    "database"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

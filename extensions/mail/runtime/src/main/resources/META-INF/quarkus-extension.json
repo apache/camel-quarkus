@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Mail",
+  "labels": [
+    "integration",
+    "camel",
+    "mail"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

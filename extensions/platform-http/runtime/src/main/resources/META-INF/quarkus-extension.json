@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Platform HTTP",
+  "labels": [
+    "integration",
+    "camel",
+    "http"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

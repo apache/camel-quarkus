@@ -1,0 +1,11 @@
+{
+  "name": "Camel Quarkus Twitter",
+  "labels": [
+    "integration",
+    "camel",
+    "social",
+    "twitter"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

@@ -1,0 +1,11 @@
+{
+  "name": "Camel Quarkus Infinispan",
+  "labels": [
+    "integration",
+    "camel",
+    "infinispan",
+    "cache"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

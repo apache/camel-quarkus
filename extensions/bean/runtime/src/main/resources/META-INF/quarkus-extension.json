@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Bean",
+  "labels": [
+    "integration",
+    "camel"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+
+
