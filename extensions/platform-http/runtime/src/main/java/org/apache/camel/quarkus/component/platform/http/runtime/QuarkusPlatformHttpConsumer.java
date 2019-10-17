@@ -106,14 +106,12 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         cfg.getOptionalValue("quarkus.http.body.preallocate-body-buffer", boolean.class).ifPresent(bodyHandler::setPreallocateBodyBuffer);
 
         newRoute
-            //
-            // This should not be needed but because the default route added by quarkus (i.e. in case
-            // the quarkus-resteasy extension is in the classpath) is a catch all, it is required to
-            // configure the route to be evaluated before the default one.
-            //
-            // TODO: remove this after https://github.com/quarkusio/quarkus/issues/4407 is fixed.
-            //
-            .order(-1)
+            .handler(ctx -> {
+                // Workaround for route blocking and not handling any request
+                // on quarkus 0.24.0
+                ctx.request().resume();
+                ctx.next();
+            })
             .handler(bodyHandler)
             .handler(ctx -> {
                 try {
