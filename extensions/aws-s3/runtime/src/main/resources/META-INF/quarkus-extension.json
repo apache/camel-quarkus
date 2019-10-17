@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus AWS S3",
+  "labels": [
+    "integration",
+    "camel",
+    "aws",
+    "cloud"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}

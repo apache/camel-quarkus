@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Reactive Executor",
+  "labels": [
+    "integration",
+    "camel",
+    "reactive"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

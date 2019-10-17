@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Salesforce",
+  "labels": [
+    "integration",
+    "camel",
+    "salesforce"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+
