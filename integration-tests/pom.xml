@@ -92,6 +92,7 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>netty-http</module>
+        <module>opentracing</module>
         <module>paho</module>
         <module>platform-http</module>
         <module>salesforce</module>
