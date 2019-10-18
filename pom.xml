@@ -68,6 +68,23 @@
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
 
+        <mvnd.builder.rules>
+            camel-quarkus-core-deployment,camel-quarkus-aws-*-deployment,camel-quarkus-log-deployment,camel-quarkus-timer-deployment -> camel-quarkus-integration-test-aws
+            camel-quarkus-core-deployment,camel-quarkus-bean-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-bean
+            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-xml-common-deployment -> camel-quarkus-integration-test-core-cdi
+            camel-quarkus-core-deployment,camel-quarkus-core-cloud-deployment -> camel-quarkus-integration-test-core-impl
+            camel-quarkus-core-deployment,camel-quarkus-csv-deployment,camel-quarkus-direct-deployment -> camel-quarkus-integration-test-csv
+            camel-quarkus-core-deployment,camel-quarkus-infinispan-deployment,camel-quarkus-log-deployment,camel-quarkus-netty-http-deployment -> camel-quarkus-integration-test-infinispan
+            camel-quarkus-core-deployment,camel-quarkus-jdbc-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-jdbc
+            camel-quarkus-core-deployment,camel-quarkus-mail-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-mail
+            camel-quarkus-core-deployment,camel-quarkus-microprofile-metrics-deployment,camel-quarkus-direct-deployment -> camel-quarkus-integration-test-microprofile-metrics
+            camel-quarkus-core-deployment,camel-quarkus-netty-http-deployment,camel-quarkus-core-deployment -> camel-quarkus-integration-test-netty-http
+            camel-quarkus-core-deployment,camel-quarkus-paho-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-paho
+            camel-quarkus-core-deployment,camel-quarkus-salesforce-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-salesforce
+            camel-quarkus-core-deployment,camel-quarkus-servlet-deployment,camel-quarkus-rest-deployment,camel-quarkus-core-cloud-deployment -> camel-quarkus-integration-test-servlet
+            camel-quarkus-core-deployment,camel-quarkus-twitter-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-twitter
+            camel-quarkus-core-deployment,camel-quarkus-zipfile-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-zipfile
+        </mvnd.builder.rules>
     </properties>
 
     <modules>
