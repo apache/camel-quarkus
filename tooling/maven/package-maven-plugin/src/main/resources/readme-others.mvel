@@ -6,7 +6,7 @@ Number of miscellaneous extensions: @{others.size} in @{numberOfArtifacts} JAR a
 |===
 | Extension | Since | Description
 @foreach{row : others}
-| (@{row.artifactId}) | @{row.firstVersionShort} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
+|@if{row.docLink != null} @{row.docLink}[@{row.artifactId}] @else{} (@{row.artifactId})@end{} | @{row.firstVersionShort} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
 @end{}|===
 
 @end{}

@@ -44,7 +44,7 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/mail-component.html[Mail] (camel-quarkus-mail) +
 `imap:host:port` | 0.2 | To send or receive emails using imap/pop3 or smtp protocols.
 
-| link:https://camel.apache.org/components/latest/microprofile-metrics-component.html[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
+| xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 0.2 | Camel metrics exposed with Eclipse MicroProfile Metrics
 
 | link:https://camel.apache.org/components/latest/netty-http-component.html[Netty HTTP] (camel-quarkus-netty-http) +
@@ -144,9 +144,9 @@ Number of miscellaneous extensions: 5 in 5 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
 
-| (camel-quarkus-microprofile-health) | 0.2.1 | Integration with the Quarkus MicroProfile Health extension
+| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.2.1 | Integration with the Quarkus MicroProfile Health extension
 
-| (camel-quarkus-opentracing) | 0.2.1 | Distributed tracing using OpenTracing
+| xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.2.1 | Distributed tracing using OpenTracing
 |===
 // others: END
 
