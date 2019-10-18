@@ -86,9 +86,7 @@
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
-                    <!-- The bomEntryVersion should come with the upgrade to Quarkus 0.25
-                         see https://github.com/quarkusio/quarkus/pull/4514
-                    <bomEntryVersion>%{camel-quarkus.version}</bomEntryVersion> -->
+                    <bomEntryVersion>%{camel-quarkus.version}</bomEntryVersion>
                     <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
             </plugin>
