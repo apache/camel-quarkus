@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.maven;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -93,6 +95,12 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${project.directory}/../../../extensions")
     protected File readmeExtensionsDir;
+
+    /**
+     * The website doc base directory
+     */
+    @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages")
+    protected File websiteDocBaseDir;
 
     /**
      * The website doc for extensions
@@ -660,6 +668,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         component.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         component.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
         component.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
+        component.setExtensionsDocPath(getExtensionsDocPath());
 
         return component;
     }
@@ -680,6 +689,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         dataFormat.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         dataFormat.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
         dataFormat.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
+        dataFormat.setExtensionsDocPath(getExtensionsDocPath());
 
         return dataFormat;
     }
@@ -700,6 +710,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         language.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         language.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
         language.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
+        language.setExtensionsDocPath(getExtensionsDocPath());
 
         return language;
     }
@@ -718,8 +729,13 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         other.setGroupId(JSonSchemaHelper.getSafeValue("groupId", rows));
         other.setArtifactId(JSonSchemaHelper.getSafeValue("artifactId", rows));
         other.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
+        other.setExtensionsDocPath(getExtensionsDocPath());
 
         return other;
+    }
+
+    private Path getExtensionsDocPath() {
+        return Paths.get(websiteDocBaseDir.toString(), "extensions");
     }
 
 }
