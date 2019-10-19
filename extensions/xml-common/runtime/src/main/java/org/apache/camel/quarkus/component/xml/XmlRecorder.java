@@ -22,6 +22,8 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
+import org.apache.camel.main.DefaultRoutesCollector;
+import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.XmlLoader;
@@ -49,6 +51,10 @@ public class XmlRecorder {
 
     public RuntimeValue<XmlLoader> newDefaultXmlLoader() {
         return new RuntimeValue<>(new DefaultXmlLoader());
+    }
+
+    public RuntimeValue<RoutesCollector> newDefaultRoutesCollector() {
+        return new RuntimeValue<>(new DefaultRoutesCollector());
     }
 
     public void initXmlReifiers() {

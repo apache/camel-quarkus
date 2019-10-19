@@ -40,8 +40,6 @@ import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
-import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
-import org.apache.camel.quarkus.core.DisabledXmlLoader;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
@@ -141,9 +139,13 @@ class BuildProcessor {
             BeanContainerBuildItem beanContainer,
             CamelConfig.BuildTime buildTimeConfig) {
 
-            RuntimeValue<CamelContext> context = recorder.createContext(registry.getRegistry(),
-                    contextFactory.getContextFactory(), xmlLoader.getXmlLoader(),
-                    beanContainer.getValue(), buildTimeConfig);
+            RuntimeValue<CamelContext> context = recorder.createContext(
+                registry.getRegistry(),
+                contextFactory.getContextFactory(),
+                xmlLoader.getXmlLoader(),
+                beanContainer.getValue(),
+                buildTimeConfig);
+
             return new CamelContextBuildItem(context);
         }
 
@@ -175,6 +177,12 @@ class BuildProcessor {
      * disabled by setting quarkus.camel.disable-main = true
      */
     public static class Main {
+        @Overridable
+        @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelRoutesCollectorBuildItem createRoutesCollector(CamelMainRecorder recorder) {
+            return new CamelRoutesCollectorBuildItem(recorder.newDisabledXmlRoutesCollector());
+        }
 
         @BuildStep(onlyIfNot = Flags.MainDisabled.class)
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
@@ -203,11 +211,17 @@ class BuildProcessor {
             CamelMainRecorder recorder,
             RecorderContext recorderContext,
             CamelContextBuildItem context,
+            CamelRoutesCollectorBuildItem routesCollector,
             List<CamelMainListenerBuildItem> listeners,
             List<CamelRoutesBuilderBuildItem> routesBuilders,
             BeanContainerBuildItem beanContainer) {
 
-            RuntimeValue<CamelMain> main = recorder.createCamelMain(context.getCamelContext(), beanContainer.getValue());
+            RuntimeValue<CamelMain> main = recorder.createCamelMain(
+                context.getCamelContext(),
+                routesCollector.getValue(),
+                beanContainer.getValue()
+            );
+
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
             }
@@ -229,7 +243,6 @@ class BuildProcessor {
          * @param main      a reference to a {@link CamelMain}.
          * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
          *                  ensure the {@link Registry} is fully configured before starting camel-main.
-         * @param config    runtime configuration.
          * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
          *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
          *                  threads and so on.
@@ -244,19 +257,9 @@ class BuildProcessor {
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
             CamelRuntimeRegistryBuildItem registry,
-            CamelConfig.Runtime config,
             CamelReactiveExecutorBuildItem executor,
             ShutdownContextBuildItem shutdown,
             List<ServiceStartBuildItem> startList) {
-
-            //
-            // Note that this functionality may be incorporated by camel-main, see:
-            //
-            //     https://issues.apache.org/jira/browse/CAMEL-14050
-            //
-            config.routesUris.forEach(location -> {
-                recorder.addRoutesFromLocation(main.getInstance(), location);
-            });
 
             recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             recorder.start(shutdown, main.getInstance());
