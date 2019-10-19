@@ -14,18 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core;
 
-import java.util.Collections;
 import java.util.List;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.CamelContext;
+import org.apache.camel.main.DefaultRoutesCollector;
+import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.model.rest.RestsDefinition;
 
-class HotDeploymentProcessor {
-    @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> configFile(CamelConfig.Runtime config) {
-        return Collections.emptyList();
+public class DisabledXmlRoutesCollector extends DefaultRoutesCollector {
+
+    @Override
+    public List<RoutesDefinition> collectXmlRoutesFromDirectory(CamelContext camelContext, String directory) {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+    }
+
+    @Override
+    public List<RestsDefinition> collectXmlRestsFromDirectory(CamelContext camelContext, String directory) {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
     }
 }

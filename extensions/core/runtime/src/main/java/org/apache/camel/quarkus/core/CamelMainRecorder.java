@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.io.InputStream;
-
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
@@ -26,12 +24,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
-import org.apache.camel.model.Model;
-import org.apache.camel.model.ModelHelper;
-import org.apache.camel.model.RoutesDefinition;
+import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.spi.ReactiveExecutor;
-import org.apache.camel.support.ResourceHelper;
-import org.apache.camel.util.ObjectHelper;
 
 @Recorder
 public class CamelMainRecorder {
@@ -41,11 +35,19 @@ public class CamelMainRecorder {
 
     public RuntimeValue<CamelMain> createCamelMain(
             RuntimeValue<CamelContext> runtime,
+            RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container) {
 
         CamelMain main = new CamelMain();
+        main.setRoutesCollector(routesCollector.getValue());
         main.setCamelContext(runtime.getValue());
         main.addMainListener(new CamelMainEventDispatcher());
+
+        // xml rest/routes should be explicitly configured as an
+        // additional dependency is required thus, disable auto
+        // discovery
+        main.configure().setXmlRoutes("false");
+        main.configure().setXmlRests("false");
 
         // register to the container
         container.instance(CamelMainProducers.class).setMain(main);
@@ -76,23 +78,6 @@ public class CamelMainRecorder {
         }
     }
 
-    public void addRoutesFromLocation(
-            RuntimeValue<CamelMain> main,
-            String location) {
-
-        if (ObjectHelper.isNotEmpty(location)) {
-            // TODO: if pointing to a directory, we should load all xmls in it
-            //       (maybe with glob support in it to be complete)
-            CamelContext camelContext = main.getValue().getCamelContext();
-            try (InputStream is = ResourceHelper.resolveMandatoryResourceAsInputStream(camelContext, location)) {
-                RoutesDefinition routes = ModelHelper.loadRoutesDefinition(camelContext, is);
-                camelContext.getExtension(Model.class).addRouteDefinitions(routes.getRoutes());
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
-    }
-
     public void addListener(RuntimeValue<CamelMain> main, MainListener listener) {
         main.getValue().addMainListener(listener);
     }
@@ -100,6 +85,7 @@ public class CamelMainRecorder {
     public void setReactiveExecutor(RuntimeValue<CamelMain> main, RuntimeValue<ReactiveExecutor> executor) {
         main.getValue().getCamelContext().setReactiveExecutor(executor.getValue());
     }
+
     public void start(ShutdownContext shutdown, RuntimeValue<CamelMain> main) {
         shutdown.addShutdownTask(new Runnable() {
             @Override
@@ -118,5 +104,9 @@ public class CamelMainRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public RuntimeValue<RoutesCollector> newDisabledXmlRoutesCollector() {
+        return new RuntimeValue<>(new DisabledXmlRoutesCollector());
     }
 }

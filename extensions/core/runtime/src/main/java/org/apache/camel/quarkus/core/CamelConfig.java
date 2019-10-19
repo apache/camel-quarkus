@@ -16,14 +16,11 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.List;
-
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
 public class CamelConfig {
-
     @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
     public static class BuildTime {
         /**
@@ -44,15 +41,5 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "false")
         public boolean dumpRoutes;
-
-        /**
-         * A list of URIs containing the camel routes in the XML format to be
-         * loaded at runtime. Files can be loaded from either classpath or file
-         * system by prefixing the URI with {@code classpath:} or {@code file:}
-         * respectively.
-         */
-        @ConfigItem
-        public List<String> routesUris;
     }
-
 }

@@ -16,16 +16,21 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import java.util.Collections;
-import java.util.List;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.main.RoutesCollector;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.CamelConfig;
+/**
+ * Holds the {@link RoutesCollector} {@link RuntimeValue}. *
+ */
+public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<RoutesCollector> value;
 
-class HotDeploymentProcessor {
-    @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> configFile(CamelConfig.Runtime config) {
-        return Collections.emptyList();
+    public CamelRoutesCollectorBuildItem(RuntimeValue<RoutesCollector> value) {
+        this.value = value;
+    }
+
+    public RuntimeValue<RoutesCollector> getValue() {
+        return value;
     }
 }
