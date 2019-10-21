@@ -30,6 +30,6 @@ public class DisabledValidateReifier extends ProcessorReifier<ValidateDefinition
 
     @Override
     public Processor createProcessor(RouteContext routeContext) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 }

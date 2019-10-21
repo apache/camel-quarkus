@@ -25,7 +25,7 @@ public class DisabledModelJAXBContextFactory implements ModelJAXBContextFactory 
 
     @Override
     public JAXBContext newJAXBContext() throws JAXBException {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
 }

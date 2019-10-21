@@ -26,12 +26,12 @@ public class DisabledXmlLoader implements XmlLoader {
 
     @Override
     public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
     @Override
     public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
 }

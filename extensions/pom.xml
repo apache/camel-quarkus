@@ -36,9 +36,9 @@
         <module>support</module>
 
         <!-- common/shared extensions -->
-        <module>xml-common</module>
         <module>core</module>
         <module>core-cloud</module>
+        <module>core-xml</module>
         <module>http-common</module>
         <module>reactive-executor</module>
 

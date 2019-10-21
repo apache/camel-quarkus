@@ -71,7 +71,7 @@
         <mvnd.builder.rules>
             camel-quarkus-core-deployment,camel-quarkus-aws-*-deployment,camel-quarkus-log-deployment,camel-quarkus-timer-deployment -> camel-quarkus-integration-test-aws
             camel-quarkus-core-deployment,camel-quarkus-bean-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-bean
-            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-xml-common-deployment -> camel-quarkus-integration-test-core-cdi
+            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-core-xml-deployment -> camel-quarkus-integration-test-core-cdi
             camel-quarkus-core-deployment,camel-quarkus-core-cloud-deployment -> camel-quarkus-integration-test-core-impl
             camel-quarkus-core-deployment,camel-quarkus-csv-deployment,camel-quarkus-direct-deployment -> camel-quarkus-integration-test-csv
             camel-quarkus-core-deployment,camel-quarkus-infinispan-deployment,camel-quarkus-log-deployment,camel-quarkus-netty-http-deployment -> camel-quarkus-integration-test-infinispan

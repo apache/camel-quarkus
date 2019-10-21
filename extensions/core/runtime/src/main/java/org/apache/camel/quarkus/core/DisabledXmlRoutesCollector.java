@@ -27,11 +27,11 @@ public class DisabledXmlRoutesCollector extends DefaultRoutesCollector {
 
     @Override
     public List<RoutesDefinition> collectXmlRoutesFromDirectory(CamelContext camelContext, String directory) {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
     @Override
     public List<RestsDefinition> collectXmlRestsFromDirectory(CamelContext camelContext, String directory) {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-common");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 }
