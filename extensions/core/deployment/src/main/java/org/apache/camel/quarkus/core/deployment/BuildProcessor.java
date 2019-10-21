@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -33,6 +34,7 @@ import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
@@ -176,6 +178,19 @@ class BuildProcessor {
      * disabled by setting quarkus.camel.disable-main = true
      */
     public static class Main {
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        public List<CamelRoutesBuilderBuildItem> collectRoutes(
+                CombinedIndexBuildItem combinedIndex,
+                CamelMainRecorder recorder,
+                RecorderContext recorderContext) {
+            
+            return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
+                .map(recorderContext::<RoutesBuilder>newInstance)
+                .map(CamelRoutesBuilderBuildItem::new)
+                .collect(Collectors.toList());
+        }
+
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
@@ -202,13 +217,10 @@ class BuildProcessor {
          * This method should not attempt to start or initialize camel-main as this need to be done
          * at runtime.
          */
-        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIfNot = Flags.MainDisabled.class)
         CamelMainBuildItem main(
-            CombinedIndexBuildItem combinedIndex,
             CamelMainRecorder recorder,
-            RecorderContext recorderContext,
             CamelContextBuildItem context,
             CamelRoutesCollectorBuildItem routesCollector,
             List<CamelMainListenerBuildItem> listeners,
@@ -224,13 +236,9 @@ class BuildProcessor {
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
             }
-
-            CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex()).forEach(name -> {
-                recorder.addRouteBuilder(main, recorderContext.newInstance(name));
-            });
-            routesBuilders.forEach(routesBuilder -> {
+            for (CamelRoutesBuilderBuildItem routesBuilder : routesBuilders) {
                 recorder.addRouteBuilder(main, routesBuilder.getInstance());
-            });
+            }
 
             return new CamelMainBuildItem(main);
         }
