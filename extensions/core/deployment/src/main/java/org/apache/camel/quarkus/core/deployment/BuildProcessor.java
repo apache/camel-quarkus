@@ -184,7 +184,7 @@ class BuildProcessor {
                 CombinedIndexBuildItem combinedIndex,
                 CamelMainRecorder recorder,
                 RecorderContext recorderContext) {
-            
+
             return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
                 .map(recorderContext::<RoutesBuilder>newInstance)
                 .map(CamelRoutesBuilderBuildItem::new)
@@ -198,14 +198,14 @@ class BuildProcessor {
             return new CamelRoutesCollectorBuildItem(recorder.newDisabledXmlRoutesCollector());
         }
 
-        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
 
         @Overridable
         @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
-        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelReactiveExecutorBuildItem reactiveExecutor(CamelMainRecorder recorder) {
             return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
         }
@@ -218,7 +218,7 @@ class BuildProcessor {
          * at runtime.
          */
         @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
             CamelMainRecorder recorder,
             CamelContextBuildItem context,
@@ -259,7 +259,7 @@ class BuildProcessor {
          *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
-        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
         void start(
             CamelMainRecorder recorder,
             CamelMainBuildItem main,

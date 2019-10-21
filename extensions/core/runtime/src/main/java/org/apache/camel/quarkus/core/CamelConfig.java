@@ -24,13 +24,14 @@ public class CamelConfig {
     @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
     public static class BuildTime {
         /**
-         * Disable camel-main.
-         * When main is disabled, routes won't be automatically be loaded and
-         * started and the entire lifecycle of the Camel Context is under user
-         * control.
+         * Enable {@code camel-main}. If {@code true}, routes are automatically
+         * loaded and started and the entire lifecycle of the Camel Context is
+         * under the control of the {@code camel-main} component. Otherwise, the
+         * application developer is responsible for performing all the mentioned
+         * tasks.
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableMain;
+        @ConfigItem(defaultValue = "true")
+        public boolean enableMain;
     }
 
     @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)

@@ -172,10 +172,10 @@ class SubstrateProcessor {
 
     /*
      * SubstrateVM configuration steps related to camel main that are activated by default but can be
-     * disabled by setting quarkus.camel.disable-main = true
+     * disabled by setting quarkus.camel.enable-main = false
      */
     public static class Main {
-        @BuildStep(onlyIfNot = Flags.MainDisabled.class)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
         void process(
             CombinedIndexBuildItem combinedIndex,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
