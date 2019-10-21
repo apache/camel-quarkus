@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.http.server.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -56,7 +55,6 @@ class PlatformHttpTest {
             .then().body(equalTo("POST: /rest-post"));
     }
 
-    @Disabled("See https://github.com/quarkusio/quarkus/issues/4408")
     @Test
     public void invalidMethod() {
         RestAssured.post("/platform-http/hello")
