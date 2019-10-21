@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.fhir.it;
 
 import ca.uhn.fhir.context.FhirVersionEnum;
+import ca.uhn.fhir.parser.StrictErrorHandler;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.fhir.FhirJsonDataFormat;
 import org.apache.camel.component.fhir.FhirXmlDataFormat;
@@ -30,9 +31,11 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
         if (ENABLED) {
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
+            fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
             fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
+            fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             from("direct:json-to-dstu2")
                     .unmarshal(fhirJsonDataFormat)
