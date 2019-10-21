@@ -51,6 +51,10 @@
             <artifactId>camel-quarkus-core-xml</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-xml-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxb-deployment</artifactId>
         </dependency>
