@@ -21,13 +21,13 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-xml-common-parent</artifactId>
+        <artifactId>camel-quarkus-core-xml-parent</artifactId>
         <version>0.2.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-xml-common-deployment</artifactId>
-    <name>Camel Quarkus :: XML :: Common :: Deployment</name>
+    <artifactId>camel-quarkus-core-xml-deployment</artifactId>
+    <name>Camel Quarkus :: Core :: XML :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>
@@ -47,12 +47,12 @@
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jaxb-deployment</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-core-xml</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-common</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jaxb-deployment</artifactId>
         </dependency>
     </dependencies>
 

@@ -63,7 +63,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     private static final String DEFAULT_FIRST_VERSION = "0.2.0";
 
     private static final String[] EXCLUDE_EXTENSIONS = {
-            "http-common", "jetty-common", "support", "xml-common", "xstream-common"
+        "http-common", "support"
     };
 
     private static final Pattern SCHEME_PATTERN = Pattern.compile("\"scheme\": \"(.*)\"");

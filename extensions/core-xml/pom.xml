@@ -26,8 +26,8 @@
         <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-xml-common-parent</artifactId>
-    <name>Camel Quarkus :: XML :: Common</name>
+    <artifactId>camel-quarkus-core-xml-parent</artifactId>
+    <name>Camel Quarkus :: Core :: XML</name>
     <packaging>pom</packaging>
 
     <modules>
