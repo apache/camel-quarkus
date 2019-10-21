@@ -1,1 +1,8 @@
-{}
+{
+  "name": "Camel Quarkus Core Cloud",
+  "labels": [
+    "integration",
+    "camel"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
