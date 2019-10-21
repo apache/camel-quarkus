@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.jetty.common.deployment;
+package org.apache.camel.quarkus.support.jetty.deployment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +25,7 @@ import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.ProtocolHandlers;
 
-class JettyProcessor {
+class JettySupportProcessor {
     private static final List<Class<?>> JETTY_REFLECTIVE_CLASSES = Arrays.asList(
         HttpClient.class,
         ProtocolHandlers.class
