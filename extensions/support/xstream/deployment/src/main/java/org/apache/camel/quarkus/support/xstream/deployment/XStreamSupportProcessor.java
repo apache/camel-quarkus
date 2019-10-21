@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.xstream.common.deployment;
+package org.apache.camel.quarkus.support.xstream.deployment;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +35,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
 
-public class XStreamProcessor {
+public class XStreamSupportProcessor {
 
     private static final List<String> INTERFACES_TO_REGISTER = Arrays.asList(
         Converter.class.getName(),
