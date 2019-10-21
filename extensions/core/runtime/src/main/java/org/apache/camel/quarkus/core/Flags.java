@@ -24,10 +24,10 @@ public final class Flags {
     private Flags() {
     }
 
-    public static final class MainDisabled implements BooleanSupplier {
+    public static final class MainEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
+            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.enable-main", Boolean.class).orElse(Boolean.TRUE);
         }
     }
 }
