@@ -27,7 +27,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-extensions-support</artifactId>
+    <artifactId>camel-quarkus-support-extensions</artifactId>
     <name>Camel Quarkus :: Support</name>
     <packaging>pom</packaging>
 
