@@ -33,7 +33,6 @@ import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
@@ -227,7 +226,7 @@ class BuildProcessor {
             }
 
             CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex()).forEach(name -> {
-                recorder.addRouteBuilder(main, (Class<RoutesBuilder>)recorderContext.classProxy(name));
+                recorder.addRouteBuilder(main, recorderContext.newInstance(name));
             });
             routesBuilders.forEach(routesBuilder -> {
                 recorder.addRouteBuilder(main, routesBuilder.getInstance());
