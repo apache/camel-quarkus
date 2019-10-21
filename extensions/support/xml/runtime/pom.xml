@@ -20,19 +20,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-aws-s3-parent</artifactId>
+        <artifactId>camel-quarkus-support-xml-parent</artifactId>
         <version>0.2.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-aws-s3-deployment</artifactId>
-    <name>Camel Quarkus :: AWS S3 :: Deployment</name>
+    <artifactId>camel-quarkus-support-xml</artifactId>
+    <name>Camel Quarkus :: Support :: XML :: Runtime</name>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-deployment</artifactId>
+                <artifactId>camel-quarkus-bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -42,21 +42,26 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-xml-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-jaxb</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws-s3</artifactId>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-jaxp</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>

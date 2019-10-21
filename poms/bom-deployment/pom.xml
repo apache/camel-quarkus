@@ -78,6 +78,11 @@
                 <artifactId>camel-quarkus-support-xstream-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-xml-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
 
             <!-- Camel Quarkus deployment modules, in alphabetical order -->
             <dependency>
