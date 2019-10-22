@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.component.platform.http.it;
 
+import java.io.ByteArrayOutputStream;
+
+import javax.activation.DataHandler;
+
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
@@ -33,6 +38,15 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
 
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
         from("platform-http:/platform-http/get-post?httpMethodRestrict=GET,POST").setBody(simple("Hello ${body}"));
-        from("platform-http:/platform-http/multipart?httpMethodRestrict=POST").setBody(simple("Hello ${body}"));
+        from("platform-http:/platform-http/multipart?httpMethodRestrict=POST")
+            .to("log:multipart")
+            .process(e -> {
+                final AttachmentMessage am = e.getMessage(AttachmentMessage.class);
+                final DataHandler src = am.getAttachment("bytes.bin");
+                try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+                    src.writeTo(out);
+                    e.getMessage().setBody(out.toByteArray());
+                }
+            });
     }
 }

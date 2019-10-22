@@ -132,11 +132,13 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 6 in 6 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Extension | Since | Description
+
+| (camel-quarkus-attachments) | 0.2 | Maven plugins configuration
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
