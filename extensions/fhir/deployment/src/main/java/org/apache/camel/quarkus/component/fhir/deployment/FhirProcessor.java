@@ -23,7 +23,10 @@ import java.util.Properties;
 import java.util.Set;
 
 import ca.uhn.fhir.model.dstu2.FhirDstu2;
+import ca.uhn.fhir.model.dstu2.resource.BaseResource;
 import ca.uhn.fhir.model.dstu2.valueset.*;
+import ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory;
+import ca.uhn.fhir.validation.schematron.SchematronBaseValidator;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -48,7 +51,12 @@ import org.apache.camel.component.fhir.FhirUpdateEndpointConfiguration;
 import org.apache.camel.component.fhir.FhirValidateEndpointConfiguration;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.hl7.fhir.dstu3.hapi.ctx.FhirDstu3;
+import org.hl7.fhir.dstu3.model.Base;
+import org.hl7.fhir.dstu3.model.DomainResource;
 import org.hl7.fhir.dstu3.model.Enumerations;
+import org.hl7.fhir.dstu3.model.Meta;
+import org.hl7.fhir.dstu3.model.MetadataResource;
+import org.hl7.fhir.dstu3.model.Resource;
 
 class FhirProcessor {
     private static final String FEATURE = "camel-fhir";
@@ -97,12 +105,12 @@ class FhirProcessor {
     void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBundleBuildItem> resource) {
         Set<String> classes = new HashSet<>();
-        classes.add("ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory");
-        classes.add("ca.uhn.fhir.validation.schematron.SchematronBaseValidator");
+        classes.add(SchematronBaseValidator.class.getCanonicalName());
         classes.add("org.apache.commons.logging.impl.LogFactoryImpl");
         classes.add("org.apache.commons.logging.LogFactory");
         classes.add("org.apache.commons.logging.impl.Jdk14Logger");
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
@@ -110,6 +118,7 @@ class FhirProcessor {
             BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu2.class.getCanonicalName());
+        classes.add(BaseResource.class.getCanonicalName());
         classes.addAll(getModelClasses("/ca/uhn/fhir/model/dstu2/fhirversion.properties"));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
@@ -122,9 +131,15 @@ class FhirProcessor {
             BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu3.class.getCanonicalName());
+        classes.add(DomainResource.class.getCanonicalName());
+        classes.add(Resource.class.getCanonicalName());
+        classes.add(org.hl7.fhir.dstu3.model.BaseResource.class.getCanonicalName());
+        classes.add(Base.class.getCanonicalName());
         classes.addAll(getModelClasses("/org/hl7/fhir/dstu3/model/fhirversion.properties"));
         classes.addAll(getInnerClasses(Enumerations.class.getCanonicalName()));
 
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, Meta.class.getCanonicalName()));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, MetadataResource.class.getCanonicalName()));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
         resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/dstu3/model/fhirversion.properties"));
     }
@@ -134,9 +149,15 @@ class FhirProcessor {
             BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add("org.hl7.fhir.r4.hapi.ctx.FhirR4");
+        classes.add(org.hl7.fhir.r4.model.DomainResource.class.getCanonicalName());
+        classes.add(org.hl7.fhir.r4.model.Resource.class.getCanonicalName());
+        classes.add(org.hl7.fhir.r4.model.BaseResource.class.getCanonicalName());
+        classes.add(org.hl7.fhir.r4.model.Base.class.getCanonicalName());
         classes.addAll(getModelClasses("/org/hl7/fhir/r4/model/fhirversion.properties"));
         classes.addAll(getInnerClasses(org.hl7.fhir.r4.model.Enumerations.class.getCanonicalName()));
 
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.Meta.class.getCanonicalName()));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.MetadataResource.class.getCanonicalName()));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
         resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/r4/model/fhirversion.properties"));
     }

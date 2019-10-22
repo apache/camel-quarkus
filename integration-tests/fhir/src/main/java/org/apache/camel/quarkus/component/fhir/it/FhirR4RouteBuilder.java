@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
+import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.FhirVersionEnum;
+import ca.uhn.fhir.parser.StrictErrorHandler;
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.fhir.FhirJsonDataFormat;
 import org.apache.camel.component.fhir.FhirXmlDataFormat;
@@ -28,11 +31,17 @@ public class FhirR4RouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         if (ENABLED) {
+            CamelContext context = getContext();
+            FhirContext fhirContext = FhirContext.forR4();
+            fhirContext.setParserErrorHandler(new StrictErrorHandler());
+            context.getRegistry().bind("fhirContext", fhirContext  );
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.R4.name());
+            fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
             fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.R4.name());
+            fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             from("direct:json-to-r4")
                     .unmarshal(fhirJsonDataFormat)
@@ -43,7 +52,7 @@ public class FhirR4RouteBuilder extends RouteBuilder {
                     .marshal(fhirXmlDataFormat);
 
             from("direct:create-r4")
-                    .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.r4.url}}&fhirVersion=R4");
+                    .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.r4.url}}&fhirVersion=R4&fhirContext=#fhirContext");
         }
     }
 }

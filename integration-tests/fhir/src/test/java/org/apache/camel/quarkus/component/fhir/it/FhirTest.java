@@ -42,7 +42,7 @@ class FhirTest {
         }
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString).post("/dstu2/fhir2json")
                 .then().statusCode(201);
     }
@@ -55,7 +55,7 @@ class FhirTest {
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newXmlParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.XML).body(patientString).post("/dstu2/fhir2xml")
                 .then().statusCode(201);
     }
@@ -68,7 +68,7 @@ class FhirTest {
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString).post("/dstu2/createPatient") //
                 .then().statusCode(201);
     }
@@ -81,7 +81,7 @@ class FhirTest {
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString).post("/dstu3/fhir2json")
                 .then().statusCode(201);
     }
@@ -94,7 +94,7 @@ class FhirTest {
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newXmlParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.XML).body(patientString).post("/dstu3/fhir2xml")
                 .then().statusCode(201);
     }
@@ -107,7 +107,7 @@ class FhirTest {
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString).post("/dstu3/createPatient") //
                 .then().statusCode(201);
     }
@@ -120,7 +120,7 @@ class FhirTest {
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString).post("/r4/fhir2json")
                 .then().statusCode(201);
     }
@@ -133,7 +133,7 @@ class FhirTest {
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newXmlParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.XML).body(patientString).post("/r4/fhir2xml")
                 .then().statusCode(201);
     }
@@ -146,7 +146,7 @@ class FhirTest {
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON).body(patientString.getBytes()).post("/r4/createPatient") //
                 .then().statusCode(201);
     }

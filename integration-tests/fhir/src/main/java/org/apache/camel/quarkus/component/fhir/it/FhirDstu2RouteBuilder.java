@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
+import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.FhirVersionEnum;
 import ca.uhn.fhir.parser.StrictErrorHandler;
+import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.fhir.FhirJsonDataFormat;
 import org.apache.camel.component.fhir.FhirXmlDataFormat;
@@ -29,6 +31,10 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         if (ENABLED) {
+            CamelContext context = getContext();
+            FhirContext fhirContext = FhirContext.forDstu2();
+            fhirContext.setParserErrorHandler(new StrictErrorHandler());
+            context.getRegistry().bind("fhirContext", fhirContext  );
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
@@ -36,6 +42,7 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
             fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
             fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
+
 
             from("direct:json-to-dstu2")
                     .unmarshal(fhirJsonDataFormat)
@@ -46,7 +53,7 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
                     .marshal(fhirXmlDataFormat);
 
             from("direct:create-dstu2")
-                    .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.dstu2.url}}&fhirVersion=DSTU2");
+                    .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.dstu2.url}}&fhirVersion=DSTU2&fhirContext=#fhirContext");
         }
     }
 }
