@@ -23,10 +23,10 @@ import io.smallrye.metrics.MetricRegistries;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.microprofile.metrics.event.notifier.context.MicroProfileMetricsCamelContextEventNotifier;
-import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.MicroProfileMetricsExchangeEventNotifier;
-import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
-import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsExchangeEventNotifier;
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsRouteEventNotifier;
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsRoutePolicyFactory;
 import org.apache.camel.spi.ManagementStrategy;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 
@@ -42,7 +42,7 @@ public class CamelMicroProfileMetricsRecorder {
         ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
 
         if (config.enableRoutePolicy) {
-            camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
+            camelContext.addRoutePolicyFactory(new CamelQuarkusMicroProfileMetricsRoutePolicyFactory());
         }
 
         if (config.enableMessageHistory) {
@@ -51,11 +51,11 @@ public class CamelMicroProfileMetricsRecorder {
         }
 
         if (config.enableExchangeEventNotifier) {
-            managementStrategy.addEventNotifier(new MicroProfileMetricsExchangeEventNotifier());
+            managementStrategy.addEventNotifier(new CamelQuarkusMicroProfileMetricsExchangeEventNotifier());
         }
 
         if (config.enableRouteEventNotifier) {
-            managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
+            managementStrategy.addEventNotifier(new CamelQuarkusMicroProfileMetricsRouteEventNotifier());
         }
 
         if (config.enableCamelContextEventNotifier) {
