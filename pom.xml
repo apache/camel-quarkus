@@ -40,7 +40,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <camel.version>3.0.0-SNAPSHOT</camel.version>
+        <camel.version>3.0.0-RC3</camel.version>
         <quarkus.version>0.26.0</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
@@ -147,27 +147,27 @@
 
     <repositories>
         <repository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
+            <id>camel.rc3.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1158/</url>
+            <name>Apache 3.0.0-RC3 Staging Repo</name>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
+            <id>camel.rc3.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1158/</url>
             <snapshots>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </snapshots>
             <releases>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>
