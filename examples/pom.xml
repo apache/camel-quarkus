@@ -32,6 +32,7 @@
     <name>Camel Quarkus :: Examples</name>
 
     <modules>
+        <module>observability</module>
         <module>timer-log</module>
         <module>rest-json</module>
     </modules>
