@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 25 in 21 JAR artifacts (0 deprecated)
+Number of Camel components: 26 in 22 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -56,6 +56,9 @@ Number of Camel components: 25 in 21 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | 0.2 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
+
+| link:https://camel.apache.org/components/latest/pdf-component.html[PDF] (camel-quarkus-pdf) +
+`pdf:operation` | 0.2 | The pdf components provides the ability to create, modify or extract content from PDF documents.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
