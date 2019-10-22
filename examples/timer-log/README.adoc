@@ -20,7 +20,7 @@ To build as native:
 
 [source,text]
 ----
-$ mvn package -Pnative-image
+$ mvn package -Pnative
 ----
 
 This requires having GraalVM and other tools installed.
