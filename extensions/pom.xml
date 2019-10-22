@@ -103,7 +103,7 @@
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
-                    <bomEntryVersion>%{camel-quarkus.version}</bomEntryVersion>
+                    <bomEntryVersion>@{camel-quarkus.version}</bomEntryVersion>
                     <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
             </plugin>
