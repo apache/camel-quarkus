@@ -1,0 +1,11 @@
+{
+  "name": "Camel Quarkus Support Jetty",
+  "labels": [
+    "internal",
+    "integration",
+    "camel",
+    "jetty"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+

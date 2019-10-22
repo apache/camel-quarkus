@@ -1,0 +1,10 @@
+{
+  "name": "Camel Quarkus Support Common",
+  "labels": [
+    "internal",
+    "integration",
+    "camel"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
+
