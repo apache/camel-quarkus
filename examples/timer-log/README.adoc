@@ -10,4 +10,18 @@ To run it:
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
 
-Then look at the log output in the console.
+Then look at the log output in the console. As we run the example
+in Quarkus Dev Mode, you can edit the source code and have live updates.
+For example try to change the logging output to be `Bye World`.
+
+== Native build
+
+To build as native:
+
+[source,text]
+----
+$ mvn package -Pnative-image
+----
+
+This requires having GraalVM and other tools installed.
+See the https://quarkus.io/guides/building-native-image-guide[Quarkus Native Guide] for details.
