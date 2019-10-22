@@ -44,6 +44,11 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
             + " If no methods are specified, all methods will be served.")
     private String httpMethodRestrict;
 
+    @UriParam(label = "consumer,advanced", description = "A comma or whitespace separated list of file extensions."
+            + " Uploads having these extensions will be stored locally."
+            +" Null value or asterisk (*) will allow all files.")
+    private String fileNameExtWhitelist;
+
     @UriParam(label = "advanced")
     private PlatformHttpEngine platformHttpEngine;
 
@@ -95,6 +100,14 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
         this.httpMethodRestrict = httpMethodRestrict;
     }
 
+    public String getFileNameExtWhitelist() {
+        return fileNameExtWhitelist;
+    }
+
+    public void setFileNameExtWhitelist(String fileNameExtWhitelist) {
+        this.fileNameExtWhitelist = fileNameExtWhitelist;
+    }
+
     @Override
     protected void doStart() throws Exception {
         super.doStart();
@@ -102,12 +115,11 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
         if (platformHttpEngine == null) {
             LOGGER.debug("Lookup platform http engine from registry");
 
-            platformHttpEngine = getCamelContext().getRegistry()
-                    .lookupByNameAndType(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class);
+            platformHttpEngine = getCamelContext().getRegistry().lookupByNameAndType(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class);
 
             if (platformHttpEngine == null) {
-                throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this "
-                        + PlatformHttpEndpoint.class.getSimpleName() + " neither found in Camel Registry.");
+                throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this " + PlatformHttpEndpoint.class.getSimpleName()
+                                                + " neither found in Camel Registry.");
             }
         }
     }

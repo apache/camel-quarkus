@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.http.server.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -64,4 +66,19 @@ class PlatformHttpTest {
         RestAssured.get("/platform-http/rest-post")
             .then().statusCode(405);
     }
+
+
+    @Test
+    public void multipart() {
+        final byte[] bytes = new byte[] {0xc, 0x0, 0xf, 0xe, 0xb, 0xa, 0xb, 0xe};
+        final byte[] returnedBytes = RestAssured.given().contentType("multipart/form-data")
+            .multiPart("file", "bytes.bin", bytes)
+            .formParam("description", "cofe babe")
+            .post("/platform-http/multipart")
+            .then()
+            .statusCode(200)
+            .extract().body().asByteArray();
+        Assertions.assertArrayEquals(bytes, returnedBytes);
+    }
+
 }
