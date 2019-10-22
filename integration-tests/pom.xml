@@ -101,6 +101,7 @@
         <module>tarfile</module>
         <module>twitter</module>
         <module>zipfile</module>
+        <module>pdf</module>
     </modules>
 
     <build>
