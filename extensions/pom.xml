@@ -67,6 +67,7 @@
         <module>timer</module>
         <module>twitter</module>
         <module>zipfile</module>
+        <module>attachments</module>
     </modules>
 
     <build>

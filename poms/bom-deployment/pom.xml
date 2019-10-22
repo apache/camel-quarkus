@@ -235,6 +235,11 @@
                 <artifactId>camel-quarkus-tarfile-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-attachments-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

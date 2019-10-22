@@ -1,0 +1,9 @@
+{
+  "name": "Camel Quarkus Attachments",
+  "labels": [
+    "integration",
+    "camel",
+    "multipart"
+  ],
+  "guide": "https://quarkus.io/guides/camel"
+}
