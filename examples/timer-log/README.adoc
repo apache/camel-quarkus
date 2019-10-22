@@ -1,0 +1,13 @@
+= timer-log
+
+This is a basic hello world example that uses a Camel timer that
+triggers every second and prints to the log.
+
+To run it:
+
+[source,text]
+----
+$ mvn clean compile quarkus:dev -DnoDeps
+----
+
+Then look at the log output in the console.
