@@ -56,9 +56,9 @@ import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-class SubstrateProcessor {
+class NativeImageProcessor {
     /*
-     * SubstrateVM configuration steps related to camel core.
+     * NativeImage configuration steps related to camel core.
      */
     public static class Core {
         private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
@@ -95,7 +95,7 @@ class SubstrateProcessor {
                 .filter(CamelSupport::isPublic)
                 .forEach(v -> addReflectiveClass(true, v.name().toString()));
 
-            Logger log = LoggerFactory.getLogger(SubstrateProcessor.class);
+            Logger log = LoggerFactory.getLogger(NativeImageProcessor.class);
             DotName converter = DotName.createSimple(Converter.class.getName());
             List<ClassInfo> converterClasses = view.getAnnotations(converter)
                 .stream()
@@ -171,7 +171,7 @@ class SubstrateProcessor {
     }
 
     /*
-     * SubstrateVM configuration steps related to camel main that are activated by default but can be
+     * NativeImage configuration steps related to camel main that are activated by default but can be
      * disabled by setting quarkus.camel.enable-main = false
      */
     public static class Main {
