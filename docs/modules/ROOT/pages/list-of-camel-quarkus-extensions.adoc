@@ -140,7 +140,7 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
-| (camel-quarkus-platform-http) | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
+| xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
 | (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
 
