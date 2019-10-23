@@ -34,7 +34,7 @@
 
     <properties>
         <title>Camel Quarkus Platform HTTP</title>
-        <firstVersion>0.2.1</firstVersion>
+        <firstVersion>0.3.0</firstVersion>
         <label>core,http</label>
     </properties>
 

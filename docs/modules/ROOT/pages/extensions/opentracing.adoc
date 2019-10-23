@@ -1,7 +1,7 @@
 [[opentracing]]
 = OpenTracing Extension
 
-*Available as of Camel Quarkus version 0.21*
+*Since Camel Quarkus 0.3.0*
 
 The OpenTracing extension is used for tracing and timing incoming and outgoing Camel messages.
 

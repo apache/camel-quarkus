@@ -31,7 +31,7 @@
     <description>Distributed tracing using OpenTracing</description>
 
     <properties>
-        <firstVersion>0.2.1</firstVersion>
+        <firstVersion>0.3.0</firstVersion>
     </properties>
 
     <dependencyManagement>

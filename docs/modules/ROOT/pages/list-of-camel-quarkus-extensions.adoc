@@ -94,7 +94,7 @@ Number of Camel data formats: 4 in 4 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
-| link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.2.1 | The Tar File data format is a message compression and de-compression format of tar files.
+| link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.3 | The Tar File data format is a message compression and de-compression format of tar files.
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
@@ -140,14 +140,14 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
-| xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
+| xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.3 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
-| (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
+| (camel-quarkus-reactive-executor) | 0.3 | To use Quarkus reactive executor with Camel
 
 | (camel-quarkus-core-xml) | 0.2 | Maven plugins configuration
 
-| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.2.1 | Integration with the Quarkus MicroProfile Health extension
+| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Integration with the Quarkus MicroProfile Health extension
 
-| xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.2.1 | Distributed tracing using OpenTracing
+| xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3 | Distributed tracing using OpenTracing
 |===
 // others: END
