@@ -77,7 +77,10 @@ class BuildProcessor {
                     // to the camel context directly by extension so it does not make sense to
                     // instantiate them in this phase.
                     //
-                    boolean blacklisted = si.path.endsWith("reactive-executor") || si.path.endsWith("platform-http");
+                    boolean blacklisted = si.path.endsWith("reactive-executor")
+                        || si.path.endsWith("platform-http")
+                        || si.path.endsWith("properties-component-factory");
+
                     if (blacklisted) {
                         LOGGER.debug("Ignore service: {}", si);
                     }

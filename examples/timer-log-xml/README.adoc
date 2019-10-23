@@ -1,0 +1,28 @@
+= timer-log-xml
+
+This is a basic hello world example that uses XML to set-up
+a Camel timer that triggers every second and prints to the
+log.
+
+To run it:
+
+[source,text]
+----
+$ mvn clean compile quarkus:dev -DnoDeps
+----
+This compiles the project and starts the Quarkus tooling in the https://quarkus.io/guides/maven-tooling#development-mode[develpment mode].
+Then look at the log output in the console. As we run the example
+in Quarkus Dev Mode, you can edit the source code and have live updates.
+For example try to change the logging output to be `Bye XML`.
+
+== Native build
+
+To build as native:
+
+[source,text]
+----
+$ mvn package -Pnative
+----
+
+This requires having GraalVM and other tools installed.
+See the https://quarkus.io/guides/building-native-image-guide[Quarkus Native Guide] for details.
