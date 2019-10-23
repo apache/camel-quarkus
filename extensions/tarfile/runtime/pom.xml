@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: TarFile :: Runtime</name>
 
     <properties>
-        <firstVersion>0.2.1</firstVersion>
+        <firstVersion>0.3.0</firstVersion>
     </properties>
 
     <dependencyManagement>

@@ -1,7 +1,7 @@
 [[microprofile-health]]
 = MicroProfile Health Extension
 
-*Available as of Camel Quarkus version 0.21*
+*Since Camel Quarkus 0.3.0*
 
 The MicroProfile Health extension bridges the Camel health check API with MicroProfile Metrics & SmallRye Health.
 

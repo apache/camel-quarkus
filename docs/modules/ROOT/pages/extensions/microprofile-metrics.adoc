@@ -1,7 +1,7 @@
 [[microprofile-metrics]]
 = MicroProfile Metrics Extension
 
-*Available as of Camel Quarkus version 0.21*
+*Since Camel Quarkus 0.2.0*
 
 The MicroProfile Metrics extension produces metrics and statistics related to the Camel Context, routes and message exchanges.
 
