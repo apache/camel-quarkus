@@ -334,6 +334,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         final Message result = new DefaultMessage(exchange);
 
         final HeaderFilterStrategy headerFilterStrategy = getEndpoint().getHeaderFilterStrategy();
+        System.out.println("headerFilterStrategy = "+  headerFilterStrategy);
         populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy );
         final String mimeType = ctx.parsedHeaders().contentType().value();
         final boolean isMultipartFormData = "multipart/form-data".equals(mimeType);
