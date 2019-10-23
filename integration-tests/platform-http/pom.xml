@@ -130,6 +130,7 @@
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
+                                    <addAllCharsets>true</addAllCharsets><!-- Required by the encoding() test -->
                                 </configuration>
                             </execution>
                         </executions>

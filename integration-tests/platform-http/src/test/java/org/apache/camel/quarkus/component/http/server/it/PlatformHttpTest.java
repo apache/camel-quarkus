@@ -20,9 +20,13 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 @QuarkusTest
 class PlatformHttpTest {
@@ -53,8 +57,19 @@ class PlatformHttpTest {
     public void rest() throws Throwable {
         RestAssured.get("/platform-http/rest-get")
             .then().body(equalTo("GET: /rest-get"));
-        RestAssured.post("/platform-http/rest-post")
+        RestAssured.given()
+            .contentType("text/plain")
+            .post("/platform-http/rest-post")
             .then().body(equalTo("POST: /rest-post"));
+    }
+
+    @Disabled("See https://github.com/apache/camel-quarkus/issues/326")
+    @Test
+    public void restConsumes() throws Throwable {
+        RestAssured.given()
+            .contentType("application/json")
+            .post("/platform-http/rest-post")
+            .then().statusCode(415);
     }
 
     @Test
@@ -81,4 +96,58 @@ class PlatformHttpTest {
         Assertions.assertArrayEquals(bytes, returnedBytes);
     }
 
+    @Test
+    public void formUrlEncoded() {
+        RestAssured.given().contentType("application/x-www-form-urlencoded")
+            .formParam("k1", "v1")
+            .formParam("k2", "v2")
+            .post("/platform-http/form-urlencoded")
+            .then()
+            .statusCode(200)
+            .body(equalTo("k1=V1\nk2=V2"));
+    }
+
+    @Test
+    public void customHeaderFilterStrategy() {
+        RestAssured.given()
+            .queryParam("k1", "v1")
+            .queryParam("k2", "v2")
+            .get("/platform-http/header-filter-strategy")
+            .then()
+            .statusCode(200)
+            .body(equalTo("k1=\nk2=v2")); // k1 filtered out by TestHeaderFilterStrategy
+    }
+
+    @Test
+    public void multiValueParams() {
+        RestAssured.given()
+            .queryParam("k1", "v1")
+            .queryParam("k1", "v2")
+            .get("/platform-http/multi-value-params")
+            .then()
+            .statusCode(200)
+            .body(equalTo("k1=[v1, v2]"));
+    }
+
+    @Test
+    public void encoding() throws UnsupportedEncodingException {
+        final String outgoingEncoding = "ISO-8859-2";
+        final String bodyText = "Ťava dvojhrbá"; // Camelus bactrianus in Slovak
+        final byte[] returnedBytes = RestAssured.given()
+            .contentType("text/plain; charset="+ outgoingEncoding)
+            .body(bodyText.getBytes(outgoingEncoding))
+            .post("/platform-http/encoding")
+            .then()
+            .statusCode(200)
+            .extract().body().asByteArray();
+        Assertions.assertArrayEquals(bodyText.getBytes(StandardCharsets.UTF_8), returnedBytes);
+    }
+
+    @Test
+    public void responseCodeViaHeader() throws UnsupportedEncodingException {
+        RestAssured.given()
+            .get("/platform-http/response-code-299")
+            .then()
+            .statusCode(299);
+    }
 }

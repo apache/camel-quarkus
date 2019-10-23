@@ -17,9 +17,13 @@
 package org.apache.camel.quarkus.component.platform.http.it;
 
 import java.io.ByteArrayOutputStream;
+import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.activation.DataHandler;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 
@@ -32,12 +36,14 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .setBody(constant("GET: /rest-get"))
                 .endRest()
             .post("/platform-http/rest-post")
+                .consumes("text/plain").produces("text/plain")
                 .route()
                 .setBody(constant("POST: /rest-post"))
                 .endRest();
 
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
         from("platform-http:/platform-http/get-post?httpMethodRestrict=GET,POST").setBody(simple("Hello ${body}"));
+
         from("platform-http:/platform-http/multipart?httpMethodRestrict=POST")
             .to("log:multipart")
             .process(e -> {
@@ -48,5 +54,30 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                     e.getMessage().setBody(out.toByteArray());
                 }
             });
+
+        from("platform-http:/platform-http/form-urlencoded?httpMethodRestrict=POST")
+            .to("log:form-urlencoded")
+            .setBody(e ->
+                ((Map<String, Object>)e.getMessage().getBody(Map.class)).entrySet().stream()
+                    .map(en -> en.getKey() + "=" + en.getValue().toString().toUpperCase(Locale.US))
+                    .collect(Collectors.joining("\n")));
+
+        from("platform-http:/platform-http/header-filter-strategy?httpMethodRestrict=GET&headerFilterStrategy=#TestHeaderFilterStrategy")
+            .to("log:header-filter-strategy")
+            .setBody(simple("k1=${header.k1}\nk2=${header.k2}"));
+
+        from("platform-http:/platform-http/multi-value-params?httpMethodRestrict=GET")
+            .to("log:multi-value-params")
+            .setBody(simple("k1=${header.k1}"));
+
+        from("platform-http:/platform-http/encoding?httpMethodRestrict=POST")
+            .to("log:encoding")
+            .setBody(e -> e.getMessage().getBody(String.class))
+            .setHeader("Content-Type").constant("text/plain ; charset=UTF-8");
+
+        from("platform-http:/platform-http/response-code-299?httpMethodRestrict=GET")
+            .to("log:response-code")
+            .setHeader(Exchange.HTTP_RESPONSE_CODE).constant(299);
+
     }
 }
