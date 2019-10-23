@@ -57,7 +57,7 @@ The JSON output will contain a check named 'camel' for verifying whether the `Ca
 This example project contains a custom liveness check class `CustomLivenessCheck` and custom readiness check class `CustomReadinessCheck` which leverage the Camel health API.
 You'll see these listed in the health JSON as 'custom-liveness-check' and 'custom-readiness-check'. On every 5th invocation of these checks, the health status will be reported as DOWN.
 
-You can also directly leverage MicroProfile Metrics APIs to create checks. Class `CamelUptimeHealthCheck` demonstrates how to register a rediness check.
+You can also directly leverage MicroProfile Metrics APIs to create checks. Class `CamelUptimeHealthCheck` demonstrates how to register a readiness check.
 
 ==== Tracing
 
