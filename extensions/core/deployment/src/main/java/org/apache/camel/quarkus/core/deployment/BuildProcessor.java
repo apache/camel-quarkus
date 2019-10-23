@@ -35,6 +35,7 @@ import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
@@ -42,6 +43,7 @@ import org.apache.camel.quarkus.core.CamelMainRecorder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -274,5 +276,28 @@ class BuildProcessor {
             recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             recorder.start(shutdown, main.getInstance());
         }
+    }
+
+    /**
+     * Build steps related to Camel Attachments.
+     */
+    public static class Attachments {
+
+        /**
+         * Produces an {@link UploadAttacherBuildItem} holding a no-op {@link UploadAttacher}.
+         * <p>
+         * Note that this {@link BuildStep} is effective only if {@code camel-quarkus-attachments} extension is not in
+         * the class path.
+         *
+         * @param recorder the {@link CoreAttachmentsRecorder}
+         * @return a new {@link UploadAttacherBuildItem}
+         */
+        @Overridable
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        @BuildStep
+        UploadAttacherBuildItem uploadAttacher(CoreAttachmentsRecorder recorder) {
+            return new UploadAttacherBuildItem(recorder.createNoOpUploadAttacher());
+        }
+
     }
 }

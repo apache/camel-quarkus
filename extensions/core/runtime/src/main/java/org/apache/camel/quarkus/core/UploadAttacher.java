@@ -16,19 +16,23 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import java.io.File;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.Message;
 
-public final class Flags {
-    private Flags() {
-    }
+/**
+ * Attaches file uploads to Camel {@link Message}s.
+ */
+public interface UploadAttacher {
 
-    public static final class MainEnabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.enable-main", Boolean.class).orElse(Boolean.TRUE);
-        }
-    }
+    /**
+     * Attach the uploaded file represented by the given {@code localFile} and {@code fileName} to the given
+     * {@code message}
+     *
+     * @param localFile the uploaded file stored locally
+     * @param fileName the name of the upload as sent by the client
+     * @param message the {@link Message} to attach the upload to
+     */
+    void attachUpload(File localFile, String fileName, Message message);
 
 }
