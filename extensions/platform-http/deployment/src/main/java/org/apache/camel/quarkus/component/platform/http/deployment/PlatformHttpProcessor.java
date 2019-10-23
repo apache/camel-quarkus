@@ -33,6 +33,8 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpHand
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
+
 
 class PlatformHttpProcessor {
 
@@ -49,7 +51,8 @@ class PlatformHttpProcessor {
             PlatformHttpRecorder recorder,
             VertxWebRouterBuildItem router,
             BodyHandlerBuildItem bodyHandler,
-            List<FeatureBuildItem> features) {
+            List<FeatureBuildItem> features,
+            UploadAttacherBuildItem uploadAttacher) {
 
         List<Handler<RoutingContext>> handlers = new ArrayList<>();
 
@@ -68,7 +71,7 @@ class PlatformHttpProcessor {
         handlers.add(bodyHandler.getHandler());
 
         return new PlatformHttpEngineBuildItem(
-            recorder.createEngine(router.getRouter(), handlers)
+            recorder.createEngine(router.getRouter(), handlers, uploadAttacher.getInstance())
         );
     }
 

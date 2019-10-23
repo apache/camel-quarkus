@@ -31,8 +31,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javax.activation.DataHandler;
-
 import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -40,11 +38,10 @@ import org.apache.camel.NoTypeConversionAvailableException;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConversionException;
 import org.apache.camel.TypeConverter;
-import org.apache.camel.attachment.AttachmentMessage;
-import org.apache.camel.component.platform.http.CamelFileDataSource;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.Method;
+import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
@@ -75,14 +72,15 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private final List<Handler<RoutingContext>> handlers;
     private Route route;
     private final String fileNameExtWhitelist;
+    private final UploadAttacher uploadAttacher;
 
-
-    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router, List<Handler<RoutingContext>> handlers) {
+    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router, List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
         super(endpoint, processor);
         this.router = router;
         this.handlers = handlers;
         String list = endpoint.getFileNameExtWhitelist();
         this.fileNameExtWhitelist = list == null ? list : list.toLowerCase(Locale.US);
+        this.uploadAttacher = uploadAttacher;
     }
 
     @Override
@@ -107,11 +105,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         newRoute.handler(
             ctx -> {
                 try {
-                    final PlatformHttpEndpoint endpoint = getEndpoint();
-                    final HeaderFilterStrategy headerFilterStrategy = endpoint.getHeaderFilterStrategy();
-                    final Exchange e = toExchange(ctx, endpoint.createExchange(), headerFilterStrategy, fileNameExtWhitelist);
+                    final Exchange e = toExchange(ctx);
                     getProcessor().process(e);
-                    writeResponse(ctx, e, headerFilterStrategy);
+                    writeResponse(ctx, e, getEndpoint().getHeaderFilterStrategy());
                 } catch (Exception e) {
                     LOG.debugf(e, "Could not handle '%s'", path);
                     ctx.fail(e);
@@ -158,7 +154,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
         final TypeConverter tc = exchange.getContext().getTypeConverter();
 
-        //copy headers from Message to Response
+        // copy headers from Message to Response
         if (headerFilterStrategy != null) {
             for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
                 final String key = entry.getKey();
@@ -234,7 +230,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             final byte[] bytes = new byte[4096];
             try (InputStream in = (InputStream) body) {
                 int len;
-                while ((len = in.read(bytes))  >= 0) {
+                while ((len = in.read(bytes)) >= 0) {
                     final Buffer b = Buffer.buffer(len);
                     b.appendBytes(bytes, 0, len);
                     response.write(b);
@@ -257,8 +253,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     }
 
-    static Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy, String fileNameExtWhitelist) {
-        Message in = toCamelMessage(ctx, exchange, headerFilterStrategy, fileNameExtWhitelist);
+    Exchange toExchange(RoutingContext ctx) {
+        final Exchange exchange = getEndpoint().createExchange();
+        Message in = toCamelMessage(ctx, exchange);
 
         final String charset = ctx.parsedHeaders().contentType().parameter("charset");
         if (charset != null) {
@@ -270,8 +267,11 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return exchange;
     }
 
-    static void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
-            HeaderFilterStrategy headerFilterStrategy) {
+    static void populateCamelHeaders(
+        RoutingContext ctx,
+        Map<String, Object> headersMap,
+        Exchange exchange,
+        HeaderFilterStrategy headerFilterStrategy) {
 
         final HttpServerRequest request = ctx.request();
         headersMap.put(Exchange.HTTP_PATH, request.path());
@@ -330,10 +330,11 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         headersMap.put(Exchange.HTTP_RAW_QUERY, request.query());
     }
 
-    static Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy, String fileNameExtWhitelist) {
-        Message result = new DefaultMessage(exchange);
+    Message toCamelMessage(RoutingContext ctx, Exchange exchange) {
+        final Message result = new DefaultMessage(exchange);
 
-        populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy);
+        final HeaderFilterStrategy headerFilterStrategy = getEndpoint().getHeaderFilterStrategy();
+        populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy );
         final String mimeType = ctx.parsedHeaders().contentType().value();
         final boolean isMultipartFormData = "multipart/form-data".equals(mimeType);
         if ("application/x-www-form-urlencoded".equals(mimeType) || isMultipartFormData) {
@@ -341,8 +342,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             final Map<String, Object> body = new HashMap<>();
             for (String key : formData.names()) {
                 for (String value : formData.getAll(key)) {
-                    if (headerFilterStrategy != null
-                        && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
+                    if (headerFilterStrategy != null && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
                         appendHeader(result.getHeaders(), key, value);
                         appendHeader(body, key, value);
                     }
@@ -350,7 +350,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             }
             result.setBody(body);
             if (isMultipartFormData) {
-                populateAttachments(ctx, result, fileNameExtWhitelist);
+                populateAttachments(ctx.fileUploads(), result);
             }
         } else {
             //extract body by myself if undertow parser didn't handle and the method is allowed to have one
@@ -384,9 +384,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         headers.put(key, value);
     }
 
-    static void populateAttachments(RoutingContext ctx, Message message, String fileNameExtWhitelist) {
-        final Set<FileUpload> uploads = ctx.fileUploads();
-
+    void populateAttachments(Set<FileUpload> uploads, Message message) {
         for (FileUpload upload : uploads) {
             final String name = upload.name();
             final String fileName = upload.fileName();
@@ -405,13 +403,11 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             }
             if (accepted) {
                 final File localFile = new File(upload.uploadedFileName());
-                final AttachmentMessage am = message.getExchange().getMessage(AttachmentMessage.class);
-                am.addAttachment(fileName, new DataHandler(new CamelFileDataSource(localFile, fileName)));
+                uploadAttacher.attachUpload(localFile, fileName, message);
             } else {
                 LOG.debugf("Cannot add file as attachment: %s because the file is not accepted according to fileNameExtWhitelist: %s", fileName, fileNameExtWhitelist);
             }
         }
     }
-
 
 }
