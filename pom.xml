@@ -243,6 +243,12 @@
                     <artifactId>quarkus-maven-plugin</artifactId>
                     <version>${quarkus.version}</version>
                 </plugin>
+
+                <plugin>
+                    <groupId>org.codehaus.gmaven</groupId>
+                    <artifactId>groovy-maven-plugin</artifactId>
+                    <version>${groovy-maven-plugin.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
