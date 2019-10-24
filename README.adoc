@@ -29,3 +29,4 @@ https://camel.apache.org/camel-quarkus/latest/contributor-guide.html[Apache Came
 == Licensing
 
 This software is licensed under the terms you may find in the file named `LICENSE.txt` in this directory.
+
