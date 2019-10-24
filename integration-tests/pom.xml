@@ -104,6 +104,7 @@
         <module>platform-http</module>
         <module>salesforce</module>
         <module>servlet</module>
+        <module>slack</module>
         <module>tarfile</module>
         <module>twitter</module>
         <module>zipfile</module>
