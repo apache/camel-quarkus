@@ -16,17 +16,16 @@
  */
 package org.apache.camel.quarkus.component.http.server.it;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 
 @QuarkusTest
 class PlatformHttpTest {
@@ -134,7 +133,7 @@ class PlatformHttpTest {
         final String outgoingEncoding = "ISO-8859-2";
         final String bodyText = "Ťava dvojhrbá"; // Camelus bactrianus in Slovak
         final byte[] returnedBytes = RestAssured.given()
-            .contentType("text/plain; charset="+ outgoingEncoding)
+            .contentType("text/plain; charset=" + outgoingEncoding)
             .body(bodyText.getBytes(outgoingEncoding))
             .post("/platform-http/encoding")
             .then()

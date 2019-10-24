@@ -37,8 +37,9 @@ class FhirTest {
 
     @Test
     public void jsonDstu2() {
-        if(!dstu2)
+        if (!dstu2) {
             return;
+        }
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
         RestAssured.given() //
@@ -48,8 +49,9 @@ class FhirTest {
 
     @Test
     public void xmlDstu2() {
-        if(!dstu2)
+        if (!dstu2) {
             return;
+        }
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newXmlParser().encodeResourceToString(patient);
@@ -60,8 +62,9 @@ class FhirTest {
 
     @Test
     public void fhirClientDstu2() {
-        if(!dstu2)
+        if (!dstu2) {
             return;
+        }
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
@@ -72,8 +75,9 @@ class FhirTest {
 
     @Test
     public void jsonDstu3() {
-        if(!dstu3)
+        if (!dstu3) {
             return;
+        }
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
@@ -84,8 +88,9 @@ class FhirTest {
 
     @Test
     public void xmlDstu3() {
-        if(!dstu3)
+        if (!dstu3) {
             return;
+        }
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newXmlParser().encodeResourceToString(patient);
@@ -96,8 +101,9 @@ class FhirTest {
 
     @Test
     public void fhirClientDstu3() {
-        if(!dstu3)
+        if (!dstu3) {
             return;
+        }
 
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
@@ -108,8 +114,9 @@ class FhirTest {
 
     @Test
     public void jsonR4() {
-        if(!r4)
+        if (!r4) {
             return;
+        }
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);
@@ -120,8 +127,9 @@ class FhirTest {
 
     @Test
     public void xmlR4() {
-        if(!r4)
+        if (!r4) {
             return;
+        }
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newXmlParser().encodeResourceToString(patient);
@@ -132,8 +140,9 @@ class FhirTest {
 
     @Test
     public void fhirClientR4() {
-        if(!r4)
+        if (!r4) {
             return;
+        }
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);

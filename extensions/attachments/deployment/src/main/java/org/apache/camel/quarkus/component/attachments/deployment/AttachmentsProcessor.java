@@ -16,14 +16,13 @@
  */
 package org.apache.camel.quarkus.component.attachments.deployment;
 
-import org.apache.camel.quarkus.component.attachments.AttachmentsRecorder;
-import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.component.attachments.AttachmentsRecorder;
+import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
 
 class AttachmentsProcessor {
 

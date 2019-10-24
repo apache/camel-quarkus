@@ -26,7 +26,7 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() {
-        Boolean dstu2 = new FhirFlags.Dstu2Enabled().getAsBoolean();;
+        Boolean dstu2 = new FhirFlags.Dstu2Enabled().getAsBoolean();
         if (dstu2) {
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());

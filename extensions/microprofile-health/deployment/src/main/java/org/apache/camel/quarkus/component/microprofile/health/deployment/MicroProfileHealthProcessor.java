@@ -121,7 +121,7 @@ class MicroProfileHealthProcessor {
 
     private boolean isCamelMicroProfileHealthCheck(ClassInfo classInfo) {
         String className = classInfo.name().toString();
-        return ((className.startsWith(AbstractCamelMicroProfileHealthCheck.class.getPackage().getName())) &&
-                (classInfo.classAnnotation(MICROPROFILE_LIVENESS_DOTNAME) != null || classInfo.classAnnotation(MICROPROFILE_READINESS_DOTNAME) != null));
+        return className.startsWith(AbstractCamelMicroProfileHealthCheck.class.getPackage().getName())
+            && (classInfo.classAnnotation(MICROPROFILE_LIVENESS_DOTNAME) != null || classInfo.classAnnotation(MICROPROFILE_READINESS_DOTNAME) != null);
     }
 }

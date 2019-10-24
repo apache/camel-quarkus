@@ -46,7 +46,7 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
 
     @UriParam(label = "consumer,advanced", description = "A comma or whitespace separated list of file extensions."
             + " Uploads having these extensions will be stored locally."
-            +" Null value or asterisk (*) will allow all files.")
+            + " Null value or asterisk (*) will allow all files.")
     private String fileNameExtWhitelist;
 
     @UriParam(label = "advanced")

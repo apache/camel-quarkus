@@ -31,6 +31,17 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import io.vertx.core.Handler;
+import io.vertx.core.MultiMap;
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.http.HttpServerRequest;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.web.FileUpload;
+import io.vertx.ext.web.Route;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
+
 import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -50,17 +61,6 @@ import org.apache.camel.support.MessageHelper;
 import org.apache.camel.support.ObjectHelper;
 import org.apache.camel.util.FileUtil;
 import org.jboss.logging.Logger;
-
-import io.vertx.core.Handler;
-import io.vertx.core.MultiMap;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.ext.web.FileUpload;
-import io.vertx.ext.web.Route;
-import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
 
 /**
  * A Quarkus specific {@link Consumer} for the {@link PlatformHttpComponent}.
@@ -334,8 +334,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         final Message result = new DefaultMessage(exchange);
 
         final HeaderFilterStrategy headerFilterStrategy = getEndpoint().getHeaderFilterStrategy();
-        System.out.println("headerFilterStrategy = "+  headerFilterStrategy);
-        populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy );
+        populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy);
         final String mimeType = ctx.parsedHeaders().contentType().value();
         final boolean isMultipartFormData = "multipart/form-data".equals(mimeType);
         if ("application/x-www-form-urlencoded".equals(mimeType) || isMultipartFormData) {

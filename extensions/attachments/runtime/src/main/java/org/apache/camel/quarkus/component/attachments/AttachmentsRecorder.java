@@ -17,16 +17,14 @@
 package org.apache.camel.quarkus.component.attachments;
 
 import java.io.File;
-
 import javax.activation.DataHandler;
 
+import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.Message;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.quarkus.core.UploadAttacher;
 import org.jboss.logging.Logger;
-
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
 
 @Recorder
 public class AttachmentsRecorder {

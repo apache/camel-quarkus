@@ -38,8 +38,7 @@ class PlatformHttpEngineTest {
                 .body(
                     PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(QuarkusPlatformHttpEngine.class.getName()),
                     PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()),
-                    "handlers-size", is(2)
-                );
+                    "handlers-size", is(2));
     }
 
     @Test

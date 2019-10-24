@@ -27,7 +27,9 @@ import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 
+
 public class PlatformHttpRouteBuilder extends RouteBuilder {
+    @SuppressWarnings("unchecked")
     @Override
     public void configure() {
         rest()
