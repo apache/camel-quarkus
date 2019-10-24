@@ -34,7 +34,7 @@ import org.eclipse.microprofile.metrics.MetricRegistry;
 public class CamelMicroProfileMetricsRecorder {
 
     public RuntimeValue<MetricRegistry> createApplicationRegistry() {
-        return new RuntimeValue(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
+        return new RuntimeValue<>(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
     }
 
     public void configureCamelContext(CamelMicroProfileMetricsConfig config, BeanContainer beanContainer) {
