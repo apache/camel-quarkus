@@ -23,11 +23,11 @@ import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 public class FhirDstu3RouteBuilder extends RouteBuilder {
+    private static final Boolean ENABLED = new FhirFlags.Dstu3Enabled().getAsBoolean();
 
     @Override
     public void configure() {
-        Boolean dstu3 = new FhirFlags.Dstu3Enabled().getAsBoolean();
-        if (dstu3) {
+        if (ENABLED) {
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU3.name());
 

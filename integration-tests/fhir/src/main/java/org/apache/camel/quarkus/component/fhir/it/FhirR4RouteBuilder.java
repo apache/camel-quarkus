@@ -23,12 +23,11 @@ import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 public class FhirR4RouteBuilder extends RouteBuilder {
+    private static final Boolean ENABLED = new FhirFlags.R4Enabled().getAsBoolean();
 
     @Override
     public void configure() {
-        Boolean r4 = new FhirFlags.R4Enabled().getAsBoolean();
-
-        if (r4) {
+        if (ENABLED) {
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.R4.name());
 

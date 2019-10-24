@@ -20,24 +20,24 @@ import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
-@ConfigRoot(name = "camel.fhir", phase = ConfigPhase.BUILD_TIME)
+@ConfigRoot(name = "camel.fhir", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public final class FhirConfig {
 
     /**
      * Enable FHIR DSTU2 Specs.
      */
-    @ConfigItem(defaultValue = "true")
+    @ConfigItem(name = "enable-dstu2", defaultValue = "true")
     public boolean enableDstu2;
 
     /**
      * Enable FHIR DSTU3 Specs.
      */
-    @ConfigItem(defaultValue = "false")
+    @ConfigItem(name = "enable-dstu3", defaultValue = "true")
     public boolean enableDstu3;
 
     /**
      * Enable FHIR R4 Specs.
      */
-    @ConfigItem(defaultValue = "true")
+    @ConfigItem(name = "enable-r4", defaultValue = "true")
     public boolean enableR4;
 }
