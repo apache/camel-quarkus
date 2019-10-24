@@ -67,7 +67,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "./mvnw $MAVEN_PARAMS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify -Dnative -Dnative-image.docker-build=true -f pom.xml"
+                sh "./mvnw $MAVEN_PARAMS -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify -Dnative -Ddocker -f pom.xml"
             }
             post {
                 always {

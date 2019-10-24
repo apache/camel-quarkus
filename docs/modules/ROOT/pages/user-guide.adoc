@@ -118,7 +118,7 @@ activate the profile that runs them:
 
 [source,shell]
 ----
-mvn clean verify -Dnative -Dnative-image.docker-build=true
+mvn clean verify -Dnative
 ----
 
 This takes about 2.5 minutes (once you have all dependencies cached).
@@ -157,7 +157,7 @@ To prepare a native executable using GraalVM, run the following command:
 
 [source,shell]
 ----
-mvn clean package -Dnative -Dnative-image.docker-build=true
+mvn clean package -Dnative
 ls -lh target
 ...
 -rwxr-xr-x. 1 ppalaga ppalaga  46M Oct 11 18:57  my-app-0.0.1-SNAPSHOT-runner
