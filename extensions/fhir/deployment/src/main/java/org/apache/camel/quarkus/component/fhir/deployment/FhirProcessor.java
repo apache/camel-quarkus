@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
+
 import ca.uhn.fhir.model.dstu2.FhirDstu2;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -48,7 +49,6 @@ import org.hl7.fhir.dstu3.hapi.ctx.FhirDstu3;
 import org.hl7.fhir.dstu3.model.Enumerations;
 
 class FhirProcessor {
-
     private static final String FEATURE = "camel-fhir";
 
     @BuildStep
@@ -65,20 +65,20 @@ class FhirProcessor {
     @BuildStep()
     ReflectiveClassBuildItem fhirEndpointConfiguration() {
         return new ReflectiveClassBuildItem(true, true,
-                FhirCreateEndpointConfiguration.class.getCanonicalName(),
-                FhirCapabilitiesEndpointConfiguration.class.getCanonicalName(),
-                FhirDeleteEndpointConfiguration.class.getCanonicalName(),
-                FhirHistoryEndpointConfiguration.class.getCanonicalName(),
-                FhirLoadPageEndpointConfiguration.class.getCanonicalName(),
-                FhirMetaEndpointConfiguration.class.getCanonicalName(),
-                FhirOperationEndpointConfiguration.class.getCanonicalName(),
-                FhirPatchEndpointConfiguration.class.getCanonicalName(),
-                FhirReadEndpointConfiguration.class.getCanonicalName(),
-                FhirSearchEndpointConfiguration.class.getCanonicalName(),
-                FhirTransactionEndpointConfiguration.class.getCanonicalName(),
-                FhirUpdateEndpointConfiguration.class.getCanonicalName(),
-                FhirValidateEndpointConfiguration.class.getCanonicalName(),
-                FhirConfiguration.class.getCanonicalName());
+                FhirCreateEndpointConfiguration.class,
+                FhirCapabilitiesEndpointConfiguration.class,
+                FhirDeleteEndpointConfiguration.class,
+                FhirHistoryEndpointConfiguration.class,
+                FhirLoadPageEndpointConfiguration.class,
+                FhirMetaEndpointConfiguration.class,
+                FhirOperationEndpointConfiguration.class,
+                FhirPatchEndpointConfiguration.class,
+                FhirReadEndpointConfiguration.class,
+                FhirSearchEndpointConfiguration.class,
+                FhirTransactionEndpointConfiguration.class,
+                FhirUpdateEndpointConfiguration.class,
+                FhirValidateEndpointConfiguration.class,
+                FhirConfiguration.class);
     }
 
     @BuildStep()

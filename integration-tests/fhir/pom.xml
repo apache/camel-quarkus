@@ -79,8 +79,8 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <systemProperties combine.children="append">
-                        <camel.fhir.enable-dstu2>true</camel.fhir.enable-dstu2>
-                        <camel.fhir.enable-r4>true</camel.fhir.enable-r4>
+                        <quarkus.camel.fhir.enable-dstu2>true</quarkus.camel.fhir.enable-dstu2>
+                        <quarkus.camel.fhir.enable-r4>true</quarkus.camel.fhir.enable-r4>
                     </systemProperties>
                 </configuration>
             </plugin>
