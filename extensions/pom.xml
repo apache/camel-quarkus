@@ -52,6 +52,7 @@
         <module>direct</module>
         <module>fhir</module>
         <module>infinispan</module>
+        <module>jackson</module>
         <module>jdbc</module>
         <module>log</module>
         <module>mail</module>
@@ -68,6 +69,7 @@
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>
+        <module>vm</module>
         <module>zipfile</module>
         <module>attachments</module>
     </modules>
