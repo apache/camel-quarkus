@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus-parent</artifactId>
-    <version>0.2.1-SNAPSHOT</version>
+    <version>0.3.0</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -70,21 +70,21 @@
         <tagNameFormat>@{project.version}</tagNameFormat>
 
         <mvnd.builder.rules>
-            camel-quarkus-core-deployment,camel-quarkus-aws-*-deployment,camel-quarkus-log-deployment,camel-quarkus-timer-deployment -> camel-quarkus-integration-test-aws
-            camel-quarkus-core-deployment,camel-quarkus-bean-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-bean
-            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-core-xml-deployment -> camel-quarkus-integration-test-core-cdi
-            camel-quarkus-core-deployment,camel-quarkus-core-cloud-deployment -> camel-quarkus-integration-test-core-impl
-            camel-quarkus-core-deployment,camel-quarkus-csv-deployment,camel-quarkus-direct-deployment -> camel-quarkus-integration-test-csv
-            camel-quarkus-core-deployment,camel-quarkus-infinispan-deployment,camel-quarkus-log-deployment,camel-quarkus-netty-http-deployment -> camel-quarkus-integration-test-infinispan
-            camel-quarkus-core-deployment,camel-quarkus-jdbc-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-jdbc
-            camel-quarkus-core-deployment,camel-quarkus-mail-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-mail
-            camel-quarkus-core-deployment,camel-quarkus-microprofile-metrics-deployment,camel-quarkus-direct-deployment -> camel-quarkus-integration-test-microprofile-metrics
-            camel-quarkus-core-deployment,camel-quarkus-netty-http-deployment,camel-quarkus-core-deployment -> camel-quarkus-integration-test-netty-http
-            camel-quarkus-core-deployment,camel-quarkus-paho-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-paho
-            camel-quarkus-core-deployment,camel-quarkus-salesforce-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-salesforce
-            camel-quarkus-core-deployment,camel-quarkus-servlet-deployment,camel-quarkus-rest-deployment,camel-quarkus-core-cloud-deployment -> camel-quarkus-integration-test-servlet
-            camel-quarkus-core-deployment,camel-quarkus-twitter-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-twitter
-            camel-quarkus-core-deployment,camel-quarkus-zipfile-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -> camel-quarkus-integration-test-zipfile
+            camel-quarkus-core-deployment,camel-quarkus-aws-*-deployment,camel-quarkus-log-deployment,camel-quarkus-timer-deployment -&gt; camel-quarkus-integration-test-aws
+            camel-quarkus-core-deployment,camel-quarkus-bean-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-bean
+            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-core-xml-deployment -&gt; camel-quarkus-integration-test-core-cdi
+            camel-quarkus-core-deployment,camel-quarkus-core-cloud-deployment -&gt; camel-quarkus-integration-test-core-impl
+            camel-quarkus-core-deployment,camel-quarkus-csv-deployment,camel-quarkus-direct-deployment -&gt; camel-quarkus-integration-test-csv
+            camel-quarkus-core-deployment,camel-quarkus-infinispan-deployment,camel-quarkus-log-deployment,camel-quarkus-netty-http-deployment -&gt; camel-quarkus-integration-test-infinispan
+            camel-quarkus-core-deployment,camel-quarkus-jdbc-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-jdbc
+            camel-quarkus-core-deployment,camel-quarkus-mail-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-mail
+            camel-quarkus-core-deployment,camel-quarkus-microprofile-metrics-deployment,camel-quarkus-direct-deployment -&gt; camel-quarkus-integration-test-microprofile-metrics
+            camel-quarkus-core-deployment,camel-quarkus-netty-http-deployment,camel-quarkus-core-deployment -&gt; camel-quarkus-integration-test-netty-http
+            camel-quarkus-core-deployment,camel-quarkus-paho-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-paho
+            camel-quarkus-core-deployment,camel-quarkus-salesforce-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-salesforce
+            camel-quarkus-core-deployment,camel-quarkus-servlet-deployment,camel-quarkus-rest-deployment,camel-quarkus-core-cloud-deployment -&gt; camel-quarkus-integration-test-servlet
+            camel-quarkus-core-deployment,camel-quarkus-twitter-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-twitter
+            camel-quarkus-core-deployment,camel-quarkus-zipfile-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-zipfile
         </mvnd.builder.rules>
     </properties>
 
@@ -138,7 +138,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary</url>
-        <tag>HEAD</tag>
+        <tag>0.3.0</tag>
     </scm>
 
     <issueManagement>

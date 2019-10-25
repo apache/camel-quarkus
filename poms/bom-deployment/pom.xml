@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -33,7 +33,7 @@
     <name>Camel Quarkus :: Build Parent</name>
 
     <properties>
-        <camel-quarkus.version>0.2.1-SNAPSHOT</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
+        <camel-quarkus.version>0.3.0</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
 
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <maven-checkstyle.version>7.6.1</maven-checkstyle.version>
