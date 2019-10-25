@@ -103,6 +103,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         if (endpoint.getConsumes() != null) {
             newRoute.consumes(endpoint.getConsumes());
         }
+        if (endpoint.getProduces() != null) {
+            newRoute.produces(endpoint.getProduces());
+        }
 
         handlers.forEach(newRoute::handler);
 
