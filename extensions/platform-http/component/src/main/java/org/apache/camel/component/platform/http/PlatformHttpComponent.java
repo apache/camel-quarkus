@@ -143,6 +143,8 @@ public class PlatformHttpComponent extends DefaultComponent implements RestConsu
 
         PlatformHttpEndpoint endpoint = camelContext.getEndpoint(url, PlatformHttpEndpoint.class);
         setProperties(camelContext, endpoint, parameters);
+        endpoint.setConsumes(consumes);
+        endpoint.setProduces(produces);
 
         // configure consumer properties
         Consumer consumer = endpoint.createConsumer(processor);

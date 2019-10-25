@@ -81,5 +81,8 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
             .to("log:response-code")
             .setHeader(Exchange.HTTP_RESPONSE_CODE).constant(299);
 
+        from("platform-http:/platform-http/consumes?httpMethodRestrict=POST&consumes=text/plain")
+            .setBody(simple("Hello ${body}"));
+
     }
 }

@@ -62,13 +62,31 @@ class PlatformHttpTest {
             .then().body(equalTo("POST: /rest-post"));
     }
 
-    @Disabled("See https://github.com/apache/camel-quarkus/issues/326")
     @Test
-    public void restConsumes() throws Throwable {
+    public void consumes() throws Throwable {
         RestAssured.given()
             .contentType("application/json")
             .post("/platform-http/rest-post")
-            .then().statusCode(415);
+            .then()
+            .statusCode(415);
+
+        RestAssured.given()
+            .contentType("text/plain")
+            .post("/platform-http/rest-post")
+            .then()
+            .statusCode(200);
+
+        RestAssured.given()
+            .contentType("application/json")
+            .post("/platform-http/consumes")
+            .then()
+            .statusCode(415);
+
+        RestAssured.given()
+            .contentType("text/plain")
+            .post("/platform-http/consumes")
+            .then()
+            .statusCode(200);
     }
 
     @Test
