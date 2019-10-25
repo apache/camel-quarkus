@@ -31,11 +31,13 @@ public final class PackageHelper {
     
     /**
      * Loads the entire stream into memory as a String and returns it.
-     * <p/>
-     * <b>Notice:</b> This implementation appends a <tt>\n</tt> as line
+     * Notice: This implementation appends a <tt>\n</tt> as line
      * terminator at the of the text.
-     * <p/>
      * Warning, don't use for crazy big streams :)
+     *
+     * @param in the inputStream
+     * @return the text String
+     * @throws IOException InputOutputException
      */
     public static String loadText(InputStream in) throws IOException {
         StringBuilder builder = new StringBuilder();

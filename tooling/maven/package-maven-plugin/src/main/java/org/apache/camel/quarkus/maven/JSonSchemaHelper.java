@@ -25,6 +25,7 @@ import java.util.stream.Collectors;
 import org.apache.camel.util.json.JsonObject;
 import org.apache.camel.util.json.Jsoner;
 
+
 public final class JSonSchemaHelper {
 
     private JSonSchemaHelper() {
@@ -35,6 +36,7 @@ public final class JSonSchemaHelper {
      *
      * @param group the group to parse from such as <tt>component</tt>, <tt>componentProperties</tt>, or <tt>properties</tt>.
      * @param json the json
+     * @param parseProperties parse properties or not
      * @return a list of all the rows, where each row is a set of key value pairs with metadata
      */
     public static List<Map<String, String>> parseJsonSchema(String group, String json, boolean parseProperties) {
@@ -113,6 +115,10 @@ public final class JSonSchemaHelper {
 
     /**
      * Gets the value with the key in a safe way, eg returning an empty string if there was no value for the key.
+     *
+     * @param key the key to search for
+     * @param rows the rows to search in
+     * @return the value found or empty string
      */
     public static String getSafeValue(String key, List<Map<String, String>> rows) {
         for (Map<String, String> row : rows) {
@@ -126,6 +132,10 @@ public final class JSonSchemaHelper {
 
     /**
      * Gets the value with the key in a safe way, eg returning an empty string if there was no value for the key.
+     *
+     * @param key the key to search for
+     * @param rows the rows to search in
+     * @return the value found or empty string
      */
     public static String getSafeValue(String key, Map<String, String> rows) {
         String value = rows.get(key);
@@ -135,6 +145,12 @@ public final class JSonSchemaHelper {
         return "";
     }
 
+    /**
+     *
+     * @param rows the rows to search in
+     * @param name the name to search for
+     * @return the value found or null
+     */
     public static String getPropertyDefaultValue(List<Map<String, String>> rows, String name) {
         for (Map<String, String> row : rows) {
             String defaultValue = null;
