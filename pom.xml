@@ -148,27 +148,27 @@
 
     <repositories>
         <repository>
-            <id>camel.rc3.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1158/</url>
-            <name>Apache 3.0.0-RC3 Staging Repo</name>
+            <id>apache.snapshots</id>
+            <url>https://repository.apache.org/snapshots/</url>
+            <name>Apache Snapshot Repo</name>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
-            <id>camel.rc3.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1158/</url>
+            <id>apache.snapshots</id>
+            <url>https://repository.apache.org/snapshots/</url>
             <snapshots>
-                <enabled>false</enabled>
+                <enabled>true</enabled>
             </snapshots>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>
