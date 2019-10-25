@@ -5,7 +5,7 @@
 
 This extension allows for creating HTTP endpoints for consuming HTTP requests.
 
-It is built on top of Eclipse Wert.x Web service provided by the `quarkus-vertx-web` extension.
+It is built on top of Eclipse Vert.x Web service provided by the `quarkus-vertx-web` extension.
 
 To use this extension add the following dependency to your `pom.xml`:
 
