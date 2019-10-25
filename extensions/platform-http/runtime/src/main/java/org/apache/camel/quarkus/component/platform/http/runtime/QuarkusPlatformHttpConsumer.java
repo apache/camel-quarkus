@@ -92,12 +92,16 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     protected void doStart() throws Exception {
         super.doStart();
 
-        final String path = getEndpoint().getPath();
+        final PlatformHttpEndpoint endpoint = getEndpoint();
+        final String path = endpoint.getPath();
         final Route newRoute = router.route(path);
 
-        final Set<Method> methods = Method.parseList(getEndpoint().getHttpMethodRestrict());
+        final Set<Method> methods = Method.parseList(endpoint.getHttpMethodRestrict());
         if (!methods.equals(Method.getAll())) {
             methods.stream().forEach(m -> newRoute.method(HttpMethod.valueOf(m.name())));
+        }
+        if (endpoint.getConsumes() != null) {
+            newRoute.consumes(endpoint.getConsumes());
         }
 
         handlers.forEach(newRoute::handler);
