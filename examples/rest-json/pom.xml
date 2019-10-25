@@ -73,7 +73,7 @@
 
     <profiles>
         <profile>
-            <id>native-image</id>
+            <id>native</id>
             <activation>
                 <property>
                     <name>native</name>
@@ -111,6 +111,7 @@
                                     <enableServer>false</enableServer>
                                     <cleanupServer>true</cleanupServer>
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                                    <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
                         </executions>

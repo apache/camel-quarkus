@@ -16,3 +16,15 @@ Then point your browser to one of the endpoints:
 http://localhost:8080/fruits
 http://localhost:8080/legumes
 ----
+
+== Native build
+
+To build as native:
+
+[source,text]
+----
+$ mvn package -Pnative
+----
+
+This requires having GraalVM and other tools installed.
+See the https://quarkus.io/guides/building-native-image-guide[Quarkus Native Guide] for details.

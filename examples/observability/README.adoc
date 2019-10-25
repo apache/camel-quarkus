@@ -11,14 +11,18 @@ $ mvn clean compile quarkus:dev -DnoDeps
 
 This compiles the project and starts the Quarkus tooling in https://quarkus.io/guides/maven-tooling#development-mode[development mode].
 
-To build a https://quarkus.io/guides/maven-tooling#building-a-native-executable[native executable] run the following (Docker required):
+== Native build
 
-[source]
+To build as native:
+
+[source,text]
 ----
-$ mvn clean package -Dnative
+$ mvn package -Pnative
 ----
 
-You can find the native executable in the `target` directory.
+This requires having GraalVM and other tools installed.
+See the https://quarkus.io/guides/building-native-image-guide[Quarkus Native Guide] for details.
+
 
 ==== Metrics endpoint
 
