@@ -84,5 +84,8 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
         from("platform-http:/platform-http/consumes?httpMethodRestrict=POST&consumes=text/plain")
             .setBody(simple("Hello ${body}"));
 
+        from("platform-http:/platform-http/produces?httpMethodRestrict=POST&produces=text/plain")
+            .setBody(simple("Hello ${body}"));
+
     }
 }

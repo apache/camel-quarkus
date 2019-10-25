@@ -89,6 +89,37 @@ class PlatformHttpTest {
             .statusCode(200);
     }
 
+
+    @Test
+    public void produces() throws Throwable {
+        RestAssured.given()
+            .accept("application/json")
+            .contentType("text/plain")
+            .post("/platform-http/rest-post")
+            .then()
+            .statusCode(406);
+
+        RestAssured.given()
+            .accept("text/plain")
+            .contentType("text/plain")
+            .post("/platform-http/rest-post")
+            .then()
+            .statusCode(200);
+
+        RestAssured.given()
+            .accept("application/json")
+            .contentType("text/plain")
+            .post("/platform-http/produces")
+            .then()
+            .statusCode(406);
+
+        RestAssured.given()
+            .accept("text/plain")
+            .contentType("text/plain")
+            .post("/platform-http/produces")
+            .then()
+            .statusCode(200);
+    }
     @Test
     public void invalidMethod() {
         RestAssured.post("/platform-http/hello")
