@@ -28,9 +28,9 @@ public class SupportListener implements MainListener {
             context.addRoutes(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
-                    from("timer:listener")
-                        .id("listener")
-                        .to("log:listener");
+                    from("timer:configure")
+                        .id("configure")
+                        .to("log:configure");
                 }
             });
         } catch (Exception e) {
@@ -40,6 +40,7 @@ public class SupportListener implements MainListener {
 
     @Override
     public void beforeStart(BaseMainSupport main) {
+        main.addRoutesBuilder(new MyBuilder());
     }
 
     @Override
@@ -52,5 +53,14 @@ public class SupportListener implements MainListener {
 
     @Override
     public void afterStop(BaseMainSupport main) {
+    }
+
+    public static class MyBuilder extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("timer:beforeStart")
+                .id("beforeStart")
+                .to("log:beforeStart");
+        }
     }
 }
