@@ -78,8 +78,8 @@ public class CamelMainRecorder {
         }
     }
 
-    public void addListener(RuntimeValue<CamelMain> main, MainListener listener) {
-        main.getValue().addMainListener(listener);
+    public void addListener(RuntimeValue<CamelMain> main, RuntimeValue<MainListener> listener) {
+        main.getValue().addMainListener(listener.getValue());
     }
 
     public void setReactiveExecutor(RuntimeValue<CamelMain> main, RuntimeValue<ReactiveExecutor> executor) {
