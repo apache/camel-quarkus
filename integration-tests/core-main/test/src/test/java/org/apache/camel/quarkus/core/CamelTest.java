@@ -73,9 +73,9 @@ public class CamelTest {
         assertThat(p.getList("listeners", String.class))
             .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
-            .containsOnly(CamelRoute.class.getName());
+            .containsOnly(CamelRoute.class.getName(), SupportListener.MyBuilder.class.getName());
         assertThat(p.getList("routes", String.class))
-            .containsOnly("keep-alive", "listener", "my-xml-route");
+            .containsOnly("keep-alive", "configure", "beforeStart", "my-xml-route");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
 
