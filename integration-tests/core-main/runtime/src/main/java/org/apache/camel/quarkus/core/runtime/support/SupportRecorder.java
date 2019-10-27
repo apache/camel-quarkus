@@ -14,24 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.runtime.support;
 
-import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.main.MainListener;
-import org.apache.camel.quarkus.core.CamelMain;
 
-/**
- * A {@link MultiBuildItem} holding {@link MainListener}s to add to {@link CamelMain}.
- */
-public final class CamelMainListenerBuildItem extends MultiBuildItem {
-    private final RuntimeValue<MainListener> listener;
-
-    public CamelMainListenerBuildItem(RuntimeValue<MainListener> listener) {
-        this.listener = listener;
-    }
-
-    public RuntimeValue<MainListener> getListener() {
-        return listener;
+@Recorder
+public class SupportRecorder {
+    public RuntimeValue<MainListener> createSupportListener() {
+        return new RuntimeValue<>(new SupportListener());
     }
 }
