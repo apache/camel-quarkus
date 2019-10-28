@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Paho"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "paho"
+  - "mqtt"
+  guide: "https://quarkus.io/guides/camel"

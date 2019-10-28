@@ -1,0 +1,8 @@
+---
+name: "Camel Quarkus Timer"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "scheduling"
+  guide: "https://quarkus.io/guides/camel"

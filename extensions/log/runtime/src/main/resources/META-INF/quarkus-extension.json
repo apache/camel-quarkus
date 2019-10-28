@@ -1,9 +1,0 @@
-{
-  "name": "Camel Quarkus Log",
-  "labels": [
-    "integration",
-    "camel"
-  ],
-  "guide": "https://quarkus.io/guides/camel"
-}
-

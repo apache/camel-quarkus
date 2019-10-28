@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus AWS EKS"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "aws"
+  - "cloud"
+  guide: "https://quarkus.io/guides/camel"

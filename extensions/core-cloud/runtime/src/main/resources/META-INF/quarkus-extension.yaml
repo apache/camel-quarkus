@@ -1,0 +1,7 @@
+---
+name: "Camel Quarkus Core Cloud"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  guide: "https://quarkus.io/guides/camel"

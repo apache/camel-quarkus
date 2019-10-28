@@ -1,9 +1,0 @@
-{
-  "name": "Camel Quarkus Slack",
-  "labels": [
-    "integration",
-    "camel",
-    "slack"
-  ],
-  "guide": "https://quarkus.io/guides/camel"
-}

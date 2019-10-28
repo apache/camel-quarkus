@@ -1,0 +1,8 @@
+---
+name: "Camel Quarkus Support Common"
+metadata:
+  keywords:
+  - "internal"
+  - "integration"
+  - "camel"
+  guide: "https://quarkus.io/guides/camel"
