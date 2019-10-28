@@ -1,0 +1,8 @@
+---
+name: "Camel Quarkus Rest"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "rest"
+  guide: "https://quarkus.io/guides/camel"

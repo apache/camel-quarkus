@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus MicroProfile Health"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "microprofile"
+  - "health"
+  guide: "https://quarkus.io/guides/camel"

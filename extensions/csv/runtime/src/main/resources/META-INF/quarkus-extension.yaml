@@ -1,0 +1,10 @@
+---
+name: "Camel Quarkus CSV"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "csv"
+  - "file"
+  - "transformation"
+  guide: "https://quarkus.io/guides/camel"

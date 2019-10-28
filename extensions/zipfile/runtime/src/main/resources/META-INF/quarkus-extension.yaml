@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Zipfile"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "zip"
+  - "file"
+  guide: "https://quarkus.io/guides/camel"

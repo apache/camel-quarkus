@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus MicroProfile Metrics"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "microprofile"
+  - "metrics"
+  guide: "https://quarkus.io/guides/camel"
