@@ -16,15 +16,28 @@
  */
 package org.apache.camel.quarkus.reactive.executor.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.CamelReactiveExecutorBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.reactive.executor.ReactiveExecutorRecorder;
 
 public class BuildProcessor {
+    /*
+     * The reactive executor is programmatically configured by the extension thus
+     * we can safely prevent camel-quarkus-core to instantiate a default instance.
+     */
+    @BuildStep
+    void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
+        filterBuildItems.produce(
+            new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/reactive-executor"))
+        );
+    }
+
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     @BuildStep(onlyIf = Flags.MainEnabled.class)
     CamelReactiveExecutorBuildItem reactiveExecutor(ReactiveExecutorRecorder recorder, VertxBuildItem vertx) {

@@ -60,13 +60,24 @@ class BuildProcessor {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelProducers.class));
         }
 
+        /*
+         * Configure filters for core services.
+         */
+        @BuildStep
+        void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
+            filterBuildItems.produce(
+                new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/properties-component-factory"))
+             );
+        }
+
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelRegistryBuildItem registry(
             CamelRecorder recorder,
             RecorderContext recorderContext,
             ApplicationArchivesBuildItem applicationArchives,
-            List<CamelBeanBuildItem> registryItems) {
+            List<CamelBeanBuildItem> registryItems,
+            List<CamelServiceFilterBuildItem> serviceFilters) {
 
             RuntimeValue<Registry> registry = recorder.createRegistry();
 
@@ -78,10 +89,7 @@ class BuildProcessor {
                     // to the camel context directly by extension so it does not make sense to
                     // instantiate them in this phase.
                     //
-                    boolean blacklisted = si.path.endsWith("reactive-executor")
-                        || si.path.endsWith("platform-http")
-                        || si.path.endsWith("properties-component-factory");
-
+                    boolean blacklisted = serviceFilters.stream().anyMatch(filter -> filter.getPredicate().test(si));
                     if (blacklisted) {
                         LOGGER.debug("Ignore service: {}", si);
                     }

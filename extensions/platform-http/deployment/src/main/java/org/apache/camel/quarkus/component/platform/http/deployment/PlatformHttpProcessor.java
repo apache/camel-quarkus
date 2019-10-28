@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.platform.http.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -33,16 +34,27 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpHand
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
 
 
 class PlatformHttpProcessor {
-
     private static final String FEATURE = "camel-platform-http";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    /*
+     * The platform-http component is programmatically configured by the extension thus
+     * we can safely prevent camel-quarkus-core to instantiate a default instance.
+     */
+    @BuildStep
+    void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
+        filterBuildItems.produce(
+            new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/component/platform-http"))
+        );
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
