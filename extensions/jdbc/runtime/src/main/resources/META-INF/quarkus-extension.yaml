@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus JDBC"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "jdbc"
+  - "database"
+  guide: "https://quarkus.io/guides/camel"

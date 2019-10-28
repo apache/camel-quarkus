@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus OpenTracing"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "tracing"
+  - "opentracing"
+  guide: "https://quarkus.io/guides/camel"

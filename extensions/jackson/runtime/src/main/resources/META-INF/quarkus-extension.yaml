@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Jackson"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "jackson"
+  - "dataformat"
+  guide: "https://quarkus.io/guides/camel"

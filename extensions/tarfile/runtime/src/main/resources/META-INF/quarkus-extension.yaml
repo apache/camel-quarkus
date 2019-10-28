@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Tarfile"
+metadata:
+  keywords:
+  - "integration"
+  - "camel"
+  - "tar"
+  - "file"
+  guide: "https://quarkus.io/guides/camel"

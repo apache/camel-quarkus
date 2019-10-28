@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Support XML"
+metadata:
+  keywords:
+  - "internal"
+  - "integration"
+  - "camel"
+  - "xml"
+  guide: "https://quarkus.io/guides/camel"
