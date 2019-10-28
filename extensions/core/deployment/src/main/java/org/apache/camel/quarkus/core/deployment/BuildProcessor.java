@@ -35,7 +35,6 @@ import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
@@ -142,15 +141,13 @@ class BuildProcessor {
             CamelRegistryBuildItem registry,
             CamelModelJAXBContextFactoryBuildItem contextFactory,
             CamelXmlLoaderBuildItem xmlLoader,
-            BeanContainerBuildItem beanContainer,
-            CamelConfig.BuildTime buildTimeConfig) {
+            BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
                 registry.getRegistry(),
                 contextFactory.getContextFactory(),
                 xmlLoader.getXmlLoader(),
-                beanContainer.getValue(),
-                buildTimeConfig);
+                beanContainer.getValue());
 
             return new CamelContextBuildItem(context);
         }

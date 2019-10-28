@@ -38,8 +38,7 @@ public class CamelRecorder {
                 RuntimeValue<Registry> registry,
                 RuntimeValue<ModelJAXBContextFactory> contextFactory,
                 RuntimeValue<XmlLoader> xmlLoader,
-                BeanContainer beanContainer,
-                CamelConfig.BuildTime buildTimeConfig) {
+                BeanContainer beanContainer) {
         FastCamelContext context = new FastCamelContext();
         context.setRegistry(registry.getValue());
         context.setLoadTypeConverters(false);
