@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>camel-quarkus-pdf-parent</artifactId>
-    <name>Camel Quarkus :: Pdf</name>
+    <name>Camel Quarkus :: PDF</name>
     <packaging>pom</packaging>
 
     <modules>
