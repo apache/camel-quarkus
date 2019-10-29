@@ -97,8 +97,13 @@
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <inherited>false</inherited>
-                <!-- Setting for stubbing new extensions via
-                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=my-new-extension
+                <!-- Settings for stubbing new extensions. E.g. to add a new extension to support an imaginary
+                     Camel Foo ABC component, you would run
+
+                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo-abc -Dquarkus.nameBase="Foo ABC"
+
+                     -Dquarkus.nameBase is optional. If you do not specify it, the plugin will derive it from
+                     artifactIdBase by replacing dashes with spaces and capitalizing the first letter of each token.
                 -->
                 <configuration>
                     <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
