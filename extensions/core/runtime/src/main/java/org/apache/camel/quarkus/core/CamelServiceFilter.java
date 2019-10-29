@@ -20,4 +20,41 @@ import java.util.function.Predicate;
 
 @FunctionalInterface
 public interface CamelServiceFilter extends Predicate<CamelServiceInfo> {
+    String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
+
+    static CamelServiceFilter forPathEndingWith(String path) {
+        return serviceInfo -> serviceInfo.path.endsWith(path);
+    }
+
+    static CamelServiceFilter forService(String name) {
+        return forPathEndingWith(CAMEL_SERVICE_BASE_PATH + "/" + name);
+    }
+
+    static CamelServiceFilter forComponent(String name) {
+        return forPathEndingWith(CAMEL_SERVICE_BASE_PATH + "/component/" + name);
+    }
+
+    static CamelServiceFilter forLanguage(String name) {
+        return forPathEndingWith(CAMEL_SERVICE_BASE_PATH + "/language/" + name);
+    }
+
+    static CamelServiceFilter forDataFormat(String name) {
+        return forPathEndingWith(CAMEL_SERVICE_BASE_PATH + "/dataformat/" + name);
+    }
+
+    static CamelServiceFilter forName(String name) {
+        return serviceInfo -> serviceInfo.name.equals(name);
+    }
+
+    static CamelServiceFilter forNameMatching(String regex) {
+        return serviceInfo -> serviceInfo.name.matches(regex);
+    }
+
+    static CamelServiceFilter forType(String type) {
+        return serviceInfo -> serviceInfo.type.equals(type);
+    }
+
+    static CamelServiceFilter forTypeMathing(String regex) {
+        return serviceInfo -> serviceInfo.type.matches(regex);
+    }
 }

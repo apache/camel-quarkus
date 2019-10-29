@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.vertx.deployment.VertxBuildItem;
+import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.CamelReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
@@ -34,7 +35,7 @@ public class BuildProcessor {
     @BuildStep
     void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
         filterBuildItems.produce(
-            new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/reactive-executor"))
+            new CamelServiceFilterBuildItem(CamelServiceFilter.forService("reactive-executor"))
         );
     }
 

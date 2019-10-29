@@ -33,6 +33,7 @@ import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpHandlers;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
+import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
@@ -53,7 +54,7 @@ class PlatformHttpProcessor {
     @BuildStep
     void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
         filterBuildItems.produce(
-            new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/component/platform-http"))
+            new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("platform-http"))
         );
     }
 

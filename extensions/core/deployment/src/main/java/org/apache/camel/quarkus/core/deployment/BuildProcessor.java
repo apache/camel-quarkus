@@ -40,6 +40,7 @@ import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
@@ -66,7 +67,7 @@ class BuildProcessor {
         @BuildStep
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
-                new CamelServiceFilterBuildItem(si -> si.path.endsWith("META-INF/services/org/apache/camel/properties-component-factory"))
+                new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory"))
              );
         }
 
