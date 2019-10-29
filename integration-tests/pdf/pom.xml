@@ -9,7 +9,7 @@
   </parent>
   <artifactId>camel-quarkus-integration-test-pdf</artifactId>
   <name>Camel Quarkus :: Integration Tests :: PDF</name>
-  <description>Integration tests for Camel Quarkus Pdf extension</description>
+  <description>Integration tests for Camel Quarkus PDF extension</description>
   <dependencies>
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
