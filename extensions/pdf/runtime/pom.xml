@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>camel-quarkus-pdf</artifactId>
-    <name>Camel Quarkus :: Pdf :: Runtime</name>
+    <name>Camel Quarkus :: PDF :: Runtime</name>
 
     <dependencyManagement>
         <dependencies>
