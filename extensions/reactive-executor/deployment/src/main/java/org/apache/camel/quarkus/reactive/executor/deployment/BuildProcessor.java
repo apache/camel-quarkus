@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.reactive.executor.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -33,10 +32,8 @@ public class BuildProcessor {
      * we can safely prevent camel-quarkus-core to instantiate a default instance.
      */
     @BuildStep
-    void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
-        filterBuildItems.produce(
-            new CamelServiceFilterBuildItem(CamelServiceFilter.forService("reactive-executor"))
-        );
+    CamelServiceFilterBuildItem serviceFilter() {
+        return new CamelServiceFilterBuildItem(CamelServiceFilter.forService("reactive-executor"));
     }
 
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)

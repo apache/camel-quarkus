@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.platform.http.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -52,10 +51,8 @@ class PlatformHttpProcessor {
      * we can safely prevent camel-quarkus-core to instantiate a default instance.
      */
     @BuildStep
-    void serviceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
-        filterBuildItems.produce(
-            new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("platform-http"))
-        );
+    CamelServiceFilterBuildItem serviceFilter() {
+        return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("platform-http"));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
