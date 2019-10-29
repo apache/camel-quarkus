@@ -152,11 +152,8 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     static Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
         final Exchange exchange = message.getExchange();
-        final boolean failed = exchange.isFailed();
-        final int defaultCode = failed ? 500 : 200;
 
-        final int code = message.getHeader(Exchange.HTTP_RESPONSE_CODE, defaultCode, int.class);
-
+        final int code = determineResponseCode(exchange, message.getBody());
         response.setStatusCode(code);
 
         final TypeConverter tc = exchange.getContext().getTypeConverter();
@@ -220,18 +217,37 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return body;
     }
 
+    /*
+     * Copied from org.apache.camel.http.common.DefaultHttpBinding.determineResponseCode(Exchange, Object)
+     * If DefaultHttpBinding.determineResponseCode(Exchange, Object) is moved to a module without the servlet-api
+     * dependency we could eventually consume it from there.
+     */
+    static int determineResponseCode(Exchange camelExchange, Object body) {
+        boolean failed = camelExchange.isFailed();
+        int defaultCode = failed ? 500 : 200;
+
+        Message message = camelExchange.getMessage();
+        Integer currentCode = message.getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class);
+        int codeToUse = currentCode == null ? defaultCode : currentCode;
+
+        if (codeToUse != 500) {
+            if ((body == null) || (body instanceof String && ((String) body).trim().isEmpty())) {
+                // no content
+                codeToUse = currentCode == null ? 204 : currentCode;
+            }
+        }
+
+        return codeToUse;
+    }
+
     static void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
         final Object body = toHttpResponse(ctx.response(), camelExchange.getMessage(), headerFilterStrategy);
 
         final HttpServerResponse response = ctx.response();
         if (body == null) {
             LOG.tracef("No payload to send as reply for exchange: %s", camelExchange);
-            response.putHeader("Content-Type", "text/plain; charset=utf-8");
-            response.end("No response available");
-            return;
-        }
-
-        if (body instanceof String) {
+            response.end();
+        } else if (body instanceof String) {
             response.end((String) body);
         } else if (body instanceof InputStream) {
             final byte[] bytes = new byte[4096];
