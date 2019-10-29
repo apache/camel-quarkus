@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 class FhirIT extends FhirTest {
-
 }

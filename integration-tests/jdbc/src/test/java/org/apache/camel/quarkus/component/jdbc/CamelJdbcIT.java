@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class CamelJdbcIT extends CamelJdbcTest {
 
 }

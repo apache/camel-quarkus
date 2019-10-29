@@ -25,16 +25,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
-
 import javax.inject.Inject;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
@@ -79,7 +78,7 @@ class NativeImageProcessor {
         @Inject
         BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod;
         @Inject
-        BuildProducer<SubstrateResourceBuildItem> resource;
+        BuildProducer<NativeImageResourceBuildItem> resource;
         @Inject
         ApplicationArchivesBuildItem applicationArchivesBuildItem;
 
@@ -158,7 +157,7 @@ class NativeImageProcessor {
         }
 
         protected void addResource(String r) {
-            resource.produce(new SubstrateResourceBuildItem(r));
+            resource.produce(new NativeImageResourceBuildItem(r));
         }
 
         protected void addReflectiveClass(boolean methods, String... className) {

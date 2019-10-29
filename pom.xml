@@ -42,7 +42,7 @@
 
         <camel.version>3.0.0-RC3</camel.version>
         <hapi.version>3.7.0</hapi.version>
-        <quarkus.version>0.26.1</quarkus.version>
+        <quarkus.version>0.27.0</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
 
@@ -446,9 +446,9 @@
         </profile>
 
         <profile>
-            <id>quarkus-snapshots</id>
+            <id>oss-snapshots</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <repositories>
                 <repository>
