@@ -2,7 +2,8 @@
   "name": "Camel Quarkus PDF",
   "labels": [
     "integration",
-    "camel"
+    "camel",
+    "pdf"
   ],
   "guide": "https://quarkus.io/guides/camel"
 }
