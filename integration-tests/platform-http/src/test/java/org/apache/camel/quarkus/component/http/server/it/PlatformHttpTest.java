@@ -198,4 +198,40 @@ class PlatformHttpTest {
             .then()
             .statusCode(299);
     }
+
+
+    @Test
+    public void code204Null() throws Exception {
+        RestAssured.given()
+            .get("/platform-http/null-body")
+            .then()
+            .statusCode(204);
+    }
+
+    @Test
+    public void code204EmptyString() throws Exception {
+        RestAssured.given()
+            .get("/platform-http/empty-string-body")
+            .then()
+            .statusCode(204);
+    }
+
+    @Test
+    public void code204SomeString() throws Exception {
+        RestAssured.given()
+            .get("/platform-http/some-string")
+            .then()
+            .statusCode(200)
+            .body(equalTo("No Content"));
+    }
+
+    @Test
+    public void code200EmptyString() throws Exception {
+        RestAssured.given()
+            .get("/platform-http/empty-string-200")
+            .then()
+            .statusCode(200)
+            .body(equalTo(""));
+    }
+
 }
