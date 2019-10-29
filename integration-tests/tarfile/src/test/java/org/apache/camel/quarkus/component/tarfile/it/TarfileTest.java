@@ -35,10 +35,12 @@ class TarfileTest {
 
     @Test
     public void test() throws Exception {
+        final String encoding = "utf-8";
+
         byte[] body;
 
         ExtractableResponse response = RestAssured.given() //
-            .contentType(ContentType.TEXT).body("Hello World").post("/tarfile/post") //
+            .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post") //
             .then().extract();
 
         body = response.body().asByteArray();
@@ -53,7 +55,7 @@ class TarfileTest {
             IOHelper.copy(tis, bos);
         }
 
-        String str = bos.toString();
+        String str = bos.toString(encoding);
         Assertions.assertEquals("Hello World", str);
     }
 
