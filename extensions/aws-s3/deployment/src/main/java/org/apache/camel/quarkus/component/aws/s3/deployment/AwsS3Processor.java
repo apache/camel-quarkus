@@ -34,10 +34,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.RuntimeInitializedClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateProxyDefinitionBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.aws.s3.S3Configuration;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -65,19 +65,19 @@ class AwsS3Processor {
     }
 
     @BuildStep
-    SubstrateProxyDefinitionBuildItem httpProxies() {
-        return new SubstrateProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
+    NativeImageProxyDefinitionBuildItem httpProxies() {
+        return new NativeImageProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
                 "org.apache.http.pool.ConnPoolControl", "com.amazonaws.http.conn.Wrapped");
     }
 
     @BuildStep(applicationArchiveMarkers = { AWS_S3_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<SubstrateResourceBuildItem> resource) {
+            BuildProducer<NativeImageResourceBuildItem> resource) {
 
         IndexView view = combinedIndexBuildItem.getIndex();
 
-        resource.produce(new SubstrateResourceBuildItem("com/amazonaws/partitions/endpoints.json"));
+        resource.produce(new NativeImageResourceBuildItem("com/amazonaws/partitions/endpoints.json"));
         for (String s : getImplementations(view, JsonDeserializer.class)) {
             reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, s));
         }

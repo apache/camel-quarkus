@@ -27,9 +27,9 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.fhir.FhirCapabilitiesEndpointConfiguration;
 import org.apache.camel.component.fhir.FhirConfiguration;
 import org.apache.camel.component.fhir.FhirCreateEndpointConfiguration;
@@ -82,8 +82,8 @@ class FhirProcessor {
     }
 
     @BuildStep()
-    SubstrateResourceBundleBuildItem hapiMessages() {
-        return new SubstrateResourceBundleBuildItem("ca.uhn.fhir.i18n.hapi-messages");
+    NativeImageResourceBundleBuildItem hapiMessages() {
+        return new NativeImageResourceBundleBuildItem("ca.uhn.fhir.i18n.hapi-messages");
     }
 
     @BuildStep
@@ -93,7 +93,7 @@ class FhirProcessor {
     }
 
     @BuildStep(applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<SubstrateResourceBuildItem> resource) {
+    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBundleBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add("ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory");
         classes.add("ca.uhn.fhir.validation.schematron.SchematronBaseValidator");
@@ -104,35 +104,35 @@ class FhirProcessor {
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processDstu2(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<SubstrateResourceBuildItem> resource) {
+    void processDstu2(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu2.class.getCanonicalName());
         classes.addAll(getModelClasses("/ca/uhn/fhir/model/dstu2/fhirversion.properties"));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
-        resource.produce(new SubstrateResourceBuildItem("ca/uhn/fhir/model/dstu2/fhirversion.properties"));
+        resource.produce(new NativeImageResourceBuildItem("ca/uhn/fhir/model/dstu2/fhirversion.properties"));
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu3Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processDstu3(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<SubstrateResourceBuildItem> resource) {
+    void processDstu3(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu3.class.getCanonicalName());
         classes.addAll(getModelClasses("/org/hl7/fhir/dstu3/model/fhirversion.properties"));
         classes.addAll(getInnerClasses(Enumerations.class.getCanonicalName()));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
-        resource.produce(new SubstrateResourceBuildItem("org/hl7/fhir/dstu3/model/fhirversion.properties"));
+        resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/dstu3/model/fhirversion.properties"));
     }
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processR4(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<SubstrateResourceBuildItem> resource) {
+    void processR4(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add("org.hl7.fhir.r4.hapi.ctx.FhirR4");
         classes.addAll(getModelClasses("/org/hl7/fhir/r4/model/fhirversion.properties"));
         classes.addAll(getInnerClasses(org.hl7.fhir.r4.model.Enumerations.class.getCanonicalName()));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
-        resource.produce(new SubstrateResourceBuildItem("org/hl7/fhir/r4/model/fhirversion.properties"));
+        resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/r4/model/fhirversion.properties"));
     }
 
     private Collection<String> getModelClasses(String model) {

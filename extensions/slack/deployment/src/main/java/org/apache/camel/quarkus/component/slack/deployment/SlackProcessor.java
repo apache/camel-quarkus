@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.slack.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 
 class SlackProcessor {
 
@@ -36,9 +36,9 @@ class SlackProcessor {
     }
 
     @BuildStep
-    SubstrateResourceBuildItem suffixListResource() {
+    NativeImageResourceBuildItem suffixListResource() {
         // Required by org.apache.http.conn.util.PublicSuffixMatcher
-        return new SubstrateResourceBuildItem("mozilla/public-suffix-list.txt");
+        return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
     }
 
 }

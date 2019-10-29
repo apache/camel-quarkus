@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.twitter;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-@SubstrateTest
+@NativeImageTest
 @EnabledIfEnvironmentVariable(named = "TWITTER_CONSUMER_KEY", matches = "[a-zA-Z0-9]+")
 public class CamelTwitterIT extends CamelTwitterTest {
 

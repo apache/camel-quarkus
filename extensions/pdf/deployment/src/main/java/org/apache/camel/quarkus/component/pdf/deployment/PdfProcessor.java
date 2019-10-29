@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.pdf.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 
 class PdfProcessor {
 
@@ -35,8 +35,8 @@ class PdfProcessor {
     }
 
     @BuildStep
-    SubstrateResourceBuildItem initResources() {
-        return new SubstrateResourceBuildItem(RUNTIME_RESOURCES);
+    NativeImageResourceBuildItem initResources() {
+        return new NativeImageResourceBuildItem(RUNTIME_RESOURCES);
     }
 
 }

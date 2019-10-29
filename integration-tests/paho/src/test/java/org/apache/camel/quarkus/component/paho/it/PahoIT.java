@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.paho.it;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 class PahoIT extends PahoTest {
 
 }
