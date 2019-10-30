@@ -515,6 +515,11 @@
                 <artifactId>camel-quarkus-pdf</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>

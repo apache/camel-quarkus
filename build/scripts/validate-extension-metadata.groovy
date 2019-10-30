@@ -16,30 +16,41 @@
  */
 
 import groovy.io.FileType
-import groovy.json.JsonSlurper
 
-final String quarkusExtensionJsonRelPath = 'runtime/src/main/resources/META-INF/quarkus-extension.json'
+final String quarkusExtensionRelPath = 'runtime/src/main/resources/META-INF/quarkus-extension.yaml'
 final List<String> messages = []
-project.basedir.eachFile FileType.DIRECTORIES, { extensionParentDir ->
-    if (new File(extensionParentDir, 'runtime/pom.xml').exists()) {
-        final File extensionJsonFile = new File(extensionParentDir, quarkusExtensionJsonRelPath)
-        final String shortName = extensionParentDir.getName()
-        final String shortPath = shortName + '/' + quarkusExtensionJsonRelPath
-        final boolean internal = (shortName.startsWith('core') || shortName.endsWith('-common'))
-        if (!extensionJsonFile.exists()) {
+
+project.basedir.eachFile(FileType.DIRECTORIES) {
+    if (new File(it, 'runtime/pom.xml').exists()) {
+        final File extensionFile = new File(it, quarkusExtensionRelPath)
+        final String shortPath = it.name + '/' + quarkusExtensionRelPath
+
+        if (!extensionFile.exists()) {
             messages.add(shortPath + ' is missing')
         } else {
-            final Map extensionJson = new JsonSlurper().parseText(extensionJsonFile.getText("UTF-8"))
-            if (extensionJson['name'] == null) {
+            def yaml = new org.yaml.snakeyaml.Yaml()
+            def descriptor = yaml.load(extensionFile.getText("UTF-8"))
+
+            if (!descriptor.name) {
                 messages.add(shortPath + ' must contain name')
             }
-            if (!(extensionJson['labels'] instanceof List)
-                    || !extensionJson['labels'].contains("camel")
-                    || !extensionJson['labels'].contains("integration")) {
-                messages.add(shortPath + ' must contain a list of labels with at least "integration" and "camel" labels present')
+
+            // metadata
+            if (!descriptor.metadata) {
+                messages.add(shortPath + ' must contain metadata section')
+                return
             }
-            if (extensionJson['guide'] == null || !"https://quarkus.io/guides/camel".equals(extensionJson['guide'])) {
+            if (!descriptor.metadata.guide?.equals('https://quarkus.io/guides/camel')) {
                 messages.add(shortPath + ' must contain a link to the guide https://quarkus.io/guides/camel')
+            }
+
+            // keywords
+            if (!descriptor.metadata.keywords) {
+                messages.add(shortPath + ' must contain keywords section')
+                return
+            }
+            if (!descriptor.metadata.keywords?.contains('camel')) {
+                messages.add(shortPath + ' must contain a list of keywords with at least "camel" present')
             }
         }
     }
@@ -47,5 +58,5 @@ project.basedir.eachFile FileType.DIRECTORIES, { extensionParentDir ->
 
 if (!messages.isEmpty()) {
     throw new RuntimeException("\nQuarkus extension metadata validation failures:\n\n    "
-            + messages.join("\n    "))
+            + messages.join('\n    '))
 }
