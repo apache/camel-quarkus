@@ -31,6 +31,10 @@
     <artifactId>[=artifactId]</artifactId>
     <name>[=namePrefix][=nameBase][=nameSegmentDelimiter]Runtime</name>
 
+    <properties>
+        <firstVersion>[=version?split(".")[0]].[=version?split(".")[1]?number + 1].0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
