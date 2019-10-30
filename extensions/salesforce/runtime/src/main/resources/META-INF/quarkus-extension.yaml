@@ -2,7 +2,8 @@
 name: "Camel Quarkus Salesforce"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "salesforce"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

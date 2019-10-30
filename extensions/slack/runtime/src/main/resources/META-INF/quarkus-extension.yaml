@@ -2,7 +2,8 @@
 name: "Camel Quarkus Slack"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "slack"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

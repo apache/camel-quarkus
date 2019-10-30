@@ -2,8 +2,9 @@
 name: "Camel Quarkus Servlet"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "servlet"
   - "http"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

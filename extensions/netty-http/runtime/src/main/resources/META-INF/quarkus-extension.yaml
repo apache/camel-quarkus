@@ -2,8 +2,9 @@
 name: "Camel Quarkus MicroProfile Netty HTTP"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "netty"
   - "http"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

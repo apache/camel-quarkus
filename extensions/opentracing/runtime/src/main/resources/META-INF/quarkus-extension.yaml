@@ -7,3 +7,5 @@ metadata:
   - "tracing"
   - "opentracing"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

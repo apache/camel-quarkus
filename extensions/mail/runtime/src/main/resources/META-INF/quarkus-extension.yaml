@@ -2,7 +2,8 @@
 name: "Camel Quarkus Mail"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "mail"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

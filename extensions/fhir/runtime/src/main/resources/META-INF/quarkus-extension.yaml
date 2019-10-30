@@ -2,7 +2,8 @@
 name: "Camel Quarkus FHIR"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "healthcare"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

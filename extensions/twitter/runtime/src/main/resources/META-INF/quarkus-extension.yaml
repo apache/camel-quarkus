@@ -2,8 +2,9 @@
 name: "Camel Quarkus Twitter"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "social"
   - "twitter"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"
