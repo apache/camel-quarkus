@@ -2,7 +2,8 @@
 name: "Camel Quarkus Platform HTTP"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "http"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

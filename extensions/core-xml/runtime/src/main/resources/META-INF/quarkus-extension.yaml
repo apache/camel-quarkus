@@ -2,7 +2,8 @@
 name: "Camel Quarkus XML Common"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "xml"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

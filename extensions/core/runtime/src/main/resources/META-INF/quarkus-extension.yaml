@@ -2,6 +2,7 @@
 name: "Camel Quarkus Core"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

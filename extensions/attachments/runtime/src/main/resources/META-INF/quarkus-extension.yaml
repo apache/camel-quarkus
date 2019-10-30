@@ -2,7 +2,8 @@
 name: "Camel Quarkus Attachments"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "multipart"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

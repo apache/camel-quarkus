@@ -2,7 +2,8 @@
 name: "Camel Quarkus Reactive Executor"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "reactive"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

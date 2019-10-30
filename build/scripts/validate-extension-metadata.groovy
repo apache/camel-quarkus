@@ -46,11 +46,20 @@ project.basedir.eachFile(FileType.DIRECTORIES) {
 
             // keywords
             if (!descriptor.metadata.keywords) {
-                messages.add(shortPath + ' must contain keywords section')
+                messages.add(shortPath + ' metadata must contain keywords section')
                 return
             }
             if (!descriptor.metadata.keywords?.contains('camel')) {
-                messages.add(shortPath + ' must contain a list of keywords with at least "camel" present')
+                messages.add(shortPath + ' metadata must contain a list of keywords with at least "camel" present')
+            }
+
+            // categories
+            if (!descriptor.metadata.categories) {
+                messages.add(shortPath + ' metadata must contain categories section')
+                return
+            }
+            if (!descriptor.metadata.categories?.contains('integration')) {
+                messages.add(shortPath + ' metadata must contain a list of categories with at least "integration" present')
             }
         }
     }

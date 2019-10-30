@@ -2,7 +2,8 @@
 name: "Camel Quarkus PDF"
 metadata:
   keywords:
-  - "integration"
   - "camel"
   - "pdf"
   guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"
