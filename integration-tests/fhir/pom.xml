@@ -78,9 +78,10 @@
                 <configuration>
                     <systemProperties combine.children="append">
                         <!--
-                        <quarkus.camel.fhir.enable-dstu2>true</quarkus.camel.fhir.enable-dstu2>
-                        <quarkus.camel.fhir.enable-r4>true</quarkus.camel.fhir.enable-r4>
+                            temporary disabled as FHIR testing service is down
                         -->
+                        <quarkus.camel.fhir.enable-dstu2>false</quarkus.camel.fhir.enable-dstu2>
+                        <quarkus.camel.fhir.enable-r4>false</quarkus.camel.fhir.enable-r4>
                     </systemProperties>
                 </configuration>
             </plugin>
