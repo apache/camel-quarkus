@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 26 in 22 JAR artifacts (0 deprecated)
+Number of Camel components: 27 in 23 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -50,6 +50,9 @@ Number of Camel components: 26 in 22 JAR artifacts (0 deprecated)
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 0.2 | Camel metrics exposed with Eclipse MicroProfile Metrics
+
+| xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
+`netty:protocol:host:port` | 0.4 | Socket level networking using TCP or UDP with the Netty 4.x library.
 
 | link:https://camel.apache.org/components/latest/netty-http-component.html[Netty HTTP] (camel-quarkus-netty-http) +
 `netty-http:protocol:host:port/path` | 0.2 | Netty HTTP server and client using the Netty 4.x library.
