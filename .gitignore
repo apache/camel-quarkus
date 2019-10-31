@@ -30,6 +30,7 @@ nb-configuration.xml
 # VS CODE
 .vscode
 *.code-workspace
+.factorypath
 
 # Vi/Vim
 *.swp

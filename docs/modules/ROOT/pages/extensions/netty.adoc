@@ -1,0 +1,47 @@
+[[netty]]
+= Netty Extension
+
+*Since Camel Quarkus 0.4*
+
+The Netty extension provides socket level networking using TCP or UDP with the Netty 4.x library
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-netty</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides experimental support for the Camel https://camel.apache.org/components/latest/netty-component.html[Netty Component].
+
+=== Example Usage
+
+[source,java]
+------------------------------------------------------------
+public class CamelRoute extends RouteBuilder {
+
+    @Override
+    public void configure() {
+
+            from("netty:tcp://localhost:8999?textline=true&sync=true")
+            .process(new Processor() {
+                public void process(Exchange exchange) throws Exception {
+                    if (exchange.getIn().getBody() instanceof Poetry) {
+                        Poetry poetry = (Poetry) exchange.getIn().getBody();
+                        poetry.setPoet("Dr. Sarojini Naidu");
+                        exchange.getOut().setBody(poetry);
+                        return;
+                    }
+                    exchange.getOut().setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
+                }
+            });
+
+    }
+}
+------------------------------------------------------------
+

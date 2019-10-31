@@ -1,0 +1,9 @@
+---
+name: "Camel Quarkus Netty"
+metadata:
+  keywords:
+  - "camel"
+  - "netty"
+  guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"
