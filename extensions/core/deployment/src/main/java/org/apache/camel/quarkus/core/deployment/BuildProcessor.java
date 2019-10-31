@@ -68,7 +68,7 @@ class BuildProcessor {
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
                 new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory"))
-             );
+            );
         }
 
         @Record(ExecutionTime.STATIC_INIT)
