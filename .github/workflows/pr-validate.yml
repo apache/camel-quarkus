@@ -14,4 +14,4 @@ jobs:
       with:
         java-version: 1.8
     - name: SourceCheck
-      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dcheckstyle.failOnViolation=true checkstyle:checkstyle -Psourcecheck
+      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dcheckstyle.failOnViolation=true validate -Psourcecheck
