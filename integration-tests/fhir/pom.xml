@@ -8,8 +8,8 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-fhir</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: fhir</name>
-    <description>Integration tests for Camel Quarkus fhir extension</description>
+    <name>Camel Quarkus :: Integration Tests :: FHIR</name>
+    <description>Integration tests for Camel Quarkus FHIR extension</description>
 
     <dependencyManagement>
         <dependencies>
