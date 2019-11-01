@@ -3,25 +3,55 @@
 This is a basic hello world example that uses a Camel timer that
 triggers every second and prints to the log.
 
-To run it:
+TIP: Check the https://camel.apache.org/camel-quarkus/latest/user-guide.html[Camel Quarkus User guide] for prerequisites
+and other general information.
 
-[source,text]
+== Start in the Development mode
+
+[source,shell]
 ----
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
-This compiles the project and starts the Quarkus tooling in the https://quarkus.io/guides/maven-tooling#development-mode[develpment mode].
+
+The above command compiles the project, starts the application and lets the Quarkus tooling watch for changes in your
+workspace. Any modifications in your project will automatically take effect in the running application.
+
+TIP: Please refer to the Development mode section of
+https://camel.apache.org/camel-quarkus/latest/user-guide.html#_development_mode[Camel Quarkus User guide] for more details.
+
 Then look at the log output in the console. As we run the example
 in Quarkus Dev Mode, you can edit the source code and have live updates.
 For example try to change the logging output to be `Bye World`.
 
-== Native build
+=== Package and run the application
 
-To build as native:
+Once you are done with developing you may want to package and run the application.
 
-[source,text]
+TIP: Find more details about the JVM mode and Native mode in the Package and run section of
+https://camel.apache.org/camel-quarkus/latest/user-guide.html#_package_and_run_the_application[Camel Quarkus User guide]
+
+==== JVM mode
+
+[source,shell]
 ----
-$ mvn package -Pnative
+$ mvn clean package
+$ java -jar target/*-runner.jar
+...
+[io.quarkus] (main) Quarkus 0.23.2 started in 1.163s. Listening on: http://[::]:8080
 ----
 
-This requires having GraalVM and other tools installed.
-See the https://quarkus.io/guides/building-native-image-guide[Quarkus Native Guide] for details.
+==== Native mode
+
+IMPORTANT: Native mode requires having GraalVM and other tools installed. Please check the Prerequisites section
+of https://camel.apache.org/camel-quarkus/latest/user-guide.html#_prerequisites[Camel Quarkus User guide].
+
+To prepare a native executable using GraalVM, run the following command:
+
+[source,shell]
+----
+$ mvn clean package -Pnative
+$ ./target/*-runner
+...
+[io.quarkus] (main) Quarkus 0.23.2 started in 0.013s. Listening on: http://[::]:8080
+...
+----
