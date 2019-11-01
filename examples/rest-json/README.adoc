@@ -4,24 +4,21 @@ This example is a port of Quarkus' quickstart https://github.com/quarkusio/quark
 
 To run it:
 
-[source,text]
+[source,shell]
 ----
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
 
 Then point your browser to one of the endpoints:
 
-[source,text]
-----
-http://localhost:8080/fruits
-http://localhost:8080/legumes
-----
+* http://localhost:8080/fruits
+* http://localhost:8080/legumes
 
 == Native build
 
 To build as native:
 
-[source,text]
+[source,shell]
 ----
 $ mvn package -Pnative
 ----

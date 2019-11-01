@@ -6,7 +6,7 @@ log.
 
 To run it:
 
-[source,text]
+[source,shell]
 ----
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
@@ -19,7 +19,7 @@ For example try to change the logging output to be `Bye XML`.
 
 To build as native:
 
-[source,text]
+[source,shell]
 ----
 $ mvn package -Pnative
 ----

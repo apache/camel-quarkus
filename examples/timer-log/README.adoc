@@ -5,11 +5,13 @@ triggers every second and prints to the log.
 
 To run it:
 
-[source,text]
+[source,shell]
 ----
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
+
 This compiles the project and starts the Quarkus tooling in the https://quarkus.io/guides/maven-tooling#development-mode[develpment mode].
+
 Then look at the log output in the console. As we run the example
 in Quarkus Dev Mode, you can edit the source code and have live updates.
 For example try to change the logging output to be `Bye World`.
@@ -18,7 +20,7 @@ For example try to change the logging output to be `Bye World`.
 
 To build as native:
 
-[source,text]
+[source,shell]
 ----
 $ mvn package -Pnative
 ----

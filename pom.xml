@@ -478,7 +478,7 @@
         </profile>
 
         <profile>
-            <id>quarkus-docker</id>
+            <id>docker</id>
             <activation>
                 <property>
                     <name>docker</name>

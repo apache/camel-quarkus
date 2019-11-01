@@ -4,7 +4,7 @@ This example project demonstrates how to add support for metrics, health checks 
 
 === Running
 
-[source]
+[source,shell]
 ----
 $ mvn clean compile quarkus:dev -DnoDeps
 ----
@@ -15,7 +15,7 @@ This compiles the project and starts the Quarkus tooling in https://quarkus.io/g
 
 To build as native:
 
-[source,text]
+[source,shell]
 ----
 $ mvn package -Pnative
 ----
@@ -30,28 +30,29 @@ Metrics are exposed on an HTTP endpoint at `/metrics`. You can also browse appli
 
 To view all Camel metrics do:
 
-[source]
+[source,shell]
 ----
 $ curl localhost:8080/metrics/application
 ----
 
 To pick out specific metrics you can either use `grep` or the `https://stedolan.github.io/jq/[jq]` library :
 
-[source]
+[source,shell]
 ----
-$ curl -s -H"Accept: application/json" localhost:8080/metrics/application | jq '.["camel.context.exchanges.completed.total;camelContext=camel-quarkus-observability"]'
+$ curl -s -H"Accept: application/json" localhost:8080/metrics/application \
+    | jq '.["camel.context.exchanges.completed.total;camelContext=camel-quarkus-observability"]'
 ----
 
 ==== Health endpoint
 
 Camel provides some out of the box liveness and readiness checks. To see this working, interrogate the `/health/live` and `/health/ready` endpoints:
 
-[source]
+[source,shell]
 ----
 $ curl -s localhost:8080/health/live
 ----
 
-[source]
+[source,shell]
 ----
 $ curl -s localhost:8080/health/ready
 ----
@@ -69,9 +70,10 @@ The tracing configuration for the application can be found within `application.p
 
 To view tracing events, start a Jaeger tracing server. A simple way of doing this is with Docker:
 
-[source]
+[source,shell]
 ----
-$ docker run -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:latest
+$ docker run -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 \
+    -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:latest
 ----
 
 With the server running, browse to http://localhost:16686. Then choose 'greetings-service' from the 'Service' drop down and click the 'Find Traces' button.
