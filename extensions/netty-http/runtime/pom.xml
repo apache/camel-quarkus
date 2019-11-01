@@ -51,6 +51,10 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-http-common</artifactId>
         </dependency>
         <dependency>
@@ -70,11 +74,6 @@
                     <artifactId>camel-caffeine-lrucache</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
         </dependency>
     </dependencies>
 
