@@ -103,7 +103,27 @@ There are only three classes in the application: `Routes` defining the Camel rou
 
 `src/main/resources/application.properties` configure the application. E.g. the `camel.context.name` is set there.
 
-There are two test classes there: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
+=== Development mode
+
+[source,shell]
+----
+$ mvn clean compile quarkus:dev
+----
+
+This command compiles the project, starts your application and lets the Quarkus tooling watch for changes in your
+workspace. Any modifications in your project will automatically take effect in the running application.
+
+Check the application in the browser, e.g. http://localhost:8080/fruits[http://localhost:8080/fruits]
+for the `rest-json` example
+
+Then change something in the code and see the changes applied by refreshing the browser.
+
+Please refer to https://quarkus.io/guides/maven-tooling#development-mode[Quarkus documentation] for more details.
+
+
+=== Testing
+
+There are two test classes in our example: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
 mode.
 
 The JVM mode tests are run by `maven-surefire-plugin` in the `test` Maven phase:
@@ -125,7 +145,7 @@ $ mvn clean verify -Pnative
 
 This takes about 2.5 minutes (once you have all dependencies cached).
 
-=== Run the application
+=== Package and run the application
 
 ==== JVM mode
 
@@ -187,3 +207,7 @@ $ ps -o rss,command -p $(pgrep my-app)
 ----
 
 That's under 35 MB of RAM!
+
+TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable quide] contains more details
+including
+https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].
