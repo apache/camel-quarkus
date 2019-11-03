@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -28,7 +29,6 @@ import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
@@ -44,6 +44,7 @@ import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -137,8 +138,9 @@ class BuildProcessor {
 
         @BuildStep
         @Record(ExecutionTime.STATIC_INIT)
-        void disableXmlReifiers(CamelRecorder recorder, List<FeatureBuildItem> features) {
-            if (features.stream().map(FeatureBuildItem::getInfo).noneMatch("camel-xml"::equals)) {
+        void disableXmlReifiers(CamelRecorder recorder, Capabilities capabilities) {
+            if (!capabilities.isCapabilityPresent(CamelCapabilities.XML)) {
+                LOGGER.debug("Camel XML capability not detected, disable XML reifiers");
                 recorder.disableXmlReifiers();
             }
         }

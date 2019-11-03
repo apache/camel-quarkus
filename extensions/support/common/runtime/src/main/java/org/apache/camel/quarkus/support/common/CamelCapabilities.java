@@ -14,17 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.support.common;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
+public final class CamelCapabilities {
+    public static final String CORE = "org.apache.camel";
+    public static final String XML = "org.apache.camel.xml";
 
-class Feature {
-    private static final String FEATURE = "camel-core";
-
-    @BuildStep(providesCapabilities = CamelCapabilities.CORE)
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    private CamelCapabilities() {
     }
 }
