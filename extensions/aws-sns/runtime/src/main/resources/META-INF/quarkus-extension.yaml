@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus AWS SNS"
+description: "A Camel Amazon SNS Web Service Component"
 metadata:
   keywords:
   - "camel"

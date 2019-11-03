@@ -1,8 +1,9 @@
 ---
 name: "Camel Quarkus Support XStream"
+description: "Camel Quarkus Support XStream"
 metadata:
+  unlisted: true
   keywords:
-  - "internal"
   - "camel"
   - "xstream"
   guide: "https://quarkus.io/guides/camel"

@@ -1,8 +1,9 @@
 ---
 name: "Camel Quarkus Support Common"
+description: "Camel Quarkus Support Common"
 metadata:
+  unlisted: true
   keywords:
-  - "internal"
   - "camel"
   guide: "https://quarkus.io/guides/camel"
   categories:

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus VM"
+description: "Camel VM support"
 metadata:
   keywords:
   - "camel"

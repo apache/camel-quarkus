@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus FHIR"
+description: "Camel FHIR HL7 support"
 metadata:
   keywords:
   - "camel"

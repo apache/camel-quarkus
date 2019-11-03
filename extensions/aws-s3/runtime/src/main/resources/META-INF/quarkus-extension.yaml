@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus AWS S3"
+description: "A Camel Amazon S3 Web Service Component"
 metadata:
   keywords:
   - "camel"

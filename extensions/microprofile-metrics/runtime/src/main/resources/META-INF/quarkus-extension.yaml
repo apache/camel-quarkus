@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus MicroProfile Metrics"
+description: "Integration with the Quarkus MicroProfile Metrics extension"
 metadata:
   keywords:
   - "camel"

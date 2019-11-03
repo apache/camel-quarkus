@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Log"
+description: "Camel Log support"
 metadata:
   keywords:
   - "camel"

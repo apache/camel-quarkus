@@ -1,6 +1,8 @@
 ---
 name: "Camel Quarkus HTTP Common"
+description: "Camel Quarkus HTTP Common"
 metadata:
+  unlisted: true
   keywords:
   - "camel"
   - "http"

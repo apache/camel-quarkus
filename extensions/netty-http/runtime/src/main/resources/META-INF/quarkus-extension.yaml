@@ -1,5 +1,6 @@
 ---
-name: "Camel Quarkus MicroProfile Netty HTTP"
+name: "Camel Quarkus Netty HTTP"
+description: "Camel Netty HTTP support"
 metadata:
   keywords:
   - "camel"

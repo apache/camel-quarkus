@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Netty"
+description: "Camel Netty xupport"
 metadata:
   keywords:
   - "camel"

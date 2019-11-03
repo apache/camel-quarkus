@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus AWS SQS"
+description: "A Camel Amazon SQS Web Service Component"
 metadata:
   keywords:
   - "camel"

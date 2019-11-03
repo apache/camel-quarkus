@@ -34,6 +34,9 @@ project.basedir.eachFile(FileType.DIRECTORIES) {
             if (!descriptor.name) {
                 messages.add(shortPath + ' must contain name')
             }
+            if (!descriptor.description) {
+                messages.add(shortPath + ' must contain description')
+            }
 
             // metadata
             if (!descriptor.metadata) {

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Salesforce"
+description: "Camel Salesforce component"
 metadata:
   keywords:
   - "camel"

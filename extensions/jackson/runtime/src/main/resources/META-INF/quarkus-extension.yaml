@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Jackson"
+description: "Camel Jackson support"
 metadata:
   keywords:
   - "camel"

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Infinispan"
+description: "Camel Infinispan support"
 metadata:
   keywords:
   - "camel"

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Reactive Executor"
+description: "Integrates Quarkus reactive executor with Camel"
 metadata:
   keywords:
   - "camel"

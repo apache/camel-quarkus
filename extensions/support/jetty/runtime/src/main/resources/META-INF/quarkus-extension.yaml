@@ -1,8 +1,9 @@
 ---
 name: "Camel Quarkus Support Jetty"
+description: "Camel Quarkus Support Jetty"
 metadata:
+  unlisted: true
   keywords:
-  - "internal"
   - "camel"
   - "jetty"
   guide: "https://quarkus.io/guides/camel"
