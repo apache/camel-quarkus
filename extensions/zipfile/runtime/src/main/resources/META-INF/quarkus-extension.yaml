@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Zipfile"
+description: "Camel Zip file support"
 metadata:
   keywords:
   - "camel"

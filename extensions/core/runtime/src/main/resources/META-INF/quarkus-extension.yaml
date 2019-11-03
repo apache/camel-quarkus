@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Core"
+description: "The Camel Quarkus core module"
 metadata:
   keywords:
   - "camel"

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus CSV"
+description: "Camel CSV data format support"
 metadata:
   keywords:
   - "camel"

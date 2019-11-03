@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Servlet"
+description: "Camel servlet transport support"
 metadata:
   keywords:
   - "camel"

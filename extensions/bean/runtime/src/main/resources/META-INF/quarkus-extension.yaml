@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Bean"
+description: "Camel Bean component"
 metadata:
   keywords:
   - "camel"

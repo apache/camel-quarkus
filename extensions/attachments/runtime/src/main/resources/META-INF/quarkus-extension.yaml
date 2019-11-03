@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Attachments"
+description: "Java Attachments support for Camel Message"
 metadata:
   keywords:
   - "camel"

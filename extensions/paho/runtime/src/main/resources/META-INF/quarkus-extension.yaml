@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Paho"
+description: "Camel Eclipse Paho support"
 metadata:
   keywords:
   - "camel"

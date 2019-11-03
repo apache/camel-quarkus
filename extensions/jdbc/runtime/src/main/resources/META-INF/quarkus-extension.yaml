@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus JDBC"
+description: "Camel JDBC support"
 metadata:
   keywords:
   - "camel"

@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Tarfile"
+description: "Camel Tar file support"
 metadata:
   keywords:
   - "camel"

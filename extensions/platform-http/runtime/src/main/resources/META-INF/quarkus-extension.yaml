@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Platform HTTP"
+description: "HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer"
 metadata:
   keywords:
   - "camel"

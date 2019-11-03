@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus XML Common"
+description: "The Camel Quarkus code XML module"
 metadata:
   keywords:
   - "camel"

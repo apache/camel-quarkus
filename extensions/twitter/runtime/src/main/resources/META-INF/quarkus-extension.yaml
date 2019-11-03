@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Twitter"
+description: "Camel Twitter support"
 metadata:
   keywords:
   - "camel"

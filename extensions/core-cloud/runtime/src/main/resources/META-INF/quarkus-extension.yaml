@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus Core Cloud"
+description: "The Camel Quarkus core cloud module"
 metadata:
   keywords:
   - "camel"

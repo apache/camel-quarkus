@@ -1,5 +1,6 @@
 ---
 name: "Camel Quarkus PDF"
+description: "Camel PDF support"
 metadata:
   keywords:
   - "camel"
