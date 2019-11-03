@@ -26,6 +26,7 @@ import org.apache.camel.quarkus.core.deployment.CamelModelJAXBContextFactoryBuil
 import org.apache.camel.quarkus.core.deployment.CamelRoutesCollectorBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.CamelXmlLoaderBuildItem;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlProcessor {
 
@@ -36,7 +37,7 @@ class XmlProcessor {
         return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
     }
 
-    @BuildStep
+    @BuildStep(providesCapabilities = CamelCapabilities.XML)
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
