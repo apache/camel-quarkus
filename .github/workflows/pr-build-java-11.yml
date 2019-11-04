@@ -1,4 +1,4 @@
-name: Build PR vs Java 11 (JVM)
+name: Build PR on Java 11 (JVM)
 
 on: 
   pull_request:
@@ -13,5 +13,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: SourceCheck
+    - name: mvn verify
       run: ./mvnw -V -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify

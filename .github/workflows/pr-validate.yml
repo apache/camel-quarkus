@@ -1,4 +1,4 @@
-name: Validate PR
+name: Validate PR Style
 
 on: 
   pull_request:
@@ -13,5 +13,5 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - name: SourceCheck
-      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dcheckstyle.failOnViolation=true validate -Psourcecheck
+    - name: mvn -Psourcecheck,license
+      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dcheckstyle.failOnViolation=true validate -Psourcecheck,license
