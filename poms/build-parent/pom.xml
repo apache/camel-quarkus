@@ -171,57 +171,21 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>2.10.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configFile>${camel.quarkus.project.root}/build/eclipse-formatter-config.xml</configFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>sourcecheck</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>${maven-checkstyle-plugin.version}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.camel</groupId>
-                                <artifactId>camel-buildtools</artifactId>
-                                <version>${camel.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>com.puppycrawl.tools</groupId>
-                                <artifactId>checkstyle</artifactId>
-                                <version>${maven-checkstyle.version}</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>default-cli</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <includeResources>false</includeResources>
-                                    <configLocation>camel-checkstyle.xml</configLocation>
-                                    <consoleOutput>true</consoleOutput>
-                                    <failsOnError>${checkstyle.failOnViolation}</failsOnError>
-                                    <linkXRef>false</linkXRef>
-                                    <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
-                                    <encoding>UTF-8</encoding>
-                                    <sourceDirectories>
-                                        <sourceDirectory>${basedir}/src</sourceDirectory>
-                                    </sourceDirectories>
-                                    <headerLocation>header-java.txt</headerLocation>
-                                    <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
-                                    <excludes>**/MyRoutes*.java,**/Target*.java,**/*Substitutions.java</excludes>
-                                </configuration>
-                                <goals>
-                                    <goal>checkstyle</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
