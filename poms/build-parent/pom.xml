@@ -49,6 +49,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Import BOM -->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jvnet.mock-javamail</groupId>
                 <artifactId>mock-javamail</artifactId>

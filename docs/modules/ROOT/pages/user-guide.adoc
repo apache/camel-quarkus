@@ -59,24 +59,25 @@ sketched below:
 <project>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-bom</artifactId>
+        <artifactId>camel-quarkus-bom</artifactId><!--1-->
         <version>{camel-quarkus-last-release}</version>
-        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--1-->
+        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--2-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.my-org</groupId><!--2-->
-    <artifactId>my-app</artifactId><!--3-->
-    <version>0.0.1-SNAPSHOT</version><!--4-->
+    <groupId>org.my-org</groupId><!--3-->
+    <artifactId>my-app</artifactId><!--4-->
+    <version>0.0.1-SNAPSHOT</version><!--5-->
 
     ...
 
 </project>
 ----
-<1> Remove the `<relativePath>` element.
-<2> Add a `groupId` of your choice.
-<3> Change the `artifactId` to whatever you like
-<4> Add the `version`
+<1> Change the `<artifactId>` element to `camel-quarkus-bom`.
+<2> Remove the `<relativePath>` element.
+<3> Add a `groupId` of your choice.
+<4> Change the `artifactId` to whatever you like
+<5> Add the `version`
 
 === Explore the application code
 
