@@ -24,30 +24,25 @@ public class XmlSupportProcessor {
     @BuildStep
     void reflective(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
-            new ReflectiveClassBuildItem(
-                false,
-                false,
-                "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
-                "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
-                "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
-                "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-                "com.sun.org.apache.xerces.internal.parsers.SAXParser"
-            )
-        );
+                new ReflectiveClassBuildItem(
+                        false,
+                        false,
+                        "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
+                        "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
+                        "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+                        "com.sun.xml.internal.stream.XMLInputFactoryImpl",
+                        "com.sun.org.apache.xerces.internal.parsers.SAXParser"));
 
         reflectiveClass.produce(
-            new ReflectiveClassBuildItem(
-                false,
-                false,
-                "org.apache.camel.converter.jaxp.XmlConverter"
-            )
-        );
+                new ReflectiveClassBuildItem(
+                        false,
+                        false,
+                        "org.apache.camel.converter.jaxp.XmlConverter"));
 
         // javax.xml.namespace.QName is needed as it is used as part of the processor
         // definitions in the DSL and parsers like Jackson (used in camel-k YAML DSL)
         // fails if this class is cannot be instantiated reflectively.
         reflectiveClass.produce(
-            new ReflectiveClassBuildItem(true, false, "javax.xml.namespace.QName")
-        );
+                new ReflectiveClassBuildItem(true, false, "javax.xml.namespace.QName"));
     }
 }

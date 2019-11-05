@@ -24,11 +24,11 @@ public class Routes extends RouteBuilder {
     public void configure() throws Exception {
         // Invokes a simple greeting endpoint every 10 seconds
         from("timer:greeting?period=10s")
-            .to("netty-http:http://localhost:8099/greeting");
+                .to("netty-http:http://localhost:8099/greeting");
 
         from("netty-http:0.0.0.0:8099/greeting")
-            // Random delay to simulate latency
-            .delay(simple("${random(1000, 5000)}"))
-            .setBody(constant("Hello From Camel Quarkus!"));
+                // Random delay to simulate latency
+                .delay(simple("${random(1000, 5000)}"))
+                .setBody(constant("Hello From Camel Quarkus!"));
     }
 }

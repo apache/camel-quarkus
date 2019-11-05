@@ -29,7 +29,6 @@ import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.quarkus.core.UploadAttacher;
 
-
 public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
     private final Router router;
     private final List<Handler<RoutingContext>> handlers;

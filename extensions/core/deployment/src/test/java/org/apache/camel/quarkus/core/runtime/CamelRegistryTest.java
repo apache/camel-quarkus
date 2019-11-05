@@ -33,9 +33,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-        .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClasses(BeanProducer.class)
-        );
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addClasses(BeanProducer.class));
 
     @Inject
     Registry registry;
@@ -47,12 +46,13 @@ public class CamelRegistryTest {
         assertThat(registry.lookupByNameAndType("bean-1", String.class)).isEqualTo("a");
         assertThat(registry.lookupByNameAndType("bean-2", String.class)).isEqualTo("b");
     }
+
     @Test
     public void testFindByType() {
         assertThat(registry.findByType(String.class)).containsOnly("a", "b");
         assertThat(registry.findByTypeWithName(String.class))
-            .containsEntry("bean-1", "a")
-            .containsEntry("bean-2", "b");
+                .containsEntry("bean-1", "a")
+                .containsEntry("bean-2", "b");
     }
 
     @ApplicationScoped

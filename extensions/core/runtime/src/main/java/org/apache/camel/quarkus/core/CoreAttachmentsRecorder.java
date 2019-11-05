@@ -29,14 +29,14 @@ public class CoreAttachmentsRecorder {
     public RuntimeValue<UploadAttacher> createNoOpUploadAttacher() {
         return new RuntimeValue<>((File localFile, String fileName, Message message) -> {
             throw new RuntimeException(
-                String.format(
-                    "File %s will not be attached to message %s because camel-quarkus-attachments is not in the class path."
-                        + " You have several options to handle this situation:"
-                        + " (a) Add camel-quarkus-attachments dependency to your project if you want Camel to attach the uploads to Camel messages"
-                        + " (b) Disable the uploads altogether by setting quarkus.http.body.handle-file-uploads = false in your application.proprties"
-                        + " (c) Ignore this message because it is perhaps caused by clients out of your control",
-                    fileName,
-                    message));
+                    String.format(
+                            "File %s will not be attached to message %s because camel-quarkus-attachments is not in the class path."
+                                    + " You have several options to handle this situation:"
+                                    + " (a) Add camel-quarkus-attachments dependency to your project if you want Camel to attach the uploads to Camel messages"
+                                    + " (b) Disable the uploads altogether by setting quarkus.http.body.handle-file-uploads = false in your application.proprties"
+                                    + " (c) Ignore this message because it is perhaps caused by clients out of your control",
+                            fileName,
+                            message));
         });
     }
 }

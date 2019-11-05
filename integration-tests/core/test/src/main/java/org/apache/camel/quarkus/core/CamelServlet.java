@@ -43,12 +43,12 @@ public class CamelServlet {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject exchangeFormatterConfig() {
         LogComponent component = registry.lookupByNameAndType("log", LogComponent.class);
-        DefaultExchangeFormatter def = (DefaultExchangeFormatter)component.getExchangeFormatter();
+        DefaultExchangeFormatter def = (DefaultExchangeFormatter) component.getExchangeFormatter();
 
         JsonObject result = Json.createObjectBuilder()
-            .add("show-all", def.isShowAll())
-            .add("multi-line", def.isMultiline())
-            .build();
+                .add("show-all", def.isShowAll())
+                .add("multi-line", def.isMultiline())
+                .build();
 
         return result;
     }

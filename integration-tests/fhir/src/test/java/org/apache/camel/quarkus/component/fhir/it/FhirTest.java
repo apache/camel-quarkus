@@ -82,8 +82,8 @@ class FhirTest {
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
         RestAssured.given() //
-            .contentType(ContentType.JSON).body(patientString).post("/dstu3/fhir2json")
-            .then().statusCode(201);
+                .contentType(ContentType.JSON).body(patientString).post("/dstu3/fhir2json")
+                .then().statusCode(201);
     }
 
     @Test
@@ -169,6 +169,5 @@ class FhirTest {
         patient.addName().addGiven("Sherlock").setFamily("Holmes");
         return patient;
     }
-
 
 }

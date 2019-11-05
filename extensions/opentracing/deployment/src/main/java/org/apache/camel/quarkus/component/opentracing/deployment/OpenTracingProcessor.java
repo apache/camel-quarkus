@@ -44,8 +44,10 @@ class OpenTracingProcessor {
 
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
-    CamelBeanBuildItem setupCamelOpenTracingTracer(CamelOpenTracingConfig config, CamelOpenTracingRecorder recorder, BeanContainerBuildItem beanContainer) {
+    CamelBeanBuildItem setupCamelOpenTracingTracer(CamelOpenTracingConfig config, CamelOpenTracingRecorder recorder,
+            BeanContainerBuildItem beanContainer) {
         // Configure & bind OpenTracingTracer to the registry so that Camel can use it
-        return new CamelBeanBuildItem("tracer", Tracer.class, recorder.createCamelOpenTracingTracer(config, beanContainer.getValue()));
+        return new CamelBeanBuildItem("tracer", Tracer.class,
+                recorder.createCamelOpenTracingTracer(config, beanContainer.getValue()));
     }
 }

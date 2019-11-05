@@ -36,8 +36,8 @@ class PahoTest {
 
         // publish the message to the queue
         RestAssured.given()
-            .contentType(ContentType.TEXT).body(msg).post("/paho/queue") //
-            .then().statusCode(200);
+                .contentType(ContentType.TEXT).body(msg).post("/paho/queue") //
+                .then().statusCode(200);
 
         // receive the message from the queue
         String body = RestAssured.get("/paho/queue").asString();

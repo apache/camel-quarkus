@@ -74,7 +74,8 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private final String fileNameExtWhitelist;
     private final UploadAttacher uploadAttacher;
 
-    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router, List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
+    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router,
+            List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
         super(endpoint, processor);
         this.router = router;
         this.handlers = handlers;
@@ -110,25 +111,23 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         handlers.forEach(newRoute::handler);
 
         newRoute.handler(
-            ctx -> {
-                Exchange exchg = null;
-                try {
-                    final Exchange exchange = exchg = toExchange(ctx);
-                    createUoW(exchange);
-                    getAsyncProcessor().process(
-                        exchange,
-                        doneSync -> writeResponse(ctx, exchange, getEndpoint().getHeaderFilterStrategy())
-                    );
-                } catch (Exception e) {
-                    ctx.fail(e);
-                    getExceptionHandler().handleException("Failed handling platform-http endpoint " + path, exchg, e);
-                } finally {
-                    if (exchg != null) {
-                        doneUoW(exchg);
+                ctx -> {
+                    Exchange exchg = null;
+                    try {
+                        final Exchange exchange = exchg = toExchange(ctx);
+                        createUoW(exchange);
+                        getAsyncProcessor().process(
+                                exchange,
+                                doneSync -> writeResponse(ctx, exchange, getEndpoint().getHeaderFilterStrategy()));
+                    } catch (Exception e) {
+                        ctx.fail(e);
+                        getExceptionHandler().handleException("Failed handling platform-http endpoint " + path, exchg, e);
+                    } finally {
+                        if (exchg != null) {
+                            doneUoW(exchg);
+                        }
                     }
-                }
-            }
-        );
+                });
 
         this.route = newRoute;
     }
@@ -299,10 +298,10 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     }
 
     static void populateCamelHeaders(
-        RoutingContext ctx,
-        Map<String, Object> headersMap,
-        Exchange exchange,
-        HeaderFilterStrategy headerFilterStrategy) {
+            RoutingContext ctx,
+            Map<String, Object> headersMap,
+            Exchange exchange,
+            HeaderFilterStrategy headerFilterStrategy) {
 
         final HttpServerRequest request = ctx.request();
         headersMap.put(Exchange.HTTP_PATH, request.path());
@@ -340,16 +339,16 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         }
 
         // TODO: figure out whether we need this or remove
-        //        // Create headers for REST path placeholder variables
-        //        Map<String, Object> predicateContextParams = httpExchange.getAttachment(Predicate.PREDICATE_CONTEXT);
-        //        if (predicateContextParams != null) {
-        //            // Remove this as it's an unwanted artifact of our Undertow predicate chain
-        //            predicateContextParams.remove("remaining");
+        // // Create headers for REST path placeholder variables
+        // Map<String, Object> predicateContextParams = httpExchange.getAttachment(Predicate.PREDICATE_CONTEXT);
+        // if (predicateContextParams != null) {
+        // // Remove this as it's an unwanted artifact of our Undertow predicate chain
+        // predicateContextParams.remove("remaining");
         //
-        //            for (String paramName : predicateContextParams.keySet()) {
-        //                headersMap.put(paramName, predicateContextParams.get(paramName));
-        //            }
-        //        }
+        // for (String paramName : predicateContextParams.keySet()) {
+        // headersMap.put(paramName, predicateContextParams.get(paramName));
+        // }
+        // }
 
         // NOTE: these headers is applied using the same logic as camel-http/camel-jetty to be consistent
         headersMap.put(Exchange.HTTP_METHOD, request.method().toString());
@@ -373,7 +372,8 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             final Map<String, Object> body = new HashMap<>();
             for (String key : formData.names()) {
                 for (String value : formData.getAll(key)) {
-                    if (headerFilterStrategy != null && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
+                    if (headerFilterStrategy != null
+                            && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
                         appendHeader(result.getHeaders(), key, value);
                         appendHeader(body, key, value);
                     }
@@ -384,8 +384,8 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
                 populateAttachments(ctx.fileUploads(), result);
             }
         } else {
-            //extract body by myself if undertow parser didn't handle and the method is allowed to have one
-            //body is extracted as byte[] then auto TypeConverter kicks in
+            // extract body by myself if undertow parser didn't handle and the method is allowed to have one
+            // body is extracted as byte[] then auto TypeConverter kicks in
             Method m = Method.valueOf(ctx.request().method().name());
             if (m.canHaveBody()) {
                 final Buffer body = ctx.getBody();
@@ -436,7 +436,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
                 final File localFile = new File(upload.uploadedFileName());
                 uploadAttacher.attachUpload(localFile, fileName, message);
             } else {
-                LOG.debugf("Cannot add file as attachment: %s because the file is not accepted according to fileNameExtWhitelist: %s", fileName, fileNameExtWhitelist);
+                LOG.debugf(
+                        "Cannot add file as attachment: %s because the file is not accepted according to fileNameExtWhitelist: %s",
+                        fileName, fileNameExtWhitelist);
             }
         }
     }

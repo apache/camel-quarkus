@@ -23,6 +23,6 @@ public class TimerRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("timer:foo?period=1s")
-            .log("Hello World");
+                .log("Hello World");
     }
 }

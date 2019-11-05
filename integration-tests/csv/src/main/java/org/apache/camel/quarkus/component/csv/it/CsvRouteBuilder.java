@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.csv.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-
 public class CsvRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {

@@ -54,7 +54,6 @@ import static org.apache.camel.maven.packaging.PackageHelper.loadText;
 import static org.apache.camel.maven.packaging.PackageHelper.writeText;
 import static org.apache.camel.maven.packaging.StringHelper.camelDashToTitle;
 
-
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
  */
@@ -64,7 +63,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     private static final String DEFAULT_FIRST_VERSION = "0.2.0";
 
     private static final String[] EXCLUDE_EXTENSIONS = {
-        "http-common", "support"
+            "http-common", "support"
     };
 
     private static final Pattern SCHEME_PATTERN = Pattern.compile("\"scheme\": \"(.*)\"");
@@ -126,8 +125,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *                                threads it generated failed.
-     * @throws MojoFailureException   something bad happened...
+     *             threads it generated failed.
+     * @throws MojoFailureException something bad happened...
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -143,7 +142,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         Set<String> answer = new LinkedHashSet<>();
         for (String extension : extensions) {
             try {
-                MavenProject extProject = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension, project.getVersion());
+                MavenProject extProject = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension,
+                        project.getVersion());
                 // grab camel artifact
                 Optional<Dependency> artifact = extProject.getDependencies().stream()
                         .filter(p -> "org.apache.camel".equals(p.getGroupId()) && "compile".equals(p.getScope()))
@@ -176,11 +176,13 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         doExecute(artifactIds, "dataformats", dataFormatsOutDir);
     }
 
-    protected void doExecute(Set<String> artifactIds, String kind, File outsDir) throws MojoExecutionException, MojoFailureException {
+    protected void doExecute(Set<String> artifactIds, String kind, File outsDir)
+            throws MojoExecutionException, MojoFailureException {
         // grab from camel-catalog
         List<String> catalog;
         try {
-            InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/" + kind + ".properties");
+            InputStream is = getClass().getClassLoader()
+                    .getResourceAsStream("org/apache/camel/catalog/" + kind + ".properties");
             String text = loadText(is);
             catalog = Arrays.asList(text.split("\n"));
             getLog().debug("Loaded " + catalog.size() + " " + kind + " from camel-catalog");
@@ -196,7 +198,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             List<String> jsonFiles = new ArrayList<>();
             try {
                 for (String name : catalog) {
-                    InputStream is = getClass().getClassLoader().getResourceAsStream("org/apache/camel/catalog/" + kind + "/" + name + ".json");
+                    InputStream is = getClass().getClassLoader()
+                            .getResourceAsStream("org/apache/camel/catalog/" + kind + "/" + name + ".json");
                     String text = loadText(is);
                     boolean match = text.contains("\"artifactId\": \"" + artifactId + "\"");
                     if (match) {
@@ -208,9 +211,11 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                                 qaid = artifactId.replaceFirst("camel-", "camel-quarkus-");
                             }
                             MavenProject extPom = getMavenProject("org.apache.camel.quarkus", qaid, project.getVersion());
-                            String firstVersion = (String) extPom.getProperties().getOrDefault("firstVersion", DEFAULT_FIRST_VERSION);
+                            String firstVersion = (String) extPom.getProperties().getOrDefault("firstVersion",
+                                    DEFAULT_FIRST_VERSION);
                             // lets use the camel-quarkus version as first version instead of Apache Camel version
-                            text = FIRST_VERSION_PATTERN.matcher(text).replaceFirst("\"firstVersion\": \"" + firstVersion + "\"");
+                            text = FIRST_VERSION_PATTERN.matcher(text)
+                                    .replaceFirst("\"firstVersion\": \"" + firstVersion + "\"");
 
                             // update json metadata to adapt to camel-quarkus-catalog
                             text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
@@ -299,7 +304,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
 
             try {
-                MavenProject extPom = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension, project.getVersion());
+                MavenProject extPom = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension,
+                        project.getVersion());
 
                 Map<String, Object> model = new HashMap<>();
                 model.put("name", extension);

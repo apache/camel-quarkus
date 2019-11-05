@@ -41,9 +41,9 @@ public class CamelRoute extends RouteBuilder {
                 .to("log:sf?showAll=true");
 
         from("timer:quarkus-sns?repeatCount=1")
-               .setBody(constant("Quarkus is great!"))
-               .to("aws-sns://topic1")
-               .to("log:sf?showAll=true");
+                .setBody(constant("Quarkus is great!"))
+                .to("aws-sns://topic1")
+                .to("log:sf?showAll=true");
     }
 
 }

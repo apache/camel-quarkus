@@ -55,9 +55,9 @@ public class CamelTest {
         assertNotEquals("my-ctx-name", response.body().asString());
 
         RestAssured.given()
-            .contentType(ContentType.TEXT).body("my-ctx-name")
-            .post("/test/context/name")
-            .then().body(is("my-ctx-name"));
+                .contentType(ContentType.TEXT).body("my-ctx-name")
+                .post("/test/context/name")
+                .then().body(is("my-ctx-name"));
     }
 
     /*
@@ -69,37 +69,37 @@ public class CamelTest {
     @Tag("quarkus-platform-ignore")
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
-            .accept(MediaType.APPLICATION_JSON)
-            .get("/test/main/describe")
-            .then()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/main/describe")
+                .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
         assertThat(p.getList("routeBuilders", String.class))
-            .contains(SupportListener.MyBuilder.class.getName());
+                .contains(SupportListener.MyBuilder.class.getName());
         assertThat(p.getList("routes", String.class))
-            .contains("my-xml-route");
+                .contains("my-xml-route");
     }
 
     @Test
     public void testMainInstance() {
         JsonPath p = RestAssured.given()
-            .accept(MediaType.APPLICATION_JSON)
-            .get("/test/main/describe")
-            .then()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/main/describe")
+                .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
         assertThat(p.getList("listeners", String.class))
-            .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
+                .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
-            .contains(CamelRoute.class.getName());
+                .contains(CamelRoute.class.getName());
         assertThat(p.getList("routes", String.class))
-            .contains("keep-alive", "configure", "beforeStart");
+                .contains("keep-alive", "configure", "beforeStart");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
     }
@@ -107,9 +107,9 @@ public class CamelTest {
     @Test
     public void testReactiveExecutor() {
         JsonPath executor = RestAssured.when().get("/test/context/reactive-executor")
-            .then()
+                .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 

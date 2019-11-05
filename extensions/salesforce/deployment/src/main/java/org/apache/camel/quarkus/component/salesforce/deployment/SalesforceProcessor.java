@@ -28,9 +28,8 @@ import org.eclipse.jetty.client.ProtocolHandlers;
 
 class SalesforceProcessor {
     private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
-        HttpClient.class,
-        ProtocolHandlers.class
-    );
+            HttpClient.class,
+            ProtocolHandlers.class);
 
     private static final String FEATURE = "camel-salesforce";
 
@@ -43,8 +42,7 @@ class SalesforceProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         for (Class<?> type : SALESFORCE_REFLECTIVE_CLASSES) {
             reflectiveClass.produce(
-                new ReflectiveClassBuildItem(true, true, type)
-            );
+                    new ReflectiveClassBuildItem(true, true, type));
         }
     }
 }

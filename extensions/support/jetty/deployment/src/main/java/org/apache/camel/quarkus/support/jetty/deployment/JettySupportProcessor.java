@@ -27,9 +27,8 @@ import org.eclipse.jetty.client.ProtocolHandlers;
 
 class JettySupportProcessor {
     private static final List<Class<?>> JETTY_REFLECTIVE_CLASSES = Arrays.asList(
-        HttpClient.class,
-        ProtocolHandlers.class
-    );
+            HttpClient.class,
+            ProtocolHandlers.class);
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {

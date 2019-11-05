@@ -64,7 +64,7 @@ public class CamelQuarkusMicroProfileMetricsExchangeEventNotifier extends MicroP
         Exchange exchange = doneEvent.getExchange();
         String name = getNamingStrategy().getName(exchange, exchange.getFromEndpoint());
         exchange.removeProperty("eventTimer:" + name);
-        Timer.Context context = (Timer.Context)exchange.removeProperty("eventTimerContext:" + name);
+        Timer.Context context = (Timer.Context) exchange.removeProperty("eventTimerContext:" + name);
         if (context != null) {
             context.stop();
         }

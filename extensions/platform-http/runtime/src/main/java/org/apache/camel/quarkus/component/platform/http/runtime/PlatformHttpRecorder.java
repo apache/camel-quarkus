@@ -30,9 +30,9 @@ import org.apache.camel.quarkus.core.UploadAttacher;
 @Recorder
 public class PlatformHttpRecorder {
     public RuntimeValue<PlatformHttpEngine> createEngine(
-        RuntimeValue<Router> router,
-        List<Handler<RoutingContext>> handlers,
-        RuntimeValue<UploadAttacher> uploadAttacher) {
+            RuntimeValue<Router> router,
+            List<Handler<RoutingContext>> handlers,
+            RuntimeValue<UploadAttacher> uploadAttacher) {
         return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue(), handlers, uploadAttacher.getValue()));
     }
 

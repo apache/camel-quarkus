@@ -61,17 +61,17 @@ class NativeImageProcessor {
      */
     public static class Core {
         private static final List<Class<?>> CAMEL_REFLECTIVE_CLASSES = Arrays.asList(
-            Endpoint.class,
-            Consumer.class,
-            Producer.class,
-            TypeConverter.class,
-            ExchangeFormatter.class,
-            ScheduledPollConsumerScheduler.class,
-            Component.class,
-            CamelContext.class,
-            StreamCachingStrategy.class,
-            StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
-            PropertiesComponent.class);
+                Endpoint.class,
+                Consumer.class,
+                Producer.class,
+                TypeConverter.class,
+                ExchangeFormatter.class,
+                ScheduledPollConsumerScheduler.class,
+                Component.class,
+                CamelContext.class,
+                StreamCachingStrategy.class,
+                StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
+                PropertiesComponent.class);
 
         @Inject
         BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
@@ -87,51 +87,51 @@ class NativeImageProcessor {
             IndexView view = combinedIndex.getIndex();
 
             CAMEL_REFLECTIVE_CLASSES.stream()
-                .map(Class::getName)
-                .map(DotName::createSimple)
-                .map(view::getAllKnownImplementors)
-                .flatMap(Collection::stream)
-                .filter(CamelSupport::isPublic)
-                .forEach(v -> addReflectiveClass(true, v.name().toString()));
+                    .map(Class::getName)
+                    .map(DotName::createSimple)
+                    .map(view::getAllKnownImplementors)
+                    .flatMap(Collection::stream)
+                    .filter(CamelSupport::isPublic)
+                    .forEach(v -> addReflectiveClass(true, v.name().toString()));
 
             Logger log = LoggerFactory.getLogger(NativeImageProcessor.class);
             DotName converter = DotName.createSimple(Converter.class.getName());
             List<ClassInfo> converterClasses = view.getAnnotations(converter)
-                .stream()
-                .filter(ai -> ai.target().kind() == Kind.CLASS)
-                .filter(ai -> {
-                    AnnotationValue av = ai.value("loader");
-                    boolean isLoader = av != null && av.asBoolean();
-                    // filter out camel-base converters which are automatically inlined in the CoreStaticTypeConverterLoader
-                    // need to revisit with Camel 3.0.0-M3 which should improve this area
-                    if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
-                        log.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
-                        return false;
-                    } else if (isLoader) {
-                        log.debug("Ignoring " + ai + " " + ai.target().asClass().name());
-                        return false;
-                    } else {
-                        log.debug("Accepting " + ai + " " + ai.target().asClass().name());
-                        return true;
-                    }
-                })
-                .map(ai -> ai.target().asClass())
-                .collect(Collectors.toList());
+                    .stream()
+                    .filter(ai -> ai.target().kind() == Kind.CLASS)
+                    .filter(ai -> {
+                        AnnotationValue av = ai.value("loader");
+                        boolean isLoader = av != null && av.asBoolean();
+                        // filter out camel-base converters which are automatically inlined in the CoreStaticTypeConverterLoader
+                        // need to revisit with Camel 3.0.0-M3 which should improve this area
+                        if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
+                            log.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
+                            return false;
+                        } else if (isLoader) {
+                            log.debug("Ignoring " + ai + " " + ai.target().asClass().name());
+                            return false;
+                        } else {
+                            log.debug("Accepting " + ai + " " + ai.target().asClass().name());
+                            return true;
+                        }
+                    })
+                    .map(ai -> ai.target().asClass())
+                    .collect(Collectors.toList());
 
             log.debug("Converter classes: " + converterClasses);
             converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
 
             view.getAnnotations(converter)
-                .stream()
-                .filter(ai -> ai.target().kind() == Kind.METHOD)
-                .filter(ai -> converterClasses.contains(ai.target().asMethod().declaringClass()))
-                .map(ai -> ai.target().asMethod())
-                .forEach(this::addReflectiveMethod);
+                    .stream()
+                    .filter(ai -> ai.target().kind() == Kind.METHOD)
+                    .filter(ai -> converterClasses.contains(ai.target().asMethod().declaringClass()))
+                    .map(ai -> ai.target().asMethod())
+                    .forEach(this::addReflectiveMethod);
 
             CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
-                .forEach(this::addResource);
+                    .forEach(this::addResource);
             CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                .forEach(this::addCamelService);
+                    .forEach(this::addCamelService);
         }
 
         protected void addCamelService(Path p) {
@@ -176,8 +176,8 @@ class NativeImageProcessor {
     public static class Main {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void process(
-            CombinedIndexBuildItem combinedIndex,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+                CombinedIndexBuildItem combinedIndex,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
 
             IndexView view = combinedIndex.getIndex();
 
@@ -190,13 +190,12 @@ class NativeImageProcessor {
             });
 
             reflectiveClass.produce(new ReflectiveClassBuildItem(
-                true,
-                false,
-                org.apache.camel.main.DefaultConfigurationProperties.class,
-                org.apache.camel.main.MainConfigurationProperties.class,
-                org.apache.camel.main.HystrixConfigurationProperties.class,
-                org.apache.camel.main.RestConfigurationProperties.class)
-            );
+                    true,
+                    false,
+                    org.apache.camel.main.DefaultConfigurationProperties.class,
+                    org.apache.camel.main.MainConfigurationProperties.class,
+                    org.apache.camel.main.HystrixConfigurationProperties.class,
+                    org.apache.camel.main.RestConfigurationProperties.class));
         }
     }
 }

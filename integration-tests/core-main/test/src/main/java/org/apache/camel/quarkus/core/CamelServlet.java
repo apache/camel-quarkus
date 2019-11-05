@@ -63,18 +63,17 @@ public class CamelServlet {
         return context.getComponent("timer", TimerComponent.class).isBasicPropertyBinding();
     }
 
-
     @Path("/registry/log/exchange-formatter")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject exchangeFormatterConfig() {
         LogComponent component = registry.lookupByNameAndType("log", LogComponent.class);
-        DefaultExchangeFormatter def = (DefaultExchangeFormatter)component.getExchangeFormatter();
+        DefaultExchangeFormatter def = (DefaultExchangeFormatter) component.getExchangeFormatter();
 
         JsonObject result = Json.createObjectBuilder()
-            .add("show-all", def.isShowAll())
-            .add("multi-line", def.isMultiline())
-            .build();
+                .add("show-all", def.isShowAll())
+                .add("multi-line", def.isMultiline())
+                .build();
 
         return result;
     }
@@ -132,11 +131,11 @@ public class CamelServlet {
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
 
         return Json.createObjectBuilder()
-            .add("listeners", listeners)
-            .add("routeBuilders", routeBuilders)
-            .add("routes", routes)
-            .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
-            .build();
+                .add("listeners", listeners)
+                .add("routeBuilders", routeBuilders)
+                .add("routes", routes)
+                .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
+                .build();
     }
 
     @Path("/context/reactive-executor")
@@ -149,7 +148,7 @@ public class CamelServlet {
         builder.add("class", executor.getClass().getName());
 
         if (executor instanceof VertXReactiveExecutor) {
-            builder.add("configured", ((VertXReactiveExecutor)executor).getVertx() != null);
+            builder.add("configured", ((VertXReactiveExecutor) executor).getVertx() != null);
 
         }
 

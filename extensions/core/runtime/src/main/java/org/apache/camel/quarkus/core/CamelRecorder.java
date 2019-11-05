@@ -35,10 +35,10 @@ public class CamelRecorder {
 
     @SuppressWarnings("unchecked")
     public RuntimeValue<CamelContext> createContext(
-                RuntimeValue<Registry> registry,
-                RuntimeValue<ModelJAXBContextFactory> contextFactory,
-                RuntimeValue<XmlLoader> xmlLoader,
-                BeanContainer beanContainer) {
+            RuntimeValue<Registry> registry,
+            RuntimeValue<ModelJAXBContextFactory> contextFactory,
+            RuntimeValue<XmlLoader> xmlLoader,
+            BeanContainer beanContainer) {
         FastCamelContext context = new FastCamelContext();
         context.setRegistry(registry.getValue());
         context.setLoadTypeConverters(false);
@@ -57,27 +57,27 @@ public class CamelRecorder {
     }
 
     public void bind(
-        RuntimeValue<Registry> runtime,
-        String name,
-        Class<?> type,
-        Object instance) {
+            RuntimeValue<Registry> runtime,
+            String name,
+            Class<?> type,
+            Object instance) {
 
         runtime.getValue().bind(name, type, instance);
     }
 
     public void bind(
-        RuntimeValue<Registry> runtime,
-        String name,
-        Class<?> type,
-        RuntimeValue<?> instance) {
+            RuntimeValue<Registry> runtime,
+            String name,
+            Class<?> type,
+            RuntimeValue<?> instance) {
 
         runtime.getValue().bind(name, type, instance.getValue());
     }
 
     public void bind(
-        RuntimeValue<Registry> runtime,
-        String name,
-        Class<?> type) {
+            RuntimeValue<Registry> runtime,
+            String name,
+            Class<?> type) {
 
         try {
             runtime.getValue().bind(name, type, type.newInstance());

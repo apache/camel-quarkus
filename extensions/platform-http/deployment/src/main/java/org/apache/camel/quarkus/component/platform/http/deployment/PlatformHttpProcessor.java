@@ -37,7 +37,6 @@ import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
 
-
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
 
@@ -70,7 +69,7 @@ class PlatformHttpProcessor {
         // When RESTEasy is added to the classpath, then the routes are paused
         // so we need to resume them.
         //
-        //     https://github.com/quarkusio/quarkus/issues/4564
+        // https://github.com/quarkusio/quarkus/issues/4564
         //
         // TODO: remove this once the issue get fixed
         //
@@ -81,28 +80,24 @@ class PlatformHttpProcessor {
         handlers.add(bodyHandler.getHandler());
 
         return new PlatformHttpEngineBuildItem(
-            recorder.createEngine(router.getRouter(), handlers, uploadAttacher.getInstance())
-        );
+                recorder.createEngine(router.getRouter(), handlers, uploadAttacher.getInstance()));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-     CamelRuntimeBeanBuildItem platformHttpEngineBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
+    CamelRuntimeBeanBuildItem platformHttpEngineBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
         return new CamelRuntimeBeanBuildItem(
-            PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME,
-            QuarkusPlatformHttpEngine.class,
-            engine.getInstance()
-        );
+                PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME,
+                QuarkusPlatformHttpEngine.class,
+                engine.getInstance());
     }
-
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
     CamelRuntimeBeanBuildItem platformHttpComponentBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
         return new CamelRuntimeBeanBuildItem(
-            PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
-            PlatformHttpComponent.class,
-            recorder.createComponent(engine.getInstance())
-        );
+                PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
+                PlatformHttpComponent.class,
+                recorder.createComponent(engine.getInstance()));
     }
 }

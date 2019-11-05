@@ -201,11 +201,11 @@ public class FastCamelContext extends AbstractCamelContext {
     protected TypeConverter createTypeConverter() {
         // lets use the new fast type converter registry
         return new DefaultTypeConverter(
-            this,
-            getPackageScanClassResolver(),
-            getInjector(),
-            getDefaultFactoryFinder(),
-            isLoadTypeConverters());
+                this,
+                getPackageScanClassResolver(),
+                getInjector(),
+                getDefaultFactoryFinder(),
+                isLoadTypeConverters());
     }
 
     @Override
@@ -383,7 +383,8 @@ public class FastCamelContext extends AbstractCamelContext {
     }
 
     @Override
-    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor, boolean shutdownExecutorService) {
+    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
+            boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
                 false, false, 0L, null, false, false);
     }

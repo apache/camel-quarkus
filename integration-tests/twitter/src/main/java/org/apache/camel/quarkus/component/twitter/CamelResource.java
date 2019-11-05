@@ -55,7 +55,8 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getTimeline(@QueryParam("sinceId") String sinceId) {
-        final String tweets = consumerTemplate.receiveBodyNoWait(String.format("twitter-timeline://home?sinceId=%s&count=1", sinceId), String.class);
+        final String tweets = consumerTemplate
+                .receiveBodyNoWait(String.format("twitter-timeline://home?sinceId=%s&count=1", sinceId), String.class);
         LOG.infof("Received tweets from user's timeline: %s", tweets);
         return tweets;
     }
@@ -89,7 +90,8 @@ public class CamelResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getDirectmessages() {
         LOG.infof("Polling direct messages of user '%s'", twitterUserName);
-        final String result = consumerTemplate.receiveBodyNoWait(String.format("twitter-directmessage://%s?count=16&type=polling&delay=3000", twitterUserName), String.class);
+        final String result = consumerTemplate.receiveBodyNoWait(
+                String.format("twitter-directmessage://%s?count=16&type=polling&delay=3000", twitterUserName), String.class);
         LOG.infof("Received direct messages: %s", result);
         return result;
     }

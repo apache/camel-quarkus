@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.spi.ReactiveExecutor;

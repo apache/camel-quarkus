@@ -35,14 +35,14 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 public class MinimalConfigTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-        .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClass(CustomDefaultServletClassTest.Routes.class)
-            .addAsResource(applicationProperties(), "application.properties"));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addClass(CustomDefaultServletClassTest.Routes.class)
+                    .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
     public void minimal() throws Exception {
         RestAssured.when().get("/hello")
-            .then().body(IsEqual.equalTo("GET: /hello"));
+                .then().body(IsEqual.equalTo("GET: /hello"));
     }
 
     public static final class Routes extends RouteBuilder {

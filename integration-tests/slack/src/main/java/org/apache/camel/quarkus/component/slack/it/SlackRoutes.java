@@ -24,23 +24,25 @@ public class SlackRoutes extends RouteBuilder {
 
         // Stubbed API endpoints for testing without slack API credentials
         restConfiguration()
-            .component("netty-http")
-            .host("0.0.0.0")
-            .port(8099);
+                .component("netty-http")
+                .host("0.0.0.0")
+                .port(8099);
 
         rest()
-            .post("/webhook")
+                .post("/webhook")
                 .route()
                 .setBody(constant("{\"ok\": true}"))
-            .endRest()
-            .post("/slack/api/channels.list")
+                .endRest()
+                .post("/slack/api/channels.list")
                 .route()
-                .setBody(constant("{\"ok\":true,\"channels\":[{\"id\":\"ABC12345\",\"name\":\"general\",\"is_channel\":true,\"created\":1571904169}]}"))
-            .endRest()
-            .post("/slack/api/channels.history")
+                .setBody(constant(
+                        "{\"ok\":true,\"channels\":[{\"id\":\"ABC12345\",\"name\":\"general\",\"is_channel\":true,\"created\":1571904169}]}"))
+                .endRest()
+                .post("/slack/api/channels.history")
                 .route()
-                .setBody(constant("{\"ok\":true,\"messages\":[{\"type\":\"message\",\"subtype\":\"bot_message\",\"text\":\"Hello Camel Quarkus Slack\""
-                    + ",\"ts\":\"1571912155.001300\",\"bot_id\":\"ABC12345C\"}],\"has_more\":true"
-                    + ",\"channel_actions_ts\":null,\"channel_actions_count\":0}"));
+                .setBody(constant(
+                        "{\"ok\":true,\"messages\":[{\"type\":\"message\",\"subtype\":\"bot_message\",\"text\":\"Hello Camel Quarkus Slack\""
+                                + ",\"ts\":\"1571912155.001300\",\"bot_id\":\"ABC12345C\"}],\"has_more\":true"
+                                + ",\"channel_actions_ts\":null,\"channel_actions_count\":0}"));
     }
 }

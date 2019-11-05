@@ -41,7 +41,7 @@ public class CustomLivenessCheck extends AbstractCamelMicroProfileLivenessCheck 
         int hits = hitCount.incrementAndGet();
 
         // Flag the check as DOWN on every 5th invocation, else it is UP
-        if (hits %5 == 0) {
+        if (hits % 5 == 0) {
             builder.down();
         } else {
             builder.up();

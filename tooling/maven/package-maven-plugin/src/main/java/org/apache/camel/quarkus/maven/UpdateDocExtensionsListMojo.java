@@ -123,8 +123,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *                                threads it generated failed.
-     * @throws MojoFailureException   something bad happened...
+     *             threads it generated failed.
+     * @throws MojoFailureException something bad happened...
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -423,28 +423,34 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
     }
 
-    private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated) throws MojoExecutionException {
+    private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated)
+            throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("components", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
         }
     }
 
-    private String templateDataFormats(List<DataFormatModel> models, int artifacts, long deprecated) throws MojoExecutionException {
+    private String templateDataFormats(List<DataFormatModel> models, int artifacts, long deprecated)
+            throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("dataformats", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
@@ -453,12 +459,14 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
     private String templateLanguages(List<LanguageModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("languages", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
@@ -467,12 +475,14 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
     private String templateOthers(List<OtherModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("others", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);

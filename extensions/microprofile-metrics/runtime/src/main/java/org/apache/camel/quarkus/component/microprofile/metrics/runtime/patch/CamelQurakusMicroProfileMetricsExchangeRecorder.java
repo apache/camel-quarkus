@@ -46,11 +46,11 @@ public class CamelQurakusMicroProfileMetricsExchangeRecorder extends MicroProfil
         super.configureMetrics(metricRegistry, metricName, tags);
 
         Metadata exchangesInflightMetadata = new MetadataBuilder()
-            .withName(metricName + EXCHANGES_INFLIGHT_METRIC_NAME)
-            .withDisplayName(EXCHANGES_INFLIGHT_DISPLAY_NAME)
-            .withDescription(EXCHANGES_INFLIGHT_DESCRIPTION)
-            .withType(MetricType.GAUGE)
-            .build();
+                .withName(metricName + EXCHANGES_INFLIGHT_METRIC_NAME)
+                .withDisplayName(EXCHANGES_INFLIGHT_DISPLAY_NAME)
+                .withDescription(EXCHANGES_INFLIGHT_DESCRIPTION)
+                .withType(MetricType.GAUGE)
+                .build();
 
         metricRegistry.remove(exchangesInflightMetadata.getName());
 

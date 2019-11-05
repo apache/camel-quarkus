@@ -32,20 +32,20 @@ class PlatformHttpEngineTest {
     @Test
     public void registrySetUp() {
         RestAssured.given()
-            .get("/test/registry/inspect")
-            .then()
+                .get("/test/registry/inspect")
+                .then()
                 .statusCode(200)
                 .body(
-                    PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(QuarkusPlatformHttpEngine.class.getName()),
-                    PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()),
-                    "handlers-size", is(2));
+                        PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(QuarkusPlatformHttpEngine.class.getName()),
+                        PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()),
+                        "handlers-size", is(2));
     }
 
     @Test
     public void basic() {
         RestAssured.given()
-            .get("/platform-http/hello")
-            .then()
+                .get("/platform-http/hello")
+                .then()
                 .statusCode(200)
                 .body(equalTo("platform-http/hello"));
     }
@@ -54,6 +54,6 @@ class PlatformHttpEngineTest {
     @Test
     public void invalidMethod() {
         RestAssured.post("/platform-http/hello")
-            .then().statusCode(405);
+                .then().statusCode(405);
     }
 }

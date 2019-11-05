@@ -26,18 +26,18 @@ public class CamelRoute extends RouteBuilder {
     public void configure() {
 
         from("netty:tcp://0.0.0.0:8994?textline=true&sync=true")
-            .process(new Processor() {
-                public void process(Exchange exchange) throws Exception {
-                    if (exchange.getIn().getBody() instanceof Poetry) {
-                        Poetry poetry = (Poetry) exchange.getIn().getBody();
-                        poetry.setPoet("Dr. Sarojini Naidu");
-                        exchange.getOut().setBody(poetry);
-                        return;
+                .process(new Processor() {
+                    public void process(Exchange exchange) throws Exception {
+                        if (exchange.getIn().getBody() instanceof Poetry) {
+                            Poetry poetry = (Poetry) exchange.getIn().getBody();
+                            poetry.setPoet("Dr. Sarojini Naidu");
+                            exchange.getOut().setBody(poetry);
+                            return;
+                        }
+                        exchange.getOut()
+                                .setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
                     }
-                    exchange.getOut().setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
-                }
-            }
-            );
+                });
 
     }
 }

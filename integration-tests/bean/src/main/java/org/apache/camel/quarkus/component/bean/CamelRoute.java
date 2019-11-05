@@ -36,19 +36,19 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:process-order")
-            .setHeader(MyOrderService.class.getName(), MyOrderService::new)
-            .split(body().tokenize("@"), CamelRoute.this::aggregate)
-            // each splitted message is then send to this bean where we can process it
-            .process(stateless(MyOrderService.class.getName(), "handleOrder"))
-            // this is important to end the splitter route as we do not want to do more routing
-            // on each splitted message
-            .end()
-            // after we have splitted and handled each message we want to send a single combined
-            // response back to the original caller, so we let this bean build it for us
-            // this bean will receive the result of the aggregate strategy: MyOrderStrategy
-            .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"))
-            // log out
-            .to("log:out");
+                .setHeader(MyOrderService.class.getName(), MyOrderService::new)
+                .split(body().tokenize("@"), CamelRoute.this::aggregate)
+                // each splitted message is then send to this bean where we can process it
+                .process(stateless(MyOrderService.class.getName(), "handleOrder"))
+                // this is important to end the splitter route as we do not want to do more routing
+                // on each splitted message
+                .end()
+                // after we have splitted and handled each message we want to send a single combined
+                // response back to the original caller, so we let this bean build it for us
+                // this bean will receive the result of the aggregate strategy: MyOrderStrategy
+                .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"))
+                // log out
+                .to("log:out");
 
     }
 

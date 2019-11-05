@@ -68,7 +68,8 @@ public class PdfResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response appendText(String message) throws Exception {
 
-        byte[] pdfBytes = producerTemplate.requestBodyAndHeader("pdf:append", message, PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, document, byte[].class);
+        byte[] pdfBytes = producerTemplate.requestBodyAndHeader("pdf:append", message,
+                PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, document, byte[].class);
         LOG.infof("The PDDocument has been updated and now contains %d bytes", pdfBytes.length);
 
         return Response.ok().entity(pdfBytes).build();

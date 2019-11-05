@@ -49,7 +49,7 @@ public class PlatformHttpResource {
             builder.add(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, engine.getClass().getName());
 
             if (engine instanceof QuarkusPlatformHttpEngine) {
-                builder.add("handlers-size", ((QuarkusPlatformHttpEngine)engine).getHandlers().size());
+                builder.add("handlers-size", ((QuarkusPlatformHttpEngine) engine).getHandlers().size());
             }
         }
 

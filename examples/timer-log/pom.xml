@@ -20,9 +20,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-bom</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>0.3.2-SNAPSHOT</version>
-        <relativePath>../../poms/bom/pom.xml</relativePath>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -30,6 +30,19 @@
     <artifactId>camel-quarkus-examples-timer-log</artifactId>
     <name>Camel Quarkus :: Examples :: Timer Log</name>
     <description>Camel Quarkus Example :: Timer to Log</description>
+
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import BOM -->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>

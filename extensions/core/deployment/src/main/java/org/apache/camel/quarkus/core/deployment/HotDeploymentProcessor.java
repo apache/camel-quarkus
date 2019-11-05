@@ -54,19 +54,19 @@ class HotDeploymentProcessor {
 
     private static List<HotDeploymentWatchedFileBuildItem> locations(String property) {
         String[] locations = ConfigProvider.getConfig()
-            .getOptionalValue(property, String[].class)
-            .orElse(EMPTY_STRING_ARRAY);
+                .getOptionalValue(property, String[].class)
+                .orElse(EMPTY_STRING_ARRAY);
 
         List<HotDeploymentWatchedFileBuildItem> items = Stream.of(locations)
-            .filter(location -> location.startsWith(FILE_PREFIX))
-            .map(location -> location.substring(FILE_PREFIX.length()))
-            .distinct()
-            .map(Paths::get)
-            .filter(Files::exists)
-            .map(Path::toAbsolutePath)
-            .map(Path::toString)
-            .map(HotDeploymentWatchedFileBuildItem::new)
-            .collect(Collectors.toList());
+                .filter(location -> location.startsWith(FILE_PREFIX))
+                .map(location -> location.substring(FILE_PREFIX.length()))
+                .distinct()
+                .map(Paths::get)
+                .filter(Files::exists)
+                .map(Path::toAbsolutePath)
+                .map(Path::toString)
+                .map(HotDeploymentWatchedFileBuildItem::new)
+                .collect(Collectors.toList());
 
         if (!items.isEmpty()) {
             LOGGER.info("HotDeployment files ({}):", property);

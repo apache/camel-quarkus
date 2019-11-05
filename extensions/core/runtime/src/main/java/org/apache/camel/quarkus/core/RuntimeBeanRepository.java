@@ -67,7 +67,7 @@ public final class RuntimeBeanRepository implements BeanRepository {
     private static <T> Set<T> getReferencesByType(BeanManager manager, Class<T> type, Annotation... qualifiers) {
         Set<T> answer = new HashSet<>();
 
-        for (Bean<?> bean: manager.getBeans(type, qualifiers)) {
+        for (Bean<?> bean : manager.getBeans(type, qualifiers)) {
             T ref = getReference(manager, type, bean);
             if (ref != null) {
                 answer.add(ref);
@@ -85,10 +85,11 @@ public final class RuntimeBeanRepository implements BeanRepository {
         return type.cast(manager.getReference(bean, type, manager.createCreationalContext(bean)));
     }
 
-    private static <T> Map<String, T> getReferencesByTypeWithName(BeanManager manager, Class<T> type, Annotation... qualifiers) {
+    private static <T> Map<String, T> getReferencesByTypeWithName(BeanManager manager, Class<T> type,
+            Annotation... qualifiers) {
         Map<String, T> answer = new HashMap<>();
 
-        for (Bean<?> bean: manager.getBeans(type, qualifiers)) {
+        for (Bean<?> bean : manager.getBeans(type, qualifiers)) {
             T ref = getReference(manager, type, bean);
             if (ref != null) {
                 answer.put(bean.getName(), ref);

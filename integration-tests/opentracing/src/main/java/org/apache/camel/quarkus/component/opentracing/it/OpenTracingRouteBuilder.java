@@ -24,10 +24,10 @@ public class OpenTracingRouteBuilder extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("platform-http:/opentracing/test/trace?httpMethodRestrict=GET")
-            .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
-            .setBody(constant("GET: /opentracing/test/trace"));
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
+                .setBody(constant("GET: /opentracing/test/trace"));
 
         from("platform-http:/opentracing/test/trace/filtered")
-            .setBody(constant("GET: /opentracing/test/trace/filtered"));
+                .setBody(constant("GET: /opentracing/test/trace/filtered"));
     }
 }

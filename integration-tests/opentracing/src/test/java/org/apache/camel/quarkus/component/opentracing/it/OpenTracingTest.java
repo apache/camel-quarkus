@@ -36,23 +36,24 @@ class OpenTracingTest {
         // Generate messages
         for (int i = 0; i < 5; i++) {
             RestAssured.get("/opentracing/test/trace")
-                .then()
-                .statusCode(200);
+                    .then()
+                    .statusCode(200);
 
-            // No spans should be recorded for this route as they are excluded by camel.opentracing.exclude-patterns in application.properties
+            // No spans should be recorded for this route as they are excluded by camel.opentracing.exclude-patterns in
+            // application.properties
             RestAssured.get("/opentracing/test/trace/filtered")
-                .then()
-                .statusCode(200);
+                    .then()
+                    .statusCode(200);
         }
 
         // Retrieve recorded spans
         JsonPath jsonPath = RestAssured.given()
-            .get("/opentracing/spans")
-            .then()
-            .statusCode(200)
-            .extract()
-            .body()
-            .jsonPath();
+                .get("/opentracing/spans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath();
 
         List<Map<String, String>> spans = jsonPath.get();
         assertEquals(5, spans.size());

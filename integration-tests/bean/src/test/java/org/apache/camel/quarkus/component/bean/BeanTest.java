@@ -28,7 +28,7 @@ public class BeanTest {
     @Test
     public void testRoutes() {
         RestAssured.given().contentType(ContentType.TEXT).body("nuts@bolts").post("/bean/process-order").then()
-            .body(equalTo("{success=true, lines=[(id=1,item=nuts), (id=2,item=bolts)]}"));
+                .body(equalTo("{success=true, lines=[(id=1,item=nuts), (id=2,item=bolts)]}"));
     }
 
 }

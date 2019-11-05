@@ -44,7 +44,6 @@ public final class CamelMainEvents {
     public static class BeforeStop {
     }
 
-
     /**
      * Event fired by {@link CamelMain} after the CamelContext has been stopped.
      */

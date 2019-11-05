@@ -44,25 +44,25 @@ public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("platform-http:/fruits?httpMethodRestrict=GET,POST")
-            .choice()
+                .choice()
                 .when(simple("${header.CamelHttpMethod} == 'GET'"))
-                    .setBody()
-                        .constant(fruits)
-                    .endChoice()
+                .setBody()
+                .constant(fruits)
+                .endChoice()
                 .when(simple("${header.CamelHttpMethod} == 'POST'"))
-                    .unmarshal()
-                        .json(JsonLibrary.Jackson, Fruit.class)
-                    .process()
-                        .body(Fruit.class, fruits::add)
-                    .setBody()
-                        .constant(fruits)
-                    .endChoice()
-            .end()
-            .marshal().json();
+                .unmarshal()
+                .json(JsonLibrary.Jackson, Fruit.class)
+                .process()
+                .body(Fruit.class, fruits::add)
+                .setBody()
+                .constant(fruits)
+                .endChoice()
+                .end()
+                .marshal().json();
 
         from("platform-http:/legumes?httpMethodRestrict=GET")
-            .setBody().constant(legumes)
-            .marshal().json();
+                .setBody().constant(legumes)
+                .marshal().json();
 
     }
 }
