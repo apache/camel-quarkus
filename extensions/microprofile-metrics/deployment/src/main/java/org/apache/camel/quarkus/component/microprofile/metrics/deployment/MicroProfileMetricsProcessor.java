@@ -40,15 +40,15 @@ class MicroProfileMetricsProcessor {
     @BuildStep
     CamelBeanBuildItem metricRegistry(CamelMicroProfileMetricsRecorder recorder) {
         return new CamelBeanBuildItem(
-            MicroProfileMetricsConstants.METRIC_REGISTRY_NAME,
-            MetricRegistry.class,
-            recorder.createApplicationRegistry()
-        );
+                MicroProfileMetricsConstants.METRIC_REGISTRY_NAME,
+                MetricRegistry.class,
+                recorder.createApplicationRegistry());
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    public void configureCamelContext(CamelMicroProfileMetricsRecorder recorder, CamelMicroProfileMetricsConfig config, BeanContainerBuildItem beanContainer) {
+    public void configureCamelContext(CamelMicroProfileMetricsRecorder recorder, CamelMicroProfileMetricsConfig config,
+            BeanContainerBuildItem beanContainer) {
         recorder.configureCamelContext(config, beanContainer.getValue());
     }
 }

@@ -36,7 +36,8 @@ public class MicroProfileHealthResource {
     @GET
     public void toggleFailingHealthCheck(@PathParam("enabled") boolean enabled) {
         Registry registry = camelContext.getRegistry();
-        FailingHealthCheck failingHealthCheck = registry.lookupByNameAndType(FailingHealthCheck.class.getSimpleName(), FailingHealthCheck.class);
+        FailingHealthCheck failingHealthCheck = registry.lookupByNameAndType(FailingHealthCheck.class.getSimpleName(),
+                FailingHealthCheck.class);
         failingHealthCheck.getConfiguration().setEnabled(enabled);
     }
 

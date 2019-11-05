@@ -29,8 +29,8 @@ public class SupportListener implements MainListener {
                 @Override
                 public void configure() throws Exception {
                     from("timer:configure")
-                        .id("configure")
-                        .to("log:configure");
+                            .id("configure")
+                            .to("log:configure");
                 }
             });
         } catch (Exception e) {
@@ -59,8 +59,8 @@ public class SupportListener implements MainListener {
         @Override
         public void configure() throws Exception {
             from("timer:beforeStart")
-                .id("beforeStart")
-                .to("log:beforeStart");
+                    .id("beforeStart")
+                    .to("log:beforeStart");
         }
     }
 }

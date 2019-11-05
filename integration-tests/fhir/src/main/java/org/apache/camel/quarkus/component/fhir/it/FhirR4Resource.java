@@ -42,7 +42,7 @@ public class FhirR4Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2json(String patient) throws Exception {
-        InputStream response =  producerTemplate.requestBody("direct:json-to-r4", patient, InputStream.class);
+        InputStream response = producerTemplate.requestBody("direct:json-to-r4", patient, InputStream.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)

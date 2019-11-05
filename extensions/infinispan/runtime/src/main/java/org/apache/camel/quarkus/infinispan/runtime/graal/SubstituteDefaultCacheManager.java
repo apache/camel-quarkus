@@ -61,14 +61,14 @@ final class SubstituteDefaultCacheManager {
 
     @Substitute
     public SubstituteDefaultCacheManager(GlobalConfiguration globalConfiguration,
-                                         Configuration defaultConfiguration) {
+            Configuration defaultConfiguration) {
         throw new RuntimeException("DefaultCacheManager not supported in native image mode");
     }
 
     @Substitute
     public SubstituteDefaultCacheManager(GlobalConfiguration globalConfiguration,
-                                         Configuration defaultConfiguration,
-                                         boolean start) {
+            Configuration defaultConfiguration,
+            boolean start) {
         throw new RuntimeException("DefaultCacheManager not supported in native image mode");
     }
 

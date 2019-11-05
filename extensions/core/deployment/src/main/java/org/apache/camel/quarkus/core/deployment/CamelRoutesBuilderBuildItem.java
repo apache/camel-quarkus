@@ -20,7 +20,6 @@ import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.RoutesBuilder;
 
-
 /**
  * Holds the {@link RoutesBuilder} {@link RuntimeValue}.
  */

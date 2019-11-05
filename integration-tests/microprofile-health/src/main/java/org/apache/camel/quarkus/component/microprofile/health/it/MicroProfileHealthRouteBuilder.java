@@ -22,6 +22,6 @@ public class MicroProfileHealthRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:start").routeId("healthyRoute")
-            .setBody(constant("Hello Camel Quarkus"));
+                .setBody(constant("Hello Camel Quarkus"));
     }
 }

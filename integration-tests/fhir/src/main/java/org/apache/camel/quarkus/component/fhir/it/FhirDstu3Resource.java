@@ -42,7 +42,7 @@ public class FhirDstu3Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2json(String patient) throws Exception {
-        InputStream response =  producerTemplate.requestBody("direct:json-to-dstu3", patient, InputStream.class);
+        InputStream response = producerTemplate.requestBody("direct:json-to-dstu3", patient, InputStream.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)

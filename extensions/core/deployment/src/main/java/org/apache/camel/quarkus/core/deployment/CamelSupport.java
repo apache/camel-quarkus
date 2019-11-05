@@ -65,32 +65,32 @@ public final class CamelSupport {
 
     public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {
         return archives.getAllApplicationArchives().stream()
-            .map(arch -> arch.getArchiveRoot().resolve(path))
-            .filter(Files::isDirectory)
-            .flatMap(CamelSupport::safeWalk)
-            .filter(Files::isRegularFile);
+                .map(arch -> arch.getArchiveRoot().resolve(path))
+                .filter(Files::isDirectory)
+                .flatMap(CamelSupport::safeWalk)
+                .filter(Files::isRegularFile);
     }
 
     public static Stream<String> getRouteBuilderClasses(IndexView view) {
         Set<ClassInfo> allKnownImplementors = new HashSet<>();
         allKnownImplementors.addAll(
-            view.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
+                view.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
         allKnownImplementors.addAll(
-            view.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
+                view.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
         allKnownImplementors.addAll(
-            view.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
+                view.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
 
         return allKnownImplementors
-            .stream()
-            .filter(CamelSupport::isConcrete)
-            .filter(CamelSupport::isPublic)
-            .map(ClassInfo::toString);
+                .stream()
+                .filter(CamelSupport::isConcrete)
+                .filter(CamelSupport::isPublic)
+                .map(ClassInfo::toString);
     }
 
     public static Stream<CamelServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {
         return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-            .map(CamelSupport::services)
-            .flatMap(Collection::stream);
+                .map(CamelSupport::services)
+                .flatMap(Collection::stream);
     }
 
     private static List<CamelServiceInfo> services(Path p) {

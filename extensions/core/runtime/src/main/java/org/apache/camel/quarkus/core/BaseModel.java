@@ -128,7 +128,8 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public synchronized void addRestDefinitions(Collection<RestDefinition> restDefinitions, boolean addToRoutes) throws Exception {
+    public synchronized void addRestDefinitions(Collection<RestDefinition> restDefinitions, boolean addToRoutes)
+            throws Exception {
         if (restDefinitions == null || restDefinitions.isEmpty()) {
             return;
         }
@@ -212,7 +213,8 @@ public abstract class BaseModel implements Model {
     @Override
     public ProcessorDefinition getProcessorDefinition(String id) {
         for (RouteDefinition route : getRouteDefinitions()) {
-            Iterator<ProcessorDefinition> it = ProcessorDefinitionHelper.filterTypeInOutputs(route.getOutputs(), ProcessorDefinition.class);
+            Iterator<ProcessorDefinition> it = ProcessorDefinitionHelper.filterTypeInOutputs(route.getOutputs(),
+                    ProcessorDefinition.class);
             while (it.hasNext()) {
                 ProcessorDefinition proc = it.next();
                 if (id.equals(proc.getId())) {
@@ -300,7 +302,8 @@ public abstract class BaseModel implements Model {
         RouteDefinitionHelper.forceAssignIds(camelContext, routeDefinitions);
         String duplicate = RouteDefinitionHelper.validateUniqueIds(routeDefinition, routeDefinitions);
         if (duplicate != null) {
-            throw new FailedToStartRouteException(routeDefinition.getId(), "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
+            throw new FailedToStartRouteException(routeDefinition.getId(),
+                    "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
         }
 
         // must ensure route is prepared, before we can start it

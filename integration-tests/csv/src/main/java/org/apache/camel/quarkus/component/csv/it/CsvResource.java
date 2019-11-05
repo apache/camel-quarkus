@@ -48,7 +48,9 @@ public class CsvResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String json2csv(String json) throws Exception {
         LOG.infof("Transforming json %s", json);
-        final List<Map<String, Object>> objects = new ObjectMapper().readValue(json,  new TypeReference<List<Map<String, Object>>>() { });
+        final List<Map<String, Object>> objects = new ObjectMapper().readValue(json,
+                new TypeReference<List<Map<String, Object>>>() {
+                });
         return producerTemplate.requestBody(
                 "direct:json-to-csv",
                 objects,

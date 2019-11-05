@@ -30,18 +30,18 @@ public class CamelRoute extends RouteBuilder {
         // and camel-main automatically bind it to the component
 
         from("direct:put")
-            .convertBodyTo(byte[].class)
-            .to("log:cache?showAll=true")
-            .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
-            .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
-            .setHeader(InfinispanConstants.VALUE).body()
-            .to("infinispan:default")
-            .to("log:put?showAll=true");
+                .convertBodyTo(byte[].class)
+                .to("log:cache?showAll=true")
+                .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
+                .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
+                .setHeader(InfinispanConstants.VALUE).body()
+                .to("infinispan:default")
+                .to("log:put?showAll=true");
 
         from("direct:get")
-            .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.GET)
-            .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
-            .to("infinispan:default")
-            .to("log:get?showAll=true");
+                .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.GET)
+                .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
+                .to("infinispan:default")
+                .to("log:get?showAll=true");
     }
 }

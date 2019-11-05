@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
-
 import io.vertx.core.Handler;
 import io.vertx.ext.web.RoutingContext;
 

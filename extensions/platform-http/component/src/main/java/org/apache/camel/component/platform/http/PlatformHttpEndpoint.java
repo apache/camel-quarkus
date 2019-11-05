@@ -49,7 +49,7 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
     private String consumes;
 
     @UriParam(label = "consumer", description = "The content type this endpoint produces, such as"
-        + " application/xml or application/json.")
+            + " application/xml or application/json.")
     private String produces;
 
     @UriParam(label = "consumer,advanced", description = "A comma or whitespace separated list of file extensions."
@@ -139,11 +139,13 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
         if (platformHttpEngine == null) {
             LOGGER.debug("Lookup platform http engine from registry");
 
-            platformHttpEngine = getCamelContext().getRegistry().lookupByNameAndType(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class);
+            platformHttpEngine = getCamelContext().getRegistry()
+                    .lookupByNameAndType(PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, PlatformHttpEngine.class);
 
             if (platformHttpEngine == null) {
-                throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this " + PlatformHttpEndpoint.class.getSimpleName()
-                                                + " neither found in Camel Registry.");
+                throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this "
+                        + PlatformHttpEndpoint.class.getSimpleName()
+                        + " neither found in Camel Registry.");
             }
         }
     }

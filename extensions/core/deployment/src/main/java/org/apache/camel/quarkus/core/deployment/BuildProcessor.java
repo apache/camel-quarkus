@@ -68,55 +68,52 @@ class BuildProcessor {
         @BuildStep
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
-                new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory"))
-            );
+                    new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
         }
 
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelRegistryBuildItem registry(
-            CamelRecorder recorder,
-            RecorderContext recorderContext,
-            ApplicationArchivesBuildItem applicationArchives,
-            List<CamelBeanBuildItem> registryItems,
-            List<CamelServiceFilterBuildItem> serviceFilters) {
+                CamelRecorder recorder,
+                RecorderContext recorderContext,
+                ApplicationArchivesBuildItem applicationArchives,
+                List<CamelBeanBuildItem> registryItems,
+                List<CamelServiceFilterBuildItem> serviceFilters) {
 
             RuntimeValue<Registry> registry = recorder.createRegistry();
 
             CamelSupport.services(applicationArchives)
-                .filter(si -> {
-                    //
-                    // by default all the service found in META-INF/service/org/apache/camel are
-                    // bound to the registry but some of the services are then replaced or set
-                    // to the camel context directly by extension so it does not make sense to
-                    // instantiate them in this phase.
-                    //
-                    boolean blacklisted = serviceFilters.stream().anyMatch(filter -> filter.getPredicate().test(si));
-                    if (blacklisted) {
-                        LOGGER.debug("Ignore service: {}", si);
-                    }
+                    .filter(si -> {
+                        //
+                        // by default all the service found in META-INF/service/org/apache/camel are
+                        // bound to the registry but some of the services are then replaced or set
+                        // to the camel context directly by extension so it does not make sense to
+                        // instantiate them in this phase.
+                        //
+                        boolean blacklisted = serviceFilters.stream().anyMatch(filter -> filter.getPredicate().test(si));
+                        if (blacklisted) {
+                            LOGGER.debug("Ignore service: {}", si);
+                        }
 
-                    return !blacklisted;
-                })
-                .forEach(si -> {
-                    LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
+                        return !blacklisted;
+                    })
+                    .forEach(si -> {
+                        LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
 
-                    recorder.bind(
-                        registry,
-                        si.name,
-                        recorderContext.classProxy(si.type)
-                    );
-                });
+                        recorder.bind(
+                                registry,
+                                si.name,
+                                recorderContext.classProxy(si.type));
+                    });
 
             for (CamelBeanBuildItem item : registryItems) {
                 LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
 
                 recorder.bind(
-                    registry,
-                    item.getName(),
-                    item.getType(),
-                    item.getValue()
-                );
+                        registry,
+                        item.getName(),
+                        item.getType(),
+                        item.getValue());
             }
 
             return new CamelRegistryBuildItem(registry);
@@ -148,17 +145,17 @@ class BuildProcessor {
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelContextBuildItem context(
-            CamelRecorder recorder,
-            CamelRegistryBuildItem registry,
-            CamelModelJAXBContextFactoryBuildItem contextFactory,
-            CamelXmlLoaderBuildItem xmlLoader,
-            BeanContainerBuildItem beanContainer) {
+                CamelRecorder recorder,
+                CamelRegistryBuildItem registry,
+                CamelModelJAXBContextFactoryBuildItem contextFactory,
+                CamelXmlLoaderBuildItem xmlLoader,
+                BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
-                registry.getRegistry(),
-                contextFactory.getContextFactory(),
-                xmlLoader.getXmlLoader(),
-                beanContainer.getValue());
+                    registry.getRegistry(),
+                    contextFactory.getContextFactory(),
+                    xmlLoader.getXmlLoader(),
+                    beanContainer.getValue());
 
             return new CamelContextBuildItem(context);
         }
@@ -166,20 +163,18 @@ class BuildProcessor {
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep
         CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
-            CamelRecorder recorder,
-            CamelRegistryBuildItem registry,
-            List<CamelRuntimeBeanBuildItem> registryItems) {
-
+                CamelRecorder recorder,
+                CamelRegistryBuildItem registry,
+                List<CamelRuntimeBeanBuildItem> registryItems) {
 
             for (CamelRuntimeBeanBuildItem item : registryItems) {
                 LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
                 recorder.bind(
-                    registry.getRegistry(),
-                    item.getName(),
-                    item.getType(),
-                    item.getValue()
-                );
+                        registry.getRegistry(),
+                        item.getName(),
+                        item.getType(),
+                        item.getValue());
             }
 
             return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
@@ -199,9 +194,9 @@ class BuildProcessor {
                 RecorderContext recorderContext) {
 
             return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
-                .map(recorderContext::<RoutesBuilder>newInstance)
-                .map(CamelRoutesBuilderBuildItem::new)
-                .collect(Collectors.toList());
+                    .map(recorderContext::<RoutesBuilder> newInstance)
+                    .map(CamelRoutesBuilderBuildItem::new)
+                    .collect(Collectors.toList());
         }
 
         @Overridable
@@ -233,18 +228,17 @@ class BuildProcessor {
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
-            CamelMainRecorder recorder,
-            CamelContextBuildItem context,
-            CamelRoutesCollectorBuildItem routesCollector,
-            List<CamelMainListenerBuildItem> listeners,
-            List<CamelRoutesBuilderBuildItem> routesBuilders,
-            BeanContainerBuildItem beanContainer) {
+                CamelMainRecorder recorder,
+                CamelContextBuildItem context,
+                CamelRoutesCollectorBuildItem routesCollector,
+                List<CamelMainListenerBuildItem> listeners,
+                List<CamelRoutesBuilderBuildItem> routesBuilders,
+                BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(
-                context.getCamelContext(),
-                routesCollector.getValue(),
-                beanContainer.getValue()
-            );
+                    context.getCamelContext(),
+                    routesCollector.getValue(),
+                    beanContainer.getValue());
 
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
@@ -259,27 +253,27 @@ class BuildProcessor {
         /**
          * This method is responsible to start camel-main ar runtime.
          *
-         * @param recorder  the recorder.
-         * @param main      a reference to a {@link CamelMain}.
-         * @param registry  a reference to a {@link Registry}; note that this parameter is here as placeholder to
-         *                  ensure the {@link Registry} is fully configured before starting camel-main.
-         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
-         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *                  threads and so on.
-         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param recorder the recorder.
+         * @param main a reference to a {@link CamelMain}.
+         * @param registry a reference to a {@link Registry}; note that this parameter is here as placeholder to
+         *            ensure the {@link Registry} is fully configured before starting camel-main.
+         * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *            happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *            threads and so on.
+         * @param shutdown a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
          * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
-         *                  is required as under the hoods the camel registry may look-up beans form the
-         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
+         *            is required as under the hoods the camel registry may look-up beans form the
+         *            container thus we need it to be fully initialized to avoid unexpected behaviors.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void start(
-            CamelMainRecorder recorder,
-            CamelMainBuildItem main,
-            CamelRuntimeRegistryBuildItem registry,
-            CamelReactiveExecutorBuildItem executor,
-            ShutdownContextBuildItem shutdown,
-            List<ServiceStartBuildItem> startList) {
+                CamelMainRecorder recorder,
+                CamelMainBuildItem main,
+                CamelRuntimeRegistryBuildItem registry,
+                CamelReactiveExecutorBuildItem executor,
+                ShutdownContextBuildItem shutdown,
+                List<ServiceStartBuildItem> startList) {
 
             recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             recorder.start(shutdown, main.getInstance());

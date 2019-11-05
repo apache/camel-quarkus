@@ -35,7 +35,6 @@ class TwitterProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 AbstractTwitterComponent.class,
-                TwitterConfiguration.class
-        ));
+                TwitterConfiguration.class));
     }
 }

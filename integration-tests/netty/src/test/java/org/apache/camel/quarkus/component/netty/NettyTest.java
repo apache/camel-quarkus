@@ -33,18 +33,14 @@ class NettyTest {
         final String expectedResponse = "When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.";
 
         try (
-            final Socket socket = new Socket("localhost", 8994);
-            final PrintWriter outputWriter = new PrintWriter(socket.getOutputStream(), true);
-            final BufferedReader inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        ) {
+                final Socket socket = new Socket("localhost", 8994);
+                final PrintWriter outputWriter = new PrintWriter(socket.getOutputStream(), true);
+                final BufferedReader inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
             outputWriter.println(poem);
             String response = inputReader.readLine();
             Assertions.assertTrue(response.equalsIgnoreCase(expectedResponse), "Response did not match expected response");
         }
 
-
-
     }
 
 }
-

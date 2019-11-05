@@ -98,7 +98,8 @@ public class FastModel extends BaseModel {
             // if error handler ref is configured it may refer to a context scoped, so we need to check this first
             // the XML DSL will configure error handlers using refs, so we need this additional test
             ErrorHandlerFactory routeScoped = route.getRouteContext().getErrorHandlerFactory();
-            ErrorHandlerFactory contextScoped = route.getCamelContext().adapt(ExtendedCamelContext.class).getErrorHandlerFactory();
+            ErrorHandlerFactory contextScoped = route.getCamelContext().adapt(ExtendedCamelContext.class)
+                    .getErrorHandlerFactory();
             contextScopedErrorHandler = contextScoped != null && routeScoped == contextScoped;
         } else {
             contextScopedErrorHandler = true;

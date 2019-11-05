@@ -69,20 +69,20 @@ public class CamelQuarkusMicroProfileMetricsRouteEventNotifier extends MicroProf
         });
 
         Metadata routesAddedMetadata = new MetadataBuilder()
-            .withName(routeAddedName)
-            .withDisplayName(ROUTES_ADDED_DISPLAY_NAME)
-            .withDescription(ROUTES_ADDED_DESCRIPTION)
-            .withType(MetricType.GAUGE)
-            .build();
+                .withName(routeAddedName)
+                .withDisplayName(ROUTES_ADDED_DISPLAY_NAME)
+                .withDescription(ROUTES_ADDED_DESCRIPTION)
+                .withType(MetricType.GAUGE)
+                .build();
 
         metricRegistry.register(routesAddedMetadata, routesAdded, tags);
 
         Metadata routesRunningMetadata = new MetadataBuilder()
-            .withName(routeRunningName)
-            .withDisplayName(ROUTES_RUNNING_DISPLAY_NAME)
-            .withDescription(ROUTES_RUNNING_DESCRIPTION)
-            .withType(MetricType.GAUGE)
-            .build();
+                .withName(routeRunningName)
+                .withDisplayName(ROUTES_RUNNING_DISPLAY_NAME)
+                .withDescription(ROUTES_RUNNING_DESCRIPTION)
+                .withType(MetricType.GAUGE)
+                .build();
         metricRegistry.register(routesRunningMetadata, routesRunning, tags);
     }
 

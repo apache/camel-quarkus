@@ -22,6 +22,6 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("platform-http:/platform-http/hello?httpMethodRestrict=GET")
-            .setBody().constant("platform-http/hello");
+                .setBody().constant("platform-http/hello");
     }
 }

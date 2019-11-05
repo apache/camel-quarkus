@@ -35,8 +35,8 @@ class MicroProfileMetricsTest {
     @Test
     public void testMicroProfileMetricsCounter() {
         RestAssured.get("/microprofile-metrics/counter")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertEquals(1, getMetricIntValue("camel-quarkus-counter"));
     }
 
@@ -44,15 +44,15 @@ class MicroProfileMetricsTest {
     public void testMicroProfileMetricsConcurrentGauge() {
         for (int i = 0; i < 10; i++) {
             RestAssured.get("/microprofile-metrics/gauge/concurrent/increment")
-                .then()
-                .statusCode(200);
+                    .then()
+                    .statusCode(200);
         }
         assertEquals(10, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
 
         for (int i = 0; i < 3; i++) {
             RestAssured.get("/microprofile-metrics/gauge/concurrent/decrement")
-                .then()
-                .statusCode(200);
+                    .then()
+                    .statusCode(200);
         }
         assertEquals(7, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
     }
@@ -60,48 +60,48 @@ class MicroProfileMetricsTest {
     @Test
     public void testMicroProfileMetricsGauge() {
         RestAssured.get("/microprofile-metrics/gauge?value=10")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertEquals(10, getMetricIntValue("camel-quarkus-gauge"));
     }
 
     @Test
     public void testMicroProfileMetricsHistogram() {
         RestAssured.get("/microprofile-metrics/histogram?value=10")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertEquals(10, getMetricIntValue("camel-quarkus-histogram.max"));
     }
 
     @Test
     public void testMicroProfileMetricsMeter() {
         RestAssured.get("/microprofile-metrics/meter?mark=10")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertEquals(10, getMetricIntValue("camel-quarkus-meter.count"));
     }
 
     @Test
     public void testMicroProfileMetricsTimer() {
         RestAssured.get("/microprofile-metrics/timer")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertTrue(getMetricFloatValue("camel-quarkus-timer.max") > 1.0);
     }
 
     @Test
     public void testMicroProfileMetricsRoutePolicyFactory() {
         RestAssured.get("/microprofile-metrics/timer")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=route7") > 0);
     }
 
     @Test
     public void testMicroProfileMetricsMessageHistoryFactory() {
         RestAssured.get("/microprofile-metrics/log")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
 
         Map<String, Object> exchangeMetrics = getApplicationMetrics().getMap("'camel.message.history.processing'");
         exchangeMetrics.forEach((k, v) -> {
@@ -120,8 +120,8 @@ class MicroProfileMetricsTest {
     @Test
     public void testMicroProfileMetricsExchangeEventNotifier() {
         RestAssured.get("/microprofile-metrics/log")
-            .then()
-            .statusCode(200);
+                .then()
+                .statusCode(200);
         assertTrue(getMetricIntValue("camel.context.exchanges.total") > 0);
     }
 
@@ -145,7 +145,7 @@ class MicroProfileMetricsTest {
 
     private String sanitizeMetricName(String metricName, String... tags) {
         if (tags.length == 0) {
-            tags = new String[] {CAMEL_CONTEXT_METRIC_TAG};
+            tags = new String[] { CAMEL_CONTEXT_METRIC_TAG };
         }
 
         if (metricName.contains(".") && metricName.split("\\.").length > 2) {
@@ -156,12 +156,12 @@ class MicroProfileMetricsTest {
 
     private JsonPath getApplicationMetrics() {
         return RestAssured.given()
-            .accept("application/json")
-            .get("/metrics/application")
-            .then()
-            .statusCode(200)
-            .extract()
-            .body()
-            .jsonPath();
+                .accept("application/json")
+                .get("/metrics/application")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath();
     }
 }

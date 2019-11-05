@@ -28,7 +28,8 @@ import org.apache.camel.opentracing.OpenTracingTracer;
 @Recorder
 public class CamelOpenTracingRecorder {
 
-    public RuntimeValue<OpenTracingTracer> createCamelOpenTracingTracer(CamelOpenTracingConfig camelOpenTracingConfig, BeanContainer beanContainer) {
+    public RuntimeValue<OpenTracingTracer> createCamelOpenTracingTracer(CamelOpenTracingConfig camelOpenTracingConfig,
+            BeanContainer beanContainer) {
         Tracer tracer = beanContainer.instance(Tracer.class);
         OpenTracingTracer openTracingTracer = new OpenTracingTracer();
         if (tracer != null) {

@@ -32,11 +32,12 @@ public class CamelJdbcTest {
         RestAssured.when().get("/test/species/2").then().body(is("[{SPECIES=Camelus bactrianus}]"));
         RestAssured.when().get("/test/species/3").then().body(is("[{SPECIES=Camelus ferus}]"));
     }
+
     @Test
     void testExecuteStatement() {
         RestAssured.given()
-            .contentType(ContentType.TEXT).body("select id from camels order by id desc")
-            .post("/test/execute")
-            .then().body(is("[{ID=3}, {ID=2}, {ID=1}]"));
+                .contentType(ContentType.TEXT).body("select id from camels order by id desc")
+                .post("/test/execute")
+                .then().body(is("[{ID=3}, {ID=2}, {ID=1}]"));
     }
 }

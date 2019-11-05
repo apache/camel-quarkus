@@ -40,15 +40,16 @@ class TarfileTest {
         byte[] body;
 
         ExtractableResponse response = RestAssured.given() //
-            .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post") //
-            .then().extract();
+                .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post") //
+                .then().extract();
 
         body = response.body().asByteArray();
         Assertions.assertNotNull(body);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ByteArrayInputStream bis = new ByteArrayInputStream(body);
-        TarArchiveInputStream tis = (TarArchiveInputStream) new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.TAR, bis);
+        TarArchiveInputStream tis = (TarArchiveInputStream) new ArchiveStreamFactory()
+                .createArchiveInputStream(ArchiveStreamFactory.TAR, bis);
 
         TarArchiveEntry entry = tis.getNextTarEntry();
         if (entry != null) {

@@ -40,8 +40,7 @@ class PahoProcessor {
             JSR47Logger.class,
             TCPNetworkModuleFactory.class,
             SSLNetworkModuleFactory.class,
-            PahoConfiguration.class
-    );
+            PahoConfiguration.class);
 
     @Inject
     BuildProducer<NativeImageResourceBuildItem> resource;
@@ -58,8 +57,7 @@ class PahoProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         for (Class<?> type : PAHO_REFLECTIVE_CLASSES) {
             reflectiveClass.produce(
-                    new ReflectiveClassBuildItem(true, true, type)
-            );
+                    new ReflectiveClassBuildItem(true, true, type));
         }
     }
 

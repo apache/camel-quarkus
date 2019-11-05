@@ -37,8 +37,8 @@ class ZipfileTest {
         byte[] body;
 
         ExtractableResponse response = RestAssured.given() //
-            .contentType(ContentType.TEXT).body("Hello World").post("/zipfile/post") //
-            .then().extract();
+                .contentType(ContentType.TEXT).body("Hello World").post("/zipfile/post") //
+                .then().extract();
 
         body = response.body().asByteArray();
         Assertions.assertNotNull(body);

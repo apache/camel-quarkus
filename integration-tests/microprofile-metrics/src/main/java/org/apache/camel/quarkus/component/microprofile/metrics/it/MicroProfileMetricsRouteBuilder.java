@@ -25,29 +25,29 @@ public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:counter")
-            .to("microprofile-metrics:counter:camel-quarkus-counter");
+                .to("microprofile-metrics:counter:camel-quarkus-counter");
 
         from("direct:concurrentGaugeIncrement")
-            .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeIncrement=true");
+                .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeIncrement=true");
 
         from("direct:concurrentGaugeDecrement")
-            .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeDecrement=true");
+                .to("microprofile-metrics:concurrent gauge:camel-quarkus-concurrent-gauge?gaugeDecrement=true");
 
         from("direct:gauge")
-            .setHeader(HEADER_GAUGE_VALUE, simple("${body}"))
-            .to("microprofile-metrics:gauge:camel-quarkus-gauge");
+                .setHeader(HEADER_GAUGE_VALUE, simple("${body}"))
+                .to("microprofile-metrics:gauge:camel-quarkus-gauge");
 
         from("direct:histogram")
-            .setHeader(HEADER_HISTOGRAM_VALUE, simple("${body}"))
-            .to("microprofile-metrics:histogram:camel-quarkus-histogram");
+                .setHeader(HEADER_HISTOGRAM_VALUE, simple("${body}"))
+                .to("microprofile-metrics:histogram:camel-quarkus-histogram");
 
         from("direct:meter")
-            .setHeader(HEADER_METER_MARK, simple("${body}"))
-            .to("microprofile-metrics:meter:camel-quarkus-meter");
+                .setHeader(HEADER_METER_MARK, simple("${body}"))
+                .to("microprofile-metrics:meter:camel-quarkus-meter");
 
         from("direct:timer")
-            .to("microprofile-metrics:timer:camel-quarkus-timer?action=start")
-            .delay(100)
-            .to("microprofile-metrics:timer:camel-quarkus-timer?action=stop");
+                .to("microprofile-metrics:timer:camel-quarkus-timer?action=start")
+                .delay(100)
+                .to("microprofile-metrics:timer:camel-quarkus-timer?action=stop");
     }
 }

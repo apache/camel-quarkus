@@ -53,9 +53,9 @@ public class CamelServiceInfo {
     @Override
     public String toString() {
         return "ServiceInfo{"
-            + "path='" + path.toString() + '\''
-            + ", name=" + name
-            + ", type=" + type
-            + '}';
+                + "path='" + path.toString() + '\''
+                + ", name=" + name
+                + ", type=" + type
+                + '}';
     }
 }

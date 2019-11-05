@@ -40,12 +40,12 @@ class SlackTest {
     @Test
     public void testSlackProduceConsumeMessages() {
         RestAssured.post("/slack/message")
-            .then()
-            .statusCode(201);
+                .then()
+                .statusCode(201);
 
         RestAssured.get("/slack/messages")
-            .then()
-            .statusCode(200)
-            .body(equalTo("Hello Camel Quarkus Slack"));
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello Camel Quarkus Slack"));
     }
 }

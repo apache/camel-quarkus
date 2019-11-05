@@ -24,10 +24,10 @@ class PdfProcessor {
 
     private static final String FEATURE = "camel-pdf";
 
-    private static final String[] RUNTIME_RESOURCES = new String[] {"org/apache/pdfbox/resources/version.properties",
-                                                                    "org/apache/pdfbox/resources/icc/ISOcoated_v2_300_bas.icc",
-                                                                    "org/apache/pdfbox/resources/glyphlist/additional.txt",
-                                                                    "org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf"};
+    private static final String[] RUNTIME_RESOURCES = new String[] { "org/apache/pdfbox/resources/version.properties",
+            "org/apache/pdfbox/resources/icc/ISOcoated_v2_300_bas.icc",
+            "org/apache/pdfbox/resources/glyphlist/additional.txt",
+            "org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf" };
 
     @BuildStep
     FeatureBuildItem feature() {

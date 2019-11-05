@@ -61,7 +61,6 @@ class FhirProcessor {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
-
     @BuildStep()
     ReflectiveClassBuildItem fhirEndpointConfiguration() {
         return new ReflectiveClassBuildItem(true, true,
@@ -92,8 +91,9 @@ class FhirProcessor {
                 "com.sun.xml.internal.stream.XMLOutputFactoryImpl");
     }
 
-    @BuildStep(applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBundleBuildItem> resource) {
+    @BuildStep(applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
+    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBundleBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add("ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory");
         classes.add("ca.uhn.fhir.validation.schematron.SchematronBaseValidator");
@@ -103,8 +103,9 @@ class FhirProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
     }
 
-    @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processDstu2(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
+    @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
+    void processDstu2(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu2.class.getCanonicalName());
         classes.addAll(getModelClasses("/ca/uhn/fhir/model/dstu2/fhirversion.properties"));
@@ -113,8 +114,9 @@ class FhirProcessor {
         resource.produce(new NativeImageResourceBuildItem("ca/uhn/fhir/model/dstu2/fhirversion.properties"));
     }
 
-    @BuildStep(onlyIf = FhirFlags.Dstu3Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processDstu3(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
+    @BuildStep(onlyIf = FhirFlags.Dstu3Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
+    void processDstu3(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(FhirDstu3.class.getCanonicalName());
         classes.addAll(getModelClasses("/org/hl7/fhir/dstu3/model/fhirversion.properties"));
@@ -124,8 +126,9 @@ class FhirProcessor {
         resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/dstu3/model/fhirversion.properties"));
     }
 
-    @BuildStep(onlyIf = FhirFlags.R4Enabled.class, applicationArchiveMarkers = {"org/hl7/fhir", "ca/uhn/fhir"})
-    void processR4(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, BuildProducer<NativeImageResourceBuildItem> resource) {
+    @BuildStep(onlyIf = FhirFlags.R4Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
+    void processR4(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add("org.hl7.fhir.r4.hapi.ctx.FhirR4");
         classes.addAll(getModelClasses("/org/hl7/fhir/r4/model/fhirversion.properties"));

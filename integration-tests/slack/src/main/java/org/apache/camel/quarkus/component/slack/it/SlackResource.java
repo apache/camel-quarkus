@@ -47,7 +47,8 @@ public class SlackResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSlackMessages() throws Exception {
-        SlackMessage message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + SLACK_AUTH_PARAMS, SlackMessage.class);
+        SlackMessage message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + SLACK_AUTH_PARAMS,
+                SlackMessage.class);
         return message.getText();
     }
 
@@ -56,7 +57,7 @@ public class SlackResource {
     public Response createSlackMessage(String message) throws Exception {
         producerTemplate.requestBody("slack://general?" + SLACK_AUTH_PARAMS, "Hello Camel Quarkus Slack");
         return Response
-            .created(new URI("https://camel.apache.org/"))
-            .build();
+                .created(new URI("https://camel.apache.org/"))
+                .build();
     }
 }

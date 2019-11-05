@@ -41,7 +41,8 @@ class ServletProcessor {
     void build(BuildProducer<ServletBuildItem> servlet, BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         boolean servletCreated = false;
         if (camelServletConfig.servlet.defaultServlet.isValid()) {
-            servlet.produce(newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.servlet.defaultServlet, additionalBean));
+            servlet.produce(
+                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.servlet.defaultServlet, additionalBean));
             servletCreated = true;
         }
 
@@ -57,13 +58,13 @@ class ServletProcessor {
 
         if (!servletCreated) {
             throw new IllegalStateException(
-                "Map at least one servlet to a path using quarkus.camel.servlet.url-patterns or quarkus.camel.servlet.[your-servlet-name].url-patterns"
-            );
+                    "Map at least one servlet to a path using quarkus.camel.servlet.url-patterns or quarkus.camel.servlet.[your-servlet-name].url-patterns");
         }
 
     }
 
-    static ServletBuildItem newServlet(String key, ServletConfig servletConfig, BuildProducer<AdditionalBeanBuildItem> additionalBean) {
+    static ServletBuildItem newServlet(String key, ServletConfig servletConfig,
+            BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         final String servletName = servletConfig.getEffectiveServletName(key);
         if (servletConfig.urlPatterns.isEmpty()) {
             throw new IllegalStateException(

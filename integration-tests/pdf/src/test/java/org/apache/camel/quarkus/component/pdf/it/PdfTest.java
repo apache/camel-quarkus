@@ -36,9 +36,9 @@ class PdfTest {
     @Order(1)
     @Test
     public void createFromTextShouldReturnANewPdfDocument() throws IOException {
-        byte[] bytes = RestAssured.given().
-            contentType(ContentType.TEXT).body("content to be included in the created pdf document").post("/pdf/createFromText").
-            then().statusCode(201).extract().asByteArray();
+        byte[] bytes = RestAssured.given().contentType(ContentType.TEXT)
+                .body("content to be included in the created pdf document").post("/pdf/createFromText").then().statusCode(201)
+                .extract().asByteArray();
 
         PDDocument doc = PDDocument.load(bytes);
         PDFTextStripper pdfTextStripper = new PDFTextStripper();
@@ -50,9 +50,8 @@ class PdfTest {
     @Order(2)
     @Test
     public void appendTextShouldReturnAnUpdatedPdfDocument() throws IOException {
-        byte[] bytes = RestAssured.given().
-            contentType(ContentType.TEXT).body("another line that should be appended").put("/pdf/appendText").
-            then().statusCode(200).extract().asByteArray();
+        byte[] bytes = RestAssured.given().contentType(ContentType.TEXT).body("another line that should be appended")
+                .put("/pdf/appendText").then().statusCode(200).extract().asByteArray();
 
         PDDocument doc = PDDocument.load(bytes);
         PDFTextStripper pdfTextStripper = new PDFTextStripper();

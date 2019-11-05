@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.component.jdbc;
 
 import org.apache.camel.builder.RouteBuilder;
 
-
 public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:execute")
-            .to("jdbc:camel-ds")
-            .to("log:jdbc-result?")
-            .convertBodyTo(String.class);
+                .to("jdbc:camel-ds")
+                .to("log:jdbc-result?")
+                .convertBodyTo(String.class);
     }
 }

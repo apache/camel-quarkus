@@ -24,6 +24,7 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 public class FhirDstu2RouteBuilder extends RouteBuilder {
     private static final Boolean ENABLED = new FhirFlags.Dstu2Enabled().getAsBoolean();
+
     @Override
     public void configure() {
         if (ENABLED) {

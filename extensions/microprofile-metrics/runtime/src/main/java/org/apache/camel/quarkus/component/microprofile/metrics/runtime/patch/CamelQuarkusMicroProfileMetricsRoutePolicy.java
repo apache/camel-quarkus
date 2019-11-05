@@ -51,7 +51,8 @@ public class CamelQuarkusMicroProfileMetricsRoutePolicy extends RoutePolicySuppo
         private final Route route;
         private final MicroProfileMetricsRoutePolicyNamingStrategy namingStrategy;
 
-        private MetricsStatistics(MetricRegistry metricRegistry, Route route, MicroProfileMetricsRoutePolicyNamingStrategy namingStrategy) {
+        private MetricsStatistics(MetricRegistry metricRegistry, Route route,
+                MicroProfileMetricsRoutePolicyNamingStrategy namingStrategy) {
             this.metricRegistry = ObjectHelper.notNull(metricRegistry, "metricRegistry", this);
             this.namingStrategy = ObjectHelper.notNull(namingStrategy, "MicroProfileMetricsRoutePolicyNamingStrategy", this);
             this.route = route;
@@ -99,10 +100,12 @@ public class CamelQuarkusMicroProfileMetricsRoutePolicy extends RoutePolicySuppo
             metricRegistry = MicroProfileMetricsHelper.getMetricRegistry(route.getCamelContext());
         }
 
-        exchangeRecorder = new CamelQurakusMicroProfileMetricsExchangeRecorder(metricRegistry, namingStrategy.getName(route), namingStrategy.getTags(route));
+        exchangeRecorder = new CamelQurakusMicroProfileMetricsExchangeRecorder(metricRegistry, namingStrategy.getName(route),
+                namingStrategy.getTags(route));
 
         try {
-            MicroProfileMetricsRoutePolicyService registryService = route.getCamelContext().hasService(MicroProfileMetricsRoutePolicyService.class);
+            MicroProfileMetricsRoutePolicyService registryService = route.getCamelContext()
+                    .hasService(MicroProfileMetricsRoutePolicyService.class);
             if (registryService == null) {
                 registryService = new MicroProfileMetricsRoutePolicyService();
                 registryService.setMetricRegistry(metricRegistry);
