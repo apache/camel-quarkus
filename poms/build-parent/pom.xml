@@ -39,8 +39,6 @@
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
 
-        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <maven-checkstyle.version>7.6.1</maven-checkstyle.version>
         <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
