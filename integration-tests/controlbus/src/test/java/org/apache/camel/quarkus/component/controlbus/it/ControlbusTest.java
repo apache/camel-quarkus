@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.controlbus.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.ExtractableResponse;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -28,22 +26,17 @@ class ControlbusTest {
 
     @Test
     public void test() {
-        ExtractableResponse response = RestAssured.given()
+        RestAssured.given()
                 .contentType(ContentType.TEXT).get("/controlbus/status")
-                .then().extract();
-
-        String body = response.body().asString();
-        Assertions.assertEquals("Started", body);
+                .then().body(org.hamcrest.CoreMatchers.equalTo("Started"));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT).get("/controlbus/stop")
                 .then().statusCode(200);
-        response = RestAssured.given()
-                .contentType(ContentType.TEXT).get("/controlbus/status")
-                .then().extract();
 
-        body = response.body().asString();
-        Assertions.assertEquals("Stopped", body);
+        RestAssured.given()
+                .contentType(ContentType.TEXT).get("/controlbus/status")
+                .then().body(org.hamcrest.CoreMatchers.equalTo("Stopped"));
     }
 
 }
