@@ -74,6 +74,7 @@
         <module>zipfile</module>
         <module>attachments</module>
         <module>pdf</module>
+        <module>controlbus</module>
     </modules>
 
     <build>

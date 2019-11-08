@@ -86,6 +86,7 @@
             camel-quarkus-core-deployment,camel-quarkus-servlet-deployment,camel-quarkus-rest-deployment,camel-quarkus-core-cloud-deployment -&gt; camel-quarkus-integration-test-servlet
             camel-quarkus-core-deployment,camel-quarkus-twitter-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-twitter
             camel-quarkus-core-deployment,camel-quarkus-zipfile-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-zipfile
+            camel-quarkus-core-deployment,camel-quarkus-controlbus-deployment,camel-quarkus-direct-deployment,camel-quarkus-timer-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-controlbus
         </mvnd.builder.rules>
     </properties>
 

@@ -103,6 +103,7 @@
         <module>twitter</module>
         <module>zipfile</module>
         <module>pdf</module>
+        <module>controlbus</module>
     </modules>
 
     <build>
