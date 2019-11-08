@@ -1,0 +1,10 @@
+---
+name: "Camel Quarkus ControlBus"
+description: "Camel ControlBus support"
+metadata:
+  keywords:
+  - "camel"
+  - "monitoring"
+  guide: "https://quarkus.io/guides/camel"
+  categories:
+  - "integration"

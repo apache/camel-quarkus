@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 27 in 23 JAR artifacts (0 deprecated)
+Number of Camel components: 28 in 24 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -29,6 +29,9 @@ Number of Camel components: 27 in 23 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2 | The class component is for invoking Java classes (Java beans) from Camel.
+
+| link:https://camel.apache.org/components/latest/controlbus-component.html[Control Bus] (camel-quarkus-controlbus) +
+`controlbus:command:language` | 0.4 | The controlbus component provides easy management of Camel applications based on the Control Bus EIP pattern.
 
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | 0.2 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
