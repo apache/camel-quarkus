@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 28 in 24 JAR artifacts (0 deprecated)
+Number of Camel components: 29 in 25 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -92,6 +92,9 @@ Number of Camel components: 28 in 24 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/twitter-timeline-component.html[Twitter Timeline] (camel-quarkus-twitter) +
 `twitter-timeline:timelineType` | 0.2 | The Twitter Timeline component consumes twitter timeline or update the status of specific user.
+
+| link:https://camel.apache.org/components/latest/validator-component.html[Validator] (camel-quarkus-validator) +
+`validator:resourceUri` | 0.4 | Validates the payload of a message using XML Schema and JAXP Validation.
 
 | link:https://camel.apache.org/components/latest/vm-component.html[VM] (camel-quarkus-vm) +
 `vm:name` | 0.3 | The vm component provides asynchronous call to another endpoint from the same CamelContext.
