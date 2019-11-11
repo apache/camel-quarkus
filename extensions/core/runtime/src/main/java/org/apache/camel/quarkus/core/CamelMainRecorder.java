@@ -66,18 +66,6 @@ public class CamelMainRecorder {
         }
     }
 
-    public void addRouteBuilder(
-            RuntimeValue<CamelMain> main,
-            RuntimeValue<RoutesBuilder> routesBuilder) {
-
-        try {
-            main.getValue().addRoutesBuilder(routesBuilder.getValue());
-        } catch (Exception e) {
-            throw new RuntimeException("Could not add route builder '" + routesBuilder.getValue().getClass().getName() + "'",
-                    e);
-        }
-    }
-
     public void addListener(RuntimeValue<CamelMain> main, RuntimeValue<MainListener> listener) {
         main.getValue().addMainListener(listener.getValue());
     }
