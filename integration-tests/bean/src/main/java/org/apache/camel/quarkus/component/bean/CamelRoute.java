@@ -21,17 +21,30 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.bean.BeanProcessor;
 import org.apache.camel.support.DefaultExchange;
 
+/**
+ * A {@link RouteBuilder} instantiated by Camel (not by Arc).
+ */
 public class CamelRoute extends RouteBuilder {
+
+    static final AtomicInteger CONFIGURE_COUNTER = new AtomicInteger(0);
+
+    @Override
+    public void addRoutesToCamelContext(CamelContext context) throws Exception {
+        CONFIGURE_COUNTER.incrementAndGet();
+        super.addRoutesToCamelContext(context);
+    }
 
     @Override
     public void configure() {
