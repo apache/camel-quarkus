@@ -24,21 +24,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.core.CamelServiceInfo;
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
@@ -69,22 +62,6 @@ public final class CamelSupport {
                 .filter(Files::isDirectory)
                 .flatMap(CamelSupport::safeWalk)
                 .filter(Files::isRegularFile);
-    }
-
-    public static Stream<String> getRouteBuilderClasses(IndexView view) {
-        Set<ClassInfo> allKnownImplementors = new HashSet<>();
-        allKnownImplementors.addAll(
-                view.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-        allKnownImplementors.addAll(
-                view.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-        allKnownImplementors.addAll(
-                view.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
-
-        return allKnownImplementors
-                .stream()
-                .filter(CamelSupport::isConcrete)
-                .filter(CamelSupport::isPublic)
-                .map(ClassInfo::toString);
     }
 
     public static Stream<CamelServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {

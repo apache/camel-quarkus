@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.io.InputStream;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -176,17 +177,15 @@ class NativeImageProcessor {
     public static class Main {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void process(
-                CombinedIndexBuildItem combinedIndex,
+                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilders,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-
-            IndexView view = combinedIndex.getIndex();
 
             //
             // Register routes as reflection aware as camel-main main use reflection
             // to bind beans to the registry
             //
-            CamelSupport.getRouteBuilderClasses(view).forEach(name -> {
-                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, name));
+            camelRoutesBuilders.forEach(dotName -> {
+                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, dotName.toString()));
             });
 
             reflectiveClass.produce(new ReflectiveClassBuildItem(
