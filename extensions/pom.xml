@@ -67,6 +67,7 @@
         <module>salesforce</module>
         <module>servlet</module>
         <module>slack</module>
+        <module>snakeyaml</module>
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>

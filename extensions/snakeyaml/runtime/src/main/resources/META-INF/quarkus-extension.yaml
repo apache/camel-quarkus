@@ -1,0 +1,10 @@
+---
+name: "Camel Quarkus SnakeYAML"
+description: "Camel SnakeYAML support"
+metadata:
+  keywords:
+    - "camel"
+    - "yaml"
+  guide: "https://quarkus.io/guides/camel"
+  categories:
+    - "integration"
