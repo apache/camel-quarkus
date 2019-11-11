@@ -16,18 +16,17 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.main.MainListener;
-import org.apache.camel.spi.TypeConverterLoader;
+public class MyPair {
+    public final String key;
+    public final String val;
 
-@Recorder
-public class SupportRecorder {
-    public RuntimeValue<MainListener> createSupportListener() {
-        return new RuntimeValue<>(new SupportListener());
+    public MyPair(String key, String val) {
+        this.key = key;
+        this.val = val;
     }
 
-    public RuntimeValue<TypeConverterLoader> createTypeConverterLoader() {
-        return new RuntimeValue<>(new SupportTypeConverterLoader());
+    public static MyPair fromString(String input) {
+        String[] items = input.split(":");
+        return new MyPair(items[0], items[1]);
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.Set;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -34,6 +35,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
+import org.apache.camel.quarkus.core.runtime.support.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
@@ -153,5 +155,17 @@ public class CamelServlet {
         }
 
         return builder.build();
+    }
+
+    @Path("/converter/my-pair")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject fromStringToMyPair(String input) {
+        MyPair pair = context.getTypeConverter().convertTo(MyPair.class, input);
+
+        return Json.createObjectBuilder()
+                .add("key", pair.key)
+                .add("val", pair.val)
+                .build();
     }
 }

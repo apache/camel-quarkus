@@ -20,6 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelTypeConverterLoaderBuildItem;
 import org.apache.camel.quarkus.core.runtime.support.SupportRecorder;
 
 public class SupportBuildStep {
@@ -27,5 +28,11 @@ public class SupportBuildStep {
     @BuildStep
     CamelMainListenerBuildItem listener(SupportRecorder recorder) {
         return new CamelMainListenerBuildItem(recorder.createSupportListener());
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelTypeConverterLoaderBuildItem typeConverterLoader(SupportRecorder recorder) {
+        return new CamelTypeConverterLoaderBuildItem(recorder.createTypeConverterLoader());
     }
 }

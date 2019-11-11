@@ -14,20 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.runtime.support;
+package org.apache.camel.quarkus.core;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.main.MainListener;
+import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.spi.TypeConverterLoader;
 
-@Recorder
-public class SupportRecorder {
-    public RuntimeValue<MainListener> createSupportListener() {
-        return new RuntimeValue<>(new SupportListener());
+public class FastTypeConverter extends DefaultTypeConverter {
+    public FastTypeConverter() {
+        super(null, null, null, null, false);
     }
 
-    public RuntimeValue<TypeConverterLoader> createTypeConverterLoader() {
-        return new RuntimeValue<>(new SupportTypeConverterLoader());
+    @Override
+    protected void doStart() throws Exception {
+        for (TypeConverterLoader loader : getCamelContext().getRegistry().findByType(TypeConverterLoader.class)) {
+            log.debug("TypeConverterLoader: {} loading converters", loader);
+            loader.load(this);
+        }
+    }
+
+    @Override
+    public void loadCoreAndFastTypeConverters() throws Exception {
+        throw new IllegalStateException("This method should not be invoked");
+    }
+
+    @Override
+    protected void initTypeConverterLoaders() {
+        // no-op
     }
 }

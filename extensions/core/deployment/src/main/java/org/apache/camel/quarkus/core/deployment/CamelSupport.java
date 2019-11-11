@@ -32,6 +32,7 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.recording.RecorderContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -85,6 +86,14 @@ public final class CamelSupport {
                 .filter(CamelSupport::isConcrete)
                 .filter(CamelSupport::isPublic)
                 .map(ClassInfo::toString);
+    }
+
+    public static CamelBeanBuildItem createBeanFromType(RecorderContext context, String type) {
+        return new CamelBeanBuildItem(type, context.classProxy(type), context.newInstance(type));
+    }
+
+    public static CamelBeanBuildItem createBeanFromType(RecorderContext context, ClassInfo info) {
+        return createBeanFromType(context, info.name().toString());
     }
 
     public static Stream<CamelServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {

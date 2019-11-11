@@ -16,18 +16,17 @@
  */
 package org.apache.camel.quarkus.core.runtime.support;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.main.MainListener;
+import org.apache.camel.TypeConverterLoaderException;
 import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.support.SimpleTypeConverter;
 
-@Recorder
-public class SupportRecorder {
-    public RuntimeValue<MainListener> createSupportListener() {
-        return new RuntimeValue<>(new SupportListener());
-    }
-
-    public RuntimeValue<TypeConverterLoader> createTypeConverterLoader() {
-        return new RuntimeValue<>(new SupportTypeConverterLoader());
+public class SupportTypeConverterLoader implements TypeConverterLoader {
+    @Override
+    public void load(TypeConverterRegistry registry) throws TypeConverterLoaderException {
+        registry.addTypeConverter(
+                MyPair.class,
+                String.class,
+                new SimpleTypeConverter(false, (type, exchange, value) -> MyPair.fromString((String) value)));
     }
 }
