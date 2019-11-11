@@ -20,8 +20,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
@@ -42,6 +45,8 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
@@ -55,7 +60,9 @@ import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -250,16 +257,39 @@ class BuildProcessor {
      * disabled by setting quarkus.camel.disable-main = true
      */
     public static class Main {
+
+        @BuildStep
+        public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
+                CombinedIndexBuildItem combinedIndex) {
+            final IndexView index = combinedIndex.getIndex();
+            Set<ClassInfo> allKnownImplementors = new HashSet<>();
+            allKnownImplementors.addAll(
+                    index.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
+            allKnownImplementors.addAll(
+                    index.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
+            allKnownImplementors.addAll(
+                    index.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
+
+            return allKnownImplementors
+                    .stream()
+                    // public and non-abstract
+                    .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
+                    .map(ClassInfo::name)
+                    .map(CamelRoutesBuilderClassBuildItem::new)
+                    .collect(Collectors.toList());
+        }
+
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         public List<CamelBeanBuildItem> collectRoutes(
-                CombinedIndexBuildItem combinedIndex,
+                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilders,
                 CamelMainRecorder recorder,
                 RecorderContext recorderContext) {
-            return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
-                    .map(className -> {
+            return camelRoutesBuilders.stream()
+                    .map(CamelRoutesBuilderClassBuildItem::getDotName)
+                    .map(dotName -> {
                         try {
-                            return Class.forName(className);
+                            return Class.forName(dotName.toString());
                         } catch (ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
