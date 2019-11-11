@@ -34,7 +34,7 @@ public class FastTypeConverter extends DefaultTypeConverter {
 
     @Override
     public void loadCoreAndFastTypeConverters() throws Exception {
-        throw new IllegalStateException("This method should not be invoked");
+        throw new UnsupportedOperationException();
     }
 
     @Override
