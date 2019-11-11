@@ -16,11 +16,16 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -35,6 +40,7 @@ import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
@@ -46,11 +52,15 @@ import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.DotName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
+    private static final DotName TYPE_CONVERTER_LOADER_TYPE = DotName.createSimple(TypeConverterLoader.class.getName());
 
     /*
      * Build steps related to camel core.
@@ -69,6 +79,57 @@ class BuildProcessor {
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
                     new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
+        }
+
+        /*
+         * Discover {@link TypeConverterLoader}.
+         */
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        CamelTypeConverterRegistryBuildItem typeConverterRegistry(
+                CamelRecorder recorder,
+                RecorderContext recorderContext,
+                ApplicationArchivesBuildItem applicationArchives,
+                List<CamelTypeConverterLoaderBuildItem> additionalLoaders) {
+
+            RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder.createTypeConverterRegistry();
+
+            //
+            // This should be simplified by searching for classes implementing TypeConverterLoader but that
+            // would lead to have org.apache.camel.impl.converter.AnnotationTypeConverterLoader taken into
+            // account even if it should not.
+            //
+            // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
+            //       a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
+            //       any discovery at runtime.
+            //
+            for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
+                Path path = archive.getArchiveRoot().resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
+                if (!Files.isRegularFile(path)) {
+                    continue;
+                }
+
+                try {
+                    Files.readAllLines(path, StandardCharsets.UTF_8).stream()
+                            .map(String::trim)
+                            .filter(l -> !l.isEmpty())
+                            .filter(l -> !l.startsWith("#"))
+                            .map(l -> recorderContext.<TypeConverterLoader> newInstance(l))
+                            .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
+                } catch (IOException e) {
+                    throw new RuntimeException("Error discovering TypeConverterLoader", e);
+                }
+            }
+
+            //
+            // User can register loaders by providing a CamelTypeConverterLoaderBuildItem that can be used to
+            // provide additional TypeConverter or override default converters discovered by the previous step.
+            //
+            for (CamelTypeConverterLoaderBuildItem item : additionalLoaders) {
+                recorder.addTypeConverterLoader(typeConverterRegistry, item.getValue());
+            }
+
+            return new CamelTypeConverterRegistryBuildItem(typeConverterRegistry);
         }
 
         @Record(ExecutionTime.STATIC_INIT)
@@ -147,12 +208,14 @@ class BuildProcessor {
         CamelContextBuildItem context(
                 CamelRecorder recorder,
                 CamelRegistryBuildItem registry,
+                CamelTypeConverterRegistryBuildItem typeConverterRegistry,
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
                 CamelXmlLoaderBuildItem xmlLoader,
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
                     registry.getRegistry(),
+                    typeConverterRegistry.getRegistry(),
                     contextFactory.getContextFactory(),
                     xmlLoader.getXmlLoader(),
                     beanContainer.getValue());

@@ -116,4 +116,15 @@ public class CamelTest {
         assertThat(executor.getString("class")).isEqualTo(VertXReactiveExecutor.class.getName());
         assertThat(executor.getBoolean("configured")).isTrue();
     }
+
+    @Test
+    public void testCustomTypeConverter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT).body("a:b")
+                .accept(MediaType.APPLICATION_JSON)
+                .post("/test/converter/my-pair")
+                .then().body(
+                        "key", is("a"),
+                        "val", is("b"));
+    }
 }
