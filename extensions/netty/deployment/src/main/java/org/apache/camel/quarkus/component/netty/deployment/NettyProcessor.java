@@ -19,16 +19,13 @@ package org.apache.camel.quarkus.component.netty.deployment;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.camel.component.netty.NettyConfiguration;
-import org.apache.camel.component.netty.NettyEndpoint;
-import org.apache.camel.component.netty.NettyServerBootstrapConfiguration;
-import org.apache.camel.spi.UriParam;
-import org.apache.camel.spi.UriParams;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.netty.NettyConfiguration;
+import org.apache.camel.component.netty.NettyEndpoint;
+import org.apache.camel.component.netty.NettyServerBootstrapConfiguration;
 
 class NettyProcessor {
 
@@ -37,9 +34,7 @@ class NettyProcessor {
     private static final List<Class<?>> NETTY_REFLECTIVE_CLASSES = Arrays.asList(
             NettyConfiguration.class,
             NettyServerBootstrapConfiguration.class,
-            NettyEndpoint.class,
-            UriParam.class,
-            UriParams.class);
+            NettyEndpoint.class);
 
     @BuildStep
     FeatureBuildItem feature() {
