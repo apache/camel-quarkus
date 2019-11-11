@@ -21,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -30,6 +29,11 @@ import java.util.stream.Collectors;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.ApplicationArchive;
+import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
+import io.quarkus.arc.processor.BeanInfo;
+import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -282,11 +286,20 @@ class BuildProcessor {
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         public List<CamelBeanBuildItem> collectRoutes(
-                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilders,
+                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilderClasses,
                 CamelMainRecorder recorder,
+                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
                 RecorderContext recorderContext) {
-            return camelRoutesBuilders.stream()
+
+            final Set<DotName> arcBeanClasses = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)
+                    .stream()
+                    .map(BeanInfo::getImplClazz)
+                    .map(ClassInfo::name)
+                    .collect(Collectors.toSet());
+
+            return camelRoutesBuilderClasses.stream()
                     .map(CamelRoutesBuilderClassBuildItem::getDotName)
+                    .filter(dotName -> !arcBeanClasses.contains(dotName))
                     .map(dotName -> {
                         try {
                             return Class.forName(dotName.toString());
@@ -311,6 +324,22 @@ class BuildProcessor {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
+        }
+
+        /*
+         * Camel is not pulling the RouteBuilders from the CDI container when the main is off so there is no point in
+         * making the lazy beans unremovable in that case.
+         */
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        UnremovableBeanBuildItem unremoveLazyBeans(
+                List<CamelRoutesBuilderClassBuildItem> camelRoutesClasses) {
+
+            final Set<String> lazyBeans = camelRoutesClasses.stream()
+                    .map(buildItem -> buildItem.getDotName().toString())
+                    .collect(Collectors.toSet());
+
+            return new UnremovableBeanBuildItem(new BeanClassNamesExclusion(lazyBeans));
+
         }
 
         @Overridable
