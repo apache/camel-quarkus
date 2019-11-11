@@ -292,10 +292,12 @@
                                 <exclude>**/LICENSE</exclude>
                                 <exclude>**/NOTICE.txt</exclude>
                                 <exclude>**/LICENSE.txt</exclude>
+                                <exclude>**/*.lock</exclude>
                                 <exclude>doap.rdf</exclude>
                                 <exclude>**/README</exclude>
                                 <exclude>**/*.adoc</exclude>
                                 <exclude>**/node_modules/**</exclude>
+                                <exclude>node/**</exclude>
                                 <exclude>**/cacerts</exclude>
                                 <exclude>**/*.p12</exclude>
                                 <exclude>**/*.txt</exclude>
@@ -304,10 +306,13 @@
                                 <exclude>**/META-INF/persistence*.xsd</exclude>
                                 <exclude>**/pom.xml.versionsBackup</exclude>
                                 <exclude>ide-config/**</exclude>
+                                <exclude>**/*.mvel</exclude>
                             </excludes>
                             <mapping>
-                                <java>SLASHSTAR_STYLE</java>
                                 <groovy>SLASHSTAR_STYLE</groovy>
+                                <java>SLASHSTAR_STYLE</java>
+                                <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
+                                <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
                                 <properties>CAMEL_PROPERTIES_STYLE</properties>
                                 <spring.factories>CAMEL_PROPERTIES_STYLE</spring.factories>
                                 <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
