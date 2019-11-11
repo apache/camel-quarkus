@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.validator.deployment;
 
 import com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl;
-import com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
