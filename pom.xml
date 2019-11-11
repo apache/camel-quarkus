@@ -277,7 +277,6 @@
         <profile>
             <id>license</id>
             <build>
-                <defaultGoal>license:format</defaultGoal>
                 <plugins>
                     <plugin>
                         <groupId>com.mycila</groupId>
