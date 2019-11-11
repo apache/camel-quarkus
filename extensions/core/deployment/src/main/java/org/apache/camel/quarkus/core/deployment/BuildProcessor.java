@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -250,15 +251,23 @@ class BuildProcessor {
      */
     public static class Main {
         @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep
-        public List<CamelRoutesBuilderBuildItem> collectRoutes(
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        public List<CamelBeanBuildItem> collectRoutes(
                 CombinedIndexBuildItem combinedIndex,
                 CamelMainRecorder recorder,
                 RecorderContext recorderContext) {
-
             return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
-                    .map(recorderContext::<RoutesBuilder> newInstance)
-                    .map(CamelRoutesBuilderBuildItem::new)
+                    .map(className -> {
+                        try {
+                            return Class.forName(className);
+                        } catch (ClassNotFoundException e) {
+                            throw new RuntimeException(e);
+                        }
+                    })
+                    .map(clazz -> new CamelBeanBuildItem(
+                            clazz.getSimpleName(),
+                            clazz,
+                            recorderContext.newInstance(clazz.getName())))
                     .collect(Collectors.toList());
         }
 
@@ -295,7 +304,6 @@ class BuildProcessor {
                 CamelContextBuildItem context,
                 CamelRoutesCollectorBuildItem routesCollector,
                 List<CamelMainListenerBuildItem> listeners,
-                List<CamelRoutesBuilderBuildItem> routesBuilders,
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(
@@ -306,10 +314,6 @@ class BuildProcessor {
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
             }
-            for (CamelRoutesBuilderBuildItem routesBuilder : routesBuilders) {
-                recorder.addRouteBuilder(main, routesBuilder.getInstance());
-            }
-
             return new CamelMainBuildItem(main);
         }
 
