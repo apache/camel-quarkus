@@ -33,14 +33,4 @@ public class CamelConfig {
         @ConfigItem(defaultValue = "true")
         public boolean enableMain;
     }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
-
-        /**
-         * Dump loaded routes when starting
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean dumpRoutes;
-    }
 }
