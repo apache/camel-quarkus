@@ -16,22 +16,24 @@
  */
 package org.apache.camel.quarkus.component.scheduler.it;
 
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 class SchedulerTest {
 
     @Test
     public void test() throws Exception {
-        // give time for scheduler to run a bit
-        Thread.sleep(50);
-
-        String body = RestAssured.get("/scheduler/get").then().statusCode(200).extract().body().asString();
-        assertNotEquals("0", body);
+        // wait until the scheduler has run and return a counter that is > 0
+        await().atMost(2, TimeUnit.SECONDS).until(() -> {
+            String body = RestAssured.get("/scheduler/get").then().statusCode(200).extract().body().asString();
+            return !body.equals("0");
+        });
     }
 
 }
