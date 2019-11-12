@@ -103,9 +103,11 @@
         <module>snakeyaml</module>
         <module>tarfile</module>
         <module>twitter</module>
+        <module>validator</module>
         <module>zipfile</module>
         <module>pdf</module>
         <module>controlbus</module>
+
     </modules>
 
     <build>

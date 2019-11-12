@@ -72,11 +72,13 @@
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>
+        <module>validator</module>
         <module>vm</module>
         <module>zipfile</module>
         <module>attachments</module>
         <module>pdf</module>
         <module>controlbus</module>
+
     </modules>
 
     <build>
