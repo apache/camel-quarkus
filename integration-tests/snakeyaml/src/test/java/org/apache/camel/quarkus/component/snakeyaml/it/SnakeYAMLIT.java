@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.snakeyaml.it;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 class SnakeYAMLIT extends SnakeYAMLTest {
 
 }

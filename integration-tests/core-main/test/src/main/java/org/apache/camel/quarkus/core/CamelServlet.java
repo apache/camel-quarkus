@@ -80,20 +80,6 @@ public class CamelServlet {
         return result;
     }
 
-    @Path("/registry/produces-config-build")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesBuildTimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.BuildTime.class) != null;
-    }
-
-    @Path("/registry/produces-config-runtime")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesRuntimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.Runtime.class) != null;
-    }
-
     private <T> T lookupSingleInstanceFromRegistry(Class<T> type) {
         final Set<T> answer = context.getRegistry().findByType(type);
 

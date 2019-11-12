@@ -16,13 +16,21 @@
  */
 package org.apache.camel.quarkus.core;
 
+import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
+@ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
-    @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-    public static class BuildTime {
+    /**
+     * Build time configuration options for {@code camel-main}.
+     */
+    @ConfigItem
+    public MainConfig main;
+
+    @ConfigGroup
+    public static class MainConfig {
         /**
          * Enable {@code camel-main}. If {@code true}, routes are automatically
          * loaded and started and the entire lifecycle of the Camel Context is
@@ -31,16 +39,6 @@ public class CamelConfig {
          * tasks.
          */
         @ConfigItem(defaultValue = "true")
-        public boolean enableMain;
-    }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
-
-        /**
-         * Dump loaded routes when starting
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean dumpRoutes;
+        public boolean enabled;
     }
 }
