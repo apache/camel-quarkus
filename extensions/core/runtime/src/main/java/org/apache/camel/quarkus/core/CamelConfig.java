@@ -20,17 +20,15 @@ import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
+@ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
-    @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-    public static class BuildTime {
-        /**
-         * Enable {@code camel-main}. If {@code true}, routes are automatically
-         * loaded and started and the entire lifecycle of the Camel Context is
-         * under the control of the {@code camel-main} component. Otherwise, the
-         * application developer is responsible for performing all the mentioned
-         * tasks.
-         */
-        @ConfigItem(defaultValue = "true")
-        public boolean enableMain;
-    }
+    /**
+     * Enable {@code camel-main}. If {@code true}, routes are automatically
+     * loaded and started and the entire lifecycle of the Camel Context is
+     * under the control of the {@code camel-main} component. Otherwise, the
+     * application developer is responsible for performing all the mentioned
+     * tasks.
+     */
+    @ConfigItem(defaultValue = "true")
+    public boolean enableMain;
 }
