@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
@@ -23,12 +24,21 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
     /**
-     * Enable {@code camel-main}. If {@code true}, routes are automatically
-     * loaded and started and the entire lifecycle of the Camel Context is
-     * under the control of the {@code camel-main} component. Otherwise, the
-     * application developer is responsible for performing all the mentioned
-     * tasks.
+     * Build time configuration options for {@code camel-main}.
      */
-    @ConfigItem(defaultValue = "true")
-    public boolean enableMain;
+    @ConfigItem
+    public MainConfig main;
+
+    @ConfigGroup
+    public static class MainConfig {
+        /**
+         * Enable {@code camel-main}. If {@code true}, routes are automatically
+         * loaded and started and the entire lifecycle of the Camel Context is
+         * under the control of the {@code camel-main} component. Otherwise, the
+         * application developer is responsible for performing all the mentioned
+         * tasks.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+    }
 }

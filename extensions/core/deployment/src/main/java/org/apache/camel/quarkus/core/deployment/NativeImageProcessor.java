@@ -171,7 +171,7 @@ class NativeImageProcessor {
 
     /*
      * NativeImage configuration steps related to camel main that are activated by default but can be
-     * disabled by setting quarkus.camel.enable-main = false
+     * disabled by setting quarkus.camel.main.enabled = false
      */
     public static class Main {
         @BuildStep(onlyIf = Flags.MainEnabled.class)

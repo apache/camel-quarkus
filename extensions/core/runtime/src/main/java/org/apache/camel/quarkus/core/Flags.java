@@ -27,7 +27,8 @@ public final class Flags {
     public static final class MainEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.enable-main", Boolean.class).orElse(Boolean.TRUE);
+            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.main.enabled", Boolean.class)
+                    .orElse(Boolean.TRUE);
         }
     }
 
