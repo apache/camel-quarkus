@@ -51,6 +51,7 @@
         <module>csv</module>
         <module>direct</module>
         <module>fhir</module>
+        <module>file</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
