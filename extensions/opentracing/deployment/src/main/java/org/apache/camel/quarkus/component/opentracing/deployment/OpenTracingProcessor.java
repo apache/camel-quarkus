@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.opentracing.deployment;
 
+import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
+import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+
 import io.opentracing.Tracer;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -24,9 +28,6 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
-import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 
 class OpenTracingProcessor {
 
@@ -47,7 +48,9 @@ class OpenTracingProcessor {
     CamelBeanBuildItem setupCamelOpenTracingTracer(CamelOpenTracingConfig config, CamelOpenTracingRecorder recorder,
             BeanContainerBuildItem beanContainer) {
         // Configure & bind OpenTracingTracer to the registry so that Camel can use it
-        return new CamelBeanBuildItem("tracer", Tracer.class,
+        return new CamelBeanBuildItem(
+                "tracer",
+                Tracer.class.getName(),
                 recorder.createCamelOpenTracingTracer(config, beanContainer.getValue()));
     }
 }

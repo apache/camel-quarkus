@@ -17,40 +17,21 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.io.IOException;
+import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
-import io.quarkus.deployment.ApplicationArchive;
-import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
-import io.quarkus.arc.processor.BeanInfo;
-import io.quarkus.arc.processor.BuildExtension;
-import io.quarkus.deployment.Capabilities;
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Overridable;
-import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.ServiceStartBuildItem;
-import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
-import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.arc.processor.BeanRegistrar;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
@@ -70,6 +51,27 @@ import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
+import io.quarkus.arc.processor.BeanInfo;
+import io.quarkus.arc.processor.BuildExtension;
+import io.quarkus.deployment.ApplicationArchive;
+import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Overridable;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
+import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.recording.RecorderContext;
+import io.quarkus.runtime.RuntimeValue;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
@@ -186,7 +188,7 @@ class BuildProcessor {
                 recorder.bind(
                         registry,
                         item.getName(),
-                        item.getType(),
+                        recorderContext.classProxy(item.getType()),
                         item.getValue());
             }
 
@@ -240,6 +242,7 @@ class BuildProcessor {
         @BuildStep
         CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
                 CamelRecorder recorder,
+                RecorderContext recorderContext,
                 CamelRegistryBuildItem registry,
                 List<CamelRuntimeBeanBuildItem> registryItems) {
 
@@ -249,7 +252,7 @@ class BuildProcessor {
                 recorder.bind(
                         registry.getRegistry(),
                         item.getName(),
-                        item.getType(),
+                        recorderContext.classProxy(item.getType()),
                         item.getValue());
             }
 
@@ -284,6 +287,18 @@ class BuildProcessor {
                     .collect(Collectors.toList());
         }
 
+        /**
+         * This method filter out {@link RoutesBuilder} discovered either by classpath scanning
+         * through Jandex or by ArC.
+         *
+         * @param camelRoutesBuilderClasses list of {@link CamelRoutesBuilderClassBuildItem} holding {@link RoutesBuilder}
+         *            classes discovered by classpath scanning.
+         * @param recorder the recorder.
+         * @param beanRegistrationPhase holder for {@link BeanRegistrar.RegistrationContext}.
+         * @param recorderContext the recorder context.
+         * @param config the built time camel configuration.
+         * @return a curated list of {@link CamelBeanBuildItem} holding {@link RoutesBuilder}.
+         */
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelBeanBuildItem> collectRoutes(
@@ -302,23 +317,14 @@ class BuildProcessor {
             return camelRoutesBuilderClasses.stream()
                     .map(CamelRoutesBuilderClassBuildItem::getDotName)
                     .filter(dotName -> !arcBeanClasses.contains(dotName))
-                    .filter(dotName -> {
-                        return CamelSupport.isPathIncluded(
-                                dotName.toString('/'),
-                                config.main.routesDiscovery.excludePatterns,
-                                config.main.routesDiscovery.includePatterns);
-                    })
-                    .map(dotName -> {
-                        try {
-                            return Class.forName(dotName.toString());
-                        } catch (ClassNotFoundException e) {
-                            throw new RuntimeException(e);
-                        }
-                    })
-                    .map(clazz -> new CamelBeanBuildItem(
-                            clazz.getSimpleName(),
-                            clazz,
-                            recorderContext.newInstance(clazz.getName())))
+                    .filter(dotName -> CamelSupport.isPathIncluded(
+                            dotName.toString('/'),
+                            config.main.routesDiscovery.excludePatterns,
+                            config.main.routesDiscovery.includePatterns))
+                    .map(dotName -> new CamelBeanBuildItem(
+                            dotName.withoutPackagePrefix(),
+                            dotName.toString(),
+                            recorderContext.newInstance(dotName.toString())))
                     .collect(Collectors.toList());
         }
 

@@ -29,7 +29,7 @@ public class SupportBuildStep {
     CamelBeanBuildItem logComponent(SupportRecorder recorder) {
         return new CamelBeanBuildItem(
                 "log",
-                LogComponent.class,
+                LogComponent.class.getName(),
                 recorder.logComponent());
     }
 }

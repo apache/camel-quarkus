@@ -83,11 +83,10 @@ class MicroProfileHealthProcessor {
                     .filter(CamelSupport::isConcrete)
                     .filter(CamelSupport::isPublic)
                     .filter(ClassInfo::hasNoArgsConstructor)
-                    .map(classInfo -> {
-                        Class<?> clazz = recorderContext.classProxy(classInfo.toString());
-                        return new CamelBeanBuildItem(classInfo.simpleName(), HealthCheck.class,
-                                recorder.createHealthCheck(clazz));
-                    })
+                    .map(classInfo -> new CamelBeanBuildItem(
+                            classInfo.simpleName(),
+                            CAMEL_HEALTH_CHECK_DOTNAME.toString(),
+                            recorderContext.newInstance(classInfo.toString())))
                     .forEach(buildItems::add);
 
             // Create CamelBeanBuildItem to bind instances of HealthCheckRepository to the camel registry
@@ -96,11 +95,10 @@ class MicroProfileHealthProcessor {
                     .filter(CamelSupport::isPublic)
                     .filter(ClassInfo::hasNoArgsConstructor)
                     .filter(classInfo -> !classInfo.simpleName().equals(DefaultHealthCheckRegistry.class.getSimpleName()))
-                    .map(classInfo -> {
-                        Class<?> clazz = recorderContext.classProxy(classInfo.toString());
-                        return new CamelBeanBuildItem(classInfo.simpleName(), HealthCheckRepository.class,
-                                recorder.createHealthCheckRepository(clazz));
-                    })
+                    .map(classInfo -> new CamelBeanBuildItem(
+                            classInfo.simpleName(),
+                            CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME.toString(),
+                            recorderContext.newInstance(classInfo.toString())))
                     .forEach(buildItems::add);
         }
 

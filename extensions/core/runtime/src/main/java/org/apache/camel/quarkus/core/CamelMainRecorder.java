@@ -21,7 +21,6 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.RoutesCollector;
@@ -53,17 +52,6 @@ public class CamelMainRecorder {
         container.instance(CamelMainProducers.class).setMain(main);
 
         return new RuntimeValue<>(main);
-    }
-
-    public void addRouteBuilder(
-            RuntimeValue<CamelMain> main,
-            Class<? extends RoutesBuilder> routeBuilderClass) {
-
-        try {
-            main.getValue().addRouteBuilder(routeBuilderClass);
-        } catch (Exception e) {
-            throw new RuntimeException("Could not add route builder '" + routeBuilderClass.getName() + "'", e);
-        }
     }
 
     public void addListener(RuntimeValue<CamelMain> main, RuntimeValue<MainListener> listener) {
