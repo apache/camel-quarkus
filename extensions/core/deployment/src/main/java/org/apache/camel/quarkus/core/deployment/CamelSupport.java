@@ -36,6 +36,8 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.core.CamelServiceInfo;
+import org.apache.camel.util.AntPathMatcher;
+import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -61,6 +63,29 @@ public final class CamelSupport {
         } catch (IOException e) {
             throw new IOError(e);
         }
+    }
+
+    public static boolean isPathIncluded(String path, Collection<String> excludePatterns, Collection<String> includePatterns) {
+        final AntPathMatcher matcher = new AntPathMatcher();
+
+        if (ObjectHelper.isEmpty(excludePatterns) && ObjectHelper.isEmpty(includePatterns)) {
+            return true;
+        }
+
+        // same logic as  org.apache.camel.main.DefaultRoutesCollector so exclude
+        // take precedence over include
+        for (String part : excludePatterns) {
+            if (matcher.match(part.trim(), path)) {
+                return false;
+            }
+        }
+        for (String part : includePatterns) {
+            if (matcher.match(part.trim(), path)) {
+                return true;
+            }
+        }
+
+        return ObjectHelper.isEmpty(includePatterns);
     }
 
     public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {

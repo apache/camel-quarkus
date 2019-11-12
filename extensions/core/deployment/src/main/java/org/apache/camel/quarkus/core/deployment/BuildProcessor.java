@@ -41,6 +41,7 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
+import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
@@ -250,13 +251,20 @@ class BuildProcessor {
      */
     public static class Main {
         @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep
+        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelRoutesBuilderBuildItem> collectRoutes(
                 CombinedIndexBuildItem combinedIndex,
                 CamelMainRecorder recorder,
-                RecorderContext recorderContext) {
+                RecorderContext recorderContext,
+                CamelConfig config) {
 
             return CamelSupport.getRouteBuilderClasses(combinedIndex.getIndex())
+                    .filter(className -> {
+                        return CamelSupport.isPathIncluded(
+                                className.replace('.', '/'),
+                                config.main.routesDiscovery.excludePatterns,
+                                config.main.routesDiscovery.includePatterns);
+                    })
                     .map(recorderContext::<RoutesBuilder> newInstance)
                     .map(CamelRoutesBuilderBuildItem::new)
                     .collect(Collectors.toList());

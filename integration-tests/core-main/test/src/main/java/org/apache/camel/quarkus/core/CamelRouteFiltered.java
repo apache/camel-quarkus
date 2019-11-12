@@ -16,29 +16,14 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.function.BooleanSupplier;
+import org.apache.camel.builder.RouteBuilder;
 
-import org.eclipse.microprofile.config.ConfigProvider;
+public class CamelRouteFiltered extends RouteBuilder {
 
-public final class Flags {
-    private Flags() {
-    }
-
-    private static boolean asBoolean(String key, boolean defaultValue) {
-        return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(defaultValue);
-    }
-
-    public static final class MainEnabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return asBoolean("quarkus.camel.main.enabled", true);
-        }
-    }
-
-    public static final class RoutesDiscoveryEnabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return asBoolean("quarkus.camel.main.routes-discovery.enabled", true);
-        }
+    @Override
+    public void configure() {
+        from("timer:filtered")
+                .id("filtered")
+                .to("log:filtered");
     }
 }

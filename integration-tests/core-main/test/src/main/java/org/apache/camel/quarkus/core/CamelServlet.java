@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.Set;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -78,16 +76,6 @@ public class CamelServlet {
                 .build();
 
         return result;
-    }
-
-    private <T> T lookupSingleInstanceFromRegistry(Class<T> type) {
-        final Set<T> answer = context.getRegistry().findByType(type);
-
-        if (answer.size() == 1) {
-            return answer.iterator().next();
-        }
-
-        return null;
     }
 
     @Path("/context/name")
