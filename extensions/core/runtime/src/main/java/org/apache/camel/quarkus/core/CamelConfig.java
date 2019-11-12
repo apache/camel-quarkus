@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.List;
+
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
@@ -40,5 +42,48 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "true")
         public boolean enabled;
+
+        /**
+         * Build time configuration options for routes discovery.
+         */
+        @ConfigItem
+        public RoutesDiscoveryConfig routesDiscovery;
+    }
+
+    @ConfigGroup
+    public static class RoutesDiscoveryConfig {
+        /**
+         * Enable automatic discovery of routes during static initialization.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+
+        /**
+         * Used for exclusive filtering scanning of RouteBuilder classes.
+         * The exclusive filtering takes precedence over inclusive filtering.
+         * The pattern is using Ant-path style pattern.
+         * Multiple patterns can be specified separated by comma.
+         *
+         * For example to exclude all classes starting with Bar use: &#42;&#42;/Bar&#42;
+         * To exclude all routes form a specific package use: com/mycompany/bar/&#42;
+         * To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/&#42;&#42;
+         * And to exclude all routes from two specific packages use: com/mycompany/bar/&#42;,com/mycompany/stuff/&#42;
+         */
+        @ConfigItem
+        public List<String> excludePatterns;
+
+        /**
+         * Used for inclusive filtering scanning of RouteBuilder classes.
+         * The exclusive filtering takes precedence over inclusive filtering.
+         * The pattern is using Ant-path style pattern.
+         *
+         * Multiple patterns can be specified separated by comma.
+         * For example to include all classes starting with Foo use: &#42;&#42;/Foo*
+         * To include all routes form a specific package use: com/mycompany/foo/&#42;
+         * To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/&#42;&#42;
+         * And to include all routes from two specific packages use: com/mycompany/foo/&#42;,com/mycompany/stuff/&#42;
+         */
+        @ConfigItem
+        public List<String> includePatterns;
     }
 }

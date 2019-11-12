@@ -51,6 +51,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.core.CamelMainProducers;
 import org.apache.camel.quarkus.core.CamelMainRecorder;
@@ -284,12 +285,13 @@ class BuildProcessor {
         }
 
         @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelBeanBuildItem> collectRoutes(
                 List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilderClasses,
                 CamelMainRecorder recorder,
                 BeanRegistrationPhaseBuildItem beanRegistrationPhase,
-                RecorderContext recorderContext) {
+                RecorderContext recorderContext,
+                CamelConfig config) {
 
             final Set<DotName> arcBeanClasses = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)
                     .stream()
@@ -300,6 +302,12 @@ class BuildProcessor {
             return camelRoutesBuilderClasses.stream()
                     .map(CamelRoutesBuilderClassBuildItem::getDotName)
                     .filter(dotName -> !arcBeanClasses.contains(dotName))
+                    .filter(dotName -> {
+                        return CamelSupport.isPathIncluded(
+                                dotName.toString('/'),
+                                config.main.routesDiscovery.excludePatterns,
+                                config.main.routesDiscovery.includePatterns);
+                    })
                     .map(dotName -> {
                         try {
                             return Class.forName(dotName.toString());
