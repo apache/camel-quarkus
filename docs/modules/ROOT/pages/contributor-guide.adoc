@@ -89,7 +89,7 @@ The above sequence of commands does the following:
 * It also creates a stub of an integration test module under `integration-tests/foo-abc`.
 +
 A compilation performed immediately after generating the modules should pass flawlessly but running the tests will fail
-because the test project needs to get finished.
+because the test project needs to get finished. You need to build `poms/bom` and `poms/bom-deployment` one time first.
 +
 TIP: The `nameBase` parameter of the mojo is optional. If you do not specify it on the command line, the plugin will
 derive it from `artifactIdBase` by replacing dashes with spaces and capitalizing the first letter of each token. So you
