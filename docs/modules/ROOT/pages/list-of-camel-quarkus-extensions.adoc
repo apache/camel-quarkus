@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 30 in 26 JAR artifacts (0 deprecated)
+Number of Camel components: 31 in 27 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -77,6 +77,9 @@ Number of Camel components: 30 in 26 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | 0.2 | The salesforce component is used for integrating Camel with the massive Salesforce API.
+
+| link:https://camel.apache.org/components/latest/scheduler-component.html[Scheduler] (camel-quarkus-scheduler) +
+`scheduler:name` | 0.4 | The scheduler component is used for generating message exchanges when a scheduler fires.
 
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | 0.2 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
