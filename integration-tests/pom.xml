@@ -84,6 +84,7 @@
         <module>bean</module>
         <module>csv</module>
         <module>fhir</module>
+        <module>file</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>

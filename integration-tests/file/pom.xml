@@ -27,18 +27,18 @@
         <version>0.3.2-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-snakeyaml</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: SnakeYAML</name>
-    <description>Integration tests for Camel Quarkus SnakeYAML extension</description>
+    <artifactId>camel-quarkus-integration-test-file</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: File</name>
+    <description>Integration tests for Camel Quarkus File extension</description>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-snakeyaml</artifactId>
+            <artifactId>camel-quarkus-file</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-direct</artifactId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
