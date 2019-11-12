@@ -78,6 +78,7 @@
         <module>attachments</module>
         <module>pdf</module>
         <module>controlbus</module>
+        <module>scheduler</module>
 
     </modules>
 
