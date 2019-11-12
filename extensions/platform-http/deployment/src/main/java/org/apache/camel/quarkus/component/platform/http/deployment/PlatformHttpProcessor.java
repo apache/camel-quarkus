@@ -88,7 +88,7 @@ class PlatformHttpProcessor {
     CamelRuntimeBeanBuildItem platformHttpEngineBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
         return new CamelRuntimeBeanBuildItem(
                 PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME,
-                QuarkusPlatformHttpEngine.class,
+                QuarkusPlatformHttpEngine.class.getName(),
                 engine.getInstance());
     }
 
@@ -97,7 +97,7 @@ class PlatformHttpProcessor {
     CamelRuntimeBeanBuildItem platformHttpComponentBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
         return new CamelRuntimeBeanBuildItem(
                 PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
-                PlatformHttpComponent.class,
+                PlatformHttpComponent.class.getName(),
                 recorder.createComponent(engine.getInstance()));
     }
 }
