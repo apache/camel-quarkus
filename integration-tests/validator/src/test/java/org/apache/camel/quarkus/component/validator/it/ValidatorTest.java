@@ -16,22 +16,16 @@
  */
 package org.apache.camel.quarkus.component.validator.it;
 
-import java.util.UUID;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 class ValidatorTest {
 
     @Test
-    public void test() {
+    public void validXML() {
 
         RestAssured.given()
                 .contentType(ContentType.XML)
@@ -42,4 +36,15 @@ class ValidatorTest {
 
     }
 
+    @Test
+    public void invalidXML() {
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<message><firstName>MyFirstname</firstName></message>")
+                .post("/validator/xml")
+                .then()
+                .statusCode(500);
+
+    }
 }
