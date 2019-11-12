@@ -288,6 +288,11 @@
                 <artifactId>camel-quarkus-netty-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-scheduler-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
 
 
         </dependencies>
