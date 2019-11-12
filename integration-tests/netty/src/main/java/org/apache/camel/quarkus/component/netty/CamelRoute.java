@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.netty;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class CamelRoute extends RouteBuilder {
@@ -26,17 +24,14 @@ public class CamelRoute extends RouteBuilder {
     public void configure() {
 
         from("netty:tcp://0.0.0.0:8994?textline=true&sync=true")
-                .process(new Processor() {
-                    public void process(Exchange exchange) throws Exception {
-                        if (exchange.getIn().getBody() instanceof Poetry) {
-                            Poetry poetry = (Poetry) exchange.getIn().getBody();
-                            poetry.setPoet("Dr. Sarojini Naidu");
-                            exchange.getOut().setBody(poetry);
-                            return;
-                        }
-                        exchange.getOut()
-                                .setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
+                .process().message(message -> {
+                    if (message.getBody() instanceof Poetry) {
+                        Poetry poetry = (Poetry) message.getBody();
+                        poetry.setPoet("Dr. Sarojini Naidu");
+                        message.setBody(poetry);
+                        return;
                     }
+                    message.setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
                 });
 
     }
