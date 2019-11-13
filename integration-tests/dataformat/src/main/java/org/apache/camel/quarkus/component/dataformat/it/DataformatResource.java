@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.dataformat.it;
 
-import java.net.URI;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -25,45 +23,32 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
+import org.apache.camel.quarkus.component.dataformat.it.model.TestPojo;
 
 @Path("/dataformat")
 @ApplicationScoped
 public class DataformatResource {
 
-    private static final Logger LOG = Logger.getLogger(DataformatResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
-
-    @Path("/get")
+    @Path("/marshall")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("dataformat:--fix-me--", String.class);
-        LOG.infof("Received from dataformat: %s", message);
-        return message;
+    @Produces("text/yaml")
+    public String marshall(@QueryParam("name") String name) {
+        return producerTemplate.requestBody("direct:marshall", new TestPojo(name), String.class);
     }
 
-    @Path("/post")
+    @Path("/unmarshall")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes("text/yaml")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
-        LOG.infof("Sending to dataformat: %s", message);
-        final String response = producerTemplate.requestBody("dataformat:--fix-me--", message, String.class);
-        LOG.infof("Got response from dataformat: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+    public String unmarshall(String yaml) throws Exception {
+        TestPojo pojo = producerTemplate.requestBody("direct:unmarshall", yaml, TestPojo.class);
+        return pojo.getName();
     }
 }

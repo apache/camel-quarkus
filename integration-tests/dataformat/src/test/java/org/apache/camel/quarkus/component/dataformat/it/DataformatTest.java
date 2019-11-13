@@ -16,28 +16,33 @@
  */
 package org.apache.camel.quarkus.component.dataformat.it;
 
-import java.util.UUID;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class DataformatTest {
 
     @Test
-    public void test() {
-        final String msg = UUID.randomUUID().toString().replace("-", "");
-        RestAssured.given() //
-            .contentType(ContentType.TEXT).body(msg).post("/dataformat/post") //
-            .then().statusCode(201);
+    public void testMarshall() {
+        RestAssured.get("/dataformat/marshall?name=Camel SnakeYAML")
+                .then()
+                .statusCode(200)
+                .body(equalTo("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}\n"));
+    }
 
-        Assertions.fail("Add some assertions to " + getClass().getName());
-
-        RestAssured.get("/dataformat/get").then().statusCode(200);
+    @Test
+    public void testUnmarshall() {
+        RestAssured
+                .given()
+                .contentType("text/yaml")
+                .body("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}")
+                .post("/dataformat/unmarshall")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Camel SnakeYAML"));
     }
 
 }
