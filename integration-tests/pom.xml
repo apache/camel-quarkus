@@ -111,6 +111,7 @@
         <module>validator</module>
         <module>zipfile</module>
         <module>xslt</module>
+        <module>bean-validator</module>
 
     </modules>
 
