@@ -232,4 +232,13 @@ class PlatformHttpTest {
                 .body(equalTo(""));
     }
 
+    @Test
+    public void pathParam() throws Exception {
+        RestAssured.given()
+                .get("/platform-http/hello-by-name/Kermit")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello Kermit"));
+    }
+
 }
