@@ -96,5 +96,12 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
                 .setBody().constant("");
 
+        /* Path parameters */
+        rest()
+                .get("/platform-http/hello-by-name/{name}")
+                .produces("text/plain")
+                .route()
+                .setBody(e -> "Hello " + e.getIn().getHeader("name", String.class))
+                .endRest();
     }
 }

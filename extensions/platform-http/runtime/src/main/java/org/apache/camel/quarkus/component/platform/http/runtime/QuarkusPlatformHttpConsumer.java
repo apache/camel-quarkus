@@ -29,7 +29,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
@@ -73,6 +75,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private Route route;
     private final String fileNameExtWhitelist;
     private final UploadAttacher uploadAttacher;
+    private final Pattern PATH_PARAMETER_PATTERN = Pattern.compile("\\{([^/}]+)\\}");
 
     public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router,
             List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
@@ -95,7 +98,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
         final PlatformHttpEndpoint endpoint = getEndpoint();
         final String path = endpoint.getPath();
-        final Route newRoute = router.route(path);
+        /* Transform from the Camel path param syntax /path/{key} to vert.x web's /path/:key */
+        final String vertxPathParamPath = PATH_PARAMETER_PATTERN.matcher(path).replaceAll(":$1");
+        final Route newRoute = router.route(vertxPathParamPath);
 
         final Set<Method> methods = Method.parseList(endpoint.getHttpMethodRestrict());
         if (!methods.equals(Method.getAll())) {
@@ -338,17 +343,10 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             }
         }
 
-        // TODO: figure out whether we need this or remove
-        // // Create headers for REST path placeholder variables
-        // Map<String, Object> predicateContextParams = httpExchange.getAttachment(Predicate.PREDICATE_CONTEXT);
-        // if (predicateContextParams != null) {
-        // // Remove this as it's an unwanted artifact of our Undertow predicate chain
-        // predicateContextParams.remove("remaining");
-        //
-        // for (String paramName : predicateContextParams.keySet()) {
-        // headersMap.put(paramName, predicateContextParams.get(paramName));
-        // }
-        // }
+        /* Path parameters */
+        for (Entry<String, String> en : ctx.pathParams().entrySet()) {
+            appendHeader(headersMap, en.getKey(), en.getValue());
+        }
 
         // NOTE: these headers is applied using the same logic as camel-http/camel-jetty to be consistent
         headersMap.put(Exchange.HTTP_METHOD, request.method().toString());
