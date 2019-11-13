@@ -21,8 +21,7 @@ import org.apache.camel.builder.RouteBuilder;
 public class ValidatorRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        // Add some routes or remove this class
         from("direct:start")
-                .to("validator:message.xsd");
+                .to("validator:file:src/main/resources/message.xsd");
     }
 }
