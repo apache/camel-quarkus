@@ -313,11 +313,6 @@
                 <artifactId>camel-quarkus-xslt-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bean-validator-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
