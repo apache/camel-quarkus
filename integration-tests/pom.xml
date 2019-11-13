@@ -82,7 +82,9 @@
         <!-- extensions a..z -->
         <module>aws</module>
         <module>bean</module>
+        <module>controlbus</module>
         <module>csv</module>
+        <module>dataformat</module>
         <module>fhir</module>
         <module>file</module>
         <module>infinispan</module>
@@ -95,20 +97,19 @@
         <module>netty-http</module>
         <module>opentracing</module>
         <module>paho</module>
+        <module>pdf</module>
         <module>platform-http-engine</module>
         <module>platform-http</module>
         <module>salesforce</module>
         <module>servlet</module>
+        <module>scheduler</module>
         <module>slack</module>
         <module>snakeyaml</module>
         <module>tarfile</module>
         <module>twitter</module>
         <module>validator</module>
         <module>zipfile</module>
-        <module>pdf</module>
-        <module>controlbus</module>
-        <module>scheduler</module>
-        <module>dataformat</module>
+        <module>xslt</module>
 
     </modules>
 

@@ -43,12 +43,15 @@
         <module>reactive-executor</module>
 
         <!-- extensions a..z -->
+        <module>attachments</module>
         <module>aws-eks</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>bean</module>
+        <module>controlbus</module>
         <module>csv</module>
+        <module>dataformat</module>
         <module>direct</module>
         <module>fhir</module>
         <module>file</module>
@@ -63,9 +66,11 @@
         <module>netty-http</module>
         <module>opentracing</module>
         <module>paho</module>
+        <module>pdf</module>
         <module>platform-http</module>
         <module>rest</module>
         <module>salesforce</module>
+        <module>scheduler</module>
         <module>servlet</module>
         <module>slack</module>
         <module>snakeyaml</module>
@@ -75,11 +80,7 @@
         <module>validator</module>
         <module>vm</module>
         <module>zipfile</module>
-        <module>attachments</module>
-        <module>pdf</module>
-        <module>controlbus</module>
-        <module>scheduler</module>
-        <module>dataformat</module>
+        <module>xslt</module>
 
     </modules>
 

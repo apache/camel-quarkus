@@ -135,6 +135,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-dataformat-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-direct-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -295,11 +300,9 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-dataformat-deployment</artifactId>
+                <artifactId>camel-quarkus-xslt-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-
-
         </dependencies>
     </dependencyManagement>
 
