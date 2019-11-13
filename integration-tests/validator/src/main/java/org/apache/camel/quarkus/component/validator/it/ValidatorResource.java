@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.validator.it;
 
-import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -24,20 +23,12 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.builder.ExchangeBuilder;
-import org.jboss.logging.Logger;
 
 @Path("/validator")
 @ApplicationScoped
 public class ValidatorResource {
-
-    private static final Logger LOG = Logger.getLogger(ValidatorResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -45,7 +36,7 @@ public class ValidatorResource {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrder(String statement) throws Exception {
+    public String processOrder(String statement) {
         return producerTemplate.requestBody("direct:start", statement, String.class);
     }
 }

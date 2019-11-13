@@ -82,9 +82,6 @@
     <profiles>
         <profile>
             <id>native</id>
-            <properties>
-                <quarkus.native.additional-build-args>-H:ResourceConfigurationFiles=${project.basedir}/resources-config.json</quarkus.native.additional-build-args>
-            </properties>
             <activation>
                 <property>
                     <name>native</name>
