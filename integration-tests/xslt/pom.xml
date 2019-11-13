@@ -80,10 +80,10 @@
 
     <profiles>
         <profile>
-            <id>native</id>
+            <id>xslt-native</id>
             <activation>
                 <property>
-                    <name>native</name>
+                    <name>xslt-native</name>
                 </property>
             </activation>
             <build>
