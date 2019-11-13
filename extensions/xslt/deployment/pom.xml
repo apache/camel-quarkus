@@ -52,6 +52,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-xslt</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.oracle.substratevm</groupId>
+            <artifactId>svm</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

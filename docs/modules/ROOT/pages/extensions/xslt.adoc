@@ -1,0 +1,39 @@
+[[xslt]]
+= XSLT Extension
+
+*Since Camel Quarkus 0.4.0*
+
+The XSLT extension allows you to process a message using an XSLT template.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-xslt</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/xslt-component.html[XSLT Component].
+
+=== Configuration
+
+To optimize XSLT processing, the extension need to know a location(s) of the XSLT templates at build time. The location(s) can be listed with the property `quarkus.camel.xslt.sources`, you can separate multiple locations with comma.
+
+[source,properties]
+----
+quarkus.camel.xslt.sources = transform.xsl, file:/path/to/my/file.xsl
+----
+
+[NOTE]
+====
+class-path locations will be embedded int the generated native image.
+====
+
+[WARNING]
+====
+the extension does not yet support Java 11.
+====
