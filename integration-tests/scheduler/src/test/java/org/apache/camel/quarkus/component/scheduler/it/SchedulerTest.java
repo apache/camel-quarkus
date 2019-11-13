@@ -30,7 +30,7 @@ class SchedulerTest {
     @Test
     public void test() throws Exception {
         // wait until the scheduler has run and return a counter that is > 0
-        await().atMost(2, TimeUnit.SECONDS).until(() -> {
+        await().atMost(5, TimeUnit.SECONDS).until(() -> {
             String body = RestAssured.get("/scheduler/get").then().statusCode(200).extract().body().asString();
             return !body.equals("0");
         });
