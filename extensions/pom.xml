@@ -79,6 +79,7 @@
         <module>pdf</module>
         <module>controlbus</module>
         <module>scheduler</module>
+        <module>xslt</module>
 
     </modules>
 
