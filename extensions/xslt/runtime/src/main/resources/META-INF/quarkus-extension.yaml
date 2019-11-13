@@ -25,3 +25,4 @@ metadata:
   guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
+  status: "preview"
