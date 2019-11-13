@@ -33,9 +33,10 @@
 
     <modules>
         <module>observability</module>
-        <module>timer-log</module>
-        <module>timer-log-xml</module>
         <module>rest-json</module>
+        <module>timer-log</module>
+        <module>timer-log-cdi</module>
+        <module>timer-log-xml</module>
     </modules>
 
 </project>
