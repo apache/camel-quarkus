@@ -16,19 +16,13 @@
  */
 package org.apache.camel.quarkus.component.xslt.it;
 
-import java.net.URI;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
@@ -41,29 +35,14 @@ public class XsltResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
-
     @Path("/get")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("xslt:--fix-me--", String.class);
+        String body = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
+        String message = producerTemplate.requestBody("direct:start", body, String.class);
         LOG.infof("Received from xslt: %s", message);
         return message;
     }
 
-    @Path("/post")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
-        LOG.infof("Sending to xslt: %s", message);
-        final String response = producerTemplate.requestBody("xslt:--fix-me--", message, String.class);
-        LOG.infof("Got response from xslt: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
-    }
 }
