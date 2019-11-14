@@ -85,6 +85,7 @@
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>exec</module>
         <module>fhir</module>
         <module>file</module>
         <module>infinispan</module>

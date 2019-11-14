@@ -53,6 +53,7 @@
         <module>csv</module>
         <module>dataformat</module>
         <module>direct</module>
+        <module>exec</module>
         <module>fhir</module>
         <module>file</module>
         <module>infinispan</module>
