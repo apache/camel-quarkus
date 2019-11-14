@@ -45,6 +45,7 @@ class PdfTest {
         String text = pdfTextStripper.getText(doc);
         assertEquals(1, doc.getNumberOfPages());
         assertTrue(text.contains("content to be included in the created pdf document"));
+        doc.close();
     }
 
     @Order(2)
@@ -59,6 +60,7 @@ class PdfTest {
         assertEquals(2, doc.getNumberOfPages());
         assertTrue(text.contains("content to be included in the created pdf document"));
         assertTrue(text.contains("another line that should be appended"));
+        doc.close();
     }
 
     @Order(3)
