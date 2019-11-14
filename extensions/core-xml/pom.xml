@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-core-xml-parent</artifactId>
-    <name>Camel Quarkus :: Core :: XML</name>
+    <name>Camel Quarkus :: Core XML</name>
     <packaging>pom</packaging>
 
     <modules>

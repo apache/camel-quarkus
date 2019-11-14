@@ -16,25 +16,35 @@
  */
 package org.apache.camel.quarkus.maven;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.Writer;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.Properties;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
-import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Dependency;
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -45,14 +55,16 @@ import org.apache.maven.plugins.annotations.ResolutionScope;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.project.ProjectBuilder;
-import org.apache.maven.project.ProjectBuildingException;
-import org.apache.maven.project.ProjectBuildingResult;
 import org.apache.maven.repository.RepositorySystem;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 import org.mvel2.templates.TemplateRuntime;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import static org.apache.camel.maven.packaging.PackageHelper.loadText;
-import static org.apache.camel.maven.packaging.PackageHelper.writeText;
-import static org.apache.camel.maven.packaging.StringHelper.camelDashToTitle;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
@@ -60,18 +72,7 @@ import static org.apache.camel.maven.packaging.StringHelper.camelDashToTitle;
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
-    private static final String DEFAULT_FIRST_VERSION = "0.2.0";
-
-    private static final String[] EXCLUDE_EXTENSIONS = {
-            "http-common", "support"
-    };
-
-    private static final Pattern SCHEME_PATTERN = Pattern.compile("\"scheme\": \"(.*)\"");
-    private static final Pattern NAME_PATTERN = Pattern.compile("\"name\": \"(.*)\"");
-    private static final Pattern GROUP_PATTERN = Pattern.compile("\"groupId\": \"(org.apache.camel)\"");
-    private static final Pattern ARTIFACT_PATTERN = Pattern.compile("\"artifactId\": \"camel-(.*)\"");
-    private static final Pattern VERSION_PATTERN = Pattern.compile("\"version\": \"(.*)\"");
-    private static final Pattern FIRST_VERSION_PATTERN = Pattern.compile("\"firstVersion\": \"(.*)\"");
+    private static final Set<String> EXCLUDE_EXTENSIONS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("http-common", "support")));
 
     /**
      * The maven project.
@@ -130,283 +131,121 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        Set<String> extensions = findExtensions();
-        Set<String> artifacts = extractArtifactIds(extensions);
-        executeComponents(artifacts);
-        executeLanguages(artifacts);
-        executeDataFormats(artifacts);
-        executeOthers(extensions);
-    }
-
-    private Set<String> extractArtifactIds(Set<String> extensions) throws MojoFailureException {
-        Set<String> answer = new LinkedHashSet<>();
-        for (String extension : extensions) {
-            try {
-                MavenProject extProject = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension,
-                        project.getVersion());
-                // grab camel artifact
-                Optional<Dependency> artifact = extProject.getDependencies().stream()
-                        .filter(p -> "org.apache.camel".equals(p.getGroupId()) && "compile".equals(p.getScope()))
-                        .findFirst();
-                if (artifact.isPresent()) {
-                    String artifactId = artifact.get().getArtifactId();
-                    answer.add(artifactId);
-                }
-            } catch (ProjectBuildingException e) {
-                throw new MojoFailureException("Cannot read pom.xml for extension " + extension, e);
-            }
+        final List<CamelQuarkusExtension> extensions = findExtensionModules();
+        final CamelCatalog camelCatalog = CamelCatalog.load();
+        for (Kind kind : Kind.values()) {
+            doExecute(extensions, kind, camelCatalog);
         }
-        return answer;
+        appendOthers(extensions, camelCatalog);
     }
 
-    protected void executeComponents(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
-        doExecute(artifactIds, "components", componentsOutDir);
-    }
+    protected void doExecute(List<CamelQuarkusExtension> extensions, Kind kind, CamelCatalog catalog) throws MojoExecutionException {
 
-    protected void executeLanguages(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
-        // include core languages (simple, header etc) and refer to camel-quarkus-core
-        Set<String> set = new LinkedHashSet<>();
-        set.add("camel-base");
-        set.addAll(artifactIds);
-
-        doExecute(set, "languages", languagesOutDir);
-    }
-
-    protected void executeDataFormats(Set<String> artifactIds) throws MojoExecutionException, MojoFailureException {
-        doExecute(artifactIds, "dataformats", dataFormatsOutDir);
-    }
-
-    protected void doExecute(Set<String> artifactIds, String kind, File outsDir)
-            throws MojoExecutionException, MojoFailureException {
-        // grab from camel-catalog
-        List<String> catalog;
-        try {
-            InputStream is = getClass().getClassLoader()
-                    .getResourceAsStream("org/apache/camel/catalog/" + kind + ".properties");
-            String text = loadText(is);
-            catalog = Arrays.asList(text.split("\n"));
-            getLog().debug("Loaded " + catalog.size() + " " + kind + " from camel-catalog");
-        } catch (IOException e) {
-            throw new MojoFailureException("Error loading resource from camel-catalog due " + e.getMessage(), e);
-        }
+        final Path outsDir = kind.getPath(this);
 
         // make sure to create out dir
-        outsDir.mkdirs();
+        try {
+            Files.createDirectories(outsDir);
+        } catch (IOException e) {
+            throw new MojoExecutionException("Could not create " + outsDir, e);
+        }
 
-        for (String artifactId : artifactIds) {
-            // for quarkus we need to amend the json file to use the quarkus maven GAV
-            List<String> jsonFiles = new ArrayList<>();
-            try {
-                for (String name : catalog) {
-                    InputStream is = getClass().getClassLoader()
-                            .getResourceAsStream("org/apache/camel/catalog/" + kind + "/" + name + ".json");
-                    String text = loadText(is);
-                    boolean match = text.contains("\"artifactId\": \"" + artifactId + "\"");
-                    if (match) {
-                        try {
-                            String qaid;
-                            if ("camel-base".equals(artifactId)) {
-                                qaid = "camel-quarkus-core";
-                            } else {
-                                qaid = artifactId.replaceFirst("camel-", "camel-quarkus-");
-                            }
-                            MavenProject extPom = getMavenProject("org.apache.camel.quarkus", qaid, project.getVersion());
-                            String firstVersion = (String) extPom.getProperties().getOrDefault("firstVersion",
-                                    DEFAULT_FIRST_VERSION);
-                            // lets use the camel-quarkus version as first version instead of Apache Camel version
-                            text = FIRST_VERSION_PATTERN.matcher(text)
-                                    .replaceFirst("\"firstVersion\": \"" + firstVersion + "\"");
+        final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
 
-                            // update json metadata to adapt to camel-quarkus-catalog
-                            text = GROUP_PATTERN.matcher(text).replaceFirst("\"groupId\": \"org.apache.camel.quarkus\"");
-                            if ("camel-base".equals(artifactId)) {
-                                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-core\"");
-                            } else {
-                                text = ARTIFACT_PATTERN.matcher(text).replaceFirst("\"artifactId\": \"camel-quarkus-$1\"");
-                            }
-                            text = VERSION_PATTERN.matcher(text).replaceFirst("\"version\": \"" + project.getVersion() + "\"");
-                        } catch (ProjectBuildingException e) {
-                            throw new MojoFailureException("Error loading pom.xml from extension " + name, e);
-                        }
+        final Set<String> names = new TreeSet<>();
 
-                        jsonFiles.add(text);
-                    }
-                }
-            } catch (IOException e) {
-                throw new MojoFailureException("Cannot read camel-catalog", e);
-            }
+        for (CamelQuarkusExtension ext : extensions) {
+            final String artifactId = ext.getCamelComponentArtifactId();
+            for (JsonObject catalogEntry : catalog.getByArtifactId(kind, artifactId)) {
+                final JsonObject newCatalogEntry = catalogEntry.deepCopy();
+                final JsonObject kindObject = newCatalogEntry.get(kind.getSingularName()).getAsJsonObject();
+                final String firstVersion = ext.getFirstVersion().orElseThrow(() -> new MojoExecutionException(
+                        "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
+                // lets use the camel-quarkus version as first version instead of Apache Camel version
+                kindObject.addProperty("firstVersion", firstVersion);
 
-            for (String text : jsonFiles) {
-                // compute the name depending on what kind it is
-                Pattern pattern;
-                if ("components".equals(kind)) {
-                    pattern = SCHEME_PATTERN;
-                } else if ("languages".equals(kind)) {
-                    pattern = NAME_PATTERN;
-                } else if ("dataformats".equals(kind)) {
-                    pattern = NAME_PATTERN;
-                } else {
-                    throw new IllegalArgumentException("Unknown kind " + kind);
-                }
+                // update json metadata to adapt to camel-quarkus-catalog
+                kindObject.addProperty("groupId", "org.apache.camel.quarkus");
+                kindObject.addProperty("artifactId", ext.getRuntimeArtifactId());
+                kindObject.addProperty("version", project.getVersion());
 
-                Matcher matcher = pattern.matcher(text);
-                if (matcher.find()) {
-                    String name = matcher.group(1);
-                    try {
-                        File to = new File(outsDir, name + ".json");
-                        writeText(to, text);
-                    } catch (IOException e) {
-                        throw new MojoFailureException("Cannot write json file " + name, e);
-                    }
+                final String name = kind.getName(newCatalogEntry);
+                names.add(name);
+                final Path out = outsDir.resolve(name + ".json");
+                try (Writer w = Files.newBufferedWriter(out, StandardCharsets.UTF_8)) {
+                    gson.toJson(newCatalogEntry, w);
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Could not write to " + out);
                 }
             }
         }
 
-        File all = new File(outsDir, "../" + kind + ".properties");
+        final Path newCatalog = outsDir.resolve("../" + kind + ".properties");
         try {
-            String[] names = outsDir.list();
-            List<String> lines = new ArrayList<>();
-            for (String name : names) {
-                if (name.endsWith(".json")) {
-                    // strip out .json from the name
-                    String shortName = name.substring(0, name.length() - 5);
-                    lines.add(shortName);
-                }
-            }
-            // sort lines
-            Collections.sort(lines);
-            // write properties file
-            String text = String.join("\n", lines);
-            writeText(all, text);
-
-            getLog().info("Added " + lines.size() + " " + kind + " to quarkus-camel-catalog");
-
+            Files.write(newCatalog, names.stream().collect(Collectors.joining("\n")).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            throw new MojoFailureException("Error writing to file " + all);
+            throw new MojoExecutionException("Could not write to " + newCatalog);
         }
     }
 
-    protected void executeOthers(Set<String> extensions) throws MojoExecutionException, MojoFailureException {
+    protected void appendOthers(List<CamelQuarkusExtension> extensions, CamelCatalog catalog) throws MojoExecutionException, MojoFailureException {
         // make sure to create out dir
         othersOutDir.mkdirs();
+        final Path othersPropertiesPath = othersOutDir.toPath().resolve("../others.properties");
 
-        for (String extension : extensions) {
+        Set<String> names;
+        try {
+            names = Files.lines(othersPropertiesPath).collect(Collectors.toCollection(TreeSet::new));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read " + othersPropertiesPath, e);
+        }
+
+        for (CamelQuarkusExtension ext : extensions) {
             // skip if the extension is already one of the following
-            try {
-                boolean component = isComponent(extension);
-                boolean language = isLanguage(extension);
-                boolean dataFormat = isDataFormat(extension);
-                if (component || language || dataFormat) {
-                    continue;
-                }
-            } catch (IOException e) {
-                throw new MojoFailureException("Error reading generated files for extension " + extension, e);
-            }
+            if (ext.getCamelComponentArtifactId() == null || !catalog.getKind(ext.getCamelComponentArtifactId()).isPresent()) {
+                final Map<String, String> model = new HashMap<>();
 
-            try {
-                MavenProject extPom = getMavenProject("org.apache.camel.quarkus", "camel-quarkus-" + extension,
-                        project.getVersion());
+                String firstVersion = ext.getFirstVersion().orElseThrow(() -> new MojoExecutionException(
+                        "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
+                model.put("firstVersion", firstVersion);
 
-                Map<String, Object> model = new HashMap<>();
-                model.put("name", extension);
-                String title = extPom.getProperties().getProperty("title");
-                if (title == null) {
-                    title = camelDashToTitle(extension);
-                }
+                final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
+                names.add(name);
+                model.put("name", name);
+                final String title = ext.getName().orElseThrow(() -> new MojoExecutionException(
+                        "name is missing in " + ext.getRuntimePomXmlPath()));
                 model.put("title", title);
-                model.put("description", extPom.getDescription());
-                if (extPom.getName() != null && extPom.getName().contains("(deprecated)")) {
+                model.put("description", ext.getDescription().orElseThrow(() -> new MojoExecutionException(
+                        "description is missing in " + ext.getRuntimePomXmlPath())));
+                if (title.contains("(deprecated)")) {
                     model.put("deprecated", "true");
                 } else {
                     model.put("deprecated", "false");
                 }
-                model.put("firstVersion", extPom.getProperties().getOrDefault("firstVersion", "0.2.0"));
-                model.put("label", extPom.getProperties().getOrDefault("label", "quarkus"));
+                model.put("label", ext.getLabel().orElse("quarkus"));
                 model.put("groupId", "org.apache.camel.quarkus");
-                model.put("artifactId", "camel-quarkus-" + extension);
+                model.put("artifactId", ext.getRuntimeArtifactId());
                 model.put("version", project.getVersion());
 
-                String text = templateOther(model);
+                final String text = templateOther(model);
 
                 // write new json file
-                File to = new File(othersOutDir, extension + ".json");
-                writeText(to, text);
-
-            } catch (IOException e) {
-                throw new MojoFailureException("Cannot write json file " + extension, e);
-            } catch (ProjectBuildingException e) {
-                throw new MojoFailureException("Error loading pom.xml from extension " + extension, e);
-            }
-        }
-
-        File all = new File(othersOutDir, "../others.properties");
-        try {
-            String[] names = othersOutDir.list();
-            List<String> others = new ArrayList<>();
-            // sort the names
-            for (String name : names) {
-                if (name.endsWith(".json")) {
-                    // strip out .json from the name
-                    String otherName = name.substring(0, name.length() - 5);
-                    others.add(otherName);
+                Path to = othersOutDir.toPath().resolve(name + ".json");
+                try {
+                    Files.write(to, text.getBytes(StandardCharsets.UTF_8));
+                } catch (IOException e) {
+                    throw new RuntimeException("Could not write to " + to, e);
                 }
             }
-
-            Collections.sort(others);
-            // write properties file
-            String text = String.join("\n", others);
-            writeText(all, text);
-
-            getLog().info("Added " + others.size() + " others to quarkus-camel-catalog");
-
+        }
+        try {
+            Files.write(othersPropertiesPath, names.stream().collect(Collectors.joining("\n")).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
-            throw new MojoFailureException("Error writing to file " + all);
+            throw new RuntimeException("Could not write to " + othersPropertiesPath, e);
         }
     }
 
-    private boolean isComponent(String extension) throws IOException {
-        for (File file : componentsOutDir.listFiles()) {
-            FileInputStream fis = new FileInputStream(file);
-            String text = loadText(fis);
-            fis.close();
-            if (text.contains("camel-quarkus-" + extension)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isLanguage(String extension) throws IOException {
-        for (File file : languagesOutDir.listFiles()) {
-            FileInputStream fis = new FileInputStream(file);
-            String text = loadText(fis);
-            fis.close();
-            if (text.contains("camel-quarkus-" + extension)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean isDataFormat(String extension) throws IOException {
-        for (File file : dataFormatsOutDir.listFiles()) {
-            FileInputStream fis = new FileInputStream(file);
-            String text = loadText(fis);
-            fis.close();
-            if (text.contains("camel-quarkus-" + extension)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private MavenProject getMavenProject(String groupId, String artifactId, String version) throws ProjectBuildingException {
-        Artifact pomArtifact = repositorySystem.createProjectArtifact(groupId, artifactId, version);
-        ProjectBuildingResult build = mavenProjectBuilder.build(pomArtifact, session.getProjectBuildingRequest());
-        return build.getProject();
-    }
-
-    private String templateOther(Map model) throws MojoExecutionException {
+    private String templateOther(Map<?, ?> model) throws MojoExecutionException {
         try {
             String template = loadText(getClass().getClassLoader().getResourceAsStream("other-template.mvel"));
             String out = (String) TemplateRuntime.eval(template, model);
@@ -416,29 +255,255 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         }
     }
 
-    private Set<String> findExtensions() {
-        Set<String> answer = new LinkedHashSet<>();
+    private List<CamelQuarkusExtension> findExtensionModules() {
+        try {
+            return Files.list(extensionsDir.toPath())
+                    .filter(Files::isDirectory)
+                    .filter(path -> !EXCLUDE_EXTENSIONS.contains(path.getFileName().toString()))
+                    .map(path -> path.resolve("pom.xml"))
+                    .filter(Files::exists)
+                    .map(CamelQuarkusExtension::read)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not list " + extensionsDir, e);
+        }
+    }
 
-        File[] names = extensionsDir.listFiles();
-        if (names != null) {
-            for (File name : names) {
-                if (name.isDirectory()) {
-                    boolean excluded = isExcludedExtension(name.getName());
-                    boolean active = new File(name, "pom.xml").exists();
-                    if (!excluded && active) {
-                        answer.add(name.getName());
+    enum Kind {
+        components() {
+            @Override
+            public String getName(JsonObject json) {
+                return json.get(getSingularName()).getAsJsonObject().get("scheme").getAsString();
+            }
+
+            @Override
+            public Path getPath(PrepareCatalogQuarkusMojo mojo) {
+                return mojo.componentsOutDir.toPath();
+            }
+
+        },
+        languages() {
+            @Override
+            public String getName(JsonObject json) {
+                return json.get(getSingularName()).getAsJsonObject().get("name").getAsString();
+            }
+
+            @Override
+            public Path getPath(PrepareCatalogQuarkusMojo mojo) {
+                return mojo.languagesOutDir.toPath();
+            }
+        },
+        dataformats() {
+            @Override
+            public String getName(JsonObject json) {
+                return json.get(getSingularName()).getAsJsonObject().get("name").getAsString();
+            }
+
+            @Override
+            public Path getPath(PrepareCatalogQuarkusMojo mojo) {
+                return mojo.dataFormatsOutDir.toPath();
+            }
+        },
+        others() {
+            @Override
+            public String getName(JsonObject json) {
+                return json.get(getSingularName()).getAsJsonObject().get("name").getAsString();
+            }
+
+            @Override
+            public Path getPath(PrepareCatalogQuarkusMojo mojo) {
+                return mojo.othersOutDir.toPath();
+            }
+        }
+        ;
+
+        public abstract String getName(JsonObject json);
+        public abstract Path getPath(PrepareCatalogQuarkusMojo mojo);
+        public String getSingularName() {
+            return name().substring(0, name().length() - 1);
+        }
+    }
+
+    static class CamelCatalog {
+
+        public static CamelCatalog load() {
+
+            Map<Kind, Map<String, List<JsonObject>>> entriesByKindByArtifactId = new EnumMap<>(Kind.class);
+
+            for (Kind kind : Kind.values()) {
+                final String resourcePath = "org/apache/camel/catalog/" + kind + ".properties";
+                final URL url = PrepareCatalogQuarkusMojo.class.getClassLoader().getResource(resourcePath);
+                try (BufferedReader propsReader = new BufferedReader(
+                        new InputStreamReader(
+                                url.openStream(),
+                                StandardCharsets.UTF_8))) {
+                    /* Load the catalog entries */
+
+                    final JsonParser jsonParser = new JsonParser();
+                    final Map<String, List<JsonObject>> entries = new HashMap<>();
+                    propsReader.lines()
+                        .map(name -> {
+                            final String rPath = "org/apache/camel/catalog/" + kind + "/" + name + ".json";
+                            try (Reader r = new InputStreamReader(PrepareCatalogQuarkusMojo.class.getClassLoader()
+                                    .getResourceAsStream(rPath ), StandardCharsets.UTF_8)) {
+                                return jsonParser.parse(r).getAsJsonObject();
+                            } catch (IOException e) {
+                                throw new RuntimeException("Could not load resource " + rPath + " from class path", e);
+                            }
+                       })
+                       .forEach(json -> {
+                           String aid = json.get(kind.getSingularName()).getAsJsonObject().get("artifactId").getAsString();
+                           List<JsonObject> jsons = entries.get(aid);
+                           if (jsons == null) {
+                               jsons = new ArrayList<JsonObject>();
+                               entries.put(aid, jsons);
+                           }
+                           jsons.add(json);
+                       });
+
+                    entriesByKindByArtifactId.put(kind, entries);
+
+                } catch (IOException e) {
+                    throw new RuntimeException("Could not load resource " + resourcePath + " from class path", e);
+                }
+            }
+            return new CamelCatalog(entriesByKindByArtifactId);
+
+        }
+
+        private final Map<Kind, Map<String, List<JsonObject>>> entriesByKindByArtifactId;
+
+        public CamelCatalog(Map<Kind, Map<String, List<JsonObject>>> entriesByKindByArtifactId2) {
+            super();
+            this.entriesByKindByArtifactId = entriesByKindByArtifactId2;
+        }
+
+        public List<JsonObject> getByArtifactId(Kind kind, String artifactId) {
+            final Map<String, List<JsonObject>> kindEntries = entriesByKindByArtifactId.get(kind);
+            List<JsonObject> result = kindEntries != null ? kindEntries.get(artifactId) : null;
+            return result == null ? Collections.emptyList() : result;
+        }
+
+        public Optional<Kind> getKind(String artifactId) {
+            return entriesByKindByArtifactId.entrySet().stream()
+                    .filter(en -> en.getValue().containsKey(artifactId))
+                    .map(Entry::getKey)
+                    .findFirst();
+        }
+    }
+
+    static class CamelQuarkusExtension {
+
+        public static CamelQuarkusExtension read(Path parentPomXmlPath) {
+            final Path runtimePomXmlPath = parentPomXmlPath.getParent().resolve("runtime/pom.xml").toAbsolutePath().normalize();
+            try (Reader parentReader = Files.newBufferedReader(parentPomXmlPath, StandardCharsets.UTF_8);
+                    Reader runtimeReader = Files.newBufferedReader(runtimePomXmlPath, StandardCharsets.UTF_8)) {
+                final MavenXpp3Reader rxppReader = new MavenXpp3Reader();
+                final Model parentPom = rxppReader.read(parentReader);
+                final Model runtimePom = rxppReader.read(runtimeReader);
+                final List<Dependency> deps = runtimePom.getDependencies();
+
+                final String aid = runtimePom.getArtifactId();
+                String camelComponentArtifactId = null;
+                if (aid.equals("camel-quarkus-core")) {
+                    camelComponentArtifactId = "camel-base";
+                } else if (deps != null && !deps.isEmpty()) {
+                    Optional<Dependency> artifact = deps.stream()
+                            .filter(dep ->
+
+                                    "org.apache.camel".equals(dep.getGroupId()) &&
+                                    ("compile".equals(dep.getScope()) || dep.getScope() == null))
+                            .findFirst();
+                    if (artifact.isPresent()) {
+                        camelComponentArtifactId = artifact.get().getArtifactId();
                     }
                 }
+                final Properties props = runtimePom.getProperties() != null ? runtimePom.getProperties() : new Properties();
+
+                String name = props.getProperty("title");
+                if (name == null) {
+                    name = parentPom.getName().replace("Camel Quarkus :: ", "");
+                }
+
+                return new CamelQuarkusExtension(
+                        parentPomXmlPath,
+                        runtimePomXmlPath,
+                        camelComponentArtifactId,
+                        (String) props.get("firstVersion"),
+                        aid,
+                        name,
+                        runtimePom.getDescription(),
+                        props.getProperty("label")
+                        );
+            } catch (IOException | XmlPullParserException e) {
+                throw new RuntimeException("Could not read "+ parentPomXmlPath, e);
             }
         }
 
-        getLog().info("Found " + answer.size() + " Camel Quarkus Extensions from: " + extensionsDir);
+        private final String label;
 
-        return answer;
-    }
+        private final String description;
 
-    private static boolean isExcludedExtension(String name) {
-        return Arrays.asList(EXCLUDE_EXTENSIONS).contains(name);
+        private final String runtimeArtifactId;
+
+        private final Path parentPomXmlPath;
+        private final Path runtimePomXmlPath;
+        private final String camelComponentArtifactId;
+        private final String firstVersion;
+        private final String name;
+
+        public CamelQuarkusExtension(
+                Path pomXmlPath,
+                Path runtimePomXmlPath,
+                String camelComponentArtifactId,
+                String firstVersion,
+                String runtimeArtifactId,
+                String name,
+                String description,
+                String label) {
+            super();
+            this.parentPomXmlPath = pomXmlPath;
+            this.runtimePomXmlPath = runtimePomXmlPath;
+            this.camelComponentArtifactId = camelComponentArtifactId;
+            this.firstVersion = firstVersion;
+            this.runtimeArtifactId = runtimeArtifactId;
+            this.name = name;
+            this.description = description;
+            this.label = label;
+        }
+
+        public Path getParentPomXmlPath() {
+            return parentPomXmlPath;
+        }
+
+        public Optional<String> getFirstVersion() {
+            return Optional.ofNullable(firstVersion);
+        }
+
+        public Path getRuntimePomXmlPath() {
+            return runtimePomXmlPath;
+        }
+
+        public Optional<String> getLabel() {
+            return Optional.ofNullable(label);
+        }
+
+        public Optional<String> getDescription() {
+            return Optional.ofNullable(description);
+        }
+
+        public String getRuntimeArtifactId() {
+            return runtimeArtifactId;
+        }
+
+        public String getCamelComponentArtifactId() {
+            return camelComponentArtifactId;
+        }
+
+        public Optional<String> getName() {
+            return Optional.ofNullable(name);
+        }
+
     }
 
 }

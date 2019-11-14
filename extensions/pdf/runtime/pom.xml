@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-pdf</artifactId>
     <name>Camel Quarkus :: PDF :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.3.1</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

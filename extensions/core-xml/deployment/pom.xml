@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-core-xml-deployment</artifactId>
-    <name>Camel Quarkus :: Core :: XML :: Deployment</name>
+    <name>Camel Quarkus :: Core XML :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>
