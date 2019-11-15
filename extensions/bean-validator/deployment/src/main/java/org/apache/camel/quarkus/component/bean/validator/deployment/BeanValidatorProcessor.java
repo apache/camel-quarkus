@@ -17,7 +17,14 @@
 package org.apache.camel.quarkus.component.bean.validator.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.component.bean.validator.BeanValidatorComponent;
+import org.apache.camel.quarkus.component.bean.validator.BeanValidatorRecorder;
+import org.apache.camel.quarkus.core.CamelServiceFilter;
+import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 
 class BeanValidatorProcessor {
 
@@ -28,4 +35,21 @@ class BeanValidatorProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    /*
+     * The bean-validator component is programmatically configured by the extension thus
+     * we can safely prevent camel to instantiate a default instance.
+     */
+    @BuildStep
+    CamelServiceFilterBuildItem serviceFilter() {
+        return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("bean-validator"));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelRuntimeBeanBuildItem beanValidatorComponent(BeanValidatorRecorder recorder) {
+        return new CamelRuntimeBeanBuildItem(
+                "bean-validator",
+                BeanValidatorComponent.class.getName(),
+                recorder.createBeanValidatorComponent());
+    }
 }
