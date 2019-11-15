@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tooling-maven</artifactId>
-        <version>0.3.2-SNAPSHOT</version>
+        <version>0.4.0</version>
     </parent>
 
     <artifactId>camel-quarkus-package-maven-plugin</artifactId>
