@@ -35,22 +35,22 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 public class NoDefaultServletTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-        .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClass(CustomDefaultServletClassTest.Routes.class)
-            .addAsResource(applicationProperties(), "application.properties"));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addClass(CustomDefaultServletClassTest.Routes.class)
+                    .addAsResource(applicationProperties(), "application.properties"));
 
     @Test
     public void noDefaultServlet() throws Exception {
         RestAssured.when().get("/my-path/custom").then()
-            .body(IsEqual.equalTo("GET: /custom"))
-            .and().header("x-servlet-class-name", CustomServlet.class.getName());
+                .body(IsEqual.equalTo("GET: /custom"))
+                .and().header("x-servlet-class-name", CustomServlet.class.getName());
     }
 
     public static final class Routes extends RouteBuilder {
         @Override
         public void configure() {
             from("servlet://custom?servletName=my-servlet")
-                .setBody(constant("GET: /custom"));
+                    .setBody(constant("GET: /custom"));
         }
     }
 

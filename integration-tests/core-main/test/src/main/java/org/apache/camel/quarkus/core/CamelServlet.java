@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -34,6 +33,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
+import org.apache.camel.quarkus.core.runtime.support.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
@@ -63,44 +63,19 @@ public class CamelServlet {
         return context.getComponent("timer", TimerComponent.class).isBasicPropertyBinding();
     }
 
-
     @Path("/registry/log/exchange-formatter")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject exchangeFormatterConfig() {
         LogComponent component = registry.lookupByNameAndType("log", LogComponent.class);
-        DefaultExchangeFormatter def = (DefaultExchangeFormatter)component.getExchangeFormatter();
+        DefaultExchangeFormatter def = (DefaultExchangeFormatter) component.getExchangeFormatter();
 
         JsonObject result = Json.createObjectBuilder()
-            .add("show-all", def.isShowAll())
-            .add("multi-line", def.isMultiline())
-            .build();
+                .add("show-all", def.isShowAll())
+                .add("multi-line", def.isMultiline())
+                .build();
 
         return result;
-    }
-
-    @Path("/registry/produces-config-build")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesBuildTimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.BuildTime.class) != null;
-    }
-
-    @Path("/registry/produces-config-runtime")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean producesRuntimeConfig() {
-        return lookupSingleInstanceFromRegistry(CamelConfig.Runtime.class) != null;
-    }
-
-    private <T> T lookupSingleInstanceFromRegistry(Class<T> type) {
-        final Set<T> answer = context.getRegistry().findByType(type);
-
-        if (answer.size() == 1) {
-            return answer.iterator().next();
-        }
-
-        return null;
     }
 
     @Path("/context/name")
@@ -132,11 +107,11 @@ public class CamelServlet {
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
 
         return Json.createObjectBuilder()
-            .add("listeners", listeners)
-            .add("routeBuilders", routeBuilders)
-            .add("routes", routes)
-            .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
-            .build();
+                .add("listeners", listeners)
+                .add("routeBuilders", routeBuilders)
+                .add("routes", routes)
+                .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
+                .build();
     }
 
     @Path("/context/reactive-executor")
@@ -149,10 +124,22 @@ public class CamelServlet {
         builder.add("class", executor.getClass().getName());
 
         if (executor instanceof VertXReactiveExecutor) {
-            builder.add("configured", ((VertXReactiveExecutor)executor).getVertx() != null);
+            builder.add("configured", ((VertXReactiveExecutor) executor).getVertx() != null);
 
         }
 
         return builder.build();
+    }
+
+    @Path("/converter/my-pair")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject fromStringToMyPair(String input) {
+        MyPair pair = context.getTypeConverter().convertTo(MyPair.class, input);
+
+        return Json.createObjectBuilder()
+                .add("key", pair.key)
+                .add("val", pair.val)
+                .build();
     }
 }

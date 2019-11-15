@@ -24,20 +24,16 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.core.CamelServiceInfo;
+import org.apache.camel.util.AntPathMatcher;
+import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
@@ -62,47 +58,53 @@ public final class CamelSupport {
         }
     }
 
+    public static boolean isPathIncluded(String path, Collection<String> excludePatterns, Collection<String> includePatterns) {
+        final AntPathMatcher matcher = new AntPathMatcher();
+
+        if (ObjectHelper.isEmpty(excludePatterns) && ObjectHelper.isEmpty(includePatterns)) {
+            return true;
+        }
+
+        // same logic as  org.apache.camel.main.DefaultRoutesCollector so exclude
+        // take precedence over include
+        for (String part : excludePatterns) {
+            if (matcher.match(part.trim(), path)) {
+                return false;
+            }
+        }
+        for (String part : includePatterns) {
+            if (matcher.match(part.trim(), path)) {
+                return true;
+            }
+        }
+
+        return ObjectHelper.isEmpty(includePatterns);
+    }
+
     public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {
         return archives.getAllApplicationArchives().stream()
-            .map(arch -> arch.getArchiveRoot().resolve(path))
-            .filter(Files::isDirectory)
-            .flatMap(CamelSupport::safeWalk)
-            .filter(Files::isRegularFile);
+                .map(arch -> arch.getArchiveRoot().resolve(path))
+                .filter(Files::isDirectory)
+                .flatMap(CamelSupport::safeWalk)
+                .filter(Files::isRegularFile);
     }
 
-    public static Stream<String> getRouteBuilderClasses(IndexView view) {
-        Set<ClassInfo> allKnownImplementors = new HashSet<>();
-        allKnownImplementors.addAll(
-            view.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-        allKnownImplementors.addAll(
-            view.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-        allKnownImplementors.addAll(
-            view.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
-
-        return allKnownImplementors
-            .stream()
-            .filter(CamelSupport::isConcrete)
-            .filter(CamelSupport::isPublic)
-            .map(ClassInfo::toString);
-    }
-
-    public static Stream<ServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {
+    public static Stream<CamelServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {
         return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-            .map(CamelSupport::services)
-            .flatMap(Collection::stream);
+                .map(CamelSupport::services)
+                .flatMap(Collection::stream);
     }
 
-    private static List<ServiceInfo> services(Path p) {
-        List<ServiceInfo> answer = new ArrayList<>();
+    private static List<CamelServiceInfo> services(Path p) {
+        List<CamelServiceInfo> answer = new ArrayList<>();
 
-        String name = p.getFileName().toString();
         try (InputStream is = Files.newInputStream(p)) {
             Properties props = new Properties();
             props.load(is);
             for (Map.Entry<Object, Object> entry : props.entrySet()) {
                 String k = entry.getKey().toString();
                 if (k.equals("class")) {
-                    answer.add(new ServiceInfo(p, name, entry.getValue().toString()));
+                    answer.add(new CamelServiceInfo(p, entry.getValue().toString()));
                 }
             }
         } catch (Exception e) {
@@ -112,28 +114,4 @@ public final class CamelSupport {
         return answer;
     }
 
-    /**
-     * Utility class to describe a camel service which is a result of reading
-     * services from resources belonging to META-INF/services/org/apache/camel.
-     */
-    public static class ServiceInfo {
-        public final Path path;
-        public final String name;
-        public final String type;
-
-        public ServiceInfo(Path path, String name, String type) {
-            this.path = path;
-            this.name = name;
-            this.type = type;
-        }
-
-        @Override
-        public String toString() {
-            return "ServiceInfo{"
-                + "path='" + path.toString() + '\''
-                + ", name=" + name
-                + ", type=" + type
-                + '}';
-        }
-    }
 }

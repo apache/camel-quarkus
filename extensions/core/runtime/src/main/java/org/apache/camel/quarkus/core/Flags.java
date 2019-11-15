@@ -24,24 +24,21 @@ public final class Flags {
     private Flags() {
     }
 
-    public static final class JaxbDisabled implements BooleanSupplier {
+    private static boolean asBoolean(String key, boolean defaultValue) {
+        return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(defaultValue);
+    }
+
+    public static final class MainEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-jaxb", Boolean.class).orElse(Boolean.FALSE);
+            return asBoolean("quarkus.camel.main.enabled", true);
         }
     }
 
-    public static final class XmlDisabled implements BooleanSupplier {
+    public static final class RoutesDiscoveryEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-xml", Boolean.class).orElse(Boolean.FALSE);
-        }
-    }
-
-    public static final class MainDisabled implements BooleanSupplier {
-        @Override
-        public boolean getAsBoolean() {
-            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.disable-main", Boolean.class).orElse(Boolean.FALSE);
+            return asBoolean("quarkus.camel.main.routes-discovery.enabled", true);
         }
     }
 }

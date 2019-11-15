@@ -26,6 +26,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.core.runtime.support.SupportListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -54,43 +55,78 @@ public class CamelTest {
         assertNotEquals("my-ctx-name", response.body().asString());
 
         RestAssured.given()
-            .contentType(ContentType.TEXT).body("my-ctx-name")
-            .post("/test/context/name")
-            .then().body(is("my-ctx-name"));
+                .contentType(ContentType.TEXT).body("my-ctx-name")
+                .post("/test/context/name")
+                .then().body(is("my-ctx-name"));
+    }
+
+    /*
+     * This test is tagged with quarkus-platform-ignore as it needs to be
+     * ignored when running camel test from the quarkus-platform as the
+     * test relies on a local route file being loaded.
+     */
+    @Test
+    @Tag("quarkus-platform-ignore")
+    public void testMainInstanceWithXmlRoutes() {
+        JsonPath p = RestAssured.given()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/main/describe")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath();
+
+        assertThat(p.getList("routeBuilders", String.class))
+                .contains(SupportListener.MyBuilder.class.getName());
+        assertThat(p.getList("routes", String.class))
+                .contains("my-xml-route");
     }
 
     @Test
     public void testMainInstance() {
         JsonPath p = RestAssured.given()
-            .accept(MediaType.APPLICATION_JSON)
-            .get("/test/main/describe")
-            .then()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/main/describe")
+                .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
         assertThat(p.getList("listeners", String.class))
-            .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
+                .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
-            .containsOnly(CamelRoute.class.getName());
+                .contains(CamelRoute.class.getName())
+                .doesNotContain(CamelRouteFiltered.class.getName());
         assertThat(p.getList("routes", String.class))
-            .containsOnly("keep-alive", "listener", "my-xml-route");
+                .contains("keep-alive", "configure", "beforeStart")
+                .doesNotContain("filtered");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
-
     }
 
     @Test
     public void testReactiveExecutor() {
         JsonPath executor = RestAssured.when().get("/test/context/reactive-executor")
-            .then()
+                .then()
                 .statusCode(200)
-            .extract()
+                .extract()
                 .body()
                 .jsonPath();
 
         assertThat(executor.getString("class")).isEqualTo(VertXReactiveExecutor.class.getName());
         assertThat(executor.getBoolean("configured")).isTrue();
+    }
+
+    @Test
+    public void testCustomTypeConverter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT).body("a:b")
+                .accept(MediaType.APPLICATION_JSON)
+                .post("/test/converter/my-pair")
+                .then().body(
+                        "key", is("a"),
+                        "val", is("b"));
     }
 }

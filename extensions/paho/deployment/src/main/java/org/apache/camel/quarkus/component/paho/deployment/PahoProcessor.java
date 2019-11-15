@@ -18,16 +18,14 @@ package org.apache.camel.quarkus.component.paho.deployment;
 
 import java.util.Arrays;
 import java.util.List;
-
 import javax.inject.Inject;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBundleBuildItem;
-
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.paho.PahoConfiguration;
 import org.eclipse.paho.client.mqttv3.internal.SSLNetworkModuleFactory;
 import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModuleFactory;
@@ -42,14 +40,13 @@ class PahoProcessor {
             JSR47Logger.class,
             TCPNetworkModuleFactory.class,
             SSLNetworkModuleFactory.class,
-            PahoConfiguration.class
-    );
+            PahoConfiguration.class);
 
     @Inject
-    BuildProducer<SubstrateResourceBuildItem> resource;
+    BuildProducer<NativeImageResourceBuildItem> resource;
 
     @Inject
-    BuildProducer<SubstrateResourceBundleBuildItem> resourceBundle;
+    BuildProducer<NativeImageResourceBundleBuildItem> resourceBundle;
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -60,15 +57,14 @@ class PahoProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         for (Class<?> type : PAHO_REFLECTIVE_CLASSES) {
             reflectiveClass.produce(
-                    new ReflectiveClassBuildItem(true, true, type)
-            );
+                    new ReflectiveClassBuildItem(true, true, type));
         }
     }
 
     @BuildStep
     void registerBundleResource() {
-        resource.produce(new SubstrateResourceBuildItem("META-INF/services/" + NetworkModuleFactory.class.getName()));
-        resourceBundle.produce(new SubstrateResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat"));
+        resource.produce(new NativeImageResourceBuildItem("META-INF/services/" + NetworkModuleFactory.class.getName()));
+        resourceBundle.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat"));
     }
 
 }

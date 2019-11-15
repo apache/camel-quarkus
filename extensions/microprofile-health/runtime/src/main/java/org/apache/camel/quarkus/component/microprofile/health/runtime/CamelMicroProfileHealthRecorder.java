@@ -24,20 +24,4 @@ import org.apache.camel.health.HealthCheckRepository;
 
 @Recorder
 public class CamelMicroProfileHealthRecorder {
-
-    public RuntimeValue<HealthCheck> createHealthCheck(Class<?> clazz) {
-        try {
-            return new RuntimeValue<>(HealthCheck.class.cast(clazz.newInstance()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public RuntimeValue<HealthCheckRepository> createHealthCheckRepository(Class<?> clazz) {
-        try {
-            return new RuntimeValue<>(HealthCheckRepository.class.cast(clazz.newInstance()));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 }

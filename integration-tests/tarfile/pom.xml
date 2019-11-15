@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-tests</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-integration-test-tarfile</artifactId>
@@ -37,10 +37,6 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -78,7 +74,7 @@
 
     <profiles>
         <profile>
-            <id>native-image</id>
+            <id>native</id>
             <activation>
                 <property>
                     <name>native</name>

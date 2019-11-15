@@ -39,9 +39,9 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.substrate.ServiceProviderBuildItem;
-import io.quarkus.deployment.builditem.substrate.SubstrateResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 
 class MailProcessor {
 
@@ -51,7 +51,7 @@ class MailProcessor {
     BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
 
     @Inject
-    BuildProducer<SubstrateResourceBuildItem> resource;
+    BuildProducer<NativeImageResourceBuildItem> resource;
 
     @Inject
     BuildProducer<ServiceProviderBuildItem> services;
@@ -102,7 +102,7 @@ class MailProcessor {
                         .distinct()
                         .toArray(String[]::new)));
 
-        resource.produce(new SubstrateResourceBuildItem(
+        resource.produce(new NativeImageResourceBuildItem(
                 "META-INF/services/javax.mail.Provider",
                 "META-INF/javamail.charset.map",
                 "META-INF/javamail.default.address.map",
@@ -156,16 +156,17 @@ class MailProcessor {
 
     private <T> Stream<T> enumerationAsStream(Enumeration<T> e) {
         return StreamSupport.stream(
-            Spliterators.spliteratorUnknownSize(
-                new Iterator<T>() {
-                    public T next() {
-                        return e.nextElement();
-                    }
-                    public boolean hasNext() {
-                        return e.hasMoreElements();
-                    }
-                },
-                Spliterator.ORDERED),
-            false);
+                Spliterators.spliteratorUnknownSize(
+                        new Iterator<T>() {
+                            public T next() {
+                                return e.nextElement();
+                            }
+
+                            public boolean hasNext() {
+                                return e.hasMoreElements();
+                            }
+                        },
+                        Spliterator.ORDERED),
+                false);
     }
 }

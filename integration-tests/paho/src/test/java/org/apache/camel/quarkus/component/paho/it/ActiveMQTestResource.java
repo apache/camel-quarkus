@@ -31,7 +31,6 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
     private BrokerService broker;
 
-
     @Override
     public Map<String, String> start() {
         try {
@@ -60,4 +59,3 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
         }
     }
 }
-

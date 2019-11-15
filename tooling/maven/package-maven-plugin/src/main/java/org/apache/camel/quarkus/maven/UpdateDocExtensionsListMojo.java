@@ -19,6 +19,10 @@ package org.apache.camel.quarkus.maven;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,10 +33,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.apache.camel.quarkus.maven.model.ComponentModel;
-import org.apache.camel.quarkus.maven.model.DataFormatModel;
-import org.apache.camel.quarkus.maven.model.LanguageModel;
-import org.apache.camel.quarkus.maven.model.OtherModel;
+import org.apache.camel.maven.packaging.JSonSchemaHelper;
+import org.apache.camel.maven.packaging.MvelHelper;
+import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.maven.packaging.model.ComponentModel;
+import org.apache.camel.maven.packaging.model.DataFormatModel;
+import org.apache.camel.maven.packaging.model.LanguageModel;
+import org.apache.camel.maven.packaging.model.OtherModel;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -44,8 +51,8 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.mvel2.templates.TemplateRuntime;
 
 import static java.util.stream.Collectors.toSet;
-import static org.apache.camel.quarkus.maven.PackageHelper.loadText;
-import static org.apache.camel.quarkus.maven.PackageHelper.writeText;
+import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import static org.apache.camel.maven.packaging.PackageHelper.writeText;
 
 /**
  * Updates the documentation in:
@@ -95,6 +102,12 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
     protected File readmeExtensionsDir;
 
     /**
+     * The website doc base directory
+     */
+    @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages")
+    protected File websiteDocBaseDir;
+
+    /**
      * The website doc for extensions
      */
     @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc")
@@ -110,8 +123,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *                                threads it generated failed.
-     * @throws MojoFailureException   something bad happened...
+     *             threads it generated failed.
+     * @throws MojoFailureException something bad happened...
      */
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -410,28 +423,34 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
     }
 
-    private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated) throws MojoExecutionException {
+    private String templateComponents(List<ComponentModel> models, int artifacts, long deprecated)
+            throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-components.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("components", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
         }
     }
 
-    private String templateDataFormats(List<DataFormatModel> models, int artifacts, long deprecated) throws MojoExecutionException {
+    private String templateDataFormats(List<DataFormatModel> models, int artifacts, long deprecated)
+            throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-dataformats.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("dataformats", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
@@ -440,12 +459,14 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
     private String templateLanguages(List<LanguageModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-languages.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("languages", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
@@ -454,12 +475,14 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
     private String templateOthers(List<OtherModel> models, int artifacts, long deprecated) throws MojoExecutionException {
         try {
-            String template = loadText(UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
+            String template = loadText(
+                    UpdateDocExtensionsListMojo.class.getClassLoader().getResourceAsStream("readme-others.mvel"));
             Map<String, Object> map = new HashMap<>();
             map.put("others", models);
             map.put("numberOfArtifacts", artifacts);
             map.put("numberOfDeprecated", deprecated);
-            String out = (String) TemplateRuntime.eval(template, map, Collections.singletonMap("util", MvelHelper.INSTANCE));
+            String out = (String) TemplateRuntime.eval(template, map,
+                    Collections.singletonMap("util", new ExtMvelHelper(getExtensionsDocPath())));
             return out;
         } catch (Exception e) {
             throw new MojoExecutionException("Error processing mvel template. Reason: " + e, e);
@@ -643,7 +666,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
     private ComponentModel generateComponentModel(String json) {
         List<Map<String, String>> rows = JSonSchemaHelper.parseJsonSchema("component", json, false);
 
-        ComponentModel component = new ComponentModel();
+        ComponentModel component = new ComponentModel(false);
         component.setScheme(JSonSchemaHelper.getSafeValue("scheme", rows));
         component.setSyntax(JSonSchemaHelper.getSafeValue("syntax", rows));
         component.setAlternativeSyntax(JSonSchemaHelper.getSafeValue("alternativeSyntax", rows));
@@ -720,6 +743,10 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         other.setVersion(JSonSchemaHelper.getSafeValue("version", rows));
 
         return other;
+    }
+
+    private Path getExtensionsDocPath() {
+        return Paths.get(websiteDocBaseDir.toString(), "extensions");
     }
 
 }

@@ -22,9 +22,11 @@ as a base for your real world project.
 * An IDE
 * JDK 1.8+ with JAVA_HOME configured appropriately
 * Apache Maven 3.5.3+
-* Docker or GraalVM with `native-image` installed for the native mode, see
+* GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set, see
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
   documentation.
+* If your are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
+  if you choose this option.
 
 === Step by step with the `rest-json` example
 
@@ -32,19 +34,19 @@ as a base for your real world project.
 +
 [source,shell]
 ----
-git clone https://github.com/apache/camel-quarkus.git
-cd camel-quarkus
+$ git clone https://github.com/apache/camel-quarkus.git
+$ cd camel-quarkus
 # checkout the latest tag
-git checkout $(git describe --abbrev=0)
+$ git checkout $(git describe --abbrev=0)
 ----
 
 2. Copy the `rest-json` example out of the Camel Quarkus source tree.
 +
 [source,shell]
 ----
-cd ..
-cp -r camel-quarkus/examples/rest-json .
-cd rest-json
+$ cd ..
+$ cp -r camel-quarkus/examples/rest-json .
+$ cd rest-json
 ----
 
 3. Open the `pom.xml` file in your IDE.
@@ -57,24 +59,25 @@ sketched below:
 <project>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-bom</artifactId>
+        <artifactId>camel-quarkus-bom</artifactId><!--1-->
         <version>{camel-quarkus-last-release}</version>
-        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--1-->
+        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--2-->
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.my-org</groupId><!--2-->
-    <artifactId>my-app</artifactId><!--3-->
-    <version>0.0.1-SNAPSHOT</version><!--4-->
+    <groupId>org.my-org</groupId><!--3-->
+    <artifactId>my-app</artifactId><!--4-->
+    <version>0.0.1-SNAPSHOT</version><!--5-->
 
     ...
 
 </project>
 ----
-<1> Remove the `<relativePath>` element.
-<2> Add a `groupId` of your choice.
-<3> Change the `artifactId` to whatever you like
-<4> Add the `version`
+<1> Change the `<artifactId>` element to `camel-quarkus-bom`.
+<2> Remove the `<relativePath>` element.
+<3> Add a `groupId` of your choice.
+<4> Change the `artifactId` to whatever you like
+<5> Add the `version`
 
 === Explore the application code
 
@@ -101,14 +104,34 @@ There are only three classes in the application: `Routes` defining the Camel rou
 
 `src/main/resources/application.properties` configure the application. E.g. the `camel.context.name` is set there.
 
-There are two test classes there: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
+=== Development mode
+
+[source,shell]
+----
+$ mvn clean compile quarkus:dev
+----
+
+This command compiles the project, starts your application and lets the Quarkus tooling watch for changes in your
+workspace. Any modifications in your project will automatically take effect in the running application.
+
+Check the application in the browser, e.g. http://localhost:8080/fruits[http://localhost:8080/fruits]
+for the `rest-json` example
+
+Then change something in the code and see the changes applied by refreshing the browser.
+
+Please refer to https://quarkus.io/guides/maven-tooling#development-mode[Quarkus documentation] for more details.
+
+
+=== Testing
+
+There are two test classes in our example: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
 mode.
 
 The JVM mode tests are run by `maven-surefire-plugin` in the `test` Maven phase:
 
 [source,shell]
 ----
-mvn clean test
+$ mvn clean test
 ----
 
 This should take about 15 seconds.
@@ -118,12 +141,12 @@ activate the profile that runs them:
 
 [source,shell]
 ----
-mvn clean verify -Dnative -Dnative-image.docker-build=true
+$ mvn clean verify -Pnative
 ----
 
 This takes about 2.5 minutes (once you have all dependencies cached).
 
-=== Run the application
+=== Package and run the application
 
 ==== JVM mode
 
@@ -131,8 +154,8 @@ This takes about 2.5 minutes (once you have all dependencies cached).
 
 [source,shell]
 ----
-mvn clean package
-ls -lh target
+$ mvn clean package
+$ ls -lh target
 ...
 -rw-r--r--. 1 ppalaga ppalaga 238K Oct 11 18:55  my-app-0.0.1-SNAPSHOT-runner.jar
 ...
@@ -142,7 +165,7 @@ You can run it as follows:
 
 [source,shell]
 ----
-java -jar target/*-runner.jar
+$ java -jar target/*-runner.jar
 ...
 [io.quarkus] (main) Quarkus 0.23.2 started in 1.163s. Listening on: http://[::]:8080
 ----
@@ -157,8 +180,8 @@ To prepare a native executable using GraalVM, run the following command:
 
 [source,shell]
 ----
-mvn clean package -Dnative -Dnative-image.docker-build=true
-ls -lh target
+$ mvn clean package -Pnative
+$ ls -lh target
 ...
 -rwxr-xr-x. 1 ppalaga ppalaga  46M Oct 11 18:57  my-app-0.0.1-SNAPSHOT-runner
 ...
@@ -169,7 +192,7 @@ it can be run directly:
 
 [source,shell]
 ----
-./target/*-runner
+$ ./target/*-runner
 ...
 [io.quarkus] (main) Quarkus 0.23.2 started in 0.013s. Listening on: http://[::]:8080
 ...
@@ -179,9 +202,13 @@ Check how fast it started and check how little memory it consumes:
 
 [source,shell]
 ----
-ps -o rss,command -p $(pgrep my-app)
+$ ps -o rss,command -p $(pgrep my-app)
   RSS COMMAND
 34916 ./target/my-app-0.0.1-SNAPSHOT-runner
 ----
 
 That's under 35 MB of RAM!
+
+TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable quide] contains more details
+including
+https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].

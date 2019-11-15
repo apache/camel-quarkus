@@ -1,0 +1,59 @@
+[[opentracing]]
+= OpenTracing Extension
+
+*Since Camel Quarkus 0.3.0*
+
+The OpenTracing extension is used for tracing and timing incoming and outgoing Camel messages.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-opentracing</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension automatically creates a Camel `OpenTracingTracer` and binds it to the Camel registry.
+
+In order to send the captured traces to a tracing system, you need to configure some properties within `application.properties` like those below.
+
+....
+quarkus.jaeger.service-name=my-service
+quarkus.jaeger.sampler-type=const
+quarkus.jaeger.sampler-param=1
+quarkus.jaeger.endpoint=http://localhost:14268/api/traces
+....
+
+Refer to the https://quarkus.io/guides/opentracing-guide#configuration-reference[Quarkus OpenTracing guide] for a full list of configuration options.
+
+Route endpoints can be excluded from tracing by configuring a property named `quarkus.camel.opentracing.exclude-patterns` in `application.properties`. For example:
+
+....
+# Exclude all direct & netty-http endpoints from tracing
+quarkus.camel.opentracing.exclude-patterns=direct:*,netty-http:*
+....
+
+=== Configuration
+
+The Camel OpenTracing extension exposes the following configuration properties.
+
+[cols="80,.^10,.^10"]
+|===
+|Configuration property |Type |Default
+
+|`quarkus.camel.opentracing.encoding`
+
+ Sets whether header keys need to be encoded
+|boolean
+|`false`
+
+|`quarkus.camel.opentracing.exclude-patterns`
+
+ Sets whether to disable tracing for endpoint URIs that match the given patterns
+|List<String>
+|
+|===

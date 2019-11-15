@@ -27,7 +27,7 @@ public class RuntimeRegistry extends DefaultRegistry {
     @Override
     public Object unwrap(Object value) {
         return (value instanceof RuntimeValue)
-            ? ((RuntimeValue)value).getValue()
-            : value;
+                ? ((RuntimeValue) value).getValue()
+                : value;
     }
 }

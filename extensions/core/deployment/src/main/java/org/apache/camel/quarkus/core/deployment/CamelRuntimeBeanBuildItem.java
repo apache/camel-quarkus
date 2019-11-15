@@ -34,10 +34,10 @@ import io.quarkus.runtime.RuntimeValue;
  */
 public final class CamelRuntimeBeanBuildItem extends MultiBuildItem {
     private final String name;
-    private final Class<?> type;
+    private final String type;
     private final RuntimeValue<?> value;
 
-    public CamelRuntimeBeanBuildItem(String name, Class<?> type, RuntimeValue<?> value) {
+    public CamelRuntimeBeanBuildItem(String name, String type, RuntimeValue<?> value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
         this.value = Objects.requireNonNull(value);
@@ -47,7 +47,7 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem {
         return name;
     }
 
-    public Class<?> getType() {
+    public String getType() {
         return type;
     }
 

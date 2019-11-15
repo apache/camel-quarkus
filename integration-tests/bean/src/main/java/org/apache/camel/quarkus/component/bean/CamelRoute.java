@@ -21,34 +21,47 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
+import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.bean.BeanProcessor;
 import org.apache.camel.support.DefaultExchange;
 
+/**
+ * A {@link RouteBuilder} instantiated by Camel (not by Arc).
+ */
 public class CamelRoute extends RouteBuilder {
+
+    static final AtomicInteger CONFIGURE_COUNTER = new AtomicInteger(0);
+
+    @Override
+    public void addRoutesToCamelContext(CamelContext context) throws Exception {
+        CONFIGURE_COUNTER.incrementAndGet();
+        super.addRoutesToCamelContext(context);
+    }
 
     @Override
     public void configure() {
         from("direct:process-order")
-            .setHeader(MyOrderService.class.getName(), MyOrderService::new)
-            .split(body().tokenize("@"), CamelRoute.this::aggregate)
-            // each splitted message is then send to this bean where we can process it
-            .process(stateless(MyOrderService.class.getName(), "handleOrder"))
-            // this is important to end the splitter route as we do not want to do more routing
-            // on each splitted message
-            .end()
-            // after we have splitted and handled each message we want to send a single combined
-            // response back to the original caller, so we let this bean build it for us
-            // this bean will receive the result of the aggregate strategy: MyOrderStrategy
-            .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"))
-            // log out
-            .to("log:out");
+                .setHeader(MyOrderService.class.getName(), MyOrderService::new)
+                .split(body().tokenize("@"), CamelRoute.this::aggregate)
+                // each splitted message is then send to this bean where we can process it
+                .process(stateless(MyOrderService.class.getName(), "handleOrder"))
+                // this is important to end the splitter route as we do not want to do more routing
+                // on each splitted message
+                .end()
+                // after we have splitted and handled each message we want to send a single combined
+                // response back to the original caller, so we let this bean build it for us
+                // this bean will receive the result of the aggregate strategy: MyOrderStrategy
+                .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"))
+                // log out
+                .to("log:out");
 
     }
 

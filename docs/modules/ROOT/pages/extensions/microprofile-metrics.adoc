@@ -1,0 +1,184 @@
+[[microprofile-metrics]]
+= MicroProfile Metrics Extension
+
+*Since Camel Quarkus 0.2.0*
+
+The MicroProfile Metrics extension produces metrics and statistics related to the Camel Context, routes and message exchanges.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-microprofile-metrics</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The https://camel.apache.org/components/latest/microprofile-metrics-component.html[microprofile-metrics] component automatically exposes a set of Camel application metrics. Some of these include:
+
+=== Camel Context metrics
+
+[cols="80,.^20]
+|===
+|Metric Name | Type
+
+|`camel.context.status`
+
+The status of the Camel Context represented by the `ServiceStatus` enum ordinal
+
+| Gauge
+
+|`camel.context.uptime`
+
+The Camel Context uptime in milliseconds
+
+| Gauge
+
+|`camel.context.exchanges.completed.total`
+
+The total number of completed exchanges
+
+| Counter
+
+|`camel.context.exchanges.failed.total`
+
+The total number of failed exchanges
+
+| Counter
+
+|`camel.context.exchanges.inflight.total`
+
+The total number of inflight exchanges
+
+| Gauge
+
+|`camel.context.exchanges.total`
+
+The total number of all exchanges
+
+| Counter
+
+|`camel.context.externalRedeliveries.total`
+
+The total number of all external redeliveries
+
+| Counter
+
+|`camel.context.failuresHandled.total`
+
+The total number of all failures handled
+
+| Counter
+
+|===
+
+=== Camel Route metrics
+
+[cols="80,.^20]
+|===
+|Metric Name | Type
+
+|`camel.route.count`
+
+The number of routes
+
+| Gauge
+
+|`camel.route.running.count`
+
+The number of running routes
+
+| Gauge
+
+|`camel.route.exchanges.completed.total`
+
+The total number of completed exchanges for the route
+
+| Counter
+
+|`camel.route.exchanges.failed.total`
+
+The total number of failed exchanges for the route
+
+| Counter
+
+|`camel.route.exchanges.inflight.total`
+
+The total number of inflight exchanges for the route
+
+| Gauge
+
+|`camel.route.exchanges.total`
+
+The total number of all exchanges for the route
+
+| Counter
+
+|`camel.route.externalRedeliveries.total`
+
+The total number of all external redeliveries for the route
+
+| Counter
+
+|`camel.route.failuresHandled.total`
+
+The total number of all failures handled for the route
+
+| Counter
+|===
+
+All metrics are tagged with the name of the Camel Context and the id of the route where applicable.
+
+You can also produce your own customized metrics in your Camel routes. For more information, refer to the https://camel.apache.org/components/latest/microprofile-metrics-component.html[microprofile-metrics] component documentation.
+
+Metrics are exposed to Quarkus as application metrics and they can be browsed at http://localhost:8080/metrics/application.
+
+
+=== Configuration
+
+The Camel MicroProfile Metrics extension exposes the following configuration properties.
+
+[cols="80,.^10,.^10"]
+|===
+|Configuration property |Type |Default
+
+|`quarkus.camel.metrics.enable-route-policy`
+
+Set whether to enable the `MicroProfileMetricsRoutePolicyFactory` for capturing metrics on route processing times
+|boolean
+|`true`
+
+
+|`quarkus.camel.metrics.enable-message-history`
+
+Set whether to enable the `MicroProfileMetricsMessageHistoryFactory` for capturing metrics on individual route node processing times.
+
+Depending on the number of configured route nodes, there is the potential to create a large volume of metrics. Therefore, this option is disabled by default.
+
+|boolean
+|`false`
+
+|`quarkus.camel.metrics.enable-exchange-event-notifier`
+
+Set whether to enable the `MicroProfileMetricsExchangeEventNotifier` for capturing metrics on exchange processing times.
+
+|boolean
+|`true`
+
+|`quarkus.camel.metrics.enable-route-event-notifier`
+
+Set whether to enable the `MicroProfileMetricsRouteEventNotifier` for capturing metrics on the total number of routes and total number of routes running.
+
+|boolean
+|`true`
+
+|`quarkus.camel.metrics.enable-camel-context-event-notifier`
+
+Set whether to enable the `MicroProfileMetricsCamelContextEventNotifier` for capturing metrics about the CamelContext, such as status and uptime.
+
+|boolean
+|`true`
+|===

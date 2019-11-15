@@ -17,14 +17,12 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-tests</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-integration-test-platform-http</artifactId>
@@ -41,12 +39,12 @@
             <artifactId>camel-quarkus-rest</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jsonb</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jsonb</artifactId>
+        <dependency><!-- Leave this one out (and save ~560 kB of the native image) unless you want to attach uploads to the camel message -->
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-attachments</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -85,7 +83,7 @@
 
     <profiles>
         <profile>
-            <id>native-image</id>
+            <id>native</id>
             <activation>
                 <property>
                     <name>native</name>
@@ -130,6 +128,7 @@
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
+                                    <addAllCharsets>true</addAllCharsets><!-- Required by the encoding() test -->
                                 </configuration>
                             </execution>
                         </executions>

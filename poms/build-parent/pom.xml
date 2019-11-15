@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
@@ -39,8 +39,6 @@
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
 
-        <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <maven-checkstyle.version>7.6.1</maven-checkstyle.version>
         <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
@@ -49,6 +47,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Import BOM -->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.jvnet.mock-javamail</groupId>
                 <artifactId>mock-javamail</artifactId>
@@ -142,57 +148,50 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-remote-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>process-resource-bundles</id>
+                        <phase>none</phase><!-- skip to save time -->
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-generated-resources</id>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                        <phase>process-classes</phase>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>${camel.quarkus.project.root}/build/legal</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.revelc.code.formatter</groupId>
+                <artifactId>formatter-maven-plugin</artifactId>
+                <version>2.10.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configFile>${camel.quarkus.project.root}/build/eclipse-formatter-config.xml</configFile>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>sourcecheck</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>${maven-checkstyle-plugin.version}</version>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.camel</groupId>
-                                <artifactId>camel-buildtools</artifactId>
-                                <version>${camel.version}</version>
-                            </dependency>
-                            <dependency>
-                                <groupId>com.puppycrawl.tools</groupId>
-                                <artifactId>checkstyle</artifactId>
-                                <version>${maven-checkstyle.version}</version>
-                            </dependency>
-                        </dependencies>
-                        <executions>
-                            <execution>
-                                <id>default-cli</id>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <includeResources>false</includeResources>
-                                    <configLocation>camel-checkstyle.xml</configLocation>
-                                    <consoleOutput>true</consoleOutput>
-                                    <failsOnError>${checkstyle.failOnViolation}</failsOnError>
-                                    <linkXRef>false</linkXRef>
-                                    <suppressionsLocation>camel-checkstyle-suppressions.xml</suppressionsLocation>
-                                    <encoding>UTF-8</encoding>
-                                    <sourceDirectories>
-                                        <sourceDirectory>${basedir}/src</sourceDirectory>
-                                    </sourceDirectories>
-                                    <headerLocation>header-java.txt</headerLocation>
-                                    <includes>**/*.java,**/*.groovy,**/*.scala,**/*.properties,**/*.xml,**/*.xsd</includes>
-                                    <excludes>**/MyRoutes*.java,**/Target*.java,**/*Substitutions.java</excludes>
-                                </configuration>
-                                <goals>
-                                    <goal>checkstyle</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>

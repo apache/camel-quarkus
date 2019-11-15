@@ -35,25 +35,28 @@ class TarfileTest {
 
     @Test
     public void test() throws Exception {
+        final String encoding = "utf-8";
+
         byte[] body;
 
         ExtractableResponse response = RestAssured.given() //
-            .contentType(ContentType.TEXT).body("Hello World").post("/tarfile/post") //
-            .then().extract();
+                .contentType(ContentType.TEXT + "; charset=" + encoding).body("Hello World").post("/tarfile/post") //
+                .then().extract();
 
         body = response.body().asByteArray();
         Assertions.assertNotNull(body);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ByteArrayInputStream bis = new ByteArrayInputStream(body);
-        TarArchiveInputStream tis = (TarArchiveInputStream) new ArchiveStreamFactory().createArchiveInputStream(ArchiveStreamFactory.TAR, bis);
+        TarArchiveInputStream tis = (TarArchiveInputStream) new ArchiveStreamFactory()
+                .createArchiveInputStream(ArchiveStreamFactory.TAR, bis);
 
         TarArchiveEntry entry = tis.getNextTarEntry();
         if (entry != null) {
             IOHelper.copy(tis, bos);
         }
 
-        String str = bos.toString();
+        String str = bos.toString(encoding);
         Assertions.assertEquals("Hello World", str);
     }
 

@@ -18,63 +18,72 @@ package org.apache.camel.quarkus.core;
 
 import java.util.List;
 
+import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
 
+@ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
+    /**
+     * Build time configuration options for {@code camel-main}.
+     */
+    @ConfigItem
+    public MainConfig main;
 
-    @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-    public static class BuildTime {
+    @ConfigGroup
+    public static class MainConfig {
         /**
-         * Camel jaxb support is enabled by default, but in order to trim
-         * down the size of applications, it is possible to disable jaxb support
-         * at runtime. This is useful when routes at loaded at build time and
-         * thus the camel route model is not used at runtime anymore.
-         *
-         * @see Flags.JaxbDisabled
+         * Enable {@code camel-main}. If {@code true}, routes are automatically
+         * loaded and started and the entire lifecycle of the Camel Context is
+         * under the control of the {@code camel-main} component. Otherwise, the
+         * application developer is responsible for performing all the mentioned
+         * tasks.
          */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableJaxb;
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
 
         /**
-         * Disable XML support in various parts of Camel.
-         * Because xml parsing using xerces/xalan libraries can consume
-         * a lot of code space in the native binary (and a lot of cpu resources
-         * when building), this allows to disable both libraries.
-         *
-         * @see Flags.XmlDisabled
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableXml;
-
-        /**
-         * Disable camel-main.
-         * When main is disabled, routes won't be automatically be loaded and
-         * started and the entire lifecycle of the Camel Context is under user
-         * control.
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean disableMain;
-    }
-
-    @ConfigRoot(name = "camel", phase = ConfigPhase.RUN_TIME)
-    public static class Runtime {
-
-        /**
-         * Dump loaded routes when starting
-         */
-        @ConfigItem(defaultValue = "false")
-        public boolean dumpRoutes;
-
-        /**
-         * A list of URIs containing the camel routes in the XML format to be
-         * loaded at runtime. Files can be loaded from either classpath or file
-         * system by prefixing the URI with {@code classpath:} or {@code file:}
-         * respectively.
+         * Build time configuration options for routes discovery.
          */
         @ConfigItem
-        public List<String> routesUris;
+        public RoutesDiscoveryConfig routesDiscovery;
     }
 
+    @ConfigGroup
+    public static class RoutesDiscoveryConfig {
+        /**
+         * Enable automatic discovery of routes during static initialization.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+
+        /**
+         * Used for exclusive filtering scanning of RouteBuilder classes.
+         * The exclusive filtering takes precedence over inclusive filtering.
+         * The pattern is using Ant-path style pattern.
+         * Multiple patterns can be specified separated by comma.
+         *
+         * For example to exclude all classes starting with Bar use: &#42;&#42;/Bar&#42;
+         * To exclude all routes form a specific package use: com/mycompany/bar/&#42;
+         * To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/&#42;&#42;
+         * And to exclude all routes from two specific packages use: com/mycompany/bar/&#42;,com/mycompany/stuff/&#42;
+         */
+        @ConfigItem
+        public List<String> excludePatterns;
+
+        /**
+         * Used for inclusive filtering scanning of RouteBuilder classes.
+         * The exclusive filtering takes precedence over inclusive filtering.
+         * The pattern is using Ant-path style pattern.
+         *
+         * Multiple patterns can be specified separated by comma.
+         * For example to include all classes starting with Foo use: &#42;&#42;/Foo*
+         * To include all routes form a specific package use: com/mycompany/foo/&#42;
+         * To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/&#42;&#42;
+         * And to include all routes from two specific packages use: com/mycompany/foo/&#42;,com/mycompany/stuff/&#42;
+         */
+        @ConfigItem
+        public List<String> includePatterns;
+    }
 }

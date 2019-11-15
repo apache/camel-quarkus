@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class BeanITCase extends BeanTest {
 }

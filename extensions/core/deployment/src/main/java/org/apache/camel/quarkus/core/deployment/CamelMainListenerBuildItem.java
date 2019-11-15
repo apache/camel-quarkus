@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.quarkus.core.CamelMain;
 
@@ -24,13 +25,13 @@ import org.apache.camel.quarkus.core.CamelMain;
  * A {@link MultiBuildItem} holding {@link MainListener}s to add to {@link CamelMain}.
  */
 public final class CamelMainListenerBuildItem extends MultiBuildItem {
-    private final MainListener listener;
+    private final RuntimeValue<MainListener> listener;
 
-    public CamelMainListenerBuildItem(MainListener listener) {
+    public CamelMainListenerBuildItem(RuntimeValue<MainListener> listener) {
         this.listener = listener;
     }
 
-    public MainListener getListener() {
+    public RuntimeValue<MainListener> getListener() {
         return listener;
     }
 }

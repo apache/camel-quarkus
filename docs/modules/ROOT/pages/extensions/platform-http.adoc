@@ -1,0 +1,99 @@
+[[platform-http]]
+= Platform HTTP Extension
+
+*Since Camel Quarkus 0.3.0*
+
+This extension allows for creating HTTP endpoints for consuming HTTP requests.
+
+It is built on top of Eclipse Vert.x Web service provided by the `quarkus-vertx-web` extension.
+
+To use this extension add the following dependency to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-platform-http</artifactId>
+</dependency>
+----
+
+
+== Basic Usage
+
+Serve all HTTP methods on the `/hello` endpoint:
+
+[source,java]
+----
+from("platform-http:/hello").setBody(simple("Hello ${header.name}"));
+----
+
+Serve only GET requests on the `/hello` endpoint:
+
+[source,java]
+----
+from("platform-http:/hello?httpMethodRestrict=GET").setBody(simple("Hello ${header.name}"));
+----
+
+== Using `platform-http` via Camel REST DSL
+
+To be able to use Camel REST DSL with the `platform-http` component, add `camel-quarkus-rest` in addition to `camel-quarkus-platform-http` to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-rest</artifactId>
+</dependency>
+----
+
+Then you can use the Camel REST DSL:
+
+[source,java]
+----
+rest()
+    .get("/my-get-endpoint")
+        .route()
+        .setBody(constant("Hello from /my-get-endpoint"))
+        .endRest()
+    .post("/my-post-endpoint")
+        .route()
+        .setBody(constant("Hello from /my-post-endpoint"))
+        .endRest();
+----
+
+
+== Handling `multipart/form-data` file uploads
+
+If you want Camel Quarkus to attach uploaded files to Camel messages for you, you need to add the following optional
+dependency to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-attachments</artifactId>
+</dependency>
+----
+
+You can restrict the uploads to certain file extensions by white listing them:
+
+[source,java]
+----
+from("platform-http:/upload/multipart?fileNameExtWhitelist=adoc,txt&httpMethodRestrict=POST")
+    .to("log:multipart")
+    .process(e -> {
+        final AttachmentMessage am = e.getMessage(AttachmentMessage.class);
+        if (am.hasAttachments()) {
+            am.getAttachments().forEach((fileName, dataHandler) -> {
+                try (InputStream in = dataHandler.getInputStream()) {
+                    // do something with the input stream
+                } catch (IOException ioe) {
+                    throw new RuntimeException(ioe);
+                }
+            });
+        }
+    });
+----
+
+Also check the `quarkus.http.body.*` configuration options in
+https://quarkus.io/guides/all-config[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.

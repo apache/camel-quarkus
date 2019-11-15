@@ -60,15 +60,18 @@ public class PlatformHttpComponent extends DefaultComponent implements RestConsu
 
     @Override
     public Consumer createApiConsumer(CamelContext camelContext, Processor processor, String contextPath,
-                                      RestConfiguration configuration, Map<String, Object> parameters) throws Exception {
+            RestConfiguration configuration, Map<String, Object> parameters) throws Exception {
         // reuse the createConsumer method we already have. The api need to use GET and match on uri prefix
         return doCreateConsumer(camelContext, processor, "GET", contextPath, null, null, null, configuration, parameters, true);
     }
 
     @Override
-    public Consumer createConsumer(CamelContext camelContext, Processor processor, String verb, String basePath, String uriTemplate,
-                                   String consumes, String produces, RestConfiguration configuration, Map<String, Object> parameters) throws Exception {
-        return doCreateConsumer(camelContext, processor, verb, basePath, uriTemplate, consumes, produces, configuration, parameters, false);
+    public Consumer createConsumer(CamelContext camelContext, Processor processor, String verb, String basePath,
+            String uriTemplate,
+            String consumes, String produces, RestConfiguration configuration, Map<String, Object> parameters)
+            throws Exception {
+        return doCreateConsumer(camelContext, processor, verb, basePath, uriTemplate, consumes, produces, configuration,
+                parameters, false);
     }
 
     public PlatformHttpEngine getEngine() {
@@ -83,8 +86,10 @@ public class PlatformHttpComponent extends DefaultComponent implements RestConsu
         return this;
     }
 
-    private Consumer doCreateConsumer(CamelContext camelContext, Processor processor, String verb, String basePath, String uriTemplate,
-                              String consumes, String produces, RestConfiguration configuration, Map<String, Object> parameters, boolean api) throws Exception {
+    private Consumer doCreateConsumer(CamelContext camelContext, Processor processor, String verb, String basePath,
+            String uriTemplate,
+            String consumes, String produces, RestConfiguration configuration, Map<String, Object> parameters, boolean api)
+            throws Exception {
 
         String path = basePath;
         if (uriTemplate != null) {
@@ -143,6 +148,8 @@ public class PlatformHttpComponent extends DefaultComponent implements RestConsu
 
         PlatformHttpEndpoint endpoint = camelContext.getEndpoint(url, PlatformHttpEndpoint.class);
         setProperties(camelContext, endpoint, parameters);
+        endpoint.setConsumes(consumes);
+        endpoint.setProduces(produces);
 
         // configure consumer properties
         Consumer consumer = endpoint.createConsumer(processor);

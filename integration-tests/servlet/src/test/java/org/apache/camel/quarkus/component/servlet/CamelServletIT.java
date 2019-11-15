@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.servlet;
 
-import io.quarkus.test.junit.SubstrateTest;
+import io.quarkus.test.junit.NativeImageTest;
 
-@SubstrateTest
+@NativeImageTest
 public class CamelServletIT extends CamelServletTest {
 
 }

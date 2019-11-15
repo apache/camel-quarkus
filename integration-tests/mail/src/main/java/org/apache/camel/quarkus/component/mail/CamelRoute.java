@@ -29,10 +29,10 @@ public class CamelRoute extends RouteBuilder {
         bindToRegistry("smtp", smtp());
 
         from("direct:mailtext")
-            .setHeader("Subject", constant("Hello World"))
-            .setHeader("To", constant("james@localhost"))
-            .setHeader("From", constant("claus@localhost"))
-            .to("smtp://localhost?initialDelay=100&delay=100");
+                .setHeader("Subject", constant("Hello World"))
+                .setHeader("To", constant("james@localhost"))
+                .setHeader("From", constant("claus@localhost"))
+                .to("smtp://localhost?initialDelay=100&delay=100");
     }
 
     @Produces

@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
+Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -30,8 +30,23 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2 | The class component is for invoking Java classes (Java beans) from Camel.
 
+| link:https://camel.apache.org/components/latest/controlbus-component.html[Control Bus] (camel-quarkus-controlbus) +
+`controlbus:command:language` | 0.4 | The controlbus component provides easy management of Camel applications based on the Control Bus EIP pattern.
+
+| link:https://camel.apache.org/components/latest/dataformat-component.html[Data Format] (camel-quarkus-dataformat) +
+`dataformat:name:operation` | 0.4 | The dataformat component is used for working with Data Formats as if it was a regular Component supporting Endpoints and URIs.
+
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | 0.2 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
+
+| link:https://camel.apache.org/components/latest/exec-component.html[Exec] (camel-quarkus-exec) +
+`exec:executable` | 0.4 | The exec component can be used to execute OS system commands.
+
+| xref:extensions/fhir.adoc[FHIR] (camel-quarkus-fhir) +
+`fhir:apiName/methodName` | 0.3 | The fhir component is used for working with the FHIR protocol (health care).
+
+| link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
+`file:directoryName` | 0.4 | The file component is used for reading or writing files.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2 | For reading/writing from/to Infinispan distributed key/value store and data grid.
@@ -45,14 +60,20 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/mail-component.html[Mail] (camel-quarkus-mail) +
 `imap:host:port` | 0.2 | To send or receive emails using imap/pop3 or smtp protocols.
 
-| link:https://camel.apache.org/components/latest/microprofile-metrics-component.html[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
+| xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 0.2 | Camel metrics exposed with Eclipse MicroProfile Metrics
 
-| link:https://camel.apache.org/components/latest/netty-http-component.html[Netty HTTP] (camel-quarkus-netty-http) +
+| xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
+`netty:protocol:host:port` | 0.4 | Socket level networking using TCP or UDP with the Netty 4.x library.
+
+| xref:extensions/netty-http.adoc[Netty HTTP] (camel-quarkus-netty-http) +
 `netty-http:protocol:host:port/path` | 0.2 | Netty HTTP server and client using the Netty 4.x library.
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | 0.2 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
+
+| link:https://camel.apache.org/components/latest/pdf-component.html[PDF] (camel-quarkus-pdf) +
+`pdf:operation` | 0.3.1 | The pdf components provides the ability to create, modify or extract content from PDF documents.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
@@ -63,8 +84,14 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | 0.2 | The salesforce component is used for integrating Camel with the massive Salesforce API.
 
+| link:https://camel.apache.org/components/latest/scheduler-component.html[Scheduler] (camel-quarkus-scheduler) +
+`scheduler:name` | 0.4 | The scheduler component is used for generating message exchanges when a scheduler fires.
+
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | 0.2 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
+
+| link:https://camel.apache.org/components/latest/slack-component.html[Slack] (camel-quarkus-slack) +
+`slack:channel` | 0.3 | The slack component allows you to send messages to Slack.
 
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2 | The timer component is used for generating message exchanges when a timer fires.
@@ -78,13 +105,22 @@ Number of Camel components: 22 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/twitter-timeline-component.html[Twitter Timeline] (camel-quarkus-twitter) +
 `twitter-timeline:timelineType` | 0.2 | The Twitter Timeline component consumes twitter timeline or update the status of specific user.
 
+| link:https://camel.apache.org/components/latest/validator-component.html[Validator] (camel-quarkus-validator) +
+`validator:resourceUri` | 0.4 | Validates the payload of a message using XML Schema and JAXP Validation.
+
+| link:https://camel.apache.org/components/latest/vm-component.html[VM] (camel-quarkus-vm) +
+`vm:name` | 0.3 | The vm component provides asynchronous call to another endpoint from the same CamelContext.
+
+| xref:extensions/xslt.adoc[XSLT] (camel-quarkus-xslt) +
+`xslt:resourceUri` | 0.4 | Transforms the message using a XSLT template.
+
 |===
 // components: END
 
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 4 in 4 JAR artifacts (0 deprecated)
+Number of Camel data formats: 8 in 7 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -92,9 +128,17 @@ Number of Camel data formats: 4 in 4 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2 | The CSV data format is used for handling CSV payloads.
 
+| xref:extensions/fhir.adoc[FHIR JSon] (camel-quarkus-fhir) | 0.3 | The FHIR JSon data format is used to marshall/unmarshall to/from FHIR objects to/from JSON.
+
+| xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.3 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
+
+| link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
-| link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.2.1 | The Tar File data format is a message compression and de-compression format of tar files.
+| link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.3 | The Tar File data format is a message compression and de-compression format of tar files.
+
+| link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
@@ -130,18 +174,24 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 4 in 4 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Extension | Since | Description
 
+| (camel-quarkus-attachments) | 0.3 | Java Attachments support for Camel Message
+
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
-| (camel-quarkus-platform-http) | 0.2.1 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
+| xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.3 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
-| (camel-quarkus-reactive-executor) | 0.2.1 | To use Quarkus reactive executor with Camel
+| (camel-quarkus-core-xml) | 0.3 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
 
-| (camel-quarkus-microprofile-health) | 0.2.1 | Integration with the Quarkus MicroProfile Health extension
+| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Bridging Eclipse MicroProfile Health with Camel health checks
+
+| xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3 | Distributed tracing using OpenTracing
+
+| (camel-quarkus-reactive-executor) | 0.3 | Reactive Executor for camel-core using Vert.x
 |===
 // others: END

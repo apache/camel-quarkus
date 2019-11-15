@@ -44,6 +44,19 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
             + " If no methods are specified, all methods will be served.")
     private String httpMethodRestrict;
 
+    @UriParam(label = "consumer", description = "The content type this endpoint accepts as an input, such as"
+            + " application/xml or application/json. <code>null</code> or <code>&#42;/&#42;</code> mean no restriction.")
+    private String consumes;
+
+    @UriParam(label = "consumer", description = "The content type this endpoint produces, such as"
+            + " application/xml or application/json.")
+    private String produces;
+
+    @UriParam(label = "consumer,advanced", description = "A comma or whitespace separated list of file extensions."
+            + " Uploads having these extensions will be stored locally."
+            + " Null value or asterisk (*) will allow all files.")
+    private String fileNameExtWhitelist;
+
     @UriParam(label = "advanced")
     private PlatformHttpEngine platformHttpEngine;
 
@@ -95,6 +108,30 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
         this.httpMethodRestrict = httpMethodRestrict;
     }
 
+    public String getFileNameExtWhitelist() {
+        return fileNameExtWhitelist;
+    }
+
+    public void setFileNameExtWhitelist(String fileNameExtWhitelist) {
+        this.fileNameExtWhitelist = fileNameExtWhitelist;
+    }
+
+    public String getConsumes() {
+        return consumes;
+    }
+
+    public void setConsumes(String consumes) {
+        this.consumes = consumes;
+    }
+
+    public String getProduces() {
+        return produces;
+    }
+
+    public void setProduces(String produces) {
+        this.produces = produces;
+    }
+
     @Override
     protected void doStart() throws Exception {
         super.doStart();
@@ -107,7 +144,8 @@ public class PlatformHttpEndpoint extends DefaultEndpoint implements AsyncEndpoi
 
             if (platformHttpEngine == null) {
                 throw new IllegalStateException(PlatformHttpEngine.class.getSimpleName() + " neither set on this "
-                        + PlatformHttpEndpoint.class.getSimpleName() + " neither found in Camel Registry.");
+                        + PlatformHttpEndpoint.class.getSimpleName()
+                        + " neither found in Camel Registry.");
             }
         }
     }

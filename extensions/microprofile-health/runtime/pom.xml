@@ -22,7 +22,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-microprofile-health-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -31,7 +31,7 @@
     <description>Integration with the Quarkus MicroProfile Health extension</description>
 
     <properties>
-        <firstVersion>0.2.1</firstVersion>
+        <firstVersion>0.3.0</firstVersion>
     </properties>
 
     <dependencyManagement>

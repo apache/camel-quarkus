@@ -87,7 +87,7 @@ public final class CamelServletConfig {
          * the {@code key} is returned as the servlet name.
          *
          * @param key the key used in
-         *        {@link org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletsConfig#namedServlets}
+         *            {@link org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletsConfig#namedServlets}
          * @return the effective servlet name to use
          */
         public String getEffectiveServletName(final String key) {

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -26,21 +27,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
+import java.util.regex.Pattern;
 
+import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.BodyHandler;
 
 import org.apache.camel.Consumer;
-import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.NoTypeConversionAvailableException;
@@ -50,14 +54,14 @@ import org.apache.camel.TypeConverter;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.Method;
+import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
 import org.apache.camel.support.ExchangeHelper;
 import org.apache.camel.support.MessageHelper;
 import org.apache.camel.support.ObjectHelper;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.util.FileUtil;
 import org.jboss.logging.Logger;
 
 /**
@@ -67,11 +71,20 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private static final Logger LOG = Logger.getLogger(QuarkusPlatformHttpConsumer.class);
 
     private final Router router;
+    private final List<Handler<RoutingContext>> handlers;
     private Route route;
+    private final String fileNameExtWhitelist;
+    private final UploadAttacher uploadAttacher;
+    private final Pattern PATH_PARAMETER_PATTERN = Pattern.compile("\\{([^/}]+)\\}");
 
-    public QuarkusPlatformHttpConsumer(Endpoint endpoint, Processor processor, Router router) {
+    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router,
+            List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
         super(endpoint, processor);
         this.router = router;
+        this.handlers = handlers;
+        String list = endpoint.getFileNameExtWhitelist();
+        this.fileNameExtWhitelist = list == null ? list : list.toLowerCase(Locale.US);
+        this.uploadAttacher = uploadAttacher;
     }
 
     @Override
@@ -83,50 +96,43 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     protected void doStart() throws Exception {
         super.doStart();
 
-        final String path = getEndpoint().getPath();
-        final Route newRoute = router.route(path);
+        final PlatformHttpEndpoint endpoint = getEndpoint();
+        final String path = endpoint.getPath();
+        /* Transform from the Camel path param syntax /path/{key} to vert.x web's /path/:key */
+        final String vertxPathParamPath = PATH_PARAMETER_PATTERN.matcher(path).replaceAll(":$1");
+        final Route newRoute = router.route(vertxPathParamPath);
 
-        final Set<Method> methods = Method.parseList(getEndpoint().getHttpMethodRestrict());
+        final Set<Method> methods = Method.parseList(endpoint.getHttpMethodRestrict());
         if (!methods.equals(Method.getAll())) {
             methods.stream().forEach(m -> newRoute.method(HttpMethod.valueOf(m.name())));
         }
+        if (endpoint.getConsumes() != null) {
+            newRoute.consumes(endpoint.getConsumes());
+        }
+        if (endpoint.getProduces() != null) {
+            newRoute.produces(endpoint.getProduces());
+        }
 
-        Config cfg = ConfigProvider.getConfig();
-        final BodyHandler bodyHandler = BodyHandler.create();
-        /*
-         * Keep in sync with how the BodyHandler is configured in io.quarkus.vertx.web.runtime.VertxWebRecorder
-         * Eventually, VertxWebRecorder should have a method to do this for us.
-         *
-         * TODO: remove this code when moving to quarkus 0.24.x, see https://github.com/quarkusio/quarkus/pull/4314
-         */
-        cfg.getOptionalValue("quarkus.http.body.handle-file-uploads", boolean.class).ifPresent(bodyHandler::setHandleFileUploads);
-        cfg.getOptionalValue("quarkus.http.body.uploads-directory", String.class).ifPresent(bodyHandler::setUploadsDirectory);
-        cfg.getOptionalValue("quarkus.http.body.delete-uploaded-files-on-end", boolean.class).ifPresent(bodyHandler::setDeleteUploadedFilesOnEnd);
-        cfg.getOptionalValue("quarkus.http.body.merge-form-attributes", boolean.class).ifPresent(bodyHandler::setMergeFormAttributes);
-        cfg.getOptionalValue("quarkus.http.body.preallocate-body-buffer", boolean.class).ifPresent(bodyHandler::setPreallocateBodyBuffer);
+        handlers.forEach(newRoute::handler);
 
-        newRoute
-            //
-            // This should not be needed but because the default route added by quarkus (i.e. in case
-            // the quarkus-resteasy extension is in the classpath) is a catch all, it is required to
-            // configure the route to be evaluated before the default one.
-            //
-            // TODO: remove this after https://github.com/quarkusio/quarkus/issues/4407 is fixed.
-            //
-            .order(-1)
-            .handler(bodyHandler)
-            .handler(ctx -> {
-                try {
-                    final PlatformHttpEndpoint endpoint = getEndpoint();
-                    final HeaderFilterStrategy headerFilterStrategy = endpoint.getHeaderFilterStrategy();
-                    final Exchange e = toExchange(ctx, endpoint.createExchange(), headerFilterStrategy);
-                    getProcessor().process(e);
-                    writeResponse(ctx, e, headerFilterStrategy);
-                } catch (Exception e1) {
-                    LOG.debugf(e1, "Could not handle '%s'", path);
-                    ctx.fail(e1);
-                }
-            });
+        newRoute.handler(
+                ctx -> {
+                    Exchange exchg = null;
+                    try {
+                        final Exchange exchange = exchg = toExchange(ctx);
+                        createUoW(exchange);
+                        getAsyncProcessor().process(
+                                exchange,
+                                doneSync -> writeResponse(ctx, exchange, getEndpoint().getHeaderFilterStrategy()));
+                    } catch (Exception e) {
+                        ctx.fail(e);
+                        getExceptionHandler().handleException("Failed handling platform-http endpoint " + path, exchg, e);
+                    } finally {
+                        if (exchg != null) {
+                            doneUoW(exchg);
+                        }
+                    }
+                });
 
         this.route = newRoute;
     }
@@ -158,16 +164,13 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     static Object toHttpResponse(HttpServerResponse response, Message message, HeaderFilterStrategy headerFilterStrategy) {
         final Exchange exchange = message.getExchange();
-        final boolean failed = exchange.isFailed();
-        final int defaultCode = failed ? 500 : 200;
 
-        final int code = message.getHeader(Exchange.HTTP_RESPONSE_CODE, defaultCode, int.class);
-
+        final int code = determineResponseCode(exchange, message.getBody());
         response.setStatusCode(code);
 
         final TypeConverter tc = exchange.getContext().getTypeConverter();
 
-        //copy headers from Message to Response
+        // copy headers from Message to Response
         if (headerFilterStrategy != null) {
             for (Map.Entry<String, Object> entry : message.getHeaders().entrySet()) {
                 final String key = entry.getKey();
@@ -226,24 +229,43 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return body;
     }
 
+    /*
+     * Copied from org.apache.camel.http.common.DefaultHttpBinding.determineResponseCode(Exchange, Object)
+     * If DefaultHttpBinding.determineResponseCode(Exchange, Object) is moved to a module without the servlet-api
+     * dependency we could eventually consume it from there.
+     */
+    static int determineResponseCode(Exchange camelExchange, Object body) {
+        boolean failed = camelExchange.isFailed();
+        int defaultCode = failed ? 500 : 200;
+
+        Message message = camelExchange.getMessage();
+        Integer currentCode = message.getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class);
+        int codeToUse = currentCode == null ? defaultCode : currentCode;
+
+        if (codeToUse != 500) {
+            if ((body == null) || (body instanceof String && ((String) body).trim().isEmpty())) {
+                // no content
+                codeToUse = currentCode == null ? 204 : currentCode;
+            }
+        }
+
+        return codeToUse;
+    }
+
     static void writeResponse(RoutingContext ctx, Exchange camelExchange, HeaderFilterStrategy headerFilterStrategy) {
         final Object body = toHttpResponse(ctx.response(), camelExchange.getMessage(), headerFilterStrategy);
 
         final HttpServerResponse response = ctx.response();
         if (body == null) {
             LOG.tracef("No payload to send as reply for exchange: %s", camelExchange);
-            response.putHeader("Content-Type", "text/plain; charset=utf-8");
-            response.end("No response available");
-            return;
-        }
-
-        if (body instanceof String) {
+            response.end();
+        } else if (body instanceof String) {
             response.end((String) body);
         } else if (body instanceof InputStream) {
             final byte[] bytes = new byte[4096];
             try (InputStream in = (InputStream) body) {
                 int len;
-                while ((len = in.read(bytes))  >= 0) {
+                while ((len = in.read(bytes)) >= 0) {
                     final Buffer b = Buffer.buffer(len);
                     b.appendBytes(bytes, 0, len);
                     response.write(b);
@@ -266,8 +288,9 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
 
     }
 
-    static Exchange toExchange(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
-        Message in = toCamelMessage(ctx, exchange, headerFilterStrategy);
+    Exchange toExchange(RoutingContext ctx) {
+        final Exchange exchange = getEndpoint().createExchange();
+        Message in = toCamelMessage(ctx, exchange);
 
         final String charset = ctx.parsedHeaders().contentType().parameter("charset");
         if (charset != null) {
@@ -279,7 +302,10 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         return exchange;
     }
 
-    static void populateCamelHeaders(RoutingContext ctx, Map<String, Object> headersMap, Exchange exchange,
+    static void populateCamelHeaders(
+            RoutingContext ctx,
+            Map<String, Object> headersMap,
+            Exchange exchange,
             HeaderFilterStrategy headerFilterStrategy) {
 
         final HttpServerRequest request = ctx.request();
@@ -317,17 +343,10 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             }
         }
 
-        // TODO: figure out whether we need this or remove
-        //        // Create headers for REST path placeholder variables
-        //        Map<String, Object> predicateContextParams = httpExchange.getAttachment(Predicate.PREDICATE_CONTEXT);
-        //        if (predicateContextParams != null) {
-        //            // Remove this as it's an unwanted artifact of our Undertow predicate chain
-        //            predicateContextParams.remove("remaining");
-        //
-        //            for (String paramName : predicateContextParams.keySet()) {
-        //                headersMap.put(paramName, predicateContextParams.get(paramName));
-        //            }
-        //        }
+        /* Path parameters */
+        for (Entry<String, String> en : ctx.pathParams().entrySet()) {
+            appendHeader(headersMap, en.getKey(), en.getValue());
+        }
 
         // NOTE: these headers is applied using the same logic as camel-http/camel-jetty to be consistent
         headersMap.put(Exchange.HTTP_METHOD, request.method().toString());
@@ -339,27 +358,32 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         headersMap.put(Exchange.HTTP_RAW_QUERY, request.query());
     }
 
-    static Message toCamelMessage(RoutingContext ctx, Exchange exchange, HeaderFilterStrategy headerFilterStrategy) {
-        Message result = new DefaultMessage(exchange);
+    Message toCamelMessage(RoutingContext ctx, Exchange exchange) {
+        final Message result = new DefaultMessage(exchange);
 
+        final HeaderFilterStrategy headerFilterStrategy = getEndpoint().getHeaderFilterStrategy();
         populateCamelHeaders(ctx, result.getHeaders(), exchange, headerFilterStrategy);
         final String mimeType = ctx.parsedHeaders().contentType().value();
-        if ("application/x-www-form-urlencoded".equals(mimeType) || "multipart/form-data".equals(mimeType)) {
+        final boolean isMultipartFormData = "multipart/form-data".equals(mimeType);
+        if ("application/x-www-form-urlencoded".equals(mimeType) || isMultipartFormData) {
             final MultiMap formData = ctx.request().formAttributes();
             final Map<String, Object> body = new HashMap<>();
             for (String key : formData.names()) {
                 for (String value : formData.getAll(key)) {
                     if (headerFilterStrategy != null
-                        && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
+                            && !headerFilterStrategy.applyFilterToExternalHeaders(key, value, exchange)) {
                         appendHeader(result.getHeaders(), key, value);
                         appendHeader(body, key, value);
                     }
                 }
             }
             result.setBody(body);
+            if (isMultipartFormData) {
+                populateAttachments(ctx.fileUploads(), result);
+            }
         } else {
-            //extract body by myself if undertow parser didn't handle and the method is allowed to have one
-            //body is extracted as byte[] then auto TypeConverter kicks in
+            // extract body by myself if undertow parser didn't handle and the method is allowed to have one
+            // body is extracted as byte[] then auto TypeConverter kicks in
             Method m = Method.valueOf(ctx.request().method().name());
             if (m.canHaveBody()) {
                 final Buffer body = ctx.getBody();
@@ -387,6 +411,34 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         }
 
         headers.put(key, value);
+    }
+
+    void populateAttachments(Set<FileUpload> uploads, Message message) {
+        for (FileUpload upload : uploads) {
+            final String name = upload.name();
+            final String fileName = upload.fileName();
+            LOG.tracef("HTTP attachment %s = %s", name, fileName);
+            // is the file name accepted
+            boolean accepted = true;
+
+            if (fileNameExtWhitelist != null) {
+                String ext = FileUtil.onlyExt(fileName);
+                if (ext != null) {
+                    ext = ext.toLowerCase(Locale.US);
+                    if (!fileNameExtWhitelist.equals("*") && !fileNameExtWhitelist.contains(ext)) {
+                        accepted = false;
+                    }
+                }
+            }
+            if (accepted) {
+                final File localFile = new File(upload.uploadedFileName());
+                uploadAttacher.attachUpload(localFile, fileName, message);
+            } else {
+                LOG.debugf(
+                        "Cannot add file as attachment: %s because the file is not accepted according to fileNameExtWhitelist: %s",
+                        fileName, fileNameExtWhitelist);
+            }
+        }
     }
 
 }

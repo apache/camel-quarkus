@@ -28,7 +28,59 @@ public class BeanTest {
     @Test
     public void testRoutes() {
         RestAssured.given().contentType(ContentType.TEXT).body("nuts@bolts").post("/bean/process-order").then()
-            .body(equalTo("{success=true, lines=[(id=1,item=nuts), (id=2,item=bolts)]}"));
+                .body(equalTo("{success=true, lines=[(id=1,item=nuts), (id=2,item=bolts)]}"));
+
+        /* Ensure that the RoutesBuilder.configure() was not called multiple times on CamelRoute */
+        RestAssured.when()
+                .get("/bean/camel-configure-counter")
+                .then()
+                .statusCode(200)
+                .body(equalTo("1"));
+    }
+
+    @Test
+    public void inject() {
+
+        /* Ensure that @Inject works */
+        RestAssured.when().get("/bean/counter").then().body(equalTo("0"));
+        RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("0"));
+        RestAssured.when().get("/bean/increment").then().body(equalTo("1"));
+        RestAssured.when().get("/bean/counter").then().body(equalTo("1"));
+        RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("1"));
+        RestAssured.when().get("/bean/increment").then().body(equalTo("2"));
+        RestAssured.when().get("/bean/counter").then().body(equalTo("2"));
+        RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("2"));
+
+        /* Ensure that @ConfigProperty works */
+        RestAssured.when()
+                .get("/bean/config-property")
+                .then()
+                .statusCode(200)
+                .body(equalTo("myFooValue = foo"));
+
+        /* Ensure that the bean was not instantiated multiple times */
+        RestAssured.when()
+                .get("/bean/route-builder-instance-counter")
+                .then()
+                .statusCode(200)
+                .body(equalTo("1"));
+
+        /* Ensure that the RoutesBuilder.configure() was not called multiple times */
+        RestAssured.when()
+                .get("/bean/route-builder-configure-counter")
+                .then()
+                .statusCode(200)
+                .body(equalTo("1"));
+    }
+
+    @Test
+    public void lazy() {
+        RestAssured.when().get("/bean/lazy").then().body(equalTo("lazy"));
+    }
+
+    @Test
+    public void withProducer() {
+        RestAssured.when().get("/bean/with-producer").then().body(equalTo("with-producer"));
     }
 
 }

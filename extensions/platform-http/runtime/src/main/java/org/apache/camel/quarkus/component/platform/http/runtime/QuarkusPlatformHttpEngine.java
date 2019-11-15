@@ -16,23 +16,36 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Processor;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
-
+import org.apache.camel.quarkus.core.UploadAttacher;
 
 public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
     private final Router router;
+    private final List<Handler<RoutingContext>> handlers;
+    private final UploadAttacher uploadAttacher;
 
-    public QuarkusPlatformHttpEngine(Router router) {
+    public QuarkusPlatformHttpEngine(Router router, List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
         this.router = router;
+        this.handlers = new ArrayList<>(handlers);
+        this.uploadAttacher = uploadAttacher;
     }
 
     @Override
     public Consumer createConsumer(PlatformHttpEndpoint endpoint, Processor processor) {
-        return new QuarkusPlatformHttpConsumer(endpoint, processor, router);
+        return new QuarkusPlatformHttpConsumer(endpoint, processor, router, handlers, uploadAttacher);
     }
 
+    public List<Handler<RoutingContext>> getHandlers() {
+        return Collections.unmodifiableList(this.handlers);
+    }
 }

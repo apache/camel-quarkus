@@ -61,7 +61,8 @@ public class CamelTwitterTest {
             }
         }
         if (!passed) {
-            Assertions.fail("Could not find a message containing 'camel-quarkus-twitter' in user's direct messages within ~" + (retries * delayMs) + " ms; got messages: " + body);
+            Assertions.fail("Could not find a message containing 'camel-quarkus-twitter' in user's direct messages within ~"
+                    + (retries * delayMs) + " ms; got messages: " + body);
         }
     }
 
@@ -98,11 +99,14 @@ public class CamelTwitterTest {
                 }
             }
             if (!passed) {
-                Assertions.fail("Could not find the expected message '" + expectedMessage + "' in user's timeline within ~" + (retries * delayMs) + " ms; got messages: " + body);
+                Assertions.fail("Could not find the expected message '" + expectedMessage + "' in user's timeline within ~"
+                        + (retries * delayMs) + " ms; got messages: " + body);
             }
         }
 
-        /* Check that the message we posted above or a message posted by this test in the past can be found via twitter search */
+        /*
+         * Check that the message we posted above or a message posted by this test in the past can be found via twitter search
+         */
         {
             final int retries = 4;
             final int delayMs = 10000;
@@ -126,7 +130,8 @@ public class CamelTwitterTest {
                 }
             }
             if (!passed) {
-                Assertions.fail("Could not find the expected message '" + uuid + "' via twitter-search within " + (retries * delayMs) + " ms; got messages: " + body);
+                Assertions.fail("Could not find the expected message '" + uuid + "' via twitter-search within "
+                        + (retries * delayMs) + " ms; got messages: " + body);
             }
         }
     }

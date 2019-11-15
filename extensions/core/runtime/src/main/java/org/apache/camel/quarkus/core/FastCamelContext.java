@@ -31,8 +31,6 @@ import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
-import org.apache.camel.impl.DefaultModelJAXBContextFactory;
-import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseRouteService;
 import org.apache.camel.impl.engine.BeanProcessorFactoryResolver;
@@ -200,22 +198,12 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected TypeConverter createTypeConverter() {
-        // lets use the new fast type converter registry
-        return new DefaultTypeConverter(
-            this,
-            getPackageScanClassResolver(),
-            getInjector(),
-            getDefaultFactoryFinder(),
-            isLoadTypeConverters());
+        throw new UnsupportedOperationException();
     }
 
     @Override
     protected TypeConverterRegistry createTypeConverterRegistry() {
-        TypeConverter typeConverter = getTypeConverter();
-        if (typeConverter instanceof TypeConverterRegistry) {
-            return (TypeConverterRegistry) typeConverter;
-        }
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -230,7 +218,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected ModelJAXBContextFactory createModelJAXBContextFactory() {
-        return new DefaultModelJAXBContextFactory();
+        return new DisabledModelJAXBContextFactory();
     }
 
     @Override
@@ -384,9 +372,17 @@ public class FastCamelContext extends AbstractCamelContext {
     }
 
     @Override
-    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor, boolean shutdownExecutorService) {
+    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
+            boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
                 false, false, 0L, null, false, false);
+    }
+
+    @Override
+    public void setTypeConverterRegistry(TypeConverterRegistry typeConverterRegistry) {
+        super.setTypeConverterRegistry(typeConverterRegistry);
+
+        typeConverterRegistry.setCamelContext(this);
     }
 
     @Override

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-parent</artifactId>
-        <version>0.2.1-SNAPSHOT</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-extensions</artifactId>
@@ -36,47 +36,93 @@
         <module>support</module>
 
         <!-- common/shared extensions -->
-        <module>xml-common</module>
         <module>core</module>
         <module>core-cloud</module>
+        <module>core-xml</module>
         <module>http-common</module>
         <module>reactive-executor</module>
 
         <!-- extensions a..z -->
+        <module>attachments</module>
         <module>aws-eks</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>bean</module>
+        <module>controlbus</module>
         <module>csv</module>
+        <module>dataformat</module>
         <module>direct</module>
+        <module>exec</module>
+        <module>fhir</module>
+        <module>file</module>
         <module>infinispan</module>
+        <module>jackson</module>
         <module>jdbc</module>
         <module>log</module>
         <module>mail</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
+        <module>netty</module>
         <module>netty-http</module>
+        <module>opentracing</module>
         <module>paho</module>
+        <module>pdf</module>
         <module>platform-http</module>
         <module>rest</module>
         <module>salesforce</module>
+        <module>scheduler</module>
         <module>servlet</module>
+        <module>slack</module>
+        <module>snakeyaml</module>
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>
+        <module>validator</module>
+        <module>vm</module>
         <module>zipfile</module>
+        <module>xslt</module>
+
         <module>freemarker</module>
     </modules>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>validate-extension-metadata</id>
+                        <inherited>false</inherited>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>verify</phase>
+                        <configuration>
+                            <source>file:///${project.basedir}/../build/scripts/validate-extension-metadata.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.yaml</groupId>
+                        <artifactId>snakeyaml</artifactId>
+                        <version>${snakeyaml.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <inherited>false</inherited>
-                <!-- Setting for stubbing new extensions via
-                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=my-new-extension
+                <!-- Settings for stubbing new extensions. E.g. to add a new extension to support an imaginary
+                     Camel Foo ABC component, you would run
+
+                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo-abc -Dquarkus.nameBase="Foo ABC"
+
+                     -Dquarkus.nameBase is optional. If you do not specify it, the plugin will derive it from
+                     artifactIdBase by replacing dashes with spaces and capitalizing the first letter of each token.
                 -->
                 <configuration>
                     <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
@@ -86,9 +132,7 @@
                     <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
-                    <!-- The bomEntryVersion should come with the upgrade to Quarkus 0.25
-                         see https://github.com/quarkusio/quarkus/pull/4514
-                    <bomEntryVersion>%{camel-quarkus.version}</bomEntryVersion> -->
+                    <bomEntryVersion>@{camel-quarkus.version}</bomEntryVersion>
                     <itestParentPath>../integration-tests/pom.xml</itestParentPath>
                 </configuration>
             </plugin>

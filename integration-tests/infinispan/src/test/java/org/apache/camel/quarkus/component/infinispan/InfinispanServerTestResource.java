@@ -36,9 +36,8 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
     public Map<String, String> start() {
         TestResourceTracker.setThreadTestName("InfinispanServer");
         EmbeddedCacheManager ecm = TestCacheManagerFactory.createCacheManager(
-            new GlobalConfigurationBuilder().nonClusteredDefault().defaultCacheName("default"),
-            new ConfigurationBuilder()
-        );
+                new GlobalConfigurationBuilder().nonClusteredDefault().defaultCacheName("default"),
+                new ConfigurationBuilder());
 
         // Client connects to a non default port
         hotRodServer = HotRodTestingUtil.startHotRodServer(ecm, 11232);
@@ -49,7 +48,7 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
     @Override
     public void inject(Object testInstance) {
         if (testInstance instanceof CamelTest) {
-            this.camelTest = (CamelTest)testInstance;
+            this.camelTest = (CamelTest) testInstance;
         }
     }
 

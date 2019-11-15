@@ -38,11 +38,11 @@ public class CamelTest {
     @Test
     public void testInfinispan() {
         RestAssured.with()
-            .body("Hello Infinispan")
-            .post("/test/put").then();
+                .body("Hello Infinispan")
+                .post("/test/put").then();
 
         RestAssured.when()
-            .get("/test/get")
-            .then().body(is("Hello Infinispan"));
+                .get("/test/get")
+                .then().body(is("Hello Infinispan"));
     }
 }

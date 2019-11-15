@@ -31,16 +31,14 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 public class CamelProducersTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-        .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-            .addClasses(BeanUsingProducerTemplate.class)
-            .addClasses(BeanUsingConsumerTemplate.class)
-            .addClasses(BeanUsingCamelContext.class)
-            .addClasses(BeanUsingRegistry.class)
-        );
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addClasses(BeanUsingProducerTemplate.class)
+                    .addClasses(BeanUsingConsumerTemplate.class)
+                    .addClasses(BeanUsingCamelContext.class)
+                    .addClasses(BeanUsingRegistry.class));
 
     @Inject
     BeanUsingProducerTemplate usingProducerTemplate;

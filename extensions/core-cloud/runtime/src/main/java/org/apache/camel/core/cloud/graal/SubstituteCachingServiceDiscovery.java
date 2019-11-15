@@ -43,14 +43,14 @@ final class SubstituteCachingServiceDiscovery {
     public void setTimeout(long timeout) {
         this.timeout = timeout;
         this.cache = Caffeine.newBuilder()
-            .executor(new Executor() {
-                @Override
-                public void execute(Runnable command) {
-                    // workaround for https://github.com/quarkusio/quarkus/issues/3300
-                    ForkJoinPool.commonPool().execute(command);
-                }
-            })
-            .expireAfterAccess(timeout, TimeUnit.MILLISECONDS)
-            .build(delegate::getServices);
+                .executor(new Executor() {
+                    @Override
+                    public void execute(Runnable command) {
+                        // workaround for https://github.com/quarkusio/quarkus/issues/3300
+                        ForkJoinPool.commonPool().execute(command);
+                    }
+                })
+                .expireAfterAccess(timeout, TimeUnit.MILLISECONDS)
+                .build(delegate::getServices);
     }
 }
