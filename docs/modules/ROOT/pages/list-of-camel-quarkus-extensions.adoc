@@ -43,7 +43,7 @@ Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
 `exec:executable` | 0.4 | The exec component can be used to execute OS system commands.
 
 | xref:extensions/fhir.adoc[FHIR] (camel-quarkus-fhir) +
-`fhir:apiName/methodName` | 0.2 | The fhir component is used for working with the FHIR protocol (health care).
+`fhir:apiName/methodName` | 0.3 | The fhir component is used for working with the FHIR protocol (health care).
 
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4 | The file component is used for reading or writing files.
@@ -73,7 +73,7 @@ Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
 `paho:topic` | 0.2 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
 
 | link:https://camel.apache.org/components/latest/pdf-component.html[PDF] (camel-quarkus-pdf) +
-`pdf:operation` | 0.2 | The pdf components provides the ability to create, modify or extract content from PDF documents.
+`pdf:operation` | 0.3.1 | The pdf components provides the ability to create, modify or extract content from PDF documents.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
@@ -111,7 +111,7 @@ Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/vm-component.html[VM] (camel-quarkus-vm) +
 `vm:name` | 0.3 | The vm component provides asynchronous call to another endpoint from the same CamelContext.
 
-| link:https://camel.apache.org/components/latest/xslt-component.html[XSLT] (camel-quarkus-xslt) +
+| xref:extensions/xslt.adoc[XSLT] (camel-quarkus-xslt) +
 `xslt:resourceUri` | 0.4 | Transforms the message using a XSLT template.
 
 |===
@@ -128,9 +128,9 @@ Number of Camel data formats: 8 in 7 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2 | The CSV data format is used for handling CSV payloads.
 
-| xref:extensions/fhir.adoc[FHIR JSon] (camel-quarkus-fhir) | 0.2 | The FHIR JSon data format is used to marshall/unmarshall to/from FHIR objects to/from JSON.
+| xref:extensions/fhir.adoc[FHIR JSon] (camel-quarkus-fhir) | 0.3 | The FHIR JSon data format is used to marshall/unmarshall to/from FHIR objects to/from JSON.
 
-| xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.2 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
+| xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.3 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
@@ -180,18 +180,18 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 |===
 | Extension | Since | Description
 
-| (camel-quarkus-attachments) | 0.2 | Maven plugins configuration
+| (camel-quarkus-attachments) | 0.3 | Java Attachments support for Camel Message
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
 | xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.3 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
-| (camel-quarkus-reactive-executor) | 0.3 | To use Quarkus reactive executor with Camel
+| (camel-quarkus-core-xml) | 0.3 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
 
-| (camel-quarkus-core-xml) | 0.2 | Maven plugins configuration
-
-| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Integration with the Quarkus MicroProfile Health extension
+| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Bridging Eclipse MicroProfile Health with Camel health checks
 
 | xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3 | Distributed tracing using OpenTracing
+
+| (camel-quarkus-reactive-executor) | 0.3 | Reactive Executor for camel-core using Vert.x
 |===
 // others: END

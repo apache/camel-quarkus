@@ -112,7 +112,7 @@ public class QuarkusRuntimeProviderTest {
 
         assertTrue(names.contains("core-cloud"));
         assertTrue(names.contains("platform-http"));
-        assertTrue(names.contains("reactive-executor"));
+        assertTrue(names.contains("reactive-executor-vertx"));
 
         assertFalse(names.contains("blueprint"));
         assertFalse(names.contains("hystrix"));
@@ -144,7 +144,7 @@ public class QuarkusRuntimeProviderTest {
 
     @Test
     public void testOtherArtifactId() throws Exception {
-        String json = catalog.otherJSonSchema("reactive-executor");
+        String json = catalog.otherJSonSchema("reactive-executor-vertx");
 
         assertNotNull(json);
         assertTrue(json.contains("camel-quarkus-reactive-executor"));

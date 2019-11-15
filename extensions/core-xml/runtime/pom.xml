@@ -27,7 +27,12 @@
     </parent>
 
     <artifactId>camel-quarkus-core-xml</artifactId>
-    <name>Camel Quarkus :: Core :: XML :: Runtime</name>
+    <name>Camel Quarkus :: Core XML :: Runtime</name>
+    <description>Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)</description>
+
+    <properties>
+        <firstVersion>0.3.0</firstVersion>
+    </properties>
 
     <dependencyManagement>
         <dependencies>

@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-fhir</artifactId>
     <name>Camel Quarkus :: FHIR :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.3.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>

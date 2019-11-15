@@ -29,6 +29,10 @@
     <artifactId>camel-quarkus-attachments</artifactId>
     <name>Camel Quarkus :: Attachments :: Runtime</name>
 
+    <properties>
+        <firstVersion>0.3.0</firstVersion>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
