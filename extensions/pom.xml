@@ -73,6 +73,7 @@
         <module>salesforce</module>
         <module>scheduler</module>
         <module>servlet</module>
+        <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
         <module>tarfile</module>
