@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.freemarker.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-
 public class FreemarkerRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {

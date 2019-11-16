@@ -20,7 +20,7 @@ import freemarker.ext.jython.JythonModel;
 import freemarker.ext.jython.JythonWrapper;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.substrate.RuntimeInitializedClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class FreemarkerProcessor {
     private static final String FEATURE = "camel-freemarker";

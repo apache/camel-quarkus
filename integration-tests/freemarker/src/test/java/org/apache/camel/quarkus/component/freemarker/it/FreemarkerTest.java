@@ -31,12 +31,12 @@ class FreemarkerTest {
     @Test
     public void template() {
         RestAssured.given() //
-            .contentType(ContentType.JSON)
-            .accept(ContentType.TEXT)
-            .post("/freemarker/template")
-            .then()
-            .statusCode(200)
-            .body(equalTo("Dear Feria, Carlos. Have a nice day!"));
+                .contentType(ContentType.JSON)
+                .accept(ContentType.TEXT)
+                .post("/freemarker/template")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Dear Feria, Carlos. Have a nice day!"));
     }
 
 }
