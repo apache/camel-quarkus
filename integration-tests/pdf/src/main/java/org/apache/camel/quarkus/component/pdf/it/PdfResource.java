@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.pdf.it;
 
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -33,6 +35,7 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pdf.PdfHeaderConstants;
 import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.jboss.logging.Logger;
 
 @Path("/pdf")
@@ -55,7 +58,8 @@ public class PdfResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response createFromText(String message) throws Exception {
 
-        byte[] pdfBytes = producerTemplate.requestBody("pdf:create", message, byte[].class);
+        byte[] pdfBytes = producerTemplate.requestBody(
+                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier", message, byte[].class);
         document = PDDocument.load(pdfBytes);
         LOG.infof("The PDDocument has been created and contains %d bytes", pdfBytes.length);
 

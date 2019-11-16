@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
+Number of Camel components: 35 in 31 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -26,6 +26,9 @@ Number of Camel components: 34 in 30 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2 | The bean component is for invoking Java beans from Camel.
+
+| link:https://camel.apache.org/components/latest/bean-validator-component.html[Bean Validator] (camel-quarkus-bean-validator) +
+`bean-validator:label` | 0.5 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2 | The class component is for invoking Java classes (Java beans) from Camel.
