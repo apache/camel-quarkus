@@ -49,6 +49,7 @@
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>bean</module>
+        <module>bean-validator</module>
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
@@ -82,8 +83,6 @@
         <module>vm</module>
         <module>zipfile</module>
         <module>xslt</module>
-        <module>bean-validator</module>
-
     </modules>
 
     <build>

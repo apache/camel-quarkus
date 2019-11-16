@@ -28,7 +28,7 @@ Number of Camel components: 35 in 31 JAR artifacts (0 deprecated)
 `bean:beanName` | 0.2 | The bean component is for invoking Java beans from Camel.
 
 | link:https://camel.apache.org/components/latest/bean-validator-component.html[Bean Validator] (camel-quarkus-bean-validator) +
-`bean-validator:label` | 0.4 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
+`bean-validator:label` | 0.5 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2 | The class component is for invoking Java classes (Java beans) from Camel.
