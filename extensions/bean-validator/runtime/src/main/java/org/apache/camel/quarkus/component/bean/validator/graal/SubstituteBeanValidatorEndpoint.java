@@ -16,18 +16,14 @@
  */
 package org.apache.camel.quarkus.component.bean.validator.graal;
 
-import javax.validation.ValidationProviderResolver;
-
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-import org.apache.camel.component.bean.validator.ValidatorFactories;
+import org.apache.camel.component.bean.validator.BeanValidatorEndpoint;
 
-@TargetClass(ValidatorFactories.class)
-final class SubstituteValidatorFactories {
+@TargetClass(BeanValidatorEndpoint.class)
+final class SubstituteBeanValidatorEndpoint {
     @Substitute
-    private static ValidationProviderResolver resolveValidationProviderResolver(
-            boolean osgi,
-            ValidationProviderResolver validationProviderResolver) {
-        return validationProviderResolver;
+    protected boolean isOsgiContext() {
+        return false;
     }
 }
