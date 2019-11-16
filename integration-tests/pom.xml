@@ -65,11 +65,6 @@
                 <artifactId>activemq-broker</artifactId>
                 <version>${activemq-version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.9.10</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -91,6 +86,7 @@
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
+        <module>kafka</module>
         <module>mail</module>
         <module>microprofile</module>
         <module>netty</module>
