@@ -18,34 +18,29 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-test-core-parent</artifactId>
+        <artifactId>camel-quarkus-integration-tests</artifactId>
         <version>0.4.1-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core :: Tests</name>
-    <description>The camel integration tests</description>
+    <artifactId>camel-quarkus-integration-test-kafka</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Kafka</name>
+    <description>Integration tests for Camel Quarkus Kafka extension</description>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-kafka</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-timer</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-core-ext</artifactId>
-        </dependency>
-
-        <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jsonb</artifactId>
+            <artifactId>quarkus-resteasy</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -67,7 +62,29 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
 
+        <!-- test dependencies - kafka -->
+        <dependency>
+            <groupId>io.debezium</groupId>
+            <artifactId>debezium-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.debezium</groupId>
+            <artifactId>debezium-core</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.12</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -123,11 +140,14 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
+                                    <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
                                     <cleanupServer>true</cleanupServer>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
+                                    <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
                                     <enableServer>false</enableServer>
                                     <dumpProxies>false</dumpProxies>
-                                    <enableJni>false</enableJni>
+                                    <graalvmHome>${graalvmHome}</graalvmHome>
+                                    <enableJni>true</enableJni>
+                                    <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
@@ -137,6 +157,5 @@
             </build>
         </profile>
     </profiles>
-
 
 </project>

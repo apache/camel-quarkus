@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 37 in 32 JAR artifacts (0 deprecated)
+Number of Camel components: 38 in 33 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -55,6 +55,9 @@ Number of Camel components: 37 in 32 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | 0.2 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
+
+| link:https://camel.apache.org/components/latest/kafka-component.html[Kafka] (camel-quarkus-kafka) +
+`kafka:topic` | 0.5 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
 
 | link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | 0.2 | The log component logs message exchanges to the underlying logging mechanism.
