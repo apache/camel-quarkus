@@ -25,6 +25,12 @@ import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildI
 class FreemarkerProcessor {
     private static final String FEATURE = "camel-freemarker";
 
+    //    @Inject
+    //    BuildProducer<NativeImageResourceBuildItem> resource;
+    //
+    //    @Inject
+    //    BuildProducer<NativeImageResourceBundleBuildItem> resourceBundle;
+
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
@@ -39,5 +45,14 @@ class FreemarkerProcessor {
     RuntimeInitializedClassBuildItem jythonWrapper() {
         return new RuntimeInitializedClassBuildItem(JythonWrapper.class.getCanonicalName());
     }
+
+    //    @BuildStep
+    //    void registerNativeImageReources() {
+    //        resource.produce(new NativeImageResourceBuildItem("/security/runtime.keys"));
+    //
+    //        resource.produce(new NativeImageResourceBuildItem("META-INF/services/" + io.quarkus.SomeService.class.getName()));
+    //
+    //        resourceBundle.produce(new NativeImageResourceBuildItem("javax.xml.bind.Messages"));
+    //    }
 
 }

@@ -14,11 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.freemarker.it;
+package org.apache.camel.quarkus.component.freemarker;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
+import io.quarkus.runtime.annotations.ConfigRoot;
 
-@NativeImageTest
-class FreemarkerIT extends FreemarkerTest {
+import java.util.List;
+
+@ConfigRoot(name = "camel.freemarker", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+public class CamelFreemarkerConfig {
+    /**
+     * A comma separated list of templates to compile.
+     */
+    @ConfigItem
+    public List<String> sources;
 
 }

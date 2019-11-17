@@ -22,6 +22,6 @@ public class FreemarkerRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:template")
-                .to("freemarker:file:src/test/resources/template.ftl");
+                .to("freemarker:template.ftl");
     }
 }
