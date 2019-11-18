@@ -17,13 +17,12 @@
 package org.apache.camel.quarkus.component.xslt.deployment;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
 import org.apache.camel.support.ResourceHelper;
@@ -32,22 +31,16 @@ class XsltNativeImageProcessor {
     public static final String CLASSPATH_SCHEME = "classpath:";
 
     @BuildStep
-    List<ReflectiveClassBuildItem> reflectiveClasses(List<XsltGeneratedClassBuildItem> generatedClasses) {
-        List<ReflectiveClassBuildItem> items = new ArrayList<>(generatedClasses.size() + 1);
-
-        items.add(new ReflectiveClassBuildItem(true, false, "org.apache.camel.component.xslt.XsltBuilder"));
-
-        for (XsltGeneratedClassBuildItem generatedClass : generatedClasses) {
-            items.add(new ReflectiveClassBuildItem(true, false, generatedClass.getClassName()));
-        }
-
-        return items;
+    ReflectiveClassBuildItem reflectiveClasses() {
+        return new ReflectiveClassBuildItem(true, false, "org.apache.camel.component.xslt.XsltBuilder");
     }
 
     @BuildStep
-    List<NativeImageResourceBundleBuildItem> resourceBundles() {
-        return Arrays.asList(
-                new NativeImageResourceBundleBuildItem("com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMessages"));
+    List<ReflectiveClassBuildItem> generatedReflectiveClasses(List<XsltGeneratedClassBuildItem> generatedClasses) {
+        return generatedClasses.stream()
+                .map(XsltGeneratedClassBuildItem::getClassName)
+                .map(className -> new ReflectiveClassBuildItem(true, false, className))
+                .collect(Collectors.toList());
     }
 
     @BuildStep

@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xslt.graal;
+package org.apache.camel.quarkus.support.xalan.graal;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 
 @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl")
-final class TemplatesImplSubstitution {
+final class SunTemplatesImplSubstitution {
 
     @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl", innerClass = "TransletClassLoader")
     static final class TransletClassLoader {
