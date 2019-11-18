@@ -32,6 +32,11 @@ import org.apache.camel.support.CamelContextHelper;
 
 @Recorder
 public class BeanValidatorRecorder {
+    /*
+     * TODO: remove when rebasing on Camel > 3.0.0-RC3 as camel-main engine
+     *       should automatically bind the ValidatorFactory set-up by Quarkus
+     *       to the component
+     */
     public RuntimeValue<BeanValidatorComponent> createBeanValidatorComponent() {
         return new RuntimeValue<>(new QuarkusBeanValidatorComponent());
     }
@@ -53,11 +58,6 @@ public class BeanValidatorRecorder {
             super(endpointUri, component);
         }
 
-        /*
-         * TODO: we should add an option to programmatically set a ValidatorFactory
-         *       to the BeanValidatorComponent or to automatically look it up from
-         *       the registry
-         */
         @Override
         public Producer createProducer() throws Exception {
             final CamelContext camelContext = getCamelContext();
