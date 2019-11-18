@@ -17,17 +17,15 @@
 package org.apache.camel.quarkus.component.xslt;
 
 import java.util.Map;
-
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-
-import org.apache.camel.component.xslt.XsltComponent;
-import org.apache.camel.component.xslt.XsltEndpoint;
-import org.apache.camel.util.FileUtil;
-import org.apache.camel.util.StringHelper;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.component.xslt.XsltComponent;
+import org.apache.camel.component.xslt.XsltEndpoint;
+import org.apache.camel.quarkus.support.xalan.XalanSupport;
+import org.apache.camel.util.FileUtil;
+import org.apache.camel.util.StringHelper;
 
 @Recorder
 public class CamelXsltRecorder {
@@ -51,13 +49,7 @@ public class CamelXsltRecorder {
             final String fileName = FileUtil.stripExt(remaining, true);
             final String className = StringHelper.capitalize(fileName, true);
 
-            TransformerFactory tf = TransformerFactory.newInstance();
-            try {
-                tf.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            } catch (TransformerException e) {
-                log.warn("Unsupported feature " + javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING);
-            }
-
+            TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
             tf.setAttribute("use-classpath", true);
             tf.setAttribute("translet-name", className);
             tf.setAttribute("package-name", this.config.packageName);

@@ -21,10 +21,14 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltUriResolver;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
@@ -34,15 +38,10 @@ import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
+import org.apache.camel.quarkus.support.xalan.XalanSupport;
 import org.apache.camel.util.FileUtil;
 import org.apache.camel.util.StringHelper;
 import org.apache.commons.lang3.StringUtils;
-
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 
 class XsltProcessor {
     /*
@@ -76,8 +75,7 @@ class XsltProcessor {
                 final String name = FileUtil.stripExt(source, true);
 
                 try {
-                    TransformerFactory tf = TransformerFactory.newInstance();
-                    tf.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
+                    TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
                     tf.setAttribute("generate-translet", true);
                     tf.setAttribute("translet-name", StringHelper.capitalize(name, true));
                     tf.setAttribute("package-name", config.packageName);
