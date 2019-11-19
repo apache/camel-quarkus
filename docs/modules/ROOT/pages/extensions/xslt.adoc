@@ -21,16 +21,21 @@ The extension provides support for the Camel https://camel.apache.org/components
 
 === Configuration
 
-To optimize XSLT processing, the extension need to know a location(s) of the XSLT templates at build time. The location(s) can be listed with the property `quarkus.camel.xslt.sources`, you can separate multiple locations with comma.
+To optimize XSLT processing, the extension needs to know the locations of the XSLT templates at build time.
+The XSLT source URIs have to be passed via the `quarkus.camel.xslt.sources` property. Multiple URIs can be separated
+by comma.
 
 [source,properties]
 ----
-quarkus.camel.xslt.sources = transform.xsl, file:/path/to/my/file.xsl
+quarkus.camel.xslt.sources = transform.xsl, file:relative/path/to/my/file.xsl, file:/absolute/path/to/my/file.xsl
 ----
+
+Scheme-less URIs are interpreted as `classpath:` URIs.
 
 [NOTE]
 ====
-class-path locations will be embedded int the generated native image.
+The content of the XSLT source URIs is parsed and compiled into Java classes at build time. These Java classes are the
+only source of XSLT information at runtime. The XSLT source files may not be included in the application archive at all.
 ====
 
 [WARNING]

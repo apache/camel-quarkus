@@ -24,11 +24,11 @@
     <xsl:output method="xml" indent="yes" encoding="ISO-8859-1"/>
 
     <xsl:template match="/">
-        <transformed subject="{/mail/subject}">
+        <file-xsl subject="{/mail/subject}">
             <cheese>
                 <xsl:apply-templates select="*|@*"/>
             </cheese>
-        </transformed>
+        </file-xsl>
     </xsl:template>
 
     <xsl:template match="*">

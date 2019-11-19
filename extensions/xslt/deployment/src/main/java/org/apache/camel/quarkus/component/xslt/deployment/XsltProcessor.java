@@ -21,6 +21,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
@@ -28,20 +32,21 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.ArchiveRootBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import org.apache.camel.component.xslt.XsltComponent;
-import org.apache.camel.component.xslt.XsltUriResolver;
+import org.apache.camel.quarkus.component.xslt.deployment.BuildTimeUriResolver.ResolutionResult;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
 import org.apache.camel.quarkus.component.xslt.CamelXsltErrorListener;
 import org.apache.camel.quarkus.component.xslt.CamelXsltRecorder;
+import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver.Builder;
 import org.apache.camel.quarkus.core.CamelServiceFilter;
-import org.apache.camel.quarkus.core.FastCamelContext;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.xalan.XalanSupport;
-import org.apache.camel.util.FileUtil;
-import org.apache.camel.util.StringHelper;
 import org.apache.commons.lang3.StringUtils;
+
+import io.quarkus.runtime.RuntimeValue;
 
 class XsltProcessor {
     /*
@@ -55,33 +60,55 @@ class XsltProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelBeanBuildItem xsltComponent(CamelXsltRecorder recorder, CamelXsltConfig config) {
+    CamelBeanBuildItem xsltComponent(
+            CamelXsltRecorder recorder,
+            CamelXsltConfig config,
+            List<UriResolverEntryBuildItem> uriResolverEntries) {
+
+        final RuntimeValue<Builder> builder = recorder.createRuntimeUriResolverBuilder();
+        for (UriResolverEntryBuildItem entry : uriResolverEntries) {
+            recorder.addRuntimeUriResolverEntry(
+                    builder,
+                    entry.getTemplateUri(),
+                    entry.getTransletClassName());
+        }
+
         return new CamelBeanBuildItem(
                 "xslt",
                 XsltComponent.class.getName(),
-                recorder.createXsltComponent(config));
+                recorder.createXsltComponent(config, builder));
     }
 
     @BuildStep
     void xsltResources(
             CamelXsltConfig config,
             BuildProducer<XsltGeneratedClassBuildItem> generatedNames,
-            BuildProducer<GeneratedClassBuildItem> generatedClasses) throws Exception {
+            BuildProducer<GeneratedClassBuildItem> generatedClasses,
+            BuildProducer<UriResolverEntryBuildItem> uriResolverEntries,
+            ArchiveRootBuildItem archiveRoot) throws Exception {
 
         Path destination = Files.createTempDirectory(XsltFeature.FEATURE);
-
+        final Set<String> translets = new LinkedHashSet<>();
         try {
-            for (String source : config.sources) {
-                final String name = FileUtil.stripExt(source, true);
-
+            // TODO: figure out a better way to get the baseDir, see https://github.com/apache/camel-quarkus/issues/439
+            final Path baseDir = archiveRoot.getArchiveRoot().getParent().getParent();
+            final BuildTimeUriResolver resolver = new BuildTimeUriResolver(baseDir);
+            for (String uri : config.sources) {
+                ResolutionResult resolvedUri = resolver.resolve(uri);
+                uriResolverEntries.produce(resolvedUri.toBuildItem());
+                final String translet = resolvedUri.transletClassName;
+                if (translets.contains(translet)) {
+                    throw new RuntimeException("XSLT translet name clash: cannot add '" + translet
+                            + "' to previously added translets " + translets);
+                }
                 try {
                     TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
                     tf.setAttribute("generate-translet", true);
-                    tf.setAttribute("translet-name", StringHelper.capitalize(name, true));
+                    tf.setAttribute("translet-name", translet);
                     tf.setAttribute("package-name", config.packageName);
                     tf.setAttribute("destination-directory", destination.toString());
                     tf.setErrorListener(new CamelXsltErrorListener());
-                    tf.newTemplates(new XsltUriResolver(new FastCamelContext(), source).resolve(source, null));
+                    tf.newTemplates(resolvedUri.source);
                 } catch (TransformerException e) {
                     throw new RuntimeException(e);
                 }
