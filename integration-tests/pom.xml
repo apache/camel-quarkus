@@ -80,6 +80,7 @@
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>dozer</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
