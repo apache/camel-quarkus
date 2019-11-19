@@ -86,6 +86,7 @@
         <module>vm</module>
         <module>zipfile</module>
         <module>xslt</module>
+        <module>aws-kms</module>
     </modules>
 
     <build>
