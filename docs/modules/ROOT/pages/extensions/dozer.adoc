@@ -1,0 +1,31 @@
+[[dozer]]
+= Dozer Extension
+
+*Since Camel Quarkus 0.5.0*
+
+The Dozer component provides the ability to map between Java beans using the http://camel.apache.org/dozer-type-conversion.html[Dozer] mapping framework.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-dozer</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/dozer-component.html[Dozer Component].
+
+=== Configuration
+
+The Dozer extension can automatically register a `DozerBeanMapperConfiguration` bean with the Camel registry which references your mapping files.
+
+Use the following configuration property to specify the location(s) of your Dozer mapping configuration files.
+
+[source,properties]
+----
+quarkus.camel.dozer.mapping-files = dozerMappings.xml,file:foo/bar/custom-mappings.xml,http://foo/bar/mapping.xml
+----

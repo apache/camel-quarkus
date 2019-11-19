@@ -54,6 +54,7 @@
         <module>csv</module>
         <module>dataformat</module>
         <module>direct</module>
+        <module>dozer</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>

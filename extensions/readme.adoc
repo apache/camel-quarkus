@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 38 in 33 JAR artifacts (0 deprecated)
+Number of Camel components: 39 in 34 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -40,6 +40,9 @@ Number of Camel components: 38 in 33 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | 0.2 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
+
+| xref:extensions/dozer.adoc[Dozer] (camel-quarkus-dozer) +
+`dozer:name` | 0.5 | The dozer component provides the ability to map between Java beans using the Dozer mapping library.
 
 | link:https://camel.apache.org/components/latest/exec-component.html[Exec] (camel-quarkus-exec) +
 `exec:executable` | 0.4 | The exec component can be used to execute OS system commands.
