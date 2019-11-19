@@ -24,20 +24,30 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltEndpoint;
 import org.apache.camel.quarkus.support.xalan.XalanSupport;
-import org.apache.camel.util.FileUtil;
-import org.apache.camel.util.StringHelper;
 
 @Recorder
 public class CamelXsltRecorder {
-    public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config) {
-        return new RuntimeValue<>(new QuarkusXsltComponent(config));
+    public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config,
+            RuntimeValue<RuntimeUriResolver.Builder> uriResolverBuilder) {
+        return new RuntimeValue<>(new QuarkusXsltComponent(config, uriResolverBuilder.getValue().build()));
+    }
+
+    public RuntimeValue<RuntimeUriResolver.Builder> createRuntimeUriResolverBuilder() {
+        return new RuntimeValue<RuntimeUriResolver.Builder>(new RuntimeUriResolver.Builder());
+    }
+
+    public void addRuntimeUriResolverEntry(RuntimeValue<RuntimeUriResolver.Builder> builder, String templateUri,
+            String transletClassName) {
+        builder.getValue().entry(templateUri, transletClassName);
     }
 
     static class QuarkusXsltComponent extends XsltComponent {
         private final CamelXsltConfig config;
+        private final RuntimeUriResolver uriResolver;
 
-        public QuarkusXsltComponent(CamelXsltConfig config) {
+        public QuarkusXsltComponent(CamelXsltConfig config, RuntimeUriResolver uriResolver) {
             this.config = config;
+            this.uriResolver = uriResolver;
         }
 
         @Override
@@ -46,8 +56,7 @@ public class CamelXsltRecorder {
                 String remaining,
                 Map<String, Object> parameters) throws Exception {
 
-            final String fileName = FileUtil.stripExt(remaining, true);
-            final String className = StringHelper.capitalize(fileName, true);
+            final String className = uriResolver.getTransletClassName(remaining);
 
             TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
             tf.setAttribute("use-classpath", true);
@@ -58,6 +67,7 @@ public class CamelXsltRecorder {
             endpoint.setTransformerFactory(tf);
 
             super.configureEndpoint(endpoint, remaining, parameters);
+            endpoint.setUriResolver(uriResolver);
         }
     }
 

@@ -18,16 +18,40 @@ package org.apache.camel.quarkus.component.xslt.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.hamcrest.xml.HasXPath;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class XsltTest {
 
+    private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
+
     @Test
-    public void test() {
-        RestAssured.get("/xslt/get").then().statusCode(200)
-                .body(HasXPath.hasXPath("/transformed/cheese/mail/subject"));
+    public void classpath() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xslt/classpath-xsl")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><classpath-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></classpath-xsl>",
+                actual);
+    }
+
+    @Test
+    public void file() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xslt/file-xsl")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><file-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></file-xsl>",
+                actual);
     }
 
 }

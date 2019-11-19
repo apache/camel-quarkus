@@ -14,18 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xslt.it;
+package org.apache.camel.quarkus.component.xslt.deployment;
 
-import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver;
 
-public class XsltRoute extends RouteBuilder {
+import io.quarkus.builder.item.MultiBuildItem;
 
-    @Override
-    public void configure() throws Exception {
-        from("direct:classpath-xsl")
-                .to("xslt:xslt/classpath-transform.xsl");
+/**
+ * Holds a pair of XSLT template URI and the unqualified translet name to use when creating a
+ * {@link RuntimeUriResolver}.
+ */
+public final class UriResolverEntryBuildItem extends MultiBuildItem {
+    private final String templateUri;
+    private final String transletClassName;
 
-        from("direct:file-xsl")
-                .to("xslt:file:src/main/xslt/file-transform.xsl");
+    public UriResolverEntryBuildItem(String templateUri, String transletClassName) {
+        this.templateUri = templateUri;
+        this.transletClassName = transletClassName;
     }
+
+    public String getTemplateUri() {
+        return templateUri;
+    }
+
+    public String getTransletClassName() {
+        return transletClassName;
+    }
+
 }
