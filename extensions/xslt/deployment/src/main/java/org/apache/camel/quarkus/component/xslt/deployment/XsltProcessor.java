@@ -43,7 +43,7 @@ import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver.Builder;
 import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.support.xalan.XalanSupport;
+import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 import org.apache.commons.lang3.StringUtils;
 
 import io.quarkus.runtime.RuntimeValue;
@@ -102,7 +102,7 @@ class XsltProcessor {
                             + "' to previously added translets " + translets);
                 }
                 try {
-                    TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
+                    TransformerFactory tf = new XalanTransformerFactory();
                     tf.setAttribute("generate-translet", true);
                     tf.setAttribute("translet-name", translet);
                     tf.setAttribute("package-name", config.packageName);
