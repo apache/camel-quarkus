@@ -26,10 +26,13 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.hl7.fhir.dstu3.model.Address;
 import org.hl7.fhir.dstu3.model.HumanName;
 import org.hl7.fhir.dstu3.model.Patient;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class FhirTest {
+
+    private static final Logger LOG = Logger.getLogger(FhirTest.class);
 
     Boolean dstu2 = new FhirFlags.Dstu2Enabled().getAsBoolean();
     Boolean dstu3 = new FhirFlags.Dstu3Enabled().getAsBoolean();
@@ -40,6 +43,7 @@ class FhirTest {
         if (!dstu2) {
             return;
         }
+        LOG.info("Running DSTU2 JSON test");
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -52,7 +56,7 @@ class FhirTest {
         if (!dstu2) {
             return;
         }
-
+        LOG.info("Running DSTU2 XML test");
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newXmlParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -65,7 +69,7 @@ class FhirTest {
         if (!dstu2) {
             return;
         }
-
+        LOG.info("Running DSTU2 client test");
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
         String patientString = FhirContext.forDstu2().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -78,7 +82,7 @@ class FhirTest {
         if (!dstu3) {
             return;
         }
-
+        LOG.info("Running DSTU3 JSON test");
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -91,7 +95,7 @@ class FhirTest {
         if (!dstu3) {
             return;
         }
-
+        LOG.info("Running DSTU3 XML test");
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newXmlParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -104,7 +108,7 @@ class FhirTest {
         if (!dstu3) {
             return;
         }
-
+        LOG.info("Running DSTU3 Client test");
         final Patient patient = getDstu3Patient();
         String patientString = FhirContext.forDstu3().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -117,7 +121,7 @@ class FhirTest {
         if (!r4) {
             return;
         }
-
+        LOG.info("Running R4 JSON test");
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -130,7 +134,7 @@ class FhirTest {
         if (!r4) {
             return;
         }
-
+        LOG.info("Running R4 XML test");
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newXmlParser().encodeResourceToString(patient);
         RestAssured.given()
@@ -143,7 +147,7 @@ class FhirTest {
         if (!r4) {
             return;
         }
-
+        LOG.info("Running R4 Client test");
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
         String patientString = FhirContext.forR4().newJsonParser().encodeResourceToString(patient);
         RestAssured.given()

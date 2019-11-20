@@ -74,6 +74,12 @@
     </dependencies>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>io.quarkus</groupId>
@@ -88,16 +94,116 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>${maven-dependency-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>deploy-converter-factory</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>ca.uhn.hapi.fhir</groupId>
+                                    <artifactId>hapi-fhir-jpaserver-starter</artifactId>
+                                    <version>${hapi.server.version}</version>
+                                    <type>war</type>
+                                    <outputDirectory>${project.build.directory}/war</outputDirectory>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>reserve-fhir-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>generate-test-sources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>fhir.port</portName>
+                                <portName>fhir.stop.port</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>filter-resources</id>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>resources</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>properties-maven-plugin</artifactId>
+                <version>${properties-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>set-system-properties</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <property>
+                                    <name>hapi.properties</name>
+                                    <value>src/test/resources/hapi.properties</value>
+                                </property>
+                            </properties>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-maven-plugin.version}</version>
                 <configuration>
-                    <systemProperties combine.children="append">
-                        <!--
-                            temporary disabled as FHIR testing service is down
-                        -->
-                        <quarkus.camel.fhir.enable-dstu2>false</quarkus.camel.fhir.enable-dstu2>
-                        <quarkus.camel.fhir.enable-r4>false</quarkus.camel.fhir.enable-r4>
-                    </systemProperties>
+                    <war>${project.build.directory}/war/hapi-fhir-jpaserver-starter-${hapi.server.version}.war</war>
+                    <stopKey>alpha</stopKey>
+                    <stopPort>${fhir.stop.port}</stopPort>
+                    <httpConnector>
+                        <port>${fhir.port}</port>
+                    </httpConnector>
+                    <supportedPackagings>
+                        <supportedPackaging>jar</supportedPackaging>
+                    </supportedPackagings>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>start-jetty</id>
+                        <phase>process-test-classes</phase>
+                        <goals>
+                            <goal>deploy-war</goal>
+                        </goals>
+                        <configuration>
+                            <scanIntervalSeconds>0</scanIntervalSeconds>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>stop-jetty</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

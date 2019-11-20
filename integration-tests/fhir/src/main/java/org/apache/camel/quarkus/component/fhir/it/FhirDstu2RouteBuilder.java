@@ -34,7 +34,7 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
             CamelContext context = getContext();
             FhirContext fhirContext = FhirContext.forDstu2();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
-            context.getRegistry().bind("fhirContext", fhirContext  );
+            context.getRegistry().bind("fhirContext", fhirContext);
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
@@ -42,7 +42,6 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
             fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.DSTU2.name());
             fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
-
 
             from("direct:json-to-dstu2")
                     .unmarshal(fhirJsonDataFormat)
