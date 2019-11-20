@@ -5,11 +5,14 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 39 in 34 JAR artifacts (0 deprecated)
+Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Component | Since | Description
+
+| link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
+`aws-ecs:label` | 0.5 | The aws-kms is used for managing Amazon ECS
 
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | 0.2 | The aws-kms is used for managing Amazon EKS

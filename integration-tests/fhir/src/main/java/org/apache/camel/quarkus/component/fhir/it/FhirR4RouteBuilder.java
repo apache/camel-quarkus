@@ -34,7 +34,7 @@ public class FhirR4RouteBuilder extends RouteBuilder {
             CamelContext context = getContext();
             FhirContext fhirContext = FhirContext.forR4();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
-            context.getRegistry().bind("fhirContext", fhirContext  );
+            context.getRegistry().bind("fhirContext", fhirContext);
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.R4.name());
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());

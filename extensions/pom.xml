@@ -87,6 +87,7 @@
         <module>zipfile</module>
         <module>xslt</module>
         <module>aws-kms</module>
+        <module>aws-ecs</module>
     </modules>
 
     <build>

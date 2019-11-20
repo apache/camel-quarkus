@@ -109,7 +109,8 @@ class FhirProcessor {
         classes.add("org.apache.commons.logging.LogFactory");
         classes.add("org.apache.commons.logging.impl.Jdk14Logger");
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));
+        reflectiveClass
+                .produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
@@ -155,8 +156,10 @@ class FhirProcessor {
         classes.addAll(getModelClasses("/org/hl7/fhir/r4/model/fhirversion.properties"));
         classes.addAll(getInnerClasses(org.hl7.fhir.r4.model.Enumerations.class.getCanonicalName()));
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.Meta.class.getCanonicalName()));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.MetadataResource.class.getCanonicalName()));
+        reflectiveClass
+                .produce(new ReflectiveClassBuildItem(true, true, true, org.hl7.fhir.r4.model.Meta.class.getCanonicalName()));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true,
+                org.hl7.fhir.r4.model.MetadataResource.class.getCanonicalName()));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
         resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/r4/model/fhirversion.properties"));
     }
