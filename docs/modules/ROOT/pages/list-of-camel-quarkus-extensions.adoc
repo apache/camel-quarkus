@@ -214,7 +214,7 @@ Number of Camel data formats: 10 in 9 JAR artifacts (0 deprecated)
 == Camel Languages
 
 // languages: START
-Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
+Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -229,6 +229,8 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/file-language.html[File] (camel-quarkus-core) | 0.2.0 | For expressions and predicates using the file/simple language.
 
 | link:https://camel.apache.org/components/latest/header-language.html[Header] (camel-quarkus-core) | 0.2.0 | To use a Camel Message header in expressions or predicates.
+
+| link:https://camel.apache.org/components/latest/jsonpath-language.html[JsonPath] (camel-quarkus-jsonpath) | 1.0.0 | To use JsonPath in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/ref-language.html[Ref] (camel-quarkus-core) | 0.2.0 | Reference to an existing Camel expression or predicate, which is looked up from the Camel registry.
 
