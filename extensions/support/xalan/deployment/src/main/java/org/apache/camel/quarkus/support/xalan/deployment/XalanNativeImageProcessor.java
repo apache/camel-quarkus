@@ -30,6 +30,7 @@ class XalanNativeImageProcessor {
         return new ReflectiveClassBuildItem(
                 true,
                 false,
+                "org.apache.camel.quarkus.support.xalan.XalanTransformerFactory",
                 "org.apache.xalan.xsltc.dom.ObjectFactory",
                 "org.apache.xalan.xsltc.dom.XSLTCDTMManager",
                 "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
