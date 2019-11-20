@@ -42,7 +42,7 @@
 
         <camel.version>3.0.0-RC3</camel.version>
         <hapi.version>3.7.0</hapi.version>
-        <quarkus.version>1.0.0.CR1</quarkus.version>
+        <quarkus.version>1.0.0.CR2</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
         <snakeyaml.version>1.25</snakeyaml.version>
