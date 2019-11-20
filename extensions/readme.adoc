@@ -197,7 +197,7 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 8 in 8 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -210,6 +210,8 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 | xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.3 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
 
 | (camel-quarkus-core-xml) | 0.3 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
+
+| (camel-quarkus-hystrix) | 0.5 | Circuit Breaker EIP using Netflix Hystrix
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Bridging Eclipse MicroProfile Health with Camel health checks
 

@@ -84,6 +84,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>hystrix</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>

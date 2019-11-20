@@ -115,7 +115,6 @@ public class QuarkusRuntimeProviderTest {
         assertTrue(names.contains("reactive-executor-vertx"));
 
         assertFalse(names.contains("blueprint"));
-        assertFalse(names.contains("hystrix"));
     }
 
     @Test
