@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.component.fhir.it;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class FhirIT extends FhirTest {
+class FhirDataformatIntegrationTest extends FhirDataformatTest {
 }

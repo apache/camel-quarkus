@@ -26,6 +26,7 @@ import ca.uhn.fhir.model.dstu2.FhirDstu2;
 import ca.uhn.fhir.model.dstu2.resource.BaseResource;
 import ca.uhn.fhir.model.dstu2.valueset.*;
 import ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory;
+import ca.uhn.fhir.util.jar.DependencyLogImpl;
 import ca.uhn.fhir.validation.schematron.SchematronBaseValidator;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -101,10 +102,10 @@ class FhirProcessor {
     }
 
     @BuildStep(applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
-    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<NativeImageResourceBundleBuildItem> resource) {
+    void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         Set<String> classes = new HashSet<>();
         classes.add(SchematronBaseValidator.class.getCanonicalName());
+        classes.add(DependencyLogImpl.class.getCanonicalName());
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
         reflectiveClass
                 .produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));

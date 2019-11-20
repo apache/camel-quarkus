@@ -42,6 +42,7 @@
 
         <camel.version>3.0.0-RC3</camel.version>
         <hapi.version>3.7.0</hapi.version>
+        <hapi.server.version>4.1.0</hapi.server.version>
         <quarkus.version>1.0.0.CR2</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
@@ -59,16 +60,20 @@
         <!-- maven-enforcer-plugin -->
         <supported-maven-versions>[3.5.3,)</supported-maven-versions>
 
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
         <groovy.version>2.5.8</groovy.version>
         <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
+        <jetty-maven-plugin.version>9.4.20.v20190813</jetty-maven-plugin.version>
+        <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
+        <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
