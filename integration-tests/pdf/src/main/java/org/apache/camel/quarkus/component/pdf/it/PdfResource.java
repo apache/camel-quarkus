@@ -17,8 +17,6 @@
 package org.apache.camel.quarkus.component.pdf.it;
 
 import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -31,11 +29,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pdf.PdfHeaderConstants;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.jboss.logging.Logger;
 
 @Path("/pdf")
@@ -46,9 +42,6 @@ public class PdfResource {
 
     @Inject
     ProducerTemplate producerTemplate;
-
-    @Inject
-    ConsumerTemplate consumerTemplate;
 
     private PDDocument document;
 
