@@ -1,0 +1,41 @@
+= Contexts and Dependency Injection (CDI) in Camel Quarkus
+
+CDI plays a central role in Quarkus and Camel Quarkus offers a first class support for it too.
+
+You may use `@Inject`, `@ConfigProperty` and similar annotations e.g. to inject beans and configuration values to
+your Camel `RouteBuilder`s. Here is the `RouteBuilder` from our `timer-log-cdi` xref:examples.adoc[example]:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@ApplicationScoped <1>
+public class TimerRoute extends RouteBuilder {
+
+    @ConfigProperty(name = "timer.period", defaultValue = "1s") <2>
+    String period;
+
+    @Inject
+    Counter counter;
+
+    @Override
+    public void configure() throws Exception {
+        fromF("timer:foo?period=%s", period)
+                .setBody(() -> "Incremented the counter: " + counter.increment())
+                .to("log:cdi-example?showExchangePattern=false&showBodyType=false");
+    }
+}
+----
+
+<1> The `@ApplicationScoped` annotation is required for `@Inject` and `@ConfigProperty` to work in a `RouteBuilder`.
+Note that the `@ApplicationScoped` beans are managed by the CDI container and their life cycle is thus a bit more
+complex than the one of the plain `RouteBuilder`. In other words, using `@ApplicationScoped` in `RouteBuilder`s comes
+with some boot time penalty and you should therefore only annotate your `RouteBuilder` with `@ApplicationScoped` when
+you really need it.
+
+<2> The value for the `timer.period` property is defined in `src/main/resources/application.properties` of the example project.
+
+TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Quarkus Dependency Injection guide] for more details.
