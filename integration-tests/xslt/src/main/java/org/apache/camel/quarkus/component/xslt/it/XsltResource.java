@@ -18,20 +18,16 @@ package org.apache.camel.quarkus.component.xslt.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
 
 @Path("/xslt")
 @ApplicationScoped
 public class XsltResource {
-
-    private static final Logger LOG = Logger.getLogger(XsltResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -41,13 +37,6 @@ public class XsltResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String classpath(String body) throws Exception {
         return producerTemplate.requestBody("direct:classpath-xsl", body, String.class);
-    }
-
-    @Path("/file-xsl")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String file(String body) throws Exception {
-        return producerTemplate.requestBody("direct:file-xsl", body, String.class);
     }
 
 }
