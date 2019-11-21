@@ -110,6 +110,7 @@
         <module>zipfile</module>
         <module>xslt</module>
         <module>bean-validator</module>
+        <module>git</module>
 
     </modules>
 

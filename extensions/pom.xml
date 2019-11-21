@@ -89,6 +89,7 @@
         <module>xslt</module>
         <module>aws-kms</module>
         <module>aws-ecs</module>
+        <module>git</module>
     </modules>
 
     <build>

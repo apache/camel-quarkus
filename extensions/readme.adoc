@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
+Number of Camel components: 42 in 37 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -58,6 +58,9 @@ Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4 | The file component is used for reading or writing files.
+
+| link:https://camel.apache.org/components/latest/git-component.html[Git] (camel-quarkus-git) +
+`git:localPath` | 0.5 | The git component is used for working with git repositories.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2 | For reading/writing from/to Infinispan distributed key/value store and data grid.
