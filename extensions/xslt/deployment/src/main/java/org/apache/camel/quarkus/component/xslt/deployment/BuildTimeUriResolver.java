@@ -17,13 +17,9 @@
 package org.apache.camel.quarkus.component.xslt.deployment;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 import javax.xml.transform.Source;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.camel.support.ResourceHelper;
@@ -32,14 +28,7 @@ import org.apache.camel.util.StringHelper;
 
 public class BuildTimeUriResolver {
 
-    /** A directory to use as a base for resolving {@code file:} URIs */
-    private final Path baseDir;
-
-    public BuildTimeUriResolver(Path baseDir) {
-        this.baseDir = baseDir;
-    }
-
-    public ResolutionResult resolve(String templateUri) throws TransformerException {
+    public ResolutionResult resolve(String templateUri) {
         if (templateUri == null) {
             throw new RuntimeException("href parameter cannot be null");
         }
@@ -48,42 +37,26 @@ public class BuildTimeUriResolver {
         final String scheme = ResourceHelper.getScheme(templateUri);
         final String effectiveScheme = scheme == null ? "classpath:" : scheme;
 
-        final String transletName;
-        final Source src;
-        if ("file:".equals(effectiveScheme)) {
-            final String compacted = compact(templateUri, scheme);
-            transletName = toTransletName(compacted);
-            final Path resolvedPath = baseDir.resolve(compacted);
-            try {
-                src = new StreamSource(Files.newInputStream(resolvedPath));
-            } catch (IOException e) {
-                throw new TransformerException("Could not read from file " + templateUri, e);
-            }
-        } else if ("classpath:".equals(effectiveScheme)) {
-            final String compacted = compact(templateUri, scheme);
-            transletName = toTransletName(compacted);
-            final URL url = getClass().getClassLoader().getResource(compacted);
-            try {
-                src = new StreamSource(url.openStream());
-            } catch (IOException e) {
-                throw new TransformerException("Could not read the class path resource " + templateUri, e);
-            }
-
-            // TODO: if the XSLT file is under target/classes of the current project we should mark it for exclusion
-            //       from the application archive. See https://github.com/apache/camel-quarkus/issues/438
-        } else {
-            try {
-                final URL url = new URL(templateUri);
-                final String path = url.getPath();
-                transletName = toTransletName(path);
-                src = new StreamSource(url.openStream());
-            } catch (MalformedURLException e) {
-                throw new TransformerException("Invalid URL " + templateUri, e);
-            } catch (IOException e) {
-                throw new TransformerException("Could not read from URL " + templateUri, e);
-            }
+        if (!"classpath:".equals(effectiveScheme)) {
+            throw new RuntimeException("URI scheme '" + effectiveScheme
+                    + "' not supported for build time compilation of XSL templates. Only 'classpath:' URIs are supported");
         }
-        return new ResolutionResult(templateUri, transletName, src);
+
+        final String compacted = compact(templateUri, scheme);
+        final String transletName = toTransletName(compacted);
+        final URL url = getClass().getClassLoader().getResource(compacted);
+        if (url == null) {
+            throw new IllegalStateException("Could not find the XSLT resource " + compacted + " in the classpath");
+        }
+        try {
+            final Source src = new StreamSource(url.openStream());
+            // TODO: if the XSLT file is under target/classes of the current project we should mark it for exclusion
+            // from the application archive. See https://github.com/apache/camel-quarkus/issues/438
+            return new ResolutionResult(templateUri, transletName, src);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read the class path resource " + templateUri, e);
+        }
+
     }
 
     private String toTransletName(final String compacted) {

@@ -90,9 +90,7 @@ class XsltProcessor {
         Path destination = Files.createTempDirectory(XsltFeature.FEATURE);
         final Set<String> translets = new LinkedHashSet<>();
         try {
-            // TODO: figure out a better way to get the baseDir, see https://github.com/apache/camel-quarkus/issues/439
-            final Path baseDir = archiveRoot.getArchiveRoot().getParent().getParent();
-            final BuildTimeUriResolver resolver = new BuildTimeUriResolver(baseDir);
+            final BuildTimeUriResolver resolver = new BuildTimeUriResolver();
             for (String uri : config.sources) {
                 ResolutionResult resolvedUri = resolver.resolve(uri);
                 uriResolverEntries.produce(resolvedUri.toBuildItem());

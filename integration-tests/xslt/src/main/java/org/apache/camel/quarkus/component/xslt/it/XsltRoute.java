@@ -24,8 +24,5 @@ public class XsltRoute extends RouteBuilder {
     public void configure() throws Exception {
         from("direct:classpath-xsl")
                 .to("xslt:xslt/classpath-transform.xsl");
-
-        from("direct:file-xsl")
-                .to("xslt:file:src/main/xslt/file-transform.xsl");
     }
 }

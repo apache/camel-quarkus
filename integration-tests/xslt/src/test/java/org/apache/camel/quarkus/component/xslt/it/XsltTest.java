@@ -40,18 +40,4 @@ class XsltTest {
                 actual);
     }
 
-    @Test
-    public void file() {
-        final String actual = RestAssured.given()
-                .body(BODY)
-                .post("/xslt/file-xsl")
-                .then()
-                .statusCode(200)
-                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
-
-        Assertions.assertEquals(
-                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><file-xsl subject=\"Hey\"><cheese><mail><subject>Hey</subject><body>Hello world!</body></mail></cheese></file-xsl>",
-                actual);
-    }
-
 }
