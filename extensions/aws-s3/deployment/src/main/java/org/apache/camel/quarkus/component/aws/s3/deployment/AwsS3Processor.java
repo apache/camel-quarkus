@@ -91,8 +91,6 @@ class AwsS3Processor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                "org.apache.commons.logging.impl.LogFactoryImpl",
-                "org.apache.commons.logging.impl.Jdk14Logger",
                 AWSS3V4Signer.class.getCanonicalName(),
                 S3Configuration.class.getCanonicalName()));
     }
