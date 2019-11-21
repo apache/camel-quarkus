@@ -84,8 +84,6 @@ class AwsSNSProcessor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                "org.apache.commons.logging.impl.LogFactoryImpl",
-                "org.apache.commons.logging.impl.Jdk14Logger",
                 AWS4Signer.class.getCanonicalName(),
                 SnsConfiguration.class.getCanonicalName()));
     }

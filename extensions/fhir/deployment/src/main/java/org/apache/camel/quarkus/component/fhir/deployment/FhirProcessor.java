@@ -105,9 +105,6 @@ class FhirProcessor {
             BuildProducer<NativeImageResourceBundleBuildItem> resource) {
         Set<String> classes = new HashSet<>();
         classes.add(SchematronBaseValidator.class.getCanonicalName());
-        classes.add("org.apache.commons.logging.impl.LogFactoryImpl");
-        classes.add("org.apache.commons.logging.LogFactory");
-        classes.add("org.apache.commons.logging.impl.Jdk14Logger");
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
         reflectiveClass
                 .produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));

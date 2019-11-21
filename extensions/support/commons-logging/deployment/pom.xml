@@ -20,13 +20,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-aws-eks-parent</artifactId>
+        <artifactId>camel-quarkus-support-commons-logging-parent</artifactId>
         <version>0.4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-aws-eks-deployment</artifactId>
-    <name>Camel Quarkus :: AWS EKS :: Deployment</name>
+    <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Commons Logging :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>
@@ -42,20 +42,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-xml-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws-eks</artifactId>
+            <artifactId>camel-quarkus-support-commons-logging</artifactId>
         </dependency>
     </dependencies>
 
