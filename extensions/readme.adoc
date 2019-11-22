@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
+Number of Camel components: 44 in 37 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -59,6 +59,12 @@ Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4 | The file component is used for reading or writing files.
 
+| link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
+`ftp:host:port/directoryName` | 0.5 | The \ftp component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
+`ftps:host:port/directoryName` | 0.5 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2 | For reading/writing from/to Infinispan distributed key/value store and data grid.
 
@@ -103,6 +109,9 @@ Number of Camel components: 41 in 36 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | 0.2 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
+
+| link:https://camel.apache.org/components/latest/sftp-component.html[SFTP] (camel-quarkus-ftp) +
+`sftp:host:port/directoryName` | 0.5 | The \sftp (FTP over SSH) component is used for uploading or downloading files from SFTP servers.
 
 | link:https://camel.apache.org/components/latest/sjms-component.html[Simple JMS] (camel-quarkus-sjms) +
 `sjms:destinationType:destinationName` | 0.5 | The sjms component (simple jms) allows messages to be sent to (or consumed from) a JMS Queue or Topic (uses JMS 1.x API).
