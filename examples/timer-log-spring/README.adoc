@@ -20,9 +20,8 @@ workspace. Any modifications in your project will automatically take effect in t
 TIP: Please refer to the Development mode section of
 https://camel.apache.org/camel-quarkus/latest/first-steps.html#_development_mode[Camel Quarkus User guide] for more details.
 
-Then look at the log output in the console. As we run the example
-in Quarkus Dev Mode, you can edit the source code and have live updates.
-For example try to change the logging output to be `Bye World` or the property `timer.period` in application.properties.
+Then look at the log output in the console. As we run the example in Quarkus Dev Mode, you can edit the source code and have live updates.
+For example try to change `Incremented the counter` to `Counter state` in the message body or change the property `timer.period` in application.properties
 
 === Package and run the application
 
