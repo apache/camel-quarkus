@@ -43,6 +43,6 @@ public class TimerRoute extends RouteBuilder {
     public void configure() throws Exception {
         fromF("timer:foo?period=%s", period)
                 .setBody(() -> "Incremented the counter: " + counter.increment())
-                .to("log:cdi-example?showExchangePattern=false&showBodyType=false");
+                .to("log:example?showExchangePattern=false&showBodyType=false");
     }
 }
