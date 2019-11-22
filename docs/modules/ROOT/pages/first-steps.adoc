@@ -1,9 +1,9 @@
-== First steps
+= First steps
 
 We recommend you to choose an example from our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]
 as a base for your real world project.
 
-=== Prerequisites
+== Prerequisites
 
 * A `git` client
 * An IDE
@@ -15,7 +15,7 @@ as a base for your real world project.
 * If your are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
 
-=== Step by step with the `rest-json` example
+== Step by step with the `rest-json` example
 
 1. Clone Camel Quarkus and checkout the latest release tag
 +
@@ -66,7 +66,7 @@ sketched below:
 <4> Change the `artifactId` to whatever you like
 <5> Add the `version`
 
-=== Explore the application code
+== Explore the application code
 
 The application has just two compile dependencies:
 
@@ -91,7 +91,7 @@ There are only three classes in the application: `Routes` defining the Camel rou
 
 `src/main/resources/application.properties` configure the application. E.g. the `camel.context.name` is set there.
 
-=== Development mode
+== Development mode
 
 [source,shell]
 ----
@@ -108,8 +108,7 @@ Then change something in the code and see the changes applied by refreshing the 
 
 Please refer to https://quarkus.io/guides/maven-tooling#development-mode[Quarkus documentation] for more details.
 
-
-=== Testing
+== Testing
 
 There are two test classes in our example: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
 mode.
@@ -133,9 +132,9 @@ $ mvn clean verify -Pnative
 
 This takes about 2.5 minutes (once you have all dependencies cached).
 
-=== Package and run the application
+== Package and run the application
 
-==== JVM mode
+=== JVM mode
 
 `mvn package` prepares a thin `jar` for running on a stock JVM:
 
@@ -161,7 +160,7 @@ Notice the boot time around a second.
 
 The thin `jar` contains just the application code. To run it, the dependencies in `target/lib` are required too.
 
-==== Native mode
+=== Native mode
 
 To prepare a native executable using GraalVM, run the following command:
 
