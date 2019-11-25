@@ -233,6 +233,7 @@
                     <configuration>
                         <failIfNoTests>false</failIfNoTests>
                         <systemProperties>
+                            <java.security.egd>file:/dev/./urandom</java.security.egd>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         </systemProperties>
                     </configuration>
@@ -309,6 +310,7 @@
                                 <exclude>**/pom.xml.versionsBackup</exclude>
                                 <exclude>ide-config/**</exclude>
                                 <exclude>**/*.mvel</exclude>
+                                <exclude>**/*.pem</exclude>
                             </excludes>
                             <mapping>
                                 <groovy>SLASHSTAR_STYLE</groovy>
