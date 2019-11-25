@@ -200,7 +200,7 @@
                                         <artifactItem>
                                             <groupId>ca.uhn.hapi.fhir</groupId>
                                             <artifactId>hapi-fhir-jpaserver-starter</artifactId>
-                                            <version>${hapi.server.version}</version>
+                                            <version>${hapi.version}</version>
                                             <type>war</type>
                                             <outputDirectory>${project.build.directory}/war</outputDirectory>
                                         </artifactItem>

@@ -35,6 +35,7 @@
 
     <properties>
         <mock-javamail.version>1.9</mock-javamail.version>
+        <hapi.version>4.1.0</hapi.version>
 
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
