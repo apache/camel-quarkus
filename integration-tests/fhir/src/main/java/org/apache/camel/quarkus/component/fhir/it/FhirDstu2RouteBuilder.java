@@ -26,6 +26,7 @@ import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 public class FhirDstu2RouteBuilder extends RouteBuilder {
+
     private static final Boolean ENABLED = new FhirFlags.Dstu2Enabled().getAsBoolean();
 
     @Override
@@ -50,9 +51,10 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
             from("direct:xml-to-dstu2")
                     .unmarshal(fhirXmlDataFormat)
                     .marshal(fhirXmlDataFormat);
-
-            from("direct:create-dstu2")
-                    .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.dstu2.url}}&fhirVersion=DSTU2&fhirContext=#fhirContext");
+            if (Boolean.valueOf(getContext().resolvePropertyPlaceholders("{{fhir.http.client}}"))) {
+                from("direct:create-dstu2")
+                        .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.dstu2.url}}&fhirVersion=DSTU2&fhirContext=#fhirContext");
+            }
         }
     }
 }
