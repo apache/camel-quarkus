@@ -42,7 +42,6 @@
 
         <camel.version>3.0.0-RC3</camel.version>
         <hapi.version>3.7.0</hapi.version>
-        <hapi.server.version>4.1.0</hapi.server.version>
         <quarkus.version>1.0.0.CR2</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
@@ -168,6 +167,17 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+        <repository>
+            <id>apache.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1164/</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -179,6 +189,17 @@
             </snapshots>
             <releases>
                 <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+        <pluginRepository>
+            <id>apache.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1164/</url>
+            <name>Apache Snapshot Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>
