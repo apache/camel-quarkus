@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerFactory;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.Endpoint;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.component.xslt.XsltEndpoint;
 import org.apache.camel.quarkus.support.xalan.XalanSupport;
@@ -33,7 +34,7 @@ public class CamelXsltRecorder {
     }
 
     public RuntimeValue<RuntimeUriResolver.Builder> createRuntimeUriResolverBuilder() {
-        return new RuntimeValue<RuntimeUriResolver.Builder>(new RuntimeUriResolver.Builder());
+        return new RuntimeValue<>(new RuntimeUriResolver.Builder());
     }
 
     public void addRuntimeUriResolverEntry(RuntimeValue<RuntimeUriResolver.Builder> builder, String templateUri,
@@ -52,10 +53,11 @@ public class CamelXsltRecorder {
 
         @Override
         protected void configureEndpoint(
-                XsltEndpoint endpoint,
+                Endpoint endpoint,
                 String remaining,
                 Map<String, Object> parameters) throws Exception {
 
+            final XsltEndpoint xsltEndpoint = (XsltEndpoint) endpoint;
             final String className = uriResolver.getTransletClassName(remaining);
 
             TransformerFactory tf = XalanSupport.newTransformerFactoryInstance();
@@ -64,11 +66,11 @@ public class CamelXsltRecorder {
             tf.setAttribute("package-name", this.config.packageName);
             tf.setErrorListener(new CamelXsltErrorListener());
 
-            endpoint.setTransformerFactory(tf);
+            xsltEndpoint.setTransformerFactory(tf);
 
             super.configureEndpoint(endpoint, remaining, parameters);
-            endpoint.setUriResolver(uriResolver);
+
+            xsltEndpoint.setUriResolver(uriResolver);
         }
     }
-
 }

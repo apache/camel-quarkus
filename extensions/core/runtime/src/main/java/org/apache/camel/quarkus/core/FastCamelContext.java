@@ -47,6 +47,7 @@ import org.apache.camel.impl.engine.DefaultInjector;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.impl.engine.DefaultNodeIdFactory;
 import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
+import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.impl.engine.DefaultProcessorFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.impl.engine.DefaultRouteController;
@@ -88,6 +89,7 @@ import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
+import org.apache.camel.spi.PackageScanResourceResolver;
 import org.apache.camel.spi.ProcessorFactory;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ReactiveExecutor;
@@ -317,6 +319,11 @@ public class FastCamelContext extends AbstractCamelContext {
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
 
         return pc;
+    }
+
+    @Override
+    protected PackageScanResourceResolver createPackageScanResourceResolver() {
+        return new DefaultPackageScanResourceResolver();
     }
 
     @Override

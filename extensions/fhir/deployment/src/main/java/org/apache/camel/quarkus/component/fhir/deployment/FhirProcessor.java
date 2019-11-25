@@ -95,20 +95,11 @@ class FhirProcessor {
         return new NativeImageResourceBundleBuildItem("ca.uhn.fhir.i18n.hapi-messages");
     }
 
-    @BuildStep
-    ReflectiveClassBuildItem xmlOutputFactory() {
-        return new ReflectiveClassBuildItem(false, false,
-                "com.sun.xml.internal.stream.XMLOutputFactoryImpl");
-    }
-
     @BuildStep(applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })
     void processFhir(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        Set<String> classes = new HashSet<>();
-        classes.add(SchematronBaseValidator.class.getCanonicalName());
-        classes.add(DependencyLogImpl.class.getCanonicalName());
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, classes.toArray(new String[0])));
-        reflectiveClass
-                .produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class.getCanonicalName()));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, SchematronBaseValidator.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, true, DependencyLogImpl.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class));
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class, applicationArchiveMarkers = { "org/hl7/fhir", "ca/uhn/fhir" })

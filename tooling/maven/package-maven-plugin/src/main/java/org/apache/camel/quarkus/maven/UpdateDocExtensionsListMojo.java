@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.maven;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -33,8 +31,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static java.util.stream.Collectors.toSet;
+
 import org.apache.camel.maven.packaging.JSonSchemaHelper;
-import org.apache.camel.maven.packaging.MvelHelper;
 import org.apache.camel.maven.packaging.StringHelper;
 import org.apache.camel.maven.packaging.model.ComponentModel;
 import org.apache.camel.maven.packaging.model.DataFormatModel;
@@ -50,7 +49,6 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.mvel2.templates.TemplateRuntime;
 
-import static java.util.stream.Collectors.toSet;
 import static org.apache.camel.maven.packaging.PackageHelper.loadText;
 import static org.apache.camel.maven.packaging.PackageHelper.writeText;
 
@@ -666,7 +664,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
     private ComponentModel generateComponentModel(String json) {
         List<Map<String, String>> rows = JSonSchemaHelper.parseJsonSchema("component", json, false);
 
-        ComponentModel component = new ComponentModel(false);
+        ComponentModel component = new ComponentModel();
         component.setScheme(JSonSchemaHelper.getSafeValue("scheme", rows));
         component.setSyntax(JSonSchemaHelper.getSafeValue("syntax", rows));
         component.setAlternativeSyntax(JSonSchemaHelper.getSafeValue("alternativeSyntax", rows));

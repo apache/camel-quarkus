@@ -34,6 +34,7 @@ import org.apache.camel.model.HystrixConfigurationDefinition;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteDefinitionHelper;
 import org.apache.camel.model.RouteFilters;
@@ -53,6 +54,7 @@ public abstract class BaseModel implements Model {
     private List<ValidatorDefinition> validators = new ArrayList<>();
     private Map<String, ServiceCallConfigurationDefinition> serviceCallConfigurations = new ConcurrentHashMap<>();
     private Map<String, HystrixConfigurationDefinition> hystrixConfigurations = new ConcurrentHashMap<>();
+    private Map<String, Resilience4jConfigurationDefinition> resilience4jConfigurations = new ConcurrentHashMap<>();
     private Function<RouteDefinition, Boolean> routeFilter;
 
     public BaseModel(CamelContext camelContext) {
@@ -198,6 +200,34 @@ public abstract class BaseModel implements Model {
     @Override
     public void addHystrixConfiguration(String id, HystrixConfigurationDefinition configuration) {
         hystrixConfigurations.put(id, configuration);
+    }
+
+    @Override
+    public Resilience4jConfigurationDefinition getResilience4jConfiguration(String id) {
+        if (id == null) {
+            id = "";
+        }
+
+        return resilience4jConfigurations.get(id);
+    }
+
+    @Override
+    public void setResilience4jConfiguration(Resilience4jConfigurationDefinition configuration) {
+        resilience4jConfigurations.put("", configuration);
+    }
+
+    @Override
+    public void setResilience4jConfigurations(List<Resilience4jConfigurationDefinition> configurations) {
+        if (configurations != null) {
+            for (Resilience4jConfigurationDefinition configuration : configurations) {
+                resilience4jConfigurations.put(configuration.getId(), configuration);
+            }
+        }
+    }
+
+    @Override
+    public void addResilience4jConfiguration(String id, Resilience4jConfigurationDefinition configuration) {
+        resilience4jConfigurations.put(id, configuration);
     }
 
     @Override

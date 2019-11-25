@@ -23,7 +23,7 @@ public class HystrixRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:fallback")
-                .hystrix()
+                .circuitBreaker()
                 .hystrixConfiguration()
                 .executionTimeoutInMilliseconds(100)
                 .end()
@@ -33,7 +33,7 @@ public class HystrixRoutes extends RouteBuilder {
                 .end();
 
         from("direct:fallbackViaNetwork")
-                .hystrix()
+                .circuitBreaker()
                 .throwException(new IllegalStateException("Forced exception"))
                 .onFallbackViaNetwork()
                 .to("netty-http:http://localhost:8999/network/fallback")
