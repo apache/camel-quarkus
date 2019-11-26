@@ -267,7 +267,7 @@
                         <artifactId>jetty-maven-plugin</artifactId>
                         <version>${jetty-maven-plugin.version}</version>
                         <configuration>
-                            <war>${project.build.directory}/war/hapi-fhir-jpaserver-starter-${hapi.server.version}.war</war>
+                            <war>${project.build.directory}/war/hapi-fhir-jpaserver-starter-${hapi.version}.war</war>
                             <stopKey>alpha</stopKey>
                             <stopPort>${fhir.stop.port}</stopPort>
                             <httpConnector>

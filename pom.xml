@@ -41,6 +41,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <camel.version>3.0.0</camel.version>
+        <hapi.version>4.1.0</hapi.version>
         <quarkus.version>1.0.0.Final</quarkus.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
