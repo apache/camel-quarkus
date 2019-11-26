@@ -113,35 +113,10 @@
 
     <profiles>
         <profile>
-            <!--
-               Disable as fails in native mode, see:
-
-                   https://github.com/apache/camel-quarkus/issues/473
-
-
-                Error: com.oracle.graal.pointsto.constraints.UnresolvedElementException: Discovered unresolved type
-                during parsing: ca.uhn.fhir.rest.server.RestfulServerUtils. To diagnose the issue you can use the
-                \-\-allow-incomplete-classpath option. The missing type is then reported at run time when it is
-                accessed the first time.
-
-                Detailed message:
-                    Trace:
-                        at parsing org.hl7.fhir.dstu3.hapi.rest.server.Dstu3BundleFactory.addResourcesToBundle(Dstu3BundleFactory.java:147)
-                    Call path from entry point to org.hl7.fhir.dstu3.hapi.rest.server.Dstu3BundleFactory.addResourcesToBundle(List, BundleTypeEnum, String, BundleInclusionRule, Set):
-                        at org.hl7.fhir.dstu3.hapi.rest.server.Dstu3BundleFactory.addResourcesToBundle(Dstu3BundleFactory.java:57)
-                        at ca.uhn.fhir.rest.client.method.BaseHttpClientInvocationWithContents.encodeContents(BaseHttpClientInvocationWithContents.java:177)
-                        at ca.uhn.fhir.rest.client.method.BaseHttpClientInvocationWithContents.asHttpRequest(BaseHttpClientInvocationWithContents.java:136)
-                        at ca.uhn.fhir.rest.client.method.HttpPutClientInvocation.asHttpRequest(HttpPutClientInvocation.java:28)
-                        at ca.uhn.fhir.rest.client.impl.GenericClient$BaseClientExecutable.invoke(GenericClient.java:431)
-                        at ca.uhn.fhir.rest.client.impl.GenericClient$MetaInternal.execute(GenericClient.java:953)
-                        at org.apache.camel.component.fhir.api.FhirMeta.getFromServer(FhirMeta.java:49)
-
-                Looks like dstu3 requires some fhir-server capabilities
-            -->
-            <id>fhir-native</id>
+            <id>native</id>
             <activation>
                 <property>
-                    <name>fhir-native</name>
+                    <name>native</name>
                 </property>
             </activation>
             <build>
