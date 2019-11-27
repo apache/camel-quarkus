@@ -114,6 +114,7 @@
         <module>kafka</module>
         <module>mail</module>
         <module>microprofile</module>
+        <module>mongodb</module>
         <module>netty</module>
         <module>netty-http</module>
         <module>opentracing</module>
