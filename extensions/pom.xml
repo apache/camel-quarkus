@@ -106,7 +106,7 @@
                         </goals>
                         <phase>verify</phase>
                         <configuration>
-                            <source>file:///${project.basedir}/../build/scripts/validate-extension-metadata.groovy</source>
+                            <source>file:///${project.basedir}/../tooling/scripts/validate-extension-metadata.groovy</source>
                         </configuration>
                     </execution>
                 </executions>
@@ -135,7 +135,7 @@
                     <namePrefix xml:space="preserve">Camel Quarkus :: </namePrefix>
                     <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
                     <javaPackageInfix>component</javaPackageInfix>
-                    <templatesUriBase>file:///${project.basedir}/../build/create-extension-templates</templatesUriBase>
+                    <templatesUriBase>file:///${project.basedir}/../tooling/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
                     <bomEntryVersion>@{camel-quarkus.version}</bomEntryVersion>

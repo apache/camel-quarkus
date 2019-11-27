@@ -144,7 +144,7 @@
                         </goals>
                         <phase>validate</phase>
                         <configuration>
-                            <source>file://${camel.quarkus.project.root}/build/scripts/validate-dependencies.groovy</source>
+                            <source>file://${camel.quarkus.project.root}/tooling/scripts/validate-dependencies.groovy</source>
                         </configuration>
                     </execution>
                 </executions>
@@ -171,7 +171,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${camel.quarkus.project.root}/build/legal</directory>
+                                    <directory>${camel.quarkus.project.root}/tooling/legal</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -190,7 +190,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configFile>${camel.quarkus.project.root}/build/eclipse-formatter-config.xml</configFile>
+                    <configFile>${camel.quarkus.project.root}/tooling/eclipse-formatter-config.xml</configFile>
                 </configuration>
             </plugin>
         </plugins>
