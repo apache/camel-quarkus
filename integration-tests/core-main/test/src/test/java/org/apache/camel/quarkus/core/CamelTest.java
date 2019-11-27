@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.core;
 
 import java.net.HttpURLConnection;
+import java.util.Objects;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.configuration.ProfileManager;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -40,6 +42,18 @@ public class CamelTest {
     public void testProperties() {
         RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
         RestAssured.when().get("/test/property/camel.component.timer.basic-property-binding").then().body(is("true"));
+
+        //
+        // It is not possible to use a custom test configuration profile in native mode for now.
+        // Native tests are always run using the prod profile, see:
+        //
+        //     https://quarkus.io/guides/maven-tooling#custom-test-configuration-profile
+        //
+        if (Objects.equals("staging", ProfileManager.getActiveProfile())) {
+            RestAssured.when().get("/test/property/the.message").then().body(is("test"));
+        } else {
+            RestAssured.when().get("/test/property/the.message").then().body(is("default"));
+        }
     }
 
     @Test

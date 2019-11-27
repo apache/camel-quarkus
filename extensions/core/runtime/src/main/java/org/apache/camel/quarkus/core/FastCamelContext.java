@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.core;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Predicate;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
@@ -28,7 +30,6 @@ import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
-import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.AbstractCamelContext;
@@ -84,6 +85,7 @@ import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
+import org.apache.camel.spi.LoadablePropertiesSource;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
@@ -104,6 +106,8 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 
 public class FastCamelContext extends AbstractCamelContext {
     private Model model;
@@ -316,9 +320,60 @@ public class FastCamelContext extends AbstractCamelContext {
     protected PropertiesComponent createPropertiesComponent() {
         org.apache.camel.component.properties.PropertiesComponent pc = new org.apache.camel.component.properties.PropertiesComponent();
         pc.setAutoDiscoverPropertiesSources(false);
-        pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
+        //
+        // The CamelMicroProfilePropertiesSource obtains a reference to the Config object using
+        // ConfigProvider.getConfig() but in 1.0.0.Final there's that make the instance retrieved
+        // not profile aware that should be solved by https://github.com/quarkusio/quarkus/pull/5387
+        // which will be available in Quarkus 1.1.0.
+        //
+        // As a workaround the instance can be obtained with:
+        //
+        //    ConfigProviderResolver.instance().getConfig()
+        //
+        // so I've replace the CamelMicroProfilePropertiesSource with a temporary custom implementation.
+        //
+        // TODO: remove this workaround once 1.1.0 si out
+        //
+        pc.addPropertiesSource(new LoadablePropertiesSource() {
+            @Override
+            public String getName() {
+                return "mp-properties-source";
+            }
+
+            @Override
+            public String getProperty(String name) {
+                return ConfigProviderResolver.instance().getConfig().getOptionalValue(name, String.class).orElse(null);
+            }
+
+            @Override
+            public Properties loadProperties() {
+                final Properties answer = new Properties();
+                final Config config = ConfigProviderResolver.instance().getConfig();
+
+                for (String name : config.getPropertyNames()) {
+                    answer.put(name, config.getValue(name, String.class));
+                }
+
+                return answer;
+            }
+
+            @Override
+            public Properties loadProperties(Predicate<String> filter) {
+                final Properties answer = new Properties();
+                final Config config = ConfigProviderResolver.instance().getConfig();
+
+                for (String name : config.getPropertyNames()) {
+                    if (filter.test(name)) {
+                        answer.put(name, config.getValue(name, String.class));
+                    }
+                }
+
+                return answer;
+            }
+        });
 
         return pc;
+
     }
 
     @Override
