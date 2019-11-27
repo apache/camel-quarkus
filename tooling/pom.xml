@@ -33,6 +33,7 @@
     <description>Camel Quarkus Tooling Parent POM</description>
 
     <properties>
+        <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
         <maven-version>3.6.2</maven-version>
         <maven-maven-plugin-descriptor-version>2.2.1</maven-maven-plugin-descriptor-version>
         <maven-project-version>2.2.1</maven-project-version>
@@ -44,10 +45,12 @@
         <plexus-build-api-version>0.0.7</plexus-build-api-version>
         <plexus-container-default-version>2.0.0</plexus-container-default-version>
         <plexus-utils-version>3.2.1</plexus-utils-version>
+        <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>
     </properties>
 
     <modules>
         <module>package-maven-plugin</module>
+        <module>test-list</module>
     </modules>
 
     <dependencyManagement>
