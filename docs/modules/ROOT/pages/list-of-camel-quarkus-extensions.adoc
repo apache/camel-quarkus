@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 45 in 38 JAR artifacts (0 deprecated)
+Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -83,6 +83,9 @@ Number of Camel components: 45 in 38 JAR artifacts (0 deprecated)
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 0.2 | Camel metrics exposed with Eclipse MicroProfile Metrics
+
+| xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
+`mongodb:connectionBean` | 0.5 | Component for working with documents stored in MongoDB database.
 
 | xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | 0.4 | Socket level networking using TCP or UDP with the Netty 4.x library.

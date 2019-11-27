@@ -1,0 +1,31 @@
+[[mongodb]]
+= MongoDB Extension
+
+*Since Camel Quarkus 0.5.0*
+
+The MongoDB component provides the capability to interact with MongoDB servers.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-mongodb</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/mongodb-component.html[MongoDB Component].
+
+=== Configuration
+
+The extension leverages the https://quarkus.io/guides/mongodb[Quarkus MongoDB Client] extension. The Mongo client can be configured
+via the Quarkus MongoDB Client https://quarkus.io/guides/mongodb#configuration-reference[configuration options].
+
+The Camel Quarkus MongoDB extension automatically registers a MongoDB client bean named `camelMongoClient`. This can be referenced in the mongodb endpoint URI
+`connectionBean` path parameter. For example:
+
+    from("direct:start")
+    .to("mongodb:camelMongoClient?database=myDb&collection=myCollection&operation=findAll")

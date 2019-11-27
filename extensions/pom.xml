@@ -68,6 +68,7 @@
         <module>mail</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
+        <module>mongodb</module>
         <module>netty</module>
         <module>netty-http</module>
         <module>opentracing</module>
