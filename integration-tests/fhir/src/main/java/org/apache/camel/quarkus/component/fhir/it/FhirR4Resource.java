@@ -42,11 +42,12 @@ public class FhirR4Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2json(String patient) throws Exception {
-        InputStream response = producerTemplate.requestBody("direct:json-to-r4", patient, InputStream.class);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+        try (InputStream response = producerTemplate.requestBody("direct:json-to-r4", patient, InputStream.class)) {
+            return Response
+                    .created(new URI("https://camel.apache.org/"))
+                    .entity(response)
+                    .build();
+        }
     }
 
     @Path("/fhir2xml")
@@ -54,11 +55,12 @@ public class FhirR4Resource {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2xml(String patient) throws Exception {
-        InputStream response = producerTemplate.requestBody("direct:xml-to-r4", patient, InputStream.class);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+        try (InputStream response = producerTemplate.requestBody("direct:xml-to-r4", patient, InputStream.class)) {
+            return Response
+                    .created(new URI("https://camel.apache.org/"))
+                    .entity(response)
+                    .build();
+        }
     }
 
     @Path("/createPatient")

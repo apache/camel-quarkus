@@ -46,4 +46,12 @@ public final class FhirFlags {
                     .orElse(Boolean.TRUE);
         }
     }
+
+    public static final class R5Enabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return ConfigProvider.getConfig().getOptionalValue("quarkus.camel.fhir.enable-r5", Boolean.class)
+                    .orElse(Boolean.TRUE);
+        }
+    }
 }

@@ -40,4 +40,10 @@ public final class FhirConfig {
      */
     @ConfigItem(name = "enable-r4", defaultValue = "true")
     public boolean enableR4;
+
+    /**
+     * Enable FHIR R5 Specs.
+     */
+    @ConfigItem(name = "enable-r5", defaultValue = "true")
+    public boolean enableR5;
 }

@@ -38,8 +38,22 @@ class FhirClientJvmIntegrationTest {
     private static final Boolean DSTU2 = new FhirFlags.Dstu2Enabled().getAsBoolean();
     private static final Boolean DSTU3 = new FhirFlags.Dstu3Enabled().getAsBoolean();
     private static final Boolean R4 = new FhirFlags.R4Enabled().getAsBoolean();
+    private static final Boolean R5 = new FhirFlags.R5Enabled().getAsBoolean();
     private static final Boolean CLIENT = ConfigProvider.getConfig().getOptionalValue("fhir.http.client", Boolean.class)
             .orElse(Boolean.FALSE);
+
+    @Test
+    public void fhirClientR5() {
+        if (!R5 || !CLIENT) {
+            return;
+        }
+        LOG.info("Running R5 Client test");
+        final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
+        String patientString = FhirContext.forR5().newJsonParser().encodeResourceToString(patient);
+        RestAssured.given()
+                .contentType(ContentType.JSON).body(patientString.getBytes()).post("/r5/createPatient")
+                .then().statusCode(201);
+    }
 
     @Test
     public void fhirClientR4() {
@@ -94,6 +108,13 @@ class FhirClientJvmIntegrationTest {
 
     private org.hl7.fhir.r4.model.Patient getR4Patient() {
         org.hl7.fhir.r4.model.Patient patient = new org.hl7.fhir.r4.model.Patient();
+        patient.addAddress().addLine("221b Baker St, Marylebone, London NW1 6XE, UK");
+        patient.addName().addGiven("Sherlock").setFamily("Holmes");
+        return patient;
+    }
+
+    private org.hl7.fhir.r5.model.Patient getR5Patient() {
+        org.hl7.fhir.r5.model.Patient patient = new org.hl7.fhir.r5.model.Patient();
         patient.addAddress().addLine("221b Baker St, Marylebone, London NW1 6XE, UK");
         patient.addName().addGiven("Sherlock").setFamily("Holmes");
         return patient;

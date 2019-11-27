@@ -37,6 +37,7 @@ class FhirDataformatTest {
     private static final Boolean DSTU2 = new FhirFlags.Dstu2Enabled().getAsBoolean();
     private static final Boolean DSTU3 = new FhirFlags.Dstu3Enabled().getAsBoolean();
     private static final Boolean R4 = new FhirFlags.R4Enabled().getAsBoolean();
+    private static final Boolean R5 = new FhirFlags.R5Enabled().getAsBoolean();
 
     @Test
     public void jsonDstu2() {
@@ -116,6 +117,32 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
+    @Test
+    public void jsonR5() {
+        if (!R5) {
+            return;
+        }
+        LOG.info("Running R5 JSON test");
+        final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
+        String patientString = FhirContext.forR5().newJsonParser().encodeResourceToString(patient);
+        RestAssured.given()
+                .contentType(ContentType.JSON).body(patientString).post("/r5/fhir2json")
+                .then().statusCode(201);
+    }
+
+    @Test
+    public void xmlR5() {
+        if (!R5) {
+            return;
+        }
+        LOG.info("Running R5 XML test");
+        final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
+        String patientString = FhirContext.forR5().newXmlParser().encodeResourceToString(patient);
+        RestAssured.given()
+                .contentType(ContentType.XML).body(patientString).post("/r5/fhir2xml")
+                .then().statusCode(201);
+    }
+
     private ca.uhn.fhir.model.dstu2.resource.Patient getDstu2Patient() {
         return new ca.uhn.fhir.model.dstu2.resource.Patient().addName(new HumanNameDt().addGiven("Sherlock")
                 .addFamily("Holmes"))
@@ -130,6 +157,13 @@ class FhirDataformatTest {
 
     private org.hl7.fhir.r4.model.Patient getR4Patient() {
         org.hl7.fhir.r4.model.Patient patient = new org.hl7.fhir.r4.model.Patient();
+        patient.addAddress().addLine("221b Baker St, Marylebone, London NW1 6XE, UK");
+        patient.addName().addGiven("Sherlock").setFamily("Holmes");
+        return patient;
+    }
+
+    private org.hl7.fhir.r5.model.Patient getR5Patient() {
+        org.hl7.fhir.r5.model.Patient patient = new org.hl7.fhir.r5.model.Patient();
         patient.addAddress().addLine("221b Baker St, Marylebone, London NW1 6XE, UK");
         patient.addName().addGiven("Sherlock").setFamily("Holmes");
         return patient;

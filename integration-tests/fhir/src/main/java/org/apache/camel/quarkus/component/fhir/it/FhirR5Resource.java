@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
-import java.io.InputStream;
-import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -26,13 +24,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import java.io.InputStream;
+import java.net.URI;
 import ca.uhn.fhir.rest.api.MethodOutcome;
 import org.apache.camel.ProducerTemplate;
 
-@Path("/dstu2")
+@Path("/r5")
 @ApplicationScoped
-public class FhirDstu2Resource {
+public class FhirR5Resource {
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -42,7 +41,7 @@ public class FhirDstu2Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2json(String patient) throws Exception {
-        try (InputStream response = producerTemplate.requestBody("direct:json-to-dstu2", patient, InputStream.class)) {
+        try (InputStream response = producerTemplate.requestBody("direct:json-to-r5", patient, InputStream.class)) {
             return Response
                     .created(new URI("https://camel.apache.org/"))
                     .entity(response)
@@ -55,7 +54,7 @@ public class FhirDstu2Resource {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response fhir2xml(String patient) throws Exception {
-        try (InputStream response = producerTemplate.requestBody("direct:xml-to-dstu2", patient, InputStream.class)) {
+        try (InputStream response = producerTemplate.requestBody("direct:xml-to-r5", patient, InputStream.class)) {
             return Response
                     .created(new URI("https://camel.apache.org/"))
                     .entity(response)
@@ -68,7 +67,7 @@ public class FhirDstu2Resource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public Response createPatient(String patient) throws Exception {
-        MethodOutcome result = producerTemplate.requestBody("direct:create-dstu2", patient, MethodOutcome.class);
+        MethodOutcome result = producerTemplate.requestBody("direct:create-r5", patient, MethodOutcome.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(result.getId().getIdPart())
