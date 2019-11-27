@@ -357,6 +357,7 @@
                                 <exclude>ide-config/**</exclude>
                                 <exclude>**/*.mvel</exclude>
                                 <exclude>**/*.pem</exclude>
+                                <exclude>**/camel-quarkus-test-list.xml</exclude>
                             </excludes>
                             <mapping>
                                 <groovy>SLASHSTAR_STYLE</groovy>

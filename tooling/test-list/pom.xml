@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-tooling</artifactId>
+        <version>0.4.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>camel-quarkus-test-list</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Camel Quarkus :: Tooling :: Test List</name>
+    <description>Publishes a list of integration tests in XML format that should be run by the Quarkus Platform</description>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.l2x6.rpkgtests</groupId>
+                <artifactId>rpkgtests-maven-plugin</artifactId>
+                <version>${rpkgtests-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>create-test-jars-file</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                </executions>
+                <configuration>
+                    <testJarsPath>${basedir}/camel-quarkus-test-list.xml</testJarsPath>
+                    <fileSets>
+                        <fileSet>
+                            <directory>${basedir}/../../integration-tests</directory>
+                            <includes>
+                                <include>*/pom.xml</include>
+                                <include>*/test/pom.xml</include>
+                            </includes>
+                            <excludes>
+                                <exclude>core/pom.xml</exclude>
+                                <exclude>core-main/pom.xml</exclude>
+                            </excludes>
+                        </fileSet>
+                    </fileSets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-test-list</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>${basedir}/camel-quarkus-test-list.xml</file>
+                                    <type>xml</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
