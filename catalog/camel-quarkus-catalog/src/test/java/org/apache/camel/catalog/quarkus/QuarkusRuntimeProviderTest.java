@@ -111,7 +111,6 @@ public class QuarkusRuntimeProviderTest {
         assertFalse(names.isEmpty());
 
         assertTrue(names.contains("core-cloud"));
-        assertTrue(names.contains("platform-http"));
         assertTrue(names.contains("reactive-executor-vertx"));
 
         assertFalse(names.contains("blueprint"));
