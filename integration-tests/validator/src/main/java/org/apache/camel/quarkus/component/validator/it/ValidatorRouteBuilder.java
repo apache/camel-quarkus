@@ -22,6 +22,6 @@ public class ValidatorRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:start")
-                .to("validator:file:src/main/resources/message.xsd");
+                .to("validator:message.xsd");
     }
 }
