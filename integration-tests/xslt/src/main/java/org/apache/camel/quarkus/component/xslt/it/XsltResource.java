@@ -18,31 +18,25 @@ package org.apache.camel.quarkus.component.xslt.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
 
 @Path("/xslt")
 @ApplicationScoped
 public class XsltResource {
 
-    private static final Logger LOG = Logger.getLogger(XsltResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/get")
-    @GET
+    @Path("/classpath-xsl")
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        String body = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
-        String message = producerTemplate.requestBody("direct:start", body, String.class);
-        LOG.infof("Received from xslt: %s", message);
-        return message;
+    public String classpath(String body) throws Exception {
+        return producerTemplate.requestBody("direct:classpath-xsl", body, String.class);
     }
 
 }

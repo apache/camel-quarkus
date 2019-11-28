@@ -6,14 +6,20 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
+Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Component | Since | Description
 
+| link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
+`aws-ecs:label` | 0.5 | The aws-ecs is used for managing Amazon ECS
+
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
-`aws-eks:label` | 0.2 | The aws-kms is used for managing Amazon EKS
+`aws-eks:label` | 0.2 | The aws-eks is used for managing Amazon EKS
+
+| link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
+`aws-kms:label` | 0.5 | The aws-kms is used for managing Amazon KMS
 
 | link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | 0.2 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
@@ -42,6 +48,9 @@ Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | 0.2 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
 
+| xref:extensions/dozer.adoc[Dozer] (camel-quarkus-dozer) +
+`dozer:name` | 0.5 | The dozer component provides the ability to map between Java beans using the Dozer mapping library.
+
 | link:https://camel.apache.org/components/latest/exec-component.html[Exec] (camel-quarkus-exec) +
 `exec:executable` | 0.4 | The exec component can be used to execute OS system commands.
 
@@ -51,14 +60,20 @@ Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4 | The file component is used for reading or writing files.
 
-| link:https://camel.apache.org/components/latest/freemarker-component.html[Freemarker] (camel-quarkus-freemarker) +
-`freemarker:resourceUri` | 0.1 | Transforms the message using a FreeMarker template.
+| link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
+`ftp:host:port/directoryName` | 0.5 | The \ftp component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
+`ftps:host:port/directoryName` | 0.5 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2 | For reading/writing from/to Infinispan distributed key/value store and data grid.
 
 | link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | 0.2 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
+
+| link:https://camel.apache.org/components/latest/kafka-component.html[Kafka] (camel-quarkus-kafka) +
+`kafka:topic` | 0.5 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
 
 | link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | 0.2 | The log component logs message exchanges to the underlying logging mechanism.
@@ -68,6 +83,9 @@ Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | 0.2 | Camel metrics exposed with Eclipse MicroProfile Metrics
+
+| xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
+`mongodb:connectionBean` | 0.5 | Component for working with documents stored in MongoDB database.
 
 | xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | 0.4 | Socket level networking using TCP or UDP with the Netty 4.x library.
@@ -80,6 +98,9 @@ Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/pdf-component.html[PDF] (camel-quarkus-pdf) +
 `pdf:operation` | 0.3.1 | The pdf components provides the ability to create, modify or extract content from PDF documents.
+
+| xref:extensions/platform-http.adoc[Platform HTTP] (camel-quarkus-platform-http) +
+`platform-http:path` | 0.3 | HTTP service leveraging existing runtime platform HTTP server
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
@@ -95,6 +116,15 @@ Number of Camel components: 36 in 32 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | 0.2 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
+
+| link:https://camel.apache.org/components/latest/sftp-component.html[SFTP] (camel-quarkus-ftp) +
+`sftp:host:port/directoryName` | 0.5 | The \sftp (FTP over SSH) component is used for uploading or downloading files from SFTP servers.
+
+| link:https://camel.apache.org/components/latest/sjms-component.html[Simple JMS] (camel-quarkus-sjms) +
+`sjms:destinationType:destinationName` | 0.5 | The sjms component (simple jms) allows messages to be sent to (or consumed from) a JMS Queue or Topic (uses JMS 1.x API).
+
+| link:https://camel.apache.org/components/latest/sjms-batch-component.html[Simple JMS Batch] (camel-quarkus-sjms) +
+`sjms-batch:destinationName` | 0.5 | The sjms-batch component is a specialized for highly performant, transactional batch consumption from a JMS queue.
 
 | link:https://camel.apache.org/components/latest/slack-component.html[Slack] (camel-quarkus-slack) +
 `slack:channel` | 0.3 | The slack component allows you to send messages to Slack.
@@ -190,9 +220,9 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-core-cloud) | 0.2 | The Camel Quarkus core cloud module
 
-| xref:extensions/platform-http.adoc[camel-quarkus-platform-http]  | 0.3 | HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer
-
 | (camel-quarkus-core-xml) | 0.3 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
+
+| (camel-quarkus-hystrix) | 0.5 | Circuit Breaker EIP using Netflix Hystrix
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3 | Bridging Eclipse MicroProfile Health with Camel health checks
 

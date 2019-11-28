@@ -44,6 +44,15 @@ public class CamelRoute extends RouteBuilder {
                 .setBody(constant("Quarkus is great!"))
                 .to("aws-sns://topic1")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-kms?repeatCount=1")
+                .setHeader("CamelAwsKMSOperation", constant("listKeys"))
+                .to("aws-kms://cluster")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-ecs?repeatCount=1")
+                .to("aws-ecs://cluster?operation=listClusters")
+                .to("log:sf?showAll=true");
     }
 
 }

@@ -1,0 +1,4 @@
+= Camel Quarkus Examples
+
+We offer several examples in our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]. To learn
+how to use them, please follow the xref:first-steps.adoc[First steps] chapter of the User guide.

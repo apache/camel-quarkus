@@ -16,11 +16,7 @@
  */
 package org.apache.camel.quarkus.component.bean.validator.graal;
 
-import javax.validation.ConstraintValidatorFactory;
-import javax.validation.MessageInterpolator;
-import javax.validation.TraversableResolver;
 import javax.validation.ValidationProviderResolver;
-import javax.validation.ValidatorFactory;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
@@ -29,12 +25,9 @@ import org.apache.camel.component.bean.validator.ValidatorFactories;
 @TargetClass(ValidatorFactories.class)
 final class SubstituteValidatorFactories {
     @Substitute
-    public static ValidatorFactory buildValidatorFactory(
+    private static ValidationProviderResolver resolveValidationProviderResolver(
             boolean osgi,
-            ValidationProviderResolver validationProviderResolver,
-            MessageInterpolator messageInterpolator,
-            TraversableResolver traversableResolver,
-            ConstraintValidatorFactory constraintValidatorFactory) {
-        throw new UnsupportedOperationException();
+            ValidationProviderResolver validationProviderResolver) {
+        return validationProviderResolver;
     }
 }

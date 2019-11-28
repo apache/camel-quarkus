@@ -22,7 +22,7 @@ public class XsltRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:start")
-                .to("xslt:transform.xsl");
+        from("direct:classpath-xsl")
+                .to("xslt:xslt/classpath-transform.xsl");
     }
 }

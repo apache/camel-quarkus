@@ -64,10 +64,37 @@
   </build>
   <profiles>
     <profile>
-      <id>native</id>
+      <!--
+      TODO: fix and re-enable native tests
+
+      Error: Detected a FileDescriptor in the image heap. File descriptors opened during image generation are no longer
+      open at image run time, and the files might not even be present anymore at image run time.  To see how this object
+      got instantiated use -H:+TraceClassInitialization. The object was probably created by a class initializer and is
+      reachable from a static field. You can request class initialization at image run time by using the option
+      \-\-initialize-at-build-time=<class-name>. Or you can write your own initialization methods and call them explicitly
+      from your main entry point.
+
+      Detailed message:
+          Trace:
+              object org.apache.fontbox.ttf.BufferedRandomAccessFile
+              object org.apache.fontbox.ttf.RAFDataStream
+              object org.apache.fontbox.ttf.TrueTypeFont
+              object org.apache.pdfbox.pdmodel.font.PDType1Font
+              method org.apache.camel.component.pdf.PdfConfiguration.<init>()
+          Call path from entry point to org.apache.camel.component.pdf.PdfConfiguration.<init>():
+              at org.apache.camel.component.pdf.PdfConfiguration.<init>(PdfConfiguration.java:43)
+              at org.apache.camel.component.pdf.PdfComponent.createEndpoint(PdfComponent.java:34)
+              at org.apache.camel.support.DefaultComponent.createEndpoint(DefaultComponent.java:240)
+              at org.apache.camel.impl.engine.AbstractCamelContext.getEndpoint(AbstractCamelContext.java:786)
+              at org.apache.camel.impl.engine.DefaultProducerTemplate.resolveMandatoryEndpoint(DefaultProducerTemplate.java:550)
+              at org.apache.camel.impl.engine.DefaultProducerTemplate.send(DefaultProducerTemplate.java:130)
+              at org.apache.camel.processor.aggregate.AggregateProcessor$RecoverTask.run(AggregateProcessor.java:1339)
+              ...
+      -->
+      <id>native-pdf</id>
       <activation>
         <property>
-          <name>native</name>
+          <name>native-pdf</name>
         </property>
       </activation>
       <build>

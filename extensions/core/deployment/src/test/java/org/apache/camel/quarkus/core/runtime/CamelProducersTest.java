@@ -22,6 +22,8 @@ import javax.inject.Inject;
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -36,12 +38,15 @@ public class CamelProducersTest {
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(BeanUsingProducerTemplate.class)
+                    .addClasses(BeanUsingFluentProducerTemplate.class)
                     .addClasses(BeanUsingConsumerTemplate.class)
                     .addClasses(BeanUsingCamelContext.class)
                     .addClasses(BeanUsingRegistry.class));
 
     @Inject
     BeanUsingProducerTemplate usingProducerTemplate;
+    @Inject
+    BeanUsingProducerTemplate usingFluentProducerTemplate;
     @Inject
     BeanUsingConsumerTemplate usingConsumerTemplate;
     @Inject
@@ -52,6 +57,7 @@ public class CamelProducersTest {
     @Test
     public void testInjection() throws Exception {
         usingProducerTemplate.verify();
+        usingFluentProducerTemplate.verify();
         usingConsumerTemplate.verify();
         usingCamelContext.verify();
         usingRegistry.verify();
@@ -61,9 +67,29 @@ public class CamelProducersTest {
     static class BeanUsingProducerTemplate {
         @Inject
         ProducerTemplate target;
+        @Inject
+        @Produce("direct:start")
+        ProducerTemplate targetWithUri;
 
         public void verify() throws Exception {
             assertThat(target).isNotNull();
+            assertThat(target.getDefaultEndpoint()).isNull();
+            assertThat(targetWithUri.getDefaultEndpoint().getEndpointUri()).isEqualTo("direct://start");
+        }
+    }
+
+    @ApplicationScoped
+    static class BeanUsingFluentProducerTemplate {
+        @Inject
+        FluentProducerTemplate target;
+        @Inject
+        @Produce("direct:start")
+        FluentProducerTemplate targetWithUri;
+
+        public void verify() throws Exception {
+            assertThat(target).isNotNull();
+            assertThat(target.getDefaultEndpoint()).isNull();
+            assertThat(targetWithUri.getDefaultEndpoint().getEndpointUri()).isEqualTo("direct://start");
         }
     }
 

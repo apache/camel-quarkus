@@ -27,11 +27,12 @@ public class XmlSupportProcessor {
                 new ReflectiveClassBuildItem(
                         false,
                         false,
-                        "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
                         "com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl",
+                        "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl",
                         "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl",
+                        "com.sun.org.apache.xerces.internal.parsers.SAXParser",
                         "com.sun.xml.internal.stream.XMLInputFactoryImpl",
-                        "com.sun.org.apache.xerces.internal.parsers.SAXParser"));
+                        "com.sun.xml.internal.stream.XMLOutputFactoryImpl"));
 
         reflectiveClass.produce(
                 new ReflectiveClassBuildItem(

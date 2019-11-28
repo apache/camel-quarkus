@@ -46,4 +46,10 @@ The https://hapifhir.io/download.html[hapi-fhir] library, on which camel-fhir de
  enables r4 resources
 |boolean
 |`true`
+
+|`quarkus.camel.fhir.enable-r5`
+
+ enables r5 resources
+|boolean
+|`true`
 |===

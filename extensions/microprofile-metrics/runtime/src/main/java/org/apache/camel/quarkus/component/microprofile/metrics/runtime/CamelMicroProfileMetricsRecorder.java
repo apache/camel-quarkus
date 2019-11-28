@@ -16,19 +16,19 @@
  */
 package org.apache.camel.quarkus.component.microprofile.metrics.runtime;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.microprofile.metrics.event.notifier.context.MicroProfileMetricsCamelContextEventNotifier;
+import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.MicroProfileMetricsExchangeEventNotifier;
+import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
+import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
+import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
+import org.apache.camel.spi.ManagementStrategy;
+import org.eclipse.microprofile.metrics.MetricRegistry;
+
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.smallrye.metrics.MetricRegistries;
-
-import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.event.notifier.context.MicroProfileMetricsCamelContextEventNotifier;
-import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
-import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsExchangeEventNotifier;
-import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsRouteEventNotifier;
-import org.apache.camel.quarkus.component.microprofile.metrics.runtime.patch.CamelQuarkusMicroProfileMetricsRoutePolicyFactory;
-import org.apache.camel.spi.ManagementStrategy;
-import org.eclipse.microprofile.metrics.MetricRegistry;
 
 @Recorder
 public class CamelMicroProfileMetricsRecorder {
@@ -42,7 +42,7 @@ public class CamelMicroProfileMetricsRecorder {
         ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
 
         if (config.enableRoutePolicy) {
-            camelContext.addRoutePolicyFactory(new CamelQuarkusMicroProfileMetricsRoutePolicyFactory());
+            camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
         }
 
         if (config.enableMessageHistory) {
@@ -51,11 +51,11 @@ public class CamelMicroProfileMetricsRecorder {
         }
 
         if (config.enableExchangeEventNotifier) {
-            managementStrategy.addEventNotifier(new CamelQuarkusMicroProfileMetricsExchangeEventNotifier());
+            managementStrategy.addEventNotifier(new MicroProfileMetricsExchangeEventNotifier());
         }
 
         if (config.enableRouteEventNotifier) {
-            managementStrategy.addEventNotifier(new CamelQuarkusMicroProfileMetricsRouteEventNotifier());
+            managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
         }
 
         if (config.enableCamelContextEventNotifier) {

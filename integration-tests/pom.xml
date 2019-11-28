@@ -34,6 +34,8 @@
 
     <properties>
         <activemq-version>5.15.10</activemq-version>
+        <ftpserver.version>1.1.1</ftpserver.version>
+        <sshd.version>2.3.0</sshd.version>
     </properties>
 
     <dependencyManagement>
@@ -66,9 +68,24 @@
                 <version>${activemq-version}</version>
             </dependency>
             <dependency>
-                <groupId>com.fasterxml.jackson.core</groupId>
-                <artifactId>jackson-databind</artifactId>
-                <version>2.9.10</version>
+                <groupId>org.apache.ftpserver</groupId>
+                <artifactId>ftpserver-core</artifactId>
+                <version>${ftpserver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ftpserver</groupId>
+                <artifactId>ftplet-api</artifactId>
+                <version>${ftpserver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sshd</groupId>
+                <artifactId>sshd-sftp</artifactId>
+                <version>${sshd.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.sshd</groupId>
+                <artifactId>sshd-scp</artifactId>
+                <version>${sshd.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -85,15 +102,19 @@
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>dozer</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>ftp</module>
+        <module>hystrix</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
+        <module>kafka</module>
         <module>mail</module>
-        <module>microprofile-health</module>
-        <module>microprofile-metrics</module>
+        <module>microprofile</module>
+        <module>mongodb</module>
         <module>netty</module>
         <module>netty-http</module>
         <module>opentracing</module>
@@ -104,6 +125,7 @@
         <module>salesforce</module>
         <module>servlet</module>
         <module>scheduler</module>
+        <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
         <module>tarfile</module>

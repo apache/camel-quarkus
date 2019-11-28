@@ -17,12 +17,16 @@
 package org.apache.camel.quarkus.core;
 
 import javax.enterprise.inject.Produces;
+import javax.enterprise.inject.spi.InjectionPoint;
 import javax.inject.Singleton;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.util.ObjectHelper;
 
 /**
  * Producers of beans that are injectable via CDI.
@@ -48,8 +52,27 @@ public class CamelProducers {
     }
 
     @Produces
-    ProducerTemplate camelProducerTemplate() {
-        return this.context.createProducerTemplate();
+    ProducerTemplate camelProducerTemplate(InjectionPoint injectionPoint) {
+        final ProducerTemplate template = this.context.createProducerTemplate();
+        final Produce produce = injectionPoint.getAnnotated().getAnnotation(Produce.class);
+
+        if (ObjectHelper.isNotEmpty(produce) && ObjectHelper.isNotEmpty(produce.value())) {
+            template.setDefaultEndpointUri(produce.value());
+        }
+
+        return template;
+    }
+
+    @Produces
+    FluentProducerTemplate camelFluentProducerTemplate(InjectionPoint injectionPoint) {
+        final FluentProducerTemplate template = this.context.createFluentProducerTemplate();
+        final Produce produce = injectionPoint.getAnnotated().getAnnotation(Produce.class);
+
+        if (ObjectHelper.isNotEmpty(produce) && ObjectHelper.isNotEmpty(produce.value())) {
+            template.setDefaultEndpointUri(produce.value());
+        }
+
+        return template;
     }
 
     @Produces

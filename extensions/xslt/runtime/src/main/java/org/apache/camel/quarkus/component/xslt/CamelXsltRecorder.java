@@ -16,57 +16,59 @@
  */
 package org.apache.camel.quarkus.component.xslt;
 
-import java.util.Map;
-
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-
-import org.apache.camel.component.xslt.XsltComponent;
-import org.apache.camel.component.xslt.XsltEndpoint;
-import org.apache.camel.util.FileUtil;
-import org.apache.camel.util.StringHelper;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.component.xslt.TransformerFactoryConfigurationStrategy;
+import org.apache.camel.component.xslt.XsltComponent;
+import org.apache.camel.component.xslt.XsltEndpoint;
+import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 
 @Recorder
 public class CamelXsltRecorder {
-    public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config) {
-        return new RuntimeValue<>(new QuarkusXsltComponent(config));
+    public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config,
+            RuntimeValue<RuntimeUriResolver.Builder> uriResolverBuilder) {
+        final RuntimeUriResolver uriResolver = uriResolverBuilder.getValue().build();
+        final QuarkusTransformerFactoryConfigurationStrategy strategy = new QuarkusTransformerFactoryConfigurationStrategy(
+                config.packageName, uriResolver);
+        final XsltComponent component = new XsltComponent();
+        component.setUriResolver(uriResolver);
+        component.setTransformerFactoryConfigurationStrategy(strategy);
+        component.setTransformerFactoryClass(XalanTransformerFactory.class.getName());
+        return new RuntimeValue<>(component);
     }
 
-    static class QuarkusXsltComponent extends XsltComponent {
-        private final CamelXsltConfig config;
+    public RuntimeValue<RuntimeUriResolver.Builder> createRuntimeUriResolverBuilder() {
+        return new RuntimeValue<>(new RuntimeUriResolver.Builder());
+    }
 
-        public QuarkusXsltComponent(CamelXsltConfig config) {
-            this.config = config;
+    public void addRuntimeUriResolverEntry(RuntimeValue<RuntimeUriResolver.Builder> builder, String templateUri,
+            String transletClassName) {
+        builder.getValue().entry(templateUri, transletClassName);
+    }
+
+    static class QuarkusTransformerFactoryConfigurationStrategy implements TransformerFactoryConfigurationStrategy {
+
+        private final String packageName;
+        private final RuntimeUriResolver uriResolver;
+
+        public QuarkusTransformerFactoryConfigurationStrategy(String packageName, RuntimeUriResolver uriResolver) {
+            this.uriResolver = uriResolver;
+            this.packageName = packageName;
         }
 
         @Override
-        protected void configureEndpoint(
-                XsltEndpoint endpoint,
-                String remaining,
-                Map<String, Object> parameters) throws Exception {
-
-            final String fileName = FileUtil.stripExt(remaining, true);
-            final String className = StringHelper.capitalize(fileName, true);
-
-            TransformerFactory tf = TransformerFactory.newInstance();
-            try {
-                tf.setFeature(javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING, true);
-            } catch (TransformerException e) {
-                log.warn("Unsupported feature " + javax.xml.XMLConstants.FEATURE_SECURE_PROCESSING);
-            }
+        public void configure(TransformerFactory tf, XsltEndpoint endpoint) {
+            final String className = uriResolver.getTransletClassName(endpoint.getResourceUri());
 
             tf.setAttribute("use-classpath", true);
             tf.setAttribute("translet-name", className);
-            tf.setAttribute("package-name", this.config.packageName);
+            tf.setAttribute("package-name", packageName);
             tf.setErrorListener(new CamelXsltErrorListener());
 
             endpoint.setTransformerFactory(tf);
-
-            super.configureEndpoint(endpoint, remaining, parameters);
         }
-    }
 
+    }
 }

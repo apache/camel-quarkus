@@ -18,6 +18,10 @@ package org.apache.camel.quarkus.component.xslt.deployment;
 
 import io.quarkus.builder.item.MultiBuildItem;
 
+/**
+ * A {@link MultiBuildItem} holding names of the XSLT translets (and possibly also names of their ancillary classes)
+ * generated at build time.
+ */
 public final class XsltGeneratedClassBuildItem extends MultiBuildItem {
     private final String className;
 
