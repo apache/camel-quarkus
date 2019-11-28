@@ -21,7 +21,7 @@ import org.apache.camel.builder.RouteBuilder;
 public class FreemarkerRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        from("direct:template")
-                .to("freemarker:template.ftl");
+        from("direct:a")
+                .to("freemarker:org/apache/camel/component/freemarker/example.ftl");
     }
 }

@@ -16,4 +16,9 @@
     limitations under the License.
 
 -->
-Dear ${headers.lastName}, ${headers.firstName}. ${body}
+${body}
+
+Thanks for the order of ${headers.item}.
+
+Regards Camel Riders Bookstore
+PS: Next beer is on me, James

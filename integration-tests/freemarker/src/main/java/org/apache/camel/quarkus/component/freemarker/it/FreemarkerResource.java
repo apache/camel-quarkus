@@ -27,7 +27,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.freemarker.FreemarkerConstants;
 import org.jboss.logging.Logger;
 
 @Path("/freemarker")
@@ -39,21 +42,44 @@ public class FreemarkerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/template")
+    //    @Path("/testFreemarkerLetter")
+    //    @POST
+    //    @Consumes(MediaType.APPLICATION_JSON)
+    //    @Produces(MediaType.TEXT_PLAIN)
+    //    public String testFreemarkerLetter() throws Exception {
+    //        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
+    //            @Override
+    //            public void process(Exchange exchange) throws Exception {
+    //                exchange.getIn().setBody("Monday");
+    //                exchange.getIn().setHeader("name", "Christian");
+    //                exchange.setProperty("item", "7");
+    //            }
+    //        });
+    //
+    //        return (String) exchange.getOut().getBody();
+    //    }
+
+    @Path("/testFreemarkerDataModel")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String template() throws Exception {
-        String body = "Have a nice day!";
+    public String testFreemarkerDataModel() throws Exception {
+        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getIn().setBody("");
+                exchange.getIn().setHeader("name", "Christian");
+                Map<String, Object> variableMap = new HashMap<>();
+                Map<String, Object> headersMap = new HashMap<>();
+                headersMap.put("name", "Willem");
+                variableMap.put("headers", headersMap);
+                variableMap.put("body", "Monday");
+                variableMap.put("exchange", exchange);
+                exchange.getIn().setHeader(FreemarkerConstants.FREEMARKER_DATA_MODEL, variableMap);
+                exchange.setProperty("item", "7");
+            }
+        });
 
-        final Map<String, Object> headers = new HashMap<>();
-        headers.put("lastName", "Feria");
-        headers.put("firstName", "Carlos");
-
-        return producerTemplate.requestBodyAndHeaders(
-                "direct:template",
-                body,
-                headers,
-                String.class);
+        return (String) exchange.getOut().getBody();
     }
 }
