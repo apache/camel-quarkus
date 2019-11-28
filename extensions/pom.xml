@@ -80,6 +80,7 @@
         <module>scheduler</module>
         <module>servlet</module>
         <module>sjms</module>
+        <module>sjms2</module>
         <module>slack</module>
         <module>snakeyaml</module>
         <module>tarfile</module>
