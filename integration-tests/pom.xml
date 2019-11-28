@@ -48,6 +48,18 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-main-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-core-deployment</artifactId>
                 <version>${quarkus.version}</version>
@@ -92,6 +104,7 @@
 
     <modules>
         <!-- build those first -->
+        <module>support</module>
         <module>core</module>
         <module>core-main</module>
         <module>core-impl</module>

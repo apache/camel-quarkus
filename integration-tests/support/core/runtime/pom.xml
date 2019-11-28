@@ -20,13 +20,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-test-core-main-parent</artifactId>
+        <artifactId>camel-quarkus-integration-tests-support-core-parent</artifactId>
         <version>0.4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core-main-ext</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core Main :: Extension :: Runtime</name>
+    <artifactId>camel-quarkus-integration-test-support-core-ext</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support :: Core :: Extension :: Runtime</name>
     <description>A test extension</description>
 
     <dependencyManagement>
@@ -45,6 +45,10 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-log</artifactId>
         </dependency>
     </dependencies>
 
