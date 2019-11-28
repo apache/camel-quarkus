@@ -47,6 +47,14 @@ public class CamelResource {
         return template.requestBody("direct:process-order", statement, String.class);
     }
 
+    @Path("/named")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String named(String statement) {
+        return template.requestBody("direct:named", statement, String.class);
+    }
+
     @Path("/increment")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

@@ -63,6 +63,10 @@ public class CamelRoute extends RouteBuilder {
                 // log out
                 .to("log:out");
 
+        from("direct:named")
+                .to("bean:namedBean?method=hello")
+                .to("log:named");
+
     }
 
     @SuppressWarnings("unchecked")
