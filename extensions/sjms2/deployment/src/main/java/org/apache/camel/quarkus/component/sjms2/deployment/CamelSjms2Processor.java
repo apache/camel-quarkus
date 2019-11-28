@@ -14,15 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.sjms;
+package org.apache.camel.quarkus.component.sjms2.deployment;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class CamelSjmsRoute extends RouteBuilder {
-    @Override
-    public void configure() throws Exception {
-        from("sjms:queue:inbound")
-                .to("log:jms")
-                .to("sjms2:queue:outbound");
+public class CamelSjms2Processor {
+    private static final String FEATURE = "camel-sjms2";
+
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }

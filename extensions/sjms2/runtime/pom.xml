@@ -20,13 +20,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-sjms-parent</artifactId>
+        <artifactId>camel-quarkus-sjms2-parent</artifactId>
         <version>0.4.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-sjms</artifactId>
-    <name>Camel Quarkus :: SJMS :: Runtime</name>
+    <artifactId>camel-quarkus-sjms2</artifactId>
+    <name>Camel Quarkus :: SJMS2 :: Runtime</name>
 
     <properties>
         <firstVersion>0.5.0</firstVersion>
@@ -51,7 +51,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-sjms</artifactId>
+            <artifactId>camel-sjms2</artifactId>
         </dependency>
     </dependencies>
 

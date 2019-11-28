@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
+Number of Camel components: 47 in 40 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -124,6 +124,9 @@ Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/sjms-batch-component.html[Simple JMS Batch] (camel-quarkus-sjms) +
 `sjms-batch:destinationName` | 0.5 | The sjms-batch component is a specialized for highly performant, transactional batch consumption from a JMS queue.
+
+| link:https://camel.apache.org/components/latest/sjms2-component.html[Simple JMS2] (camel-quarkus-sjms2) +
+`sjms2:destinationType:destinationName` | 0.5 | The sjms2 component (simple jms) allows messages to be sent to (or consumed from) a JMS Queue or Topic (uses JMS 2.x API).
 
 | link:https://camel.apache.org/components/latest/slack-component.html[Slack] (camel-quarkus-slack) +
 `slack:channel` | 0.3 | The slack component allows you to send messages to Slack.
