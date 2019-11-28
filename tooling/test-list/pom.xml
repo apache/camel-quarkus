@@ -47,17 +47,15 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <testJarsPath>${basedir}/camel-quarkus-test-list.xml</testJarsPath>
+                    <testJarsPath>${project.build.directory}/camel-quarkus-test-list.xml</testJarsPath>
                     <fileSets>
                         <fileSet>
                             <directory>${basedir}/../../integration-tests</directory>
                             <includes>
                                 <include>*/pom.xml</include>
-                                <include>*/test/pom.xml</include>
                             </includes>
                             <excludes>
-                                <exclude>core/pom.xml</exclude>
-                                <exclude>core-main/pom.xml</exclude>
+                                <exclude>support/**/*</exclude>
                             </excludes>
                         </fileSet>
                     </fileSets>
@@ -77,7 +75,7 @@
                         <configuration>
                             <artifacts>
                                 <artifact>
-                                    <file>${basedir}/camel-quarkus-test-list.xml</file>
+                                    <file>${project.build.directory}/camel-quarkus-test-list.xml</file>
                                     <type>xml</type>
                                 </artifact>
                             </artifacts>
