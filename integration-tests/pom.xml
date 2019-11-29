@@ -109,6 +109,7 @@
         <module>core-main</module>
         <module>core-impl</module>
 
+        <!-- Sort using cd extensions && mvn groovy:execute@sort-poms -->
         <!-- extensions a..z -->
         <module>aws</module>
         <module>bean</module>

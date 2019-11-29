@@ -48,7 +48,10 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Camel (in alphabetical order) -->
+            <!-- Sort using cd extensions && mvn groovy:execute@sort-poms -->
+            <!-- Dependencies a..z -->
+
+            <!--$ org.apache.camel $-->
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>apt</artifactId>
@@ -389,7 +392,7 @@
                 <version>${camel.version}</version>
             </dependency>
 
-            <!-- Camel Quarkus Support (in alphabetical order) -->
+            <!--$ Camel Quarkus Support (in alphabetical order) $-->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-common</artifactId>
@@ -421,7 +424,7 @@
                 <version>${camel-quarkus.version}</version>
             </dependency>
 
-            <!-- Camel Quarkus Common (in alphabetical order) -->
+            <!--$ Camel Quarkus Common (in alphabetical order) $-->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-core</artifactId>
@@ -443,7 +446,7 @@
                 <version>${camel-quarkus.version}</version>
             </dependency>
 
-            <!-- Quarkus Camel (in alphabetical order) -->
+            <!--$ Quarkus Camel (in alphabetical order) $-->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-attachments</artifactId>
@@ -685,7 +688,7 @@
                 <version>${camel-quarkus.version}</version>
             </dependency>
 
-            <!-- Other third party dependencies (in alphabetical order by groupId:artifactId) -->
+            <!--$ Other third party dependencies (in alphabetical order by groupId:artifactId) $-->
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
                 <artifactId>hapi-fhir-server</artifactId>
