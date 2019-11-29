@@ -44,7 +44,9 @@
 
         <!-- extensions a..z -->
         <module>attachments</module>
+        <module>aws-ecs</module>
         <module>aws-eks</module>
+        <module>aws-kms</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
@@ -88,10 +90,8 @@
         <module>twitter</module>
         <module>validator</module>
         <module>vm</module>
-        <module>zipfile</module>
         <module>xslt</module>
-        <module>aws-kms</module>
-        <module>aws-ecs</module>
+        <module>zipfile</module>
     </modules>
 
     <build>

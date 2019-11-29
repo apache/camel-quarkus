@@ -113,6 +113,7 @@
         <!-- extensions a..z -->
         <module>aws</module>
         <module>bean</module>
+        <module>bean-validator</module>
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
@@ -134,21 +135,19 @@
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>
-        <module>platform-http-engine</module>
         <module>platform-http</module>
+        <module>platform-http-engine</module>
         <module>salesforce</module>
-        <module>servlet</module>
         <module>scheduler</module>
+        <module>servlet</module>
         <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
         <module>tarfile</module>
         <module>twitter</module>
         <module>validator</module>
-        <module>zipfile</module>
         <module>xslt</module>
-        <module>bean-validator</module>
-
+        <module>zipfile</module>
     </modules>
 
     <build>
