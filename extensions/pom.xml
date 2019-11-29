@@ -85,6 +85,7 @@
         <module>sjms2</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>tagsoup</module>
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>
