@@ -28,20 +28,20 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class FreemarkerTest {
 
-    //    @Test
-    //    public void testFreemarkerLetter() {
-    //        RestAssured.given() //
-    //                .contentType(ContentType.JSON)
-    //                .accept(ContentType.TEXT)
-    //                .post("/freemarker/testFreemarkerLetter")
-    //                .then()
-    //                .statusCode(200)
-    //                .body(equalTo("Dear Christian. You ordered item 7 on Monday."));
-    //    }
+    @Test
+    public void testFreemarkerLetter() {
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.TEXT)
+                .post("/freemarker/testFreemarkerLetter")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Dear Christian. You ordered item 7 on Monday."));
+    }
 
     @Test
     public void testFreemarkerDataModel() {
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.TEXT)
                 .post("/freemarker/testFreemarkerDataModel")

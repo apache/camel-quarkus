@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
+Number of Camel components: 47 in 40 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -58,6 +58,9 @@ Number of Camel components: 46 in 39 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4 | The file component is used for reading or writing files.
+
+| link:https://camel.apache.org/components/latest/freemarker-component.html[Freemarker] (camel-quarkus-freemarker) +
+`freemarker:resourceUri` | 0.1 | Transforms the message using a FreeMarker template.
 
 | link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
 `ftp:host:port/directoryName` | 0.5 | The \ftp component is used for uploading or downloading files from FTP servers.

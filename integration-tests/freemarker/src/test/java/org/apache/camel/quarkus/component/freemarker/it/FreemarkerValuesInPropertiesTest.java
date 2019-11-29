@@ -16,12 +16,25 @@
  */
 package org.apache.camel.quarkus.component.freemarker.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 
-public class FreemarkerRouteBuilder extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:a")
-                .to("freemarker:org/apache/camel/component/freemarker/example.ftl");
+import static org.hamcrest.Matchers.equalTo;
+
+@QuarkusTest
+class FreemarkerValuesInPropertiesTest {
+
+    @Test
+    public void testVelocityLetter() {
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .accept(ContentType.TEXT)
+                .post("/freemarker/testVelocityLetter")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Dear Christian. You ordered item 7."));
     }
+
 }

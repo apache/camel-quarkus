@@ -30,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.freemarker.FreemarkerConstants;
 import org.jboss.logging.Logger;
 
@@ -42,22 +43,22 @@ public class FreemarkerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    //    @Path("/testFreemarkerLetter")
-    //    @POST
-    //    @Consumes(MediaType.APPLICATION_JSON)
-    //    @Produces(MediaType.TEXT_PLAIN)
-    //    public String testFreemarkerLetter() throws Exception {
-    //        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
-    //            @Override
-    //            public void process(Exchange exchange) throws Exception {
-    //                exchange.getIn().setBody("Monday");
-    //                exchange.getIn().setHeader("name", "Christian");
-    //                exchange.setProperty("item", "7");
-    //            }
-    //        });
-    //
-    //        return (String) exchange.getOut().getBody();
-    //    }
+    @Path("/testFreemarkerLetter")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testFreemarkerLetter() throws Exception {
+        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getIn().setBody("Monday");
+                exchange.getIn().setHeader("name", "Christian");
+                exchange.setProperty("item", "7");
+            }
+        });
+
+        return (String) exchange.getOut().getBody();
+    }
 
     @Path("/testFreemarkerDataModel")
     @POST
@@ -81,5 +82,13 @@ public class FreemarkerResource {
         });
 
         return (String) exchange.getOut().getBody();
+    }
+
+    public static class FreemarkerRouteBuilder extends RouteBuilder {
+        @Override
+        public void configure() {
+            from("direct:a")
+                    .to("freemarker:org/apache/camel/component/freemarker/example.ftl");
+        }
     }
 }

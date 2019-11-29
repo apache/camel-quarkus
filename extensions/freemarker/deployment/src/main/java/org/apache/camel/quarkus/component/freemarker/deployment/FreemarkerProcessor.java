@@ -18,9 +18,13 @@ package org.apache.camel.quarkus.component.freemarker.deployment;
 
 import freemarker.ext.jython.JythonModel;
 import freemarker.ext.jython.JythonWrapper;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.Exchange;
+import org.apache.camel.support.DefaultExchange;
 
 class FreemarkerProcessor {
     private static final String FEATURE = "camel-freemarker";
@@ -46,13 +50,11 @@ class FreemarkerProcessor {
         return new RuntimeInitializedClassBuildItem(JythonWrapper.class.getCanonicalName());
     }
 
-    //    @BuildStep
-    //    void registerNativeImageReources() {
-    //        resource.produce(new NativeImageResourceBuildItem("/security/runtime.keys"));
-    //
-    //        resource.produce(new NativeImageResourceBuildItem("META-INF/services/" + io.quarkus.SomeService.class.getName()));
-    //
-    //        resourceBundle.produce(new NativeImageResourceBuildItem("javax.xml.bind.Messages"));
-    //    }
+    @BuildStep
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
+                Exchange.class,
+                DefaultExchange.class));
+    }
 
 }
