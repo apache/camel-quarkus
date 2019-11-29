@@ -142,6 +142,7 @@
         <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>tagsoup</module>
         <module>tarfile</module>
         <module>twitter</module>
         <module>validator</module>
