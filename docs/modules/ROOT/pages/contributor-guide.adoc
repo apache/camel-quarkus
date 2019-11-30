@@ -118,6 +118,7 @@ may consider omitting explicit `nameBase` in some cases.
 +
 * Run `mvn license:format -Plicense` to add license headers to the new files.
 * Run `mvn process-resources` to re-generate the list of extensions and the Camel Quarkus Catalog
+* Run `cd extensions && mvn groovy:execute@sort-poms` to sort elements in various POM files properly
 * Squash your commits
 
 Good luck!
