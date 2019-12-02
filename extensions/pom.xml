@@ -42,7 +42,7 @@
         <module>http-common</module>
         <module>reactive-executor</module>
 
-        <!-- extensions a..z -->
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>attachments</module>
         <module>aws-ecs</module>
         <module>aws-eks</module>
@@ -109,22 +109,6 @@
                         <phase>verify</phase>
                         <configuration>
                             <source>file:///${project.basedir}/../tooling/scripts/validate-extension-metadata.groovy</source>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <!-- Can be called manually using cd extensions && mvn groovy:execute@sort-poms -->
-                        <id>sort-poms</id>
-                        <inherited>false</inherited>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>none</phase>
-                        <configuration>
-                            <properties>
-                                <sortModulesPaths>pom.xml,../integration-tests/pom.xml</sortModulesPaths>
-                                <sortDependencyManagementPaths>../poms/bom/pom.xml,../poms/bom-deployment/pom.xml</sortDependencyManagementPaths>
-                            </properties>
-                            <source>file:///${project.basedir}/../tooling/scripts/sort-poms.groovy</source>
                         </configuration>
                     </execution>
                 </executions>

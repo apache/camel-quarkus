@@ -48,8 +48,7 @@
                 <scope>import</scope>
             </dependency>
 
-            <!-- Sort using cd extensions && mvn groovy:execute@sort-poms -->
-            <!-- Dependencies a..z -->
+            <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
             <!--$ org.apache.camel $-->
             <dependency>
