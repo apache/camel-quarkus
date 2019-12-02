@@ -29,8 +29,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Stream;
 
+import io.quarkus.arc.processor.BeanInfo;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.quarkus.core.CamelServiceInfo;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.ClassInfo;
@@ -93,6 +93,12 @@ public final class CamelSupport {
         return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
                 .map(CamelSupport::services)
                 .flatMap(Collection::stream);
+    }
+
+    public static <T extends CamelBeanInfo> boolean isContainerBean(List<BeanInfo> beans, T camelBeanInfo) {
+        return beans.stream()
+                .anyMatch(bi -> ObjectHelper.equal(bi.getName(), camelBeanInfo.getName(), true)
+                        && ObjectHelper.equal(bi.getImplClazz().toString(), camelBeanInfo.getType(), false));
     }
 
     private static List<CamelServiceInfo> services(Path p) {

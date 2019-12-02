@@ -14,18 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
-public final class CamelServiceFilterBuildItem extends MultiBuildItem {
-    private final CamelServiceFilter predicate;
+import org.apache.camel.component.direct.DirectComponent;
 
-    public CamelServiceFilterBuildItem(CamelServiceFilter predicate) {
-        this.predicate = predicate;
-    }
+@Singleton
+public class CamelComponents {
+    @Singleton
+    @Named("direct")
+    @Produces
+    DirectComponent directComponent() {
+        DirectComponent component = new DirectComponent();
+        component.setTimeout(1234);
 
-    public CamelServiceFilter getPredicate() {
-        return predicate;
+        return component;
     }
 }

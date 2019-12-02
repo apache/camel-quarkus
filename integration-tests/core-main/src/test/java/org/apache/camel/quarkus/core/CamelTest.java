@@ -130,4 +130,17 @@ public class CamelTest {
                         "key", is("a"),
                         "val", is("b"));
     }
+
+    @Test
+    public void testCustomComponent() {
+        RestAssured.given()
+                .accept(MediaType.APPLICATION_JSON)
+                .get("/test/registry/component/direct")
+                .then()
+                .statusCode(200)
+                .body(
+                        "timeout", is("1234"),
+                        "registry", is("repository"),
+                        "registry-type", is("org.apache.camel.quarkus.core.RuntimeBeanRepository"));
+    }
 }

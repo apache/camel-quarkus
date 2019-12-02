@@ -26,38 +26,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.quarkus.arc.processor.BeanRegistrar;
-import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelMain;
-import org.apache.camel.quarkus.core.CamelMainProducers;
-import org.apache.camel.quarkus.core.CamelMainRecorder;
-import org.apache.camel.quarkus.core.CamelProducers;
-import org.apache.camel.quarkus.core.CamelRecorder;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
-import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
-import org.apache.camel.quarkus.core.Flags;
-import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.TypeConverterLoader;
-import org.apache.camel.spi.TypeConverterRegistry;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
 import io.quarkus.arc.processor.BeanInfo;
+import io.quarkus.arc.processor.BeanRegistrar;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.Capabilities;
@@ -72,6 +47,29 @@ import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.core.CamelMainProducers;
+import org.apache.camel.quarkus.core.CamelMainRecorder;
+import org.apache.camel.quarkus.core.CamelProducers;
+import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
+import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
+import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
@@ -153,12 +151,15 @@ class BuildProcessor {
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
                 ApplicationArchivesBuildItem applicationArchives,
+                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
                 List<CamelBeanBuildItem> registryItems,
                 List<CamelServiceFilterBuildItem> serviceFilters) {
 
-            RuntimeValue<Registry> registry = recorder.createRegistry();
+            final RuntimeValue<Registry> registry = recorder.createRegistry();
+            final List<BeanInfo> beans = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS);
 
             CamelSupport.services(applicationArchives)
+                    .filter(si -> !CamelSupport.isContainerBean(beans, si))
                     .filter(si -> {
                         //
                         // by default all the service found in META-INF/service/org/apache/camel are
@@ -182,15 +183,16 @@ class BuildProcessor {
                                 recorderContext.classProxy(si.type));
                     });
 
-            for (CamelBeanBuildItem item : registryItems) {
-                LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
-
-                recorder.bind(
-                        registry,
-                        item.getName(),
-                        recorderContext.classProxy(item.getType()),
-                        item.getValue());
-            }
+            registryItems.stream()
+                    .filter(item -> !CamelSupport.isContainerBean(beans, item))
+                    .forEach(item -> {
+                        LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
+                        recorder.bind(
+                                registry,
+                                item.getName(),
+                                recorderContext.classProxy(item.getType()),
+                                item.getValue());
+                    });
 
             return new CamelRegistryBuildItem(registry);
         }
@@ -243,18 +245,23 @@ class BuildProcessor {
         CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
+                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
                 CamelRegistryBuildItem registry,
                 List<CamelRuntimeBeanBuildItem> registryItems) {
 
-            for (CamelRuntimeBeanBuildItem item : registryItems) {
-                LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
+            final List<BeanInfo> beans = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS);
 
-                recorder.bind(
-                        registry.getRegistry(),
-                        item.getName(),
-                        recorderContext.classProxy(item.getType()),
-                        item.getValue());
-            }
+            registryItems.stream()
+                    .filter(item -> !CamelSupport.isContainerBean(beans, item))
+                    .forEach(item -> {
+                        LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
+
+                        recorder.bind(
+                                registry.getRegistry(),
+                                item.getName(),
+                                recorderContext.classProxy(item.getType()),
+                                item.getValue());
+                    });
 
             return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
         }

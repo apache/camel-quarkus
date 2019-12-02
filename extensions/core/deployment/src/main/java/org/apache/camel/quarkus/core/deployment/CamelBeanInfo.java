@@ -16,16 +16,20 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import io.quarkus.builder.item.MultiBuildItem;
+/**
+ * Describes a camel bean.
+ */
+public interface CamelBeanInfo {
+    /**
+     * The identifier used to lookup the bean by name from the camel registry.
+     */
+    String getName();
 
-public final class CamelServiceFilterBuildItem extends MultiBuildItem {
-    private final CamelServiceFilter predicate;
-
-    public CamelServiceFilterBuildItem(CamelServiceFilter predicate) {
-        this.predicate = predicate;
-    }
-
-    public CamelServiceFilter getPredicate() {
-        return predicate;
-    }
+    /**
+     * The full qualified class name of the bean.
+     * <p/>
+     * Note that the field type should refer to the most specialized class to avoid the issue described in
+     * https://issues.apache.org/jira/browse/CAMEL-13948.
+     */
+    String getType();
 }

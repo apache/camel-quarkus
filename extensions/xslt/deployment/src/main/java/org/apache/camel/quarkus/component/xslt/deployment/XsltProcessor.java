@@ -40,7 +40,7 @@ import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
 import org.apache.camel.quarkus.component.xslt.CamelXsltErrorListener;
 import org.apache.camel.quarkus.component.xslt.CamelXsltRecorder;
 import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver.Builder;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
