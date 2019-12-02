@@ -41,7 +41,7 @@ public class TagSoupResource {
     @Consumes(MediaType.TEXT_HTML)
     @Produces(MediaType.TEXT_PLAIN)
     public String htmlParse(String html) {
-        LOG.infof("Parsing HTML %s", html);
+        LOG.debugf("Parsing HTML %s", html);
         return producerTemplate.requestBody(
                 TagSoupRouteBuilder.DIRECT_HTML_TO_DOM,
                 html,

@@ -18,9 +18,7 @@ package org.apache.camel.quarkus.component.tagsoup.it;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.w3c.dom.Document;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
+import org.w3c.dom.Node;
 
 public class TagSoupRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TO_DOM = "direct:html-to-dom";
@@ -30,10 +28,26 @@ public class TagSoupRouteBuilder extends RouteBuilder {
         from(DIRECT_HTML_TO_DOM)
                 .unmarshal().tidyMarkup()
                 .process(exchange -> {
-                    Document doc = exchange.getIn().getBody(Document.class);
-                    XPath xPath = XPathFactory.newInstance().newXPath();
-                    String result = xPath.compile("//p/text()").evaluate(doc);
-                    exchange.getIn().setBody(result);
+                    final Document doc = exchange.getIn().getBody(Document.class);
+                    final Node html = doc.getDocumentElement();
+                    if (!"html".equals(html.getLocalName())) {
+                        throw new IllegalStateException(
+                                "Expected <html> as the last child of of the document; found " + html.getLocalName());
+                    }
+                    final Node body = html.getLastChild();
+                    if (!"body".equals(body.getLocalName())) {
+                        throw new IllegalStateException(
+                                "Expected <body> as the last child of <html>; found " + body.getLocalName());
+                    }
+                    final Node p = body.getFirstChild();
+                    if (!"p".equals(p.getLocalName())) {
+                        throw new IllegalStateException("Expected <p> as the first child of <body>; found " + p.getLocalName());
+                    }
+                    final Node text = p.getFirstChild();
+                    if (text.getNodeType() != Node.TEXT_NODE) {
+                        throw new IllegalStateException("Expected a text node as the first child of <p>; found " + text);
+                    }
+                    exchange.getIn().setBody(text.getTextContent());
                 });
     }
 }

@@ -177,7 +177,7 @@ Number of Camel data formats: 9 in 8 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.3 | The Tar File data format is a message compression and de-compression format of tar files.
 
-| link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | 0.3 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
+| link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | 0.5 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 
