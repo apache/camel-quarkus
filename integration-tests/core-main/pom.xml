@@ -126,6 +126,7 @@
                                 <configuration>
                                     <systemProperties>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                        <quarkus.test.native-image-profile>staging</quarkus.test.native-image-profile>
                                     </systemProperties>
                                 </configuration>
                             </execution>
