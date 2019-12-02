@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.vertx.deployment.VertxBuildItem;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.CamelReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;

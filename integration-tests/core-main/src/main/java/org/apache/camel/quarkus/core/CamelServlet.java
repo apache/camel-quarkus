@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -30,13 +34,16 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Component;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.quarkus.core.runtime.support.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
+import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.support.DefaultRegistry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
@@ -141,5 +148,42 @@ public class CamelServlet {
                 .add("key", pair.key)
                 .add("val", pair.val)
                 .build();
+    }
+
+    @Path("/registry/component/{name}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject describeRegistryComponent(@PathParam("name") String name) {
+        final Map<String, Object> properties = new HashMap<>();
+        final DefaultRegistry registry = context.getRegistry(DefaultRegistry.class);
+        final JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        Component component = registry.getFallbackRegistry().lookupByNameAndType(name, Component.class);
+        if (component != null) {
+            builder.add("type", component.getClass().getName());
+            builder.add("registry", "fallback");
+            builder.add("registry-type", registry.getFallbackRegistry().getClass().getName());
+        } else {
+            for (BeanRepository repository : registry.getRepositories()) {
+                component = repository.lookupByNameAndType(name, Component.class);
+                if (component != null) {
+                    builder.add("type", component.getClass().getName());
+                    builder.add("registry", "repository");
+                    builder.add("registry-type", repository.getClass().getName());
+                    break;
+                }
+            }
+        }
+
+        if (component != null) {
+            context.adapt(ExtendedCamelContext.class).getBeanIntrospection().getProperties(component, properties, null);
+            properties.forEach((k, v) -> {
+                if (v != null) {
+                    builder.add(k, Objects.toString(v));
+                }
+            });
+        }
+
+        return builder.build();
     }
 }

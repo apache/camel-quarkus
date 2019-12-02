@@ -32,7 +32,7 @@ import io.quarkus.runtime.RuntimeValue;
  * Note that the field type should refer to the most specialized class to avoid the issue described in
  * https://issues.apache.org/jira/browse/CAMEL-13948.
  */
-public final class CamelBeanBuildItem extends MultiBuildItem {
+public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBeanInfo {
     private final String name;
     private final String type;
     private final RuntimeValue<?> value;

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.deployment;
 
 import java.nio.file.Path;
 
@@ -22,7 +22,7 @@ import java.nio.file.Path;
  * Utility class to describe a camel service which is a result of reading
  * services from resources belonging to META-INF/services/org/apache/camel.
  */
-public class CamelServiceInfo {
+public class CamelServiceInfo implements CamelBeanInfo {
     /**
      * The path of the service file like META-INF/services/org/apache/camel/component/file.
      */
@@ -48,6 +48,16 @@ public class CamelServiceInfo {
         this.path = path;
         this.name = name;
         this.type = type;
+    }
+
+    @Override
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String getType() {
+        return this.type;
     }
 
     @Override
