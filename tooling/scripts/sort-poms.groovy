@@ -15,6 +15,11 @@
  * limitations under the License.
  */
 
+/**
+ * A script for sorting child modules and dependencyManagement dependencies in pom.xml files.
+ * Only elements will be sorted that occur after a comment containing the {@code a..z} marker string.
+ */
+
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.Files
