@@ -293,6 +293,7 @@
                             <exclude>**/*.mvel</exclude>
                             <exclude>**/*.pem</exclude>
                             <exclude>**/camel-quarkus-test-list.xml</exclude>
+                            <exclude>**/.factorypath</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
