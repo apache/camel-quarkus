@@ -95,12 +95,6 @@ public final class CamelSupport {
                 .flatMap(Collection::stream);
     }
 
-    public static <T extends CamelBeanInfo> boolean isContainerBean(List<BeanInfo> beans, T camelBeanInfo) {
-        return beans.stream()
-                .anyMatch(bi -> ObjectHelper.equal(bi.getName(), camelBeanInfo.getName(), true)
-                        && ObjectHelper.equal(bi.getImplClazz().toString(), camelBeanInfo.getType(), false));
-    }
-
     private static List<CamelServiceInfo> services(Path p) {
         List<CamelServiceInfo> answer = new ArrayList<>();
 
