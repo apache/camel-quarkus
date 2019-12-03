@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.nio.file.Path;
+import java.util.Objects;
 
 /**
  * Utility class to describe a camel service which is a result of reading
@@ -58,6 +59,24 @@ public class CamelServiceInfo implements CamelBeanInfo {
     @Override
     public String getType() {
         return this.type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CamelBeanInfo)) {
+            return false;
+        }
+        CamelBeanInfo info = (CamelBeanInfo) o;
+        return Objects.equals(getName(), info.getName()) &&
+                Objects.equals(getType(), info.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getType());
     }
 
     @Override
