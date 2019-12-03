@@ -148,6 +148,7 @@
         <module>validator</module>
         <module>xslt</module>
         <module>zipfile</module>
+        <module>seda</module>
     </modules>
 
     <build>
