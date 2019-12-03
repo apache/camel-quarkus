@@ -261,7 +261,7 @@
                 </plugin>
 
                 <!-- license-maven-plugin is not necessarily relevant for user applications.
-                     It is managed here so that we can have its config defined on a sigle place.
+                     It is managed here so that we can have its config defined on a single place.
                      It is executed from profiles only -->
                 <plugin>
                     <groupId>com.mycila</groupId>
