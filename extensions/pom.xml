@@ -92,6 +92,7 @@
         <module>vm</module>
         <module>xslt</module>
         <module>zipfile</module>
+        <module>seda</module>
     </modules>
 
     <build>
