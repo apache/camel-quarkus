@@ -31,8 +31,6 @@ import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
-import io.quarkus.arc.processor.BeanInfo;
-import io.quarkus.arc.processor.BeanRegistrar;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.Capabilities;
@@ -79,6 +77,10 @@ class BuildProcessor {
      * Build steps related to camel core.
      */
     public static class Core {
+        @BuildStep
+        ContainerBeansBuildItem containerBeans(BeanRegistrationPhaseBuildItem beanRegistrationPhase) {
+            return new ContainerBeansBuildItem(beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS));
+        }
 
         @BuildStep
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
@@ -151,15 +153,14 @@ class BuildProcessor {
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
                 ApplicationArchivesBuildItem applicationArchives,
-                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
+                ContainerBeansBuildItem containerBeans,
                 List<CamelBeanBuildItem> registryItems,
                 List<CamelServiceFilterBuildItem> serviceFilters) {
 
             final RuntimeValue<Registry> registry = recorder.createRegistry();
-            final List<BeanInfo> beans = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS);
 
             CamelSupport.services(applicationArchives)
-                    .filter(si -> !CamelSupport.isContainerBean(beans, si))
+                    .filter(si -> !containerBeans.getBeans().contains(si))
                     .filter(si -> {
                         //
                         // by default all the service found in META-INF/service/org/apache/camel are
@@ -184,7 +185,7 @@ class BuildProcessor {
                     });
 
             registryItems.stream()
-                    .filter(item -> !CamelSupport.isContainerBean(beans, item))
+                    .filter(item -> !containerBeans.getBeans().contains(item))
                     .forEach(item -> {
                         LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
                         recorder.bind(
@@ -245,14 +246,12 @@ class BuildProcessor {
         CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
-                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
+                ContainerBeansBuildItem containerBeans,
                 CamelRegistryBuildItem registry,
                 List<CamelRuntimeBeanBuildItem> registryItems) {
 
-            final List<BeanInfo> beans = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS);
-
             registryItems.stream()
-                    .filter(item -> !CamelSupport.isContainerBean(beans, item))
+                    .filter(item -> !containerBeans.getBeans().contains(item))
                     .forEach(item -> {
                         LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
@@ -301,7 +300,7 @@ class BuildProcessor {
          * @param camelRoutesBuilderClasses list of {@link CamelRoutesBuilderClassBuildItem} holding {@link RoutesBuilder}
          *            classes discovered by classpath scanning.
          * @param recorder the recorder.
-         * @param beanRegistrationPhase holder for {@link BeanRegistrar.RegistrationContext}.
+         * @param containerBeans list of beans known to the ArC container.
          * @param recorderContext the recorder context.
          * @param config the built time camel configuration.
          * @return a curated list of {@link CamelBeanBuildItem} holding {@link RoutesBuilder}.
@@ -311,19 +310,13 @@ class BuildProcessor {
         public List<CamelBeanBuildItem> collectRoutes(
                 List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilderClasses,
                 CamelMainRecorder recorder,
-                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
+                ContainerBeansBuildItem containerBeans,
                 RecorderContext recorderContext,
                 CamelConfig config) {
 
-            final Set<DotName> arcBeanClasses = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)
-                    .stream()
-                    .map(BeanInfo::getImplClazz)
-                    .map(ClassInfo::name)
-                    .collect(Collectors.toSet());
-
             return camelRoutesBuilderClasses.stream()
                     .map(CamelRoutesBuilderClassBuildItem::getDotName)
-                    .filter(dotName -> !arcBeanClasses.contains(dotName))
+                    .filter(dotName -> !containerBeans.getClasses().contains(dotName))
                     .filter(dotName -> CamelSupport.isPathIncluded(
                             dotName.toString('/'),
                             config.main.routesDiscovery.excludePatterns,

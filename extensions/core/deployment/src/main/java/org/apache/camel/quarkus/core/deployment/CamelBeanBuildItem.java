@@ -54,4 +54,22 @@ public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBea
     public RuntimeValue<?> getValue() {
         return value;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof CamelBeanInfo)) {
+            return false;
+        }
+        CamelBeanInfo info = (CamelBeanInfo) o;
+        return Objects.equals(getName(), info.getName()) &&
+                Objects.equals(getType(), info.getType());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getType());
+    }
 }
