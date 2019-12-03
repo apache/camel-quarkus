@@ -21,7 +21,9 @@ import io.quarkus.runtime.annotations.Recorder;
 
 import java.util.List;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
+import org.apache.camel.converter.dozer.DozerTypeConverterLoader;
 
 @Recorder
 public class CamelDozerRecorder {
@@ -30,5 +32,10 @@ public class CamelDozerRecorder {
         DozerBeanMapperConfiguration dozerBeanMapperConfiguration = new DozerBeanMapperConfiguration();
         dozerBeanMapperConfiguration.setMappingFiles(mappingFiles);
         return new RuntimeValue<>(dozerBeanMapperConfiguration);
+    }
+
+    public void initializeDozerTypeConverter(RuntimeValue<CamelContext> camelContextRuntimeValue) {
+        DozerTypeConverterLoader loader = new DozerTypeConverterLoader();
+        loader.setCamelContext(camelContextRuntimeValue.getValue());
     }
 }

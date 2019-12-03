@@ -62,6 +62,7 @@ import org.apache.camel.converter.dozer.DozerThreadContextClassLoader;
 import org.apache.camel.quarkus.component.dozer.CamelDozerConfig;
 import org.apache.camel.quarkus.component.dozer.CamelDozerRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
 
 class DozerProcessor {
 
@@ -152,8 +153,7 @@ class DozerProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelBeanBuildItem configureCamelDozerBeanMappings(BuildProducer<CamelBeanBuildItem> camelBeanBuildItemBuildProducer,
-            CamelDozerConfig camelDozerConfig,
+    CamelBeanBuildItem configureCamelDozerBeanMappings(CamelDozerConfig camelDozerConfig,
             CamelDozerRecorder camelDozerRecorder) {
 
         CamelBeanBuildItem camelBeanBuildItem = null;
@@ -167,6 +167,16 @@ class DozerProcessor {
         }
 
         return camelBeanBuildItem;
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    void configureDozerTypeConverterRegistry(CamelContextBuildItem camelContextBuildItem, CamelDozerConfig camelDozerConfig,
+            CamelDozerRecorder camelDozerRecorder) {
+
+        if (camelDozerConfig.typeConverterEnabled) {
+            camelDozerRecorder.initializeDozerTypeConverter(camelContextBuildItem.getCamelContext());
+        }
     }
 
     private URI mappingPathToURI(String mappingPath) {

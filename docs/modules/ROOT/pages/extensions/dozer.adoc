@@ -29,3 +29,10 @@ Use the following configuration property to specify the location(s) of your Doze
 ----
 quarkus.camel.dozer.mapping-files = dozerMappings.xml,file:foo/bar/custom-mappings.xml,http://foo/bar/mapping.xml
 ----
+
+The Dozer extension provides a type converter which is disabled by default. It can be enabled with the following configuration.
+
+[source,properties]
+----
+quarkus.camel.dozer.type-converter-enabled = true
+----

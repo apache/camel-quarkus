@@ -30,4 +30,10 @@ public class CamelDozerConfig {
      */
     @ConfigItem
     public List<String> mappingFiles;
+
+    /**
+     * Sets whether to configure the DozerTypeConverter for the CamelContext
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean typeConverterEnabled;
 }
