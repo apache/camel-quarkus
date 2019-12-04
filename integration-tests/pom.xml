@@ -149,6 +149,7 @@
         <module>xslt</module>
         <module>zipfile</module>
         <module>seda</module>
+        <module>base64</module>
     </modules>
 
     <build>
