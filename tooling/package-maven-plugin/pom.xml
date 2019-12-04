@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tooling</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.0.0-M1</version>
     </parent>
 
     <artifactId>camel-quarkus-package-maven-plugin</artifactId>
@@ -123,7 +123,7 @@
                         compatibility issue with asciidoc 2.1.0 (camel) vs 2.0.0 (quarkus)
                         TODO: investigate a better option
                     -->
-                    <skip/>
+                    <skip />
                 </configuration>
             </plugin>
         </plugins>
