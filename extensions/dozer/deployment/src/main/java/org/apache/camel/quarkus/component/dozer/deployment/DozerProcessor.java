@@ -35,6 +35,8 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.builder.model.jaxb.AllowedExceptionsDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.ClassDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.ConfigurationDefinition;
@@ -53,10 +55,7 @@ import com.github.dozermapper.core.builder.model.jaxb.VariableDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.VariablesDefinition;
 import com.sun.el.ExpressionFactoryImpl;
 
-import org.apache.camel.component.dozer.CustomMapper;
 import org.apache.camel.component.dozer.DozerConfiguration;
-import org.apache.camel.component.dozer.ExpressionMapper;
-import org.apache.camel.component.dozer.VariableMapper;
 import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
 import org.apache.camel.converter.dozer.DozerThreadContextClassLoader;
 import org.apache.camel.quarkus.component.dozer.CamelDozerConfig;
@@ -126,11 +125,7 @@ class DozerProcessor {
                         "com.github.dozermapper.core.builder.model.jaxb.package-info",
                         "com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl"));
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
-                CustomMapper.class,
-                DozerConfiguration.class,
-                ExpressionMapper.class,
-                VariableMapper.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, DozerConfiguration.class));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
                 AllowedExceptionsDefinition.class,
@@ -149,6 +144,20 @@ class DozerProcessor {
                 Type.class,
                 VariableDefinition.class,
                 VariablesDefinition.class));
+
+        if (!camelDozerConfig.mappingFiles.isEmpty()) {
+            // Register for reflection any classes participating in Dozer mapping
+            Mapper mapper = DozerBeanMapperBuilder.create()
+                    .withMappingFiles(camelDozerConfig.mappingFiles)
+                    .build();
+
+            mapper.getMappingMetadata()
+                    .getClassMappings()
+                    .stream()
+                    .map(metadata -> new ReflectiveClassBuildItem(true, false, metadata.getSourceClassName(),
+                            metadata.getDestinationClassName()))
+                    .forEach(reflectiveClass::produce);
+        }
     }
 
     @Record(ExecutionTime.STATIC_INIT)
