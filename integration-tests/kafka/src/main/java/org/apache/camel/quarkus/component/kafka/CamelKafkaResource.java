@@ -29,6 +29,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
@@ -39,32 +41,30 @@ public class CamelKafkaResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject post(@PathParam("topicName") String topicName, String message) throws Exception {
-        RecordMetadata meta = CamelKafkaSupport.createProducer()
-                .send(new ProducerRecord<>(topicName, 1, message))
-                .get();
+        try (Producer<Integer, String> producer = CamelKafkaSupport.createProducer()) {
+            RecordMetadata meta = producer.send(new ProducerRecord<>(topicName, 1, message)).get();
 
-        return Json.createObjectBuilder()
-                .add("topicName", meta.topic())
-                .add("partition", meta.partition())
-                .add("offset", meta.offset())
-                .build();
+            return Json.createObjectBuilder()
+                    .add("topicName", meta.topic())
+                    .add("partition", meta.partition())
+                    .add("offset", meta.offset())
+                    .build();
+        }
     }
 
     @Path("/kafka/{topicName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject get(@PathParam("topicName") String topicName) {
-        ConsumerRecord<Integer, String> record = CamelKafkaSupport.createConsumer(topicName)
-                .poll(Duration.ofSeconds(60))
-                .iterator()
-                .next();
-
-        return Json.createObjectBuilder()
-                .add("topicName", record.topic())
-                .add("partition", record.partition())
-                .add("offset", record.offset())
-                .add("key", record.key())
-                .add("body", record.value())
-                .build();
+        try (KafkaConsumer<Integer, String> consumer = CamelKafkaSupport.createConsumer(topicName)) {
+            ConsumerRecord<Integer, String> record = consumer.poll(Duration.ofSeconds(60)).iterator().next();
+            return Json.createObjectBuilder()
+                    .add("topicName", record.topic())
+                    .add("partition", record.partition())
+                    .add("offset", record.offset())
+                    .add("key", record.key())
+                    .add("body", record.value())
+                    .build();
+        }
     }
 }

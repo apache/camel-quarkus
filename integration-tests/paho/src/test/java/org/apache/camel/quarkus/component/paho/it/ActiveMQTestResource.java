@@ -17,15 +17,22 @@
 
 package org.apache.camel.quarkus.component.paho.it;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.broker.TransportConnector;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
@@ -34,17 +41,24 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
     @Override
     public Map<String, String> start() {
         try {
-            broker = new BrokerService();
+            final int port = AvailablePortFinder.getNextAvailable();
+            final String transportUri = String.format("mqtt://127.0.0.1:%d", port);
+            final String brokerUri = String.format("tcp://127.0.0.1:%d", port);
+            final File dataDirectory = Files.createTempDirectory("paho-data-").toFile();
+
             TransportConnector mqtt = new TransportConnector();
-            mqtt.setUri(new URI("mqtt://127.0.0.1:1883"));
+            mqtt.setUri(new URI(transportUri));
+
+            broker = new BrokerService();
             broker.addConnector(mqtt);
-            broker.setDataDirectory("target");
+            broker.setDataDirectoryFile(dataDirectory);
             broker.start();
+
+            return Collections.singletonMap("camel.component.paho.brokerUrl", brokerUri);
         } catch (Exception e) {
             LOGGER.error("Starting the ActiveMQ broker with exception.", e);
             throw new RuntimeException("Starting the ActiveMQ broker with exception.", e);
         }
-        return Collections.emptyMap();
     }
 
     @Override
@@ -55,7 +69,17 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             }
         } catch (Exception e) {
             LOGGER.error("Stopping the ActiveMQ broker with exception.", e);
-            throw new RuntimeException("Stopping the ActiveMQ broker with exception.", e);
+        }
+
+        try {
+            if (broker != null) {
+                Files.walk(broker.getDataDirectoryFile().toPath())
+                        .sorted(Comparator.reverseOrder())
+                        .map(Path::toFile)
+                        .forEach(File::delete);
+            }
+        } catch (IOException e) {
+            LOGGER.error("Error cleaning up ActiveMQ data directory", e);
         }
     }
 }

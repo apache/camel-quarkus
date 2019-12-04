@@ -14,14 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty;
+package org.apache.camel.quarkus.component.netty.http;
 
-import org.apache.camel.builder.RouteBuilder;
+import java.util.Map;
+import java.util.Objects;
 
-public class CamelRoute extends RouteBuilder {
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+
+public class NettyHttpTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
-    public void configure() {
-        from("netty:tcp://0.0.0.0:{{camel.netty.test-port}}?textline=true&sync=true")
-                .setBody().constant("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
+    public Map<String, String> start() {
+        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty.test-port");
+    }
+
+    @Override
+    public void stop() {
     }
 }

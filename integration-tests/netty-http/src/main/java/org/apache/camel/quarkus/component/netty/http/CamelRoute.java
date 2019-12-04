@@ -22,12 +22,12 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("netty-http:http://0.0.0.0:8999/foo")
+        from("netty-http:http://0.0.0.0:{{camel.netty.test-port}}/foo")
                 .transform().constant("Netty Hello World");
 
         /* /producer proxying /foo */
-        from("netty-http:http://0.0.0.0:8999/producer")
-                .to("netty-http:http://localhost:8999/foo");
+        from("netty-http:http://0.0.0.0:{{camel.netty.test-port}}/producer")
+                .to("netty-http:http://localhost:{{camel.netty.test-port}}/foo");
 
     }
 }

@@ -16,49 +16,21 @@
  */
 package org.apache.camel.quarkus.component.mongodb.it;
 
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
+import java.util.List;
+import java.util.Map;
+
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
+@QuarkusTestResource(MongoDbTestResource.class)
 class MongoDbTest {
-
-    private static MongodExecutable MONGO;
-
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        IMongodConfig config = new MongodConfigBuilder()
-                .net(new Net(27017, Network.localhostIsIPv6()))
-                .version(Version.Main.V4_0)
-                .build();
-        MONGO = MongodStarter.getDefaultInstance().prepare(config);
-        MONGO.start();
-    }
-
-    @AfterAll
-    public static void afterAll() {
-        if (MONGO != null) {
-            MONGO.stop();
-        }
-    }
-
     @Test
     public void testMongoDbComponent() {
         // Write to collection

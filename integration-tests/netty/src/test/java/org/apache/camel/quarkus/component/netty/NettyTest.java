@@ -16,29 +16,34 @@
  */
 package org.apache.camel.quarkus.component.netty;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.Socket;
-
-import io.quarkus.test.junit.QuarkusTest;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+
 @QuarkusTest
+@QuarkusTestResource(NettyTestResource.class)
 class NettyTest {
+    private static final String POEM = "Epitaph in Kohima, India marking the WWII Battle of Kohima and Imphal, Burma Campaign - Attributed to John Maxwell Edmonds";
+    private static final String EXPECTED_RESPONSE = "When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.";
 
     @Test
     public void testPoem() throws IOException {
-        final String poem = "Epitaph in Kohima, India marking the WWII Battle of Kohima and Imphal, Burma Campaign - Attributed to John Maxwell Edmonds";
-        final String expectedResponse = "When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.";
 
         try (
-                final Socket socket = new Socket("localhost", 8994);
+                final Socket socket = new Socket("localhost", Integer.getInteger("camel.netty.test-port"));
                 final PrintWriter outputWriter = new PrintWriter(socket.getOutputStream(), true);
                 final BufferedReader inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
-            outputWriter.println(poem);
+            outputWriter.println(POEM);
             String response = inputReader.readLine();
-            Assertions.assertTrue(response.equalsIgnoreCase(expectedResponse), "Response did not match expected response");
+            Assertions.assertTrue(response.equalsIgnoreCase(EXPECTED_RESPONSE), "Response did not match expected response");
         }
 
     }

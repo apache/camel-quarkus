@@ -20,31 +20,59 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
 
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.activemq.artemis.core.config.impl.ConfigurationImpl;
 import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.commons.io.FileUtils;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-
-public class ArtemisTestResource implements QuarkusTestResourceLifecycleManager {
-
+public class CamelSjmsTestResource implements QuarkusTestResourceLifecycleManager {
+    private CamelMain main;
     private EmbeddedActiveMQ embedded;
+
+    @Override
+    public void inject(Object testInstance) {
+        if (testInstance instanceof CamelSjmsTest) {
+            this.main = ((CamelSjmsTest) testInstance).main;
+        }
+    }
 
     @Override
     public Map<String, String> start() {
         try {
             FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
+
+            final int port = AvailablePortFinder.getNextAvailable();
+            final String url = String.format("tcp://127.0.0.1:%d", port);
+
+            ConfigurationImpl cfg = new ConfigurationImpl();
+            cfg.addAcceptorConfiguration("activemq", url);
+            cfg.setSecurityEnabled(false);
+
             embedded = new EmbeddedActiveMQ();
+            embedded.setConfiguration(cfg);
             embedded.start();
+
+            return Collections.singletonMap("quarkus.artemis.url", url);
         } catch (Exception e) {
             throw new RuntimeException("Could not start embedded ActiveMQ server", e);
         }
-        return Collections.emptyMap();
     }
 
     @Override
     public void stop() {
         try {
-            embedded.stop();
+            if (main != null) {
+                main.stop();
+            }
+        } catch (Exception e) {
+            // ignored
+        }
+        try {
+            if (embedded != null) {
+                embedded.stop();
+            }
         } catch (Exception e) {
             throw new RuntimeException("Could not stop embedded ActiveMQ server", e);
         }

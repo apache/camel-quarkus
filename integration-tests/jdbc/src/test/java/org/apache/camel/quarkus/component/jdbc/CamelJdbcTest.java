@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jdbc;
 
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -24,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
+@QuarkusTestResource(H2DatabaseTestResource.class)
 public class CamelJdbcTest {
 
     @Test

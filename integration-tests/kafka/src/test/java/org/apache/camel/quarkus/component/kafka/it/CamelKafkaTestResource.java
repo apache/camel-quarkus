@@ -17,43 +17,67 @@
 package org.apache.camel.quarkus.component.kafka.it;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Properties;
 
 import io.debezium.kafka.KafkaCluster;
-import io.debezium.util.Testing;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 
 public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManager {
     private KafkaCluster kafka;
+    private CamelMain main;
+
+    @Override
+    public void inject(Object testInstance) {
+        if (testInstance instanceof CamelKafkaTest) {
+            this.main = ((CamelKafkaTest) testInstance).main;
+        }
+    }
 
     @Override
     public Map<String, String> start() {
         try {
+            final int zkPort = AvailablePortFinder.getNextAvailable();
+            final int kafkaPort = AvailablePortFinder.getNextAvailable();
+            final File directory = Files.createTempDirectory("kafka-data-").toFile();
+
             Properties props = new Properties();
             props.setProperty("zookeeper.connection.timeout.ms", "45000");
 
-            File directory = Testing.Files.createTestingDirectory("kafka-data", true);
-
             kafka = new KafkaCluster()
-                    .withPorts(2182, 19092)
+                    .withPorts(zkPort, kafkaPort)
                     .addBrokers(1)
                     .usingDirectory(directory)
                     .deleteDataUponShutdown(true)
                     .withKafkaConfiguration(props)
                     .deleteDataPriorToStartup(true)
                     .startup();
+
+            return Collections.singletonMap("camel.component.kafka.brokers", "localhost:" + kafkaPort);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return Collections.emptyMap();
     }
 
     @Override
     public void stop() {
+        if (main != null) {
+            try {
+                main.stop();
+            } catch (Exception e) {
+                // ignored
+            }
+        }
         if (kafka != null) {
-            kafka.shutdown();
+            try {
+                kafka.shutdown();
+            } catch (Exception e) {
+                // ignored
+            }
         }
     }
 }
