@@ -18,17 +18,23 @@ package org.apache.camel.quarkus.component.sjms.it;
 
 import java.util.UUID;
 
+import javax.inject.Inject;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.core.CamelMain;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@QuarkusTestResource(ArtemisTestResource.class)
+@QuarkusTestResource(CamelSjmsTestResource.class)
 public class CamelSjmsTest {
+    @Inject
+    CamelMain main;
+
     @Test
     void testQueueBridge() {
         String body = UUID.randomUUID().toString();

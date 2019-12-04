@@ -36,14 +36,14 @@ public class HystrixRoutes extends RouteBuilder {
                 .circuitBreaker()
                 .throwException(new IllegalStateException("Forced exception"))
                 .onFallbackViaNetwork()
-                .to("netty-http:http://localhost:8999/network/fallback")
+                .to("netty-http:http://localhost:{{camel.netty.test-port}}/network/fallback")
                 .end();
 
         from("direct:delay")
                 .delay(simple("${header.delayMilliseconds}"))
                 .setBody(constant("Hello Camel Quarkus Hystrix"));
 
-        from("netty-http:http://0.0.0.0:8999/network/fallback")
+        from("netty-http:http://0.0.0.0:{{camel.netty.test-port}}/network/fallback")
                 .setBody(constant("Fallback via network response"));
     }
 }

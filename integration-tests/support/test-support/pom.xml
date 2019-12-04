@@ -18,27 +18,25 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <artifactId>camel-quarkus-integration-tests-support-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-tests-support-parent</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>camel-quarkus-integration-test-support</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Support</name>
 
-    <name>Camel Quarkus :: Integration Tests :: Support :: Parent</name>
-    <description>Ancillary modules required by some integration tests. Hosted outside the integration-tests directory
-        so that we can keep a flat hierarchy in the integration-tests directory.
-    </description>
-
-    <modules>
-        <module>test-support</module>
-        <module>core</module>
-        <module>core-main</module>
-    </modules>
-
+    <dependencies>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+        </dependency>
+    </dependencies>
 </project>

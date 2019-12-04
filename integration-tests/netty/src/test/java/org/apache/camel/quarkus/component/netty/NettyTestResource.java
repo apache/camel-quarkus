@@ -14,11 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jdbc;
+package org.apache.camel.quarkus.component.netty;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.h2.H2DatabaseTestResource;
+import java.util.Map;
+import java.util.Objects;
 
-@QuarkusTestResource(H2DatabaseTestResource.class)
-public class TestResources {
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+
+public class NettyTestResource implements QuarkusTestResourceLifecycleManager {
+    @Override
+    public Map<String, String> start() {
+        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty.test-port");
+    }
+
+    @Override
+    public void stop() {
+    }
 }
