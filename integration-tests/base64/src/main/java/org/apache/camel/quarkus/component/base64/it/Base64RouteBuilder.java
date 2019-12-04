@@ -14,14 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.base64.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class ZipfileRouteBuilder extends RouteBuilder {
+public class Base64RouteBuilder extends RouteBuilder {
+
     @Override
-    public void configure() {
+    public void configure() throws Exception {
         from("direct:start")
-                .marshal().zipFile();
+                .marshal().base64(72, "\n", true);
+
     }
 }

@@ -14,14 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.base64.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.ExtractableResponse;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class ZipfileRouteBuilder extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:start")
-                .marshal().zipFile();
+@QuarkusTest
+class Base64Test {
+
+    @Test
+    public void test() {
+        byte[] body;
+
+        ExtractableResponse response = RestAssured.given() //
+                .contentType(ContentType.BINARY).body("Hello World".getBytes()).post("/base64/post") //
+                .then().extract();
+
+        body = response.body().asByteArray();
+        Assertions.assertNotNull(body);
+
+        Assertions.assertEquals("SGVsbG8gV29ybGQ\n", new String(body));
     }
+
 }

@@ -14,14 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.base64.deployment;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class ZipfileRouteBuilder extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:start")
-                .marshal().zipFile();
+class Base64Processor {
+
+    private static final String FEATURE = "camel-base64";
+
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
+
 }
