@@ -30,7 +30,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.aws.sns.SnsConfiguration;
 
 class AwsSNSProcessor {
 
@@ -61,8 +60,7 @@ class AwsSNSProcessor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                AWS4Signer.class.getCanonicalName(),
-                SnsConfiguration.class.getCanonicalName()));
+                AWS4Signer.class.getCanonicalName()));
     }
 
 }

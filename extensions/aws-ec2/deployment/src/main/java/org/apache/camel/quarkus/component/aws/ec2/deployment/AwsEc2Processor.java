@@ -29,7 +29,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.aws.ec2.EC2Configuration;
 
 class AwsEc2Processor {
     public static final String AWS_EC2_APPLICATION_ARCHIVE_MARKERS = "com/amazonaws";
@@ -58,8 +57,7 @@ class AwsEc2Processor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                EC2Configuration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 
 }

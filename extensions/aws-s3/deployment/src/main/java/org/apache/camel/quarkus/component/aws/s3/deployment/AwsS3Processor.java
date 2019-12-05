@@ -32,7 +32,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.apache.camel.component.aws.s3.S3Configuration;
 
 class AwsS3Processor {
 
@@ -68,8 +67,7 @@ class AwsS3Processor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                AWSS3V4Signer.class.getCanonicalName(),
-                S3Configuration.class.getCanonicalName()));
+                AWSS3V4Signer.class.getCanonicalName()));
     }
 
 }

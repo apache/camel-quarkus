@@ -27,7 +27,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.paho.PahoConfiguration;
 import org.eclipse.paho.client.mqttv3.internal.SSLNetworkModuleFactory;
 import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModuleFactory;
 import org.eclipse.paho.client.mqttv3.logging.JSR47Logger;
@@ -40,8 +39,7 @@ class PahoProcessor {
     private static final List<Class<?>> PAHO_REFLECTIVE_CLASSES = Arrays.asList(
             JSR47Logger.class,
             TCPNetworkModuleFactory.class,
-            SSLNetworkModuleFactory.class,
-            PahoConfiguration.class);
+            SSLNetworkModuleFactory.class);
 
     @Inject
     BuildProducer<NativeImageResourceBuildItem> resource;

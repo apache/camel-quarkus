@@ -18,17 +18,10 @@ package org.apache.camel.quarkus.component.infinispan.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.infinispan.InfinispanConfiguration;
 
 class InfinispanProcessor {
 
     private static final String FEATURE = "camel-infinispan";
-
-    @BuildStep
-    ReflectiveClassBuildItem reflection() {
-        return new ReflectiveClassBuildItem(true, true, InfinispanConfiguration.class);
-    }
 
     @BuildStep
     FeatureBuildItem feature() {

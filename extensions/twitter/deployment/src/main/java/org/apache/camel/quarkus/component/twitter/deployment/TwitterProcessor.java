@@ -21,7 +21,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.twitter.AbstractTwitterComponent;
-import org.apache.camel.component.twitter.TwitterConfiguration;
 
 class TwitterProcessor {
     private static final String FEATURE = "camel-twitter";
@@ -34,7 +33,6 @@ class TwitterProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
-                AbstractTwitterComponent.class,
-                TwitterConfiguration.class));
+                AbstractTwitterComponent.class));
     }
 }
