@@ -92,7 +92,8 @@ class NativeImageProcessor {
                     .filter(ai -> {
                         AnnotationValue av = ai.value("loader");
                         boolean isLoader = av != null && av.asBoolean();
-                        // filter out camel-base converters which are automatically inlined in the CoreStaticTypeConverterLoader
+                        // filter out camel-base converters which are automatically inlined in the
+                        // CoreStaticTypeConverterLoader
                         // need to revisit with Camel 3.0.0-M3 which should improve this area
                         if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
                             log.debug("Ignoring core " + ai + " " + ai.target().asClass().name());

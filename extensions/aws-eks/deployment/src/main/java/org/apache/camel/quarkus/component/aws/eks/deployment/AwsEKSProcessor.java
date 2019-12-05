@@ -29,7 +29,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.aws.eks.EKSConfiguration;
 
 class AwsEKSProcessor {
 
@@ -59,7 +58,6 @@ class AwsEKSProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                EKSConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 }

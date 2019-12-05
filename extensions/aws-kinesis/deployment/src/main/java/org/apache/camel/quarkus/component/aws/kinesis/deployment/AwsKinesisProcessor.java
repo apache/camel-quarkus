@@ -29,8 +29,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.aws.firehose.KinesisFirehoseConfiguration;
-import org.apache.camel.component.aws.kinesis.KinesisConfiguration;
 
 class AwsKinesisProcessor {
 
@@ -60,8 +58,6 @@ class AwsKinesisProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                KinesisConfiguration.class.getCanonicalName(),
-                KinesisFirehoseConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 }
