@@ -36,7 +36,6 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.fhir.FhirCapabilitiesEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirConfiguration;
 import org.apache.camel.component.fhir.FhirCreateEndpointConfiguration;
 import org.apache.camel.component.fhir.FhirDeleteEndpointConfiguration;
 import org.apache.camel.component.fhir.FhirHistoryEndpointConfiguration;
@@ -88,8 +87,7 @@ class FhirProcessor {
                 FhirSearchEndpointConfiguration.class,
                 FhirTransactionEndpointConfiguration.class,
                 FhirUpdateEndpointConfiguration.class,
-                FhirValidateEndpointConfiguration.class,
-                FhirConfiguration.class);
+                FhirValidateEndpointConfiguration.class);
     }
 
     @BuildStep()

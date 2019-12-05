@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.aws.ecs.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import org.apache.camel.component.aws.ecs.ECSConfiguration;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -84,8 +83,7 @@ class AwsEcsProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                ECSConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

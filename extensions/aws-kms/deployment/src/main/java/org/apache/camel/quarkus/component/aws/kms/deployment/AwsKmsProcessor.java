@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.aws.kms.deployment;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import org.apache.camel.component.aws.kms.KMSConfiguration;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -84,8 +83,7 @@ class AwsKmsProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                KMSConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

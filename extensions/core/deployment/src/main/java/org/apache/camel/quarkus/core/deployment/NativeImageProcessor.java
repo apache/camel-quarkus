@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.io.InputStream;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -74,6 +73,10 @@ class NativeImageProcessor {
                 StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
                 PropertiesComponent.class);
 
+        /** Annotation names used to annotate types which need get registered for reflection */
+        private static final List<DotName> CAMEL_REFLECTIVE_ANNOTATATED_TYPES = Arrays.asList(
+                DotName.createSimple("org.apache.camel.spi.UriParams"));
+
         @Inject
         BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
         @Inject
@@ -94,6 +97,13 @@ class NativeImageProcessor {
                     .flatMap(Collection::stream)
                     .filter(CamelSupport::isPublic)
                     .forEach(v -> addReflectiveClass(true, v.name().toString()));
+
+            CAMEL_REFLECTIVE_ANNOTATATED_TYPES.stream()
+                    .map(view::getAnnotations)
+                    .flatMap(Collection::stream)
+                    .filter(ai -> ai.target().kind() == Kind.CLASS)
+                    .map(ai -> ai.target().asClass())
+                    .forEach(cl -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, cl.name().toString())));
 
             Logger log = LoggerFactory.getLogger(NativeImageProcessor.class);
             DotName converter = DotName.createSimple(Converter.class.getName());

@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.pdf.deployment;
 
-import org.apache.camel.component.pdf.PdfConfiguration;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
@@ -40,11 +38,6 @@ class PdfProcessor {
     @BuildStep
     NativeImageResourceBuildItem initResources() {
         return new NativeImageResourceBuildItem(RUNTIME_RESOURCES);
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem initReflectiveConfiguration() {
-        return new ReflectiveClassBuildItem(true, false, PdfConfiguration.class);
     }
 
 }

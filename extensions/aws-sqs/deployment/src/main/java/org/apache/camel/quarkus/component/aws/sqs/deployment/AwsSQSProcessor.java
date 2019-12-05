@@ -84,8 +84,7 @@ class AwsSQSProcessor {
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
-                AWS4Signer.class.getCanonicalName(),
-                SqsConfiguration.class.getCanonicalName()));
+                AWS4Signer.class.getCanonicalName()));
     }
 
     protected Collection<String> getImplementations(IndexView view, Class<?> type) {

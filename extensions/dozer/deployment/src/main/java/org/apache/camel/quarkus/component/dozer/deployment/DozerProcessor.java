@@ -55,7 +55,6 @@ import com.github.dozermapper.core.builder.model.jaxb.VariableDefinition;
 import com.github.dozermapper.core.builder.model.jaxb.VariablesDefinition;
 import com.sun.el.ExpressionFactoryImpl;
 
-import org.apache.camel.component.dozer.DozerConfiguration;
 import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
 import org.apache.camel.converter.dozer.DozerThreadContextClassLoader;
 import org.apache.camel.quarkus.component.dozer.CamelDozerConfig;
@@ -124,8 +123,6 @@ class DozerProcessor {
                 new ReflectiveClassBuildItem(false, false,
                         "com.github.dozermapper.core.builder.model.jaxb.package-info",
                         "com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl"));
-
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, DozerConfiguration.class));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
                 AllowedExceptionsDefinition.class,
