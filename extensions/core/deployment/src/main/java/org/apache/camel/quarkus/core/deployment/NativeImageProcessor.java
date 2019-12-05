@@ -18,13 +18,16 @@ package org.apache.camel.quarkus.core.deployment;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
@@ -68,6 +71,60 @@ class NativeImageProcessor {
                 PropertiesComponent.class,
                 DataFormat.class);
 
+        /**
+         * A list of classes annotated with <code>@UriParams</code> which we accept to be registered for reflection
+         * mostly because there are errors when they are removed. TODO: solve the underlying problems and remove as
+         * many entries as possible from the list.
+         */
+        private static final Set<String> URI_PARAMS_WHITELIST = new HashSet<>(Arrays.asList(
+                "org.apache.camel.support.processor.DefaultExchangeFormatter",
+                "org.apache.camel.component.pdf.PdfConfiguration",
+                "org.apache.camel.component.netty.NettyConfiguration",
+                "org.apache.camel.component.netty.NettyServerBootstrapConfiguration",
+                "org.apache.camel.component.fhir.FhirUpdateEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirOperationEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirConfiguration",
+                "org.apache.camel.component.fhir.FhirLoadPageEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirSearchEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirTransactionEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirCreateEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirValidateEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirReadEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirCapabilitiesEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirHistoryEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirMetaEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirPatchEndpointConfiguration",
+                "org.apache.camel.component.fhir.FhirDeleteEndpointConfiguration"));
+
+        @BuildStep
+        void bannedReflectiveClasses(
+                CombinedIndexBuildItem combinedIndex,
+                List<ReflectiveClassBuildItem> reflectiveClass,
+                BuildProducer<GeneratedResourceBuildItem> dummy // to force the execution of this method
+        ) {
+            final DotName uriParamsDotName = DotName.createSimple("org.apache.camel.spi.UriParams");
+
+            final Set<String> bannedClassNames = combinedIndex.getIndex()
+                    .getAnnotations(uriParamsDotName)
+                    .stream()
+                    .filter(ai -> ai.target().kind() == Kind.CLASS)
+                    .map(ai -> ai.target().asClass().name().toString())
+                    .collect(Collectors.toSet());
+
+            Set<String> violations = reflectiveClass.stream()
+                    .map(ReflectiveClassBuildItem::getClassNames)
+                    .flatMap(Collection::stream)
+                    .filter(cl -> !URI_PARAMS_WHITELIST.contains(cl))
+                    .filter(bannedClassNames::contains)
+                    .collect(Collectors.toSet());
+
+            if (!violations.isEmpty()) {
+                throw new IllegalStateException(
+                        "The following classes should either be whitelisted via NativeImageProcessor.Core.URI_PARAMS_WHITELIST or they should not be registered for reflection via ReflectiveClassBuildItem: "
+                                + violations);
+            }
+        }
+
         @BuildStep
         void reflectiveItems(
                 CombinedIndexBuildItem combinedIndex,
@@ -92,7 +149,8 @@ class NativeImageProcessor {
                     .filter(ai -> {
                         AnnotationValue av = ai.value("loader");
                         boolean isLoader = av != null && av.asBoolean();
-                        // filter out camel-base converters which are automatically inlined in the CoreStaticTypeConverterLoader
+                        // filter out camel-base converters which are automatically inlined in the
+                        // CoreStaticTypeConverterLoader
                         // need to revisit with Camel 3.0.0-M3 which should improve this area
                         if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
                             log.debug("Ignoring core " + ai + " " + ai.target().asClass().name());

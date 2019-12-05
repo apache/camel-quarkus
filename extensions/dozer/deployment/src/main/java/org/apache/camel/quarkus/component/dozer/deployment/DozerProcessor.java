@@ -40,7 +40,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
-import org.apache.camel.component.dozer.DozerConfiguration;
 import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
 import org.apache.camel.converter.dozer.DozerThreadContextClassLoader;
 import org.apache.camel.quarkus.component.dozer.CamelDozerConfig;
@@ -121,7 +120,6 @@ class DozerProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(
                 true,
                 false,
-                DozerConfiguration.class,
                 DozerBeanMapperConfiguration.class));
 
         if (camelDozerConfig.mappingFiles.isPresent()) {

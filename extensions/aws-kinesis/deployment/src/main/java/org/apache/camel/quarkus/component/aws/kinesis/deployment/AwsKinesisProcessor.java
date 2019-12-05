@@ -16,16 +16,12 @@
  */
 package org.apache.camel.quarkus.component.aws.kinesis.deployment;
 
-import org.apache.camel.component.aws.firehose.KinesisFirehoseConfiguration;
-import org.apache.camel.component.aws.kinesis.KinesisConfiguration;
-
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
 import com.amazonaws.partitions.model.Partition;
 import com.amazonaws.partitions.model.Partitions;
 import com.amazonaws.partitions.model.Region;
 import com.amazonaws.partitions.model.Service;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -62,8 +58,6 @@ class AwsKinesisProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                KinesisConfiguration.class.getCanonicalName(),
-                KinesisFirehoseConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 }

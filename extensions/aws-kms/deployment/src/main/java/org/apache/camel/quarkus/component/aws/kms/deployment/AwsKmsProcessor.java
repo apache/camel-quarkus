@@ -29,7 +29,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.aws.kms.KMSConfiguration;
 
 class AwsKmsProcessor {
 
@@ -59,7 +58,6 @@ class AwsKmsProcessor {
                 Endpoint.class.getCanonicalName(),
                 Region.class.getCanonicalName(),
                 Service.class.getCanonicalName(),
-                CredentialScope.class.getCanonicalName(),
-                KMSConfiguration.class.getCanonicalName()));
+                CredentialScope.class.getCanonicalName()));
     }
 }
