@@ -87,6 +87,8 @@ public class MongoDbResource {
     @javax.enterprise.inject.Produces
     @Named("camelMongoClient")
     public MongoClient camelMongoClient() {
-        return new MongoClient("localhost", Integer.getInteger("camel.mongodb.test-port"));
+        return new MongoClient(
+                System.getProperty("camel.mongodb.test-host"),
+                Integer.getInteger("camel.mongodb.test-port"));
     }
 }
