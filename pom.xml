@@ -386,7 +386,7 @@
                                 <goals>
                                     <goal>execute</goal>
                                 </goals>
-                                <phase>none</phase>
+                                <phase>process-resources</phase>
                                 <configuration>
                                     <properties>
                                         <sortModulesPaths>extensions/pom.xml,integration-tests/pom.xml</sortModulesPaths>
