@@ -16,19 +16,22 @@
  */
 package org.apache.camel.quarkus.component.kafka.it;
 
-import java.io.File;
-import java.nio.file.Files;
 import java.util.Collections;
 import java.util.Map;
-import java.util.Properties;
 
-import io.debezium.kafka.KafkaCluster;
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.core.CamelMain;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.KafkaContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManager {
-    private KafkaCluster kafka;
+public class CamelKafkaTestResource implements ContainerResourceLifecycleManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelKafkaTestResource.class);
+    private static final String CONFLUENT_PLATFORM_VERSION = "5.3.1";
+
+    private KafkaContainer container;
     private CamelMain main;
 
     @Override
@@ -40,24 +43,16 @@ public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManag
 
     @Override
     public Map<String, String> start() {
+        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
+
         try {
-            final int zkPort = AvailablePortFinder.getNextAvailable();
-            final int kafkaPort = AvailablePortFinder.getNextAvailable();
-            final File directory = Files.createTempDirectory("kafka-data-").toFile();
+            container = new KafkaContainer(CONFLUENT_PLATFORM_VERSION)
+                    .withEmbeddedZookeeper()
+                    .waitingFor(Wait.forListeningPort());
 
-            Properties props = new Properties();
-            props.setProperty("zookeeper.connection.timeout.ms", "45000");
+            container.start();
 
-            kafka = new KafkaCluster()
-                    .withPorts(zkPort, kafkaPort)
-                    .addBrokers(1)
-                    .usingDirectory(directory)
-                    .deleteDataUponShutdown(true)
-                    .withKafkaConfiguration(props)
-                    .deleteDataPriorToStartup(true)
-                    .startup();
-
-            return Collections.singletonMap("camel.component.kafka.brokers", "localhost:" + kafkaPort);
+            return Collections.singletonMap("camel.component.kafka.brokers", container.getBootstrapServers());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -72,9 +67,9 @@ public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManag
                 // ignored
             }
         }
-        if (kafka != null) {
+        if (container != null) {
             try {
-                kafka.shutdown();
+                container.stop();
             } catch (Exception e) {
                 // ignored
             }

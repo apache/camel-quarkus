@@ -17,38 +17,37 @@
 
 package org.apache.camel.quarkus.component.mongodb.it;
 
-import java.util.Collections;
 import java.util.Map;
 
-import de.flapdoodle.embed.mongo.MongodExecutable;
-import de.flapdoodle.embed.mongo.MongodProcess;
-import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
-import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
-import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
-import de.flapdoodle.embed.process.runtime.Network;
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
+import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import org.apache.camel.util.CollectionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager {
-    private MongodExecutable mongo;
-    private MongodProcess mongoProcess;
+public class MongoDbTestResource implements ContainerResourceLifecycleManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbTestResource.class);
+    private static final int MONGODB_PORT = 27017;
+    private static final String MONGO_IMAGE = "mongo:4.0";
+
+    private GenericContainer container;
 
     @Override
     public Map<String, String> start() {
+        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
+
         try {
-            final int port = AvailablePortFinder.getNextAvailable();
+            container = new GenericContainer(MONGO_IMAGE)
+                    .withExposedPorts(MONGODB_PORT)
+                    .waitingFor(Wait.forListeningPort());
 
-            IMongodConfig config = new MongodConfigBuilder()
-                    .net(new Net("localhost", port, Network.localhostIsIPv6()))
-                    .version(Version.Main.V4_0)
-                    .build();
+            container.start();
 
-            mongo = MongodStarter.getDefaultInstance().prepare(config);
-            mongoProcess = mongo.start();
-
-            return Collections.singletonMap("camel.mongodb.test-port", Integer.toString(port));
+            return CollectionHelper.mapOf(
+                    "camel.mongodb.test-port", container.getMappedPort(MONGODB_PORT).toString(),
+                    "camel.mongodb.test-host", container.getContainerIpAddress());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -57,15 +56,8 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
     @Override
     public void stop() {
         try {
-            if (mongoProcess != null) {
-                mongoProcess.stop();
-            }
-        } catch (Exception e) {
-            // ignored
-        }
-        try {
-            if (mongo != null) {
-                mongo.stop();
+            if (container != null) {
+                container.stop();
             }
         } catch (Exception e) {
             // ignored

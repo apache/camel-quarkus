@@ -37,6 +37,7 @@
 
     <modules>
         <module>test-support</module>
+        <module>testcontainers-support</module>
         <module>core</module>
         <module>core-main</module>
     </modules>
