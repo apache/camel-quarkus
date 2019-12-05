@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 48 in 41 JAR artifacts (0 deprecated)
+Number of Camel components: 49 in 42 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -17,6 +17,9 @@ Number of Camel components: 48 in 41 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | 0.2 | The aws-eks is used for managing Amazon EKS
+
+| link:https://camel.apache.org/components/latest/aws-iam-component.html[AWS IAM] (camel-quarkus-aws-iam) +
+`aws-iam:label` | 1.1 | The aws-iam is used for managing Amazon IAM
 
 | link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
 `aws-kms:label` | 0.5 | The aws-kms is used for managing Amazon KMS
