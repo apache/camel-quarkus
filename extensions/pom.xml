@@ -50,6 +50,7 @@
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
+        <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
         <module>controlbus</module>
@@ -80,6 +81,7 @@
         <module>rest</module>
         <module>salesforce</module>
         <module>scheduler</module>
+        <module>seda</module>
         <module>servlet</module>
         <module>sjms</module>
         <module>sjms2</module>
@@ -93,8 +95,6 @@
         <module>vm</module>
         <module>xslt</module>
         <module>zipfile</module>
-        <module>seda</module>
-        <module>base64</module>
     </modules>
 
     <build>

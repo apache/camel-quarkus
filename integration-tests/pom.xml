@@ -111,6 +111,7 @@
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>aws</module>
+        <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
         <module>controlbus</module>
@@ -138,6 +139,7 @@
         <module>platform-http-engine</module>
         <module>salesforce</module>
         <module>scheduler</module>
+        <module>seda</module>
         <module>servlet</module>
         <module>sjms</module>
         <module>slack</module>
@@ -148,8 +150,6 @@
         <module>validator</module>
         <module>xslt</module>
         <module>zipfile</module>
-        <module>seda</module>
-        <module>base64</module>
     </modules>
 
     <build>
