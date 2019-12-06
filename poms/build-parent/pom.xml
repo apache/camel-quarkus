@@ -34,9 +34,6 @@
     <description>Maven plugins configuration</description>
 
     <properties>
-        <mock-javamail.version>1.9</mock-javamail.version>
-        <hapi.version>4.1.0</hapi.version>
-
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
 
@@ -44,6 +41,7 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
         <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
+        <formatter-maven-plugin.version>2.10.0</formatter-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -55,17 +53,6 @@
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.jvnet.mock-javamail</groupId>
-                <artifactId>mock-javamail</artifactId>
-                <version>${mock-javamail.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>javax.mail</groupId>
-                        <artifactId>mail</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -181,7 +168,7 @@
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.10.0</version>
+                <version>${formatter-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
