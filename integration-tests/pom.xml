@@ -37,6 +37,8 @@
         <ftpserver.version>1.1.1</ftpserver.version>
         <sshd.version>2.3.0</sshd.version>
         <testcontainers.version>1.12.0</testcontainers.version>
+        <mock-javamail.version>1.9</mock-javamail.version>
+        <hapi.version>4.1.0</hapi.version>
     </properties>
 
     <dependencyManagement>
@@ -75,6 +77,7 @@
                 <artifactId>quarkus-core-deployment</artifactId>
                 <version>${quarkus.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-kahadb-store</artifactId>
@@ -119,6 +122,17 @@
                 <groupId>org.testcontainers</groupId>
                 <artifactId>kafka</artifactId>
                 <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jvnet.mock-javamail</groupId>
+                <artifactId>mock-javamail</artifactId>
+                <version>${mock-javamail.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
