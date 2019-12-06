@@ -279,29 +279,29 @@
                         <failIfUnknown>true</failIfUnknown>
                         <header>header.txt</header>
                         <excludes>
-                            <exclude>KEYS</exclude>
-                            <exclude>**/NOTICE</exclude>
-                            <exclude>**/LICENSE</exclude>
-                            <exclude>**/NOTICE.txt</exclude>
-                            <exclude>**/LICENSE.txt</exclude>
-                            <exclude>**/*.lock</exclude>
-                            <exclude>doap.rdf</exclude>
-                            <exclude>**/README</exclude>
                             <exclude>**/*.adoc</exclude>
-                            <exclude>**/node_modules/**</exclude>
-                            <exclude>node/**</exclude>
-                            <exclude>**/cacerts</exclude>
-                            <exclude>**/*.p12</exclude>
-                            <exclude>**/*.txt</exclude>
-                            <exclude>.mvn/**</exclude>
-                            <exclude>mvnw*</exclude>
-                            <exclude>**/META-INF/persistence*.xsd</exclude>
-                            <exclude>**/pom.xml.versionsBackup</exclude>
-                            <exclude>ide-config/**</exclude>
+                            <exclude>**/*.lock</exclude>
                             <exclude>**/*.mvel</exclude>
+                            <exclude>**/*.p12</exclude>
                             <exclude>**/*.pem</exclude>
-                            <exclude>**/camel-quarkus-test-list.xml</exclude>
+                            <exclude>**/*.txt</exclude>
                             <exclude>**/.factorypath</exclude>
+                            <exclude>**/LICENSE.txt</exclude>
+                            <exclude>**/LICENSE</exclude>
+                            <exclude>**/META-INF/persistence*.xsd</exclude>
+                            <exclude>**/NOTICE.txt</exclude>
+                            <exclude>**/NOTICE</exclude>
+                            <exclude>**/README</exclude>
+                            <exclude>**/cacerts</exclude>
+                            <exclude>**/camel-quarkus-test-list.xml</exclude>
+                            <exclude>**/node_modules/**</exclude>
+                            <exclude>**/pom.xml.versionsBackup</exclude>
+                            <exclude>.mvn/**</exclude>
+                            <exclude>KEYS</exclude>
+                            <exclude>doap.rdf</exclude>
+                            <exclude>ide-config/**</exclude>
+                            <exclude>mvnw*</exclude>
+                            <exclude>node/**</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
