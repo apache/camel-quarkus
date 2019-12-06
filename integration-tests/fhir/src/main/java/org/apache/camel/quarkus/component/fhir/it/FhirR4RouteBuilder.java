@@ -36,6 +36,7 @@ public class FhirR4RouteBuilder extends RouteBuilder {
             FhirContext fhirContext = FhirContext.forR4();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
             context.getRegistry().bind("fhirContext", fhirContext);
+
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
             fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.R4.name());
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
@@ -52,10 +53,8 @@ public class FhirR4RouteBuilder extends RouteBuilder {
                     .unmarshal(fhirXmlDataFormat)
                     .marshal(fhirXmlDataFormat);
 
-            if (Boolean.valueOf(getContext().resolvePropertyPlaceholders("{{fhir.http.client}}"))) {
-                from("direct:create-r4")
-                        .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.r4.url}}&fhirVersion=R4&fhirContext=#fhirContext");
-            }
+            from("direct:create-r4")
+                    .to("fhir://create/resource?log={{fhir.log}}&serverUrl={{camel.fhir.test-url}}&inBody=resourceAsString&fhirVersion=R4&fhirContext=#fhirContext");
         }
     }
 }

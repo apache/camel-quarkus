@@ -46,8 +46,6 @@
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
         <snakeyaml.version>1.25</snakeyaml.version>
-        <geronimo-jms_2.0_spec.version>1.0-alpha-2</geronimo-jms_2.0_spec.version>
-        <artemis.version>2.10.0</artemis.version>
         <xalan.version>2.7.2</xalan.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
