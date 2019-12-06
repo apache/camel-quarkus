@@ -29,11 +29,6 @@
     <name>Camel Quarkus :: Integration Tests :: FHIR</name>
     <description>Integration tests for Camel Quarkus FHIR extension</description>
 
-    <properties>
-    <!-- By default hapi-fhir's http client will not be tested. Activate the fhir-it Maven profile to do so -->
-        <fhir.http.client>false</fhir.http.client>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -66,6 +61,8 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-direct</artifactId>
         </dependency>
+
+        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -74,6 +71,11 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -96,17 +98,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/FhirClientIntegrationTest.java</exclude>
-                        <exclude>**/FhirClientJvmIntegrationTest.java</exclude>
-                        <exclude>**/FhirDataformatIntegrationTest.java</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -134,13 +125,6 @@
                                     <systemProperties>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                                     </systemProperties>
-                                    <excludes>
-                                        <exclude>**/FhirClientJvmIntegrationTest.java</exclude>
-                                    </excludes>
-                                    <includes combine.children="append">
-                                        <include>**/FhirClientIntegrationTest.java</include>
-                                        <include>**/FhirDataformatIntegrationTest.java</include>
-                                    </includes>
                                 </configuration>
                             </execution>
                         </executions>
@@ -165,154 +149,6 @@
                                     <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>fhir-it</id>
-            <activation>
-                <property>
-                    <name>fhir-it</name>
-                </property>
-            </activation>
-            <properties>
-                <fhir.http.client>true</fhir.http.client>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-dependency-plugin</artifactId>
-                        <version>${maven-dependency-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>deploy-converter-factory</id>
-                                <phase>generate-test-resources</phase>
-                                <goals>
-                                    <goal>copy</goal>
-                                </goals>
-                                <configuration>
-                                    <artifactItems>
-                                        <artifactItem>
-                                            <groupId>ca.uhn.hapi.fhir</groupId>
-                                            <artifactId>hapi-fhir-jpaserver-starter</artifactId>
-                                            <version>${hapi.version}</version>
-                                            <type>war</type>
-                                            <outputDirectory>${project.build.directory}/war</outputDirectory>
-                                        </artifactItem>
-                                    </artifactItems>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <version>${build-helper-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>reserve-fhir-port</id>
-                                <goals>
-                                    <goal>reserve-network-port</goal>
-                                </goals>
-                                <phase>generate-test-sources</phase>
-                                <configuration>
-                                    <portNames>
-                                        <portName>fhir.port</portName>
-                                        <portName>fhir.stop.port</portName>
-                                    </portNames>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <artifactId>maven-resources-plugin</artifactId>
-                        <version>${maven-resources-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>filter-resources</id>
-                                <phase>generate-test-sources</phase>
-                                <goals>
-                                    <goal>resources</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>properties-maven-plugin</artifactId>
-                        <version>${properties-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>set-system-properties</goal>
-                                </goals>
-                                <configuration>
-                                    <properties>
-                                        <property>
-                                            <name>hapi.properties</name>
-                                            <value>src/test/resources/hapi.properties</value>
-                                        </property>
-                                    </properties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.eclipse.jetty</groupId>
-                        <artifactId>jetty-maven-plugin</artifactId>
-                        <version>${jetty-maven-plugin.version}</version>
-                        <configuration>
-                            <war>${project.build.directory}/war/hapi-fhir-jpaserver-starter-${hapi.version}.war</war>
-                            <stopKey>alpha</stopKey>
-                            <stopPort>${fhir.stop.port}</stopPort>
-                            <httpConnector>
-                                <port>${fhir.port}</port>
-                            </httpConnector>
-                            <supportedPackagings>
-                                <supportedPackaging>jar</supportedPackaging>
-                            </supportedPackagings>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>start-jetty</id>
-                                <phase>pre-integration-test</phase>
-                                <goals>
-                                    <goal>deploy-war</goal>
-                                </goals>
-                                <configuration>
-                                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>stop-jetty</id>
-                                <phase>post-integration-test</phase>
-                                <goals>
-                                    <goal>stop</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <fhir.port>${fhir.port}</fhir.port>
-                                    </systemProperties>
-                                    <includes>
-                                        <include>**/FhirClientJvmIntegrationTest.java</include>
-                                    </includes>
                                 </configuration>
                             </execution>
                         </executions>
