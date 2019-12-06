@@ -37,7 +37,6 @@
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
 
-        <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
         <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
@@ -98,6 +97,11 @@
                             <type>pom</type>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.jboss.jandex</groupId>
+                    <artifactId>jandex-maven-plugin</artifactId>
+                    <version>${jandex-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

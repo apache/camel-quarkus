@@ -225,7 +225,7 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 8 in 8 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -244,6 +244,8 @@ Number of miscellaneous extensions: 7 in 7 JAR artifacts (0 deprecated)
 | xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3 | Distributed tracing using OpenTracing
 
 | (camel-quarkus-reactive-executor) | 0.3 | Reactive Executor for camel-core using Vert.x
+
+| (camel-quarkus-telegram) | 1.0 | Telegram Chat Support
 |===
 // others: END
 
