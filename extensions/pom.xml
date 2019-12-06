@@ -46,6 +46,7 @@
         <module>attachments</module>
         <module>aws-ecs</module>
         <module>aws-eks</module>
+        <module>aws-iam</module>
         <module>aws-kms</module>
         <module>aws-s3</module>
         <module>aws-sns</module>

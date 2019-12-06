@@ -53,6 +53,10 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-ecs?repeatCount=1")
                 .to("aws-ecs://cluster?operation=listClusters")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-iam?repeatCount=1")
+                .to("aws-iam://cluster?operation=listAccessKeys")
+                .to("log:sf?showAll=true");
     }
 
 }
