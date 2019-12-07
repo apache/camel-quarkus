@@ -21,10 +21,13 @@ import java.util.Collections;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,11 +47,30 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
         }
 
         postProcessCamelContext(getCamelContext());
+
+        //
+        // TODO: this is required as the bean post processor in camel main
+        //       is not triggered after all the routes are collected so i.e.
+        //       for those from the registry, Camel DI does not work.
+        //       This hack should be removed after the issues is fixed in
+        //       Camel, see https://issues.apache.org/jira/browse/CAMEL-14271
+        //
+        CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
+        for (RoutesBuilder builder : getRoutesBuilders()) {
+            postProcessor.postProcessBeforeInitialization(builder, builder.getClass().getName());
+            postProcessor.postProcessAfterInitialization(builder, builder.getClass().getName());
+        }
+
         getCamelContext().start();
 
         for (MainListener listener : listeners) {
             listener.afterStart(this);
         }
+    }
+
+    @Override
+    protected void loadRouteBuilders(CamelContext camelContext) throws Exception {
+        // classes are automatically discovered by build processors
     }
 
     @Override

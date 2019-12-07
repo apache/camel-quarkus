@@ -22,6 +22,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.BindToRegistry;
+import org.apache.camel.Processor;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.Registry;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
@@ -34,10 +38,16 @@ public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(BeanProducer.class));
+                    .addClasses(BeanProducer.class, MyRoute.class));
+
 
     @Inject
     Registry registry;
+
+    @Test
+    public void testLookupRoutes() {
+        assertThat(registry.findByType(RoutesBuilder.class)).isNotEmpty();
+    }
 
     @Test
     public void testLookupByName() {
@@ -45,6 +55,7 @@ public class CamelRegistryTest {
         assertThat(registry.lookupByName("bean-2")).isInstanceOfSatisfying(String.class, s -> assertThat(s).isEqualTo("b"));
         assertThat(registry.lookupByNameAndType("bean-1", String.class)).isEqualTo("a");
         assertThat(registry.lookupByNameAndType("bean-2", String.class)).isEqualTo("b");
+        assertThat(registry.lookupByName("myProcessor")).isInstanceOf(Processor.class);
     }
 
     @Test
@@ -67,6 +78,18 @@ public class CamelRegistryTest {
         @Produces
         public String bean2() {
             return "b";
+        }
+    }
+
+    public static class MyRoute extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+        }
+
+        @BindToRegistry
+        public Processor myProcessor() {
+            return e -> {
+            };
         }
     }
 }
