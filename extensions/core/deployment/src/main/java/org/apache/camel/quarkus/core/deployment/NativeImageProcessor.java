@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.io.InputStream;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -185,7 +184,7 @@ class NativeImageProcessor {
             // to bind beans to the registry
             //
             camelRoutesBuilders.forEach(dotName -> {
-                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, dotName.toString()));
+                reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, dotName.toString()));
             });
 
             reflectiveClass.produce(new ReflectiveClassBuildItem(

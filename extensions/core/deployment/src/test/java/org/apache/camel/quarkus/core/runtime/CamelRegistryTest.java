@@ -22,6 +22,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.BeanInject;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.Processor;
 import org.apache.camel.RoutesBuilder;
@@ -38,7 +39,7 @@ public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(BeanProducer.class, MyRoute.class));
+                    .addClasses(BeanProducer.class, MyRoute.class, MyCDIRoute.class));
 
     @Inject
     Registry registry;
@@ -46,6 +47,13 @@ public class CamelRegistryTest {
     @Test
     public void testLookupRoutes() {
         assertThat(registry.findByType(RoutesBuilder.class)).isNotEmpty();
+    }
+
+    @Test
+    public void testCamelDI() {
+        assertThat(registry.findByType(MyCDIRoute.class))
+                .isNotEmpty()
+                .first().hasFieldOrPropertyWithValue("bean1", "a");
     }
 
     @Test
@@ -89,6 +97,16 @@ public class CamelRegistryTest {
         public Processor myProcessor() {
             return e -> {
             };
+        }
+    }
+
+    @ApplicationScoped
+    public static class MyCDIRoute extends RouteBuilder {
+        @BeanInject("bean-1")
+        String bean1;
+
+        @Override
+        public void configure() throws Exception {
         }
     }
 }
