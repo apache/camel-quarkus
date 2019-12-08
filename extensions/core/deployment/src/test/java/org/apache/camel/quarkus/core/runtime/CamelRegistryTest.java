@@ -40,7 +40,6 @@ public class CamelRegistryTest {
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClasses(BeanProducer.class, MyRoute.class));
 
-
     @Inject
     Registry registry;
 
