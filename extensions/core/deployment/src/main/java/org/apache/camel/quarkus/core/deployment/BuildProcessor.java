@@ -46,9 +46,6 @@ import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelMain;
@@ -71,7 +68,13 @@ import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
-    private static final DotName TYPE_CONVERTER_LOADER_TYPE = DotName.createSimple(TypeConverterLoader.class.getName());
+
+    private static final DotName ROUTES_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.RoutesBuilder");
+    private static final DotName ROUTE_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.RouteBuilder");
+    private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.AdviceWithRouteBuilder");
 
     /*
      * Build steps related to camel core.
@@ -272,59 +275,28 @@ class BuildProcessor {
      */
     public static class Main {
 
-        @BuildStep
+        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
-                CombinedIndexBuildItem combinedIndex) {
+                CombinedIndexBuildItem combinedIndex,
+                CamelConfig config) {
+
             final IndexView index = combinedIndex.getIndex();
+
             Set<ClassInfo> allKnownImplementors = new HashSet<>();
-            allKnownImplementors.addAll(
-                    index.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-            allKnownImplementors.addAll(
-                    index.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-            allKnownImplementors.addAll(
-                    index.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
+            allKnownImplementors.addAll(index.getAllKnownImplementors(ROUTES_BUILDER_TYPE));
+            allKnownImplementors.addAll(index.getAllKnownSubclasses(ROUTE_BUILDER_TYPE));
+            allKnownImplementors.addAll(index.getAllKnownSubclasses(ADVICE_WITH_ROUTE_BUILDER_TYPE));
 
             return allKnownImplementors
                     .stream()
                     // public and non-abstract
                     .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
                     .map(ClassInfo::name)
-                    .map(CamelRoutesBuilderClassBuildItem::new)
-                    .collect(Collectors.toList());
-        }
-
-        /**
-         * This method filter out {@link RoutesBuilder} discovered either by classpath scanning
-         * through Jandex or by ArC.
-         *
-         * @param camelRoutesBuilderClasses list of {@link CamelRoutesBuilderClassBuildItem} holding {@link RoutesBuilder}
-         *            classes discovered by classpath scanning.
-         * @param recorder the recorder.
-         * @param containerBeans list of beans known to the ArC container.
-         * @param recorderContext the recorder context.
-         * @param config the built time camel configuration.
-         * @return a curated list of {@link CamelBeanBuildItem} holding {@link RoutesBuilder}.
-         */
-        @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
-        public List<CamelBeanBuildItem> collectRoutes(
-                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilderClasses,
-                CamelMainRecorder recorder,
-                ContainerBeansBuildItem containerBeans,
-                RecorderContext recorderContext,
-                CamelConfig config) {
-
-            return camelRoutesBuilderClasses.stream()
-                    .map(CamelRoutesBuilderClassBuildItem::getDotName)
-                    .filter(dotName -> !containerBeans.getClasses().contains(dotName))
                     .filter(dotName -> CamelSupport.isPathIncluded(
                             dotName.toString('/'),
                             config.main.routesDiscovery.excludePatterns,
                             config.main.routesDiscovery.includePatterns))
-                    .map(dotName -> new CamelBeanBuildItem(
-                            dotName.withoutPackagePrefix(),
-                            dotName.toString(),
-                            recorderContext.newInstance(dotName.toString())))
+                    .map(CamelRoutesBuilderClassBuildItem::new)
                     .collect(Collectors.toList());
         }
 
@@ -370,12 +342,15 @@ class BuildProcessor {
          * This method should not attempt to start or initialize camel-main as this need to be done
          * at runtime.
          */
+        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
+                ContainerBeansBuildItem containerBeans,
                 CamelMainRecorder recorder,
                 CamelContextBuildItem context,
                 CamelRoutesCollectorBuildItem routesCollector,
+                List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
                 List<CamelMainListenerBuildItem> listeners,
                 BeanContainerBuildItem beanContainer) {
 
@@ -384,6 +359,14 @@ class BuildProcessor {
                     routesCollector.getValue(),
                     beanContainer.getValue());
 
+            for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
+                // don't add routes builders that are known by the container
+                if (containerBeans.getClasses().contains(item.getDotName())) {
+                    continue;
+                }
+
+                recorder.addRoutesBuilder(main, item.getDotName().toString());
+            }
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
             }
