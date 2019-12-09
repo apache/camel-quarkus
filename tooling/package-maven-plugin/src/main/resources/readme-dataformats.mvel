@@ -6,7 +6,7 @@ Number of Camel data formats: @{dataformats.size} in @{numberOfArtifacts} JAR ar
 |===
 | Data Format | Since | Description
 @foreach{row : dataformats}
-| @{util.getDocLink(row)}[@{row.title}] (@{row.artifactId}) | @{util.getFirstVersionShort(row)} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
+| @{util.getDocLink(row)}[@{row.title}] (@{row.artifactId}) | @{row.firstVersion} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
 @end{}|===
 
 @end{}
