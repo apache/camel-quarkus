@@ -219,11 +219,6 @@
                                     <requireMavenVersion>
                                         <version>${supported-maven-versions}</version>
                                     </requireMavenVersion>
-                                    <bannedDependencies>
-                                        <excludes>
-                                            <exclude>com.sun.xml.messaging.saaj:saaj-impl</exclude>
-                                        </excludes>
-                                    </bannedDependencies>
                                 </rules>
                             </configuration>
                         </execution>
