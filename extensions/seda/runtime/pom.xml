@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: SEDA :: Runtime</name>
 
     <properties>
-        <firstVersion>0.5.0</firstVersion>
+        <firstVersion>1.0.0-M1</firstVersion>
     </properties>
 
     <dependencyManagement>
