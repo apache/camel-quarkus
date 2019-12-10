@@ -16,7 +16,11 @@
  */
 package org.apache.camel.quarkus.component.sql.deployment;
 
-import io.quarkus.deployment.GizmoAdaptor;
+import java.sql.Types;
+
+import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
+
+import io.quarkus.deployment.GeneratedClassGizmoAdaptor;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -26,10 +30,6 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.gizmo.ClassCreator;
 import io.quarkus.gizmo.ClassOutput;
-
-import java.sql.Types;
-
-import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
 
 class SqlProcessor {
 
@@ -57,7 +57,7 @@ class SqlProcessor {
     void generateKParameterClass(BuildProducer<GeneratedClassBuildItem> generatedClass) {
         // TODO: Investigate removing this. See https://github.com/apache/camel-quarkus/issues/534
         // The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
-        ClassOutput classOutput = new GizmoAdaptor(generatedClass, false);
+        ClassOutput classOutput = new GeneratedClassGizmoAdaptor(generatedClass, false);
         ClassCreator.builder()
                 .className("kotlin.reflect.KParameter")
                 .classOutput(classOutput)
