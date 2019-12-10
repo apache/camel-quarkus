@@ -117,7 +117,6 @@
                                     <enableHttpUrlHandler>true</enableHttpUrlHandler>
                                     <enableServer>false</enableServer>
                                     <dumpProxies>false</dumpProxies>
-                                    <enableJni>true</enableJni>
                                     <disableReports>true</disableReports>
                                 </configuration>
                             </execution>

@@ -113,7 +113,6 @@
                                     <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
                                     <enableServer>false</enableServer>
                                     <dumpProxies>false</dumpProxies>
-                                    <enableJni>true</enableJni>
                                     <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
                                 </configuration>
