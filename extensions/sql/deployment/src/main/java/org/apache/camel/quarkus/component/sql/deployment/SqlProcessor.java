@@ -47,7 +47,11 @@ class SqlProcessor {
 
     @BuildStep
     void sqlNativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImage, CamelSqlConfig config) {
-        config.scriptFiles
+        if (!config.scriptFiles.isPresent()) {
+            return;
+        }
+
+        config.scriptFiles.get()
                 .stream()
                 .map(scriptFile -> new NativeImageResourceBuildItem(scriptFile.replace("classpath:", "")))
                 .forEach(nativeImage::produce);

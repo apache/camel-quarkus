@@ -16,11 +16,12 @@
  */
 package org.apache.camel.quarkus.component.sql;
 
+import java.util.List;
+import java.util.Optional;
+
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
-
-import java.util.List;
 
 @ConfigRoot(name = "camel.sql", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelSqlConfig {
@@ -34,5 +35,5 @@ public class CamelSqlConfig {
      * classpath:sql/my-script.sql). Other URI schemes are not supported.
      */
     @ConfigItem
-    public List<String> scriptFiles;
+    public Optional<List<String>> scriptFiles;
 }
