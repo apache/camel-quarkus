@@ -179,6 +179,7 @@
         <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>sql</module>
         <module>tagsoup</module>
         <module>tarfile</module>
         <module>twitter</module>

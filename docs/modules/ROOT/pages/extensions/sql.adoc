@@ -1,0 +1,29 @@
+[[sql]]
+= SQL Extension
+
+*Since Camel Quarkus 1.1.0*
+
+The SQL component allows you to work with databases using JDBC queries.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-sql</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/sql-component.html[SQL Component].
+
+=== Configuration
+
+When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
+
+[source,properties]
+----
+quarkus.camel.sql.script-files = queries.sql, classpath:sql/insert.sql
+----
