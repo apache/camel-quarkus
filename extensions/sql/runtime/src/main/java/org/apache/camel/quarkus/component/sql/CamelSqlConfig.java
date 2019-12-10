@@ -27,6 +27,11 @@ public class CamelSqlConfig {
 
     /**
      * A comma separated list of paths to script files referenced by SQL endpoints.
+     *
+     * Script files that only need to be accessible from the classpath should be specified on this property.
+     *
+     * Paths can either be schemeless (E.g sql/my-script.sql) or be prefixed with the classpath: URI scheme (E.g
+     * classpath:sql/my-script.sql). Other URI schemes are not supported.
      */
     @ConfigItem
     public List<String> scriptFiles;

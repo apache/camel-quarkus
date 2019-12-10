@@ -22,6 +22,7 @@ The extension provides support for the Camel https://camel.apache.org/components
 === Configuration
 
 When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
+Note that URI schemes such as `file` or `http` do not need to be listed.
 
 [source,properties]
 ----

@@ -55,7 +55,8 @@ class SqlProcessor {
 
     @BuildStep(onlyIf = NativeBuild.class)
     void generateKParameterClass(BuildProducer<GeneratedClassBuildItem> generatedClass) {
-        // TODO: The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
+        // TODO: Investigate removing this. See https://github.com/apache/camel-quarkus/issues/534
+        // The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
         ClassOutput classOutput = new GizmoAdaptor(generatedClass, false);
         ClassCreator.builder()
                 .className("kotlin.reflect.KParameter")
