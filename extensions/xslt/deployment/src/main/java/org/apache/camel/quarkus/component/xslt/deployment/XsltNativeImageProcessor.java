@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.xslt.deployment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -45,9 +46,13 @@ class XsltNativeImageProcessor {
 
     @BuildStep
     List<NativeImageResourceBuildItem> xsltResources(CamelXsltConfig config) {
-        List<NativeImageResourceBuildItem> items = new ArrayList<>(config.sources.size());
+        if (!config.sources.isPresent()) {
+            return Collections.emptyList();
+        }
 
-        for (String source : config.sources) {
+        List<NativeImageResourceBuildItem> items = new ArrayList<>(config.sources.get().size());
+
+        for (String source : config.sources.get()) {
             String scheme = ResourceHelper.getScheme(source);
 
             if (Objects.isNull(scheme) || Objects.equals(scheme, CLASSPATH_SCHEME)) {

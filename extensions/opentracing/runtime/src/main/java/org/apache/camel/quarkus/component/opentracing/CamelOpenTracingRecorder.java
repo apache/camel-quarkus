@@ -35,8 +35,8 @@ public class CamelOpenTracingRecorder {
         if (tracer != null) {
             openTracingTracer.setTracer(tracer);
             openTracingTracer.setEncoding(camelOpenTracingConfig.encoding);
-            if (camelOpenTracingConfig.excludePatterns != null) {
-                openTracingTracer.setExcludePatterns(new LinkedHashSet<>(camelOpenTracingConfig.excludePatterns));
+            if (camelOpenTracingConfig.excludePatterns.isPresent()) {
+                openTracingTracer.setExcludePatterns(new LinkedHashSet<>(camelOpenTracingConfig.excludePatterns.get()));
             }
         }
         return new RuntimeValue<>(openTracingTracer);

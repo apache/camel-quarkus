@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,24 +29,24 @@ import java.util.Set;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
+import org.apache.camel.component.xslt.XsltComponent;
+import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
+import org.apache.camel.quarkus.component.xslt.CamelXsltErrorListener;
+import org.apache.camel.quarkus.component.xslt.CamelXsltRecorder;
+import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver.Builder;
+import org.apache.camel.quarkus.component.xslt.deployment.BuildTimeUriResolver.ResolutionResult;
+import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
+import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
+import org.apache.commons.lang3.StringUtils;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ArchiveRootBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import org.apache.camel.component.xslt.XsltComponent;
-import org.apache.camel.quarkus.component.xslt.deployment.BuildTimeUriResolver.ResolutionResult;
-import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
-import org.apache.camel.quarkus.component.xslt.CamelXsltErrorListener;
-import org.apache.camel.quarkus.component.xslt.CamelXsltRecorder;
-import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver.Builder;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
-import org.apache.commons.lang3.StringUtils;
-
 import io.quarkus.runtime.RuntimeValue;
 
 class XsltProcessor {
@@ -91,7 +92,7 @@ class XsltProcessor {
         final Set<String> translets = new LinkedHashSet<>();
         try {
             final BuildTimeUriResolver resolver = new BuildTimeUriResolver();
-            for (String uri : config.sources) {
+            for (String uri : config.sources.orElse(Collections.emptyList())) {
                 ResolutionResult resolvedUri = resolver.resolve(uri);
                 uriResolverEntries.produce(resolvedUri.toBuildItem());
                 final String translet = resolvedUri.transletClassName;

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.opentracing;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
@@ -35,5 +36,5 @@ public final class CamelOpenTracingConfig {
      * Sets whether to disable tracing for endpoint URIs that match the given patterns
      */
     @ConfigItem
-    public List<String> excludePatterns;
+    public Optional<List<String>> excludePatterns;
 }
