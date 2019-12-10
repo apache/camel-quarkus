@@ -21,6 +21,7 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -294,8 +295,8 @@ class BuildProcessor {
                     .map(ClassInfo::name)
                     .filter(dotName -> CamelSupport.isPathIncluded(
                             dotName.toString('/'),
-                            config.main.routesDiscovery.excludePatterns,
-                            config.main.routesDiscovery.includePatterns))
+                            config.main.routesDiscovery.excludePatterns.orElse(Collections.emptyList()),
+                            config.main.routesDiscovery.includePatterns.orElse(Collections.emptyList())))
                     .map(CamelRoutesBuilderClassBuildItem::new)
                     .collect(Collectors.toList());
         }

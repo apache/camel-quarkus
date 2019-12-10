@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -70,7 +71,7 @@ public class CamelConfig {
          * And to exclude all routes from two specific packages use: com/mycompany/bar/&#42;,com/mycompany/stuff/&#42;
          */
         @ConfigItem
-        public List<String> excludePatterns;
+        public Optional<List<String>> excludePatterns;
 
         /**
          * Used for inclusive filtering scanning of RouteBuilder classes.
@@ -84,6 +85,6 @@ public class CamelConfig {
          * And to include all routes from two specific packages use: com/mycompany/foo/&#42;,com/mycompany/stuff/&#42;
          */
         @ConfigItem
-        public List<String> includePatterns;
+        public Optional<List<String>> includePatterns;
     }
 }

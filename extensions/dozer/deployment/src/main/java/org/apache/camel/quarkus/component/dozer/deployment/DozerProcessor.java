@@ -33,6 +33,7 @@ import java.net.URL;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
@@ -78,7 +79,7 @@ class DozerProcessor {
             CamelDozerConfig camelDozerConfig) {
 
         // Add user Dozer mapping files to the image
-        camelDozerConfig.mappingFiles
+        camelDozerConfig.mappingFiles.orElse(Collections.emptyList())
                 .stream()
                 .map(this::mappingPathToURI)
                 // No scheme means classpath URI
@@ -145,10 +146,10 @@ class DozerProcessor {
                 VariableDefinition.class,
                 VariablesDefinition.class));
 
-        if (!camelDozerConfig.mappingFiles.isEmpty()) {
+        if (camelDozerConfig.mappingFiles.isPresent()) {
             // Register for reflection any classes participating in Dozer mapping
             Mapper mapper = DozerBeanMapperBuilder.create()
-                    .withMappingFiles(camelDozerConfig.mappingFiles)
+                    .withMappingFiles(camelDozerConfig.mappingFiles.get())
                     .build();
 
             mapper.getMappingMetadata()
@@ -167,12 +168,12 @@ class DozerProcessor {
 
         CamelBeanBuildItem camelBeanBuildItem = null;
 
-        if (!camelDozerConfig.mappingFiles.isEmpty()) {
+        if (camelDozerConfig.mappingFiles.isPresent()) {
             // Bind DozerBeanMapperConfiguration to the Camel registry for the user provided Dozer mapping files
             camelBeanBuildItem = new CamelBeanBuildItem(
                     "dozerBeanMappingConfiguration",
                     DozerBeanMapperConfiguration.class.getName(),
-                    camelDozerRecorder.createDozerBeanMapperConfiguration(camelDozerConfig.mappingFiles));
+                    camelDozerRecorder.createDozerBeanMapperConfiguration(camelDozerConfig.mappingFiles.get()));
         }
 
         return camelBeanBuildItem;
