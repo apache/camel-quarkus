@@ -6,7 +6,7 @@ Number of Camel languages: @{languages.size} in @{numberOfArtifacts} JAR artifac
 |===
 | Language | Since | Description
 @foreach{row : languages}
-| @{util.getDocLink(row)}[@{row.title}] (@{row.artifactId}) | @{util.getFirstVersionShort(row)} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
+| @{util.getDocLink(row)}[@{row.title}] (@{row.artifactId}) | @{row.firstVersion} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
 @end{}|===
 
 @end{}
