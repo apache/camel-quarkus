@@ -43,7 +43,7 @@ public class FreemarkerResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/testFreemarkerLetter")
+    @Path("/freemarkerLetter")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
@@ -60,7 +60,7 @@ public class FreemarkerResource {
         return (String) exchange.getOut().getBody();
     }
 
-    @Path("/testFreemarkerDataModel")
+    @Path("/freemarkerDataModel")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)

@@ -19,35 +19,22 @@ package org.apache.camel.quarkus.component.freemarker.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-class FreemarkerTest {
+class FreemarkerInHeaderTest {
 
     @Test
-    public void testFreemarkerLetter() {
+    public void testVelocityLetter() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.TEXT)
-                .post("/freemarker/freemarkerLetter")
+                .post("/freemarker/templateInHeader")
                 .then()
                 .statusCode(200)
-                .body(equalTo("Dear Christian. You ordered item 7 on Monday."));
-    }
-
-    @Test
-    public void testFreemarkerDataModel() {
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.TEXT)
-                .post("/freemarker/freemarkerDataModel")
-                .then()
-                .statusCode(200)
-                .body(equalTo("Dear Willem. You ordered item 7 on Monday."));
+                .body(equalTo("<hello>foo</hello>"));
     }
 
 }

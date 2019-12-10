@@ -31,7 +31,7 @@ class FreemarkerValuesInPropertiesTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.TEXT)
-                .post("/freemarker/testVelocityLetter")
+                .post("/freemarker/velocityLetter")
                 .then()
                 .statusCode(200)
                 .body(equalTo("Dear Christian. You ordered item 7."));

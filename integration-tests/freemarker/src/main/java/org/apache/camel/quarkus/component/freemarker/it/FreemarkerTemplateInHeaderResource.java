@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.freemarker.it;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,30 +31,27 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.HashMap;
-import java.util.Map;
 
 @Path("/freemarker")
 @ApplicationScoped
-public class FreemarkerValuesInPropertiesResource {
+public class FreemarkerTemplateInHeaderResource {
 
-    private static final Logger LOG = Logger.getLogger(FreemarkerValuesInPropertiesResource.class);
+    private static final Logger LOG = Logger.getLogger(FreemarkerTemplateInHeaderResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/velocityLetter")
+    @Path("/templateInHeader")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String testVelocityLetter() throws Exception {
-        Exchange exchange = producerTemplate.request("direct:valuesInProperties", new Processor() {
+    public String testFreemarkerLetter() throws Exception {
+        Exchange exchange = producerTemplate.request("direct:templateInHeader", new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setHeader(FreemarkerConstants.FREEMARKER_TEMPLATE,
-                        "Dear ${exchange.properties.name}. You ordered item ${exchange.properties.item}.");
-                exchange.setProperty("name", "Christian");
-                exchange.setProperty("item", "7");
+                Message in = exchange.getIn();
+                in.setHeader(FreemarkerConstants.FREEMARKER_TEMPLATE, "<hello>${headers.cheese}</hello>");
+                in.setHeader("cheese", "foo");
             }
         });
 
@@ -63,8 +61,7 @@ public class FreemarkerValuesInPropertiesResource {
     public static class FreemarkerRouteBuilder extends RouteBuilder {
         @Override
         public void configure() {
-            from("direct:valuesInProperties")
-                    .to("freemarker:dummy");
+            from("direct:templateInHeader").to("freemarker://dummy");
         }
     }
 }
