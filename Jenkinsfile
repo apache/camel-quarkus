@@ -31,6 +31,7 @@ pipeline {
 
     environment {
         MAVEN_SKIP_RC = true
+        JENKINS_ASF_CI = true
     }
 
     options {
