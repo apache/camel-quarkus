@@ -51,6 +51,10 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-commons-logging</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-slack</artifactId>
             <exclusions>
@@ -59,10 +63,6 @@
                     <artifactId>commons-logging</artifactId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.logging</groupId>
-            <artifactId>commons-logging-jboss-logging</artifactId>
         </dependency>
     </dependencies>
 

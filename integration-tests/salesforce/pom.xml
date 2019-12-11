@@ -78,10 +78,15 @@
 
     <profiles>
         <profile>
-            <id>native</id>
+            <!--
+                Required because of:
+                  - https://github.com/apache/camel-quarkus/issues/541
+                  - https://github.com/oracle/graal/issues/1975
+            -->
+            <id>salesforce-native</id>
             <activation>
                 <property>
-                    <name>native</name>
+                    <name>salesforce-native</name>
                 </property>
             </activation>
             <build>
