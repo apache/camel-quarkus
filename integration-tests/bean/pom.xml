@@ -86,10 +86,15 @@
 
     <profiles>
         <profile>
-            <id>native</id>
+            <!--
+                Required because of:
+                  - https://github.com/apache/camel-quarkus/issues/540
+                  - https://github.com/oracle/graal/issues/1971
+            -->
+            <id>bean-native</id>
             <activation>
                 <property>
-                    <name>native</name>
+                    <name>bean-native</name>
                 </property>
             </activation>
             <build>
