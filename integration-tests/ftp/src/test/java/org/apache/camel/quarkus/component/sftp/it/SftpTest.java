@@ -17,20 +17,23 @@
 package org.apache.camel.quarkus.component.sftp.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
+    /*
+     * Disabled due to SSL native integration failing in the Jenkins CI environment.
+     * https://github.com/apache/camel-quarkus/issues/468"
+     */
     @Test
-    @DisabledOnNativeImage("Disabled due to SSL native integration failing in the Jenkins CI environment." +
-            "https://github.com/apache/camel-quarkus/issues/468")
+    @DisabledIfEnvironmentVariable(named = "JENKINS_ASF_CI", matches = "true")
     public void testSftpComponent() throws InterruptedException {
         // Create a new file on the SFTP server
         RestAssured.given()
