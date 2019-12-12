@@ -16,12 +16,17 @@
  */
 package org.acme.timer
 
-import org.apache.camel.builder.RouteBuilder
+import org.apache.camel.Exchange
+import org.apache.camel.quarkus.kotlin.routes
+import javax.enterprise.context.ApplicationScoped
+import javax.enterprise.inject.Produces
 
-class TimerRoute: RouteBuilder() {
-    override fun configure() {
+@ApplicationScoped
+class Routes {
+    @Produces
+    fun myRoutes() = routes {
         from("timer:foo?period=1s")
-                .process { e -> e.message.body = "Hello from Kotlin!" }
+                .process { e: Exchange -> e.message.body = "Hello from Kotlin!" }
                 .log("\${body}")
     }
 }
