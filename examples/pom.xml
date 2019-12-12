@@ -36,6 +36,7 @@
         <module>rest-json</module>
         <module>timer-log</module>
         <module>timer-log-cdi</module>
+        <module>timer-log-kotlin</module>
         <module>timer-log-xml</module>
         <module>timer-log-spring</module>
     </modules>
