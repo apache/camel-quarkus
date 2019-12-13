@@ -26,25 +26,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
-import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
-import io.quarkus.arc.processor.BuildExtension;
-import io.quarkus.deployment.ApplicationArchive;
-import io.quarkus.deployment.Capabilities;
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Overridable;
-import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.ServiceStartBuildItem;
-import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
-import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -66,6 +47,25 @@ import org.jboss.jandex.IndexView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
+import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
+import io.quarkus.arc.processor.BuildExtension;
+import io.quarkus.deployment.ApplicationArchive;
+import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Overridable;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
+import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
+import io.quarkus.deployment.recording.RecorderContext;
+import io.quarkus.runtime.RuntimeValue;
+
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
 
@@ -81,8 +81,16 @@ class BuildProcessor {
      */
     public static class Core {
         @BuildStep
-        ContainerBeansBuildItem containerBeans(BeanRegistrationPhaseBuildItem beanRegistrationPhase) {
-            return new ContainerBeansBuildItem(beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS));
+        BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem containerBeans(
+                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
+                BuildProducer<ContainerBeansBuildItem> containerBeans) {
+
+            containerBeans.produce(
+                    new ContainerBeansBuildItem(beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)));
+
+            // method using BeanRegistrationPhaseBuildItem should return a BeanConfiguratorBuildItem
+            // otherwise the build step may be processed at the wrong time.
+            return new BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem();
         }
 
         @BuildStep
@@ -317,15 +325,9 @@ class BuildProcessor {
          * making the lazy beans unremovable in that case.
          */
         @BuildStep(onlyIf = Flags.MainEnabled.class)
-        UnremovableBeanBuildItem unremoveLazyBeans(
-                List<CamelRoutesBuilderClassBuildItem> camelRoutesClasses) {
-
-            final Set<String> lazyBeans = camelRoutesClasses.stream()
-                    .map(buildItem -> buildItem.getDotName().toString())
-                    .collect(Collectors.toSet());
-
-            return new UnremovableBeanBuildItem(new BeanClassNamesExclusion(lazyBeans));
-
+        UnremovableBeanBuildItem unremovableRoutesBuilders() {
+            return new UnremovableBeanBuildItem(
+                    b -> b.getTypes().stream().anyMatch(t -> t.name().equals(ROUTES_BUILDER_TYPE)));
         }
 
         @Overridable
