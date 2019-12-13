@@ -39,14 +39,17 @@ public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(BeanProducer.class, MyRoute.class, MyCDIRoute.class));
+                    .addClasses(BeanProducer.class, MyRoute.class, MyCDIRoute.class, MyCDIProducer.class));
 
     @Inject
     Registry registry;
 
     @Test
     public void testLookupRoutes() {
-        assertThat(registry.findByType(RoutesBuilder.class)).isNotEmpty();
+        // MyCDIRoute
+        // MyCDIProducer::routes
+        assertThat(registry.findByType(RoutesBuilder.class))
+                .hasSize(2);
     }
 
     @Test
@@ -107,6 +110,18 @@ public class CamelRegistryTest {
 
         @Override
         public void configure() throws Exception {
+        }
+    }
+
+    @ApplicationScoped
+    public static class MyCDIProducer {
+        @Produces
+        public RoutesBuilder routes() {
+            return new RouteBuilder() {
+                @Override
+                public void configure() throws Exception {
+                }
+            };
         }
     }
 }
