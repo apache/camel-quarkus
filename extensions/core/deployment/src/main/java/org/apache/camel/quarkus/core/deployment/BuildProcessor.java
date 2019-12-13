@@ -26,27 +26,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelMain;
-import org.apache.camel.quarkus.core.CamelMainProducers;
-import org.apache.camel.quarkus.core.CamelMainRecorder;
-import org.apache.camel.quarkus.core.CamelProducers;
-import org.apache.camel.quarkus.core.CamelRecorder;
-import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
-import org.apache.camel.quarkus.core.Flags;
-import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.TypeConverterLoader;
-import org.apache.camel.spi.TypeConverterRegistry;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
@@ -65,6 +44,27 @@ import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.core.CamelMainProducers;
+import org.apache.camel.quarkus.core.CamelMainRecorder;
+import org.apache.camel.quarkus.core.CamelProducers;
+import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
+import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
+import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.jboss.jandex.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
@@ -75,6 +75,24 @@ class BuildProcessor {
             "org.apache.camel.builder.RouteBuilder");
     private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.AdviceWithRouteBuilder");
+    private static final DotName DATA_FORMAT_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.DataFormat");
+    private static final DotName LANGUAGE_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.Language");
+    private static final DotName COMPONENT_TYPE = DotName.createSimple(
+            "org.apache.camel.Component");
+    private static final DotName PRODUCER_TYPE = DotName.createSimple(
+            "org.apache.camel.Producer");
+    private static final DotName PREDICATE_TYPE = DotName.createSimple(
+            "org.apache.camel.Predicate");
+
+    private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
+            ROUTES_BUILDER_TYPE,
+            DATA_FORMAT_TYPE,
+            LANGUAGE_TYPE,
+            COMPONENT_TYPE,
+            PRODUCER_TYPE,
+            PREDICATE_TYPE);
 
     /*
      * Build steps related to camel core.
@@ -327,7 +345,7 @@ class BuildProcessor {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         UnremovableBeanBuildItem unremovableRoutesBuilders() {
             return new UnremovableBeanBuildItem(
-                    b -> b.getTypes().stream().anyMatch(t -> t.name().equals(ROUTES_BUILDER_TYPE)));
+                    b -> b.getTypes().stream().map(Type::name).anyMatch(UNREMOVABLE_BEANS_TYPES::contains));
         }
 
         @Overridable

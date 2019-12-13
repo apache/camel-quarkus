@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.core.runtime;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -24,10 +27,18 @@ import javax.inject.Named;
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.BeanInject;
 import org.apache.camel.BindToRegistry;
+import org.apache.camel.Component;
+import org.apache.camel.Endpoint;
+import org.apache.camel.Exchange;
+import org.apache.camel.Expression;
+import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.DataFormat;
+import org.apache.camel.spi.Language;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.support.DefaultComponent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -39,17 +50,27 @@ public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(BeanProducer.class, MyRoute.class, MyCDIRoute.class, MyCDIProducer.class));
+                    .addClasses(BeanProducer.class)
+                    .addClasses(MyRoute.class, MyCDIRoute.class, MyCDIProducer.class)
+                    .addClasses(MyLanguage.class, MyDataFormat.class, MyComponent.class));
 
     @Inject
     Registry registry;
 
     @Test
     public void testLookupRoutes() {
-        // MyCDIRoute
-        // MyCDIProducer::routes
-        assertThat(registry.findByType(RoutesBuilder.class))
-                .hasSize(2);
+        assertThat(registry.findByType(RoutesBuilder.class)).hasSize(2);
+        assertThat(registry.lookupByNameAndType("my-route", RoutesBuilder.class)).isNotNull();
+        assertThat(registry.lookupByNameAndType("my-route-produced", RoutesBuilder.class)).isNotNull();
+    }
+
+    @Test
+    public void testLookupCustomServices() {
+        assertThat(registry.lookupByNameAndType("my-df", DataFormat.class)).isNotNull();
+        assertThat(registry.lookupByNameAndType("my-language", Language.class)).isNotNull();
+        assertThat(registry.lookupByNameAndType("my-component", Component.class)).isNotNull();
+        assertThat(registry.lookupByNameAndType("my-predicate", Predicate.class)).isNotNull();
+        assertThat(registry.lookupByNameAndType("my-processor", Processor.class)).isNotNull();
     }
 
     @Test
@@ -103,6 +124,7 @@ public class CamelRegistryTest {
         }
     }
 
+    @Named("my-route")
     @ApplicationScoped
     public static class MyCDIRoute extends RouteBuilder {
         @BeanInject("bean-1")
@@ -115,6 +137,7 @@ public class CamelRegistryTest {
 
     @ApplicationScoped
     public static class MyCDIProducer {
+        @Named("my-route-produced")
         @Produces
         public RoutesBuilder routes() {
             return new RouteBuilder() {
@@ -122,6 +145,62 @@ public class CamelRegistryTest {
                 public void configure() throws Exception {
                 }
             };
+        }
+
+        @Named("my-predicate")
+        @Produces
+        public Predicate predicate() {
+            return e -> false;
+        }
+
+        @Named("my-processor")
+        @Produces
+        public Processor processor() {
+            return e -> {};
+        }
+    }
+
+    @Named("my-df")
+    @ApplicationScoped
+    public static class MyDataFormat implements DataFormat {
+        @Override
+        public void marshal(Exchange exchange, Object graph, OutputStream stream) throws Exception {
+        }
+
+        @Override
+        public Object unmarshal(Exchange exchange, InputStream stream) throws Exception {
+            return null;
+        }
+
+        @Override
+        public void start() {
+        }
+
+        @Override
+        public void stop() {
+        }
+    }
+
+    @Named("my-language")
+    @ApplicationScoped
+    public static class MyLanguage implements Language {
+        @Override
+        public Predicate createPredicate(String expression) {
+            return null;
+        }
+
+        @Override
+        public Expression createExpression(String expression) {
+            return null;
+        }
+    }
+
+    @Named("my-component")
+    @ApplicationScoped
+    public static class MyComponent extends DefaultComponent {
+        @Override
+        protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+            return null;
         }
     }
 }
