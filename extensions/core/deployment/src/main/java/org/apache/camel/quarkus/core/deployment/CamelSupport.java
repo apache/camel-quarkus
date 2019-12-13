@@ -24,16 +24,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import io.quarkus.arc.processor.BeanInfo;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.ClassInfo;
+
+import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";
@@ -112,6 +115,10 @@ public final class CamelSupport {
         }
 
         return answer;
+    }
+
+    public static <T> Set<T> setOf(T... items) {
+        return Stream.of(items).collect(Collectors.toCollection(HashSet::new));
     }
 
 }
