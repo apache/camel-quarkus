@@ -156,7 +156,8 @@ public class CamelRegistryTest {
         @Named("my-processor")
         @Produces
         public Processor processor() {
-            return e -> {};
+            return e -> {
+            };
         }
     }
 
