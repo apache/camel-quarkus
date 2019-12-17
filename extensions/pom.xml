@@ -68,6 +68,7 @@
         <module>jackson</module>
         <module>jdbc</module>
         <module>kafka</module>
+        <module>kotlin</module>
         <module>log</module>
         <module>mail</module>
         <module>microprofile-health</module>
