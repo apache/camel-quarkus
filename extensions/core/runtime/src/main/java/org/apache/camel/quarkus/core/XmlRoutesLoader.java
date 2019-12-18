@@ -22,7 +22,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 
-public interface XmlLoader {
+public interface XmlRoutesLoader {
 
     RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception;
 

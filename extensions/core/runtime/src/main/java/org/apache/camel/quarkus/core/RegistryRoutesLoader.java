@@ -14,26 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml;
+package org.apache.camel.quarkus.core;
 
-import java.io.InputStream;
+import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.ModelHelper;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.quarkus.core.XmlLoader;
+import org.apache.camel.RoutesBuilder;
 
-public class DefaultXmlLoader implements XmlLoader {
-
-    @Override
-    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRoutesDefinition(context, is);
-    }
-
-    @Override
-    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRestsDefinition(context, is);
-    }
-
+public interface RegistryRoutesLoader {
+    List<RoutesBuilder> collectRoutesFromRegistry(CamelContext camelContext, String excludePattern, String includePattern);
 }

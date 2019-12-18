@@ -41,9 +41,9 @@ import org.apache.camel.support.CamelContextHelper;
 
 public class FastModel extends BaseModel {
 
-    private final XmlLoader xmlLoader;
+    private final XmlRoutesLoader xmlLoader;
 
-    public FastModel(CamelContext camelContext, XmlLoader xmlLoader) {
+    public FastModel(CamelContext camelContext, XmlRoutesLoader xmlLoader) {
         super(camelContext);
         this.xmlLoader = xmlLoader;
     }

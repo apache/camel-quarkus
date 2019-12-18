@@ -14,24 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.runtime.support.deployment;
 
-import io.quarkus.builder.item.SimpleBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.XmlLoader;
-import org.apache.camel.spi.ModelJAXBContextFactory;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelRoutesCollectorBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelTypeConverterLoaderBuildItem;
+import org.apache.camel.quarkus.core.runtime.support.SupportRecorder;
 
-/**
- * Holds the {@link ModelJAXBContextFactory} instance.
- */
-public final class CamelXmlLoaderBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<XmlLoader> value;
-
-    public CamelXmlLoaderBuildItem(RuntimeValue<XmlLoader> value) {
-        this.value = value;
-    }
-
-    public RuntimeValue<XmlLoader> getXmlLoader() {
-        return value;
+public class SupportBuildStep {
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelRoutesCollectorBuildItem listener(SupportRecorder recorder) {
+        return new CamelRoutesCollectorBuildItem(recorder.createSupportCollector());
     }
 }

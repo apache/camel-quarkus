@@ -14,24 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.runtime.support;
 
-import java.io.InputStream;
+import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.main.RoutesCollector;
+import org.apache.camel.quarkus.core.CamelRoutesCollector;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-
-public class DisabledXmlLoader implements XmlLoader {
-
-    @Override
-    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+@Recorder
+public class SupportRecorder {
+    public RuntimeValue<RoutesCollector> createSupportCollector() {
+        return new RuntimeValue<>(new SupportRoutesCollector());
     }
-
-    @Override
-    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
-    }
-
 }
