@@ -229,7 +229,7 @@ Number of Camel languages: 8 in 2 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 8 in 8 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -240,6 +240,8 @@ Number of miscellaneous extensions: 8 in 8 JAR artifacts (0 deprecated)
 | (camel-quarkus-core-cloud) | 0.2.0 | The Camel Quarkus core cloud module
 
 | (camel-quarkus-core-xml) | 0.3.0 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
+
+| (camel-quarkus-endpointdsl) | 1.0.0 | camel-quarkus-endpointdsl
 
 | (camel-quarkus-hystrix) | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
 
