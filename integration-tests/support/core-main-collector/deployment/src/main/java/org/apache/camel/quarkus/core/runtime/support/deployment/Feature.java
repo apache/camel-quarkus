@@ -14,24 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.runtime.support.deployment;
 
-import java.util.List;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.main.DefaultRoutesCollector;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
+public class Feature {
+    private static final String FEATURE = "camel-main-collector-support";
 
-public class DisabledXmlRoutesCollector extends DefaultRoutesCollector {
-
-    @Override
-    public List<RoutesDefinition> collectXmlRoutesFromDirectory(CamelContext camelContext, String directory) {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
-    }
-
-    @Override
-    public List<RestsDefinition> collectXmlRestsFromDirectory(CamelContext camelContext, String directory) {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }

@@ -49,7 +49,7 @@ public class CamelRecorder {
             RuntimeValue<Registry> registry,
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
-            RuntimeValue<XmlLoader> xmlLoader,
+            RuntimeValue<XmlRoutesLoader> xmlLoader,
             BeanContainer beanContainer) {
         FastCamelContext context = new FastCamelContext();
         context.setRegistry(registry.getValue());
@@ -106,7 +106,11 @@ public class CamelRecorder {
         return new RuntimeValue<>(new DisabledModelJAXBContextFactory());
     }
 
-    public RuntimeValue<XmlLoader> newDisabledXmlLoader() {
-        return new RuntimeValue<>(new DisabledXmlLoader());
+    public RuntimeValue<XmlRoutesLoader> newDisabledXmlRoutesLoader() {
+        return new RuntimeValue<>(new DisabledXmlRoutesLoader());
+    }
+
+    public RuntimeValue<RegistryRoutesLoader> newDefaultRegistryRoutesLoader() {
+        return new RuntimeValue<>(new RegistryRoutesLoaders.Default());
     }
 }

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.net.HttpURLConnection;
+
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -26,7 +27,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.core.runtime.support.SupportListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,29 +61,6 @@ public class CamelTest {
                 .then().body(is("my-ctx-name"));
     }
 
-    /*
-     * This test is tagged with quarkus-platform-ignore as it needs to be
-     * ignored when running camel test from the quarkus-platform as the
-     * test relies on a local route file being loaded.
-     */
-    @Test
-    @Tag("quarkus-platform-ignore")
-    public void testMainInstanceWithXmlRoutes() {
-        JsonPath p = RestAssured.given()
-                .accept(MediaType.APPLICATION_JSON)
-                .get("/test/main/describe")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
-
-        assertThat(p.getList("routeBuilders", String.class))
-                .contains(SupportListener.MyBuilder.class.getName());
-        assertThat(p.getList("routes", String.class))
-                .contains("my-xml-route");
-    }
-
     @Test
     public void testMainInstance() {
         JsonPath p = RestAssured.given()
@@ -94,6 +71,10 @@ public class CamelTest {
                 .extract()
                 .body()
                 .jsonPath();
+
+        assertThat(p.getString("routes-collector.type")).isEqualTo(CamelRoutesCollector.class.getName());
+        assertThat(p.getString("routes-collector.type-registry")).isEqualTo(RegistryRoutesLoaders.Default.class.getName());
+        assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXmlRoutesLoader.class.getName());
 
         assertThat(p.getList("listeners", String.class))
                 .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());

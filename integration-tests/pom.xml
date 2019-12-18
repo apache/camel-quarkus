@@ -62,6 +62,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-main-collector-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -147,6 +152,8 @@
         <module>support</module>
         <module>core</module>
         <module>core-main</module>
+        <module>core-main-xml</module>
+        <module>core-main-collector</module>
         <module>core-impl</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->

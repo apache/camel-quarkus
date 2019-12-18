@@ -57,7 +57,6 @@ import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.jboss.jandex.ClassInfo;
@@ -187,7 +186,7 @@ class BuildProcessor {
                 List<CamelBeanBuildItem> registryItems,
                 List<CamelServiceFilterBuildItem> serviceFilters) {
 
-            final RuntimeValue<Registry> registry = recorder.createRegistry();
+            final RuntimeValue<org.apache.camel.spi.Registry> registry = recorder.createRegistry();
 
             CamelSupport.services(applicationArchives)
                     .filter(si -> !containerBeans.getBeans().contains(si))
@@ -238,8 +237,8 @@ class BuildProcessor {
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-        public CamelXmlLoaderBuildItem createXmlLoader(CamelRecorder recorder) {
-            return new CamelXmlLoaderBuildItem(recorder.newDisabledXmlLoader());
+        public CamelRoutesLoaderBuildItems.Xml createXmlLoader(CamelRecorder recorder) {
+            return new CamelRoutesLoaderBuildItems.Xml(recorder.newDisabledXmlRoutesLoader());
         }
 
         @BuildStep
@@ -258,14 +257,14 @@ class BuildProcessor {
                 CamelRegistryBuildItem registry,
                 CamelTypeConverterRegistryBuildItem typeConverterRegistry,
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
-                CamelXmlLoaderBuildItem xmlLoader,
+                CamelRoutesLoaderBuildItems.Xml xmlLoader,
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
                     registry.getRegistry(),
                     typeConverterRegistry.getRegistry(),
                     contextFactory.getContextFactory(),
-                    xmlLoader.getXmlLoader(),
+                    xmlLoader.getLoader(),
                     beanContainer.getValue());
 
             return new CamelContextBuildItem(context);
@@ -301,6 +300,12 @@ class BuildProcessor {
      * disabled by setting quarkus.camel.disable-main = true
      */
     public static class Main {
+        @Overridable
+        @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelRoutesLoaderBuildItems.Registry createRegistryLoader(CamelRecorder recorder) {
+            return new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader());
+        }
 
         @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
@@ -330,8 +335,13 @@ class BuildProcessor {
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-        public CamelRoutesCollectorBuildItem createRoutesCollector(CamelMainRecorder recorder) {
-            return new CamelRoutesCollectorBuildItem(recorder.newDisabledXmlRoutesCollector());
+        public CamelRoutesCollectorBuildItem createRoutesCollector(
+                CamelMainRecorder recorder,
+                CamelRoutesLoaderBuildItems.Registry registryRoutesLoader,
+                CamelRoutesLoaderBuildItems.Xml xmlRoutesLoader) {
+
+            return new CamelRoutesCollectorBuildItem(
+                    recorder.newRoutesCollector(registryRoutesLoader.getLoader(), xmlRoutesLoader.getLoader()));
         }
 
         @BuildStep(onlyIf = Flags.MainEnabled.class)
@@ -399,8 +409,9 @@ class BuildProcessor {
          *
          * @param recorder the recorder.
          * @param main a reference to a {@link CamelMain}.
-         * @param registry a reference to a {@link Registry}; note that this parameter is here as placeholder to
-         *            ensure the {@link Registry} is fully configured before starting camel-main.
+         * @param registry a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
+         *            placeholder to
+         *            ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
          * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
          *            happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
          *            threads and so on.

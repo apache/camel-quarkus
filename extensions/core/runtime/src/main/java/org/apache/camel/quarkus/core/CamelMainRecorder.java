@@ -95,7 +95,11 @@ public class CamelMainRecorder {
         }
     }
 
-    public RuntimeValue<RoutesCollector> newDisabledXmlRoutesCollector() {
-        return new RuntimeValue<>(new DisabledXmlRoutesCollector());
+    public RuntimeValue<RoutesCollector> newRoutesCollector(
+            RuntimeValue<RegistryRoutesLoader> registryRoutesLoader,
+            RuntimeValue<XmlRoutesLoader> xmlRoutesLoader) {
+
+        return new RuntimeValue<>(new CamelRoutesCollector(registryRoutesLoader.getValue(), xmlRoutesLoader.getValue()));
     }
+
 }

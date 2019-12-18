@@ -25,18 +25,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core-main</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core Main :: Tests</name>
+    <artifactId>camel-quarkus-integration-test-core-main-xml</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Core Main XML :: Tests</name>
     <description>The camel integration tests</description>
 
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-endpointdsl</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-reactive-executor</artifactId>
+            <artifactId>camel-quarkus-core-xml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -49,10 +45,6 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support-core-main-ext</artifactId>
         </dependency>
 
         <dependency>
@@ -96,15 +88,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <quarkus.test.profile>staging</quarkus.test.profile>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -130,7 +113,6 @@
                                 <configuration>
                                     <systemProperties>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                                        <quarkus.test.native-image-profile>staging</quarkus.test.native-image-profile>
                                     </systemProperties>
                                 </configuration>
                             </execution>

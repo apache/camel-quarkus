@@ -113,7 +113,16 @@ public class CamelServlet {
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
 
+        JsonObjectBuilder collector = Json.createObjectBuilder();
+        collector.add("type", main.getRoutesCollector().getClass().getName());
+        if (main.getRoutesCollector() instanceof CamelRoutesCollector) {
+            CamelRoutesCollector crc = (CamelRoutesCollector) main.getRoutesCollector();
+            collector.add("type-registry", crc.getRegistryRoutesLoader().getClass().getName());
+            collector.add("type-xml", crc.getXmlRoutesLoader().getClass().getName());
+        }
+
         return Json.createObjectBuilder()
+                .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
