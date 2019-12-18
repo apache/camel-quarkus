@@ -59,6 +59,7 @@
         <module>dataformat</module>
         <module>direct</module>
         <module>dozer</module>
+        <module>endpointdsl</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>

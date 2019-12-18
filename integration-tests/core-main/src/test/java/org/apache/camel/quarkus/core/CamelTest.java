@@ -101,7 +101,7 @@ public class CamelTest {
                 .contains(CamelRoute.class.getName())
                 .doesNotContain(CamelRouteFiltered.class.getName());
         assertThat(p.getList("routes", String.class))
-                .contains("keep-alive", "configure", "beforeStart", "produced")
+                .contains("keep-alive", "configure", "beforeStart", "produced", "endpointdsl")
                 .doesNotContain("filtered");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
