@@ -398,6 +398,11 @@
                 <artifactId>camel-quarkus-zipfile-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws-ec2-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

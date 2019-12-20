@@ -6,11 +6,14 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 51 in 43 JAR artifacts (0 deprecated)
+Number of Camel components: 52 in 44 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Component | Since | Description
+
+| link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
+`aws-ec2:label` | 1.2.0 | The aws-ec2 is used for managing Amazon EC2 instances.
 
 | link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
 `aws-ecs:label` | 1.0.0-M1 | The aws-ecs is used for managing Amazon ECS

@@ -99,6 +99,7 @@
         <module>vm</module>
         <module>xslt</module>
         <module>zipfile</module>
+        <module>aws-ec2</module>
     </modules>
 
     <build>
