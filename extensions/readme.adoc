@@ -138,10 +138,10 @@ Number of Camel components: 51 in 43 JAR artifacts (0 deprecated)
 `slack:channel` | 0.3.0 | The slack component allows you to send messages to Slack.
 
 | xref:extensions/sql.adoc[SQL] (camel-quarkus-sql) +
-`sql:query` | 1.1.0 | The sql component allows you to work with databases using JDBC SQL queries.
+`sql:query` | 1.0.0-M2 | The sql component allows you to work with databases using JDBC SQL queries.
 
 | xref:extensions/sql.adoc[SQL Stored Procedure] (camel-quarkus-sql) +
-`sql-stored:template` | 1.1.0 | The sql component allows you to work with databases using JDBC Stored Procedure queries.
+`sql-stored:template` | 1.0.0-M2 | The sql component allows you to work with databases using JDBC Stored Procedure queries.
 
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.
