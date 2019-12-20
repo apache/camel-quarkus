@@ -58,6 +58,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-ahc</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-attachments</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -439,6 +444,11 @@
             <!--$ org.apache.camel.quarkus $-->
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-ahc</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-attachments</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -714,6 +724,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-ahc</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-aws</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -798,6 +813,11 @@
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
+            </dependency>
+            <dependency>
+            <groupId>org.asynchttpclient</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>${ahc.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>

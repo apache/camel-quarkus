@@ -43,6 +43,7 @@
         <module>reactive-executor</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>ahc</module>
         <module>attachments</module>
         <module>aws-ec2</module>
         <module>aws-ecs</module>
