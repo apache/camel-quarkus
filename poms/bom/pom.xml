@@ -63,6 +63,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-aws-ec2</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-ecs</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -74,11 +79,6 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws-iam</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-aws-ec2</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -440,6 +440,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-attachments</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws-ec2</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -813,11 +818,6 @@
                 <groupId>xalan</groupId>
                 <artifactId>xalan</artifactId>
                 <version>${xalan.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-aws-ec2</artifactId>
-                <version>${camel-quarkus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

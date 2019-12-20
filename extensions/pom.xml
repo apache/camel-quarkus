@@ -44,6 +44,7 @@
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>attachments</module>
+        <module>aws-ec2</module>
         <module>aws-ecs</module>
         <module>aws-eks</module>
         <module>aws-iam</module>
@@ -99,7 +100,6 @@
         <module>vm</module>
         <module>xslt</module>
         <module>zipfile</module>
-        <module>aws-ec2</module>
     </modules>
 
     <build>
