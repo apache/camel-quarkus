@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.sjms.it;
 
+import java.io.File;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Map;
@@ -41,7 +42,8 @@ public class CamelSjmsTestResource implements QuarkusTestResourceLifecycleManage
     @Override
     public Map<String, String> start() {
         try {
-            FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
+            final File dataDirectory = Paths.get("./target/artemis").toFile();
+            FileUtils.deleteDirectory(dataDirectory);
 
             final int port = AvailablePortFinder.getNextAvailable();
             final String url = String.format("tcp://127.0.0.1:%d", port);
@@ -49,6 +51,7 @@ public class CamelSjmsTestResource implements QuarkusTestResourceLifecycleManage
             ConfigurationImpl cfg = new ConfigurationImpl();
             cfg.addAcceptorConfiguration("activemq", url);
             cfg.setSecurityEnabled(false);
+            cfg.setBrokerInstance(dataDirectory);
 
             embedded = new EmbeddedActiveMQ();
             embedded.setConfiguration(cfg);
