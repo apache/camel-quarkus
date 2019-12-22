@@ -58,12 +58,6 @@ class AwsKmsProcessor {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
-    @BuildStep
-    NativeImageProxyDefinitionBuildItem httpProxies() {
-        return new NativeImageProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
-                "org.apache.http.pool.ConnPoolControl", "com.amazonaws.http.conn.Wrapped");
-    }
-
     @BuildStep(applicationArchiveMarkers = { AWS_KMS_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
