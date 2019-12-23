@@ -528,6 +528,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-telegram</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-timer</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -544,6 +549,21 @@
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-vm</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-webhook</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-xml-jaxb</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
+                <artifactId>camel-xml-jaxp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
@@ -986,6 +1006,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-tarfile</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-telegram</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

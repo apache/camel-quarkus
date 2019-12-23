@@ -1,0 +1,13 @@
+== Camel Quarkus Telegram Integration Tests
+
+A work in progress, see https://github.com/apache/camel-quarkus/issues/74
+
+To run `camel-quarkus-telegram` integration tests, you must first create a Telegram bot following this guide: https://www.nicolaferraro.me/2016/05/27/creating-a-telegram-bot-in-5-minutes-with-apache-camel/ .
+
+Then set the following environment variables:
+
+[source,shell]
+----
+$ export TELEGRAM_AUTHORIZATION_TOKEN=my-autorization-token
+$ export TELEGRAM_CHAT_ID=my-chatId
+----
