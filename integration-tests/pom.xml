@@ -214,6 +214,7 @@
         <module>stream</module>
         <module>tagsoup</module>
         <module>tarfile</module>
+        <module>telegram</module>
         <module>twitter</module>
         <module>validator</module>
         <module>xslt</module>
