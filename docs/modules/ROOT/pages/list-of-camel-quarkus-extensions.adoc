@@ -15,7 +15,7 @@ TIP: In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 59 in 50 JAR artifacts (0 deprecated)
+Number of Camel components: 60 in 51 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -176,6 +176,9 @@ Number of Camel components: 59 in 50 JAR artifacts (0 deprecated)
 
 | xref:extensions/sql.adoc[SQL Stored Procedure] (camel-quarkus-sql) +
 `sql-stored:template` | 1.0.0-M2 | The sql component allows you to work with databases using JDBC Stored Procedure queries.
+
+| link:https://camel.apache.org/components/latest/telegram-component.html[Telegram] (camel-quarkus-telegram) +
+`telegram:type` | 1.0.0 | The telegram component provides access to the Telegram Bot API.
 
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.

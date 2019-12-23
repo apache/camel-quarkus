@@ -101,6 +101,7 @@
         <module>sql</module>
         <module>tagsoup</module>
         <module>tarfile</module>
+        <module>telegram</module>
         <module>timer</module>
         <module>twitter</module>
         <module>validator</module>
