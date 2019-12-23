@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.maven;
 import java.nio.file.Path;
 
 import org.apache.camel.maven.packaging.MvelHelper;
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.util.Strings;
 import org.apache.camel.maven.packaging.model.ComponentModel;
 import org.apache.camel.maven.packaging.model.DataFormatModel;
 import org.apache.camel.maven.packaging.model.LanguageModel;
@@ -37,7 +37,7 @@ public class ExtMvelHelper {
     }
 
     public String getFirstVersionShort(Object model) {
-        return StringHelper.cutLastZeroDigit((String) invokeGetter(model, "getFirstVersion"));
+        return Strings.cutLastZeroDigit((String) invokeGetter(model, "getFirstVersion"));
     }
 
     public String getDocLink(Object model) {
@@ -76,6 +76,6 @@ public class ExtMvelHelper {
     }
 
     private String getExtensionDocName(Object model) {
-        return StringHelper.after((String) invokeGetter(model, "getArtifactId"), "camel-quarkus-") + ".adoc";
+        return Strings.after((String) invokeGetter(model, "getArtifactId"), "camel-quarkus-") + ".adoc";
     }
 }

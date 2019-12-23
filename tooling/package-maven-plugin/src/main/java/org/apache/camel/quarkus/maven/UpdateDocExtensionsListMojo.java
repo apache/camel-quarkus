@@ -33,8 +33,8 @@ import java.util.TreeSet;
 
 import static java.util.stream.Collectors.toSet;
 
-import org.apache.camel.maven.packaging.JSonSchemaHelper;
-import org.apache.camel.maven.packaging.StringHelper;
+import org.apache.camel.tooling.util.JSonSchemaHelper;
+import org.apache.camel.util.StringHelper;
 import org.apache.camel.maven.packaging.model.ComponentModel;
 import org.apache.camel.maven.packaging.model.DataFormatModel;
 import org.apache.camel.maven.packaging.model.LanguageModel;
@@ -49,8 +49,8 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.mvel2.templates.TemplateRuntime;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
-import static org.apache.camel.maven.packaging.PackageHelper.writeText;
+import static org.apache.camel.tooling.util.PackageHelper.loadText;
+import static org.apache.camel.tooling.util.PackageHelper.writeText;
 
 /**
  * Updates the documentation in:
