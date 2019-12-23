@@ -185,6 +185,9 @@ Number of Camel components: 65 in 56 JAR artifacts (0 deprecated)
 | xref:extensions/stream.adoc[Stream] (camel-quarkus-stream) +
 `stream:kind` | 1.2.0 | The stream: component provides access to the system-in, system-out and system-err streams as well as allowing streaming of file.
 
+| link:https://camel.apache.org/components/latest/telegram-component.html[Telegram] (camel-quarkus-telegram) +
+`telegram:type` | 1.0.0 | The telegram component provides access to the Telegram Bot API.
+
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.
 
