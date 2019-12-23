@@ -27,8 +27,6 @@ import com.amazonaws.partitions.model.Region;
 import com.amazonaws.partitions.model.Service;
 import com.amazonaws.services.s3.internal.AWSS3V4Signer;
 import com.amazonaws.services.s3.model.CryptoConfiguration;
-import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -72,12 +70,6 @@ class AwsS3Processor {
         IndexView view = combinedIndexBuildItem.getIndex();
 
         resource.produce(new NativeImageResourceBuildItem("com/amazonaws/partitions/endpoints.json"));
-        for (String s : getImplementations(view, JsonDeserializer.class)) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, s));
-        }
-        for (String s : getImplementations(view, JsonSerializer.class)) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, s));
-        }
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 Partitions.class.getCanonicalName(),
                 Partition.class.getCanonicalName(),
