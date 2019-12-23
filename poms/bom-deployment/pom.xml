@@ -34,10 +34,6 @@
 
     <properties>
         <camel-quarkus.version>1.1.0-SNAPSHOT</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
-
-        <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -63,6 +59,11 @@
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
             <!--$ org.apache.camel.quarkus $-->
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-ahc-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-attachments-deployment</artifactId>
@@ -335,6 +336,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-ahc-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-aws-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -371,6 +377,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-tarfile-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-telegram-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
