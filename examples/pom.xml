@@ -39,6 +39,7 @@
         <module>timer-log-kotlin</module>
         <module>timer-log-xml</module>
         <module>timer-log-spring</module>
+        <module>file-split-log-xml</module>
     </modules>
 
 </project>
