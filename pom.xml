@@ -65,7 +65,6 @@
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
         <groovy.version>2.5.8</groovy.version>
         <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
-        <jetty-maven-plugin.version>9.4.20.v20190813</jetty-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
