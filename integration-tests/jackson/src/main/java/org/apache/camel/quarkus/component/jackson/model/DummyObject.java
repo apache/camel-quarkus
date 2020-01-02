@@ -14,29 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson;
+package org.apache.camel.quarkus.component.jackson.model;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jackson.JacksonDataFormat;
-import org.apache.camel.quarkus.component.jackson.model.DummyObject;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-public class CamelRoute extends RouteBuilder {
+@RegisterForReflection
+public class DummyObject {
 
-    @Override
-    public void configure() {
-        JacksonDataFormat format = new JacksonDataFormat(DummyObject.class);
-        format.useList();
+    private String dummy;
 
-        from("direct:in")
-                .wireTap("direct:tap")
-                .setBody(constant("ok"));
-        from("direct:tap")
-                .unmarshal(format)
-                .to("log:out")
-                .split(body())
-                .marshal(format)
-                .convertBodyTo(String.class)
-                .to("vm:out");
+    public DummyObject() {
     }
 
+    public String getDummy() {
+        return dummy;
+    }
+
+    public void setDummy(String dummy) {
+        this.dummy = dummy;
+    }
 }
