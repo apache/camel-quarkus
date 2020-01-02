@@ -16,18 +16,18 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.Set;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
@@ -37,6 +37,8 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 public class CamelServlet {
     @Inject
     Registry registry;
+    @Inject
+    CamelContext context;
 
     @Path("/registry/log/exchange-formatter")
     @GET
@@ -78,7 +80,19 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String contextVersion() {
-        Set<CamelContext> camelContexts = registry.findByType(CamelContext.class);
-        return camelContexts.isEmpty() ? "" : camelContexts.iterator().next().getVersion();
+        return context.getVersion();
+    }
+
+    @Path("/language/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean resolveLanguage(@PathParam("name") String name) {
+        try {
+            context.resolveLanguage(name);
+        } catch (NoSuchLanguageException e) {
+            return false;
+        }
+
+        return true;
     }
 }

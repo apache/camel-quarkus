@@ -50,4 +50,10 @@ public class CamelTest {
     public void testCamelContextVersion() {
         RestAssured.when().get("/test/context/version").then().body(not(""));
     }
+
+    @Test
+    public void testResolveLanguages() {
+        RestAssured.when().get("/test/language/simple").then().body(is("true"));
+        RestAssured.when().get("/test/language/undefined").then().body(is("false"));
+    }
 }
