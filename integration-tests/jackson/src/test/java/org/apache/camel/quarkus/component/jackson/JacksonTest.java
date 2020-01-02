@@ -16,12 +16,20 @@
  */
 package org.apache.camel.quarkus.component.jackson;
 
+import java.util.UUID;
+
+import javax.json.bind.JsonbBuilder;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.jackson.model.DummyObject;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class JacksonTest {
@@ -38,4 +46,17 @@ public class JacksonTest {
                 .body(equalTo("{\"dummy\":\"value2\"}"));
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = { "type-as-attribute", "type-as-header" })
+    public void testUnmarshal(String directId) {
+        DummyObject object = new DummyObject();
+        object.setDummy(UUID.randomUUID().toString());
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(JsonbBuilder.create().toJson(object))
+                .post("/jackson/unmarshal/{direct-id}", directId)
+                .then()
+                .body("dummy", is(object.getDummy()));
+    }
 }
