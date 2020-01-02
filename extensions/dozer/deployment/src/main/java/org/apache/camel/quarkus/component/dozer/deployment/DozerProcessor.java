@@ -23,6 +23,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 
 import java.io.File;
 import java.math.BigDecimal;
@@ -38,22 +39,6 @@ import java.util.Date;
 
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
-import com.github.dozermapper.core.builder.model.jaxb.AllowedExceptionsDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.ClassDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.ConfigurationDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.ConverterTypeDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.CopyByReferencesDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.CustomConvertersDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.FieldDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.FieldDefinitionDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.FieldExcludeDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.FieldType;
-import com.github.dozermapper.core.builder.model.jaxb.MappingDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.MappingsDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.Relationship;
-import com.github.dozermapper.core.builder.model.jaxb.Type;
-import com.github.dozermapper.core.builder.model.jaxb.VariableDefinition;
-import com.github.dozermapper.core.builder.model.jaxb.VariablesDefinition;
 import com.sun.el.ExpressionFactoryImpl;
 
 import org.apache.camel.component.dozer.DozerConfiguration;
@@ -74,6 +59,11 @@ class DozerProcessor {
     }
 
     @BuildStep
+    JaxbFileRootBuildItem dozerJaxbFileRoot() {
+        return new JaxbFileRootBuildItem("com/github/dozermapper/core/builder/model/jaxb");
+    }
+
+    @BuildStep(applicationArchiveMarkers = { "com/github/dozermapper/core" })
     void configureCamelDozer(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> nativeImage,
             CamelDozerConfig camelDozerConfig) {
@@ -87,15 +77,14 @@ class DozerProcessor {
                 .map(uri -> new NativeImageResourceBuildItem(uri.getPath()))
                 .forEach(nativeImage::produce);
 
-        // Add Dozer JAXB resources to the image
+        // Add Dozer DTD & XSD resources to the image
         nativeImage.produce(new NativeImageResourceBuildItem(
                 "dtd/bean-mapping.dtd",
                 "dtd/bean-mapping-6.0.0.dtd",
                 "dtd/bean-mapping-6.2.0.dtd",
                 "schema/bean-mapping.xsd",
                 "schema/bean-mapping-6.0.0.xsd",
-                "schema/bean-mapping-6.2.0.xsd",
-                "com/github/dozermapper/core/builder/model/jaxb/jaxb.index"));
+                "schema/bean-mapping-6.2.0.xsd"));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
                 BigDecimal[].class,
@@ -123,28 +112,9 @@ class DozerProcessor {
 
         reflectiveClass.produce(
                 new ReflectiveClassBuildItem(false, false,
-                        "com.github.dozermapper.core.builder.model.jaxb.package-info",
                         "com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl"));
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, DozerConfiguration.class));
-
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
-                AllowedExceptionsDefinition.class,
-                ClassDefinition.class,
-                ConfigurationDefinition.class,
-                ConverterTypeDefinition.class,
-                CopyByReferencesDefinition.class,
-                CustomConvertersDefinition.class,
-                FieldDefinition.class,
-                FieldDefinitionDefinition.class,
-                FieldExcludeDefinition.class,
-                FieldType.class,
-                MappingDefinition.class,
-                MappingsDefinition.class,
-                Relationship.class,
-                Type.class,
-                VariableDefinition.class,
-                VariablesDefinition.class));
 
         if (camelDozerConfig.mappingFiles.isPresent()) {
             // Register for reflection any classes participating in Dozer mapping
