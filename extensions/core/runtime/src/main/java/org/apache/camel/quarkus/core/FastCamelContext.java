@@ -24,6 +24,7 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
+import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -177,7 +178,14 @@ public class FastCamelContext extends AbstractCamelContext {
         // languages are automatically discovered by build steps so we can reduce the
         // operations done by the standard resolver by looking them up directly from the
         // registry
-        return (name, context) -> context.getRegistry().lookupByNameAndType(name, Language.class);
+        return (name, context) -> {
+            Language answer = context.getRegistry().lookupByNameAndType(name, Language.class);
+            if (answer == null) {
+                throw new NoSuchLanguageException(name);
+            }
+
+            return answer;
+        };
     }
 
     @Override
