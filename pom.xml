@@ -301,6 +301,8 @@
                             <exclude>ide-config/**</exclude>
                             <exclude>mvnw*</exclude>
                             <exclude>node/**</exclude>
+                            <exclude>**/resources/routes.1</exclude>
+                            <exclude>**/resources/routes.2</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
