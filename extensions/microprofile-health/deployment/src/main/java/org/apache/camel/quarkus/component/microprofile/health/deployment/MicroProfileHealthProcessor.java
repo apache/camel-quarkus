@@ -25,18 +25,13 @@ import javax.enterprise.inject.Vetoed;
 import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
-
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRepository;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.microprofile.health.AbstractCamelMicroProfileHealthCheck;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthConfig;
-import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelSupport;
 import org.eclipse.microprofile.health.Liveness;
@@ -63,12 +58,9 @@ class MicroProfileHealthProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     List<CamelBeanBuildItem> camelHealthDiscovery(
             CombinedIndexBuildItem combinedIndex,
-            RecorderContext recorderContext,
-            CamelMicroProfileHealthRecorder recorder,
             CamelMicroProfileHealthConfig config) {
 
         List<CamelBeanBuildItem> buildItems = new ArrayList<>();
@@ -83,10 +75,7 @@ class MicroProfileHealthProcessor {
                     .filter(CamelSupport::isConcrete)
                     .filter(CamelSupport::isPublic)
                     .filter(ClassInfo::hasNoArgsConstructor)
-                    .map(classInfo -> new CamelBeanBuildItem(
-                            classInfo.simpleName(),
-                            CAMEL_HEALTH_CHECK_DOTNAME.toString(),
-                            recorderContext.newInstance(classInfo.toString())))
+                    .map(classInfo -> new CamelBeanBuildItem(classInfo.simpleName(), classInfo.name().toString()))
                     .forEach(buildItems::add);
 
             // Create CamelBeanBuildItem to bind instances of HealthCheckRepository to the camel registry
@@ -95,10 +84,7 @@ class MicroProfileHealthProcessor {
                     .filter(CamelSupport::isPublic)
                     .filter(ClassInfo::hasNoArgsConstructor)
                     .filter(classInfo -> !classInfo.simpleName().equals(DefaultHealthCheckRegistry.class.getSimpleName()))
-                    .map(classInfo -> new CamelBeanBuildItem(
-                            classInfo.simpleName(),
-                            CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME.toString(),
-                            recorderContext.newInstance(classInfo.toString())))
+                    .map(classInfo -> new CamelBeanBuildItem(classInfo.simpleName(), classInfo.name().toString()))
                     .forEach(buildItems::add);
         }
 
