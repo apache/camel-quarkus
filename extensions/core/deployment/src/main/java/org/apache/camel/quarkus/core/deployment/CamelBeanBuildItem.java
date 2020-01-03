@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.core.deployment;
 
 import java.util.Objects;
 
+import javax.annotation.Nullable;
+
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
@@ -37,10 +39,24 @@ public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBea
     private final String type;
     private final RuntimeValue<?> value;
 
-    public CamelBeanBuildItem(String name, String type, RuntimeValue<?> value) {
+    /**
+     * @param name the name of the bean
+     * @param type the Java type of the bean
+     */
+    public CamelBeanBuildItem(String name, String type) {
+        this(name, type, null);
+    }
+
+    /**
+     * @param name the name of the bean
+     * @param type the Java type of the bean
+     * @param value the value to be bound to the registry, if <code>null</code> a new instance will be create
+     *              by the {@link org.apache.camel.quarkus.core.CamelMainRecorder}
+     */
+    public CamelBeanBuildItem(String name, String type, @Nullable RuntimeValue<?> value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
-        this.value = Objects.requireNonNull(value);
+        this.value = value;
     }
 
     public String getName() {
@@ -51,6 +67,7 @@ public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBea
         return type;
     }
 
+    @Nullable
     public RuntimeValue<?> getValue() {
         return value;
     }

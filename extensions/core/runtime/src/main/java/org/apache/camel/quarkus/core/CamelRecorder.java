@@ -44,6 +44,15 @@ public class CamelRecorder {
         loader.getValue().load(registry.getValue());
     }
 
+    public void addTypeConverterLoader(RuntimeValue<TypeConverterRegistry> registry,
+            Class<? extends TypeConverterLoader> loader) {
+        try {
+            loader.newInstance().load(registry.getValue());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public RuntimeValue<CamelContext> createContext(
             RuntimeValue<Registry> registry,

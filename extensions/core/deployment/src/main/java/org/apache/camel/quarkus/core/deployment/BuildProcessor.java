@@ -128,6 +128,7 @@ class BuildProcessor {
         /*
          * Discover {@link TypeConverterLoader}.
          */
+        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelTypeConverterRegistryBuildItem typeConverterRegistry(
@@ -158,7 +159,7 @@ class BuildProcessor {
                             .map(String::trim)
                             .filter(l -> !l.isEmpty())
                             .filter(l -> !l.startsWith("#"))
-                            .map(l -> recorderContext.<TypeConverterLoader> newInstance(l))
+                            .map(l -> (Class<? extends TypeConverterLoader>) recorderContext.classProxy(l))
                             .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
                 } catch (IOException e) {
                     throw new RuntimeException("Error discovering TypeConverterLoader", e);
@@ -217,11 +218,20 @@ class BuildProcessor {
                     .filter(item -> !containerBeans.getBeans().contains(item))
                     .forEach(item -> {
                         LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
-                        recorder.bind(
-                                registry,
-                                item.getName(),
-                                recorderContext.classProxy(item.getType()),
-                                item.getValue());
+                        if (item.getValue() != null) {
+                            recorder.bind(
+                                    registry,
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()),
+                                    item.getValue());
+                        } else {
+                            // the instance of the service will be instantiated by the recorder, this avoid
+                            // creating a recorder for trivial services.
+                            recorder.bind(
+                                    registry,
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()));
+                        }
                     });
 
             return new CamelRegistryBuildItem(registry);
@@ -284,11 +294,20 @@ class BuildProcessor {
                     .forEach(item -> {
                         LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
-                        recorder.bind(
-                                registry.getRegistry(),
-                                item.getName(),
-                                recorderContext.classProxy(item.getType()),
-                                item.getValue());
+                        if (item.getValue() != null) {
+                            recorder.bind(
+                                    registry.getRegistry(),
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()),
+                                    item.getValue());
+                        } else {
+                            // the instance of the service will be instantiated by the recorder, this avoid
+                            // creating a recorder for trivial services.
+                            recorder.bind(
+                                    registry.getRegistry(),
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()));
+                        }
                     });
 
             return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
