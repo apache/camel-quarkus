@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 53 in 45 JAR artifacts (0 deprecated)
+Number of Camel components: 54 in 46 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -28,6 +28,9 @@ Number of Camel components: 53 in 45 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
 `aws-kms:label` | 1.0.0-M1 | The aws-kms is used for managing Amazon KMS
+
+| link:https://camel.apache.org/components/latest/aws-lambda-component.html[AWS Lambda] (camel-quarkus-aws-lambda) +
+`aws-lambda:function` | 1.2.0 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
 
 | link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | 0.2.0 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.

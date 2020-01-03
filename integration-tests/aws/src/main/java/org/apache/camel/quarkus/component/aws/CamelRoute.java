@@ -61,6 +61,10 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-ec2?repeatCount=1")
                 .to("aws-ec2://cluster?operation=describeInstances")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-lambda?repeatCount=1")
+                .to("aws-lambda://cluster?operation=listFunctions")
+                .to("log:sf?showAll=true");
     }
 
 }
