@@ -48,8 +48,8 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
     }
 
     /**
-     * @param name the name of the bean
-     * @param type the Java type of the bean
+     * @param name  the name of the bean
+     * @param type  the Java type of the bean
      * @param value the value to be bound to the registry, if <code>null</code> a new instance will be create
      *              by the {@link org.apache.camel.quarkus.core.CamelMainRecorder}
      */

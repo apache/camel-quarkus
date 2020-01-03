@@ -267,5 +267,6 @@
         <setting id="org.eclipse.jdt.core.formatter.enabling_tag" value="CHECKSTYLE:ON"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.format_block_comments" value="false"/>
         <setting id="org.eclipse.jdt.core.formatter.comment.format_line_comments" value="false"/>
+        <setting id="org.eclipse.jdt.core.formatter.comment.format_javadoc_comments" value="false"/>
     </profile>
 </profiles>
