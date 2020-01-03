@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.xml.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.quarkus.component.xml.XmlRecorder;
@@ -36,9 +37,14 @@ class XmlProcessor {
         return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
     }
 
-    @BuildStep(providesCapabilities = CamelCapabilities.XML)
+    @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CapabilityBuildItem capability() {
+        return new CapabilityBuildItem(CamelCapabilities.XML);
     }
 
     @BuildStep
