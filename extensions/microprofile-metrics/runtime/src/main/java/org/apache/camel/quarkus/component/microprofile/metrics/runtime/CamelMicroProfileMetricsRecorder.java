@@ -25,7 +25,6 @@ import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfile
 import org.apache.camel.spi.ManagementStrategy;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.smallrye.metrics.MetricRegistries;
@@ -37,8 +36,9 @@ public class CamelMicroProfileMetricsRecorder {
         return new RuntimeValue<>(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
     }
 
-    public void configureCamelContext(CamelMicroProfileMetricsConfig config, BeanContainer beanContainer) {
-        CamelContext camelContext = beanContainer.instance(CamelContext.class);
+    public void configureCamelContext(CamelMicroProfileMetricsConfig config,
+            RuntimeValue<CamelContext> camelContextRuntimeValue) {
+        CamelContext camelContext = camelContextRuntimeValue.getValue();
         ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
 
         if (config.enableRoutePolicy) {
