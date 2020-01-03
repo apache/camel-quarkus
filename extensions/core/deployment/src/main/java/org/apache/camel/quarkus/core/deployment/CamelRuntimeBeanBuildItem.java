@@ -59,10 +59,12 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
         this.value = value;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getType() {
         return type;
     }
