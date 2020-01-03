@@ -117,6 +117,7 @@ public final class CamelSupport {
         return answer;
     }
 
+    @SafeVarargs
     public static <T> Set<T> setOf(T... items) {
         return Stream.of(items).collect(Collectors.toCollection(HashSet::new));
     }
