@@ -59,10 +59,12 @@ public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBea
         this.value = value;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getType() {
         return type;
     }
