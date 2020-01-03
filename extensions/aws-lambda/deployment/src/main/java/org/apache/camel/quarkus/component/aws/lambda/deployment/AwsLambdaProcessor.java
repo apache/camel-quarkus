@@ -16,13 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws.lambda.deployment;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import org.apache.camel.component.aws.lambda.LambdaConfiguration;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
@@ -60,8 +54,6 @@ class AwsLambdaProcessor {
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> resource) {
 
-        IndexView view = combinedIndexBuildItem.getIndex();
-
         resource.produce(new NativeImageResourceBuildItem("com/amazonaws/partitions/endpoints.json"));
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 Partitions.class.getCanonicalName(),
@@ -71,11 +63,5 @@ class AwsLambdaProcessor {
                 Service.class.getCanonicalName(),
                 CredentialScope.class.getCanonicalName(),
                 LambdaConfiguration.class.getCanonicalName()));
-    }
-
-    protected Collection<String> getImplementations(IndexView view, Class<?> type) {
-        return view.getAllKnownImplementors(DotName.createSimple(type.getName())).stream()
-                .map(ClassInfo::toString)
-                .collect(Collectors.toList());
     }
 }
