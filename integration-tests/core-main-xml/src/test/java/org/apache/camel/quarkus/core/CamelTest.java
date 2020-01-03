@@ -21,20 +21,13 @@ import javax.ws.rs.core.MediaType;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 public class CamelTest {
-    /*
-     * This test is tagged with quarkus-platform-ignore as it needs to be
-     * ignored when running camel test from the quarkus-platform as the
-     * test relies on a local route file being loaded.
-     */
     @Test
-    @Tag("quarkus-platform-ignore")
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
