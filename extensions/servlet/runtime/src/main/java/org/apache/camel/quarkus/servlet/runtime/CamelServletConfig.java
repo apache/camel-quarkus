@@ -86,9 +86,9 @@ public final class CamelServletConfig {
          * sets the precedence: the {@link #servletName} gets effective only if it has a non-default value; otherwise
          * the {@code key} is returned as the servlet name.
          *
-         * @param key the key used in
-         *            {@link org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletsConfig#namedServlets}
-         * @return the effective servlet name to use
+         * @param  key the key used in
+         *             {@link org.apache.camel.quarkus.servlet.runtime.CamelServletConfig.ServletsConfig#namedServlets}
+         * @return     the effective servlet name to use
          */
         public String getEffectiveServletName(final String key) {
             return DEFAULT_SERVLET_NAME.equals(servletName) ? key : servletName;

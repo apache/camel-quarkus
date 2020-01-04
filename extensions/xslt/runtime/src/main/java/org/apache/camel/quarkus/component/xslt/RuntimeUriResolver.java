@@ -56,8 +56,8 @@ public class RuntimeUriResolver implements URIResolver {
     }
 
     /**
-     * @param uri the URI whose translet is seeked
-     * @return the unqualified translet name associated with the given {@code uri}
+     * @param  uri the URI whose translet is seeked
+     * @return     the unqualified translet name associated with the given {@code uri}
      */
     public String getTransletClassName(String uri) {
         final String transletClassName = uriToTransletName.get(uri);
