@@ -17,8 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.Objects;
-
-import javax.annotation.Nullable;
+import java.util.Optional;
 
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -53,7 +52,7 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
      * @param value the value to be bound to the registry, if <code>null</code> a new instance will be create
      *              by the {@link org.apache.camel.quarkus.core.CamelMainRecorder}
      */
-    public CamelRuntimeBeanBuildItem(String name, String type, @Nullable RuntimeValue<?> value) {
+    public CamelRuntimeBeanBuildItem(String name, String type, RuntimeValue<?> value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
         this.value = value;
@@ -69,9 +68,8 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
         return type;
     }
 
-    @Nullable
-    public RuntimeValue<?> getValue() {
-        return value;
+    public Optional<RuntimeValue<?>> getValue() {
+        return Optional.ofNullable(value);
     }
 
     @Override
