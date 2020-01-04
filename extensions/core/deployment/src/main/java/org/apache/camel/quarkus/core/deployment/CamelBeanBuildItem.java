@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.core.deployment;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
@@ -70,7 +68,6 @@ public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBea
         return type;
     }
 
-    @Nullable
     public Optional<RuntimeValue<?>> getValue() {
         return Optional.ofNullable(value);
     }
