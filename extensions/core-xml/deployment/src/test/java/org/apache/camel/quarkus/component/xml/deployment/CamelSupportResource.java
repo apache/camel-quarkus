@@ -30,7 +30,7 @@ import org.apache.camel.CamelContext;
 
 @Path("/test")
 @ApplicationScoped
-public class CamelSupportServlet {
+public class CamelSupportResource {
     @Inject
     CamelContext context;
 

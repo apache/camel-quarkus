@@ -24,12 +24,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.QuarkusDevModeTest;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -39,6 +39,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 public class CamelDevModeTest {
@@ -47,7 +48,7 @@ public class CamelDevModeTest {
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(CamelSupportServlet.class)
+                    .addClass(CamelSupportResource.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @BeforeAll
@@ -90,28 +91,22 @@ public class CamelDevModeTest {
                 StandardCopyOption.REPLACE_EXISTING);
     }
 
-    public static List<String> routes() {
-        return RestAssured.when()
-                .get("/test/describe")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath().getList("routes", String.class);
-    }
-
     @Test
     public void testRoutesDiscovery() throws IOException {
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            List<String> routes = routes();
-            return routes.size() == 1 && routes.contains("r1");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            Response res = RestAssured.when().get("/test/describe").thenReturn();
+
+            assertThat(res.statusCode()).isEqualTo(200);
+            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r1");
         });
 
         copy("routes.2", "routes.xml");
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            List<String> routes = routes();
-            return routes.size() == 1 && routes.contains("r2");
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            Response res = RestAssured.when().get("/test/describe").thenReturn();
+
+            assertThat(res.statusCode()).isEqualTo(200);
+            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r2");
         });
     }
 }
