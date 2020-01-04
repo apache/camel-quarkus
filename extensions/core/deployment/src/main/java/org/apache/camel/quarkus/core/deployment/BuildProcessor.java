@@ -218,12 +218,12 @@ class BuildProcessor {
                     .filter(item -> !containerBeans.getBeans().contains(item))
                     .forEach(item -> {
                         LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
-                        if (item.getValue() != null) {
+                        if (item.getValue().isPresent()) {
                             recorder.bind(
                                     registry,
                                     item.getName(),
                                     recorderContext.classProxy(item.getType()),
-                                    item.getValue());
+                                    item.getValue().get());
                         } else {
                             // the instance of the service will be instantiated by the recorder, this avoid
                             // creating a recorder for trivial services.
@@ -294,12 +294,12 @@ class BuildProcessor {
                     .forEach(item -> {
                         LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
-                        if (item.getValue() != null) {
+                        if (item.getValue().isPresent()) {
                             recorder.bind(
                                     registry.getRegistry(),
                                     item.getName(),
                                     recorderContext.classProxy(item.getType()),
-                                    item.getValue());
+                                    item.getValue().get());
                         } else {
                             // the instance of the service will be instantiated by the recorder, this avoid
                             // creating a recorder for trivial services.
