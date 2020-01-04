@@ -37,8 +37,8 @@ class AttachmentsProcessor {
      * Produces the "real" {@link UploadAttacher} thus overriding the default no-op one produced by
      * {@code camel-quarkus-core-deployment}.
      *
-     * @param recorder the {@link AttachmentsRecorder}
-     * @return a new {@link UploadAttacherBuildItem}
+     * @param  recorder the {@link AttachmentsRecorder}
+     * @return          a new {@link UploadAttacherBuildItem}
      */
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep

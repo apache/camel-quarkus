@@ -426,18 +426,18 @@ class BuildProcessor {
         /**
          * This method is responsible to start camel-main ar runtime.
          *
-         * @param recorder the recorder.
-         * @param main a reference to a {@link CamelMain}.
-         * @param registry a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
-         *            placeholder to
-         *            ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
-         * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
-         *            happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *            threads and so on.
-         * @param shutdown a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param recorder  the recorder.
+         * @param main      a reference to a {@link CamelMain}.
+         * @param registry  a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
+         *                  placeholder to
+         *                  ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
+         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                  threads and so on.
+         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
          * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
-         *            is required as under the hoods the camel registry may look-up beans form the
-         *            container thus we need it to be fully initialized to avoid unexpected behaviors.
+         *                  is required as under the hoods the camel registry may look-up beans form the
+         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
@@ -465,8 +465,8 @@ class BuildProcessor {
          * Note that this {@link BuildStep} is effective only if {@code camel-quarkus-attachments} extension is not in
          * the class path.
          *
-         * @param recorder the {@link CoreAttachmentsRecorder}
-         * @return a new {@link UploadAttacherBuildItem}
+         * @param  recorder the {@link CoreAttachmentsRecorder}
+         * @return          a new {@link UploadAttacherBuildItem}
          */
         @Overridable
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)

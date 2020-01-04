@@ -39,7 +39,7 @@ public @interface EnabledIfProperty {
      * The name of the property to retrieve.
      *
      * @return the property name; never <em>blank</em>
-     * @see org.eclipse.microprofile.config.Config#getValue(String, Class)
+     * @see    org.eclipse.microprofile.config.Config#getValue(String, Class)
      */
     String named();
 
@@ -48,8 +48,8 @@ public @interface EnabledIfProperty {
      * value of the {@link #named} property.
      *
      * @return the regular expression; never <em>blank</em>
-     * @see String#matches(String)
-     * @see java.util.regex.Pattern
+     * @see    String#matches(String)
+     * @see    java.util.regex.Pattern
      */
     String matches();
 
