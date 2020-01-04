@@ -40,7 +40,7 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <docker-maven-plugin.version>0.3.0</docker-maven-plugin.version>
         <directory-maven-plugin.version>0.3.1</directory-maven-plugin.version>
-        <formatter-maven-plugin.version>2.10.0</formatter-maven-plugin.version>
+        <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
