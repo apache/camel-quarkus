@@ -103,6 +103,14 @@
                     <artifactId>jandex-maven-plugin</artifactId>
                     <version>${jandex-maven-plugin.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>net.revelc.code.formatter</groupId>
+                    <artifactId>formatter-maven-plugin</artifactId>
+                    <version>${formatter-maven-plugin.version}</version>
+                    <configuration>
+                        <configFile>${camel.quarkus.project.root}/tooling/eclipse-formatter-config.xml</configFile>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
@@ -172,18 +180,44 @@
             <plugin>
                 <groupId>net.revelc.code.formatter</groupId>
                 <artifactId>formatter-maven-plugin</artifactId>
-                <version>${formatter-maven-plugin.version}</version>
                 <executions>
                     <execution>
+                        <id>format</id>
                         <goals>
                             <goal>format</goal>
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <configFile>${camel.quarkus.project.root}/tooling/eclipse-formatter-config.xml</configFile>
-                </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>check-format</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>net.revelc.code.formatter</groupId>
+                        <artifactId>formatter-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>format</id>
+                                <phase/>
+                            </execution>
+                            <execution>
+                                <id>validate</id>
+                                <goals>
+                                    <goal>validate</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
