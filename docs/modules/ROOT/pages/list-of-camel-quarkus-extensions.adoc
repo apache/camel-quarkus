@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 54 in 46 JAR artifacts (0 deprecated)
+Number of Camel components: 55 in 47 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -77,6 +77,9 @@ Number of Camel components: 54 in 46 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | 1.0.0-M1 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/http-component.html[HTTP] (camel-quarkus-http) +
+`http:httpUri` | 1.0.0 | For calling out to external HTTP servers using Apache HTTP Client 4.x.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
