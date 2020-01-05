@@ -18,6 +18,9 @@ bin/
 *.iml
 *.iws
 
+# IDEA lsp plugin
+lsp/
+
 # NetBeans
 nb-configuration.xml
 
