@@ -16,16 +16,15 @@
  */
 package org.apache.camel.quarkus.component.ftp.deployment;
 
-import org.apache.camel.component.file.remote.FtpConfiguration;
-import org.apache.camel.component.file.remote.FtpsConfiguration;
-import org.apache.camel.component.file.remote.RemoteFileConfiguration;
-import org.apache.camel.component.file.remote.SftpConfiguration;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.file.remote.FtpConfiguration;
+import org.apache.camel.component.file.remote.FtpsConfiguration;
+import org.apache.camel.component.file.remote.RemoteFileConfiguration;
+import org.apache.camel.component.file.remote.SftpConfiguration;
 
 class FtpProcessor {
 
