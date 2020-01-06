@@ -157,7 +157,6 @@
         <module>core-impl</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>ahc</module>
         <module>aws</module>
         <module>base64</module>
         <module>bean</module>
@@ -180,7 +179,6 @@
         <module>microprofile</module>
         <module>mongodb</module>
         <module>netty</module>
-        <module>netty-http</module>
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>

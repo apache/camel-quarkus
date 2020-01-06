@@ -14,10 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http;
+package org.apache.camel.quarkus.component.http.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import java.util.Map;
+import java.util.Objects;
 
-@NativeImageTest
-public class CamelIT extends CamelTest {
+import org.apache.camel.quarkus.test.AvailablePortFinder;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+
+public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
+    @Override
+    public Map<String, String> start() {
+        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty-http.test-port");
+    }
+
+    @Override
+    public void stop() {
+    }
 }

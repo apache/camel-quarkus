@@ -14,20 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.http;
+package org.apache.camel.quarkus.component.http.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class CamelRoute extends RouteBuilder {
-
+public class HttpRoute extends RouteBuilder {
     @Override
     public void configure() {
-        from("netty-http:http://0.0.0.0:{{camel.netty.test-port}}/foo")
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
                 .transform().constant("Netty Hello World");
-
-        /* /producer proxying /foo */
-        from("netty-http:http://0.0.0.0:{{camel.netty.test-port}}/producer")
-                .to("netty-http:http://localhost:{{camel.netty.test-port}}/foo");
-
     }
 }

@@ -29,30 +29,96 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
 
-@Path("/test")
+@Path("/test/client")
 @ApplicationScoped
 public class HttpResource {
     @Inject
     FluentProducerTemplate producerTemplate;
 
-    @Path("/get")
+    // *****************************
+    //
+    // camel-ahc
+    //
+    // *****************************
+
+    @Path("/ahc/get")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String get(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("http://localhost:" + port + "/service/get?bridgeEndpoint=true&httpMethod=GET")
+                .to("ahc:http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
 
-    @Path("/post")
+    @Path("/ahc/post")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String post(@QueryParam("test-port") int port, String message) {
         return producerTemplate
-                .to("http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true&httpMethod=POST")
+                .to("ahc://http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
                 .withBody(message)
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .withHeader(Exchange.HTTP_METHOD, "POST")
+                .request(String.class);
+    }
+
+    // *****************************
+    //
+    // camel-http
+    //
+    // *****************************
+
+    @Path("/http/get")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String httpGet(@QueryParam("test-port") int port) {
+        return producerTemplate
+                .to("http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
+    @Path("/http/post")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String httpPost(@QueryParam("test-port") int port, String message) {
+        return producerTemplate
+                .to("http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
+                .withBody(message)
+                .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .withHeader(Exchange.HTTP_METHOD, "POST")
+                .request(String.class);
+    }
+
+    // *****************************
+    //
+    // camel-netty-http
+    //
+    // *****************************
+
+    @Path("/netty-http/get")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String nettyHttpGet(@QueryParam("test-port") int port) {
+        return producerTemplate
+                .to("netty-http:http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
+    @Path("/netty-http/post")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hettyHttpPost(@QueryParam("test-port") int port, String message) {
+        return producerTemplate
+                .to("netty-http://http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
+                .withBody(message)
+                .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .withHeader(Exchange.HTTP_METHOD, "POST")
                 .request(String.class);
     }
 }
