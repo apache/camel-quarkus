@@ -16,20 +16,16 @@
  */
 package org.apache.camel.quarkus.component.ftp.deployment;
 
-import java.util.Arrays;
-import java.util.List;
+import org.apache.camel.component.file.remote.FtpConfiguration;
+import org.apache.camel.component.file.remote.FtpsConfiguration;
+import org.apache.camel.component.file.remote.RemoteFileConfiguration;
+import org.apache.camel.component.file.remote.SftpConfiguration;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.apache.camel.component.file.remote.FtpConfiguration;
-import org.apache.camel.component.file.remote.FtpsConfiguration;
-import org.apache.camel.component.file.remote.RemoteFileConfiguration;
-import org.apache.camel.component.file.remote.SftpConfiguration;
-import org.apache.camel.quarkus.component.ftp.graal.AnyLocalAddress;
 
 class FtpProcessor {
 
@@ -103,11 +99,5 @@ class FtpProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    List<RuntimeInitializedClassBuildItem> runtimeInitializedClasses() {
-        return Arrays.asList(
-                new RuntimeInitializedClassBuildItem(AnyLocalAddress.class.getName()));
     }
 }
