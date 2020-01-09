@@ -72,6 +72,7 @@
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
+        <module>jsonpath</module>
         <module>kafka</module>
         <module>kotlin</module>
         <module>log</module>

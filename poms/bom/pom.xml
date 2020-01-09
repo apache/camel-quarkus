@@ -269,6 +269,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jsonpath</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-kafka</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -644,6 +649,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jsonpath</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-kafka</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -860,9 +870,9 @@
                 <version>${xstream.version}</version>
             </dependency>
             <dependency>
-            <groupId>org.asynchttpclient</groupId>
-            <artifactId>async-http-client</artifactId>
-            <version>${ahc.version}</version>
+                <groupId>org.asynchttpclient</groupId>
+                <artifactId>async-http-client</artifactId>
+                <version>${ahc.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
