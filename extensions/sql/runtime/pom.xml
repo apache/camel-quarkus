@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-commons-logging</artifactId>
+            <artifactId>camel-quarkus-support-spring</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -69,10 +69,6 @@
         <dependency>
             <groupId>jakarta.security.jacc</groupId>
             <artifactId>jakarta.security.jacc-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.oracle.substratevm</groupId>
-            <artifactId>svm</artifactId>
         </dependency>
     </dependencies>
 

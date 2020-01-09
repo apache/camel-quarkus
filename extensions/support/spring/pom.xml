@@ -21,26 +21,20 @@
 
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-extensions</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-support-extensions</artifactId>
-    <name>Camel Quarkus :: Support</name>
+    <artifactId>camel-quarkus-support-spring-parent</artifactId>
+    <name>Camel Quarkus :: Support :: Spring</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>ahc</module>
-        <module>aws</module>
-        <module>common</module>
-        <module>commons-logging</module>
-        <module>httpclient</module>
-        <module>jetty</module>
-        <module>spring</module>
-        <module>xstream</module>
-        <module>xml</module>
-        <module>xalan</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
+
 </project>

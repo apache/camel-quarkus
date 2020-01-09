@@ -95,6 +95,7 @@ public class SqlResource {
                 .build();
     }
 
+    @SuppressWarnings("unchecked")
     @Path("/storedproc")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
