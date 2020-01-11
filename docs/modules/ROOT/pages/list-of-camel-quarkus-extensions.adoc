@@ -6,7 +6,7 @@ As of Camel Quarkus {camel-quarkus-last-release} the following Camel artifacts a
 == Camel Components
 
 // components: START
-Number of Camel components: 56 in 48 JAR artifacts (0 deprecated)
+Number of Camel components: 57 in 49 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -53,6 +53,9 @@ Number of Camel components: 56 in 48 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2.0 | The class component is for invoking Java classes (Java beans) from Camel.
+
+| link:https://camel.apache.org/components/latest/consul-component.html[Consul] (camel-quarkus-consul) +
+`consul:apiEndpoint` | 1.0.0 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.
 
 | link:https://camel.apache.org/components/latest/controlbus-component.html[Control Bus] (camel-quarkus-controlbus) +
 `controlbus:command:language` | 0.4.0 | The controlbus component provides easy management of Camel applications based on the Control Bus EIP pattern.

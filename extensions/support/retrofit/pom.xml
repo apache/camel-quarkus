@@ -21,18 +21,20 @@
 
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-support-extensions</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-support-httpcomponents</artifactId>
-    <name>Camel Quarkus :: Support :: Apache HTTP Components</name>
+    <artifactId>camel-quarkus-support-retrofit-parent</artifactId>
+    <name>Camel Quarkus :: Support :: Retrofit</name>
     <packaging>pom</packaging>
 
     <modules>
-        <module>httpclient</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
 
 </project>
