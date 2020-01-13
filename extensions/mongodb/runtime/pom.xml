@@ -58,6 +58,14 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-mongodb-client</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-driver-legacy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.oracle.substratevm</groupId>
+            <artifactId>svm</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
