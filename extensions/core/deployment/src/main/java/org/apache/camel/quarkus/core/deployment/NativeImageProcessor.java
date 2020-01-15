@@ -26,8 +26,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-import javax.inject.Inject;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
@@ -52,7 +50,6 @@ import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
-import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,18 +71,13 @@ class NativeImageProcessor {
                 StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
                 PropertiesComponent.class);
 
-        @Inject
-        BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
-        @Inject
-        BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod;
-        @Inject
-        BuildProducer<NativeImageResourceBuildItem> resource;
-        @Inject
-        ApplicationArchivesBuildItem applicationArchivesBuildItem;
-
         @BuildStep
-        void process(CombinedIndexBuildItem combinedIndex) {
-            IndexView view = combinedIndex.getIndex();
+        void reflectiveItems(
+                CombinedIndexBuildItem combinedIndex,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+                BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod) {
+
+            final IndexView view = combinedIndex.getIndex();
 
             CAMEL_REFLECTIVE_CLASSES.stream()
                     .map(Class::getName)
@@ -93,7 +85,7 @@ class NativeImageProcessor {
                     .map(view::getAllKnownImplementors)
                     .flatMap(Collection::stream)
                     .filter(CamelSupport::isPublic)
-                    .forEach(v -> addReflectiveClass(true, v.name().toString()));
+                    .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, v.name().toString())));
 
             Logger log = LoggerFactory.getLogger(NativeImageProcessor.class);
             DotName converter = DotName.createSimple(Converter.class.getName());
@@ -120,32 +112,44 @@ class NativeImageProcessor {
                     .collect(Collectors.toList());
 
             log.debug("Converter classes: " + converterClasses);
-            converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
+            converterClasses
+                    .forEach(ci -> reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, ci.name().toString())));
 
             view.getAnnotations(converter)
                     .stream()
                     .filter(ai -> ai.target().kind() == Kind.METHOD)
                     .filter(ai -> converterClasses.contains(ai.target().asMethod().declaringClass()))
                     .map(ai -> ai.target().asMethod())
-                    .forEach(this::addReflectiveMethod);
+                    .forEach(mi -> reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi)));
 
-            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
-                    .forEach(this::addResource);
-            CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                    .forEach(this::addCamelService);
         }
 
-        protected void addCamelService(Path p) {
+        @BuildStep
+        void resourcesAndServices(
+                ApplicationArchivesBuildItem applicationArchivesBuildItem,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+                BuildProducer<NativeImageResourceBuildItem> resource) {
+
+            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
+                    .forEach(p -> resource.produce(new NativeImageResourceBuildItem(p.toString().substring(1))));
+            CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
+                    .forEach(path -> addCamelService(path, reflectiveClass, resource));
+        }
+
+        static void addCamelService(
+                Path p,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+                BuildProducer<NativeImageResourceBuildItem> resource) {
             try (InputStream is = Files.newInputStream(p)) {
                 Properties props = new Properties();
                 props.load(is);
                 for (Map.Entry<Object, Object> entry : props.entrySet()) {
                     String k = entry.getKey().toString();
                     if (k.equals("class")) {
-                        addReflectiveClass(true, entry.getValue().toString());
+                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, entry.getValue().toString()));
                     } else if (k.endsWith(".class")) {
-                        addReflectiveClass(true, entry.getValue().toString());
-                        addResource(p);
+                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, entry.getValue().toString()));
+                        resource.produce(new NativeImageResourceBuildItem(p.toString().substring(1)));
                     }
                 }
             } catch (Exception e) {
@@ -153,21 +157,6 @@ class NativeImageProcessor {
             }
         }
 
-        protected void addResource(Path p) {
-            addResource(p.toString().substring(1));
-        }
-
-        protected void addResource(String r) {
-            resource.produce(new NativeImageResourceBuildItem(r));
-        }
-
-        protected void addReflectiveClass(boolean methods, String... className) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(methods, false, className));
-        }
-
-        protected void addReflectiveMethod(MethodInfo mi) {
-            reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi));
-        }
     }
 
     /*
