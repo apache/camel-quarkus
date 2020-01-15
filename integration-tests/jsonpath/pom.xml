@@ -115,7 +115,7 @@
                                     <goal>native-image</goal>
                                 </goals>
                                 <configuration>
-                                    <reportErrorsAtRuntime>true</reportErrorsAtRuntime>
+                                    <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
                                     <cleanupServer>true</cleanupServer>
                                     <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
                                     <enableServer>false</enableServer>
