@@ -30,9 +30,8 @@ public class CamelServiceInfo implements CamelBeanInfo {
     public final Path path;
 
     /**
-     * The name of the service entry which is derived from the service path. As example the
-     * name for a service with path <code>META-INF/services/org/apache/camel/component/file</code>
-     * will be <code>file</code>
+     * The name under which this service will be registered in the Camel registry.
+     * This name may or may not be the same as the last segment of {@link #path}.
      */
     public final String name;
 
@@ -59,6 +58,15 @@ public class CamelServiceInfo implements CamelBeanInfo {
     @Override
     public String getType() {
         return this.type;
+    }
+
+    /**
+     * @param  newName the overriding name
+     * @return         a new {@link CamelServiceInfo} having all fields the same as the current {@link CamelServiceInfo}
+     *                 except for {@link #name} which is set to the given {@code newName}
+     */
+    public CamelServiceInfo withName(String newName) {
+        return new CamelServiceInfo(path, newName, type);
     }
 
     @Override

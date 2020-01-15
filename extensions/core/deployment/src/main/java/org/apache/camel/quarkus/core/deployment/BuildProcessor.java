@@ -21,10 +21,12 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
@@ -125,6 +127,12 @@ class BuildProcessor {
                     new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
         }
 
+        @BuildStep
+        void serviceInfoTransformers(BuildProducer<CamelServiceInfoTransformerBuildItem> mapperBuildItems) {
+            mapperBuildItems.produce(
+                    new CamelServiceInfoTransformerBuildItem(CamelServiceInfoTransformers::configurer));
+        }
+
         /*
          * Discover {@link TypeConverterLoader}.
          */
@@ -185,7 +193,8 @@ class BuildProcessor {
                 ApplicationArchivesBuildItem applicationArchives,
                 ContainerBeansBuildItem containerBeans,
                 List<CamelBeanBuildItem> registryItems,
-                List<CamelServiceFilterBuildItem> serviceFilters) {
+                List<CamelServiceFilterBuildItem> serviceFilters,
+                List<CamelServiceInfoTransformerBuildItem> serviceMappers) {
 
             final RuntimeValue<org.apache.camel.spi.Registry> registry = recorder.createRegistry();
 
@@ -205,6 +214,12 @@ class BuildProcessor {
 
                         return !blacklisted;
                     })
+                    .map(
+                            /* apply the CamelServiceInfo transformers */
+                            serviceMappers.stream()
+                                    .map(CamelServiceInfoTransformerBuildItem::getTransformer)
+                                    .reduce(Function::andThen)
+                                    .orElse(Function.identity()))
                     .forEach(si -> {
                         LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
 
