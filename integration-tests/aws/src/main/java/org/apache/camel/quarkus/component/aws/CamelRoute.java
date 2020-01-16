@@ -74,6 +74,9 @@ public class CamelRoute extends RouteBuilder {
                 .setBody(constant("Ciao"))
                 .to("aws-translate://cluster?operation=translateText")
                 .log("Translation: ${body}");
+
+        from("aws-kinesis://mykinesisstream")
+                .to("log:sf?showAll=true");
     }
 
 }
