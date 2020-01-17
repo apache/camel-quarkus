@@ -21,7 +21,6 @@ import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import org.apache.camel.component.netty.NettyHelper;
 import org.apache.camel.component.netty.NettyWorkerPoolBuilder;
 import org.apache.camel.util.concurrent.CamelThreadFactory;
 
@@ -39,8 +38,7 @@ final class SubstituteNettyWorkerPoolBuilder {
 
     @Substitute
     public EventLoopGroup build() {
-        int count = workerCount > 0 ? workerCount : NettyHelper.DEFAULT_IO_THREADS;
-        workerPool = new NioEventLoopGroup(count, new CamelThreadFactory(pattern, name, false));
+        workerPool = new NioEventLoopGroup(workerCount, new CamelThreadFactory(pattern, name, false));
         return workerPool;
     }
 }

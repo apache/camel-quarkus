@@ -43,6 +43,10 @@ public class CamelMainRecorder {
         main.setCamelContext(runtime.getValue());
         main.addMainListener(new CamelMainEventDispatcher());
 
+        // properties are loaded through MicroProfile Config so there's
+        // no need to look for sources.
+        main.setDefaultPropertyPlaceholderLocation("false");
+
         // xml rest/routes should be explicitly configured as an
         // additional dependency is required thus, disable auto
         // discovery

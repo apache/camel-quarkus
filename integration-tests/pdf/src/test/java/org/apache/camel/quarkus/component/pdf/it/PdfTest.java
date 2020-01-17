@@ -70,5 +70,4 @@ class PdfTest {
         assertTrue(pdfText.contains("content to be included in the created pdf document"));
         assertTrue(pdfText.contains("another line that should be appended"));
     }
-
 }

@@ -35,6 +35,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -61,7 +62,12 @@ class DozerProcessor {
         return new JaxbFileRootBuildItem("com/github/dozermapper/core/builder/model/jaxb");
     }
 
-    @BuildStep(applicationArchiveMarkers = { "com/github/dozermapper/core" })
+    @BuildStep
+    AdditionalApplicationArchiveMarkerBuildItem dozerArchiveMarker() {
+        return new AdditionalApplicationArchiveMarkerBuildItem("com/github/dozermapper/core");
+    }
+
+    @BuildStep
     void configureCamelDozer(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> nativeImage,
             CamelDozerConfig camelDozerConfig) {
@@ -112,7 +118,11 @@ class DozerProcessor {
                 new ReflectiveClassBuildItem(false, false,
                         "com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl"));
 
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, DozerConfiguration.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(
+                true,
+                false,
+                DozerConfiguration.class,
+                DozerBeanMapperConfiguration.class));
 
         if (camelDozerConfig.mappingFiles.isPresent()) {
             // Register for reflection any classes participating in Dozer mapping
@@ -155,6 +165,19 @@ class DozerProcessor {
         if (camelDozerConfig.typeConverterEnabled) {
             camelDozerRecorder.initializeDozerTypeConverter(camelContextBuildItem.getCamelContext());
         }
+    }
+
+    /*
+     * Make component/endpoint configurer discoverable in native image.
+     *
+     * TODO: should not be required once https://github.com/apache/camel-quarkus/pull/618
+     *       get merged
+     */
+    @BuildStep
+    NativeImageResourceBuildItem configurers() {
+        return new NativeImageResourceBuildItem(
+                "META-INF/services/org/apache/camel/configurer/dozer-component",
+                "META-INF/services/org/apache/camel/configurer/dozer-endpoint");
     }
 
     private URI mappingPathToURI(String mappingPath) {
