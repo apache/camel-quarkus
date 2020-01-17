@@ -29,6 +29,13 @@ import java.util.Set;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
+import io.quarkus.deployment.annotations.BuildProducer;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.ArchiveRootBuildItem;
+import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
+import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.xslt.XsltComponent;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
 import org.apache.camel.quarkus.component.xslt.CamelXsltErrorListener;
@@ -40,14 +47,6 @@ import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 import org.apache.commons.lang3.StringUtils;
-
-import io.quarkus.deployment.annotations.BuildProducer;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.ArchiveRootBuildItem;
-import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
-import io.quarkus.runtime.RuntimeValue;
 
 class XsltProcessor {
     /*

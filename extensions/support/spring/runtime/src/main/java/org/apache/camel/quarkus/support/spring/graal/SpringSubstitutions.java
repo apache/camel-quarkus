@@ -29,7 +29,6 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-
 import org.springframework.core.MethodParameter;
 import org.springframework.core.io.Resource;
 import org.springframework.util.PathMatcher;

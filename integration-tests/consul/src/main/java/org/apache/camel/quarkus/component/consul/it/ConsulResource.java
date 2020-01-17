@@ -26,11 +26,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import com.orbitz.consul.model.kv.ImmutableValue;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.consul.ConsulConstants;
 import org.apache.camel.component.consul.endpoint.ConsulKeyValueActions;
-
-import com.orbitz.consul.model.kv.ImmutableValue;
 
 @Path("/test/kv")
 @ApplicationScoped

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.microprofile.it.metrics;
 
 import org.apache.camel.builder.RouteBuilder;
+
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_GAUGE_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_HISTOGRAM_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_METER_MARK;

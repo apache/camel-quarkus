@@ -24,6 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.ftpserver.ConnectionConfigFactory;
@@ -39,8 +40,6 @@ import org.apache.ftpserver.usermanager.impl.BaseUser;
 import org.apache.ftpserver.usermanager.impl.WritePermission;
 import org.apache.ftpserver.usermanager.impl.WriteRequest;
 import org.jboss.logging.Logger;
-
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = Logger.getLogger(FtpTestResource.class);

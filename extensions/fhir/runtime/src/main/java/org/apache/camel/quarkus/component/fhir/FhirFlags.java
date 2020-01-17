@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.fhir;
 
 import java.util.function.BooleanSupplier;
+
 import org.eclipse.microprofile.config.ConfigProvider;
 
 public final class FhirFlags {

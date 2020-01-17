@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.attachments;
 
 import java.io.File;
+
 import javax.activation.DataHandler;
 
 import io.quarkus.runtime.RuntimeValue;

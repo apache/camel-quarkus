@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.pdf.deployment;
 
-import org.apache.camel.component.pdf.PdfConfiguration;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.pdf.PdfConfiguration;
 
 class PdfProcessor {
 

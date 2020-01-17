@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.hystrix.graal;
 import com.netflix.config.jmx.ConfigMBean;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-
 import org.apache.commons.configuration.AbstractConfiguration;
 
 @TargetClass(className = "com.netflix.config.jmx.ConfigJMXManager")

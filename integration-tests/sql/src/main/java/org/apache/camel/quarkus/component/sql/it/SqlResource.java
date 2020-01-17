@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.component.sql.it;
 
-import io.agroal.api.AgroalDataSource;
-import io.quarkus.agroal.DataSource;
-
 import java.net.URI;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -40,6 +37,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.agroal.DataSource;
 import org.apache.camel.ProducerTemplate;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 

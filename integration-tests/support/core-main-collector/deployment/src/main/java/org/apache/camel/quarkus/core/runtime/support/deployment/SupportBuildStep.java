@@ -19,9 +19,7 @@ package org.apache.camel.quarkus.core.runtime.support.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelRoutesCollectorBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelTypeConverterLoaderBuildItem;
 import org.apache.camel.quarkus.core.runtime.support.SupportRecorder;
 
 public class SupportBuildStep {

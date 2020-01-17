@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.fhir.it;
 
 import java.io.InputStream;
 import java.net.URI;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

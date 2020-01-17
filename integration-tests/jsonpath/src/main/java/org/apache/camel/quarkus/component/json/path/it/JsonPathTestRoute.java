@@ -17,11 +17,9 @@
 package org.apache.camel.quarkus.component.json.path.it;
 
 import com.jayway.jsonpath.Option;
-
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.jsonpath.JsonPath;
-
-import io.quarkus.runtime.annotations.RegisterForReflection;
 
 public class JsonPathTestRoute extends RouteBuilder {
 

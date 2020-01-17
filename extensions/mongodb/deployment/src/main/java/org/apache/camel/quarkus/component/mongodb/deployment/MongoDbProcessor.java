@@ -16,14 +16,12 @@
  */
 package org.apache.camel.quarkus.component.mongodb.deployment;
 
+import com.mongodb.MongoClient;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-
-import com.mongodb.MongoClient;
-
 import org.apache.camel.quarkus.component.mongodb.CamelMongoClientRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 

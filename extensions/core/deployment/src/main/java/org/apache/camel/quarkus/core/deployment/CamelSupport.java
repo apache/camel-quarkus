@@ -32,11 +32,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.ClassInfo;
-
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 
 public final class CamelSupport {
     public static final String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";

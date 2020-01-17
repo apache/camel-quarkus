@@ -20,13 +20,12 @@ import java.io.IOException;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-
-import static net.minidev.json.JSONValue.defaultWriter;
-
 import net.minidev.json.JSONStyle;
 import net.minidev.json.JSONValue;
 import net.minidev.json.reader.JsonWriter;
 import net.minidev.json.reader.JsonWriterI;
+
+import static net.minidev.json.JSONValue.defaultWriter;
 
 @TargetClass(JSONValue.class)
 final class JSONValueSubstitution {

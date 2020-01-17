@@ -21,8 +21,8 @@ import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest

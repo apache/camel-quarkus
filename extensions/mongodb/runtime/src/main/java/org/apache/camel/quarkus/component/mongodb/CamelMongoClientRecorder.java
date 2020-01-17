@@ -16,10 +16,9 @@
  */
 package org.apache.camel.quarkus.component.mongodb;
 
+import com.mongodb.client.MongoClient;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-
-import com.mongodb.client.MongoClient;
 
 @Recorder
 public class CamelMongoClientRecorder {

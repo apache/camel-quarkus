@@ -16,9 +16,8 @@
  */
 package org.apache.camel.quarkus.component.xslt.deployment;
 
-import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver;
-
 import io.quarkus.builder.item.MultiBuildItem;
+import org.apache.camel.quarkus.component.xslt.RuntimeUriResolver;
 
 /**
  * Holds a pair of XSLT template URI and the unqualified translet name to use when creating a

@@ -22,7 +22,6 @@ import io.opentracing.Tracer;
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-
 import org.apache.camel.opentracing.OpenTracingTracer;
 
 @Recorder

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.mail;
 
 import java.util.Properties;
+
 import javax.enterprise.inject.Produces;
 import javax.mail.Session;
 

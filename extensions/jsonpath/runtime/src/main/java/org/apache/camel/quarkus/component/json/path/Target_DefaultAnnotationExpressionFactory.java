@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
-
 import org.apache.camel.support.ObjectHelper;
 import org.apache.camel.support.language.DefaultAnnotationExpressionFactory;
 

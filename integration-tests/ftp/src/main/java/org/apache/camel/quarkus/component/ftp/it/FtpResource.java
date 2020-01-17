@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.ftp.it;
 
 import java.net.URI;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;

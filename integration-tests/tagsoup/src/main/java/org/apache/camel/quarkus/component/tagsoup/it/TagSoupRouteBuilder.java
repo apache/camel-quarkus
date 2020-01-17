@@ -16,9 +16,10 @@
  */
 package org.apache.camel.quarkus.component.tagsoup.it;
 
-import org.apache.camel.builder.RouteBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+
+import org.apache.camel.builder.RouteBuilder;
 
 public class TagSoupRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TO_DOM = "direct:html-to-dom";

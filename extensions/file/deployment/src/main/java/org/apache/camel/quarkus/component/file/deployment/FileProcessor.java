@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.file.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-
 import org.apache.camel.component.file.GenericFile;
 
 class FileProcessor {
