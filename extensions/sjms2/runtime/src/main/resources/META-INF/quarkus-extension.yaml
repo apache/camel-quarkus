@@ -16,8 +16,8 @@
 #
 
 ---
-name: "Camel Quarkus SJMS"
-description: "Camel Quarkus JMS support"
+name: "Camel Quarkus SJMS2"
+description: "Camel Quarkus JMS 2.0 support"
 metadata:
   keywords:
   - "camel"
