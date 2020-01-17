@@ -30,7 +30,7 @@ public class LazyAppScopedRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:lazy")
-                .setBody(() -> "lazy");
+                .setBody(exchange -> "lazy");
     }
 
 }
