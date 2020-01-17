@@ -43,20 +43,19 @@ public class PdfResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    private PDDocument document;
+    private byte[] document;
 
     @Path("/createFromText")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response createFromText(String message) throws Exception {
-
-        byte[] pdfBytes = producerTemplate.requestBody(
+        document = producerTemplate.requestBody(
                 "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier", message, byte[].class);
-        document = PDDocument.load(pdfBytes);
-        LOG.infof("The PDDocument has been created and contains %d bytes", pdfBytes.length);
 
-        return Response.created(new URI("pdf/extractText")).entity(pdfBytes).build();
+        LOG.infof("The PDDocument has been created and contains %d bytes", document.length);
+
+        return Response.created(new URI("pdf/extractText")).entity(document).build();
     }
 
     @Path("/appendText")
@@ -64,12 +63,12 @@ public class PdfResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response appendText(String message) throws Exception {
+        document = producerTemplate.requestBodyAndHeader("pdf:append", message,
+                PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, PDDocument.load(document), byte[].class);
 
-        byte[] pdfBytes = producerTemplate.requestBodyAndHeader("pdf:append", message,
-                PdfHeaderConstants.PDF_DOCUMENT_HEADER_NAME, document, byte[].class);
-        LOG.infof("The PDDocument has been updated and now contains %d bytes", pdfBytes.length);
+        LOG.infof("The PDDocument has been updated and now contains %d bytes", document.length);
 
-        return Response.ok().entity(pdfBytes).build();
+        return Response.ok().entity(document).build();
     }
 
     @Path("/extractText")
@@ -77,6 +76,6 @@ public class PdfResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String get() throws Exception {
         LOG.info("Extracting text from the PDDocument");
-        return producerTemplate.requestBody("pdf:extractText", document, String.class);
+        return producerTemplate.requestBody("pdf:extractText", PDDocument.load(document), String.class);
     }
 }
