@@ -21,7 +21,6 @@ import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -54,8 +53,11 @@ import org.apache.camel.quarkus.core.CamelMainRecorder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
+import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem.CamelServiceDestination;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -125,6 +127,68 @@ class BuildProcessor {
                     new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
         }
 
+        @BuildStep
+        void coreServicePatterns(BuildProducer<CamelServicePatternBuildItem> services) {
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    true,
+                    "META-INF/services/org/apache/camel/component/*",
+                    "META-INF/services/org/apache/camel/language/*",
+                    "META-INF/services/org/apache/camel/dataformat/*"));
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    true,
+                    "META-INF/services/org/apache/camel/*",
+                    "META-INF/services/org/apache/camel/management/*",
+                    "META-INF/services/org/apache/camel/model/*",
+                    "META-INF/services/org/apache/camel/configurer/*"));
+        }
+
+        @BuildStep
+        void userServicePatterns(
+                CamelConfig camelConfig,
+                BuildProducer<CamelServicePatternBuildItem> services) {
+
+            camelConfig.service.discovery.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    true,
+                    list)));
+
+            camelConfig.service.discovery.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    false,
+                    list)));
+
+            camelConfig.service.registry.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    true,
+                    list)));
+
+            camelConfig.service.registry.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    false,
+                    list)));
+        }
+
+        @BuildStep
+        void camelServices(
+                ApplicationArchivesBuildItem applicationArchives,
+                List<CamelServicePatternBuildItem> servicePatterns,
+                BuildProducer<CamelServiceBuildItem> camelServices) {
+
+            final PathFilter pathFilter = servicePatterns.stream()
+                    .filter(patterns -> patterns.getDestination() == CamelServiceDestination.DISCOVERY)
+                    .collect(
+                            PathFilter.Builder::new,
+                            (bldr, patterns) -> bldr.patterns(patterns.isInclude(), patterns.getPatterns()),
+                            PathFilter.Builder::combine)
+                    .build();
+            CamelSupport.services(applicationArchives, pathFilter)
+                    .forEach(camelServices::produce);
+        }
+
         /*
          * Discover {@link TypeConverterLoader}.
          */
@@ -145,8 +209,8 @@ class BuildProcessor {
             // account even if it should not.
             //
             // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
-            //       a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
-            //       any discovery at runtime.
+            // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
+            // any discovery at runtime.
             //
             for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
                 Path path = archive.getArchiveRoot().resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
@@ -182,14 +246,26 @@ class BuildProcessor {
         CamelRegistryBuildItem registry(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
+                CamelConfig camelConfig,
                 ApplicationArchivesBuildItem applicationArchives,
                 ContainerBeansBuildItem containerBeans,
                 List<CamelBeanBuildItem> registryItems,
-                List<CamelServiceFilterBuildItem> serviceFilters) {
+                List<CamelServiceFilterBuildItem> serviceFilters,
+                List<CamelServicePatternBuildItem> servicePatterns) {
 
             final RuntimeValue<org.apache.camel.spi.Registry> registry = recorder.createRegistry();
 
-            CamelSupport.services(applicationArchives)
+            final PathFilter pathFilter = servicePatterns.stream()
+                    .filter(patterns -> patterns.getDestination() == CamelServiceDestination.REGISTRY)
+                    .collect(
+                            PathFilter.Builder::new,
+                            (builder, patterns) -> builder.patterns(patterns.isInclude(), patterns.getPatterns()),
+                            PathFilter.Builder::combine)
+                    .include(camelConfig.service.registry.includePatterns)
+                    .exclude(camelConfig.service.registry.excludePatterns)
+                    .build();
+
+            CamelSupport.services(applicationArchives, pathFilter)
                     .filter(si -> !containerBeans.getBeans().contains(si))
                     .filter(si -> {
                         //
@@ -268,6 +344,7 @@ class BuildProcessor {
                 CamelTypeConverterRegistryBuildItem typeConverterRegistry,
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
                 CamelRoutesLoaderBuildItems.Xml xmlLoader,
+                CamelFactoryFinderResolverBuildItem factoryFinderResolverBuildItem,
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
@@ -275,6 +352,7 @@ class BuildProcessor {
                     typeConverterRegistry.getRegistry(),
                     contextFactory.getContextFactory(),
                     xmlLoader.getLoader(),
+                    factoryFinderResolverBuildItem.getFactoryFinderResolver(),
                     beanContainer.getValue());
 
             return new CamelContextBuildItem(context);
@@ -312,6 +390,27 @@ class BuildProcessor {
 
             return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
         }
+
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        CamelFactoryFinderResolverBuildItem factoryFinderResolver(
+                RecorderContext recorderContext,
+                CamelRecorder recorder,
+                List<CamelServiceBuildItem> camelServices) {
+
+            RuntimeValue<Builder> builder = recorder.factoryFinderResolverBuilder();
+
+            camelServices.stream()
+                    .forEach(service -> {
+                        recorder.factoryFinderResolverEntry(
+                                builder,
+                                service.path.toString(),
+                                recorderContext.classProxy(service.type));
+                    });
+
+            return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));
+        }
+
     }
 
     /*
@@ -343,10 +442,10 @@ class BuildProcessor {
                     // public and non-abstract
                     .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
                     .map(ClassInfo::name)
-                    .filter(dotName -> CamelSupport.isPathIncluded(
-                            dotName.toString('/'),
-                            config.main.routesDiscovery.excludePatterns.orElse(Collections.emptyList()),
-                            config.main.routesDiscovery.includePatterns.orElse(Collections.emptyList())))
+                    .filter(new PathFilter.Builder()
+                            .exclude(config.main.routesDiscovery.excludePatterns)
+                            .include(config.main.routesDiscovery.includePatterns)
+                            .build().asDotNamePredicate())
                     .map(CamelRoutesBuilderClassBuildItem::new)
                     .collect(Collectors.toList());
         }

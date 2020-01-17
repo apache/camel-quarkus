@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.hystrix.deployment;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.model.CircuitBreakerDefinition;
@@ -38,7 +37,6 @@ class HystrixProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<NativeImageResourceBuildItem> resource,
             BuildProducer<NativeImageSystemPropertyBuildItem> systemProperty) {
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
@@ -46,8 +44,6 @@ class HystrixProcessor {
                 HystrixConfigurationDefinition.class,
                 CircuitBreakerDefinition.class,
                 OnFallbackDefinition.class));
-
-        resource.produce(new NativeImageResourceBuildItem("META-INF/services/org/apache/camel/model/CircuitBreakerDefinition"));
 
         // Force RxJava to not use Unsafe API
         systemProperty.produce(new NativeImageSystemPropertyBuildItem("rx.unsafe-disable", "true"));

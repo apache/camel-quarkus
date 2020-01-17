@@ -16,14 +16,9 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -41,6 +36,7 @@ import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
@@ -69,7 +65,8 @@ class NativeImageProcessor {
                 CamelContext.class,
                 StreamCachingStrategy.class,
                 StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
-                PropertiesComponent.class);
+                PropertiesComponent.class,
+                DataFormat.class);
 
         @BuildStep
         void reflectiveItems(
@@ -125,36 +122,24 @@ class NativeImageProcessor {
         }
 
         @BuildStep
-        void resourcesAndServices(
+        void resources(
                 ApplicationArchivesBuildItem applicationArchivesBuildItem,
-                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
                 BuildProducer<NativeImageResourceBuildItem> resource) {
 
             CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
                     .forEach(p -> resource.produce(new NativeImageResourceBuildItem(p.toString().substring(1))));
-            CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                    .forEach(path -> addCamelService(path, reflectiveClass, resource));
         }
 
-        static void addCamelService(
-                Path p,
-                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-                BuildProducer<NativeImageResourceBuildItem> resource) {
-            try (InputStream is = Files.newInputStream(p)) {
-                Properties props = new Properties();
-                props.load(is);
-                for (Map.Entry<Object, Object> entry : props.entrySet()) {
-                    String k = entry.getKey().toString();
-                    if (k.equals("class")) {
-                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, entry.getValue().toString()));
-                    } else if (k.endsWith(".class")) {
-                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, entry.getValue().toString()));
-                        resource.produce(new NativeImageResourceBuildItem(p.toString().substring(1)));
-                    }
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        @BuildStep
+        void camelServices(
+                List<CamelServiceBuildItem> camelServices,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+            camelServices.stream()
+                    .forEach(service -> {
+                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.type));
+                    });
+
         }
 
     }

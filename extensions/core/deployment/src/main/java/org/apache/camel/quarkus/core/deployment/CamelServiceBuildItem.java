@@ -19,50 +19,57 @@ package org.apache.camel.quarkus.core.deployment;
 import java.nio.file.Path;
 import java.util.Objects;
 
+import io.quarkus.builder.item.MultiBuildItem;
+
 /**
- * Utility class to describe a camel service which is a result of reading
- * services from resources belonging to META-INF/services/org/apache/camel.
+ * A {@link MultiBuildItem} holding information about a service defined in a property file somewhere under
+ * {@code META-INF/services/org/apache/camel}.
  */
-public class CamelServiceInfo implements CamelBeanInfo {
-    /**
-     * The path of the service file like META-INF/services/org/apache/camel/component/file.
-     */
-    public final Path path;
+public final class CamelServiceBuildItem extends MultiBuildItem implements CamelBeanInfo {
 
-    /**
-     * The name of the service entry which is derived from the service path. As example the
-     * name for a service with path <code>META-INF/services/org/apache/camel/component/file</code>
-     * will be <code>file</code>
-     */
-    public final String name;
+    final Path path;
 
-    /**
-     * The full qualified class name of the service.
-     */
-    public final String type;
+    final String name;
 
-    public CamelServiceInfo(Path path, String type) {
+    final String type;
+
+    public CamelServiceBuildItem(Path path, String type) {
         this(path, path.getFileName().toString(), type);
     }
 
-    public CamelServiceInfo(Path path, String name, String type) {
+    public CamelServiceBuildItem(Path path, String name, String type) {
+        Objects.requireNonNull(path, "path");
+        Objects.requireNonNull(type, () -> "type for path " + path);
         this.path = path;
         this.name = name;
         this.type = type;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
+    /**
+     * @return the path of the service file like {@code META-INF/services/org/apache/camel/component/file}.
+     */
+    public Path getPath() {
+        return path;
     }
 
-    @Override
+    /**
+     * @return the name under which this service will be registered in the Camel registry.
+     *         This name may or may not be the same as the last segment of {@link #path}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @return The fully qualified class name of the service.
+     */
     public String getType() {
-        return this.type;
+        return type;
     }
 
     @Override
     public boolean equals(Object o) {
+        /* This must be the same as in other implementations of CamelBeanInfo */
         if (this == o) {
             return true;
         }
@@ -76,15 +83,8 @@ public class CamelServiceInfo implements CamelBeanInfo {
 
     @Override
     public int hashCode() {
+        /* This must be the same as in other implementations of CamelBeanInfo */
         return Objects.hash(getName(), getType());
     }
 
-    @Override
-    public String toString() {
-        return "ServiceInfo{"
-                + "path='" + path.toString() + '\''
-                + ", name=" + name
-                + ", type=" + type
-                + '}';
-    }
 }

@@ -32,6 +32,12 @@ public class CamelConfig {
     @ConfigItem
     public MainConfig main;
 
+    /**
+     * Build time configuration options for Camel services.
+     */
+    @ConfigItem
+    public ServiceConfig service;
+
     @ConfigGroup
     public static class MainConfig {
         /**
@@ -87,4 +93,85 @@ public class CamelConfig {
         @ConfigItem
         public Optional<List<String>> includePatterns;
     }
+
+    @ConfigGroup
+    public static class ServiceConfig {
+
+        /**
+         * Build time configuration related to discoverability of Camel services via the
+         * {@code org.apache.camel.spi.FactoryFinder} mechanism
+         */
+        @ConfigItem
+        public ServiceDiscoveryConfig discovery;
+
+        /** Build time configuration related to registering of Camel services to the Camel registry */
+        @ConfigItem
+        public ServiceRegistryConfig registry;
+    }
+
+    @ConfigGroup
+    public static class ServiceDiscoveryConfig {
+
+        /**
+         * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath.
+         * The services defined in the matching files will <strong>not<strong> be discoverable via the
+         * {@code org.apache.camel.spi.FactoryFinder} mechanism.
+         * <p>
+         * The excludes have higher precedence than includes. The excludes defined here can also be used to veto the
+         * discoverability of services included by Camel Quarkus extensions.
+         * <p>
+         * Example values:
+         * <code>META-INF/services/org/apache/camel/foo/&#42;,META-INF/services/org/apache/camel/foo/&#42;&#42;/bar</code>
+         */
+        @ConfigItem
+        public Optional<List<String>> excludePatterns;
+
+        /**
+         * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath.
+         * The services defined in the matching files will be discoverable via the
+         * {@code org.apache.camel.spi.FactoryFinder} mechanism unless the given file is excluded via
+         * {@code exclude-patterns}.
+         * <p>
+         * Note that Camel Quarkus extensions may include some services by default. The services selected here added
+         * to those services and the exclusions defined in {@code exclude-patterns} are applied to the union set.
+         * <p>
+         * Example values:
+         * <code>META-INF/services/org/apache/camel/foo/&#42;,META-INF/services/org/apache/camel/foo/&#42;&#42;/bar</code>
+         */
+        @ConfigItem
+        public Optional<List<String>> includePatterns;
+    }
+
+    @ConfigGroup
+    public static class ServiceRegistryConfig {
+
+        /**
+         * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath.
+         * The services defined in the matching files will <strong>not<strong> be added to Camel registry during
+         * application's static initialization.
+         * <p>
+         * The excludes have higher precedence than includes. The excludes defined here can also be used to veto the
+         * registration of services included by Camel Quarkus extensions.
+         * <p>
+         * Example values:
+         * <code>META-INF/services/org/apache/camel/foo/&#42;,META-INF/services/org/apache/camel/foo/&#42;&#42;/bar</code>
+         */
+        @ConfigItem
+        public Optional<List<String>> excludePatterns;
+
+        /**
+         * A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath.
+         * The services defined in the matching files will be added to Camel registry during application's static
+         * initialization unless the given file is excluded via {@code exclude-patterns}.
+         * <p>
+         * Note that Camel Quarkus extensions may include some services by default. The services selected here added
+         * to those services and the exclusions defined in {@code exclude-patterns} are applied to the union set.
+         * <p>
+         * Example values:
+         * <code>META-INF/services/org/apache/camel/foo/&#42;,META-INF/services/org/apache/camel/foo/&#42;&#42;/bar</code>
+         */
+        @ConfigItem
+        public Optional<List<String>> includePatterns;
+    }
+
 }

@@ -22,19 +22,15 @@ import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.AbstractMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.util.AntPathMatcher;
-import org.apache.camel.util.ObjectHelper;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.jboss.jandex.ClassInfo;
 
 public final class CamelSupport {
@@ -60,29 +56,6 @@ public final class CamelSupport {
         }
     }
 
-    public static boolean isPathIncluded(String path, Collection<String> excludePatterns, Collection<String> includePatterns) {
-        final AntPathMatcher matcher = new AntPathMatcher();
-
-        if (ObjectHelper.isEmpty(excludePatterns) && ObjectHelper.isEmpty(includePatterns)) {
-            return true;
-        }
-
-        // same logic as  org.apache.camel.main.DefaultRoutesCollector so exclude
-        // take precedence over include
-        for (String part : excludePatterns) {
-            if (matcher.match(part.trim(), path)) {
-                return false;
-            }
-        }
-        for (String part : includePatterns) {
-            if (matcher.match(part.trim(), path)) {
-                return true;
-            }
-        }
-
-        return ObjectHelper.isEmpty(includePatterns);
-    }
-
     public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {
         return archives.getAllApplicationArchives().stream()
                 .map(arch -> arch.getArchiveRoot().resolve(path))
@@ -91,29 +64,22 @@ public final class CamelSupport {
                 .filter(Files::isRegularFile);
     }
 
-    public static Stream<CamelServiceInfo> services(ApplicationArchivesBuildItem applicationArchivesBuildItem) {
-        return CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                .map(CamelSupport::services)
-                .flatMap(Collection::stream);
+    public static Stream<CamelServiceBuildItem> services(ApplicationArchivesBuildItem archives, PathFilter pathFilter) {
+        return resources(archives, CAMEL_SERVICE_BASE_PATH)
+                .filter(pathFilter.asPathPredicate())
+                .map(path -> new AbstractMap.SimpleImmutableEntry<>(path, readProperties(path)))
+                .filter(entry -> entry.getValue().getProperty("class") != null)
+                .map(entry -> new CamelServiceBuildItem(entry.getKey(), entry.getValue().getProperty("class")));
     }
 
-    private static List<CamelServiceInfo> services(Path p) {
-        List<CamelServiceInfo> answer = new ArrayList<>();
-
-        try (InputStream is = Files.newInputStream(p)) {
-            Properties props = new Properties();
-            props.load(is);
-            for (Map.Entry<Object, Object> entry : props.entrySet()) {
-                String k = entry.getKey().toString();
-                if (k.equals("class")) {
-                    answer.add(new CamelServiceInfo(p, entry.getValue().toString()));
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    private static Properties readProperties(Path path) {
+        try (InputStream in = Files.newInputStream(path)) {
+            final Properties result = new Properties();
+            result.load(in);
+            return result;
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read " + path, e);
         }
-
-        return answer;
     }
 
     @SafeVarargs
