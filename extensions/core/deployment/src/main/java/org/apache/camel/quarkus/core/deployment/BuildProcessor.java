@@ -133,9 +133,7 @@ class BuildProcessor {
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.REGISTRY,
                     true,
-                    "META-INF/services/org/apache/camel/component/*",
-                    "META-INF/services/org/apache/camel/language/*",
-                    "META-INF/services/org/apache/camel/dataformat/*"));
+                    "META-INF/services/org/apache/camel/component/*"));
 
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.DISCOVERY,
@@ -143,7 +141,9 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/*",
                     "META-INF/services/org/apache/camel/management/*",
                     "META-INF/services/org/apache/camel/model/*",
-                    "META-INF/services/org/apache/camel/configurer/*"));
+                    "META-INF/services/org/apache/camel/configurer/*",
+                    "META-INF/services/org/apache/camel/language/*",
+                    "META-INF/services/org/apache/camel/dataformat/*"));
         }
 
         @BuildStep
