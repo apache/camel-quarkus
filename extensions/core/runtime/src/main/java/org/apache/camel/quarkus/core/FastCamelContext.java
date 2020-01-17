@@ -21,10 +21,8 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.camel.AsyncProcessor;
-import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
-import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
 import org.apache.camel.Producer;
@@ -41,9 +39,11 @@ import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
+import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
 import org.apache.camel.impl.engine.DefaultInjector;
+import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.impl.engine.DefaultNodeIdFactory;
 import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
@@ -74,7 +74,6 @@ import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentResolver;
-import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.ExecutorServiceManager;
@@ -82,7 +81,6 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
-import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
@@ -174,35 +172,12 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected LanguageResolver createLanguageResolver() {
-        // languages are automatically discovered by build steps so we can reduce the
-        // operations done by the standard resolver by looking them up directly from the
-        // registry
-        return (name, context) -> {
-            Language answer = context.getRegistry().lookupByNameAndType(name, Language.class);
-            if (answer == null) {
-                throw new NoSuchLanguageException(name);
-            }
-
-            return answer;
-        };
+        return new DefaultLanguageResolver();
     }
 
     @Override
     protected DataFormatResolver createDataFormatResolver() {
-        return new DataFormatResolver() {
-            @Override
-            public DataFormat resolveDataFormat(String name, CamelContext context) {
-                return createDataFormat(name, context);
-            }
-
-            @Override
-            public DataFormat createDataFormat(String name, CamelContext context) {
-                // data formats are automatically discovered by build steps so we can reduce the
-                // operations done by the standard resolver by looking them up directly from the
-                // registry
-                return context.getRegistry().lookupByNameAndType(name, DataFormat.class);
-            }
-        };
+        return new DefaultDataFormatResolver();
     }
 
     @Override
