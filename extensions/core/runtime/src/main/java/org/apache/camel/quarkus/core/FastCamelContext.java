@@ -42,7 +42,6 @@ import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
-import org.apache.camel.impl.engine.DefaultFactoryFinderResolver;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
 import org.apache.camel.impl.engine.DefaultInjector;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
@@ -109,9 +108,9 @@ import org.apache.camel.spi.ValidatorRegistry;
 public class FastCamelContext extends AbstractCamelContext {
     private Model model;
 
-    public FastCamelContext() {
+    public FastCamelContext(FactoryFinderResolver factoryFinderResolver) {
         super(false);
-        setInitialization(Initialization.Eager);
+        setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);
@@ -238,7 +237,8 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected FactoryFinderResolver createFactoryFinderResolver() {
-        return new DefaultFactoryFinderResolver();
+        throw new UnsupportedOperationException(
+                "FactoryFinderResolver should have been set in the FastCamelContext constructor");
     }
 
     @Override

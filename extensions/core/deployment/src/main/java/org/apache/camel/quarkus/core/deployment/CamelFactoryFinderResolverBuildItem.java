@@ -14,27 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.file.deployment;
+package org.apache.camel.quarkus.core.deployment;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.file.GenericFile;
-import org.apache.camel.component.file.strategy.GenericFileProcessStrategyFactory;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.spi.FactoryFinderResolver;
 
-class FileProcessor {
+/**
+ * A {@link SimpleBuildItem} holding a {@link FastFactoryFinderResolver} {@link RuntimeValue}.
+ */
+public final class CamelFactoryFinderResolverBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<FactoryFinderResolver> factoryFinderResolver;
 
-    private static final String FEATURE = "camel-file";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    public CamelFactoryFinderResolverBuildItem(RuntimeValue<FactoryFinderResolver> factoryFinderResolverBuilder) {
+        this.factoryFinderResolver = factoryFinderResolverBuilder;
     }
 
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(true, false,
-                GenericFile.class,
-                GenericFileProcessStrategyFactory.class);
+    public RuntimeValue<FactoryFinderResolver> getFactoryFinderResolver() {
+        return factoryFinderResolver;
     }
 }

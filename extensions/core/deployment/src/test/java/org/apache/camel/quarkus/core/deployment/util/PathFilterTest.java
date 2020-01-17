@@ -14,20 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.util;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
+import org.jboss.jandex.DotName;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.core.deployment.CamelSupport.isPathIncluded;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CamelSupportTest {
+public class PathFilterTest {
 
     @Test
-    public void testPathFiltering() {
+    public void stringFilter() {
         assertFalse(isPathIncluded(
                 "org/acme/MyClass",
                 Arrays.asList("org/**"),
@@ -58,4 +62,38 @@ public class CamelSupportTest {
                 Arrays.asList("org/acme/A*"),
                 Arrays.asList("org/acme/MyClass")));
     }
+
+    @Test
+    public void pathFilter() {
+        Predicate<Path> predicate = new PathFilter.Builder()
+                .include("/foo/bar/*")
+                .include("moo/mar/*")
+                .exclude("/foo/baz/*")
+                .exclude("moo/maz/*")
+                .build().asPathPredicate();
+        assertTrue(predicate.test(Paths.get("/foo/bar/file")));
+        assertTrue(predicate.test(Paths.get("foo/bar/file")));
+        assertFalse(predicate.test(Paths.get("/foo/baz/file")));
+        assertFalse(predicate.test(Paths.get("foo/baz/file")));
+
+        assertTrue(predicate.test(Paths.get("/moo/mar/file")));
+        assertTrue(predicate.test(Paths.get("moo/mar/file")));
+        assertFalse(predicate.test(Paths.get("/moo/marz/file")));
+        assertFalse(predicate.test(Paths.get("moo/maz/file")));
+    }
+
+    @Test
+    public void dotNameFilter() {
+        Predicate<DotName> predicate = new PathFilter.Builder()
+                .include("foo/bar/*")
+                .exclude("foo/baz/*")
+                .build().asDotNamePredicate();
+        assertTrue(predicate.test(DotName.createSimple("foo.bar.Class")));
+        assertFalse(predicate.test(DotName.createSimple("foo.baz.Class")));
+    }
+
+    static boolean isPathIncluded(String path, List<String> excludePatterns, List<String> includePatterns) {
+        return new PathFilter(includePatterns, excludePatterns).asStringPredicate().test(path);
+    }
+
 }

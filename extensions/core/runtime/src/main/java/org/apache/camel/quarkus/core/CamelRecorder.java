@@ -22,8 +22,10 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
+import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterLoader;
@@ -58,8 +60,9 @@ public class CamelRecorder {
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
             RuntimeValue<XmlRoutesLoader> xmlLoader,
+            RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             BeanContainer beanContainer) {
-        FastCamelContext context = new FastCamelContext();
+        FastCamelContext context = new FastCamelContext(factoryFinderResolver.getValue());
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
@@ -120,5 +123,17 @@ public class CamelRecorder {
 
     public RuntimeValue<RegistryRoutesLoader> newDefaultRegistryRoutesLoader() {
         return new RuntimeValue<>(new RegistryRoutesLoaders.Default());
+    }
+
+    public RuntimeValue<Builder> factoryFinderResolverBuilder() {
+        return new RuntimeValue<>(new FastFactoryFinderResolver.Builder());
+    }
+
+    public void factoryFinderResolverEntry(RuntimeValue<Builder> builder, String resourcePath, Class<?> cl) {
+        builder.getValue().entry(resourcePath, cl);
+    }
+
+    public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {
+        return new RuntimeValue<>(builder.getValue().build());
     }
 }
