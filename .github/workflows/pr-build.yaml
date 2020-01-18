@@ -39,7 +39,6 @@ jobs:
         run: |
           ./mvnw -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-            -Pno-apache-snapshots \
             clean install
       - name: Save Cache
         uses: actions/cache@v1
@@ -63,7 +62,6 @@ jobs:
       run: |
         ./mvnw -V -B \
           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
-          -Pno-apache-snapshots \
           clean verify
   core:
     runs-on: ubuntu-latest
@@ -89,7 +87,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-core \
             -pl :camel-quarkus-integration-test-core-impl \
             -pl :camel-quarkus-integration-test-core-main \
@@ -119,7 +116,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-bean \
             -pl :camel-quarkus-integration-test-seda \
             -pl :camel-quarkus-integration-test-file \
@@ -152,7 +148,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-platform-http \
             -pl :camel-quarkus-integration-test-platform-http-engine \
             -pl :camel-quarkus-integration-test-microprofile \
@@ -181,7 +176,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-sjms \
             -pl :camel-quarkus-integration-test-kafka \
             -pl :camel-quarkus-integration-test-paho
@@ -209,7 +203,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-base64 \
             -pl :camel-quarkus-integration-test-snakeyaml \
             -pl :camel-quarkus-integration-test-tagsoup \
@@ -241,7 +234,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-http \
             -pl :camel-quarkus-integration-test-netty \
             -pl :camel-quarkus-integration-test-servlet
@@ -269,7 +261,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-jdbc \
             -pl :camel-quarkus-integration-test-mongodb \
             -pl :camel-quarkus-integration-test-sql
@@ -297,7 +288,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-aws \
             -pl :camel-quarkus-integration-test-consul
   misc:
@@ -324,7 +314,6 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -Pno-apache-snapshots \
             -pl :camel-quarkus-integration-test-bean-validator \
             -pl :camel-quarkus-integration-test-dozer \
             -pl :camel-quarkus-integration-test-ftp \
