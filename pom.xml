@@ -159,33 +159,6 @@
         <url>https://github.com/apache/camel-quarkus/issues</url>
     </issueManagement>
 
-    <repositories>
-        <repository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>apache.snapshots</id>
-            <url>https://repository.apache.org/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -560,6 +533,19 @@
         </profile>
 
         <profile>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <properties>
+                <native-image.docker-build>true</native-image.docker-build>
+                <native-image.container-runtime>docker</native-image.container-runtime>
+            </properties>
+        </profile>
+
+        <profile>
             <id>oss-snapshots</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -591,20 +577,7 @@
         </profile>
 
         <profile>
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker</name>
-                </property>
-            </activation>
-            <properties>
-                <native-image.docker-build>true</native-image.docker-build>
-                <native-image.container-runtime>docker</native-image.container-runtime>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>no-apache-snapshots</id>
+            <id>apache-snapshots</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
@@ -614,7 +587,7 @@
                     <url>https://repository.apache.org/snapshots/</url>
                     <name>Apache Snapshot Repo</name>
                     <snapshots>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
                     </snapshots>
                     <releases>
                         <enabled>false</enabled>
@@ -626,7 +599,7 @@
                     <id>apache.snapshots</id>
                     <url>https://repository.apache.org/snapshots/</url>
                     <snapshots>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
                     </snapshots>
                     <releases>
                         <enabled>false</enabled>
