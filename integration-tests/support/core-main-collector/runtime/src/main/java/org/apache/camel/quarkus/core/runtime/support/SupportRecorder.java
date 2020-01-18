@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.core.runtime.support;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.main.RoutesCollector;
-import org.apache.camel.quarkus.core.CamelRoutesCollector;
 
 @Recorder
 public class SupportRecorder {

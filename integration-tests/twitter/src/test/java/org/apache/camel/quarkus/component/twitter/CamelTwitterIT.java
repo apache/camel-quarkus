@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.twitter;
 
 import io.quarkus.test.junit.NativeImageTest;
-
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest

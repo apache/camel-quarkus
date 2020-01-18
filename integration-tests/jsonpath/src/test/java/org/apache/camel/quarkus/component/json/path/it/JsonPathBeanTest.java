@@ -16,15 +16,14 @@
  */
 package org.apache.camel.quarkus.component.json.path.it;
 
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.json.path.it.PersonRequest.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 
 @QuarkusTest
 class JsonPathBeanTest {

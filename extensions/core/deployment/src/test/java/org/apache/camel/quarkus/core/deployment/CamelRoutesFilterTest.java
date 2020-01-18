@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
+
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;

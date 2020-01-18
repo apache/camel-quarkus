@@ -16,17 +16,16 @@
  */
 package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
 import org.eclipse.microprofile.metrics.MetricRegistry;
-
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class MicroProfileMetricsProcessor {
 

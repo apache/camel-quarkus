@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.component.http.it;
 import java.util.Map;
 import java.util.Objects;
 
-import org.apache.camel.quarkus.test.AvailablePortFinder;
-
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.AvailablePortFinder;
 
 public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
     @Override

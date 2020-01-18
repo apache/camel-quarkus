@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.component.sql.deployment;
 
 import java.sql.Types;
 
-import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
 
 class SqlProcessor {
 

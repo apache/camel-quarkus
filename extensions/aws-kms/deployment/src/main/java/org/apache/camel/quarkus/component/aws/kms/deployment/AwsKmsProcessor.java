@@ -16,15 +16,12 @@
  */
 package org.apache.camel.quarkus.component.aws.kms.deployment;
 
-import org.apache.camel.component.aws.kms.KMSConfiguration;
-
 import com.amazonaws.partitions.model.CredentialScope;
 import com.amazonaws.partitions.model.Endpoint;
 import com.amazonaws.partitions.model.Partition;
 import com.amazonaws.partitions.model.Partitions;
 import com.amazonaws.partitions.model.Region;
 import com.amazonaws.partitions.model.Service;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -32,6 +29,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.aws.kms.KMSConfiguration;
 
 class AwsKmsProcessor {
 

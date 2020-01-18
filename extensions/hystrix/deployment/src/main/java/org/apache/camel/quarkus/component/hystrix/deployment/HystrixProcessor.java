@@ -16,17 +16,16 @@
  */
 package org.apache.camel.quarkus.component.hystrix.deployment;
 
-import org.apache.camel.model.CircuitBreakerDefinition;
-import org.apache.camel.model.HystrixConfigurationCommon;
-import org.apache.camel.model.HystrixConfigurationDefinition;
-import org.apache.camel.model.OnFallbackDefinition;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageSystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.model.CircuitBreakerDefinition;
+import org.apache.camel.model.HystrixConfigurationCommon;
+import org.apache.camel.model.HystrixConfigurationDefinition;
+import org.apache.camel.model.OnFallbackDefinition;
 
 class HystrixProcessor {
 

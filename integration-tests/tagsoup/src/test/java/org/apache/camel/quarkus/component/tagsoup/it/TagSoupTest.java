@@ -16,14 +16,13 @@
  */
 package org.apache.camel.quarkus.component.tagsoup.it;
 
+import java.nio.charset.Charset;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
-
-import java.nio.charset.Charset;
 
 import static org.hamcrest.Matchers.is;
 

@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core.runtime;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;

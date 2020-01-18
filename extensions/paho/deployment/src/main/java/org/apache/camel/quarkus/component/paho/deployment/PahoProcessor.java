@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.paho.deployment;
 
 import java.util.Arrays;
 import java.util.List;
+
 import javax.inject.Inject;
 
 import io.quarkus.deployment.annotations.BuildProducer;

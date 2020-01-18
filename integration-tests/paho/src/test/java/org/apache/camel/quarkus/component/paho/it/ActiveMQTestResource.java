@@ -26,13 +26,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Map;
 
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.broker.TransportConnector;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);

@@ -20,7 +20,6 @@ import java.io.File;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-
 import org.apache.camel.Message;
 
 @Recorder

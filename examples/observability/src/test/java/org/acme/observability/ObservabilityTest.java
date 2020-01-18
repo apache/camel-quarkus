@@ -18,9 +18,9 @@ package org.acme.observability;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.containsInAnyOrder;

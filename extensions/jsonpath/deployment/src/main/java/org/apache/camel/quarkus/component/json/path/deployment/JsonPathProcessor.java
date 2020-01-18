@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.json.path.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.camel.jsonpath.JsonPath;
-import org.apache.camel.jsonpath.JsonPathAnnotationExpressionFactory;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.jsonpath.JsonPath;
+import org.apache.camel.jsonpath.JsonPathAnnotationExpressionFactory;
 
 class JsonPathProcessor {
 
