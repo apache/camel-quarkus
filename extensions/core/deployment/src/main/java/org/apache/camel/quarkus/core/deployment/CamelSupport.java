@@ -24,12 +24,14 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.AbstractMap;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.jboss.jandex.ClassInfo;
 
@@ -85,6 +87,12 @@ public final class CamelSupport {
     @SafeVarargs
     public static <T> Set<T> setOf(T... items) {
         return Stream.of(items).collect(Collectors.toCollection(HashSet::new));
+    }
+
+    public static String getCamelVersion() {
+        final String result = CamelContext.class.getPackage().getImplementationVersion();
+        Objects.requireNonNull(result, "Could not determine Camel version");
+        return result;
     }
 
 }

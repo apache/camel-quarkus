@@ -357,7 +357,8 @@ class BuildProcessor {
                     contextFactory.getContextFactory(),
                     xmlLoader.getLoader(),
                     factoryFinderResolverBuildItem.getFactoryFinderResolver(),
-                    beanContainer.getValue());
+                    beanContainer.getValue(),
+                    CamelSupport.getCamelVersion());
 
             return new CamelContextBuildItem(context);
         }
