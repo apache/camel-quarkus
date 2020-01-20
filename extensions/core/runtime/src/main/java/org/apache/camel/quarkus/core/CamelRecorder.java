@@ -61,8 +61,9 @@ public class CamelRecorder {
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
             RuntimeValue<XmlRoutesLoader> xmlLoader,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
-            BeanContainer beanContainer) {
-        FastCamelContext context = new FastCamelContext(factoryFinderResolver.getValue());
+            BeanContainer beanContainer,
+            String version) {
+        FastCamelContext context = new FastCamelContext(factoryFinderResolver.getValue(), version);
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);

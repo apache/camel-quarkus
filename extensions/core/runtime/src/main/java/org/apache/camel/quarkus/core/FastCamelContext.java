@@ -105,9 +105,11 @@ import org.apache.camel.spi.ValidatorRegistry;
 
 public class FastCamelContext extends AbstractCamelContext {
     private Model model;
+    private final String version;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver) {
+    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version) {
         super(false);
+        this.version = version;
         setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
@@ -140,6 +142,11 @@ public class FastCamelContext extends AbstractCamelContext {
             return type.cast(model);
         }
         return super.getExtension(type);
+    }
+
+    @Override
+    public String getVersion() {
+        return version;
     }
 
     @Override
