@@ -60,6 +60,10 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-caffeine</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-common</artifactId>
+        </dependency>
 
         <!-- camel -->
         <dependency>
