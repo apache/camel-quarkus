@@ -161,17 +161,6 @@
 
     <repositories>
         <repository>
-            <id>apache.releases</id>
-            <url>https://repository.apache.org/content/groups/public</url>
-            <name>Apache Releases Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -185,17 +174,6 @@
     </repositories>
 
     <pluginRepositories>
-        <pluginRepository>
-            <id>apache.releases</id>
-            <url>https://repository.apache.org/content/groups/public</url>
-            <name>Apache Releases Repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
