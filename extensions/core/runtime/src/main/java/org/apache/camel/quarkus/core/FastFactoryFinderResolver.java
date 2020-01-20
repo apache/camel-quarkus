@@ -118,9 +118,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         public Optional<Class<?>> findClass(String key, String propertyPrefix) {
             final String mapKey = mapKey(path, propertyPrefix, key);
             final Class<?> cl = classMap.get(mapKey);
-            if (cl == null) {
-                LOG.warnf("Could not find a non-optional class for key %s", mapKey);
-            }
+            LOG.tracef("Found a non-optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
 
@@ -133,8 +131,9 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         @Override
         public Optional<Class<?>> findOptionalClass(String key, String propertyPrefix) {
             final String mapKey = mapKey(path, propertyPrefix, key);
-            LOG.tracef("Found an optional class for key %s: %s", mapKey);
-            return Optional.ofNullable(classMap.get(mapKey));
+            final Class<?> cl = classMap.get(mapKey);
+            LOG.tracef("Found an optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
+            return Optional.ofNullable(cl);
         }
 
         private Object doNewInstance(String key, String propertyPrefix) {
