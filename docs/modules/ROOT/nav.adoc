@@ -1,6 +1,7 @@
 * xref:user-guide.adoc[User guide]
 ** xref:first-steps.adoc[First steps]
 ** xref:cdi.adoc[CDI]
+** xref:native-mode.adoc[Native mode]
 ** xref:examples.adoc[Examples]
 * xref:contributor-guide.adoc[Contributor guide]
 * xref:list-of-camel-quarkus-extensions.adoc[List of Camel Quarkus extensions]
