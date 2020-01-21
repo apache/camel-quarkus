@@ -31,4 +31,4 @@ jobs:
       with:
         java-version: 1.8
     - name: mvn package
-      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean package -Pcheck-format -DskipTests
+      run: export LANG=en_US && ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean package -Pcheck-format -DskipTests
