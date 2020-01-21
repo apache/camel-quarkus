@@ -34,4 +34,4 @@ jobs:
       with:
         java-version: ${{ matrix.java }}
     - name: mvn verify
-      run: ./mvnw -V -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify
+      run: export LANG=en_US && ./mvnw -V -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify
