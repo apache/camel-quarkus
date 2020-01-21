@@ -97,3 +97,9 @@ from("platform-http:/upload/multipart?fileNameExtWhitelist=adoc,txt&httpMethodRe
 
 Also check the `quarkus.http.body.*` configuration options in
 https://quarkus.io/guides/all-config[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.
+
+
+== Configuration
+
+* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
+  your application to send or receive requests using non-default encodings.

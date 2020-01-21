@@ -42,3 +42,7 @@ public class CamelRoute extends RouteBuilder {
 }
 ----
 
+== Configuration
+
+* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
+  your application to send or receive requests using non-default encodings.
