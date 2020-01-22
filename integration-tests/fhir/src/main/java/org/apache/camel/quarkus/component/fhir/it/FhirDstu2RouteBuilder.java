@@ -54,7 +54,7 @@ public class FhirDstu2RouteBuilder extends RouteBuilder {
                     .marshal(fhirXmlDataFormat);
 
             from("direct:create-dstu2")
-                    .to("fhir://create/resource?log={{fhir.log}}&serverUrl={{camel.fhir.test-url}}&inBody=resourceAsString&fhirVersion=DSTU2&fhirContext=#fhirContext");
+                    .to("fhir://create/resource?inBody=resourceAsString&fhirVersion=DSTU2&fhirContext=#fhirContext");
         }
     }
 }
