@@ -54,7 +54,7 @@ public class FhirR4RouteBuilder extends RouteBuilder {
                     .marshal(fhirXmlDataFormat);
 
             from("direct:create-r4")
-                    .to("fhir://create/resource?log={{fhir.log}}&serverUrl={{camel.fhir.test-url}}&inBody=resourceAsString&fhirVersion=R4&fhirContext=#fhirContext");
+                    .to("fhir://create/resource?inBody=resourceAsString&fhirVersion=R4&fhirContext=#fhirContext");
         }
     }
 }
