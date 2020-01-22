@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -41,6 +42,11 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
     @Override
     public FactoryFinder resolveFactoryFinder(ClassResolver classResolver, String resourcePath) {
         return new FastFactoryFinder(resourcePath);
+    }
+
+    // exposed for testing purpose
+    Map<String, Class<?>> getClassMap() {
+        return Collections.unmodifiableMap(this.classMap);
     }
 
     static String mapKey(String resourcePath, String prefix, String key) {
@@ -100,13 +106,12 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
         @Override
         public Optional<Object> newInstance(String key) {
-            return Optional.ofNullable(doNewInstance(key, null));
+            return doNewInstance(key, null);
         }
 
         @Override
         public <T> Optional<T> newInstance(String key, Class<T> type) {
-            Object obj = doNewInstance(key, null);
-            return Optional.ofNullable(type.cast(obj));
+            return doNewInstance(key, null).map(type::cast);
         }
 
         @Override
@@ -136,11 +141,9 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
             return Optional.ofNullable(cl);
         }
 
-        private Object doNewInstance(String key, String propertyPrefix) {
-            Optional<Class<?>> clazz = findClass(key, propertyPrefix);
-            return clazz.map(ObjectHelper::newInstance).orElse(null);
+        private Optional<Object> doNewInstance(String key, String propertyPrefix) {
+            return findClass(key, propertyPrefix).map(ObjectHelper::newInstance);
         }
-
     }
 
 }
