@@ -155,6 +155,7 @@
         <module>core-main-xml</module>
         <module>core-main-collector</module>
         <module>core-impl</module>
+        <!-- <module>mongodb</module> https://github.com/apache/camel-quarkus/issues/649 -->
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>aws</module>
@@ -179,7 +180,6 @@
         <module>kafka</module>
         <module>mail</module>
         <module>microprofile</module>
-        <module>mongodb</module>
         <module>netty</module>
         <module>opentracing</module>
         <module>paho</module>
