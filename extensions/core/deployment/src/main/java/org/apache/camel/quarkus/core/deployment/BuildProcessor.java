@@ -133,7 +133,11 @@ class BuildProcessor {
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.REGISTRY,
                     true,
-                    "META-INF/services/org/apache/camel/component/*"));
+                    "META-INF/services/org/apache/camel/component/*",
+                    "META-INF/services/org/apache/camel/language/simple",
+                    "META-INF/services/org/apache/camel/language/file",
+                    "META-INF/services/org/apache/camel/language/header",
+                    "META-INF/services/org/apache/camel/language/ref"));
 
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.DISCOVERY,
