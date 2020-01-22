@@ -41,6 +41,9 @@ import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.quarkus.core.runtime.support.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.BeanRepository;
+import org.apache.camel.spi.DataFormat;
+import org.apache.camel.spi.FactoryFinderResolver;
+import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.DefaultRegistry;
@@ -104,6 +107,8 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
+        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+
         JsonArrayBuilder listeners = Json.createArrayBuilder();
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
@@ -111,7 +116,7 @@ public class CamelServlet {
         main.getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
 
         JsonArrayBuilder routes = Json.createArrayBuilder();
-        main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
+        camelContext.getRoutes().forEach(route -> routes.add(route.getId()));
 
         JsonObjectBuilder collector = Json.createObjectBuilder();
         collector.add("type", main.getRoutesCollector().getClass().getName());
@@ -121,12 +126,38 @@ public class CamelServlet {
             collector.add("type-xml", crc.getXmlRoutesLoader().getClass().getName());
         }
 
+        JsonObjectBuilder dataformatsInRegistry = Json.createObjectBuilder();
+        camelContext.getRegistry().findByTypeWithName(DataFormat.class)
+                .forEach((name, value) -> dataformatsInRegistry.add(name, value.getClass().getName()));
+
+        JsonObjectBuilder languagesInRegistry = Json.createObjectBuilder();
+        camelContext.getRegistry().findByTypeWithName(Language.class)
+                .forEach((name, value) -> languagesInRegistry.add(name, value.getClass().getName()));
+
+        JsonObjectBuilder componentsInRegistry = Json.createObjectBuilder();
+        camelContext.getRegistry().findByTypeWithName(Component.class)
+                .forEach((name, value) -> componentsInRegistry.add(name, value.getClass().getName()));
+
+        JsonObjectBuilder factoryClassMap = Json.createObjectBuilder();
+        FactoryFinderResolver factoryFinderResolver = camelContext.getFactoryFinderResolver();
+        if (factoryFinderResolver instanceof FastFactoryFinderResolver) {
+            ((FastFactoryFinderResolver) factoryFinderResolver).getClassMap().forEach((k, v) -> {
+                factoryClassMap.add(k, v.getName());
+            });
+        }
+
         return Json.createObjectBuilder()
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
                 .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
+                .add("registry", Json.createObjectBuilder()
+                        .add("components", componentsInRegistry)
+                        .add("dataformats", dataformatsInRegistry)
+                        .add("languages", languagesInRegistry))
+                .add("factory-finder", Json.createObjectBuilder()
+                        .add("class-map", factoryClassMap))
                 .build();
     }
 

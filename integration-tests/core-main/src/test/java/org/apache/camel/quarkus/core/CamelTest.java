@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.net.HttpURLConnection;
+import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
@@ -29,6 +30,10 @@ import org.apache.camel.quarkus.core.runtime.support.SupportListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.core.CamelTestConditions.doesNotStartWith;
+import static org.apache.camel.quarkus.core.CamelTestConditions.entry;
+import static org.apache.camel.quarkus.core.CamelTestConditions.startsWith;
+import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -86,6 +91,39 @@ public class CamelTest {
                 .doesNotContain("filtered");
 
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
+
+        assertThat(p.getMap("registry.components", String.class, String.class)).isNotEmpty();
+        assertThat(p.getMap("registry.dataformats", String.class, String.class)).isEmpty();
+        assertThat(p.getMap("registry.languages", String.class, String.class)).containsExactlyInAnyOrderEntriesOf(mapOf(
+                "header", "org.apache.camel.language.header.HeaderLanguage",
+                "ref", "org.apache.camel.language.ref.RefLanguage",
+                "simple", "org.apache.camel.language.simple.SimpleLanguage",
+                "file", "org.apache.camel.language.simple.FileLanguage"));
+
+        Map<String, String> factoryFinderMap = p.getMap("factory-finder.class-map", String.class, String.class);
+
+        // dataformats
+        assertThat(factoryFinderMap)
+                .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/dataformat/"))
+                .hasEntrySatisfying(entry(
+                        "META-INF/services/org/apache/camel/dataformat/my-dataformat",
+                        "org.apache.camel.quarkus.core.runtime.support.MyDataFormat"));
+
+        // languages
+        assertThat(factoryFinderMap)
+                .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/language/"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/simple"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/file"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/ref"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/header"));
+
+        // components
+        assertThat(factoryFinderMap)
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/component/"));
+
+        // misc
+        assertThat(factoryFinderMap)
+                .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/configurer/"));
     }
 
     @Test
