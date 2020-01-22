@@ -62,4 +62,16 @@ class HttpTest {
                 .body(is("Netty Hello World"));
     }
 
+    @Test
+    public void testAhcWsProducerConsumer() {
+        String body = "Camel Quarkus AHC-WS";
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .body(body)
+                .post("/test/client/ahc-ws/post")
+                .then()
+                .body(is("Hello " + body));
+    }
+
 }

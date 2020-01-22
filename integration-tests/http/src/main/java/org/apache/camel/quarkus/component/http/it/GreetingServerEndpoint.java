@@ -16,15 +16,14 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
-import org.apache.camel.builder.RouteBuilder;
+import javax.websocket.OnMessage;
+import javax.websocket.server.ServerEndpoint;
 
-public class HttpRoute extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
-                .transform().constant("Netty Hello World");
+@ServerEndpoint("/ahc-ws/greeting")
+public class GreetingServerEndpoint {
 
-        from("direct:ahcWsIn")
-                .toD("ahc-ws:localhost:${header.test-port}/ahc-ws/greeting");
+    @OnMessage
+    public String onMessage(String message) {
+        return "Hello " + message;
     }
 }

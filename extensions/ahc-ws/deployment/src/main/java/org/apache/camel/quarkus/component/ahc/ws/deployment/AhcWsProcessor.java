@@ -14,17 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.http.it;
+package org.apache.camel.quarkus.component.ahc.ws.deployment;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class HttpRoute extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
-                .transform().constant("Netty Hello World");
+class AhcWsProcessor {
 
-        from("direct:ahcWsIn")
-                .toD("ahc-ws:localhost:${header.test-port}/ahc-ws/greeting");
+    private static final String FEATURE = "camel-ahc-ws";
+
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
+
 }
