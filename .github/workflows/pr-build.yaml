@@ -24,6 +24,7 @@ on:
 
 env:
   LANG: en_US
+  MVN_OPTS: -Papache-snapshots
 
 jobs:
   build:
@@ -37,7 +38,7 @@ jobs:
           java-version: 1.8
       - name: Build Project
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
             clean install
       - name: Save Cache
@@ -60,7 +61,7 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build on ${{ matrix.java }}
       run: |
-        ./mvnw -V -B \
+        ./mvnw $MVN_OPTS -V -B \
           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           clean verify
   core:
@@ -82,7 +83,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -111,7 +112,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -143,7 +144,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -171,7 +172,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -198,7 +199,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -229,7 +230,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -256,7 +257,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -283,7 +284,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -309,7 +310,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -342,7 +343,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw $MVN_OPTS -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -372,7 +373,7 @@ jobs:
   #     # of memory this we nee to limit it to avoid the process fail for OOM.
   #     - name: Integration Tests
   #       run: |
-  #         ./mvnw -V -B \
+  #         ./mvnw $MVN_OPTS -V -B \
   #           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
   #           -Dnative \
   #           -Ddocker \

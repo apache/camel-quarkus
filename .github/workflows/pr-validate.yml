@@ -24,6 +24,7 @@ on:
 
 env:
   LANG: en_US
+  MVN_OPTS: -Papache-snapshots
 
 jobs:
   build:
@@ -36,7 +37,7 @@ jobs:
         java-version: 1.8
     - name: mvn package
       run: |
-        ./mvnw -fae -B \
+        ./mvnw $MVN_OPTS -fae -B \
           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           -DskipTests \
           -Pcheck-format \
