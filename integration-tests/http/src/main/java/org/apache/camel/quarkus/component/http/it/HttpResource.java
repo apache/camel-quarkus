@@ -26,6 +26,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
 
@@ -34,6 +35,9 @@ import org.apache.camel.FluentProducerTemplate;
 public class HttpResource {
     @Inject
     FluentProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     // *****************************
     //
@@ -62,6 +66,24 @@ public class HttpResource {
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
                 .request(String.class);
+    }
+
+    // *****************************
+    //
+    // camel-ahc-ws
+    //
+    // *****************************
+    @Path("/ahc-ws/post")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String triggerAhcWsProducerConsumer(@QueryParam("test-port") int port, String message) throws Exception {
+        producerTemplate
+                .to("direct:ahcWsIn")
+                .withBody(message)
+                .withHeader("test-port", port)
+                .send();
+
+        return consumerTemplate.receiveBody("ahc-ws:localhost:" + port + "/ahc-ws/greeting", 5000, String.class);
     }
 
     // *****************************
