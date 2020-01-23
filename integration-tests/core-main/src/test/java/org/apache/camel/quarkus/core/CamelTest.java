@@ -95,10 +95,11 @@ public class CamelTest {
         assertThat(p.getMap("registry.components", String.class, String.class)).isNotEmpty();
         assertThat(p.getMap("registry.dataformats", String.class, String.class)).isEmpty();
         assertThat(p.getMap("registry.languages", String.class, String.class)).containsExactlyInAnyOrderEntriesOf(mapOf(
+                "constant", "org.apache.camel.language.constant.ConstantLanguage",
+                "file", "org.apache.camel.language.simple.FileLanguage",
                 "header", "org.apache.camel.language.header.HeaderLanguage",
-                "ref", "org.apache.camel.language.ref.RefLanguage",
                 "simple", "org.apache.camel.language.simple.SimpleLanguage",
-                "file", "org.apache.camel.language.simple.FileLanguage"));
+                "ref", "org.apache.camel.language.ref.RefLanguage"));
 
         Map<String, String> factoryFinderMap = p.getMap("factory-finder.class-map", String.class, String.class);
 
@@ -112,10 +113,11 @@ public class CamelTest {
         // languages
         assertThat(factoryFinderMap)
                 .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/language/"))
-                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/simple"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/constant"))
                 .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/file"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/header"))
                 .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/ref"))
-                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/header"));
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/language/simple"));
 
         // components
         assertThat(factoryFinderMap)
