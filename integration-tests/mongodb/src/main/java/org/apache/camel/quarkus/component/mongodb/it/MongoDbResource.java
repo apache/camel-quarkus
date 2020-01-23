@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.mongodb.it;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -35,7 +35,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mongodb.MongoClient;
+import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
 import org.apache.camel.ProducerTemplate;
@@ -46,6 +46,14 @@ import org.bson.Document;
 public class MongoDbResource {
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    MongoClient client;
+
+    @PostConstruct
+    public void init() {
+        producerTemplate.getCamelContext().getRegistry().bind("camelMongoClient", client);
+    }
 
     @POST
     @Path("/collection/{collectionName}")
@@ -83,13 +91,5 @@ public class MongoDbResource {
         }
 
         return arrayBuilder.build();
-    }
-
-    @javax.enterprise.inject.Produces
-    @Named("camelMongoClient")
-    public MongoClient camelMongoClient() {
-        return new MongoClient(
-                System.getProperty("camel.mongodb.test-host"),
-                Integer.getInteger("camel.mongodb.test-port"));
     }
 }

@@ -1,3 +1,4 @@
+
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -20,12 +21,9 @@ import java.util.List;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
 import io.quarkus.mongodb.runtime.MongoClientRecorder;
-import org.apache.camel.quarkus.component.mongodb.CamelMongoClientRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 
 class MongoDbProcessor {
@@ -38,11 +36,9 @@ class MongoDbProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
     void registerCamelMongoClientProducer(
             List<MongoClientBuildItem> mongoClients,
-            BuildProducer<CamelRuntimeBeanBuildItem> runtimeBeans,
-            CamelMongoClientRecorder recorder) {
+            BuildProducer<CamelRuntimeBeanBuildItem> runtimeBeans) {
 
         for (MongoClientBuildItem mongoClient : mongoClients) {
             // If there is a default mongo client instance, then bind it to the camel registry
@@ -51,8 +47,8 @@ class MongoDbProcessor {
                 runtimeBeans.produce(
                         new CamelRuntimeBeanBuildItem(
                                 "camelMongoClient",
-                                "com.mongodb.MongoClient",
-                                recorder.createCamelMongoClient(mongoClients.get(0).getClient())));
+                                "com.mongodb.client.MongoClient",
+                                mongoClients.get(0).getClient()));
             }
         }
     }

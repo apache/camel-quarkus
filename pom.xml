@@ -58,6 +58,14 @@
         <consul-client.version>1.3.3</consul-client.version>
         <stax2.version>4.2</stax2.version>
 
+        <!-- These mongodb version properties should align with the Mongo client version used in Camel
+            TODO: Remove when Quarkus has upgraded its MongoDB client dependencies
+                - https://github.com/quarkusio/quarkus/issues/6418
+                - https://github.com/quarkusio/quarkus/pull/6347
+        -->
+        <mongodb.version>3.12.1</mongodb.version>
+        <mongodb-crypt.version>1.0.1</mongodb-crypt.version>
+
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
