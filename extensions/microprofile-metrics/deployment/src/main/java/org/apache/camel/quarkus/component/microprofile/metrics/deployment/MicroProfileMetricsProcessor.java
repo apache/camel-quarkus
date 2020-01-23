@@ -25,6 +25,7 @@ import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicr
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 
 class MicroProfileMetricsProcessor {
@@ -43,6 +44,15 @@ class MicroProfileMetricsProcessor {
                 MicroProfileMetricsConstants.METRIC_REGISTRY_NAME,
                 MetricRegistry.class.getName(),
                 recorder.createApplicationRegistry());
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelMainListenerBuildItem contextConfigurerListener(
+            CamelMicroProfileMetricsRecorder recorder,
+            CamelMicroProfileMetricsConfig config) {
+
+        return new CamelMainListenerBuildItem(recorder.createContextConfigurerListener(config));
     }
 
     @Record(ExecutionTime.STATIC_INIT)

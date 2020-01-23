@@ -25,14 +25,21 @@ import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.M
 import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
 import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
+import org.apache.camel.main.MainListener;
+import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.spi.ManagementStrategy;
 import org.eclipse.microprofile.metrics.MetricRegistry;
+import org.jboss.logging.Logger;
 
 @Recorder
 public class CamelMicroProfileMetricsRecorder {
 
     public RuntimeValue<MetricRegistry> createApplicationRegistry() {
         return new RuntimeValue<>(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
+    }
+
+    public RuntimeValue<MainListener> createContextConfigurerListener(CamelMicroProfileMetricsConfig config) {
+        return new RuntimeValue<>(new MicroProfileMetricsContextConfigurerListener(config));
     }
 
     public void configureCamelContext(CamelMicroProfileMetricsConfig config,
@@ -42,11 +49,6 @@ public class CamelMicroProfileMetricsRecorder {
 
         if (config.enableRoutePolicy) {
             camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
-        }
-
-        if (config.enableMessageHistory) {
-            camelContext.setMessageHistory(true);
-            camelContext.setMessageHistoryFactory(new MicroProfileMetricsMessageHistoryFactory());
         }
 
         if (config.enableExchangeEventNotifier) {
@@ -59,6 +61,31 @@ public class CamelMicroProfileMetricsRecorder {
 
         if (config.enableCamelContextEventNotifier) {
             managementStrategy.addEventNotifier(new MicroProfileMetricsCamelContextEventNotifier());
+        }
+    }
+
+    private static class MicroProfileMetricsContextConfigurerListener extends MainListenerSupport {
+        private static final Logger LOGGER = Logger.getLogger(MicroProfileMetricsContextConfigurerListener.class);
+        private final CamelMicroProfileMetricsConfig config;
+
+        public MicroProfileMetricsContextConfigurerListener(CamelMicroProfileMetricsConfig config) {
+            this.config = config;
+        }
+
+        @Override
+        public void configure(CamelContext camelContext) {
+            if (!config.enableMessageHistory) {
+                return;
+            }
+
+            if (!camelContext.isMessageHistory()) {
+                LOGGER.warn(
+                        "MessageHistory is not use and will be enabled as required by MicroProfile Metrics for MessageHistory");
+
+                camelContext.setMessageHistory(true);
+            }
+
+            camelContext.setMessageHistoryFactory(new MicroProfileMetricsMessageHistoryFactory());
         }
     }
 }
