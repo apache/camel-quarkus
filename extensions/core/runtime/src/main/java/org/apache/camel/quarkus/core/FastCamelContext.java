@@ -199,7 +199,7 @@ public class FastCamelContext extends AbstractCamelContext {
 
     @Override
     protected Injector createInjector() {
-        return getDefaultFactoryFinder().newInstance("Injector", Injector.class).orElseGet(() -> new DefaultInjector(this));
+        return new DefaultInjector(this);
     }
 
     @Override
