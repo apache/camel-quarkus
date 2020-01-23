@@ -124,6 +124,11 @@ public class CamelTest {
         // misc
         assertThat(factoryFinderMap)
                 .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/configurer/"));
+
+        // core
+        assertThat(factoryFinderMap)
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/properties-component-factory"))
+                .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/reactive-executor"));
     }
 
     @Test
