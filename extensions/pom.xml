@@ -90,6 +90,7 @@
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
+        <module>reactive-streams</module>
         <module>rest</module>
         <module>salesforce</module>
         <module>scheduler</module>

@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 60 in 51 JAR artifacts (0 deprecated)
+Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -130,6 +130,9 @@ Number of Camel components: 60 in 51 JAR artifacts (0 deprecated)
 
 | xref:extensions/platform-http.adoc[Platform HTTP] (camel-quarkus-platform-http) +
 `platform-http:path` | 0.3.0 | HTTP service leveraging existing runtime platform HTTP server
+
+| link:https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams] (camel-quarkus-reactive-streams) +
+`reactive-streams:stream` | 1.0.0 | Reactive Camel using reactive streams
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2.0 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
