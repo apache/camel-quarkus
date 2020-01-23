@@ -46,8 +46,8 @@ public class MongoDbTestResource implements ContainerResourceLifecycleManager {
             container.start();
 
             return CollectionHelper.mapOf(
-                    "camel.mongodb.test-port", container.getMappedPort(MONGODB_PORT).toString(),
-                    "camel.mongodb.test-host", container.getContainerIpAddress());
+                    "quarkus.mongodb.hosts",
+                    container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

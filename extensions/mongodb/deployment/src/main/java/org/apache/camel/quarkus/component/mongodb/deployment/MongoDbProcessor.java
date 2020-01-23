@@ -18,11 +18,8 @@ package org.apache.camel.quarkus.component.mongodb.deployment;
 
 import com.mongodb.MongoClient;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-import org.apache.camel.quarkus.component.mongodb.CamelMongoClientRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 
 class MongoDbProcessor {
@@ -35,11 +32,7 @@ class MongoDbProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    CamelRuntimeBeanBuildItem registerCamelMongoClientProducer(MongoClientBuildItem mongoClientBuildItem,
-            CamelMongoClientRecorder recorder) {
-
-        return new CamelRuntimeBeanBuildItem("camelMongoClient", MongoClient.class.getName(),
-                recorder.createCamelMongoClient(mongoClientBuildItem.getClient()));
+    CamelRuntimeBeanBuildItem registerCamelMongoClientProducer(MongoClientBuildItem mongoClientBuildItem) {
+        return new CamelRuntimeBeanBuildItem("camelMongoClient", MongoClient.class.getName(), mongoClientBuildItem.getClient());
     }
 }
