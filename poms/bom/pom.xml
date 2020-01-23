@@ -393,6 +393,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-reactive-streams</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-rest</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -762,6 +767,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-reactive-executor</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-reactive-streams</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
