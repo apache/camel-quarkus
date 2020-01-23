@@ -125,6 +125,12 @@ class BuildProcessor {
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
                     new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
+
+            // The reactive executor is programmatically configured by an extension or
+            // a default implementation is provided by this processor thus we can safely
+            // prevent loading of this service.
+            filterBuildItems.produce(
+                    new CamelServiceFilterBuildItem(CamelServiceFilter.forService("reactive-executor")));
         }
 
         @BuildStep
