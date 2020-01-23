@@ -32,7 +32,7 @@
     <name>Camel Quarkus :: AWS Lambda :: Runtime</name>
 
     <properties>
-        <firstVersion>1.2.0</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>
