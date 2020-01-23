@@ -22,13 +22,13 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 | Component | Since | Description
 
 | xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
-`ahc:httpUri` | 1.2.0 | To call external HTTP services using Async Http Client.
+`ahc:httpUri` | 1.0.0 | To call external HTTP services using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/ahc-ws-component.html[AHC Websocket] (camel-quarkus-ahc-ws) +
-`ahc-ws:httpUri` | 1.2.0 | To exchange data with external Websocket servers using Async Http Client.
+`ahc-ws:httpUri` | 1.0.0 | To exchange data with external Websocket servers using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
-`aws-ec2:label` | 1.2.0 | The aws-ec2 is used for managing Amazon EC2 instances.
+`aws-ec2:label` | 1.0.0 | The aws-ec2 is used for managing Amazon EC2 instances.
 
 | link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
 `aws-ecs:label` | 1.0.0-M1 | The aws-ecs is used for managing Amazon ECS
@@ -40,16 +40,16 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `aws-iam:label` | 1.1.0 | The aws-iam is used for managing Amazon IAM
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-component.html[AWS Kinesis] (camel-quarkus-aws-kinesis) +
-`aws-kinesis:streamName` | 1.2.0 | The aws-kinesis component is for consuming and producing records from Amazon Kinesis Streams.
+`aws-kinesis:streamName` | 1.0.0 | The aws-kinesis component is for consuming and producing records from Amazon Kinesis Streams.
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-firehose-component.html[AWS Kinesis Firehose] (camel-quarkus-aws-kinesis) +
-`aws-kinesis-firehose:streamName` | 1.2.0 | The aws-kinesis-firehose component is used for producing Amazon's Kinesis Firehose streams.
+`aws-kinesis-firehose:streamName` | 1.0.0 | The aws-kinesis-firehose component is used for producing Amazon's Kinesis Firehose streams.
 
 | link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
 `aws-kms:label` | 1.0.0-M1 | The aws-kms is used for managing Amazon KMS
 
 | link:https://camel.apache.org/components/latest/aws-lambda-component.html[AWS Lambda] (camel-quarkus-aws-lambda) +
-`aws-lambda:function` | 1.2.0 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
+`aws-lambda:function` | 1.0.0 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
 
 | link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | 0.2.0 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
@@ -61,7 +61,7 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `aws-sqs:queueNameOrArn` | 0.2.0 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
-`aws-translate:label` | 1.2.0 | The aws-kms is used for managing Amazon Translate
+`aws-translate:label` | 1.0.0 | The aws-kms is used for managing Amazon Translate
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
