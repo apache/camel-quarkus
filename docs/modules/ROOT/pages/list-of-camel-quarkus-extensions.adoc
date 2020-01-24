@@ -213,13 +213,19 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 10 in 9 JAR artifacts (0 deprecated)
+Number of Camel data formats: 13 in 10 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Data Format | Since | Description
 
 | link:https://camel.apache.org/components/latest/base64-dataformat.html[Base64] (camel-quarkus-base64) | 1.0.0-M1 | The Base64 data format is used for base64 encoding and decoding.
+
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy CSV] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Fixed Length] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Key Value Pair] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2.0 | The CSV data format is used for handling CSV payloads.
 
