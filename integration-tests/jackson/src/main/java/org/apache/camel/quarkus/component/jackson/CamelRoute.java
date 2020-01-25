@@ -18,7 +18,10 @@ package org.apache.camel.quarkus.component.jackson;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.jackson.model.DummyObject;
+import org.apache.camel.quarkus.component.jackson.model.PojoA;
+import org.apache.camel.quarkus.component.jackson.model.PojoB;
 
 public class CamelRoute extends RouteBuilder {
 
@@ -37,6 +40,23 @@ public class CamelRoute extends RouteBuilder {
                 .marshal(format)
                 .convertBodyTo(String.class)
                 .to("vm:out");
+        from("direct:in-a")
+                .wireTap("direct:tap-a")
+                .setBody(constant("ok"));
+        from("direct:tap-a")
+                .unmarshal().json(JsonLibrary.Jackson, PojoA.class)
+                .to("log:out")
+                .marshal(new JacksonDataFormat(PojoA.class))
+                .convertBodyTo(String.class)
+                .to("vm:out-a");
+        from("direct:in-b")
+                .wireTap("direct:tap-b")
+                .setBody(constant("ok"));
+        from("direct:tap-b")
+                .unmarshal().json(JsonLibrary.Jackson, PojoB.class)
+                .to("log:out")
+                .marshal(new JacksonDataFormat(PojoB.class))
+                .convertBodyTo(String.class)
+                .to("vm:out-b");
     }
-
 }
