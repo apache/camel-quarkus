@@ -55,6 +55,36 @@ public class CamelResource {
         return consumer.receive("vm:out").getMessage().getBody().toString();
     }
 
+    @Path("/in-a")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String processPojoA(String statement) {
+        return template.requestBody("direct:in-a", statement, String.class);
+    }
+
+    @Path("/in-b")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String processPojoB(String statement) {
+        return template.requestBody("direct:in-b", statement, String.class);
+    }
+
+    @Path("/out-a")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testPojoA() {
+        return consumer.receive("vm:out-a").getMessage().getBody().toString();
+    }
+
+    @Path("/out-b")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testPojoB() {
+        return consumer.receive("vm:out-b").getMessage().getBody().toString();
+    }
+
     @Path("/unmarshal/{direct-id}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)

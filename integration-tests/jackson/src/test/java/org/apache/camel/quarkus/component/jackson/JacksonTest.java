@@ -46,6 +46,25 @@ public class JacksonTest {
                 .body(equalTo("{\"dummy\":\"value2\"}"));
     }
 
+    @Test
+    public void testUnmarshallingDifferentPojos() {
+        String bodyA = "{\"name\":\"name A\"}";
+        String bodyB = "{\"value\":1.0}";
+
+        RestAssured.given().contentType(ContentType.TEXT)
+                .body(bodyA)
+                .post("/jackson/in-a");
+        RestAssured.given().contentType(ContentType.TEXT)
+                .body(bodyB)
+                .post("/jackson/in-b");
+        RestAssured.post("/jackson/out-a")
+                .then()
+                .body(equalTo(bodyA));
+        RestAssured.post("/jackson/out-b")
+                .then()
+                .body(equalTo(bodyB));
+    }
+
     @ParameterizedTest
     @ValueSource(strings = { "type-as-attribute", "type-as-header" })
     public void testUnmarshal(String directId) {
