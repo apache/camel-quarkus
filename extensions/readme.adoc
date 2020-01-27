@@ -12,13 +12,13 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 | Component | Since | Description
 
 | xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
-`ahc:httpUri` | 1.0.0 | To call external HTTP services using Async Http Client.
+`ahc:httpUri` | 1.0.0-M3 | To call external HTTP services using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/ahc-ws-component.html[AHC Websocket] (camel-quarkus-ahc-ws) +
-`ahc-ws:httpUri` | 1.0.0 | To exchange data with external Websocket servers using Async Http Client.
+`ahc-ws:httpUri` | 1.0.0-M3 | To exchange data with external Websocket servers using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
-`aws-ec2:label` | 1.0.0 | The aws-ec2 is used for managing Amazon EC2 instances.
+`aws-ec2:label` | 1.0.0-M3 | The aws-ec2 is used for managing Amazon EC2 instances.
 
 | link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
 `aws-ecs:label` | 1.0.0-M1 | The aws-ecs is used for managing Amazon ECS
@@ -30,16 +30,16 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `aws-iam:label` | 1.1.0 | The aws-iam is used for managing Amazon IAM
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-component.html[AWS Kinesis] (camel-quarkus-aws-kinesis) +
-`aws-kinesis:streamName` | 1.0.0 | The aws-kinesis component is for consuming and producing records from Amazon Kinesis Streams.
+`aws-kinesis:streamName` | 1.0.0-M3 | The aws-kinesis component is for consuming and producing records from Amazon Kinesis Streams.
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-firehose-component.html[AWS Kinesis Firehose] (camel-quarkus-aws-kinesis) +
-`aws-kinesis-firehose:streamName` | 1.0.0 | The aws-kinesis-firehose component is used for producing Amazon's Kinesis Firehose streams.
+`aws-kinesis-firehose:streamName` | 1.0.0-M3 | The aws-kinesis-firehose component is used for producing Amazon's Kinesis Firehose streams.
 
 | link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
 `aws-kms:label` | 1.0.0-M1 | The aws-kms is used for managing Amazon KMS
 
 | link:https://camel.apache.org/components/latest/aws-lambda-component.html[AWS Lambda] (camel-quarkus-aws-lambda) +
-`aws-lambda:function` | 1.0.0 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
+`aws-lambda:function` | 1.0.0-M3 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
 
 | link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | 0.2.0 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
@@ -51,7 +51,7 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `aws-sqs:queueNameOrArn` | 0.2.0 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
-`aws-translate:label` | 1.0.0 | The aws-kms is used for managing Amazon Translate
+`aws-translate:label` | 1.0.0-M3 | The aws-kms is used for managing Amazon Translate
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
@@ -63,7 +63,7 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `class:beanName` | 0.2.0 | The class component is for invoking Java classes (Java beans) from Camel.
 
 | link:https://camel.apache.org/components/latest/consul-component.html[Consul] (camel-quarkus-consul) +
-`consul:apiEndpoint` | 1.0.0 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.
+`consul:apiEndpoint` | 1.0.0-M3 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.
 
 | link:https://camel.apache.org/components/latest/controlbus-component.html[Control Bus] (camel-quarkus-controlbus) +
 `controlbus:command:language` | 0.4.0 | The controlbus component provides easy management of Camel applications based on the Control Bus EIP pattern.
@@ -93,7 +93,7 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `ftps:host:port/directoryName` | 1.0.0-M1 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
 
 | xref:extensions/http.adoc[HTTP] (camel-quarkus-http) +
-`http:httpUri` | 1.0.0 | For calling out to external HTTP servers using Apache HTTP Client 4.x.
+`http:httpUri` | 1.0.0-M3 | For calling out to external HTTP servers using Apache HTTP Client 4.x.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
@@ -132,7 +132,7 @@ Number of Camel components: 61 in 52 JAR artifacts (0 deprecated)
 `platform-http:path` | 0.3.0 | HTTP service leveraging existing runtime platform HTTP server
 
 | link:https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams] (camel-quarkus-reactive-streams) +
-`reactive-streams:stream` | 1.0.0 | Reactive Camel using reactive streams
+`reactive-streams:stream` | 1.0.0-M3 | Reactive Camel using reactive streams
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2.0 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
@@ -249,7 +249,7 @@ Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/header-language.html[Header] (camel-quarkus-core) | 0.2.0 | To use a Camel Message header in expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/jsonpath-language.html[JsonPath] (camel-quarkus-jsonpath) | 1.0.0 | To use JsonPath in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/jsonpath-language.html[JsonPath] (camel-quarkus-jsonpath) | 1.0.0-M3 | To use JsonPath in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/ref-language.html[Ref] (camel-quarkus-core) | 0.2.0 | Reference to an existing Camel expression or predicate, which is looked up from the Camel registry.
 
@@ -275,11 +275,11 @@ Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-core-xml) | 0.3.0 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
 
-| (camel-quarkus-endpointdsl) | 1.0.0 | camel-quarkus-endpointdsl
+| (camel-quarkus-endpointdsl) | 1.0.0-M3 | camel-quarkus-endpointdsl
 
 | (camel-quarkus-hystrix) | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
 
-| (camel-quarkus-kotlin) | 1.0.0 | camel-quarkus-kotlin
+| (camel-quarkus-kotlin) | 1.0.0-M3 | camel-quarkus-kotlin
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
 

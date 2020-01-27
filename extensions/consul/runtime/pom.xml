@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: Consul :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <firstVersion>1.0.0-M3</firstVersion>
     </properties>
 
     <dependencyManagement>
