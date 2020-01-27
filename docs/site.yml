@@ -33,4 +33,4 @@ output:
 asciidoc:
   attributes:
     # Changes from here need to get ported to https://github.com/apache/camel-website/blob/master/site.yml
-    camel-quarkus-last-release: 1.0.0-M2
+    camel-quarkus-last-release: 1.0.0-M3
