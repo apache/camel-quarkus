@@ -23,9 +23,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
 import org.apache.camel.CamelContext;
@@ -120,15 +118,6 @@ class NativeImageProcessor {
                     .map(ai -> ai.target().asMethod())
                     .forEach(mi -> reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi)));
 
-        }
-
-        @BuildStep
-        void resources(
-                ApplicationArchivesBuildItem applicationArchivesBuildItem,
-                BuildProducer<NativeImageResourceBuildItem> resource) {
-
-            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
-                    .forEach(p -> resource.produce(new NativeImageResourceBuildItem(p.toString().substring(1))));
         }
 
         @BuildStep

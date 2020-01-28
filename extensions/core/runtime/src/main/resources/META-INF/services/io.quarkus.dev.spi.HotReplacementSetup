@@ -15,34 +15,4 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-#
-# Quarkus
-#
-quarkus.log.file.enable = false
-
-#
-# Quarkus :: Camel
-#
-quarkus.camel.main.routes-discovery.exclude-patterns = org/**/*Filtered
-
-#
-# Camel
-#
-camel.context.name=quarkus-camel-example
-
-#
-# Timer
-#
-camel.component.timer.basic-property-binding = true
-
-#
-# Main
-#
-camel.main.auto-configuration-log-summary = false
-
-
-#
-# Other
-#
-the.message = default
-%staging.the.message = test
+org.apache.camel.quarkus.core.devmode.CamelHotReplacementSetup

@@ -79,7 +79,7 @@ class XsltProcessor {
                 recorder.createXsltComponent(config, builder));
     }
 
-    @BuildStep
+    @BuildStep(loadsApplicationClasses = true)
     void xsltResources(
             CamelXsltConfig config,
             BuildProducer<XsltGeneratedClassBuildItem> generatedNames,
@@ -87,7 +87,7 @@ class XsltProcessor {
             BuildProducer<UriResolverEntryBuildItem> uriResolverEntries,
             ArchiveRootBuildItem archiveRoot) throws Exception {
 
-        Path destination = Files.createTempDirectory(XsltFeature.FEATURE);
+        final Path destination = Files.createTempDirectory(XsltFeature.FEATURE);
         final Set<String> translets = new LinkedHashSet<>();
         try {
             final BuildTimeUriResolver resolver = new BuildTimeUriResolver();

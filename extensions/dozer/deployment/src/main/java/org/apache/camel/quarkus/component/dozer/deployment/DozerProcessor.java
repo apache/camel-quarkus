@@ -66,7 +66,7 @@ class DozerProcessor {
         return new AdditionalApplicationArchiveMarkerBuildItem("com/github/dozermapper/core");
     }
 
-    @BuildStep
+    @BuildStep(loadsApplicationClasses = true)
     void configureCamelDozer(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> nativeImage,
             CamelDozerConfig camelDozerConfig) {
@@ -125,6 +125,7 @@ class DozerProcessor {
         if (camelDozerConfig.mappingFiles.isPresent()) {
             // Register for reflection any classes participating in Dozer mapping
             Mapper mapper = DozerBeanMapperBuilder.create()
+                    .withClassLoader(Thread.currentThread().getContextClassLoader())
                     .withMappingFiles(camelDozerConfig.mappingFiles.get())
                     .build();
 
