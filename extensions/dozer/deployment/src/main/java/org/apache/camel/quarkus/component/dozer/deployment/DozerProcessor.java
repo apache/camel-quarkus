@@ -165,19 +165,6 @@ class DozerProcessor {
         }
     }
 
-    /*
-     * Make component/endpoint configurer discoverable in native image.
-     *
-     * TODO: should not be required once https://github.com/apache/camel-quarkus/pull/618
-     *       get merged
-     */
-    @BuildStep
-    NativeImageResourceBuildItem configurers() {
-        return new NativeImageResourceBuildItem(
-                "META-INF/services/org/apache/camel/configurer/dozer-component",
-                "META-INF/services/org/apache/camel/configurer/dozer-endpoint");
-    }
-
     private URI mappingPathToURI(String mappingPath) {
         try {
             return new URI(mappingPath);
