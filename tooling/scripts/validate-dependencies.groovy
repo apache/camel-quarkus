@@ -86,7 +86,7 @@ if (pomXml.exists()) {
 
         actualRuntimeDeps
             .findAll {
-                !expectedRuntimeDeps.contains(it)
+                !expectedRuntimeDeps.contains(it) && it.second != "quarkus-development-mode-spi"
             }
             .each {
                 parityViolations << "${relativePomPath}  is missing  ${it.first}:${it.second}-deployment  dependency?"
