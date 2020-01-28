@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.devmode;
+package org.apache.camel.quarkus.core.devmode;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import io.quarkus.deployment.devmode.HotReplacementContext;
-import io.quarkus.deployment.devmode.HotReplacementSetup;
+import io.quarkus.dev.spi.HotReplacementContext;
+import io.quarkus.dev.spi.HotReplacementSetup;
 
 public class CamelHotReplacementSetup implements HotReplacementSetup {
     private static final long TWO_SECS = TimeUnit.SECONDS.toMillis(2);
