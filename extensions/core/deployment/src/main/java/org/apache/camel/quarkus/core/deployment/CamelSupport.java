@@ -22,16 +22,17 @@ import java.io.InputStream;
 import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.AbstractMap;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.CamelContext;
+import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.jboss.jandex.ClassInfo;
 
@@ -58,20 +59,34 @@ public final class CamelSupport {
         }
     }
 
-    public static Stream<Path> resources(ApplicationArchivesBuildItem archives, String path) {
-        return archives.getAllApplicationArchives().stream()
-                .map(arch -> arch.getArchiveRoot().resolve(path))
-                .filter(Files::isDirectory)
-                .flatMap(CamelSupport::safeWalk)
-                .filter(Files::isRegularFile);
-    }
-
     public static Stream<CamelServiceBuildItem> services(ApplicationArchivesBuildItem archives, PathFilter pathFilter) {
-        return resources(archives, CAMEL_SERVICE_BASE_PATH)
-                .filter(pathFilter.asPathPredicate())
-                .map(path -> new AbstractMap.SimpleImmutableEntry<>(path, readProperties(path)))
-                .filter(entry -> entry.getValue().getProperty("class") != null)
-                .map(entry -> new CamelServiceBuildItem(entry.getKey(), entry.getValue().getProperty("class")));
+        final Set<CamelServiceBuildItem> answer = new HashSet<>();
+        final Predicate<Path> filter = pathFilter.asPathPredicate();
+
+        for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
+            final Path root = archive.getArchiveRoot();
+            final Path resourcePath = root.resolve(CAMEL_SERVICE_BASE_PATH);
+
+            if (!Files.isDirectory(resourcePath)) {
+                continue;
+            }
+
+            safeWalk(resourcePath).filter(Files::isRegularFile).forEach(file -> {
+                // the root archive may point to a jar file or the absolute path of
+                // a project's build output so we need to relativize to make the
+                // FastFactoryFinder work as expected
+                Path key = root.relativize(file);
+
+                if (filter.test(key)) {
+                    String clazz = readProperties(file).getProperty("class");
+                    if (clazz != null) {
+                        answer.add(new CamelServiceBuildItem(key, clazz));
+                    }
+                }
+            });
+        }
+
+        return answer.stream();
     }
 
     private static Properties readProperties(Path path) {
@@ -90,9 +105,16 @@ public final class CamelSupport {
     }
 
     public static String getCamelVersion() {
-        final String result = CamelContext.class.getPackage().getImplementationVersion();
-        Objects.requireNonNull(result, "Could not determine Camel version");
-        return result;
-    }
+        String version = null;
 
+        Package aPackage = AbstractCamelContext.class.getPackage();
+        if (aPackage != null) {
+            version = aPackage.getImplementationVersion();
+            if (version == null) {
+                version = aPackage.getSpecificationVersion();
+            }
+        }
+
+        return Objects.requireNonNull(version, "Could not determine Camel version");
+    }
 }

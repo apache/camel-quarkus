@@ -108,7 +108,7 @@ public class CamelTest {
                 .hasKeySatisfying(startsWith("META-INF/services/org/apache/camel/dataformat/"))
                 .hasEntrySatisfying(entry(
                         "META-INF/services/org/apache/camel/dataformat/my-dataformat",
-                        "org.apache.camel.quarkus.core.runtime.support.MyDataFormat"));
+                        "org.apache.camel.quarkus.it.support.dataformat.MyDataformat"));
 
         // languages
         assertThat(factoryFinderMap)

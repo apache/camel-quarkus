@@ -14,31 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.devmode;
+package org.apache.camel.quarkus.it.support.dataformat;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
+import java.io.InputStream;
+import java.io.OutputStream;
 
-import io.quarkus.deployment.devmode.HotReplacementContext;
-import io.quarkus.deployment.devmode.HotReplacementSetup;
+import org.apache.camel.Exchange;
+import org.apache.camel.spi.DataFormat;
 
-public class CamelHotReplacementSetup implements HotReplacementSetup {
-    private static final long TWO_SECS = TimeUnit.SECONDS.toMillis(2);
-
+public class MyDataformat implements DataFormat {
     @Override
-    public void setupHotDeployment(HotReplacementContext context) {
-        Timer timer = new Timer(true);
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    context.doScan(false);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }, TWO_SECS, TWO_SECS);
+    public void marshal(Exchange exchange, Object graph, OutputStream stream) throws Exception {
     }
 
+    @Override
+    public Object unmarshal(Exchange exchange, InputStream stream) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void start() {
+    }
+
+    @Override
+    public void stop() {
+    }
 }

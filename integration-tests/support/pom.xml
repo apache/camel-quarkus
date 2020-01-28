@@ -36,6 +36,7 @@
     </description>
 
     <modules>
+        <module>custom-dataformat</module>
         <module>test-support</module>
         <module>testcontainers-support</module>
         <module>core</module>

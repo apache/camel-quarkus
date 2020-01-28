@@ -15,4 +15,4 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 
-class = org.apache.camel.quarkus.core.runtime.support.MyDataFormat
+class=org.apache.camel.quarkus.it.support.dataformat.MyDataformat
