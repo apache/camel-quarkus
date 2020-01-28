@@ -21,6 +21,7 @@ on:
   pull_request:
     branches:
       - master
+      - quarkus-master
 
 env:
   LANG: en_US
@@ -29,6 +30,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -37,7 +42,7 @@ jobs:
           java-version: 1.8
       - name: Build Project
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
             clean install
       - name: Save Cache
@@ -53,6 +58,10 @@ jobs:
       matrix:
         java: [ '11' , '12' ]
     steps:
+#    - name: Set BRANCH_OPTIONS
+#      if: github.base_ref == 'quarkus-master'
+#      run: |
+#        echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
     - uses: actions/checkout@v2
     - name: Set up JDK ${{ matrix.java }}
       uses: actions/setup-java@v1
@@ -60,13 +69,17 @@ jobs:
         java-version: ${{ matrix.java }}
     - name: Build on ${{ matrix.java }}
       run: |
-        ./mvnw -V -B \
+        ./mvnw ${BRANCH_OPTIONS} -V -B \
           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
           clean verify
   core:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -82,7 +95,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -96,6 +109,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -111,7 +128,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -128,6 +145,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -143,7 +164,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -156,6 +177,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -171,7 +196,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -183,6 +208,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -198,7 +227,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -214,6 +243,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -229,7 +262,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -241,6 +274,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -256,7 +293,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -268,6 +305,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -283,7 +324,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -294,6 +335,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -309,7 +354,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -327,6 +372,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+#      - name: Set BRANCH_OPTIONS
+#        if: github.base_ref == 'quarkus-master'
+#        run: |
+#          echo '::set-env name=BRANCH_OPTIONS::-Dquarkus.version=999-SNAPSHOT -Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -342,7 +391,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Integration Tests
         run: |
-          ./mvnw -V -B \
+          ./mvnw ${BRANCH_OPTIONS} -V -B \
             -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
             -Dnative \
             -Ddocker \
@@ -372,7 +421,7 @@ jobs:
   #     # of memory this we nee to limit it to avoid the process fail for OOM.
   #     - name: Integration Tests
   #       run: |
-  #         ./mvnw -V -B \
+  #         ./mvnw ${BRANCH_OPTIONS} -V -B \
   #           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
   #           -Dnative \
   #           -Ddocker \
