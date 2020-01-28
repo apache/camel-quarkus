@@ -31,8 +31,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import org.apache.camel.CamelContext;
+import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.apache.camel.util.IOHelper;
 import org.jboss.jandex.ClassInfo;
 
 public final class CamelSupport {
@@ -89,10 +90,40 @@ public final class CamelSupport {
         return Stream.of(items).collect(Collectors.toCollection(HashSet::new));
     }
 
+    // Without PR https://github.com/quarkusio/quarkus/pull/6845, the original
+    // implementation of this method would fail as getImplementationVersion
+    // would return null
     public static String getCamelVersion() {
-        final String result = CamelContext.class.getPackage().getImplementationVersion();
-        Objects.requireNonNull(result, "Could not determine Camel version");
-        return result;
-    }
+        String version = null;
 
+        InputStream is = null;
+        // try to load from maven properties first
+        try {
+            Properties p = new Properties();
+            is = AbstractCamelContext.class.getResourceAsStream("/META-INF/maven/org.apache.camel/camel-base/pom.properties");
+            if (is != null) {
+                p.load(is);
+                version = p.getProperty("version", "");
+            }
+        } catch (Exception e) {
+            // ignore
+        } finally {
+            if (is != null) {
+                IOHelper.close(is);
+            }
+        }
+
+        // fallback to using Java API
+        if (version == null) {
+            Package aPackage = AbstractCamelContext.class.getPackage();
+            if (aPackage != null) {
+                version = aPackage.getImplementationVersion();
+                if (version == null) {
+                    version = aPackage.getSpecificationVersion();
+                }
+            }
+        }
+
+        return Objects.requireNonNull(version, "Could not determine Camel version");
+    }
 }
