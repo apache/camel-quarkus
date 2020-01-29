@@ -64,7 +64,7 @@ Number of Camel components: 64 in 55 JAR artifacts (0 deprecated)
 `aws-sqs:queueNameOrArn` | 0.2.0 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
-`aws-translate:label` | 1.0.0-M3 | The aws-kms is used for managing Amazon Translate
+`aws-translate:label` | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
@@ -73,7 +73,7 @@ Number of Camel components: 64 in 55 JAR artifacts (0 deprecated)
 `bean-validator:label` | 1.0.0-M1 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
-`class:beanName` | 0.2.0 | The class component is for invoking Java classes (Java beans) from Camel.
+`class:beanName` | 0.2.0 | The Class component is for invoking Java classes (Java beans) from Camel.
 
 | link:https://camel.apache.org/components/latest/consul-component.html[Consul] (camel-quarkus-consul) +
 `consul:apiEndpoint` | 1.0.0-M3 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.

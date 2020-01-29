@@ -21,6 +21,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
@@ -75,7 +76,7 @@ public class CamelMainRecorder {
     }
 
     public void setReactiveExecutor(RuntimeValue<CamelMain> main, RuntimeValue<ReactiveExecutor> executor) {
-        main.getValue().getCamelContext().setReactiveExecutor(executor.getValue());
+        main.getValue().getCamelContext().adapt(ExtendedCamelContext.class).setReactiveExecutor(executor.getValue());
     }
 
     public void start(ShutdownContext shutdown, RuntimeValue<CamelMain> main) {

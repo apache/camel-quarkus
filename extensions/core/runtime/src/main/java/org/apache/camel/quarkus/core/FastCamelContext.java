@@ -26,9 +26,7 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
-import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
-import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
@@ -63,7 +61,6 @@ import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.HeadersMapFactoryResolver;
 import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
-import org.apache.camel.impl.engine.ServicePool;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
@@ -274,16 +271,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected ServicePool<Producer> createProducerServicePool() {
-        return new ServicePool<>(Endpoint::createProducer, Producer::getEndpoint, 100);
-    }
-
-    @Override
-    protected ServicePool<PollingConsumer> createPollingConsumerServicePool() {
-        return new ServicePool<>(Endpoint::createPollingConsumer, PollingConsumer::getEndpoint, 100);
-    }
-
-    @Override
     protected UnitOfWorkFactory createUnitOfWorkFactory() {
         return new DefaultUnitOfWorkFactory();
     }
@@ -365,12 +352,12 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected TransformerRegistry<TransformerKey> createTransformerRegistry() throws Exception {
+    protected TransformerRegistry<TransformerKey> createTransformerRegistry() {
         return new DefaultTransformerRegistry(this);
     }
 
     @Override
-    protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() throws Exception {
+    protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() {
         return new DefaultValidatorRegistry(this);
     }
 

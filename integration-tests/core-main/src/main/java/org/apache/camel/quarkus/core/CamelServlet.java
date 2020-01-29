@@ -165,7 +165,7 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public JsonObject reactiveExecutor() {
-        ReactiveExecutor executor = context.getReactiveExecutor();
+        ReactiveExecutor executor = context.adapt(ExtendedCamelContext.class).getReactiveExecutor();
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", executor.getClass().getName());

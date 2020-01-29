@@ -18,8 +18,12 @@ package org.apache.camel.quarkus.core;
 
 import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.spi.TypeConverterLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FastTypeConverter extends DefaultTypeConverter {
+    private static final Logger LOG = LoggerFactory.getLogger(FastTypeConverter.class);
+
     public FastTypeConverter() {
         super(null, null, null, null, false);
     }
@@ -27,7 +31,7 @@ public class FastTypeConverter extends DefaultTypeConverter {
     @Override
     protected void doStart() throws Exception {
         for (TypeConverterLoader loader : getCamelContext().getRegistry().findByType(TypeConverterLoader.class)) {
-            log.debug("TypeConverterLoader: {} loading converters", loader);
+            LOG.debug("TypeConverterLoader: {} loading converters", loader);
             loader.load(this);
         }
     }
