@@ -44,7 +44,7 @@ public class BuildTimeUriResolver {
 
         final String compacted = compact(templateUri, scheme);
         final String transletName = toTransletName(compacted);
-        final URL url = getClass().getClassLoader().getResource(compacted);
+        final URL url = Thread.currentThread().getContextClassLoader().getResource(compacted);
         if (url == null) {
             throw new IllegalStateException("Could not find the XSLT resource " + compacted + " in the classpath");
         }
