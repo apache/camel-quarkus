@@ -16,33 +16,37 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.context.FhirVersionEnum;
 import ca.uhn.fhir.parser.StrictErrorHandler;
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.fhir.FhirJsonDataFormat;
 import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
+@ApplicationScoped
 public class FhirR5RouteBuilder extends RouteBuilder {
 
     private static final Boolean ENABLED = new FhirFlags.R5Enabled().getAsBoolean();
 
+    @Inject
+    @Named("R5")
+    FhirContext fhirContext;
+
     @Override
     public void configure() {
         if (ENABLED) {
-            CamelContext context = getContext();
-            FhirContext fhirContext = FhirContext.forR5();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
-            context.getRegistry().bind("fhirContext", fhirContext);
 
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
-            fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.R5.name());
+            fhirJsonDataFormat.setFhirContext(fhirContext);
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
-            fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.R5.name());
+            fhirXmlDataFormat.setFhirContext(fhirContext);
             fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             from("direct:json-to-r5")
@@ -54,7 +58,7 @@ public class FhirR5RouteBuilder extends RouteBuilder {
                     .marshal(fhirXmlDataFormat);
 
             from("direct:create-r5")
-                    .to("fhir://create/resource?inBody=resourceAsString&fhirVersion=R5&fhirContext=#fhirContext");
+                    .to("fhir://create/resource?inBody=resourceAsString&fhirContext=#R5");
         }
     }
 }
