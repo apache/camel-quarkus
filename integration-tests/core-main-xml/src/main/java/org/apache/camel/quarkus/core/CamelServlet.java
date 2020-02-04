@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.spi.Registry;
 
 @Path("/test")
@@ -44,6 +45,8 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
+        final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
+
         JsonArrayBuilder listeners = Json.createArrayBuilder();
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
@@ -62,6 +65,8 @@ public class CamelServlet {
         }
 
         return Json.createObjectBuilder()
+                .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)

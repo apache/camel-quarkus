@@ -147,6 +147,8 @@ public class CamelServlet {
         }
 
         return Json.createObjectBuilder()
+                .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)

@@ -40,12 +40,8 @@ import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.support.CamelContextHelper;
 
 public class FastModel extends BaseModel {
-
-    private final XmlRoutesLoader xmlLoader;
-
-    public FastModel(CamelContext camelContext, XmlRoutesLoader xmlLoader) {
+    public FastModel(CamelContext camelContext) {
         super(camelContext);
-        this.xmlLoader = xmlLoader;
     }
 
     @Override

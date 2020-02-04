@@ -19,19 +19,16 @@ package org.apache.camel.quarkus.core;
 import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
-public class DisabledXmlRoutesLoader implements XmlRoutesLoader {
-
+public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoader {
     @Override
-    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
+    public Object loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
     @Override
-    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
+    public Object loadRestsDefinition(CamelContext context, InputStream inputStream) throws Exception {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
-
 }

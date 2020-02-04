@@ -14,26 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml;
-
-import java.io.InputStream;
+package org.apache.camel.quarkus.core;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.ModelHelper;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.quarkus.core.XmlRoutesLoader;
+import org.apache.camel.NamedNode;
+import org.apache.camel.spi.ModelToXMLDumper;
 
-public class DefaultXmlRoutesLoader implements XmlRoutesLoader {
-
+public class DisabledModelToXMLDumper implements ModelToXMLDumper {
     @Override
-    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRoutesDefinition(context, is);
+    public String dumpModelAsXml(CamelContext context, NamedNode definition) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
     @Override
-    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRestsDefinition(context, is);
+    public String dumpModelAsXml(CamelContext context, NamedNode definition, boolean resolvePlaceholders,
+            boolean resolveDelegateEndpoints) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
-
 }

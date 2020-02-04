@@ -27,6 +27,7 @@ import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.spi.ReactiveExecutor;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 @Recorder
 public class CamelMainRecorder {
@@ -101,7 +102,7 @@ public class CamelMainRecorder {
 
     public RuntimeValue<RoutesCollector> newRoutesCollector(
             RuntimeValue<RegistryRoutesLoader> registryRoutesLoader,
-            RuntimeValue<XmlRoutesLoader> xmlRoutesLoader) {
+            RuntimeValue<XMLRoutesDefinitionLoader> xmlRoutesLoader) {
 
         return new RuntimeValue<>(new CamelRoutesCollector(registryRoutesLoader.getValue(), xmlRoutesLoader.getValue()));
     }
