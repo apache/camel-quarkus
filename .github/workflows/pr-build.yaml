@@ -409,6 +409,7 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
+            -pl :camel-quarkus-integration-test-box \
             -pl :camel-quarkus-integration-test-salesforce \
             -pl :camel-quarkus-integration-test-slack \
             -pl :camel-quarkus-integration-test-twitter
