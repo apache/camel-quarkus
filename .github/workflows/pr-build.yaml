@@ -235,6 +235,7 @@ jobs:
             -DskipTests \
             -pl :camel-quarkus-integration-test-base64 \
             -pl :camel-quarkus-integration-test-bindy \
+            -pl :camel-quarkus-integration-test-gson \
             -pl :camel-quarkus-integration-test-snakeyaml \
             -pl :camel-quarkus-integration-test-tagsoup \
             -pl :camel-quarkus-integration-test-xslt \
