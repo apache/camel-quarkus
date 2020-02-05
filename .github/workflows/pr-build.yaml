@@ -366,6 +366,7 @@ jobs:
             -pl :camel-quarkus-integration-test-infinispan \
             -pl :camel-quarkus-integration-test-mail \
             -pl :camel-quarkus-integration-test-pdf \
+            -pl :camel-quarkus-integration-test-stream \
             -pl :camel-quarkus-integration-test-tarfile \
             -pl :camel-quarkus-integration-test-validator \
             -pl :camel-quarkus-integration-test-zipfile
