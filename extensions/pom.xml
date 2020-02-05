@@ -102,6 +102,7 @@
         <module>slack</module>
         <module>snakeyaml</module>
         <module>sql</module>
+        <module>stream</module>
         <module>tagsoup</module>
         <module>tarfile</module>
         <module>timer</module>

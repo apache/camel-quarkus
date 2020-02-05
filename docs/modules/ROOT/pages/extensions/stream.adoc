@@ -1,0 +1,31 @@
+[[stream]]
+= Stream Extension
+
+*Since Camel Quarkus 1.0.0-M4*
+
+The Stream component provides access to the `System.in`, `System.out` and `System.err` streams as well as allowing streaming of files.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-stream</artifactId>
+</dependency>
+----
+
+== Usage
+
+Please refer to the https://camel.apache.org/components/latest/stream-component.html[Stream] component page.
+
+
+== Configuration
+
+* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you want to use
+ non-default encodings for the stream endpoint `encoding` URI parameter.
+
+[NOTE]
+====
+The `fileWatcher` feature of the stream consumer requires GraalVM >= 19.3.0, due to a https://github.com/oracle/graal/issues/1253[bug].
+====
