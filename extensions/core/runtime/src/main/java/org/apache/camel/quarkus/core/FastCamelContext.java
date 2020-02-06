@@ -28,6 +28,8 @@ import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Processor;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
@@ -317,6 +319,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     protected ModelToXMLDumper createModelToXMLDumper() {
         return modelDumper;
+    }
+
+    @Override
+    protected RuntimeCamelCatalog createRuntimeCamelCatalog() {
+        return new DefaultRuntimeCamelCatalog();
     }
 
     @Override
