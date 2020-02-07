@@ -22,6 +22,7 @@ on:
     branches:
       - master
       - camel-master
+      - quarkus-master
 
 env:
   LANG: en_US
@@ -31,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -59,9 +60,9 @@ jobs:
         java: [ '11' , '12' ]
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v1
@@ -77,9 +78,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -110,9 +111,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -146,9 +147,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -178,9 +179,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -209,9 +210,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -245,9 +246,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -276,9 +277,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -307,9 +308,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -337,9 +338,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java
@@ -375,9 +376,9 @@ jobs:
     needs: build
     steps:
       - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master'
+        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set Up Java

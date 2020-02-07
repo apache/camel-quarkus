@@ -22,6 +22,7 @@ on:
     branches:
       - master
       - camel-master
+      - quarkus-master
 
 env:
   LANG: en_US
@@ -31,9 +32,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Set BRANCH_OPTIONS
-      if: github.base_ref == 'camel-master'
+      if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
       run: |
-        echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+        echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
     - uses: actions/checkout@v1
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
