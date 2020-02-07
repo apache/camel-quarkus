@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -23,6 +24,7 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -55,5 +57,11 @@ public class CamelTest {
     public void testResolveLanguages() {
         RestAssured.when().get("/test/language/simple").then().body(is("true"));
         RestAssured.when().get("/test/language/undefined").then().body(is("false"));
+    }
+
+    @Test
+    public void testCatalogComponent() throws IOException {
+        RestAssured.when().get("/test/catalog/component/timer").then().body(not(emptyOrNullString()));
+        RestAssured.when().get("/test/catalog/language/simple").then().body(emptyOrNullString());
     }
 }

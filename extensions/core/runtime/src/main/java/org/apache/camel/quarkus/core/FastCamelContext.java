@@ -16,11 +16,14 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 import org.apache.camel.AsyncProcessor;
+import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.PollingConsumer;
@@ -39,6 +42,7 @@ import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
+import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
@@ -74,6 +78,7 @@ import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.ExecutorServiceManager;
@@ -81,6 +86,7 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
+import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
@@ -102,14 +108,18 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
+import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.util.IOHelper;
 
-public class FastCamelContext extends AbstractCamelContext {
+public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext {
     private Model model;
     private final String version;
 
     public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version) {
         super(false);
+
         this.version = version;
+
         setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
@@ -390,4 +400,99 @@ public class FastCamelContext extends AbstractCamelContext {
         forceLazyInitialization();
     }
 
+    @Override
+    public String getComponentParameterJsonSchema(String componentName) throws IOException {
+        Class<?> clazz;
+
+        Object instance = getRegistry().lookupByNameAndType(componentName, Component.class);
+        if (instance != null) {
+            clazz = instance.getClass();
+        } else {
+            clazz = getFactoryFinder(DefaultComponentResolver.RESOURCE_PATH).findClass(componentName).orElse(null);
+            if (clazz == null) {
+                instance = hasComponent(componentName);
+                if (instance != null) {
+                    clazz = instance.getClass();
+                } else {
+                    return null;
+                }
+            }
+        }
+
+        // special for ActiveMQ as it is really just JMS
+        if ("ActiveMQComponent".equals(clazz.getSimpleName())) {
+            return getComponentParameterJsonSchema("jms");
+        } else {
+            return getJsonSchema(clazz.getPackage().getName(), componentName);
+        }
+    }
+
+    @Override
+    public String getDataFormatParameterJsonSchema(String dataFormatName) throws IOException {
+        Class<?> clazz;
+
+        Object instance = getRegistry().lookupByNameAndType(dataFormatName, DataFormat.class);
+        if (instance != null) {
+            clazz = instance.getClass();
+        } else {
+            clazz = getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH).findClass(dataFormatName).orElse(null);
+            if (clazz == null) {
+                return null;
+            }
+        }
+
+        return getJsonSchema(clazz.getPackage().getName(), dataFormatName);
+    }
+
+    @Override
+    public String getLanguageParameterJsonSchema(String languageName) throws IOException {
+        Class<?> clazz;
+
+        Object instance = getRegistry().lookupByNameAndType(languageName, Language.class);
+        if (instance != null) {
+            clazz = instance.getClass();
+        } else {
+            clazz = getFactoryFinder(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH).findClass(languageName).orElse(null);
+            if (clazz == null) {
+                return null;
+            }
+        }
+
+        return getJsonSchema(clazz.getPackage().getName(), languageName);
+    }
+
+    @Override
+    public String getEipParameterJsonSchema(String eipName) throws IOException {
+        // the eip json schema may be in some of the sub-packages so look until
+        // we find it
+        String[] subPackages = new String[] { "", "/config", "/dataformat", "/language", "/loadbalancer", "/rest" };
+        for (String sub : subPackages) {
+            String path = CamelContextHelper.MODEL_DOCUMENTATION_PREFIX + sub + "/" + eipName + ".json";
+            InputStream inputStream = getClassResolver().loadResourceAsStream(path);
+            if (inputStream != null) {
+                try {
+                    return IOHelper.loadText(inputStream);
+                } finally {
+                    IOHelper.close(inputStream);
+                }
+            }
+        }
+        return null;
+    }
+
+    private String getJsonSchema(String packageName, String name) throws IOException {
+        String path = packageName.replace('.', '/') + "/" + name + ".json";
+        InputStream inputStream = getClassResolver().loadResourceAsStream(path);
+
+        if (inputStream != null) {
+            try {
+                log.debug("loading scheme {} ", path);
+                return IOHelper.loadText(inputStream);
+            } finally {
+                IOHelper.close(inputStream);
+            }
+        }
+
+        return null;
+    }
 }

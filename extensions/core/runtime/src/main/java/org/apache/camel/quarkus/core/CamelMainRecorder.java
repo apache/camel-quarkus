@@ -37,7 +37,6 @@ public class CamelMainRecorder {
             RuntimeValue<CamelContext> runtime,
             RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container) {
-
         CamelMain main = new CamelMain();
         main.setRoutesCollector(routesCollector.getValue());
         main.setCamelContext(runtime.getValue());

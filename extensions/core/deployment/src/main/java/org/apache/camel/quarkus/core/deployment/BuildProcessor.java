@@ -356,7 +356,8 @@ class BuildProcessor {
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
                 CamelRoutesLoaderBuildItems.Xml xmlLoader,
                 CamelFactoryFinderResolverBuildItem factoryFinderResolverBuildItem,
-                BeanContainerBuildItem beanContainer) {
+                BeanContainerBuildItem beanContainer,
+                CamelConfig config) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
                     registry.getRegistry(),
@@ -365,7 +366,8 @@ class BuildProcessor {
                     xmlLoader.getLoader(),
                     factoryFinderResolverBuildItem.getFactoryFinderResolver(),
                     beanContainer.getValue(),
-                    CamelSupport.getCamelVersion());
+                    CamelSupport.getCamelVersion(),
+                    config);
 
             return new CamelContextBuildItem(context);
         }

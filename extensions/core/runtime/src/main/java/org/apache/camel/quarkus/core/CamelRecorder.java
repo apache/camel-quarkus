@@ -25,6 +25,7 @@ import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.Registry;
@@ -62,8 +63,11 @@ public class CamelRecorder {
             RuntimeValue<XmlRoutesLoader> xmlLoader,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             BeanContainer beanContainer,
-            String version) {
+            String version,
+            CamelConfig config) {
+
         FastCamelContext context = new FastCamelContext(factoryFinderResolver.getValue(), version);
+        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(context, config.runtimeCatalog));
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
