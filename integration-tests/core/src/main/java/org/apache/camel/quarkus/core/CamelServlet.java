@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.io.IOException;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -29,6 +31,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
@@ -94,5 +97,25 @@ public class CamelServlet {
         }
 
         return true;
+    }
+
+    @Path("/catalog/{type}/{name}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
+        final RuntimeCamelCatalog catalog = context.getExtension(RuntimeCamelCatalog.class);
+
+        switch (type) {
+        case "component":
+            return catalog.componentJSonSchema(name);
+        case "language":
+            return catalog.languageJSonSchema(name);
+        case "dataformat":
+            return catalog.dataFormatJSonSchema(name);
+        case "model":
+            return catalog.modelJSonSchema(name);
+        default:
+            throw new IllegalArgumentException("Unknown type " + type);
+        }
     }
 }

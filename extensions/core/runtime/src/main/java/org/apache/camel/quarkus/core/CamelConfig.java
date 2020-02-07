@@ -38,6 +38,12 @@ public class CamelConfig {
     @ConfigItem
     public ServiceConfig service;
 
+    /**
+     * Build time configuration options for CamelRuntimeCatalog.
+     */
+    @ConfigItem
+    public RuntimeCatalogConfig runtimeCatalog;
+
     @ConfigGroup
     public static class MainConfig {
         /**
@@ -174,4 +180,48 @@ public class CamelConfig {
         public Optional<List<String>> includePatterns;
     }
 
+    @ConfigGroup
+    public static class RuntimeCatalogConfig {
+        /**
+         * Enable {@link CamelRuntimeCatalog} functionaries.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+
+        /**
+         * Used to control the resolution of components catalog info.
+         * <p>
+         * Note that when building native images, this flag determine if the json metadata files related to components
+         * discovered at build time have to be included in the final binary.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean components;
+
+        /**
+         * Used to control the resolution of languages catalog info.
+         * <p>
+         * Note that when building native images, this flag determine if the json metadata files related to languages
+         * discovered at build time have to be included in the final binary.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean languages;
+
+        /**
+         * Used to control the resolution of dataformats catalog info.
+         * <p>
+         * Note that when building native images, this flag determine if the json metadata files related to dataformats
+         * discovered at build time have to be included in the final binary.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean dataformats;
+
+        /**
+         * Used to control the resolution of model catalog info.
+         * <p>
+         * Note that when building native images, this flag determine if the json metadata files related to models
+         * has to be included in the final binary.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean models;
+    }
 }
