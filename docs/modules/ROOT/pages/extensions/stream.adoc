@@ -25,7 +25,3 @@ Please refer to the https://camel.apache.org/components/latest/stream-component.
 * Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you want to use
  non-default encodings for the stream endpoint `encoding` URI parameter.
 
-[NOTE]
-====
-The `fileWatcher` feature of the stream consumer requires GraalVM >= 19.3.0, due to a https://github.com/oracle/graal/issues/1253[bug].
-====
