@@ -20,6 +20,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -44,5 +45,11 @@ class HttpClientProcessor {
         for (ClassInfo info : view.getAllKnownSubclasses(HTTP_REQUEST_BASE_NAME)) {
             reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, info.name().toString()));
         }
+    }
+
+    @BuildStep
+    NativeImageResourceBuildItem suffixListResource() {
+        // Required by org.apache.http.conn.util.PublicSuffixMatcher
+        return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
     }
 }
