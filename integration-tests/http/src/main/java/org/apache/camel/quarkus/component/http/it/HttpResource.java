@@ -55,6 +55,16 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/ahc/get-https")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getHttps() {
+        return producerTemplate
+                .to("ahc:https://restcountries.eu/rest/v2/alpha/cz?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
     @Path("/ahc/post")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -102,6 +112,16 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/http/get-https")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String httpGetHttps() {
+        return producerTemplate
+                .to("https://restcountries.eu/rest/v2/alpha/cz?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
     @Path("/http/post")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -127,6 +147,16 @@ public class HttpResource {
     public String nettyHttpGet(@QueryParam("test-port") int port) {
         return producerTemplate
                 .to("netty-http:http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
+    @Path("/netty-http/get-https")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String nettyHttpGetHttps() {
+        return producerTemplate
+                .to("netty-http:https://restcountries.eu/rest/v2/alpha/cz")
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
