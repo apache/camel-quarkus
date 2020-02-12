@@ -45,7 +45,10 @@ public final class Flags {
     public static final class RuntimeCatalogEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
-            return asBoolean("quarkus.camel.runtime-catalog.enabled", true);
+            return asBoolean("quarkus.camel.runtime-catalog.components", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.languages", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.dataformats", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.models", true);
         }
     }
 }

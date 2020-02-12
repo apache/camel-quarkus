@@ -39,7 +39,7 @@ public class CamelConfig {
     public ServiceConfig service;
 
     /**
-     * Build time configuration options for CamelRuntimeCatalog.
+     * Build time configuration options for {@link org.apache.camel.runtimecatalog.RuntimeCamelCatalog}.
      */
     @ConfigItem
     public RuntimeCatalogConfig runtimeCatalog;
@@ -183,16 +183,11 @@ public class CamelConfig {
     @ConfigGroup
     public static class RuntimeCatalogConfig {
         /**
-         * Enable {@link CamelRuntimeCatalog} functionaries.
-         */
-        @ConfigItem(defaultValue = "true")
-        public boolean enabled;
-
-        /**
          * Used to control the resolution of components catalog info.
          * <p>
          * Note that when building native images, this flag determine if the json metadata files related to components
-         * discovered at build time have to be included in the final binary.
+         * discovered at build time have to be included in the final binary. In JVM mode there is no real benefit of
+         * setting this flag to {@code false} if not to make the behavior consistent with native mode.
          */
         @ConfigItem(defaultValue = "true")
         public boolean components;
@@ -201,7 +196,8 @@ public class CamelConfig {
          * Used to control the resolution of languages catalog info.
          * <p>
          * Note that when building native images, this flag determine if the json metadata files related to languages
-         * discovered at build time have to be included in the final binary.
+         * discovered at build time have to be included in the final binary. In JVM mode there is no real benefit of
+         * setting this flag to {@code false} if not to make the behavior consistent with native mode.
          */
         @ConfigItem(defaultValue = "true")
         public boolean languages;
@@ -210,7 +206,8 @@ public class CamelConfig {
          * Used to control the resolution of dataformats catalog info.
          * <p>
          * Note that when building native images, this flag determine if the json metadata files related to dataformats
-         * discovered at build time have to be included in the final binary.
+         * discovered at build time have to be included in the final binary. In JVM mode there is no real benefit of
+         * setting this flag to {@code false} if not to make the behavior consistent with native mode.
          */
         @ConfigItem(defaultValue = "true")
         public boolean dataformats;
@@ -219,7 +216,8 @@ public class CamelConfig {
          * Used to control the resolution of model catalog info.
          * <p>
          * Note that when building native images, this flag determine if the json metadata files related to models
-         * has to be included in the final binary.
+         * has to be included in the final binary. In JVM mode there is no real benefit of setting this flag to
+         * {@code false} if not to make the behavior consistent with native mode.
          */
         @ConfigItem(defaultValue = "true")
         public boolean models;
