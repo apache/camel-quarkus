@@ -426,6 +426,7 @@
                                     <properties>
                                         <sortModulesPaths>extensions/pom.xml,integration-tests/pom.xml</sortModulesPaths>
                                         <sortDependencyManagementPaths>poms/bom/pom.xml,poms/bom-deployment/pom.xml</sortDependencyManagementPaths>
+                                        <updateMvndRuleDirs>examples,integration-tests</updateMvndRuleDirs>
                                     </properties>
                                     <source>file:///${project.basedir}/tooling/scripts/sort-poms.groovy</source>
                                 </configuration>

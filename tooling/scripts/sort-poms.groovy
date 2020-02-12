@@ -26,6 +26,8 @@ import java.nio.file.Files
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+import groovy.util.NodeList
+
 @groovy.transform.Field
 final Path baseDir = basedir.toPath()
 
@@ -34,6 +36,9 @@ sortDependencyManagement(sortDepManagementPaths)
 
 final String[] sortModulesPaths = properties['sortModulesPaths'].split(',')
 sortModules(sortModulesPaths)
+
+final String[] updateMvndRuleDirs = properties['updateMvndRuleDirs'].split(',')
+updateMvndRules(updateMvndRuleDirs)
 
 void sortDependencyManagement(String[] pomPaths) {
     for (pomPath in pomPaths) {
@@ -177,5 +182,122 @@ void sortModules(String[] sortModulesPaths) {
         } else {
             throw new RuntimeException('Could not match ' + sortSpanPattern + ' in ' + pomXmlPath)
         }
+    }
+}
+
+void updateMvndRules(String[] updateMvndRuleDirs) {
+    final Set<String> extensionArtifactIds = [] as TreeSet
+    Files.list(baseDir.resolve('extensions'))
+            .filter { p -> Files.isDirectory(p) && Files.exists(p.resolve('pom.xml')) && Files.exists(p.resolve('runtime')) }
+            .map { p -> p.getFileName().toString() }
+            .filter { dirName -> !dirName.equals('support') }
+            .map { dirName -> 'camel-quarkus-' + dirName }
+            .forEach { aid -> extensionArtifactIds << aid }
+
+    Files.list(baseDir.resolve('extensions/support'))
+            .filter { p -> Files.isDirectory(p) && Files.exists(p.resolve('pom.xml')) && Files.exists(p.resolve('runtime')) }
+            .map { p -> p.getFileName().toString() }
+            .map { dirName -> 'camel-quarkus-support-' + dirName }
+            .forEach { aid -> extensionArtifactIds << aid }
+
+    Files.list(baseDir.resolve('integration-tests/support'))
+            .filter { p -> Files.isDirectory(p) && Files.exists(p.resolve('pom.xml')) && Files.exists(p.resolve('runtime')) }
+            .map { p -> p.getFileName().toString() }
+            .map { dirName -> 'camel-quarkus-integration-test-support-' + dirName + '-ext' }
+            .forEach { aid -> extensionArtifactIds << aid }
+
+    /* Policy may disappear at some point */
+    final boolean policyExtensionExists = extensionArtifactIds.contains('camel-quarkus-support-policy')
+
+    final Pattern dependenciesPattern = Pattern.compile('([^\n<]*)<dependenc')
+    final Pattern propsPattern = Pattern.compile('([^\n<]*)</properties>')
+    final Pattern rulePattern = Pattern.compile('<mvnd.builder.rule>[^<]*</mvnd.builder.rule>')
+
+    for (updateMvndRuleDir in updateMvndRuleDirs) {
+        Files.list(baseDir.resolve(updateMvndRuleDir))
+                .filter { p -> Files.isDirectory(p) && !'support'.equals(p.getFileName().toString()) }
+                .map { p -> p.resolve('pom.xml') }
+                .filter { p -> Files.exists(p) }
+                .forEach { pomXmlPath ->
+
+                        final Path relativePomPath = baseDir.relativize(pomXmlPath)
+
+                        String pomXmlText = pomXmlPath.toFile().getText('UTF-8')
+
+                        Node pomXmlProject = null
+                        try {
+                            pomXmlProject = new XmlParser().parseText(pomXmlText)
+                        } catch (Exception e) {
+                            throw new RuntimeException('Could not parse ' + relativePomPath, e)
+                        }
+                        final List<String> extensionDependencies = pomXmlProject.dependencies.dependency
+                                .findAll { dep -> "org.apache.camel.quarkus".equals(dep.groupId.text()) && extensionArtifactIds.contains(dep.artifactId.text()) }
+                                .collect { dep -> dep.artifactId.text() + '-deployment' }
+                        if (policyExtensionExists) {
+                            extensionDependencies.add('camel-quarkus-support-policy-deployment')
+                        }
+
+                        final String expectedRule = extensionDependencies
+                                .toSorted()
+                                .join(',')
+
+                        final Matcher depsMatcher = dependenciesPattern.matcher(pomXmlText)
+                        if (depsMatcher.find()) {
+                            final String indent = depsMatcher.group(1)
+                            final int insertionPos = depsMatcher.start()
+
+                            final NodeList props = pomXmlProject.properties
+                            if (props.isEmpty()) {
+                                final String insert = indent + '<properties>\n' +
+                                    indent + indent + '<!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->\n' +
+                                    indent + indent + '<!-- The following rule tells mvnd to build the listed deployment modules before this module. -->\n' +
+                                    indent + indent + '<!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->\n' +
+                                    indent + indent + '<!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->\n' +
+                                    indent + indent + '<!-- Please update rule whenever you change the dependencies of this module by running -->\n' +
+                                    indent + indent + '<!--     mvn process-resources -Pformat    from the root directory -->\n' +
+                                    indent + indent + '<mvnd.builder.rule>' + expectedRule + '</mvnd.builder.rule>\n' +
+                                    indent + '</properties>\n\n'
+                                pomXmlText = new StringBuilder(pomXmlText).insert(insertionPos, insert).toString()
+                                Files.write(pomXmlPath, pomXmlText.getBytes('UTF-8'))
+                            } else {
+                                final NodeList mvndRule = props.'mvnd.builder.rule'
+                                if (mvndRule.isEmpty()) {
+                                    final Matcher propsMatcher = propsPattern.matcher(pomXmlText)
+                                    if (propsMatcher.find()) {
+                                        final int insPos = propsMatcher.start()
+                                        final String insert = indent + indent + '<mvnd.builder.rule>' + expectedRule + '</mvnd.builder.rule>\n'
+                                        pomXmlText = new StringBuilder(pomXmlText).insert(insPos, insert).toString()
+                                        Files.write(pomXmlPath, pomXmlText.getBytes('UTF-8'))
+                                    } else {
+                                        throw new IllegalStateException('Could not find ' + propsPattern.pattern() + ' in ' + relativePomPath)
+                                    }
+                                } else {
+                                    final String actualRule = mvndRule.get(0).text()
+                                            .split(',')
+                                            .collect{ it -> it.trim() }
+                                            .toSorted()
+                                            .join(',')
+                                    if (!expectedRule.equals(actualRule)) {
+                                        final Matcher ruleMatcher = rulePattern.matcher(pomXmlText)
+                                        if (ruleMatcher.find()) {
+                                            final StringBuffer buf = new StringBuffer(pomXmlText.length() + 128)
+                                            final String replacement = '<mvnd.builder.rule>' + expectedRule + '</mvnd.builder.rule>'
+                                            ruleMatcher.appendReplacement(buf, Matcher.quoteReplacement(replacement))
+                                            ruleMatcher.appendTail(buf)
+                                            Files.write(pomXmlPath, buf.toString().getBytes('UTF-8'))
+                                        } else {
+                                            throw new IllegalStateException('Could not find ' + rulePattern.pattern() + ' in ' + relativePomPath)
+                                        }
+                                    }
+                                }
+                            }
+
+                        } else {
+                            throw new IllegalStateException('Could not find ' + dependenciesPattern.pattern() + ' in ' + relativePomPath)
+                        }
+
+
+
+                }
     }
 }
