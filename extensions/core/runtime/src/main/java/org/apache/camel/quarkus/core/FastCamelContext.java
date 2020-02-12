@@ -42,6 +42,7 @@ import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
+import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
@@ -76,6 +77,7 @@ import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.camel.spi.DataFormat;
+import org.apache.camel.spi.ConfigurerResolver;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.ExecutorServiceManager;
@@ -383,6 +385,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
             boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
                 false, false, 0L, null, false, false);
+    }
+
+    @Override
+    protected ConfigurerResolver createConfigurerResolver() {
+        return new DefaultConfigurerResolver();
     }
 
     @Override

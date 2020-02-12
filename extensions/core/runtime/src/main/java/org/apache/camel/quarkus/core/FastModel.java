@@ -54,7 +54,7 @@ public class FastModel extends BaseModel {
         try {
             String id = routeDefinition.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory());
             FastRouteContext routeContext = new FastRouteContext(camelContext, routeDefinition, id);
-            Route route = new RouteReifier(routeDefinition).createRoute(camelContext, routeContext);
+            Route route = new RouteReifier(routeContext, routeDefinition).createRoute();
             FastRouteService routeService = createRouteService(route);
             mcc.startRouteService(routeService, true);
         } finally {
