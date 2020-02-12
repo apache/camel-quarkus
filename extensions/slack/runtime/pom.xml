@@ -55,6 +55,10 @@
             <artifactId>camel-quarkus-support-commons-logging</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-httpclient</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-slack</artifactId>
             <exclusions>
