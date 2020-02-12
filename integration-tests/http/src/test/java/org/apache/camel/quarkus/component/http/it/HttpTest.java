@@ -19,14 +19,17 @@ package org.apache.camel.quarkus.component.http.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
+@QuarkusTestResource(TrustStoreResource.class)
 class HttpTest {
     @ParameterizedTest
     @ValueSource(strings = { "ahc", "http", "netty-http" })
@@ -47,6 +50,32 @@ class HttpTest {
                 .post("/test/client/{component}/post", component)
                 .then()
                 .body(is("MESSAGE"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "ahc",
+            "http" /*, "netty-http" disabled because of https://github.com/apache/camel-quarkus/issues/695 */ })
+    public void httpsProducer(String component) {
+        RestAssured
+                .given()
+                .when()
+                .get("/test/client/{component}/get-https", component)
+                .then()
+                .body(containsString("Czech Republic"));
+    }
+
+    @Test
+    public void restcountries() throws Exception {
+        RestAssured
+                .given()
+                .baseUri("https://restcountries.eu")
+                .port(443)
+                .when()
+                .accept("application/json")
+                .get("/rest/v2/alpha/cz")
+                .then()
+                .statusCode(200)
+                .body(containsString("Czech Republic"));
     }
 
     @Test

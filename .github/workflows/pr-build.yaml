@@ -55,6 +55,7 @@ jobs:
             maven-${{ github.sha }}
   build-alternative-jvm:
     runs-on: ubuntu-latest
+    needs: build
     strategy:
       matrix:
         java: [ '11' , '12' ]
@@ -68,6 +69,13 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ matrix.java }}
+      - name: Restore Cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: maven-${{ github.sha }}
+          restore-keys: |
+            maven-${{ github.sha }}
       - name: Build on ${{ matrix.java }}
         run: |
           ./mvnw -V -B ${BRANCH_OPTIONS} \
