@@ -30,7 +30,7 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
 
     @Override
     public String modelJSonSchema(String name) {
-        if (!config.enabled || !config.models) {
+        if (!config.models) {
             return null;
         }
 
@@ -39,7 +39,7 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
 
     @Override
     public String componentJSonSchema(String name) {
-        if (!config.enabled || !config.components) {
+        if (!config.components) {
             return null;
         }
 
@@ -48,7 +48,7 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
 
     @Override
     public String dataFormatJSonSchema(String name) {
-        if (!config.enabled || !config.dataformats) {
+        if (!config.dataformats) {
             return null;
         }
 
@@ -57,7 +57,7 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
 
     @Override
     public String languageJSonSchema(String name) {
-        if (!config.enabled || !config.languages) {
+        if (!config.languages) {
             return null;
         }
 
