@@ -17,11 +17,17 @@
 package org.apache.camel.quarkus.component.jira.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class JiraProcessor {
 
     private static final String FEATURE = "camel-jira";
+
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
 
     @BuildStep
     FeatureBuildItem feature() {

@@ -46,19 +46,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <repositories>
-        <repository>
-            <id>atlassian</id>
-            <url>https://packages.atlassian.com/maven-external/</url>
-            <name>atlassian exteranl repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>
