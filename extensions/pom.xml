@@ -89,6 +89,7 @@
         <module>netty-http</module>
         <module>olingo4</module>
         <module>opentracing</module>
+        <module>jira</module>
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
