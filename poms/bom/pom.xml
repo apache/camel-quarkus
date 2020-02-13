@@ -143,6 +143,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-jira</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${jira.guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-base</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -970,7 +980,12 @@
                 <artifactId>camel-quarkus-zipfile</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jira</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            
             <!--$ Other third party dependencies $-->
             <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
@@ -1057,6 +1072,11 @@
                 <groupId>xerces</groupId>
                 <artifactId>xercesImpl</artifactId>
                 <version>${xerces.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpclient-cache</artifactId>
+                <version>${httpclient.cache.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

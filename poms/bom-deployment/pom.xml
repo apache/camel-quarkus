@@ -55,6 +55,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-jira-deployment</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
