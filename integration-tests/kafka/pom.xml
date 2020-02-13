@@ -31,6 +31,7 @@
 
     <properties>
         <rerun.failing.test.count>2</rerun.failing.test.count>
+        <mvnd.builder.rule>camel-quarkus-kafka-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
