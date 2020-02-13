@@ -188,6 +188,7 @@
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
+        <module>jira</module>
         <module>jsonpath</module>
         <module>kafka</module>
         <module>mail</module>
@@ -197,7 +198,6 @@
         <module>olingo4</module>
         <module>opentracing</module>
         <module>paho</module>
-        <module>jira</module>
         <module>pdf</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>

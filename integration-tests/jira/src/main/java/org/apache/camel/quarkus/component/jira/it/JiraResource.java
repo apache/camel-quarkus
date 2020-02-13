@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.jira.it;
 
 import java.net.URI;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,7 +33,6 @@ import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
 @Path("/jira")
-@ApplicationScoped
 public class JiraResource {
 
     private static final Logger log = Logger.getLogger(JiraResource.class);

@@ -31,6 +31,16 @@
     <name>Camel Quarkus :: Integration Tests :: Jira</name>
     <description>Integration tests for Camel Quarkus Jira extension</description>
 
+    <properties>
+        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
+        <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
+        <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
+        <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
+        <!-- Please update rule whenever you change the dependencies of this module by running -->
+        <!--     mvn process-resources -Pformat    from the root directory -->
+        <mvnd.builder.rule>camel-quarkus-direct-deployment,camel-quarkus-jira-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -84,60 +94,6 @@
         </plugins>
     </build>
 
-    <!--profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                                    </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>native-image</id>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
-                                    <cleanupServer>true</cleanupServer>
-                                    <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
-                                    <enableServer>false</enableServer>
-                                    <dumpProxies>false</dumpProxies>
-                                    <graalvmHome>${graalvmHome}</graalvmHome>
-                                    <enableJni>true</enableJni>
-                                    <enableAllSecurityServices>true</enableAllSecurityServices>
-                                    <disableReports>true</disableReports>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles-->
     <profiles>
         <profile>
             <id>native</id>
@@ -181,15 +137,10 @@
                                     <enableServer>false</enableServer>
                                     <dumpProxies>false</dumpProxies>
                                     <graalvmHome>${graalvmHome}</graalvmHome>
-                                    <enableJni>true</enableJni>
-                                    <enableAllSecurityServices>true</enableAllSecurityServices>
                                     <disableReports>true</disableReports>
                                     <additionalBuildArgs>
                                         --initialize-at-run-time=com.google.api.client.auth.oauth.OAuthParameters,--allow-incomplete-classpath
                                     </additionalBuildArgs>
-                                    <!--additionalBuildArg>
-                                        -H:ReflectionConfigurationFiles=${project.basedir}/reflection-config.json
-                                    </additionalBuildArg-->
                                 </configuration>
                             </execution>
                         </executions>

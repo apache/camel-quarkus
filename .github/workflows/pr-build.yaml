@@ -379,7 +379,8 @@ jobs:
             -pl :camel-quarkus-integration-test-stream \
             -pl :camel-quarkus-integration-test-tarfile \
             -pl :camel-quarkus-integration-test-validator \
-            -pl :camel-quarkus-integration-test-zipfile
+            -pl :camel-quarkus-integration-test-zipfile \
+            -pl :camel-quarkus-integration-test-jira
   saas:
     runs-on: ubuntu-latest
     needs: build
