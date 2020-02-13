@@ -30,8 +30,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.NoSuchLanguageException;
+import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
@@ -103,7 +103,7 @@ public class CamelServlet {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
-        final RuntimeCamelCatalog catalog = context.getExtension(RuntimeCamelCatalog.class);
+        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getExtension(RuntimeCamelCatalog.class);
 
         switch (type) {
         case "component":
