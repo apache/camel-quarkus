@@ -16,11 +16,12 @@
  */
 package org.apache.camel.quarkus.component.pdf.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.pdf.PdfConfiguration;
 
 class PdfProcessor {
 
@@ -42,8 +43,11 @@ class PdfProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem initReflectiveConfiguration() {
-        return new ReflectiveClassBuildItem(true, false, PdfConfiguration.class);
+    NativeImageConfigBuildItem build(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        return NativeImageConfigBuildItem.builder()
+                .addRuntimeInitializedClass("org.apache.pdfbox.pdmodel.font.PDType1Font")
+                .addRuntimeInitializedClass("org.apache.camel.component.pdf.PdfConfiguration")
+                .build();
     }
 
 }
