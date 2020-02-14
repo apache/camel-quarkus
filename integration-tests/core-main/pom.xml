@@ -130,6 +130,9 @@
                     <name>native</name>
                 </property>
             </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -146,25 +149,6 @@
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                                         <quarkus.test.native-image-profile>staging</quarkus.test.native-image-profile>
                                     </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>native-image</id>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <cleanupServer>true</cleanupServer>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <enableServer>false</enableServer>
-                                    <dumpProxies>false</dumpProxies>
-                                    <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
                         </executions>
