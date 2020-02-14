@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-name: Sync Camel Master Branch
+name: Sync Camel + Quarkus master branches
 
 on:
   schedule:
@@ -23,8 +23,11 @@ on:
     - cron:  '0 0 * * 1'
 
 jobs:
-  sync:
+  sync-branches:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        branch: [ 'camel-master' , 'quarkus-master' ]
     steps:
       # Note: checkout@v2 seems to break the pull-request action hence v1 is used
       - name: Checkout
@@ -33,6 +36,6 @@ jobs:
         uses: repo-sync/pull-request@v2.0.1
         with:
           source_branch: master
-          destination_branch: camel-master
-          pr_title: Automatic sync branch master to camel-master
+          destination_branch: ${{ matrix.branch }}
+          pr_title: Automatic sync branch master to ${{ matrix.branch }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
