@@ -35,6 +35,22 @@
         <firstVersion>1.1.0</firstVersion>
     </properties>
 
+    <repositories>
+        <repository>
+            <!--for com.atlassian.jira-->
+            <id>atlassian</id>
+            <url>https://packages.atlassian.com/maven-external/</url>
+            <name>atlassian exteranl repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
+
+
     <dependencyManagement>
         <dependencies>
             <dependency>

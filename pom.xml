@@ -175,18 +175,6 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
-        <repository>
-            <!--for com.atlassian.jira-->
-            <id>atlassian</id>
-            <url>https://packages.atlassian.com/maven-external/</url>
-            <name>atlassian exteranl repo</name>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
