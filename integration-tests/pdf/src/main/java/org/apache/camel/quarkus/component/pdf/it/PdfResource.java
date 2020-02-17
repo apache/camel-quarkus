@@ -51,7 +51,7 @@ public class PdfResource {
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response createFromText(String message) throws Exception {
         document = producerTemplate.requestBody(
-                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5", message, byte[].class);
+                "pdf:create?fontSize=6&pageSize=PAGE_SIZE_A5&font=Courier", message, byte[].class);
 
         LOG.infof("The PDDocument has been created and contains %d bytes", document.length);
 
