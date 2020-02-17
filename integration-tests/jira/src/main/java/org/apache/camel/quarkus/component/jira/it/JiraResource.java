@@ -17,19 +17,21 @@
 package org.apache.camel.quarkus.component.jira.it;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.atlassian.jira.rest.client.api.RestClientException;
-import org.apache.camel.ConsumerTemplate;
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.jira.JiraConstants;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 @Path("/jira")
@@ -37,48 +39,30 @@ public class JiraResource {
 
     private static final Logger log = Logger.getLogger(JiraResource.class);
 
-    String TEST_JIRA_URL = "https://somerepo.atlassian.net";
-    String PROJECT = "TST";
-    String USERNAME = "someguy";
-    String PASSWORD = "my_password";
-    String JIRA_CREDENTIALS = TEST_JIRA_URL + "&username=" + USERNAME + "&password=" + PASSWORD;
-
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
-
-    @Path("/get")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("jira:newIssues?jiraUrl=" + JIRA_CREDENTIALS, String.class);
-        log.infof("Received from jira: %s", message);
-        return message;
-    }
+    @ConfigProperty(name = "jira.issues.project-key")
+    String projectKey;
 
     @Path("/post")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response post(String message) throws Exception {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(JiraConstants.ISSUE_PROJECT_KEY, projectKey);
+        headers.put(JiraConstants.ISSUE_TYPE_NAME, "Task");
+        headers.put(JiraConstants.ISSUE_SUMMARY, "Demo Bug");
 
         log.infof("Sending to jira: %s", message);
-        String response = null;
-        int statusCode = 0;
-        try {
-            response = (String) producerTemplate.requestBody("direct:start", message, String.class);
-        } catch (Exception ex) {
+        Issue issue = producerTemplate.requestBodyAndHeaders("jira:addIssue", message, headers, Issue.class);
 
-            statusCode = ((RestClientException) ex.getCause()).getStatusCode().get();
-        }
-
-        log.infof("Got response from jira: %s", response);
+        log.infof("Created new issue: %s", issue.getKey());
         return Response
                 .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .status(statusCode)
+                .entity(issue.getKey())
+                .status(201)
                 .build();
     }
 }
