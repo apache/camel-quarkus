@@ -16,26 +16,31 @@
  */
 package org.apache.camel.quarkus.component.jira.it;
 
-import java.util.UUID;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
+
+import static org.hamcrest.Matchers.matchesPattern;
 
 @QuarkusTest
-class JiraTest {
+@EnabledIfEnvironmentVariable(named = "JIRA_ISSUES_PROJECT_KEY", matches = "[A-Z0-9]+")
+@EnabledIfEnvironmentVariable(named = "JIRA_URL", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "JIRA_USERNAME", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "JIRA_PASSWORD", matches = ".+")
+public class JiraTest {
 
     @Test
-    public void test() {
-        final String msg = UUID.randomUUID().toString().replace("-", "");
-        RestAssured.given() //
-                .contentType(ContentType.TEXT).body(msg).post("/jira/post")
-                .then().statusCode(404);//external jira not exist, expect to return 404
-
-        String body = RestAssured.get("/jira/get").asString();
-        Assertions.assertEquals(body, "");
+    public void testJiraComponent() {
+        RestAssured
+                .given()
+                .contentType(ContentType.TEXT)
+                .body("Demo issue body")
+                .when()
+                .post("/jira/post")
+                .then()
+                .statusCode(201)
+                .body(matchesPattern("[A-Z]+-[0-9]+"));
     }
-
 }

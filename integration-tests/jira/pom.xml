@@ -47,14 +47,6 @@
             <artifactId>camel-quarkus-jira</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-direct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-log</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
@@ -102,6 +94,9 @@
                     <name>native</name>
                 </property>
             </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -117,30 +112,6 @@
                                     <systemProperties>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                                     </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>native-image</id>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
-                                    <cleanupServer>true</cleanupServer>
-                                    <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
-                                    <enableServer>false</enableServer>
-                                    <dumpProxies>false</dumpProxies>
-                                    <graalvmHome>${graalvmHome}</graalvmHome>
-                                    <disableReports>true</disableReports>
-                                    <additionalBuildArgs>
-                                        --initialize-at-run-time=com.google.api.client.auth.oauth.OAuthParameters,--allow-incomplete-classpath
-                                    </additionalBuildArgs>
                                 </configuration>
                             </execution>
                         </executions>

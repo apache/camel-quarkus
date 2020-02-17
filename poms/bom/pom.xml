@@ -307,6 +307,24 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-jira</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.ws.rs</groupId>
+                        <artifactId>jsr311-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.httpcomponents</groupId>
+                        <artifactId>httpclient-cache</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1016,6 +1034,12 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient-cache</artifactId>
                 <version>${httpclient.cache.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.asynchttpclient</groupId>

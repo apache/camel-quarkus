@@ -17,8 +17,13 @@
 package org.apache.camel.quarkus.component.jira.it;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
-class JiraIT extends JiraTest {
+@EnabledIfEnvironmentVariable(named = "JIRA_ISSUES_PROJECT_KEY", matches = "[A-Z0-9]+")
+@EnabledIfEnvironmentVariable(named = "JIRA_URL", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "JIRA_USERNAME", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "JIRA_PASSWORD", matches = ".+")
+public class JiraIT extends JiraTest {
 
 }
