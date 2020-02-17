@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 64 in 55 JAR artifacts (0 deprecated)
+Number of Camel components: 65 in 56 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -58,6 +58,9 @@ Number of Camel components: 64 in 55 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/bean-validator-component.html[Bean Validator] (camel-quarkus-bean-validator) +
 `bean-validator:label` | 1.0.0-M1 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
+
+| link:https://camel.apache.org/components/latest/box-component.html[Box] (camel-quarkus-box) +
+`box:apiName/methodName` | 1.2.0 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2.0 | The class component is for invoking Java classes (Java beans) from Camel.
