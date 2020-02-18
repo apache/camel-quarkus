@@ -16,8 +16,17 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.test.junit.NativeImageTest;
+import org.apache.camel.builder.RouteBuilder;
 
-@NativeImageTest
-public class CamelITCase extends CamelTest {
+public class CoreRoutes extends RouteBuilder {
+
+    @Override
+    public void configure() {
+        from("timer:keep-alive")
+                .id("timer")
+                .setBody().constant("I'm alive !")
+                .to("log:keep-alive");
+
+    }
+
 }
