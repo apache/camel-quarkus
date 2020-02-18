@@ -14,18 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.deployment;
 
-import java.io.InputStream;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.spi.ModelToXMLDumper;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
+public final class CamelModelToXMLDumperBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<ModelToXMLDumper> value;
 
-public interface XmlRoutesLoader {
+    public CamelModelToXMLDumperBuildItem(RuntimeValue<ModelToXMLDumper> value) {
+        this.value = value;
+    }
 
-    RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception;
-
-    RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception;
-
+    public RuntimeValue<ModelToXMLDumper> getValue() {
+        return value;
+    }
 }

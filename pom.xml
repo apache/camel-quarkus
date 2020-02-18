@@ -41,7 +41,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <ahc.version>2.10.4</ahc.version>
-        <camel.version>3.0.1</camel.version>
+        <camel.version>3.1.0</camel.version>
         <guava.version>26.0-jre</guava.version>
         <hapi.version>4.1.0</hapi.version>
         <quarkus.version>1.3.0.Alpha2</quarkus.version>
@@ -173,6 +173,17 @@
 
     <repositories>
         <repository>
+            <id>apache.camel.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1176/</url>
+            <name>Apache Camel 3.1.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -185,6 +196,16 @@
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>apache.camel.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1176/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>

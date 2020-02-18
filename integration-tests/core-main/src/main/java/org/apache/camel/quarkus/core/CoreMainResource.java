@@ -147,6 +147,8 @@ public class CoreMainResource {
         }
 
         return Json.createObjectBuilder()
+                .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
@@ -165,7 +167,7 @@ public class CoreMainResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public JsonObject reactiveExecutor() {
-        ReactiveExecutor executor = context.getReactiveExecutor();
+        ReactiveExecutor executor = context.adapt(ExtendedCamelContext.class).getReactiveExecutor();
 
         JsonObjectBuilder builder = Json.createObjectBuilder();
         builder.add("class", executor.getClass().getName());

@@ -24,12 +24,12 @@ import org.apache.camel.spi.Validator;
 
 public class DisabledPredicateValidatorReifier extends ValidatorReifier<PredicateValidatorDefinition> {
 
-    public DisabledPredicateValidatorReifier(ValidatorDefinition definition) {
-        super((PredicateValidatorDefinition) definition);
+    public DisabledPredicateValidatorReifier(CamelContext camelContext, ValidatorDefinition definition) {
+        super(camelContext, (PredicateValidatorDefinition) definition);
     }
 
     @Override
-    protected Validator doCreateValidator(CamelContext context) throws Exception {
+    protected Validator doCreateValidator() {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 

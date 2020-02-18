@@ -77,9 +77,12 @@ public class CoreMainTest {
                 .body()
                 .jsonPath();
 
+        assertThat(p.getString("xml-loader")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
+        assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
+
         assertThat(p.getString("routes-collector.type")).isEqualTo(CamelRoutesCollector.class.getName());
         assertThat(p.getString("routes-collector.type-registry")).isEqualTo(RegistryRoutesLoaders.Default.class.getName());
-        assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXmlRoutesLoader.class.getName());
+        assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
 
         assertThat(p.getList("listeners", String.class))
                 .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());

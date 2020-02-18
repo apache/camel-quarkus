@@ -20,19 +20,19 @@ import java.util.List;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class QuarkusRuntimeProviderTest {
 
     static CamelCatalog catalog;
 
-    @BeforeClass
+    @BeforeAll
     public static void createCamelCatalog() {
         catalog = new DefaultCamelCatalog();
         catalog.setRuntimeProvider(new QuarkusRuntimeProvider());

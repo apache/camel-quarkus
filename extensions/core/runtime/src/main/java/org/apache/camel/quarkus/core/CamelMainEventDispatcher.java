@@ -26,6 +26,11 @@ import org.apache.camel.main.MainSupport;
  */
 public class CamelMainEventDispatcher implements org.apache.camel.main.MainListener {
     @Override
+    public void beforeConfigure(BaseMainSupport main) {
+        fireEvent(CamelMainEvents.BeforeConfigure.class, new CamelMainEvents.BeforeConfigure());
+    }
+
+    @Override
     public void configure(CamelContext context) {
         fireEvent(CamelMainEvents.Configure.class, new CamelMainEvents.Configure());
     }
