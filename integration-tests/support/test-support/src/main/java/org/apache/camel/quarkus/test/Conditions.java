@@ -14,15 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.test;
 
 import java.util.Map;
 import java.util.Objects;
 
 import org.assertj.core.api.Condition;
 
-public final class CamelTestConditions {
-    private CamelTestConditions() {
+public final class Conditions {
+    private Conditions() {
     }
 
     public static Condition<Map.Entry<String, String>> entry(String key, String value) {

@@ -30,9 +30,9 @@ import org.apache.camel.quarkus.core.runtime.support.SupportListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.junit.jupiter.api.Test;
 
-import static org.apache.camel.quarkus.core.CamelTestConditions.doesNotStartWith;
-import static org.apache.camel.quarkus.core.CamelTestConditions.entry;
-import static org.apache.camel.quarkus.core.CamelTestConditions.startsWith;
+import static org.apache.camel.quarkus.test.Conditions.doesNotStartWith;
+import static org.apache.camel.quarkus.test.Conditions.entry;
+import static org.apache.camel.quarkus.test.Conditions.startsWith;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
