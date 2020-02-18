@@ -32,7 +32,7 @@ import org.apache.camel.spi.Registry;
 
 @Path("/test")
 @ApplicationScoped
-public class CamelServlet {
+public class CoreMainXmlResource {
     @Inject
     CamelMain main;
     @Inject
