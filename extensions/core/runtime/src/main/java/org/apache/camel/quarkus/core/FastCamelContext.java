@@ -26,15 +26,14 @@ import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
-import org.apache.camel.PollingConsumer;
 import org.apache.camel.Processor;
-import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.impl.engine.BaseRouteService;
 import org.apache.camel.impl.engine.BeanProcessorFactoryResolver;
 import org.apache.camel.impl.engine.BeanProxyFactoryResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
@@ -43,6 +42,7 @@ import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
+import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
@@ -63,13 +63,11 @@ import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.HeadersMapFactoryResolver;
 import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
-import org.apache.camel.impl.engine.ServicePool;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
 import org.apache.camel.model.Model;
 import org.apache.camel.processor.MulticastProcessor;
-import org.apache.camel.quarkus.core.FastModel.FastRouteContext;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.spi.BeanProcessorFactory;
@@ -78,6 +76,7 @@ import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.CamelContextNameStrategy;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentResolver;
+import org.apache.camel.spi.ConfigurerResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.EndpointRegistry;
@@ -91,6 +90,7 @@ import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.PackageScanResourceResolver;
@@ -108,35 +108,31 @@ import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.ValidatorRegistry;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.IOHelper;
 
 public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext {
-    private Model model;
+    private final Model model;
     private final String version;
+    private final XMLRoutesDefinitionLoader xmlLoader;
+    private final ModelToXMLDumper modelDumper;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version) {
+    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, XMLRoutesDefinitionLoader xmlLoader,
+            ModelToXMLDumper modelDumper) {
         super(false);
 
         this.version = version;
+        this.xmlLoader = xmlLoader;
+        this.modelDumper = modelDumper;
+        this.model = new FastModel(this);
 
         setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);
-
         setDefaultExtension(HealthCheckRegistry.class, DefaultHealthCheckRegistry::new);
-    }
 
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
-    public void clearModel() {
-        this.model = null;
-        for (BaseRouteService rs : getRouteServices().values()) {
-            ((FastRouteContext) rs.getRouteContext()).clearModel();
-        }
     }
 
     @Override
@@ -274,16 +270,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected ServicePool<Producer> createProducerServicePool() {
-        return new ServicePool<>(Endpoint::createProducer, Producer::getEndpoint, 100);
-    }
-
-    @Override
-    protected ServicePool<PollingConsumer> createPollingConsumerServicePool() {
-        return new ServicePool<>(Endpoint::createPollingConsumer, PollingConsumer::getEndpoint, 100);
-    }
-
-    @Override
     protected UnitOfWorkFactory createUnitOfWorkFactory() {
         return new DefaultUnitOfWorkFactory();
     }
@@ -328,6 +314,21 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected XMLRoutesDefinitionLoader createXMLRoutesDefinitionLoader() {
+        return xmlLoader;
+    }
+
+    @Override
+    protected ModelToXMLDumper createModelToXMLDumper() {
+        return modelDumper;
+    }
+
+    @Override
+    protected RuntimeCamelCatalog createRuntimeCamelCatalog() {
+        return new DefaultRuntimeCamelCatalog();
+    }
+
+    @Override
     protected Tracer createTracer() {
         Tracer tracer = null;
         if (getRegistry() != null) {
@@ -365,12 +366,12 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected TransformerRegistry<TransformerKey> createTransformerRegistry() throws Exception {
+    protected TransformerRegistry<TransformerKey> createTransformerRegistry() {
         return new DefaultTransformerRegistry(this);
     }
 
     @Override
-    protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() throws Exception {
+    protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() {
         return new DefaultValidatorRegistry(this);
     }
 
@@ -384,6 +385,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
             boolean shutdownExecutorService) {
         return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
                 false, false, 0L, null, false, false);
+    }
+
+    @Override
+    protected ConfigurerResolver createConfigurerResolver() {
+        return new DefaultConfigurerResolver();
     }
 
     @Override
@@ -486,7 +492,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
         if (inputStream != null) {
             try {
-                log.debug("loading scheme {} ", path);
                 return IOHelper.loadText(inputStream);
             } finally {
                 IOHelper.close(inputStream);

@@ -29,6 +29,7 @@ import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.spi.PackageScanResourceResolver;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +37,9 @@ public class CamelRoutesCollector implements RoutesCollector {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelRoutesCollector.class);
 
     private final RegistryRoutesLoader registryRoutesLoader;
-    private final XmlRoutesLoader xmlRoutesLoader;
+    private final XMLRoutesDefinitionLoader xmlRoutesLoader;
 
-    public CamelRoutesCollector(RegistryRoutesLoader registryRoutesLoader, XmlRoutesLoader xmlRoutesLoader) {
+    public CamelRoutesCollector(RegistryRoutesLoader registryRoutesLoader, XMLRoutesDefinitionLoader xmlRoutesLoader) {
         this.registryRoutesLoader = registryRoutesLoader;
         this.xmlRoutesLoader = xmlRoutesLoader;
     }
@@ -47,7 +48,7 @@ public class CamelRoutesCollector implements RoutesCollector {
         return registryRoutesLoader;
     }
 
-    public XmlRoutesLoader getXmlRoutesLoader() {
+    public XMLRoutesDefinitionLoader getXmlRoutesLoader() {
         return xmlRoutesLoader;
     }
 
@@ -69,7 +70,10 @@ public class CamelRoutesCollector implements RoutesCollector {
             LOGGER.info("Loading additional Camel XML routes from: {}", part);
             try {
                 for (InputStream is : resolver.findResources(part)) {
-                    answer.add(xmlRoutesLoader.loadRoutesDefinition(camelContext, is));
+                    Object definition = xmlRoutesLoader.loadRoutesDefinition(camelContext, is);
+                    if (definition instanceof RoutesDefinition) {
+                        answer.add((RoutesDefinition) definition);
+                    }
                 }
             } catch (FileNotFoundException e) {
                 LOGGER.debug("No XML routes found in {}. Skipping XML routes detection.", part);
@@ -90,7 +94,10 @@ public class CamelRoutesCollector implements RoutesCollector {
             LOGGER.info("Loading additional Camel XML rests from: {}", part);
             try {
                 for (InputStream is : resolver.findResources(part)) {
-                    answer.add(xmlRoutesLoader.loadRestsDefinition(camelContext, is));
+                    Object definition = xmlRoutesLoader.loadRestsDefinition(camelContext, is);
+                    if (definition instanceof RestsDefinition) {
+                        answer.add((RestsDefinition) definition);
+                    }
                 }
             } catch (FileNotFoundException e) {
                 LOGGER.debug("No XML rests found in {}. Skipping XML rests detection.", part);

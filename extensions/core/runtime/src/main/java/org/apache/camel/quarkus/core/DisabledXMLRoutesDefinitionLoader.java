@@ -14,26 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml;
+package org.apache.camel.quarkus.core;
 
 import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.model.ModelHelper;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
-import org.apache.camel.quarkus.core.XmlRoutesLoader;
+import org.apache.camel.NamedNode;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
-public class DefaultXmlRoutesLoader implements XmlRoutesLoader {
-
+public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoader {
     @Override
-    public RoutesDefinition loadRoutesDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRoutesDefinition(context, is);
+    public Object loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
     @Override
-    public RestsDefinition loadRestsDefinition(CamelContext context, InputStream is) throws Exception {
-        return ModelHelper.loadRestsDefinition(context, is);
+    public Object loadRestsDefinition(CamelContext context, InputStream inputStream) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 
+    @Override
+    public <T extends NamedNode> T createModelFromXml(CamelContext context, String xml, Class<T> type) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+    }
 }

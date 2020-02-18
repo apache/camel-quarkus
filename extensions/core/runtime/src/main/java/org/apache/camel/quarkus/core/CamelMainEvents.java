@@ -21,6 +21,12 @@ public final class CamelMainEvents {
     }
 
     /**
+     * Event fired by {@link CamelMain} before the CamelContext is configured.
+     */
+    public static class BeforeConfigure {
+    }
+
+    /**
      * Event fired by {@link CamelMain} before the CamelContext is being created and started.
      */
     public static class BeforeStart {

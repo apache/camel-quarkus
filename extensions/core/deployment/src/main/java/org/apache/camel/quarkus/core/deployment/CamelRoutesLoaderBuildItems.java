@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.core.deployment;
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
-import org.apache.camel.quarkus.core.XmlRoutesLoader;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 public final class CamelRoutesLoaderBuildItems {
     private CamelRoutesLoaderBuildItems() {
@@ -41,16 +41,16 @@ public final class CamelRoutesLoaderBuildItems {
     }
 
     /**
-     * Holds the {@link XmlRoutesLoader} instance.
+     * Holds the {@link XMLRoutesDefinitionLoader} instance.
      */
     public static final class Xml extends SimpleBuildItem {
-        private final RuntimeValue<XmlRoutesLoader> value;
+        private final RuntimeValue<XMLRoutesDefinitionLoader> value;
 
-        public Xml(RuntimeValue<XmlRoutesLoader> value) {
+        public Xml(RuntimeValue<XMLRoutesDefinitionLoader> value) {
             this.value = value;
         }
 
-        public RuntimeValue<XmlRoutesLoader> getLoader() {
+        public RuntimeValue<XMLRoutesDefinitionLoader> getLoader() {
             return value;
         }
     }

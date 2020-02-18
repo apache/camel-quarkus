@@ -19,9 +19,8 @@ package org.apache.camel.quarkus.component.pdf.deployment;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class PdfProcessor {
 
@@ -31,6 +30,12 @@ class PdfProcessor {
             "org/apache/pdfbox/resources/icc/ISOcoated_v2_300_bas.icc",
             "org/apache/pdfbox/resources/glyphlist/additional.txt",
             "org/apache/pdfbox/resources/ttf/LiberationSans-Regular.ttf" };
+
+    private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
+            "org.apache.pdfbox.pdmodel.font.PDType1Font",
+            "org.apache.camel.component.pdf.PdfConfiguration",
+            "org.apache.camel.component.pdf.Standard14Fonts",
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -43,11 +48,9 @@ class PdfProcessor {
     }
 
     @BuildStep
-    NativeImageConfigBuildItem build(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        return NativeImageConfigBuildItem.builder()
-                .addRuntimeInitializedClass("org.apache.pdfbox.pdmodel.font.PDType1Font")
-                .addRuntimeInitializedClass("org.apache.camel.component.pdf.PdfConfiguration")
-                .build();
+    void configureRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        for (String className : RUNTIME_INITIALIZED_CLASSES) {
+            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
+        }
     }
-
 }

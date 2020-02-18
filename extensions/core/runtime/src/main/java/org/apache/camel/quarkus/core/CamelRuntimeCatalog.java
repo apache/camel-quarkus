@@ -16,15 +16,12 @@
  */
 package org.apache.camel.quarkus.core;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.runtimecatalog.impl.DefaultRuntimeCamelCatalog;
+import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 
 public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
     private final CamelConfig.RuntimeCatalogConfig config;
 
-    public CamelRuntimeCatalog(CamelContext camelContext, CamelConfig.RuntimeCatalogConfig config) {
-        super(camelContext, true);
-
+    public CamelRuntimeCatalog(CamelConfig.RuntimeCatalogConfig config) {
         this.config = config;
     }
 

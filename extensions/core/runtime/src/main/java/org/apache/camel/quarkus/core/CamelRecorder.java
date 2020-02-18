@@ -20,17 +20,19 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
-import org.apache.camel.runtimecatalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 @Recorder
 public class CamelRecorder {
@@ -60,21 +62,24 @@ public class CamelRecorder {
             RuntimeValue<Registry> registry,
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
-            RuntimeValue<XmlRoutesLoader> xmlLoader,
+            RuntimeValue<XMLRoutesDefinitionLoader> xmlLoader,
+            RuntimeValue<ModelToXMLDumper> xmlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
 
-        FastCamelContext context = new FastCamelContext(factoryFinderResolver.getValue(), version);
-        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(context, config.runtimeCatalog));
+        FastCamelContext context = new FastCamelContext(
+                factoryFinderResolver.getValue(),
+                version,
+                xmlLoader.getValue(),
+                xmlModelDumper.getValue());
+
+        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
-
-        FastModel model = new FastModel(context, xmlLoader.getValue());
-        context.setModel(model);
         context.init();
 
         // register to the container
@@ -122,8 +127,12 @@ public class CamelRecorder {
         return new RuntimeValue<>(new DisabledModelJAXBContextFactory());
     }
 
-    public RuntimeValue<XmlRoutesLoader> newDisabledXmlRoutesLoader() {
-        return new RuntimeValue<>(new DisabledXmlRoutesLoader());
+    public RuntimeValue<XMLRoutesDefinitionLoader> newDisabledXMLRoutesDefinitionLoader() {
+        return new RuntimeValue<>(new DisabledXMLRoutesDefinitionLoader());
+    }
+
+    public RuntimeValue<ModelToXMLDumper> newDisabledModelToXMLDumper() {
+        return new RuntimeValue<>(new DisabledModelToXMLDumper());
     }
 
     public RuntimeValue<RegistryRoutesLoader> newDefaultRegistryRoutesLoader() {

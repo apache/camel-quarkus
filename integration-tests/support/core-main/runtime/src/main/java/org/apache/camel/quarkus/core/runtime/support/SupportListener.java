@@ -39,6 +39,10 @@ public class SupportListener implements MainListener {
     }
 
     @Override
+    public void beforeConfigure(BaseMainSupport main) {
+    }
+
+    @Override
     public void beforeStart(BaseMainSupport main) {
         main.addRoutesBuilder(new MyBuilder());
     }

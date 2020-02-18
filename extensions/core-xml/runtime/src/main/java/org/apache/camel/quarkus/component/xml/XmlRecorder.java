@@ -24,12 +24,15 @@ import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.impl.DefaultModelJAXBContextFactory;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
-import org.apache.camel.quarkus.core.XmlRoutesLoader;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.ValidateReifier;
 import org.apache.camel.reifier.validator.PredicateValidatorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
+import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
+import org.apache.camel.xml.jaxb.JaxbXMLRoutesDefinitionLoader;
 import org.graalvm.nativeimage.ImageInfo;
 
 @Recorder
@@ -47,12 +50,30 @@ public class XmlRecorder {
         return new RuntimeValue<>(factory);
     }
 
-    public RuntimeValue<XmlRoutesLoader> newDefaultXmlLoader() {
-        return new RuntimeValue<>(new DefaultXmlRoutesLoader());
+    public RuntimeValue<XMLRoutesDefinitionLoader> newJaxbXMLRoutesDefinitionLoader() {
+        return new RuntimeValue<>(new JaxbXMLRoutesDefinitionLoader());
+    }
+
+    public RuntimeValue<ModelToXMLDumper> newJaxbModelToXMLDumper() {
+        return new RuntimeValue<>(new JaxbModelToXMLDumper());
     }
 
     public void initXmlReifiers() {
         ProcessorReifier.registerReifier(ValidateDefinition.class, ValidateReifier::new);
         ValidatorReifier.registerReifier(PredicateValidatorDefinition.class, PredicateValidatorReifier::new);
     }
+
+    /*
+    
+    
+    @Override
+    protected XMLRoutesDefinitionLoader createXMLRoutesDefinitionLoader() {
+        return xmlLoader;
+    }
+    
+    @Override
+    protected ModelToXMLDumper createModelToXMLDumper() {
+        return modelDumper;
+    }
+     */
 }

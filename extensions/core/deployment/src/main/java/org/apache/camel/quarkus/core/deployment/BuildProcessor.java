@@ -334,8 +334,15 @@ class BuildProcessor {
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-        public CamelRoutesLoaderBuildItems.Xml createXmlLoader(CamelRecorder recorder) {
-            return new CamelRoutesLoaderBuildItems.Xml(recorder.newDisabledXmlRoutesLoader());
+        public CamelRoutesLoaderBuildItems.Xml createXMLRoutesLoader(CamelRecorder recorder) {
+            return new CamelRoutesLoaderBuildItems.Xml(recorder.newDisabledXMLRoutesDefinitionLoader());
+        }
+
+        @Overridable
+        @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelModelToXMLDumperBuildItem createModelToXMLDumper(CamelRecorder recorder) {
+            return new CamelModelToXMLDumperBuildItem(recorder.newDisabledModelToXMLDumper());
         }
 
         @BuildStep
@@ -355,6 +362,7 @@ class BuildProcessor {
                 CamelTypeConverterRegistryBuildItem typeConverterRegistry,
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
                 CamelRoutesLoaderBuildItems.Xml xmlLoader,
+                CamelModelToXMLDumperBuildItem modelDumper,
                 CamelFactoryFinderResolverBuildItem factoryFinderResolverBuildItem,
                 BeanContainerBuildItem beanContainer,
                 CamelConfig config) {
@@ -364,6 +372,7 @@ class BuildProcessor {
                     typeConverterRegistry.getRegistry(),
                     contextFactory.getContextFactory(),
                     xmlLoader.getLoader(),
+                    modelDumper.getValue(),
                     factoryFinderResolverBuildItem.getFactoryFinderResolver(),
                     beanContainer.getValue(),
                     CamelSupport.getCamelVersion(),
