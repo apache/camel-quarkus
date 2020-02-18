@@ -37,7 +37,7 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
 @ApplicationScoped
-public class CamelServlet {
+public class CoreResource {
     @Inject
     Registry registry;
     @Inject

@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-public class CamelTest {
+public class CoreTest {
     @Test
     public void testContainerLookupFromRegistry() {
         RestAssured.when().get("/test/registry/lookup-registry").then().body(is("true"));
