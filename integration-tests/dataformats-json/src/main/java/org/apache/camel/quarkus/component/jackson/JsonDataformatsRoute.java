@@ -23,40 +23,40 @@ import org.apache.camel.quarkus.component.jackson.model.DummyObject;
 import org.apache.camel.quarkus.component.jackson.model.PojoA;
 import org.apache.camel.quarkus.component.jackson.model.PojoB;
 
-public class CamelRoute extends RouteBuilder {
+public class JsonDataformatsRoute extends RouteBuilder {
 
     @Override
     public void configure() {
         JacksonDataFormat format = new JacksonDataFormat(DummyObject.class);
         format.useList();
 
-        from("direct:in")
-                .wireTap("direct:tap")
+        from("direct:jackson-in")
+                .wireTap("direct:jackson-tap")
                 .setBody(constant("ok"));
-        from("direct:tap")
+        from("direct:jackson-tap")
                 .unmarshal(format)
-                .to("log:out")
+                .to("log:jackson-out")
                 .split(body())
                 .marshal(format)
                 .convertBodyTo(String.class)
-                .to("vm:out");
-        from("direct:in-a")
-                .wireTap("direct:tap-a")
+                .to("vm:jackson-out");
+        from("direct:jackson-in-a")
+                .wireTap("direct:jackson-tap-a")
                 .setBody(constant("ok"));
-        from("direct:tap-a")
+        from("direct:jackson-tap-a")
                 .unmarshal().json(JsonLibrary.Jackson, PojoA.class)
-                .to("log:out")
+                .to("log:jackson-out")
                 .marshal(new JacksonDataFormat(PojoA.class))
                 .convertBodyTo(String.class)
-                .to("vm:out-a");
-        from("direct:in-b")
-                .wireTap("direct:tap-b")
+                .to("vm:jackson-out-a");
+        from("direct:jackson-in-b")
+                .wireTap("direct:jackson-tap-b")
                 .setBody(constant("ok"));
-        from("direct:tap-b")
+        from("direct:jackson-tap-b")
                 .unmarshal().json(JsonLibrary.Jackson, PojoB.class)
-                .to("log:out")
+                .to("log:jackson-out")
                 .marshal(new JacksonDataFormat(PojoB.class))
                 .convertBodyTo(String.class)
-                .to("vm:out-b");
+                .to("vm:jackson-out-b");
     }
 }

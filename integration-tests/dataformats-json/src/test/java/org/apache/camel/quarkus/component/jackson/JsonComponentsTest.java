@@ -16,7 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jackson;
 
-import java.util.UUID;
+import java.util.stream.Stream;
 
 import javax.json.bind.JsonbBuilder;
 
@@ -24,57 +24,78 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.jackson.model.DummyObject;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-public class JacksonTest {
-    @Test
-    public void testRoutes() {
+public class JsonComponentsTest {
+
+    private static Stream<String> listJsonDataFormatsToBeTested() {
+        return Stream.of("jackson");
+    }
+
+    @ParameterizedTest
+    @MethodSource("listJsonDataFormatsToBeTested")
+    public void testRoutes(String jsonComponent) {
         RestAssured.given().contentType(ContentType.TEXT)
+                .queryParam("json-component", jsonComponent)
                 .body("[{\"dummy\": \"value1\"}, {\"dummy\": \"value2\"}]")
-                .post("/jackson/in");
-        RestAssured.post("/jackson/out")
+                .post("/dataformats-json/in");
+        RestAssured.given()
+                .queryParam("json-component", jsonComponent)
+                .post("/dataformats-json/out")
                 .then()
                 .body(equalTo("{\"dummy\":\"value1\"}"));
-        RestAssured.post("/jackson/out")
+        RestAssured.given()
+                .queryParam("json-component", jsonComponent)
+                .post("/dataformats-json/out")
                 .then()
                 .body(equalTo("{\"dummy\":\"value2\"}"));
     }
 
-    @Test
-    public void testUnmarshallingDifferentPojos() {
+    @ParameterizedTest
+    @MethodSource("listJsonDataFormatsToBeTested")
+    public void testUnmarshallingDifferentPojos(String jsonComponent) {
         String bodyA = "{\"name\":\"name A\"}";
         String bodyB = "{\"value\":1.0}";
 
         RestAssured.given().contentType(ContentType.TEXT)
+                .queryParam("json-component", jsonComponent)
                 .body(bodyA)
-                .post("/jackson/in-a");
+                .post("/dataformats-json/in-a");
         RestAssured.given().contentType(ContentType.TEXT)
+                .queryParam("json-component", jsonComponent)
                 .body(bodyB)
-                .post("/jackson/in-b");
-        RestAssured.post("/jackson/out-a")
+                .post("/dataformats-json/in-b");
+        RestAssured.given()
+                .queryParam("json-component", jsonComponent)
+                .post("/dataformats-json/out-a")
                 .then()
                 .body(equalTo(bodyA));
-        RestAssured.post("/jackson/out-b")
+        RestAssured.given()
+                .queryParam("json-component", jsonComponent)
+                .post("/dataformats-json/out-b")
                 .then()
                 .body(equalTo(bodyB));
     }
 
+    private static Stream<String> listDirectUrisFromXmlRoutesToBeTested() {
+        return listJsonDataFormatsToBeTested().flatMap(s -> Stream.of(s + "-type-as-attribute", s + "-type-as-header"));
+    }
+
     @ParameterizedTest
-    @ValueSource(strings = { "type-as-attribute", "type-as-header" })
+    @MethodSource("listDirectUrisFromXmlRoutesToBeTested")
     public void testUnmarshal(String directId) {
         DummyObject object = new DummyObject();
-        object.setDummy(UUID.randomUUID().toString());
+        object.setDummy("95f669ce-d287-4519-b212-4450bc791867");
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(JsonbBuilder.create().toJson(object))
-                .post("/jackson/unmarshal/{direct-id}", directId)
+                .post("/dataformats-json/unmarshal/{direct-id}", directId)
                 .then()
                 .body("dummy", is(object.getDummy()));
     }

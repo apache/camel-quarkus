@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.component.jackson;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class JacksonITCase extends JacksonTest {
+public class JsonComponentsIT extends JsonComponentsTest {
 }
