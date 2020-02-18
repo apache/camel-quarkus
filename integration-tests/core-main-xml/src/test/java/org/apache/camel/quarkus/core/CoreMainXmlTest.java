@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-public class CamelTest {
+public class CoreMainXmlTest {
     @Test
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
