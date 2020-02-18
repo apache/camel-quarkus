@@ -243,11 +243,11 @@ jobs:
             -DskipTests \
             -pl :camel-quarkus-integration-test-base64 \
             -pl :camel-quarkus-integration-test-bindy \
+            -pl :camel-quarkus-integration-test-dataformats-json \
             -pl :camel-quarkus-integration-test-snakeyaml \
             -pl :camel-quarkus-integration-test-tagsoup \
             -pl :camel-quarkus-integration-test-xslt \
             -pl :camel-quarkus-integration-test-csv \
-            -pl :camel-quarkus-integration-test-jackson \
             -pl :camel-quarkus-integration-test-dataformat
   networking:
     runs-on: ubuntu-latest

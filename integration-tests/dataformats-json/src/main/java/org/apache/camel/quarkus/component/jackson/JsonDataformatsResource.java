@@ -24,19 +24,24 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.jboss.logging.Logger;
 
-@Path("/jackson")
+@Path("/dataformats-json")
 @ApplicationScoped
-public class CamelResource {
+public class JsonDataformatsResource {
+
+    private static final Logger LOG = Logger.getLogger(JsonDataformatsResource.class);
+
     @Inject
-    ProducerTemplate template;
+    ProducerTemplate producerTemplate;
     @Inject
-    ConsumerTemplate consumer;
+    ConsumerTemplate consumerTemplate;
     @Inject
     CamelContext context;
 
@@ -44,45 +49,51 @@ public class CamelResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrder(String statement) {
-        return template.requestBody("direct:in", statement, String.class);
+    public String processOrder(@QueryParam("json-component") String jsonComponent, String statement) {
+        LOG.infof("Invoking processOrder(%s)", jsonComponent, statement);
+        return producerTemplate.requestBody("direct:" + jsonComponent + "-in", statement, String.class);
     }
 
     @Path("/out")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String testOrder() {
-        return consumer.receive("vm:out").getMessage().getBody().toString();
+    public String testOrder(@QueryParam("json-component") String jsonComponent) {
+        LOG.infof("Invoking testOrder(%s)", jsonComponent);
+        return consumerTemplate.receive("vm:" + jsonComponent + "-out").getMessage().getBody().toString();
     }
 
     @Path("/in-a")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processPojoA(String statement) {
-        return template.requestBody("direct:in-a", statement, String.class);
+    public String processPojoA(@QueryParam("json-component") String jsonComponent, String statement) {
+        LOG.infof("Invoking processPojoA(%s, %s)", jsonComponent, statement);
+        return producerTemplate.requestBody("direct:" + jsonComponent + "-in-a", statement, String.class);
     }
 
     @Path("/in-b")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processPojoB(String statement) {
-        return template.requestBody("direct:in-b", statement, String.class);
+    public String processPojoB(@QueryParam("json-component") String jsonComponent, String statement) {
+        LOG.infof("Invoking processPojoB(%s, %s)", jsonComponent, statement);
+        return producerTemplate.requestBody("direct:" + jsonComponent + "-in-b", statement, String.class);
     }
 
     @Path("/out-a")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String testPojoA() {
-        return consumer.receive("vm:out-a").getMessage().getBody().toString();
+    public String testPojoA(@QueryParam("json-component") String jsonComponent) {
+        LOG.infof("Invoking testPojoA(%s)", jsonComponent);
+        return consumerTemplate.receive("vm:" + jsonComponent + "-out-a").getMessage().getBody().toString();
     }
 
     @Path("/out-b")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String testPojoB() {
-        return consumer.receive("vm:out-b").getMessage().getBody().toString();
+    public String testPojoB(@QueryParam("json-component") String jsonComponent) {
+        LOG.infof("Invoking testPojoB(%s)", jsonComponent);
+        return consumerTemplate.receive("vm:" + jsonComponent + "-out-b").getMessage().getBody().toString();
     }
 
     @Path("/unmarshal/{direct-id}")
@@ -90,7 +101,8 @@ public class CamelResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public String testXmlUnmarshalDefinition(@PathParam("direct-id") String directId, String statement) {
-        Object object = template.requestBody("direct:" + directId, statement);
+        LOG.infof("Invoking testXmlUnmarshalDefinition(%s, %s)", directId, statement);
+        Object object = producerTemplate.requestBody("direct:" + directId, statement);
         String answer = JsonbBuilder.create().toJson(object);
 
         return answer;

@@ -179,6 +179,7 @@
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>dataformats-json</module>
         <module>dozer</module>
         <module>exec</module>
         <module>fhir</module>
@@ -187,7 +188,6 @@
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
-        <module>jackson</module>
         <module>jdbc</module>
         <module>jira</module>
         <module>jsonpath</module>

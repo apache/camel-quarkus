@@ -25,9 +25,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-jackson</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Jackson</name>
-    <description>Integration tests for Camel Jackson extension</description>
+    <artifactId>camel-quarkus-integration-test-dataformats-json</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: DataFormats JSON</name>
+    <description>Integration tests for Camel Quarkus extension providing JSON related data formats</description>
 
     <properties>
         <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->

@@ -24,14 +24,14 @@
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <route>
-        <from uri="direct:type-as-attribute"/>
+        <from uri="direct:jackson-type-as-attribute"/>
         <unmarshal>
             <json library="Jackson" unmarshalTypeName="org.apache.camel.quarkus.component.jackson.model.DummyObject"/>
         </unmarshal>
     </route>
 
     <route>
-        <from uri="direct:type-as-header"/>
+        <from uri="direct:jackson-type-as-header"/>
         <setHeader name="CamelJacksonUnmarshalType">
             <constant>org.apache.camel.quarkus.component.jackson.model.DummyObject</constant>
         </setHeader>
