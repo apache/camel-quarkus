@@ -65,13 +65,7 @@ class PolicyProcessor {
                 "org.apache.camel.component.fhir.FhirHistoryEndpointConfiguration",
                 "org.apache.camel.component.fhir.FhirMetaEndpointConfiguration",
                 "org.apache.camel.component.fhir.FhirPatchEndpointConfiguration",
-                "org.apache.camel.component.fhir.FhirDeleteEndpointConfiguration",
-
-                /* org.apache.camel.component.consul.* can be removed after the upgrade to Camel 3.1 */
-                "org.apache.camel.component.consul.ConsulConfiguration",
-                "org.apache.camel.component.consul.ConsulClientConfiguration",
-                "org.apache.camel.component.consul.health.ConsulHealthCheckRepositoryConfiguration",
-                "org.apache.camel.component.consul.cloud.ConsulServiceRegistryConfiguration");
+                "org.apache.camel.component.fhir.FhirDeleteEndpointConfiguration");
     }
 
     /* Make the build fail as long as there are banned classes registered for reflection */

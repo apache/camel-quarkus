@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.bindy.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class BindyProcessor {
 
@@ -26,6 +28,16 @@ class BindyProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem reflectiveClasses() {
+        return new ReflectiveClassBuildItem(false, false, "com.ibm.icu.text.BreakIteratorFactory");
+    }
+
+    @BuildStep
+    NativeImageResourceDirectoryBuildItem resourceBundles() {
+        return new NativeImageResourceDirectoryBuildItem("com/ibm/icu/impl/data");
     }
 
 }

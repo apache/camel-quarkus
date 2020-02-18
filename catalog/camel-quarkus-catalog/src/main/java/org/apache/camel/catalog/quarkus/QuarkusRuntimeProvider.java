@@ -22,11 +22,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.camel.catalog.CamelCatalog;
-import org.apache.camel.catalog.CatalogHelper;
 import org.apache.camel.catalog.RuntimeProvider;
+import org.apache.camel.catalog.impl.CatalogHelper;
 
 /**
- * A Quarkus based {@link RuntimeProvider} which only includes the supported Camel components, data formats, and languages
+ * A Quarkus based {@link RuntimeProvider} which only includes the supported Camel components, data formats, and
+ * languages
  * which can be installed in Quarkus using the Camel extensions.
  */
 public class QuarkusRuntimeProvider implements RuntimeProvider {
