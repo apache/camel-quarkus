@@ -16,33 +16,33 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ProducerTemplate;
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.infinispan.client.hotrod.RemoteCacheManager;
+import org.junit.jupiter.api.Test;
 
-@Path("/test")
-@ApplicationScoped
-public class CamelServlet {
+import static org.hamcrest.Matchers.is;
+
+@QuarkusTest
+@QuarkusTestResource(InfinispanServerTestResource.class)
+public class InfinispanTest {
     @Inject
-    ProducerTemplate template;
+    CamelMain main;
+    @Inject
+    RemoteCacheManager cacheManager;
 
-    @Path("/get")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() {
-        return template.requestBody("direct:get", "", String.class);
-    }
+    @Test
+    public void testInfinispan() {
+        RestAssured.with()
+                .body("Hello Infinispan")
+                .post("/test/put").then();
 
-    @Path("/put")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String put(String content) {
-        return template.requestBody("direct:put", content, String.class);
+        RestAssured.when()
+                .get("/test/get")
+                .then().body(is("Hello Infinispan"));
     }
 }

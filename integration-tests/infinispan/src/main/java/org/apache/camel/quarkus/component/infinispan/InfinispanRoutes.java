@@ -22,7 +22,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.component.infinispan.InfinispanOperation;
 
-public class CamelRoute extends RouteBuilder {
+public class InfinispanRoutes extends RouteBuilder {
     @Override
     public void configure() {
         // we do not need to set any information about the target infinispan server

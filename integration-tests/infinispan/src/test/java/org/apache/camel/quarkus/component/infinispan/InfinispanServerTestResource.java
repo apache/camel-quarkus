@@ -30,7 +30,7 @@ import org.infinispan.test.fwk.TestResourceTracker;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private HotRodServer hotRodServer;
-    private CamelTest camelTest;
+    private InfinispanTest camelTest;
 
     @Override
     public Map<String, String> start() {
@@ -47,8 +47,8 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
 
     @Override
     public void inject(Object testInstance) {
-        if (testInstance instanceof CamelTest) {
-            this.camelTest = (CamelTest) testInstance;
+        if (testInstance instanceof InfinispanTest) {
+            this.camelTest = (InfinispanTest) testInstance;
         }
     }
 
