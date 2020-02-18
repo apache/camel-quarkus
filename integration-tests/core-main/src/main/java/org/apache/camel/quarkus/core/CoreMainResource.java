@@ -51,7 +51,7 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
 @ApplicationScoped
-public class CamelServlet {
+public class CoreMainResource {
     @Inject
     CamelMain main;
     @Inject

@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.core;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class CamelITCase extends CamelTest {
+public class CoreMainIT extends CoreMainTest {
 }
