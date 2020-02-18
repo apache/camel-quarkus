@@ -16,29 +16,34 @@
  */
 package org.apache.camel.quarkus.core;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
-import org.apache.camel.quarkus.core.runtime.support.SupportRoutesCollector;
-import org.junit.jupiter.api.Test;
+import org.apache.camel.CamelContext;
+import org.apache.camel.spi.Registry;
 
-import static org.assertj.core.api.Assertions.assertThat;
+@Path("/test")
+@ApplicationScoped
+public class CoreMainCollectorResource {
+    @Inject
+    CamelMain main;
+    @Inject
+    Registry registry;
+    @Inject
+    CamelContext context;
 
-@QuarkusTest
-public class CamelTest {
-    @Test
-    public void testMainInstanceWithCustomCollector() {
-        JsonPath p = RestAssured.given()
-                .accept(MediaType.APPLICATION_JSON)
-                .get("/test/main/describe")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
-
-        assertThat(p.getString("routes-collector-type")).isEqualTo(SupportRoutesCollector.class.getName());
+    @Path("/main/describe")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject describeMain() {
+        return Json.createObjectBuilder()
+                .add("routes-collector-type", main.getRoutesCollector().getClass().getName())
+                .build();
     }
 }
