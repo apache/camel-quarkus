@@ -24,19 +24,19 @@
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <route>
-        <from uri="direct:jackson-type-as-attribute"/>
+        <from uri="direct:Gson-type-as-attribute"/>
         <unmarshal>
-            <json library="Jackson" unmarshalTypeName="org.apache.camel.quarkus.component.jackson.model.DummyObject"/>
+            <json library="Gson" unmarshalTypeName="org.apache.camel.quarkus.component.jackson.model.DummyObject"/>
         </unmarshal>
     </route>
 
     <route>
-        <from uri="direct:jackson-type-as-header"/>
-        <setHeader name="CamelJacksonUnmarshalType">
+        <from uri="direct:Gson-type-as-header"/>
+        <setHeader name="CamelGsonUnmarshalType">
             <constant>org.apache.camel.quarkus.component.jackson.model.DummyObject</constant>
         </setHeader>
         <unmarshal>
-            <json library="Jackson" allowUnmarshallType="true"/>
+            <json library="Gson" allowUnmarshallType="true"/>
         </unmarshal>
     </route>
 

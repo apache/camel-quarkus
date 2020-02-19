@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.is;
 public class JsonComponentsTest {
 
     private static Stream<String> listJsonDataFormatsToBeTested() {
-        return Stream.of("jackson");
+        return Stream.of("Jackson", "Gson");
     }
 
     @ParameterizedTest
@@ -42,18 +42,18 @@ public class JsonComponentsTest {
     public void testRoutes(String jsonComponent) {
         RestAssured.given().contentType(ContentType.TEXT)
                 .queryParam("json-component", jsonComponent)
-                .body("[{\"dummy\": \"value1\"}, {\"dummy\": \"value2\"}]")
+                .body("[{\"dummy_string\": \"value1\"}, {\"dummy_string\": \"value2\"}]")
                 .post("/dataformats-json/in");
         RestAssured.given()
                 .queryParam("json-component", jsonComponent)
                 .post("/dataformats-json/out")
                 .then()
-                .body(equalTo("{\"dummy\":\"value1\"}"));
+                .body(equalTo("{\"dummy_string\":\"value1\"}"));
         RestAssured.given()
                 .queryParam("json-component", jsonComponent)
                 .post("/dataformats-json/out")
                 .then()
-                .body(equalTo("{\"dummy\":\"value2\"}"));
+                .body(equalTo("{\"dummy_string\":\"value2\"}"));
     }
 
     @ParameterizedTest
@@ -90,13 +90,13 @@ public class JsonComponentsTest {
     @MethodSource("listDirectUrisFromXmlRoutesToBeTested")
     public void testUnmarshal(String directId) {
         DummyObject object = new DummyObject();
-        object.setDummy("95f669ce-d287-4519-b212-4450bc791867");
+        object.setDummyString("95f669ce-d287-4519-b212-4450bc791867");
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(JsonbBuilder.create().toJson(object))
                 .post("/dataformats-json/unmarshal/{direct-id}", directId)
                 .then()
-                .body("dummy", is(object.getDummy()));
+                .body("dummyString", is(object.getDummyString()));
     }
 }

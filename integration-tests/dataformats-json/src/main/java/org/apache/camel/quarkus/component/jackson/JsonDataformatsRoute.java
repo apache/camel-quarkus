@@ -16,47 +16,93 @@
  */
 package org.apache.camel.quarkus.component.jackson;
 
+import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.reflect.TypeToken;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.jackson.model.DummyObject;
+import org.apache.camel.quarkus.component.jackson.model.ExcludeField;
 import org.apache.camel.quarkus.component.jackson.model.PojoA;
 import org.apache.camel.quarkus.component.jackson.model.PojoB;
+import org.apache.camel.spi.DataFormat;
 
 public class JsonDataformatsRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        JacksonDataFormat format = new JacksonDataFormat(DummyObject.class);
-        format.useList();
+        JacksonDataFormat jacksonDummyObjectDataFormat = new JacksonDataFormat(DummyObject.class);
+        jacksonDummyObjectDataFormat.useList();
+        ObjectMapper jacksonObjectMapper = new ObjectMapper();
+        jacksonObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        jacksonDummyObjectDataFormat.setObjectMapper(jacksonObjectMapper);
+        configureJsonRoutes(JsonLibrary.Jackson, jacksonDummyObjectDataFormat, new JacksonDataFormat(PojoA.class),
+                new JacksonDataFormat(PojoB.class));
 
-        from("direct:jackson-in")
-                .wireTap("direct:jackson-tap")
+        GsonDataFormat gsonDummyObjectDataFormat = new GsonDataFormat();
+        Type genericType = new TypeToken<List<DummyObject>>() {
+        }.getType();
+        gsonDummyObjectDataFormat.setUnmarshalGenericType(genericType);
+        gsonDummyObjectDataFormat.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES);
+        gsonDummyObjectDataFormat.setExclusionStrategies(Arrays.<ExclusionStrategy> asList(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getAnnotation(ExcludeField.class) != null;
+            }
+
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        }));
+        configureJsonRoutes(JsonLibrary.Gson, gsonDummyObjectDataFormat, new GsonDataFormat(PojoA.class),
+                new GsonDataFormat(PojoB.class));
+    }
+
+    public void configureJsonRoutes(JsonLibrary library, DataFormat dummyObjectDataFormat, DataFormat pojoADataFormat,
+            DataFormat pojoBDataFormat) {
+
+        fromF("direct:%s-in", library)
+                .wireTap("direct:" + library + "-tap")
                 .setBody(constant("ok"));
-        from("direct:jackson-tap")
-                .unmarshal(format)
-                .to("log:jackson-out")
+
+        fromF("direct:%s-tap", library)
+                .unmarshal(dummyObjectDataFormat)
+                .toF("log:%s-out", library)
                 .split(body())
-                .marshal(format)
+                .marshal(dummyObjectDataFormat)
                 .convertBodyTo(String.class)
-                .to("vm:jackson-out");
-        from("direct:jackson-in-a")
-                .wireTap("direct:jackson-tap-a")
+                .toF("vm:%s-out", library);
+
+        fromF("direct:%s-in-a", library)
+                .wireTap("direct:" + library + "-tap-a")
                 .setBody(constant("ok"));
-        from("direct:jackson-tap-a")
-                .unmarshal().json(JsonLibrary.Jackson, PojoA.class)
-                .to("log:jackson-out")
-                .marshal(new JacksonDataFormat(PojoA.class))
+
+        fromF("direct:%s-tap-a", library)
+                .unmarshal().json(library, PojoA.class)
+                .toF("log:%s-out", library)
+                .marshal(pojoADataFormat)
                 .convertBodyTo(String.class)
-                .to("vm:jackson-out-a");
-        from("direct:jackson-in-b")
-                .wireTap("direct:jackson-tap-b")
+                .toF("vm:%s-out-a", library);
+
+        fromF("direct:%s-in-b", library)
+                .wireTap("direct:" + library + "-tap-b")
                 .setBody(constant("ok"));
-        from("direct:jackson-tap-b")
-                .unmarshal().json(JsonLibrary.Jackson, PojoB.class)
-                .to("log:jackson-out")
-                .marshal(new JacksonDataFormat(PojoB.class))
+
+        fromF("direct:%s-tap-b", library)
+                .unmarshal().json(library, PojoB.class)
+                .toF("log:%s-out", library)
+                .marshal(pojoBDataFormat)
                 .convertBodyTo(String.class)
-                .to("vm:jackson-out-b");
+                .toF("vm:%s-out-b", library);
     }
 }

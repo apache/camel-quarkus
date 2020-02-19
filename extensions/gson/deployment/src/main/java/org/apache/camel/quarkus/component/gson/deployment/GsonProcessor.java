@@ -14,35 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson.model;
+package org.apache.camel.quarkus.component.gson.deployment;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-@RegisterForReflection
-public class DummyObject {
+class GsonProcessor {
 
-    private String dummyString;
-    @JsonIgnore
-    @ExcludeField
-    private int ignored;
+    private static final String FEATURE = "camel-gson";
 
-    public DummyObject() {
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 
-    public String getDummyString() {
-        return dummyString;
-    }
-
-    public void setDummyString(String dummy) {
-        this.dummyString = dummy;
-    }
-
-    public int getIgnored() {
-        return ignored;
-    }
-
-    public void setIgnored(int ignored) {
-        this.ignored = ignored;
-    }
 }

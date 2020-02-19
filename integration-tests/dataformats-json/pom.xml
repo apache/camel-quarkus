@@ -36,7 +36,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-core-xml-deployment,camel-quarkus-direct-deployment,camel-quarkus-jackson-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-vm-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-core-xml-deployment,camel-quarkus-direct-deployment,camel-quarkus-gson-deployment,camel-quarkus-jackson-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-vm-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
@@ -59,6 +59,10 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-vm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-gson</artifactId>
         </dependency>
 
         <dependency>

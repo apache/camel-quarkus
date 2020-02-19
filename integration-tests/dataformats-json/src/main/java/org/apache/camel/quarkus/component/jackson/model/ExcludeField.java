@@ -16,33 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jackson.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-@RegisterForReflection
-public class DummyObject {
-
-    private String dummyString;
-    @JsonIgnore
-    @ExcludeField
-    private int ignored;
-
-    public DummyObject() {
-    }
-
-    public String getDummyString() {
-        return dummyString;
-    }
-
-    public void setDummyString(String dummy) {
-        this.dummyString = dummy;
-    }
-
-    public int getIgnored() {
-        return ignored;
-    }
-
-    public void setIgnored(int ignored) {
-        this.ignored = ignored;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ ElementType.FIELD })
+public @interface ExcludeField {
 }
