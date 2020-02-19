@@ -73,6 +73,7 @@
         <module>fhir</module>
         <module>file</module>
         <module>ftp</module>
+        <module>gson</module>
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
