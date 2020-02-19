@@ -49,6 +49,16 @@ public class BeanTest {
     }
 
     @Test
+    public void method() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kermit")
+                .post("/bean/method")
+                .then()
+                .body(equalTo("Hello Kermit from the MyBean"));
+    }
+
+    @Test
     public void inject() {
 
         /* Ensure that @Inject works */
