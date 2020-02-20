@@ -16,30 +16,14 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-import org.apache.camel.FluentProducerTemplate;
-import org.apache.camel.component.salesforce.SalesforceEndpointConfig;
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTSECRET", matches = ".+")
+@NativeImageTest
+class SalesforceIT extends SalesforceTest {
 
-@Path("/salesforce")
-public class SalesforceResource {
-
-    @Inject
-    FluentProducerTemplate template;
-
-    @Path("/document/{id}")
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Object getDocument(@PathParam("id") String id) {
-        return template.withBody(id)
-                .withHeader(SalesforceEndpointConfig.SOBJECT_EXT_ID_NAME, "Name")
-                .withHeader(SalesforceEndpointConfig.SOBJECT_NAME, "Document")
-                .to("salesforce:getSObjectWithId?rawPayload=true")
-                .request();
-    }
 }
