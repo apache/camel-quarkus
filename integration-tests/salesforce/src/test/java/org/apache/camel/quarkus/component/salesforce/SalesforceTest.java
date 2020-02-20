@@ -16,19 +16,25 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-@RegisterForReflection
-public class SalesforceRoutes extends RouteBuilder {
+import static org.hamcrest.core.Is.is;
 
-    @Override
-    public void configure() {
-        from("direct:case")
-                .autoStartup(false)
-                .setHeader("sObjectName").constant("Case")
-                .to("salesforce:getSObject?rawPayload=true")
-                .to("log:sf?showAll=true");
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
+@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTSECRET", matches = ".+")
+@QuarkusTest
+class SalesforceTest {
 
+    @Test
+    public void testSalesforceComponent() {
+        RestAssured.get("/salesforce/document/test")
+                .then()
+                .statusCode(200)
+                .body("attributes.type", is("Document"));
     }
 }
