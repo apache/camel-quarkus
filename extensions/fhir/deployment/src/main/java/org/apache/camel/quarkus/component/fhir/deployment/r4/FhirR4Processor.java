@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.fhir.deployment.r4;
 
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
@@ -33,15 +32,14 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getInnerClasses;
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getModelClasses;
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getResourceDefinitions;
-import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.loadProperties;
 
 public class FhirR4Processor {
+    private static final String FHIR_VERSION_PROPERTIES = "org/hl7/fhir/r4/model/fhirversion.properties";
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
     R4PropertiesBuildItem properties(BuildProducer<NativeImageResourceBuildItem> resource) {
-        resource.produce(new NativeImageResourceBuildItem("org/hl7/fhir/r4/model/fhirversion.properties"));
-        Properties properties = loadProperties("/org/hl7/fhir/r4/model/fhirversion.properties");
-        return new R4PropertiesBuildItem(properties);
+        resource.produce(new NativeImageResourceBuildItem(FHIR_VERSION_PROPERTIES));
+        return new R4PropertiesBuildItem(FHIR_VERSION_PROPERTIES);
     }
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)

@@ -16,40 +16,29 @@
  */
 package org.apache.camel.quarkus.component.fhir.deployment;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Properties;
+import java.util.Map;
 import java.util.Set;
 
-import ca.uhn.fhir.context.FhirContext;
-
 public final class FhirUtil {
+
+    private static final String RESOURCE_PREFIX = "resource.";
 
     private FhirUtil() {
     }
 
-    public static Properties loadProperties(String path) {
-        try (InputStream str = FhirContext.class.getResourceAsStream(path)) {
-            Properties prop = new Properties();
-            prop.load(str);
-            return prop;
-        } catch (Exception e) {
-            throw new RuntimeException("Please ensure FHIR is on the classpath", e);
-        }
-    }
-
-    public static Collection<String> getModelClasses(Properties properties) {
+    public static Collection<String> getModelClasses(Map<String, String> properties) {
         return getInnerClasses(properties.values().toArray(new String[0]));
     }
 
-    public static Collection<String> getResourceDefinitions(Properties properties) {
+    public static Collection<String> getResourceDefinitions(Map<String, String> properties) {
         List<String> resources = new ArrayList<>();
-        for (String stringPropertyName : properties.stringPropertyNames()) {
-            if (stringPropertyName.contains("resource.")) {
-                resources.add(stringPropertyName.replace("resource.", ""));
+        for (String stringPropertyName : properties.keySet()) {
+            if (stringPropertyName.contains(RESOURCE_PREFIX)) {
+                resources.add(stringPropertyName.substring(RESOURCE_PREFIX.length()));
             }
         }
         return resources;
