@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.fhir.deployment.dstu2;
 
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import ca.uhn.fhir.model.dstu2.resource.*;
@@ -198,15 +197,15 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getModelClasses;
 import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.getResourceDefinitions;
-import static org.apache.camel.quarkus.component.fhir.deployment.FhirUtil.loadProperties;
 
 public class FhirDstu2Processor {
 
+    private static final String FHIR_VERSION_PROPERTIES = "ca/uhn/fhir/model/dstu2/fhirversion.properties";
+
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class)
     Dstu2PropertiesBuildItem properties(BuildProducer<NativeImageResourceBuildItem> resource) {
-        Properties properties = loadProperties("/ca/uhn/fhir/model/dstu2/fhirversion.properties");
-        resource.produce(new NativeImageResourceBuildItem("ca/uhn/fhir/model/dstu2/fhirversion.properties"));
-        return new Dstu2PropertiesBuildItem(properties);
+        resource.produce(new NativeImageResourceBuildItem(FHIR_VERSION_PROPERTIES));
+        return new Dstu2PropertiesBuildItem(FHIR_VERSION_PROPERTIES);
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu2Enabled.class)

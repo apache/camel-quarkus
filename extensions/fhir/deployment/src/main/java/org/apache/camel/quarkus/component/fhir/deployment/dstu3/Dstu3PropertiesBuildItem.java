@@ -16,19 +16,12 @@
  */
 package org.apache.camel.quarkus.component.fhir.deployment.dstu3;
 
-import java.util.Properties;
+import org.apache.camel.quarkus.component.fhir.deployment.AbstractPropertiesBuildItem;
 
-import io.quarkus.builder.item.SimpleBuildItem;
+public final class Dstu3PropertiesBuildItem extends AbstractPropertiesBuildItem {
 
-public final class Dstu3PropertiesBuildItem extends SimpleBuildItem {
-
-    private final Properties properties;
-
-    public Dstu3PropertiesBuildItem(Properties properties) {
-        this.properties = properties;
+    public Dstu3PropertiesBuildItem(String path) {
+        super(path);
     }
 
-    public Properties getProperties() {
-        return properties;
-    }
 }

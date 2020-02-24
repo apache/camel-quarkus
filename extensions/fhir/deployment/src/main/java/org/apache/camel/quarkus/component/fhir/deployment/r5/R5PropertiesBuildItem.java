@@ -16,19 +16,12 @@
  */
 package org.apache.camel.quarkus.component.fhir.deployment.r5;
 
-import java.util.Properties;
+import org.apache.camel.quarkus.component.fhir.deployment.AbstractPropertiesBuildItem;
 
-import io.quarkus.builder.item.SimpleBuildItem;
+public final class R5PropertiesBuildItem extends AbstractPropertiesBuildItem {
 
-public final class R5PropertiesBuildItem extends SimpleBuildItem {
-
-    private final Properties properties;
-
-    public R5PropertiesBuildItem(Properties properties) {
-        this.properties = properties;
+    public R5PropertiesBuildItem(String path) {
+        super(path);
     }
 
-    public Properties getProperties() {
-        return properties;
-    }
 }
