@@ -23,6 +23,8 @@ import org.apache.camel.builder.RouteBuilder;
 
 public class XmlRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TO_DOM = "direct:html-to-dom";
+    public static final String DIRECT_HTML_TRANSFORM = "direct:html-transfrom";
+    public static final String DIRECT_HTML_TO_TEXT = "direct:html-to-text";
 
     @Override
     public void configure() {
@@ -50,5 +52,15 @@ public class XmlRouteBuilder extends RouteBuilder {
                     }
                     exchange.getIn().setBody(text.getTextContent());
                 });
+
+        from(DIRECT_HTML_TRANSFORM)
+                .unmarshal().tidyMarkup()
+                // tagSoup produces DOM that is then consumed by XSLT
+                .to("xslt:xslt/html-transform.xsl");
+
+        from(DIRECT_HTML_TO_TEXT)
+                .unmarshal().tidyMarkup()
+                // tagSoup produces DOM that is then consumed by XSLT
+                .to("xslt:xslt/html-to-text.xsl");
     }
 }

@@ -60,4 +60,42 @@ class XmlTest {
                 actual);
     }
 
+    @Test
+    public void htmlTransform() throws Exception {
+        String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
+
+        final String actual = RestAssured.given()
+                .contentType(ContentType.HTML)
+                .accept(ContentType.TEXT)
+                .body(html)
+                .post("/xml/html-transform")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<html><head><META http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"><title>Title</title></head><body><h1>Title</h1><p>Paragraph Contents</p></body></html>",
+                actual);
+    }
+
+    @Test
+    public void htmlToText() throws Exception {
+        String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
+
+        final String actual = RestAssured.given()
+                .contentType(ContentType.HTML)
+                .accept(ContentType.TEXT)
+                .body(html)
+                .post("/xml/html-to-text")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim();
+
+        Assertions.assertEquals(
+                "= Title\n"
+                        + "\n"
+                        + "Paragraph Contents",
+                actual);
+    }
+
 }
