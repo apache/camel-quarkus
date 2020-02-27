@@ -45,7 +45,7 @@
         <awssdk1.version>1.11.714</awssdk1.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.10.67</awssdk2.version>
-        <camel.version>3.1.0</camel.version>
+        <camel.version>3.2.0-SNAPSHOT</camel.version>
         <freemarker.version>2.3.30</freemarker.version>
         <google-http-client.version>1.22.0</google-http-client.version>
         <guava.version>26.0-jre</guava.version>

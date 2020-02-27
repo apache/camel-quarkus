@@ -66,7 +66,7 @@ public class ReactiveStreamsRecorder {
                 if (reactiveStreamService == null) {
                     this.reactiveStreamService = reactiveStreamServiceFactory.newInstance(
                             getCamelContext(),
-                            getInternalEngineConfiguration());
+                            getReactiveStreamsEngineConfiguration());
 
                     try {
                         // Start the service and add it to the Camel context to expose managed attributes
