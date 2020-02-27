@@ -338,6 +338,7 @@ jobs:
             -Ddocker \
             -DskipTests \
             -pl :camel-quarkus-integration-test-aws \
+            -pl :camel-quarkus-integration-test-azure \
             -pl :camel-quarkus-integration-test-consul
   misc:
     runs-on: ubuntu-latest

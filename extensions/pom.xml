@@ -57,6 +57,7 @@
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>aws-translate</module>
+        <module>azure</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>

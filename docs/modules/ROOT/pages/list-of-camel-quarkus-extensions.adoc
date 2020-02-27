@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
+Number of Camel components: 68 in 58 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -65,6 +65,12 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
 `aws-translate:label` | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
+
+| link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service] (camel-quarkus-azure) +
+`azure-blob:containerOrBlobUri` | 1.2.0 | The azure-blob component is used for storing and retrieving blobs from Azure Storage Blob Service.
+
+| link:https://camel.apache.org/components/latest/azure-queue-component.html[Azure Storage Queue Service] (camel-quarkus-azure) +
+`azure-queue:containerAndQueueUri` | 1.2.0 | The azure-queue component is used for storing and retrieving messages from Azure Storage Queue Service.
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
