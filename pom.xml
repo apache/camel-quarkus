@@ -301,6 +301,27 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>validate-github-workflows</id>
+                        <inherited>false</inherited>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <source>file:///${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
     </build>
 
     <profiles>
