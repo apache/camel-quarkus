@@ -244,7 +244,6 @@ jobs:
             -pl :camel-quarkus-integration-test-base64 \
             -pl :camel-quarkus-integration-test-bindy \
             -pl :camel-quarkus-integration-test-snakeyaml \
-            -pl :camel-quarkus-integration-test-tagsoup \
             -pl :camel-quarkus-integration-test-csv \
             -pl :camel-quarkus-integration-test-dataformat
   networking:
@@ -417,7 +416,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        extension: [ 'dataformats-json', 'infinispan', 'olingo4', 'xslt' ]
+        extension: [ 'dataformats-json', 'infinispan', 'olingo4', 'xml' ]
     steps:
       - name: Set BRANCH_OPTIONS
         if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
