@@ -181,7 +181,8 @@ jobs:
             -pl :camel-quarkus-integration-test-platform-http \
             -pl :camel-quarkus-integration-test-platform-http-engine \
             -pl :camel-quarkus-integration-test-microprofile \
-            -pl :camel-quarkus-integration-test-opentracing
+            -pl :camel-quarkus-integration-test-opentracing \
+            -pl :camel-quarkus-integration-test-reactive-streams
   messaging:
     runs-on: ubuntu-latest
     needs: build
