@@ -1,0 +1,56 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+/**
+ * Makes sure that each itest is executed by the CI
+ */
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.nio.file.Files
+import java.util.regex.Matcher
+import java.util.regex.Pattern
+import java.util.stream.Collectors
+
+final Path treeRootDir = project.getBasedir().toPath()
+
+final String jobDefRelPath = '.github/workflows/pr-build.yaml'
+final Path jobDefPath = treeRootDir.resolve(jobDefRelPath)
+final String jobDefSource = new String(Files.readAllBytes(jobDefPath), 'UTF-8')
+
+final Set<String> executedBaseNames = [] as Set
+final Matcher plMatcher = Pattern.compile('-pl :camel-quarkus-integration-test-([^\n ]+)').matcher(jobDefSource)
+while (plMatcher.find()) {
+    executedBaseNames.add(plMatcher.group(1))
+}
+final Matcher extensionMatcher = Pattern.compile('extension: *\\[ *\'([^\\]]+)\' *\\]').matcher(jobDefSource)
+while (extensionMatcher.find()) {
+    extensionMatcher.group(1).split('\' *, *\'').each { executedBaseNames.add(it) }
+}
+
+final Set<String> missingBaseNames = [] as TreeSet
+final Set<String> itestBaseNames = Files.list(treeRootDir.resolve('integration-tests'))
+        .filter{ path -> Files.exists(path.resolve('pom.xml')) }
+        .map{ path -> path.getFileName().toString() }
+        .filter{ dirName -> !dirName.equals('support') }
+        .filter{ dirName -> !executedBaseNames.contains(dirName) }
+        .forEach{ dirName -> missingBaseNames.add(dirName) }
+
+if (!missingBaseNames.isEmpty()) {
+    throw new IllegalStateException('Integration tests not executed by the CI:\n\n    ' +
+        missingBaseNames.join('\n    ') +
+        '\n\n You may want to adapt ' + jobDefRelPath)
+}
