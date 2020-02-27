@@ -373,10 +373,10 @@ jobs:
             -pl :camel-quarkus-integration-test-mail \
             -pl :camel-quarkus-integration-test-pdf \
             -pl :camel-quarkus-integration-test-stream \
+            -pl :camel-quarkus-integration-test-telegram \
             -pl :camel-quarkus-integration-test-tarfile \
             -pl :camel-quarkus-integration-test-validator \
-            -pl :camel-quarkus-integration-test-zipfile \
-            -pl :camel-quarkus-integration-test-jira
+            -pl :camel-quarkus-integration-test-zipfile
   saas:
     runs-on: ubuntu-latest
     needs: build
@@ -406,6 +406,7 @@ jobs:
             -Ddocker \
             -DskipTests \
             -pl :camel-quarkus-integration-test-box \
+            -pl :camel-quarkus-integration-test-jira \
             -pl :camel-quarkus-integration-test-salesforce \
             -pl :camel-quarkus-integration-test-slack \
             -pl :camel-quarkus-integration-test-twitter

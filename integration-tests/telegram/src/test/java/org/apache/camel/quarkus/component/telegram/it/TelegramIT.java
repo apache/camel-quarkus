@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.telegram.it;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
+@EnabledIfEnvironmentVariable(named = "TELEGRAM_AUTHORIZATION_TOKEN", matches = "[^ ]+")
 class TelegramIT extends TelegramTest {
 
 }
