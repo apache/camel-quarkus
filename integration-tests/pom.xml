@@ -170,6 +170,7 @@
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>aws</module>
+        <module>azure</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
