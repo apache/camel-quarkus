@@ -19,20 +19,9 @@ package org.apache.camel.quarkus.component.netty;
 import org.apache.camel.builder.RouteBuilder;
 
 public class CamelRoute extends RouteBuilder {
-
     @Override
     public void configure() {
-
-        from("netty:tcp://0.0.0.0:8994?textline=true&sync=true")
-                .process().message(message -> {
-                    if (message.getBody() instanceof Poetry) {
-                        Poetry poetry = (Poetry) message.getBody();
-                        poetry.setPoet("Dr. Sarojini Naidu");
-                        message.setBody(poetry);
-                        return;
-                    }
-                    message.setBody("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
-                });
-
+        from("netty:tcp://0.0.0.0:{{camel.netty.test-port}}?textline=true&sync=true")
+                .setBody().constant("When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.");
     }
 }

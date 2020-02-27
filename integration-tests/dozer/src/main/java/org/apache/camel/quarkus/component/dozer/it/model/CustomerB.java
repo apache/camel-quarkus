@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.component.dozer.it.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-
-@RegisterForReflection
 public class CustomerB {
 
     private String firstName;

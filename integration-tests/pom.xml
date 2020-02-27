@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
         <relativePath>../poms/build-parent/pom.xml</relativePath>
     </parent>
 
@@ -34,8 +34,11 @@
 
     <properties>
         <activemq-version>5.15.10</activemq-version>
+        <artemis.version>2.10.0</artemis.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <sshd.version>2.3.0</sshd.version>
+        <testcontainers.version>1.12.5</testcontainers.version>
+        <mock-javamail.version>1.9</mock-javamail.version>
     </properties>
 
     <dependencyManagement>
@@ -48,10 +51,43 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-main-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-core-main-collector-ext</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-core-deployment</artifactId>
                 <version>${quarkus.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-kahadb-store</artifactId>
@@ -87,54 +123,103 @@
                 <artifactId>sshd-scp</artifactId>
                 <version>${sshd.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>testcontainers</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.testcontainers</groupId>
+                <artifactId>kafka</artifactId>
+                <version>${testcontainers.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jvnet.mock-javamail</groupId>
+                <artifactId>mock-javamail</artifactId>
+                <version>${mock-javamail.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>javax.mail</groupId>
+                        <artifactId>mail</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>artemis-server</artifactId>
+                <version>${artemis.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-policy</artifactId><!-- enforce the policy in all tests -->
+        </dependency>
+    </dependencies>
+
     <modules>
         <!-- build those first -->
+        <module>support</module>
         <module>core</module>
         <module>core-main</module>
+        <module>core-main-xml</module>
+        <module>core-main-collector</module>
         <module>core-impl</module>
 
-        <!-- extensions a..z -->
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>aws</module>
+        <module>base64</module>
         <module>bean</module>
+        <module>bean-validator</module>
+        <module>bindy</module>
+        <module>box</module>
+        <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>dataformats-json</module>
         <module>dozer</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
         <module>ftp</module>
+        <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
-        <module>jackson</module>
         <module>jdbc</module>
+        <module>jira</module>
+        <module>jsonpath</module>
         <module>kafka</module>
         <module>mail</module>
         <module>microprofile</module>
         <module>mongodb</module>
         <module>netty</module>
-        <module>netty-http</module>
+        <module>olingo4</module>
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>
-        <module>platform-http-engine</module>
         <module>platform-http</module>
+        <module>platform-http-engine</module>
+        <module>reactive-streams</module>
         <module>salesforce</module>
-        <module>servlet</module>
         <module>scheduler</module>
+        <module>seda</module>
+        <module>servlet</module>
         <module>sjms</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>sql</module>
+        <module>stream</module>
+        <module>tagsoup</module>
         <module>tarfile</module>
         <module>twitter</module>
         <module>validator</module>
+        <module>xslt</module>
         <module>zipfile</module>
         <module>xslt</module>
         <module>bean-validator</module>
-
         <module>freemarker</module>
     </modules>
 
@@ -150,9 +235,51 @@
                         <noDeps>true</noDeps>
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <configuration>
+                        <systemProperties>
+                            <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
+                        </systemProperties>
+                    </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <configuration>
+                                <systemProperties>
+                                    <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
+                                </systemProperties>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${build-helper-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>reserve-network-port</id>
+                        <goals>
+                            <goal>reserve-network-port</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <portNames>
+                                <portName>test.http.port.jvm</portName>
+                                <portName>test.http.port.native</portName>
+                            </portNames>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>

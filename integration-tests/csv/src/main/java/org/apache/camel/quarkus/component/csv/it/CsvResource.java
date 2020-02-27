@@ -29,7 +29,6 @@ import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 

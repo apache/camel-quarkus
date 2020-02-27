@@ -1,0 +1,27 @@
+[[http]]
+= HTTP Extension
+
+*Since Camel Quarkus 1.0.0*
+
+The HTTP component provides HTTP based endpoints for calling external HTTP resources (as a client to call external
+servers using HTTP).
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-http</artifactId>
+</dependency>
+----
+
+== Usage
+
+Please refer to the https://camel.apache.org/components/latest/http-component.html[HTTP] component page.
+
+
+== Configuration
+
+* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
+  your application to send or receive requests using non-default encodings.

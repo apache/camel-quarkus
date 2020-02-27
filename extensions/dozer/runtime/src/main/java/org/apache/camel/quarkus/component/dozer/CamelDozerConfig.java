@@ -16,11 +16,12 @@
  */
 package org.apache.camel.quarkus.component.dozer;
 
+import java.util.List;
+import java.util.Optional;
+
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
-
-import java.util.List;
 
 @ConfigRoot(name = "camel.dozer", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelDozerConfig {
@@ -29,5 +30,11 @@ public class CamelDozerConfig {
      * A comma separated list of Dozer XML mapping configuration file URIs.
      */
     @ConfigItem
-    public List<String> mappingFiles;
+    public Optional<List<String>> mappingFiles;
+
+    /**
+     * Sets whether to configure the DozerTypeConverter for the CamelContext
+     */
+    @ConfigItem(defaultValue = "false")
+    public boolean typeConverterEnabled;
 }

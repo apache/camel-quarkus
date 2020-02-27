@@ -23,12 +23,14 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.salesforce.internal.dto.LoginToken;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.ProtocolHandlers;
 
 class SalesforceProcessor {
     private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
             HttpClient.class,
+            LoginToken.class,
             ProtocolHandlers.class);
 
     private static final String FEATURE = "camel-salesforce";

@@ -19,13 +19,13 @@ package org.apache.camel.quarkus.component.xml.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.quarkus.component.xml.XmlRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelModelJAXBContextFactoryBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelRoutesCollectorBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.core.deployment.CamelSupport;
-import org.apache.camel.quarkus.core.deployment.CamelXmlLoaderBuildItem;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlProcessor {
@@ -37,9 +37,14 @@ class XmlProcessor {
         return new JaxbFileRootBuildItem(CamelSupport.CAMEL_ROOT_PACKAGE_DIRECTORY);
     }
 
-    @BuildStep(providesCapabilities = CamelCapabilities.XML)
+    @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CapabilityBuildItem capability() {
+        return new CapabilityBuildItem(CamelCapabilities.XML);
     }
 
     @BuildStep
@@ -50,14 +55,8 @@ class XmlProcessor {
 
     @BuildStep
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    CamelXmlLoaderBuildItem xmlLoader(XmlRecorder recorder) {
-        return new CamelXmlLoaderBuildItem(recorder.newDefaultXmlLoader());
-    }
-
-    @BuildStep
-    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    public CamelRoutesCollectorBuildItem routesCollector(XmlRecorder recorder) {
-        return new CamelRoutesCollectorBuildItem(recorder.newDefaultRoutesCollector());
+    CamelRoutesLoaderBuildItems.Xml xmlLoader(XmlRecorder recorder) {
+        return new CamelRoutesLoaderBuildItems.Xml(recorder.newDefaultXmlLoader());
     }
 
     @BuildStep

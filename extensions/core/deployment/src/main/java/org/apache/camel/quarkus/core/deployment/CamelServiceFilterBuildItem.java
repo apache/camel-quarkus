@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.builder.item.MultiBuildItem;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
 
 public final class CamelServiceFilterBuildItem extends MultiBuildItem {
     private final CamelServiceFilter predicate;

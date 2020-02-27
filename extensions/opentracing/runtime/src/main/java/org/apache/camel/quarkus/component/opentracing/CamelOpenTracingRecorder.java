@@ -22,7 +22,6 @@ import io.opentracing.Tracer;
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-
 import org.apache.camel.opentracing.OpenTracingTracer;
 
 @Recorder
@@ -35,8 +34,8 @@ public class CamelOpenTracingRecorder {
         if (tracer != null) {
             openTracingTracer.setTracer(tracer);
             openTracingTracer.setEncoding(camelOpenTracingConfig.encoding);
-            if (camelOpenTracingConfig.excludePatterns != null) {
-                openTracingTracer.setExcludePatterns(new LinkedHashSet<>(camelOpenTracingConfig.excludePatterns));
+            if (camelOpenTracingConfig.excludePatterns.isPresent()) {
+                openTracingTracer.setExcludePatterns(new LinkedHashSet<>(camelOpenTracingConfig.excludePatterns.get()));
             }
         }
         return new RuntimeValue<>(openTracingTracer);

@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus-parent</artifactId>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -40,15 +40,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <camel.version>3.0.0</camel.version>
+        <ahc.version>2.10.4</ahc.version>
+        <camel.version>3.0.1</camel.version>
+        <guava.version>26.0-jre</guava.version>
         <hapi.version>4.1.0</hapi.version>
-        <quarkus.version>1.0.0.Final</quarkus.version>
+        <quarkus.version>1.3.0.Alpha2</quarkus.version>
+        <httpmime.version>4.1.3</httpmime.version>
         <jetty.version>9.4.18.v20190429</jetty.version>
         <xstream.version>1.4.11</xstream.version>
+        <httpclient.cache.version>4.5.5</httpclient.cache.version>
         <snakeyaml.version>1.25</snakeyaml.version>
-        <geronimo-jms_2.0_spec.version>1.0-alpha-2</geronimo-jms_2.0_spec.version>
-        <artemis.version>2.10.0</artemis.version>
         <xalan.version>2.7.2</xalan.version>
+        <xerces.version>2.12.0</xerces.version>
+        <kotlin.version>1.3.61</kotlin.version>
+        <spring.version>5.2.1.RELEASE</spring.version>
+        <retrofit.version>2.5.0</retrofit.version>
+        <consul-client.version>1.3.3</consul-client.version>
+        <stax2.version>4.2</stax2.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -63,8 +71,7 @@
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
         <groovy.version>2.5.8</groovy.version>
-        <jandex-maven-plugin.version>1.0.6</jandex-maven-plugin.version>
-        <jetty-maven-plugin.version>9.4.20.v20190813</jetty-maven-plugin.version>
+        <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
         <mycila-license.version>3.0</mycila-license.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
@@ -73,28 +80,10 @@
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
-
-        <mvnd.builder.rules>
-            camel-quarkus-core-deployment,camel-quarkus-aws-*-deployment,camel-quarkus-log-deployment,camel-quarkus-timer-deployment -&gt; camel-quarkus-integration-test-aws
-            camel-quarkus-core-deployment,camel-quarkus-bean-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-bean
-            camel-quarkus-core-deployment,camel-quarkus-direct-deployment,camel-quarkus-core-xml-deployment -&gt; camel-quarkus-integration-test-core-cdi
-            camel-quarkus-core-deployment,camel-quarkus-core-cloud-deployment -&gt; camel-quarkus-integration-test-core-impl
-            camel-quarkus-core-deployment,camel-quarkus-csv-deployment,camel-quarkus-direct-deployment -&gt; camel-quarkus-integration-test-csv
-            camel-quarkus-core-deployment,camel-quarkus-infinispan-deployment,camel-quarkus-log-deployment,camel-quarkus-netty-http-deployment -&gt; camel-quarkus-integration-test-infinispan
-            camel-quarkus-core-deployment,camel-quarkus-jdbc-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-jdbc
-            camel-quarkus-core-deployment,camel-quarkus-mail-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-mail
-            camel-quarkus-core-deployment,camel-quarkus-microprofile-metrics-deployment,camel-quarkus-direct-deployment -&gt; camel-quarkus-integration-test-microprofile-metrics
-            camel-quarkus-core-deployment,camel-quarkus-netty-http-deployment,camel-quarkus-core-deployment -&gt; camel-quarkus-integration-test-netty-http
-            camel-quarkus-core-deployment,camel-quarkus-paho-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-paho
-            camel-quarkus-core-deployment,camel-quarkus-salesforce-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-salesforce
-            camel-quarkus-core-deployment,camel-quarkus-servlet-deployment,camel-quarkus-rest-deployment,camel-quarkus-core-cloud-deployment -&gt; camel-quarkus-integration-test-servlet
-            camel-quarkus-core-deployment,camel-quarkus-twitter-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-twitter
-            camel-quarkus-core-deployment,camel-quarkus-zipfile-deployment,camel-quarkus-direct-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-zipfile
-            camel-quarkus-core-deployment,camel-quarkus-controlbus-deployment,camel-quarkus-direct-deployment,camel-quarkus-timer-deployment,camel-quarkus-log-deployment -&gt; camel-quarkus-integration-test-controlbus
-        </mvnd.builder.rules>
     </properties>
 
     <modules>
@@ -161,45 +150,22 @@
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
             <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </repository>
-        <repository>
-            <id>apache.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1164/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
                 <enabled>false</enabled>
             </snapshots>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
         </repository>
     </repositories>
-
     <pluginRepositories>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-        <pluginRepository>
-            <id>apache.staging</id>
-            <url>https://repository.apache.org/content/repositories/orgapachecamel-1164/</url>
-            <name>Apache Snapshot Repo</name>
-            <snapshots>
                 <enabled>false</enabled>
             </snapshots>
             <releases>
-                <enabled>true</enabled>
+                <enabled>false</enabled>
             </releases>
         </pluginRepository>
     </pluginRepositories>
@@ -229,39 +195,20 @@
 
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <executions>
-                        <execution>
-                            <id>camel-quarkus-enforcer-rules</id>
-                            <goals>
-                                <goal>enforce</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <dependencyConvergence />
-                                    <requireMavenVersion>
-                                        <version>${supported-maven-versions}</version>
-                                    </requireMavenVersion>
-                                    <bannedDependencies>
-                                        <excludes>
-                                            <exclude>com.sun.xml.messaging.saaj:saaj-impl</exclude>
-                                        </excludes>
-                                    </bannedDependencies>
-                                </rules>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <failIfNoTests>false</failIfNoTests>
                         <systemProperties>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
                         </systemProperties>
                     </configuration>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -281,11 +228,110 @@
                     <artifactId>groovy-maven-plugin</artifactId>
                     <version>${groovy-maven-plugin.version}</version>
                 </plugin>
+
+                <!-- license-maven-plugin is not necessarily relevant for user applications.
+                     It is managed here so that we can have its config defined on a single place.
+                     It is executed from profiles only -->
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>${mycila-license.version}</version>
+                    <configuration>
+                        <failIfUnknown>true</failIfUnknown>
+                        <header>header.txt</header>
+                        <excludes>
+                            <exclude>**/*.adoc</exclude>
+                            <exclude>**/*.csv</exclude>
+                            <exclude>**/*.lock</exclude>
+                            <exclude>**/*.mp3</exclude>
+                            <exclude>**/*.mp4</exclude>
+                            <exclude>**/*.mvel</exclude>
+                            <exclude>**/*.p12</exclude>
+                            <exclude>**/*.pem</exclude>
+                            <exclude>**/*.txt</exclude>
+                            <exclude>**/.factorypath</exclude>
+                            <exclude>**/LICENSE.txt</exclude>
+                            <exclude>**/LICENSE</exclude>
+                            <exclude>**/META-INF/persistence*.xsd</exclude>
+                            <exclude>**/NOTICE.txt</exclude>
+                            <exclude>**/NOTICE</exclude>
+                            <exclude>**/README</exclude>
+                            <exclude>**/cacerts</exclude>
+                            <exclude>**/camel-quarkus-test-list.xml</exclude>
+                            <exclude>**/node_modules/**</exclude>
+                            <exclude>**/pom.xml.versionsBackup</exclude>
+                            <exclude>.mvn/**</exclude>
+                            <exclude>KEYS</exclude>
+                            <exclude>doap.rdf</exclude>
+                            <exclude>ide-config/**</exclude>
+                            <exclude>mvnw*</exclude>
+                            <exclude>node/**</exclude>
+                            <exclude>**/resources/routes.1</exclude>
+                            <exclude>**/resources/routes.2</exclude>
+                        </excludes>
+                        <mapping>
+                            <groovy>SLASHSTAR_STYLE</groovy>
+                            <java>SLASHSTAR_STYLE</java>
+                            <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
+                            <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
+                            <properties>CAMEL_PROPERTIES_STYLE</properties>
+                            <spring.factories>CAMEL_PROPERTIES_STYLE</spring.factories>
+                            <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
+                            <kt>SLASHSTAR_STYLE</kt>
+                        </mapping>
+                        <headerDefinitions>
+                            <headerDefinition>license-properties-headerdefinition.xml</headerDefinition>
+                        </headerDefinitions>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-buildtools</artifactId>
+                            <version>${camel.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
             </plugins>
         </pluginManagement>
     </build>
 
     <profiles>
+        <profile>
+            <!-- To disable sanity checks while building: add '-Denforce=false' to the command line -->
+            <id>enforce</id>
+            <activation>
+                <property>
+                    <name>enforce</name>
+                    <value>!false</value>
+                </property>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-enforcer-plugin</artifactId>
+                            <executions>
+                                <execution>
+                                    <id>camel-quarkus-enforcer-rules</id>
+                                    <goals>
+                                        <goal>enforce</goal>
+                                    </goals>
+                                    <configuration>
+                                        <rules>
+                                            <dependencyConvergence />
+                                            <requireMavenVersion>
+                                                <version>${supported-maven-versions}</version>
+                                            </requireMavenVersion>
+                                        </rules>
+                                    </configuration>
+                                </execution>
+                            </executions>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+            </build>
+        </profile>
         <profile>
             <id>linux</id>
             <activation>
@@ -321,63 +367,74 @@
                             <release>8</release>
                         </configuration>
                     </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <configuration>
+                            <release>8</release>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
         <profile>
-            <id>license</id>
+            <id>format</id>
             <build>
                 <plugins>
                     <plugin>
                         <groupId>com.mycila</groupId>
                         <artifactId>license-maven-plugin</artifactId>
-                        <version>${mycila-license.version}</version>
-                        <configuration>
-                            <failIfUnknown>true</failIfUnknown>
-                            <header>header.txt</header>
-                            <excludes>
-                                <exclude>KEYS</exclude>
-                                <exclude>**/NOTICE</exclude>
-                                <exclude>**/LICENSE</exclude>
-                                <exclude>**/NOTICE.txt</exclude>
-                                <exclude>**/LICENSE.txt</exclude>
-                                <exclude>**/*.lock</exclude>
-                                <exclude>doap.rdf</exclude>
-                                <exclude>**/README</exclude>
-                                <exclude>**/*.adoc</exclude>
-                                <exclude>**/node_modules/**</exclude>
-                                <exclude>node/**</exclude>
-                                <exclude>**/cacerts</exclude>
-                                <exclude>**/*.p12</exclude>
-                                <exclude>**/*.txt</exclude>
-                                <exclude>.mvn/**</exclude>
-                                <exclude>mvnw*</exclude>
-                                <exclude>**/META-INF/persistence*.xsd</exclude>
-                                <exclude>**/pom.xml.versionsBackup</exclude>
-                                <exclude>ide-config/**</exclude>
-                                <exclude>**/*.mvel</exclude>
-                                <exclude>**/*.pem</exclude>
-                            </excludes>
-                            <mapping>
-                                <groovy>SLASHSTAR_STYLE</groovy>
-                                <java>SLASHSTAR_STYLE</java>
-                                <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>
-                                <Jenkinsfile.quarkus>SLASHSTAR_STYLE</Jenkinsfile.quarkus>
-                                <properties>CAMEL_PROPERTIES_STYLE</properties>
-                                <spring.factories>CAMEL_PROPERTIES_STYLE</spring.factories>
-                                <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
-                            </mapping>
-                            <headerDefinitions>
-                                <headerDefinition>license-properties-headerdefinition.xml</headerDefinition>
-                            </headerDefinitions>
-                        </configuration>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.apache.camel</groupId>
-                                <artifactId>camel-buildtools</artifactId>
-                                <version>${camel.version}</version>
-                            </dependency>
-                        </dependencies>
+                        <executions>
+                            <execution>
+                                <id>license-format</id>
+                                <goals>
+                                    <goal>format</goal>
+                                </goals>
+                                <phase>validate</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sort-poms</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <properties>
+                                        <sortModulesPaths>extensions/pom.xml,integration-tests/pom.xml</sortModulesPaths>
+                                        <sortDependencyManagementPaths>poms/bom/pom.xml,poms/bom-deployment/pom.xml</sortDependencyManagementPaths>
+                                        <updateMvndRuleDirs>examples,integration-tests</updateMvndRuleDirs>
+                                    </properties>
+                                    <source>file:///${project.basedir}/tooling/scripts/sort-poms.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>check-format</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.mycila</groupId>
+                        <artifactId>license-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>license-format</id>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <phase>validate</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
@@ -503,11 +560,35 @@
         </profile>
 
         <profile>
-            <id>oss-snapshots</id>
+            <id>docker</id>
+            <activation>
+                <property>
+                    <name>docker</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.native.container-build>true</quarkus.native.container-build>
+                <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>snapshots</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <repositories>
+                <repository>
+                    <id>apache.snapshots</id>
+                    <url>https://repository.apache.org/snapshots/</url>
+                    <name>Apache Snapshot Repo</name>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </repository>
                 <repository>
                     <id>oss-snapshots-repo</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
@@ -521,6 +602,16 @@
             </repositories>
             <pluginRepositories>
                 <pluginRepository>
+                    <id>apache.snapshots</id>
+                    <url>https://repository.apache.org/snapshots/</url>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <releases>
+                        <enabled>false</enabled>
+                    </releases>
+                </pluginRepository>
+                <pluginRepository>
                     <id>oss-snapshots-repo</id>
                     <url>https://oss.sonatype.org/content/repositories/snapshots</url>
                     <releases>
@@ -531,19 +622,6 @@
                     </snapshots>
                 </pluginRepository>
             </pluginRepositories>
-        </profile>
-
-        <profile>
-            <id>docker</id>
-            <activation>
-                <property>
-                    <name>docker</name>
-                </property>
-            </activation>
-            <properties>
-                <native-image.docker-build>true</native-image.docker-build>
-                <native-image.container-runtime>docker</native-image.container-runtime>
-            </properties>
         </profile>
     </profiles>
 

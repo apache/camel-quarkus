@@ -21,13 +21,23 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-integration-tests</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-integration-test-aws</artifactId>
     <name>Camel Quarkus :: Integration Tests :: AWS</name>
     <description>The camel integration tests</description>
+
+    <properties>
+        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
+        <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
+        <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
+        <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
+        <!-- Please update rule whenever you change the dependencies of this module by running -->
+        <!--     mvn process-resources -Pformat    from the root directory -->
+        <mvnd.builder.rule>camel-quarkus-aws-ec2-deployment,camel-quarkus-aws-ecs-deployment,camel-quarkus-aws-eks-deployment,camel-quarkus-aws-iam-deployment,camel-quarkus-aws-kinesis-deployment,camel-quarkus-aws-kms-deployment,camel-quarkus-aws-lambda-deployment,camel-quarkus-aws-s3-deployment,camel-quarkus-aws-sns-deployment,camel-quarkus-aws-sqs-deployment,camel-quarkus-aws-translate-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment</mvnd.builder.rule>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -52,7 +62,27 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-iam</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-ec2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws-kms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-lambda</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-kinesis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws-translate</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -65,12 +95,12 @@
 
 
         <!-- test dependencies -->
-        <!--
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -103,6 +133,9 @@
                     <name>native</name>
                 </property>
             </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
             <build>
                 <plugins>
                     <plugin>
@@ -118,27 +151,6 @@
                                     <systemProperties>
                                         <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
                                     </systemProperties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>io.quarkus</groupId>
-                        <artifactId>quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>native-image</id>
-                                <goals>
-                                    <goal>native-image</goal>
-                                </goals>
-                                <configuration>
-                                    <cleanupServer>true</cleanupServer>
-                                    <enableHttpUrlHandler>true</enableHttpUrlHandler>
-                                    <enableServer>false</enableServer>
-                                    <dumpProxies>false</dumpProxies>
-                                    <enableJni>true</enableJni>
-                                    <enableAllSecurityServices>true</enableAllSecurityServices>
-                                    <disableReports>true</disableReports>
                                 </configuration>
                             </execution>
                         </executions>

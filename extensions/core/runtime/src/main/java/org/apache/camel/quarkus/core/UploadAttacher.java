@@ -30,8 +30,8 @@ public interface UploadAttacher {
      * {@code message}
      *
      * @param localFile the uploaded file stored locally
-     * @param fileName the name of the upload as sent by the client
-     * @param message the {@link Message} to attach the upload to
+     * @param fileName  the name of the upload as sent by the client
+     * @param message   the {@link Message} to attach the upload to
      */
     void attachUpload(File localFile, String fileName, Message message);
 

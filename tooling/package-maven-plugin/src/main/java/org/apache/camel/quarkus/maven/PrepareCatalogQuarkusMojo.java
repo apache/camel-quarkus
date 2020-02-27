@@ -126,7 +126,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *             threads it generated failed.
+     *         threads it generated failed.
      * @throws MojoFailureException something bad happened...
      */
     @Override

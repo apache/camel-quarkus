@@ -16,13 +16,13 @@
  */
 package org.apache.camel.quarkus.component.file.it;
 
+import java.nio.file.Paths;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
-import java.nio.file.Paths;
-
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-parent</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-extensions</artifactId>
@@ -42,28 +42,47 @@
         <module>http-common</module>
         <module>reactive-executor</module>
 
-        <!-- extensions a..z -->
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>ahc</module>
+        <module>ahc-ws</module>
         <module>attachments</module>
+        <module>aws-ec2</module>
+        <module>aws-ecs</module>
         <module>aws-eks</module>
+        <module>aws-iam</module>
+        <module>aws-kinesis</module>
+        <module>aws-kms</module>
+        <module>aws-lambda</module>
         <module>aws-s3</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
+        <module>aws-translate</module>
+        <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
+        <module>bindy</module>
+        <module>box</module>
+        <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>direct</module>
         <module>dozer</module>
+        <module>endpointdsl</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
         <module>ftp</module>
+        <module>gson</module>
+        <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
+        <module>jira</module>
+        <module>jsonpath</module>
         <module>kafka</module>
+        <module>kotlin</module>
         <module>log</module>
         <module>mail</module>
         <module>microprofile-health</module>
@@ -71,27 +90,31 @@
         <module>mongodb</module>
         <module>netty</module>
         <module>netty-http</module>
+        <module>olingo4</module>
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
+        <module>reactive-streams</module>
         <module>rest</module>
         <module>salesforce</module>
         <module>scheduler</module>
+        <module>seda</module>
         <module>servlet</module>
         <module>sjms</module>
+        <module>sjms2</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>sql</module>
+        <module>stream</module>
+        <module>tagsoup</module>
         <module>tarfile</module>
         <module>timer</module>
         <module>twitter</module>
         <module>validator</module>
         <module>vm</module>
-        <module>zipfile</module>
         <module>xslt</module>
-        <module>aws-kms</module>
-        <module>aws-ecs</module>
-
+        <module>zipfile</module>
         <module>freemarker</module>
     </modules>
 
@@ -138,7 +161,7 @@
                     <namePrefix xml:space="preserve">Camel Quarkus :: </namePrefix>
                     <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
                     <javaPackageInfix>component</javaPackageInfix>
-                    <templatesUriBase>file:///${project.basedir}/../tooling/create-extension-templates</templatesUriBase>
+                    <templatesUriBase>file://../tooling/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
                     <bomEntryVersion>@{camel-quarkus.version}</bomEntryVersion>

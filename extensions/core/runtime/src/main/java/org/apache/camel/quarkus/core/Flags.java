@@ -41,4 +41,14 @@ public final class Flags {
             return asBoolean("quarkus.camel.main.routes-discovery.enabled", true);
         }
     }
+
+    public static final class RuntimeCatalogEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return asBoolean("quarkus.camel.runtime-catalog.components", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.languages", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.dataformats", true)
+                    || asBoolean("quarkus.camel.runtime-catalog.models", true);
+        }
+    }
 }

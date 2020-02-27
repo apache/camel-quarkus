@@ -1,0 +1,17 @@
+== Camel Quarkus Jira Integration Tests
+
+To run `camel-quarkus-jira` integration tests, you need a running Jira instance to test against.
+
+A simple way of doing this is to use the https://hub.docker.com/r/atlassian/jira-software[Jira Docker image].
+
+Set the following environment variables:
+
+[source,shell]
+----
+export JIRA_ISSUES_PROJECT_KEY=TEST
+export JIRA_URL=http://localhost:8080/
+export JIRA_USERNAME=my-jira-username
+export JIRA_PASSWORD=my-jira-password
+----
+
+

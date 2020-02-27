@@ -21,7 +21,7 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.main.RoutesCollector;
 
 /**
- * Holds the {@link RoutesCollector} {@link RuntimeValue}. *
+ * Holds the {@link RoutesCollector} {@link RuntimeValue}.
  */
 public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
     private final RuntimeValue<RoutesCollector> value;

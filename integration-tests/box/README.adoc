@@ -1,0 +1,17 @@
+== Camel Quarkus Box Integration Tests
+
+To run the `camel-quarkus-box` integration tests, you must first create a Box developer account https://account.box.com/login.
+
+Then set the following environment variables:
+
+[source,shell]
+----
+export BOX_USER_NAME=my-user-name
+export BOX_USER_PASSWORD=my-user-password
+export BOX_CLIENT_ID=my-client-id
+export BOX_CLIENT_SECRET=my-client_secret
+----
+
+Enjoy!
+
+

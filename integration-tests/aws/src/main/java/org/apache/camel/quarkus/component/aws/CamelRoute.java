@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.aws;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws.translate.TranslateConstants;
+import org.apache.camel.component.aws.translate.TranslateLanguageEnum;
 
 @RegisterForReflection
 public class CamelRoute extends RouteBuilder {
@@ -52,6 +54,28 @@ public class CamelRoute extends RouteBuilder {
 
         from("timer:quarkus-ecs?repeatCount=1")
                 .to("aws-ecs://cluster?operation=listClusters")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-iam?repeatCount=1")
+                .to("aws-iam://cluster?operation=listAccessKeys")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-ec2?repeatCount=1")
+                .to("aws-ec2://cluster?operation=describeInstances")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-lambda?repeatCount=1")
+                .to("aws-lambda://cluster?operation=listFunctions")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-translate?repeatCount=1")
+                .setHeader(TranslateConstants.SOURCE_LANGUAGE, constant(TranslateLanguageEnum.ITALIAN))
+                .setHeader(TranslateConstants.TARGET_LANGUAGE, constant(TranslateLanguageEnum.GERMAN))
+                .setBody(constant("Ciao"))
+                .to("aws-translate://cluster?operation=translateText")
+                .log("Translation: ${body}");
+
+        from("aws-kinesis://mykinesisstream")
                 .to("log:sf?showAll=true");
     }
 

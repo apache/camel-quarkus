@@ -21,6 +21,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.RoutesCollector;
@@ -36,11 +37,14 @@ public class CamelMainRecorder {
             RuntimeValue<CamelContext> runtime,
             RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container) {
-
         CamelMain main = new CamelMain();
         main.setRoutesCollector(routesCollector.getValue());
         main.setCamelContext(runtime.getValue());
         main.addMainListener(new CamelMainEventDispatcher());
+
+        // properties are loaded through MicroProfile Config so there's
+        // no need to look for sources.
+        main.setDefaultPropertyPlaceholderLocation("false");
 
         // xml rest/routes should be explicitly configured as an
         // additional dependency is required thus, disable auto
@@ -52,6 +56,18 @@ public class CamelMainRecorder {
         container.instance(CamelMainProducers.class).setMain(main);
 
         return new RuntimeValue<>(main);
+    }
+
+    public void addRoutesBuilder(RuntimeValue<CamelMain> main, String routesBuilderClass) {
+        try {
+            CamelContext context = main.getValue().getCamelContext();
+            Class<RoutesBuilder> type = context.getClassResolver().resolveClass(routesBuilderClass, RoutesBuilder.class);
+            RoutesBuilder builder = context.getInjector().newInstance(type, false);
+
+            main.getValue().addRoutesBuilder(builder);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void addListener(RuntimeValue<CamelMain> main, RuntimeValue<MainListener> listener) {
@@ -82,7 +98,11 @@ public class CamelMainRecorder {
         }
     }
 
-    public RuntimeValue<RoutesCollector> newDisabledXmlRoutesCollector() {
-        return new RuntimeValue<>(new DisabledXmlRoutesCollector());
+    public RuntimeValue<RoutesCollector> newRoutesCollector(
+            RuntimeValue<RegistryRoutesLoader> registryRoutesLoader,
+            RuntimeValue<XmlRoutesLoader> xmlRoutesLoader) {
+
+        return new RuntimeValue<>(new CamelRoutesCollector(registryRoutesLoader.getValue(), xmlRoutesLoader.getValue()));
     }
+
 }

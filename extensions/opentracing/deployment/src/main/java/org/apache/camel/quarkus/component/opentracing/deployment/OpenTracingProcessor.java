@@ -16,18 +16,15 @@
  */
 package org.apache.camel.quarkus.component.opentracing.deployment;
 
-import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
-import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-
 import io.opentracing.Tracer;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
+import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 
 class OpenTracingProcessor {
 
@@ -36,11 +33,6 @@ class OpenTracingProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void process(BuildProducer<NativeImageResourceBuildItem> resource) {
-        resource.produce(new NativeImageResourceBuildItem("META-INF/services/org.apache.camel.opentracing.SpanDecorator"));
     }
 
     @BuildStep

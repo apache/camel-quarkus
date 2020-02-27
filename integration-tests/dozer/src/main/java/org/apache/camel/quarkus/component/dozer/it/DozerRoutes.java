@@ -17,15 +17,12 @@
 package org.apache.camel.quarkus.component.dozer.it;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.converter.dozer.DozerTypeConverterLoader;
 import org.apache.camel.quarkus.component.dozer.it.model.CustomerB;
 
 public class DozerRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        new DozerTypeConverterLoader(getContext());
-
         from("direct:mapWithConverter").convertBodyTo(CustomerB.class);
 
         from("direct:mapWithEndpoint")

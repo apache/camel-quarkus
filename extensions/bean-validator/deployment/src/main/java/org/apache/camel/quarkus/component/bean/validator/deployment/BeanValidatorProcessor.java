@@ -22,8 +22,8 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.bean.validator.BeanValidatorComponent;
 import org.apache.camel.quarkus.component.bean.validator.BeanValidatorRecorder;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
 
 class BeanValidatorProcessor {

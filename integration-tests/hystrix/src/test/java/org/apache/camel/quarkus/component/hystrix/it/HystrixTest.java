@@ -16,13 +16,15 @@
  */
 package org.apache.camel.quarkus.component.hystrix.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-
 import org.junit.jupiter.api.Test;
+
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
+@QuarkusTestResource(HystrixTestResource.class)
 class HystrixTest {
 
     @Test

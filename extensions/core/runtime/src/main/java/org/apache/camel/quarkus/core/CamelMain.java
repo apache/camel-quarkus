@@ -21,10 +21,13 @@ import java.util.Collections;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +52,24 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
         for (MainListener listener : listeners) {
             listener.afterStart(this);
         }
+    }
+
+    @Override
+    protected void postProcessCamelContext(CamelContext camelContext) throws Exception {
+        super.postProcessCamelContext(camelContext);
+
+        // post process classes with camel's post processor so classes have supot
+        // for camel's simple di
+        CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
+        for (RoutesBuilder builder : getRoutesBuilders()) {
+            postProcessor.postProcessBeforeInitialization(builder, builder.getClass().getName());
+            postProcessor.postProcessAfterInitialization(builder, builder.getClass().getName());
+        }
+    }
+
+    @Override
+    protected void loadRouteBuilders(CamelContext camelContext) throws Exception {
+        // classes are automatically discovered by build processors
     }
 
     @Override

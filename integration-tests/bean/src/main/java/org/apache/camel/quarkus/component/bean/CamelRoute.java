@@ -63,6 +63,14 @@ public class CamelRoute extends RouteBuilder {
                 // log out
                 .to("log:out");
 
+        from("direct:named")
+                .to("bean:namedBean?method=hello")
+                .to("log:named");
+
+        from("direct:method")
+                .bean(MyBean.class, "sayHello")
+                .to("log:named");
+
     }
 
     @SuppressWarnings("unchecked")
@@ -141,4 +149,13 @@ public class CamelRoute extends RouteBuilder {
         }
     }
 
+    @RegisterForReflection
+    public static class MyBean {
+        /**
+         * Just return an hello message.
+         */
+        public static String sayHello(String body) {
+            return "Hello " + body + " from the MyBean";
+        }
+    }
 }

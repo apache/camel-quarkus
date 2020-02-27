@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-parent</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-tooling</artifactId>
@@ -33,6 +33,7 @@
     <description>Camel Quarkus Tooling Parent POM</description>
 
     <properties>
+        <build-helper-maven-plugin.version>1.7</build-helper-maven-plugin.version>
         <maven-version>3.6.2</maven-version>
         <maven-maven-plugin-descriptor-version>2.2.1</maven-maven-plugin-descriptor-version>
         <maven-project-version>2.2.1</maven-project-version>
@@ -44,10 +45,13 @@
         <plexus-build-api-version>0.0.7</plexus-build-api-version>
         <plexus-container-default-version>2.0.0</plexus-container-default-version>
         <plexus-utils-version>3.2.1</plexus-utils-version>
+        <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>
+        <mvel.version>2.4.5.Final</mvel.version>
     </properties>
 
     <modules>
         <module>package-maven-plugin</module>
+        <module>test-list</module>
     </modules>
 
     <dependencyManagement>

@@ -21,7 +21,6 @@ import org.apache.camel.builder.RouteBuilder;
 public class ZipfileRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
-        // Add some routes or remove this class
         from("direct:start")
                 .marshal().zipFile();
     }

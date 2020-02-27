@@ -27,10 +27,12 @@ by comma.
 
 [source,properties]
 ----
-quarkus.camel.xslt.sources = transform.xsl, file:relative/path/to/my/file.xsl, file:/absolute/path/to/my/file.xsl
+quarkus.camel.xslt.sources = transform.xsl, classpath:path/to/my/file.xsl
 ----
 
 Scheme-less URIs are interpreted as `classpath:` URIs.
+
+Only `classpath:` URIs are supported on Quarkus. `file:`, `http:` and other kinds of URIs do not work by design.
 
 [NOTE]
 ====

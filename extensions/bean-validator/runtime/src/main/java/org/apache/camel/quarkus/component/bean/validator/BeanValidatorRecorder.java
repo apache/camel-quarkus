@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.bean.validator;
 
 import java.util.Map;
+
 import javax.validation.ValidatorFactory;
 
 import io.quarkus.runtime.RuntimeValue;

@@ -30,7 +30,7 @@ public class RouteBuilderWithProducer extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:with-producer")
-                .setBody(() -> "with-producer");
+                .setBody(exchange -> "with-producer");
     }
 
     @Produces

@@ -42,7 +42,7 @@ public class TimerRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         fromF("timer:foo?period=%s", period)
-                .setBody(() -> "Incremented the counter: " + counter.increment())
+                .setBody(exchange -> "Incremented the counter: " + counter.increment())
                 .to("log:example?showExchangePattern=false&showBodyType=false");
     }
 }

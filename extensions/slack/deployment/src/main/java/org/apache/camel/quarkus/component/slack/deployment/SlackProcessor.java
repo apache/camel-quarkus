@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.slack.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 
 class SlackProcessor {
 
@@ -34,11 +33,4 @@ class SlackProcessor {
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
-
-    @BuildStep
-    NativeImageResourceBuildItem suffixListResource() {
-        // Required by org.apache.http.conn.util.PublicSuffixMatcher
-        return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
-    }
-
 }

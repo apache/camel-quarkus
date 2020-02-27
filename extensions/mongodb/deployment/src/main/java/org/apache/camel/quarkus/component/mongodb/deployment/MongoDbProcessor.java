@@ -16,14 +16,15 @@
  */
 package org.apache.camel.quarkus.component.mongodb.deployment;
 
+import java.util.List;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-
-import com.mongodb.MongoClient;
-
+import io.quarkus.mongodb.runtime.MongoClientRecorder;
 import org.apache.camel.quarkus.component.mongodb.CamelMongoClientRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 
@@ -38,10 +39,21 @@ class MongoDbProcessor {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    CamelRuntimeBeanBuildItem registerCamelMongoClientProducer(MongoClientBuildItem mongoClientBuildItem,
+    void registerCamelMongoClientProducer(
+            List<MongoClientBuildItem> mongoClients,
+            BuildProducer<CamelRuntimeBeanBuildItem> runtimeBeans,
             CamelMongoClientRecorder recorder) {
 
-        return new CamelRuntimeBeanBuildItem("camelMongoClient", MongoClient.class.getName(),
-                recorder.createCamelMongoClient(mongoClientBuildItem.getClient()));
+        for (MongoClientBuildItem mongoClient : mongoClients) {
+            // If there is a default mongo client instance, then bind it to the camel registry
+            // with the default mongo client name used by the camel-mongodb component
+            if (MongoClientRecorder.DEFAULT_MONGOCLIENT_NAME.equals(mongoClient.getName())) {
+                runtimeBeans.produce(
+                        new CamelRuntimeBeanBuildItem(
+                                "camelMongoClient",
+                                "com.mongodb.MongoClient",
+                                recorder.createCamelMongoClient(mongoClients.get(0).getClient())));
+            }
+        }
     }
 }

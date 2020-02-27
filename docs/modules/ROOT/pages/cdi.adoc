@@ -24,7 +24,7 @@ public class TimerRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         fromF("timer:foo?period=%s", period)
-                .setBody(() -> "Incremented the counter: " + counter.increment())
+                .setBody(exchange -> "Incremented the counter: " + counter.increment())
                 .to("log:cdi-example?showExchangePattern=false&showBodyType=false");
     }
 }
@@ -39,3 +39,43 @@ you really need it.
 <2> The value for the `timer.period` property is defined in `src/main/resources/application.properties` of the example project.
 
 TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Quarkus Dependency Injection guide] for more details.
+
+
+== CDI and the Camel Bean component
+
+=== Refer to a bean by name
+
+To refer to a bean in a route definition by name, just annotate the the bean with `@Named("myNamedBean")` and
+`@ApplicationScoped` (or some other
+https://quarkus.io/guides/cdi-reference#supported_features[supported] scope). The `@RegisterForReflection` annotation
+is important for the native mode.
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@ApplicationScoped
+@Named("myNamedBean")
+@RegisterForReflection
+public class NamedBean {
+    public String hello(String name) {
+        return "Hello " + name + " from the NamedBean";
+    }
+}
+----
+
+Then you can use the `myNamedBean` name in a route definition:
+
+[source,java]
+----
+import org.apache.camel.builder.RouteBuilder;
+public class CamelRoute extends RouteBuilder {
+    @Override
+    public void configure() {
+        from("direct:named")
+                .to("bean:namedBean?method=hello");
+    }
+}
+----

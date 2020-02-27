@@ -17,129 +17,93 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-integration-tests</artifactId>
-    <version>0.4.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>camel-quarkus-integration-test-pdf</artifactId>
-  <name>Camel Quarkus :: Integration Tests :: PDF</name>
-  <description>Integration tests for Camel Quarkus PDF extension</description>
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.camel.quarkus</groupId>
-      <artifactId>camel-quarkus-pdf</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-resteasy</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-junit5</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>io.rest-assured</groupId>
-      <artifactId>rest-assured</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>io.quarkus</groupId>
-        <artifactId>quarkus-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>build</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-  <profiles>
-    <profile>
-      <!--
-      TODO: fix and re-enable native tests
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <version>1.1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>camel-quarkus-integration-test-pdf</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: PDF</name>
+    <description>Integration tests for Camel Quarkus PDF extension</description>
+    <properties>
+        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
+        <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
+        <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
+        <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
+        <!-- Please update rule whenever you change the dependencies of this module by running -->
+        <!--     mvn process-resources -Pformat    from the root directory -->
+        <mvnd.builder.rule>camel-quarkus-pdf-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+    </properties>
 
-      Error: Detected a FileDescriptor in the image heap. File descriptors opened during image generation are no longer
-      open at image run time, and the files might not even be present anymore at image run time.  To see how this object
-      got instantiated use -H:+TraceClassInitialization. The object was probably created by a class initializer and is
-      reachable from a static field. You can request class initialization at image run time by using the option
-      \-\-initialize-at-build-time=<class-name>. Or you can write your own initialization methods and call them explicitly
-      from your main entry point.
-
-      Detailed message:
-          Trace:
-              object org.apache.fontbox.ttf.BufferedRandomAccessFile
-              object org.apache.fontbox.ttf.RAFDataStream
-              object org.apache.fontbox.ttf.TrueTypeFont
-              object org.apache.pdfbox.pdmodel.font.PDType1Font
-              method org.apache.camel.component.pdf.PdfConfiguration.<init>()
-          Call path from entry point to org.apache.camel.component.pdf.PdfConfiguration.<init>():
-              at org.apache.camel.component.pdf.PdfConfiguration.<init>(PdfConfiguration.java:43)
-              at org.apache.camel.component.pdf.PdfComponent.createEndpoint(PdfComponent.java:34)
-              at org.apache.camel.support.DefaultComponent.createEndpoint(DefaultComponent.java:240)
-              at org.apache.camel.impl.engine.AbstractCamelContext.getEndpoint(AbstractCamelContext.java:786)
-              at org.apache.camel.impl.engine.DefaultProducerTemplate.resolveMandatoryEndpoint(DefaultProducerTemplate.java:550)
-              at org.apache.camel.impl.engine.DefaultProducerTemplate.send(DefaultProducerTemplate.java:130)
-              at org.apache.camel.processor.aggregate.AggregateProcessor$RecoverTask.run(AggregateProcessor.java:1339)
-              ...
-      -->
-      <id>native-pdf</id>
-      <activation>
-        <property>
-          <name>native-pdf</name>
-        </property>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-                <configuration>
-                  <systemProperties>
-                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                  </systemProperties>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-pdf</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>native-image</id>
-                <goals>
-                  <goal>native-image</goal>
-                </goals>
-                <configuration>
-                  <reportErrorsAtRuntime>false</reportErrorsAtRuntime>
-                  <cleanupServer>true</cleanupServer>
-                  <enableHttpsUrlHandler>true</enableHttpsUrlHandler>
-                  <enableServer>false</enableServer>
-                  <dumpProxies>false</dumpProxies>
-                  <graalvmHome>${graalvmHome}</graalvmHome>
-                  <enableJni>true</enableJni>
-                  <enableAllSecurityServices>true</enableAllSecurityServices>
-                  <disableReports>true</disableReports>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
-      </build>
-    </profile>
-  </profiles>
+    </build>
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                                <configuration>
+                                    <systemProperties>
+                                        <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                                    </systemProperties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

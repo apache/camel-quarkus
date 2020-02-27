@@ -16,18 +16,15 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import java.io.InputStream;
-import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import java.util.stream.Collectors;
-import javax.inject.Inject;
 
+import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
@@ -42,21 +39,31 @@ import org.apache.camel.Converter;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Producer;
 import org.apache.camel.TypeConverter;
+import org.apache.camel.impl.engine.DefaultComponentResolver;
+import org.apache.camel.impl.engine.DefaultDataFormatResolver;
+import org.apache.camel.impl.engine.DefaultLanguageResolver;
+import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.ExchangeFormatter;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ScheduledPollConsumerScheduler;
 import org.apache.camel.spi.StreamCachingStrategy;
+import org.apache.camel.support.CamelContextHelper;
 import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
-import org.jboss.jandex.MethodInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.apache.commons.lang3.ClassUtils.getPackageName;
+
 class NativeImageProcessor {
+    private static final Logger LOGGER = LoggerFactory.getLogger(NativeImageProcessor.class);
+
     /*
      * NativeImage configuration steps related to camel core.
      */
@@ -72,20 +79,16 @@ class NativeImageProcessor {
                 CamelContext.class,
                 StreamCachingStrategy.class,
                 StreamCachingStrategy.SpoolUsedHeapMemoryLimit.class,
-                PropertiesComponent.class);
-
-        @Inject
-        BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
-        @Inject
-        BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod;
-        @Inject
-        BuildProducer<NativeImageResourceBuildItem> resource;
-        @Inject
-        ApplicationArchivesBuildItem applicationArchivesBuildItem;
+                PropertiesComponent.class,
+                DataFormat.class);
 
         @BuildStep
-        void process(CombinedIndexBuildItem combinedIndex) {
-            IndexView view = combinedIndex.getIndex();
+        void reflectiveItems(
+                CombinedIndexBuildItem combinedIndex,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+                BuildProducer<ReflectiveMethodBuildItem> reflectiveMethod) {
+
+            final IndexView view = combinedIndex.getIndex();
 
             CAMEL_REFLECTIVE_CLASSES.stream()
                     .map(Class::getName)
@@ -93,9 +96,8 @@ class NativeImageProcessor {
                     .map(view::getAllKnownImplementors)
                     .flatMap(Collection::stream)
                     .filter(CamelSupport::isPublic)
-                    .forEach(v -> addReflectiveClass(true, v.name().toString()));
+                    .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, v.name().toString())));
 
-            Logger log = LoggerFactory.getLogger(NativeImageProcessor.class);
             DotName converter = DotName.createSimple(Converter.class.getName());
             List<ClassInfo> converterClasses = view.getAnnotations(converter)
                     .stream()
@@ -103,70 +105,108 @@ class NativeImageProcessor {
                     .filter(ai -> {
                         AnnotationValue av = ai.value("loader");
                         boolean isLoader = av != null && av.asBoolean();
-                        // filter out camel-base converters which are automatically inlined in the CoreStaticTypeConverterLoader
+                        // filter out camel-base converters which are automatically inlined in the
+                        // CoreStaticTypeConverterLoader
                         // need to revisit with Camel 3.0.0-M3 which should improve this area
                         if (ai.target().asClass().name().toString().startsWith("org.apache.camel.converter.")) {
-                            log.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
+                            LOGGER.debug("Ignoring core " + ai + " " + ai.target().asClass().name());
                             return false;
                         } else if (isLoader) {
-                            log.debug("Ignoring " + ai + " " + ai.target().asClass().name());
+                            LOGGER.debug("Ignoring " + ai + " " + ai.target().asClass().name());
                             return false;
                         } else {
-                            log.debug("Accepting " + ai + " " + ai.target().asClass().name());
+                            LOGGER.debug("Accepting " + ai + " " + ai.target().asClass().name());
                             return true;
                         }
                     })
                     .map(ai -> ai.target().asClass())
                     .collect(Collectors.toList());
 
-            log.debug("Converter classes: " + converterClasses);
-            converterClasses.forEach(ci -> addReflectiveClass(false, ci.name().toString()));
+            LOGGER.debug("Converter classes: " + converterClasses);
+            converterClasses
+                    .forEach(ci -> reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, ci.name().toString())));
 
             view.getAnnotations(converter)
                     .stream()
                     .filter(ai -> ai.target().kind() == Kind.METHOD)
                     .filter(ai -> converterClasses.contains(ai.target().asMethod().declaringClass()))
                     .map(ai -> ai.target().asMethod())
-                    .forEach(this::addReflectiveMethod);
+                    .forEach(mi -> reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi)));
 
-            CamelSupport.resources(applicationArchivesBuildItem, "META-INF/maven/org.apache.camel/camel-base")
-                    .forEach(this::addResource);
-            CamelSupport.resources(applicationArchivesBuildItem, CamelSupport.CAMEL_SERVICE_BASE_PATH)
-                    .forEach(this::addCamelService);
         }
 
-        protected void addCamelService(Path p) {
-            try (InputStream is = Files.newInputStream(p)) {
-                Properties props = new Properties();
-                props.load(is);
-                for (Map.Entry<Object, Object> entry : props.entrySet()) {
-                    String k = entry.getKey().toString();
-                    if (k.equals("class")) {
-                        addReflectiveClass(true, entry.getValue().toString());
-                    } else if (k.endsWith(".class")) {
-                        addReflectiveClass(true, entry.getValue().toString());
-                        addResource(p);
+        @BuildStep
+        void camelServices(
+                List<CamelServiceBuildItem> camelServices,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+
+            camelServices.stream()
+                    .forEach(service -> {
+                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.type));
+                    });
+
+        }
+
+        /*
+         * Add camel catalog files to the native image.
+         */
+        @BuildStep(onlyIf = Flags.RuntimeCatalogEnabled.class)
+        List<NativeImageResourceBuildItem> camelRuntimeCatalog(
+                CamelConfig config,
+                ApplicationArchivesBuildItem archives,
+                List<CamelServicePatternBuildItem> servicePatterns) {
+
+            List<NativeImageResourceBuildItem> resources = new ArrayList<>();
+
+            final PathFilter pathFilter = servicePatterns.stream()
+                    .collect(
+                            PathFilter.Builder::new,
+                            (builder, patterns) -> builder.patterns(patterns.isInclude(), patterns.getPatterns()),
+                            PathFilter.Builder::combine)
+                    .build();
+
+            CamelSupport.services(archives, pathFilter)
+                    .filter(service -> service.name != null && service.type != null && service.path != null)
+                    .forEach(service -> {
+
+                        String packageName = getPackageName(service.type);
+                        String jsonPath = String.format("%s/%s.json", packageName.replace('.', '/'), service.name);
+
+                        if (config.runtimeCatalog.components
+                                && service.path.startsWith(DefaultComponentResolver.RESOURCE_PATH)) {
+                            resources.add(new NativeImageResourceBuildItem(jsonPath));
+                        }
+                        if (config.runtimeCatalog.dataformats
+                                && service.path.startsWith(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH)) {
+                            resources.add(new NativeImageResourceBuildItem(jsonPath));
+                        }
+                        if (config.runtimeCatalog.languages
+                                && service.path.startsWith(DefaultLanguageResolver.LANGUAGE_RESOURCE_PATH)) {
+                            resources.add(new NativeImageResourceBuildItem(jsonPath));
+                        }
+                    });
+
+            if (config.runtimeCatalog.models) {
+                for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
+                    final Path root = archive.getArchiveRoot();
+                    final Path resourcePath = root.resolve(CamelContextHelper.MODEL_DOCUMENTATION_PREFIX);
+
+                    if (!Files.isDirectory(resourcePath)) {
+                        continue;
                     }
+
+                    List<String> items = CamelSupport.safeWalk(resourcePath)
+                            .filter(Files::isRegularFile)
+                            .map(root::relativize)
+                            .map(Path::toString)
+                            .collect(Collectors.toList());
+
+                    LOGGER.debug("Register catalog json: {}", items);
+                    resources.add(new NativeImageResourceBuildItem(items));
                 }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
             }
-        }
 
-        protected void addResource(Path p) {
-            addResource(p.toString().substring(1));
-        }
-
-        protected void addResource(String r) {
-            resource.produce(new NativeImageResourceBuildItem(r));
-        }
-
-        protected void addReflectiveClass(boolean methods, String... className) {
-            reflectiveClass.produce(new ReflectiveClassBuildItem(methods, false, className));
-        }
-
-        protected void addReflectiveMethod(MethodInfo mi) {
-            reflectiveMethod.produce(new ReflectiveMethodBuildItem(mi));
+            return resources;
         }
     }
 
@@ -185,7 +225,7 @@ class NativeImageProcessor {
             // to bind beans to the registry
             //
             camelRoutesBuilders.forEach(dotName -> {
-                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, dotName.toString()));
+                reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, dotName.toString()));
             });
 
             reflectiveClass.produce(new ReflectiveClassBuildItem(

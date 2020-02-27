@@ -7,7 +7,7 @@ Number of Camel components: @{components.size} in @{numberOfArtifacts} JAR artif
 | Component | Since | Description
 @foreach{row : components}
 | @{util.getDocLink(row)}[@{row.title}] (@{row.artifactId}) +
-`@{row.syntax}` | @{util.getFirstVersionShort(row)} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
+`@{row.syntax}` | @{row.firstVersion} | @if{row.deprecated == "true"}*deprecated* @end{}@{util.escape(row.description)}
 @end{}
 |===
 

@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-tooling</artifactId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-package-maven-plugin</artifactId>
@@ -31,18 +31,6 @@
 
     <name>Camel Quarkus :: Tooling :: Maven :: Package Maven Plugin</name>
     <description>Maven plugin to help package Camel quarkus components and plugins</description>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>tooling-parent</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>
@@ -57,6 +45,10 @@
                 <exclusion>
                     <groupId>org.asciidoctor</groupId>
                     <artifactId>asciidoctorj</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.mvel</groupId>
+                    <artifactId>mvel2</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -111,7 +103,7 @@
         <dependency>
             <groupId>org.mvel</groupId>
             <artifactId>mvel2</artifactId>
-            <version>2.4.4.Final</version>
+            <version>${mvel.version}</version>
         </dependency>
 
     </dependencies>
@@ -135,7 +127,7 @@
                         compatibility issue with asciidoc 2.1.0 (camel) vs 2.0.0 (quarkus)
                         TODO: investigate a better option
                     -->
-                    <skip/>
+                    <skip />
                 </configuration>
             </plugin>
         </plugins>

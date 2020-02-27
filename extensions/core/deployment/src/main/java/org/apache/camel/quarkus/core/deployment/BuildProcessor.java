@@ -26,38 +26,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import io.quarkus.arc.processor.BeanRegistrar;
-import org.apache.camel.CamelContext;
-import org.apache.camel.RoutesBuilder;
-import org.apache.camel.builder.AdviceWithRouteBuilder;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelMain;
-import org.apache.camel.quarkus.core.CamelMainProducers;
-import org.apache.camel.quarkus.core.CamelMainRecorder;
-import org.apache.camel.quarkus.core.CamelProducers;
-import org.apache.camel.quarkus.core.CamelRecorder;
-import org.apache.camel.quarkus.core.CamelServiceFilter;
-import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
-import org.apache.camel.quarkus.core.Flags;
-import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.TypeConverterLoader;
-import org.apache.camel.spi.TypeConverterRegistry;
-import org.jboss.jandex.ClassInfo;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem.BeanClassNamesExclusion;
-import io.quarkus.arc.processor.BeanInfo;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.Capabilities;
@@ -72,15 +44,74 @@ import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.CamelContext;
+import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.quarkus.core.CamelMainProducers;
+import org.apache.camel.quarkus.core.CamelMainRecorder;
+import org.apache.camel.quarkus.core.CamelProducers;
+import org.apache.camel.quarkus.core.CamelRecorder;
+import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
+import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
+import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem.CamelServiceDestination;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
+import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.jboss.jandex.Type;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class BuildProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(BuildProcessor.class);
-    private static final DotName TYPE_CONVERTER_LOADER_TYPE = DotName.createSimple(TypeConverterLoader.class.getName());
+
+    private static final DotName ROUTES_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.RoutesBuilder");
+    private static final DotName ROUTE_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.RouteBuilder");
+    private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.AdviceWithRouteBuilder");
+    private static final DotName DATA_FORMAT_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.DataFormat");
+    private static final DotName LANGUAGE_TYPE = DotName.createSimple(
+            "org.apache.camel.spi.Language");
+    private static final DotName COMPONENT_TYPE = DotName.createSimple(
+            "org.apache.camel.Component");
+    private static final DotName PRODUCER_TYPE = DotName.createSimple(
+            "org.apache.camel.Producer");
+    private static final DotName PREDICATE_TYPE = DotName.createSimple(
+            "org.apache.camel.Predicate");
+
+    private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
+            ROUTES_BUILDER_TYPE,
+            DATA_FORMAT_TYPE,
+            LANGUAGE_TYPE,
+            COMPONENT_TYPE,
+            PRODUCER_TYPE,
+            PREDICATE_TYPE);
 
     /*
      * Build steps related to camel core.
      */
     public static class Core {
+        @BuildStep
+        BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem containerBeans(
+                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
+                BuildProducer<ContainerBeansBuildItem> containerBeans) {
+
+            containerBeans.produce(
+                    new ContainerBeansBuildItem(beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)));
+
+            // method using BeanRegistrationPhaseBuildItem should return a BeanConfiguratorBuildItem
+            // otherwise the build step may be processed at the wrong time.
+            return new BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem();
+        }
 
         @BuildStep
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
@@ -94,11 +125,85 @@ class BuildProcessor {
         void coreServiceFilter(BuildProducer<CamelServiceFilterBuildItem> filterBuildItems) {
             filterBuildItems.produce(
                     new CamelServiceFilterBuildItem(CamelServiceFilter.forService("properties-component-factory")));
+
+            // The reactive executor is programmatically configured by an extension or
+            // a default implementation is provided by this processor thus we can safely
+            // prevent loading of this service.
+            filterBuildItems.produce(
+                    new CamelServiceFilterBuildItem(CamelServiceFilter.forService("reactive-executor")));
+        }
+
+        @BuildStep
+        void coreServicePatterns(BuildProducer<CamelServicePatternBuildItem> services) {
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    true,
+                    "META-INF/services/org/apache/camel/component/*",
+                    "META-INF/services/org/apache/camel/language/constant",
+                    "META-INF/services/org/apache/camel/language/file",
+                    "META-INF/services/org/apache/camel/language/header",
+                    "META-INF/services/org/apache/camel/language/ref",
+                    "META-INF/services/org/apache/camel/language/simple"));
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    true,
+                    "META-INF/services/org/apache/camel/*",
+                    "META-INF/services/org/apache/camel/management/*",
+                    "META-INF/services/org/apache/camel/model/*",
+                    "META-INF/services/org/apache/camel/configurer/*",
+                    "META-INF/services/org/apache/camel/language/*",
+                    "META-INF/services/org/apache/camel/dataformat/*"));
+        }
+
+        @BuildStep
+        void userServicePatterns(
+                CamelConfig camelConfig,
+                BuildProducer<CamelServicePatternBuildItem> services) {
+
+            camelConfig.service.discovery.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    true,
+                    list)));
+
+            camelConfig.service.discovery.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    false,
+                    list)));
+
+            camelConfig.service.registry.includePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    true,
+                    list)));
+
+            camelConfig.service.registry.excludePatterns.ifPresent(list -> services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.REGISTRY,
+                    false,
+                    list)));
+        }
+
+        @BuildStep
+        void camelServices(
+                ApplicationArchivesBuildItem applicationArchives,
+                List<CamelServicePatternBuildItem> servicePatterns,
+                BuildProducer<CamelServiceBuildItem> camelServices) {
+
+            final PathFilter pathFilter = servicePatterns.stream()
+                    .filter(patterns -> patterns.getDestination() == CamelServiceDestination.DISCOVERY)
+                    .collect(
+                            PathFilter.Builder::new,
+                            (bldr, patterns) -> bldr.patterns(patterns.isInclude(), patterns.getPatterns()),
+                            PathFilter.Builder::combine)
+                    .build();
+            CamelSupport.services(applicationArchives, pathFilter)
+                    .forEach(camelServices::produce);
         }
 
         /*
          * Discover {@link TypeConverterLoader}.
          */
+        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep
         CamelTypeConverterRegistryBuildItem typeConverterRegistry(
@@ -115,8 +220,8 @@ class BuildProcessor {
             // account even if it should not.
             //
             // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
-            //       a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
-            //       any discovery at runtime.
+            // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
+            // any discovery at runtime.
             //
             for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
                 Path path = archive.getArchiveRoot().resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
@@ -129,7 +234,7 @@ class BuildProcessor {
                             .map(String::trim)
                             .filter(l -> !l.isEmpty())
                             .filter(l -> !l.startsWith("#"))
-                            .map(l -> recorderContext.<TypeConverterLoader> newInstance(l))
+                            .map(l -> (Class<? extends TypeConverterLoader>) recorderContext.classProxy(l))
                             .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
                 } catch (IOException e) {
                     throw new RuntimeException("Error discovering TypeConverterLoader", e);
@@ -152,13 +257,27 @@ class BuildProcessor {
         CamelRegistryBuildItem registry(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
+                CamelConfig camelConfig,
                 ApplicationArchivesBuildItem applicationArchives,
+                ContainerBeansBuildItem containerBeans,
                 List<CamelBeanBuildItem> registryItems,
-                List<CamelServiceFilterBuildItem> serviceFilters) {
+                List<CamelServiceFilterBuildItem> serviceFilters,
+                List<CamelServicePatternBuildItem> servicePatterns) {
 
-            RuntimeValue<Registry> registry = recorder.createRegistry();
+            final RuntimeValue<org.apache.camel.spi.Registry> registry = recorder.createRegistry();
 
-            CamelSupport.services(applicationArchives)
+            final PathFilter pathFilter = servicePatterns.stream()
+                    .filter(patterns -> patterns.getDestination() == CamelServiceDestination.REGISTRY)
+                    .collect(
+                            PathFilter.Builder::new,
+                            (builder, patterns) -> builder.patterns(patterns.isInclude(), patterns.getPatterns()),
+                            PathFilter.Builder::combine)
+                    .include(camelConfig.service.registry.includePatterns)
+                    .exclude(camelConfig.service.registry.excludePatterns)
+                    .build();
+
+            CamelSupport.services(applicationArchives, pathFilter)
+                    .filter(si -> !containerBeans.getBeans().contains(si))
                     .filter(si -> {
                         //
                         // by default all the service found in META-INF/service/org/apache/camel are
@@ -182,15 +301,25 @@ class BuildProcessor {
                                 recorderContext.classProxy(si.type));
                     });
 
-            for (CamelBeanBuildItem item : registryItems) {
-                LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
-
-                recorder.bind(
-                        registry,
-                        item.getName(),
-                        recorderContext.classProxy(item.getType()),
-                        item.getValue());
-            }
+            registryItems.stream()
+                    .filter(item -> !containerBeans.getBeans().contains(item))
+                    .forEach(item -> {
+                        LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
+                        if (item.getValue().isPresent()) {
+                            recorder.bind(
+                                    registry,
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()),
+                                    item.getValue().get());
+                        } else {
+                            // the instance of the service will be instantiated by the recorder, this avoid
+                            // creating a recorder for trivial services.
+                            recorder.bind(
+                                    registry,
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()));
+                        }
+                    });
 
             return new CamelRegistryBuildItem(registry);
         }
@@ -205,8 +334,8 @@ class BuildProcessor {
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-        public CamelXmlLoaderBuildItem createXmlLoader(CamelRecorder recorder) {
-            return new CamelXmlLoaderBuildItem(recorder.newDisabledXmlLoader());
+        public CamelRoutesLoaderBuildItems.Xml createXmlLoader(CamelRecorder recorder) {
+            return new CamelRoutesLoaderBuildItems.Xml(recorder.newDisabledXmlRoutesLoader());
         }
 
         @BuildStep
@@ -225,15 +354,20 @@ class BuildProcessor {
                 CamelRegistryBuildItem registry,
                 CamelTypeConverterRegistryBuildItem typeConverterRegistry,
                 CamelModelJAXBContextFactoryBuildItem contextFactory,
-                CamelXmlLoaderBuildItem xmlLoader,
-                BeanContainerBuildItem beanContainer) {
+                CamelRoutesLoaderBuildItems.Xml xmlLoader,
+                CamelFactoryFinderResolverBuildItem factoryFinderResolverBuildItem,
+                BeanContainerBuildItem beanContainer,
+                CamelConfig config) {
 
             RuntimeValue<CamelContext> context = recorder.createContext(
                     registry.getRegistry(),
                     typeConverterRegistry.getRegistry(),
                     contextFactory.getContextFactory(),
-                    xmlLoader.getXmlLoader(),
-                    beanContainer.getValue());
+                    xmlLoader.getLoader(),
+                    factoryFinderResolverBuildItem.getFactoryFinderResolver(),
+                    beanContainer.getValue(),
+                    CamelSupport.getCamelVersion(),
+                    config);
 
             return new CamelContextBuildItem(context);
         }
@@ -243,21 +377,54 @@ class BuildProcessor {
         CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
+                ContainerBeansBuildItem containerBeans,
                 CamelRegistryBuildItem registry,
                 List<CamelRuntimeBeanBuildItem> registryItems) {
 
-            for (CamelRuntimeBeanBuildItem item : registryItems) {
-                LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
+            registryItems.stream()
+                    .filter(item -> !containerBeans.getBeans().contains(item))
+                    .forEach(item -> {
+                        LOGGER.debug("Binding runtime bean with name: {}, type {}", item.getName(), item.getType());
 
-                recorder.bind(
-                        registry.getRegistry(),
-                        item.getName(),
-                        recorderContext.classProxy(item.getType()),
-                        item.getValue());
-            }
+                        if (item.getValue().isPresent()) {
+                            recorder.bind(
+                                    registry.getRegistry(),
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()),
+                                    item.getValue().get());
+                        } else {
+                            // the instance of the service will be instantiated by the recorder, this avoid
+                            // creating a recorder for trivial services.
+                            recorder.bind(
+                                    registry.getRegistry(),
+                                    item.getName(),
+                                    recorderContext.classProxy(item.getType()));
+                        }
+                    });
 
             return new CamelRuntimeRegistryBuildItem(registry.getRegistry());
         }
+
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep
+        CamelFactoryFinderResolverBuildItem factoryFinderResolver(
+                RecorderContext recorderContext,
+                CamelRecorder recorder,
+                List<CamelServiceBuildItem> camelServices) {
+
+            RuntimeValue<Builder> builder = recorder.factoryFinderResolverBuilder();
+
+            camelServices.stream()
+                    .forEach(service -> {
+                        recorder.factoryFinderResolverEntry(
+                                builder,
+                                service.path.toString(),
+                                recorderContext.classProxy(service.type));
+                    });
+
+            return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));
+        }
+
     }
 
     /*
@@ -265,74 +432,48 @@ class BuildProcessor {
      * disabled by setting quarkus.camel.disable-main = true
      */
     public static class Main {
-
+        @Overridable
         @BuildStep
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+        public CamelRoutesLoaderBuildItems.Registry createRegistryLoader(CamelRecorder recorder) {
+            return new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader());
+        }
+
+        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
         public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
-                CombinedIndexBuildItem combinedIndex) {
+                CombinedIndexBuildItem combinedIndex,
+                CamelConfig config) {
+
             final IndexView index = combinedIndex.getIndex();
+
             Set<ClassInfo> allKnownImplementors = new HashSet<>();
-            allKnownImplementors.addAll(
-                    index.getAllKnownImplementors(DotName.createSimple(RoutesBuilder.class.getName())));
-            allKnownImplementors.addAll(
-                    index.getAllKnownSubclasses(DotName.createSimple(RouteBuilder.class.getName())));
-            allKnownImplementors.addAll(
-                    index.getAllKnownSubclasses(DotName.createSimple(AdviceWithRouteBuilder.class.getName())));
+            allKnownImplementors.addAll(index.getAllKnownImplementors(ROUTES_BUILDER_TYPE));
+            allKnownImplementors.addAll(index.getAllKnownSubclasses(ROUTE_BUILDER_TYPE));
+            allKnownImplementors.addAll(index.getAllKnownSubclasses(ADVICE_WITH_ROUTE_BUILDER_TYPE));
 
             return allKnownImplementors
                     .stream()
                     // public and non-abstract
                     .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
                     .map(ClassInfo::name)
+                    .filter(new PathFilter.Builder()
+                            .exclude(config.main.routesDiscovery.excludePatterns)
+                            .include(config.main.routesDiscovery.includePatterns)
+                            .build().asDotNamePredicate())
                     .map(CamelRoutesBuilderClassBuildItem::new)
-                    .collect(Collectors.toList());
-        }
-
-        /**
-         * This method filter out {@link RoutesBuilder} discovered either by classpath scanning
-         * through Jandex or by ArC.
-         *
-         * @param camelRoutesBuilderClasses list of {@link CamelRoutesBuilderClassBuildItem} holding {@link RoutesBuilder}
-         *            classes discovered by classpath scanning.
-         * @param recorder the recorder.
-         * @param beanRegistrationPhase holder for {@link BeanRegistrar.RegistrationContext}.
-         * @param recorderContext the recorder context.
-         * @param config the built time camel configuration.
-         * @return a curated list of {@link CamelBeanBuildItem} holding {@link RoutesBuilder}.
-         */
-        @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
-        public List<CamelBeanBuildItem> collectRoutes(
-                List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilderClasses,
-                CamelMainRecorder recorder,
-                BeanRegistrationPhaseBuildItem beanRegistrationPhase,
-                RecorderContext recorderContext,
-                CamelConfig config) {
-
-            final Set<DotName> arcBeanClasses = beanRegistrationPhase.getContext().get(BuildExtension.Key.BEANS)
-                    .stream()
-                    .map(BeanInfo::getImplClazz)
-                    .map(ClassInfo::name)
-                    .collect(Collectors.toSet());
-
-            return camelRoutesBuilderClasses.stream()
-                    .map(CamelRoutesBuilderClassBuildItem::getDotName)
-                    .filter(dotName -> !arcBeanClasses.contains(dotName))
-                    .filter(dotName -> CamelSupport.isPathIncluded(
-                            dotName.toString('/'),
-                            config.main.routesDiscovery.excludePatterns,
-                            config.main.routesDiscovery.includePatterns))
-                    .map(dotName -> new CamelBeanBuildItem(
-                            dotName.withoutPackagePrefix(),
-                            dotName.toString(),
-                            recorderContext.newInstance(dotName.toString())))
                     .collect(Collectors.toList());
         }
 
         @Overridable
         @BuildStep
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-        public CamelRoutesCollectorBuildItem createRoutesCollector(CamelMainRecorder recorder) {
-            return new CamelRoutesCollectorBuildItem(recorder.newDisabledXmlRoutesCollector());
+        public CamelRoutesCollectorBuildItem createRoutesCollector(
+                CamelMainRecorder recorder,
+                CamelRoutesLoaderBuildItems.Registry registryRoutesLoader,
+                CamelRoutesLoaderBuildItems.Xml xmlRoutesLoader) {
+
+            return new CamelRoutesCollectorBuildItem(
+                    recorder.newRoutesCollector(registryRoutesLoader.getLoader(), xmlRoutesLoader.getLoader()));
         }
 
         @BuildStep(onlyIf = Flags.MainEnabled.class)
@@ -345,15 +486,9 @@ class BuildProcessor {
          * making the lazy beans unremovable in that case.
          */
         @BuildStep(onlyIf = Flags.MainEnabled.class)
-        UnremovableBeanBuildItem unremoveLazyBeans(
-                List<CamelRoutesBuilderClassBuildItem> camelRoutesClasses) {
-
-            final Set<String> lazyBeans = camelRoutesClasses.stream()
-                    .map(buildItem -> buildItem.getDotName().toString())
-                    .collect(Collectors.toSet());
-
-            return new UnremovableBeanBuildItem(new BeanClassNamesExclusion(lazyBeans));
-
+        UnremovableBeanBuildItem unremovableRoutesBuilders() {
+            return new UnremovableBeanBuildItem(
+                    b -> b.getTypes().stream().map(Type::name).anyMatch(UNREMOVABLE_BEANS_TYPES::contains));
         }
 
         @Overridable
@@ -370,12 +505,15 @@ class BuildProcessor {
          * This method should not attempt to start or initialize camel-main as this need to be done
          * at runtime.
          */
+        @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
+                ContainerBeansBuildItem containerBeans,
                 CamelMainRecorder recorder,
                 CamelContextBuildItem context,
                 CamelRoutesCollectorBuildItem routesCollector,
+                List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
                 List<CamelMainListenerBuildItem> listeners,
                 BeanContainerBuildItem beanContainer) {
 
@@ -384,6 +522,14 @@ class BuildProcessor {
                     routesCollector.getValue(),
                     beanContainer.getValue());
 
+            for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
+                // don't add routes builders that are known by the container
+                if (containerBeans.getClasses().contains(item.getDotName())) {
+                    continue;
+                }
+
+                recorder.addRoutesBuilder(main, item.getDotName().toString());
+            }
             for (CamelMainListenerBuildItem listener : listeners) {
                 recorder.addListener(main, listener.getListener());
             }
@@ -393,17 +539,18 @@ class BuildProcessor {
         /**
          * This method is responsible to start camel-main ar runtime.
          *
-         * @param recorder the recorder.
-         * @param main a reference to a {@link CamelMain}.
-         * @param registry a reference to a {@link Registry}; note that this parameter is here as placeholder to
-         *            ensure the {@link Registry} is fully configured before starting camel-main.
-         * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
-         *            happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *            threads and so on.
-         * @param shutdown a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param recorder  the recorder.
+         * @param main      a reference to a {@link CamelMain}.
+         * @param registry  a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
+         *                  placeholder to
+         *                  ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
+         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                  threads and so on.
+         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
          * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
-         *            is required as under the hoods the camel registry may look-up beans form the
-         *            container thus we need it to be fully initialized to avoid unexpected behaviors.
+         *                  is required as under the hoods the camel registry may look-up beans form the
+         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
@@ -431,8 +578,8 @@ class BuildProcessor {
          * Note that this {@link BuildStep} is effective only if {@code camel-quarkus-attachments} extension is not in
          * the class path.
          *
-         * @param recorder the {@link CoreAttachmentsRecorder}
-         * @return a new {@link UploadAttacherBuildItem}
+         * @param  recorder the {@link CoreAttachmentsRecorder}
+         * @return          a new {@link UploadAttacherBuildItem}
          */
         @Overridable
         @Record(value = ExecutionTime.STATIC_INIT, optional = true)

@@ -21,6 +21,7 @@ import java.net.URISyntaxException;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -34,16 +35,15 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
-
 import org.apache.camel.ProducerTemplate;
 import org.bson.Document;
 
 @Path("/mongodb")
 @ApplicationScoped
 public class MongoDbResource {
-
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -65,6 +65,7 @@ public class MongoDbResource {
     @GET
     @Path("/collection/{collectionName}")
     @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
     public JsonArray getCollection(@PathParam("collectionName") String collectionName) {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
 
@@ -82,5 +83,13 @@ public class MongoDbResource {
         }
 
         return arrayBuilder.build();
+    }
+
+    @javax.enterprise.inject.Produces
+    @Named("camelMongoClient")
+    public MongoClient camelMongoClient() {
+        return new MongoClient(
+                System.getProperty("camel.mongodb.test-host"),
+                Integer.getInteger("camel.mongodb.test-port"));
     }
 }

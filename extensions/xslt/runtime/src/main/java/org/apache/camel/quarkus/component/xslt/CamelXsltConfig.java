@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.xslt;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
@@ -28,7 +29,7 @@ public class CamelXsltConfig {
      * A comma separated list of templates to compile.
      */
     @ConfigItem
-    public List<String> sources;
+    public Optional<List<String>> sources;
 
     /**
      * The package name for the generated classes.

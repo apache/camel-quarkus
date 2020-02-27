@@ -16,33 +16,36 @@
  */
 package org.apache.camel.quarkus.component.fhir.it;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import ca.uhn.fhir.context.FhirContext;
-import ca.uhn.fhir.context.FhirVersionEnum;
 import ca.uhn.fhir.parser.StrictErrorHandler;
-import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.fhir.FhirJsonDataFormat;
 import org.apache.camel.component.fhir.FhirXmlDataFormat;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 
+@ApplicationScoped
 public class FhirDstu3RouteBuilder extends RouteBuilder {
 
     private static final Boolean ENABLED = new FhirFlags.Dstu3Enabled().getAsBoolean();
+    @Inject
+    @Named("DSTU3")
+    FhirContext fhirContext;
 
     @Override
     public void configure() {
         if (ENABLED) {
-            CamelContext context = getContext();
-            FhirContext fhirContext = FhirContext.forDstu3();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
-            context.getRegistry().bind("fhirContext", fhirContext);
 
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
-            fhirJsonDataFormat.setFhirVersion(FhirVersionEnum.DSTU3.name());
+            fhirJsonDataFormat.setFhirContext(fhirContext);
             fhirJsonDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             FhirXmlDataFormat fhirXmlDataFormat = new FhirXmlDataFormat();
-            fhirXmlDataFormat.setFhirVersion(FhirVersionEnum.DSTU3.name());
+            fhirXmlDataFormat.setFhirContext(fhirContext);
             fhirXmlDataFormat.setParserErrorHandler(new StrictErrorHandler());
 
             from("direct:json-to-dstu3")
@@ -53,10 +56,8 @@ public class FhirDstu3RouteBuilder extends RouteBuilder {
                     .unmarshal(fhirXmlDataFormat)
                     .marshal(fhirXmlDataFormat);
 
-            if (Boolean.valueOf(getContext().resolvePropertyPlaceholders("{{fhir.http.client}}"))) {
-                from("direct:create-dstu3")
-                        .to("fhir://create/resource?inBody=resourceAsString&log={{fhir.verbose}}&serverUrl={{fhir.dstu3.url}}&fhirVersion=DSTU3&fhirContext=#fhirContext");
-            }
+            from("direct:create-dstu3")
+                    .to("fhir://create/resource?inBody=resourceAsString&fhirContext=#DSTU3");
         }
     }
 }

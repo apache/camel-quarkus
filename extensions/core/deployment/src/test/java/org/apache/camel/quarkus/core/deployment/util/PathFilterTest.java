@@ -1,0 +1,99 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.quarkus.core.deployment.util;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
+import org.jboss.jandex.DotName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+public class PathFilterTest {
+
+    @Test
+    public void stringFilter() {
+        assertFalse(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList("org/**"),
+                Arrays.asList()));
+        assertFalse(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList("org/**"),
+                Arrays.asList("org/**", "org/acme/MyClass")));
+        assertFalse(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList("org/acme/M*"),
+                Arrays.asList("org/acme/MyClass")));
+        assertFalse(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList(),
+                Arrays.asList("org/acme/A*")));
+
+        assertTrue(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList(),
+                Arrays.asList()));
+        assertTrue(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList(),
+                Arrays.asList("org/**")));
+        assertTrue(isPathIncluded(
+                "org/acme/MyClass",
+                Arrays.asList("org/acme/A*"),
+                Arrays.asList("org/acme/MyClass")));
+    }
+
+    @Test
+    public void pathFilter() {
+        Predicate<Path> predicate = new PathFilter.Builder()
+                .include("/foo/bar/*")
+                .include("moo/mar/*")
+                .exclude("/foo/baz/*")
+                .exclude("moo/maz/*")
+                .build().asPathPredicate();
+        assertTrue(predicate.test(Paths.get("/foo/bar/file")));
+        assertTrue(predicate.test(Paths.get("foo/bar/file")));
+        assertFalse(predicate.test(Paths.get("/foo/baz/file")));
+        assertFalse(predicate.test(Paths.get("foo/baz/file")));
+
+        assertTrue(predicate.test(Paths.get("/moo/mar/file")));
+        assertTrue(predicate.test(Paths.get("moo/mar/file")));
+        assertFalse(predicate.test(Paths.get("/moo/marz/file")));
+        assertFalse(predicate.test(Paths.get("moo/maz/file")));
+    }
+
+    @Test
+    public void dotNameFilter() {
+        Predicate<DotName> predicate = new PathFilter.Builder()
+                .include("foo/bar/*")
+                .exclude("foo/baz/*")
+                .build().asDotNamePredicate();
+        assertTrue(predicate.test(DotName.createSimple("foo.bar.Class")));
+        assertFalse(predicate.test(DotName.createSimple("foo.baz.Class")));
+    }
+
+    static boolean isPathIncluded(String path, List<String> excludePatterns, List<String> includePatterns) {
+        return new PathFilter(includePatterns, excludePatterns).asStringPredicate().test(path);
+    }
+
+}

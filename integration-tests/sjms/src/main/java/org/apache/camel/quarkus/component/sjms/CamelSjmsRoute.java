@@ -22,7 +22,7 @@ public class CamelSjmsRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("sjms:queue:inbound")
-                .to("log:sjms")
-                .to("sjms:queue:outbound");
+                .to("log:jms")
+                .to("sjms2:queue:outbound");
     }
 }

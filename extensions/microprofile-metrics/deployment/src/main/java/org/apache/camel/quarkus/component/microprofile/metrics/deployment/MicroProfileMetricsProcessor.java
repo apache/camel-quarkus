@@ -16,17 +16,17 @@
  */
 package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 
-import org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants;
-import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
-import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.eclipse.microprofile.metrics.MetricRegistry;
-
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants;
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
+import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
+import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.eclipse.microprofile.metrics.MetricRegistry;
 
 class MicroProfileMetricsProcessor {
 
@@ -46,10 +46,19 @@ class MicroProfileMetricsProcessor {
                 recorder.createApplicationRegistry());
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelMainListenerBuildItem contextConfigurerListener(
+            CamelMicroProfileMetricsRecorder recorder,
+            CamelMicroProfileMetricsConfig config) {
+
+        return new CamelMainListenerBuildItem(recorder.createContextConfigurerListener(config));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     public void configureCamelContext(CamelMicroProfileMetricsRecorder recorder, CamelMicroProfileMetricsConfig config,
-            BeanContainerBuildItem beanContainer) {
-        recorder.configureCamelContext(config, beanContainer.getValue());
+            CamelContextBuildItem camelContextBuildItem) {
+        recorder.configureCamelContext(config, camelContextBuildItem.getCamelContext());
     }
 }

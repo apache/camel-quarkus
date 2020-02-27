@@ -26,7 +26,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -47,18 +46,18 @@ public class FtpResource {
     @Path("/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFile(@QueryParam("port") int port, @PathParam("fileName") String fileName) throws Exception {
+    public String getFile(@PathParam("fileName") String fileName) throws Exception {
         return consumerTemplate.receiveBodyNoWait(
-                "ftp://admin@localhost:" + port + "/ftp?password=admin&fileName=" + fileName,
+                "ftp://admin@localhost:{{camel.ftp.test-port}}/ftp?password=admin&fileName=" + fileName,
                 String.class);
     }
 
     @Path("/create/{fileName}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response createFile(@QueryParam("port") int port, @PathParam("fileName") String fileName, String fileContent)
+    public Response createFile(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
-        producerTemplate.sendBodyAndHeader("ftp://admin@localhost:" + port + "/ftp?password=admin", fileContent,
+        producerTemplate.sendBodyAndHeader("ftp://admin@localhost:{{camel.ftp.test-port}}/ftp?password=admin", fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
                 .created(new URI("https://camel.apache.org/"))

@@ -17,18 +17,34 @@
 
 name: Validate PR Style
 
-on: 
+on:
   pull_request:
-    branches: 
+    branches:
       - master
+      - camel-master
+      - quarkus-master
+
+env:
+  LANG: en_US
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: Set BRANCH_OPTIONS
+      if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
+      run: |
+        echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
     - uses: actions/checkout@v1
     - name: Set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
     - name: mvn package
-      run: ./mvnw -fae -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean package -Plicense license:check -DskipTests
+      run: |
+        ./mvnw ${BRANCH_OPTIONS} -fae -B \
+          -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+          -DskipTests \
+          -Pcheck-format \
+          clean package
+

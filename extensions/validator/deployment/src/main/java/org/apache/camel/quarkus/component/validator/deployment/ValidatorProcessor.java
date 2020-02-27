@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.validator.deployment;
 
+import javax.inject.Inject;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-
-import javax.inject.Inject;
 
 class ValidatorProcessor {
 
