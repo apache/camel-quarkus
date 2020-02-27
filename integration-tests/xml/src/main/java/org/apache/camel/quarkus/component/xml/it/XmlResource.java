@@ -54,4 +54,29 @@ public class XmlResource {
     public String classpath(String body) throws Exception {
         return producerTemplate.requestBody("xslt:xslt/classpath-transform.xsl", body, String.class);
     }
+
+    @Path("/html-transform")
+    @POST
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String htmlTransform(String html) {
+        LOG.debugf("Parsing HTML %s", html);
+        return producerTemplate.requestBody(
+                XmlRouteBuilder.DIRECT_HTML_TRANSFORM,
+                html,
+                String.class);
+    }
+
+    @Path("/html-to-text")
+    @POST
+    @Consumes(MediaType.TEXT_HTML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String htmlToText(String html) {
+        LOG.debugf("Parsing HTML %s", html);
+        return producerTemplate.requestBody(
+                XmlRouteBuilder.DIRECT_HTML_TO_TEXT,
+                html,
+                String.class);
+    }
+
 }

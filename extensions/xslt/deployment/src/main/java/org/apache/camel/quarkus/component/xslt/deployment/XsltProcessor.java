@@ -108,7 +108,7 @@ class XsltProcessor {
                     tf.setErrorListener(new CamelXsltErrorListener());
                     tf.newTemplates(resolvedUri.source);
                 } catch (TransformerException e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("Could not compile XSLT " + uri, e);
                 }
             }
 
@@ -135,4 +135,5 @@ class XsltProcessor {
                     .forEach(File::delete);
         }
     }
+
 }
