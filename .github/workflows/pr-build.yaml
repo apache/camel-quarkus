@@ -378,7 +378,7 @@ jobs:
             -pl :camel-quarkus-integration-test-telegram \
             -pl :camel-quarkus-integration-test-tarfile \
             -pl :camel-quarkus-integration-test-validator \
-            -pl :camel-quarkus-integration-test-zipfile
+            -pl :camel-quarkus-integration-test-compression
   saas:
     runs-on: ubuntu-latest
     needs: build

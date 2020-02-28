@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.compression.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class ZipfileRouteBuilder extends RouteBuilder {
+public class CompressionRouteBuilder extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:start")
