@@ -86,6 +86,7 @@
         <module>kafka</module>
         <module>kotlin</module>
         <module>log</module>
+        <module>lzf</module>
         <module>mail</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
