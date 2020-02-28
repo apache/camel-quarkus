@@ -31,7 +31,7 @@ class CompressionTest {
     final byte[] UNCOMPRESSED = "Hello World!".getBytes(StandardCharsets.UTF_8);
 
     private static Stream<String> listJsonDataFormatsToBeTested() {
-        return Stream.of("zipfile", "zip-deflater", "gzip-deflater");
+        return Stream.of("zipfile", "zip-deflater", "gzip-deflater", "lzf");
     }
 
     @ParameterizedTest

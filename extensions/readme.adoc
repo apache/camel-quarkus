@@ -225,7 +225,7 @@ Number of Camel components: 69 in 59 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
+Number of Camel data formats: 17 in 13 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -245,9 +245,13 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 
 | xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.3.0 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
 
+| link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | 1.2.0 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
+
 | link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+
+| link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.2.0 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
@@ -256,6 +260,8 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | 1.0.0-M1 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
+
+| link:https://camel.apache.org/components/latest/zipdeflater-dataformat.html[Zip Deflate Compression] (camel-quarkus-zip-deflater) | 1.2.0 | Zip Deflate Compression data format is a message compression and de-compression format (not zip files).
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2.0 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
@@ -297,7 +303,7 @@ Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -320,8 +326,6 @@ Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 | xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3.0 | Distributed tracing using OpenTracing
 
 | (camel-quarkus-reactive-executor) | 0.3.0 | Reactive Executor for camel-core using Vert.x
-
-| (camel-quarkus-zip-deflater) | 1.2.0 | Camel Zip deflater dataformat
 |===
 // others: END
 
