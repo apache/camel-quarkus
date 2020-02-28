@@ -369,6 +369,7 @@ jobs:
             -Ddocker \
             -DskipTests \
             -pl :camel-quarkus-integration-test-bean-validator \
+            -pl :camel-quarkus-integration-test-braintree \
             -pl :camel-quarkus-integration-test-dozer \
             -pl :camel-quarkus-integration-test-ftp \
             -pl :camel-quarkus-integration-test-mail \
