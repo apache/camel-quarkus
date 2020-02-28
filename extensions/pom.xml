@@ -118,6 +118,7 @@
         <module>vm</module>
         <module>xpath</module>
         <module>xslt</module>
+        <module>zip-deflater</module>
         <module>zipfile</module>
     </modules>
 

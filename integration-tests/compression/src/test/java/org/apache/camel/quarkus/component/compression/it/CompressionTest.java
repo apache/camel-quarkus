@@ -16,42 +16,43 @@
  */
 package org.apache.camel.quarkus.component.compression.it;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import io.restassured.response.ExtractableResponse;
-import org.apache.camel.util.IOHelper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 @QuarkusTest
 class CompressionTest {
+    final byte[] UNCOMPRESSED = "Hello World!".getBytes(StandardCharsets.UTF_8);
 
-    @Test
-    public void test() throws Exception {
-        byte[] body;
+    private static Stream<String> listJsonDataFormatsToBeTested() {
+        return Stream.of("zipfile", "zip-deflater");
+    }
 
-        ExtractableResponse response = RestAssured.given() //
-                .contentType(ContentType.TEXT).body("Hello World").post("/compression/zipfile") //
-                .then().extract();
+    @ParameterizedTest
+    @MethodSource("listJsonDataFormatsToBeTested")
+    public void compressAndUncompress(String format) throws Exception {
 
-        body = response.body().asByteArray();
-        Assertions.assertNotNull(body);
+        final byte[] compressed = RestAssured.given()
+                .contentType(ContentType.BINARY)
+                .body(UNCOMPRESSED)
+                .post("/compression/compress/" + format) //
+                .then().extract().body().asByteArray();
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(body));
-        ZipEntry entry = zis.getNextEntry();
-        if (entry != null) {
-            IOHelper.copy(zis, bos);
-        }
+        Assertions.assertNotNull(compressed);
 
-        String str = bos.toString();
-        Assertions.assertEquals("Hello World", str);
+        final byte[] uncompressed = RestAssured.given()
+                .contentType(ContentType.BINARY)
+                .body(compressed)
+                .post("/compression/uncompress/" + format) //
+                .then().extract().body().asByteArray();
+
+        Assertions.assertArrayEquals(UNCOMPRESSED, uncompressed);
     }
 
 }

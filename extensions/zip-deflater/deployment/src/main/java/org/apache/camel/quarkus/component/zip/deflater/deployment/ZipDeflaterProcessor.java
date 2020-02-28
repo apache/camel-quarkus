@@ -14,21 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.compression.it;
+package org.apache.camel.quarkus.component.zip.deflater.deployment;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class CompressionRouteBuilder extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:zipfile-compress")
-                .marshal().zipFile();
-        from("direct:zipfile-uncompress")
-                .unmarshal().zipFile();
+class ZipDeflaterProcessor {
 
-        from("direct:zip-deflater-compress")
-                .marshal().zipDeflater();
-        from("direct:zip-deflater-uncompress")
-                .unmarshal().zipDeflater();
+    private static final String FEATURE = "camel-zip-deflater";
+
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
+
 }

@@ -307,7 +307,7 @@ Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -330,5 +330,7 @@ Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 | xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3.0 | Distributed tracing using OpenTracing
 
 | (camel-quarkus-reactive-executor) | 0.3.0 | Reactive Executor for camel-core using Vert.x
+
+| (camel-quarkus-zip-deflater) | 1.2.0 | Camel Zip deflater dataformat
 |===
 // others: END
