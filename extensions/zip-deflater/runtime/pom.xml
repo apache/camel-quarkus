@@ -30,7 +30,7 @@
 
     <artifactId>camel-quarkus-zip-deflater</artifactId>
     <name>Camel Quarkus :: Zip Deflate Compression :: Runtime</name>
-    <description>Camel Zip deflater dataformat</description>
+    <description>Camel dataformat for Gzip and Zip marshalling and unmarshalling</description>
 
     <properties>
         <firstVersion>1.2.0</firstVersion>

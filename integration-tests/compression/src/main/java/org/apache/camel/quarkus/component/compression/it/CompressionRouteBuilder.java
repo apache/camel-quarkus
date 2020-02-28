@@ -30,5 +30,10 @@ public class CompressionRouteBuilder extends RouteBuilder {
                 .marshal().zipDeflater();
         from("direct:zip-deflater-uncompress")
                 .unmarshal().zipDeflater();
+
+        from("direct:gzip-deflater-compress")
+                .marshal().gzipDeflater();
+        from("direct:gzip-deflater-uncompress")
+                .unmarshal().gzipDeflater();
     }
 }
