@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.compression.it;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -30,14 +30,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-class ZipfileTest {
+class CompressionTest {
 
     @Test
     public void test() throws Exception {
         byte[] body;
 
         ExtractableResponse response = RestAssured.given() //
-                .contentType(ContentType.TEXT).body("Hello World").post("/zipfile/post") //
+                .contentType(ContentType.TEXT).body("Hello World").post("/compression/zipfile") //
                 .then().extract();
 
         body = response.body().asByteArray();

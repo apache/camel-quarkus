@@ -177,6 +177,7 @@
         <module>bindy</module>
         <module>box</module>
         <module>braintree</module>
+        <module>compression</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
@@ -219,7 +220,6 @@
         <module>twitter</module>
         <module>validator</module>
         <module>xml</module>
-        <module>zipfile</module>
     </modules>
 
     <build>

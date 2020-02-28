@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.zipfile.it;
+package org.apache.camel.quarkus.component.compression.it;
 
 import java.net.URI;
 
@@ -30,16 +30,16 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
-@Path("/zipfile")
+@Path("/compression")
 @ApplicationScoped
-public class ZipfileResource {
+public class CompressionResource {
 
-    private static final Logger LOG = Logger.getLogger(ZipfileResource.class);
+    private static final Logger LOG = Logger.getLogger(CompressionResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/post")
+    @Path("/zipfile")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
