@@ -273,7 +273,7 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 == Camel Languages
 
 // languages: START
-Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
+Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -296,6 +296,8 @@ Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/simple-language.html[Simple] (camel-quarkus-core) | 0.2.0 | To use Camels built-in Simple language in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
+
+| link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.2.0 | To use XPath (XML) in Camel expressions or predicates.
 |===
 // languages: END
 

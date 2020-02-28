@@ -98,4 +98,23 @@ class XmlTest {
                 actual);
     }
 
+    @Test
+    public void xpathLanguage() {
+        // Tests a simple xpath driven content based router
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<orders><order><id>1</id><country>UK</country><total>2.54</total></order></orders>")
+                .post("/xml/xpath")
+                .then()
+                .statusCode(200)
+                .body(is("Country UK"));
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body("<orders><order><id>1</id><country>FR</country><total>9.99</total></order></orders>")
+                .post("/xml/xpath")
+                .then()
+                .statusCode(200)
+                .body(is("Invalid country code"));
+    }
 }

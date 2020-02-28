@@ -115,6 +115,7 @@
         <module>twitter</module>
         <module>validator</module>
         <module>vm</module>
+        <module>xpath</module>
         <module>xslt</module>
         <module>zipfile</module>
     </modules>
