@@ -23,34 +23,44 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
 
 @Path("/compression")
 @ApplicationScoped
 public class CompressionResource {
 
-    private static final Logger LOG = Logger.getLogger(CompressionResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/zipfile")
+    @Path("/compress/{format}")
     @POST
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response post(String message) throws Exception {
-        LOG.infof("Sending to zipfile: %s", message);
-        final byte[] response = producerTemplate.requestBody("direct:start", message, byte[].class);
-        LOG.infof("Got response from zipfile: %s", response);
+    public Response zipfileCompress(@PathParam("format") String format, byte[] message) throws Exception {
+        final byte[] response = producerTemplate.requestBody("direct:" + format + "-compress", message, byte[].class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .header("content-length", response.length)
                 .entity(response)
                 .build();
     }
+
+    @Path("/uncompress/{format}")
+    @POST
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    public Response zipfileUncompress(@PathParam("format") String format, byte[] message) throws Exception {
+        final byte[] response = producerTemplate.requestBody("direct:" + format + "-uncompress", message, byte[].class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .header("content-length", response.length)
+                .entity(response)
+                .build();
+    }
+
 }
