@@ -79,4 +79,11 @@ public class XmlResource {
                 String.class);
     }
 
+    @Path("/xpath")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String xpath(String message) {
+        return producerTemplate.requestBody(XmlRouteBuilder.DIRECT_XML_CBR, message, String.class);
+    }
 }

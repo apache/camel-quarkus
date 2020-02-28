@@ -25,6 +25,7 @@ public class XmlRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TO_DOM = "direct:html-to-dom";
     public static final String DIRECT_HTML_TRANSFORM = "direct:html-transfrom";
     public static final String DIRECT_HTML_TO_TEXT = "direct:html-to-text";
+    public static final String DIRECT_XML_CBR = "direct:xml-cbr";
 
     @Override
     public void configure() {
@@ -62,5 +63,12 @@ public class XmlRouteBuilder extends RouteBuilder {
                 .unmarshal().tidyMarkup()
                 // tagSoup produces DOM that is then consumed by XSLT
                 .to("xslt:xslt/html-to-text.xsl");
+
+        from(DIRECT_XML_CBR)
+                .choice()
+                .when(xpath("//order/country = 'UK'"))
+                .setBody(constant("Country UK"))
+                .otherwise()
+                .setBody(constant("Invalid country code"));
     }
 }
