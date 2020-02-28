@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 68 in 58 JAR artifacts (0 deprecated)
+Number of Camel components: 69 in 59 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -80,6 +80,9 @@ Number of Camel components: 68 in 58 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/box-component.html[Box] (camel-quarkus-box) +
 `box:apiName/methodName` | 1.2.0 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
+
+| link:https://camel.apache.org/components/latest/braintree-component.html[Braintree] (camel-quarkus-braintree) +
+`braintree:apiName/methodName` | 1.2.0 | The braintree component is used for integrating with the Braintree Payment System.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | 0.2.0 | The Class component is for invoking Java classes (Java beans) from Camel.

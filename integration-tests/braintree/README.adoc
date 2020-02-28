@@ -1,0 +1,12 @@
+== Camel Quarkus Braintree Integration Tests
+
+To run `camel-quarkus-braintree` integration tests, you will need a https://www.braintreepayments.com/gb/sandbox[Braintree sandbox] account.
+
+Then set the following environment variables:
+
+[source,shell]
+----
+BRAINTREE_MERCHANT_ID=your-merchant-id
+BRAINTREE_PUBLIC_KEY=your-public-key
+BRAINTREE_PRIVATE_KEY=your-private-key
+----

@@ -176,6 +176,7 @@
         <module>bean-validator</module>
         <module>bindy</module>
         <module>box</module>
+        <module>braintree</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
