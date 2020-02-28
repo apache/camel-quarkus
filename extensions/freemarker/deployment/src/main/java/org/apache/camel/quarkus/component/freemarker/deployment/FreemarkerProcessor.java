@@ -29,12 +29,6 @@ import org.apache.camel.support.DefaultExchange;
 class FreemarkerProcessor {
     private static final String FEATURE = "camel-freemarker";
 
-    //    @Inject
-    //    BuildProducer<NativeImageResourceBuildItem> resource;
-    //
-    //    @Inject
-    //    BuildProducer<NativeImageResourceBundleBuildItem> resourceBundle;
-
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);

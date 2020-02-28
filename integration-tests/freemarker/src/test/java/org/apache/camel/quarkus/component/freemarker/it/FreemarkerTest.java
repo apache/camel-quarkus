@@ -19,11 +19,9 @@ package org.apache.camel.quarkus.component.freemarker.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class FreemarkerTest {
