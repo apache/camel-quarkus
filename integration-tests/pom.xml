@@ -219,6 +219,7 @@
         <module>telegram</module>
         <module>twitter</module>
         <module>validator</module>
+        <module>websocket-jsr356</module>
         <module>xml</module>
     </modules>
 

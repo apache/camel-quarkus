@@ -117,6 +117,7 @@
         <module>twitter</module>
         <module>validator</module>
         <module>vm</module>
+        <module>websocket-jsr356</module>
         <module>xpath</module>
         <module>xslt</module>
         <module>zip-deflater</module>
