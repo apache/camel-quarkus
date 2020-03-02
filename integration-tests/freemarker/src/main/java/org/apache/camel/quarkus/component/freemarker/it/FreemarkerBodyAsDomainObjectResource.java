@@ -24,18 +24,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.jboss.logging.Logger;
 
 @Path("/freemarker")
 @ApplicationScoped
 public class FreemarkerBodyAsDomainObjectResource {
-
-    private static final Logger LOG = Logger.getLogger(FreemarkerBodyAsDomainObjectResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -45,16 +42,13 @@ public class FreemarkerBodyAsDomainObjectResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String testFreemarkerLetter() throws Exception {
-        Exchange exchange = producerTemplate.request("direct:bodyAsDomainObject", new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                MyPerson person = new MyPerson();
-                person.setFamilyName("Ibsen");
-                person.setGivenName("Claus");
+        Exchange exchange = producerTemplate.request("direct:bodyAsDomainObject", exchange1 -> {
+            MyPerson person = new MyPerson();
+            person.setFamilyName("Ibsen");
+            person.setGivenName("Claus");
 
-                Message in = exchange.getIn();
-                in.setBody(person);
-            }
+            Message in = exchange1.getIn();
+            in.setBody(person);
         });
 
         return (String) exchange.getOut().getBody();
@@ -68,6 +62,7 @@ public class FreemarkerBodyAsDomainObjectResource {
         }
     }
 
+    @RegisterForReflection
     public static class MyPerson {
         private String givenName;
         private String familyName;

@@ -25,17 +25,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.freemarker.FreemarkerConstants;
-import org.jboss.logging.Logger;
 
 @Path("/freemarker")
 @ApplicationScoped
 public class FreemarkerValuesInPropertiesResource {
-
-    private static final Logger LOG = Logger.getLogger(FreemarkerValuesInPropertiesResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -45,14 +41,12 @@ public class FreemarkerValuesInPropertiesResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String testVelocityLetter() throws Exception {
-        Exchange exchange = producerTemplate.request("direct:valuesInProperties", new Processor() {
-            @Override
-            public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setHeader(FreemarkerConstants.FREEMARKER_TEMPLATE,
-                        "Dear ${exchange.properties.name}. You ordered item ${exchange.properties.item}.");
-                exchange.setProperty("name", "Christian");
-                exchange.setProperty("item", "7");
-            }
+        Exchange exchange = producerTemplate.request("direct:valuesInProperties", exchange1 -> {
+            exchange1.getIn().setHeader(
+                    FreemarkerConstants.FREEMARKER_TEMPLATE,
+                    "Dear ${exchange.properties.name}. You ordered item ${exchange.properties.item}.");
+            exchange1.setProperty("name", "Christian");
+            exchange1.setProperty("item", "7");
         });
 
         return (String) exchange.getOut().getBody();
