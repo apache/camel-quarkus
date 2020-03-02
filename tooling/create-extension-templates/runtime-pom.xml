@@ -52,6 +52,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
+[#list additionalRuntimeDependencies as gav]        <dependency>
+            <groupId>[=gav.groupId]</groupId>
+            <artifactId>[=gav.artifactId]</artifactId>
+        </dependency>
+[/#list]
     </dependencies>
 
     <build>

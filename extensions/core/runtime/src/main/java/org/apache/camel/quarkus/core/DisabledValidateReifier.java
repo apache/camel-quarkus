@@ -24,12 +24,12 @@ import org.apache.camel.spi.RouteContext;
 
 public class DisabledValidateReifier extends ProcessorReifier<ValidateDefinition> {
 
-    public DisabledValidateReifier(ProcessorDefinition<?> definition) {
-        super((ValidateDefinition) definition);
+    public DisabledValidateReifier(RouteContext routeContext, ProcessorDefinition<?> definition) {
+        super(routeContext, (ValidateDefinition) definition);
     }
 
     @Override
-    public Processor createProcessor(RouteContext routeContext) throws Exception {
+    public Processor createProcessor() throws Exception {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
     }
 }

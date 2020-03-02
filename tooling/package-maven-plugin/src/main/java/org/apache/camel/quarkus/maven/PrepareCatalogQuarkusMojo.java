@@ -64,7 +64,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import static org.apache.camel.maven.packaging.PackageHelper.loadText;
+import static org.apache.camel.tooling.util.PackageHelper.loadText;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports

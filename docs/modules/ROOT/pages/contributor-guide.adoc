@@ -69,12 +69,15 @@ $ cd extensions
 $ mvn quarkus:create-extension -N \
     -Dquarkus.artifactIdBase=foo-abc \
     -Dquarkus.nameBase="Foo ABC"
+    -Dquarkus.additionalRuntimeDependencies="org.apache.camel:camel-@{quarkus.artifactIdBase}:@{$}{camel.version}"
 ----
 +
 where:
 +
 * `foo-abc` is the unique part of the new extension's `artifactId` without the `camel-quarkus-` prefix
 * `Foo ABC` is the unique part of the artifact name without the `Camel Quarkus :: ` prefix
+* `additionalRuntimeDependencies` adds the `org.apache.camel:camel-foo-abc` dependency to the runtime
+  BOM (Bill of Materials) and to the runtime module.
 +
 The `artifactId` and artifact `name` prefixes and suffixes are added automatically by the plugin.
 +

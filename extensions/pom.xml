@@ -57,11 +57,13 @@
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>aws-translate</module>
+        <module>azure</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
         <module>bindy</module>
         <module>box</module>
+        <module>braintree</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
@@ -84,6 +86,7 @@
         <module>kafka</module>
         <module>kotlin</module>
         <module>log</module>
+        <module>lzf</module>
         <module>mail</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
@@ -109,11 +112,15 @@
         <module>stream</module>
         <module>tagsoup</module>
         <module>tarfile</module>
+        <module>telegram</module>
         <module>timer</module>
         <module>twitter</module>
         <module>validator</module>
         <module>vm</module>
+        <module>websocket-jsr356</module>
+        <module>xpath</module>
         <module>xslt</module>
+        <module>zip-deflater</module>
         <module>zipfile</module>
         <module>freemarker</module>
     </modules>
@@ -121,37 +128,13 @@
     <build>
         <plugins>
             <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>validate-extension-metadata</id>
-                        <inherited>false</inherited>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>verify</phase>
-                        <configuration>
-                            <source>file:///${project.basedir}/../tooling/scripts/validate-extension-metadata.groovy</source>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.yaml</groupId>
-                        <artifactId>snakeyaml</artifactId>
-                        <version>${snakeyaml.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
                 <inherited>false</inherited>
                 <!-- Settings for stubbing new extensions. E.g. to add a new extension to support an imaginary
                      Camel Foo ABC component, you would run
 
-                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo-abc -Dquarkus.nameBase="Foo ABC"
+                       mvn quarkus:create-extension -N -Dquarkus.artifactIdBase=foo-abc -Dquarkus.nameBase="Foo ABC" -Dquarkus.additionalRuntimeDependencies="org.apache.camel:camel-@{quarkus.artifactIdBase}:@{$}{camel.version}"
 
                      -Dquarkus.nameBase is optional. If you do not specify it, the plugin will derive it from
                      artifactIdBase by replacing dashes with spaces and capitalizing the first letter of each token.
@@ -170,4 +153,45 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>enforce</id>
+            <activation>
+                <property>
+                    <name>enforce</name>
+                    <value>!false</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>validate-extension-metadata</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <source>file:///${project.basedir}/../tooling/scripts/validate-extension-metadata.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.yaml</groupId>
+                                <artifactId>snakeyaml</artifactId>
+                                <version>${snakeyaml.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
 </project>

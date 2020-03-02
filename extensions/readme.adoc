@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
+Number of Camel components: 70 in 60 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -51,7 +51,13 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 `aws-sqs:queueNameOrArn` | 0.2.0 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
-`aws-translate:label` | 1.0.0-M3 | The aws-kms is used for managing Amazon Translate
+`aws-translate:label` | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
+
+| link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service] (camel-quarkus-azure) +
+`azure-blob:containerOrBlobUri` | 1.2.0 | The azure-blob component is used for storing and retrieving blobs from Azure Storage Blob Service.
+
+| link:https://camel.apache.org/components/latest/azure-queue-component.html[Azure Storage Queue Service] (camel-quarkus-azure) +
+`azure-queue:containerAndQueueUri` | 1.2.0 | The azure-queue component is used for storing and retrieving messages from Azure Storage Queue Service.
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
@@ -62,8 +68,11 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/box-component.html[Box] (camel-quarkus-box) +
 `box:apiName/methodName` | 1.2.0 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
 
+| link:https://camel.apache.org/components/latest/braintree-component.html[Braintree] (camel-quarkus-braintree) +
+`braintree:apiName/methodName` | 1.2.0 | The braintree component is used for integrating with the Braintree Payment System.
+
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
-`class:beanName` | 0.2.0 | The class component is for invoking Java classes (Java beans) from Camel.
+`class:beanName` | 0.2.0 | The Class component is for invoking Java classes (Java beans) from Camel.
 
 | link:https://camel.apache.org/components/latest/consul-component.html[Consul] (camel-quarkus-consul) +
 `consul:apiEndpoint` | 1.0.0-M3 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.
@@ -89,9 +98,6 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4.0 | The file component is used for reading or writing files.
 
-| link:https://camel.apache.org/components/latest/freemarker-component.html[Freemarker] (camel-quarkus-freemarker) +
-`freemarker:resourceUri` | 0.4.0 | Transforms the message using a FreeMarker template.
-
 | link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
 `ftp:host:port/directoryName` | 1.0.0-M1 | The \ftp component is used for uploading or downloading files from FTP servers.
 
@@ -103,6 +109,9 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
+
+| xref:extensions/websocket-jsr356.adoc[Javax Websocket] (camel-quarkus-websocket-jsr356) +
+`websocket-jsr356:uri` | 1.2.0 | Camel WebSocket using JSR356 (javax)
 
 | link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | 0.2.0 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
@@ -188,6 +197,9 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 | xref:extensions/stream.adoc[Stream] (camel-quarkus-stream) +
 `stream:kind` | 1.2.0 | The stream: component provides access to the system-in, system-out and system-err streams as well as allowing streaming of file.
 
+| link:https://camel.apache.org/components/latest/telegram-component.html[Telegram] (camel-quarkus-telegram) +
+`telegram:type` | 1.0.0 | The telegram component provides access to the Telegram Bot API.
+
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.
 
@@ -216,7 +228,7 @@ Number of Camel components: 66 in 57 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
+Number of Camel data formats: 17 in 13 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -236,9 +248,13 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 
 | xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.3.0 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
 
+| link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | 1.2.0 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
+
 | link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+
+| link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.2.0 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
@@ -248,6 +264,8 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 
+| link:https://camel.apache.org/components/latest/zipdeflater-dataformat.html[Zip Deflate Compression] (camel-quarkus-zip-deflater) | 1.2.0 | Zip Deflate Compression data format is a message compression and de-compression format (not zip files).
+
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2.0 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
 // dataformats: END
@@ -256,7 +274,7 @@ Number of Camel data formats: 14 in 11 JAR artifacts (0 deprecated)
 == Camel Languages
 
 // languages: START
-Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
+Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -264,7 +282,7 @@ Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/bean-language.html[Bean method] (camel-quarkus-bean) | 0.2.0 | To use a Java bean (aka method call) in Camel expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | 0.2.0 | To use a constant value in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | 0.2.0 | To use a constant value in Camel expressions or predicates. Important: this is a fixed constant value that is only set once during starting up the route, do not use this if you want dynamic values during routing.
 
 | link:https://camel.apache.org/components/latest/exchangeProperty-language.html[ExchangeProperty] (camel-quarkus-core) | 0.2.0 | To use a Camel Exchange property in expressions or predicates.
 
@@ -279,6 +297,8 @@ Number of Camel languages: 9 in 3 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/simple-language.html[Simple] (camel-quarkus-core) | 0.2.0 | To use Camels built-in Simple language in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
+
+| link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.2.0 | To use XPath (XML) in Camel expressions or predicates.
 |===
 // languages: END
 

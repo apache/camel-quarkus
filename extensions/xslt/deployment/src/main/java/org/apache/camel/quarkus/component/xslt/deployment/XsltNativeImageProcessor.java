@@ -17,13 +17,14 @@
 package org.apache.camel.quarkus.component.xslt.deployment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.xslt.CamelXsltConfig;
 import org.apache.camel.support.ResourceHelper;
@@ -45,25 +46,35 @@ class XsltNativeImageProcessor {
     }
 
     @BuildStep
-    List<NativeImageResourceBuildItem> xsltResources(CamelXsltConfig config) {
+    void xsltResources(
+            CamelXsltConfig config,
+            BuildProducer<NativeImageResourceBuildItem> nativeResources,
+            BuildProducer<NativeImageResourceBundleBuildItem> nativeResourceBundles) {
         if (!config.sources.isPresent()) {
-            return Collections.emptyList();
+            return;
         }
 
-        List<NativeImageResourceBuildItem> items = new ArrayList<>(config.sources.get().size());
-
-        for (String source : config.sources.get()) {
+        final List<String> sources = config.sources.get();
+        List<String> paths = new ArrayList<>(sources.size() + 5);
+        for (String source : sources) {
             String scheme = ResourceHelper.getScheme(source);
 
             if (Objects.isNull(scheme) || Objects.equals(scheme, CLASSPATH_SCHEME)) {
                 if (Objects.equals(scheme, CLASSPATH_SCHEME)) {
                     source = source.substring(CLASSPATH_SCHEME.length() + 1);
                 }
-
-                items.add(new NativeImageResourceBuildItem(source));
+                paths.add(source);
             }
         }
+        paths.add("org/apache/xml/serializer/Encodings.properties");
+        paths.add("org/apache/xml/serializer/output_html.properties");
+        paths.add("org/apache/xml/serializer/output_text.properties");
+        paths.add("org/apache/xml/serializer/output_unknown.properties");
+        paths.add("org/apache/xml/serializer/output_xml.properties");
+        nativeResources.produce(new NativeImageResourceBuildItem(paths));
 
-        return items;
+        nativeResourceBundles.produce(new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.HTMLEntities"));
+        nativeResourceBundles.produce(new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.XMLEntities"));
     }
+
 }

@@ -170,11 +170,14 @@
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>aws</module>
+        <module>azure</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
         <module>bindy</module>
         <module>box</module>
+        <module>braintree</module>
+        <module>compression</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>csv</module>
@@ -212,12 +215,12 @@
         <module>snakeyaml</module>
         <module>sql</module>
         <module>stream</module>
-        <module>tagsoup</module>
         <module>tarfile</module>
+        <module>telegram</module>
         <module>twitter</module>
         <module>validator</module>
-        <module>xslt</module>
-        <module>zipfile</module>
+        <module>websocket-jsr356</module>
+        <module>xml</module>
         <module>freemarker</module>
     </modules>
 

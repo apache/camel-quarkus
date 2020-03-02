@@ -63,8 +63,8 @@
             <artifactId>mongodb-driver-legacy</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.graalvm.nativeimage</groupId>
-            <artifactId>svm</artifactId>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongodb-crypt</artifactId>
         </dependency>
     </dependencies>
 

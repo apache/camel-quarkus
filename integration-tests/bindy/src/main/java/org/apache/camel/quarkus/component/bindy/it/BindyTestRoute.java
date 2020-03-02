@@ -30,13 +30,13 @@ public class BindyTestRoute extends RouteBuilder {
     public void configure() {
         BindyDataFormat bindyCsvDataFormat = new BindyDataFormat();
         bindyCsvDataFormat.setClassType(CsvOrder.class);
-        bindyCsvDataFormat.setType(BindyType.Csv);
+        bindyCsvDataFormat.setType(BindyType.Csv.name());
         from("direct:jsonToCsv").marshal(bindyCsvDataFormat);
         from("direct:csvToJson").unmarshal(bindyCsvDataFormat);
 
         BindyDataFormat bindyFixedLengthDataFormat = new BindyDataFormat();
         bindyFixedLengthDataFormat.setClassType(FixedLengthOrder.class);
-        bindyFixedLengthDataFormat.setType(BindyType.Fixed);
+        bindyFixedLengthDataFormat.setType(BindyType.Fixed.name());
         from("direct:jsonToFixedLength").marshal(bindyFixedLengthDataFormat);
         from("direct:fixedLengthToJson").unmarshal(bindyFixedLengthDataFormat);
 
