@@ -26,20 +26,20 @@ import static org.hamcrest.CoreMatchers.equalTo;
 class DataformatTest {
 
     @Test
-    public void testMarshall() {
-        RestAssured.get("/dataformat/marshall?name=Camel SnakeYAML")
+    public void dataformatSnakeYamlMarshall() {
+        RestAssured.get("/dataformat/marshall/dataformat-snakeyaml?name=Camel SnakeYAML")
                 .then()
                 .statusCode(200)
                 .body(equalTo("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}\n"));
     }
 
     @Test
-    public void testUnmarshall() {
+    public void dataformatSnakeYamlUnmarshall() {
         RestAssured
                 .given()
                 .contentType("text/yaml")
                 .body("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}")
-                .post("/dataformat/unmarshall")
+                .post("/dataformat/unmarshall/dataformat-snakeyaml")
                 .then()
                 .statusCode(200)
                 .body(equalTo("Camel SnakeYAML"));

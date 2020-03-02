@@ -22,6 +22,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -36,19 +37,19 @@ public class DataformatResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/marshall")
+    @Path("/marshall/{format}")
     @GET
     @Produces("text/yaml")
-    public String marshall(@QueryParam("name") String name) {
-        return producerTemplate.requestBody("direct:marshall", new TestPojo(name), String.class);
+    public String marshall(@PathParam("format") String format, @QueryParam("name") String name) {
+        return producerTemplate.requestBody("direct:" + format + "-marshall", new TestPojo(name), String.class);
     }
 
-    @Path("/unmarshall")
+    @Path("/unmarshall/{format}")
     @POST
     @Consumes("text/yaml")
     @Produces(MediaType.TEXT_PLAIN)
-    public String unmarshall(String yaml) throws Exception {
-        TestPojo pojo = producerTemplate.requestBody("direct:unmarshall", yaml, TestPojo.class);
+    public String unmarshall(@PathParam("format") String format, String yaml) throws Exception {
+        TestPojo pojo = producerTemplate.requestBody("direct:" + format + "-unmarshall", yaml, TestPojo.class);
         return pojo.getName();
     }
 }
