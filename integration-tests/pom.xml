@@ -212,7 +212,6 @@
         <module>servlet</module>
         <module>sjms</module>
         <module>slack</module>
-        <module>snakeyaml</module>
         <module>sql</module>
         <module>stream</module>
         <module>tarfile</module>

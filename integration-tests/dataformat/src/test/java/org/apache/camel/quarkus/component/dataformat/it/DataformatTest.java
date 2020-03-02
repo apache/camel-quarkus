@@ -16,30 +16,35 @@
  */
 package org.apache.camel.quarkus.component.dataformat.it;
 
+import java.util.stream.Stream;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class DataformatTest {
 
-    @Test
-    public void dataformatSnakeYamlMarshall() {
-        RestAssured.get("/dataformat/marshall/dataformat-snakeyaml?name=Camel SnakeYAML")
+    private static Stream<String> snakeyamlRoutes() {
+        return Stream.of("dataformat-component", "dsl");
+    }
+
+    @ParameterizedTest
+    @MethodSource("snakeyamlRoutes")
+    public void snakeYaml(String route) {
+        RestAssured.get("/dataformat/snakeyaml/marshall/" + route + "?name=Camel SnakeYAML")
                 .then()
                 .statusCode(200)
                 .body(equalTo("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}\n"));
-    }
 
-    @Test
-    public void dataformatSnakeYamlUnmarshall() {
         RestAssured
                 .given()
                 .contentType("text/yaml")
                 .body("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}")
-                .post("/dataformat/unmarshall/dataformat-snakeyaml")
+                .post("/dataformat/snakeyaml/unmarshall/" + route)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Camel SnakeYAML"));

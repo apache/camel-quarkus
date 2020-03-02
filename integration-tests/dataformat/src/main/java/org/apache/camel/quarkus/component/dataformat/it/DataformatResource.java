@@ -37,19 +37,19 @@ public class DataformatResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/marshall/{format}")
+    @Path("/snakeyaml/marshall/{route}")
     @GET
     @Produces("text/yaml")
-    public String marshall(@PathParam("format") String format, @QueryParam("name") String name) {
-        return producerTemplate.requestBody("direct:" + format + "-marshall", new TestPojo(name), String.class);
+    public String snakeYamlMarshall(@PathParam("route") String route, @QueryParam("name") String name) {
+        return producerTemplate.requestBody("direct:snakeyaml-" + route + "-marshall", new TestPojo(name), String.class);
     }
 
-    @Path("/unmarshall/{format}")
+    @Path("/snakeyaml/unmarshall/{route}")
     @POST
     @Consumes("text/yaml")
     @Produces(MediaType.TEXT_PLAIN)
-    public String unmarshall(@PathParam("format") String format, String yaml) throws Exception {
-        TestPojo pojo = producerTemplate.requestBody("direct:" + format + "-unmarshall", yaml, TestPojo.class);
+    public String snakeYamlUnmarshall(@PathParam("route") String route, String yaml) throws Exception {
+        TestPojo pojo = producerTemplate.requestBody("direct:snakeyaml-" + route + "-unmarshall", yaml, TestPojo.class);
         return pojo.getName();
     }
 }

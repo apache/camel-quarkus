@@ -17,16 +17,24 @@
 package org.apache.camel.quarkus.component.dataformat.it;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.dataformat.YAMLLibrary;
+import org.apache.camel.quarkus.component.dataformat.it.model.TestPojo;
 
 public class DataformatRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:dataformat-snakeyaml-marshall")
+        from("direct:snakeyaml-dataformat-component-marshall")
                 .to("dataformat:yaml-snakeyaml:marshal");
 
-        from("direct:dataformat-snakeyaml-unmarshall")
+        from("direct:snakeyaml-dataformat-component-unmarshall")
                 .to("dataformat:yaml-snakeyaml:unmarshal?unmarshalType=org.apache.camel.quarkus.component.dataformat.it.model.TestPojo");
+
+        from("direct:snakeyaml-dsl-marshall")
+                .marshal().yaml(YAMLLibrary.SnakeYAML);
+
+        from("direct:snakeyaml-dsl-unmarshall")
+                .unmarshal().yaml(YAMLLibrary.SnakeYAML, TestPojo.class);
 
     }
 }
