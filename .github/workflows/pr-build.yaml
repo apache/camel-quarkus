@@ -277,7 +277,8 @@ jobs:
             -DskipTests \
             -pl :camel-quarkus-integration-test-http \
             -pl :camel-quarkus-integration-test-netty \
-            -pl :camel-quarkus-integration-test-servlet
+            -pl :camel-quarkus-integration-test-servlet \
+            -pl :camel-quarkus-integration-test-websocket-jsr356
   sql:
     runs-on: ubuntu-latest
     needs: build
