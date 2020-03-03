@@ -14,10 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson;
+package org.apache.camel.quarkus.component.dataformats.json.model;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@NativeImageTest
-public class JsonComponentsIT extends JsonComponentsTest {
+@RegisterForReflection
+public class AnotherObject {
+
+    private String dummyString;
+
+    public AnotherObject() {
+    }
+
+    public String getDummyString() {
+        return dummyString;
+    }
+
+    public void setDummyString(String dummy) {
+        this.dummyString = dummy;
+    }
 }

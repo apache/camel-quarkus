@@ -14,15 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson.model;
+package org.apache.camel.quarkus.component.dataformats.json.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.johnzon.mapper.JohnzonIgnore;
+import org.apache.johnzon.mapper.JohnzonProperty;
 
 @RegisterForReflection
 public class DummyObject {
 
+    @JohnzonProperty("dummy_string")
     private String dummyString;
+
+    @JohnzonIgnore
     @JsonIgnore
     @ExcludeField
     private int ignored;

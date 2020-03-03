@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson;
+package org.apache.camel.quarkus.component.dataformats.json;
 
 import java.util.stream.Stream;
 
@@ -23,7 +23,7 @@ import javax.json.bind.JsonbBuilder;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.component.jackson.model.DummyObject;
+import org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -34,7 +34,7 @@ import static org.hamcrest.Matchers.is;
 public class JsonComponentsTest {
 
     private static Stream<String> listJsonDataFormatsToBeTested() {
-        return Stream.of("Jackson", "Gson");
+        return Stream.of("Jackson", "Johnzon", "Gson");
     }
 
     @ParameterizedTest
@@ -89,7 +89,7 @@ public class JsonComponentsTest {
     @ParameterizedTest
     @MethodSource("listDirectUrisFromXmlRoutesToBeTested")
     public void testUnmarshal(String directId) {
-        DummyObject object = new DummyObject();
+        AnotherObject object = new AnotherObject();
         object.setDummyString("95f669ce-d287-4519-b212-4450bc791867");
 
         RestAssured.given()
