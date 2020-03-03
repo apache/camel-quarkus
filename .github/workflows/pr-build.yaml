@@ -211,10 +211,8 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
-            -pl :camel-quarkus-integration-test-sjms \
             -pl :camel-quarkus-integration-test-kafka \
-            -pl :camel-quarkus-integration-test-paho \
-            -pl :camel-quarkus-integration-test-jms
+            -pl :camel-quarkus-integration-test-messaging
   dataformats:
     runs-on: ubuntu-latest
     needs: build
