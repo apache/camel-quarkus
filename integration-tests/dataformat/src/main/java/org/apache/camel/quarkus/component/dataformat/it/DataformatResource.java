@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.dataformat.it;
 
+import java.time.ZonedDateTime;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -27,6 +29,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import net.fortuna.ical4j.model.Calendar;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.dataformat.it.model.TestPojo;
 
@@ -37,19 +40,40 @@ public class DataformatResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/snakeyaml/marshall/{route}")
+    @Path("/snakeyaml/marshal/{route}")
     @GET
     @Produces("text/yaml")
-    public String snakeYamlMarshall(@PathParam("route") String route, @QueryParam("name") String name) {
-        return producerTemplate.requestBody("direct:snakeyaml-" + route + "-marshall", new TestPojo(name), String.class);
+    public String snakeYamlmarshal(@PathParam("route") String route, @QueryParam("name") String name) {
+        return producerTemplate.requestBody("direct:snakeyaml-" + route + "-marshal", new TestPojo(name), String.class);
     }
 
-    @Path("/snakeyaml/unmarshall/{route}")
+    @Path("/snakeyaml/unmarshal/{route}")
     @POST
     @Consumes("text/yaml")
     @Produces(MediaType.TEXT_PLAIN)
-    public String snakeYamlUnmarshall(@PathParam("route") String route, String yaml) throws Exception {
-        TestPojo pojo = producerTemplate.requestBody("direct:snakeyaml-" + route + "-unmarshall", yaml, TestPojo.class);
+    public String snakeYamlUnmarshal(@PathParam("route") String route, String yaml) throws Exception {
+        TestPojo pojo = producerTemplate.requestBody("direct:snakeyaml-" + route + "-unmarshal", yaml, TestPojo.class);
         return pojo.getName();
+    }
+
+    @Path("/ical/marshal")
+    @GET
+    @Produces("text/calendar")
+    public String icalmarshal(
+            @QueryParam("start") String start,
+            @QueryParam("end") String end,
+            @QueryParam("summary") String summary,
+            @QueryParam("attendee") String attendee) {
+        Calendar cal = ICalUtils.createTestCalendar(ZonedDateTime.parse(start), ZonedDateTime.parse(end), summary, attendee);
+        return producerTemplate.requestBody("direct:ical-marshal", cal, String.class);
+    }
+
+    @Path("/ical/unmarshal")
+    @POST
+    @Consumes("text/calendar")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String icalUnmarshal(String body) throws Exception {
+        final Calendar cal = producerTemplate.requestBody("direct:ical-unmarshal", body, Calendar.class);
+        return cal.toString();
     }
 }

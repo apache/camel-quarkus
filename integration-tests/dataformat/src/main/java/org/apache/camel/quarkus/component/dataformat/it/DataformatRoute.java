@@ -24,17 +24,25 @@ public class DataformatRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:snakeyaml-dataformat-component-marshall")
+        from("direct:snakeyaml-dataformat-component-marshal")
                 .to("dataformat:yaml-snakeyaml:marshal");
 
-        from("direct:snakeyaml-dataformat-component-unmarshall")
+        from("direct:snakeyaml-dataformat-component-unmarshal")
                 .to("dataformat:yaml-snakeyaml:unmarshal?unmarshalType=org.apache.camel.quarkus.component.dataformat.it.model.TestPojo");
 
-        from("direct:snakeyaml-dsl-marshall")
+        from("direct:snakeyaml-dsl-marshal")
                 .marshal().yaml(YAMLLibrary.SnakeYAML);
 
-        from("direct:snakeyaml-dsl-unmarshall")
+        from("direct:snakeyaml-dsl-unmarshal")
                 .unmarshal().yaml(YAMLLibrary.SnakeYAML, TestPojo.class);
+
+        from("direct:ical-marshal")
+                .marshal()
+                .ical(true);
+
+        from("direct:ical-unmarshal")
+                .unmarshal()
+                .ical(true);
 
     }
 }
