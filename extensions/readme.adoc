@@ -256,6 +256,8 @@ Number of Camel data formats: 18 in 14 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
+| link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+
 | link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.2.0 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.

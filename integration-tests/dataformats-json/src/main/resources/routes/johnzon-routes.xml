@@ -24,20 +24,18 @@
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <route>
-        <from uri="direct:Jackson-type-as-attribute"/>
+        <from uri="direct:Johnzon-type-as-attribute"/>
         <unmarshal>
-            <json library="Jackson" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
+            <json library="Johnzon" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
         </unmarshal>
     </route>
 
     <route>
-        <from uri="direct:Jackson-type-as-header"/>
-        <setHeader name="CamelJacksonUnmarshalType">
+        <from uri="direct:Johnzon-type-as-header"/>
+        <setHeader name="CamelJohnzonUnmarshalType">
             <constant>org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject</constant>
         </setHeader>
-        <unmarshal>
-            <json library="Jackson" allowUnmarshallType="true"/>
-        </unmarshal>
+        <unmarshal><json library="Johnzon"/></unmarshal>
     </route>
 
 </routes>

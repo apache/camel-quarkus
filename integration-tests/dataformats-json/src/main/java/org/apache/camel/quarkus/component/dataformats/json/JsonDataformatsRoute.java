@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson;
+package org.apache.camel.quarkus.component.dataformats.json;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -29,12 +29,14 @@ import com.google.gson.reflect.TypeToken;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.component.jackson.JacksonDataFormat;
+import org.apache.camel.component.johnzon.JohnzonDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
-import org.apache.camel.quarkus.component.jackson.model.DummyObject;
-import org.apache.camel.quarkus.component.jackson.model.ExcludeField;
-import org.apache.camel.quarkus.component.jackson.model.PojoA;
-import org.apache.camel.quarkus.component.jackson.model.PojoB;
+import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
+import org.apache.camel.quarkus.component.dataformats.json.model.ExcludeField;
+import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
+import org.apache.camel.quarkus.component.dataformats.json.model.PojoB;
 import org.apache.camel.spi.DataFormat;
+import org.apache.johnzon.mapper.reflection.JohnzonParameterizedType;
 
 public class JsonDataformatsRoute extends RouteBuilder {
 
@@ -47,6 +49,11 @@ public class JsonDataformatsRoute extends RouteBuilder {
         jacksonDummyObjectDataFormat.setObjectMapper(jacksonObjectMapper);
         configureJsonRoutes(JsonLibrary.Jackson, jacksonDummyObjectDataFormat, new JacksonDataFormat(PojoA.class),
                 new JacksonDataFormat(PojoB.class));
+
+        JohnzonDataFormat johnzonDummyObjectDataFormat = new JohnzonDataFormat();
+        johnzonDummyObjectDataFormat.setParameterizedType(new JohnzonParameterizedType(List.class, DummyObject.class));
+        configureJsonRoutes(JsonLibrary.Johnzon, johnzonDummyObjectDataFormat, new JohnzonDataFormat(PojoA.class),
+                new JohnzonDataFormat(PojoB.class));
 
         GsonDataFormat gsonDummyObjectDataFormat = new GsonDataFormat();
         Type genericType = new TypeToken<List<DummyObject>>() {

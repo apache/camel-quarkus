@@ -14,23 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson.model;
+package org.apache.camel.quarkus.component.johnzon.deployment;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.johnzon.core.JsonProviderImpl;
 
-@RegisterForReflection
-public class PojoB {
+class JohnzonProcessor {
 
-    private Double value;
+    private static final String FEATURE = "camel-johnzon";
 
-    public PojoB() {
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 
-    public Double getValue() {
-        return value;
+    @BuildStep
+    ReflectiveClassBuildItem initReflectiveClassBuildItem() {
+        return new ReflectiveClassBuildItem(false, false, JsonProviderImpl.class);
     }
 
-    public void setString(Double string) {
-        this.value = string;
-    }
 }

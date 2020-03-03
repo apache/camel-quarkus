@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jackson.model;
+package org.apache.camel.quarkus.component.dataformats.json.model;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
