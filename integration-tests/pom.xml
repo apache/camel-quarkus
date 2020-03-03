@@ -34,7 +34,6 @@
 
     <properties>
         <activemq-version>5.15.10</activemq-version>
-        <artemis.version>2.10.0</artemis.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <sshd.version>2.3.0</sshd.version>
         <testcontainers.version>1.12.5</testcontainers.version>
@@ -144,11 +143,6 @@
                     </exclusion>
                 </exclusions>
             </dependency>
-            <dependency>
-                <groupId>org.apache.activemq</groupId>
-                <artifactId>artemis-server</artifactId>
-                <version>${artemis.version}</version>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -193,16 +187,15 @@
         <module>infinispan</module>
         <module>jdbc</module>
         <module>jira</module>
-        <module>jms</module>
         <module>jsonpath</module>
         <module>kafka</module>
         <module>mail</module>
+        <module>messaging</module>
         <module>microprofile</module>
         <module>mongodb</module>
         <module>netty</module>
         <module>olingo4</module>
         <module>opentracing</module>
-        <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>
@@ -211,7 +204,6 @@
         <module>scheduler</module>
         <module>seda</module>
         <module>servlet</module>
-        <module>sjms</module>
         <module>slack</module>
         <module>sql</module>
         <module>stream</module>
