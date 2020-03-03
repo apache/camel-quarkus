@@ -74,6 +74,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>freemarker</module>
         <module>ftp</module>
         <module>gson</module>
         <module>http</module>
@@ -122,7 +123,6 @@
         <module>xslt</module>
         <module>zip-deflater</module>
         <module>zipfile</module>
-        <module>freemarker</module>
     </modules>
 
     <build>

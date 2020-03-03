@@ -187,6 +187,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>freemarker</module>
         <module>ftp</module>
         <module>http</module>
         <module>hystrix</module>
@@ -221,7 +222,6 @@
         <module>validator</module>
         <module>websocket-jsr356</module>
         <module>xml</module>
-        <module>freemarker</module>
     </modules>
 
     <build>

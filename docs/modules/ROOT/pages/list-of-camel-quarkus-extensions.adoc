@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 70 in 60 JAR artifacts (0 deprecated)
+Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -110,6 +110,9 @@ Number of Camel components: 70 in 60 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | 0.4.0 | The file component is used for reading or writing files.
+
+| link:https://camel.apache.org/components/latest/freemarker-component.html[Freemarker] (camel-quarkus-freemarker) +
+`freemarker:resourceUri` | 0.4.0 | Transforms the message using a FreeMarker template.
 
 | link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
 `ftp:host:port/directoryName` | 1.0.0-M1 | The \ftp component is used for uploading or downloading files from FTP servers.
