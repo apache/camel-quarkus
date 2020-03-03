@@ -83,6 +83,7 @@
         <module>jackson</module>
         <module>jdbc</module>
         <module>jira</module>
+        <module>jms</module>
         <module>johnzon</module>
         <module>jsonpath</module>
         <module>kafka</module>

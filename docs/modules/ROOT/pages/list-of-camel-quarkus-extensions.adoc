@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 70 in 60 JAR artifacts (0 deprecated)
+Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -131,6 +131,9 @@ Number of Camel components: 70 in 60 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/jira-component.html[Jira] (camel-quarkus-jira) +
 `jira:type` | 1.1.0 | The jira component interacts with the JIRA issue tracker.
+
+| link:https://camel.apache.org/components/latest/jms-component.html[JMS] (camel-quarkus-jms) +
+`jms:destinationType:destinationName` | 1.2.0 | The jms component allows messages to be sent to (or consumed from) a JMS Queue or Topic.
 
 | link:https://camel.apache.org/components/latest/kafka-component.html[Kafka] (camel-quarkus-kafka) +
 `kafka:topic` | 1.0.0-M1 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
