@@ -16,33 +16,75 @@
  */
 package org.apache.camel.quarkus.component.dataformat.it;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.time.ZonedDateTime;
+import java.util.stream.Stream;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.commons.io.IOUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class DataformatTest {
 
-    @Test
-    public void testMarshall() {
-        RestAssured.get("/dataformat/marshall?name=Camel SnakeYAML")
+    private static Stream<String> snakeyamlRoutes() {
+        return Stream.of("dataformat-component", "dsl");
+    }
+
+    @ParameterizedTest
+    @MethodSource("snakeyamlRoutes")
+    public void snakeYaml(String route) {
+        RestAssured.get("/dataformat/snakeyaml/marshal/" + route + "?name=Camel SnakeYAML")
                 .then()
                 .statusCode(200)
                 .body(equalTo("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}\n"));
-    }
 
-    @Test
-    public void testUnmarshall() {
         RestAssured
                 .given()
                 .contentType("text/yaml")
                 .body("!!org.apache.camel.quarkus.component.dataformat.it.model.TestPojo {name: Camel SnakeYAML}")
-                .post("/dataformat/unmarshall")
+                .post("/dataformat/snakeyaml/unmarshal/" + route)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Camel SnakeYAML"));
+    }
+
+    @Test
+    public void ical() throws ParseException, IOException {
+        final ZonedDateTime START = ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]");
+        final ZonedDateTime END = ZonedDateTime.parse("2007-12-03T11:16:31+01:00[Europe/Paris]");
+
+        final String icalString = IOUtils.toString(getClass().getResourceAsStream("/test.ics"), StandardCharsets.UTF_8);
+
+        final String actualIcal = RestAssured
+                .given()
+                .queryParam("start", START.toString())
+                .queryParam("end", END.toString())
+                .queryParam("summary", "Progress Meeting")
+                .queryParam("attendee", "dev1@mycompany")
+                .get("/dataformat/ical/marshal")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+        Assertions.assertEquals(icalString, actualIcal.replace("\r", ""));
+
+        final String body = RestAssured
+                .given()
+                .contentType("text/calendar")
+                .body(icalString)
+                .post("/dataformat/ical/unmarshal")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+        Assertions.assertEquals(icalString, body.replace("\r", ""));
     }
 
 }

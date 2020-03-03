@@ -78,6 +78,7 @@
         <module>gson</module>
         <module>http</module>
         <module>hystrix</module>
+        <module>ical</module>
         <module>infinispan</module>
         <module>jackson</module>
         <module>jdbc</module>
