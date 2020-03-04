@@ -54,10 +54,10 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 `aws-translate:label` | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
 
 | link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service] (camel-quarkus-azure) +
-`azure-blob:containerOrBlobUri` | 1.2.0 | The azure-blob component is used for storing and retrieving blobs from Azure Storage Blob Service.
+`azure-blob:containerOrBlobUri` | 1.0.0-M4 | The azure-blob component is used for storing and retrieving blobs from Azure Storage Blob Service.
 
 | link:https://camel.apache.org/components/latest/azure-queue-component.html[Azure Storage Queue Service] (camel-quarkus-azure) +
-`azure-queue:containerAndQueueUri` | 1.2.0 | The azure-queue component is used for storing and retrieving messages from Azure Storage Queue Service.
+`azure-queue:containerAndQueueUri` | 1.0.0-M4 | The azure-queue component is used for storing and retrieving messages from Azure Storage Queue Service.
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | 0.2.0 | The bean component is for invoking Java beans from Camel.
@@ -66,7 +66,7 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 `bean-validator:label` | 1.0.0-M1 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
 
 | link:https://camel.apache.org/components/latest/box-component.html[Box] (camel-quarkus-box) +
-`box:apiName/methodName` | 1.2.0 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
+`box:apiName/methodName` | 1.0.0-M4 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
 
 | link:https://camel.apache.org/components/latest/braintree-component.html[Braintree] (camel-quarkus-braintree) +
 `braintree:apiName/methodName` | 1.2.0 | The braintree component is used for integrating with the Braintree Payment System.
@@ -111,13 +111,13 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 `infinispan:cacheName` | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
 
 | xref:extensions/websocket-jsr356.adoc[Javax Websocket] (camel-quarkus-websocket-jsr356) +
-`websocket-jsr356:uri` | 1.2.0 | Camel WebSocket using JSR356 (javax)
+`websocket-jsr356:uri` | 1.0.0-M4 | Camel WebSocket using JSR356 (javax)
 
 | link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | 0.2.0 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
 
 | link:https://camel.apache.org/components/latest/jira-component.html[Jira] (camel-quarkus-jira) +
-`jira:type` | 1.1.0 | The jira component interacts with the JIRA issue tracker.
+`jira:type` | 1.0.0-M4 | The jira component interacts with the JIRA issue tracker.
 
 | link:https://camel.apache.org/components/latest/jms-component.html[JMS] (camel-quarkus-jms) +
 `jms:destinationType:destinationName` | 1.2.0 | The jms component allows messages to be sent to (or consumed from) a JMS Queue or Topic.
@@ -144,7 +144,7 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 `netty-http:protocol:host:port/path` | 0.2.0 | Netty HTTP server and client using the Netty 4.x library.
 
 | link:https://camel.apache.org/components/latest/olingo4-component.html[Olingo4] (camel-quarkus-olingo4) +
-`olingo4:apiName/methodName` | 1.2.0 | Communicates with OData 4.0 services using Apache Olingo OData API.
+`olingo4:apiName/methodName` | 1.0.0-M4 | Communicates with OData 4.0 services using Apache Olingo OData API.
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | 0.2.0 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
@@ -198,10 +198,10 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 `sql-stored:template` | 1.0.0-M2 | The sql component allows you to work with databases using JDBC Stored Procedure queries.
 
 | xref:extensions/stream.adoc[Stream] (camel-quarkus-stream) +
-`stream:kind` | 1.2.0 | The stream: component provides access to the system-in, system-out and system-err streams as well as allowing streaming of file.
+`stream:kind` | 1.0.0-M4 | The stream: component provides access to the system-in, system-out and system-err streams as well as allowing streaming of file.
 
 | link:https://camel.apache.org/components/latest/telegram-component.html[Telegram] (camel-quarkus-telegram) +
-`telegram:type` | 1.0.0 | The telegram component provides access to the Telegram Bot API.
+`telegram:type` | 1.0.0-M4 | The telegram component provides access to the Telegram Bot API.
 
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.
@@ -239,11 +239,11 @@ Number of Camel data formats: 19 in 15 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/base64-dataformat.html[Base64] (camel-quarkus-base64) | 1.0.0-M1 | The Base64 data format is used for base64 encoding and decoding.
 
-| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy CSV] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy CSV] (camel-quarkus-bindy) | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Fixed Length] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Fixed Length] (camel-quarkus-bindy) | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Key Value Pair] (camel-quarkus-bindy) | 1.0.0 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Key Value Pair] (camel-quarkus-bindy) | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | 0.2.0 | The CSV data format is used for handling CSV payloads.
 
@@ -251,17 +251,17 @@ Number of Camel data formats: 19 in 15 JAR artifacts (0 deprecated)
 
 | xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | 0.3.0 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
 
-| link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | 1.2.0 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
+| link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | 1.0.0-M4 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
 
-| link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | 1.2.0 | The iCal dataformat is used for working with iCalendar messages.
+| link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | 1.0.0-M5 | The iCal dataformat is used for working with iCalendar messages.
 
-| link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+| link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0-M4 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
-| link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+| link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
-| link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.2.0 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
+| link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.0.0-M4 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
 
@@ -271,7 +271,7 @@ Number of Camel data formats: 19 in 15 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 
-| link:https://camel.apache.org/components/latest/zipdeflater-dataformat.html[Zip Deflate Compression] (camel-quarkus-zip-deflater) | 1.2.0 | Zip Deflate Compression data format is a message compression and de-compression format (not zip files).
+| link:https://camel.apache.org/components/latest/zipdeflater-dataformat.html[Zip Deflate Compression] (camel-quarkus-zip-deflater) | 1.0.0-M4 | Zip Deflate Compression data format is a message compression and de-compression format (not zip files).
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | 0.2.0 | The Zip File data format is a message compression and de-compression format of zip files.
 |===
@@ -305,7 +305,7 @@ Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.2.0 | To use XPath (XML) in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.0.0-M4 | To use XPath (XML) in Camel expressions or predicates.
 |===
 // languages: END
 

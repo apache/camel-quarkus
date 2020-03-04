@@ -32,7 +32,7 @@
     <name>Camel Quarkus :: Box :: Runtime</name>
 
     <properties>
-        <firstVersion>1.2.0</firstVersion>
+        <firstVersion>1.0.0-M4</firstVersion>
     </properties>
 
     <dependencyManagement>

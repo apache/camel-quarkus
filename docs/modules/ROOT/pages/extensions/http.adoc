@@ -1,7 +1,7 @@
 [[http]]
 = HTTP Extension
 
-*Since Camel Quarkus 1.0.0*
+*Since Camel Quarkus 1.0.0-M3*
 
 The HTTP component provides HTTP based endpoints for calling external HTTP resources (as a client to call external
 servers using HTTP).

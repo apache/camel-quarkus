@@ -33,7 +33,7 @@
     <description>Telegram Chat Support</description>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <firstVersion>1.0.0-M4</firstVersion>
     </properties>
 
     <dependencyManagement>
