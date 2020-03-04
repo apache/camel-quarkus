@@ -42,6 +42,27 @@ public class JmsResource {
 
     // *****************************
     //
+    // camel-amqp
+    //
+    // *****************************
+
+    @Path("/amqp/{queueName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String consumeAmqpMessage(@PathParam("queueName") String queueName) {
+        return consumerTemplate.receiveBody("amqp:queue:" + queueName, 5000, String.class);
+    }
+
+    @Path("/amqp/{queueName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response produceAmqpMessage(@PathParam("queueName") String queueName, String message) throws Exception {
+        producerTemplate.sendBody("amqp:queue:" + queueName, message);
+        return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
+    // *****************************
+    //
     // camel-jms
     //
     // *****************************

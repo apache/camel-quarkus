@@ -36,10 +36,14 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-jms-deployment,camel-quarkus-paho-deployment,camel-quarkus-sjms-deployment,camel-quarkus-sjms2-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-amqp-deployment,camel-quarkus-jms-deployment,camel-quarkus-paho-deployment,camel-quarkus-sjms-deployment,camel-quarkus-sjms2-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-amqp</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jms</artifactId>
