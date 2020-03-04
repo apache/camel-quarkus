@@ -1,5 +1,5 @@
-[[opentracing]]
-= OpenTracing Extension
+[[freemarker]]
+= Freemarker Extension
 
 *Since Camel Quarkus 0.3.0*
 
