@@ -46,7 +46,7 @@ class FreemarkerProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true,
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 Exchange.class,
                 DefaultExchange.class));
     }

@@ -1,0 +1,36 @@
+[[opentracing]]
+= OpenTracing Extension
+
+*Since Camel Quarkus 0.3.0*
+
+The Freemarker extension component allows processing a message using a FreeMarker template. This can be ideal when using Templating to generate responses for requests.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-freemarker</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/freemarker-component.html[Freemarker Component].
+
+=== Configuration
+
+The Camel Freemarker extension exposes the following configuration properties.
+
+[cols="80,.^10,.^10"]
+|===
+|Configuration property |Type |Default
+
+|`quarkus.camel.freemarker.locations`
+
+ Comma-separated list of locations to scan recursively for templates. The location type is determined by its prefix. Unprefixed locations or locations starting with *classpath*: point to a package on the classpath. Locations starting with *filesystem*: point to a directory on the filesystem
+|List<String>
+|`freemarker/templates`
+
+|===

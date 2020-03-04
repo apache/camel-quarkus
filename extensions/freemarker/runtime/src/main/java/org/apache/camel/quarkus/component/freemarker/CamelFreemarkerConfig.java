@@ -31,7 +31,7 @@ public class CamelFreemarkerConfig {
      * only
      * scanned recursively down non-hidden directories.
      */
-    @ConfigItem
+    @ConfigItem(defaultValue = "freemarker/templates")
     public List<String> locations;
 
 }

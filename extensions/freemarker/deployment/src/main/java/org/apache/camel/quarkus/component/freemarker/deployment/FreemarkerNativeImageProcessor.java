@@ -52,15 +52,9 @@ class FreemarkerNativeImageProcessor {
     void build(
             BuildProducer<NativeImageResourceBuildItem> resourceProducer,
             CamelFreemarkerConfig camelFreemarkerConfig) throws IOException, URISyntaxException {
-        registerNativeImageResources(resourceProducer, camelFreemarkerConfig);
-    }
-
-    private void registerNativeImageResources(
-            BuildProducer<NativeImageResourceBuildItem> resource,
-            CamelFreemarkerConfig camelFreemarkerConfig) throws IOException, URISyntaxException {
         List<String> templates = discoverFreemarkerTemplates(camelFreemarkerConfig);
         final List<String> nativeResources = new ArrayList<>(templates);
-        resource.produce(new NativeImageResourceBuildItem(nativeResources.toArray(new String[0])));
+        resourceProducer.produce(new NativeImageResourceBuildItem(nativeResources.toArray(new String[0])));
     }
 
     private List<String> discoverFreemarkerTemplates(
@@ -68,15 +62,12 @@ class FreemarkerNativeImageProcessor {
         List<String> resources = new ArrayList<>();
         try {
             List<String> locations = new ArrayList<>(camelFreemarkerConfig.locations);
-            if (locations.isEmpty()) {
-                locations.add("freemarker/templates");
-            }
 
             // Locations can be a comma separated list
             for (String location : locations) {
                 // Strip any 'classpath:' protocol prefixes because they are assumed
                 // but not recognized by ClassLoader.getResources()
-                if (location != null && location.startsWith(CLASSPATH_APPLICATION_MIGRATIONS_PROTOCOL + ':')) {
+                if (location.startsWith(CLASSPATH_APPLICATION_MIGRATIONS_PROTOCOL + ':')) {
                     location = location.substring(CLASSPATH_APPLICATION_MIGRATIONS_PROTOCOL.length() + 1);
                 }
 

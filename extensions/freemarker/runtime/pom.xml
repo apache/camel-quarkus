@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: Freemarker :: Runtime</name>
 
     <properties>
-        <firstVersion>0.4.0</firstVersion>
+        <firstVersion>1.0.0-M5</firstVersion>
     </properties>
 
     <dependencyManagement>
