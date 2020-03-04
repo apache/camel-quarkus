@@ -33,7 +33,7 @@
     <description>Camel dataformat for Gzip and Zip marshalling and unmarshalling</description>
 
     <properties>
-        <firstVersion>1.2.0</firstVersion>
+        <firstVersion>1.0.0-M4</firstVersion>
     </properties>
 
     <dependencyManagement>

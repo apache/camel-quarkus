@@ -32,7 +32,7 @@
     <name>Camel Quarkus :: Johnzon :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <firstVersion>1.0.0-M5</firstVersion>
     </properties>
 
     <dependencyManagement>

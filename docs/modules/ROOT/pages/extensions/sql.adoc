@@ -1,7 +1,7 @@
 [[sql]]
 = SQL Extension
 
-*Since Camel Quarkus 1.1.0*
+*Since Camel Quarkus 1.0.0-M2*
 
 The SQL component allows you to work with databases using JDBC queries.
 
