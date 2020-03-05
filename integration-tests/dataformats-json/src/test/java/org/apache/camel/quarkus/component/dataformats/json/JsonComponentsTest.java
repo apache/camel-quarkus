@@ -24,6 +24,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject;
+import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -98,5 +100,26 @@ public class JsonComponentsTest {
                 .post("/dataformats-json/unmarshal/{direct-id}", directId)
                 .then()
                 .body("dummyString", is(object.getDummyString()));
+    }
+
+    @Test
+    void jacksonXml() {
+        final String xml = "<PojoA>\n  <name>Joe</name>\n</PojoA>\n";
+        final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(json)
+                .post("/dataformats-json/jacksonxml/marshal")
+                .then()
+                .statusCode(200)
+                .body(equalTo(xml));
+
+        RestAssured.given()
+                .contentType("text/xml")
+                .body(xml)
+                .post("/dataformats-json/jacksonxml/unmarshal")
+                .then()
+                .statusCode(200)
+                .body(equalTo(json));
     }
 }
