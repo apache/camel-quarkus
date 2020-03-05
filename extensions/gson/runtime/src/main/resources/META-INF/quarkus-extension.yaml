@@ -22,6 +22,8 @@ metadata:
   keywords:
   - "camel"
   - "gson"
+  - "json"
+  - "dataformat"
   guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"

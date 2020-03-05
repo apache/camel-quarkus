@@ -23,6 +23,7 @@ metadata:
   - "camel"
   - "johnzon"
   - "json"
+  - "dataformat"
   guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"

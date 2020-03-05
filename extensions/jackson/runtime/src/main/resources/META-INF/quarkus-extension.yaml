@@ -22,6 +22,7 @@ metadata:
   keywords:
   - "camel"
   - "jackson"
+  - "json"
   - "dataformat"
   guide: "https://quarkus.io/guides/camel"
   categories:
