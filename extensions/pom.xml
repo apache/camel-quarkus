@@ -84,6 +84,7 @@
         <module>infinispan</module>
         <module>jackson</module>
         <module>jacksonxml</module>
+        <module>jaxb</module>
         <module>jdbc</module>
         <module>jira</module>
         <module>jms</module>
