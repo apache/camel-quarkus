@@ -25,16 +25,16 @@ import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoader {
     @Override
     public Object loadRoutesDefinition(CamelContext context, InputStream inputStream) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io");
     }
 
     @Override
     public Object loadRestsDefinition(CamelContext context, InputStream inputStream) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io");
     }
 
     @Override
     public <T extends NamedNode> T createModelFromXml(CamelContext context, String xml, Class<T> type) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io");
     }
 }

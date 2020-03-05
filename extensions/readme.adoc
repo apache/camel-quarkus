@@ -283,7 +283,7 @@ Number of Camel data formats: 20 in 16 JAR artifacts (0 deprecated)
 == Camel Languages
 
 // languages: START
-Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
+Number of Camel languages: 11 in 5 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -307,6 +307,8 @@ Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
 
+| link:https://camel.apache.org/components/latest/xtokenize-language.html[XML Tokenize] (camel-quarkus-xml-jaxp) | 1.0.0-M5 | To use Camel message body or header with a XML tokenizer in Camel expressions or predicates.
+
 | link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.0.0-M4 | To use XPath (XML) in Camel expressions or predicates.
 |===
 // languages: END
@@ -315,7 +317,7 @@ Number of Camel languages: 10 in 4 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -324,8 +326,6 @@ Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 | (camel-quarkus-attachments) | 0.3.0 | Java Attachments support for Camel Message
 
 | (camel-quarkus-core-cloud) | 0.2.0 | The Camel Quarkus core cloud module
-
-| (camel-quarkus-core-xml) | 0.3.0 | Includes implementations of Java Architecture for XML Binding (JAXB) and Java API for XML Processing (JAXP)
 
 | (camel-quarkus-endpointdsl) | 1.0.0-M3 | camel-quarkus-endpointdsl
 
@@ -338,6 +338,10 @@ Number of miscellaneous extensions: 9 in 9 JAR artifacts (0 deprecated)
 | xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | 0.3.0 | Distributed tracing using OpenTracing
 
 | (camel-quarkus-reactive-executor) | 0.3.0 | Reactive Executor for camel-core using Vert.x
+
+| (camel-quarkus-xml-io) | 1.0.0-M5 | Includes implementations of Camel's fast and lightweight XML parse
+
+| (camel-quarkus-xml-jaxb) | 1.0.0-M5 | Includes implementations of Java Architecture for XML Binding (JAXB)
 |===
 // others: END
 
