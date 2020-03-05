@@ -23,7 +23,14 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.salesforce.internal.dto.LoginError;
 import org.apache.camel.component.salesforce.internal.dto.LoginToken;
+import org.apache.camel.component.salesforce.internal.dto.NotifyForFieldsEnum;
+import org.apache.camel.component.salesforce.internal.dto.NotifyForOperationsEnum;
+import org.apache.camel.component.salesforce.internal.dto.PushTopic;
+import org.apache.camel.component.salesforce.internal.dto.QueryRecordsPushTopic;
+import org.apache.camel.component.salesforce.internal.dto.RestChoices;
+import org.apache.camel.component.salesforce.internal.dto.RestErrors;
 import org.eclipse.jetty.client.HttpClient;
 import org.eclipse.jetty.client.ProtocolHandlers;
 
@@ -31,6 +38,13 @@ class SalesforceProcessor {
     private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
             HttpClient.class,
             LoginToken.class,
+            LoginError.class,
+            NotifyForFieldsEnum.class,
+            NotifyForOperationsEnum.class,
+            PushTopic.class,
+            QueryRecordsPushTopic.class,
+            RestChoices.class,
+            RestErrors.class,
             ProtocolHandlers.class);
 
     private static final String FEATURE = "camel-salesforce";
