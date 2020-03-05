@@ -158,7 +158,8 @@
         <module>support</module>
         <module>core</module>
         <module>core-main</module>
-        <module>core-main-xml</module>
+        <module>core-main-xml-jaxb</module>
+        <module>core-main-xml-io</module>
         <module>core-main-collector</module>
         <module>core-impl</module>
 

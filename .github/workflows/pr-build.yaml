@@ -113,7 +113,8 @@ jobs:
             -pl :camel-quarkus-integration-test-core-impl \
             -pl :camel-quarkus-integration-test-core-main \
             -pl :camel-quarkus-integration-test-core-main-collector \
-            -pl :camel-quarkus-integration-test-core-main-xml
+            -pl :camel-quarkus-integration-test-core-main-xml-jaxb \
+            -pl :camel-quarkus-integration-test-core-main-xml-io \
   foundation:
     runs-on: ubuntu-latest
     needs: build

@@ -26,14 +26,14 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
- 
-   
+
+
 
     <artifactId>camel-quarkus-examples-file-log-xml</artifactId>
     <name>Camel Quarkus :: Examples :: File To Log XML DSL</name>
     <description>Camel Quarkus Example :: File To Log XML DSL</description>
 
-    
+
 
     <properties>
         <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
@@ -42,7 +42,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-core-xml-deployment,camel-quarkus-file-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-xml-jaxb-deployment,camel-quarkus-file-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
@@ -56,7 +56,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-xml</artifactId>
+            <artifactId>camel-quarkus-xml-jaxb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

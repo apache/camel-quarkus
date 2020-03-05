@@ -30,7 +30,7 @@ public class DisabledPredicateValidatorReifier extends ValidatorReifier<Predicat
 
     @Override
     protected Validator doCreateValidator() {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-core-xml");
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io");
     }
 
 }

@@ -38,9 +38,11 @@
         <!-- common/shared extensions -->
         <module>core</module>
         <module>core-cloud</module>
-        <module>core-xml</module>
         <module>http-common</module>
         <module>reactive-executor</module>
+        <module>xml-io</module>
+        <module>xml-jaxb</module>
+        <module>xml-jaxp</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>ahc</module>
