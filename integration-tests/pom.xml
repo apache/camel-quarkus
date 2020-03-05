@@ -186,6 +186,7 @@
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
+        <module>jaxb</module>
         <module>jdbc</module>
         <module>jira</module>
         <module>jsonpath</module>

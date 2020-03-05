@@ -243,7 +243,7 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 20 in 16 JAR artifacts (0 deprecated)
+Number of Camel data formats: 21 in 17 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -268,6 +268,8 @@ Number of Camel data formats: 20 in 16 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | 1.0.0-M5 | The iCal dataformat is used for working with iCalendar messages.
 
 | link:https://camel.apache.org/components/latest/jacksonxml-dataformat.html[JacksonXML] (camel-quarkus-jacksonxml) | 1.0.0-M5 | JacksonXML data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
+
+| link:https://camel.apache.org/components/latest/jaxb-dataformat.html[JAXB] (camel-quarkus-jaxb) | 1.0.0-M5 | JAXB data format uses the JAXB2 XML marshalling standard to unmarshal an XML payload into Java objects or to marshal Java objects into an XML payload.
 
 | link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0-M4 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
@@ -349,8 +351,8 @@ Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-reactive-executor) | 0.3.0 | Reactive Executor for camel-core using Vert.x
 
-| (camel-quarkus-xml-io) | 1.0.0-M5 | Includes implementations of Camel's fast and lightweight XML parse
+| (camel-quarkus-xml-io) | 1.0.0-M5 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 
-| (camel-quarkus-xml-jaxb) | 1.0.0-M5 | Includes implementations of Java Architecture for XML Binding (JAXB)
+| (camel-quarkus-xml-jaxb) | 1.0.0-M5 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
 |===
 // others: END
