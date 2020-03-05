@@ -26,7 +26,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-support-jackson-dataformat-xml</artifactId>
-    <name>Camel Quarkus :: Support Jackson Dataformat XML :: Runtime</name>
+    <name>Camel Quarkus :: Support :: Jackson Dataformat XML :: Runtime</name>
 
     <dependencyManagement>
         <dependencies>
