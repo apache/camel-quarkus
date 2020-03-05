@@ -21,30 +21,19 @@
 
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-extensions</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-support-extensions</artifactId>
-    <name>Camel Quarkus :: Support</name>
+    <artifactId>camel-quarkus-support-jackson-dataformat-xml-parent</artifactId>
+    <name>Camel Quarkus :: Support Jackson Dataformat XML</name>
     <packaging>pom</packaging>
-
     <modules>
-        <module>ahc</module>
-        <module>aws</module>
-        <module>common</module>
-        <module>commons-logging</module>
-        <module>consul-client</module>
-        <module>httpclient</module>
-        <module>jackson-dataformat-xml</module>
-        <module>jetty</module>
-        <module>policy</module>
-        <module>retrofit</module>
-        <module>spring</module>
-        <module>xstream</module>
-        <module>xml</module>
-        <module>xalan</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
+
 </project>

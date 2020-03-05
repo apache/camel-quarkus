@@ -30,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
 import org.jboss.logging.Logger;
 
 @Path("/dataformats-json")
@@ -107,4 +108,21 @@ public class JsonDataformatsResource {
 
         return answer;
     }
+
+    @Path("jacksonxml/marshal")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_XML)
+    public String jacksonXmlMarshal(PojoA pojo) {
+        return producerTemplate.requestBody("direct:jacksonxml-marshal", pojo, String.class);
+    }
+
+    @Path("jacksonxml/unmarshal")
+    @POST
+    @Consumes(MediaType.TEXT_XML)
+    @Produces(MediaType.APPLICATION_JSON)
+    public PojoA jacksonXmlMarshal(String body) {
+        return producerTemplate.requestBody("direct:jacksonxml-unmarshal", body, PojoA.class);
+    }
+
 }

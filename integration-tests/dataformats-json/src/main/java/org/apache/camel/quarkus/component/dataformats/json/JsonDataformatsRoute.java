@@ -73,6 +73,15 @@ public class JsonDataformatsRoute extends RouteBuilder {
         }));
         configureJsonRoutes(JsonLibrary.Gson, gsonDummyObjectDataFormat, new GsonDataFormat(PojoA.class),
                 new GsonDataFormat(PojoB.class));
+
+        from("direct:jacksonxml-marshal")
+                .marshal()
+                .jacksonxml(true);
+
+        from("direct:jacksonxml-unmarshal")
+                .unmarshal()
+                .jacksonxml(PojoA.class);
+
     }
 
     public void configureJsonRoutes(JsonLibrary library, DataFormat dummyObjectDataFormat, DataFormat pojoADataFormat,
