@@ -18,16 +18,12 @@ package org.apache.camel.quarkus.component.websocket.jsr356.deployment;
 
 import java.util.List;
 
-import javax.websocket.server.ServerEndpointConfig;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.undertow.deployment.ServletContextAttributeBuildItem;
 import io.quarkus.undertow.deployment.ServletDeploymentManagerBuildItem;
-import io.undertow.websockets.jsr.DefaultContainerConfigurator;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import org.apache.camel.quarkus.component.websocket.jsr356.CamelWebSocketJSR356Config;
 import org.apache.camel.quarkus.component.websocket.jsr356.CamelWebSocketJSR356Recorder;
@@ -43,13 +39,6 @@ class WebSocketJSR356Processor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    ServiceProviderBuildItem registerConfiguratorServiceProvider() {
-        // TODO: Remove this. See https://github.com/quarkusio/quarkus/issues/7509
-        return new ServiceProviderBuildItem(ServerEndpointConfig.Configurator.class.getName(),
-                DefaultContainerConfigurator.class.getName());
     }
 
     @BuildStep
