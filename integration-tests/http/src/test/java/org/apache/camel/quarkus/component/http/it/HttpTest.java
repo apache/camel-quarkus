@@ -21,6 +21,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.EnabledOnJre;
+import org.junit.jupiter.api.condition.JRE;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -30,6 +32,8 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
 @QuarkusTestResource(TrustStoreResource.class)
+// TrustStoreResource does not work on Java 11: https://github.com/apache/camel-quarkus/issues/852
+@EnabledOnJre(JRE.JAVA_8)
 class HttpTest {
     @ParameterizedTest
     @ValueSource(strings = { "ahc", "http", "netty-http" })

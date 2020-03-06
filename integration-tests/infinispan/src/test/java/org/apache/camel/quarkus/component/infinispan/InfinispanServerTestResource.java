@@ -30,7 +30,6 @@ import org.infinispan.test.fwk.TestResourceTracker;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private HotRodServer hotRodServer;
-    private InfinispanTest camelTest;
 
     @Override
     public Map<String, String> start() {
@@ -46,21 +45,7 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
     }
 
     @Override
-    public void inject(Object testInstance) {
-        if (testInstance instanceof InfinispanTest) {
-            this.camelTest = (InfinispanTest) testInstance;
-        }
-    }
-
-    @Override
     public void stop() {
-        //
-        // This is needed to properly stop the resources in the right order and
-        // avoid spurious exceptions shown in the logs.
-        //
-        if (camelTest != null && camelTest.cacheManager != null) {
-            camelTest.cacheManager.stop();
-        }
         if (hotRodServer != null) {
             hotRodServer.stop();
         }
