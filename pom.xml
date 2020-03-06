@@ -83,7 +83,8 @@
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M4</maven-surefire-plugin.version>
+        <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
