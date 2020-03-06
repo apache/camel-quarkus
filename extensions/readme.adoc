@@ -231,7 +231,7 @@ Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 21 in 17 JAR artifacts (0 deprecated)
+Number of Camel data formats: 23 in 18 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -265,6 +265,8 @@ Number of Camel data formats: 21 in 17 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
+| link:https://camel.apache.org/components/latest/json-xstream-dataformat.html[JSon XStream] (camel-quarkus-xstream) | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+
 | link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.0.0-M4 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
@@ -272,6 +274,8 @@ Number of Camel data formats: 21 in 17 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.3.0 | The Tar File data format is a message compression and de-compression format of tar files.
 
 | link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | 1.0.0-M1 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
+
+| link:https://camel.apache.org/components/latest/xstream-dataformat.html[XStream] (camel-quarkus-xstream) | 1.0.0-M5 | XStream data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 

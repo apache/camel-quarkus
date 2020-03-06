@@ -246,7 +246,8 @@ jobs:
             -pl :camel-quarkus-integration-test-bindy \
             -pl :camel-quarkus-integration-test-csv \
             -pl :camel-quarkus-integration-test-dataformat \
-            -pl :camel-quarkus-integration-test-jaxb
+            -pl :camel-quarkus-integration-test-jaxb \
+            -pl :camel-quarkus-integration-test-xstream
   networking:
     runs-on: ubuntu-latest
     needs: build
