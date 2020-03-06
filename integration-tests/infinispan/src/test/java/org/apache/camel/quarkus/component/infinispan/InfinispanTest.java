@@ -16,13 +16,9 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.camel.quarkus.core.CamelMain;
-import org.infinispan.client.hotrod.RemoteCacheManager;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
@@ -30,10 +26,6 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 @QuarkusTestResource(InfinispanServerTestResource.class)
 public class InfinispanTest {
-    @Inject
-    CamelMain main;
-    @Inject
-    RemoteCacheManager cacheManager;
 
     @Test
     public void testInfinispan() {
