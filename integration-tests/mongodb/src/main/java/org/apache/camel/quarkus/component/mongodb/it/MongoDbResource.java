@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.mongodb.it;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -35,7 +34,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
 import org.apache.camel.ProducerTemplate;
@@ -46,14 +44,6 @@ import org.bson.Document;
 public class MongoDbResource {
     @Inject
     ProducerTemplate producerTemplate;
-
-    @Inject
-    MongoClient client;
-
-    @PostConstruct
-    public void init() {
-        producerTemplate.getCamelContext().getRegistry().bind("camelMongoClient", client);
-    }
 
     @POST
     @Path("/collection/{collectionName}")
