@@ -312,47 +312,45 @@
                 </property>
             </activation>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-enforcer-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>camel-quarkus-enforcer-rules</id>
-                                    <goals>
-                                        <goal>enforce</goal>
-                                    </goals>
-                                    <configuration>
-                                        <rules>
-                                            <dependencyConvergence />
-                                            <requireMavenVersion>
-                                                <version>${supported-maven-versions}</version>
-                                            </requireMavenVersion>
-                                        </rules>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.gmaven</groupId>
-                            <artifactId>groovy-maven-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>validate-github-workflows</id>
-                                    <inherited>false</inherited>
-                                    <goals>
-                                        <goal>execute</goal>
-                                    </goals>
-                                    <phase>process-resources</phase>
-                                    <configuration>
-                                        <source>file:///${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>camel-quarkus-enforcer-rules</id>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                                <configuration>
+                                    <rules>
+                                        <dependencyConvergence />
+                                        <requireMavenVersion>
+                                            <version>${supported-maven-versions}</version>
+                                        </requireMavenVersion>
+                                    </rules>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>validate-github-workflows</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>process-resources</phase>
+                                <configuration>
+                                    <source>file:///${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
         <profile>
