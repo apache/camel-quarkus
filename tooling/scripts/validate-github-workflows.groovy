@@ -19,33 +19,30 @@
  * Makes sure that each itest is executed by the CI
  */
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.nio.file.Files
-import java.util.regex.Matcher
-import java.util.regex.Pattern
-import java.util.stream.Collectors
+import org.yaml.snakeyaml.Yaml
 
 final Path treeRootDir = project.getBasedir().toPath()
 
 final String jobDefRelPath = '.github/workflows/pr-build.yaml'
 final Path jobDefPath = treeRootDir.resolve(jobDefRelPath)
-final String jobDefSource = new String(Files.readAllBytes(jobDefPath), 'UTF-8')
-
 final Set<String> executedBaseNames = [] as Set
-final Matcher plMatcher = Pattern.compile('-pl :camel-quarkus-integration-test-([^\n ]+)').matcher(jobDefSource)
-while (plMatcher.find()) {
-    executedBaseNames.add(plMatcher.group(1))
-}
-final Matcher extensionMatcher = Pattern.compile('extension: *\\[ *\'([^\\]]+)\' *\\]').matcher(jobDefSource)
-while (extensionMatcher.find()) {
-    extensionMatcher.group(1).split('\' *, *\'').each { executedBaseNames.add(it) }
-}
+
+// Add any ignored itest modules here. Or prefix the module name with '#' to disable it
+final List<String> excludedModules = ['fhir', 'support'] as List
+
+final Yaml parser = new Yaml()
+def prConfig = parser.load((jobDefPath.toFile()).text)
+
+modules = prConfig['jobs']['native-tests']['strategy']['matrix']['include']['test-modules']
+modules.each { executedBaseNames.addAll(it.trim().split(' ')) }
 
 final Set<String> missingBaseNames = [] as TreeSet
 final Set<String> itestBaseNames = Files.list(treeRootDir.resolve('integration-tests'))
         .filter{ path -> Files.exists(path.resolve('pom.xml')) }
         .map{ path -> path.getFileName().toString() }
-        .filter{ dirName -> !dirName.equals('support') }
+        .filter{ dirName -> !excludedModules.contains(dirName) }
+        .filter{ dirName -> !executedBaseNames.contains('#' + dirName) }
         .filter{ dirName -> !executedBaseNames.contains(dirName) }
         .forEach{ dirName -> missingBaseNames.add(dirName) }
 

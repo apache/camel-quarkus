@@ -23,6 +23,11 @@ on:
       - master
       - camel-master
       - quarkus-master
+    paths-ignore:
+      - '**.adoc'
+      - 'KEYS'
+      - 'LICENSE.txt'
+      - 'NOTICE.txt'
 
 env:
   LANG: en_US
