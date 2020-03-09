@@ -61,8 +61,10 @@ class FreemarkerNativeImageProcessor {
             CamelFreemarkerConfig camelFreemarkerConfig) throws IOException, URISyntaxException {
         List<String> resources = new ArrayList<>();
         try {
-            List<String> locations = new ArrayList<>(camelFreemarkerConfig.locations);
-
+            Set<String> locations = camelFreemarkerConfig.locations.stream()
+                    .map(String::trim)
+                    .filter(element -> !element.isEmpty())
+                    .collect(Collectors.toSet());
             // Locations can be a comma separated list
             for (String location : locations) {
                 // Strip any 'classpath:' protocol prefixes because they are assumed
@@ -107,11 +109,14 @@ class FreemarkerNativeImageProcessor {
             throws IOException, URISyntaxException {
         try (final Stream<Path> pathStream = Files.walk(Paths.get(path.toURI()))) {
             return pathStream.filter(Files::isRegularFile)
-                    .filter(p -> p.getFileName().toString().endsWith(".ftl"))
+                    //                    .filter(p -> p.getFileName().toString().endsWith(".ftl"))
                     .map(it -> {
                         String file = FilenameUtils.separatorsToUnix(it.toString());
-                        int indexOf = file.lastIndexOf(location);
-                        String substring = file.substring(indexOf);
+                        int indexOf = file.lastIndexOf("/" + location + "/");
+                        if (indexOf == -1) {
+                            indexOf = file.lastIndexOf("/" + location);
+                        }
+                        String substring = file.substring(indexOf + 1);
                         return FilenameUtils.separatorsToUnix(substring);
                     })
                     .peek(it -> LOGGER.debug("Discovered: " + it))

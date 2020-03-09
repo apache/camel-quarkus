@@ -29,7 +29,7 @@ The Camel Freemarker extension exposes the following configuration properties.
 
 |`quarkus.camel.freemarker.locations`
 
- Comma-separated list of locations to scan recursively for templates. The location type is determined by its prefix. Unprefixed locations or locations starting with *classpath*: point to a package on the classpath. Locations starting with *filesystem*: point to a directory on the filesystem
+ Comma-separated list of locations to scan recursively for templates.
 |List<String>
 |`freemarker/templates`
 

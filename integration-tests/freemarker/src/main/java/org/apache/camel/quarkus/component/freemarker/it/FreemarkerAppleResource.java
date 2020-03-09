@@ -25,30 +25,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.freemarker.FreemarkerConstants;
 
 @Path("/freemarker")
 @ApplicationScoped
-public class FreemarkerTemplateInHeaderResource {
+public class FreemarkerAppleResource {
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/templateInHeader")
+    @Path("/apple")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public String testFreemarkerLetter() throws Exception {
-        Exchange exchange = producerTemplate.request("direct:templateInHeader", new Processor() {
+        Exchange exchange = producerTemplate.request("direct:apple", new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                Message in = exchange.getIn();
-                in.setHeader(FreemarkerConstants.FREEMARKER_TEMPLATE, "<hello>${headers.cheese}</hello>");
-                in.setHeader("cheese", "foo");
+                exchange.getIn().setBody("Orange");
+                exchange.getIn().setHeader("color", "orange");
+                exchange.setProperty("price", "7");
             }
         });
 
@@ -58,7 +56,8 @@ public class FreemarkerTemplateInHeaderResource {
     public static class FreemarkerRouteBuilder extends RouteBuilder {
         @Override
         public void configure() {
-            from("direct:templateInHeader").to("freemarker://dummy");
+            from("direct:apple")
+                    .to("freemarker:AppleTemplate.ftl");
         }
     }
 }

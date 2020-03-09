@@ -58,7 +58,7 @@ public class FreemarkerBodyAsDomainObjectResource {
         @Override
         public void configure() {
             from("direct:bodyAsDomainObject")
-                    .to("freemarker:org/apache/camel/component/freemarker/BodyAsDomainObject.ftl");
+                    .to("freemarker:folder/subfolder/templates/BodyAsDomainObject.ftl");
         }
     }
 

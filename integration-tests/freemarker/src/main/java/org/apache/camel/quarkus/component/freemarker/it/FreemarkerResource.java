@@ -32,13 +32,10 @@ import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.freemarker.FreemarkerConstants;
-import org.jboss.logging.Logger;
 
 @Path("/freemarker")
 @ApplicationScoped
 public class FreemarkerResource {
-
-    private static final Logger LOG = Logger.getLogger(FreemarkerResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
