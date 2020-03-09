@@ -151,7 +151,7 @@
                     <namePrefix xml:space="preserve">Camel Quarkus :: </namePrefix>
                     <nameSegmentDelimiter xml:space="preserve"> :: </nameSegmentDelimiter>
                     <javaPackageInfix>component</javaPackageInfix>
-                    <templatesUriBase>file://../tooling/create-extension-templates</templatesUriBase>
+                    <templatesUriBase>file:///${project.basedir}/../tooling/create-extension-templates</templatesUriBase>
                     <runtimeBomPath>../poms/bom/pom.xml</runtimeBomPath>
                     <deploymentBomPath>../poms/bom-deployment/pom.xml</deploymentBomPath>
                     <bomEntryVersion>@{camel-quarkus.version}</bomEntryVersion>
