@@ -18,11 +18,14 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 71 in 61 JAR artifacts (0 deprecated)
+Number of Camel components: 72 in 62 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Component | Since | Description
+
+| link:https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ] (camel-quarkus-activemq) +
+`activemq:destinationType:destinationName` | 1.0.0-M5 | The activemq component allows messages to be sent to (or consumed from) Apache ActiveMQ. This component extends the Camel JMS component.
 
 | xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
 `ahc:httpUri` | 1.0.0-M3 | To call external HTTP services using Async Http Client.

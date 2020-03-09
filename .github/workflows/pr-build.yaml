@@ -212,6 +212,7 @@ jobs:
             -Dnative \
             -Ddocker \
             -DskipTests \
+            -pl :camel-quarkus-integration-test-activemq \
             -pl :camel-quarkus-integration-test-kafka \
             -pl :camel-quarkus-integration-test-messaging
   dataformats:

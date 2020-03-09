@@ -45,6 +45,7 @@
         <module>xml-jaxp</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>activemq</module>
         <module>ahc</module>
         <module>ahc-ws</module>
         <module>attachments</module>
