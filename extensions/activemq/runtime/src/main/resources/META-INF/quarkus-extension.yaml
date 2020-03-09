@@ -21,7 +21,7 @@ description: "Camel Quarkus ActiveMQ Support"
 metadata:
   keywords:
     - "camel"
-    - "ActiveMQ"
+    - "activemq"
     - "messaging"
   guide: "https://quarkus.io/guides/camel"
   categories:
