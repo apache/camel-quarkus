@@ -151,6 +151,7 @@ jobs:
               dozer
               ftp
               mail
+              mustache
               pdf
               stream
               tarfile

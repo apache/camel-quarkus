@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 72 in 62 JAR artifacts (0 deprecated)
+Number of Camel components: 73 in 63 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -152,6 +152,9 @@ Number of Camel components: 72 in 62 JAR artifacts (0 deprecated)
 
 | xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
 `mongodb:connectionBean` | 1.0.0-M1 | Component for working with documents stored in MongoDB database.
+
+| link:https://camel.apache.org/components/latest/mustache-component.html[Mustache] (camel-quarkus-mustache) +
+`mustache:resourceUri` | 1.0.0-M5 | Transforms the message using a Mustache template.
 
 | xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x library.
