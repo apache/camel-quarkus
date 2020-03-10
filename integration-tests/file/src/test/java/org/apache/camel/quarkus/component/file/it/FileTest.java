@@ -27,6 +27,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.ValidatableResponse;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
@@ -70,63 +71,42 @@ class FileTest {
         final Path file = dir.resolve("file.txt");
         Files.write(file, "a file content".getBytes(StandardCharsets.UTF_8));
 
-        RestAssured.given()
-                .queryParam("path", dir.toString())
-                .get("/file-watch/get-events")
-                .then()
-                .statusCode(200)
-                .body("type", equalTo("CREATE"))
-                .body("path", equalTo(file.toString()));
+        awaitEvent(dir, file, "CREATE");
 
         Files.write(file, "changed content".getBytes(StandardCharsets.UTF_8));
 
-        RestAssured.given()
-                .queryParam("path", dir.toString())
-                .get("/file-watch/get-events")
-                .then()
-                .statusCode(200)
-                .body("type", equalTo("MODIFY"))
-                .body("path", equalTo(file.toString()));
-
-    }
-
-    @Test
-    public void fileWatchCreateDelete() throws IOException, InterruptedException {
-        final Path dir = Files.createTempDirectory(FileTest.class.getSimpleName()).toAbsolutePath().normalize();
-        RestAssured.given()
-                .queryParam("path", dir.toString())
-                .get("/file-watch/get-events")
-                .then()
-                .statusCode(204);
-
-        final Path file = dir.resolve("file.txt");
-        Files.write(file, "a file content".getBytes(StandardCharsets.UTF_8));
-
-        RestAssured.given()
-                .queryParam("path", dir.toString())
-                .get("/file-watch/get-events")
-                .then()
-                .statusCode(200)
-                .body("type", equalTo("CREATE"))
-                .body("path", equalTo(file.toString()));
+        awaitEvent(dir, file, "MODIFY");
 
         Files.delete(file);
 
-        /* The DELETE event may be preceded by MODIFY */
+        awaitEvent(dir, file, "DELETE");
+
+    }
+
+    private static void awaitEvent(final Path dir, final Path file, final String type) {
         Awaitility.await()
                 .pollInterval(10, TimeUnit.MILLISECONDS)
                 .atMost(10, TimeUnit.SECONDS)
                 .until(() -> {
-                    final JsonPath json = RestAssured.given()
+                    final ValidatableResponse response = RestAssured.given()
                             .queryParam("path", dir.toString())
                             .get("/file-watch/get-events")
-                            .then()
-                            .statusCode(200)
-                            .extract()
-                            .jsonPath();
-                    return file.toString().equals(json.getString("path")) && "DELETE".equals(json.getString("type"));
+                            .then();
+                    switch (response.extract().statusCode()) {
+                    case 204:
+                        /*
+                         * the event may come with some delay through all the OS and Java layers so it is
+                         * rather normal to get 204 before getting the expected event
+                         */
+                        return false;
+                    case 200:
+                        final JsonPath json = response
+                                .extract()
+                                .jsonPath();
+                        return file.toString().equals(json.getString("path")) && type.equals(json.getString("type"));
+                    default:
+                        throw new RuntimeException("Unexpected status code " + response.extract().statusCode());
+                    }
                 });
-
     }
-
 }
