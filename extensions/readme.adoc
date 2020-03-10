@@ -326,7 +326,7 @@ Number of Camel languages: 11 in 5 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 11 in 11 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -337,6 +337,8 @@ Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 | (camel-quarkus-core-cloud) | 0.2.0 | The Camel Quarkus core cloud module
 
 | (camel-quarkus-endpointdsl) | 1.0.0-M3 | camel-quarkus-endpointdsl
+
+| xref:extensions/file-watch.adoc[camel-quarkus-file-watch]  | 1.0.0-M5 | Watch file modification events in a folder
 
 | (camel-quarkus-hystrix) | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
 
