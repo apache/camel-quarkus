@@ -17,22 +17,86 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-parent</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>catalog</artifactId>
-    <packaging>pom</packaging>
-
+    <artifactId>camel-quarkus-catalog</artifactId>
     <name>Camel Quarkus :: Catalog</name>
 
-    <modules>
-        <module>camel-quarkus-catalog</module>
-    </modules>
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-catalog</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.slf4j</groupId>
+            <artifactId>slf4j-jboss-logging</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+
+            <!-- generate and include all components in the catalog -->
+            <plugin>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-package-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <dependencies>
+                    <!-- include camel-catalog on classpath -->
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-catalog</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <!-- prepare the catalog and update doc files, etc. -->
+                        <goals>
+                            <goal>prepare-catalog-quarkus</goal>
+                            <goal>update-doc-extensions-list</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <extensionDirs>
+                                <extensionDir>${camel.quarkus.project.root}/extensions-core</extensionDir>
+                                <extensionDir>${camel.quarkus.project.root}/extensions</extensionDir>
+                            </extensionDirs>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
 
 </project>

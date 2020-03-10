@@ -72,7 +72,8 @@ import static org.apache.camel.tooling.util.PackageHelper.loadText;
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true, requiresDependencyCollection = ResolutionScope.COMPILE_PLUS_RUNTIME)
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
-    private static final Set<String> EXCLUDE_EXTENSIONS = Collections.unmodifiableSet(new HashSet<>(Arrays.asList("http-common", "support")));
+    private static final Set<String> EXCLUDE_EXTENSIONS = Collections
+            .unmodifiableSet(new HashSet<>(Arrays.asList("http-common", "support")));
 
     /**
      * The maven project.
@@ -119,14 +120,14 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     /**
      * The directory where all quarkus extension starters are
      */
-    @Parameter(defaultValue = "${project.build.directory}/../../../extensions")
-    protected File extensionsDir;
+    @Parameter(property = "camel.quarkus.extensionDirs")
+    protected List<String> extensionDirs;
 
     /**
      * Execute goal.
      *
      * @throws MojoExecutionException execution of the main class or one of the
-     *         threads it generated failed.
+     *             threads it generated failed.
      * @throws MojoFailureException something bad happened...
      */
     @Override
@@ -139,7 +140,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         appendOthers(extensions, camelCatalog);
     }
 
-    protected void doExecute(List<CamelQuarkusExtension> extensions, Kind kind, CamelCatalog catalog) throws MojoExecutionException {
+    protected void doExecute(List<CamelQuarkusExtension> extensions, Kind kind, CamelCatalog catalog)
+            throws MojoExecutionException {
 
         final Path outsDir = kind.getPath(this);
 
@@ -188,7 +190,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         }
     }
 
-    protected void appendOthers(List<CamelQuarkusExtension> extensions, CamelCatalog catalog) throws MojoExecutionException, MojoFailureException {
+    protected void appendOthers(List<CamelQuarkusExtension> extensions, CamelCatalog catalog)
+            throws MojoExecutionException, MojoFailureException {
         // make sure to create out dir
         othersOutDir.mkdirs();
         final Path othersPropertiesPath = othersOutDir.toPath().resolve("../others.properties");
@@ -239,7 +242,8 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
         }
         try {
-            Files.write(othersPropertiesPath, names.stream().collect(Collectors.joining("\n")).getBytes(StandardCharsets.UTF_8));
+            Files.write(othersPropertiesPath,
+                    names.stream().collect(Collectors.joining("\n")).getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException("Could not write to " + othersPropertiesPath, e);
         }
@@ -256,17 +260,22 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     }
 
     private List<CamelQuarkusExtension> findExtensionModules() {
-        try {
-            return Files.list(extensionsDir.toPath())
-                    .filter(Files::isDirectory)
-                    .filter(path -> !EXCLUDE_EXTENSIONS.contains(path.getFileName().toString()))
-                    .map(path -> path.resolve("pom.xml"))
-                    .filter(Files::exists)
-                    .map(CamelQuarkusExtension::read)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not list " + extensionsDir, e);
-        }
+        final Path basePath = project.getBasedir().toPath();
+        return extensionDirs.stream()
+                .map(relPath -> basePath.resolve(relPath))
+                .flatMap(extensionsDir -> {
+                    try {
+                        return Files.list(extensionsDir);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
+                .filter(Files::isDirectory)
+                .filter(path -> !EXCLUDE_EXTENSIONS.contains(path.getFileName().toString()))
+                .map(path -> path.resolve("pom.xml"))
+                .filter(Files::exists)
+                .map(CamelQuarkusExtension::read)
+                .collect(Collectors.toList());
     }
 
     enum Kind {
@@ -314,11 +323,12 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             public Path getPath(PrepareCatalogQuarkusMojo mojo) {
                 return mojo.othersOutDir.toPath();
             }
-        }
-        ;
+        };
 
         public abstract String getName(JsonObject json);
+
         public abstract Path getPath(PrepareCatalogQuarkusMojo mojo);
+
         public String getSingularName() {
             return name().substring(0, name().length() - 1);
         }
@@ -342,24 +352,24 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     final JsonParser jsonParser = new JsonParser();
                     final Map<String, List<JsonObject>> entries = new HashMap<>();
                     propsReader.lines()
-                        .map(name -> {
-                            final String rPath = "org/apache/camel/catalog/" + kind + "/" + name + ".json";
-                            try (Reader r = new InputStreamReader(PrepareCatalogQuarkusMojo.class.getClassLoader()
-                                    .getResourceAsStream(rPath ), StandardCharsets.UTF_8)) {
-                                return jsonParser.parse(r).getAsJsonObject();
-                            } catch (IOException e) {
-                                throw new RuntimeException("Could not load resource " + rPath + " from class path", e);
-                            }
-                       })
-                       .forEach(json -> {
-                           String aid = json.get(kind.getSingularName()).getAsJsonObject().get("artifactId").getAsString();
-                           List<JsonObject> jsons = entries.get(aid);
-                           if (jsons == null) {
-                               jsons = new ArrayList<JsonObject>();
-                               entries.put(aid, jsons);
-                           }
-                           jsons.add(json);
-                       });
+                            .map(name -> {
+                                final String rPath = "org/apache/camel/catalog/" + kind + "/" + name + ".json";
+                                try (Reader r = new InputStreamReader(PrepareCatalogQuarkusMojo.class.getClassLoader()
+                                        .getResourceAsStream(rPath), StandardCharsets.UTF_8)) {
+                                    return jsonParser.parse(r).getAsJsonObject();
+                                } catch (IOException e) {
+                                    throw new RuntimeException("Could not load resource " + rPath + " from class path", e);
+                                }
+                            })
+                            .forEach(json -> {
+                                String aid = json.get(kind.getSingularName()).getAsJsonObject().get("artifactId").getAsString();
+                                List<JsonObject> jsons = entries.get(aid);
+                                if (jsons == null) {
+                                    jsons = new ArrayList<JsonObject>();
+                                    entries.put(aid, jsons);
+                                }
+                                jsons.add(json);
+                            });
 
                     entriesByKindByArtifactId.put(kind, entries);
 
@@ -411,7 +421,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     Optional<Dependency> artifact = deps.stream()
                             .filter(dep ->
 
-                                    "org.apache.camel".equals(dep.getGroupId()) &&
+                            "org.apache.camel".equals(dep.getGroupId()) &&
                                     ("compile".equals(dep.getScope()) || dep.getScope() == null))
                             .findFirst();
                     if (artifact.isPresent()) {
@@ -433,10 +443,9 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                         aid,
                         name,
                         runtimePom.getDescription(),
-                        props.getProperty("label")
-                        );
+                        props.getProperty("label"));
             } catch (IOException | XmlPullParserException e) {
-                throw new RuntimeException("Could not read "+ parentPomXmlPath, e);
+                throw new RuntimeException("Could not read " + parentPomXmlPath, e);
             }
         }
 
