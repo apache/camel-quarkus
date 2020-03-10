@@ -91,9 +91,7 @@
     </properties>
 
     <modules>
-        <module>poms/bom</module>
-        <module>poms/bom-deployment</module>
-        <module>poms/build-parent</module>
+        <module>poms</module>
         <module>tooling</module>
         <module>extensions</module>
         <module>catalog</module>
