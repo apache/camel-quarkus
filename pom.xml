@@ -246,6 +246,7 @@
                         <excludes>
                             <exclude>**/*.adoc</exclude>
                             <exclude>**/*.csv</exclude>
+                            <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>
                             <exclude>**/*.lock</exclude>
                             <exclude>**/*.mp3</exclude>
