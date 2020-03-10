@@ -32,18 +32,6 @@
     <name>Camel Quarkus :: Extensions</name>
 
     <modules>
-        <!-- support extensions -->
-        <module>support</module>
-
-        <!-- common/shared extensions -->
-        <module>core</module>
-        <module>core-cloud</module>
-        <module>http-common</module>
-        <module>reactive-executor</module>
-        <module>xml-io</module>
-        <module>xml-jaxb</module>
-        <module>xml-jaxp</module>
-
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
         <module>ahc</module>
@@ -165,44 +153,4 @@
         </plugins>
     </build>
 
-    <profiles>
-        <profile>
-            <id>enforce</id>
-            <activation>
-                <property>
-                    <name>enforce</name>
-                    <value>!false</value>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>validate-extension-metadata</id>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <source>file:///${project.basedir}/../tooling/scripts/validate-extension-metadata.groovy</source>
-                                </configuration>
-                            </execution>
-                        </executions>
-                        <dependencies>
-                            <dependency>
-                                <groupId>org.yaml</groupId>
-                                <artifactId>snakeyaml</artifactId>
-                                <version>${snakeyaml.version}</version>
-                            </dependency>
-                        </dependencies>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
 </project>

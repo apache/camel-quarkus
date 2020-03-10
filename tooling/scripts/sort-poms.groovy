@@ -25,6 +25,7 @@ import java.nio.file.Paths
 import java.nio.file.Files
 import java.util.regex.Matcher
 import java.util.regex.Pattern
+import java.util.stream.Stream
 
 import groovy.util.NodeList
 
@@ -187,14 +188,16 @@ void sortModules(String[] sortModulesPaths) {
 
 void updateMvndRules(String[] updateMvndRuleDirs) {
     final Set<String> extensionArtifactIds = [] as TreeSet
-    Files.list(baseDir.resolve('extensions'))
+    Stream.of('extensions', 'extensions-core')
+            .map { relPath -> baseDir.resolve(relPath) }
+            .flatMap { extensionsDir -> Files.list(extensionsDir) }
             .filter { p -> Files.isDirectory(p) && Files.exists(p.resolve('pom.xml')) && Files.exists(p.resolve('runtime')) }
             .map { p -> p.getFileName().toString() }
-            .filter { dirName -> !dirName.equals('support') }
             .map { dirName -> 'camel-quarkus-' + dirName }
             .forEach { aid -> extensionArtifactIds << aid }
 
-    Files.list(baseDir.resolve('extensions/support'))
+
+    Files.list(baseDir.resolve('extensions-support'))
             .filter { p -> Files.isDirectory(p) && Files.exists(p.resolve('pom.xml')) && Files.exists(p.resolve('runtime')) }
             .map { p -> p.getFileName().toString() }
             .map { dirName -> 'camel-quarkus-support-' + dirName }

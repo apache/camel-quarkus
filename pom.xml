@@ -93,6 +93,8 @@
     <modules>
         <module>poms</module>
         <module>tooling</module>
+        <module>extensions-core</module>
+        <module>extensions-support</module>
         <module>extensions</module>
         <module>catalog</module>
         <module>integration-tests</module>
@@ -345,6 +347,20 @@
                                 <phase>process-resources</phase>
                                 <configuration>
                                     <source>file:///${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>validate-extension-metadata</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <source>file:///${project.basedir}/tooling/scripts/validate-extension-metadata.groovy</source>
+                                    <properties>
+                                        <extensionDirs>extensions-core,extensions-support,extensions</extensionDirs>
+                                    </properties>
                                 </configuration>
                             </execution>
                         </executions>

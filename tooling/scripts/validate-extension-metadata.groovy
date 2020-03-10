@@ -16,57 +16,66 @@
  */
 
 import groovy.io.FileType
+import java.nio.file.Files
+import java.nio.file.Path
+
+final String[] extensionDirs = properties['extensionDirs'].split(',')
 
 final String quarkusExtensionRelPath = 'runtime/src/main/resources/META-INF/quarkus-extension.yaml'
 final List<String> messages = []
+final Path basePath = project.basedir.toPath()
 
-project.basedir.eachFile(FileType.DIRECTORIES) {
-    if (new File(it, 'runtime/pom.xml').exists()) {
-        final File extensionFile = new File(it, quarkusExtensionRelPath)
-        final String shortPath = it.name + '/' + quarkusExtensionRelPath
+for (String extensionDir in extensionDirs) {
+    final Path extensionDirPath = basePath.resolve(extensionDir)
+    Files.list(extensionDirPath)
+            .filter { path -> Files.isDirectory(path) }
+            .filter { path -> Files.exists(path.resolve('runtime/pom.xml')) }
+            .map { path -> path.resolve(quarkusExtensionRelPath) }
+            .forEach { extensionFile ->
+                final String shortPath = basePath.relativize(extensionFile).toString()
+                if (!Files.exists(extensionFile)) {
+                    messages.add(shortPath + ' is missing')
+                } else {
+                    def yaml = new org.yaml.snakeyaml.Yaml()
+                    def descriptor = yaml.load(extensionFile.getText("UTF-8"))
 
-        if (!extensionFile.exists()) {
-            messages.add(shortPath + ' is missing')
-        } else {
-            def yaml = new org.yaml.snakeyaml.Yaml()
-            def descriptor = yaml.load(extensionFile.getText("UTF-8"))
+                    if (!descriptor.name) {
+                        messages.add(shortPath + ' must contain name')
+                    }
+                    if (!descriptor.description) {
+                        messages.add(shortPath + ' must contain description')
+                    }
 
-            if (!descriptor.name) {
-                messages.add(shortPath + ' must contain name')
-            }
-            if (!descriptor.description) {
-                messages.add(shortPath + ' must contain description')
-            }
+                    // metadata
+                    if (!descriptor.metadata) {
+                        messages.add(shortPath + ' must contain metadata section')
+                        return
+                    }
+                    if (!descriptor.metadata.guide?.equals('https://quarkus.io/guides/camel')) {
+                        messages.add(shortPath + ' must contain a link to the guide https://quarkus.io/guides/camel')
+                    }
 
-            // metadata
-            if (!descriptor.metadata) {
-                messages.add(shortPath + ' must contain metadata section')
-                return
-            }
-            if (!descriptor.metadata.guide?.equals('https://quarkus.io/guides/camel')) {
-                messages.add(shortPath + ' must contain a link to the guide https://quarkus.io/guides/camel')
-            }
+                    // keywords
+                    if (!descriptor.metadata.keywords) {
+                        messages.add(shortPath + ' metadata must contain keywords section')
+                        return
+                    }
+                    if (!descriptor.metadata.keywords?.contains('camel')) {
+                        messages.add(shortPath + ' metadata must contain a list of keywords with at least "camel" present')
+                    }
 
-            // keywords
-            if (!descriptor.metadata.keywords) {
-                messages.add(shortPath + ' metadata must contain keywords section')
-                return
+                    // categories
+                    if (!descriptor.metadata.categories) {
+                        messages.add(shortPath + ' metadata must contain categories section')
+                        return
+                    }
+                    if (!descriptor.metadata.categories?.contains('integration')) {
+                        messages.add(shortPath + ' metadata must contain a list of categories with at least "integration" present')
+                    }
+                }
             }
-            if (!descriptor.metadata.keywords?.contains('camel')) {
-                messages.add(shortPath + ' metadata must contain a list of keywords with at least "camel" present')
-            }
-
-            // categories
-            if (!descriptor.metadata.categories) {
-                messages.add(shortPath + ' metadata must contain categories section')
-                return
-            }
-            if (!descriptor.metadata.categories?.contains('integration')) {
-                messages.add(shortPath + ' metadata must contain a list of categories with at least "integration" present')
-            }
-        }
-    }
 }
+
 
 if (!messages.isEmpty()) {
     throw new RuntimeException("\nQuarkus extension metadata validation failures:\n\n    "
