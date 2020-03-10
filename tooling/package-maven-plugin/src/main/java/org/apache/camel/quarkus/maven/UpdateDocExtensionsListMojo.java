@@ -95,19 +95,19 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
     /**
      * The directory for extensions
      */
-    @Parameter(defaultValue = "${project.directory}/../../../extensions")
+    @Parameter(defaultValue = "${project.directory}/../../extensions")
     protected File readmeExtensionsDir;
 
     /**
      * The website doc base directory
      */
-    @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages")
+    @Parameter(defaultValue = "${project.directory}/../../docs/modules/ROOT/pages")
     protected File websiteDocBaseDir;
 
     /**
      * The website doc for extensions
      */
-    @Parameter(defaultValue = "${project.directory}/../../../docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc")
+    @Parameter(defaultValue = "${project.directory}/../../docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc")
     protected File websiteDocFile;
 
     /**
