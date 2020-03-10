@@ -150,6 +150,7 @@ jobs:
               compression
               dozer
               ftp
+              graphql
               mail
               mustache
               pdf
