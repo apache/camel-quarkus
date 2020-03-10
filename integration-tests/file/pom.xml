@@ -36,7 +36,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-file-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-file-deployment,camel-quarkus-file-watch-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
@@ -45,8 +45,16 @@
             <artifactId>camel-quarkus-file</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-file-watch</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -59,6 +67,17 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hamcrest</groupId>
+                    <artifactId>hamcrest-core</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 

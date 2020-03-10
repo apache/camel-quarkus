@@ -77,6 +77,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>file-watch</module>
         <module>ftp</module>
         <module>gson</module>
         <module>http</module>

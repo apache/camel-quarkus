@@ -1,0 +1,30 @@
+[[file-watch]]
+= File Watch Extension
+
+*Since Camel Quarkus 1.0.0.M5*
+
+Watch file modification events in a folder. Based on https://github.com/gmethvin/directory-watcher[gmethvin/directory-watcher].
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-file-watch</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+Please refer to the https://camel.apache.org/components/latest/file-watch-component.html[File Watch] component page.
+
+== Camel Quarkus specific behavior
+
+The underlying Camel component configures the Directory Watcher in a platform specific way:
+
+* On Mac, the `io.methvin.watchservice.MacOSXListeningWatchService` is used that depends on
+  `https://github.com/java-native-access/jna[net.java.dev.jna:jna]`.
+* Other platforms use `java.nio.file.WatchService` provided by the Java Runtime.
+
+Because JNA is https://github.com/oracle/graal/issues/673[not supported on GraalVM] yet, we made the component to behave differently on Camel Quarkus: We are substituting the respective Directory Watcher method do use the stock `java.nio.file.WatchService` also on Mac.
