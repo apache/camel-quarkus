@@ -124,6 +124,7 @@ jobs:
               jsonpath
               scheduler
               seda
+              ref
           - category: Memoryhog Dataformat JSON
             test-modules: >
               dataformats-json

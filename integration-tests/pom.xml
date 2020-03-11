@@ -195,6 +195,7 @@
         <module>platform-http</module>
         <module>platform-http-engine</module>
         <module>reactive-streams</module>
+        <module>ref</module>
         <module>salesforce</module>
         <module>scheduler</module>
         <module>seda</module>

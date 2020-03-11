@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 75 in 65 JAR artifacts (0 deprecated)
+Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -182,6 +182,9 @@ Number of Camel components: 75 in 65 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams] (camel-quarkus-reactive-streams) +
 `reactive-streams:stream` | 1.0.0-M3 | Reactive Camel using reactive streams
+
+| link:https://camel.apache.org/components/latest/ref-component.html[Ref] (camel-quarkus-ref) +
+`ref:name` | 1.0.0-M5 | The ref component is used for lookup of existing endpoints bound in the Registry.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2.0 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
