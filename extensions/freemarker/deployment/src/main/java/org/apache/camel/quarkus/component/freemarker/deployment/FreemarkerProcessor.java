@@ -24,6 +24,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.Exchange;
+import org.apache.camel.quarkus.component.freemarker.CamelFreemarkerConfig;
 import org.apache.camel.support.DefaultExchange;
 
 class FreemarkerProcessor {
@@ -51,4 +52,10 @@ class FreemarkerProcessor {
                 DefaultExchange.class));
     }
 
+    @BuildStep
+    void registerClassModelsForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            CamelFreemarkerConfig camelFreemarkerConfig) {
+        camelFreemarkerConfig.classModels.ifPresent(strings -> reflectiveClass.produce(
+                new ReflectiveClassBuildItem(true, false, strings.toArray(new String[0]))));
+    }
 }

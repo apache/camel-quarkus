@@ -44,4 +44,10 @@ The Camel Freemarker extension exposes the following configuration properties.
  Used for exclusive filtering scanning of Freemarker templates. By default none file inside 'locations' will be excluded.
 |List<String>
 |`[]`
+
+|`quarkus.camel.freemarker.class-models`
+
+ List of canonical Java Class names that are used in the Freemarker Templates. This will help to add your JavaBeans to the list of Quarkus Refection classes. If you are already  adding your Classes using @RegisterForReflection or any other method then you don't need to use this property.
+|List<String>
+|`[]`
 |===

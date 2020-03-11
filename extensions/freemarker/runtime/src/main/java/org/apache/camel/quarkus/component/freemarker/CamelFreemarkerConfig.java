@@ -60,4 +60,16 @@ public class CamelFreemarkerConfig {
      */
     @ConfigItem
     public Optional<List<String>> includePatterns;
+
+    /**
+     * List of canonical Java Class names that are used in the Freemarker Templates. This will help
+     * to add your JavaBeans to the list of Quarkus Refection classes. If you are already
+     * adding your Classes using @RegisterForReflection or any other method then
+     * you don't need to use this property.
+     *
+     *
+     * Tip: If you want to add a nested static classes you can use the something like: org.mycompany.MyClass$MyNestedClass
+     */
+    @ConfigItem
+    public Optional<List<String>> classModels;
 }

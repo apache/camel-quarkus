@@ -24,7 +24,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
@@ -62,7 +61,6 @@ public class FreemarkerBodyAsDomainObjectResource {
         }
     }
 
-    @RegisterForReflection
     public static class MyPerson {
         private String givenName;
         private String familyName;
