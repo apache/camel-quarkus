@@ -18,13 +18,10 @@ package org.apache.camel.quarkus.component.kafka.it;
 
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.apache.camel.quarkus.core.CamelMain;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,9 +29,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @QuarkusTest
 @QuarkusTestResource(CamelKafkaTestResource.class)
 public class CamelKafkaTest {
-
-    @Inject
-    CamelMain main;
 
     @Test
     void testKafkaBridge() {

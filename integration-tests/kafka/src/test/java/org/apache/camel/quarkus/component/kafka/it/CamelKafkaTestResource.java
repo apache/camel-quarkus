@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.kafka.it;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.camel.quarkus.core.CamelMain;
 import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,14 +31,6 @@ public class CamelKafkaTestResource implements ContainerResourceLifecycleManager
     private static final String CONFLUENT_PLATFORM_VERSION = "5.3.1";
 
     private KafkaContainer container;
-    private CamelMain main;
-
-    @Override
-    public void inject(Object testInstance) {
-        if (testInstance instanceof CamelKafkaTest) {
-            this.main = ((CamelKafkaTest) testInstance).main;
-        }
-    }
 
     @Override
     public Map<String, String> start() {
@@ -60,13 +51,6 @@ public class CamelKafkaTestResource implements ContainerResourceLifecycleManager
 
     @Override
     public void stop() {
-        if (main != null) {
-            try {
-                main.stop();
-            } catch (Exception e) {
-                // ignored
-            }
-        }
         if (container != null) {
             try {
                 container.stop();
