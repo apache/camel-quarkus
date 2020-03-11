@@ -228,4 +228,12 @@ public class CoreMainResource {
 
         return builder.build();
     }
+
+    @Path("/registry/string/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getStringValueFromRegistry(@PathParam("name") String name) {
+        final DefaultRegistry registry = context.getRegistry(DefaultRegistry.class);
+        return registry.getFallbackRegistry().lookupByNameAndType(name, String.class);
+    }
 }
