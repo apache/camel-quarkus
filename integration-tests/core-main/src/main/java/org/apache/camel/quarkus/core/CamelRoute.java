@@ -16,9 +16,13 @@
  */
 package org.apache.camel.quarkus.core;
 
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 
 public class CamelRoute extends RouteBuilder {
+
+    @BindToRegistry
+    private String stringFromRegistry = "String From Registry";
 
     @Override
     public void configure() {

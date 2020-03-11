@@ -172,4 +172,14 @@ public class CoreMainTest {
                         "registry", is("repository"),
                         "registry-type", is("org.apache.camel.quarkus.core.RuntimeBeanRepository"));
     }
+
+    @Test
+    public void testGetStringFromRegistry() {
+        RestAssured.given()
+                .accept(MediaType.TEXT_PLAIN)
+                .get("/test/registry/string/stringFromRegistry")
+                .then()
+                .statusCode(200)
+                .body(is("String From Registry"));
+    }
 }

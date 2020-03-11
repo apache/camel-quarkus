@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.component.mustache.it;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
 
-@RegisterForReflection(fields = true, methods = false)
 public class MustacheRoute extends RouteBuilder {
 
     @BindToRegistry
