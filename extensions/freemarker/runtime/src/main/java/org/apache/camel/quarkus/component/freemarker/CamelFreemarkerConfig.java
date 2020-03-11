@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.freemarker;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
@@ -25,13 +26,38 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel.freemarker", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelFreemarkerConfig {
     /**
-     * Comma-separated list of locations to scan recursively for templates. The location type is determined by its prefix.
-     * Unprefixed locations or locations starting with classpath: point to a package on the classpath and may FTL templates.
-     * Locations starting with filesystem: point to a directory on the filesystem, may only contain FTL templates and are
-     * only
-     * scanned recursively down non-hidden directories.
+     * Comma-separated list of locations to scan recursively for templates. All tree folder from 'locations'
+     * will be added as a resource.
+     * Unprefixed locations or locations starting with classpath will be processed in the same way.
      */
     @ConfigItem(defaultValue = "freemarker/templates")
     public List<String> locations;
 
+    /**
+     * Used for exclusive filtering scanning of Freemarker templates.
+     * The exclusive filtering takes precedence over inclusive filtering.
+     * The pattern is using Ant-path style pattern.
+     * Multiple patterns can be specified separated by comma.
+     *
+     * For example to exclude all files starting with Bar use: &#42;&#42;/Bar&#42;
+     * To exclude all files from a specific folder use: com/mycompany/bar/&#42;
+     * To exclude all files from a specific package and its sub-packages use double wildcards: com/mycompany/bar/&#42;&#42;
+     * And to exclude all files from two specific packages use: com/mycompany/bar/&#42;,com/mycompany/stuff/&#42;
+     */
+    @ConfigItem
+    public Optional<List<String>> excludePatterns;
+
+    /**
+     * Used for inclusive filtering scanning of Freemarker templates.
+     * The exclusive filtering takes precedence over inclusive filtering.
+     * The pattern is using Ant-path style pattern.
+     *
+     * Multiple patterns can be specified separated by comma.
+     * For example to include all files starting with Foo use: &#42;&#42;/Foo*
+     * To include all files from a specific package use: com/mycompany/foo/&#42;
+     * To include all files form a specific package and its sub-packages use double wildcards: com/mycompany/foo/&#42;&#42;
+     * And to include all templates from two specific packages use: com/mycompany/foo/&#42;,com/mycompany/stuff/&#42;
+     */
+    @ConfigItem
+    public Optional<List<String>> includePatterns;
 }

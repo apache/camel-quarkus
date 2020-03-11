@@ -38,6 +38,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import org.apache.camel.quarkus.component.freemarker.CamelFreemarkerConfig;
+import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.commons.io.FilenameUtils;
 import org.jboss.logging.Logger;
 
@@ -82,10 +83,10 @@ class FreemarkerNativeImageProcessor {
                     final Set<String> freemarkerTemplates;
                     if (JAR_APPLICATION_MIGRATIONS_PROTOCOL.equals(path.getProtocol())) {
                         try (final FileSystem fileSystem = initFileSystem(path.toURI())) {
-                            freemarkerTemplates = getFreemarkerTemplatesFromPath(location, path);
+                            freemarkerTemplates = getFreemarkerTemplatesFromPath(camelFreemarkerConfig, location, path);
                         }
                     } else if (FILE_APPLICATION_MIGRATIONS_PROTOCOL.equals(path.getProtocol())) {
-                        freemarkerTemplates = getFreemarkerTemplatesFromPath(location, path);
+                        freemarkerTemplates = getFreemarkerTemplatesFromPath(camelFreemarkerConfig, location, path);
                     } else {
                         LOGGER.warnv(
                                 "Unsupported URL protocol ''{0}'' for path ''{1}''. Freemarker files will not be discovered.",
@@ -105,11 +106,15 @@ class FreemarkerNativeImageProcessor {
         }
     }
 
-    private Set<String> getFreemarkerTemplatesFromPath(final String location, final URL path)
+    private Set<String> getFreemarkerTemplatesFromPath(CamelFreemarkerConfig config, final String location, final URL path)
             throws IOException, URISyntaxException {
         try (final Stream<Path> pathStream = Files.walk(Paths.get(path.toURI()))) {
-            return pathStream.filter(Files::isRegularFile)
-                    //                    .filter(p -> p.getFileName().toString().endsWith(".ftl"))
+            return pathStream
+                    .filter(Files::isRegularFile)
+                    .filter(new PathFilter.Builder()
+                            .exclude(config.excludePatterns)
+                            .include(config.includePatterns)
+                            .build().asPathPredicate())
                     .map(it -> {
                         String file = FilenameUtils.separatorsToUnix(it.toString());
                         int indexOf = file.lastIndexOf("/" + location + "/");

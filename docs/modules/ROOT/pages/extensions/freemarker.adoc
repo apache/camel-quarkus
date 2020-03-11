@@ -33,4 +33,15 @@ The Camel Freemarker extension exposes the following configuration properties.
 |List<String>
 |`freemarker/templates`
 
+|`quarkus.camel.freemarker.include-patterns`
+
+ Used for inclusive filtering scanning of Freemarker templates. By default all tree files inside 'locations' will be included.
+|List<String>
+|`[]`
+
+|`quarkus.camel.freemarker.exclude-patterns`
+
+ Used for exclusive filtering scanning of Freemarker templates. By default none file inside 'locations' will be excluded.
+|List<String>
+|`[]`
 |===
