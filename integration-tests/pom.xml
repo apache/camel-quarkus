@@ -38,6 +38,8 @@
         <sshd.version>2.3.0</sshd.version>
         <testcontainers.version>1.12.5</testcontainers.version>
         <mock-javamail.version>1.9</mock-javamail.version>
+
+        <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
 
     <dependencyManagement>
