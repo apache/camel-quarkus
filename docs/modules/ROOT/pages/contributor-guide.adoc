@@ -68,7 +68,7 @@ $ cd camel-quarkus
 $ cd extensions
 $ mvn quarkus:create-extension -N \
     -Dquarkus.artifactIdBase=foo-abc \
-    -Dquarkus.nameBase="Foo ABC"
+    -Dquarkus.nameBase="Foo ABC" \
     -Dquarkus.additionalRuntimeDependencies="org.apache.camel:camel-@{quarkus.artifactIdBase}:@{$}{camel.version}"
 ----
 +
