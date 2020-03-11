@@ -48,8 +48,7 @@ jobs:
           java-version: 1.8
       - name: Build Project
         run: |
-          ./mvnw -V -B ${BRANCH_OPTIONS} \
-            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+          ./mvnw -V -ntp ${BRANCH_OPTIONS} \
             clean install
       - name: Save Cache
         uses: actions/cache@v1
@@ -83,8 +82,7 @@ jobs:
             maven-${{ github.sha }}
       - name: Build on ${{ matrix.java }}
         run: |
-          ./mvnw -V -B ${BRANCH_OPTIONS} \
-            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+          ./mvnw -V -ntp ${BRANCH_OPTIONS} \
             clean verify
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -208,8 +206,7 @@ jobs:
           for i in $TEST_MODULES
           do modules+=("integration-tests/$i"); done
           IFS=,
-          eval ./mvnw -V -B ${BRANCH_OPTIONS} \
-            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
+          eval ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
             -Dnative \
             -Ddocker \
             -DskipTests \
