@@ -134,6 +134,16 @@ public class CoreMainTest {
         assertThat(factoryFinderMap)
                 .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/properties-component-factory"))
                 .hasKeySatisfying(doesNotStartWith("META-INF/services/org/apache/camel/reactive-executor"));
+
+        // rest properties are configured through CamelContext, this test is to spot changes
+        // done to underlying camel-main implementation that would prevent to configure it
+        // consistently across runtimes using camel-main properties.
+        assertThat(p.getString("config.rest-port")).isEqualTo("9876");
+
+        // resilience4j properties are configured through ModelCamelContext, this test is
+        // to ensure that FastCamelContext won't change in a way it cannot be configured
+        // consistently across runtimes using camel-main properties.
+        assertThat(p.getString("config.resilience4j-sliding-window-size")).isEqualTo("1234");
     }
 
     @Test

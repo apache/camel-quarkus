@@ -64,4 +64,10 @@ public class CoreTest {
         RestAssured.when().get("/test/catalog/component/timer").then().body(not(emptyOrNullString()));
         RestAssured.when().get("/test/catalog/language/simple").then().body(emptyOrNullString());
     }
+
+    @Test
+    public void testAdaptContext() {
+        RestAssured.when().get("/test/adapt/model-camel-context").then().body(is("true"));
+        RestAssured.when().get("/test/adapt/extended-camel-context").then().body(is("true"));
+    }
 }

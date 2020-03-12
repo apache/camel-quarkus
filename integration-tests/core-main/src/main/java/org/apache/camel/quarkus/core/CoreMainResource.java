@@ -38,6 +38,7 @@ import org.apache.camel.Component;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.runtime.support.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.BeanRepository;
@@ -154,6 +155,13 @@ public class CoreMainResource {
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
                 .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
+                .add("config", Json.createObjectBuilder()
+                        .add("rest-port",
+                                context.getRestConfiguration().getPort())
+                        .add("resilience4j-sliding-window-size",
+                                context.adapt(ModelCamelContext.class)
+                                        .getResilience4jConfiguration(null)
+                                        .getSlidingWindowSize()))
                 .add("registry", Json.createObjectBuilder()
                         .add("components", componentsInRegistry)
                         .add("dataformats", dataformatsInRegistry)

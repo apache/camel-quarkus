@@ -29,9 +29,11 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
@@ -97,6 +99,30 @@ public class CoreResource {
         }
 
         return true;
+    }
+
+    @Path("/adapt/model-camel-context")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean adaptToModelCamelContext() {
+        try {
+            context.adapt(ModelCamelContext.class);
+            return true;
+        } catch (ClassCastException e) {
+            return false;
+        }
+    }
+
+    @Path("/adapt/extended-camel-context")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean adaptToExtendedCamelContext() {
+        try {
+            context.adapt(ExtendedCamelContext.class);
+            return true;
+        } catch (ClassCastException e) {
+            return false;
+        }
     }
 
     @Path("/catalog/{type}/{name}")
