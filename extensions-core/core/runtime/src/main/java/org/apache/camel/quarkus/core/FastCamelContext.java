@@ -19,8 +19,10 @@ package org.apache.camel.quarkus.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
+import java.util.function.Function;
 
 import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CatalogCamelContext;
@@ -66,7 +68,17 @@ import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
+import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.HystrixConfigurationDefinition;
 import org.apache.camel.model.Model;
+import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.Resilience4jConfigurationDefinition;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
+import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.MulticastProcessor;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.BeanIntrospection;
@@ -112,7 +124,7 @@ import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.IOHelper;
 
-public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext {
+public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
     private final Model model;
     private final String version;
     private final XMLRoutesDefinitionLoader xmlLoader;
@@ -133,13 +145,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         setMessageHistory(Boolean.FALSE);
         setDefaultExtension(HealthCheckRegistry.class, DefaultHealthCheckRegistry::new);
 
-    }
-
-    @Override
-    protected void startRouteDefinitions() throws Exception {
-        if (model != null) {
-            model.startRouteDefinitions();
-        }
     }
 
     @Override
@@ -499,5 +504,174 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         }
 
         return null;
+    }
+
+    //
+    // ModelCamelContext
+    //
+
+    @Override
+    public void startRouteDefinitions() throws Exception {
+        model.startRouteDefinitions();
+    }
+
+    @Override
+    public List<RouteDefinition> getRouteDefinitions() {
+        return model.getRouteDefinitions();
+    }
+
+    @Override
+    public RouteDefinition getRouteDefinition(String id) {
+        return model.getRouteDefinition(id);
+    }
+
+    @Override
+    public void addRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
+        model.addRouteDefinitions(routeDefinitions);
+    }
+
+    @Override
+    public void addRouteDefinition(RouteDefinition routeDefinition) throws Exception {
+        model.addRouteDefinition(routeDefinition);
+    }
+
+    @Override
+    public void removeRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
+        model.removeRouteDefinitions(routeDefinitions);
+    }
+
+    @Override
+    public void removeRouteDefinition(RouteDefinition routeDefinition) throws Exception {
+        model.removeRouteDefinition(routeDefinition);
+    }
+
+    @Override
+    public List<RestDefinition> getRestDefinitions() {
+        return model.getRestDefinitions();
+    }
+
+    @Override
+    public void addRestDefinitions(Collection<RestDefinition> restDefinitions, boolean addToRoutes) throws Exception {
+        model.addRestDefinitions(restDefinitions, addToRoutes);
+    }
+
+    @Override
+    public void setDataFormats(Map<String, DataFormatDefinition> dataFormats) {
+        model.setDataFormats(dataFormats);
+    }
+
+    @Override
+    public Map<String, DataFormatDefinition> getDataFormats() {
+        return model.getDataFormats();
+    }
+
+    @Override
+    public DataFormatDefinition resolveDataFormatDefinition(String name) {
+        return model.resolveDataFormatDefinition(name);
+    }
+
+    @Override
+    public ProcessorDefinition getProcessorDefinition(String id) {
+        return model.getProcessorDefinition(id);
+    }
+
+    @Override
+    public <T extends ProcessorDefinition> T getProcessorDefinition(String id, Class<T> type) {
+        return model.getProcessorDefinition(id, type);
+    }
+
+    @Override
+    public void setValidators(List<ValidatorDefinition> validators) {
+        model.setValidators(validators);
+    }
+
+    @Override
+    public HystrixConfigurationDefinition getHystrixConfiguration(String id) {
+        return model.getHystrixConfiguration(id);
+    }
+
+    @Override
+    public void setHystrixConfiguration(HystrixConfigurationDefinition configuration) {
+        model.setHystrixConfiguration(configuration);
+    }
+
+    @Override
+    public void setHystrixConfigurations(List<HystrixConfigurationDefinition> configurations) {
+        model.setHystrixConfigurations(configurations);
+    }
+
+    @Override
+    public void addHystrixConfiguration(String id, HystrixConfigurationDefinition configuration) {
+        model.addHystrixConfiguration(id, configuration);
+    }
+
+    @Override
+    public Resilience4jConfigurationDefinition getResilience4jConfiguration(String id) {
+        return model.getResilience4jConfiguration(id);
+    }
+
+    @Override
+    public void setResilience4jConfiguration(Resilience4jConfigurationDefinition configuration) {
+        model.setResilience4jConfiguration(configuration);
+    }
+
+    @Override
+    public void setResilience4jConfigurations(List<Resilience4jConfigurationDefinition> configurations) {
+        model.setResilience4jConfigurations(configurations);
+    }
+
+    @Override
+    public void addResilience4jConfiguration(String id, Resilience4jConfigurationDefinition configuration) {
+        model.addResilience4jConfiguration(id, configuration);
+    }
+
+    @Override
+    public List<ValidatorDefinition> getValidators() {
+        return model.getValidators();
+    }
+
+    @Override
+    public void setTransformers(List<TransformerDefinition> transformers) {
+        model.setTransformers(transformers);
+    }
+
+    @Override
+    public List<TransformerDefinition> getTransformers() {
+        return model.getTransformers();
+    }
+
+    @Override
+    public ServiceCallConfigurationDefinition getServiceCallConfiguration(String serviceName) {
+        return model.getServiceCallConfiguration(serviceName);
+    }
+
+    @Override
+    public void setServiceCallConfiguration(ServiceCallConfigurationDefinition configuration) {
+        model.setServiceCallConfiguration(configuration);
+    }
+
+    @Override
+    public void setServiceCallConfigurations(List<ServiceCallConfigurationDefinition> configurations) {
+        model.setServiceCallConfigurations(configurations);
+    }
+
+    @Override
+    public void addServiceCallConfiguration(String serviceName, ServiceCallConfigurationDefinition configuration) {
+        model.addServiceCallConfiguration(serviceName, configuration);
+    }
+
+    @Override
+    public void setRouteFilterPattern(String include, String exclude) {
+        model.setRouteFilterPattern(include, exclude);
+    }
+
+    @Override
+    public void setRouteFilter(Function<RouteDefinition, Boolean> filter) {
+        model.setRouteFilter(filter);
+    }
+
+    @Override
+    public Function<RouteDefinition, Boolean> getRouteFilter() {
+        return model.getRouteFilter();
     }
 }
