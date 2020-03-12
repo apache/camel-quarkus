@@ -203,6 +203,7 @@
         <module>seda</module>
         <module>servlet</module>
         <module>slack</module>
+        <module>soap</module>
         <module>sql</module>
         <module>stream</module>
         <module>tarfile</module>

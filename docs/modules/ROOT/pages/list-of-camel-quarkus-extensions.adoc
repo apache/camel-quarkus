@@ -258,7 +258,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 23 in 18 JAR artifacts (0 deprecated)
+Number of Camel data formats: 24 in 19 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -297,6 +297,8 @@ Number of Camel data formats: 23 in 18 JAR artifacts (0 deprecated)
 | link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.0.0-M4 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
+
+| link:https://camel.apache.org/components/latest/soapjaxb-dataformat.html[SOAP] (camel-quarkus-soap) | 1.0.0-M5 | SOAP is a data format which uses JAXB2 and JAX-WS annotations to marshal and unmarshal SOAP payloads.
 
 | link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | 0.3.0 | The Tar File data format is a message compression and de-compression format of tar files.
 

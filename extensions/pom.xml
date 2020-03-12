@@ -108,6 +108,7 @@
         <module>sjms2</module>
         <module>slack</module>
         <module>snakeyaml</module>
+        <module>soap</module>
         <module>sql</module>
         <module>stream</module>
         <module>tagsoup</module>
