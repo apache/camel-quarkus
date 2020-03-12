@@ -1,0 +1,27 @@
+[[qute]]
+= Camel Qute Extension
+
+*Since Camel Quarkus 1.0.0-M6*
+
+The Camel Qute component provides to use the Quarkus Qute as the templating engine.
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-qute</artifactId>
+</dependency>
+----
+
+== Usage
+
+Please refer to the https://quarkus.io/guides/qute[Quarkus Qute].
+
+
+== Configuration
+
+By default, all files located in the src/main/resources/templates directory and its subdirectories
+are registered as templates. Templates are validated during startup and watched for changes in the
+development mode.

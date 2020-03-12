@@ -97,6 +97,7 @@
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
+        <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>
         <module>rest</module>

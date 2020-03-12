@@ -275,6 +275,7 @@
                             <exclude>node/**</exclude>
                             <exclude>**/resources/routes.1</exclude>
                             <exclude>**/resources/routes.2</exclude>
+                            <exclude>**/generated/**</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
