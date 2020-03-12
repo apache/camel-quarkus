@@ -155,6 +155,7 @@ jobs:
               mail
               mustache
               pdf
+              qute
               stream
               tarfile
               telegram

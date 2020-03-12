@@ -24,7 +24,7 @@ final File pomXml = new File(project.basedir, "pom.xml")
 /* groupIds that contain extensions */
 final Set<String> extensionGroupIds = ["org.apache.camel.quarkus", "io.quarkus"] as Set
 /* artifactIds from groups contained in extensionGroupIds that are not extensions */
-final Set<String> nonExtensionArtifactIds = ["quarkus-development-mode-spi"] as Set
+final Set<String> nonExtensionArtifactIds = ["quarkus-development-mode-spi", "camel-quarkus-qute-component"] as Set
 
 final Path treeRootDir = Paths.get(project.properties['camel.quarkus.project.root'])
 final Path relativePomPath = treeRootDir.relativize(pomXml.toPath().normalize())
