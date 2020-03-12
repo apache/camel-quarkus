@@ -54,6 +54,7 @@
         <snakeyaml.version>1.25</snakeyaml.version>
         <xalan.version>2.7.2</xalan.version>
         <xerces.version>2.12.0</xerces.version>
+        <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <kotlin.version>1.3.61</kotlin.version>
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>5.2.3.RELEASE</spring.version>

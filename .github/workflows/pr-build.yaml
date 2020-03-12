@@ -114,6 +114,7 @@ jobs:
               dataformat
               jaxb
               xstream
+              soap
           - category: Foundation
             test-modules: >
               bean
