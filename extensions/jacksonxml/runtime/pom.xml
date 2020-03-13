@@ -32,7 +32,7 @@
     <name>Camel Quarkus :: Jackson XML :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M5</firstVersion>
+        <firstVersion>1.0.0-RC1</firstVersion>
     </properties>
 
     <dependencyManagement>

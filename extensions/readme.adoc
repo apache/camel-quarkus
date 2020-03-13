@@ -12,7 +12,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 | Component | Since | Description
 
 | link:https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ] (camel-quarkus-activemq) +
-`activemq:destinationType:destinationName` | 1.0.0-M5 | The activemq component allows messages to be sent to (or consumed from) Apache ActiveMQ. This component extends the Camel JMS component.
+`activemq:destinationType:destinationName` | 1.0.0-RC1 | The activemq component allows messages to be sent to (or consumed from) Apache ActiveMQ. This component extends the Camel JMS component.
 
 | xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
 `ahc:httpUri` | 1.0.0-M3 | To call external HTTP services using Async Http Client.
@@ -102,7 +102,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 `file:directoryName` | 0.4.0 | The file component is used for reading or writing files.
 
 | xref:extensions/file-watch.adoc[File Watch] (camel-quarkus-file-watch) +
-`file-watch:path` | 1.0.0-M5 | The file-watch is used to monitor file events in directory using java.nio.file.WatchService
+`file-watch:path` | 1.0.0-RC1 | The file-watch is used to monitor file events in directory using java.nio.file.WatchService
 
 | link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
 `ftp:host:port/directoryName` | 1.0.0-M1 | The \ftp component is used for uploading or downloading files from FTP servers.
@@ -111,7 +111,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 `ftps:host:port/directoryName` | 1.0.0-M1 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
 
 | xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
-`graphql:httpUri` | 1.0.0-M5 | A Camel GraphQL Component
+`graphql:httpUri` | 1.0.0-RC1 | A Camel GraphQL Component
 
 | xref:extensions/http.adoc[HTTP] (camel-quarkus-http) +
 `http:httpUri` | 1.0.0-M3 | For calling out to external HTTP servers using Apache HTTP Client 4.x.
@@ -147,7 +147,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 `mongodb:connectionBean` | 1.0.0-M1 | Component for working with documents stored in MongoDB database.
 
 | link:https://camel.apache.org/components/latest/mustache-component.html[Mustache] (camel-quarkus-mustache) +
-`mustache:resourceUri` | 1.0.0-M5 | Transforms the message using a Mustache template.
+`mustache:resourceUri` | 1.0.0-RC1 | Transforms the message using a Mustache template.
 
 | xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x library.
@@ -171,7 +171,7 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 `reactive-streams:stream` | 1.0.0-M3 | Reactive Camel using reactive streams
 
 | link:https://camel.apache.org/components/latest/ref-component.html[Ref] (camel-quarkus-ref) +
-`ref:name` | 1.0.0-M5 | The ref component is used for lookup of existing endpoints bound in the Registry.
+`ref:name` | 1.0.0-RC1 | The ref component is used for lookup of existing endpoints bound in the Registry.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | 0.2.0 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
@@ -268,19 +268,19 @@ Number of Camel data formats: 23 in 18 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | 1.0.0-M4 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
 
-| link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | 1.0.0-M5 | The iCal dataformat is used for working with iCalendar messages.
+| link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | 1.0.0-RC1 | The iCal dataformat is used for working with iCalendar messages.
 
-| link:https://camel.apache.org/components/latest/jacksonxml-dataformat.html[JacksonXML] (camel-quarkus-jacksonxml) | 1.0.0-M5 | JacksonXML data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
+| link:https://camel.apache.org/components/latest/jacksonxml-dataformat.html[JacksonXML] (camel-quarkus-jacksonxml) | 1.0.0-RC1 | JacksonXML data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
 
-| link:https://camel.apache.org/components/latest/jaxb-dataformat.html[JAXB] (camel-quarkus-jaxb) | 1.0.0-M5 | JAXB data format uses the JAXB2 XML marshalling standard to unmarshal an XML payload into Java objects or to marshal Java objects into an XML payload.
+| link:https://camel.apache.org/components/latest/jaxb-dataformat.html[JAXB] (camel-quarkus-jaxb) | 1.0.0-RC1 | JAXB data format uses the JAXB2 XML marshalling standard to unmarshal an XML payload into Java objects or to marshal Java objects into an XML payload.
 
 | link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | 1.0.0-M4 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
-| link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+| link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | 1.0.0-RC1 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
-| link:https://camel.apache.org/components/latest/json-xstream-dataformat.html[JSon XStream] (camel-quarkus-xstream) | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+| link:https://camel.apache.org/components/latest/json-xstream-dataformat.html[JSon XStream] (camel-quarkus-xstream) | 1.0.0-RC1 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
 
 | link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | 1.0.0-M4 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
 
@@ -290,7 +290,7 @@ Number of Camel data formats: 23 in 18 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | 1.0.0-M1 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
 
-| link:https://camel.apache.org/components/latest/xstream-dataformat.html[XStream] (camel-quarkus-xstream) | 1.0.0-M5 | XStream data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
+| link:https://camel.apache.org/components/latest/xstream-dataformat.html[XStream] (camel-quarkus-xstream) | 1.0.0-RC1 | XStream data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
 
@@ -328,7 +328,7 @@ Number of Camel languages: 11 in 5 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
 
-| link:https://camel.apache.org/components/latest/xtokenize-language.html[XML Tokenize] (camel-quarkus-xml-jaxp) | 1.0.0-M5 | To use Camel message body or header with a XML tokenizer in Camel expressions or predicates.
+| link:https://camel.apache.org/components/latest/xtokenize-language.html[XML Tokenize] (camel-quarkus-xml-jaxp) | 1.0.0-RC1 | To use Camel message body or header with a XML tokenizer in Camel expressions or predicates.
 
 | link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | 1.0.0-M4 | To use XPath (XML) in Camel expressions or predicates.
 |===
@@ -360,9 +360,9 @@ Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-reactive-executor) | 0.3.0 | Reactive Executor for camel-core using Vert.x
 
-| (camel-quarkus-xml-io) | 1.0.0-M5 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
+| (camel-quarkus-xml-io) | 1.0.0-RC1 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 
-| (camel-quarkus-xml-jaxb) | 1.0.0-M5 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
+| (camel-quarkus-xml-jaxb) | 1.0.0-RC1 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
 |===
 // others: END
 
