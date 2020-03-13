@@ -48,6 +48,7 @@ import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.DefaultRegistry;
+import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
@@ -154,6 +155,7 @@ public class CoreMainResource {
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
+                .add("lru-cache-factory", LRUCacheFactory.getInstance().getClass().getName())
                 .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
                 .add("config", Json.createObjectBuilder()
                         .add("rest-port",

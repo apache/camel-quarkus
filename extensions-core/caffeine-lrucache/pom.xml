@@ -17,29 +17,36 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-parent</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-extensions-core</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Extensions :: Core</name>
+    <artifactId>camel-quarkus-caffeine-lrucache-parent</artifactId>
+    <name>Caffeine LRUCache - Parent</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-bom-deployment</artifactId>
+                <version>${quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <modules>
-        <module>core</module>
-        <module>core-cloud</module>
-        <module>http-common</module>
-        <module>reactive-executor</module>
-        <module>xml-io</module>
-        <module>xml-jaxb</module>
-        <module>xml-jaxp</module>
-        <module>caffeine-lrucache</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
-
 </project>
