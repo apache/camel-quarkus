@@ -103,6 +103,7 @@ jobs:
               core
               core-impl
               core-main
+              core-main-caffeine-lrucache
               core-main-collector
               core-main-xml-io
               core-main-xml-jaxb

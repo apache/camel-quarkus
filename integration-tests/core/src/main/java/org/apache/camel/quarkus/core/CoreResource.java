@@ -35,6 +35,7 @@ import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
 @Path("/test")
@@ -143,5 +144,12 @@ public class CoreResource {
         default:
             throw new IllegalArgumentException("Unknown type " + type);
         }
+    }
+
+    @Path("/lru-cache-factory")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String lruCacheFactory() {
+        return LRUCacheFactory.getInstance().getClass().getName();
     }
 }

@@ -22,6 +22,7 @@ import java.net.HttpURLConnection;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -69,5 +70,10 @@ public class CoreTest {
     public void testAdaptContext() {
         RestAssured.when().get("/test/adapt/model-camel-context").then().body(is("true"));
         RestAssured.when().get("/test/adapt/extended-camel-context").then().body(is("true"));
+    }
+
+    @Test
+    public void testLRUCacheFactory() {
+        RestAssured.when().get("/test/lru-cache-factory").then().body(is(DefaultLRUCacheFactory.class.getName()));
     }
 }

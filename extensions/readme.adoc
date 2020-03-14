@@ -340,13 +340,15 @@ Number of Camel languages: 11 in 5 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 10 in 10 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 11 in 11 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
 | Extension | Since | Description
 
 | (camel-quarkus-attachments) | 0.3.0 | Java Attachments support for Camel Message
+
+| (camel-quarkus-caffeine-lrucache) | 1.0.0-M5 | Provides an implementation of the LRUCacheFactory based on Caffeine
 
 | (camel-quarkus-core-cloud) | 0.2.0 | The Camel Quarkus core cloud module
 

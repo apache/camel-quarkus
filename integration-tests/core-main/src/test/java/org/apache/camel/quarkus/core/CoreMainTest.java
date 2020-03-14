@@ -28,6 +28,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.camel.quarkus.core.runtime.support.SupportListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
+import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.test.Conditions.doesNotStartWith;
@@ -93,6 +94,7 @@ public class CoreMainTest {
                 .contains("keep-alive", "configure", "beforeStart", "produced", "endpointdsl")
                 .doesNotContain("filtered");
 
+        assertThat(p.getString("lru-cache-factory")).isEqualTo(DefaultLRUCacheFactory.class.getName());
         assertThat(p.getBoolean("autoConfigurationLogSummary")).isFalse();
 
         assertThat(p.getMap("registry.components", String.class, String.class)).isNotEmpty();
