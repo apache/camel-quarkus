@@ -86,6 +86,7 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <cq-plugin.version>0.0.1</cq-plugin.version>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
@@ -228,6 +229,11 @@
                     <artifactId>quarkus-maven-plugin</artifactId>
                     <version>${quarkus.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.l2x6.cq</groupId>
+                    <artifactId>cq-maven-plugin</artifactId>
+                    <version>${cq-plugin.version}</version>
+                </plugin>
 
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
@@ -302,6 +308,23 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+
+        <plugins>
+            <plugin>
+                <groupId>org.l2x6.cq</groupId>
+                <artifactId>cq-maven-plugin</artifactId>
+                <inherited>false</inherited>
+                <!-- Settings for stubbing new extensions. E.g. to add a new extension to support an imaginary
+                     Camel Foo ABC component, you would run
+
+                       mvn cq:create -N -Dcq.artifactIdBase=foo-abc
+
+                -->
+                <configuration>
+                    <templatesUriBase>file:///${project.basedir}/tooling/create-extension-templates</templatesUriBase>
+                </configuration>
+            </plugin>
+        </plugins>
 
     </build>
 

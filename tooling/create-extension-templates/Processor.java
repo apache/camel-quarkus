@@ -19,7 +19,7 @@ package [=javaPackageBase].deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-class [=artifactIdBaseCamelCase]Processor {
+class [=toCapCamelCase(artifactIdBase)]Processor {
 
     private static final String FEATURE = "camel-[=artifactIdBase]";
 
