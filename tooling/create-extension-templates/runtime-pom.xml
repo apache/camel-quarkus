@@ -30,6 +30,7 @@
 
     <artifactId>[=artifactId]</artifactId>
     <name>[=namePrefix][=nameBase][=nameSegmentDelimiter]Runtime</name>
+    <description>[=description]</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

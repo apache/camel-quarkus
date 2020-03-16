@@ -23,12 +23,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <artifactId>[=itestParentArtifactId]</artifactId>
         <version>[=version]</version>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-[=artifactIdBase]</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: [=nameBase]</name>
+    <artifactId>camel-quarkus-[#if nativeSupported]integration-test-[=artifactIdBase][#else][=artifactIdBase]-integration-test[/#if]</artifactId>
+    <name>Camel Quarkus :: [#if nativeSupported]Integration Tests :: [=nameBase][#else][=nameBase] :: Integration Test[/#if]</name>
     <description>Integration tests for Camel Quarkus [=nameBase] extension</description>
 
     <dependencies>
@@ -69,6 +69,7 @@
             </plugin>
         </plugins>
     </build>
+[#if nativeSupported ]
 
     <profiles>
         <profile>
@@ -100,4 +101,5 @@
         </profile>
     </profiles>
 
+[/#if]
 </project>
