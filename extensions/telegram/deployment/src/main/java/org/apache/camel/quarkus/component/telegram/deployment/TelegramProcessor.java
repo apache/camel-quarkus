@@ -19,13 +19,16 @@ package org.apache.camel.quarkus.component.telegram.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.telegram.TelegramRecorder;
 import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.jboss.jandex.DotName;
 
 class TelegramProcessor {
+    private static final DotName TELEGRAM_MODEL_PACKAGE = DotName.createSimple("org.apache.camel.component.telegram.model");
 
     private static final String FEATURE = "camel-telegram";
 
@@ -49,34 +52,13 @@ class TelegramProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem reflectiveMethodsAndFields() {
-        return new ReflectiveClassBuildItem(true, true,
-                "org.apache.camel.component.telegram.model.Chat",
-                "org.apache.camel.component.telegram.model.EditMessageLiveLocationMessage",
-                "org.apache.camel.component.telegram.model.IncomingAudio",
-                "org.apache.camel.component.telegram.model.IncomingDocument",
-                "org.apache.camel.component.telegram.model.IncomingMessage",
-                "org.apache.camel.component.telegram.model.IncomingPhotoSize",
-                "org.apache.camel.component.telegram.model.IncomingVideo",
-                "org.apache.camel.component.telegram.model.InlineKeyboardButton",
-                "org.apache.camel.component.telegram.model.Location",
-                "org.apache.camel.component.telegram.model.MessageResult",
-                "org.apache.camel.component.telegram.model.OutgoingAudioMessage",
-                "org.apache.camel.component.telegram.model.OutgoingDocumentMessage",
-                "org.apache.camel.component.telegram.model.OutgoingMessage",
-                "org.apache.camel.component.telegram.model.OutgoingPhotoMessage",
-                "org.apache.camel.component.telegram.model.OutgoingTextMessage",
-                "org.apache.camel.component.telegram.model.OutgoingVideoMessage",
-                "org.apache.camel.component.telegram.model.ReplyKeyboardMarkup",
-                "org.apache.camel.component.telegram.model.SendLocationMessage",
-                "org.apache.camel.component.telegram.model.SendVenueMessage",
-                "org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage",
-                "org.apache.camel.component.telegram.model.UnixTimestampDeserializer",
-                "org.apache.camel.component.telegram.model.Update",
-                "org.apache.camel.component.telegram.model.UpdateResult",
-                "org.apache.camel.component.telegram.model.User",
-                "org.apache.camel.component.telegram.model.WebhookInfo",
-                "org.apache.camel.component.telegram.model.WebhookResult");
-    }
+    ReflectiveClassBuildItem reflectiveMethodsAndFields(CombinedIndexBuildItem combinedIndex) {
+        String[] models = combinedIndex.getIndex().getKnownClasses().stream()
+                .filter(ci -> ci.name().prefix().equals(TELEGRAM_MODEL_PACKAGE))
+                .map(ci -> ci.name().toString())
+                .sorted()
+                .toArray(String[]::new);
 
+        return new ReflectiveClassBuildItem(true, true, models);
+    }
 }
