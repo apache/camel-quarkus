@@ -97,6 +97,7 @@
         <module>extensions-core</module>
         <module>extensions-support</module>
         <module>extensions</module>
+        <module>extensions-jvm</module>
         <module>catalog</module>
         <module>integration-tests</module>
         <module>examples</module>
