@@ -206,6 +206,7 @@
         <module>salesforce</module>
         <module>scheduler</module>
         <module>seda</module>
+        <module>servicenow</module>
         <module>servlet</module>
         <module>slack</module>
         <module>soap</module>

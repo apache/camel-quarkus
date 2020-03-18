@@ -181,6 +181,7 @@ jobs:
               google
               jira
               salesforce
+              servicenow
               slack
               twitter
           - category: SQL

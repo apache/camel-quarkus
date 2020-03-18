@@ -111,6 +111,7 @@
         <module>salesforce</module>
         <module>scheduler</module>
         <module>seda</module>
+        <module>servicenow</module>
         <module>servlet</module>
         <module>sjms</module>
         <module>sjms2</module>
