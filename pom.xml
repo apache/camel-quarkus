@@ -482,23 +482,52 @@
                         </executions>
                     </plugin>
                     <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
+                        <groupId>org.l2x6.cq</groupId>
+                        <artifactId>cq-maven-plugin</artifactId>
                         <executions>
                             <execution>
                                 <id>sort-poms</id>
                                 <inherited>false</inherited>
                                 <goals>
-                                    <goal>execute</goal>
+                                    <goal>format</goal>
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <properties>
-                                        <sortModulesPaths>extensions/pom.xml,integration-tests/pom.xml</sortModulesPaths>
-                                        <sortDependencyManagementPaths>poms/bom/pom.xml,poms/bom-deployment/pom.xml</sortDependencyManagementPaths>
-                                        <updateMvndRuleDirs>examples,integration-tests</updateMvndRuleDirs>
-                                    </properties>
-                                    <source>file:///${project.basedir}/tooling/scripts/sort-poms.groovy</source>
+                                    <sortModulesPaths>
+                                        <sortModulesPath>extensions/pom.xml</sortModulesPath>
+                                        <sortModulesPath>extensions-jvm/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-tests/pom.xml</sortModulesPath>
+                                    </sortModulesPaths>
+                                    <sortDependencyManagementPaths>
+                                        <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
+                                        <sortDependencyManagementPath>poms/bom-deployment/pom.xml</sortDependencyManagementPath>
+                                    </sortDependencyManagementPaths>
+                                    <updateMvndRuleDirs>
+                                        <updateMvndRuleDir>examples</updateMvndRuleDir>
+                                        <updateMvndRuleDir>integration-tests</updateMvndRuleDir>
+                                    </updateMvndRuleDirs>
+                                    <extensionDirs>
+                                        <extensionDir>
+                                            <path>extensions</path>
+                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                                        </extensionDir>
+                                        <extensionDir>
+                                            <path>extensions-core</path>
+                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                                        </extensionDir>
+                                        <extensionDir>
+                                            <path>extensions-jvm</path>
+                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                                        </extensionDir>
+                                        <extensionDir>
+                                            <path>extensions-support</path>
+                                            <artifactIdPrefix>camel-quarkus-support-</artifactIdPrefix>
+                                        </extensionDir>
+                                        <extensionDir>
+                                            <path>integration-tests/support</path>
+                                            <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
+                                        </extensionDir>
+                                    </extensionDirs>
                                 </configuration>
                             </execution>
                         </executions>
