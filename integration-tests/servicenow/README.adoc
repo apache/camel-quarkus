@@ -1,0 +1,12 @@
+== Camel Quarkus ServiceNow Integration Tests
+
+To run the `camel-quarkus-servicenow` integration tests, you will need a https://servicenow.com[ServiceNow] instance.
+
+Then set the following environment variables:
+
+[source,shell]
+----
+export SERVICENOW_INSTANCE=my-instance
+export SERVICENOW_USERNAME=my-username
+export SERVICENOW_PASSWORD=my-password
+----

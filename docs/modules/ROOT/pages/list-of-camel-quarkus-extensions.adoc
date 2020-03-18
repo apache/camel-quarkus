@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 142 in 107 JAR artifacts (0 deprecated)
+Number of Camel components: 143 in 108 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -524,6 +524,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/seda-component.html[SEDA] (camel-quarkus-seda) +
 `seda:name` | Native +
  Stable | 1.0.0-M1 | The seda component provides asynchronous call to another endpoint from any CamelContext in the same JVM.
+
+| link:https://camel.apache.org/components/latest/servicenow-component.html[ServiceNow] (camel-quarkus-servicenow) +
+`servicenow:instanceName` | Native +
+ Stable | 1.0.0-M6 | The servicenow component is used to integrate Camel with ServiceNow cloud services.
 
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | Native +
