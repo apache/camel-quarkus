@@ -1,0 +1,13 @@
+== Camel Quarkus Google API Integration Tests
+
+To run the set of Camel Google API component  integration tests, you need a valid Google account and https://developers.google.com/identity/protocols/oauth2[OAuth credentials].
+
+Once obtained, set the following environment variables:
+
+[source,shell]
+----
+export GOOGLE_API_APPLICATION_NAME=your-application-name
+export GOOGLE_API_CLIENT_ID=your-client-id
+export GOOGLE_API_CLIENT_SECRET=your-client-secret
+export GOOGLE_API_REFRESH_TOKEN=your-api-refresh-token
+----

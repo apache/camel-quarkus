@@ -24,7 +24,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.jira.JiraConfiguration;
 import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
 import org.joda.time.DateTimeZone;
@@ -41,11 +40,6 @@ class JiraProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem configureRuntimeInitializedClasses() {
-        return new RuntimeInitializedClassBuildItem("com.google.api.client.auth.oauth.OAuthParameters");
     }
 
     @BuildStep
