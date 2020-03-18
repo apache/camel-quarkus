@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 82 in 71 JAR artifacts (0 deprecated)
+Number of Camel components: 83 in 72 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -128,6 +128,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/couchbase-component.html[Couchbase] (camel-quarkus-couchbase) +
 `couchbase:protocol:hostname:port` | JVM +
  Preview | 1.0.0-M6 | Represents a Couchbase endpoint that can query Views with a Poll strategy and/or produce various type of operations.
+
+| link:https://camel.apache.org/components/latest/couchdb-component.html[CouchDB] (camel-quarkus-couchdb) +
+`couchdb:protocol:hostname:port/database` | JVM +
+ Preview | 1.0.0-M6 | The couchdb component is used for integrate with CouchDB databases.
 
 | link:https://camel.apache.org/components/latest/dataformat-component.html[Data Format] (camel-quarkus-dataformat) +
 `dataformat:name:operation` | Native +
