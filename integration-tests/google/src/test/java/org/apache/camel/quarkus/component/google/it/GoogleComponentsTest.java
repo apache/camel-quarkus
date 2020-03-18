@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.google.it;
 
+import java.util.UUID;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -30,6 +32,43 @@ import static org.hamcrest.Matchers.is;
 @EnabledIfEnvironmentVariable(named = "GOOGLE_API_REFRESH_TOKEN", matches = ".+")
 @QuarkusTest
 class GoogleComponentsTest {
+
+    @Test
+    public void testGoogleDriveComponent() {
+        String title = UUID.randomUUID().toString();
+
+        // Create
+        String fileId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(title)
+                .post("/google-drive/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read
+        RestAssured.given()
+                .queryParam("fileId", fileId)
+                .get("/google-drive/read")
+                .then()
+                .statusCode(200)
+                .body(is(title));
+
+        // Delete
+        RestAssured.given()
+                .queryParam("fileId", fileId)
+                .delete("/google-drive/delete")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("fileId", fileId)
+                .get("/google-drive/read")
+                .then()
+                .statusCode(404);
+    }
 
     @Test
     public void testGoogleMailComponent() {
