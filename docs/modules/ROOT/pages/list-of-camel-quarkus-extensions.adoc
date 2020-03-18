@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 80 in 69 JAR artifacts (0 deprecated)
+Number of Camel components: 81 in 70 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -108,6 +108,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/braintree-component.html[Braintree] (camel-quarkus-braintree) +
 `braintree:apiName/methodName` | Native +
  Stable | 1.2.0 | The braintree component is used for integrating with the Braintree Payment System.
+
+| link:https://camel.apache.org/components/latest/cql-component.html[Cassandra CQL] (camel-quarkus-cassandraql) +
+`cql:beanRef:hosts:port/keyspace` | JVM +
+ Preview | 1.0.0-M6 | The cql component aims at integrating Cassandra 2.0 using the CQL3 API (not the Thrift API). It's based on Cassandra Java Driver provided by DataStax.
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | Native +
