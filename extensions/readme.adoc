@@ -5,7 +5,7 @@ Apache Camel Quarkus supports the following Camel artifacts as Quarkus Extension
 == Camel Components
 
 // components: START
-Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
+Number of Camel components: 78 in 67 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,5",options="header"]
 |===
@@ -109,6 +109,12 @@ Number of Camel components: 76 in 66 JAR artifacts (0 deprecated)
 
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | 1.0.0-M1 | The \ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/google-mail-component.html[Google Mail] (camel-quarkus-google-mail) +
+`google-mail:apiName/methodName` | 1.0.0-M6 | The google-mail component provides access to Google Mail.
+
+| link:https://camel.apache.org/components/latest/google-mail-stream-component.html[Google Mail Stream] (camel-quarkus-google-mail) +
+`google-mail-stream:index` | 1.0.0-M6 | The google-mail component provides access to Google Mail.
 
 | xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
 `graphql:httpUri` | 1.0.0-M5 | A Camel GraphQL Component

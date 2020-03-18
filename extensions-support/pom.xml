@@ -37,9 +37,11 @@
         <module>common</module>
         <module>commons-logging</module>
         <module>consul-client</module>
+        <module>google-http-client</module>
         <module>httpclient</module>
         <module>jackson-dataformat-xml</module>
         <module>jetty</module>
+        <module>mail</module>
         <module>policy</module>
         <module>retrofit</module>
         <module>spring</module>

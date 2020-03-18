@@ -30,7 +30,6 @@
     <name>Camel Quarkus :: Mail :: Runtime</name>
 
     <properties>
-        <jakarta-mail-version>1.6.4</jakarta-mail-version>
         <firstVersion>0.2.0</firstVersion>
     </properties>
 
@@ -43,18 +42,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>com.sun.mail</groupId>
-                <artifactId>jakarta.mail</artifactId>
-                <version>${jakarta-mail-version}</version>
-                <exclusions>
-                    <!-- javax activation is part of the JDK now -->
-                    <exclusion>
-                        <groupId>com.sun.activation</groupId>
-                        <artifactId>jakarta.activation</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -63,15 +50,13 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
-
-        <!-- camel -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-mail</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-mail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.mail</groupId>
-            <artifactId>jakarta.mail</artifactId>
         </dependency>
     </dependencies>
 

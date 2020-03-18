@@ -176,6 +176,7 @@ jobs:
           - category: SAAS
             test-modules: >
               box
+              google
               jira
               salesforce
               slack
