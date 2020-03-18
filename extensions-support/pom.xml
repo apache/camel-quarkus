@@ -32,6 +32,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>ahc</module>
         <module>aws</module>
         <module>common</module>
