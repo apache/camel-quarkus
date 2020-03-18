@@ -324,6 +324,21 @@
                     <templatesUriBase>file:///${project.basedir}/tooling/create-extension-templates</templatesUriBase>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-maven-version</id>
+                        <!-- enforce-maven-version is defined in org.apache:apache -->
+                        <!-- we skip for the whole Camel Quarkus tree because we have -->
+                        <!-- an analogous check in camel-quarkus-enforcer-rules -->
+                        <phase>none</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>
@@ -350,6 +365,9 @@
                                     <goal>enforce</goal>
                                 </goals>
                                 <configuration>
+                                    <requireMavenVersion>
+                                        <version>3.6.2</version>
+                                    </requireMavenVersion>
                                     <rules>
                                         <dependencyConvergence />
                                         <requireMavenVersion>
