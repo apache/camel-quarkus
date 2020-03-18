@@ -86,10 +86,15 @@
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
-                            <extensionDirs>
-                                <extensionDir>${camel.quarkus.project.root}/extensions-core</extensionDir>
-                                <extensionDir>${camel.quarkus.project.root}/extensions</extensionDir>
-                            </extensionDirs>
+                            <extensionDirectories>
+                                <extensionDirectory>${camel.quarkus.project.root}/extensions-core</extensionDirectory>
+                                <extensionDirectory>${camel.quarkus.project.root}/extensions</extensionDirectory>
+                                <extensionDirectory>${camel.quarkus.project.root}/extensions-jvm</extensionDirectory>
+                            </extensionDirectories>
+                            <skipArtifactIdBases>
+                                <skipArtifactIdBase>http-common</skipArtifactIdBase>
+                            </skipArtifactIdBases>
+                            <extensionListFile>${camel.quarkus.project.root}/docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc</extensionListFile>
                         </configuration>
                     </execution>
                 </executions>
