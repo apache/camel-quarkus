@@ -22,8 +22,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-tooling</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
     <artifactId>camel-quarkus-package-maven-plugin</artifactId>
@@ -32,110 +33,59 @@
     <name>Camel Quarkus :: Tooling :: Maven :: Package Maven Plugin</name>
     <description>Maven plugin to help package Camel quarkus components and plugins</description>
 
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-package-maven-plugin</artifactId>
-            <version>${camel.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.plexus</groupId>
-                    <artifactId>plexus-component-annotations</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.asciidoctor</groupId>
-                    <artifactId>asciidoctorj</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mvel</groupId>
-                    <artifactId>mvel2</artifactId>
-                </exclusion>
-            </exclusions>
+            <artifactId>camel-catalog</artifactId>
         </dependency>
+
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-support</artifactId>
-            <version>${camel.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-util</artifactId>
-            <version>${camel.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-core</artifactId>
+            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.codehaus.plexus</groupId>
                     <artifactId>plexus-classworlds</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.plexus</groupId>
-                    <artifactId>plexus-component-annotations</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-artifact</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-lang3</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-plugin-api</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.sonatype.plexus</groupId>
-            <artifactId>plexus-build-api</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-util-json</artifactId>
-            <version>${camel.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mvel</groupId>
-            <artifactId>mvel2</artifactId>
-            <version>${mvel.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
