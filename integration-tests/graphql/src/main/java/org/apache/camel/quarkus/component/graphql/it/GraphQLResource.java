@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.graphql.it;
 
-import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -58,7 +61,13 @@ public class GraphQLResource {
 
     public void setupRouter(@Observes Router router) {
         SchemaParser schemaParser = new SchemaParser();
-        TypeDefinitionRegistry typeDefinitionRegistry = schemaParser.parse(new File("target/classes/graphql/schema.graphql"));
+        final TypeDefinitionRegistry typeDefinitionRegistry;
+        try (Reader r = new InputStreamReader(getClass().getClassLoader().getResourceAsStream("graphql/schema.graphql"),
+                StandardCharsets.UTF_8)) {
+            typeDefinitionRegistry = schemaParser.parse(r);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         DataFetcher<CompletionStage<Book>> dataFetcher = environment -> {
             CompletableFuture<Book> completableFuture = new CompletableFuture<>();
