@@ -89,7 +89,7 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <cq-plugin.version>0.0.1</cq-plugin.version>
+        <cq-plugin.version>0.2.0</cq-plugin.version>
         <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>
 
         <!-- maven-release-plugin -->
@@ -237,6 +237,14 @@
                     <groupId>org.l2x6.cq</groupId>
                     <artifactId>cq-maven-plugin</artifactId>
                     <version>${cq-plugin.version}</version>
+                    <dependencies>
+                        <!-- include camel-catalog on classpath -->
+                        <dependency>
+                            <groupId>org.apache.camel</groupId>
+                            <artifactId>camel-catalog</artifactId>
+                            <version>${camel.version}</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <plugin>
@@ -327,6 +335,28 @@
                 -->
                 <configuration>
                     <templatesUriBase>file:///${project.basedir}/tooling/create-extension-templates</templatesUriBase>
+                    <extensionDirs>
+                        <extensionDir>
+                            <path>extensions</path>
+                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                        </extensionDir>
+                        <extensionDir>
+                            <path>extensions-core</path>
+                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                        </extensionDir>
+                        <extensionDir>
+                            <path>extensions-jvm</path>
+                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
+                        </extensionDir>
+                        <extensionDir>
+                            <path>extensions-support</path>
+                            <artifactIdPrefix>camel-quarkus-support-</artifactIdPrefix>
+                        </extensionDir>
+                        <extensionDir>
+                            <path>integration-tests/support</path>
+                            <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
+                        </extensionDir>
+                    </extensionDirs>
                 </configuration>
             </plugin>
 
