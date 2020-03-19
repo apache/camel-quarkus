@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.telegram.it;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.stream.Stream;
 
 import org.apache.camel.Exchange;
-import org.apache.camel.Message;
-import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.IOHelper;
 
 public class TelegramRoutes extends RouteBuilder {
@@ -34,8 +33,9 @@ public class TelegramRoutes extends RouteBuilder {
 
         /* Mock Telegram API */
         from("platform-http:/bot{authToken}/getUpdates?httpMethodRestrict=GET")
-                .process(new ResourceSupplier("mock-messages/getUpdates.json"));
-        Arrays.asList(
+                .process(e -> load("mock-messages/getUpdates.json", e));
+
+        Stream.of(
                 "sendMessage",
                 "sendAudio",
                 "sendVideo",
@@ -43,35 +43,25 @@ public class TelegramRoutes extends RouteBuilder {
                 "sendPhoto",
                 "sendVenue",
                 "sendLocation",
-                "stopMessageLiveLocation").stream()
+                "stopMessageLiveLocation")
                 .forEach(endpoint -> {
                     from("platform-http:/{authToken}/" + endpoint + "?httpMethodRestrict=POST")
-                            .process(new ResourceSupplier("mock-messages/" + endpoint + ".json"));
+                            .process(e -> load("mock-messages/" + endpoint + ".json", e));
                 });
 
     }
 
-    static class ResourceSupplier implements Processor {
-        private final byte[] bytes;
+    private static void load(String path, Exchange exchange) {
+        try (ByteArrayOutputStream out = new ByteArrayOutputStream(IOHelper.DEFAULT_BUFFER_SIZE);
+                InputStream in = ResourceHelper.resolveMandatoryResourceAsInputStream(exchange.getContext(), path)) {
+            IOHelper.copy(in, out, IOHelper.DEFAULT_BUFFER_SIZE);
 
-        public ResourceSupplier(String path) {
-            try (ByteArrayOutputStream out = new ByteArrayOutputStream(IOHelper.DEFAULT_BUFFER_SIZE);
-                    InputStream in = getClass().getClassLoader().getResourceAsStream(path)) {
-                IOHelper.copy(in, out, IOHelper.DEFAULT_BUFFER_SIZE);
-                this.bytes = out.toByteArray();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            final byte[] bytes = out.toByteArray();
+            exchange.getMessage().setBody(bytes);
+            exchange.getMessage().setHeader("Content-Length", bytes.length);
+            exchange.getMessage().setHeader("Content-Type", "application/json; charset=UTF-8");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
-        @Override
-        public void process(Exchange exchange) throws Exception {
-            final Message m = exchange.getMessage();
-            m.setBody(bytes);
-            m.setHeader("Content-Length", bytes.length);
-            m.setHeader("Content-Type", "application/json; charset=UTF-8");
-        }
-
     }
-
 }
