@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 83 in 72 JAR artifacts (0 deprecated)
+Number of Camel components: 85 in 73 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -172,6 +172,14 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | Native +
  Stable | 1.0.0-M1 | The ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/google-calendar-component.html[Google Calendar] (camel-quarkus-google-calendar) +
+`google-calendar:apiName/methodName` | Native +
+ Stable | 1.0.0-M6 | The google-calendar component provides access to Google Calendar.
+
+| link:https://camel.apache.org/components/latest/google-calendar-stream-component.html[Google Calendar Stream] (camel-quarkus-google-calendar) +
+`google-calendar-stream:index` | Native +
+ Stable | 1.0.0-M6 | The google-calendar-stream component provides access to Google Calendar in a streaming mode.
 
 | link:https://camel.apache.org/components/latest/google-drive-component.html[Google Drive] (camel-quarkus-google-drive) +
 `google-drive:apiName/methodName` | Native +
