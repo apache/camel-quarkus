@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 92 in 79 JAR artifacts (0 deprecated)
+Number of Camel components: 93 in 80 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -252,6 +252,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/kafka-component.html[Kafka] (camel-quarkus-kafka) +
 `kafka:topic` | Native +
  Stable | 1.0.0-M1 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
+
+| link:https://camel.apache.org/components/latest/kudu-component.html[Kudu] (camel-quarkus-kudu) +
+`kudu:host:port/tableName` | JVM +
+ Preview | 1.0.0-M6 | Represents a Kudu endpoint. A kudu endpoint allows you to interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
 | link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | Native +
