@@ -34,6 +34,85 @@ import static org.hamcrest.Matchers.is;
 class GoogleComponentsTest {
 
     @Test
+    public void testGoogleCalendarComponent() throws InterruptedException {
+        String summary = "Camel Quarkus Google Calendar";
+        String eventText = summary += " Event";
+
+        // Create calendar
+        String calendarId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(summary)
+                .post("/google-calendar/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read calendar
+        RestAssured.given()
+                .queryParam("calendarId", calendarId)
+                .get("/google-calendar/read")
+                .then()
+                .statusCode(200)
+                .body(is(summary));
+
+        // Create event
+        String eventId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("calendarId", calendarId)
+                .body(eventText)
+                .post("/google-calendar/create/event")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read event
+        RestAssured.given()
+                .queryParam("calendarId", calendarId)
+                .queryParam("eventId", eventId)
+                .get("/google-calendar/read/event")
+                .then()
+                .statusCode(200)
+                .body(is(eventText));
+
+        // Update event
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("calendarId", calendarId)
+                .queryParam("eventId", eventId)
+                .patch("/google-calendar/update/event")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .queryParam("calendarId", calendarId)
+                .queryParam("eventId", eventId)
+                .get("/google-calendar/read/event")
+                .then()
+                .statusCode(200)
+                .body(is(eventText + " Updated"));
+
+        // Delete calendar
+        RestAssured.given()
+                .queryParam("calendarId", calendarId)
+                .delete("/google-calendar/delete")
+                .then()
+                .statusCode(204);
+
+        // Wait for calendar deletion to occur
+        Thread.sleep(500);
+
+        RestAssured.given()
+                .queryParam("calendarId", calendarId)
+                .get("/google-calendar/read")
+                .then()
+                .statusCode(404);
+    }
+
+    @Test
     public void testGoogleDriveComponent() {
         String title = UUID.randomUUID().toString();
 
