@@ -103,7 +103,7 @@ class GoogleComponentsTest {
                 .statusCode(204);
 
         // Wait for calendar deletion to occur
-        Thread.sleep(500);
+        Thread.sleep(1000);
 
         RestAssured.given()
                 .queryParam("calendarId", calendarId)
@@ -184,5 +184,45 @@ class GoogleComponentsTest {
                 .get("/google-mail/read")
                 .then()
                 .statusCode(404);
+    }
+
+    @Test
+    public void testGoogleSheetsComponent() {
+        String title = "Camel Quarkus Google Sheet";
+
+        // Create
+        String sheetId = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(title)
+                .post("/google-sheets/create")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        // Read
+        RestAssured.given()
+                .queryParam("spreadsheetId", sheetId)
+                .get("/google-sheets/read")
+                .then()
+                .statusCode(200)
+                .body(is(title));
+
+        // Update
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("spreadsheetId", sheetId)
+                .body(title + " Updated")
+                .patch("/google-sheets/update")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .queryParam("spreadsheetId", sheetId)
+                .get("/google-sheets/read")
+                .then()
+                .statusCode(200)
+                .body(is(title + " Updated"));
     }
 }

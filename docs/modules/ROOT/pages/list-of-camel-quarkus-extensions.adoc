@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 85 in 73 JAR artifacts (0 deprecated)
+Number of Camel components: 87 in 74 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -192,6 +192,14 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/google-mail-stream-component.html[Google Mail Stream] (camel-quarkus-google-mail) +
 `google-mail-stream:index` | Native +
  Stable | 1.0.0-M6 | The google-mail component provides access to Google Mail.
+
+| link:https://camel.apache.org/components/latest/google-sheets-component.html[Google Sheets] (camel-quarkus-google-sheets) +
+`google-sheets:apiName/methodName` | Native +
+ Stable | 1.0.0-M6 | The google-sheets component provides access to Google Sheets.
+
+| link:https://camel.apache.org/components/latest/google-sheets-stream-component.html[Google Sheets Stream] (camel-quarkus-google-sheets) +
+`google-sheets-stream:apiName` | Native +
+ Stable | 1.0.0-M6 | The google-sheets-stream component provides access to Google Sheets.
 
 | xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
 `graphql:httpUri` | Native +

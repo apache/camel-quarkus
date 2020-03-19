@@ -70,6 +70,7 @@
         <module>google-calendar</module>
         <module>google-drive</module>
         <module>google-mail</module>
+        <module>google-sheets</module>
         <module>graphql</module>
         <module>gson</module>
         <module>http</module>
