@@ -55,6 +55,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <!-- A temporary workaround for https://github.com/quarkusio/quarkus/issues/7964 -->
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-jdbc-mysql-deployment</artifactId>
+                <version>${quarkus.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-jira-deployment</artifactId>
@@ -227,6 +235,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-debezium-mongodb-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-debezium-mysql-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
