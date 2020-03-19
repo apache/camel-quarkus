@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 94 in 81 JAR artifacts (0 deprecated)
+Number of Camel components: 95 in 82 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -288,6 +288,10 @@ Level | Since | Description
 | xref:extensions/netty-http.adoc[Netty HTTP] (camel-quarkus-netty-http) +
 `netty-http:protocol:host:port/path` | Native +
  Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x library.
+
+| link:https://camel.apache.org/components/latest/nitrite-component.html[Nitrite] (camel-quarkus-nitrite) +
+`nitrite:database` | JVM +
+ Preview | 1.0.0-M6 | Used for integrating Camel with Nitrite databases.
 
 | link:https://camel.apache.org/components/latest/olingo4-component.html[Olingo4] (camel-quarkus-olingo4) +
 `olingo4:apiName/methodName` | Native +
