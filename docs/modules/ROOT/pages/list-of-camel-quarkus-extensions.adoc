@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 93 in 80 JAR artifacts (0 deprecated)
+Number of Camel components: 94 in 81 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -272,6 +272,10 @@ Level | Since | Description
 | xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
 `mongodb:connectionBean` | Native +
  Stable | 1.0.0-M1 | Component for working with documents stored in MongoDB database.
+
+| link:https://camel.apache.org/components/latest/mongodb-gridfs-component.html[MongoDB GridFS] (camel-quarkus-mongodb-gridfs) +
+`mongodb-gridfs:connectionBean` | JVM +
+ Preview | 1.0.0-M6 | Component for working with MongoDB GridFS.
 
 | link:https://camel.apache.org/components/latest/mustache-component.html[Mustache] (camel-quarkus-mustache) +
 `mustache:resourceUri` | Native +
