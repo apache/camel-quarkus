@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 88 in 75 JAR artifacts (0 deprecated)
+Number of Camel components: 89 in 76 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -140,6 +140,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/debezium-mongodb-component.html[Debezium MongoDB Connector] (camel-quarkus-debezium-mongodb) +
 `debezium-mongodb:name` | JVM +
  Preview | 1.0.0-M6 | Represents a Debezium MongoDB endpoint which is used to capture changes in MongoDB database so that that applications can see those changes and respond to them.
+
+| link:https://camel.apache.org/components/latest/debezium-postgres-component.html[Debezium PostgresSQL Connector] (camel-quarkus-debezium-postgres) +
+`debezium-postgres:name` | JVM +
+ Preview | 1.0.0-M6 | Represents a Debezium PostgresSQL endpoint which is used to capture changes in PostgresSQL database so that that applications can see those changes and respond to them.
 
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | Native +
