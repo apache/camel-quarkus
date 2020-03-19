@@ -17,10 +17,12 @@
 package org.apache.camel.quarkus.component.google.it;
 
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -34,7 +36,7 @@ import static org.hamcrest.Matchers.is;
 class GoogleComponentsTest {
 
     @Test
-    public void testGoogleCalendarComponent() throws InterruptedException {
+    public void testGoogleCalendarComponent() {
         String summary = "Camel Quarkus Google Calendar";
         String eventText = summary += " Event";
 
@@ -103,13 +105,18 @@ class GoogleComponentsTest {
                 .statusCode(204);
 
         // Wait for calendar deletion to occur
-        Thread.sleep(1000);
-
-        RestAssured.given()
-                .queryParam("calendarId", calendarId)
-                .get("/google-calendar/read")
-                .then()
-                .statusCode(404);
+        Awaitility.await()
+                .pollDelay(500, TimeUnit.MILLISECONDS)
+                .pollInterval(100, TimeUnit.MILLISECONDS)
+                .atMost(10, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("calendarId", calendarId)
+                            .post("/google-calendar/read")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code != 404;
+                });
     }
 
     @Test
