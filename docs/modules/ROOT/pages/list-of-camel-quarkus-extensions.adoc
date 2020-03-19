@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 91 in 78 JAR artifacts (0 deprecated)
+Number of Camel components: 92 in 79 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -228,6 +228,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | Native +
  Stable | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
+
+| link:https://camel.apache.org/components/latest/influxdb-component.html[InfluxDB] (camel-quarkus-influxdb) +
+`influxdb:connectionBean` | JVM +
+ Preview | 1.0.0-M6 | The influxdb component allows you to interact with InfluxDB, a time series database.
 
 | xref:extensions/websocket-jsr356.adoc[Javax Websocket] (camel-quarkus-websocket-jsr356) +
 `websocket-jsr356:uri` | Native +
