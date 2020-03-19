@@ -286,6 +286,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-debezium-sqlserver</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-direct</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -960,6 +965,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-debezium-postgres</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-debezium-sqlserver</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
