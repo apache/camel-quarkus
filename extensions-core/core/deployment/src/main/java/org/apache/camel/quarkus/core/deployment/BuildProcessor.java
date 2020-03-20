@@ -154,7 +154,8 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/model/*",
                     "META-INF/services/org/apache/camel/configurer/*",
                     "META-INF/services/org/apache/camel/language/*",
-                    "META-INF/services/org/apache/camel/dataformat/*"));
+                    "META-INF/services/org/apache/camel/dataformat/*",
+                    "META-INF/services/org/apache/camel/cron/*"));
         }
 
         @BuildStep

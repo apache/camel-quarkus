@@ -198,6 +198,7 @@
         <module>pdf</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>
+        <module>quartz</module>
         <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>

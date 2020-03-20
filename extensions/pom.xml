@@ -57,6 +57,7 @@
         <module>braintree</module>
         <module>consul</module>
         <module>controlbus</module>
+        <module>cron</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>direct</module>
@@ -101,6 +102,7 @@
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
+        <module>quartz</module>
         <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>

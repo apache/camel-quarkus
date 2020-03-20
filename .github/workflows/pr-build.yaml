@@ -124,6 +124,7 @@ jobs:
               file
               hystrix
               jsonpath
+              quartz
               scheduler
               seda
               ref
