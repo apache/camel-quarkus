@@ -48,6 +48,7 @@
         <module>nitrite</module>
         <module>openstack</module>
         <module>pubnub</module>
+        <module>rabbitmq</module>
     </modules>
 
 </project>
