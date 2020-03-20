@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 101 in 83 JAR artifacts (0 deprecated)
+Number of Camel components: 102 in 84 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -332,6 +332,10 @@ Level | Since | Description
 | xref:extensions/platform-http.adoc[Platform HTTP] (camel-quarkus-platform-http) +
 `platform-http:path` | Native +
  Stable | 0.3.0 | HTTP service leveraging existing runtime platform HTTP server
+
+| link:https://camel.apache.org/components/latest/pubnub-component.html[PubNub] (camel-quarkus-pubnub) +
+`pubnub:channel` | JVM +
+ Preview | 1.0.0-M6 | To send and receive messages to PubNub data stream network for connected devices.
 
 | link:https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams] (camel-quarkus-reactive-streams) +
 `reactive-streams:stream` | Native +

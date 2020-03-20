@@ -47,6 +47,7 @@
         <module>mongodb-gridfs</module>
         <module>nitrite</module>
         <module>openstack</module>
+        <module>pubnub</module>
     </modules>
 
 </project>
