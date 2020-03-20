@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 95 in 82 JAR artifacts (0 deprecated)
+Number of Camel components: 101 in 83 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -296,6 +296,30 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/olingo4-component.html[Olingo4] (camel-quarkus-olingo4) +
 `olingo4:apiName/methodName` | Native +
  Stable | 1.0.0-M4 | Communicates with OData 4.0 services using Apache Olingo OData API.
+
+| link:https://camel.apache.org/components/latest/openstack-cinder-component.html[OpenStack Cinder] (camel-quarkus-openstack) +
+`openstack-cinder:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-cinder component allows messages to be sent to an OpenStack block storage services.
+
+| link:https://camel.apache.org/components/latest/openstack-glance-component.html[OpenStack Glance] (camel-quarkus-openstack) +
+`openstack-glance:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-glance component allows messages to be sent to an OpenStack image services.
+
+| link:https://camel.apache.org/components/latest/openstack-keystone-component.html[OpenStack Keystone] (camel-quarkus-openstack) +
+`openstack-keystone:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-keystone component allows messages to be sent to an OpenStack identity services.
+
+| link:https://camel.apache.org/components/latest/openstack-neutron-component.html[OpenStack Neutron] (camel-quarkus-openstack) +
+`openstack-neutron:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-neutron component allows messages to be sent to an OpenStack network services.
+
+| link:https://camel.apache.org/components/latest/openstack-nova-component.html[OpenStack Nova] (camel-quarkus-openstack) +
+`openstack-nova:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-nova component allows messages to be sent to an OpenStack compute services.
+
+| link:https://camel.apache.org/components/latest/openstack-swift-component.html[OpenStack Swift] (camel-quarkus-openstack) +
+`openstack-swift:host` | JVM +
+ Preview | 1.0.0-M6 | The openstack-swift component allows messages to be sent to an OpenStack object storage services.
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | Native +
