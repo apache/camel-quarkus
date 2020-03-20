@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>camel-quarkus-openstack-integration-test</artifactId>
-    <name>Camel Quarkus :: OpenStack Cinder :: Integration Test</name>
+    <name>Camel Quarkus :: OpenStack :: Integration Test</name>
     <description>Integration tests for Camel Quarkus OpenStack extension</description>
 
     <properties>

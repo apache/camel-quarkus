@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>camel-quarkus-openstack</artifactId>
-    <name>Camel Quarkus :: OpenStack Cinder :: Runtime</name>
+    <name>Camel Quarkus :: OpenStack :: Runtime</name>
     <description>The openstack component allows you to interact with OpenStack APIs.</description>
 
     <properties>
