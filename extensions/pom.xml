@@ -101,6 +101,7 @@
         <module>paho</module>
         <module>pdf</module>
         <module>platform-http</module>
+        <module>quartz</module>
         <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>
