@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ConsumerTemplate;
@@ -33,8 +34,8 @@ public class QuartzResource {
     @Path("/get")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getQuartzResult() throws Exception {
-        return consumerTemplate.receiveBody("seda:quartz-result", 5000, String.class);
+    public String getSchedulerResult(@QueryParam("fromEndpoint") String fromEndpoint) throws Exception {
+        return consumerTemplate.receiveBody("seda:" + fromEndpoint + "-result", 5000, String.class);
     }
 
 }

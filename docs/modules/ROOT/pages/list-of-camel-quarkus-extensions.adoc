@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 104 in 86 JAR artifacts (0 deprecated)
+Number of Camel components: 105 in 87 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -132,6 +132,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/couchdb-component.html[CouchDB] (camel-quarkus-couchdb) +
 `couchdb:protocol:hostname:port/database` | JVM +
  Preview | 1.0.0-M6 | The couchdb component is used for integrate with CouchDB databases.
+
+| link:https://camel.apache.org/components/latest/cron-component.html[Cron] (camel-quarkus-cron) +
+`cron:name` | Native +
+ Stable | 1.0.0-M6 | Camel Cron Component
 
 | link:https://camel.apache.org/components/latest/dataformat-component.html[Data Format] (camel-quarkus-dataformat) +
 `dataformat:name:operation` | Native +

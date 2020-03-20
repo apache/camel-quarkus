@@ -18,18 +18,22 @@ package org.apache.camel.quarkus.component.quartz.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class QuartzTest {
 
-    @Test
-    public void test() {
-        RestAssured.get("/quartz/get")
+    @ParameterizedTest()
+    @ValueSource(strings = { "cron", "quartz" })
+    public void testSchedulerComponent(String component) {
+        RestAssured.given()
+                .queryParam("fromEndpoint", component)
+                .get("/quartz/get")
                 .then()
                 .statusCode(200)
-                .body(is("Hello Camel Quarkus Quartz"));
+                .body(is("Hello Camel Quarkus " + component));
     }
 }
