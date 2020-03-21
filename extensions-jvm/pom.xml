@@ -42,6 +42,7 @@
         <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
         <module>elasticsearch-rest</module>
+        <module>groovy</module>
         <module>influxdb</module>
         <module>kudu</module>
         <module>mongodb-gridfs</module>
