@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 105 in 87 JAR artifacts (0 deprecated)
+Number of Camel components: 106 in 88 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -368,6 +368,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | Native +
  Stable | 0.2.0 | The salesforce component is used for integrating Camel with the massive Salesforce API.
+
+| link:https://camel.apache.org/components/latest/sap-netweaver-component.html[SAP NetWeaver] (camel-quarkus-sap-netweaver) +
+`sap-netweaver:url` | JVM +
+ Preview | 1.0.0-M6 | The sap-netweaver component integrates with the SAP NetWeaver Gateway using HTTP transports.
 
 | link:https://camel.apache.org/components/latest/scheduler-component.html[Scheduler] (camel-quarkus-scheduler) +
 `scheduler:name` | Native +

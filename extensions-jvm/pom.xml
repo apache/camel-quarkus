@@ -49,6 +49,7 @@
         <module>openstack</module>
         <module>pubnub</module>
         <module>rabbitmq</module>
+        <module>sap-netweaver</module>
     </modules>
 
 </project>
