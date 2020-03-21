@@ -47,6 +47,7 @@
         <module>kudu</module>
         <module>mongodb-gridfs</module>
         <module>nitrite</module>
+        <module>ognl</module>
         <module>openstack</module>
         <module>pubnub</module>
         <module>rabbitmq</module>
