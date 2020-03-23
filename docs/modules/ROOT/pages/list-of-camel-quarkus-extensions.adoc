@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 118 in 99 JAR artifacts (0 deprecated)
+Number of Camel components: 119 in 100 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -84,6 +84,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/aws2-sns-component.html[AWS 2 Simple Notification System] (camel-quarkus-aws2-sns) +
 `aws2-sns:topicNameOrArn` | JVM +
  Preview | 1.0.0-M6 | The aws2-sns component is used for sending messages to an Amazon Simple Notification Topic.
+
+| link:https://camel.apache.org/components/latest/aws2-sqs-component.html[AWS 2 Simple Queue Service] (camel-quarkus-aws2-sqs) +
+`aws2-sqs:queueNameOrArn` | JVM +
+ Preview | 1.0.0-M6 | The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
 `aws-ec2:label` | Native +
