@@ -38,6 +38,7 @@
         <module>aws2-ddb</module>
         <module>aws2-ec2</module>
         <module>aws2-ecs</module>
+        <module>aws2-eks</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>couchdb</module>
