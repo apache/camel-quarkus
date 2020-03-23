@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 123 in 103 JAR artifacts (0 deprecated)
+Number of Camel components: 124 in 104 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -140,6 +140,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/aws-swf-component.html[AWS Simple Workflow] (camel-quarkus-aws-swf) +
 `aws-swf:type` | JVM +
  Preview | 1.0.0-M6 | The aws-swf component is used for managing workflows from Amazon Simple Workflow.
+
+| link:https://camel.apache.org/components/latest/aws-sdb-component.html[AWS SimpleDB] (camel-quarkus-aws-sdb) +
+`aws-sdb:domainName` | JVM +
+ Preview | 1.0.0-M6 | The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
 `aws-translate:label` | Native +
