@@ -17,15 +17,31 @@
 package org.apache.camel.quarkus.component.aws2.ec2.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeBuild;
+import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.jboss.logging.Logger;
 
 class Aws2Ec2Processor {
+    private static final Logger LOG = Logger.getLogger(Aws2Ec2Processor.class);
 
     private static final String FEATURE = "camel-aws2-ec2";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    /**
+     * Remove this once this extension starts supporting the native mode.
+     */
+    @BuildStep(onlyIf = NativeBuild.class)
+    @Record(value = ExecutionTime.RUNTIME_INIT)
+    void warnJvmInNative(JvmOnlyRecorder recorder) {
+        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
+        recorder.warnJvmInNative(FEATURE); // warn at runtime
     }
 
 }
