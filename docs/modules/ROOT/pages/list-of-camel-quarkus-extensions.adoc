@@ -41,6 +41,14 @@ Level | Since | Description
 `aws2-cw:namespace` | JVM +
  Preview | 1.0.0-M6 | The aws2-cw component is used for sending metrics to an Amazon CloudWatch.
 
+| link:https://camel.apache.org/components/latest/aws2-ddb-component.html[AWS 2 DynamoDB] (camel-quarkus-aws2-ddb) +
+`aws2-ddb:tableName` | JVM +
+ Preview | 1.0.0-M6 | The aws2-ddb component is used for storing and retrieving data from Amazon's DynamoDB service.
+
+| link:https://camel.apache.org/components/latest/aws2-ddbstream-component.html[AWS 2 DynamoDB Streams] (camel-quarkus-aws2-ddb) +
+`aws2-ddbstream:tableName` | JVM +
+ Preview | 1.0.0-M6 | The aws2-ddbstream component is used for working with Amazon DynamoDB Streams.
+
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
 `aws-ec2:label` | Native +
  Stable | 1.0.0-M3 | The aws-ec2 is used for managing Amazon EC2 instances.
