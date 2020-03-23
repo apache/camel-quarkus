@@ -43,6 +43,7 @@
         <module>aws2-kms</module>
         <module>aws2-mq</module>
         <module>aws2-msk</module>
+        <module>aws2-ses</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>couchdb</module>
