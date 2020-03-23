@@ -45,6 +45,7 @@
         <module>aws2-msk</module>
         <module>aws2-ses</module>
         <module>aws2-sns</module>
+        <module>aws2-sqs</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>couchdb</module>
