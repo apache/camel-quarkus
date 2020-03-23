@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 116 in 97 JAR artifacts (0 deprecated)
+Number of Camel components: 117 in 98 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -76,6 +76,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/aws2-msk-component.html[AWS 2 MSK] (camel-quarkus-aws2-msk) +
 `aws2-msk:label` | JVM +
  Preview | 1.0.0-M6 | The aws2-msk is used for managing Amazon MSK
+
+| link:https://camel.apache.org/components/latest/aws2-ses-component.html[AWS 2 Simple Email Service] (camel-quarkus-aws2-ses) +
+`aws2-ses:from` | JVM +
+ Preview | 1.0.0-M6 | The aws2-ses component is used for sending emails with Amazon's SES service.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
 `aws-ec2:label` | Native +
