@@ -44,7 +44,7 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String applyMustacheTemplateFromClassPathResource(String message) {
         LOG.infof("Calling applyMustacheTemplateFromClassPathResource with %s", message);
-        return template.requestBodyAndHeader("mustache://simple.mustache", message, "header", "value", String.class);
+        return template.requestBodyAndHeader("mustache://template/simple.mustache", message, "header", "value", String.class);
     }
 
     @Path("/applyMustacheTemplateFromHeader")
@@ -53,7 +53,8 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String applyMustacheTemplateFromHeader(String message) {
         LOG.infof("Calling applyMustacheTemplateFromHeader with %s", message);
-        return template.requestBodyAndHeader("mustache://simple.mustache", message, MustacheConstants.MUSTACHE_TEMPLATE,
+        return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
+                MustacheConstants.MUSTACHE_TEMPLATE,
                 "Body='{{body}}'", String.class);
     }
 
@@ -63,8 +64,9 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String applyMustacheTemplateUriFromHeader(String message) {
         LOG.infof("Calling applyMustacheTemplateUriFromHeader with %s", message);
-        return template.requestBodyAndHeader("mustache://simple.mustache", message, MustacheConstants.MUSTACHE_RESOURCE_URI,
-                "/another.mustache", String.class);
+        return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
+                MustacheConstants.MUSTACHE_RESOURCE_URI,
+                "/template/another.mustache", String.class);
     }
 
     @Path("/applyMustacheTemplateWithInheritance")
@@ -72,7 +74,7 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String applyMustacheTemplateWithInheritance() {
         LOG.infof("Calling applyMustacheTemplateWithInheritance");
-        return template.requestBody("mustache://child.mustache", null, String.class);
+        return template.requestBody("mustache://template/child.mustache", null, String.class);
     }
 
     @Path("/applyMustacheTemplateWithPartials")
@@ -80,7 +82,7 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String applyMustacheTemplateWithPartials() {
         LOG.infof("Calling applyMustacheTemplateWithPartials");
-        return template.requestBody("mustache://includer.mustache", null, String.class);
+        return template.requestBody("mustache://template/includer.mustache", null, String.class);
     }
 
     @Path("/applyMustacheTemplateFromRegistry")

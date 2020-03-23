@@ -17,7 +17,43 @@
 package org.apache.camel.quarkus.core;
 
 import io.quarkus.test.junit.NativeImageTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @NativeImageTest
 public class CoreIT extends CoreTest {
+
+    @Test
+    public void nonExistentResourceCouldNotBeLoadedFromNativeExecutable() {
+        RestAssured.when().get("/test/resources/not-exist.txt").then().assertThat().statusCode(204);
+    }
+
+    @Test
+    public void resourceMatchingExcludedPatternOnlyCouldNotBeLoadedFromNativeExecutable() {
+        RestAssured.when().get("/test/resources/exclude-pattern-folder/excluded.txt").then().assertThat()
+                .statusCode(204);
+    }
+
+    @Test
+    public void resourceMatchingIncludeAndExcludedPatternCouldNotBeLoadedFromNativeExecutable() {
+        RestAssured.when().get("/test/resources/include-pattern-folder/excluded.txt").then().assertThat()
+                .statusCode(204);
+    }
+
+    @Test
+    public void resourceMatchingIncludePatternOnlyCouldBeLoadedFromNativeExecutable() {
+        String response = RestAssured.when().get("/test/resources/include-pattern-folder/included.txt").then()
+                .assertThat().statusCode(200).extract().asString();
+        assertNotNull(response);
+        assertTrue(response.endsWith("MATCH include-patterns BUT NOT exclude-patterns"), response);
+    }
+
+    @Test
+    public void resourceMatchingNoPatternCouldNotBeLoadedFromNativeExecutable() {
+        RestAssured.when().get("/test/resources/no-pattern-folder/excluded.properties.txt").then().assertThat()
+                .statusCode(204);
+    }
 }
