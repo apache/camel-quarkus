@@ -17,15 +17,31 @@
 package org.apache.camel.quarkus.component.aws2.msk.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.pkg.steps.NativeBuild;
+import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.jboss.logging.Logger;
 
 class Aws2MskProcessor {
+    private static final Logger LOG = Logger.getLogger(Aws2MskProcessor.class);
 
     private static final String FEATURE = "camel-aws2-msk";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    /**
+     * Remove this once this extension starts supporting the native mode.
+     */
+    @BuildStep(onlyIf = NativeBuild.class)
+    @Record(value = ExecutionTime.RUNTIME_INIT)
+    void warnJvmInNative(JvmOnlyRecorder recorder) {
+        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
+        recorder.warnJvmInNative(FEATURE); // warn at runtime
     }
 
 }
