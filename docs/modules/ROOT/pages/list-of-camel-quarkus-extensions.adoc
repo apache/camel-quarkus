@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 120 in 101 JAR artifacts (0 deprecated)
+Number of Camel components: 122 in 102 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
