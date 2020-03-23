@@ -40,6 +40,7 @@
         <module>aws2-ecs</module>
         <module>aws2-eks</module>
         <module>aws2-iam</module>
+        <module>aws2-kms</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>couchdb</module>
