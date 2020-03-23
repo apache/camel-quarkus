@@ -41,6 +41,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <ahc.version>2.10.4</ahc.version>
+        <awssdk2.version>2.10.67</awssdk2.version>
         <camel.version>3.1.0</camel.version>
         <freemarker.version>2.3.30</freemarker.version>
         <google-http-client.version>1.22.0</google-http-client.version>
