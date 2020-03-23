@@ -221,6 +221,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-aws2-translate</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-azure</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -1066,6 +1071,11 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-aws2-sqs</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-aws2-translate</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
