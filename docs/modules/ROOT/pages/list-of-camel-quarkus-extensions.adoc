@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 106 in 88 JAR artifacts (0 deprecated)
+Number of Camel components: 108 in 89 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -192,6 +192,14 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | Native +
  Stable | 1.0.0-M1 | The ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/google-bigquery-component.html[Google BigQuery] (camel-quarkus-google-bigquery) +
+`google-bigquery:projectId:datasetId:tableId` | JVM +
+ Preview | 1.0.0-M6 | Google BigQuery data warehouse for analytics.
+
+| link:https://camel.apache.org/components/latest/google-bigquery-sql-component.html[Google BigQuery Standard SQL] (camel-quarkus-google-bigquery) +
+`google-bigquery-sql:projectId:query` | JVM +
+ Preview | 1.0.0-M6 | Google BigQuery data warehouse for analytics (using SQL queries).
 
 | link:https://camel.apache.org/components/latest/google-calendar-component.html[Google Calendar] (camel-quarkus-google-calendar) +
 `google-calendar:apiName/methodName` | Native +
