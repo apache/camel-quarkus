@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.core;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -37,6 +39,7 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
+import org.apache.commons.io.IOUtils;
 
 @Path("/test")
 @ApplicationScoped
@@ -151,5 +154,17 @@ public class CoreResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String lruCacheFactory() {
         return LRUCacheFactory.getInstance().getClass().getName();
+    }
+
+    @Path("/resources/{name : (.+)?}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getResource(@PathParam("name") String name) throws IOException {
+        try (InputStream is = this.getClass().getClassLoader().getResourceAsStream(name)) {
+            if (is == null) {
+                return null;
+            }
+            return IOUtils.toString(is, StandardCharsets.UTF_8);
+        }
     }
 }

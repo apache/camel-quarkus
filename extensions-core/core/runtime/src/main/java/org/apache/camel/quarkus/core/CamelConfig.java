@@ -44,6 +44,12 @@ public class CamelConfig {
     @ConfigItem
     public RuntimeCatalogConfig runtimeCatalog;
 
+    /**
+     * Build time configuration options for resources inclusion in the native executable.
+     */
+    @ConfigItem
+    public ResourcesConfig resources;
+
     @ConfigGroup
     public static class MainConfig {
         /**
@@ -178,6 +184,35 @@ public class CamelConfig {
          */
         @ConfigItem
         public Optional<List<String>> includePatterns;
+    }
+
+    @ConfigGroup
+    public static class ResourcesConfig {
+
+        /**
+         * A comma separated list of Ant-path style patterns to match resources
+         * that should be <strong>excluded</strong> from the native executable. By default,
+         * resources not selected by quarkus itself are ignored. Then, inclusion
+         * of additional resources could be triggered with
+         * <code>includePatterns</code>. When the inclusion patterns is too
+         * large, eviction of previously selected resources could be triggered
+         * with <code>excludePatterns</code>.
+         */
+        @ConfigItem
+        public Optional<List<String>> excludePatterns;
+
+        /**
+         * A comma separated list of Ant-path style patterns to match resources
+         * that should be <strong>included</strong> in the native executable. By default,
+         * resources not selected by quarkus itself are ignored. Then, inclusion
+         * of additional resources could be triggered with
+         * <code>includePatterns</code>. When the inclusion patterns is too
+         * large, eviction of previously selected resources could be triggered
+         * with <code>excludePatterns</code>.
+         */
+        @ConfigItem
+        public Optional<List<String>> includePatterns;
+
     }
 
     @ConfigGroup

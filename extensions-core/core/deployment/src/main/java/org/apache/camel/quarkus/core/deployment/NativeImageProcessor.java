@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -207,6 +208,35 @@ class NativeImageProcessor {
             }
 
             return resources;
+        }
+
+        @BuildStep
+        void embedSelectResourcesInNativeExecutable(CamelConfig config, ApplicationArchivesBuildItem archives,
+                BuildProducer<NativeImageResourceBuildItem> resources) {
+
+            if (!config.resources.includePatterns.isPresent()) {
+                LOGGER.debug("Not scanning resources for native inclusion as include-patterns is not set");
+                return;
+            }
+
+            PathFilter.Builder builder = new PathFilter.Builder();
+            LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
+                    config.resources.includePatterns.get());
+            builder.include(config.resources.includePatterns);
+            builder.exclude(config.resources.excludePatterns);
+            PathFilter pathFilter = builder.build();
+
+            for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
+                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getArchiveLocation());
+
+                final Path rootPath = archive.getArchiveRoot();
+                Stream<Path> resourceStream = CamelSupport.safeWalk(rootPath).filter(path -> Files.isRegularFile(path));
+                resourceStream.map(filePath -> rootPath.relativize(filePath)).filter(pathFilter.asPathPredicate())
+                        .forEach(filteredPath -> {
+                            resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
+                            LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
+                        });
+            }
         }
     }
 
