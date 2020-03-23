@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 114 in 95 JAR artifacts (0 deprecated)
+Number of Camel components: 115 in 96 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -68,6 +68,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/aws2-kms-component.html[AWS 2 KMS] (camel-quarkus-aws2-kms) +
 `aws2-kms:label` | JVM +
  Preview | 1.0.0-M6 | The aws2-kms is used for managing Amazon KMS
+
+| link:https://camel.apache.org/components/latest/aws2-mq-component.html[AWS 2 MQ] (camel-quarkus-aws2-mq) +
+`aws2-mq:label` | JVM +
+ Preview | 1.0.0-M6 | The aws2-mq is used for managing Amazon MQ instances.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
 `aws-ec2:label` | Native +
