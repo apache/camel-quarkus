@@ -603,7 +603,7 @@ Level | Since | Description
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 25 in 20 JAR artifacts (0 deprecated)
+Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -663,6 +663,9 @@ Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | Native +
  Stable | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
+
+| link:https://camel.apache.org/components/latest/protobuf-dataformat.html[Protobuf] (camel-quarkus-protobuf) | JVM +
+ Preview | 1.0.0-M6 | The Protobuf data format is used for serializing between Java objects and the Google Protobuf protocol.
 
 | link:https://camel.apache.org/components/latest/soapjaxb-dataformat.html[SOAP] (camel-quarkus-soap) | Native +
  Stable | 1.0.0-M5 | SOAP is a data format which uses JAXB2 and JAX-WS annotations to marshal and unmarshal SOAP payloads.
