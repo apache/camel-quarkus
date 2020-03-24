@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package org.apache.camel.quarkus.component.protobuf.it.model;
+
+option java_package = "org.apache.camel.quarkus.component.protobuf.it.model";
+option java_outer_classname = "AddressBookProtos";
+
+message Person {
+  required string name = 1;
+  required int32 id = 2;
+  optional string email = 3;
+
+  enum PhoneType {
+    MOBILE = 0;
+    HOME = 1;
+    WORK = 2;
+  }
+
+  message PhoneNumber {
+    required string number = 1;
+    required PhoneType type = 2 [default = HOME];
+  }
+
+  repeated PhoneNumber phone = 4;
+  repeated string nicknames = 5;
+
+  message Address {
+     optional string street = 1;
+     optional int32 street_number = 2;
+     optional bool is_valid = 3;
+  }
+
+  optional Address address = 6;
+}
+
+message AddressBook {
+  repeated Person person = 1;
+}

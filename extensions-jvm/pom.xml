@@ -67,6 +67,7 @@
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>
+        <module>protobuf</module>
         <module>pubnub</module>
         <module>rabbitmq</module>
         <module>sap-netweaver</module>
