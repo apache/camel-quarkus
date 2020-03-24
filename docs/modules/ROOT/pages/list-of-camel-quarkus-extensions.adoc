@@ -417,7 +417,7 @@ Level | Since | Description
 `mongodb-gridfs:connectionBean` | JVM +
  Preview | 1.0.0-M6 | Component for working with MongoDB GridFS.
 
-| link:https://camel.apache.org/components/latest/mustache-component.html[Mustache] (camel-quarkus-mustache) +
+| xref:extensions/mustache.adoc[Mustache] (camel-quarkus-mustache) +
 `mustache:resourceUri` | Native +
  Stable | 1.0.0-M5 | Transforms the message using a Mustache template.
 

@@ -5,7 +5,7 @@ Things to consider before you run your application in the native mode.
 [[charsets]]
 == Character encodings
 
-By default only a the following `Charsets` are available in the native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
+By default only the following `Charsets` are available in the native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
 
 [code,text]
 ----
@@ -23,3 +23,17 @@ quarkus.native.add-all-charsets = true
 
 See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets]
 in Quarkus documentation.
+
+[[embedding-resource-in-native-executable]]
+== Embedding resource in native executable
+
+Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
+[code,properties]
+----
+quarkus.camel.resources.include-patterns = docs/*,images/*
+quarkus.camel.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
+----
+In the example above, resources named _docs/included.adoc_ and _images/included.png_ would be embedded in the native executable while _docs/ignored.adoc_ and _images/ignored.png_ would not.
+
+`include-patterns` and `exclude-patterns` are list of comma separated link:https://github.com/apache/camel/blob/master/core/camel-util/src/main/java/org/apache/camel/util/AntPathMatcher.java[Ant-path style patterns].
+At the end of the day, resources matching `include-patterns` are marked for inclusion at the exception of resources matching `exclude-patterns`.
