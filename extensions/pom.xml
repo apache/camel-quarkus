@@ -36,6 +36,7 @@
         <module>activemq</module>
         <module>ahc</module>
         <module>ahc-ws</module>
+        <module>amqp</module>
         <module>attachments</module>
         <module>aws-ec2</module>
         <module>aws-ecs</module>

@@ -158,6 +158,7 @@
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
+        <module>amqp</module>
         <module>aws</module>
         <module>azure</module>
         <module>base64</module>

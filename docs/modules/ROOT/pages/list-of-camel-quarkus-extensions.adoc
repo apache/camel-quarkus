@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 140 in 105 JAR artifacts (0 deprecated)
+Number of Camel components: 141 in 106 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -36,6 +36,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/ahc-ws-component.html[AHC Websocket] (camel-quarkus-ahc-ws) +
 `ahc-ws:httpUri` | Native +
  Stable | 1.0.0-M3 | To exchange data with external Websocket servers using Async Http Client.
+
+| link:https://camel.apache.org/components/latest/amqp-component.html[AMQP] (camel-quarkus-amqp) +
+`amqp:destinationType:destinationName` | Native +
+ Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
 
 | link:https://camel.apache.org/components/latest/aws2-cw-component.html[AWS 2 CloudWatch] (camel-quarkus-aws2-cw) +
 `aws2-cw:namespace` | JVM +
