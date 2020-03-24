@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 141 in 106 JAR artifacts (0 deprecated)
+Number of Camel components: 142 in 107 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -40,6 +40,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/amqp-component.html[AMQP] (camel-quarkus-amqp) +
 `amqp:destinationType:destinationName` | Native +
  Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
+
+| link:https://camel.apache.org/components/latest/avro-component.html[Avro] (camel-quarkus-avro) +
+`avro:transport:host:port/messageName` | JVM +
+ Preview | 1.0.0-M6 | Working with Apache Avro for data serialization.
 
 | link:https://camel.apache.org/components/latest/aws2-cw-component.html[AWS 2 CloudWatch] (camel-quarkus-aws2-cw) +
 `aws2-cw:namespace` | JVM +
@@ -595,12 +599,15 @@ Level | Since | Description
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 24 in 19 JAR artifacts (0 deprecated)
+Number of Camel data formats: 25 in 20 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
 | Data Format | Target +
 Level | Since | Description
+
+| link:https://camel.apache.org/components/latest/avro-dataformat.html[Avro] (camel-quarkus-avro) | JVM +
+ Preview | 1.0.0-M6 | The Avro data format is used for serialization and deserialization of messages using Apache Avro binary dataformat.
 
 | link:https://camel.apache.org/components/latest/base64-dataformat.html[Base64] (camel-quarkus-base64) | Native +
  Stable | 1.0.0-M1 | The Base64 data format is used for base64 encoding and decoding.
