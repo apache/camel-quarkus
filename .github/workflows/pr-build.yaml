@@ -143,6 +143,7 @@ jobs:
           - category: Messaging
             test-modules: >
               activemq
+              amqp
               kafka
               messaging
           - category: Misc
