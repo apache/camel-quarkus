@@ -38,6 +38,5 @@ public class FastTypeConverter extends DefaultTypeConverter {
 
     @Override
     public void loadCoreAndFastTypeConverters() throws Exception {
-        throw new UnsupportedOperationException();
     }
 }

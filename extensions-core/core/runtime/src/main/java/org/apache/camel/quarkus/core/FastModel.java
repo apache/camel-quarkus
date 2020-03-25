@@ -17,209 +17,310 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.NamedNode;
-import org.apache.camel.Navigate;
-import org.apache.camel.Processor;
-import org.apache.camel.Route;
-import org.apache.camel.Service;
-import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.impl.engine.BaseRouteService;
-import org.apache.camel.impl.engine.DefaultRouteContext;
-import org.apache.camel.model.OnCompletionDefinition;
-import org.apache.camel.model.OnExceptionDefinition;
+import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.HystrixConfigurationDefinition;
+import org.apache.camel.model.Model;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RouteDefinitionHelper;
-import org.apache.camel.processor.channel.DefaultChannel;
-import org.apache.camel.reifier.RouteReifier;
-import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.model.RouteFilters;
+import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
+import org.apache.camel.model.rest.RestDefinition;
+import org.apache.camel.model.transformer.TransformerDefinition;
+import org.apache.camel.model.validator.ValidatorDefinition;
 
-public class FastModel extends BaseModel {
+public class FastModel implements Model {
+
+    private final CamelContext camelContext;
+
+    private final List<RouteDefinition> routeDefinitions = new ArrayList<>();
+    private final List<RestDefinition> restDefinitions = new ArrayList<>();
+    private Map<String, DataFormatDefinition> dataFormats = new HashMap<>();
+    private List<TransformerDefinition> transformers = new ArrayList<>();
+    private List<ValidatorDefinition> validators = new ArrayList<>();
+    private Map<String, ServiceCallConfigurationDefinition> serviceCallConfigurations = new ConcurrentHashMap<>();
+    private Map<String, HystrixConfigurationDefinition> hystrixConfigurations = new ConcurrentHashMap<>();
+    private Map<String, Resilience4jConfigurationDefinition> resilience4jConfigurations = new ConcurrentHashMap<>();
+    private Function<RouteDefinition, Boolean> routeFilter;
+
     public FastModel(CamelContext camelContext) {
-        super(camelContext);
+        this.camelContext = camelContext;
+    }
+
+    public CamelContext getCamelContext() {
+        return camelContext;
     }
 
     @Override
-    protected void start(RouteDefinition routeDefinition) throws Exception {
-        // indicate we are staring the route using this thread so
-        // we are able to query this if needed
-        CamelContext camelContext = getCamelContext();
-        AbstractCamelContext mcc = camelContext.adapt(AbstractCamelContext.class);
-        mcc.setStartingRoutes(true);
+    public synchronized void addRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
+        if (routeDefinitions == null || routeDefinitions.isEmpty()) {
+            return;
+        }
+        List<RouteDefinition> list = new ArrayList<>();
+        routeDefinitions.forEach(r -> {
+            if (routeFilter == null || routeFilter.apply(r)) {
+                list.add(r);
+            }
+        });
+
+        removeRouteDefinitions(list);
+        this.routeDefinitions.addAll(list);
+        if (shouldStartRoutes()) {
+            getCamelContext().adapt(ModelCamelContext.class).startRouteDefinitions(list);
+        }
+    }
+
+    @Override
+    public void addRouteDefinition(RouteDefinition routeDefinition) throws Exception {
+        addRouteDefinitions(Collections.singletonList(routeDefinition));
+    }
+
+    @Override
+    public synchronized void removeRouteDefinitions(Collection<RouteDefinition> routeDefinitions) throws Exception {
+        for (RouteDefinition routeDefinition : routeDefinitions) {
+            removeRouteDefinition(routeDefinition);
+        }
+    }
+
+    @Override
+    public synchronized void removeRouteDefinition(RouteDefinition routeDefinition) throws Exception {
+        RouteDefinition toBeRemoved = routeDefinition;
+        String id = routeDefinition.getId();
+        if (id != null) {
+            // remove existing route
+            camelContext.getRouteController().stopRoute(id);
+            camelContext.removeRoute(id);
+            toBeRemoved = getRouteDefinition(id);
+        }
+        this.routeDefinitions.remove(toBeRemoved);
+    }
+
+    @Override
+    public synchronized List<RouteDefinition> getRouteDefinitions() {
+        return routeDefinitions;
+    }
+
+    @Override
+    public synchronized RouteDefinition getRouteDefinition(String id) {
+        for (RouteDefinition route : routeDefinitions) {
+            if (route.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory()).equals(id)) {
+                return route;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public synchronized List<RestDefinition> getRestDefinitions() {
+        return restDefinitions;
+    }
+
+    @Override
+    public synchronized void addRestDefinitions(Collection<RestDefinition> restDefinitions, boolean addToRoutes)
+            throws Exception {
+        if (restDefinitions == null || restDefinitions.isEmpty()) {
+            return;
+        }
+
+        this.restDefinitions.addAll(restDefinitions);
+        if (addToRoutes) {
+            // rests are also routes so need to add them there too
+            for (final RestDefinition restDefinition : restDefinitions) {
+                List<RouteDefinition> routeDefinitions = restDefinition.asRouteDefinition(camelContext);
+                addRouteDefinitions(routeDefinitions);
+            }
+        }
+    }
+
+    @Override
+    public ServiceCallConfigurationDefinition getServiceCallConfiguration(String serviceName) {
+        if (serviceName == null) {
+            serviceName = "";
+        }
+
+        return serviceCallConfigurations.get(serviceName);
+    }
+
+    @Override
+    public void setServiceCallConfiguration(ServiceCallConfigurationDefinition configuration) {
+        serviceCallConfigurations.put("", configuration);
+    }
+
+    @Override
+    public void setServiceCallConfigurations(List<ServiceCallConfigurationDefinition> configurations) {
+        if (configurations != null) {
+            for (ServiceCallConfigurationDefinition configuration : configurations) {
+                serviceCallConfigurations.put(configuration.getId(), configuration);
+            }
+        }
+    }
+
+    @Override
+    public void addServiceCallConfiguration(String serviceName, ServiceCallConfigurationDefinition configuration) {
+        serviceCallConfigurations.put(serviceName, configuration);
+    }
+
+    @Override
+    public HystrixConfigurationDefinition getHystrixConfiguration(String id) {
+        if (id == null) {
+            id = "";
+        }
+
+        return hystrixConfigurations.get(id);
+    }
+
+    @Override
+    public void setHystrixConfiguration(HystrixConfigurationDefinition configuration) {
+        hystrixConfigurations.put("", configuration);
+    }
+
+    @Override
+    public void setHystrixConfigurations(List<HystrixConfigurationDefinition> configurations) {
+        if (configurations != null) {
+            for (HystrixConfigurationDefinition configuration : configurations) {
+                hystrixConfigurations.put(configuration.getId(), configuration);
+            }
+        }
+    }
+
+    @Override
+    public void addHystrixConfiguration(String id, HystrixConfigurationDefinition configuration) {
+        hystrixConfigurations.put(id, configuration);
+    }
+
+    @Override
+    public Resilience4jConfigurationDefinition getResilience4jConfiguration(String id) {
+        if (id == null) {
+            id = "";
+        }
+
+        return resilience4jConfigurations.get(id);
+    }
+
+    @Override
+    public void setResilience4jConfiguration(Resilience4jConfigurationDefinition configuration) {
+        resilience4jConfigurations.put("", configuration);
+    }
+
+    @Override
+    public void setResilience4jConfigurations(List<Resilience4jConfigurationDefinition> configurations) {
+        if (configurations != null) {
+            for (Resilience4jConfigurationDefinition configuration : configurations) {
+                resilience4jConfigurations.put(configuration.getId(), configuration);
+            }
+        }
+    }
+
+    @Override
+    public void addResilience4jConfiguration(String id, Resilience4jConfigurationDefinition configuration) {
+        resilience4jConfigurations.put(id, configuration);
+    }
+
+    @Override
+    public DataFormatDefinition resolveDataFormatDefinition(String name) {
+        // lookup type and create the data format from it
+        DataFormatDefinition type = lookup(camelContext, name, DataFormatDefinition.class);
+        if (type == null && getDataFormats() != null) {
+            type = getDataFormats().get(name);
+        }
+        return type;
+    }
+
+    @Override
+    public ProcessorDefinition<?> getProcessorDefinition(String id) {
+        for (RouteDefinition route : getRouteDefinitions()) {
+            Iterator<ProcessorDefinition> it = ProcessorDefinitionHelper.filterTypeInOutputs(route.getOutputs(),
+                    ProcessorDefinition.class);
+            while (it.hasNext()) {
+                ProcessorDefinition<?> proc = it.next();
+                if (id.equals(proc.getId())) {
+                    return proc;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public <T extends ProcessorDefinition<T>> T getProcessorDefinition(String id, Class<T> type) {
+        ProcessorDefinition<?> answer = getProcessorDefinition(id);
+        if (answer != null) {
+            return type.cast(answer);
+        }
+        return null;
+    }
+
+    @Override
+    public void setDataFormats(Map<String, DataFormatDefinition> dataFormats) {
+        this.dataFormats = dataFormats;
+    }
+
+    @Override
+    public Map<String, DataFormatDefinition> getDataFormats() {
+        return dataFormats;
+    }
+
+    @Override
+    public void setTransformers(List<TransformerDefinition> transformers) {
+        this.transformers = transformers;
+    }
+
+    @Override
+    public List<TransformerDefinition> getTransformers() {
+        return transformers;
+    }
+
+    @Override
+    public void setValidators(List<ValidatorDefinition> validators) {
+        this.validators = validators;
+    }
+
+    @Override
+    public List<ValidatorDefinition> getValidators() {
+        return validators;
+    }
+
+    @Override
+    public void setRouteFilterPattern(String include, String exclude) {
+        setRouteFilter(RouteFilters.filterByPattern(include, exclude));
+    }
+
+    @Override
+    public Function<RouteDefinition, Boolean> getRouteFilter() {
+        return routeFilter;
+    }
+
+    @Override
+    public void setRouteFilter(Function<RouteDefinition, Boolean> routeFilter) {
+        this.routeFilter = routeFilter;
+    }
+
+    /**
+     * Should we start newly added routes?
+     */
+    protected boolean shouldStartRoutes() {
+        return camelContext.isStarted() && !camelContext.isStarting();
+    }
+
+    protected static <T> T lookup(CamelContext context, String ref, Class<T> type) {
         try {
-            String id = routeDefinition.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory());
-            FastRouteContext routeContext = new FastRouteContext(camelContext, routeDefinition, id);
-            Route route = new RouteReifier(routeContext, routeDefinition).createRoute();
-            FastRouteService routeService = createRouteService(route);
-            mcc.startRouteService(routeService, true);
-        } finally {
-            // we are done staring routes
-            mcc.setStartingRoutes(false);
-        }
-    }
-
-    private FastRouteService createRouteService(Route route) {
-        Integer startupOrder;
-        String description;
-        boolean autoStartup;
-        boolean contextScopedErrorHandler;
-        List<Service> routeScopedServices;
-
-        RouteDefinition definition = (RouteDefinition) route.getRouteContext().getRoute();
-        startupOrder = definition.getStartupOrder();
-        description = RouteDefinitionHelper.getRouteMessage(definition.toString());
-
-        if (!route.getCamelContext().isAutoStartup()) {
-            autoStartup = false;
-        } else if (definition.getAutoStartup() == null) {
-            // should auto startup by default
-            autoStartup = true;
-        } else {
-            Boolean isAutoStartup = CamelContextHelper.parseBoolean(route.getCamelContext(), definition.getAutoStartup());
-            autoStartup = isAutoStartup != null && isAutoStartup;
-        }
-
-        if (!definition.isContextScopedErrorHandler()) {
-            contextScopedErrorHandler = false;
-        } else if (definition.getErrorHandlerRef() != null) {
-            // if error handler ref is configured it may refer to a context scoped, so we need to check this first
-            // the XML DSL will configure error handlers using refs, so we need this additional test
-            ErrorHandlerFactory routeScoped = route.getRouteContext().getErrorHandlerFactory();
-            ErrorHandlerFactory contextScoped = route.getCamelContext().adapt(ExtendedCamelContext.class)
-                    .getErrorHandlerFactory();
-            contextScopedErrorHandler = contextScoped != null && routeScoped == contextScoped;
-        } else {
-            contextScopedErrorHandler = true;
-        }
-
-        List<Service> services = new ArrayList<>();
-        for (ProcessorDefinition<?> output : definition.getOutputs()) {
-            if (output instanceof OnExceptionDefinition) {
-                OnExceptionDefinition onExceptionDefinition = (OnExceptionDefinition) output;
-                if (onExceptionDefinition.isRouteScoped()) {
-                    Processor errorHandler = route.getRouteContext().getOnException(onExceptionDefinition.getId());
-                    if (errorHandler instanceof Service) {
-                        services.add((Service) errorHandler);
-                    }
-                }
-            } else if (output instanceof OnCompletionDefinition) {
-                OnCompletionDefinition onCompletionDefinition = (OnCompletionDefinition) output;
-                if (onCompletionDefinition.isRouteScoped()) {
-                    Processor onCompletionProcessor = route.getRouteContext().getOnCompletion(onCompletionDefinition.getId());
-                    if (onCompletionProcessor instanceof Service) {
-                        services.add((Service) onCompletionProcessor);
-                    }
-                }
-            }
-        }
-        routeScopedServices = services;
-
-        FastRouteService routeService = new FastRouteService(route);
-        routeService.setStartupOrder(startupOrder);
-        routeService.setDescription(description);
-        routeService.setAutoStartup(autoStartup);
-        routeService.setContextScopedErrorHandler(contextScopedErrorHandler);
-        routeService.setRouteScopedServices(routeScopedServices);
-        return routeService;
-    }
-
-    static class FastRouteContext extends DefaultRouteContext {
-
-        private NamedNode route;
-
-        public FastRouteContext(CamelContext camelContext, NamedNode route, String routeId) {
-            super(camelContext, null, routeId);
-            this.route = route;
-        }
-
-        @Override
-        public NamedNode getRoute() {
-            return route;
-        }
-
-        public void clearModel() {
-            clearModel(getRuntimeRoute().getProcessor());
-            route = null;
-        }
-
-        @SuppressWarnings("unchecked")
-        private void clearModel(Processor nav) {
-            if (nav instanceof DefaultChannel) {
-                DefaultChannel channel = (DefaultChannel) nav;
-                channel.setDefinition(null);
-            }
-            if (nav instanceof Navigate) {
-                List<Processor> children = ((Navigate<Processor>) nav).next();
-                if (children != null) {
-                    for (Processor p : children) {
-                        clearModel(p);
-                    }
-                }
-            }
-        }
-
-    }
-
-    static class FastRouteService extends BaseRouteService {
-
-        private Integer startupOrder;
-        private String description;
-        private boolean autoStartup;
-        private boolean contextScopedErrorHandler;
-        private List<Service> routeScopedServices;
-
-        public FastRouteService(Route route) {
-            super(route);
-        }
-
-        public void setStartupOrder(Integer startupOrder) {
-            this.startupOrder = startupOrder;
-        }
-
-        public void setDescription(String description) {
-            this.description = description;
-        }
-
-        public void setAutoStartup(boolean autoStartup) {
-            this.autoStartup = autoStartup;
-        }
-
-        public void setContextScopedErrorHandler(boolean contextScopedErrorHandler) {
-            this.contextScopedErrorHandler = contextScopedErrorHandler;
-        }
-
-        public void setRouteScopedServices(List<Service> routeScopedServices) {
-            this.routeScopedServices = routeScopedServices;
-        }
-
-        @Override
-        public Integer getStartupOrder() {
-            return startupOrder;
-        }
-
-        @Override
-        protected String getRouteDescription() {
-            return description;
-        }
-
-        @Override
-        public boolean isAutoStartup() {
-            return autoStartup;
-        }
-
-        @Override
-        public boolean isContextScopedErrorHandler() {
-            return contextScopedErrorHandler;
-        }
-
-        @Override
-        protected void doGetRouteScopedServices(List<Service> services) {
-            services.addAll(routeScopedServices);
+            return context.getRegistry().lookupByNameAndType(ref, type);
+        } catch (Exception e) {
+            // need to ignore not same type and return it as null
+            return null;
         }
     }
 

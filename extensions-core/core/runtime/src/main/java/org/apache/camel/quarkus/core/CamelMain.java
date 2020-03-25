@@ -19,11 +19,7 @@ package org.apache.camel.quarkus.core;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
-import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.*;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
@@ -35,9 +31,19 @@ import org.slf4j.LoggerFactory;
 public class CamelMain extends BaseMainSupport implements CamelContextAware {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
 
+    public CamelMain() {
+    }
+
     @Override
     public void setCamelContext(CamelContext camelContext) {
         this.camelContext = camelContext;
+    }
+
+    @Override
+    protected void doInit() throws Exception {
+        super.doInit();
+        postProcessCamelContext(camelContext);
+        camelContext.init();
     }
 
     @Override
@@ -46,11 +52,15 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
             listener.beforeStart(this);
         }
 
-        postProcessCamelContext(getCamelContext());
         getCamelContext().start();
 
         for (MainListener listener : listeners) {
             listener.afterStart(this);
+        }
+
+        if (getMainConfigurationProperties().isLightweight()) {
+            routesCollector = null;
+            routeBuilders = null;
         }
     }
 
@@ -58,7 +68,7 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
     protected void postProcessCamelContext(CamelContext camelContext) throws Exception {
         super.postProcessCamelContext(camelContext);
 
-        // post process classes with camel's post processor so classes have supot
+        // post process classes with camel's post processor so classes have support
         // for camel's simple di
         CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
         for (RoutesBuilder builder : getRoutesBuilders()) {

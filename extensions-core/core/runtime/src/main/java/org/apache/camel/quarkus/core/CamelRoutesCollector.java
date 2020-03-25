@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.core;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,12 +70,16 @@ public class CamelRoutesCollector implements RoutesCollector {
         for (String part : directory.split(",")) {
             LOGGER.info("Loading additional Camel XML routes from: {}", part);
             try {
+                LOGGER.info("Resolving from current dir: {}", Paths.get(".").toAbsolutePath().toString());
+                int res = 0;
                 for (InputStream is : resolver.findResources(part)) {
+                    res++;
                     Object definition = xmlRoutesLoader.loadRoutesDefinition(camelContext, is);
                     if (definition instanceof RoutesDefinition) {
                         answer.add((RoutesDefinition) definition);
                     }
                 }
+                LOGGER.info("Found {} resources", res);
             } catch (FileNotFoundException e) {
                 LOGGER.debug("No XML routes found in {}. Skipping XML routes detection.", part);
             } catch (Exception e) {

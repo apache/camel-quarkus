@@ -19,34 +19,32 @@ package org.apache.camel.quarkus.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
-import org.apache.camel.AsyncProcessor;
-import org.apache.camel.CatalogCamelContext;
-import org.apache.camel.Component;
-import org.apache.camel.Endpoint;
-import org.apache.camel.Processor;
-import org.apache.camel.TypeConverter;
+import org.apache.camel.*;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.impl.engine.BeanProcessorFactoryResolver;
-import org.apache.camel.impl.engine.BeanProxyFactoryResolver;
+import org.apache.camel.impl.engine.BaseServiceResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
 import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
 import org.apache.camel.impl.engine.DefaultClassResolver;
+import org.apache.camel.impl.engine.DefaultComponentNameResolver;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
+import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
 import org.apache.camel.impl.engine.DefaultInjector;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
@@ -55,7 +53,6 @@ import org.apache.camel.impl.engine.DefaultNodeIdFactory;
 import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.impl.engine.DefaultProcessorFactory;
-import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.impl.engine.DefaultRouteController;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.impl.engine.DefaultTracer;
@@ -63,8 +60,7 @@ import org.apache.camel.impl.engine.DefaultTransformerRegistry;
 import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
-import org.apache.camel.impl.engine.HeadersMapFactoryResolver;
-import org.apache.camel.impl.engine.RestRegistryFactoryResolver;
+import org.apache.camel.impl.engine.RouteService;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
@@ -75,69 +71,46 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RouteDefinitionHelper;
 import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
+import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.processor.MulticastProcessor;
-import org.apache.camel.spi.AsyncProcessorAwaitManager;
-import org.apache.camel.spi.BeanIntrospection;
-import org.apache.camel.spi.BeanProcessorFactory;
-import org.apache.camel.spi.BeanProxyFactory;
-import org.apache.camel.spi.CamelBeanPostProcessor;
-import org.apache.camel.spi.CamelContextNameStrategy;
-import org.apache.camel.spi.ClassResolver;
-import org.apache.camel.spi.ComponentResolver;
-import org.apache.camel.spi.ConfigurerResolver;
-import org.apache.camel.spi.DataFormat;
-import org.apache.camel.spi.DataFormatResolver;
-import org.apache.camel.spi.EndpointRegistry;
-import org.apache.camel.spi.ExecutorServiceManager;
-import org.apache.camel.spi.FactoryFinderResolver;
-import org.apache.camel.spi.HeadersMapFactory;
-import org.apache.camel.spi.InflightRepository;
-import org.apache.camel.spi.Injector;
-import org.apache.camel.spi.Language;
-import org.apache.camel.spi.LanguageResolver;
-import org.apache.camel.spi.ManagementNameStrategy;
-import org.apache.camel.spi.MessageHistoryFactory;
-import org.apache.camel.spi.ModelJAXBContextFactory;
-import org.apache.camel.spi.ModelToXMLDumper;
-import org.apache.camel.spi.NodeIdFactory;
-import org.apache.camel.spi.PackageScanClassResolver;
-import org.apache.camel.spi.PackageScanResourceResolver;
-import org.apache.camel.spi.ProcessorFactory;
-import org.apache.camel.spi.PropertiesComponent;
-import org.apache.camel.spi.ReactiveExecutor;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.RestRegistryFactory;
-import org.apache.camel.spi.RouteController;
-import org.apache.camel.spi.ShutdownStrategy;
-import org.apache.camel.spi.StreamCachingStrategy;
-import org.apache.camel.spi.Tracer;
-import org.apache.camel.spi.TransformerRegistry;
-import org.apache.camel.spi.TypeConverterRegistry;
-import org.apache.camel.spi.UnitOfWorkFactory;
-import org.apache.camel.spi.UuidGenerator;
-import org.apache.camel.spi.ValidatorRegistry;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
+import org.apache.camel.reifier.RouteReifier;
+import org.apache.camel.reifier.errorhandler.ErrorHandlerReifier;
+import org.apache.camel.reifier.language.ExpressionReifier;
+import org.apache.camel.reifier.transformer.TransformerReifier;
+import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.*;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.IOHelper;
+import org.apache.camel.util.ObjectHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
-    private final Model model;
+public class FastCamelContext extends AbstractCamelContext implements ModelCamelContext {
+
+    private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
+
+    private final CamelContext reference;
     private final String version;
-    private final XMLRoutesDefinitionLoader xmlLoader;
-    private final ModelToXMLDumper modelDumper;
+    private XMLRoutesDefinitionLoader xmlLoader;
+    private ModelToXMLDumper modelDumper;
+    private Model model;
+    private Date startDate;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, XMLRoutesDefinitionLoader xmlLoader,
+    public FastCamelContext(CamelContext reference, FactoryFinderResolver factoryFinderResolver, String version,
+            XMLRoutesDefinitionLoader xmlLoader,
             ModelToXMLDumper modelDumper) {
         super(false);
-
+        this.reference = reference != null ? reference : this;
         this.version = version;
         this.xmlLoader = xmlLoader;
         this.modelDumper = modelDumper;
-        this.model = new FastModel(this);
+
+        this.model = new FastModel(getCamelContextReference());
 
         setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
@@ -145,6 +118,57 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         setMessageHistory(Boolean.FALSE);
         setDefaultExtension(HealthCheckRegistry.class, DefaultHealthCheckRegistry::new);
 
+        LOG.info("Creating Apache Camel {} (CamelContext: {})", getVersion(), getName());
+    }
+
+    @Override
+    public CamelContext getCamelContextReference() {
+        return reference;
+    }
+
+    @Override
+    public long getUptimeMillis() {
+        if (startDate == null) {
+            return 0;
+        }
+        return new Date().getTime() - startDate.getTime();
+    }
+
+    @Override
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    @Override
+    public void startRouteDefinitions() throws Exception {
+        List<RouteDefinition> routeDefinitions = model.getRouteDefinitions();
+        if (routeDefinitions != null) {
+            startRouteDefinitions(routeDefinitions);
+        }
+    }
+
+    public void startRouteDefinitions(List<RouteDefinition> routeDefinitions) throws Exception {
+        RouteDefinitionHelper.forceAssignIds(getCamelContextReference(), routeDefinitions);
+        for (RouteDefinition routeDefinition : routeDefinitions) {
+            // assign ids to the routes and validate that the id's is all unique
+            String duplicate = RouteDefinitionHelper.validateUniqueIds(routeDefinition, routeDefinitions);
+            if (duplicate != null) {
+                throw new FailedToStartRouteException(routeDefinition.getId(),
+                        "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
+            }
+
+            // must ensure route is prepared, before we can start it
+            if (!routeDefinition.isPrepared()) {
+                RouteDefinitionHelper.prepareRoute(getCamelContextReference(), routeDefinition);
+                routeDefinition.markPrepared();
+            }
+
+            // indicate we are staring the route using this thread so
+            // we are able to query this if needed
+            Route route = new RouteReifier(getCamelContextReference(), routeDefinition).createRoute();
+            RouteService routeService = new RouteService(route);
+            routeService.warmUp();
+        }
     }
 
     @Override
@@ -209,13 +233,18 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected HealthCheckRegistry createHealthCheckRegistry() {
+        return new DefaultHealthCheckRegistry(getCamelContextReference());
+    }
+
+    @Override
     protected Injector createInjector() {
-        return new DefaultInjector(this);
+        return new DefaultInjector(getCamelContextReference());
     }
 
     @Override
     protected CamelBeanPostProcessor createBeanPostProcessor() {
-        return new DefaultCamelBeanPostProcessor(this);
+        return new DefaultCamelBeanPostProcessor(getCamelContextReference());
     }
 
     @Override
@@ -236,7 +265,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected ClassResolver createClassResolver() {
-        return new DefaultClassResolver(this);
+        return new DefaultClassResolver(getCamelContextReference());
     }
 
     @Override
@@ -261,7 +290,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RouteController createRouteController() {
-        return new DefaultRouteController(this);
+        return new DefaultRouteController(getCamelContextReference());
     }
 
     @Override
@@ -271,7 +300,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected ExecutorServiceManager createExecutorServiceManager() {
-        return new DefaultExecutorServiceManager(this);
+        return new DefaultExecutorServiceManager(getCamelContextReference());
     }
 
     @Override
@@ -285,17 +314,25 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HeadersMapFactory createHeadersMapFactory() {
-        return new HeadersMapFactoryResolver().resolve(this);
+        return new BaseServiceResolver<>(HeadersMapFactory.FACTORY, HeadersMapFactory.class)
+                .resolve(getCamelContextReference())
+                .orElseGet(DefaultHeadersMapFactory::new);
     }
 
     @Override
     protected BeanProxyFactory createBeanProxyFactory() {
-        return new BeanProxyFactoryResolver().resolve(this);
+        return new BaseServiceResolver<>(BeanProxyFactory.FACTORY, BeanProxyFactory.class)
+                .resolve(getCamelContextReference())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProxyFactory on classpath. "
+                        + "Add camel-bean to classpath."));
     }
 
     @Override
     protected BeanProcessorFactory createBeanProcessorFactory() {
-        return new BeanProcessorFactoryResolver().resolve(this);
+        return new BaseServiceResolver<>(BeanProcessorFactory.FACTORY, BeanProcessorFactory.class)
+                .resolve(getCamelContextReference())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProcessorFactory on classpath. "
+                        + "Add camel-bean to classpath."));
     }
 
     @Override
@@ -308,9 +345,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         org.apache.camel.component.properties.PropertiesComponent pc = new org.apache.camel.component.properties.PropertiesComponent();
         pc.setAutoDiscoverPropertiesSources(false);
         pc.addPropertiesSource(new CamelMicroProfilePropertiesSource());
-
         return pc;
-
     }
 
     @Override
@@ -337,7 +372,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     protected Tracer createTracer() {
         Tracer tracer = null;
         if (getRegistry() != null) {
-            Map<String, Tracer> map = this.getRegistry().findByTypeWithName(Tracer.class);
+            Map<String, Tracer> map = getRegistry().findByTypeWithName(Tracer.class);
             if (map.size() == 1) {
                 tracer = map.values().iterator().next();
             }
@@ -357,12 +392,15 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RestRegistryFactory createRestRegistryFactory() {
-        return new RestRegistryFactoryResolver().resolve(this);
+        return new BaseServiceResolver<>(RestRegistryFactory.FACTORY, RestRegistryFactory.class)
+                .resolve(getCamelContextReference())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find RestRegistryFactory on classpath. "
+                        + "Add camel-rest to classpath."));
     }
 
     @Override
     protected EndpointRegistry<EndpointKey> createEndpointRegistry(Map<EndpointKey, Endpoint> endpoints) {
-        return new DefaultEndpointRegistry(this, endpoints);
+        return new DefaultEndpointRegistry(getCamelContextReference(), endpoints);
     }
 
     @Override
@@ -372,23 +410,24 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected TransformerRegistry<TransformerKey> createTransformerRegistry() {
-        return new DefaultTransformerRegistry(this);
+        return new DefaultTransformerRegistry(getCamelContextReference());
     }
 
     @Override
     protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() {
-        return new DefaultValidatorRegistry(this);
+        return new DefaultValidatorRegistry(getCamelContextReference());
     }
 
     @Override
     protected ReactiveExecutor createReactiveExecutor() {
-        return new DefaultReactiveExecutor();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
             boolean shutdownExecutorService) {
-        return new MulticastProcessor(this, processors, null, true, executor, shutdownExecutorService,
+        return new MulticastProcessor(getCamelContextReference(), null, processors, null, true, executor,
+                shutdownExecutorService,
                 false, false, 0L, null, false, false);
     }
 
@@ -398,14 +437,33 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected ComponentNameResolver createComponentNameResolver() {
+        return new DefaultComponentNameResolver();
+    }
+
+    @Override
+    public Processor createErrorHandler(Route route, Processor processor) throws Exception {
+        return ErrorHandlerReifier.reifier(route, route.getErrorHandlerFactory())
+                .createErrorHandler(processor);
+    }
+
+    @Override
+    protected RestBindingJaxbDataFormatFactory createRestBindingJaxbDataFormatFactory() {
+        return new BaseServiceResolver<>(RestBindingJaxbDataFormatFactory.FACTORY, RestBindingJaxbDataFormatFactory.class)
+                .resolve(getCamelContextReference())
+                .orElseThrow(() -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
+                        + "Add camel-jaxb to classpath."));
+    }
+
+    @Override
     public void setTypeConverterRegistry(TypeConverterRegistry typeConverterRegistry) {
         super.setTypeConverterRegistry(typeConverterRegistry);
-
-        typeConverterRegistry.setCamelContext(this);
+        typeConverterRegistry.setCamelContext(getCamelContextReference());
     }
 
     @Override
     public void doInit() throws Exception {
+        LOG.info("Apache Camel {} (CamelContext: {}) is initializing", getVersion(), getName());
         super.doInit();
 
         forceLazyInitialization();
@@ -446,7 +504,8 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         if (instance != null) {
             clazz = instance.getClass();
         } else {
-            clazz = getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH).findClass(dataFormatName).orElse(null);
+            clazz = getFactoryFinder(DefaultDataFormatResolver.DATAFORMAT_RESOURCE_PATH).findClass(dataFormatName)
+                    .orElse(null);
             if (clazz == null) {
                 return null;
             }
@@ -511,11 +570,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     //
 
     @Override
-    public void startRouteDefinitions() throws Exception {
-        model.startRouteDefinitions();
-    }
-
-    @Override
     public List<RouteDefinition> getRouteDefinitions() {
         return model.getRouteDefinitions();
     }
@@ -576,7 +630,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    public <T extends ProcessorDefinition> T getProcessorDefinition(String id, Class<T> type) {
+    public <T extends ProcessorDefinition<T>> T getProcessorDefinition(String id, Class<T> type) {
         return model.getProcessorDefinition(id, type);
     }
 
@@ -674,4 +728,43 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     public Function<RouteDefinition, Boolean> getRouteFilter() {
         return model.getRouteFilter();
     }
+
+    @Override
+    public Expression createExpression(ExpressionDefinition definition) {
+        return ExpressionReifier.reifier(this, definition).createExpression();
+    }
+
+    @Override
+    public Predicate createPredicate(ExpressionDefinition definition) {
+        return ExpressionReifier.reifier(this, definition).createPredicate();
+    }
+
+    @Override
+    public RouteDefinition adviceWith(RouteDefinition definition, AdviceWithRouteBuilder builder) throws Exception {
+        return RouteReifier.adviceWith(definition, this, builder);
+    }
+
+    @Override
+    public void registerValidator(ValidatorDefinition def) {
+        model.getValidators().add(def);
+        Validator validator = ValidatorReifier.reifier(this, def).createValidator();
+        getValidatorRegistry().put(createValidatorKey(def), validator);
+    }
+
+    private static ValueHolder<String> createValidatorKey(ValidatorDefinition def) {
+        return new ValidatorKey(new DataType(def.getType()));
+    }
+
+    @Override
+    public void registerTransformer(TransformerDefinition def) {
+        model.getTransformers().add(def);
+        Transformer transformer = TransformerReifier.reifier(this, def).createTransformer();
+        getTransformerRegistry().put(createTransformerKey(def), transformer);
+    }
+
+    private static ValueHolder<String> createTransformerKey(TransformerDefinition def) {
+        return ObjectHelper.isNotEmpty(def.getScheme()) ? new TransformerKey(def.getScheme())
+                : new TransformerKey(new DataType(def.getFromType()), new DataType(def.getToType()));
+    }
+
 }

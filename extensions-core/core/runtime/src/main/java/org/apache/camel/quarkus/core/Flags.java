@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -25,13 +26,22 @@ public final class Flags {
     }
 
     private static boolean asBoolean(String key, boolean defaultValue) {
-        return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(defaultValue);
+        Optional<Boolean> b = ConfigProvider.getConfig().getOptionalValue(key, Boolean.class);
+        System.out.println(key + ": " + b + " (default: " + defaultValue + ")");
+        return b.orElse(defaultValue);
     }
 
     public static final class MainEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {
             return asBoolean("quarkus.camel.main.enabled", true);
+        }
+    }
+
+    public static final class LightweightEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return asBoolean("quarkus.camel.main.lightweight", true);
         }
     }
 

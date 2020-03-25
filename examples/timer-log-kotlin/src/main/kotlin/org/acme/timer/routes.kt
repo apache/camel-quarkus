@@ -25,7 +25,7 @@ import javax.enterprise.inject.Produces
 class Routes {
     @Produces
     fun myRoutes() = routes {
-        from("timer:foo?period=1s")
+        from("timer:foo?period=1000")
                 .process { e: Exchange -> e.message.body = "Hello from Kotlin!" }
                 .log("\${body}")
     }

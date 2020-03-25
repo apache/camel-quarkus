@@ -20,7 +20,7 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.impl.lw.LightweightCamelContext;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
@@ -69,23 +69,43 @@ public class CamelRecorder {
             String version,
             CamelConfig config) {
 
-        FastCamelContext context = new FastCamelContext(
-                factoryFinderResolver.getValue(),
-                version,
-                xmlLoader.getValue(),
-                xmlModelDumper.getValue());
+        if (config.main.lightweight) {
+            FastLightweightCamelContext context = new FastLightweightCamelContext(
+                    factoryFinderResolver.getValue(),
+                    version,
+                    xmlLoader.getValue(),
+                    xmlModelDumper.getValue());
+            context.setRuntimeCamelCatalog(new CamelRuntimeCatalog(config.runtimeCatalog));
+            context.setRegistry(registry.getValue());
+            context.setTypeConverterRegistry(typeConverterRegistry.getValue());
+            context.setLoadTypeConverters(false);
+            context.setModelJAXBContextFactory(contextFactory.getValue());
+            context.build();
 
-        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
-        context.setRegistry(registry.getValue());
-        context.setTypeConverterRegistry(typeConverterRegistry.getValue());
-        context.setLoadTypeConverters(false);
-        context.setModelJAXBContextFactory(contextFactory.getValue());
-        context.init();
+            // register to the container
+            beanContainer.instance(CamelProducers.class).setContext(context);
 
-        // register to the container
-        beanContainer.instance(CamelProducers.class).setContext(context);
+            return new RuntimeValue<>(context);
+        } else {
+            FastCamelContext context = new FastCamelContext(
+                    null,
+                    factoryFinderResolver.getValue(),
+                    version,
+                    xmlLoader.getValue(),
+                    xmlModelDumper.getValue());
+            context.setRuntimeCamelCatalog(new CamelRuntimeCatalog(config.runtimeCatalog));
+            context.setRegistry(registry.getValue());
+            context.setTypeConverterRegistry(typeConverterRegistry.getValue());
+            context.setLoadTypeConverters(false);
+            context.setModelJAXBContextFactory(contextFactory.getValue());
+            context.build();
 
-        return new RuntimeValue<>(context);
+            // register to the container
+            beanContainer.instance(CamelProducers.class).setContext(context);
+
+            return new RuntimeValue<>(context);
+        }
+
     }
 
     public void bind(
@@ -149,5 +169,34 @@ public class CamelRecorder {
 
     public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {
         return new RuntimeValue<>(builder.getValue().build());
+    }
+
+    public static class FastLightweightCamelContext extends LightweightCamelContext {
+        public FastLightweightCamelContext(FactoryFinderResolver factoryFinderResolver, String version,
+                XMLRoutesDefinitionLoader xmlLoader, ModelToXMLDumper modelDumper) {
+            super((CamelContext) null);
+            delegate = new FastCamelContextWithRef(FastLightweightCamelContext.this,
+                    factoryFinderResolver, version,
+                    xmlLoader, modelDumper);
+        }
+
+        public void init() {
+            //            new Exception().printStackTrace();
+            super.init();
+        }
+
+        static class FastCamelContextWithRef extends FastCamelContext {
+            public FastCamelContextWithRef(CamelContext reference, FactoryFinderResolver factoryFinderResolver, String version,
+                    XMLRoutesDefinitionLoader xmlLoader, ModelToXMLDumper modelDumper) {
+                super(reference, factoryFinderResolver, version, xmlLoader, modelDumper);
+                disableJMX();
+            }
+
+            public void init() {
+                //                new Exception().printStackTrace();
+                super.init();
+            }
+
+        }
     }
 }

@@ -15,7 +15,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped <1>
 public class TimerRoute extends RouteBuilder {
 
-    @ConfigProperty(name = "timer.period", defaultValue = "1s") <2>
+    @ConfigProperty(name = "timer.period", defaultValue = "1000") <2>
     String period;
 
     @Inject

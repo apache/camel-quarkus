@@ -61,6 +61,7 @@ import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -156,6 +157,11 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/language/*",
                     "META-INF/services/org/apache/camel/dataformat/*",
                     "META-INF/services/org/apache/camel/cron/*"));
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    false,
+                    "META-INF/services/org/apache/camel/" + XMLRoutesDefinitionLoader.FACTORY));
         }
 
         @BuildStep
@@ -384,13 +390,21 @@ class BuildProcessor {
 
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep
-        CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistry(
+        CamelRuntimeRegistryBuildItem bindRuntimeBeansToRegistryStatic(
                 CamelRecorder recorder,
                 RecorderContext recorderContext,
                 ContainerBeansBuildItem containerBeans,
                 CamelRegistryBuildItem registry,
                 List<CamelRuntimeBeanBuildItem> registryItems) {
+            return doBindRuntimeBeansToRegistry(recorder, recorderContext, containerBeans, registry, registryItems);
+        }
 
+        CamelRuntimeRegistryBuildItem doBindRuntimeBeansToRegistry(
+                CamelRecorder recorder,
+                RecorderContext recorderContext,
+                ContainerBeansBuildItem containerBeans,
+                CamelRegistryBuildItem registry,
+                List<CamelRuntimeBeanBuildItem> registryItems) {
             registryItems.stream()
                     .filter(item -> !containerBeans.getBeans().contains(item))
                     .forEach(item -> {
@@ -502,7 +516,7 @@ class BuildProcessor {
         }
 
         @Overridable
-        @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelReactiveExecutorBuildItem reactiveExecutor(CamelMainRecorder recorder) {
             return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
@@ -519,6 +533,7 @@ class BuildProcessor {
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
+                CamelConfig camelConfig,
                 ContainerBeansBuildItem containerBeans,
                 CamelMainRecorder recorder,
                 CamelContextBuildItem context,
@@ -528,6 +543,7 @@ class BuildProcessor {
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(
+                    camelConfig,
                     context.getCamelContext(),
                     routesCollector.getValue(),
                     beanContainer.getValue());
@@ -544,6 +560,35 @@ class BuildProcessor {
                 recorder.addListener(main, listener.getListener());
             }
             return new CamelMainBuildItem(main);
+        }
+
+        /**
+         * This method is responsible to start camel-main ar runtime.
+         *
+         * @param recorder  the recorder.
+         * @param main      a reference to a {@link CamelMain}.
+         * @param registry  a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
+         *                  placeholder to
+         *                  ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
+         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                  happens during {@link ExecutionTime#STATIC_INIT} because the executor may need to start
+         *                  threads and so on.
+         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
+         *                  is required as under the hoods the camel registry may look-up beans form the
+         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
+         */
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep(onlyIf = { Flags.MainEnabled.class })
+        void startInit(
+                CamelMainRecorder recorder,
+                CamelMainBuildItem main,
+                CamelRuntimeRegistryBuildItem registry,
+                CamelReactiveExecutorBuildItem executor,
+                ShutdownContextBuildItem shutdown,
+                List<ServiceStartBuildItem> startList) {
+
+            recorder.init(shutdown, main.getInstance(), executor.getInstance());
         }
 
         /**
@@ -572,9 +617,9 @@ class BuildProcessor {
                 ShutdownContextBuildItem shutdown,
                 List<ServiceStartBuildItem> startList) {
 
-            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
-            recorder.start(shutdown, main.getInstance());
+            recorder.start(main.getInstance());
         }
+
     }
 
     /**

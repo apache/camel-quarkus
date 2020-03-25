@@ -17,15 +17,15 @@
 package org.apache.camel.quarkus.core;
 
 import org.apache.camel.Processor;
+import org.apache.camel.Route;
 import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.reifier.ProcessorReifier;
-import org.apache.camel.spi.RouteContext;
 
 public class DisabledValidateReifier extends ProcessorReifier<ValidateDefinition> {
 
-    public DisabledValidateReifier(RouteContext routeContext, ProcessorDefinition<?> definition) {
-        super(routeContext, (ValidateDefinition) definition);
+    public DisabledValidateReifier(Route route, ProcessorDefinition<?> definition) {
+        super(route, (ValidateDefinition) definition);
     }
 
     @Override

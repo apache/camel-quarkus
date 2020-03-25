@@ -25,6 +25,8 @@ import javax.enterprise.inject.Vetoed;
 import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.health.HealthCheck;
@@ -58,6 +60,7 @@ class MicroProfileHealthProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     List<CamelBeanBuildItem> camelHealthDiscovery(
             CombinedIndexBuildItem combinedIndex,
