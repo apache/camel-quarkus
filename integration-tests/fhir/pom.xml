@@ -43,7 +43,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-deployment</artifactId>
+                <artifactId>camel-quarkus-bom-test</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>

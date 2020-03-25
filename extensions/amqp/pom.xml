@@ -36,28 +36,4 @@
         <module>deployment</module>
         <module>runtime</module>
     </modules>
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom-deployment</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.amqphub.quarkus</groupId>
-                <artifactId>quarkus-qpid-jms-deployment</artifactId>
-                <version>${quarkus.qpid.jms.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- quarkus-qpid-jms-deployment is currently not part quarkus-qpid-jms-deployment-->
-            <dependency>
-                <groupId>org.amqphub.quarkus</groupId>
-                <artifactId>quarkus-qpid-jms-deployment</artifactId>
-                <version>${quarkus.qpid.jms.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 </project>
