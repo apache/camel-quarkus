@@ -198,3 +198,8 @@ That's under 35 MB of RAM!
 TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable quide] contains more details
 including
 https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].
+
+== Examples
+
+We offer several examples in our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]. To learn
+how to use them, please follow through the xref:first-steps.adoc[First steps] of the User guide.
