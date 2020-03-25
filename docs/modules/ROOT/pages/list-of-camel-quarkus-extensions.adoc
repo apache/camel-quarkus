@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 144 in 109 JAR artifacts (0 deprecated)
+Number of Camel components: 145 in 110 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -292,6 +292,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/google-mail-stream-component.html[Google Mail Stream] (camel-quarkus-google-mail) +
 `google-mail-stream:index` | Native +
  Stable | 1.0.0-M6 | The google-mail component provides access to Google Mail.
+
+| link:https://camel.apache.org/components/latest/google-pubsub-component.html[Google Pubsub] (camel-quarkus-google-pubsub) +
+`google-pubsub:projectId:destinationName` | JVM +
+ Preview | 1.0.0-M6 | Messaging client for Google Cloud Platform PubSub Service
 
 | link:https://camel.apache.org/components/latest/google-sheets-component.html[Google Sheets] (camel-quarkus-google-sheets) +
 `google-sheets:apiName/methodName` | Native +

@@ -59,6 +59,7 @@
         <module>debezium-sqlserver</module>
         <module>elasticsearch-rest</module>
         <module>google-bigquery</module>
+        <module>google-pubsub</module>
         <module>groovy</module>
         <module>grpc</module>
         <module>influxdb</module>
