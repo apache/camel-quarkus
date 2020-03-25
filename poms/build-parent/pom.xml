@@ -262,6 +262,7 @@
                                 <goals>
                                     <goal>validate</goal>
                                 </goals>
+                                <phase>validate</phase>
                             </execution>
                         </executions>
                     </plugin>
@@ -271,9 +272,24 @@
                         <executions>
                             <execution>
                                 <id>sort-imports</id>
+                                <phase />
+                            </execution>
+                            <execution>
+                                <id>check-imports</id>
                                 <goals>
                                     <goal>check</goal>
                                 </goals>
+                                <phase>validate</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sanity-checks</id>
+                                <phase /><!-- Speedup the check-format profile by skipping the sanity-checks  -->
                             </execution>
                         </executions>
                     </plugin>
