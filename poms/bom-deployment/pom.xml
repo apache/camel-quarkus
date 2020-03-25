@@ -30,7 +30,7 @@
     <artifactId>camel-quarkus-bom-deployment</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Build Parent</name>
+    <name>Camel Quarkus :: Deployment BOM</name>
 
     <properties>
         <camel-quarkus.version>1.1.0-SNAPSHOT</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->

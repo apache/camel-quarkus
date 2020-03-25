@@ -41,6 +41,18 @@
         <mvnd.builder.rule>camel-quarkus-cron-deployment,camel-quarkus-quartz-deployment,camel-quarkus-seda-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom-test</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

@@ -31,6 +31,18 @@
     <name>Camel Quarkus :: [#if nativeSupported]Integration Tests :: [=nameBase][#else][=nameBase] :: Integration Test[/#if]</name>
     <description>Integration tests for Camel Quarkus [=nameBase] extension</description>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bom-test</artifactId>
+                <version>${project.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
