@@ -7,7 +7,7 @@ Things to consider before you run your application in the native mode.
 
 By default only the following `Charsets` are available in the native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
 
-[code,text]
+[source,text]
 ----
 Charset.defaultCharset(), US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE, UTF-16
 ----
@@ -16,7 +16,7 @@ If you expect your application to need any encoding not included in this set or 
 an `UnsupportedCharsetException` thrown in the native mode, please add the following entry to your
 `application.properties`:
 
-[code,properties]
+[source,properties]
 ----
 quarkus.native.add-all-charsets = true
 ----
@@ -28,7 +28,7 @@ in Quarkus documentation.
 == Embedding resource in native executable
 
 Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
-[code,properties]
+[source,properties]
 ----
 quarkus.camel.resources.include-patterns = docs/*,images/*
 quarkus.camel.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
