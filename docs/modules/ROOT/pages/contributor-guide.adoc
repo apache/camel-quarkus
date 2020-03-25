@@ -108,7 +108,7 @@ because the test project needs to get finished. You need to build `poms/bom` and
 
 11. Before sending a pull request, please make sure you have run the following Maven command from the project root folder:
 +
-[code,shell]
+[source,shell]
 ----
 $ mvn process-resources -Pformat
 ----
