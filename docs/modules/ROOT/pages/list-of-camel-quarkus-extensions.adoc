@@ -517,6 +517,10 @@ Level | Since | Description
 `rest-api:path/contextIdPattern` | Native +
  Stable | 0.2.0 | The rest-api component is used for providing Swagger API of the REST services which has been defined using the rest-dsl in Camel.
 
+| link:https://camel.apache.org/components/latest/rest-openapi-component.html[REST OpenApi] (camel-quarkus-rest-openapi) +
+`rest-openapi:specificationUri#operationId` | JVM +
+ Preview | 1.0.0-M6 | An awesome REST endpoint backed by OpenApi specifications.
+
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | Native +
  Stable | 0.2.0 | The salesforce component is used for integrating Camel with the massive Salesforce API.
