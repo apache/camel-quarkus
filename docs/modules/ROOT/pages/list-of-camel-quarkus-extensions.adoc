@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 144 in 109 JAR artifacts (0 deprecated)
+Number of Camel components: 145 in 110 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -512,6 +512,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/rest-api-component.html[REST API] (camel-quarkus-rest) +
 `rest-api:path/contextIdPattern` | Native +
  Stable | 0.2.0 | The rest-api component is used for providing Swagger API of the REST services which has been defined using the rest-dsl in Camel.
+
+| link:https://camel.apache.org/components/latest/rest-openapi-component.html[REST OpenApi] (camel-quarkus-rest-openapi) +
+`rest-openapi:specificationUri#operationId` | JVM +
+ Preview | 1.0.0-M6 | An awesome REST endpoint backed by OpenApi specifications.
 
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | Native +
