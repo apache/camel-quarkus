@@ -60,6 +60,7 @@
         <module>elasticsearch-rest</module>
         <module>google-bigquery</module>
         <module>groovy</module>
+        <module>grpc</module>
         <module>influxdb</module>
         <module>kubernetes</module>
         <module>kudu</module>
