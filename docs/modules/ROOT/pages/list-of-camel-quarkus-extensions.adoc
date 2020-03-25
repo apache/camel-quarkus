@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 143 in 108 JAR artifacts (0 deprecated)
+Number of Camel components: 144 in 109 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -304,6 +304,10 @@ Level | Since | Description
 | xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
 `graphql:httpUri` | Native +
  Stable | 1.0.0-M5 | A Camel GraphQL Component
+
+| link:https://camel.apache.org/components/latest/grpc-component.html[gRPC] (camel-quarkus-grpc) +
+`grpc:host:port/service` | JVM +
+ Preview | 1.0.0-M6 | The gRPC component allows to call and expose remote procedures via HTTP/2 with protobuf dataformat
 
 | xref:extensions/http.adoc[HTTP] (camel-quarkus-http) +
 `http:httpUri` | Native +
