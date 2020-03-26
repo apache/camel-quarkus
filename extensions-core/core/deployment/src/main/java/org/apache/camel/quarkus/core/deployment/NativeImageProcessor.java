@@ -44,6 +44,7 @@ import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelConfig.ResourcesConfig;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.spi.DataFormat;
@@ -214,16 +215,17 @@ class NativeImageProcessor {
         void embedSelectResourcesInNativeExecutable(CamelConfig config, ApplicationArchivesBuildItem archives,
                 BuildProducer<NativeImageResourceBuildItem> resources) {
 
-            if (!config.resources.includePatterns.isPresent()) {
+            final ResourcesConfig resourcesConfig = config.native_.resources;
+            if (!resourcesConfig.includePatterns.isPresent()) {
                 LOGGER.debug("Not scanning resources for native inclusion as include-patterns is not set");
                 return;
             }
 
             PathFilter.Builder builder = new PathFilter.Builder();
             LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
-                    config.resources.includePatterns.get());
-            builder.include(config.resources.includePatterns);
-            builder.exclude(config.resources.excludePatterns);
+                    resourcesConfig.includePatterns.get());
+            builder.include(resourcesConfig.includePatterns);
+            builder.exclude(resourcesConfig.excludePatterns);
             PathFilter pathFilter = builder.build();
 
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {

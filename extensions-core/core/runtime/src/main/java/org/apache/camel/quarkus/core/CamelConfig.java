@@ -45,10 +45,10 @@ public class CamelConfig {
     public RuntimeCatalogConfig runtimeCatalog;
 
     /**
-     * Build time configuration options for resources inclusion in the native executable.
+     * Build time configuration options related to the building of native executable.
      */
-    @ConfigItem
-    public ResourcesConfig resources;
+    @ConfigItem(name = "native")
+    public NativeConfig native_;
 
     @ConfigGroup
     public static class MainConfig {
@@ -184,6 +184,16 @@ public class CamelConfig {
          */
         @ConfigItem
         public Optional<List<String>> includePatterns;
+    }
+
+    @ConfigGroup
+    public static class NativeConfig {
+        /**
+         * Build time configuration options for resources inclusion in the native executable.
+         */
+        @ConfigItem
+        public ResourcesConfig resources;
+
     }
 
     @ConfigGroup
