@@ -177,6 +177,7 @@ jobs:
           - category: SAAS
             test-modules: >
               box
+              github
               google
               jira
               salesforce

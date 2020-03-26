@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 146 in 111 JAR artifacts (0 deprecated)
+Number of Camel components: 147 in 112 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -264,6 +264,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | Native +
  Stable | 1.0.0-M1 | The ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+
+| link:https://camel.apache.org/components/latest/github-component.html[GitHub] (camel-quarkus-github) +
+`github:type/branchName` | Native +
+ Stable | 1.0.0-M6 | The github component is used for integrating Camel with github.
 
 | link:https://camel.apache.org/components/latest/google-bigquery-component.html[Google BigQuery] (camel-quarkus-google-bigquery) +
 `google-bigquery:projectId:datasetId:tableId` | JVM +
