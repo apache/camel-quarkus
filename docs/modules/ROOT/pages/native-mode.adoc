@@ -30,8 +30,8 @@ in Quarkus documentation.
 Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
 [source,properties]
 ----
-quarkus.camel.resources.include-patterns = docs/*,images/*
-quarkus.camel.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
+quarkus.camel.native.resources.include-patterns = docs/*,images/*
+quarkus.camel.native.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
 ----
 In the example above, resources named _docs/included.adoc_ and _images/included.png_ would be embedded in the native executable while _docs/ignored.adoc_ and _images/ignored.png_ would not.
 
