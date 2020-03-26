@@ -16,8 +16,8 @@
 #
 
 ---
-name: "Camel Quarkus Zipfile"
-description: "Camel Zip file support"
+name: "Camel Quarkus Zip Deflate"
+description: "Camel Zip Deflate compression support"
 metadata:
   keywords:
   - "camel"
