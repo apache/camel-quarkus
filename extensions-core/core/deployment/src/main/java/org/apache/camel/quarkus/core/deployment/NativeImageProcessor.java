@@ -44,6 +44,7 @@ import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelConfig.ReflectionConfig;
 import org.apache.camel.quarkus.core.CamelConfig.ResourcesConfig;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
@@ -63,7 +64,7 @@ import org.slf4j.LoggerFactory;
 
 import static org.apache.commons.lang3.ClassUtils.getPackageName;
 
-class NativeImageProcessor {
+public class NativeImageProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(NativeImageProcessor.class);
 
     /*
@@ -238,6 +239,40 @@ class NativeImageProcessor {
                             resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
                             LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
                         });
+            }
+        }
+
+        @BuildStep
+        void reflection(CamelConfig config, ApplicationArchivesBuildItem archives,
+                BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+            final ReflectionConfig reflectionConfig = config.native_.reflection;
+            if (!reflectionConfig.includePatterns.isPresent()) {
+                LOGGER.debug("No classes registered for reflection via quarkus.camel.native.reflection.include-patterns");
+                return;
+            }
+
+            LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
+                    reflectionConfig.includePatterns.get());
+
+            final PathFilter.Builder builder = new PathFilter.Builder();
+            reflectionConfig.includePatterns.map(list -> list.stream()).orElseGet(Stream::empty)
+                    .map(className -> className.replace('.', '/'))
+                    .forEach(pathPattern -> builder.include(pathPattern));
+            reflectionConfig.excludePatterns.map(list -> list.stream()).orElseGet(Stream::empty)
+                    .map(className -> className.replace('.', '/'))
+                    .forEach(pathPattern -> builder.exclude(pathPattern));
+            final PathFilter pathFilter = builder.build();
+
+            for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
+                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getArchiveLocation());
+
+                final Path rootPath = archive.getArchiveRoot();
+                String[] selectedClassNames = pathFilter.scanClassNames(rootPath, CamelSupport.safeWalk(rootPath),
+                        Files::isRegularFile);
+                if (selectedClassNames.length > 0) {
+                    reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
+                }
             }
         }
     }

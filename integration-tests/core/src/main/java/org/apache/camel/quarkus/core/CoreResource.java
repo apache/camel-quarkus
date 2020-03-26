@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.core;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -29,6 +32,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
@@ -167,4 +171,42 @@ public class CoreResource {
             return IOUtils.toString(is, StandardCharsets.UTF_8);
         }
     }
+
+    @Path("/reflection/{className}/method/{methodName}/{value}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response reflectMethod(@PathParam("className") String className,
+            @PathParam("methodName") String methodName,
+            @PathParam("value") String value) {
+        try {
+            final Class<?> cl = Class.forName(className);
+            final Object inst = cl.newInstance();
+            final Method method = cl.getDeclaredMethod(methodName, Object.class);
+            method.invoke(inst, value);
+            return Response.ok(inst.toString()).build();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException
+                | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+            return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
+        }
+    }
+
+    @Path("/reflection/{className}/field/{fieldName}/{value}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response reflectField(@PathParam("className") String className,
+            @PathParam("fieldName") String fieldName,
+            @PathParam("value") String value) {
+        try {
+            final Class<?> cl = Class.forName(className);
+            final Object inst = cl.newInstance();
+            final Field field = cl.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(inst, value);
+            return Response.ok(inst.toString()).build();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchFieldException
+                | SecurityException | IllegalArgumentException e) {
+            return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
+        }
+    }
+
 }

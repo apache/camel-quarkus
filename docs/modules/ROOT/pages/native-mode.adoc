@@ -28,12 +28,49 @@ in Quarkus documentation.
 == Embedding resource in native executable
 
 Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
+
 [source,properties]
 ----
 quarkus.camel.native.resources.include-patterns = docs/*,images/*
 quarkus.camel.native.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
 ----
+
 In the example above, resources named _docs/included.adoc_ and _images/included.png_ would be embedded in the native executable while _docs/ignored.adoc_ and _images/ignored.png_ would not.
 
 `include-patterns` and `exclude-patterns` are list of comma separated link:https://github.com/apache/camel/blob/master/core/camel-util/src/main/java/org/apache/camel/util/AntPathMatcher.java[Ant-path style patterns].
 At the end of the day, resources matching `include-patterns` are marked for inclusion at the exception of resources matching `exclude-patterns`.
+
+[[reflection]]
+== Registering classes for reflection
+
+By default, dynamic reflection is not available in native mode. Classes for which reflective access is needed have to be
+registered for reflection at compile time.
+
+In many cases, application developers do not need to care because Quarkus extensions are able to detect the classes that
+require the reflection and register them automatically.
+
+However, in some situations Quarkus extensions may miss some classes and it is up to the application developer to
+register them. There are two ways to do that:
+
+1. The `https://quarkus.io/guides/writing-native-applications-tips#alternative-with-registerforreflection[@io.quarkus.runtime.annotations.RegisterForReflection]`
+annotation can be used to register classes on which it is used, or it can also register third party classes via
+its `targets` attribute.
+
+2. The `quarkus.camel.native.reflection` options in `application.properties`:
++
+[source,properties]
+----
+quarkus.camel.native.reflection.include-patterns = org.apache.commons.lang3.tuple.*
+quarkus.camel.native.reflection.exclude-patterns = org.apache.commons.lang3.tuple.*Triple
+----
++
+For these options to work properly, the artifacts containing the selected classes
+must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
+be registered for indexing using the {@code quarkus.index-dependency.*} options
+in {@code application.properties} - e.g.
++
+[source,properties]
+----
+quarkus.index-dependency.commons-lang3.group-id = org.apache.commons
+quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
+----
