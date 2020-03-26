@@ -21,8 +21,10 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.jboss.jandex.DotName;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -94,6 +96,36 @@ public class PathFilterTest {
 
     static boolean isPathIncluded(String path, List<String> excludePatterns, List<String> includePatterns) {
         return new PathFilter(includePatterns, excludePatterns).asStringPredicate().test(path);
+    }
+
+    @Test
+    void scanClassNames() {
+        final PathFilter filter = new PathFilter.Builder()
+                .include("org/p1/*")
+                .include("org/p2/**")
+                .exclude("org/p1/ExcludedClass")
+                .exclude("org/p2/excludedpackage/**")
+                .build();
+        final Path rootPath = Paths.get("/foo");
+        final Stream<Path> pathStream = Stream.of(
+                "org/p1/Class1.class",
+                "org/p1/Class1$Inner.class",
+                "org/p1/Class1.txt",
+                "org/p1/ExcludedClass.class",
+                "org/p2/excludedpackage/ExcludedClass.class",
+                "org/p2/excludedpackage/p/ExcludedClass.class",
+                "org/p2/whatever/Class2.class")
+                .map(rootPath::resolve);
+
+        final Predicate<Path> isRegularFile = path -> path.getFileName().toString().contains(".");
+        final String[] classNames = filter.scanClassNames(rootPath, pathStream, isRegularFile);
+
+        Assertions.assertArrayEquals(new String[] {
+                "org.p1.Class1",
+                "org.p1.Class1$Inner",
+                "org.p2.whatever.Class2"
+        }, classNames);
+
     }
 
 }

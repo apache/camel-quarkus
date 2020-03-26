@@ -194,6 +194,12 @@ public class CamelConfig {
         @ConfigItem
         public ResourcesConfig resources;
 
+        /**
+         * Register classes for reflection.
+         */
+        @ConfigItem
+        public ReflectionConfig reflection;
+
     }
 
     @ConfigGroup
@@ -219,6 +225,62 @@ public class CamelConfig {
          * <code>includePatterns</code>. When the inclusion patterns is too
          * large, eviction of previously selected resources could be triggered
          * with <code>excludePatterns</code>.
+         */
+        @ConfigItem
+        public Optional<List<String>> includePatterns;
+
+    }
+
+    @ConfigGroup
+    public static class ReflectionConfig {
+
+        /**
+         * A comma separated list of Ant-path style patterns to match class names
+         * that should be <strong>excluded</strong> from registering for reflection.
+         * Use the class name format as returned by the {@code java.lang.Class.getName()}
+         * method: package segments delimited by period {@code .} and inner classes
+         * by dollar sign {@code $}.
+         * <p>
+         * This option narrows down the set selected by {@link #includePatterns}.
+         * By default, no classes are excluded.
+         * <p>
+         * This option cannot be used to unregister classes which have been registered
+         * internally by Quarkus extensions.
+         */
+        @ConfigItem
+        public Optional<List<String>> excludePatterns;
+
+        /**
+         * A comma separated list of Ant-path style patterns to match class names
+         * that should be registered for reflection.
+         * Use the class name format as returned by the {@code java.lang.Class.getName()}
+         * method: package segments delimited by period {@code .} and inner classes
+         * by dollar sign {@code $}.
+         * <p>
+         * By default, no classes are included. The set selected by this option can be
+         * narrowed down by {@link #excludePatterns}.
+         * <p>
+         * Note that Quarkus extensions typically register the required classes for
+         * reflection by themselves. This option is useful in situations when the
+         * built in functionality is not sufficient.
+         * <p>
+         * Note that this option enables the full reflective access for constructors,
+         * fields and methods. If you need a finer grained control, consider using
+         * <code>io.quarkus.runtime.annotations.RegisterForReflection</code> annotation
+         * in your Java code.
+         * <p>
+         * For this option to work properly, the artifacts containing the selected classes
+         * must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
+         * be registered for indexing using the {@code quarkus.index-dependency.*} family
+         * of options in {@code application.properties} - e.g.
+         * 
+         * <pre>
+         * quarkus.index-dependency.my-dep.group-id = org.my-group
+         * quarkus.index-dependency.my-dep.artifact-id = my-artifact
+         * </pre>
+         * 
+         * where {@code my-dep} is a label of your choice to tell Quarkus that
+         * {@code org.my-group} and with {@code my-artifact} belong together.
          */
         @ConfigItem
         public Optional<List<String>> includePatterns;

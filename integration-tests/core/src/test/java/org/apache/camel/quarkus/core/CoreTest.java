@@ -76,4 +76,30 @@ public class CoreTest {
     public void testLRUCacheFactory() {
         RestAssured.when().get("/test/lru-cache-factory").then().body(is(DefaultLRUCacheFactory.class.getName()));
     }
+
+    @Test
+    void reflectiveMethod() {
+        RestAssured.when()
+                .get(
+                        "/test/reflection/{className}/method/{methodName}/{value}",
+                        "org.apache.commons.lang3.tuple.MutablePair",
+                        "setLeft",
+                        "Kermit")
+                .then()
+                .statusCode(200)
+                .body(is("(Kermit,null)"));
+    }
+
+    @Test
+    void reflectiveField() {
+        RestAssured.when()
+                .get(
+                        "/test/reflection/{className}/field/{fieldName}/{value}",
+                        "org.apache.commons.lang3.tuple.MutablePair",
+                        "left",
+                        "Joe")
+                .then()
+                .statusCode(200)
+                .body(is("(Joe,null)"));
+    }
 }

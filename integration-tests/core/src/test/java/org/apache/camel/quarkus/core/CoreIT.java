@@ -20,6 +20,7 @@ import io.quarkus.test.junit.NativeImageTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -55,5 +56,31 @@ public class CoreIT extends CoreTest {
     public void resourceMatchingNoPatternCouldNotBeLoadedFromNativeExecutable() {
         RestAssured.when().get("/test/resources/no-pattern-folder/excluded.properties.txt").then().assertThat()
                 .statusCode(204);
+    }
+
+    @Test
+    void reflectiveMethod() {
+        RestAssured.when()
+                .get(
+                        "/test/reflection/{className}/method/{methodName}/{value}",
+                        "org.apache.commons.lang3.tuple.MutableTriple",
+                        "setLeft",
+                        "Kermit")
+                .then()
+                .statusCode(500) // *Triple is excluded in application.properties, but 500 will happen only in native mode
+                .body(is("java.lang.ClassNotFoundException: org.apache.commons.lang3.tuple.MutableTriple"));
+    }
+
+    @Test
+    void reflectiveField() {
+        RestAssured.when()
+                .get(
+                        "/test/reflection/{className}/field/{fieldName}/{value}",
+                        "org.apache.commons.lang3.tuple.MutableTriple",
+                        "left",
+                        "Joe")
+                .then()
+                .statusCode(500) // *Triple is excluded in application.properties, but 500 will happen only in native mode
+                .body(is("java.lang.ClassNotFoundException: org.apache.commons.lang3.tuple.MutableTriple"));
     }
 }

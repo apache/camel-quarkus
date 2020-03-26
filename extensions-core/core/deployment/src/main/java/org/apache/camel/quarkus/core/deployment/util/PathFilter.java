@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
@@ -31,6 +32,9 @@ import org.jboss.jandex.DotName;
  * A utility able to filter resource paths using Ant-like includes and excludes.
  */
 public class PathFilter {
+    private static final String CLASS_SUFFIX = ".class";
+    private static final int CLASS_SUFFIX_LENGTH = CLASS_SUFFIX.length();
+
     private final AntPathMatcher matcher = new AntPathMatcher();
     private final List<String> includePatterns;
     private final List<String> excludePatterns;
@@ -81,6 +85,18 @@ public class PathFilter {
         } else {
             return path -> stringPredicate.test(sanitize(path.toString()));
         }
+    }
+
+    public String[] scanClassNames(Path rootPath, Stream<Path> pathStream, Predicate<Path> isRegularFile) {
+        return pathStream
+                .filter(isRegularFile)
+                .filter(path -> path.getFileName().toString().endsWith(CLASS_SUFFIX))
+                .map(filePath -> rootPath.relativize(filePath))
+                .map(relPath -> relPath.toString())
+                .map(stringPath -> stringPath.substring(0, stringPath.length() - CLASS_SUFFIX_LENGTH))
+                .filter(stringPredicate)
+                .map(slashClassName -> slashClassName.replace('/', '.'))
+                .toArray(String[]::new);
     }
 
     static String sanitize(String path) {
