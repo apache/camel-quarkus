@@ -91,7 +91,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        category: [Core, Foundation, Platform, Messaging, Dataformats, Networking, SQL, Cloud, Misc, SAAS, Memoryhog Dataformat JSON, Memoryhog Infinispan, Memoryhog Olingo4, Memoryhog XML]
+        category: [Core, Foundation, Platform, Messaging, Dataformats, Networking, SQL, Cloud, Misc, SAAS, Social, Validation, Memoryhog Dozer, Memoryhog Dataformat JSON, Memoryhog Infinispan, Memoryhog Olingo4, Memoryhog XML]
         include:
           - category: Cloud
             test-modules: >
@@ -131,6 +131,9 @@ jobs:
           - category: Memoryhog Dataformat JSON
             test-modules: >
               dataformats-json
+          - category: Memoryhog Dozer
+            test-modules: >
+              dozer
           - category: Memoryhog Infinispan
             test-modules: >
               infinispan
@@ -148,23 +151,19 @@ jobs:
               messaging
           - category: Misc
             test-modules: >
-              bean-validator
               braintree
               compression
-              dozer
-              ftp
               graphql
-              mail
               mustache
               pdf
               qute
               stream
               tarfile
-              telegram
-              validator
           - category: Networking
             test-modules: >
+              ftp
               http
+              mail
               netty
               servlet
               websocket-jsr356
@@ -183,12 +182,19 @@ jobs:
               salesforce
               servicenow
               slack
-              twitter
           - category: SQL
             test-modules: >
               jdbc
               mongodb
               sql
+          - category: Social
+            test-modules: >
+              telegram
+              twitter
+          - category: Validation
+            test-modules: >
+              bean-validator
+              validator
     steps:
       - name: Set BRANCH_OPTIONS
         if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
