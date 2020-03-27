@@ -201,9 +201,9 @@ Level | Since | Description
 `couchbase:protocol:hostname:port` | JVM +
  Preview | 1.0.0-M6 | Represents a Couchbase endpoint that can query Views with a Poll strategy and/or produce various type of operations.
 
-| link:https://camel.apache.org/components/latest/couchdb-component.html[CouchDB] (camel-quarkus-couchdb) +
-`couchdb:protocol:hostname:port/database` | JVM +
- Preview | 1.0.0-M6 | The couchdb component is used for integrate with CouchDB databases.
+| xref:extensions/couchdb.adoc[CouchDB] (camel-quarkus-couchdb) +
+`couchdb:protocol:hostname:port/database` | Native +
+ Stable | 1.0.0-M6 | The couchdb component is used for integrate with CouchDB databases.
 
 | link:https://camel.apache.org/components/latest/cron-component.html[Cron] (camel-quarkus-cron) +
 `cron:name` | Native +

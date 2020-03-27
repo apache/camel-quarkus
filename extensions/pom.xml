@@ -59,6 +59,7 @@
         <module>braintree</module>
         <module>consul</module>
         <module>controlbus</module>
+        <module>couchdb</module>
         <module>cron</module>
         <module>csv</module>
         <module>dataformat</module>
