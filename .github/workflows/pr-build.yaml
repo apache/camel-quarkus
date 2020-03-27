@@ -190,6 +190,7 @@ jobs:
               slack
           - category: SQL
             test-modules: >
+              couchdb
               jdbc
               mongodb
               sql

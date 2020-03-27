@@ -68,6 +68,7 @@
         <module>compression</module>
         <module>consul</module>
         <module>controlbus</module>
+        <module>couchdb</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>dataformats-json</module>
