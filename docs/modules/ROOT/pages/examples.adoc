@@ -15,6 +15,6 @@ Number of Examples: 8 (0 deprecated)
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-kotlin[Timer Log Kotlin] (timer-log-kotlin) | An example of basic Hello World that uses Kotlin to set-up a Camel timer
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-xml/README.adoc[Timer Log XML] (timer-log-xml) | An example of basic Hello World that uses XML to set-up a Camel timer
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-spring/README.adoc[Timer Log Spring] (timer-log-spring) | An example of basic Hello World that uses Spring to set-up a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/Wfile-split-log-xml/README.adoc[File Split Log XML] (file-split-log-xml) | An example of basic Hello World that uses XML to set-up a Camel file consumer
+| link:https://github.com/apache/camel-quarkus/tree/master/examples/file-split-log-xml/README.adoc[File Split Log XML] (file-split-log-xml) | An example of basic Hello World that uses XML to set-up a Camel file consumer
 |===
 // examples: END
