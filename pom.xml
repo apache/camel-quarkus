@@ -753,6 +753,7 @@
                 </property>
             </activation>
             <properties>
+                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java8</quarkus.native.builder-image>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
             </properties>
