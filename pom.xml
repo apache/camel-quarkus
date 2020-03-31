@@ -27,7 +27,7 @@
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-parent</artifactId>
+    <artifactId>camel-quarkus</artifactId>
     <version>1.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -404,6 +404,38 @@
     </build>
 
     <profiles>
+        <profile>
+            <id>apache-release</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>${maven-assembly-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>source-release-assembly</id>
+                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
+                            </execution>
+                            <execution>
+                                <id>camel-quarkus-source-release-assembly</id>
+                                <phase>package</phase>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>tooling/descriptors/src.xml</descriptor>
+                                    </descriptors>
+                                    <tarLongFileMode>gnu</tarLongFileMode>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <!-- To disable sanity checks while building: add '-Denforce=false' to the command line -->
             <id>enforce</id>
