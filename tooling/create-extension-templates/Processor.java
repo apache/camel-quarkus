@@ -26,7 +26,8 @@ import org.jboss.logging.Logger;
 
 class [=toCapCamelCase(artifactIdBase)]Processor {
 
-    private static final Logger LOG = Logger.getLogger([=toCapCamelCase(artifactIdBase)]Processor.class);
+[#if !nativeSupported ]    private static final Logger LOG = Logger.getLogger([=toCapCamelCase(artifactIdBase)]Processor.class);
+[/#if]
     private static final String FEATURE = "camel-[=artifactIdBase]";
 
     @BuildStep
