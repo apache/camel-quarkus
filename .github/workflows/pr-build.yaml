@@ -44,10 +44,10 @@ jobs:
           echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set Up Java
-        uses: actions/setup-java@v1
+      - name: Set up JDK 11
+        uses: joschi/setup-jdk@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Build Project
         run: |
           ./mvnw -V -ntp ${BRANCH_OPTIONS} \
@@ -64,7 +64,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        java: [ '11' , '12' ]
+        java: [ '8' , '12' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -74,7 +74,7 @@ jobs:
           echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
-        uses: actions/setup-java@v1
+        uses: joschi/setup-jdk@v1
         with:
           java-version: ${{ matrix.java }}
       - name: Restore Cache
@@ -147,6 +147,7 @@ jobs:
           - category: Memoryhog XML
             test-modules: >
               xml
+              rest-binding-mode-xml
           - category: Messaging
             test-modules: >
               activemq
@@ -207,10 +208,10 @@ jobs:
           echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Set Up Java
-        uses: actions/setup-java@v1
+      - name: Set up JDK 11
+        uses: joschi/setup-jdk@v1
         with:
-          java-version: 1.8
+          java-version: 11
       - name: Restore Cache
         uses: actions/cache@v1
         with:
