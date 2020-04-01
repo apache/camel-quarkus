@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb.deployment;
 
+import java.util.Arrays;
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -44,8 +47,10 @@ class XmlJaxbProcessor {
     }
 
     @BuildStep
-    CapabilityBuildItem capability() {
-        return new CapabilityBuildItem(CamelCapabilities.XML);
+    List<CapabilityBuildItem> capabilities() {
+        return Arrays.asList(
+                new CapabilityBuildItem(CamelCapabilities.XML),
+                new CapabilityBuildItem(CamelCapabilities.XML_JAXB));
     }
 
     @BuildStep

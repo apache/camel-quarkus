@@ -14,13 +14,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.common;
+package org.apache.camel.quarkus.component.rest.it;
 
-public final class CamelCapabilities {
-    public static final String CORE = "org.apache.camel";
-    public static final String XML = "org.apache.camel.xml";
-    public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
-    private CamelCapabilities() {
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class UserJaxbPojo {
+
+    @XmlAttribute
+    private int id;
+    @XmlAttribute
+    private String name;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

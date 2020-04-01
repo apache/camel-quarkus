@@ -14,13 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.common;
+package org.apache.camel.quarkus.component.rest.it;
 
-public final class CamelCapabilities {
-    public static final String CORE = "org.apache.camel";
-    public static final String XML = "org.apache.camel.xml";
-    public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
+import io.quarkus.test.junit.NativeImageTest;
 
-    private CamelCapabilities() {
-    }
+@NativeImageTest
+class RestBindingModeXmlIT extends RestBindingModeXmlTest {
 }

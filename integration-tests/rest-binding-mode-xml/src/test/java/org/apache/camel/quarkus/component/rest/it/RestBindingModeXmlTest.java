@@ -14,13 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.common;
+package org.apache.camel.quarkus.component.rest.it;
 
-public final class CamelCapabilities {
-    public static final String CORE = "org.apache.camel";
-    public static final String XML = "org.apache.camel.xml";
-    public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
 
-    private CamelCapabilities() {
+import static org.hamcrest.Matchers.is;
+
+@QuarkusTest
+class RestBindingModeXmlTest {
+    @Test
+    public void extractNameFromXml() {
+        RestAssured.given()
+                .body("<user name=\"Donald Duck\" id=\"123\"></user>")
+                .post("/platform-http/nameOf")
+                .then()
+                .statusCode(200)
+                .body(is("Donald Duck"));
     }
 }

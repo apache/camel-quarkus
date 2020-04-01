@@ -102,6 +102,7 @@
         <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>
+        <module>rest-binding-mode-xml</module>
         <module>salesforce</module>
         <module>scheduler</module>
         <module>seda</module>
