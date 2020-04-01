@@ -63,7 +63,8 @@ public class CoreTest {
     @Test
     public void testCatalogComponent() throws IOException {
         RestAssured.when().get("/test/catalog/component/timer").then().body(not(emptyOrNullString()));
-        RestAssured.when().get("/test/catalog/language/simple").then().body(emptyOrNullString());
+        RestAssured.when().get("/test/catalog/language/simple").then().statusCode(500).body(is(
+                "RuntimeException: Accessing language JSON schemas was disabled via quarkus.camel.runtime-catalog.languages = false"));
     }
 
     @Test

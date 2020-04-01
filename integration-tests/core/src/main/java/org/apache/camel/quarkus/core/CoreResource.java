@@ -136,20 +136,30 @@ public class CoreResource {
     @Path("/catalog/{type}/{name}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
+    public Response catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
         final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getExtension(RuntimeCamelCatalog.class);
 
-        switch (type) {
-        case "component":
-            return catalog.componentJSonSchema(name);
-        case "language":
-            return catalog.languageJSonSchema(name);
-        case "dataformat":
-            return catalog.dataFormatJSonSchema(name);
-        case "model":
-            return catalog.modelJSonSchema(name);
-        default:
-            throw new IllegalArgumentException("Unknown type " + type);
+        try {
+            final String schema;
+            switch (type) {
+            case "component":
+                schema = catalog.componentJSonSchema(name);
+                break;
+            case "language":
+                schema = catalog.languageJSonSchema(name);
+                break;
+            case "dataformat":
+                schema = catalog.dataFormatJSonSchema(name);
+                break;
+            case "model":
+                schema = catalog.modelJSonSchema(name);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown type " + type);
+            }
+            return Response.ok(schema).build();
+        } catch (Exception e) {
+            return Response.serverError().entity(e.getClass().getSimpleName() + ": " + e.getMessage()).build();
         }
     }
 
