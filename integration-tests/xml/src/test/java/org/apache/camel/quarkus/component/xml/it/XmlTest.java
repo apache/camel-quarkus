@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.xml.it;
 
 import java.nio.charset.Charset;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -30,6 +31,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class XmlTest {
 
+    @DisabledOnNativeImage("Could not load the propery file 'output_xml.properties' for output method 'xml'")
     @Test
     public void htmlParse() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
@@ -60,6 +62,7 @@ class XmlTest {
                 actual);
     }
 
+    @DisabledOnNativeImage("Could not load the propery file 'output_xml.properties' for output method 'xml'")
     @Test
     public void htmlTransform() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
@@ -78,6 +81,7 @@ class XmlTest {
                 actual);
     }
 
+    @DisabledOnNativeImage("Could not load the propery file 'output_xml.properties' for output method 'xml'")
     @Test
     public void htmlToText() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));

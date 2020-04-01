@@ -14,13 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.common;
+package org.apache.camel.quarkus.component.rest.it;
 
-public final class CamelCapabilities {
-    public static final String CORE = "org.apache.camel";
-    public static final String XML = "org.apache.camel.xml";
-    public static final String XML_JAXB = "org.apache.camel.xml.jaxb";
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
 
-    private CamelCapabilities() {
+public class RestBindingModeXmlRoute extends RouteBuilder {
+    @Override
+    public void configure() {
+        rest()
+                .post("/platform-http/nameOf")
+                .bindingMode(RestBindingMode.xml)
+                .type(UserJaxbPojo.class)
+                .route()
+                .transform().body(UserJaxbPojo.class, UserJaxbPojo::getName);
     }
 }

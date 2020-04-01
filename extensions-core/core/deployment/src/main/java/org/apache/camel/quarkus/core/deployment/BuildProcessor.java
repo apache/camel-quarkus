@@ -16,11 +16,6 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
-import static org.objectweb.asm.Opcodes.ATHROW;
-import static org.objectweb.asm.Opcodes.DUP;
-import static org.objectweb.asm.Opcodes.INVOKESPECIAL;
-import static org.objectweb.asm.Opcodes.NEW;
-
 import java.io.IOException;
 import java.lang.reflect.Modifier;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +24,6 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
@@ -45,12 +39,10 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.builditem.BytecodeTransformerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
-import io.quarkus.gizmo.Gizmo;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
@@ -67,18 +59,12 @@ import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.reifier.rest.RestBindingReifier;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.jboss.jandex.Type;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -196,38 +182,6 @@ class BuildProcessor {
                     CamelServiceDestination.REGISTRY,
                     false,
                     list)));
-        }
-
-        @BuildStep
-        BytecodeTransformerBuildItem transformClass() {
-            return new BytecodeTransformerBuildItem(RestBindingReifier.class.getName(), new BiFunction<String, ClassVisitor, ClassVisitor>() {
-                @Override
-                public ClassVisitor apply(String s, ClassVisitor classVisitor) {
-                    ClassVisitor cv = new ClassVisitor(Gizmo.ASM_API_VERSION, classVisitor) {
-
-                        @Override
-                        public MethodVisitor visitMethod(int access, String name, String descriptor, String signature, String[] exceptions) {
-                            final MethodVisitor target = super.visitMethod(access, name, descriptor, signature, exceptions);
-                            if (name.equals("setupJaxb")) {
-                                return new MethodVisitor(Gizmo.ASM_API_VERSION, null) {
-                                    @Override
-                                    public void visitCode() {
-                                        target.visitCode();
-                                        target.visitTypeInsn(NEW, "java/io/UnsupportedOperationException");
-                                        target.visitInsn(DUP);
-                                        target.visitMethodInsn(INVOKESPECIAL,"java/lang/UnsupportedOperationException","<init>","()V",false);
-                                        target.visitInsn(ATHROW);
-                                        target.visitMaxs(2, 0);
-                                        target.visitEnd();
-                                    }
-                                };
-                            }
-                            return target;
-                        }
-                    };
-                    return cv;
-                }
-            });
         }
 
         @BuildStep

@@ -16,16 +16,33 @@
  */
 package org.apache.camel.quarkus.support.xalan.graal;
 
+import java.security.ProtectionDomain;
+
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import com.oracle.svm.core.jdk.JDK11OrLater;
+import com.oracle.svm.core.jdk.JDK8OrEarlier;
 
 @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl")
 final class SunTemplatesImplSubstitution {
 
-    @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl", innerClass = "TransletClassLoader")
+    @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl", innerClass = "TransletClassLoader", onlyWith = JDK8OrEarlier.class)
     static final class TransletClassLoader {
         @Substitute
         Class defineClass(final byte[] b) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    @TargetClass(className = "com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl", innerClass = "TransletClassLoader", onlyWith = JDK11OrLater.class)
+    static final class TransletClassLoaderJDK11OrLater {
+        @Substitute
+        Class defineClass(final byte[] b) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Substitute
+        Class<?> defineClass(final byte[] b, ProtectionDomain pd) {
             throw new UnsupportedOperationException();
         }
     }
