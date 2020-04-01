@@ -302,7 +302,6 @@ public class NativeImageProcessor {
                     org.apache.camel.main.DefaultConfigurationProperties.class,
                     org.apache.camel.main.MainConfigurationProperties.class,
                     org.apache.camel.main.HystrixConfigurationProperties.class,
-                    org.apache.camel.main.Resilience4jConfigurationProperties.class,
                     org.apache.camel.main.RestConfigurationProperties.class));
 
             // TODO: The classes below are needed to fix https://github.com/apache/camel-quarkus/issues/1005
@@ -310,6 +309,7 @@ public class NativeImageProcessor {
             reflectiveClass.produce(new ReflectiveClassBuildItem(
                     true,
                     false,
+                    org.apache.camel.main.Resilience4jConfigurationProperties.class,
                     org.apache.camel.model.Resilience4jConfigurationDefinition.class,
                     org.apache.camel.model.Resilience4jConfigurationCommon.class,
                     org.apache.camel.spi.RestConfiguration.class));

@@ -68,14 +68,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jaxb</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-log</artifactId>
-        </dependency>
-        <dependency><!-- Leave this one out (and save ~560 kB of the native image) unless you want to attach uploads to the camel message -->
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-attachments</artifactId>
-        </dependency>
 
         <!-- test dependencies -->
         <dependency>
