@@ -28,7 +28,8 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
     @Override
     public String modelJSonSchema(String name) {
         if (!config.models) {
-            return null;
+            throw new RuntimeException(
+                    "Accessing model JSON schemas was disabled via quarkus.camel.runtime-catalog.models = false");
         }
 
         return super.modelJSonSchema(name);
@@ -37,7 +38,8 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
     @Override
     public String componentJSonSchema(String name) {
         if (!config.components) {
-            return null;
+            throw new RuntimeException(
+                    "Accessing component JSON schemas was disabled via quarkus.camel.runtime-catalog.components = false");
         }
 
         return super.componentJSonSchema(name);
@@ -46,7 +48,8 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
     @Override
     public String dataFormatJSonSchema(String name) {
         if (!config.dataformats) {
-            return null;
+            throw new RuntimeException(
+                    "Accessing data format JSON schemas was disabled via quarkus.camel.runtime-catalog.dataformats = false");
         }
 
         return super.dataFormatJSonSchema(name);
@@ -55,7 +58,8 @@ public class CamelRuntimeCatalog extends DefaultRuntimeCamelCatalog {
     @Override
     public String languageJSonSchema(String name) {
         if (!config.languages) {
-            return null;
+            throw new RuntimeException(
+                    "Accessing language JSON schemas was disabled via quarkus.camel.runtime-catalog.languages = false");
         }
 
         return super.languageJSonSchema(name);
