@@ -17,12 +17,14 @@
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
 import java.util.List;
+import java.util.Map;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import org.apache.camel.Endpoint;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.quarkus.core.UploadAttacher;
@@ -37,7 +39,20 @@ public class PlatformHttpRecorder {
     }
 
     public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
-        PlatformHttpComponent component = new PlatformHttpComponent();
+        PlatformHttpComponent component = new PlatformHttpComponent() {
+            @Override
+            protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
+                // remove matchOnUriPrefix as it will be fixed by camel 3.2 but will cause the context
+                // to fail as the property cannot be bound to the enpoint.
+                //
+                // TODO: remove once migrating to camel 3.2
+                parameters.remove("matchOnUriPrefix");
+
+                // let the original component to create the endpoint
+                return super.createEndpoint(uri, remaining, parameters);
+            }
+        };
+
         component.setEngine(engine.getValue());
 
         return new RuntimeValue<>(component);
