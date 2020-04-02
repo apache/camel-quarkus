@@ -29,6 +29,7 @@ import org.apache.camel.component.rest.RestEndpoint;
 import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.RestConfiguration;
 import org.apache.camel.spi.RestProducerFactory;
+import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -172,13 +173,7 @@ public class QuarkusRestEndpoint extends RestEndpoint {
         if (factory != null) {
             LOG.debug("Using RestProducerFactory: {}", factory);
 
-            RestConfiguration config = getCamelContext().getRestConfiguration(pname, false);
-            if (config == null) {
-                config = getCamelContext().getRestConfiguration();
-            }
-            if (config == null) {
-                config = getCamelContext().getRestConfiguration(pname, true);
-            }
+            RestConfiguration config = CamelContextHelper.getRestConfiguration(getCamelContext(), pname);
 
             Producer producer;
             if (apiDocFactory != null) {

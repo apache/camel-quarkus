@@ -42,8 +42,7 @@ public class QuarkusRestComponent extends RestComponent {
 
         RestConfiguration config = new RestConfiguration();
         mergeConfigurations(getCamelContext(), config, findGlobalRestConfiguration());
-        mergeConfigurations(getCamelContext(), config, getCamelContext().getRestConfiguration(cname, false));
-        mergeConfigurations(getCamelContext(), config, getCamelContext().getRestConfiguration(pname, false));
+        mergeConfigurations(getCamelContext(), config, getCamelContext().getRestConfiguration());
 
         // if no explicit host was given, then fallback and use default configured host
         String h = getAndRemoveOrResolveReferenceParameter(parameters, "host", String.class, getHost());
