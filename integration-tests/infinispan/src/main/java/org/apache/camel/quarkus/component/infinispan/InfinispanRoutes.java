@@ -35,13 +35,13 @@ public class InfinispanRoutes extends RouteBuilder {
                 .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
                 .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
                 .setHeader(InfinispanConstants.VALUE).body()
-                .to("infinispan:default")
+                .toF("infinispan:%s", InfinispanResources.CACHE_NAME)
                 .to("log:put?showAll=true");
 
         from("direct:get")
                 .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.GET)
                 .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
-                .to("infinispan:default")
+                .toF("infinispan:%s", InfinispanResources.CACHE_NAME)
                 .to("log:get?showAll=true");
     }
 }
