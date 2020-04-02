@@ -16,15 +16,13 @@
 #
 
 ---
-name: "AWS SimpleDB"
-description: "The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service."
+name: "Camel Quarkus AWS SDB"
+description: "A Camel Amazon SDB Web Service Component"
 metadata:
-  unlisted: true
   keywords:
+  - "camel"
+  - "aws"
   - "cloud"
-  - "database"
-  - "nosql"
-  guide: "https://camel.apache.org/components/latest/aws-sdb-component.html"
+  guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
-  status: "preview"
