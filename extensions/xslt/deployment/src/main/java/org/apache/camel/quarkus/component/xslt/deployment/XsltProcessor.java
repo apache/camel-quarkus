@@ -33,7 +33,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.ArchiveRootBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.xslt.XsltComponent;
@@ -84,8 +83,7 @@ class XsltProcessor {
             CamelXsltConfig config,
             BuildProducer<XsltGeneratedClassBuildItem> generatedNames,
             BuildProducer<GeneratedClassBuildItem> generatedClasses,
-            BuildProducer<UriResolverEntryBuildItem> uriResolverEntries,
-            ArchiveRootBuildItem archiveRoot) throws Exception {
+            BuildProducer<UriResolverEntryBuildItem> uriResolverEntries) throws Exception {
 
         final Path destination = Files.createTempDirectory(XsltFeature.FEATURE);
         final Set<String> translets = new LinkedHashSet<>();
@@ -94,15 +92,18 @@ class XsltProcessor {
             for (String uri : config.sources.orElse(Collections.emptyList())) {
                 ResolutionResult resolvedUri = resolver.resolve(uri);
                 uriResolverEntries.produce(resolvedUri.toBuildItem());
-                final String translet = resolvedUri.transletClassName;
-                if (translets.contains(translet)) {
-                    throw new RuntimeException("XSLT translet name clash: cannot add '" + translet
+
+                if (translets.contains(resolvedUri.transletClassName)) {
+                    throw new RuntimeException("XSLT translet name clash: cannot add '" + resolvedUri.transletClassName
                             + "' to previously added translets " + translets);
                 }
+
+                translets.add(resolvedUri.transletClassName);
+
                 try {
                     TransformerFactory tf = new XalanTransformerFactory();
                     tf.setAttribute("generate-translet", true);
-                    tf.setAttribute("translet-name", translet);
+                    tf.setAttribute("translet-name", resolvedUri.transletClassName);
                     tf.setAttribute("package-name", config.packageName);
                     tf.setAttribute("destination-directory", destination.toString());
                     tf.setErrorListener(new CamelXsltErrorListener());
