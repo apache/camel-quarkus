@@ -16,38 +16,61 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
-import java.util.Collections;
 import java.util.Map;
 
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.infinispan.commons.test.TestResourceTracker;
-import org.infinispan.configuration.cache.ConfigurationBuilder;
-import org.infinispan.configuration.global.GlobalConfigurationBuilder;
-import org.infinispan.manager.EmbeddedCacheManager;
-import org.infinispan.server.hotrod.HotRodServer;
-import org.infinispan.server.hotrod.test.HotRodTestingUtil;
-import org.infinispan.test.fwk.TestCacheManagerFactory;
+import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import org.apache.camel.util.CollectionHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
-    private HotRodServer hotRodServer;
+import static org.apache.camel.quarkus.testcontainers.ContainerSupport.getHostAndPort;
+
+public class InfinispanServerTestResource implements ContainerResourceLifecycleManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanServerTestResource.class);
+    private static final String CONTAINER_IMAGE = "docker.io/infinispan/server:10.1.5.Final";
+    private static final int HOTROD_PORT = 11222;
+    private static final String USER = "camel";
+    private static final String PASS = "camel";
+
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
-        TestResourceTracker.setThreadTestName("InfinispanServer");
-        EmbeddedCacheManager ecm = TestCacheManagerFactory.createCacheManager(
-                new GlobalConfigurationBuilder().nonClusteredDefault().defaultCacheName("default"),
-                new ConfigurationBuilder());
+        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
-        // Client connects to a non default port
-        hotRodServer = HotRodTestingUtil.startHotRodServer(ecm, 11232);
+        try {
+            container = new GenericContainer<>(CONTAINER_IMAGE)
+                    .withExposedPorts(HOTROD_PORT)
+                    .withEnv("USER", USER)
+                    .withEnv("PASS", PASS)
+                    .waitingFor(Wait.forListeningPort());
 
-        return Collections.emptyMap();
+            container.start();
+
+            return CollectionHelper.mapOf(
+                    "quarkus.infinispan-client.server-list", getHostAndPort(container, HOTROD_PORT),
+                    "quarkus.infinispan-client.near-cache-max-entries", "3",
+                    "quarkus.infinispan-client.auth-username", USER,
+                    "quarkus.infinispan-client.auth-password", PASS,
+                    "quarkus.infinispan-client.auth-realm", "default",
+                    "quarkus.infinispan-client.sasl-mechanism", "DIGEST-MD5",
+                    "quarkus.infinispan-client.auth-server-name", "infinispan");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void stop() {
-        if (hotRodServer != null) {
-            hotRodServer.stop();
+        try {
+            if (container != null) {
+                container.stop();
+            }
+        } catch (Exception e) {
+            // ignored
         }
     }
 }

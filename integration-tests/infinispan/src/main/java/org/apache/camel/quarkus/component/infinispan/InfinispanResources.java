@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -25,12 +26,22 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
+import org.infinispan.client.hotrod.RemoteCacheManager;
 
 @Path("/test")
 @ApplicationScoped
 public class InfinispanResources {
+    public static final String CACHE_NAME = "camel";
+
+    @Inject
+    RemoteCacheManager cacheManager;
     @Inject
     ProducerTemplate template;
+
+    @PostConstruct
+    public void setUp() {
+        cacheManager.administration().getOrCreateCache(CACHE_NAME, (String) null);
+    }
 
     @Path("/get")
     @GET
