@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-jackson</artifactId>
     <name>Camel Quarkus :: Jackson :: Runtime</name>
+    <description>Provides support for the Jackson dataformat.</description>
 
     <properties>
         <firstVersion>0.3.0</firstVersion>
