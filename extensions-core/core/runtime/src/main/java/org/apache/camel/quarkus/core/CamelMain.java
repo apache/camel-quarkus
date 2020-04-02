@@ -58,7 +58,7 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
     protected void postProcessCamelContext(CamelContext camelContext) throws Exception {
         super.postProcessCamelContext(camelContext);
 
-        // post process classes with camel's post processor so classes have supot
+        // post process classes with camel's post processor so classes have support
         // for camel's simple di
         CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
         for (RoutesBuilder builder : getRoutesBuilders()) {

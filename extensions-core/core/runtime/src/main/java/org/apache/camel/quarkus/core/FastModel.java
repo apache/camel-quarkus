@@ -142,11 +142,6 @@ public class FastModel extends BaseModel {
             return route;
         }
 
-        public void clearModel() {
-            clearModel(getRuntimeRoute().getProcessor());
-            route = null;
-        }
-
         @SuppressWarnings("unchecked")
         private void clearModel(Processor nav) {
             if (nav instanceof DefaultChannel) {

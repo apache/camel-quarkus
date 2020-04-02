@@ -143,10 +143,9 @@ public class NativeImageProcessor {
                 List<CamelServiceBuildItem> camelServices,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
 
-            camelServices.stream()
-                    .forEach(service -> {
-                        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.type));
-                    });
+            camelServices.forEach(service -> {
+                reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, service.type));
+            });
 
         }
 
@@ -234,7 +233,7 @@ public class NativeImageProcessor {
 
                 final Path rootPath = archive.getArchiveRoot();
                 Stream<Path> resourceStream = CamelSupport.safeWalk(rootPath).filter(path -> Files.isRegularFile(path));
-                resourceStream.map(filePath -> rootPath.relativize(filePath)).filter(pathFilter.asPathPredicate())
+                resourceStream.map(rootPath::relativize).filter(pathFilter.asPathPredicate())
                         .forEach(filteredPath -> {
                             resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
                             LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
@@ -256,12 +255,12 @@ public class NativeImageProcessor {
                     reflectionConfig.includePatterns.get());
 
             final PathFilter.Builder builder = new PathFilter.Builder();
-            reflectionConfig.includePatterns.map(list -> list.stream()).orElseGet(Stream::empty)
+            reflectionConfig.includePatterns.map(Collection::stream).orElseGet(Stream::empty)
                     .map(className -> className.replace('.', '/'))
-                    .forEach(pathPattern -> builder.include(pathPattern));
-            reflectionConfig.excludePatterns.map(list -> list.stream()).orElseGet(Stream::empty)
+                    .forEach(builder::include);
+            reflectionConfig.excludePatterns.map(Collection::stream).orElseGet(Stream::empty)
                     .map(className -> className.replace('.', '/'))
-                    .forEach(pathPattern -> builder.exclude(pathPattern));
+                    .forEach(builder::exclude);
             final PathFilter pathFilter = builder.build();
 
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {

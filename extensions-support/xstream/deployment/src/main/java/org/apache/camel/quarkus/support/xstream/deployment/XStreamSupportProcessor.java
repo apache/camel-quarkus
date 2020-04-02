@@ -24,6 +24,7 @@ import com.thoughtworks.xstream.mapper.CGLIBMapper;
 import com.thoughtworks.xstream.mapper.Mapper;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
@@ -38,7 +39,12 @@ public class XStreamSupportProcessor {
     private static final List<String> EXCLUDED_CLASSES = Arrays.asList(
             CGLIBMapper.class.getName());
 
-    @BuildStep(applicationArchiveMarkers = "com/thoughtworks/xstream/XStream.class")
+    @BuildStep
+    AdditionalApplicationArchiveMarkerBuildItem additionalApplicationArchives() {
+        return new AdditionalApplicationArchiveMarkerBuildItem("com/thoughtworks/xstream/XStream.class");
+    }
+
+    @BuildStep
     void process(CombinedIndexBuildItem indexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClassBuildItemBuildProducer) {
 

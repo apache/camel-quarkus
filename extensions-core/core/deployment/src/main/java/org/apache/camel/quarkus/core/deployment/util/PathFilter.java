@@ -91,8 +91,8 @@ public class PathFilter {
         return pathStream
                 .filter(isRegularFile)
                 .filter(path -> path.getFileName().toString().endsWith(CLASS_SUFFIX))
-                .map(filePath -> rootPath.relativize(filePath))
-                .map(relPath -> relPath.toString())
+                .map(rootPath::relativize)
+                .map(Path::toString)
                 .map(stringPath -> stringPath.substring(0, stringPath.length() - CLASS_SUFFIX_LENGTH))
                 .filter(stringPredicate)
                 .map(slashClassName -> slashClassName.replace('/', '.'))
@@ -107,8 +107,8 @@ public class PathFilter {
     }
 
     public static class Builder {
-        private List<String> includePatterns = new ArrayList<String>();
-        private List<String> excludePatterns = new ArrayList<String>();
+        private List<String> includePatterns = new ArrayList<>();
+        private List<String> excludePatterns = new ArrayList<>();
 
         public Builder patterns(boolean isInclude, Collection<String> patterns) {
             if (isInclude) {
@@ -130,7 +130,7 @@ public class PathFilter {
         }
 
         public Builder include(Optional<? extends Collection<String>> patterns) {
-            patterns.ifPresent(ps -> include(ps));
+            patterns.ifPresent(this::include);
             return this;
         }
 
@@ -145,7 +145,7 @@ public class PathFilter {
         }
 
         public Builder exclude(Optional<? extends Collection<String>> patterns) {
-            patterns.ifPresent(ps -> exclude(ps));
+            patterns.ifPresent(this::exclude);
             return this;
         }
 

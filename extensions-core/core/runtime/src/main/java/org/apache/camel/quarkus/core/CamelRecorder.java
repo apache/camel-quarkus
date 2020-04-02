@@ -51,7 +51,7 @@ public class CamelRecorder {
     public void addTypeConverterLoader(RuntimeValue<TypeConverterRegistry> registry,
             Class<? extends TypeConverterLoader> loader) {
         try {
-            loader.newInstance().load(registry.getValue());
+            loader.getConstructor().newInstance().load(registry.getValue());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
