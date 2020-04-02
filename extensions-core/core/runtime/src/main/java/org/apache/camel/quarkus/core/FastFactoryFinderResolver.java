@@ -83,8 +83,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
             classMap = null; // make sure the classMap does not leak through re-using the builder
 
             if (LOG.isDebugEnabled()) {
-                cm.entrySet().forEach(
-                        e -> LOG.debugf("FactoryFinder entry " + e.getKey() + ": " + e.getValue().getName()));
+                cm.forEach((key, value) -> LOG.debugf("FactoryFinder entry " + key + ": " + value.getName()));
             }
 
             return new FastFactoryFinderResolver(cm);

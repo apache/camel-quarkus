@@ -39,7 +39,7 @@ public class CamelConfig {
     public ServiceConfig service;
 
     /**
-     * Build time configuration options for {@link org.apache.camel.runtimecatalog.RuntimeCamelCatalog}.
+     * Build time configuration options for {@link RuntimeCatalogConfig}.
      */
     @ConfigItem
     public RuntimeCatalogConfig runtimeCatalog;
@@ -273,12 +273,12 @@ public class CamelConfig {
          * must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
          * be registered for indexing using the {@code quarkus.index-dependency.*} family
          * of options in {@code application.properties} - e.g.
-         * 
+         *
          * <pre>
          * quarkus.index-dependency.my-dep.group-id = org.my-group
          * quarkus.index-dependency.my-dep.artifact-id = my-artifact
          * </pre>
-         * 
+         *
          * where {@code my-dep} is a label of your choice to tell Quarkus that
          * {@code org.my-group} and with {@code my-artifact} belong together.
          */

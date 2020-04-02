@@ -121,7 +121,7 @@ class SupportMailProcessor {
 
     private <T> T instantiate(Class<T> clazz) {
         try {
-            return clazz.newInstance();
+            return clazz.getConstructor().newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

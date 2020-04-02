@@ -21,7 +21,7 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.spi.FactoryFinderResolver;
 
 /**
- * A {@link SimpleBuildItem} holding a {@link FastFactoryFinderResolver} {@link RuntimeValue}.
+ * A {@link SimpleBuildItem} holding a {@link FactoryFinderResolver} {@link RuntimeValue}.
  */
 public final class CamelFactoryFinderResolverBuildItem extends SimpleBuildItem {
     private final RuntimeValue<FactoryFinderResolver> factoryFinderResolver;
