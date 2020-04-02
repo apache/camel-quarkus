@@ -19,10 +19,13 @@ package org.apache.camel.quarkus.support.xalan.deployment;
 import java.util.Arrays;
 import java.util.List;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.SystemPropertyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 
 class XalanNativeImageProcessor {
     @BuildStep
@@ -52,4 +55,29 @@ class XalanNativeImageProcessor {
         return Arrays.asList(
                 new NativeImageResourceBuildItem("org/apache/xml/serializer/output_xml.properties"));
     }
+
+    @BuildStep
+    void installTransformerFactory(
+            CamelXalanBuildTimeConfig config,
+            BuildProducer<SystemPropertyBuildItem> properties,
+            BuildProducer<ServiceProviderBuildItem> serviceProviders,
+            BuildProducer<NativeImageResourceBuildItem> nativeResources) {
+
+        config.transformerFactory
+                .ifPresent(val -> properties.produce(
+                        /*
+                         * If we do not do this, the service provider defined in xalan.jar's
+                         * META-INF/services/javax.xml.transform.TransformerFactory
+                         * wins over our factory on Java 11+ native
+                         * I any case, the user has an option to pass his preferred factory instead of ours
+                         */
+                        new SystemPropertyBuildItem("javax.xml.transform.TransformerFactory", val)));
+
+        serviceProviders.produce(
+                new ServiceProviderBuildItem("javax.xml.transform.TransformerFactory",
+                        "org.apache.camel.quarkus.support.xalan.XalanTransformerFactory"));
+
+        nativeResources.produce(new NativeImageResourceBuildItem("META-INF/services/javax.xml.transform.TransformerFactory"));
+    }
+
 }
