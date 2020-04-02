@@ -150,8 +150,8 @@ Level | Since | Description
  Preview | 1.0.0-M6 | The aws-swf component is used for managing workflows from Amazon Simple Workflow.
 
 | link:https://camel.apache.org/components/latest/aws-sdb-component.html[AWS SimpleDB] (camel-quarkus-aws-sdb) +
-`aws-sdb:domainName` | JVM +
- Preview | 1.0.0-M6 | The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service.
+`aws-sdb:domainName` | Native +
+ Stable | 1.0.0-M6 | The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
 `aws-translate:label` | Native +

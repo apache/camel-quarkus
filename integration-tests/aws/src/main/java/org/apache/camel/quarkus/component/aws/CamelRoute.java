@@ -75,6 +75,10 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws-translate://cluster?operation=translateText")
                 .log("Translation: ${body}");
 
+        from("timer:quarkus-sdb?repeatCount=1")
+                .to("aws-sdb://TestDomain?operation=DomainMetadata&accessKey={{env:AWS_ACCESS_KEY}}&secretKey={{env:AWS_SECRET_KEY}}&region={{env:AWS_REGION}}")
+                .to("log:sf?showAll=true");
+
         from("aws-kinesis://mykinesisstream")
                 .to("log:sf?showAll=true");
     }

@@ -46,6 +46,7 @@
         <module>aws-kms</module>
         <module>aws-lambda</module>
         <module>aws-s3</module>
+        <module>aws-sdb</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
         <module>aws-translate</module>
