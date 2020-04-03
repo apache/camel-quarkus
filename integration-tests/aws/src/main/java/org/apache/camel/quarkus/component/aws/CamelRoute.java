@@ -79,6 +79,10 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws-sdb://TestDomain?operation=DomainMetadata&accessKey={{env:AWS_ACCESS_KEY}}&secretKey={{env:AWS_SECRET_KEY}}&region={{env:AWS_REGION}}")
                 .to("log:sf?showAll=true");
 
+        from("timer:quarkus-swf?repeatCount=1")
+                .to("aws-swf://workflow?domainName=testDomain&activityList=swf-alist&workflowList=swf-wlist&version=1.0&eventName=testEvent")
+                .to("log:sf?showAll=true");
+
         from("aws-kinesis://mykinesisstream")
                 .to("log:sf?showAll=true");
     }
