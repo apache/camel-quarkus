@@ -49,6 +49,7 @@
         <module>aws-sdb</module>
         <module>aws-sns</module>
         <module>aws-sqs</module>
+        <module>aws-swf</module>
         <module>aws-translate</module>
         <module>azure</module>
         <module>base64</module>

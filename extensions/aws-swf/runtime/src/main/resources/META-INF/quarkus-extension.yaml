@@ -21,9 +21,9 @@ description: "The aws-swf component is used for managing workflows from Amazon S
 metadata:
   unlisted: true
   keywords:
+  - "camel"
   - "cloud"
   - "workflow"
-  guide: "https://camel.apache.org/components/latest/aws-swf-component.html"
+  guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
-  status: "preview"
