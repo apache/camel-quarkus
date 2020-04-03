@@ -151,6 +151,7 @@
         <module>tagsoup</module>
         <module>tarfile</module>
         <module>telegram</module>
+        <module>tika</module>
         <module>timer</module>
         <module>twitter</module>
         <module>validator</module>

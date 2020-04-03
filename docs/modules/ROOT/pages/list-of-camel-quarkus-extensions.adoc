@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
+Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -305,6 +305,8 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 | xref:extensions/stream.adoc[Stream] | camel-quarkus-stream | Native + Stable | 1.0.0-M4 | Read from system-in and write to system-out and system-err streams.
 
 | xref:extensions/telegram.adoc[Telegram] | camel-quarkus-telegram | Native + Stable | 1.0.0-M4 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
+
+| xref:extensions/tika.adoc[Tika] | camel-quarkus-tika | Native + Stable | 1.0.0-CR3 | Parse documents and extract metadata and text using Apache Tika.
 
 | xref:extensions/timer.adoc[Timer] | camel-quarkus-timer | Native + Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
 

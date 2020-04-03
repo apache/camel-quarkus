@@ -84,6 +84,7 @@ misc:
   - qute
   - stream
   - tarfile
+  - tika
   - vertx
 networking:
   - ftp
