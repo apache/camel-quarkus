@@ -58,6 +58,7 @@
         <module>activemq</module>
         <module>amqp</module>
         <module>aws</module>
+        <module>aws2</module>
         <module>azure</module>
         <module>base64</module>
         <module>bean</module>

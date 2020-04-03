@@ -94,8 +94,8 @@ Level | Since | Description
  Preview | 1.0.0-M6 | The aws2-sns component is used for sending messages to an Amazon Simple Notification Topic.
 
 | link:https://camel.apache.org/components/latest/aws2-sqs-component.html[AWS 2 Simple Queue Service] (camel-quarkus-aws2-sqs) +
-`aws2-sqs:queueNameOrArn` | JVM +
- Preview | 1.0.0-M6 | The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service.
+`aws2-sqs:queueNameOrArn` | Native +
+ Stable | 1.0.0-M6 | The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service.
 
 | link:https://camel.apache.org/components/latest/aws2-translate-component.html[AWS 2 Translate] (camel-quarkus-aws2-translate) +
 `aws2-translate:label` | JVM +
