@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -28,7 +27,6 @@ import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(ActiveMQTestResource.class)
-@Disabled("https://github.com/apache/camel-quarkus/issues/1023")
 class JmsTest {
 
     @ParameterizedTest
