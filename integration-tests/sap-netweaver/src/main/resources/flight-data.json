@@ -1,0 +1,83 @@
+{
+    "@base": "https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/",
+    "id": "https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/FlightCollection",
+    "title": "FlightCollection",
+    "updated": "2018-04-27T08:41:31Z",
+    "author": {
+        "name": null
+    },
+    "link": {
+        "@href": "FlightCollection",
+        "@rel": "self",
+        "@title": "FlightCollection"
+    },
+    "entry": {
+        "id": "https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')",
+        "title": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')",
+        "updated": "2018-04-27T08:41:31Z",
+        "category": {
+            "@term": "RMTSAMPLEFLIGHT.Flight",
+            "@scheme": "http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"
+        },
+        "link": [
+            {
+                "@href": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')",
+                "@rel": "edit",
+                "@title": "Flight"
+            },
+            {
+                "@href": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/flightbooking",
+                "@rel": "http://schemas.microsoft.com/ado/2007/08/dataservices/related/flightbooking",
+                "@title": "flightbooking"
+            },
+            {
+                "@href": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/flightBookings",
+                "@rel": "http://schemas.microsoft.com/ado/2007/08/dataservices/related/flightBookings",
+                "@title": "flightBookings"
+            },
+            {
+                "@href": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/FlightCarrier",
+                "@rel": "http://schemas.microsoft.com/ado/2007/08/dataservices/related/FlightCarrier",
+                "@title": "FlightCarrier"
+            },
+            {
+                "@href": "FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/FlightCarrier_FW",
+                "@rel": "http://schemas.microsoft.com/ado/2007/08/dataservices/related/FlightCarrier_FW",
+                "@title": "FlightCarrier_FW"
+            }
+        ],
+        "content": {
+            "properties": {
+                "flightDetails": {
+                    "@type": "RMTSAMPLEFLIGHT.FlightDetails",
+                    "countryFrom": "US",
+                    "cityFrom": "new york",
+                    "airportFrom": "JFK",
+                    "countryTo": "US",
+                    "cityTo": "SAN FRANCISCO",
+                    "airportTo": "SFO",
+                    "flightTime": "361",
+                    "departureTime": "PT11H00M00S",
+                    "arrivalTime": "PT14H01M00S",
+                    "distance": "2572.0000",
+                    "distanceUnit": "SMI",
+                    "flightType": null,
+                    "period": "0"
+                },
+                "carrid": "AA",
+                "connid": "0017",
+                "fldate": "2017-10-05T00:00:00",
+                "PRICE": "422.94",
+                "CURRENCY": "USD",
+                "PLANETYPE": "747-400",
+                "SEATSMAX": "385",
+                "SEATSOCC": "375",
+                "PAYMENTSUM": "194924.73",
+                "SEATSMAX_B": "31",
+                "SEATSOCC_B": "31",
+                "SEATSMAX_F": "21",
+                "SEATSOCC_F": "19"
+            }
+        }
+    }
+}
