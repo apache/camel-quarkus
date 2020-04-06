@@ -24,23 +24,30 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
+import static org.apache.camel.util.ObjectHelper.isNotEmpty;
+
 /**
  * Native images built using a docker container end up with {@code javax.net.ssl.trustStore} system property
  * pointing to a non-existing file; see https://quarkus.io/guides/native-and-ssl For that case, we have to set
  * {@code javax.net.ssl.trustStore} to an existing path explicitly.
  */
 public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
+    private static final String CACERTS_REL_PATH = "lib/security/cacerts";
+    private static final String CACERTS_REL_PATH_ALT = "jre/lib/security/cacerts";
 
     @Override
     public Map<String, String> start() {
         final String graalVmHome = System.getenv("GRAALVM_HOME");
         final String javaHome = System.getenv("JAVA_HOME");
-        Path trustStorePath = null;
-        final String CACERTS_REL_PATH = "jre/lib/security/cacerts";
-        if (graalVmHome != null && !graalVmHome.isEmpty()
-                && Files.exists(trustStorePath = Paths.get(graalVmHome).resolve(CACERTS_REL_PATH))) {
-        } else if (javaHome != null && !javaHome.isEmpty()
-                && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH))) {
+
+        Path trustStorePath;
+
+        if (isNotEmpty(graalVmHome) && Files.exists(trustStorePath = Paths.get(graalVmHome).resolve(CACERTS_REL_PATH))) {
+            // empty body
+        } else if (isNotEmpty(javaHome) && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH))) {
+            // empty body
+        } else if (isNotEmpty(javaHome) && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH_ALT))) {
+            // empty body
         } else {
             throw new IllegalStateException(
                     "Could not find any existing file to set javax.net.ssl.trustStore; tried $GRAALVM_HOME/" + CACERTS_REL_PATH
@@ -48,11 +55,11 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
                             + ". You may need to set GRAALVM_HOME or JAVA_HOME properly. Found $GRAALVM_HOME = " + graalVmHome
                             + " and $JAVA_HOME = " + graalVmHome);
         }
+
         return Collections.singletonMap("javax.net.ssl.trustStore", trustStorePath.toString());
     }
 
     @Override
     public void stop() {
     }
-
 }
