@@ -17,11 +17,7 @@
 package org.apache.camel.quarkus.component.http.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.EnabledOnJre;
-import org.junit.jupiter.api.condition.JRE;
 
 @NativeImageTest
-// TrustStoreResource does not work on Java 11: https://github.com/apache/camel-quarkus/issues/852
-@EnabledOnJre(JRE.JAVA_8)
 class HttpIT extends HttpTest {
 }
