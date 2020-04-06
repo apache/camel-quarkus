@@ -70,7 +70,6 @@
         <module>pubnub</module>
         <module>rabbitmq</module>
         <module>rest-openapi</module>
-        <module>sap-netweaver</module>
     </modules>
 
 </project>

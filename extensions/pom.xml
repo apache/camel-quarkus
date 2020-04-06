@@ -113,6 +113,7 @@
         <module>ref</module>
         <module>rest</module>
         <module>salesforce</module>
+        <module>sap-netweaver</module>
         <module>scheduler</module>
         <module>seda</module>
         <module>servicenow</module>

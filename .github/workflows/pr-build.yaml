@@ -186,6 +186,7 @@ jobs:
               google
               jira
               salesforce
+              sap-netweaver
               servicenow
               slack
           - category: SQL

@@ -530,8 +530,8 @@ Level | Since | Description
  Stable | 0.2.0 | The salesforce component is used for integrating Camel with the massive Salesforce API.
 
 | link:https://camel.apache.org/components/latest/sap-netweaver-component.html[SAP NetWeaver] (camel-quarkus-sap-netweaver) +
-`sap-netweaver:url` | JVM +
- Preview | 1.0.0-M6 | The sap-netweaver component integrates with the SAP NetWeaver Gateway using HTTP transports.
+`sap-netweaver:url` | Native +
+ Stable | 1.0.0-M6 | The sap-netweaver component integrates with the SAP NetWeaver Gateway using HTTP transports.
 
 | link:https://camel.apache.org/components/latest/scheduler-component.html[Scheduler] (camel-quarkus-scheduler) +
 `scheduler:name` | Native +

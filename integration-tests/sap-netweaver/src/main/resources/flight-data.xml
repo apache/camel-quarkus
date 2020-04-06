@@ -1,0 +1,76 @@
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+      xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" xml:base="https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/">
+    <id>https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/FlightCollection</id>
+    <title type="text">FlightCollection</title>
+    <updated>2018-04-27T08:41:31Z</updated>
+    <author>
+        <name/>
+    </author>
+    <link href="FlightCollection" rel="self" title="FlightCollection"/>
+    <entry>
+        <id>https://sapes5.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')
+        </id>
+        <title type="text">FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')</title>
+        <updated>2018-04-27T08:41:31Z</updated>
+        <category term="RMTSAMPLEFLIGHT.Flight" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme"/>
+        <link href="FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')" rel="edit" title="Flight"/>
+        <link href="FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/flightbooking"
+              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/flightbooking" type="application/atom+xml;type=entry" title="flightbooking"/>
+        <link href="FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/flightBookings"
+              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/flightBookings" type="application/atom+xml;type=feed" title="flightBookings"/>
+        <link href="FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/FlightCarrier"
+              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/FlightCarrier" type="application/atom+xml;type=entry" title="FlightCarrier"/>
+        <link href="FlightCollection(carrid='AA',connid='0017',fldate=datetime'2017-10-05T00%3A00%3A00')/FlightCarrier_FW"
+              rel="http://schemas.microsoft.com/ado/2007/08/dataservices/related/FlightCarrier_FW" type="application/atom+xml;type=entry" title="FlightCarrier_FW"/>
+        <content type="application/xml">
+            <m:properties xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices">
+                <d:flightDetails m:type="RMTSAMPLEFLIGHT.FlightDetails">
+                    <d:countryFrom>US</d:countryFrom>
+                    <d:cityFrom>new york</d:cityFrom>
+                    <d:airportFrom>JFK</d:airportFrom>
+                    <d:countryTo>US</d:countryTo>
+                    <d:cityTo>SAN FRANCISCO</d:cityTo>
+                    <d:airportTo>SFO</d:airportTo>
+                    <d:flightTime>361</d:flightTime>
+                    <d:departureTime>PT11H00M00S</d:departureTime>
+                    <d:arrivalTime>PT14H01M00S</d:arrivalTime>
+                    <d:distance>2572.0000</d:distance>
+                    <d:distanceUnit>SMI</d:distanceUnit>
+                    <d:flightType></d:flightType>
+                    <d:period>0</d:period>
+                </d:flightDetails>
+                <d:carrid>AA</d:carrid>
+                <d:connid>0017</d:connid>
+                <d:fldate>2017-10-05T00:00:00</d:fldate>
+                <d:PRICE>422.94</d:PRICE>
+                <d:CURRENCY>USD</d:CURRENCY>
+                <d:PLANETYPE>747-400</d:PLANETYPE>
+                <d:SEATSMAX>385</d:SEATSMAX>
+                <d:SEATSOCC>375</d:SEATSOCC>
+                <d:PAYMENTSUM>194924.73</d:PAYMENTSUM>
+                <d:SEATSMAX_B>31</d:SEATSMAX_B>
+                <d:SEATSOCC_B>31</d:SEATSOCC_B>
+                <d:SEATSMAX_F>21</d:SEATSMAX_F>
+                <d:SEATSOCC_F>19</d:SEATSOCC_F>
+            </m:properties>
+        </content>
+    </entry>
+</feed>
