@@ -34,8 +34,10 @@ public final class ContainerBeansBuildItem extends SimpleBuildItem {
     private final Set<DotName> classes;
 
     public ContainerBeansBuildItem(Collection<BeanInfo> beans) {
-        this.beans = beans.stream().map(SimpleCamelBeanInfo::new).collect(Collectors.toSet());
-        this.classes = beans.stream().map(BeanInfo::getImplClazz).map(ClassInfo::name).collect(Collectors.toSet());
+        this.beans = beans.stream()
+                .filter(bi -> bi.getImplClazz() != null).map(SimpleCamelBeanInfo::new).collect(Collectors.toSet());
+        this.classes = beans.stream()
+                .map(BeanInfo::getImplClazz).filter(Objects::nonNull).map(ClassInfo::name).collect(Collectors.toSet());
     }
 
     public Set<CamelBeanInfo> getBeans() {

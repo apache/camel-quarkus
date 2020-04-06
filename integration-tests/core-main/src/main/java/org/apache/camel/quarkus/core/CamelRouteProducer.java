@@ -24,6 +24,15 @@ import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
 public class CamelRouteProducer {
+    /*
+     * The BeanInfo#getImplClazz() returns null in case of a produce of primitives ao arrays which
+     * cause ContainerBeansBuildItem to fail. This producer method is here only to validate we handle
+     * such case.
+     */
+    @Produces
+    public String[] primitiveType() {
+        return new String[] {};
+    }
 
     @Produces
     RoutesBuilder producedRoute() {
