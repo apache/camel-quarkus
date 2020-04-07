@@ -4,4 +4,5 @@
 ** xref:native-mode.adoc[Native mode]
 ** xref:examples.adoc[Examples]
 * xref:contributor-guide.adoc[Contributor guide]
+* xref:promote-jvm-only-extensions.adoc[Promote a JVM Only extension to native]
 * xref:list-of-camel-quarkus-extensions.adoc[List of Camel Quarkus extensions]
