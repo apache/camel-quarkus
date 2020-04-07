@@ -1,0 +1,123 @@
+[[promote-jvm-only-extensions]]
+= Promote JVM Only extensions Native
+
+The directory `extensions-jvm` contains some extensions that need to be tested in link:https://quarkus.io/guides/building-native-image[native mode]. Configuring the link:https://quarkus.io/guides/writing-native-applications-tips[native build] and implementing integration tests of such extensions may open the door to even faster startup and lower footprint.
+Please find some guiding steps below to start this quest:
+
+1. Make sure that nobody else works on promoting the same extension by searching through the
+   https://github.com/apache/camel-quarkus/issues[GitHub issues].
+
+2. Let others know that you work on promoting the given extension by either creating a
+   https://github.com/apache/camel-quarkus/issues/new[new issue] or asking to assign an existing one to you.
+
+3. Select the JVM Only extension to be promoted, for instance the grpc extension like below:
++
+[source,shell]
+----
+$ cd camel-quarkus
+$ export EXT='grpc'
+----
+
+4. Split the JVM Only extension into `extensions` and `integration-tests` folders, from a shell execute:
++
+[source,shell]
+----
+$ {
+   sed -i '/integration-test/d' "extensions-jvm/${EXT}/pom.xml"
+   sed -i "/<module>${EXT}<\/module>/d" "extensions-jvm/pom.xml"
+   git mv "extensions-jvm/${EXT}/integration-test/" "integration-tests/${EXT}"
+   git mv "extensions-jvm/${EXT}" "extensions/${EXT}"
+   sed -i -r "s/(.*)activemq(.*)/\1activemq\2\n\1${EXT}\2/g" extensions/pom.xml
+   sed -i -r "s/(.*)activemq(.*)/\1activemq\2\n\1${EXT}\2/g" integration-tests/pom.xml
+   sed -i "s/camel-quarkus-grpc-parent/camel-quarkus-integration-tests/g" "integration-tests/${EXT}/pom.xml"
+   sed -i "s/camel-quarkus-grpc-integration-test/camel-quarkus-integration-test-${EXT}/g" "integration-tests/${EXT}/pom.xml"
+   sed -i -r "s/Quarkus :: (.*) :: Integration Test/Quarkus :: Integration Test :: \1/g" "integration-tests/${EXT}/pom.xml"
+  }
+----
+
+5. Add the native profile at the end of `integration-tests/${EXT}/pom.xml`:
++
+[source,xml]
+----
+    <profiles>
+        <profile>
+            <id>native</id>
+            <activation>
+                <property>
+                    <name>native</name>
+                </property>
+            </activation>
+            <properties>
+                <quarkus.package.type>native</quarkus.package.type>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+----
+
+6. Remove the warning link:https://quarkus.io/guides/writing-extensions#build-step-processors[build step] from `extensions/${EXT}/deployment/src/main/java/org/apache/camel/quarkus/component/${EXT}/deployment/${EXT}Processor.java`:
++
+[source,java]
+----
+    /**
+     * Remove this once this extension starts supporting the native mode.
+     */
+    @BuildStep(onlyIf = NativeBuild.class)
+    @Record(value = ExecutionTime.RUNTIME_INIT)
+    void warnJvmInNative(JvmOnlyRecorder recorder) {
+        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
+        recorder.warnJvmInNative(FEATURE); // warn at runtime
+    }
+----
+
+7. Create a native test at `integration-tests/${EXT}/src/test/java/org/apache/camel/quarkus/component/${EXT}/it/${EXT}IT.java`
+
+8. Check `extensions/${EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml`:
+* Ensure guide is set to `"https://quarkus.io/guides/camel"`
+* Ensure keyword `camel` is present
+* Remove the `preview` status
+
+9. Add itests to `.github/workflows/pr-build.yaml`, for instance:
++
+[source,yaml]
+----
+- category: Rpc
+ test-modules: >
+   grpc
+----
+
+10. Unify source files format, update docs and rebuild the whole project:
++
+[source,shell]
+----
+mvn clean install -D skipTests -P format
+----
+
+11. Execute integration tests:
++
+[source,shell]
+----
+cd "integration-tests/${EXT}"
+mvn clean verify -P native
+----
+
+12. Now it's time to solve native build issues if any, extend integration tests coverage and perhaps even shifting some tasks
+from runtime to build time. The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good
+ally for this.
+
+13. Please also check the link:contributor-guide.adoc#create-a-new-extension[Create a new extension] section as it contains some useful tips for a good contribution.
