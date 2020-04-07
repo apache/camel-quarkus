@@ -56,9 +56,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: maven-${{ github.sha }}
+          key: maven-${{ github.run_id }}-${{ github.run_number }}
           restore-keys: |
-            maven-${{ github.sha }}
+            maven-${{ github.run_id }}-${{ github.run_number }}
   build-alternative-jvm:
     runs-on: ubuntu-latest
     needs: build
@@ -81,9 +81,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: maven-${{ github.sha }}
+          key: maven-${{ github.run_id }}-${{ github.run_number }}
           restore-keys: |
-            maven-${{ github.sha }}
+            maven-${{ github.run_id }}-${{ github.run_number }}
       - name: Build on ${{ matrix.java }}
         run: |
           ./mvnw -V -ntp ${BRANCH_OPTIONS} \
@@ -218,9 +218,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.m2/repository
-          key: maven-${{ github.sha }}
+          key: maven-${{ github.run_id }}-${{ github.run_number }}
           restore-keys: |
-            maven-${{ github.sha }}
+            maven-${{ github.run_id }}-${{ github.run_number }}
       - name: Integration Tests
         env:
           TEST_MODULES: ${{matrix.test-modules}}
@@ -248,9 +248,9 @@ jobs:
   #       uses: actions/cache@v1
   #       with:
   #         path: ~/.m2/repository
-  #         key: maven-${{ github.sha }}
+  #         key: maven-${{ github.run_id }}-${{ github.run_number }}
   #         restore-keys: |
-  #           maven-${{ github.sha }}
+  #           maven-${{ github.run_id }}-${{ github.run_number }}
   #     # run the :camel-quarkus-integration-test-fhir as standalone process
   #     # as it building the native image including camel-fhir requires lot
   #     # of memory this we nee to limit it to avoid the process fail for OOM.
