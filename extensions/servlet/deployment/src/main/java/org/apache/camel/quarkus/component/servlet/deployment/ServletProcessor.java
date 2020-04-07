@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.servlet.deployment;
 
+import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -66,7 +68,8 @@ class ServletProcessor {
     static ServletBuildItem newServlet(String key, ServletConfig servletConfig,
             BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         final String servletName = servletConfig.getEffectiveServletName(key);
-        if (servletConfig.urlPatterns.isEmpty()) {
+        final Optional<List<String>> urlPatterns = servletConfig.urlPatterns;
+        if (!urlPatterns.isPresent() || urlPatterns.get().isEmpty()) {
             throw new IllegalStateException(
                     String.format("Missing quarkus.camel.servlet%s.url-patterns",
                             ServletConfig.DEFAULT_SERVLET_NAME.equals(servletName) ? "" : "." + servletName));
@@ -74,7 +77,7 @@ class ServletProcessor {
 
         final Builder builder = ServletBuildItem.builder(servletName, servletConfig.servletClass);
         additionalBean.produce(new AdditionalBeanBuildItem(servletConfig.servletClass));
-        for (String pattern : servletConfig.urlPatterns) {
+        for (String pattern : urlPatterns.get()) {
             builder.addMapping(pattern);
         }
 
