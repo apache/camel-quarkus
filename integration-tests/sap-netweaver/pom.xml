@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>camel-quarkus-sap-netweaver-integration-test</artifactId>
-    <name>Camel Quarkus :: SAP NetWeaver :: Integration Test</name>
+    <name>Camel Quarkus :: Integration Tests :: SAP NetWeaver</name>
     <description>Integration tests for Camel Quarkus SAP NetWeaver extension</description>
 
     <properties>
