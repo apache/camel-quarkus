@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.servlet.runtime;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
@@ -58,7 +59,7 @@ public final class CamelServletConfig {
          * patterns: {@code /*}, {@code /services/*}
          */
         @ConfigItem
-        public List<String> urlPatterns;
+        public Optional<List<String>> urlPatterns;
 
         /** A fully qualified name of a servlet class to serve paths that match {@link #urlPatterns} */
         @ConfigItem(defaultValue = DEFAULT_SERVLET_CLASS)
@@ -77,7 +78,7 @@ public final class CamelServletConfig {
          *         default values. Otherwise returns {@code false}.
          */
         public boolean isValid() {
-            return !urlPatterns.isEmpty();
+            return urlPatterns.isPresent() && !urlPatterns.get().isEmpty();
         }
 
         /**
