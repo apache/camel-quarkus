@@ -92,7 +92,7 @@
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <groovy.version>2.5.8</groovy.version>
+        <groovy.version>3.0.2</groovy.version>
         <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
         <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
