@@ -240,4 +240,21 @@ class PlatformHttpTest {
                 .body(equalTo("Hello Kermit"));
     }
 
+    @Test
+    public void testWebhook() throws InterruptedException {
+        String path = RestAssured
+                .given()
+                .get("/platform-http/webhookpath")
+                .then()
+                .extract()
+                .body()
+                .asString();
+
+        RestAssured.given()
+                .urlEncodingEnabled(false)
+                .post(path)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello Camel Quarkus Webhook"));
+    }
 }

@@ -26,6 +26,7 @@ import javax.activation.DataHandler;
 import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.webhook.WebhookConfiguration;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
     @SuppressWarnings("unchecked")
@@ -103,5 +104,12 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .route()
                 .setBody(e -> "Hello " + e.getIn().getHeader("name", String.class))
                 .endRest();
+
+        // Webhook tests
+        from("platform-http:/platform-http/webhookpath")
+                .setBody(constant(WebhookConfiguration.computeDefaultPath("webhook-delegate://test")));
+
+        from("webhook:webhook-delegate://test")
+                .transform(body().prepend("Hello "));
     }
 }

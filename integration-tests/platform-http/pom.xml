@@ -36,7 +36,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-attachments-deployment,camel-quarkus-log-deployment,camel-quarkus-platform-http-deployment,camel-quarkus-rest-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-attachments-deployment,camel-quarkus-log-deployment,camel-quarkus-platform-http-deployment,camel-quarkus-rest-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-support-webhook-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencyManagement>
@@ -67,6 +67,10 @@
         <dependency><!-- Leave this one out (and save ~560 kB of the native image) unless you want to attach uploads to the camel message -->
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-attachments</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-webhook</artifactId>
         </dependency>
 
         <!-- test dependencies -->
