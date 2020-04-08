@@ -209,6 +209,7 @@ jobs:
             # TODO: re-add mongodb
             test-modules: >
               couchdb
+              influxdb
               jdbc
               sql
           - category: Social
