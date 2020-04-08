@@ -45,7 +45,7 @@ A build with integration tests in both the JVM mode and the native mode:
 $ mvn clean install -Pnative
 ----
 
-
+[[create-a-new-extension]]
 == Create a new extension
 
 1. You should know link:#how-to-build[how to build].
