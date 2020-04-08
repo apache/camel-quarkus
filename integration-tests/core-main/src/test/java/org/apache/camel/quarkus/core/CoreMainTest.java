@@ -21,6 +21,7 @@ import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -41,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 @QuarkusTest
+@QuarkusTestResource(CoreMainTestResource.class)
 public class CoreMainTest {
     @Test
     public void testProperties() {
