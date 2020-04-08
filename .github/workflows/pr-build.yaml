@@ -208,6 +208,7 @@ jobs:
           - category: SQL
             test-modules: >
               couchdb
+              influxdb
               jdbc
               mongodb
               sql

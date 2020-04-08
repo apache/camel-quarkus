@@ -85,6 +85,7 @@
         <module>hystrix</module>
         <module>ical</module>
         <module>infinispan</module>
+        <module>influxdb</module>
         <module>jackson</module>
         <module>jacksonxml</module>
         <module>jaxb</module>
