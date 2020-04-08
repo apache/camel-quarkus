@@ -127,15 +127,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <quarkus.test.profile>staging</quarkus.test.profile>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -161,11 +152,6 @@
                                     <goal>integration-test</goal>
                                     <goal>verify</goal>
                                 </goals>
-                                <configuration>
-                                    <systemProperties>
-                                        <quarkus.test.native-image-profile>staging</quarkus.test.native-image-profile>
-                                    </systemProperties>
-                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
