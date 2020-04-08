@@ -38,10 +38,21 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
-      - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
+      - name: Setup apache-snapshots profile
+        if: github.base_ref == 'camel-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+      - name: Setup oss-snapshots profile
+        if: github.base_ref == 'quarkus-master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
+      - name: Build Quarkus
+        if: github.base_ref == 'quarkus-master'
+        run: |
+          git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
+            && cd quarkus \
+            && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
+            && ./mvnw -B clean install -DskipTests -DskipITs
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -68,10 +79,14 @@ jobs:
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
-      - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
+      - name: Setup apache-snapshots profile
+        if: github.base_ref == 'camel-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+      - name: Setup oss-snapshots profile
+        if: github.base_ref == 'quarkus-master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: joschi/setup-jdk@v1
@@ -204,10 +219,14 @@ jobs:
               bean-validator
               validator
     steps:
-      - name: Set BRANCH_OPTIONS
-        if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
+      - name: Setup apache-snapshots profile
+        if: github.base_ref == 'camel-master'
         run: |
-          echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
+          echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+      - name: Setup oss-snapshots profile
+        if: github.base_ref == 'quarkus-master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
