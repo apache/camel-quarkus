@@ -120,4 +120,4 @@ mvn clean verify -P native
 from runtime to build time. The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good
 ally for this.
 
-13. Please also check the link:contributor-guide.adoc#create-a-new-extension[Create a new extension] section as it contains some useful tips for a good contribution.
+13. Please also check the xref:contributor-guide.adoc#create-a-new-extension[Create a new extension] section as it contains some useful tips for a good contribution.
