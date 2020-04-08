@@ -91,7 +91,8 @@
         <module>mail</module>
         <module>messaging</module>
         <module>microprofile</module>
-        <module>mongodb</module>
+<!--        Disable MongoDB until quarkus uses mongbd 4.x -->
+<!--        <module>mongodb</module>-->
         <module>mustache</module>
         <module>netty</module>
         <module>olingo4</module>

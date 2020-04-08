@@ -29,15 +29,16 @@ public class FastTypeConverter extends DefaultTypeConverter {
     }
 
     @Override
-    protected void doStart() throws Exception {
+    protected void doInit() throws Exception {
+        super.doInit();
+    }
+
+    @Override
+    public void loadCoreAndFastTypeConverters() throws Exception {
         for (TypeConverterLoader loader : getCamelContext().getRegistry().findByType(TypeConverterLoader.class)) {
             LOG.debug("TypeConverterLoader: {} loading converters", loader);
             loader.load(this);
         }
     }
 
-    @Override
-    public void loadCoreAndFastTypeConverters() throws Exception {
-        throw new UnsupportedOperationException();
-    }
 }

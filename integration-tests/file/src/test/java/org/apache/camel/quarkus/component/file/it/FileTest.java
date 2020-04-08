@@ -61,7 +61,7 @@ class FileTest {
 
     @Test
     public void fileWatchCreateUpdate() throws IOException, InterruptedException {
-        final Path dir = Files.createTempDirectory(FileTest.class.getSimpleName()).toAbsolutePath().normalize();
+        final Path dir = Files.createTempDirectory(FileTest.class.getSimpleName()).toRealPath();
         RestAssured.given()
                 .queryParam("path", dir.toString())
                 .get("/file-watch/get-events")

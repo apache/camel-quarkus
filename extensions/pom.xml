@@ -98,7 +98,8 @@
         <module>mail</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
-        <module>mongodb</module>
+<!--        Disable MongoDB until quarkus uses mongbd 4.x -->
+<!--        <module>mongodb</module>-->
         <module>mustache</module>
         <module>netty</module>
         <module>netty-http</module>

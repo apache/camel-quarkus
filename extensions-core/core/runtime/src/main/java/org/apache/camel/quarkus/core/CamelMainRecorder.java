@@ -93,7 +93,6 @@ public class CamelMainRecorder {
         });
 
         try {
-            main.getValue().init();
             main.getValue().start();
         } catch (Exception e) {
             throw new RuntimeException(e);

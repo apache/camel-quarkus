@@ -23,7 +23,7 @@ public class Routes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         // Invokes a simple greeting endpoint every 10 seconds
-        from("timer:greeting?period=10s")
+        from("timer:greeting?period=10000")
                 .to("netty-http:http://localhost:8099/greeting");
 
         from("netty-http:0.0.0.0:8099/greeting")

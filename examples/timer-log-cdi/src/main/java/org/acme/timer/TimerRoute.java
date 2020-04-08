@@ -32,7 +32,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class TimerRoute extends RouteBuilder {
 
     /** {@code timer.period} is defined in {@code src/main/resources/application.properties} */
-    @ConfigProperty(name = "timer.period", defaultValue = "1s")
+    @ConfigProperty(name = "timer.period", defaultValue = "1000")
     String period;
 
     /** An injected bean */

@@ -1,6 +1,7 @@
 {
   "component": {
     "kind": "component",
+    "name": "qute",
     "scheme": "qute",
     "extendsScheme": "",
     "syntax": "qute:resourceUri",

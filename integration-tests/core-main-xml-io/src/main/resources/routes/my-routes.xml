@@ -24,7 +24,7 @@
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
     <route id="my-xml-route">
-        <from uri="timer:from-xml?period=3s"/>
+        <from uri="timer:from-xml?period=3000"/>
         <setBody>
             <constant>Hello World!!!</constant>
         </setBody>

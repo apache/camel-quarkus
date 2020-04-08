@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-file</artifactId>
     <name>Camel Quarkus :: File :: Runtime</name>
+    <description>The file component provides access to the file system.</description>
 
     <properties>
         <firstVersion>0.4.0</firstVersion>

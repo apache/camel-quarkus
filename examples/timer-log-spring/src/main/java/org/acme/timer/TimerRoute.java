@@ -31,7 +31,7 @@ public class TimerRoute extends RouteBuilder {
      * {@code timer.period} is defined in {@code src/main/resources/application.properties}
      */
     @Value("timer.period")
-    String period = "1s";
+    String period = "1000";
 
     /**
      * An injected bean

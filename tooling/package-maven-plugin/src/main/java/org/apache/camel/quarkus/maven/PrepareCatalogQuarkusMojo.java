@@ -217,7 +217,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                                     ("compile".equals(dep.getScope()) || dep.getScope() == null))
                             .findFirst();
                     if (artifact.isPresent()) {
-                        camelComponentArtifactId = catalog.toCamelArtifactIdBase(artifact.get().getArtifactId());
+                        camelComponentArtifactId = catalog.toCamelComponentArtifactIdBase(artifact.get().getArtifactId());
                     }
                 }
                 final Properties props = runtimePom.getProperties() != null ? runtimePom.getProperties() : new Properties();

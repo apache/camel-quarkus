@@ -80,7 +80,7 @@ public class CamelRecorder {
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
-        context.init();
+        context.build();
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);

@@ -20,9 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -56,7 +54,7 @@ public class CqCatalog {
         this.catalog = new DefaultCamelCatalog(true);
     }
 
-    public String toCamelArtifactIdBase(String cqArtifactIdBase) {
+    public String toCamelComponentArtifactIdBase(String cqArtifactIdBase) {
         if ("core".equals(cqArtifactIdBase)) {
             return "base";
         } else if ("reactive-executor".equals(cqArtifactIdBase)) {
@@ -66,12 +64,21 @@ public class CqCatalog {
         }
     }
 
+    public List<String> toCamelArtifactIdBase(String cqArtifactIdBase) {
+        if ("core".equals(cqArtifactIdBase)) {
+            return Arrays.asList("camel-base", "camel-core-languages");
+        } else if ("reactive-executor".equals(cqArtifactIdBase)) {
+            return Collections.singletonList("camel-reactive-executor-vertx");
+        } else {
+            return Collections.singletonList("camel-" + cqArtifactIdBase);
+        }
+    }
+
     public List<WrappedModel> filterModels(String artifactIdBase) {
-        artifactIdBase = toCamelArtifactIdBase(artifactIdBase);
-        final String camelArtifactId = "camel-" + artifactIdBase;
+        List<String> camelArtifactIds = toCamelArtifactIdBase(artifactIdBase);
         return Stream.of(Kind.values())
                 .flatMap(kind -> kind.all(this))
-                .filter(wrappedModel -> wrappedModel.getArtifactId().equals(camelArtifactId))
+                .filter(wrappedModel -> camelArtifactIds.contains(wrappedModel.getArtifactId()))
                 .collect(Collectors.toList());
     }
 

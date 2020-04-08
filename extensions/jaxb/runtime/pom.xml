@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-jaxb</artifactId>
     <name>Camel Quarkus :: JAXB extension :: Runtime</name>
+    <description>The jaxb extensions provides JAXB support for Camel.</description>
 
     <properties>
         <firstVersion>1.0.0-M5</firstVersion>

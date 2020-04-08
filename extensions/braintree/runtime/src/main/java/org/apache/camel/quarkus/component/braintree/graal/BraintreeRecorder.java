@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.braintree.graal;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.component.braintree.BraintreeComponent;
+import org.apache.camel.component.braintree.BraintreeConfiguration;
 
 @Recorder
 public class BraintreeRecorder {
@@ -30,7 +31,9 @@ public class BraintreeRecorder {
      */
     public RuntimeValue<BraintreeComponent> configureBraintreeComponent() {
         BraintreeComponent component = new BraintreeComponent();
-        component.setLogHandlerEnabled(false);
+        BraintreeConfiguration configuration = new BraintreeConfiguration();
+        configuration.setLogHandlerEnabled(false);
+        component.setConfiguration(configuration);
         return new RuntimeValue<>(component);
     }
 }

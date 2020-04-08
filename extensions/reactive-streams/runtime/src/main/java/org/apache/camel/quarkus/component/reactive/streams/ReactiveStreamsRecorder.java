@@ -25,6 +25,7 @@ import org.apache.camel.component.reactive.streams.ReactiveStreamsComponent;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsServiceFactory;
 import org.apache.camel.component.reactive.streams.engine.DefaultCamelReactiveStreamsServiceFactory;
+import org.apache.camel.component.reactive.streams.engine.ReactiveStreamsEngineConfiguration;
 import org.apache.camel.support.service.ServiceHelper;
 
 @Recorder
@@ -63,10 +64,17 @@ public class ReactiveStreamsRecorder {
         @Override
         public CamelReactiveStreamsService getReactiveStreamsService() {
             synchronized (this.lock) {
+                if (getReactiveStreamsEngineConfiguration() == null) {
+                    ReactiveStreamsEngineConfiguration reactiveStreamsEngineConfiguration = new ReactiveStreamsEngineConfiguration();
+                    reactiveStreamsEngineConfiguration.setThreadPoolMaxSize(getThreadPoolMaxSize());
+                    reactiveStreamsEngineConfiguration.setThreadPoolMinSize(getThreadPoolMinSize());
+                    reactiveStreamsEngineConfiguration.setThreadPoolName(getThreadPoolName());
+                    setReactiveStreamsEngineConfiguration(reactiveStreamsEngineConfiguration);
+                }
                 if (reactiveStreamService == null) {
                     this.reactiveStreamService = reactiveStreamServiceFactory.newInstance(
                             getCamelContext(),
-                            getInternalEngineConfiguration());
+                            getReactiveStreamsEngineConfiguration());
 
                     try {
                         // Start the service and add it to the Camel context to expose managed attributes

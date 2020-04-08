@@ -41,12 +41,18 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
     }
 
     @Override
+    protected void doInit() throws Exception {
+        super.doInit();
+        postProcessCamelContext(getCamelContext());
+        getCamelContext().init();
+    }
+
+    @Override
     protected void doStart() throws Exception {
         for (MainListener listener : listeners) {
             listener.beforeStart(this);
         }
 
-        postProcessCamelContext(getCamelContext());
         getCamelContext().start();
 
         for (MainListener listener : listeners) {

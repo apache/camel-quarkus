@@ -16,28 +16,13 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.FailedToStartRouteException;
-import org.apache.camel.model.DataFormatDefinition;
-import org.apache.camel.model.HystrixConfigurationDefinition;
-import org.apache.camel.model.Model;
-import org.apache.camel.model.ProcessorDefinition;
-import org.apache.camel.model.ProcessorDefinitionHelper;
-import org.apache.camel.model.Resilience4jConfigurationDefinition;
-import org.apache.camel.model.RouteDefinition;
-import org.apache.camel.model.RouteDefinitionHelper;
-import org.apache.camel.model.RouteFilters;
+import org.apache.camel.model.*;
 import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
@@ -80,7 +65,7 @@ public abstract class BaseModel implements Model {
         removeRouteDefinitions(list);
         this.routeDefinitions.addAll(list);
         if (shouldStartRoutes()) {
-            startRouteDefinitions(list);
+            getCamelContext().adapt(ModelCamelContext.class).startRouteDefinitions(list);
         }
     }
 
@@ -256,7 +241,7 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public <T extends ProcessorDefinition> T getProcessorDefinition(String id, Class<T> type) {
+    public <T extends ProcessorDefinition<T>> T getProcessorDefinition(String id, Class<T> type) {
         ProcessorDefinition answer = getProcessorDefinition(id);
         if (answer != null) {
             return type.cast(answer);
@@ -295,11 +280,6 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public void startRouteDefinitions() throws Exception {
-        startRouteDefinitions(routeDefinitions);
-    }
-
-    @Override
     public void setRouteFilterPattern(String include, String exclude) {
         setRouteFilter(RouteFilters.filterByPattern(include, exclude));
     }
@@ -313,37 +293,6 @@ public abstract class BaseModel implements Model {
     public void setRouteFilter(Function<RouteDefinition, Boolean> routeFilter) {
         this.routeFilter = routeFilter;
     }
-
-    protected void startRouteDefinitions(Collection<RouteDefinition> list) throws Exception {
-        if (list != null) {
-            for (RouteDefinition route : list) {
-                startRoute(route);
-            }
-        }
-    }
-
-    public void startRoute(RouteDefinition routeDefinition) throws Exception {
-        prepare(routeDefinition);
-        start(routeDefinition);
-    }
-
-    protected void prepare(RouteDefinition routeDefinition) throws Exception {
-        // assign ids to the routes and validate that the id's is all unique
-        RouteDefinitionHelper.forceAssignIds(camelContext, routeDefinitions);
-        String duplicate = RouteDefinitionHelper.validateUniqueIds(routeDefinition, routeDefinitions);
-        if (duplicate != null) {
-            throw new FailedToStartRouteException(routeDefinition.getId(),
-                    "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
-        }
-
-        // must ensure route is prepared, before we can start it
-        if (!routeDefinition.isPrepared()) {
-            RouteDefinitionHelper.prepareRoute(camelContext, routeDefinition);
-            routeDefinition.markPrepared();
-        }
-    }
-
-    protected abstract void start(RouteDefinition routeDefinition) throws Exception;
 
     /**
      * Should we start newly added routes?

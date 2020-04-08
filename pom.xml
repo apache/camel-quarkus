@@ -45,7 +45,7 @@
         <awssdk1.version>1.11.714</awssdk1.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.10.67</awssdk2.version>
-        <camel.version>3.1.0</camel.version>
+        <camel.version>3.2.0</camel.version>
         <freemarker.version>2.3.30</freemarker.version>
         <google-http-client.version>1.22.0</google-http-client.version>
         <guava.version>26.0-jre</guava.version>
@@ -65,7 +65,8 @@
         <retrofit.version>2.5.0</retrofit.version>
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>5.2.3.RELEASE</spring.version>
-        <snakeyaml.version>1.25</snakeyaml.version>
+        <!-- TODO: not aligned with quarkus, needed to get snakeyaml dataformat to work -->
+        <snakeyaml.version>1.26</snakeyaml.version>
         <xalan.version>2.7.2</xalan.version>
         <xerces.version>2.12.0</xerces.version>
         <xstream.version>1.4.11</xstream.version>
@@ -91,6 +92,8 @@
 
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <google-auth-library-credentials.version>0.19.0</google-auth-library-credentials.version>
+        <google-auth-library-oauth2-http.version>0.19.0</google-auth-library-oauth2-http.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
         <groovy.version>3.0.2</groovy.version>
         <jandex-maven-plugin.version>1.0.7</jandex-maven-plugin.version>
@@ -108,6 +111,8 @@
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <cq-plugin.version>0.2.0</cq-plugin.version>
+        <protobuf-java.version>3.11.0</protobuf-java.version>
+        <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
         <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>
 
         <!-- maven-release-plugin -->

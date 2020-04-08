@@ -41,7 +41,7 @@ Level | Since | Description
 `amqp:destinationType:destinationName` | Native +
  Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
 
-| link:https://camel.apache.org/components/latest/avro-component.html[Avro] (camel-quarkus-avro) +
+| link:https://camel.apache.org/components/latest/avro-component.html[Avro] (camel-quarkus-avro-rpc) +
 `avro:transport:host:port/messageName` | JVM +
  Preview | 1.0.0-M6 | Working with Apache Avro for data serialization.
 
@@ -299,7 +299,7 @@ Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/google-pubsub-component.html[Google Pubsub] (camel-quarkus-google-pubsub) +
 `google-pubsub:projectId:destinationName` | JVM +
- Preview | 1.0.0-M6 | Messaging client for Google Cloud Platform PubSub Service
+ Preview | 1.0.0-M6 | Messaging client for Google Cloud Platform PubSub Service Built on top of the Google Cloud Pub/Sub libraries.
 
 | link:https://camel.apache.org/components/latest/google-sheets-component.html[Google Sheets] (camel-quarkus-google-sheets) +
 `google-sheets:apiName/methodName` | Native +
