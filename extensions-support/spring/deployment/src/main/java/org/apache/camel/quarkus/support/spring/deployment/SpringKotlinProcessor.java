@@ -23,10 +23,10 @@ import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.gizmo.ClassCreator;
 
-public class SpringProcessor {
+public class SpringKotlinProcessor {
 
     @BuildStep(onlyIf = NativeBuild.class)
-    void generateKParameterClass(BuildProducer<GeneratedClassBuildItem> generatedClass) {
+    void generateKotlinReflectClasses(BuildProducer<GeneratedClassBuildItem> generatedClass) {
         // TODO: Investigate removing this. See https://github.com/apache/camel-quarkus/issues/534
         // The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
 
