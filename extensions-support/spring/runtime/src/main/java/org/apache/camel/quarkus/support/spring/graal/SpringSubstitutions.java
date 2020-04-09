@@ -29,6 +29,7 @@ import com.oracle.svm.core.annotate.Alias;
 import com.oracle.svm.core.annotate.Delete;
 import com.oracle.svm.core.annotate.Substitute;
 import com.oracle.svm.core.annotate.TargetClass;
+import org.springframework.core.KotlinDetector;
 import org.springframework.core.MethodParameter;
 import org.springframework.core.io.Resource;
 import org.springframework.util.PathMatcher;
@@ -42,6 +43,25 @@ final class SubstituteDefaultParameterNameDiscoverer {
     @Alias
     public SubstituteDefaultParameterNameDiscoverer() {
         // Discoverers are not meant to be registered on graal
+    }
+}
+
+@TargetClass(KotlinDetector.class)
+@Substitute
+final class SubstituteKotlinDetector {
+    @Substitute
+    public static boolean isKotlinPresent() {
+        return false;
+    }
+
+    @Substitute
+    public static boolean isKotlinReflectPresent() {
+        return false;
+    }
+
+    @Substitute
+    public static boolean isKotlinType(Class<?> clazz) {
+        return false;
     }
 }
 

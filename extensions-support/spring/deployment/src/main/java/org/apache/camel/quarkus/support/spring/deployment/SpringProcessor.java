@@ -53,5 +53,17 @@ public class SpringProcessor {
                     .build()
                     .close();
         }
+
+        try {
+            Class.forName("kotlin.reflect.KFunction");
+        } catch (ClassNotFoundException e) {
+            ClassCreator.builder()
+                    .className("kotlin.reflect.KFunction")
+                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
+                    .setFinal(true)
+                    .superClass(Object.class)
+                    .build()
+                    .close();
+        }
     }
 }
