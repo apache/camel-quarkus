@@ -91,19 +91,6 @@
                     </configuration>
                 </plugin>
                 <plugin>
-                    <groupId>org.codehaus.gmaven</groupId>
-                    <artifactId>groovy-maven-plugin</artifactId>
-                    <version>${groovy-maven-plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.codehaus.groovy</groupId>
-                            <artifactId>groovy-all</artifactId>
-                            <version>${groovy.version}</version>
-                            <type>pom</type>
-                        </dependency>
-                    </dependencies>
-                </plugin>
-                <plugin>
                     <groupId>org.jboss.jandex</groupId>
                     <artifactId>jandex-maven-plugin</artifactId>
                     <version>${jandex-maven-plugin.version}</version>

@@ -275,6 +275,14 @@
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>groovy-maven-plugin</artifactId>
                     <version>${groovy-maven-plugin.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.groovy</groupId>
+                            <artifactId>groovy-all</artifactId>
+                            <version>${groovy.version}</version>
+                            <type>pom</type>
+                        </dependency>
+                    </dependencies>
                 </plugin>
 
                 <plugin>
