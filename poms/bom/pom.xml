@@ -2070,14 +2070,14 @@
                 <version>${spring.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${snakeyaml.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.threeten</groupId>
                 <artifactId>threetenbp</artifactId>
                 <version>1.4.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
             </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
