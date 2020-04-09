@@ -2072,7 +2072,7 @@
             <dependency>
                 <groupId>org.threeten</groupId>
                 <artifactId>threetenbp</artifactId>
-                <version>1.4.0</version>
+                <version>${threetenbp.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.yaml</groupId>
