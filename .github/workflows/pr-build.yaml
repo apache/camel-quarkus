@@ -205,10 +205,10 @@ jobs:
               servicenow
               slack
           - category: SQL
+            # TODO: re-add mongodb
             test-modules: >
               couchdb
               jdbc
-              mongodb
               sql
           - category: Social
             test-modules: >
