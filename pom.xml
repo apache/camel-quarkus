@@ -67,6 +67,7 @@
         <spring.version>5.2.3.RELEASE</spring.version>
         <!-- TODO: not aligned with quarkus, needed to get snakeyaml dataformat to work -->
         <snakeyaml.version>1.26</snakeyaml.version>
+        <threetenbp.version>1.4.0</threetenbp.version>
         <xalan.version>2.7.2</xalan.version>
         <xerces.version>2.12.0</xerces.version>
         <xstream.version>1.4.11</xstream.version>
