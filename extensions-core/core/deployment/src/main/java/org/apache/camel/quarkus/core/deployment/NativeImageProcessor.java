@@ -86,7 +86,7 @@ public class NativeImageProcessor {
                 PropertiesComponent.class,
                 DataFormat.class);
 
-        //        @BuildStep
+        @BuildStep
         void reflectiveItems(
                 CombinedIndexBuildItem combinedIndex,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
@@ -139,7 +139,7 @@ public class NativeImageProcessor {
 
         }
 
-        //        @BuildStep
+        @BuildStep
         void camelServices(
                 List<CamelServiceBuildItem> camelServices,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
