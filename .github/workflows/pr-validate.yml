@@ -36,10 +36,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set BRANCH_OPTIONS
-      if: github.base_ref == 'camel-master' || github.base_ref == 'quarkus-master'
+    - name: Setup apache-snapshots profile
+      if: github.base_ref == 'camel-master'
       run: |
-        echo '::set-env name=BRANCH_OPTIONS::-Psnapshots'
+        echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+    - name: Setup oss-snapshots profile
+      if: github.base_ref == 'quarkus-master'
+      run: |
+        echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
     - uses: actions/checkout@v1
     - name: Set up JDK 11
       uses: joschi/setup-jdk@v1
