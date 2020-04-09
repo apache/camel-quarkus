@@ -101,52 +101,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.gmaven</groupId>
-                <artifactId>groovy-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>sanity-checks</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <!--
-                            temporary disable version checking as we need to force jackson version here
-
-                            TODO: remove
-                        -->
-                        <phase />
-                    </execution>
-                </executions>
-            </plugin>
-            <!--
-                temporary disable enforcer as otherwise the build fails for dependency convergence like:
-
-                +-org.apache.camel.quarkus:camel-quarkus-integration-test-infinispan:0.4.1-SNAPSHOT
-                  +-io.quarkus:quarkus-resteasy:1.0.0.CR2
-                    +-io.quarkus:quarkus-vertx-http:1.0.0.CR2
-                      +-io.quarkus:quarkus-vertx-core:1.0.0.CR2
-                        +-io.vertx:vertx-core:3.8.3
-                          +-com.fasterxml.jackson.core:jackson-core:2.9.10
-                and
-                +-org.apache.camel.quarkus:camel-quarkus-integration-test-infinispan:0.4.1-SNAPSHOT
-                  +-org.infinispan:infinispan-server-hotrod:10.0.0.Final
-                    +-org.infinispan:infinispan-server-core:10.0.0.Final
-                      +-com.fasterxml.jackson.core:jackson-core:2.9.10
-                and
-                +-org.apache.camel.quarkus:camel-quarkus-integration-test-infinispan:0.4.1-SNAPSHOT
-                  +-com.fasterxml.jackson.core:jackson-core:2.10.0
-
-
-                TODO: remove
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
