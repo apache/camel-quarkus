@@ -26,7 +26,6 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 
 @QuarkusTest
 class PlatformHttpEngineTest {
@@ -38,7 +37,7 @@ class PlatformHttpEngineTest {
                 .statusCode(200)
                 .body(
                         PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(QuarkusPlatformHttpEngine.class.getName()),
-                        PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(not(PlatformHttpComponent.class.getName())),
+                        PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()),
                         "handlers-size", is(1));
     }
 
