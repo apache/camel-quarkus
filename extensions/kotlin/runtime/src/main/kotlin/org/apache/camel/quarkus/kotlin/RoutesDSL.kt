@@ -26,7 +26,7 @@ import org.apache.camel.builder.RouteBuilder
  *
  * ```
  * fun myRoutes() = routes {
- *     from("timer:foo?period=1s")
+ *     from("timer:foo?period=1000")
  *         .log("\${body}")
  * }
  * ```
