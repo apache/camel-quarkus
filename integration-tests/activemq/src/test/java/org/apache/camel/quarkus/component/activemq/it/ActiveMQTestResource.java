@@ -17,67 +17,53 @@
 
 package org.apache.camel.quarkus.component.activemq.it;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URI;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.activemq.broker.BrokerService;
-import org.apache.activemq.broker.TransportConnector;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
-    private BrokerService broker;
+
+    private static final String ACTIVEMQ_IMAGE = "rmohr/activemq:5.15.9-alpine";
+    private static final int TCP_PORT = 61616;
+
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
+        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
+
         try {
-            final int port = AvailablePortFinder.getNextAvailable();
-            final String brokerUrl = String.format("tcp://127.0.0.1:%d", port);
-            final File dataDirectory = Files.createTempDirectory("activemq-data-").toFile();
+            container = new GenericContainer<>(ACTIVEMQ_IMAGE)
+                    .withExposedPorts(TCP_PORT)
+                    .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                    .waitingFor(Wait.forListeningPort());
 
-            TransportConnector connector = new TransportConnector();
-            connector.setUri(new URI(brokerUrl));
+            container.start();
 
-            broker = new BrokerService();
-            broker.addConnector(connector);
-            broker.setDataDirectoryFile(dataDirectory);
-            broker.start();
-
-            return Collections.singletonMap("camel.component.activemq.brokerUrl", brokerUrl);
+            return Collections.singletonMap(
+                    "camel.component.activemq.brokerUrl",
+                    String.format("tcp://%s:%d", container.getContainerIpAddress(), container.getMappedPort(TCP_PORT)));
         } catch (Exception e) {
-            LOGGER.error("Starting the ActiveMQ broker with exception.", e);
-            throw new RuntimeException("Starting the ActiveMQ broker with exception.", e);
+            throw new RuntimeException(e);
         }
     }
 
     @Override
     public void stop() {
         try {
-            if (broker != null) {
-                broker.stop();
+            if (container != null) {
+                container.stop();
             }
         } catch (Exception e) {
-            LOGGER.error("Stopping the ActiveMQ broker with exception.", e);
-        }
-
-        try {
-            if (broker != null) {
-                Files.walk(broker.getDataDirectoryFile().toPath())
-                        .sorted(Comparator.reverseOrder())
-                        .map(Path::toFile)
-                        .forEach(File::delete);
-            }
-        } catch (IOException e) {
-            LOGGER.error("Error cleaning up ActiveMQ data directory", e);
+            // ignored
         }
     }
 }
