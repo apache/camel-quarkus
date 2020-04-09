@@ -48,7 +48,7 @@ public class SpringProcessor {
             ClassCreator.builder()
                     .className("kotlin.reflect.KCallable")
                     .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
-                    .setFinal(true)
+                    .setFinal(false)
                     .superClass(Object.class)
                     .build()
                     .close();
@@ -60,8 +60,8 @@ public class SpringProcessor {
             ClassCreator.builder()
                     .className("kotlin.reflect.KFunction")
                     .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
-                    .setFinal(true)
-                    .superClass(Object.class)
+                    .setFinal(false)
+                    .superClass("kotlin.reflect.KCallable")
                     .build()
                     .close();
         }
