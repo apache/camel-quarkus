@@ -292,7 +292,9 @@ public class NativeImageProcessor {
             //
             camelRoutesBuilders.forEach(camelRoutesBuilderClassBuildItem -> {
                 reflectiveClass.produce(
-                        new ReflectiveClassBuildItem(false, false, camelRoutesBuilderClassBuildItem.getDotName().toString()));
+                        // Register fields and methods as they may be used by the bean post processor to
+                        // properly support @BindToRegistry
+                        new ReflectiveClassBuildItem(true, true, camelRoutesBuilderClassBuildItem.getDotName().toString()));
             });
 
             //            reflectiveClass.produce(new ReflectiveClassBuildItem(
