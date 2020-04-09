@@ -33,7 +33,6 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveMethodBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Consumer;
@@ -313,19 +312,6 @@ public class NativeImageProcessor {
                     org.apache.camel.model.Resilience4jConfigurationDefinition.class,
                     org.apache.camel.model.Resilience4jConfigurationCommon.class,
                     org.apache.camel.spi.RestConfiguration.class));
-        }
-    }
-
-    @BuildStep
-    void process(BuildProducer<RuntimeReinitializedClassBuildItem> reinitialized) {
-        for (String s : Arrays.asList(
-                "sun.security.jca.JCAUtil",
-                "sun.security.jca.JCAUtil$CachedSecureRandomHolder",
-                "sun.security.provider.SecureRandom$SeederHolder",
-                "sun.security.provider.SeedGenerator",
-                "java.security.SecureRandom",
-                "java.net.DefaultDatagramSocketImplFactory")) {
-            reinitialized.produce(new RuntimeReinitializedClassBuildItem(s));
         }
     }
 }
