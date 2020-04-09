@@ -22,7 +22,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import io.quarkus.gizmo.ClassCreator;
-import io.quarkus.gizmo.ClassOutput;
 
 public class SpringProcessor {
 
@@ -30,13 +29,29 @@ public class SpringProcessor {
     void generateKParameterClass(BuildProducer<GeneratedClassBuildItem> generatedClass) {
         // TODO: Investigate removing this. See https://github.com/apache/camel-quarkus/issues/534
         // The native image build fails with a NoClassDefFoundError without this. Possibly similar to https://github.com/oracle/graal/issues/656.
-        ClassOutput classOutput = new GeneratedClassGizmoAdaptor(generatedClass, false);
-        ClassCreator.builder()
-                .className("kotlin.reflect.KParameter")
-                .classOutput(classOutput)
-                .setFinal(true)
-                .superClass(Object.class)
-                .build()
-                .close();
+
+        try {
+            Class.forName("kotlin.reflect.KParameter");
+        } catch (ClassNotFoundException e) {
+            ClassCreator.builder()
+                    .className("kotlin.reflect.KParameter")
+                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
+                    .setFinal(true)
+                    .superClass(Object.class)
+                    .build()
+                    .close();
+        }
+
+        try {
+            Class.forName("kotlin.reflect.KCallable");
+        } catch (ClassNotFoundException e) {
+            ClassCreator.builder()
+                    .className("kotlin.reflect.KCallable")
+                    .classOutput(new GeneratedClassGizmoAdaptor(generatedClass, false))
+                    .setFinal(true)
+                    .superClass(Object.class)
+                    .build()
+                    .close();
+        }
     }
 }
