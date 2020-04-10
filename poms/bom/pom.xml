@@ -261,6 +261,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-aws2-sqs</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>software.amazon.awssdk</groupId>
+                        <artifactId>netty-nio-client</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2102,6 +2108,11 @@
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>netty-nio-client</artifactId>
+                <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>regions</artifactId>
                 <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
             </dependency>
             <dependency>

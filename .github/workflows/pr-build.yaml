@@ -115,6 +115,7 @@ jobs:
           - category: Cloud
             test-modules: >
               aws
+              aws2
               azure
               consul
           - category: Core
