@@ -2112,17 +2112,17 @@
             </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
+                <artifactId>regions</artifactId>
+                <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
+            </dependency>
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
                 <artifactId>url-connection-client</artifactId>
                 <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
             </dependency>
             <dependency>
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>utils</artifactId>
-                <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
-            </dependency>
-            <dependency>
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>regions</artifactId>
                 <version>${awssdk2.version}</version><!-- override the version set in the quarkus BOM -->
             </dependency>
             <dependency>
