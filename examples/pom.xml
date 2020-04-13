@@ -33,6 +33,7 @@
 
     <modules>
         <module>observability</module>
+        <module>http-log</module>
         <module>rest-json</module>
         <module>timer-log</module>
         <module>timer-log-cdi</module>
