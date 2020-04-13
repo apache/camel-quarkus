@@ -88,6 +88,10 @@ public class CamelRecorder {
         return new RuntimeValue<>(context);
     }
 
+    public void customize(RuntimeValue<CamelContext> context, RuntimeValue<CamelContextCustomizer> contextCustomizer) {
+        contextCustomizer.getValue().customize(context.getValue());
+    }
+
     public void bind(
             RuntimeValue<Registry> runtime,
             String name,
