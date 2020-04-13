@@ -388,6 +388,7 @@ class BuildProcessor {
                 CamelRoutesLoaderBuildItems.Xml xmlLoader,
                 CamelModelToXMLDumperBuildItem modelDumper,
                 CamelFactoryFinderResolverBuildItem factoryFinderResolverBuildItem,
+                List<CamelContextCustomizerBuildItem> customizerBuildItems,
                 BeanContainerBuildItem beanContainer,
                 CamelConfig config) {
 
@@ -401,6 +402,11 @@ class BuildProcessor {
                     beanContainer.getValue(),
                     CamelSupport.getCamelVersion(),
                     config);
+
+            customizerBuildItems.stream()
+                    .forEach(customizer -> {
+                        recorder.customize(context, customizer.getCamelContextCustomizer());
+                    });
 
             return new CamelContextBuildItem(context);
         }
