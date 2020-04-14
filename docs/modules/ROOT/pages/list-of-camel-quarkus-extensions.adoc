@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 147 in 112 JAR artifacts (0 deprecated)
+Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -156,6 +156,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
 `aws-translate:label` | Native +
  Stable | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
+
+| link:https://camel.apache.org/components/latest/aws2-s3-component.html[AWS2 S3 Storage Service] (camel-quarkus-aws2-s3) +
+`aws2-s3://bucketNameOrArn` | Native +
+ Stable | 1.0.0-M7 | The aws2-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
 
 | link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service] (camel-quarkus-azure) +
 `azure-blob:containerOrBlobUri` | Native +

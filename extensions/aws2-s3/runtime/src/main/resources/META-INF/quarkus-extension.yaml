@@ -16,8 +16,8 @@
 #
 
 ---
-name: "AWS 2 Simple Queue Service"
-description: "The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service."
+name: "AWS2 S3 Storage Service"
+description: "The aws2-s3 component is used for storing and retrieving object from Amazon S3 Storage Service."
 metadata:
   keywords:
   - "camel"
@@ -26,4 +26,3 @@ metadata:
   guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
-
