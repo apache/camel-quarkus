@@ -19,12 +19,14 @@ package org.apache.camel.quarkus.core.deployment;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.main.BaseMainSupport;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -67,8 +69,9 @@ public class CamelRoutesFilterTest {
     public void testRoutesFilter() {
         assertThat(camelContext.getRoutes()).hasSize(1);
         assertThat(camelContext.getRoutes()).first().hasFieldOrPropertyWithValue("id", "my-route");
-        assertThat(mainSupport.getRoutesBuilders()).hasSize(1);
-        assertThat(mainSupport.getRoutesBuilders()).first().isInstanceOf(MyRoute.class);
+        final List<RoutesBuilder> routesBuilders = mainSupport.configure().getRoutesBuilders();
+        assertThat(routesBuilders).hasSize(1);
+        assertThat(routesBuilders).first().isInstanceOf(MyRoute.class);
     }
 
     public static class MyRoute extends RouteBuilder {

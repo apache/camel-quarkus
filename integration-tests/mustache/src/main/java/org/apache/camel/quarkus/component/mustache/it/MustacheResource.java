@@ -53,7 +53,7 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String templateFromHeader(String message) {
         LOG.infof("Calling templateFromHeader with %s", message);
-        return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
+        return template.requestBodyAndHeader("mustache://template/simple.mustache?allowTemplateFromHeader=true", message,
                 MustacheConstants.MUSTACHE_TEMPLATE,
                 "Body='{{body}}'", String.class);
     }
@@ -64,7 +64,7 @@ public class MustacheResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String templateUriFromHeader(String message) {
         LOG.infof("Calling templateUriFromHeader with %s", message);
-        return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
+        return template.requestBodyAndHeader("mustache://template/simple.mustache?allowTemplateFromHeader=true", message,
                 MustacheConstants.MUSTACHE_RESOURCE_URI,
                 "/template/another.mustache", String.class);
     }

@@ -67,7 +67,7 @@ public class CamelMainRecorder {
             Class<RoutesBuilder> type = context.getClassResolver().resolveClass(routesBuilderClass, RoutesBuilder.class);
             RoutesBuilder builder = context.getInjector().newInstance(type, false);
 
-            main.getValue().addRoutesBuilder(builder);
+            main.getValue().configure().addRoutesBuilder(builder);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -40,6 +40,7 @@ public abstract class BaseModel implements Model {
     private Map<String, ServiceCallConfigurationDefinition> serviceCallConfigurations = new ConcurrentHashMap<>();
     private Map<String, HystrixConfigurationDefinition> hystrixConfigurations = new ConcurrentHashMap<>();
     private Map<String, Resilience4jConfigurationDefinition> resilience4jConfigurations = new ConcurrentHashMap<>();
+    private Map<String, FaultToleranceConfigurationDefinition> faultToleranceConfigurations = new ConcurrentHashMap<>();
     private Function<RouteDefinition, Boolean> routeFilter;
 
     public BaseModel(CamelContext camelContext) {
@@ -213,6 +214,34 @@ public abstract class BaseModel implements Model {
     @Override
     public void addResilience4jConfiguration(String id, Resilience4jConfigurationDefinition configuration) {
         resilience4jConfigurations.put(id, configuration);
+    }
+
+    @Override
+    public FaultToleranceConfigurationDefinition getFaultToleranceConfiguration(String id) {
+        if (id == null) {
+            id = "";
+        }
+
+        return faultToleranceConfigurations.get(id);
+    }
+
+    @Override
+    public void setFaultToleranceConfiguration(FaultToleranceConfigurationDefinition configuration) {
+        faultToleranceConfigurations.put("", configuration);
+    }
+
+    @Override
+    public void setFaultToleranceConfigurations(List<FaultToleranceConfigurationDefinition> configurations) {
+        if (configurations != null) {
+            for (FaultToleranceConfigurationDefinition configuration : configurations) {
+                faultToleranceConfigurations.put(configuration.getId(), configuration);
+            }
+        }
+    }
+
+    @Override
+    public void addFaultToleranceConfiguration(String id, FaultToleranceConfigurationDefinition configuration) {
+        faultToleranceConfigurations.put(id, configuration);
     }
 
     @Override
