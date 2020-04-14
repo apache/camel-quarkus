@@ -23,8 +23,9 @@
         xsi:schemaLocation="
             http://camel.apache.org/schema/spring
             http://camel.apache.org/schema/spring/camel-spring.xsd">
+
     <route id="file-xml-route">
-        <from uri="file:{{camel.file.route.folder}}?noop=true&amp;delay={{camel.file.repeat.interval}}&amp;idempotent=false&amp;initialDelay=5s"/>
+        <from uri="file:{{camel.file.route.folder}}?noop=true&amp;delay={{camel.file.repeat.interval}}&amp;idempotent=false&amp;initialDelay=5000"/>
         <split parallelProcessing="{{camel.file.split.parallel}}">
             <tokenize token="\n"/>
             <log message="line ${headers.CamelSplitIndex} contains: ${body}"/>
