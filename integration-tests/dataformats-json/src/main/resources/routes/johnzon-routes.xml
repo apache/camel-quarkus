@@ -35,7 +35,9 @@
         <setHeader name="CamelJohnzonUnmarshalType">
             <constant>org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject</constant>
         </setHeader>
-        <unmarshal><json library="Johnzon"/></unmarshal>
+        <unmarshal>
+            <json library="Johnzon"/>
+        </unmarshal>
     </route>
 
 </routes>

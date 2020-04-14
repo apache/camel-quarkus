@@ -32,11 +32,12 @@
 
     <route>
         <from uri="direct:Gson-type-as-header"/>
-        <!-- Faking the test until https://issues.apache.org/jira/browse/CAMEL-14630 has been resolved -->
-        <setBody>
-            <constant><![CDATA[{"dummyString":"95f669ce-d287-4519-b212-4450bc791867","ignored":0}]]></constant>
-        </setBody>
-        <unmarshal><json library="Gson" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/></unmarshal>
+        <setHeader name="CamelGsonUnmarshalType">
+            <constant>org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject</constant>
+        </setHeader>
+        <unmarshal>
+            <json library="Gson" />
+        </unmarshal>
     </route>
 
 </routes>
