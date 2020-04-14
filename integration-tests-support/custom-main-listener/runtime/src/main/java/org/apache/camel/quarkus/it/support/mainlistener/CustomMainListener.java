@@ -23,9 +23,9 @@ import org.apache.camel.main.MainListener;
 
 public class CustomMainListener implements MainListener {
     @Override
-    public void configure(CamelContext context) {
+    public void beforeInitialize(BaseMainSupport main) {
         try {
-            context.addRoutes(new RouteBuilder() {
+            main.configure().addRoutesBuilder(new RouteBuilder() {
                 @Override
                 public void configure() throws Exception {
                     from("timer:configure")
@@ -39,12 +39,20 @@ public class CustomMainListener implements MainListener {
     }
 
     @Override
+    public void afterConfigure(BaseMainSupport main) {
+    }
+
+    @Override
+    public void configure(CamelContext context) {
+    }
+
+    @Override
     public void beforeConfigure(BaseMainSupport main) {
     }
 
     @Override
     public void beforeStart(BaseMainSupport main) {
-        main.addRoutesBuilder(new MyBuilder());
+        main.configure().addRoutesBuilder(new MyBuilder());
     }
 
     @Override

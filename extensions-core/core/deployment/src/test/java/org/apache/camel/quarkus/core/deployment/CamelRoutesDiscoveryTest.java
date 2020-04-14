@@ -65,7 +65,7 @@ public class CamelRoutesDiscoveryTest {
     @Test
     public void testRoutesDiscovery() {
         assertThat(camelContext.getRoutes()).isEmpty();
-        assertThat(mainSupport.getRoutesBuilders()).isEmpty();
+        assertThat(mainSupport.configure().getRoutesBuilders()).isEmpty();
     }
 
     public static class MyRoute extends RouteBuilder {

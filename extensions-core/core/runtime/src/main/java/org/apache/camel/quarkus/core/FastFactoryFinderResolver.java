@@ -115,33 +115,22 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
         @Override
         public Optional<Class<?>> findClass(String key) {
-            return findClass(key, null);
-        }
-
-        @Override
-        public Optional<Class<?>> findClass(String key, String propertyPrefix) {
-            final String mapKey = mapKey(path, propertyPrefix, key);
+            final String mapKey = mapKey(path, null, key);
             final Class<?> cl = classMap.get(mapKey);
             LOG.tracef("Found a non-optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
 
         @Override
-        public Optional<Class<?>> findClass(String key, String propertyPrefix, Class<?> clazz) {
-            // Just ignore clazz which is only useful for OSGiFactoryFinder
-            return findClass(key, propertyPrefix);
-        }
-
-        @Override
-        public Optional<Class<?>> findOptionalClass(String key, String propertyPrefix) {
-            final String mapKey = mapKey(path, propertyPrefix, key);
+        public Optional<Class<?>> findOptionalClass(String key) {
+            final String mapKey = mapKey(path, null, key);
             final Class<?> cl = classMap.get(mapKey);
             LOG.tracef("Found an optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
 
         private Optional<Object> doNewInstance(String key, String propertyPrefix) {
-            return findClass(key, propertyPrefix).map(ObjectHelper::newInstance);
+            return findClass(key).map(ObjectHelper::newInstance);
         }
     }
 

@@ -27,6 +27,13 @@ public final class CamelMainEvents {
     }
 
     /**
+     * Event fired after the the CamelContext has been created and before the
+     * auto-configured step starts.
+     */
+    public static class BeforeInitialize {
+    }
+
+    /**
      * Event fired by {@link CamelMain} before the CamelContext is being created and started.
      */
     public static class BeforeStart {
@@ -35,7 +42,7 @@ public final class CamelMainEvents {
     /**
      * Event fired by {@link CamelMain} to configure the created CamelContext.
      */
-    public static class Configure {
+    public static class AfterConfigure {
     }
 
     /**

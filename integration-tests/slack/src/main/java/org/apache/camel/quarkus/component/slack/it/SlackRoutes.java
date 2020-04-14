@@ -33,12 +33,12 @@ public class SlackRoutes extends RouteBuilder {
                 .route()
                 .setBody(constant("{\"ok\": true}"))
                 .endRest()
-                .post("/slack/api/channels.list")
+                .post("/slack/api/conversations.list")
                 .route()
                 .setBody(constant(
                         "{\"ok\":true,\"channels\":[{\"id\":\"ABC12345\",\"name\":\"general\",\"is_channel\":true,\"created\":1571904169}]}"))
                 .endRest()
-                .post("/slack/api/channels.history")
+                .post("/slack/api/conversations.history")
                 .route()
                 .setBody(constant(
                         "{\"ok\":true,\"messages\":[{\"type\":\"message\",\"subtype\":\"bot_message\",\"text\":\"Hello Camel Quarkus Slack\""

@@ -51,7 +51,7 @@ public class CoreMainXmlIoResource {
         main.getMainListeners().forEach(listener -> listeners.add(listener.getClass().getName()));
 
         JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
-        main.getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
+        main.configure().getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
 
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));

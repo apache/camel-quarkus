@@ -27,15 +27,15 @@ Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ] (camel-quarkus-activemq) +
 `activemq:destinationType:destinationName` | Native +
- Stable | 1.0.0-M5 | The activemq component allows messages to be sent to (or consumed from) Apache ActiveMQ. This component extends the Camel JMS component.
+ Stable | 1.0.0-M5 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 
 | xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
 `ahc:httpUri` | Native +
- Stable | 1.0.0-M3 | To call external HTTP services using Async Http Client.
+ Stable | 1.0.0-M3 | Call external HTTP services using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/ahc-ws-component.html[AHC Websocket] (camel-quarkus-ahc-ws) +
 `ahc-ws:httpUri` | Native +
- Stable | 1.0.0-M3 | To exchange data with external Websocket servers using Async Http Client.
+ Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
 
 | link:https://camel.apache.org/components/latest/amqp-component.html[AMQP] (camel-quarkus-amqp) +
 `amqp:destinationType:destinationName` | Native +
@@ -43,235 +43,235 @@ Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/avro-component.html[Avro] (camel-quarkus-avro-rpc) +
 `avro:transport:host:port/messageName` | JVM +
- Preview | 1.0.0-M6 | Working with Apache Avro for data serialization.
+ Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
 
 | link:https://camel.apache.org/components/latest/aws2-cw-component.html[AWS 2 CloudWatch] (camel-quarkus-aws2-cw) +
 `aws2-cw:namespace` | Native +
- Stable | 1.0.0-M6 | The aws2-cw component is used for sending metrics to an Amazon CloudWatch.
+ Stable | 1.0.0-M6 | Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-ddb-component.html[AWS 2 DynamoDB] (camel-quarkus-aws2-ddb) +
 `aws2-ddb:tableName` | JVM +
- Preview | 1.0.0-M6 | The aws2-ddb component is used for storing and retrieving data from Amazon's DynamoDB service.
+ Preview | 1.0.0-M6 | Store and retrieve data from AWS DynamoDB service using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-ddbstream-component.html[AWS 2 DynamoDB Streams] (camel-quarkus-aws2-ddb) +
 `aws2-ddbstream:tableName` | JVM +
- Preview | 1.0.0-M6 | The aws2-ddbstream component is used for working with Amazon DynamoDB Streams.
+ Preview | 1.0.0-M6 | Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-ec2-component.html[AWS 2 EC2] (camel-quarkus-aws2-ec2) +
 `aws2-ec2:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-ec2 is used for managing Amazon EC2 instances.
+ Preview | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-ecs-component.html[AWS 2 ECS] (camel-quarkus-aws2-ecs) +
 `aws2-ecs:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-ecs is used for managing Amazon ECS
+ Preview | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-eks-component.html[AWS 2 EKS] (camel-quarkus-aws2-eks) +
 `aws2-eks:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-eks is used for managing Amazon EKS
+ Preview | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-iam-component.html[AWS 2 IAM] (camel-quarkus-aws2-iam) +
 `aws2-iam:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-iam is used for managing Amazon IAM
+ Preview | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-kms-component.html[AWS 2 KMS] (camel-quarkus-aws2-kms) +
 `aws2-kms:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-kms is used for managing Amazon KMS
+ Preview | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-mq-component.html[AWS 2 MQ] (camel-quarkus-aws2-mq) +
 `aws2-mq:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-mq is used for managing Amazon MQ instances.
+ Preview | 1.0.0-M6 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-msk-component.html[AWS 2 MSK] (camel-quarkus-aws2-msk) +
 `aws2-msk:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-msk is used for managing Amazon MSK
+ Preview | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
+
+| link:https://camel.apache.org/components/latest/aws2-s3-component.html[AWS 2 S3 Storage Service] (camel-quarkus-aws2-s3) +
+`aws2-s3://bucketNameOrArn` | Native +
+ Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-ses-component.html[AWS 2 Simple Email Service] (camel-quarkus-aws2-ses) +
 `aws2-ses:from` | JVM +
- Preview | 1.0.0-M6 | The aws2-ses component is used for sending emails with Amazon's SES service.
+ Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-sns-component.html[AWS 2 Simple Notification System] (camel-quarkus-aws2-sns) +
 `aws2-sns:topicNameOrArn` | Native +
- Stable | 1.0.0-M6 | The aws2-sns component is used for sending messages to an Amazon Simple Notification Topic.
+ Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-sqs-component.html[AWS 2 Simple Queue Service] (camel-quarkus-aws2-sqs) +
 `aws2-sqs:queueNameOrArn` | Native +
- Stable | 1.0.0-M6 | The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service.
+ Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws2-translate-component.html[AWS 2 Translate] (camel-quarkus-aws2-translate) +
 `aws2-translate:label` | JVM +
- Preview | 1.0.0-M6 | The aws2-translate component is used for managing Amazon Translate
+ Preview | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
 
 | link:https://camel.apache.org/components/latest/aws-ec2-component.html[AWS EC2] (camel-quarkus-aws-ec2) +
 `aws-ec2:label` | Native +
- Stable | 1.0.0-M3 | The aws-ec2 is used for managing Amazon EC2 instances.
+ Stable | 1.0.0-M3 | Manage AWS EC2 instances.
 
 | link:https://camel.apache.org/components/latest/aws-ecs-component.html[AWS ECS] (camel-quarkus-aws-ecs) +
 `aws-ecs:label` | Native +
- Stable | 1.0.0-M1 | The aws-ecs is used for managing Amazon ECS
+ Stable | 1.0.0-M1 | Manage AWS ECS cluster instances.
 
 | link:https://camel.apache.org/components/latest/aws-eks-component.html[AWS EKS] (camel-quarkus-aws-eks) +
 `aws-eks:label` | Native +
- Stable | 0.2.0 | The aws-eks is used for managing Amazon EKS
+ Stable | 0.2.0 | Manage AWS EKS cluster instances.
 
 | link:https://camel.apache.org/components/latest/aws-iam-component.html[AWS IAM] (camel-quarkus-aws-iam) +
 `aws-iam:label` | Native +
- Stable | 1.1.0 | The aws-iam is used for managing Amazon IAM
+ Stable | 1.1.0 | Manage AWS IAM instances.
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-component.html[AWS Kinesis] (camel-quarkus-aws-kinesis) +
 `aws-kinesis:streamName` | Native +
- Stable | 1.0.0-M3 | The aws-kinesis component is for consuming and producing records from Amazon Kinesis Streams.
+ Stable | 1.0.0-M3 | Consume and produce records from AWS Kinesis Streams.
 
 | link:https://camel.apache.org/components/latest/aws-kinesis-firehose-component.html[AWS Kinesis Firehose] (camel-quarkus-aws-kinesis) +
 `aws-kinesis-firehose:streamName` | Native +
- Stable | 1.0.0-M3 | The aws-kinesis-firehose component is used for producing Amazon's Kinesis Firehose streams.
+ Stable | 1.0.0-M3 | Consume data from AWS Kinesis Firehose streams.
 
 | link:https://camel.apache.org/components/latest/aws-kms-component.html[AWS KMS] (camel-quarkus-aws-kms) +
 `aws-kms:label` | Native +
- Stable | 1.0.0-M1 | The aws-kms is used for managing Amazon KMS
+ Stable | 1.0.0-M1 | Manage keys stored in AWS KMS instances.
 
 | link:https://camel.apache.org/components/latest/aws-lambda-component.html[AWS Lambda] (camel-quarkus-aws-lambda) +
 `aws-lambda:function` | Native +
- Stable | 1.0.0-M3 | The aws-lambda is used for managing and invoking functions from Amazon Lambda.
+ Stable | 1.0.0-M3 | Manage and invoke AWS Lambda functions.
 
 | link:https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
 `aws-s3://bucketNameOrArn` | Native +
- Stable | 0.2.0 | The aws-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
+ Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
 
 | link:https://camel.apache.org/components/latest/aws-sns-component.html[AWS Simple Notification System] (camel-quarkus-aws-sns) +
 `aws-sns:topicNameOrArn` | Native +
- Stable | 0.2.0 | The aws-sns component is used for sending messages to an Amazon Simple Notification Topic.
+ Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
 
 | link:https://camel.apache.org/components/latest/aws-sqs-component.html[AWS Simple Queue Service] (camel-quarkus-aws-sqs) +
 `aws-sqs:queueNameOrArn` | Native +
- Stable | 0.2.0 | The aws-sqs component is used for sending and receiving messages to Amazon's SQS service.
+ Stable | 0.2.0 | Sending and receive messages to/from AWS SQS service.
 
 | link:https://camel.apache.org/components/latest/aws-swf-component.html[AWS Simple Workflow] (camel-quarkus-aws-swf) +
 `aws-swf:type` | Native +
- Stable | 1.0.0-M6 | The aws-swf component is used for managing workflows from Amazon Simple Workflow.
+ Stable | 1.0.0-M6 | Manage workflows in the AWS Simple Workflow service.
 
 | link:https://camel.apache.org/components/latest/aws-sdb-component.html[AWS SimpleDB] (camel-quarkus-aws-sdb) +
 `aws-sdb:domainName` | Native +
- Stable | 1.0.0-M6 | The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service.
+ Stable | 1.0.0-M6 | Store and Retrieve data from/to AWS SDB service.
 
 | link:https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate] (camel-quarkus-aws-translate) +
 `aws-translate:label` | Native +
- Stable | 1.0.0-M3 | The aws-translate component is used for managing Amazon Translate
+ Stable | 1.0.0-M3 | Translate texts using AWS Translate.
 
-| link:https://camel.apache.org/components/latest/aws2-s3-component.html[AWS2 S3 Storage Service] (camel-quarkus-aws2-s3) +
-`aws2-s3://bucketNameOrArn` | Native +
- Stable | 1.0.0-M7 | The aws2-s3 component is used for storing and retrieving object from Amazon S3 Storage Service.
-
-| link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service] (camel-quarkus-azure) +
+| link:https://camel.apache.org/components/latest/azure-blob-component.html[Azure Storage Blob Service (Legacy)] (camel-quarkus-azure) +
 `azure-blob:containerOrBlobUri` | Native +
- Stable | 1.0.0-M4 | The azure-blob component is used for storing and retrieving blobs from Azure Storage Blob Service.
+ Stable | 1.0.0-M4 | Store and retrieve blobs from Azure Storage Blob Service.
 
-| link:https://camel.apache.org/components/latest/azure-queue-component.html[Azure Storage Queue Service] (camel-quarkus-azure) +
+| link:https://camel.apache.org/components/latest/azure-queue-component.html[Azure Storage Queue Service (Legacy)] (camel-quarkus-azure) +
 `azure-queue:containerAndQueueUri` | Native +
- Stable | 1.0.0-M4 | The azure-queue component is used for storing and retrieving messages from Azure Storage Queue Service.
+ Stable | 1.0.0-M4 | Store and retrieve messages from Azure Storage Queue Service.
 
 | link:https://camel.apache.org/components/latest/bean-component.html[Bean] (camel-quarkus-bean) +
 `bean:beanName` | Native +
- Stable | 0.2.0 | The bean component is for invoking Java beans from Camel.
+ Stable | 0.2.0 | Invoke methods of Java beans stored in Camel registry.
 
 | link:https://camel.apache.org/components/latest/bean-validator-component.html[Bean Validator] (camel-quarkus-bean-validator) +
 `bean-validator:label` | Native +
- Stable | 1.0.0-M1 | The Validator component performs bean validation of the message body using the Java Bean Validation API.
+ Stable | 1.0.0-M1 | Validate the message body using the Java Bean Validation API.
 
 | link:https://camel.apache.org/components/latest/box-component.html[Box] (camel-quarkus-box) +
 `box:apiName/methodName` | Native +
- Stable | 1.0.0-M4 | For uploading downloading and managing files folders groups collaborations etc on box DOT com.
+ Stable | 1.0.0-M4 | Upload, download and manage files, folders, groups, collaborations, etc. on box.com.
 
 | link:https://camel.apache.org/components/latest/braintree-component.html[Braintree] (camel-quarkus-braintree) +
 `braintree:apiName/methodName` | Native +
- Stable | 1.2.0 | The braintree component is used for integrating with the Braintree Payment System.
+ Stable | 1.2.0 | Process payments using Braintree Payments.
 
 | link:https://camel.apache.org/components/latest/cql-component.html[Cassandra CQL] (camel-quarkus-cassandraql) +
 `cql:beanRef:hosts:port/keyspace` | JVM +
- Preview | 1.0.0-M6 | The cql component aims at integrating Cassandra 2.0 using the CQL3 API (not the Thrift API). It's based on Cassandra Java Driver provided by DataStax.
+ Preview | 1.0.0-M6 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
 
 | link:https://camel.apache.org/components/latest/class-component.html[Class] (camel-quarkus-bean) +
 `class:beanName` | Native +
- Stable | 0.2.0 | The Class component is for invoking Java classes (Java beans) from Camel.
+ Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
 
 | link:https://camel.apache.org/components/latest/consul-component.html[Consul] (camel-quarkus-consul) +
 `consul:apiEndpoint` | Native +
- Stable | 1.0.0-M3 | The camel consul component allows you to work with Consul, a distributed, highly available, datacenter-aware, service discovery and configuration system.
+ Stable | 1.0.0-M3 | Integrate with Consul service discovery and configuration store.
 
 | link:https://camel.apache.org/components/latest/controlbus-component.html[Control Bus] (camel-quarkus-controlbus) +
 `controlbus:command:language` | Native +
- Stable | 0.4.0 | The controlbus component provides easy management of Camel applications based on the Control Bus EIP pattern.
+ Stable | 0.4.0 | Manage and monitor Camel routes.
 
 | link:https://camel.apache.org/components/latest/couchbase-component.html[Couchbase] (camel-quarkus-couchbase) +
 `couchbase:protocol:hostname:port` | JVM +
- Preview | 1.0.0-M6 | Represents a Couchbase endpoint that can query Views with a Poll strategy and/or produce various type of operations.
+ Preview | 1.0.0-M6 | Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
 
 | xref:extensions/couchdb.adoc[CouchDB] (camel-quarkus-couchdb) +
 `couchdb:protocol:hostname:port/database` | Native +
- Stable | 1.0.0-M6 | The couchdb component is used for integrate with CouchDB databases.
+ Stable | 1.0.0-M6 | Consume changesets for inserts, updates and deletes in a CouchDB database, as well as get, save, update and delete documents from a CouchDB database.
 
 | link:https://camel.apache.org/components/latest/cron-component.html[Cron] (camel-quarkus-cron) +
 `cron:name` | Native +
- Stable | 1.0.0-M6 | Camel Cron Component
+ Stable | 1.0.0-M6 | A generic interface for triggering events at times specified through the Unix cron syntax.
 
 | link:https://camel.apache.org/components/latest/dataformat-component.html[Data Format] (camel-quarkus-dataformat) +
 `dataformat:name:operation` | Native +
- Stable | 0.4.0 | The dataformat component is used for working with Data Formats as if it was a regular Component supporting Endpoints and URIs.
+ Stable | 0.4.0 | Use a Camel Data Format as a regular Camel Component.
 
 | link:https://camel.apache.org/components/latest/debezium-mongodb-component.html[Debezium MongoDB Connector] (camel-quarkus-debezium-mongodb) +
 `debezium-mongodb:name` | JVM +
- Preview | 1.0.0-M6 | Represents a Debezium MongoDB endpoint which is used to capture changes in MongoDB database so that that applications can see those changes and respond to them.
+ Preview | 1.0.0-M6 | Capture changes from a MongoDB database.
 
 | link:https://camel.apache.org/components/latest/debezium-mysql-component.html[Debezium MySQL Connector] (camel-quarkus-debezium-mysql) +
 `debezium-mysql:name` | JVM +
- Preview | 1.0.0-M6 | Represents a Debezium MySQL endpoint which is used to capture changes in MySQL database so that that applications can see those changes and respond to them.
+ Preview | 1.0.0-M6 | Capture changes from a MySQL database.
 
 | link:https://camel.apache.org/components/latest/debezium-postgres-component.html[Debezium PostgresSQL Connector] (camel-quarkus-debezium-postgres) +
 `debezium-postgres:name` | JVM +
- Preview | 1.0.0-M6 | Represents a Debezium PostgresSQL endpoint which is used to capture changes in PostgresSQL database so that that applications can see those changes and respond to them.
+ Preview | 1.0.0-M6 | Capture changes from a PostgresSQL database.
 
 | link:https://camel.apache.org/components/latest/debezium-sqlserver-component.html[Debezium SQL Server Connector] (camel-quarkus-debezium-sqlserver) +
 `debezium-sqlserver:name` | JVM +
- Preview | 1.0.0-M6 | Represents a Debezium SQL Server endpoint which is used to capture changes in SQL Server database so that that applications can see those changes and respond to them.
+ Preview | 1.0.0-M6 | Capture changes from an SQL Server database.
 
 | link:https://camel.apache.org/components/latest/direct-component.html[Direct] (camel-quarkus-direct) +
 `direct:name` | Native +
- Stable | 0.2.0 | The direct component provides direct, synchronous call to another endpoint from the same CamelContext.
+ Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
 
 | xref:extensions/dozer.adoc[Dozer] (camel-quarkus-dozer) +
 `dozer:name` | Native +
- Stable | 1.0.0-M1 | The dozer component provides the ability to map between Java beans using the Dozer mapping library.
+ Stable | 1.0.0-M1 | Map between Java beans using the Dozer mapping library.
 
 | link:https://camel.apache.org/components/latest/elasticsearch-rest-component.html[Elasticsearch Rest] (camel-quarkus-elasticsearch-rest) +
 `elasticsearch-rest:clusterName` | Native +
- Stable | 1.0.0-M6 | The elasticsearch component is used for interfacing with ElasticSearch server using REST API.
+ Stable | 1.0.0-M6 | Send requests to with an ElasticSearch via REST API.
 
 | link:https://camel.apache.org/components/latest/exec-component.html[Exec] (camel-quarkus-exec) +
 `exec:executable` | Native +
- Stable | 0.4.0 | The exec component can be used to execute OS system commands.
+ Stable | 0.4.0 | Execute commands on the underlying operating system.
 
 | xref:extensions/fhir.adoc[FHIR] (camel-quarkus-fhir) +
 `fhir:apiName/methodName` | Native +
- Stable | 0.3.0 | The fhir component is used for working with the FHIR protocol (health care).
+ Stable | 0.3.0 | Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard.
 
 | link:https://camel.apache.org/components/latest/file-component.html[File] (camel-quarkus-file) +
 `file:directoryName` | Native +
- Stable | 0.4.0 | The file component is used for reading or writing files.
+ Stable | 0.4.0 | Read and write files.
 
 | xref:extensions/file-watch.adoc[File Watch] (camel-quarkus-file-watch) +
 `file-watch:path` | Native +
- Stable | 1.0.0-M5 | The file-watch is used to monitor file events in directory using java.nio.file.WatchService
+ Stable | 1.0.0-M5 | Get notified about file events in a directory using java.nio.file.WatchService.
 
 | link:https://camel.apache.org/components/latest/ftp-component.html[FTP] (camel-quarkus-ftp) +
 `ftp:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | The ftp component is used for uploading or downloading files from FTP servers.
+ Stable | 1.0.0-M1 | Upload and download files to/from FTP servers.
 
 | link:https://camel.apache.org/components/latest/ftps-component.html[FTPS] (camel-quarkus-ftp) +
 `ftps:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | The ftps (FTP secure SSL/TLS) component is used for uploading or downloading files from FTP servers.
+ Stable | 1.0.0-M1 | Upload and download files to/from FTP servers supporting the FTPS protocol.
 
 | link:https://camel.apache.org/components/latest/github-component.html[GitHub] (camel-quarkus-github) +
 `github:type/branchName` | Native +
- Stable | 1.0.0-M6 | The github component is used for integrating Camel with github.
+ Stable | 1.0.0-M6 | Interact with the GitHub API.
 
 | link:https://camel.apache.org/components/latest/google-bigquery-component.html[Google BigQuery] (camel-quarkus-google-bigquery) +
 `google-bigquery:projectId:datasetId:tableId` | JVM +
@@ -279,343 +279,343 @@ Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/google-bigquery-sql-component.html[Google BigQuery Standard SQL] (camel-quarkus-google-bigquery) +
 `google-bigquery-sql:projectId:query` | JVM +
- Preview | 1.0.0-M6 | Google BigQuery data warehouse for analytics (using SQL queries).
+ Preview | 1.0.0-M6 | Access Google Cloud BigQuery service using SQL queries.
 
 | link:https://camel.apache.org/components/latest/google-calendar-component.html[Google Calendar] (camel-quarkus-google-calendar) +
 `google-calendar:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | The google-calendar component provides access to Google Calendar.
+ Stable | 1.0.0-M6 | Perform various operations on a Google Calendar.
 
 | link:https://camel.apache.org/components/latest/google-calendar-stream-component.html[Google Calendar Stream] (camel-quarkus-google-calendar) +
 `google-calendar-stream:index` | Native +
- Stable | 1.0.0-M6 | The google-calendar-stream component provides access to Google Calendar in a streaming mode.
+ Stable | 1.0.0-M6 | Poll for changes in a Google Calendar.
 
 | link:https://camel.apache.org/components/latest/google-drive-component.html[Google Drive] (camel-quarkus-google-drive) +
 `google-drive:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | The google-drive component provides access to Google Drive file storage service.
+ Stable | 1.0.0-M6 | Manage files in Google Drive.
 
 | link:https://camel.apache.org/components/latest/google-mail-component.html[Google Mail] (camel-quarkus-google-mail) +
 `google-mail:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | The google-mail component provides access to Google Mail.
+ Stable | 1.0.0-M6 | Manage messages in Google Mail.
 
 | link:https://camel.apache.org/components/latest/google-mail-stream-component.html[Google Mail Stream] (camel-quarkus-google-mail) +
 `google-mail-stream:index` | Native +
- Stable | 1.0.0-M6 | The google-mail component provides access to Google Mail.
+ Stable | 1.0.0-M6 | Poll for incoming messages in Google Mail.
 
 | link:https://camel.apache.org/components/latest/google-pubsub-component.html[Google Pubsub] (camel-quarkus-google-pubsub) +
 `google-pubsub:projectId:destinationName` | JVM +
- Preview | 1.0.0-M6 | Messaging client for Google Cloud Platform PubSub Service Built on top of the Google Cloud Pub/Sub libraries.
+ Preview | 1.0.0-M6 | Send and receive messages to/from Google Cloud Platform PubSub Service.
 
 | link:https://camel.apache.org/components/latest/google-sheets-component.html[Google Sheets] (camel-quarkus-google-sheets) +
 `google-sheets:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | The google-sheets component provides access to Google Sheets.
+ Stable | 1.0.0-M6 | Manage spreadsheets in Google Sheets.
 
 | link:https://camel.apache.org/components/latest/google-sheets-stream-component.html[Google Sheets Stream] (camel-quarkus-google-sheets) +
 `google-sheets-stream:apiName` | Native +
- Stable | 1.0.0-M6 | The google-sheets-stream component provides access to Google Sheets.
+ Stable | 1.0.0-M6 | Poll for changes in Google Sheets.
 
 | xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
 `graphql:httpUri` | Native +
- Stable | 1.0.0-M5 | A Camel GraphQL Component
+ Stable | 1.0.0-M5 | Send GraphQL queries and mutations to external systems.
 
 | link:https://camel.apache.org/components/latest/grpc-component.html[gRPC] (camel-quarkus-grpc) +
 `grpc:host:port/service` | JVM +
- Preview | 1.0.0-M6 | The gRPC component allows to call and expose remote procedures via HTTP/2 with protobuf dataformat
+ Preview | 1.0.0-M6 | Expose gRPC endpoints and access external gRPC endpoints.
 
 | xref:extensions/http.adoc[HTTP] (camel-quarkus-http) +
 `http:httpUri` | Native +
- Stable | 1.0.0-M3 | For calling out to external HTTP servers using Apache HTTP Client 4.x.
+ Stable | 1.0.0-M3 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
 | link:https://camel.apache.org/components/latest/infinispan-component.html[Infinispan] (camel-quarkus-infinispan) +
 `infinispan:cacheName` | Native +
- Stable | 0.2.0 | For reading/writing from/to Infinispan distributed key/value store and data grid.
+ Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
 
 | link:https://camel.apache.org/components/latest/influxdb-component.html[InfluxDB] (camel-quarkus-influxdb) +
 `influxdb:connectionBean` | Native +
- Stable | 1.0.0-M6 | The influxdb component allows you to interact with InfluxDB, a time series database.
+ Stable | 1.0.0-M6 | Interact with InfluxDB, a time series database.
 
 | xref:extensions/websocket-jsr356.adoc[Javax Websocket] (camel-quarkus-websocket-jsr356) +
 `websocket-jsr356:uri` | Native +
- Stable | 1.0.0-M4 | Camel WebSocket using JSR356 (javax)
+ Stable | 1.0.0-M4 | Expose websocket endpoints using JSR356.
 
 | link:https://camel.apache.org/components/latest/jdbc-component.html[JDBC] (camel-quarkus-jdbc) +
 `jdbc:dataSourceName` | Native +
- Stable | 0.2.0 | The jdbc component enables you to access databases through JDBC, where SQL queries are sent in the message body.
+ Stable | 0.2.0 | Access databases through SQL and JDBC.
 
 | link:https://camel.apache.org/components/latest/jira-component.html[Jira] (camel-quarkus-jira) +
 `jira:type` | Native +
- Stable | 1.0.0-M4 | The jira component interacts with the JIRA issue tracker.
+ Stable | 1.0.0-M4 | Interact with JIRA issue tracker.
 
 | link:https://camel.apache.org/components/latest/jms-component.html[JMS] (camel-quarkus-jms) +
 `jms:destinationType:destinationName` | Native +
- Stable | 1.2.0 | The jms component allows messages to be sent to (or consumed from) a JMS Queue or Topic.
+ Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
 
 | link:https://camel.apache.org/components/latest/kafka-component.html[Kafka] (camel-quarkus-kafka) +
 `kafka:topic` | Native +
- Stable | 1.0.0-M1 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
+ Stable | 1.0.0-M1 | Sent and receive messages to/from an Apache Kafka broker.
 
 | link:https://camel.apache.org/components/latest/kubernetes-config-maps-component.html[Kubernetes ConfigMap] (camel-quarkus-kubernetes) +
 `kubernetes-config-maps:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Configmaps component provides a producer to execute kubernetes configmap operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes ConfigMaps and get notified on ConfigMaps changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-deployments-component.html[Kubernetes Deployments] (camel-quarkus-kubernetes) +
 `kubernetes-deployments:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Deployments and get notified on Deployment changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-hpa-component.html[Kubernetes HPA] (camel-quarkus-kubernetes) +
 `kubernetes-hpa:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes HPA component provides a producer to execute kubernetes hpa operations and a consumer to consume HPA events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Horizontal Pod Autoscalers (HPA) and get notified on HPA changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-job-component.html[Kubernetes Job] (camel-quarkus-kubernetes) +
 `kubernetes-job:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Jobs component provides a producer to execute kubernetes job operations
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Jobs.
 
 | link:https://camel.apache.org/components/latest/kubernetes-namespaces-component.html[Kubernetes Namespaces] (camel-quarkus-kubernetes) +
 `kubernetes-namespaces:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Namespaces component provides a producer to execute kubernetes namespace operations and a consumer to consume namespace events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Namespaces and get notified on Namespace changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-nodes-component.html[Kubernetes Nodes] (camel-quarkus-kubernetes) +
 `kubernetes-nodes:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Nodes and get notified on Node changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-persistent-volumes-component.html[Kubernetes Persistent Volume] (camel-quarkus-kubernetes) +
 `kubernetes-persistent-volumes:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Persistent Volumes component provides a producer to execute kubernetes persistent volume operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes and get notified on Persistent Volume changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-persistent-volumes-claims-component.html[Kubernetes Persistent Volume Claim] (camel-quarkus-kubernetes) +
 `kubernetes-persistent-volumes-claims:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Persistent Volumes Claims component provides a producer to execute kubernetes persistent volume claim operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes Claims and get notified on Persistent Volumes Claim changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-pods-component.html[Kubernetes Pods] (camel-quarkus-kubernetes) +
 `kubernetes-pods:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Pods component provides a producer to execute kubernetes pod operations and a consumer to consume pod events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Pods and get notified on Pod changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-replication-controllers-component.html[Kubernetes Replication Controller] (camel-quarkus-kubernetes) +
 `kubernetes-replication-controllers:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Replication Controllers component provides a producer to execute kubernetes replication controller operations and a consumer to consume replication controller events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Replication Controllers and get notified on Replication Controllers changes.
 
 | link:https://camel.apache.org/components/latest/kubernetes-resources-quota-component.html[Kubernetes Resources Quota] (camel-quarkus-kubernetes) +
 `kubernetes-resources-quota:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Resources Quota component provides a producer to execute kubernetes resources quota operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Resources Quotas.
 
 | link:https://camel.apache.org/components/latest/kubernetes-secrets-component.html[Kubernetes Secrets] (camel-quarkus-kubernetes) +
 `kubernetes-secrets:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Secrets component provides a producer to execute kubernetes secret operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Secrets.
 
 | link:https://camel.apache.org/components/latest/kubernetes-service-accounts-component.html[Kubernetes Service Account] (camel-quarkus-kubernetes) +
 `kubernetes-service-accounts:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Service Accounts component provides a producer to execute service account operations.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Service Accounts.
 
 | link:https://camel.apache.org/components/latest/kubernetes-services-component.html[Kubernetes Services] (camel-quarkus-kubernetes) +
 `kubernetes-services:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Services component provides a producer to execute service operations and a consumer to consume service events.
+ Stable | 1.0.0-M6 | Perform operations on Kubernetes Services and get notified on Service changes.
 
 | link:https://camel.apache.org/components/latest/kudu-component.html[Kudu] (camel-quarkus-kudu) +
 `kudu:host:port/tableName` | Native +
- Stable | 1.0.0-M6 | Represents a Kudu endpoint. A kudu endpoint allows you to interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+ Stable | 1.0.0-M6 | Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
 | link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | Native +
- Stable | 0.2.0 | The log component logs message exchanges to the underlying logging mechanism.
+ Stable | 0.2.0 | Log messages to the underlying logging mechanism.
 
 | link:https://camel.apache.org/components/latest/mail-component.html[Mail] (camel-quarkus-mail) +
 `imap:host:port` | Native +
- Stable | 0.2.0 | To send or receive emails using imap/pop3 or smtp protocols.
+ Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
 `microprofile-metrics:metricType:metricName` | Native +
- Stable | 0.2.0 | Camel metrics exposed with Eclipse MicroProfile Metrics
+ Stable | 0.2.0 | Expose metrics from Camel routes.
 
 | xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
 `mongodb:connectionBean` | Native +
- Stable | 1.0.0-M1 | Component for working with documents stored in MongoDB database.
+ Stable | 1.0.0-M1 | Perform operations on MongoDB documents and collections.
 
 | link:https://camel.apache.org/components/latest/mongodb-gridfs-component.html[MongoDB GridFS] (camel-quarkus-mongodb-gridfs) +
 `mongodb-gridfs:connectionBean` | JVM +
- Preview | 1.0.0-M6 | Component for working with MongoDB GridFS.
+ Preview | 1.0.0-M6 | Interact with MongoDB GridFS.
 
 | xref:extensions/mustache.adoc[Mustache] (camel-quarkus-mustache) +
 `mustache:resourceUri` | Native +
- Stable | 1.0.0-M5 | Transforms the message using a Mustache template.
+ Stable | 1.0.0-M5 | Transform messages using a Mustache template.
 
 | xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | Native +
- Stable | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x library.
+ Stable | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x.
 
 | xref:extensions/netty-http.adoc[Netty HTTP] (camel-quarkus-netty-http) +
 `netty-http:protocol:host:port/path` | Native +
- Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x library.
+ Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x.
 
 | link:https://camel.apache.org/components/latest/nitrite-component.html[Nitrite] (camel-quarkus-nitrite) +
 `nitrite:database` | JVM +
- Preview | 1.0.0-M6 | Used for integrating Camel with Nitrite databases.
+ Preview | 1.0.0-M6 | Access Nitrite databases.
 
 | link:https://camel.apache.org/components/latest/olingo4-component.html[Olingo4] (camel-quarkus-olingo4) +
 `olingo4:apiName/methodName` | Native +
- Stable | 1.0.0-M4 | Communicates with OData 4.0 services using Apache Olingo OData API.
+ Stable | 1.0.0-M4 | Communicate with OData 4.0 services using Apache Olingo OData API.
 
 | link:https://camel.apache.org/components/latest/openshift-build-configs-component.html[Openshift Build Config] (camel-quarkus-kubernetes) +
 `openshift-build-configs:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Kubernetes Build Config component provides a producer to execute kubernetes build config operations.
+ Stable | 1.0.0-M6 | Perform operations on OpenShift Build Configs.
 
 | link:https://camel.apache.org/components/latest/openshift-builds-component.html[Openshift Builds] (camel-quarkus-kubernetes) +
 `openshift-builds:masterUrl` | Native +
- Stable | 1.0.0-M6 | The Openshift Builds component provides a producer to execute openshift build operations.
+ Stable | 1.0.0-M6 | Perform operations on OpenShift Builds.
 
 | link:https://camel.apache.org/components/latest/openstack-cinder-component.html[OpenStack Cinder] (camel-quarkus-openstack) +
 `openstack-cinder:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-cinder component allows messages to be sent to an OpenStack block storage services.
+ Preview | 1.0.0-M6 | Access data in OpenStack Cinder block storage.
 
 | link:https://camel.apache.org/components/latest/openstack-glance-component.html[OpenStack Glance] (camel-quarkus-openstack) +
 `openstack-glance:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-glance component allows messages to be sent to an OpenStack image services.
+ Preview | 1.0.0-M6 | Manage VM images and metadata definitions in OpenStack Glance.
 
 | link:https://camel.apache.org/components/latest/openstack-keystone-component.html[OpenStack Keystone] (camel-quarkus-openstack) +
 `openstack-keystone:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-keystone component allows messages to be sent to an OpenStack identity services.
+ Preview | 1.0.0-M6 | Access OpenStack Keystone for API client authentication, service discovery and distributed multi-tenant authorization.
 
 | link:https://camel.apache.org/components/latest/openstack-neutron-component.html[OpenStack Neutron] (camel-quarkus-openstack) +
 `openstack-neutron:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-neutron component allows messages to be sent to an OpenStack network services.
+ Preview | 1.0.0-M6 | Access OpenStack Neutron for network services.
 
 | link:https://camel.apache.org/components/latest/openstack-nova-component.html[OpenStack Nova] (camel-quarkus-openstack) +
 `openstack-nova:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-nova component allows messages to be sent to an OpenStack compute services.
+ Preview | 1.0.0-M6 | Access OpenStack to manage compute resources.
 
 | link:https://camel.apache.org/components/latest/openstack-swift-component.html[OpenStack Swift] (camel-quarkus-openstack) +
 `openstack-swift:host` | JVM +
- Preview | 1.0.0-M6 | The openstack-swift component allows messages to be sent to an OpenStack object storage services.
+ Preview | 1.0.0-M6 | Access OpenStack Swift object/blob store.
 
 | link:https://camel.apache.org/components/latest/paho-component.html[Paho] (camel-quarkus-paho) +
 `paho:topic` | Native +
- Stable | 0.2.0 | Component for communicating with MQTT message brokers using Eclipse Paho MQTT Client.
+ Stable | 0.2.0 | Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
 
 | link:https://camel.apache.org/components/latest/pdf-component.html[PDF] (camel-quarkus-pdf) +
 `pdf:operation` | Native +
- Stable | 0.3.1 | The pdf components provides the ability to create, modify or extract content from PDF documents.
+ Stable | 0.3.1 | Create, modify or extract content from PDF documents.
 
 | xref:extensions/platform-http.adoc[Platform HTTP] (camel-quarkus-platform-http) +
 `platform-http:path` | Native +
- Stable | 0.3.0 | HTTP service leveraging existing runtime platform HTTP server
+ Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the current platform.
 
 | link:https://camel.apache.org/components/latest/pubnub-component.html[PubNub] (camel-quarkus-pubnub) +
 `pubnub:channel` | JVM +
- Preview | 1.0.0-M6 | To send and receive messages to PubNub data stream network for connected devices.
+ Preview | 1.0.0-M6 | Send and receive messages to/from PubNub data stream network for connected devices.
 
 | link:https://camel.apache.org/components/latest/quartz-component.html[Quartz] (camel-quarkus-quartz) +
 `quartz:groupName/triggerName` | Native +
- Stable | 1.0.0-M6 | Provides a scheduled delivery of messages using the Quartz 2.x scheduler.
+ Stable | 1.0.0-M6 | Schedule sending of messages using the Quartz 2.x scheduler.
 
 | link:https://camel.apache.org/components/latest/rabbitmq-component.html[RabbitMQ] (camel-quarkus-rabbitmq) +
 `rabbitmq:exchangeName` | JVM +
- Preview | 1.0.0-M6 | The rabbitmq component allows you produce and consume messages from RabbitMQ instances.
+ Preview | 1.0.0-M6 | Send and receive messages from RabbitMQ instances.
 
 | link:https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams] (camel-quarkus-reactive-streams) +
 `reactive-streams:stream` | Native +
- Stable | 1.0.0-M3 | Reactive Camel using reactive streams
+ Stable | 1.0.0-M3 | Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.
 
 | link:https://camel.apache.org/components/latest/ref-component.html[Ref] (camel-quarkus-ref) +
 `ref:name` | Native +
- Stable | 1.0.0-M5 | The ref component is used for lookup of existing endpoints bound in the Registry.
+ Stable | 1.0.0-M5 | Route messages to an endpoint looked up dynamically by name in the Camel Registry.
 
 | link:https://camel.apache.org/components/latest/rest-component.html[REST] (camel-quarkus-rest) +
 `rest:method:path:uriTemplate` | Native +
- Stable | 0.2.0 | The rest component is used for either hosting REST services (consumer) or calling external REST services (producer).
+ Stable | 0.2.0 | Expose REST services or call external REST services.
 
 | link:https://camel.apache.org/components/latest/rest-api-component.html[REST API] (camel-quarkus-rest) +
 `rest-api:path/contextIdPattern` | Native +
- Stable | 0.2.0 | The rest-api component is used for providing Swagger API of the REST services which has been defined using the rest-dsl in Camel.
+ Stable | 0.2.0 | Expose OpenAPI Specification of the REST services defined using Camel REST DSL.
 
 | link:https://camel.apache.org/components/latest/rest-openapi-component.html[REST OpenApi] (camel-quarkus-rest-openapi) +
 `rest-openapi:specificationUri#operationId` | JVM +
- Preview | 1.0.0-M6 | An awesome REST endpoint backed by OpenApi specifications.
+ Preview | 1.0.0-M6 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
 
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | Native +
- Stable | 0.2.0 | The salesforce component is used for integrating Camel with the massive Salesforce API.
+ Stable | 0.2.0 | Communicate with Salesforce using Java DTOs.
 
 | link:https://camel.apache.org/components/latest/sap-netweaver-component.html[SAP NetWeaver] (camel-quarkus-sap-netweaver) +
 `sap-netweaver:url` | Native +
- Stable | 1.0.0-M6 | The sap-netweaver component integrates with the SAP NetWeaver Gateway using HTTP transports.
+ Stable | 1.0.0-M6 | Send requests to SAP NetWeaver Gateway using HTTP.
 
 | link:https://camel.apache.org/components/latest/scheduler-component.html[Scheduler] (camel-quarkus-scheduler) +
 `scheduler:name` | Native +
- Stable | 0.4.0 | The scheduler component is used for generating message exchanges when a scheduler fires.
+ Stable | 0.4.0 | Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService.
 
 | link:https://camel.apache.org/components/latest/seda-component.html[SEDA] (camel-quarkus-seda) +
 `seda:name` | Native +
- Stable | 1.0.0-M1 | The seda component provides asynchronous call to another endpoint from any CamelContext in the same JVM.
+ Stable | 1.0.0-M1 | Asynchronously call another endpoint from any Camel Context in the same JVM.
 
 | link:https://camel.apache.org/components/latest/servicenow-component.html[ServiceNow] (camel-quarkus-servicenow) +
 `servicenow:instanceName` | Native +
- Stable | 1.0.0-M6 | The servicenow component is used to integrate Camel with ServiceNow cloud services.
+ Stable | 1.0.0-M6 | Interact with ServiceNow via its REST API.
 
 | link:https://camel.apache.org/components/latest/servlet-component.html[Servlet] (camel-quarkus-servlet) +
 `servlet:contextPath` | Native +
- Stable | 0.2.0 | To use a HTTP Servlet as entry for Camel routes when running in a servlet container.
+ Stable | 0.2.0 | Serve HTTP requests by a Servlet.
 
 | link:https://camel.apache.org/components/latest/sftp-component.html[SFTP] (camel-quarkus-ftp) +
 `sftp:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | The sftp (FTP over SSH) component is used for uploading or downloading files from SFTP servers.
+ Stable | 1.0.0-M1 | Upload and download files to/from SFTP servers.
 
 | link:https://camel.apache.org/components/latest/sjms-component.html[Simple JMS] (camel-quarkus-sjms) +
 `sjms:destinationType:destinationName` | Native +
- Stable | 1.0.0-M1 | The sjms component (simple jms) allows messages to be sent to (or consumed from) a JMS Queue or Topic (uses JMS 1.x API).
+ Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API.
 
 | link:https://camel.apache.org/components/latest/sjms-batch-component.html[Simple JMS Batch] (camel-quarkus-sjms) +
 `sjms-batch:destinationName` | Native +
- Stable | 1.0.0-M1 | The sjms-batch component is a specialized for highly performant, transactional batch consumption from a JMS queue.
+ Stable | 1.0.0-M1 | Highly performant and transactional batch consumption of messages from a JMS queue.
 
 | link:https://camel.apache.org/components/latest/sjms2-component.html[Simple JMS2] (camel-quarkus-sjms2) +
 `sjms2:destinationType:destinationName` | Native +
- Stable | 1.0.0-M1 | The sjms2 component (simple jms) allows messages to be sent to (or consumed from) a JMS Queue or Topic (uses JMS 2.x API).
+ Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
 
 | link:https://camel.apache.org/components/latest/slack-component.html[Slack] (camel-quarkus-slack) +
 `slack:channel` | Native +
- Stable | 0.3.0 | The slack component allows you to send messages to Slack.
+ Stable | 0.3.0 | Send and receive messages to/from Slack.
 
 | xref:extensions/sql.adoc[SQL] (camel-quarkus-sql) +
 `sql:query` | Native +
- Stable | 1.0.0-M2 | The sql component allows you to work with databases using JDBC SQL queries.
+ Stable | 1.0.0-M2 | Perform SQL queries using Spring JDBC.
 
 | xref:extensions/sql.adoc[SQL Stored Procedure] (camel-quarkus-sql) +
 `sql-stored:template` | Native +
- Stable | 1.0.0-M2 | The sql component allows you to work with databases using JDBC Stored Procedure queries.
+ Stable | 1.0.0-M2 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
 
 | xref:extensions/stream.adoc[Stream] (camel-quarkus-stream) +
 `stream:kind` | Native +
- Stable | 1.0.0-M4 | The stream: component provides access to the system-in, system-out and system-err streams as well as allowing streaming of file.
+ Stable | 1.0.0-M4 | Read from system-in and write to system-out and system-err streams.
 
 | link:https://camel.apache.org/components/latest/telegram-component.html[Telegram] (camel-quarkus-telegram) +
 `telegram:type` | Native +
- Stable | 1.0.0-M4 | The telegram component provides access to the Telegram Bot API.
+ Stable | 1.0.0-M4 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
 
 | link:https://camel.apache.org/components/latest/timer-component.html[Timer] (camel-quarkus-timer) +
 `timer:timerName` | Native +
- Stable | 0.2.0 | The timer component is used for generating message exchanges when a timer fires.
+ Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
 
 | link:https://camel.apache.org/components/latest/twitter-directmessage-component.html[Twitter Direct Message] (camel-quarkus-twitter) +
 `twitter-directmessage:user` | Native +
- Stable | 0.2.0 | The Twitter Direct Message Component consumes/produces user's direct messages.
+ Stable | 0.2.0 | Send and receive Twitter direct messages.
 
 | link:https://camel.apache.org/components/latest/twitter-search-component.html[Twitter Search] (camel-quarkus-twitter) +
 `twitter-search:keywords` | Native +
- Stable | 0.2.0 | The Twitter Search component consumes search results.
+ Stable | 0.2.0 | Access Twitter Search.
 
 | link:https://camel.apache.org/components/latest/twitter-timeline-component.html[Twitter Timeline] (camel-quarkus-twitter) +
 `twitter-timeline:timelineType` | Native +
- Stable | 0.2.0 | The Twitter Timeline component consumes twitter timeline or update the status of specific user.
+ Stable | 0.2.0 | Send tweets and receive tweets from user's timeline.
 
 | link:https://camel.apache.org/components/latest/validator-component.html[Validator] (camel-quarkus-validator) +
 `validator:resourceUri` | Native +
- Stable | 0.4.0 | Validates the payload of a message using XML Schema and JAXP Validation.
+ Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
 
 | link:https://camel.apache.org/components/latest/vm-component.html[VM] (camel-quarkus-vm) +
 `vm:name` | Native +
- Stable | 0.3.0 | The vm component provides asynchronous call to another endpoint from the same CamelContext.
+ Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
 | xref:extensions/xslt.adoc[XSLT] (camel-quarkus-xslt) +
 `xslt:resourceUri` | Native +
- Stable | 0.4.0 | Transforms the message using a XSLT template.
+ Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 
 |===
 // components: END
@@ -631,82 +631,82 @@ Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/avro-dataformat.html[Avro] (camel-quarkus-avro) | JVM +
- Preview | 1.0.0-M6 | The Avro data format is used for serialization and deserialization of messages using Apache Avro binary dataformat.
+ Preview | 1.0.0-M6 | Serialize and deserialize messages using Apache Avro binary data format.
 
 | link:https://camel.apache.org/components/latest/base64-dataformat.html[Base64] (camel-quarkus-base64) | Native +
- Stable | 1.0.0-M1 | The Base64 data format is used for base64 encoding and decoding.
+ Stable | 1.0.0-M1 | Encode and decode data using Base64.
 
 | link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy CSV] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+ Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
 | link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Fixed Length] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+ Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
 | link:https://camel.apache.org/components/latest/bindy-dataformat.html[Bindy Key Value Pair] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | The Bindy data format is used for working with flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+ Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
 | link:https://camel.apache.org/components/latest/csv-dataformat.html[CSV] (camel-quarkus-csv) | Native +
- Stable | 0.2.0 | The CSV data format is used for handling CSV payloads.
+ Stable | 0.2.0 | Handle CSV (Comma Separated Values) payloads.
 
 | xref:extensions/fhir.adoc[FHIR JSon] (camel-quarkus-fhir) | Native +
- Stable | 0.3.0 | The FHIR JSon data format is used to marshall/unmarshall to/from FHIR objects to/from JSON.
+ Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
 
 | xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | Native +
- Stable | 0.3.0 | The FHIR XML data format is used to marshall/unmarshall from/to FHIR objects to/from XML.
+ Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
 
 | link:https://camel.apache.org/components/latest/gzipdeflater-dataformat.html[GZip Deflater] (camel-quarkus-zip-deflater) | Native +
- Stable | 1.0.0-M4 | The GZip data format is a message compression and de-compression format (which works with the popular gzip/gunzip tools).
+ Stable | 1.0.0-M4 | Compress and decompress messages using java.util.zip.GZIPStream.
 
 | link:https://camel.apache.org/components/latest/ical-dataformat.html[iCal] (camel-quarkus-ical) | Native +
- Stable | 1.0.0-M5 | The iCal dataformat is used for working with iCalendar messages.
+ Stable | 1.0.0-M5 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 
 | link:https://camel.apache.org/components/latest/jacksonxml-dataformat.html[JacksonXML] (camel-quarkus-jacksonxml) | Native +
- Stable | 1.0.0-M5 | JacksonXML data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
+ Stable | 1.0.0-M5 | Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
 | link:https://camel.apache.org/components/latest/jaxb-dataformat.html[JAXB] (camel-quarkus-jaxb) | Native +
- Stable | 1.0.0-M5 | JAXB data format uses the JAXB2 XML marshalling standard to unmarshal an XML payload into Java objects or to marshal Java objects into an XML payload.
+ Stable | 1.0.0-M5 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
 | link:https://camel.apache.org/components/latest/json-gson-dataformat.html[JSon GSon] (camel-quarkus-gson) | Native +
- Stable | 1.0.0-M4 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+ Stable | 1.0.0-M4 | Marshal POJOs to JSON and back.
 
 | link:https://camel.apache.org/components/latest/json-jackson-dataformat.html[JSon Jackson] (camel-quarkus-jackson) | Native +
- Stable | 0.3.0 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+ Stable | 0.3.0 | Marshal POJOs to JSON and back.
 
 | link:https://camel.apache.org/components/latest/json-johnzon-dataformat.html[JSon Johnzon] (camel-quarkus-johnzon) | Native +
- Stable | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+ Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
 | link:https://camel.apache.org/components/latest/json-xstream-dataformat.html[JSon XStream] (camel-quarkus-xstream) | Native +
- Stable | 1.0.0-M5 | JSon data format is used for unmarshal a JSon payload to POJO or to marshal POJO back to JSon payload.
+ Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
 | link:https://camel.apache.org/components/latest/lzf-dataformat.html[LZF Deflate Compression] (camel-quarkus-lzf) | Native +
- Stable | 1.0.0-M4 | The LZF data format is a message compression and de-compression format (uses the LZF deflate algorithm).
+ Stable | 1.0.0-M4 | Compress and decompress streams using LZF deflate algorithm.
 
 | link:https://camel.apache.org/components/latest/mime-multipart-dataformat.html[MIME Multipart] (camel-quarkus-mail) | Native +
- Stable | 0.2.0 | The MIME Multipart data format is used for marshalling Camel messages with attachments into MIME-Multipart message, and vise-versa.
+ Stable | 0.2.0 | Marshal Camel messages with attachments into MIME-Multipart messages and back.
 
 | link:https://camel.apache.org/components/latest/protobuf-dataformat.html[Protobuf] (camel-quarkus-protobuf) | JVM +
- Preview | 1.0.0-M6 | The Protobuf data format is used for serializing between Java objects and the Google Protobuf protocol.
+ Preview | 1.0.0-M6 | Serialize and deserialize Java objects using Google's Protocol buffers.
 
 | link:https://camel.apache.org/components/latest/soapjaxb-dataformat.html[SOAP] (camel-quarkus-soap) | Native +
- Stable | 1.0.0-M5 | SOAP is a data format which uses JAXB2 and JAX-WS annotations to marshal and unmarshal SOAP payloads.
+ Stable | 1.0.0-M5 | Marshal Java objects to SOAP messages and back.
 
 | link:https://camel.apache.org/components/latest/tarfile-dataformat.html[Tar File] (camel-quarkus-tarfile) | Native +
- Stable | 0.3.0 | The Tar File data format is a message compression and de-compression format of tar files.
+ Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
 | link:https://camel.apache.org/components/latest/tidyMarkup-dataformat.html[TidyMarkup] (camel-quarkus-tagsoup) | Native +
- Stable | 1.0.0-M1 | TidyMarkup data format is used for parsing HTML and return it as pretty well-formed HTML.
+ Stable | 1.0.0-M1 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
 | link:https://camel.apache.org/components/latest/xstream-dataformat.html[XStream] (camel-quarkus-xstream) | Native +
- Stable | 1.0.0-M5 | XStream data format is used for unmarshal a XML payload to POJO or to marshal POJO back to XML payload.
+ Stable | 1.0.0-M5 | Marshal and unmarshal POJOs to/from XML using XStream library.
 
 | link:https://camel.apache.org/components/latest/yaml-snakeyaml-dataformat.html[YAML SnakeYAML] (camel-quarkus-snakeyaml) | Native +
- Stable | 0.4.0 | YAML is a data format to marshal and unmarshal Java objects to and from YAML.
+ Stable | 0.4.0 | Marshal and unmarshal Java objects to and from YAML.
 
 | link:https://camel.apache.org/components/latest/zipdeflater-dataformat.html[Zip Deflate Compression] (camel-quarkus-zip-deflater) | Native +
- Stable | 1.0.0-M4 | Zip Deflate Compression data format is a message compression and de-compression format (not zip files).
+ Stable | 1.0.0-M4 | Compress and decompress streams using java.util.zip.Deflater and java.util.zip.Inflater.
 
 | link:https://camel.apache.org/components/latest/zipfile-dataformat.html[Zip File] (camel-quarkus-zipfile) | Native +
- Stable | 0.2.0 | The Zip File data format is a message compression and de-compression format of zip files.
+ Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStream.
 |===
 // dataformats: END
 
@@ -721,43 +721,43 @@ Number of Camel languages: 13 in 7 JAR artifacts (0 deprecated)
 Level | Since | Description
 
 | link:https://camel.apache.org/components/latest/bean-language.html[Bean method] (camel-quarkus-bean) | Native +
- Stable | 0.2.0 | To use a Java bean (aka method call) in Camel expressions or predicates.
+ Stable | 0.2.0 | Call a method of the specified Java bean passing the Exchange, Body or specific headers to it.
 
 | link:https://camel.apache.org/components/latest/constant-language.html[Constant] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | To use a constant value in Camel expressions or predicates. Important: this is a fixed constant value that is only set once during starting up the route, do not use this if you want dynamic values during routing.
+ Stable | 0.2.0 | A fixed value set only once during the route startup.
 
 | link:https://camel.apache.org/components/latest/exchangeProperty-language.html[ExchangeProperty] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | To use a Camel Exchange property in expressions or predicates.
+ Stable | 0.2.0 | Get the value of named Camel Exchange property.
 
 | link:https://camel.apache.org/components/latest/file-language.html[File] (camel-quarkus-core) | Native +
  Stable | 0.2.0 | For expressions and predicates using the file/simple language.
 
 | link:https://camel.apache.org/components/latest/groovy-language.html[Groovy] (camel-quarkus-groovy) | JVM +
- Preview | 1.0.0-M6 | To use Groovy scripts in Camel expressions or predicates.
+ Preview | 1.0.0-M6 | Evaluate a Groovy script.
 
 | link:https://camel.apache.org/components/latest/header-language.html[Header] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | To use a Camel Message header in expressions or predicates.
+ Stable | 0.2.0 | Get the value of the named Camel Message header.
 
 | link:https://camel.apache.org/components/latest/jsonpath-language.html[JsonPath] (camel-quarkus-jsonpath) | Native +
- Stable | 1.0.0-M3 | To use JsonPath in Camel expressions or predicates.
+ Stable | 1.0.0-M3 | Evaluate a JsonPath expression against a JSON message body.
 
 | link:https://camel.apache.org/components/latest/ognl-language.html[OGNL] (camel-quarkus-ognl) | JVM +
- Preview | 1.0.0-M6 | To use OGNL scripts in Camel expressions or predicates.
+ Preview | 1.0.0-M6 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 
 | link:https://camel.apache.org/components/latest/ref-language.html[Ref] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Reference to an existing Camel expression or predicate, which is looked up from the Camel registry.
+ Stable | 0.2.0 | Look up an expression in the Camel Registry and evaluate it.
 
 | link:https://camel.apache.org/components/latest/simple-language.html[Simple] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | To use Camels built-in Simple language in Camel expressions or predicates.
+ Stable | 0.2.0 | Evaluate Camel's built-in Simple language expression against the Camel Exchange.
 
 | link:https://camel.apache.org/components/latest/tokenize-language.html[Tokenize] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | To use Camel message body or header with a tokenizer in Camel expressions or predicates.
+ Stable | 0.2.0 | Tokenize text payloads using the specified delimiter patterns.
 
 | link:https://camel.apache.org/components/latest/xtokenize-language.html[XML Tokenize] (camel-quarkus-xml-jaxp) | Native +
- Stable | 1.0.0-M5 | To use Camel message body or header with a XML tokenizer in Camel expressions or predicates.
+ Stable | 1.0.0-M5 | Tokenize XML payloads using the specified path expression.
 
 | link:https://camel.apache.org/components/latest/xpath-language.html[XPath] (camel-quarkus-xpath) | Native +
- Stable | 1.0.0-M4 | To use XPath (XML) in Camel expressions or predicates.
+ Stable | 1.0.0-M4 | Evaluate an XPath expression against an XML payload.
 |===
 // languages: END
 
