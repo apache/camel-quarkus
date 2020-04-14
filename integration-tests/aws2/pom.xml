@@ -54,6 +54,10 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-s3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-sqs</artifactId>
         </dependency>
         <dependency>
