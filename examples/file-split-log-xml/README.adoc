@@ -18,7 +18,7 @@ and other general information.
 
 [source,shell]
 ----
-$ mvn clean compile quarkus:dev -DnoDeps
+$ mvn clean compile quarkus:dev
 ----
 
 The above command compiles the project, starts the application and lets the Quarkus tooling watch for changes in your
