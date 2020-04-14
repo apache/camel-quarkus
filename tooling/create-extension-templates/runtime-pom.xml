@@ -33,7 +33,7 @@
     <description>[=description]</description>
 
     <properties>
-        <firstVersion>1.0.0-M6</firstVersion>
+        <firstVersion>1.0.0-M7</firstVersion>
     </properties>
 
     <dependencyManagement>
