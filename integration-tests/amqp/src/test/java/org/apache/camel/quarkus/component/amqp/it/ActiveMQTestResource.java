@@ -45,6 +45,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             container = new GenericContainer(ACTIVEMQ_IMAGE)
                     .withExposedPorts(AMQP_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
+                    .withEnv("BROKER_CONFIG_MAX_DISK_USAGE", "100")
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
@@ -68,7 +69,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 container.stop();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            // Ignored
         }
     }
 }
