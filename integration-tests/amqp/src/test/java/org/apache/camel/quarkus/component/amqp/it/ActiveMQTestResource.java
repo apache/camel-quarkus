@@ -23,6 +23,7 @@ import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
@@ -43,6 +44,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
         try {
             container = new GenericContainer(ACTIVEMQ_IMAGE)
                     .withExposedPorts(AMQP_PORT)
+                    .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                     .waitingFor(Wait.forListeningPort());
 
             container.start();
@@ -66,7 +68,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                 container.stop();
             }
         } catch (Exception e) {
-            // ignored
+            e.printStackTrace();
         }
     }
 }
