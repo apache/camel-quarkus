@@ -89,12 +89,6 @@ class Aws2S3Processor {
             BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinition) {
         checkClasspath(APACHE_HTTP_SERVICE, "apache-client");
 
-        //Register Apache client as sync client
-        proxyDefinition.produce(
-                new NativeImageProxyDefinitionBuildItem("org.apache.http.conn.HttpClientConnectionManager",
-                        "org.apache.http.pool.ConnPoolControl",
-                        "software.amazon.awssdk.http.apache.internal.conn.Wrapped"));
-
         serviceProvider.produce(new ServiceProviderBuildItem(SdkHttpService.class.getName(), APACHE_HTTP_SERVICE));
 
     }
@@ -107,5 +101,4 @@ class Aws2S3Processor {
                     "Missing 'software.amazon.awssdk:" + dependencyName + "' dependency on the classpath");
         }
     }
-
 }

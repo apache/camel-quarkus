@@ -18,39 +18,20 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
+    <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>camel-quarkus-extensions-support</artifactId>
-    <name>Camel Quarkus :: Extensions :: Support</name>
+    <artifactId>camel-quarkus-support-aws2-parent</artifactId>
+    <name>Camel Quarkus :: Support :: AWS2</name>
     <packaging>pom</packaging>
 
     <modules>
-        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>ahc</module>
-        <module>aws</module>
-        <module>aws2</module>
-        <module>common</module>
-        <module>commons-logging</module>
-        <module>consul-client</module>
-        <module>debezium</module>
-        <module>google-http-client</module>
-        <module>httpclient</module>
-        <module>jackson-dataformat-xml</module>
-        <module>jetty</module>
-        <module>mail</module>
-        <module>policy</module>
-        <module>retrofit</module>
-        <module>spring</module>
-        <module>webhook</module>
-        <module>xstream</module>
-        <module>xml</module>
-        <module>xalan</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
 </project>
