@@ -49,10 +49,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.dataformat</groupId>
-            <artifactId>jackson-dataformat-cbor</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
