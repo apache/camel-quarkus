@@ -1,10 +1,22 @@
 = http-log
 
 This is a basic hello world example that uses CDI and JAX-RS to setup
-a REST service and a Camel route to service HTTP traffic.
+a Quarkus REST service and a Camel route to service HTTP traffic.
+
+The Quarkus REST service `ExampleResource.java` and the Camel route `CamelRoute.java`
+are independent andare present in this example to demonstrate how you can build microservices
+with both Quarkus and Camel separated.
+
+You can of course also combine Quarkus REST services with Camel (see further below).
 
 TIP: Check the https://camel.apache.org/camel-quarkus/latest/first-steps.html[Camel Quarkus User guide] for prerequisites
 and other general information.
+
+This example was used in a 10 minute video recording to demonstrate
+how to quickly run 100 Camels with Apache Camel, Quarkus and GraalVM:
+
+- https://www.youtube.com/watch?v=4lXSf8DBQkQ
+
 
 == Start in the Development mode
 
@@ -60,4 +72,40 @@ $ ./target/*-runner
 ...
 [io.quarkus] (main) Quarkus 1.3.2 started in 0.013s. Listening on: http://[::]:8080
 ...
+----
+
+== Using Camel from Quarkus JAX-RS
+
+The `ExampleResource.java` is a pure JAX-RS REST service without using Camel.
+Suppose you wanted to add a HTTP POST that sends the HTTP body to a Kafka topic,
+via the camel-kafka component. You can then integrate Quarkus
+with Camel by dependency injecting Camels `FluentProducerTemplate` that allows to
+send the message in one line of code to Kafka. What's left is to configure the URL to the Kafka brokers,
+which can be done in the `application.properties` file.
+
+[source,java]
+----
+import org.apache.camel.FluentProducerTemplate;
+import org.jboss.resteasy.annotations.Body;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+
+@Path("/hello")
+public class ExampleResource {
+
+    @Inject
+    FluentProducerTemplate producer;
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "hello";
+    }
+
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void foo(@Body String payload) {
+        producer.to("kafka:foo").send(payload);
+    }
+}
 ----
