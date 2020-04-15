@@ -20,30 +20,22 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.enterprise.inject.spi.DeploymentException;
-
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.jboss.jandex.DotName;
 import software.amazon.awssdk.core.interceptor.ExecutionInterceptor;
-import software.amazon.awssdk.http.SdkHttpService;
 
 class Aws2S3Processor {
 
     private static final String FEATURE = "camel-aws2-s3";
 
     public static final String AWS_SDK_APPLICATION_ARCHIVE_MARKERS = "software/amazon/awssdk";
-
-    private static final String APACHE_HTTP_SERVICE = "software.amazon.awssdk.http.apache.ApacheSdkHttpService";
 
     private static final List<String> INTERCEPTOR_PATHS = Arrays.asList(
             "software/amazon/awssdk/global/handlers/execution.interceptors",
@@ -81,24 +73,5 @@ class Aws2S3Processor {
 
         reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
                 String.class.getCanonicalName()));
-    }
-
-    @BuildStep(loadsApplicationClasses = true)
-    void client(BeanRegistrationPhaseBuildItem beanRegistrationPhase,
-            BuildProducer<ServiceProviderBuildItem> serviceProvider,
-            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinition) {
-        checkClasspath(APACHE_HTTP_SERVICE, "apache-client");
-
-        serviceProvider.produce(new ServiceProviderBuildItem(SdkHttpService.class.getName(), APACHE_HTTP_SERVICE));
-
-    }
-
-    private void checkClasspath(String className, String dependencyName) {
-        try {
-            Class.forName(className, true, Thread.currentThread().getContextClassLoader());
-        } catch (ClassNotFoundException e) {
-            throw new DeploymentException(
-                    "Missing 'software.amazon.awssdk:" + dependencyName + "' dependency on the classpath");
-        }
     }
 }
