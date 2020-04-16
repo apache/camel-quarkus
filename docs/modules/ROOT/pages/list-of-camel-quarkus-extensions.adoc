@@ -354,60 +354,60 @@ Level | Since | Description
  Stable | 1.0.0-M1 | The kafka component allows messages to be sent to (or consumed from) Apache Kafka brokers.
 
 | link:https://camel.apache.org/components/latest/kubernetes-config-maps-component.html[Kubernetes ConfigMap] (camel-quarkus-kubernetes) +
-`kubernetes-config-maps:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Configmaps component provides a producer to execute kubernetes configmap operations.
+`kubernetes-config-maps:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Configmaps component provides a producer to execute kubernetes configmap operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-deployments-component.html[Kubernetes Deployments] (camel-quarkus-kubernetes) +
-`kubernetes-deployments:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
+`kubernetes-deployments:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-hpa-component.html[Kubernetes HPA] (camel-quarkus-kubernetes) +
-`kubernetes-hpa:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes HPA component provides a producer to execute kubernetes hpa operations and a consumer to consume HPA events.
+`kubernetes-hpa:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes HPA component provides a producer to execute kubernetes hpa operations and a consumer to consume HPA events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-job-component.html[Kubernetes Job] (camel-quarkus-kubernetes) +
-`kubernetes-job:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Jobs component provides a producer to execute kubernetes job operations
+`kubernetes-job:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Jobs component provides a producer to execute kubernetes job operations
 
 | link:https://camel.apache.org/components/latest/kubernetes-namespaces-component.html[Kubernetes Namespaces] (camel-quarkus-kubernetes) +
-`kubernetes-namespaces:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Namespaces component provides a producer to execute kubernetes namespace operations and a consumer to consume namespace events.
+`kubernetes-namespaces:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Namespaces component provides a producer to execute kubernetes namespace operations and a consumer to consume namespace events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-nodes-component.html[Kubernetes Nodes] (camel-quarkus-kubernetes) +
-`kubernetes-nodes:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
+`kubernetes-nodes:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Nodes component provides a producer to execute kubernetes node operations and a consumer to consume node events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-persistent-volumes-component.html[Kubernetes Persistent Volume] (camel-quarkus-kubernetes) +
-`kubernetes-persistent-volumes:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Persistent Volumes component provides a producer to execute kubernetes persistent volume operations.
+`kubernetes-persistent-volumes:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Persistent Volumes component provides a producer to execute kubernetes persistent volume operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-persistent-volumes-claims-component.html[Kubernetes Persistent Volume Claim] (camel-quarkus-kubernetes) +
-`kubernetes-persistent-volumes-claims:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Persistent Volumes Claims component provides a producer to execute kubernetes persistent volume claim operations.
+`kubernetes-persistent-volumes-claims:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Persistent Volumes Claims component provides a producer to execute kubernetes persistent volume claim operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-pods-component.html[Kubernetes Pods] (camel-quarkus-kubernetes) +
-`kubernetes-pods:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Pods component provides a producer to execute kubernetes pod operations and a consumer to consume pod events.
+`kubernetes-pods:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Pods component provides a producer to execute kubernetes pod operations and a consumer to consume pod events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-replication-controllers-component.html[Kubernetes Replication Controller] (camel-quarkus-kubernetes) +
-`kubernetes-replication-controllers:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Replication Controllers component provides a producer to execute kubernetes replication controller operations and a consumer to consume replication controller events.
+`kubernetes-replication-controllers:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Replication Controllers component provides a producer to execute kubernetes replication controller operations and a consumer to consume replication controller events.
 
 | link:https://camel.apache.org/components/latest/kubernetes-resources-quota-component.html[Kubernetes Resources Quota] (camel-quarkus-kubernetes) +
-`kubernetes-resources-quota:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Resources Quota component provides a producer to execute kubernetes resources quota operations.
+`kubernetes-resources-quota:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Resources Quota component provides a producer to execute kubernetes resources quota operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-secrets-component.html[Kubernetes Secrets] (camel-quarkus-kubernetes) +
-`kubernetes-secrets:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Secrets component provides a producer to execute kubernetes secret operations.
+`kubernetes-secrets:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Secrets component provides a producer to execute kubernetes secret operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-service-accounts-component.html[Kubernetes Service Account] (camel-quarkus-kubernetes) +
-`kubernetes-service-accounts:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Service Accounts component provides a producer to execute service account operations.
+`kubernetes-service-accounts:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Service Accounts component provides a producer to execute service account operations.
 
 | link:https://camel.apache.org/components/latest/kubernetes-services-component.html[Kubernetes Services] (camel-quarkus-kubernetes) +
-`kubernetes-services:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Services component provides a producer to execute service operations and a consumer to consume service events.
+`kubernetes-services:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Services component provides a producer to execute service operations and a consumer to consume service events.
 
 | link:https://camel.apache.org/components/latest/kudu-component.html[Kudu] (camel-quarkus-kudu) +
 `kudu:host:port/tableName` | JVM +
@@ -454,12 +454,12 @@ Level | Since | Description
  Stable | 1.0.0-M4 | Communicates with OData 4.0 services using Apache Olingo OData API.
 
 | link:https://camel.apache.org/components/latest/openshift-build-configs-component.html[Openshift Build Config] (camel-quarkus-kubernetes) +
-`openshift-build-configs:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Kubernetes Build Config component provides a producer to execute kubernetes build config operations.
+`openshift-build-configs:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Kubernetes Build Config component provides a producer to execute kubernetes build config operations.
 
 | link:https://camel.apache.org/components/latest/openshift-builds-component.html[Openshift Builds] (camel-quarkus-kubernetes) +
-`openshift-builds:masterUrl` | JVM +
- Preview | 1.0.0-M6 | The Openshift Builds component provides a producer to execute openshift build operations.
+`openshift-builds:masterUrl` | Native +
+ Stable | 1.0.0-M6 | The Openshift Builds component provides a producer to execute openshift build operations.
 
 | link:https://camel.apache.org/components/latest/openstack-cinder-component.html[OpenStack Cinder] (camel-quarkus-openstack) +
 `openstack-cinder:host` | JVM +

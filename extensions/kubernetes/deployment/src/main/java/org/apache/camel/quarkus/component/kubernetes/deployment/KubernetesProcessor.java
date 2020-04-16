@@ -22,15 +22,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.quarkus.component.kubernetes.CamelKubernetesRecorder;
-import org.apache.camel.quarkus.core.JvmOnlyRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.jboss.logging.Logger;
+import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
 
 class KubernetesProcessor {
-    private static final Logger LOG = Logger.getLogger(KubernetesProcessor.class);
-
     private static final String FEATURE = "camel-kubernetes";
 
     @BuildStep
@@ -39,22 +34,13 @@ class KubernetesProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    CamelBeanBuildItem configureKubernetesClient(CamelKubernetesRecorder recorder, BeanContainerBuildItem beanContainer) {
+    @Record(ExecutionTime.RUNTIME_INIT)
+    CamelRuntimeBeanBuildItem configureKubernetesClient(CamelKubernetesRecorder recorder,
+            BeanContainerBuildItem beanContainer) {
         // Enable Kubernetes endpoints to use the client configured by the Quarkus kubernetes-client extension
-        return new CamelBeanBuildItem(
+        return new CamelRuntimeBeanBuildItem(
                 "kubernetesClient",
                 KubernetesClient.class.getName(),
                 recorder.getKubernetesClient(beanContainer.getValue()));
-    }
-
-    /**
-     * Remove this once this extension starts supporting the native mode.
-     */
-    @BuildStep(onlyIf = NativeBuild.class)
-    @Record(value = ExecutionTime.RUNTIME_INIT)
-    void warnJvmInNative(JvmOnlyRecorder recorder) {
-        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
-        recorder.warnJvmInNative(FEATURE); // warn at runtime
     }
 }

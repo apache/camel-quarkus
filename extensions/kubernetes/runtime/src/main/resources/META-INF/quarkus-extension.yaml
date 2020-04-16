@@ -26,7 +26,6 @@ metadata:
   - "kubernetes"
   - "openshift"
   - "paas"
-  guide: "https://camel.apache.org/components/latest/kubernetes-component.html"
+  guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
-  status: "preview"

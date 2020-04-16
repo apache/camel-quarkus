@@ -58,7 +58,6 @@
         <module>google-pubsub</module>
         <module>groovy</module>
         <module>grpc</module>
-        <module>kubernetes</module>
         <module>kudu</module>
         <module>mongodb-gridfs</module>
         <module>nitrite</module>

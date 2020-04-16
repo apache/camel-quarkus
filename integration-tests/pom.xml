@@ -90,6 +90,7 @@
         <module>jira</module>
         <module>jsonpath</module>
         <module>kafka</module>
+        <module>kubernetes</module>
         <module>mail</module>
         <module>messaging</module>
         <module>microprofile</module>
