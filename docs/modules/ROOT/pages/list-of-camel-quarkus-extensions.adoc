@@ -410,8 +410,8 @@ Level | Since | Description
  Stable | 1.0.0-M6 | The Kubernetes Services component provides a producer to execute service operations and a consumer to consume service events.
 
 | link:https://camel.apache.org/components/latest/kudu-component.html[Kudu] (camel-quarkus-kudu) +
-`kudu:host:port/tableName` | JVM +
- Preview | 1.0.0-M6 | Represents a Kudu endpoint. A kudu endpoint allows you to interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+`kudu:host:port/tableName` | Native +
+ Stable | 1.0.0-M6 | Represents a Kudu endpoint. A kudu endpoint allows you to interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
 | link:https://camel.apache.org/components/latest/log-component.html[Log] (camel-quarkus-log) +
 `log:loggerName` | Native +
