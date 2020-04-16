@@ -1,7 +1,10 @@
-[[promote-jvm-only-extensions]]
-= Promote JVM Only extensions Native
+[[promote-jvm-to-native]]
+= Promote JVM extension to Native
 
-The directory `extensions-jvm` contains some extensions that need to be tested in link:https://quarkus.io/guides/building-native-image[native mode]. Configuring the link:https://quarkus.io/guides/writing-native-applications-tips[native build] and implementing integration tests of such extensions may open the door to even faster startup and lower footprint.
+The directory `extensions-jvm` contains extensions that have not been tested in
+link:https://quarkus.io/guides/building-native-image[native mode] yet. Configuring the
+link:https://quarkus.io/guides/writing-native-applications-tips[native build] and implementing integration tests for
+them may open the door to even faster startup and lower memory footprint.
 Please find some guiding steps below to start this quest:
 
 1. Make sure that nobody else works on promoting the same extension by searching through the
@@ -120,4 +123,4 @@ mvn clean verify -P native
 from runtime to build time. The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good
 ally for this.
 
-13. Please also check the xref:contributor-guide.adoc#create-a-new-extension[Create a new extension] section as it contains some useful tips for a good contribution.
+13. Please also check the xref:create-new-extension.adoc[Create new extension] page as it contains some useful tips for a good contribution.
