@@ -1,7 +1,7 @@
 [[create-a-new-extension]]
 = Create a new extension
 
-1. You should know link:#how-to-build[how to build].
+1. You should know xref:contributor-guide.adoc#how-to-build[how to build].
 
 2. Go through the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] to get an idea of
    what is expected from you.
