@@ -33,7 +33,7 @@
     <description>The aws2-sns component is used for sending messages to an Amazon Simple Notification Topic.</description>
 
     <properties>
-        <firstVersion>1.0.0-M7</firstVersion>
+        <firstVersion>1.0.0-M6</firstVersion>
     </properties>
 
     <dependencyManagement>
