@@ -206,11 +206,12 @@ jobs:
               sap-netweaver
               servicenow
               slack
-          - category: SQL
+          - category: Database
             test-modules: >
               couchdb
               influxdb
               jdbc
+              kudu
               mongodb
               sql
           - category: Social
