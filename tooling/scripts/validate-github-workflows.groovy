@@ -29,7 +29,7 @@ final Path jobDefPath = treeRootDir.resolve(jobDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
 // Add any ignored itest modules here. Or prefix the module name with '#' to disable it
-final List<String> excludedModules = ['fhir', 'support'] as List
+final List<String> excludedModules = ['fhir', 'kubernetes', 'support'] as List
 
 final Yaml parser = new Yaml()
 def prConfig = parser.load((jobDefPath.toFile()).text)

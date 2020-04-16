@@ -97,6 +97,7 @@
         <module>jsonpath</module>
         <module>kafka</module>
         <module>kotlin</module>
+        <module>kubernetes</module>
         <module>log</module>
         <module>lzf</module>
         <module>mail</module>
