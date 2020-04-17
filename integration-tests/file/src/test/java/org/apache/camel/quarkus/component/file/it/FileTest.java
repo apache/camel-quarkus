@@ -44,7 +44,7 @@ class FileTest {
         String fileName = RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(FILE_BODY)
-                .post("/file/create")
+                .post("/file/create/in")
                 .then()
                 .statusCode(201)
                 .extract()
@@ -53,7 +53,7 @@ class FileTest {
 
         // Read the file
         RestAssured
-                .get("/file/get/" + Paths.get(fileName).getFileName())
+                .get("/file/get/in/" + Paths.get(fileName).getFileName())
                 .then()
                 .statusCode(200)
                 .body(equalTo(FILE_BODY));

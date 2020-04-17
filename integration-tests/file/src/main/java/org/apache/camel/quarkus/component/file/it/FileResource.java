@@ -43,20 +43,19 @@ public class FileResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/get/{name}")
+    @Path("/get/{folder}/{name}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFile(@PathParam("name") String name) throws Exception {
-        final String fileContent = consumerTemplate.receiveBodyNoWait("file:target/in?fileName=" + name, String.class);
-        return fileContent;
+    public String getFile(@PathParam("folder") String folder, @PathParam("name") String name) throws Exception {
+        return consumerTemplate.receiveBodyNoWait("file:target/" + folder + "?fileName=" + name, String.class);
     }
 
-    @Path("/create")
+    @Path("/create/{folder}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createFile(String content) throws Exception {
-        Exchange response = producerTemplate.request("file:target/in", exchange -> exchange.getIn().setBody(content));
+    public Response createFile(@PathParam("folder") String folder, String content) throws Exception {
+        Exchange response = producerTemplate.request("file:target/" + folder, exchange -> exchange.getIn().setBody(content));
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response.getMessage().getHeader(Exchange.FILE_NAME_PRODUCED))
