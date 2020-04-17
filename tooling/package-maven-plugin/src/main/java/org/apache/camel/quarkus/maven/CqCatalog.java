@@ -20,7 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -31,11 +35,9 @@ import org.apache.camel.catalog.DefaultCamelCatalog;
 import org.apache.camel.catalog.DefaultVersionManager;
 import org.apache.camel.catalog.RuntimeProvider;
 import org.apache.camel.catalog.impl.CatalogHelper;
+import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
-import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.LanguageModel;
-import org.apache.camel.tooling.model.OtherModel;
 
 public class CqCatalog {
 
@@ -78,7 +80,7 @@ public class CqCatalog {
         List<String> camelArtifactIds = toCamelArtifactIdBase(artifactIdBase);
         return Stream.of(Kind.values())
                 .flatMap(kind -> kind.all(this))
-                .filter(wrappedModel -> camelArtifactIds.contains(wrappedModel.getArtifactId()))
+                .filter(wrappedModel -> camelArtifactIds.contains(wrappedModel.delegate.getArtifactId()))
                 .collect(Collectors.toList());
     }
 
@@ -86,13 +88,8 @@ public class CqCatalog {
         component() {
             @Override
             public Optional<WrappedModel> load(CqCatalog catalog, String name) {
-                final BaseModel<?> delegate = catalog.catalog.componentModel(name);
+                final ArtifactModel<?> delegate = catalog.catalog.componentModel(name);
                 return Optional.ofNullable(delegate == null ? null : new WrappedModel(catalog, this, delegate));
-            }
-
-            @Override
-            public String getArtifactId(BaseModel<?> delegate) {
-                return ((ComponentModel) delegate).getArtifactId();
             }
 
             @Override
@@ -101,25 +98,16 @@ public class CqCatalog {
                         .map(name -> new WrappedModel(catalog, this, catalog.catalog.componentModel(name)));
             }
 
-            protected String getScheme(BaseModel<?> delegate) {
-                return ((ComponentModel) delegate).getScheme();
-            }
-
             @Override
             protected String getJson(CqCatalog catalog, BaseModel<?> delegate) {
-                return catalog.catalog.componentJSonSchema(getScheme(delegate));
+                return catalog.catalog.componentJSonSchema(delegate.getName());
             }
         },
         language() {
             @Override
             public Optional<WrappedModel> load(CqCatalog catalog, String name) {
-                final BaseModel<?> delegate = catalog.catalog.languageModel(name);
+                final ArtifactModel<?> delegate = catalog.catalog.languageModel(name);
                 return Optional.ofNullable(delegate == null ? null : new WrappedModel(catalog, this, delegate));
-            }
-
-            @Override
-            public String getArtifactId(BaseModel<?> delegate) {
-                return ((LanguageModel) delegate).getArtifactId();
             }
 
             @Override
@@ -130,19 +118,14 @@ public class CqCatalog {
 
             @Override
             protected String getJson(CqCatalog catalog, BaseModel<?> delegate) {
-                return catalog.catalog.languageJSonSchema(getScheme(delegate));
+                return catalog.catalog.languageJSonSchema(delegate.getName());
             }
         },
         dataformat() {
             @Override
             public Optional<WrappedModel> load(CqCatalog catalog, String name) {
-                final BaseModel<?> delegate = catalog.catalog.dataFormatModel(name);
+                final ArtifactModel<?> delegate = catalog.catalog.dataFormatModel(name);
                 return Optional.ofNullable(delegate == null ? null : new WrappedModel(catalog, this, delegate));
-            }
-
-            @Override
-            public String getArtifactId(BaseModel<?> delegate) {
-                return ((DataFormatModel) delegate).getArtifactId();
             }
 
             @Override
@@ -153,19 +136,14 @@ public class CqCatalog {
 
             @Override
             protected String getJson(CqCatalog catalog, BaseModel<?> delegate) {
-                return catalog.catalog.dataFormatJSonSchema(getScheme(delegate));
+                return catalog.catalog.dataFormatJSonSchema(delegate.getName());
             }
         },
         other() {
             @Override
             public Optional<WrappedModel> load(CqCatalog catalog, String name) {
-                final BaseModel<?> delegate = catalog.catalog.otherModel(name);
+                final ArtifactModel<?> delegate = catalog.catalog.otherModel(name);
                 return Optional.ofNullable(delegate == null ? null : new WrappedModel(catalog, this, delegate));
-            }
-
-            @Override
-            public String getArtifactId(BaseModel<?> delegate) {
-                return ((OtherModel) delegate).getArtifactId();
             }
 
             @Override
@@ -176,21 +154,15 @@ public class CqCatalog {
 
             @Override
             protected String getJson(CqCatalog catalog, BaseModel<?> delegate) {
-                return catalog.catalog.otherJSonSchema(getScheme(delegate));
+                return catalog.catalog.otherJSonSchema(delegate.getName());
             }
         };
 
         public abstract Optional<WrappedModel> load(CqCatalog catalog, String name);
 
-        protected String getScheme(BaseModel<?> delegate) {
-            return delegate.getName();
-        }
-
         protected abstract Stream<WrappedModel> all(CqCatalog catalog);
 
         protected abstract String getJson(CqCatalog catalog, BaseModel<?> delegate);
-
-        public abstract String getArtifactId(BaseModel<?> delegate);
 
         public String getPluralName() {
             return name() + "s";
@@ -198,13 +170,13 @@ public class CqCatalog {
     }
 
     public static class WrappedModel implements Comparable<WrappedModel> {
-        final BaseModel<?> delegate;
+        final ArtifactModel<?> delegate;
         final Kind kind;
         final CqCatalog catalog;
         final String supportLevel;
         final String target;
 
-        public WrappedModel(CqCatalog catalog, Kind kind, BaseModel<?> delegate) {
+        public WrappedModel(CqCatalog catalog, Kind kind, ArtifactModel<?> delegate) {
             super();
             this.catalog = catalog;
             this.kind = kind;
@@ -225,11 +197,11 @@ public class CqCatalog {
         }
 
         public String getArtifactId() {
-            return kind.getArtifactId(delegate);
+            return delegate.getArtifactId();
         }
 
         public String getArtifactIdBase() {
-            final String artifactId = getArtifactId();
+            final String artifactId = delegate.getArtifactId();
             if (artifactId.startsWith("camel-quarkus-")) {
                 return artifactId.substring("camel-quarkus-".length());
             } else if (artifactId.startsWith("camel-")) {
@@ -250,16 +222,12 @@ public class CqCatalog {
                 if (altSchemes == null || altSchemes.isEmpty()) {
                     return true;
                 } else {
-                    final String scheme = getScheme();
+                    final String scheme = delegate.getName();
                     return altSchemes.equals(scheme) || altSchemes.startsWith(scheme + ",");
                 }
             default:
                 return true;
             }
-        }
-
-        public String getScheme() {
-            return kind.getScheme(delegate);
         }
 
         public String getSyntax() {
@@ -294,7 +262,7 @@ public class CqCatalog {
 
         @Override
         public String toString() {
-            return "WrappedModel [scheme=" + getScheme() + ", kind=" + getKind() + "]";
+            return "WrappedModel [scheme=" + delegate.getName() + ", kind=" + getKind() + "]";
         }
 
         @Override

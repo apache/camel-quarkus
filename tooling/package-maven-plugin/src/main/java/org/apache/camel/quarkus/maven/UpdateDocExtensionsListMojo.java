@@ -118,12 +118,12 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                     .peek(m -> {
                         // special for camel-mail where we want to refer its imap scheme to mail so its mail.adoc in the
                         // doc link
-                        if ("imap".equals(m.getScheme())) {
+                        if ("imap".equals(m.delegate.getName())) {
                             final ComponentModel delegate = (ComponentModel) m.delegate;
-                            delegate.setScheme("mail");
+                            delegate.setName("mail");
                             delegate.setTitle("Mail");
                         }
-                        if (m.getScheme().startsWith("bindy")) {
+                        if (m.delegate.getName().startsWith("bindy")) {
                             final DataFormatModel delegate = (DataFormatModel) m.delegate;
                             delegate.setName("bindy");
                         }
@@ -204,7 +204,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                 return null;
             } else {
                 return String.format("link:https://camel.apache.org/components/latest/%s-%s.html",
-                        model.getScheme(),
+                        model.delegate.getName(),
                         model.getKind());
             }
         }

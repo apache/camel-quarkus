@@ -120,7 +120,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                                         kindObject.addProperty("supportLevel", nativeSupported ? "Stable" : "Preview");
 
                                         final Path out = catalogPath.resolve(model.kind.getPluralName())
-                                                .resolve(model.getScheme() + ".json");
+                                                .resolve(model.delegate.getName() + ".json");
                                         try {
                                             Files.createDirectories(out.getParent());
                                         } catch (IOException e) {
@@ -132,7 +132,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                                             throw new RuntimeException("Could not write to " + out);
                                         }
 
-                                        schemesByKind.get(model.kind).add(model.getScheme());
+                                        schemesByKind.get(model.kind).add(model.delegate.getName());
 
                                     }
                                 }
