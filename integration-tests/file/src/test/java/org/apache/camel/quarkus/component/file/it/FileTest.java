@@ -83,6 +83,28 @@ class FileTest {
 
     }
 
+    @Test
+    public void fileReadLock_minLength() throws Exception {
+        // Create a new file
+        String fileName = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("")
+                .post("/file/create/" + FileRoutes.READ_LOCK_IN)
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        Thread.sleep(10_000L);
+
+        // Read the file that should not be there
+        RestAssured
+                .get("/file/get/" + FileRoutes.READ_LOCK_OUT + "/" + Paths.get(fileName).getFileName())
+                .then()
+                .statusCode(204);
+    }
+
     private static void awaitEvent(final Path dir, final Path file, final String type) {
         Awaitility.await()
                 .pollInterval(10, TimeUnit.MILLISECONDS)
