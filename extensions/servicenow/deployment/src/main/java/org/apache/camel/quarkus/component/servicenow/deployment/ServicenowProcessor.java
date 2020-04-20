@@ -18,22 +18,14 @@ package org.apache.camel.quarkus.component.servicenow.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.servicenow.ServiceNowConfiguration;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
 import org.apache.cxf.transport.http.HTTPTransportFactory;
 
 class ServicenowProcessor {
 
     private static final String FEATURE = "camel-servicenow";
-
-    private static final String[] reflectionClasses = new String[] {
-            ServiceNowConfiguration.class.getCanonicalName(),
-            HTTPTransportFactory.class.getCanonicalName()
-    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -46,9 +38,7 @@ class ServicenowProcessor {
     }
 
     @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<UnbannedReflectiveBuildItem> unbannedClass, CombinedIndexBuildItem combinedIndex) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, reflectionClasses));
-        unbannedClass.produce(new UnbannedReflectiveBuildItem(reflectionClasses));
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, HTTPTransportFactory.class.getCanonicalName()));
     }
 }

@@ -16,14 +16,8 @@
  */
 package org.apache.camel.quarkus.component.azure.deployment;
 
-import com.microsoft.azure.storage.StorageCredentialsAccountAndKey;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.azure.blob.BlobServiceConfiguration;
-import org.apache.camel.component.azure.common.AbstractConfiguration;
-import org.apache.camel.component.azure.queue.QueueServiceConfiguration;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
 
 class AzureProcessor {
 
@@ -33,18 +27,4 @@ class AzureProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
-
-    @BuildStep
-    UnbannedReflectiveBuildItem whitelistConfigurationClasses() {
-        return new UnbannedReflectiveBuildItem(BlobServiceConfiguration.class.getName(),
-                QueueServiceConfiguration.class.getName());
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(true, true, AbstractConfiguration.class, BlobServiceConfiguration.class,
-                QueueServiceConfiguration.class,
-                StorageCredentialsAccountAndKey.class);
-    }
-
 }
