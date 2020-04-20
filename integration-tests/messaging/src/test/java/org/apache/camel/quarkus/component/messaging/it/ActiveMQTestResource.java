@@ -57,8 +57,8 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                     "quarkus.artemis.username", ACTIVEMQ_USERNAME,
                     "quarkus.artemis.password", ACTIVEMQ_PASSWORD,
                     "camel.component.paho.brokerUrl", brokerUrl,
-                    "camel.component.paho.configuration.username", ACTIVEMQ_USERNAME,
-                    "camel.component.paho.configuration.password", ACTIVEMQ_PASSWORD);
+                    "camel.component.paho.username", ACTIVEMQ_USERNAME,
+                    "camel.component.paho.password", ACTIVEMQ_PASSWORD);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

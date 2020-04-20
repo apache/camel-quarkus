@@ -23,9 +23,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.jira.JiraConfiguration;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
 import org.joda.time.DateTimeZone;
 
 class JiraProcessor {
@@ -40,16 +37,6 @@ class JiraProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(true, true, JiraConfiguration.class);
-    }
-
-    @BuildStep()
-    UnbannedReflectiveBuildItem unbannedReflectiveItems() {
-        return new UnbannedReflectiveBuildItem(JiraConfiguration.class.getName());
     }
 
     @BuildStep
