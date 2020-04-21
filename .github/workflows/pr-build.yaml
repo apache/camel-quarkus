@@ -147,6 +147,7 @@ jobs:
               quartz
               scheduler
               seda
+              send-dynamic-http
               ref
           - category: Memoryhog Dataformat JSON
             test-modules: >

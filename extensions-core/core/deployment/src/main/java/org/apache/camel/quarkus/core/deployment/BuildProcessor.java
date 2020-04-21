@@ -164,7 +164,8 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/configurer/*",
                     "META-INF/services/org/apache/camel/language/*",
                     "META-INF/services/org/apache/camel/dataformat/*",
-                    "META-INF/services/org/apache/camel/cron/*"));
+                    "META-INF/services/org/apache/camel/cron/*",
+                    "META-INF/services/org/apache/camel/send-dynamic/*"));
 
             // TODO: this can be removed and the RestBindingJaxbDataFormatFactory can be discovered
             //       and instantiated when camel is on the classpath with a camel context customizer
