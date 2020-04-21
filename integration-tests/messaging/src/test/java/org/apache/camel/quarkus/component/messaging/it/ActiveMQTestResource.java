@@ -35,14 +35,14 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
     private static final String ACTIVEMQ_PASSWORD = "simetraehcapa";
     private static final int ACTIVEMQ_PORT = 61616;
 
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new GenericContainer(ACTIVEMQ_IMAGE)
+            container = new GenericContainer<>(ACTIVEMQ_IMAGE)
                     .withExposedPorts(ACTIVEMQ_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                     .withEnv("BROKER_CONFIG_MAX_DISK_USAGE", "100")
@@ -50,15 +50,17 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
 
             container.start();
 
-            String brokerUrl = String.format("tcp://127.0.0.1:%d", container.getMappedPort(ACTIVEMQ_PORT));
+            String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", container.getMappedPort(ACTIVEMQ_PORT));
+            String brokerUrlWs = String.format("ws://127.0.0.1:%d", container.getMappedPort(ACTIVEMQ_PORT));
 
             return CollectionHelper.mapOf(
-                    "quarkus.artemis.url", brokerUrl,
+                    "quarkus.artemis.url", brokerUrlTcp,
                     "quarkus.artemis.username", ACTIVEMQ_USERNAME,
                     "quarkus.artemis.password", ACTIVEMQ_PASSWORD,
-                    "camel.component.paho.brokerUrl", brokerUrl,
+                    "camel.component.paho.brokerUrl", brokerUrlTcp,
                     "camel.component.paho.username", ACTIVEMQ_USERNAME,
-                    "camel.component.paho.password", ACTIVEMQ_PASSWORD);
+                    "camel.component.paho.password", ACTIVEMQ_PASSWORD,
+                    "broker-url.ws", brokerUrlWs);
 
         } catch (Exception e) {
             throw new RuntimeException(e);

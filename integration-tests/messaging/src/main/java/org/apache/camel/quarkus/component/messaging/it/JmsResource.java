@@ -82,6 +82,21 @@ public class JmsResource {
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
 
+    @Path("/paho-ws/{queueName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String consumePahoMessageWs(@PathParam("queueName") String queueName) {
+        return consumerTemplate.receiveBody("paho:" + queueName, 5000, String.class);
+    }
+
+    @Path("/paho-ws/{queueName}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response producePahoMessageWs(@PathParam("queueName") String queueName, String message) throws Exception {
+        producerTemplate.sendBody("paho:" + queueName + "?retained=true&brokerUrl={{broker-url.ws}}", message);
+        return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
     // *****************************
     //
     // camel-sjms

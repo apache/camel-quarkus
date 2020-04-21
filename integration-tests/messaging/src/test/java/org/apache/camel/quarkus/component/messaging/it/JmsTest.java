@@ -30,7 +30,7 @@ import static org.hamcrest.core.Is.is;
 class JmsTest {
 
     @ParameterizedTest
-    @ValueSource(strings = { "jms", "paho", "sjms" })
+    @ValueSource(strings = { "jms", "paho", "paho-ws", "sjms" })
     public void testJmsComponent(String component) {
         String message = "Hello Camel Quarkus " + component;
 
