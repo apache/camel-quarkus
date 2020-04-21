@@ -16,36 +16,16 @@
  */
 package org.apache.camel.quarkus.component.paho.deployment;
 
-import java.util.Arrays;
-import java.util.List;
-
-import javax.inject.Inject;
-
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.eclipse.paho.client.mqttv3.internal.SSLNetworkModuleFactory;
-import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModuleFactory;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.eclipse.paho.client.mqttv3.logging.JSR47Logger;
 import org.eclipse.paho.client.mqttv3.spi.NetworkModuleFactory;
 
 class PahoProcessor {
-
     private static final String FEATURE = "camel-paho";
-
-    private static final List<Class<?>> PAHO_REFLECTIVE_CLASSES = Arrays.asList(
-            JSR47Logger.class,
-            TCPNetworkModuleFactory.class,
-            SSLNetworkModuleFactory.class);
-
-    @Inject
-    BuildProducer<NativeImageResourceBuildItem> resource;
-
-    @Inject
-    BuildProducer<NativeImageResourceBundleBuildItem> resourceBundle;
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -53,17 +33,22 @@ class PahoProcessor {
     }
 
     @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        for (Class<?> type : PAHO_REFLECTIVE_CLASSES) {
-            reflectiveClass.produce(
-                    new ReflectiveClassBuildItem(true, true, type));
-        }
+    ReflectiveClassBuildItem registerReflectiveClasses() {
+        return new ReflectiveClassBuildItem(true, true, JSR47Logger.class);
     }
 
     @BuildStep
-    void registerBundleResource() {
-        resource.produce(new NativeImageResourceBuildItem("META-INF/services/" + NetworkModuleFactory.class.getName()));
-        resourceBundle.produce(new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat"));
+    ServiceProviderBuildItem registerServiceProviders() {
+        return new ServiceProviderBuildItem(
+                NetworkModuleFactory.class.getName(),
+                org.eclipse.paho.client.mqttv3.internal.TCPNetworkModuleFactory.class.getName(),
+                org.eclipse.paho.client.mqttv3.internal.SSLNetworkModuleFactory.class.getName(),
+                org.eclipse.paho.client.mqttv3.internal.websocket.WebSocketNetworkModuleFactory.class.getName(),
+                org.eclipse.paho.client.mqttv3.internal.websocket.WebSocketSecureNetworkModuleFactory.class.getName());
     }
 
+    @BuildStep
+    NativeImageResourceBundleBuildItem registerResourceBundle() {
+        return new NativeImageResourceBundleBuildItem("org.eclipse.paho.client.mqttv3.internal.nls.logcat");
+    }
 }
