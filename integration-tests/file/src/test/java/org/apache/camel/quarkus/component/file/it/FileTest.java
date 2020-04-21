@@ -89,7 +89,7 @@ class FileTest {
         String fileName = RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("")
-                .post("/file/create/" + FileRoutes.READ_LOCK_IN)
+                .post("/file/create/{name}", FileRoutes.READ_LOCK_IN)
                 .then()
                 .statusCode(201)
                 .extract()
@@ -100,7 +100,7 @@ class FileTest {
 
         // Read the file that should not be there
         RestAssured
-                .get("/file/get/" + FileRoutes.READ_LOCK_OUT + "/" + Paths.get(fileName).getFileName())
+                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_OUT, Paths.get(fileName).getFileName())
                 .then()
                 .statusCode(204);
     }
