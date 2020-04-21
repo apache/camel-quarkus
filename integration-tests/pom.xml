@@ -111,6 +111,7 @@
         <module>sap-netweaver</module>
         <module>scheduler</module>
         <module>seda</module>
+        <module>send-dynamic-http</module>
         <module>servicenow</module>
         <module>servlet</module>
         <module>slack</module>
