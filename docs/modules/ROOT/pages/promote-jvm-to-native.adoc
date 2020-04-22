@@ -95,7 +95,7 @@ $ {
 * Ensure keyword `camel` is present
 * Remove the `preview` status
 
-9. Add itests to `.github/workflows/pr-build.yaml`, for instance:
+9. Add itests to `.github/workflows/ci-build.yaml`, for instance:
 +
 [source,yaml]
 ----

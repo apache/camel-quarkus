@@ -15,9 +15,19 @@
 # limitations under the License.
 #
 
-name: Build PR
+name: Camel Quarkus CI
 
 on:
+  push:
+    branches:
+      - master
+      - camel-master
+      - quarkus-master
+    paths-ignore:
+      - '**.adoc'
+      - 'KEYS'
+      - 'LICENSE.txt'
+      - 'NOTICE.txt'
   pull_request:
     branches:
       - master
