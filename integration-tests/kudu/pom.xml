@@ -108,7 +108,7 @@
             </plugin>
         </plugins>
     </build>
- <profiles>
+    <profiles>
         <profile>
             <id>native</id>
             <activation>
@@ -135,6 +135,15 @@
                     </plugin>
                 </plugins>
             </build>
+        </profile>
+        <profile>
+            <id>kudu-native-java8</id>
+            <activation>
+                <jdk>1.8</jdk>
+            </activation>
+            <properties>
+                <quarkus.native.additional-build-args>-H:ReflectionConfigurationFiles=reflection-config.json</quarkus.native.additional-build-args>
+            </properties>
         </profile>
     </profiles>
 </project>
