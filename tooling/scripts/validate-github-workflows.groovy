@@ -24,7 +24,7 @@ import org.yaml.snakeyaml.Yaml
 
 final Path treeRootDir = project.getBasedir().toPath()
 
-final String jobDefRelPath = '.github/workflows/pr-build.yaml'
+final String jobDefRelPath = '.github/workflows/ci-build.yaml'
 final Path jobDefPath = treeRootDir.resolve(jobDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
