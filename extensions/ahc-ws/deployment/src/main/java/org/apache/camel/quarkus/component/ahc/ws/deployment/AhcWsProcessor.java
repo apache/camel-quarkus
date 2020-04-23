@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.ahc.ws.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class AhcWsProcessor {
 
@@ -28,4 +29,8 @@ class AhcWsProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("org.asynchttpclient.netty.ws.NettyWebSocket");
+    }
 }

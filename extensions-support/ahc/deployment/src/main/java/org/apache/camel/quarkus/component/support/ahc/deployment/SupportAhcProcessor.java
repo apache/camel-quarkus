@@ -16,14 +16,22 @@
  */
 package org.apache.camel.quarkus.component.support.ahc.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class SupportAhcProcessor {
 
     private static final String FEATURE = "camel-support-ahc";
+    private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
+            "org.asynchttpclient.netty.channel.ChannelManager",
+            "org.asynchttpclient.netty.request.NettyRequestSender",
+            "org.asynchttpclient.RequestBuilderBase",
+            "org.asynchttpclient.resolver.RequestHostnameResolver"
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -42,4 +50,11 @@ class SupportAhcProcessor {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        for (String className : RUNTIME_INITIALIZED_CLASSES) {
+            runtimeInitializedClass
+                    .produce(new RuntimeInitializedClassBuildItem(className));
+        }
+    }
 }
