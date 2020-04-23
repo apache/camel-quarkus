@@ -30,7 +30,7 @@ public class DefaultCamelBootstrap implements CamelBootstrap {
 
     @Override
     public void start() {
-        LOGGER.info("Bootstrap Camel from the embbed ");
+        LOGGER.info("Bootstrap Camel in the embedded mode");
         main.start();
     }
 

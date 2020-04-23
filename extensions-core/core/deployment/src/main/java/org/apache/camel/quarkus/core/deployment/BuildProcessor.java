@@ -545,7 +545,7 @@ class BuildProcessor {
          * at runtime.
          */
         @SuppressWarnings("unchecked")
-        @Record(ExecutionTime.STATIC_INIT)
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
         @BuildStep
         CamelMainBuildItem main(
                 ContainerBeansBuildItem containerBeans,
@@ -555,7 +555,6 @@ class BuildProcessor {
                 List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
                 List<CamelMainListenerBuildItem> listeners,
                 BeanContainerBuildItem beanContainer) {
-
             RuntimeValue<CamelMain> main = recorder.createCamelMain(
                     context.getCamelContext(),
                     routesCollector.getValue(),
@@ -585,7 +584,7 @@ class BuildProcessor {
          * @param main     a reference to a {@link CamelMain}
          */
         @Overridable
-        @BuildStep
+        @BuildStep(onlyIf = Flags.BootstrapEnabled.class)
         @Record(ExecutionTime.RUNTIME_INIT)
         public CamelBootstrapBuildItem assembler(
                 CamelMainRecorder recorder,
@@ -593,6 +592,12 @@ class BuildProcessor {
                 CamelMainBuildItem main) {
             recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             return new CamelBootstrapBuildItem(recorder.setupBootstrap(main.getInstance()));
+        }
+
+        @BuildStep(onlyIfNot = Flags.BootstrapEnabled.class)
+        @Record(ExecutionTime.STATIC_INIT)
+        public CamelBootstrapBuildItem disableBootstrap(CamelMainRecorder recorder) {
+            return new CamelBootstrapBuildItem(recorder.emptyBootstrap());
         }
 
         /**

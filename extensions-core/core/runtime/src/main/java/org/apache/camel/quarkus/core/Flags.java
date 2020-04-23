@@ -28,6 +28,13 @@ public final class Flags {
         return ConfigProvider.getConfig().getOptionalValue(key, Boolean.class).orElse(defaultValue);
     }
 
+    public static final class BootstrapEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return asBoolean("quarkus.camel.bootstrap.enabled", true);
+        }
+    }
+
     public static final class RoutesDiscoveryEnabled implements BooleanSupplier {
         @Override
         public boolean getAsBoolean() {

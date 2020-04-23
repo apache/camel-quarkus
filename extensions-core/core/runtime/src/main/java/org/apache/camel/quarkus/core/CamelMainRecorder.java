@@ -84,6 +84,18 @@ public class CamelMainRecorder {
         return new RuntimeValue<>(new DefaultCamelBootstrap(main.getValue()));
     }
 
+    public RuntimeValue<CamelBootstrap> emptyBootstrap() {
+        return new RuntimeValue<>(new CamelBootstrap() {
+            @Override
+            public void start() {
+            }
+
+            @Override
+            public void stop() {
+            }
+        });
+    }
+
     public void boostrap(ShutdownContext shutdown, RuntimeValue<CamelBootstrap> bootstrap) {
         shutdown.addShutdownTask(new Runnable() {
             @Override

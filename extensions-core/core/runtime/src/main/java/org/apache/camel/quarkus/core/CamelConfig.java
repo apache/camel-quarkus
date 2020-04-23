@@ -27,6 +27,12 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
     /**
+     * Build time configuration options for {@link CamelBootstrap}.
+     */
+    @ConfigItem
+    public BootstrapConfig bootstrap;
+
+    /**
      * Build time configuration options for {@code camel-main}.
      */
     @ConfigItem
@@ -49,6 +55,16 @@ public class CamelConfig {
      */
     @ConfigItem(name = "native")
     public NativeConfig native_;
+
+    @ConfigGroup
+    public static class BootstrapConfig {
+        /**
+         * Enable the camel bootstrap. If {@code true}, the core extension will bootstrap
+         * the camel context.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
+    }
 
     @ConfigGroup
     public static class MainConfig {
