@@ -5,6 +5,6 @@ https://camel.apache.org/release-guide.html
 
 In addition to the above, the following steps are needed:
 
-* After releasing the staging repository on https://oss.sonatype.org, update the value of `camel-quarkus-last-release`
+* After releasing the staging repository on https://repository.apache.org, update the value of `camel-quarkus-last-release`
 attribute in https://github.com/apache/camel-website/blob/master/site.yml#L36[site.yml of `camel-website`] and in
 https://github.com/apache/camel-quarkus/blob/master/docs/site.yml#L19[site.yml of `camel-quarkus`].
