@@ -80,12 +80,16 @@ public class CamelMainRecorder {
         main.getValue().getCamelContext().adapt(ExtendedCamelContext.class).setReactiveExecutor(executor.getValue());
     }
 
-    public void start(ShutdownContext shutdown, RuntimeValue<CamelMain> main) {
+    public RuntimeValue<CamelBootstrap> setupBootstrap(RuntimeValue<CamelMain> main) {
+        return new RuntimeValue<>(new DefaultCamelBootstrap(main.getValue()));
+    }
+
+    public void boostrap(ShutdownContext shutdown, RuntimeValue<CamelBootstrap> bootstrap) {
         shutdown.addShutdownTask(new Runnable() {
             @Override
             public void run() {
                 try {
-                    main.getValue().stop();
+                    bootstrap.getValue().stop();
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
@@ -93,7 +97,7 @@ public class CamelMainRecorder {
         });
 
         try {
-            main.getValue().start();
+            bootstrap.getValue().start();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

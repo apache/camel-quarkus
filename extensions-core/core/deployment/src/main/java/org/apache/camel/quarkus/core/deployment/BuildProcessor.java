@@ -576,16 +576,32 @@ class BuildProcessor {
         }
 
         /**
-         * This method is responsible to start camel-main ar runtime.
+         * This method is used to setup a camel bootstrap
+         *
+         * @param recorder the recorder
+         * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                 happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                 threads and so on.
+         * @param main     a reference to a {@link CamelMain}
+         */
+        @Overridable
+        @BuildStep
+        @Record(ExecutionTime.RUNTIME_INIT)
+        public CamelBootstrapBuildItem assembler(
+                CamelMainRecorder recorder,
+                CamelReactiveExecutorBuildItem executor,
+                CamelMainBuildItem main) {
+            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
+            return new CamelBootstrapBuildItem(recorder.setupBootstrap(main.getInstance()));
+        }
+
+        /**
+         * This method is responsible to bootstrap at runtime.
          *
          * @param recorder  the recorder.
-         * @param main      a reference to a {@link CamelMain}.
          * @param registry  a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
          *                  placeholder to
          *                  ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
-         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
-         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *                  threads and so on.
          * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
          * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
          *                  is required as under the hoods the camel registry may look-up beans form the
@@ -595,14 +611,11 @@ class BuildProcessor {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void start(
                 CamelMainRecorder recorder,
-                CamelMainBuildItem main,
-                CamelRuntimeRegistryBuildItem registry,
-                CamelReactiveExecutorBuildItem executor,
                 ShutdownContextBuildItem shutdown,
+                CamelBootstrapBuildItem bootstrap,
+                CamelRuntimeRegistryBuildItem registry,
                 List<ServiceStartBuildItem> startList) {
-
-            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
-            recorder.start(shutdown, main.getInstance());
+            recorder.boostrap(shutdown, bootstrap.getCamelBootstrap());
         }
     }
 
