@@ -46,8 +46,8 @@ Level | Since | Description
  Preview | 1.0.0-M6 | Working with Apache Avro for data serialization.
 
 | link:https://camel.apache.org/components/latest/aws2-cw-component.html[AWS 2 CloudWatch] (camel-quarkus-aws2-cw) +
-`aws2-cw:namespace` | JVM +
- Preview | 1.0.0-M6 | The aws2-cw component is used for sending metrics to an Amazon CloudWatch.
+`aws2-cw:namespace` | Native +
+ Stable | 1.0.0-M6 | The aws2-cw component is used for sending metrics to an Amazon CloudWatch.
 
 | link:https://camel.apache.org/components/latest/aws2-ddb-component.html[AWS 2 DynamoDB] (camel-quarkus-aws2-ddb) +
 `aws2-ddb:tableName` | JVM +

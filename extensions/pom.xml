@@ -51,6 +51,7 @@
         <module>aws-sqs</module>
         <module>aws-swf</module>
         <module>aws-translate</module>
+        <module>aws2-cw</module>
         <module>aws2-s3</module>
         <module>aws2-sns</module>
         <module>aws2-sqs</module>
