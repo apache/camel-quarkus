@@ -478,7 +478,7 @@ class BuildProcessor {
             return new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader());
         }
 
-        @BuildStep(onlyIf = { Flags.MainEnabled.class, Flags.RoutesDiscoveryEnabled.class })
+        @BuildStep(onlyIf = Flags.RoutesDiscoveryEnabled.class)
         public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
                 CombinedIndexBuildItem combinedIndex,
                 CamelConfig config) {
@@ -515,7 +515,7 @@ class BuildProcessor {
                     recorder.newRoutesCollector(registryRoutesLoader.getLoader(), xmlRoutesLoader.getLoader()));
         }
 
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
             beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
         }
@@ -524,7 +524,7 @@ class BuildProcessor {
          * Camel is not pulling the RouteBuilders from the CDI container when the main is off so there is no point in
          * making the lazy beans unremovable in that case.
          */
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         UnremovableBeanBuildItem unremovableRoutesBuilders() {
             return new UnremovableBeanBuildItem(
                     b -> b.getTypes().stream().map(Type::name).anyMatch(UNREMOVABLE_BEANS_TYPES::contains));
@@ -532,7 +532,7 @@ class BuildProcessor {
 
         @Overridable
         @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         CamelReactiveExecutorBuildItem reactiveExecutor(CamelMainRecorder recorder) {
             return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
         }
@@ -546,7 +546,7 @@ class BuildProcessor {
          */
         @SuppressWarnings("unchecked")
         @Record(ExecutionTime.STATIC_INIT)
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         CamelMainBuildItem main(
                 ContainerBeansBuildItem containerBeans,
                 CamelMainRecorder recorder,
@@ -608,7 +608,7 @@ class BuildProcessor {
          *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         void start(
                 CamelMainRecorder recorder,
                 ShutdownContextBuildItem shutdown,

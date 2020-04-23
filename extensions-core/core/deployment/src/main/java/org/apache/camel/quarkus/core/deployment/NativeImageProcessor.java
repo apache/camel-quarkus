@@ -281,7 +281,7 @@ public class NativeImageProcessor {
      * disabled by setting quarkus.camel.main.enabled = false
      */
     public static class Main {
-        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        @BuildStep
         void process(
                 List<CamelRoutesBuilderClassBuildItem> camelRoutesBuilders,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
