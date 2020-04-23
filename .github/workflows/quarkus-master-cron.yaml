@@ -97,7 +97,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        category: [core, foundation, platform, messaging, database, dataformats, networking, cloud, misc, saas, social, validation, memoryhog-dozer, memoryhog-dataformat-json, memoryhog-infinispan, memoryhog-olingo4, memoryhog-xml]
+        category: 
+          - core
+          - foundation
+          - platform
+          - messaging
+          - database
+          - dataformats
+          - networking
+          - cloud
+          - misc
+          - saas
+          - social
+          - validation
+          - memoryhog-dozer
+          - memoryhog-dataformat-json
+          - memoryhog-infinispan
+          - memoryhog-olingo4
+          - memoryhog-xml
     steps:
       - name: Download Maven Repo
         uses: actions/download-artifact@v1
