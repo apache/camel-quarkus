@@ -46,7 +46,7 @@ class ReactiveStreamsProcessor {
         return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent(SCHEME));
     }
 
-    @BuildStep(onlyIf = Flags.MainEnabled.class)
+    @BuildStep
     void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
         // thi extension will made some reactive camel reactive streams object availbale
         // for injection in order to easy the use CamelReactiveStreams in CDI.

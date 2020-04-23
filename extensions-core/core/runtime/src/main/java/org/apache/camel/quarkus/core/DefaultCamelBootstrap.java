@@ -16,7 +16,12 @@
  */
 package org.apache.camel.quarkus.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class DefaultCamelBootstrap implements CamelBootstrap {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelBootstrap.class);
+
     private CamelMain main;
 
     public DefaultCamelBootstrap(CamelMain main) {
@@ -25,6 +30,7 @@ public class DefaultCamelBootstrap implements CamelBootstrap {
 
     @Override
     public void start() {
+        LOGGER.info("Bootstrap Camel from the embbed ");
         main.start();
     }
 
