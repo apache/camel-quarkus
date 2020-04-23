@@ -4,6 +4,13 @@ image:https://img.shields.io/maven-central/v/org.apache.camel.quarkus/camel-quar
 image:https://img.shields.io/github/license/openshift/origin.svg?maxAge=2592000["Licensed under Apache License version 2.0", link="https://www.apache.org/licenses/LICENSE-2.0"]
 image:https://badges.gitter.im/apache/camel-quarkus.svg["Chat on Gitter", link="https://gitter.im/apache/camel-quarkus"]
 
+==== CI Branch Status
+[width="50%"]
+|===
+|master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=master["Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|camel-master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|quarkus-master| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|===
 
 == What is this
 

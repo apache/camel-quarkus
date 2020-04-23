@@ -15,24 +15,23 @@
 # limitations under the License.
 #
 
-name: Sync Quarkus Master Branch
+name: Purge Stale Build Artifacts
 
 on:
   schedule:
-    # Run every day at 2AM
-    - cron:  '0 2 * * *'
+    # Run every 4 hours
+    - cron: '0 */4 * * *'
 
 jobs:
-  sync-quarkus-master-branch:
+  pruge-stale-build-artifacts:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: GitHub Pull Request Action
-        uses: repo-sync/pull-request@v2.0.1
-        with:
-          source_branch: master
-          destination_branch: quarkus-master
-          pr_title: Automatic sync branch master to quarkus-master
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Purge Stale Artifacts
+        run: |
+          ARTIFACTS=$(curl -s -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts)
+          for ID in $(echo ${ARTIFACTS} | jq '.artifacts[] | select (.expired == false and .name == "maven-repo") | .id'); do
+              echo "Deleting artifact ${ID} from ${GITHUB_REPOSITORY}"
+              curl -s -X DELETE -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ID}
+              sleep 5
+          done
