@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.aws2;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.aws2.cw.Cw2Constants;
 
 public class CamelRoute extends RouteBuilder {
 
@@ -37,6 +38,14 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-sns?repeatCount=1")
                 .setBody(constant("Quarkus is great!"))
                 .to("aws2-sns://topic1")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-cw?repeatCount=1")
+                .setBody(constant("Quarkus is great!"))
+                .setHeader(Cw2Constants.METRIC_NAME, constant("ExchangesCompleted"))
+                .setHeader(Cw2Constants.METRIC_VALUE, constant("2.0"))
+                .setHeader(Cw2Constants.METRIC_UNIT, constant("Count"))
+                .to("aws2-cw://test")
                 .to("log:sf?showAll=true");
     }
 
