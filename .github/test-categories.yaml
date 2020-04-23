@@ -62,7 +62,7 @@ categories:
   memoryhog-dozer:
     - dozer
   memoryhog-infinispan:
-    - dozer
+    - infinispan
   memoryhog-olingo4:
     - olingo4
   memoryhog-xml:
@@ -82,7 +82,6 @@ categories:
     - qute
     - stream
     - tarfile
-    - infinispan
   networking:
     - ftp
     - http
