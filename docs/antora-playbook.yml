@@ -21,7 +21,7 @@ site:
   start_page: camel-quarkus::index.adoc
 content:
   sources:
-  - url: ../
+  - url: ./../
     branches: HEAD
     start_path: docs
 ui:
@@ -30,7 +30,3 @@ ui:
     snapshot: true
 output:
   dir: ./target/site
-asciidoc:
-  attributes:
-    # Changes from here need to get ported to https://github.com/apache/camel-website/blob/master/site.yml
-    camel-quarkus-last-release: 1.0.0-M6
