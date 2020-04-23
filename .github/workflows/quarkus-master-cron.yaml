@@ -1,0 +1,189 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Daily Build Quarkus Master
+
+on:
+  schedule:
+    # Run every day at 2AM
+    - cron:  '0 2 * * *'
+
+env:
+  LANG: en_US
+
+jobs:
+  build:
+    if: github.repository == 'apache/camel-quarkus'
+    runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: -Xmx3000m
+    steps:
+      - name: Clean VM
+        run: |
+          echo "Removing unwanted SDKs"
+          sudo rm -rf /usr/local/lib/android \
+               rm -rf /usr/local/share/boost \
+               rm -rf /usr/local/go \
+               rm -rf /usr/share/dotnet \
+               rm -rf /usr/share/rust
+
+          echo "Available disk space:"
+          df -h
+      - name: Set Workflow Build ID
+        run: |
+          [ ! -d ~/build-data ] && mkdir -p ~/build-data
+          echo "${{ github.run_id }}-${{ github.run_number }}-$(uuidgen)" > ~/build-data/build-id.txt
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: quarkus-master
+          fetch-depth: 0
+      - name: Rebase branch master onto quarkus-master
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch origin master
+          git rebase origin/master
+          git rev-parse origin/master > ~/build-data/master-sha.txt
+      - name: Set up JDK 11
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 11
+      - name: Build Quarkus
+        run: |
+          git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
+            && cd quarkus \
+            && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
+            && ./mvnw -B -ntp clean install -DskipTests -DskipITs
+      - name: Build Camel Quarkus
+        run: |
+          ./mvnw -B -ntp clean install -Dquarkus.version=999-SNAPSHOT
+      - name: Tar Maven Repo
+        shell: bash
+        run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
+      - name: Persist Maven Repo
+        uses: actions/upload-artifact@v1
+        with:
+          name: maven-repo
+          path: maven-repo.tgz
+      - name: Report Build Failure
+        if: failure()
+        run: |
+          # Abort rebase in case someting went wrong as we may have broken pom.xml files
+          if [[ -e ".git/rebase" || -e ".git/rebase-apply" || -e ".git/rebase-merge" ]]; then
+            git rebase --abort
+          fi
+
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY}
+
+  native-tests:
+    name: Native Tests - ${{matrix.category}}
+    needs: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        category: [core, foundation, platform, messaging, database, dataformats, networking, cloud, misc, saas, social, validation, memoryhog-dozer, memoryhog-dataformat-json, memoryhog-infinispan, memoryhog-olingo4, memoryhog-xml]
+    steps:
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzvf maven-repo.tgz -C ~
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: quarkus-master
+          fetch-depth: 0
+      - name: Rebase branch master onto quarkus-master
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch origin master
+          git rebase $(cat ~/build-data/master-sha.txt)
+      - name: Install yq
+        run: |
+          sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
+          sudo chmod +x /usr/local/bin/yq
+      - name: Set up JDK 11
+        uses: joschi/setup-jdk@v1
+        with:
+          java-version: 11
+      - name: Integration Tests
+        run: |
+          TEST_MODULES=""
+          for MODULE in $(cat .github/test-categories.yaml | yq r - categories.${{ matrix.category }}); do
+            if [ "${MODULE}" == "-" ]; then
+              continue
+            fi
+            TEST_MODULES="${TEST_MODULES} ${MODULE}"
+          done
+          TEST_MODULES=$(echo ${TEST_MODULES} | sed 's/^[ \t]*//;s/[ \t]*$//')
+
+          if [ -z "${TEST_MODULES}" ]; then
+            echo "No test modules were found for category ${{ matrix.category }}"
+            exit 1
+          fi
+
+          for i in ${TEST_MODULES}
+            do modules+=("integration-tests/$i");
+          done
+          IFS=,
+          eval ./mvnw -B -ntp clean verify \
+            -Dnative \
+            -Ddocker \
+            -Dquarkus.version=999-SNAPSHOT \
+            -pl "${modules[*]}"
+      - name: Report Build Failure
+        if: failure()
+        run: |
+          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY}
+
+  handle-build-status:
+    needs: native-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v1
+        with:
+          name: maven-repo
+          path: .
+      - name: Extract Maven Repo
+        shell: bash
+        run: tar -xzvf maven-repo.tgz -C ~
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: quarkus-master
+          fetch-depth: 0
+      - name: Rebase branch master onto quarkus-master
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git fetch origin master
+          git rebase $(cat ~/build-data/master-sha.txt)
+      - name: Report build status
+        id: report
+        run: |
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY}
+      - name: Sync branch Master to Quarkus Master
+        if: steps.report.outputs.overall_build_status == 'success'
+        run: |
+          git push --force-with-lease origin quarkus-master

@@ -24,17 +24,22 @@ import org.yaml.snakeyaml.Yaml
 
 final Path treeRootDir = project.getBasedir().toPath()
 
-final String jobDefRelPath = '.github/workflows/ci-build.yaml'
-final Path jobDefPath = treeRootDir.resolve(jobDefRelPath)
+final String testCategoriesDefRelPath = '.github/test-categories.yaml'
+final Path jobDefPath = treeRootDir.resolve(testCategoriesDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
 // Add any ignored itest modules here. Or prefix the module name with '#' to disable it
 final List<String> excludedModules = ['fhir', 'kubernetes', 'support'] as List
 
 final Yaml parser = new Yaml()
-def prConfig = parser.load((jobDefPath.toFile()).text)
+def testCategoryConfig = parser.load((jobDefPath.toFile()).text)
 
-modules = prConfig['jobs']['native-tests']['strategy']['matrix']['include']['test-modules']
+def modules = []
+testCategoryConfig['categories'].each { k, v ->
+    v.each {
+        modules << it
+    }
+}
 modules.each { executedBaseNames.addAll(it.trim().split(' ')) }
 
 final Set<String> missingBaseNames = [] as TreeSet
@@ -49,5 +54,5 @@ final Set<String> itestBaseNames = Files.list(treeRootDir.resolve('integration-t
 if (!missingBaseNames.isEmpty()) {
     throw new IllegalStateException('Integration tests not executed by the CI:\n\n    ' +
         missingBaseNames.join('\n    ') +
-        '\n\n You may want to adapt ' + jobDefRelPath)
+        '\n\n Add the missing test module(s) to ' + testCategoriesDefRelPath)
 }

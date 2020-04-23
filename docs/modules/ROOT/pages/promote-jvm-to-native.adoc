@@ -95,13 +95,13 @@ $ {
 * Ensure keyword `camel` is present
 * Remove the `preview` status
 
-9. Add itests to `.github/workflows/ci-build.yaml`, for instance:
+9. Add itests to `.github/test-categories.yaml`, for instance:
 +
 [source,yaml]
 ----
-- category: Rpc
- test-modules: >
-   grpc
+categories:
+  rpc:
+    - grpc
 ----
 
 10. Unify source files format, update docs and rebuild the whole project:

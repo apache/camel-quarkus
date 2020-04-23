@@ -47,6 +47,7 @@
         <awssdk2.version>2.11.5</awssdk2.version>
         <camel.version>3.2.0</camel.version>
         <freemarker.version>2.3.30</freemarker.version>
+        <github-api.version>1.101</github-api.version>
         <google-http-client.version>1.22.0</google-http-client.version>
         <guava.version>26.0-jre</guava.version>
         <grpc.version>1.27.0</grpc.version>
@@ -875,6 +876,38 @@
                     </snapshots>
                 </pluginRepository>
             </pluginRepositories>
+        </profile>
+
+        <profile>
+            <id>build-notification</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>build-notify</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>verify</phase>
+                                <configuration>
+                                    <source>file:///${project.basedir}/tooling/scripts/report-build-status.groovy</source>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.kohsuke</groupId>
+                                <artifactId>github-api</artifactId>
+                                <version>${github-api.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
         </profile>
     </profiles>
 
