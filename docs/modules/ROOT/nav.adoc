@@ -7,3 +7,4 @@
 ** xref:create-new-extension.adoc[Create new extension].
 ** xref:promote-jvm-to-native.adoc[Promote JVM extension to Native].
 * xref:list-of-camel-quarkus-extensions.adoc[List of Camel Quarkus extensions]
+* xref:ci.adoc[Camel Quarkus Continuous Integration Builds]
