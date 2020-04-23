@@ -1,8 +1,7 @@
 [[ci]]
-
 = Camel Quarkus CI Builds
 
-=== Branches
+== Branches
 
 [width="100%",cols="1,3"]
 |===
@@ -11,11 +10,11 @@
 |quarkus-master| To verify camel-quarkus against the latest Quarkus SNAPSHOT release
 |===
 
-=== Builds
+== Builds
 
 https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22
 
-=== Daily master -> quarkus-master synchronization
+== Daily master -> quarkus-master synchronization
 
 https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22
 

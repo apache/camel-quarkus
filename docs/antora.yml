@@ -20,3 +20,6 @@ title: Camel Quarkus Extensions
 version: latest
 nav:
 - modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    camel-quarkus-last-release: 1.0.0-M6

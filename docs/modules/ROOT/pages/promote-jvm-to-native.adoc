@@ -38,7 +38,7 @@ $ {
   }
 ----
 
-5. Add the native profile at the end of `integration-tests/${EXT}/pom.xml`:
+5. Add the native profile at the end of `integration-tests/$\{EXT}/pom.xml`:
 +
 [source,xml]
 ----
@@ -73,7 +73,7 @@ $ {
     </profiles>
 ----
 
-6. Remove the warning link:https://quarkus.io/guides/writing-extensions#build-step-processors[build step] from `extensions/${EXT}/deployment/src/main/java/org/apache/camel/quarkus/component/${EXT}/deployment/${EXT}Processor.java`:
+6. Remove the warning link:https://quarkus.io/guides/writing-extensions#build-step-processors[build step] from `extensions/$\{EXT}/deployment/src/main/java/org/apache/camel/quarkus/component/$\{EXT}/deployment/$\{EXT}Processor.java`:
 +
 [source,java]
 ----
@@ -88,9 +88,9 @@ $ {
     }
 ----
 
-7. Create a native test at `integration-tests/${EXT}/src/test/java/org/apache/camel/quarkus/component/${EXT}/it/${EXT}IT.java`
+7. Create a native test at `integration-tests/$\{EXT}/src/test/java/org/apache/camel/quarkus/component/$\{EXT}/it/$\{EXT}IT.java`
 
-8. Check `extensions/${EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml`:
+8. Check `extensions/$\{EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml`:
 * Ensure guide is set to `"https://quarkus.io/guides/camel"`
 * Ensure keyword `camel` is present
 * Remove the `preview` status

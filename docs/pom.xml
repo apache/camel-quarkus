@@ -120,7 +120,7 @@
                                 <phase>verify</phase>
                                 <configuration>
                                     <executable>${project.basedir}/node/node</executable>
-                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator site.yml</commandlineArgs>
+                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator antora-playbook.yml</commandlineArgs>
                                 </configuration>
                             </execution>
                         </executions>
