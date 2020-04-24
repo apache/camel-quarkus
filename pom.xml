@@ -81,7 +81,7 @@
         <mock-javamail.version>1.9</mock-javamail.version>
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
-        <testcontainers.version>1.14.0</testcontainers.version>
+        <testcontainers.version>1.14.1</testcontainers.version>
 
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -912,3 +912,4 @@
     </profiles>
 
 </project>
+
