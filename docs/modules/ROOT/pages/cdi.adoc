@@ -32,7 +32,7 @@ public class TimerRoute extends RouteBuilder {
 
 <1> The `@ApplicationScoped` annotation is required for `@Inject` and `@ConfigProperty` to work in a `RouteBuilder`.
 Note that the `@ApplicationScoped` beans are managed by the CDI container and their life cycle is thus a bit more
-complex than the one of the plain `RouteBuilder`. In other words, using `@ApplicationScoped` in `RouteBuilder`s comes
+complex than the one of the plain `RouteBuilder`. In other words, using `@ApplicationScoped` in `RouteBuilder` comes
 with some boot time penalty and you should therefore only annotate your `RouteBuilder` with `@ApplicationScoped` when
 you really need it.
 
