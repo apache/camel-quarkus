@@ -71,7 +71,7 @@ jobs:
             && ./mvnw -B -ntp clean install -DskipTests -DskipITs
       - name: Build Camel Quarkus
         run: |
-          ./mvnw -B -ntp clean install -Dquarkus.version=999-SNAPSHOT
+          ./mvnw -B -ntp clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs'
       - name: Tar Maven Repo
         shell: bash
         run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
