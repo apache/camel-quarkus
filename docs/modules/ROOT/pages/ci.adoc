@@ -14,9 +14,17 @@
 
 https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22
 
+== Daily master -> camel-master synchronization
+
+https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-master
+
+This build creates an issue on failure, which can be tracked here:
+
+https://github.com/apache/camel-quarkus/issues?q=is%3Aopen+is%3Aissue+label%3Abuild%2Fcamel-master
+
 == Daily master -> quarkus-master synchronization
 
-https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22
+https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-master
 
 This build creates an issue on failure, which can be tracked here:
 

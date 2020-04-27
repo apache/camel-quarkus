@@ -15,12 +15,12 @@
 # limitations under the License.
 #
 
-name: Daily Build Quarkus Master
+name: Weekly Build Camel Master
 
 on:
   schedule:
-    # Run every day at 2AM
-    - cron:  '0 2 * * *'
+    # Run every Monday at midnight
+    - cron:  '0 0 * * 1'
 
 env:
   LANG: en_US
@@ -50,9 +50,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: camel-master
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch master onto camel-master
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -63,15 +63,9 @@ jobs:
         uses: joschi/setup-jdk@v1
         with:
           java-version: 11
-      - name: Build Quarkus
-        run: |
-          git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
-            && cd quarkus \
-            && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
-            && ./mvnw -B -ntp clean install -DskipTests -DskipITs
       - name: Build Camel Quarkus
         run: |
-          ./mvnw -B -ntp clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs'
+          ./mvnw -B -ntp clean install -Papache-snapshots -pl '!docs'
       - name: Tar Maven Repo
         shell: bash
         run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
@@ -88,7 +82,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -127,9 +121,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: camel-master
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch master onto camel-master
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -164,14 +158,14 @@ jobs:
           done
           IFS=,
           eval ./mvnw -B -ntp clean verify \
+            -Papache-snapshots \
             -Dnative \
             -Ddocker \
-            -Dquarkus.version=999-SNAPSHOT \
             -pl "${modules[*]}"
       - name: Report Build Failure
         if: failure()
         run: |
-          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master
+          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
 
   handle-build-status:
     needs: native-tests
@@ -188,9 +182,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: camel-master
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch master onto camel-master
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -199,8 +193,8 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master
-      - name: Sync branch Master to Quarkus Master
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
+      - name: Sync branch Master to Camel Master
         if: steps.report.outputs.overall_build_status == 'success'
         run: |
-          git push --force-with-lease origin quarkus-master
+          git push --force-with-lease origin camel-master

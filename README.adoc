@@ -8,8 +8,8 @@ image:https://badges.gitter.im/apache/camel-quarkus.svg["Chat on Gitter", link="
 [width="50%"]
 |===
 |master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=master["Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
-|camel-master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
-|quarkus-master| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|camel-master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-master"]
+|quarkus-master| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-master"]
 |===
 
 == What is this
