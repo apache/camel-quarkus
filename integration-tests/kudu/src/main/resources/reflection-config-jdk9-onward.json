@@ -1,0 +1,6 @@
+[
+  {
+    "name" : "java.util.concurrent.ConcurrentHashMap",
+    "allDeclaredMethods" : true
+  }
+]

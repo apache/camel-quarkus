@@ -43,14 +43,14 @@ import org.jboss.logging.Logger;
  * camel.kudu.test.master.rpc-authority=kudu-master-hostname:7051
  * Run integration tests with mvn clean integration-test -P native
  *
- * B) How to run integration tests against the container based setup when NOT running on top of OpenJDK 8:
+ * B) How to run integration tests against the container based setup when NOT running on top of OpenJDK:
  * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
  * Override the ip resolution of the host "kudu-tserver" to 127.0.0.1, e.g. by adding an entry in /etc/hosts file as
  * below:
  * 127.0.0.1 kudu-tserver
  * Run integration tests with mvn clean integration-test -P native
  *
- * C) How to run integration tests against the container based setup when running on top of OpenJDK 8:
+ * C) How to run integration tests against the container based setup when running on top of OpenJDK:
  * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
  * No extra setup is needed as {@code overrideKuduTabletServerResolutionInInetAddressCache} takes care of redirecting
  * the Kudu tablet server traffic toward localhost
@@ -69,17 +69,49 @@ public class KuduInfrastructureTestHelper {
     }
 
     public static void overrideTabletServerHostnameResolution() {
+        int javaMajorVersion = Integer.parseInt(System.getProperty("java.version").replaceFirst("([0-9]+)[.].*", "$1"));
+
+        if (javaMajorVersion == 1) {
+            attemptOverideTabletServerHostnameResolutionOpenJdk8();
+        } else if (javaMajorVersion >= 9) {
+            attemptOverideTabletServerHostnameResolutionOpenJdk9Onward();
+        } else {
+            attemptOverideTabletServerHostnameResolutionOpenJdk8();
+            attemptOverideTabletServerHostnameResolutionOpenJdk9Onward();
+        }
+    }
+
+    public static void attemptOverideTabletServerHostnameResolutionOpenJdk9Onward() {
         try {
-            Field field = InetAddress.class.getDeclaredField("addressCache");
-            field.setAccessible(true);
-            Object addressCache = field.get(null);
+            // Warm up the InetAddress cache
+            InetAddress.getByName("localhost");
+            Field cacheField = InetAddress.class.getDeclaredField("cache");
+            cacheField.setAccessible(true);
+            Object cache = cacheField.get(null);
+
+            Method get = cache.getClass().getMethod("get", Object.class);
+            Object localHostCachedAddresses = get.invoke(cache, "localhost");
+
+            Method put = cache.getClass().getMethod("put", Object.class, Object.class);
+            put.invoke(cache, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses);
+        } catch (Exception ex) {
+            final String msg = "An issue occurred while attempting the Open JDK9+ override of the kudu tablet server hostname resolution";
+            LOG.warn(msg, ex);
+        }
+    }
+
+    public static void attemptOverideTabletServerHostnameResolutionOpenJdk8() {
+        try {
+            Field addressCacheField = InetAddress.class.getDeclaredField("addressCache");
+            addressCacheField.setAccessible(true);
+            Object addressCache = addressCacheField.get(null);
 
             Method put = addressCache.getClass().getMethod("put", String.class, InetAddress[].class);
             put.setAccessible(true);
             put.invoke(addressCache, KUDU_TABLET_SERVER_HOSTNAME, (Object[]) InetAddress.getAllByName("localhost"));
         } catch (Exception ex) {
-            final String msg = "Can't override the kudu tablet server hostname resolution when not running on top of OpenJDK 8";
-            LOG.error(msg, ex);
+            final String msg = "An issue occurred while attempting the Open JDK8 override of the kudu tablet server hostname resolution";
+            LOG.warn(msg, ex);
         }
     }
 }
