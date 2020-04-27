@@ -18,13 +18,13 @@
 import org.kohsuke.github.*
 
 /**
- * A script to report on the build status of daily Camel Quarkus branch synchronization.
+ * A script to report on the build status of synchronization for branches camel-master and quarkus-master.
  *
- * If failures were encountered in the build, a new GitHub issue is opened labeled with build/quarkus-master, with the body containing
- * information about the commit SHA and a link to the build. If an existing open issue labeled with build/quarkus-master exists, then
+ * If failures were encountered in the build, a new GitHub issue is opened labeled with build/quarkus-master or build/camel-master, with the body containing
+ * information about the commit SHA and a link to the build. If an existing open issue with the appropriate label exists, then
  * a new comment about the build failure is added.
  *
- * If the build was successful, any open GitHub issue labeled build/quarkus-master will be closed.
+ * If the build was successful, any open GitHub issue relating to the branch build will be closed.
  *
  * The script also outputs a GitHub action step variable named 'overall_build_status', this is used by the build to determine whether it
  * should automatically merge the latest changes from the master branch, to the target branch.
@@ -34,7 +34,8 @@ final String TOKEN = properties['token']
 final String STATUS = properties['status'].toLowerCase(Locale.US)
 final String BUILD_ID = properties['buildId']
 final String REPO = properties['repo']
-final String BRANCH = "quarkus-master"
+final String BRANCH = properties['branch']
+final String BRANCH_NAME = "${BRANCH.split('-')[0].capitalize()} ${BRANCH.split('-')[1].capitalize()}"
 final String ACTIONS_URL = "https://github.com/${REPO}/actions/runs/${BUILD_ID.split("-")[0]}"
 final String BRANCH_URL = "https://github.com/${REPO}/tree/${BRANCH}"
 final String ISSUE_LABEL = "build/${BRANCH}"
@@ -60,10 +61,10 @@ final GHRepository repository = github.getRepository(REPO)
 final String camelQuarkusCommit = "git rev-parse HEAD".execute().text
 
 GHIssue issue = null
-def issues = repository.getIssues(GHIssueState.ALL)
+def issues = repository.getIssues(GHIssueState.OPEN)
 issues.each { i ->
     i.getLabels().each { label ->
-        if (label.getName() == ISSUE_LABEL && i.getState() == GHIssueState.OPEN) {
+        if (label.getName() == ISSUE_LABEL) {
             issue = i
             return
         }
@@ -85,7 +86,7 @@ if (STATUS == "failure") {
 * Link to build: ${ACTIONS_URL}
 """
 
-        issue = repository.createIssue("[CI] - Quarkus Master Branch Build Failure")
+        issue = repository.createIssue("[CI] - ${BRANCH_NAME} Branch Build Failure")
                 .body(issueBody)
                 .label(ISSUE_LABEL)
                 .create();
