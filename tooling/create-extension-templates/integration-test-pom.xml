@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>[=itestParentArtifactId]</artifactId>
+        <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>[=version]</version>
     </parent>
 
