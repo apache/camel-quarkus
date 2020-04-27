@@ -137,12 +137,21 @@
             </build>
         </profile>
         <profile>
+            <id>kudu-native-java9-onward</id>
+            <activation>
+                <jdk>[9,)</jdk>
+            </activation>
+            <properties>
+                <quarkus.native.additional-build-args>-H:ReflectionConfigurationFiles=reflection-config-jdk9-onward.json</quarkus.native.additional-build-args>
+            </properties>
+        </profile>
+        <profile>
             <id>kudu-native-java8</id>
             <activation>
                 <jdk>1.8</jdk>
             </activation>
             <properties>
-                <quarkus.native.additional-build-args>-H:ReflectionConfigurationFiles=reflection-config.json</quarkus.native.additional-build-args>
+                <quarkus.native.additional-build-args>-H:ReflectionConfigurationFiles=reflection-config-jdk8.json</quarkus.native.additional-build-args>
             </properties>
         </profile>
     </profiles>
