@@ -2,7 +2,14 @@
 = Apache Camel Quarkus release process
 
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see
-https://camel.apache.org/manual/latest/release-guide.html
+https://camel.apache.org/manual/latest/release-guide.html With Camel Quarkus, adding `-Prelease` to
+`release:prepare` and `release:perform` is not necessary. Given that you want to release version `0.1.0`,
+the release command would be the following:
+
+[source,shell]
+----
+$ mvn clean release:clean release:prepare -DreleaseVersion=0.1.0 -DdevelopmentVersion=0.2.0-SNAPSHOT -B release:perform
+----
 
 In addition to the above, the following step is needed:
 
