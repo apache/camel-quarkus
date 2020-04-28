@@ -105,7 +105,7 @@
         <mycila-license.version>3.0</mycila-license.version>
         <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
-        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
@@ -227,6 +227,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>${maven-deploy-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>${maven-javadoc-plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -566,6 +572,7 @@
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <configuration>
                             <release>8</release>
+                            <detectOfflineLinks>false</detectOfflineLinks>
                         </configuration>
                     </plugin>
                 </plugins>
@@ -707,7 +714,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>${maven-javadoc-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
@@ -718,6 +724,7 @@
                         </executions>
                         <configuration>
                             <additionalOptions>${javadoc.opts}</additionalOptions>
+                            <detectOfflineLinks>false</detectOfflineLinks>
                         </configuration>
                     </plugin>
                     <!-- We want to sign the artifact, the POM, and all attached artifacts -->
@@ -774,6 +781,7 @@
                                 </goals>
                                 <configuration>
                                     <additionalOptions>${javadoc.opts}</additionalOptions>
+                                    <detectOfflineLinks>false</detectOfflineLinks>
                                 </configuration>
                             </execution>
                         </executions>
