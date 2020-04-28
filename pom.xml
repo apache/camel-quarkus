@@ -110,6 +110,7 @@
         <maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <cq-plugin.version>0.2.0</cq-plugin.version>
@@ -233,6 +234,23 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                    <configuration>
+                        <!-- release:prepare config -->
+                        <preparationGoals>clean package</preparationGoals>
+                        <waitBeforeTagging>10</waitBeforeTagging>
+                        <!-- release:perform config -->
+                        <useReleaseProfile>true</useReleaseProfile>
+                        <releaseProfiles>apache-release</releaseProfiles>
+                        <goals>deploy</goals>
+                        <!-- Both release:prepare and release:perform config -->
+                        <arguments>-DskipTests -Denforce=false -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
+                    </configuration>
                 </plugin>
 
                 <plugin>
@@ -425,38 +443,6 @@
     </build>
 
     <profiles>
-        <profile>
-            <id>apache-release</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <version>${maven-assembly-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>source-release-assembly</id>
-                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
-                            </execution>
-                            <execution>
-                                <id>camel-quarkus-source-release-assembly</id>
-                                <phase>package</phase>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                                <configuration>
-                                    <descriptors>
-                                        <descriptor>tooling/descriptors/src.xml</descriptor>
-                                    </descriptors>
-                                    <tarLongFileMode>gnu</tarLongFileMode>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
         <profile>
             <!-- To disable sanity checks while building: add '-Denforce=false' to the command line -->
             <id>enforce</id>
@@ -680,14 +666,40 @@
             </build>
         </profile>
         <profile>
-            <id>release</id>
+            <id>apache-release</id>
             <activation>
                 <property>
-                    <name>release</name>
+                    <name>apache-release</name>
                 </property>
             </activation>
             <build>
                 <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>${maven-assembly-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>source-release-assembly</id>
+                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
+                            </execution>
+                            <execution>
+                                <id>camel-quarkus-source-release-assembly</id>
+                                <phase>package</phase>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <descriptors>
+                                        <descriptor>tooling/descriptors/src.xml</descriptor>
+                                    </descriptors>
+                                    <tarLongFileMode>gnu</tarLongFileMode>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <!-- We want to deploy the artifact to a staging location for perusal -->
                     <plugin>
                         <inherited>true</inherited>
