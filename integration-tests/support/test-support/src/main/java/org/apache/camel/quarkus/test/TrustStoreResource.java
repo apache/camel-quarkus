@@ -24,8 +24,6 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 
-import static org.apache.camel.util.ObjectHelper.isNotEmpty;
-
 /**
  * Native images built using a docker container end up with {@code javax.net.ssl.trustStore} system property
  * pointing to a non-existing file; see https://quarkus.io/guides/native-and-ssl For that case, we have to set
@@ -42,11 +40,14 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
 
         Path trustStorePath;
 
-        if (isNotEmpty(graalVmHome) && Files.exists(trustStorePath = Paths.get(graalVmHome).resolve(CACERTS_REL_PATH))) {
+        if (graalVmHome != null && !graalVmHome.isEmpty()
+                && Files.exists(trustStorePath = Paths.get(graalVmHome).resolve(CACERTS_REL_PATH))) {
             // empty body
-        } else if (isNotEmpty(javaHome) && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH))) {
+        } else if (javaHome != null && !javaHome.isEmpty()
+                && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH))) {
             // empty body
-        } else if (isNotEmpty(javaHome) && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH_ALT))) {
+        } else if (javaHome != null && !javaHome.isEmpty()
+                && Files.exists(trustStorePath = Paths.get(javaHome).resolve(CACERTS_REL_PATH_ALT))) {
             // empty body
         } else {
             throw new IllegalStateException(
@@ -62,4 +63,5 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public void stop() {
     }
+
 }
