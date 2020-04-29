@@ -93,6 +93,7 @@ $ {
 8. Check `extensions/$\{EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml`:
 * Ensure guide is set to `"https://quarkus.io/guides/camel"`
 * Ensure keyword `camel` is present
+* Ensure `unlisted` is NOT present
 * Remove the `preview` status
 
 9. Add itests to `.github/test-categories.yaml`, for instance:
