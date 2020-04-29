@@ -39,18 +39,6 @@
         <mvnd.builder.rule>camel-quarkus-file-deployment,camel-quarkus-file-watch-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

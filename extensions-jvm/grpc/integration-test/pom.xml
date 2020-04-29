@@ -21,8 +21,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-grpc-parent</artifactId>
+        <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
     <artifactId>camel-quarkus-grpc-integration-test</artifactId>
@@ -38,18 +39,6 @@
         <!--     mvn process-resources -Pformat    from the root directory -->
         <mvnd.builder.rule>camel-quarkus-grpc-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
         <dependency>

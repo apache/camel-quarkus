@@ -21,8 +21,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-debezium-sqlserver-parent</artifactId>
+        <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>1.1.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
     <artifactId>camel-quarkus-debezium-sqlserver-integration-test</artifactId>
