@@ -127,6 +127,11 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
                             final DataFormatModel delegate = (DataFormatModel) m.delegate;
                             delegate.setName("bindy");
                         }
+                        // TODO: Fix typo in ES REST metadata. Remove for Camel 3.3.0.
+                        if (m.delegate.getName().equals("elasticsearch-rest")) {
+                            final ComponentModel delegate = (ComponentModel) m.delegate;
+                            delegate.setTitle("Elasticsearch Rest");
+                        }
                     })
                     .sorted()
                     .collect(Collectors.toList());

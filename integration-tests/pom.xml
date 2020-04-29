@@ -74,6 +74,7 @@
         <module>dataformat</module>
         <module>dataformats-json</module>
         <module>dozer</module>
+        <module>elasticsearch-rest</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
