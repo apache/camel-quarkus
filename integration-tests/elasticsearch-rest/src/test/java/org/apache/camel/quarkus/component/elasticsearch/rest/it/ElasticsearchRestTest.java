@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.is;
 class ElasticsearchRestTest {
 
     @Test
-    public void loadComponentElasticsearchRest() {
+    public void testElasticsearchRestComponent() {
         String message = "Hello Camel Quarkus Elasticsearch";
 
         // Index data
