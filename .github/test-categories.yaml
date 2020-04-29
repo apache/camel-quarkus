@@ -22,6 +22,7 @@ categories:
     - aws2
     - azure
     - consul
+    - elasticsearch-rest
   core:
     - core
     - core-impl

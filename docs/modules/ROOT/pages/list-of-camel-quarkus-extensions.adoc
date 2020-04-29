@@ -241,9 +241,9 @@ Level | Since | Description
 `dozer:name` | Native +
  Stable | 1.0.0-M1 | The dozer component provides the ability to map between Java beans using the Dozer mapping library.
 
-| link:https://camel.apache.org/components/latest/elasticsearch-rest-component.html[Elastichsearch Rest] (camel-quarkus-elasticsearch-rest) +
-`elasticsearch-rest:clusterName` | JVM +
- Preview | 1.0.0-M6 | The elasticsearch component is used for interfacing with ElasticSearch server using REST API.
+| link:https://camel.apache.org/components/latest/elasticsearch-rest-component.html[Elasticsearch Rest] (camel-quarkus-elasticsearch-rest) +
+`elasticsearch-rest:clusterName` | Native +
+ Stable | 1.0.0-M6 | The elasticsearch component is used for interfacing with ElasticSearch server using REST API.
 
 | link:https://camel.apache.org/components/latest/exec-component.html[Exec] (camel-quarkus-exec) +
 `exec:executable` | Native +

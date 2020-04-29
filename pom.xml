@@ -46,6 +46,7 @@
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.11.5</awssdk2.version>
         <camel.version>3.2.0</camel.version>
+        <elasticsearch.version>7.6.1</elasticsearch.version>
         <freemarker.version>2.3.30</freemarker.version>
         <github-api.version>1.111</github-api.version>
         <google-http-client.version>1.22.0</google-http-client.version>

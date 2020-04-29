@@ -70,6 +70,7 @@
         <module>dataformat</module>
         <module>direct</module>
         <module>dozer</module>
+        <module>elasticsearch-rest</module>
         <module>endpointdsl</module>
         <module>exec</module>
         <module>fhir</module>
