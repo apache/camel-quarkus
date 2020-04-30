@@ -106,6 +106,7 @@
                     <version>${formatter-maven-plugin.version}</version>
                     <configuration>
                         <configFile>${camel.quarkus.project.root}/tooling/eclipse-formatter-config.xml</configFile>
+                        <skip>${format.skip}</skip>
                     </configuration>
                 </plugin>
                 <plugin>
@@ -117,6 +118,7 @@
                         <removeUnused>true</removeUnused>
                         <staticAfter>true</staticAfter>
                         <staticGroups>java.,javax.,org.w3c.,org.xml.,junit.</staticGroups>
+                        <skip>${format.skip}</skip>
                     </configuration>
                 </plugin>
             </plugins>

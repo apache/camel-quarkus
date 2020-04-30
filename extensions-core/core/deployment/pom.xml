@@ -49,7 +49,7 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc-deployment</artifactId>
         </dependency>
-        <dependency>
+        <dependency><!-- temporary fix for #1161, remove with Camel 3.3 -->
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-jaxb-deployment</artifactId>
         </dependency>
