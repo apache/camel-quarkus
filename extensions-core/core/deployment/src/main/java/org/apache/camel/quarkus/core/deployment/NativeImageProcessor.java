@@ -190,21 +190,22 @@ public class NativeImageProcessor {
 
             if (config.runtimeCatalog.models) {
                 for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-                    final Path root = archive.getArchiveRoot();
-                    final Path resourcePath = root.resolve(CamelContextHelper.MODEL_DOCUMENTATION_PREFIX);
+                    for (Path root : archive.getRootDirs()) {
+                        final Path resourcePath = root.resolve(CamelContextHelper.MODEL_DOCUMENTATION_PREFIX);
 
-                    if (!Files.isDirectory(resourcePath)) {
-                        continue;
+                        if (!Files.isDirectory(resourcePath)) {
+                            continue;
+                        }
+
+                        List<String> items = CamelSupport.safeWalk(resourcePath)
+                                .filter(Files::isRegularFile)
+                                .map(root::relativize)
+                                .map(Path::toString)
+                                .collect(Collectors.toList());
+
+                        LOGGER.debug("Register catalog json: {}", items);
+                        resources.add(new NativeImageResourceBuildItem(items));
                     }
-
-                    List<String> items = CamelSupport.safeWalk(resourcePath)
-                            .filter(Files::isRegularFile)
-                            .map(root::relativize)
-                            .map(Path::toString)
-                            .collect(Collectors.toList());
-
-                    LOGGER.debug("Register catalog json: {}", items);
-                    resources.add(new NativeImageResourceBuildItem(items));
                 }
             }
 
@@ -229,15 +230,17 @@ public class NativeImageProcessor {
             PathFilter pathFilter = builder.build();
 
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getArchiveLocation());
+                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths());
 
-                final Path rootPath = archive.getArchiveRoot();
-                Stream<Path> resourceStream = CamelSupport.safeWalk(rootPath).filter(path -> Files.isRegularFile(path));
-                resourceStream.map(rootPath::relativize).filter(pathFilter.asPathPredicate())
-                        .forEach(filteredPath -> {
-                            resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
-                            LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
-                        });
+                for (Path rootPath : archive.getRootDirs()) {
+                    CamelSupport.safeWalk(rootPath).filter(path -> Files.isRegularFile(path))
+                            .map(rootPath::relativize)
+                            .filter(pathFilter.asPathPredicate())
+                            .forEach(filteredPath -> {
+                                resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
+                                LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
+                            });
+                }
             }
         }
 
@@ -264,13 +267,14 @@ public class NativeImageProcessor {
             final PathFilter pathFilter = builder.build();
 
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getArchiveLocation());
+                LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths());
 
-                final Path rootPath = archive.getArchiveRoot();
-                String[] selectedClassNames = pathFilter.scanClassNames(rootPath, CamelSupport.safeWalk(rootPath),
-                        Files::isRegularFile);
-                if (selectedClassNames.length > 0) {
-                    reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
+                for (Path rootPath : archive.getRootDirs()) {
+                    String[] selectedClassNames = pathFilter.scanClassNames(rootPath, CamelSupport.safeWalk(rootPath),
+                            Files::isRegularFile);
+                    if (selectedClassNames.length > 0) {
+                        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
+                    }
                 }
             }
         }

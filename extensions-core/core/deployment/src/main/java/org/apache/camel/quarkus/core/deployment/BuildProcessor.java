@@ -249,20 +249,22 @@ class BuildProcessor {
             // any discovery at runtime.
             //
             for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
-                Path path = archive.getArchiveRoot().resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
-                if (!Files.isRegularFile(path)) {
-                    continue;
-                }
+                for (Path root : archive.getRootDirs()) {
+                    Path path = root.resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
+                    if (!Files.isRegularFile(path)) {
+                        continue;
+                    }
 
-                try {
-                    Files.readAllLines(path, StandardCharsets.UTF_8).stream()
-                            .map(String::trim)
-                            .filter(l -> !l.isEmpty())
-                            .filter(l -> !l.startsWith("#"))
-                            .map(l -> (Class<? extends TypeConverterLoader>) recorderContext.classProxy(l))
-                            .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
-                } catch (IOException e) {
-                    throw new RuntimeException("Error discovering TypeConverterLoader", e);
+                    try {
+                        Files.readAllLines(path, StandardCharsets.UTF_8).stream()
+                                .map(String::trim)
+                                .filter(l -> !l.isEmpty())
+                                .filter(l -> !l.startsWith("#"))
+                                .map(l -> (Class<? extends TypeConverterLoader>) recorderContext.classProxy(l))
+                                .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error discovering TypeConverterLoader", e);
+                    }
                 }
             }
 
