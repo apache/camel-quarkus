@@ -630,8 +630,8 @@ Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 | Data Format | Target +
 Level | Since | Description
 
-| link:https://camel.apache.org/components/latest/avro-dataformat.html[Avro] (camel-quarkus-avro) | JVM +
- Preview | 1.0.0-M6 | Serialize and deserialize messages using Apache Avro binary data format.
+| xref:extensions/avro.adoc[Avro] (camel-quarkus-avro) | Native +
+ Stable | 1.0.0-M6 | Serialize and deserialize messages using Apache Avro binary data format.
 
 | link:https://camel.apache.org/components/latest/base64-dataformat.html[Base64] (camel-quarkus-base64) | Native +
  Stable | 1.0.0-M1 | Encode and decode data using Base64.

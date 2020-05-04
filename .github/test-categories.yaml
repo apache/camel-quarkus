@@ -38,6 +38,7 @@ database:
   - mongodb
   - sql
 dataformats:
+  - avro
   - base64
   - bindy
   - csv

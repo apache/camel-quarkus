@@ -1,0 +1,38 @@
+[[avro]]
+= Avro Extension
+
+*Since Camel Quarkus 1.0.0-M6*
+
+The Avro extension provides link:https://avro.apache.org/[Avro schema based data serialization].
+
+Maven users will need to add the following dependency to their `pom.xml` for this extension.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-avro</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/dataformats/avro-dataformat.html[Avro Data Format].
+
+=== Configuration
+
+Beyond standard usages described above, Camel Quarkus adds the possibility to parse the Avro schema at build time both in JVM and Native mode via the `@BuildTimeAvroDataFormat` annotation.
+
+For instance below, in the first step the `user.avsc` schema resource is parsed at build time.
+In the second step, an AvroDataFormat instance using the previously parsed schema is injected in the `buildTimeAvroDataFormat` field at runtime. At the end of the day, the injected data format is used
+from the `configure()` method in order to marshal an incoming message.
+[source,java]
+----
+@BuildTimeAvroDataFormat("user.avsc")
+AvroDataFormat buildTimeAvroDataFormat;
+
+@Override
+public void configure() {
+  from("direct:marshalUsingBuildTimeAvroDataFormat").marshal(buildTimeAvroDataFormat);
+}
+----
