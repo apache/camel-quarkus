@@ -222,12 +222,13 @@ public class NativeImageProcessor {
                 return;
             }
 
-            PathFilter.Builder builder = new PathFilter.Builder();
             LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
                     resourcesConfig.includePatterns.get());
-            builder.include(resourcesConfig.includePatterns);
-            builder.exclude(resourcesConfig.excludePatterns);
-            PathFilter pathFilter = builder.build();
+
+            PathFilter pathFilter = new PathFilter.Builder()
+                    .include(resourcesConfig.includePatterns)
+                    .exclude(resourcesConfig.excludePatterns)
+                    .build();
 
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
                 LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths());
