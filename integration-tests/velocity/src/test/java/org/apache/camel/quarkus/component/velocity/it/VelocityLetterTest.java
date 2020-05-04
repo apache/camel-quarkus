@@ -17,21 +17,24 @@
 package org.apache.camel.quarkus.component.velocity.it;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 
-//@QuarkusTest
-class VelocityTest {
+import static org.hamcrest.Matchers.containsString;
 
-    //    @Test
-    //    public void test() {
-    //        final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
-    //        RestAssured.given() //
-    //                .contentType(ContentType.TEXT)
-    //                .body(msg)
-    //                .post("/velocity/post") //
-    //                .then()
-    //                .statusCode(201);
-    //
-    //        Assertions.fail("Add some assertions to " + getClass().getName());
-    //    }
+@QuarkusTest
+public class VelocityLetterTest {
+
+    @Test
+    public void testVelocityLetter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .accept(ContentType.TEXT)
+                .post("/velocity/velocityLetter")
+                .then()
+                .statusCode(200)
+                .body(containsString("Thanks for the order of Camel in Action"));
+    }
 
 }

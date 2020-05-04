@@ -16,54 +16,49 @@
  */
 package org.apache.camel.quarkus.component.velocity.it;
 
-import java.net.URI;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
+import org.apache.camel.builder.RouteBuilder;
 
 @Path("/velocity")
 @ApplicationScoped
-public class VelocityResource {
-
-    private static final Logger LOG = Logger.getLogger(VelocityResource.class);
+public class VelocityLetterResource {
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
-
-    @Path("/get")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("velocity:--fix-me--", String.class);
-        LOG.infof("Received from velocity: %s", message);
-        return message;
-    }
-
-    @Path("/post")
+    @Path("/velocityLetter")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
-        LOG.infof("Sending to velocity: %s", message);
-        final String response = producerTemplate.requestBody("velocity:--fix-me--", message, String.class);
-        LOG.infof("Got response from velocity: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+    public String post(String message) {
+        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getIn().setHeader("firstName", "Claus");
+                exchange.getIn().setHeader("lastName", "Ibsen");
+                exchange.getIn().setHeader("item", "Camel in Action");
+                exchange.getIn().setBody("PS: Next beer is on me, James");
+            }
+        });
+
+        return (String) exchange.getOut().getBody();
+    }
+
+    public static class VelocityRouteBuilder extends RouteBuilder {
+        @Override
+        public void configure() {
+            from("direct:a")
+                    .to("velocity:org/apache/camel/quarkus/component/velocity/it/letter.vm");
+        }
     }
 }

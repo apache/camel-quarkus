@@ -16,12 +16,14 @@
 #
 
 ---
-name: "Velocity"
+name: "Camel Quarkus Velocity"
 description: "Transforms the message using a Velocity template."
 metadata:
   keywords:
+  - "camel"
+  - "velocity"
   - "transformation"
-  guide: "https://camel.apache.org/components/latest/velocity-component.html"
+  guide: "https://quarkus.io/guides/camel"
   categories:
   - "integration"
   status: "stable"

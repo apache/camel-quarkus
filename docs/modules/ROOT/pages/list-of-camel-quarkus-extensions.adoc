@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
+Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -608,6 +608,10 @@ Level | Since | Description
 | link:https://camel.apache.org/components/latest/validator-component.html[Validator] (camel-quarkus-validator) +
 `validator:resourceUri` | Native +
  Stable | 0.4.0 | Validates the payload of a message using XML Schema and JAXP Validation.
+
+| link:https://camel.apache.org/components/latest/velocity-component.html[Velocity] (camel-quarkus-velocity) +
+`velocity:resourceUri` | Native +
+ Stable | 1.0.0-M8 | Transforms the message using a Velocity template.
 
 | link:https://camel.apache.org/components/latest/vm-component.html[VM] (camel-quarkus-vm) +
 `vm:name` | Native +
