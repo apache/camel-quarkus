@@ -38,6 +38,7 @@
         <module>ahc-ws</module>
         <module>amqp</module>
         <module>attachments</module>
+        <module>avro</module>
         <module>aws-ec2</module>
         <module>aws-ecs</module>
         <module>aws-eks</module>
