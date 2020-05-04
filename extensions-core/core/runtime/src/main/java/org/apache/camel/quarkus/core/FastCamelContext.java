@@ -692,6 +692,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         return RouteReifier.adviceWith(definition, this, builder);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void registerValidator(ValidatorDefinition def) {
         model.getValidators().add(def);
@@ -703,6 +704,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         return new ValidatorKey(new DataType(def.getType()));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void registerTransformer(TransformerDefinition def) {
         model.getTransformers().add(def);
