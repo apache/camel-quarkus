@@ -64,26 +64,27 @@ public final class CamelSupport {
         final Predicate<Path> filter = pathFilter.asPathPredicate();
 
         for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-            final Path root = archive.getArchiveRoot();
-            final Path resourcePath = root.resolve(CAMEL_SERVICE_BASE_PATH);
+            for (Path root : archive.getRootDirs()) {
+                final Path resourcePath = root.resolve(CAMEL_SERVICE_BASE_PATH);
 
-            if (!Files.isDirectory(resourcePath)) {
-                continue;
-            }
-
-            safeWalk(resourcePath).filter(Files::isRegularFile).forEach(file -> {
-                // the root archive may point to a jar file or the absolute path of
-                // a project's build output so we need to relativize to make the
-                // FastFactoryFinder work as expected
-                Path key = root.relativize(file);
-
-                if (filter.test(key)) {
-                    String clazz = readProperties(file).getProperty("class");
-                    if (clazz != null) {
-                        answer.add(new CamelServiceBuildItem(key, clazz));
-                    }
+                if (!Files.isDirectory(resourcePath)) {
+                    continue;
                 }
-            });
+
+                safeWalk(resourcePath).filter(Files::isRegularFile).forEach(file -> {
+                    // the root archive may point to a jar file or the absolute path of
+                    // a project's build output so we need to relativize to make the
+                    // FastFactoryFinder work as expected
+                    Path key = root.relativize(file);
+
+                    if (filter.test(key)) {
+                        String clazz = readProperties(file).getProperty("class");
+                        if (clazz != null) {
+                            answer.add(new CamelServiceBuildItem(key, clazz));
+                        }
+                    }
+                });
+            }
         }
 
         return answer.stream();
