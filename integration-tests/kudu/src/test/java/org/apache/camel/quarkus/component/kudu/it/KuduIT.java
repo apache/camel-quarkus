@@ -16,11 +16,11 @@
  */
 package org.apache.camel.quarkus.component.kudu.it;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @NativeImageTest
-@DisabledOnNativeImage("Manual setup could be needed, please look at KuduInfrastructureTestHelper")
+@EnabledIfSystemProperty(named = "java.runtime.name", matches = ".*OpenJDK.*")
 class KuduIT extends KuduTest {
 
 }
