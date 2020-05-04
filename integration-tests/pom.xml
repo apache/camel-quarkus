@@ -124,6 +124,7 @@
         <module>telegram</module>
         <module>twitter</module>
         <module>validator</module>
+        <module>velocity</module>
         <module>websocket-jsr356</module>
         <module>xml</module>
         <module>xstream</module>
