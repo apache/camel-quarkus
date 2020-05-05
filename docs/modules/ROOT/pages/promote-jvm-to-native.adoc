@@ -97,13 +97,12 @@ $ {
 * Ensure `unlisted` is NOT present
 * Remove the `preview` status
 
-9. Add itests to `.github/test-categories.yaml`, for instance:
+9. Add the integration test to an existing or new test category in `.github/test-categories.yaml`, for instance:
 +
 [source,yaml]
 ----
-categories:
-  rpc:
-    - grpc
+rpc:
+  - grpc
 ----
 
 10. Unify source files format, update docs and rebuild the whole project:

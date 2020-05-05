@@ -23,7 +23,7 @@ on:
     - cron: '0 */4 * * *'
 
 jobs:
-  pruge-stale-build-artifacts:
+  purge-stale-build-artifacts:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     steps:
