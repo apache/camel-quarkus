@@ -48,17 +48,9 @@ class Aws2SnsProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
-        return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
     @BuildStep(applicationArchiveMarkers = { AWS_SDK_APPLICATION_ARCHIVE_MARKERS })
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
-            BuildProducer<ExtensionSslNativeSupportBuildItem> extensionSslNativeSupport,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
-            BuildProducer<FeatureBuildItem> feature,
-            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
             BuildProducer<NativeImageResourceBuildItem> resource) {
 
         INTERCEPTOR_PATHS.forEach(path -> resource.produce(new NativeImageResourceBuildItem(path)));
