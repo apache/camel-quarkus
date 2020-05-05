@@ -16,98 +16,97 @@
 #
 
 # Association of test categories and integration test modules. Used by GitHub workflows.
-categories:
-  cloud:
-    - aws
-    - aws2
-    - azure
-    - consul
-    - elasticsearch-rest
-  core:
-    - core
-    - core-impl
-    - core-main
-    - core-main-caffeine-lrucache
-    - core-main-collector
-    - core-main-xml-io
-    - core-main-xml-jaxb
-  database:
-    - couchdb
-    - influxdb
-    - jdbc
-    - kudu
-    - mongodb
-    - sql
-  dataformats:
-    - base64
-    - bindy
-    - csv
-    - dataformat
-    - jaxb
-    - xstream
-    - soap
-  foundation:
-    - bean
-    - controlbus
-    - exec
-    - file
-    - hystrix
-    - jsonpath
-    - quartz
-    - scheduler
-    - seda
-    - send-dynamic-http
-    - ref
-  memoryhog-dataformat-json:
-    - dataformats-json
-  memoryhog-dozer:
-    - dozer
-  memoryhog-infinispan:
-    - infinispan
-  memoryhog-olingo4:
-    - olingo4
-  memoryhog-xml:
-    - rest-binding-mode-xml
-    - xml
-  messaging:
-    - activemq
-    - amqp
-    - kafka
-    - messaging
-  misc:
-    - braintree
-    - compression
-    - graphql
-    - mustache
-    - pdf
-    - qute
-    - stream
-    - tarfile
-  networking:
-    - ftp
-    - http
-    - mail
-    - netty
-    - servlet
-    - websocket-jsr356
-  platform:
-    - microprofile
-    - opentracing
-    - platform-http
-    - platform-http-engine
-    - reactive-streams
-  saas:
-    - box
-    - github
-    - google
-    - jira
-    - salesforce
-    - sap-netweaver
-    - servicenow
-    - slack
-  social:
-    - telegram
-    - twitter
-  validation:
-    - bean-validator
-    - validator
+cloud:
+  - aws
+  - aws2
+  - azure
+  - consul
+  - elasticsearch-rest
+core:
+  - core
+  - core-impl
+  - core-main
+  - core-main-caffeine-lrucache
+  - core-main-collector
+  - core-main-xml-io
+  - core-main-xml-jaxb
+database:
+  - couchdb
+  - influxdb
+  - jdbc
+  - kudu
+  - mongodb
+  - sql
+dataformats:
+  - base64
+  - bindy
+  - csv
+  - dataformat
+  - jaxb
+  - xstream
+  - soap
+foundation:
+  - bean
+  - controlbus
+  - exec
+  - file
+  - hystrix
+  - jsonpath
+  - quartz
+  - scheduler
+  - seda
+  - send-dynamic-http
+  - ref
+memoryhog-dataformat-json:
+  - dataformats-json
+memoryhog-dozer:
+  - dozer
+memoryhog-infinispan:
+  - infinispan
+memoryhog-olingo4:
+  - olingo4
+memoryhog-xml:
+  - rest-binding-mode-xml
+  - xml
+messaging:
+  - activemq
+  - amqp
+  - kafka
+  - messaging
+misc:
+  - braintree
+  - compression
+  - graphql
+  - mustache
+  - pdf
+  - qute
+  - stream
+  - tarfile
+networking:
+  - ftp
+  - http
+  - mail
+  - netty
+  - servlet
+  - websocket-jsr356
+platform:
+  - microprofile
+  - opentracing
+  - platform-http
+  - platform-http-engine
+  - reactive-streams
+saas:
+  - box
+  - github
+  - google
+  - jira
+  - salesforce
+  - sap-netweaver
+  - servicenow
+  - slack
+social:
+  - telegram
+  - twitter
+validation:
+  - bean-validator
+  - validator

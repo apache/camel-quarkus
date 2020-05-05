@@ -35,7 +35,7 @@ final Yaml parser = new Yaml()
 def testCategoryConfig = parser.load((jobDefPath.toFile()).text)
 
 def modules = []
-testCategoryConfig['categories'].each { k, v ->
+testCategoryConfig.each { k, v ->
     v.each {
         modules << it
     }

@@ -31,6 +31,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MAVEN_OPTS: -Xmx3000m
+    outputs:
+      matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
       - name: Clean VM
         run: |
@@ -80,6 +82,13 @@ jobs:
         with:
           name: maven-repo
           path: maven-repo.tgz
+      - name: Setup Native Test Matrix
+        id: set-native-matrix
+        run: |
+          sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
+          sudo chmod +x /usr/local/bin/yq
+          CATEGORIES=$(cat .github/test-categories.yaml | yq r - --printMode p "*." | sed "s/\(.*\)/'\1'/" | sed ':a;N;$!ba;s/\n/,/g')
+          echo "::set-output name=matrix::{'category': [${CATEGORIES}]}"
       - name: Report Build Failure
         if: failure()
         run: |
@@ -96,25 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
-      matrix:
-        category: 
-          - core
-          - foundation
-          - platform
-          - messaging
-          - database
-          - dataformats
-          - networking
-          - cloud
-          - misc
-          - saas
-          - social
-          - validation
-          - memoryhog-dozer
-          - memoryhog-dataformat-json
-          - memoryhog-infinispan
-          - memoryhog-olingo4
-          - memoryhog-xml
+      matrix: ${{ fromJson(needs.build.outputs.matrix) }}
     steps:
       - name: Download Maven Repo
         uses: actions/download-artifact@v1
@@ -146,7 +137,7 @@ jobs:
       - name: Integration Tests
         run: |
           TEST_MODULES=""
-          for MODULE in $(cat .github/test-categories.yaml | yq r - categories.${{ matrix.category }}); do
+          for MODULE in $(cat .github/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
             if [ "${MODULE}" == "-" ]; then
               continue
             fi
