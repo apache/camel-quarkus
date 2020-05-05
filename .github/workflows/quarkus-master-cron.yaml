@@ -76,7 +76,10 @@ jobs:
           ./mvnw -B -ntp clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs'
       - name: Tar Maven Repo
         shell: bash
-        run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
+        run: |
+          tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
+          ls -lh maven-repo.tgz
+          df -h
       - name: Persist Maven Repo
         uses: actions/upload-artifact@v1
         with:
