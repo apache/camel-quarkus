@@ -91,7 +91,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -156,7 +156,7 @@ jobs:
       - name: Report Build Failure
         if: failure()
         run: |
-          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
+          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -184,7 +184,7 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master
+          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
       - name: Sync branch Master to Camel Master
         if: steps.report.outputs.overall_build_status == 'success'
         run: |

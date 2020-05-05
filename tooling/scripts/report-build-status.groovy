@@ -36,6 +36,7 @@ final String BUILD_ID = properties['buildId']
 final String REPO = properties['repo']
 final String BRANCH = properties['branch']
 final String BRANCH_NAME = "${BRANCH.split('-')[0].capitalize()} ${BRANCH.split('-')[1].capitalize()}"
+final String BRANCH_COMMIT = properties['branch-commit']
 final String ACTIONS_URL = "https://github.com/${REPO}/actions/runs/${BUILD_ID.split("-")[0]}"
 final String BRANCH_URL = "https://github.com/${REPO}/tree/${BRANCH}"
 final String ISSUE_LABEL = "build/${BRANCH}"
@@ -82,7 +83,8 @@ if (STATUS == "failure") {
         final String issueBody = """The [${BRANCH}](${BRANCH_URL}) branch build is failing:
 
 * Build ID: ${BUILD_ID}
-* Commit: ${camelQuarkusCommit}
+* Camel Quarkus Commit: ${camelQuarkusCommit}
+* ${BRANCH_NAME} Commit: ${BRANCH_COMMIT}
 * Link to build: ${ACTIONS_URL}
 """
 
@@ -99,7 +101,8 @@ if (STATUS == "failure") {
             issue.comment("""The [${BRANCH}](${BRANCH_URL}) branch build is still failing:
 
 * Build ID: ${BUILD_ID}
-* Commit: ${camelQuarkusCommit}
+* Camel Quarkus Commit: ${camelQuarkusCommit}
+* ${BRANCH_NAME} Commit: ${BRANCH_COMMIT}
 * Link to build: ${ACTIONS_URL}""")
 
             println("Commented on issue ${issue.getHtmlUrl()}")
@@ -116,7 +119,8 @@ if (STATUS == "verify") {
         } else {
             final GHIssueComment comment = issue.comment("""Build fixed with:
 
-* Commit: ${camelQuarkusCommit}
+* Camel Quarkus Commit: ${camelQuarkusCommit}
+* ${BRANCH_NAME} Commit: ${BRANCH_COMMIT}
 * Link to build: ${ACTIONS_URL}""")
             issue.close()
             println("Comment added on issue ${issue.getHtmlUrl()} - ${comment.getHtmlUrl()}, the issue has also been closed")
