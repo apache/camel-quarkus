@@ -16,22 +16,29 @@
  */
 package org.apache.camel.quarkus.component.velocity.it;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.equalTo;
+
+import org.junit.jupiter.api.Test;
+
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 
-//@QuarkusTest
-class VelocityTest {
+@QuarkusTest
+public class VelocityBodyAsDomainObjectTest {
 
-    //    @Test
-    //    public void test() {
-    //        final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
-    //        RestAssured.given() //
-    //                .contentType(ContentType.TEXT)
-    //                .body(msg)
-    //                .post("/velocity/post") //
-    //                .then()
-    //                .statusCode(201);
-    //
-    //        Assertions.fail("Add some assertions to " + getClass().getName());
-    //    }
+    @Test
+    public void testBodyAsDomainObject() {
+        String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.", "\n");
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .accept(ContentType.TEXT)
+                .post("/velocity/bodyAsDomainObject")
+                .then()
+                .statusCode(200)
+                .body(equalTo(msg));
+    }
 
 }

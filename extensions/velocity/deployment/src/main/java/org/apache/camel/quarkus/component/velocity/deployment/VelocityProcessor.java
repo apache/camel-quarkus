@@ -34,8 +34,6 @@ class VelocityProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
-                Exchange.class,
-                DefaultExchange.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, Exchange.class, DefaultExchange.class));
     }
 }

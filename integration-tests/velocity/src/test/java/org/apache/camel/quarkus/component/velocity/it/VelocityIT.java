@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.velocity.it;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class VelocityIT extends VelocityTest {
+class VelocityIT {
 
 }
