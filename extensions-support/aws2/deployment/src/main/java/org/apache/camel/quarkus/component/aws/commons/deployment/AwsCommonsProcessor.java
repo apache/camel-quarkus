@@ -21,6 +21,7 @@ import javax.enterprise.inject.spi.DeploymentException;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
@@ -35,6 +36,11 @@ class AwsCommonsProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+    
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 
     @BuildStep
