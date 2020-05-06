@@ -37,7 +37,7 @@ class AwsCommonsProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
-    
+
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
