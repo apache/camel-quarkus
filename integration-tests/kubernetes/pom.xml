@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-kubernetes</artifactId>
-    <name>Camel Quarkus :: Integration Test :: Kubernetes</name>
+    <name>Camel Quarkus :: Integration Tests :: Kubernetes</name>
     <description>Integration tests for Camel Quarkus Kubernetes extension</description>
 
     <properties>

@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-couchdb</artifactId>
-    <name>Camel Quarkus :: Integration Test :: CouchDB</name>
+    <name>Camel Quarkus :: Integration Tests :: CouchDB</name>
     <description>Integration tests for Camel Quarkus CouchDB extension</description>
 
     <properties>
