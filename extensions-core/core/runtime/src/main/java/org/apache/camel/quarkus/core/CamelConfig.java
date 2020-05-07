@@ -63,6 +63,13 @@ public class CamelConfig {
         public boolean enabled;
 
         /**
+         * If {@code true}, the camel context will be started at initialization time
+         * to boot up faster.
+         */
+        @ConfigItem
+        public boolean lightweight;
+
+        /**
          * Build time configuration options for routes discovery.
          */
         @ConfigItem

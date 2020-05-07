@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jdbc.deployment;
 
+import javax.sql.DataSource;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.component.jdbc.runtime.DataSourceProxy;
+import org.apache.camel.quarkus.core.deployment.spi.CamelLazyProxyBuildItem;
 
 class JdbcProcessor {
 
@@ -26,6 +30,11 @@ class JdbcProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CamelLazyProxyBuildItem proxyDataSource() {
+        return new CamelLazyProxyBuildItem(DataSource.class.getName(), DataSourceProxy.class.getName());
     }
 
 }

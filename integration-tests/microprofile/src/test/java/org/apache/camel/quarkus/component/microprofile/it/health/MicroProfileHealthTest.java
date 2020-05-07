@@ -19,6 +19,9 @@ package org.apache.camel.quarkus.component.microprofile.it.health;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -27,6 +30,13 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class MicroProfileHealthTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "TODO: Disabled in lightweight mode");
+    }
 
     @Test
     public void testHealthUpStatus() {

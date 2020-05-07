@@ -16,27 +16,29 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.*;
+
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.CamelContext;
-import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.*;
+import org.apache.camel.impl.engine.DefaultRoute;
+import org.apache.camel.impl.engine.RouteService;
+import org.apache.camel.impl.lw.LightweightCamelContext;
+import org.apache.camel.impl.lw.LightweightRuntimeCamelContext;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
+import org.apache.camel.processor.channel.DefaultChannel;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
-import org.apache.camel.spi.FactoryFinderResolver;
-import org.apache.camel.spi.ModelJAXBContextFactory;
-import org.apache.camel.spi.ModelToXMLDumper;
-import org.apache.camel.spi.Registry;
-import org.apache.camel.spi.TypeConverterLoader;
-import org.apache.camel.spi.TypeConverterRegistry;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
+import org.apache.camel.spi.*;
+import org.apache.camel.support.EventHelper;
+import org.apache.camel.support.service.ServiceHelper;
 
 @Recorder
 public class CamelRecorder {
-    public RuntimeValue<Registry> createRegistry() {
+    public RuntimeValue<RuntimeRegistry> createRegistry() {
         return new RuntimeValue<>(new RuntimeRegistry());
     }
 
@@ -59,7 +61,7 @@ public class CamelRecorder {
 
     @SuppressWarnings("unchecked")
     public RuntimeValue<CamelContext> createContext(
-            RuntimeValue<Registry> registry,
+            RuntimeValue<RuntimeRegistry> registry,
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
             RuntimeValue<XMLRoutesDefinitionLoader> xmlLoader,
@@ -69,13 +71,23 @@ public class CamelRecorder {
             String version,
             CamelConfig config) {
 
-        FastCamelContext context = new FastCamelContext(
-                factoryFinderResolver.getValue(),
-                version,
-                xmlLoader.getValue(),
-                xmlModelDumper.getValue());
+        final ExtendedCamelContext context;
+        if (config.main.lightweight) {
+            context = new FastLightweightCamelContext(
+                    factoryFinderResolver.getValue(),
+                    version,
+                    xmlLoader.getValue(),
+                    xmlModelDumper.getValue());
+        } else {
+            context = new FastCamelContext(
+                    null,
+                    factoryFinderResolver.getValue(),
+                    version,
+                    xmlLoader.getValue(),
+                    xmlModelDumper.getValue());
+        }
 
-        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
+        context.setRuntimeCamelCatalog(new CamelRuntimeCatalog(config.runtimeCatalog));
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
@@ -93,16 +105,17 @@ public class CamelRecorder {
     }
 
     public void bind(
-            RuntimeValue<Registry> runtime,
+            RuntimeValue<RuntimeRegistry> runtime,
             String name,
             Class<?> type,
-            Object instance) {
+            Object instance,
+            boolean priority) {
 
-        runtime.getValue().bind(name, type, instance);
+        runtime.getValue().bind(name, type, instance, priority);
     }
 
     public void bind(
-            RuntimeValue<Registry> runtime,
+            RuntimeValue<RuntimeRegistry> runtime,
             String name,
             Class<?> type,
             RuntimeValue<?> instance) {
@@ -111,7 +124,7 @@ public class CamelRecorder {
     }
 
     public void bind(
-            RuntimeValue<Registry> runtime,
+            RuntimeValue<RuntimeRegistry> runtime,
             String name,
             Class<?> type) {
 
@@ -153,5 +166,105 @@ public class CamelRecorder {
 
     public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {
         return new RuntimeValue<>(builder.getValue().build());
+    }
+
+    public void addLazyProxy(RuntimeValue<RuntimeRegistry> registry, Class<?> type, RuntimeValue<?> value) {
+        registry.getValue().addLazyProxy(type, value.getValue());
+    }
+
+    public static class FastLightweightCamelContext extends LightweightCamelContext {
+        public FastLightweightCamelContext(FactoryFinderResolver factoryFinderResolver, String version,
+                XMLRoutesDefinitionLoader xmlLoader, ModelToXMLDumper modelDumper) {
+            super((CamelContext) null);
+            delegate = new FastCamelContextWithRef(FastLightweightCamelContext.this,
+                    factoryFinderResolver, version,
+                    xmlLoader, modelDumper);
+        }
+
+        public void init() {
+            if (delegate instanceof LightweightRuntimeCamelContext) {
+                return;
+            }
+            delegate.init();
+            for (Route route : delegate.getRoutes()) {
+                clearModelReferences(route);
+            }
+            delegate = new QuarkusLightweightRuntimeCamelContext(this, delegate);
+            ReifierStrategy.clearReifiers();
+        }
+
+        private void clearModelReferences(Route r) {
+            if (r instanceof DefaultRoute) {
+                ((DefaultRoute) r).clearModelReferences();
+            }
+            clearModelReferences(r.navigate());
+        }
+
+        private void clearModelReferences(Navigate<Processor> nav) {
+            List<Processor> procs = nav.next();
+            if (procs != null) {
+                for (Processor processor : procs) {
+                    if (processor instanceof DefaultChannel) {
+                        ((DefaultChannel) processor).clearModelReferences();
+                    }
+                    if (processor instanceof Navigate) {
+                        clearModelReferences((Navigate<Processor>) processor);
+                    }
+                }
+            }
+        }
+
+        static class FastCamelContextWithRef extends FastCamelContext {
+            public FastCamelContextWithRef(CamelContext reference, FactoryFinderResolver factoryFinderResolver, String version,
+                    XMLRoutesDefinitionLoader xmlLoader, ModelToXMLDumper modelDumper) {
+                super(reference, factoryFinderResolver, version, xmlLoader, modelDumper);
+                disableJMX();
+            }
+
+            @Override
+            public synchronized void startRouteService(RouteService routeService, boolean addingRoutes) throws Exception {
+                // we may already be starting routes so remember this, so we can unset
+                // accordingly in finally block
+                boolean alreadyStartingRoutes = isStartingRoutes();
+                if (!alreadyStartingRoutes) {
+                    setStartingRoutes(true);
+                }
+                try {
+                    super.startRouteService(routeService, addingRoutes);
+                    routeService.init();
+                    Route route = routeService.getRoute();
+                    ServiceHelper.initService(route);
+                    EventHelper.notifyRouteAdded(this, route);
+                    for (LifecycleStrategy strategy : getLifecycleStrategies()) {
+                        strategy.onRoutesAdd(Collections.singletonList(route));
+                    }
+                    addRoute(route);
+                    getInflightRepository().addRoute(route.getId());
+
+                    List<Service> services = route.getServices();
+                    route.onStartingServices(services);
+                    services.stream()
+                            .map(ServiceHelper::getChildServices)
+                            .flatMap(Set::stream)
+                            .forEach(service -> {
+                                if (service instanceof RouteAware) {
+                                    ((RouteAware) service).setRoute(route);
+                                }
+                                if (service instanceof RouteIdAware) {
+                                    ((RouteIdAware) service).setRouteId(route.getId());
+                                }
+                                if (service instanceof CamelContextAware) {
+                                    ((CamelContextAware) service).setCamelContext(getCamelContextReference());
+                                }
+                                ServiceHelper.initService(service);
+                            });
+
+                } finally {
+                    if (!alreadyStartingRoutes) {
+                        setStartingRoutes(false);
+                    }
+                }
+            }
+        }
     }
 }

@@ -24,10 +24,12 @@ import org.apache.camel.spi.ReactiveExecutor;
 
 @Recorder
 public class ReactiveExecutorRecorder {
-    public RuntimeValue<ReactiveExecutor> createReactiveExecutor(RuntimeValue<Vertx> vertx) {
+    public RuntimeValue<ReactiveExecutor> createReactiveExecutor() {
         VertXReactiveExecutor executor = new VertXReactiveExecutor();
-        executor.setVertx(vertx.getValue());
-
         return new RuntimeValue<>(executor);
+    }
+
+    public void initReactiveExecutor(RuntimeValue<ReactiveExecutor> executor, RuntimeValue<Vertx> vertx) {
+        ((VertXReactiveExecutor) executor.getValue()).setVertx(vertx.getValue());
     }
 }

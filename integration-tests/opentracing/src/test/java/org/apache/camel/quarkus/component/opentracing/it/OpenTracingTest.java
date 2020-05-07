@@ -23,6 +23,9 @@ import io.opentracing.tag.Tags;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,6 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class OpenTracingTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "TODO: Disabled in lightweight mode");
+    }
 
     @Test
     public void testTraceRoute() {

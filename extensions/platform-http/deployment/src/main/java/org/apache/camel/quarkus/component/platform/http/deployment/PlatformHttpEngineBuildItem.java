@@ -19,18 +19,19 @@ package org.apache.camel.quarkus.component.platform.http.deployment;
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
+import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
 
 /**
  * Holds the {@link PlatformHttpEngine} {@link RuntimeValue}.
  */
 public final class PlatformHttpEngineBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<PlatformHttpEngine> instance;
+    private final RuntimeValue<QuarkusPlatformHttpEngine> instance;
 
-    public PlatformHttpEngineBuildItem(RuntimeValue<PlatformHttpEngine> instance) {
+    public PlatformHttpEngineBuildItem(RuntimeValue<QuarkusPlatformHttpEngine> instance) {
         this.instance = instance;
     }
 
-    public RuntimeValue<PlatformHttpEngine> getInstance() {
+    public RuntimeValue<QuarkusPlatformHttpEngine> getInstance() {
         return instance;
     }
 }

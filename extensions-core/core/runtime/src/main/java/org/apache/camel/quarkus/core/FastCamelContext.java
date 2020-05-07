@@ -53,19 +53,22 @@ import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 
 public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
+    private final CamelContext reference;
     private final Model model;
     private final String version;
     private final XMLRoutesDefinitionLoader xmlLoader;
     private final ModelToXMLDumper modelDumper;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, XMLRoutesDefinitionLoader xmlLoader,
+    public FastCamelContext(CamelContext reference, FactoryFinderResolver factoryFinderResolver, String version,
+            XMLRoutesDefinitionLoader xmlLoader,
             ModelToXMLDumper modelDumper) {
         super(false);
 
+        this.reference = reference != null ? reference : this;
         this.version = version;
         this.xmlLoader = xmlLoader;
         this.modelDumper = modelDumper;
-        this.model = new FastModel(this);
+        this.model = new FastModel(this.reference);
 
         setFactoryFinderResolver(factoryFinderResolver);
         setTracing(Boolean.FALSE);
@@ -75,12 +78,30 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     }
 
+    /**
+     * Returns the outer CamelContext to be used for references
+     * when the FastCamelContext is used inside a FastLightweightCamelContext.
+     * This allows the LightweightCamelContext to switch the inner context
+     * to an immutable and lightweight CamelContext.
+     * 
+     * @see CamelRecorder.FastLightweightCamelContext#init()
+     */
+    @Override
+    public CamelContext getCamelContextReference() {
+        return reference;
+    }
+
     @Override
     public <T> T getExtension(Class<T> type) {
         if (type.isInstance(model)) {
             return type.cast(model);
         }
         return super.getExtension(type);
+    }
+
+    @Override
+    public List<StartupListener> getStartupListeners() {
+        return super.getStartupListeners();
     }
 
     @Override
@@ -138,12 +159,12 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected Injector createInjector() {
-        return new DefaultInjector(this);
+        return new DefaultInjector(getCamelContextReference());
     }
 
     @Override
     protected CamelBeanPostProcessor createBeanPostProcessor() {
-        return new DefaultCamelBeanPostProcessor(this);
+        return new DefaultCamelBeanPostProcessor(getCamelContextReference());
     }
 
     @Override
@@ -164,7 +185,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected ClassResolver createClassResolver() {
-        return new DefaultClassResolver(this);
+        return new DefaultClassResolver(getCamelContextReference());
     }
 
     @Override
@@ -189,7 +210,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RouteController createRouteController() {
-        return new DefaultRouteController(this);
+        return new DefaultRouteController(getCamelContextReference());
     }
 
     @Override
@@ -199,7 +220,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected ExecutorServiceManager createExecutorServiceManager() {
-        return new DefaultExecutorServiceManager(this);
+        return new DefaultExecutorServiceManager(getCamelContextReference());
     }
 
     @Override
@@ -301,7 +322,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected EndpointRegistry<EndpointKey> createEndpointRegistry(Map<EndpointKey, Endpoint> endpoints) {
-        return new DefaultEndpointRegistry(this, endpoints);
+        return new DefaultEndpointRegistry(getCamelContextReference(), endpoints);
     }
 
     @Override
@@ -311,12 +332,12 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected TransformerRegistry<TransformerKey> createTransformerRegistry() {
-        return new DefaultTransformerRegistry(this);
+        return new DefaultTransformerRegistry(getCamelContextReference());
     }
 
     @Override
     protected ValidatorRegistry<ValidatorKey> createValidatorRegistry() {
-        return new DefaultValidatorRegistry(this);
+        return new DefaultValidatorRegistry(getCamelContextReference());
     }
 
     @Override
@@ -339,7 +360,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HealthCheckRegistry createHealthCheckRegistry() {
-        return new DefaultHealthCheckRegistry(this);
+        return new DefaultHealthCheckRegistry(getCamelContextReference());
     }
 
     @Override
@@ -359,7 +380,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     public void setTypeConverterRegistry(TypeConverterRegistry typeConverterRegistry) {
         super.setTypeConverterRegistry(typeConverterRegistry);
 
-        typeConverterRegistry.setCamelContext(this);
+        typeConverterRegistry.setCamelContext(getCamelContextReference());
     }
 
     @Override
@@ -679,24 +700,24 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     public Expression createExpression(ExpressionDefinition definition) {
-        return ExpressionReifier.reifier(this, definition).createExpression();
+        return ExpressionReifier.reifier(getCamelContextReference(), definition).createExpression();
     }
 
     @Override
     public Predicate createPredicate(ExpressionDefinition definition) {
-        return ExpressionReifier.reifier(this, definition).createPredicate();
+        return ExpressionReifier.reifier(getCamelContextReference(), definition).createPredicate();
     }
 
     @Override
     public RouteDefinition adviceWith(RouteDefinition definition, AdviceWithRouteBuilder builder) throws Exception {
-        return RouteReifier.adviceWith(definition, this, builder);
+        return RouteReifier.adviceWith(definition, getCamelContextReference(), builder);
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public void registerValidator(ValidatorDefinition def) {
         model.getValidators().add(def);
-        Validator validator = ValidatorReifier.reifier(this, def).createValidator();
+        Validator validator = ValidatorReifier.reifier(getCamelContextReference(), def).createValidator();
         getValidatorRegistry().put(createValidatorKey(def), validator);
     }
 
@@ -708,7 +729,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     public void registerTransformer(TransformerDefinition def) {
         model.getTransformers().add(def);
-        Transformer transformer = TransformerReifier.reifier(this, def).createTransformer();
+        Transformer transformer = TransformerReifier.reifier(getCamelContextReference(), def).createTransformer();
         getTransformerRegistry().put(createTransformerKey(def), transformer);
     }
 

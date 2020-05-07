@@ -25,9 +25,11 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.impl.lw.LightweightCamelContext;
 import org.apache.camel.spi.Registry;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -53,9 +55,12 @@ public class CamelProducersTest {
     BeanUsingCamelContext usingCamelContext;
     @Inject
     BeanUsingRegistry usingRegistry;
+    @Inject
+    CamelContext context;
 
     @Test
     public void testInjection() throws Exception {
+        Assumptions.assumeFalse(context instanceof LightweightCamelContext, "Disabled with lightweight contexts");
         usingProducerTemplate.verify();
         usingFluentProducerTemplate.verify();
         usingConsumerTemplate.verify();

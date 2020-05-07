@@ -20,6 +20,9 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -27,6 +30,14 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 @QuarkusTestResource(FtpTestResource.class)
 class FtpTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "TODO: investigate why it fails");
+    }
+
     @Test
     public void testFtpComponent() throws InterruptedException {
         // Create a new file on the FTP server

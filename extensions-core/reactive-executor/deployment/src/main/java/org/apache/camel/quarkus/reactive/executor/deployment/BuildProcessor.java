@@ -21,13 +21,22 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.quarkus.core.Flags;
+import org.apache.camel.quarkus.core.deployment.spi.CamelInitializedReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.reactive.executor.ReactiveExecutorRecorder;
 
 public class BuildProcessor {
+    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
+    @BuildStep(onlyIf = Flags.MainEnabled.class)
+    CamelReactiveExecutorBuildItem reactiveExecutor(ReactiveExecutorRecorder recorder) {
+        return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
+    }
+
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     @BuildStep(onlyIf = Flags.MainEnabled.class)
-    CamelReactiveExecutorBuildItem reactiveExecutor(ReactiveExecutorRecorder recorder, VertxBuildItem vertx) {
-        return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor(vertx.getVertx()));
+    CamelInitializedReactiveExecutorBuildItem initReactiveExecutor(
+            ReactiveExecutorRecorder recorder, CamelReactiveExecutorBuildItem executor, VertxBuildItem vertx) {
+        recorder.initReactiveExecutor(executor.getInstance(), vertx.getVertx());
+        return new CamelInitializedReactiveExecutorBuildItem(executor.getInstance());
     }
 }

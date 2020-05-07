@@ -36,5 +36,6 @@ public class CamelDozerRecorder {
     public void initializeDozerTypeConverter(RuntimeValue<CamelContext> camelContextRuntimeValue) {
         DozerTypeConverterLoader loader = new DozerTypeConverterLoader();
         loader.setCamelContext(camelContextRuntimeValue.getValue());
+        loader.start();
     }
 }

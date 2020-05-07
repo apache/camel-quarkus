@@ -22,7 +22,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.bean.validator.BeanValidatorComponent;
 import org.apache.camel.quarkus.component.bean.validator.BeanValidatorRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
@@ -46,8 +46,8 @@ class BeanValidatorProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem beanValidatorComponent(BeanValidatorRecorder recorder) {
-        return new CamelRuntimeBeanBuildItem(
+    CamelBeanBuildItem beanValidatorComponent(BeanValidatorRecorder recorder) {
+        return new CamelBeanBuildItem(
                 "bean-validator",
                 BeanValidatorComponent.class.getName(),
                 recorder.createBeanValidatorComponent());

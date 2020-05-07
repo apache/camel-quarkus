@@ -89,7 +89,7 @@ public class NativeImageProcessor {
                 PropertiesComponent.class,
                 DataFormat.class);
 
-        @BuildStep
+        @BuildStep(onlyIfNot = Flags.LightweightEnabled.class)
         void reflectiveItems(
                 CombinedIndexBuildItem combinedIndex,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
@@ -103,7 +103,11 @@ public class NativeImageProcessor {
                     .map(view::getAllKnownImplementors)
                     .flatMap(Collection::stream)
                     .filter(CamelSupport::isPublic)
-                    .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, v.name().toString())));
+                    .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, v.name().toString())));
+            CAMEL_REFLECTIVE_CLASSES.stream()
+                    .map(Class::getName)
+                    .map(DotName::createSimple)
+                    .forEach(v -> reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, v.toString())));
 
             DotName converter = DotName.createSimple(Converter.class.getName());
             List<ClassInfo> converterClasses = view.getAnnotations(converter)
@@ -142,7 +146,7 @@ public class NativeImageProcessor {
 
         }
 
-        @BuildStep
+        @BuildStep(onlyIfNot = Flags.LightweightEnabled.class)
         void camelServices(
                 List<CamelServiceBuildItem> camelServices,
                 BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
@@ -156,7 +160,7 @@ public class NativeImageProcessor {
         /*
          * Add camel catalog files to the native image.
          */
-        @BuildStep(onlyIf = Flags.RuntimeCatalogEnabled.class)
+        @BuildStep(onlyIf = Flags.RuntimeCatalogEnabled.class, onlyIfNot = Flags.LightweightEnabled.class)
         List<NativeImageResourceBuildItem> camelRuntimeCatalog(
                 CamelConfig config,
                 ApplicationArchivesBuildItem archives,

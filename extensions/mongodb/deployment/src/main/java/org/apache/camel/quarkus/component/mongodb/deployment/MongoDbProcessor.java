@@ -1,4 +1,3 @@
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -19,12 +18,13 @@ package org.apache.camel.quarkus.component.mongodb.deployment;
 
 import java.util.List;
 
-import io.quarkus.deployment.annotations.BuildProducer;
+import com.mongodb.client.MongoClient;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-import io.quarkus.mongodb.runtime.MongoClientRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.component.mongodb.runtime.MongoClientProxy;
+import org.apache.camel.quarkus.core.deployment.spi.CamelLazyProxyBuildItem;
 
 class MongoDbProcessor {
 
@@ -36,20 +36,16 @@ class MongoDbProcessor {
     }
 
     @BuildStep
-    void registerCamelMongoClientProducer(
-            List<MongoClientBuildItem> mongoClients,
-            BuildProducer<CamelRuntimeBeanBuildItem> runtimeBeans) {
-
-        for (MongoClientBuildItem mongoClient : mongoClients) {
-            // If there is a default mongo client instance, then bind it to the camel registry
-            // with the default mongo client name used by the camel-mongodb component
-            if (MongoClientRecorder.DEFAULT_MONGOCLIENT_NAME.equals(mongoClient.getName())) {
-                runtimeBeans.produce(
-                        new CamelRuntimeBeanBuildItem(
-                                "camelMongoClient",
-                                "com.mongodb.client.MongoClient",
-                                mongoClients.get(0).getClient()));
-            }
-        }
+    CamelLazyProxyBuildItem proxyMongoClient() {
+        return new CamelLazyProxyBuildItem(MongoClient.class.getName(), MongoClientProxy.class.getName());
     }
+
+    //
+    // This step is to ensure the MongoClientBuildItem is consumed so that they are not discarded
+    //
+    @BuildStep
+    ServiceStartBuildItem initMongoClient(List<MongoClientBuildItem> mongoClients) {
+        return new ServiceStartBuildItem(MongoClientProxy.class.getName());
+    }
+
 }

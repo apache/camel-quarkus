@@ -24,22 +24,27 @@ import io.vertx.core.Handler;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
-import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.quarkus.core.UploadAttacher;
 
 @Recorder
 public class PlatformHttpRecorder {
-    public RuntimeValue<PlatformHttpEngine> createEngine(
+    public RuntimeValue<QuarkusPlatformHttpEngine> createEngine() {
+        return new RuntimeValue<>(new QuarkusPlatformHttpEngine());
+    }
+
+    public void initEngine(
+            RuntimeValue<QuarkusPlatformHttpEngine> engine,
             RuntimeValue<Router> router,
             List<Handler<RoutingContext>> handlers,
             RuntimeValue<UploadAttacher> uploadAttacher) {
-        return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue(), handlers, uploadAttacher.getValue()));
+        engine.getValue().init(router.getValue(), handlers, uploadAttacher.getValue());
     }
 
-    public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
+    public RuntimeValue<PlatformHttpComponent> createComponent(
+            RuntimeValue<QuarkusPlatformHttpEngine> engine) {
         PlatformHttpComponent component = new PlatformHttpComponent();
         component.setEngine(engine.getValue());
-
         return new RuntimeValue<>(component);
     }
+
 }

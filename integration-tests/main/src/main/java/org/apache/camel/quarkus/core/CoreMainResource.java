@@ -41,13 +41,11 @@ import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
-import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
-import org.apache.camel.support.DefaultRegistry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
 
@@ -207,24 +205,13 @@ public class CoreMainResource {
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeRegistryComponent(@PathParam("name") String name) {
         final Map<String, Object> properties = new HashMap<>();
-        final DefaultRegistry registry = context.getRegistry(DefaultRegistry.class);
+        final RuntimeRegistry registry = context.getRegistry(RuntimeRegistry.class);
         final JsonObjectBuilder builder = Json.createObjectBuilder();
 
-        Component component = registry.getFallbackRegistry().lookupByNameAndType(name, Component.class);
+        Component component = registry.lookupByNameAndType(name, Component.class);
         if (component != null) {
             builder.add("type", component.getClass().getName());
-            builder.add("registry", "fallback");
-            builder.add("registry-type", registry.getFallbackRegistry().getClass().getName());
-        } else {
-            for (BeanRepository repository : registry.getRepositories()) {
-                component = repository.lookupByNameAndType(name, Component.class);
-                if (component != null) {
-                    builder.add("type", component.getClass().getName());
-                    builder.add("registry", "repository");
-                    builder.add("registry-type", repository.getClass().getName());
-                    break;
-                }
-            }
+            builder.add("registry-type", registry.getClass().getName());
         }
 
         if (component != null) {
@@ -243,7 +230,7 @@ public class CoreMainResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getStringValueFromRegistry(@PathParam("name") String name) {
-        final DefaultRegistry registry = context.getRegistry(DefaultRegistry.class);
-        return registry.getFallbackRegistry().lookupByNameAndType(name, String.class);
+        final Registry registry = context.getRegistry();
+        return registry.lookupByNameAndType(name, String.class);
     }
 }

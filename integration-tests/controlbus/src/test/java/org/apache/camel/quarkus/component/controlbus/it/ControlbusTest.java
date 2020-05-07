@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.controlbus.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -26,6 +28,10 @@ class ControlbusTest {
 
     @Test
     public void test() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "Limited features in lightweight mode");
+
         RestAssured.given()
                 .contentType(ContentType.TEXT).get("/controlbus/status")
                 .then().body(org.hamcrest.CoreMatchers.equalTo("Started"));

@@ -37,7 +37,6 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
-import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
@@ -137,7 +136,8 @@ public class CoreResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response catalog(@PathParam("type") String type, @PathParam("name") String name) throws IOException {
-        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.getExtension(RuntimeCamelCatalog.class);
+        final CamelRuntimeCatalog catalog = (CamelRuntimeCatalog) context.adapt(ExtendedCamelContext.class)
+                .getRuntimeCamelCatalog();
 
         try {
             final String schema;

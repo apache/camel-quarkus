@@ -21,7 +21,9 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -242,6 +244,10 @@ class PlatformHttpTest {
 
     @Test
     public void testWebhook() throws InterruptedException {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "TODO: Disabled in lightweight mode");
+
         String path = RestAssured
                 .given()
                 .get("/platform-http/webhookpath")

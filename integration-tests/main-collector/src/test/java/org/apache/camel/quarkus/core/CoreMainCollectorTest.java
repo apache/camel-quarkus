@@ -22,6 +22,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.quarkus.core.runtime.support.SupportRoutesCollector;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,6 +32,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CoreMainCollectorTest {
     @Test
     public void testMainInstanceWithCustomCollector() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "Limited capabilities in lightweight mode");
+
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
                 .get("/test/main/describe")

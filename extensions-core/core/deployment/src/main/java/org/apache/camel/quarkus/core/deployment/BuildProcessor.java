@@ -47,41 +47,12 @@ import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelMain;
-import org.apache.camel.quarkus.core.CamelMainProducers;
-import org.apache.camel.quarkus.core.CamelMainRecorder;
-import org.apache.camel.quarkus.core.CamelProducers;
-import org.apache.camel.quarkus.core.CamelRecorder;
-import org.apache.camel.quarkus.core.CoreAttachmentsRecorder;
+import org.apache.camel.quarkus.core.*;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelMainBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelReactiveExecutorBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesCollectorBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeRegistryBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.*;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem.CamelServiceDestination;
-import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterLoaderBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
@@ -89,6 +60,7 @@ import org.apache.camel.spi.FactoryFinder;
 import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -199,11 +171,18 @@ class BuildProcessor {
                     true,
                     FactoryFinder.DEFAULT_PATH + RestBindingJaxbDataFormatFactory.FACTORY));
 
+            // TODO: remove when upgrading camel.  This is currently needed for 3.2.0 because the
+            //       avro dataformat jar includes the configurers for the avro component/endpoint.
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.DISCOVERY,
                     false,
                     "META-INF/services/org/apache/camel/configurer/avro-component",
                     "META-INF/services/org/apache/camel/configurer/avro-endpoint"));
+
+            services.produce(new CamelServicePatternBuildItem(
+                    CamelServiceDestination.DISCOVERY,
+                    false,
+                    "META-INF/services/org/apache/camel/" + XMLRoutesDefinitionLoader.FACTORY));
         }
 
         @BuildStep
@@ -312,10 +291,16 @@ class BuildProcessor {
                 ApplicationArchivesBuildItem applicationArchives,
                 ContainerBeansBuildItem containerBeans,
                 List<CamelBeanBuildItem> registryItems,
+                List<CamelLazyProxyBuildItem> lazyProxyBuildItems,
                 List<CamelServiceFilterBuildItem> serviceFilters,
                 List<CamelServicePatternBuildItem> servicePatterns) {
 
-            final RuntimeValue<org.apache.camel.spi.Registry> registry = recorder.createRegistry();
+            final RuntimeValue<RuntimeRegistry> registry = recorder.createRegistry();
+
+            lazyProxyBuildItems.stream()
+                    .forEach(bi -> recorder.addLazyProxy(registry,
+                            recorderContext.classProxy(bi.getType()),
+                            recorderContext.newInstance(bi.getProxy())));
 
             final PathFilter pathFilter = servicePatterns.stream()
                     .filter(patterns -> patterns.getDestination() == CamelServiceDestination.REGISTRY)
@@ -361,7 +346,8 @@ class BuildProcessor {
                                     registry,
                                     item.getName(),
                                     recorderContext.classProxy(item.getType()),
-                                    item.getValue().get());
+                                    item.getValue().get(),
+                                    item.isPriority());
                         } else {
                             // the instance of the service will be instantiated by the recorder, this avoid
                             // creating a recorder for trivial services.
@@ -456,7 +442,8 @@ class BuildProcessor {
                                     registry.getRegistry(),
                                     item.getName(),
                                     recorderContext.classProxy(item.getType()),
-                                    item.getValue().get());
+                                    item.getValue().get(),
+                                    item.isPriority());
                         } else {
                             // the instance of the service will be instantiated by the recorder, this avoid
                             // creating a recorder for trivial services.
@@ -557,10 +544,18 @@ class BuildProcessor {
         }
 
         @Overridable
-        @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+        @Record(value = ExecutionTime.STATIC_INIT, optional = true)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelReactiveExecutorBuildItem reactiveExecutor(CamelMainRecorder recorder) {
             return new CamelReactiveExecutorBuildItem(recorder.createReactiveExecutor());
+        }
+
+        @Overridable
+        @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+        @BuildStep(onlyIf = Flags.MainEnabled.class)
+        CamelInitializedReactiveExecutorBuildItem initReactiveExecutor(
+                CamelMainRecorder recorder, CamelReactiveExecutorBuildItem executor) {
+            return new CamelInitializedReactiveExecutorBuildItem(executor.getInstance());
         }
 
         /**
@@ -574,6 +569,7 @@ class BuildProcessor {
         @Record(ExecutionTime.STATIC_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         CamelMainBuildItem main(
+                CamelConfig camelConfig,
                 ContainerBeansBuildItem containerBeans,
                 CamelMainRecorder recorder,
                 CamelContextBuildItem context,
@@ -583,6 +579,7 @@ class BuildProcessor {
                 BeanContainerBuildItem beanContainer) {
 
             RuntimeValue<CamelMain> main = recorder.createCamelMain(
+                    camelConfig,
                     context.getCamelContext(),
                     routesCollector.getValue(),
                     beanContainer.getValue());
@@ -602,7 +599,31 @@ class BuildProcessor {
         }
 
         /**
-         * This method is responsible to start camel-main ar runtime.
+         * This method is responsible to initialize camel-main at build time
+         *
+         * @param recorder the recorder.
+         * @param main     a reference to a {@link CamelMain}.
+         * @param executor the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                 happens during {@link ExecutionTime#STATIC_INIT} so the executor is not permitted to
+         *                 start any thread at this point.
+         * @param shutdown a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         */
+        @Record(ExecutionTime.STATIC_INIT)
+        @BuildStep(onlyIf = { Flags.MainEnabled.class })
+        CamelInitializedMainBuildItem init(
+                CamelMainRecorder recorder,
+                CamelMainBuildItem main,
+                CamelInitializedReactiveExecutorBuildItem executor,
+                ShutdownContextBuildItem shutdown,
+                List<CamelServiceInitBuildItem> initList) {
+
+            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
+            recorder.init(shutdown, main.getInstance());
+            return new CamelInitializedMainBuildItem(main.getInstance());
+        }
+
+        /**
+         * This method is responsible to start camel-main at runtime.
          *
          * @param recorder    the recorder.
          * @param main        a reference to a {@link CamelMain}.
@@ -623,8 +644,8 @@ class BuildProcessor {
         @BuildStep(onlyIf = Flags.MainEnabled.class)
         void start(
                 CamelMainRecorder recorder,
-                CamelMainBuildItem main,
-                CamelRuntimeRegistryBuildItem registry,
+                CamelInitializedMainBuildItem main,
+                CamelRegistryBuildItem registry,
                 CamelReactiveExecutorBuildItem executor,
                 ShutdownContextBuildItem shutdown,
                 List<ServiceStartBuildItem> startList,
@@ -634,8 +655,7 @@ class BuildProcessor {
                 recorder.customize(main.getInstance(), customizer.getCamelContextCustomizer());
             }
 
-            recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
-            recorder.start(shutdown, main.getInstance());
+            recorder.start(main.getInstance(), registry.getRegistry());
         }
     }
 

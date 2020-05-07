@@ -19,15 +19,13 @@ package org.apache.camel.quarkus.core;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
-import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.*;
 import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.spi.CamelBeanPostProcessor;
+import org.apache.camel.support.LifecycleStrategySupport;
+import org.apache.camel.support.PropertyBindingSupport;
 import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -58,6 +56,23 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
         for (MainListener listener : listeners) {
             listener.afterStart(this);
         }
+
+        if (getMainConfigurationProperties().isLightweight()) {
+            routesCollector = null;
+            routeBuilders = null;
+        }
+    }
+
+    @Override
+    protected void autowireConfigurationFromRegistry(CamelContext camelContext, boolean bindNullOnly, boolean deepNesting)
+            throws Exception {
+        camelContext.addLifecycleStrategy(new LifecycleStrategySupport() {
+            @Override
+            public void onComponentAdd(String name, Component component) {
+                PropertyBindingSupport.autowireSingletonPropertiesFromRegistry(
+                        camelContext, component, bindNullOnly, deepNesting, null);
+            }
+        });
     }
 
     @Override

@@ -30,6 +30,8 @@ import io.restassured.response.Response;
 import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.support.DefaultLRUCacheFactory;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.test.Conditions.doesNotStartWith;
@@ -58,6 +60,10 @@ public class CoreMainTest {
 
     @Test
     public void testSetCamelContextName() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "CamelContext modifications are disabled in lightweight mode");
+
         Response response = RestAssured.get("/test/context/name").andReturn();
 
         assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
@@ -71,6 +77,10 @@ public class CoreMainTest {
 
     @Test
     public void testMainInstance() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "Limited capabilities in lightweight mode");
+
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
                 .get("/test/main/describe")
@@ -183,8 +193,7 @@ public class CoreMainTest {
                 .statusCode(200)
                 .body(
                         "timeout", is("1234"),
-                        "registry", is("repository"),
-                        "registry-type", is("org.apache.camel.quarkus.core.RuntimeBeanRepository"));
+                        "registry-type", is("org.apache.camel.quarkus.core.RuntimeRegistry"));
     }
 
     @Test

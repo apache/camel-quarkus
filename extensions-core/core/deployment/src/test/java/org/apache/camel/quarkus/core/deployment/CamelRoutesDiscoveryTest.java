@@ -26,6 +26,7 @@ import javax.inject.Inject;
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.impl.lw.LightweightCamelContext;
 import org.apache.camel.main.BaseMainSupport;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -35,6 +36,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class CamelRoutesDiscoveryTest {
     @RegisterExtension
@@ -65,7 +67,11 @@ public class CamelRoutesDiscoveryTest {
     @Test
     public void testRoutesDiscovery() {
         assertThat(camelContext.getRoutes()).isEmpty();
-        assertThat(mainSupport.getRoutesBuilders()).isEmpty();
+        if (camelContext instanceof LightweightCamelContext) {
+            assertNull(mainSupport.getRoutesBuilders());
+        } else {
+            assertThat(mainSupport.getRoutesBuilders()).isEmpty();
+        }
     }
 
     public static class MyRoute extends RouteBuilder {

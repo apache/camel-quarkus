@@ -28,10 +28,7 @@ import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.*;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
@@ -50,19 +47,37 @@ class PlatformHttpProcessor {
         return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent("platform-http"));
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     PlatformHttpEngineBuildItem platformHttpEngine(
+            PlatformHttpRecorder recorder) {
+
+        return new PlatformHttpEngineBuildItem(recorder.createEngine());
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    CamelServiceInitBuildItem initPlatformHttpEngine(
             PlatformHttpRecorder recorder,
+            PlatformHttpEngineBuildItem engine,
             VertxWebRouterBuildItem router,
             BodyHandlerBuildItem bodyHandler,
             UploadAttacherBuildItem uploadAttacher) {
 
-        return new PlatformHttpEngineBuildItem(
-                recorder.createEngine(
-                        router.getRouter(),
-                        Collections.singletonList(bodyHandler.getHandler()),
-                        uploadAttacher.getInstance()));
+        recorder.initEngine(
+                engine.getInstance(),
+                router.getRouter(),
+                Collections.singletonList(bodyHandler.getHandler()),
+                uploadAttacher.getInstance());
+        return new CamelServiceInitBuildItem("platform-http-engine");
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    PlatformHttpComponentBuildItem platformHttpComponent(
+            PlatformHttpRecorder recorder,
+            PlatformHttpEngineBuildItem engine) {
+        return new PlatformHttpComponentBuildItem(recorder.createComponent(engine.getInstance()));
     }
 
     @BuildStep
@@ -73,12 +88,13 @@ class PlatformHttpProcessor {
                 engine.getInstance());
     }
 
-    @Record(ExecutionTime.RUNTIME_INIT)
+    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem platformHttpComponentBean(PlatformHttpRecorder recorder, PlatformHttpEngineBuildItem engine) {
-        return new CamelRuntimeBeanBuildItem(
+    CamelBeanBuildItem platformHttpComponentBean(PlatformHttpRecorder recorder, PlatformHttpComponentBuildItem component) {
+        return new CamelBeanBuildItem(
                 PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
                 PlatformHttpComponent.class.getName(),
-                recorder.createComponent(engine.getInstance()));
+                component.getInstance());
     }
+
 }

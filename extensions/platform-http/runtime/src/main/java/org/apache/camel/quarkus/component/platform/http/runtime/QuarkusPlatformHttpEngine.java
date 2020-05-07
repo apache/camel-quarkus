@@ -30,11 +30,14 @@ import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.quarkus.core.UploadAttacher;
 
 public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
-    private final Router router;
-    private final List<Handler<RoutingContext>> handlers;
-    private final UploadAttacher uploadAttacher;
+    private Router router;
+    private List<Handler<RoutingContext>> handlers;
+    private UploadAttacher uploadAttacher;
 
-    public QuarkusPlatformHttpEngine(Router router, List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
+    public QuarkusPlatformHttpEngine() {
+    }
+
+    public void init(Router router, List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
         this.router = router;
         this.handlers = new ArrayList<>(handlers);
         this.uploadAttacher = uploadAttacher;
@@ -42,7 +45,15 @@ public class QuarkusPlatformHttpEngine implements PlatformHttpEngine {
 
     @Override
     public Consumer createConsumer(PlatformHttpEndpoint endpoint, Processor processor) {
-        return new QuarkusPlatformHttpConsumer(endpoint, processor, router, handlers, uploadAttacher);
+        return new QuarkusPlatformHttpConsumer(endpoint, processor, this);
+    }
+
+    public Router getRouter() {
+        return router;
+    }
+
+    public UploadAttacher getUploadAttacher() {
+        return uploadAttacher;
     }
 
     public List<Handler<RoutingContext>> getHandlers() {

@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.infinispan.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelLazyProxyBuildItem;
+import org.apache.camel.quarkus.infinispan.runtime.BasicCacheContainerProxy;
+import org.infinispan.commons.api.BasicCacheContainer;
 
 class InfinispanProcessor {
 
@@ -27,4 +30,10 @@ class InfinispanProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
+    @BuildStep
+    CamelLazyProxyBuildItem proxyBasicCacheContainer() {
+        return new CamelLazyProxyBuildItem(BasicCacheContainer.class.getName(), BasicCacheContainerProxy.class.getName());
+    }
+
 }

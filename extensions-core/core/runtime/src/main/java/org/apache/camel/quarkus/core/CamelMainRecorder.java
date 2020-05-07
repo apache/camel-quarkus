@@ -37,10 +37,12 @@ public class CamelMainRecorder {
     }
 
     public RuntimeValue<CamelMain> createCamelMain(
+            CamelConfig camelConfig,
             RuntimeValue<CamelContext> runtime,
             RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container) {
         CamelMain main = new CamelMain();
+        main.getMainConfigurationProperties().setLightweight(camelConfig.main.lightweight);
         main.setRoutesCollector(routesCollector.getValue());
         main.setCamelContext(runtime.getValue());
         main.addMainListener(new CamelMainEventDispatcher());
@@ -81,7 +83,7 @@ public class CamelMainRecorder {
         main.getValue().getCamelContext().adapt(ExtendedCamelContext.class).setReactiveExecutor(executor.getValue());
     }
 
-    public void start(ShutdownContext shutdown, RuntimeValue<CamelMain> main) {
+    public void init(ShutdownContext shutdown, RuntimeValue<CamelMain> main) {
         shutdown.addShutdownTask(new Runnable() {
             @Override
             public void run() {
@@ -92,8 +94,12 @@ public class CamelMainRecorder {
                 }
             }
         });
+        main.getValue().init();
+    }
 
+    public void start(RuntimeValue<CamelMain> main, RuntimeValue<RuntimeRegistry> registry) {
         try {
+            registry.getValue().startProxies();
             main.getValue().start();
         } catch (Exception e) {
             throw new RuntimeException(e);

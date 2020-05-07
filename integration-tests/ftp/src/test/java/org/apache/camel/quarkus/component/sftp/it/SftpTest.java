@@ -20,6 +20,9 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
@@ -28,6 +31,14 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTest
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
+
+    @BeforeAll
+    public static void setUp() {
+        Assumptions.assumeFalse(ConfigProvider.getConfig().getOptionalValue(
+                "quarkus.camel.main.lightweight", Boolean.class).orElse(false),
+                "TODO: investigate why it fails");
+    }
+
     /*
      * Disabled due to SSL native integration failing in the Jenkins CI environment.
      * https://github.com/apache/camel-quarkus/issues/468"

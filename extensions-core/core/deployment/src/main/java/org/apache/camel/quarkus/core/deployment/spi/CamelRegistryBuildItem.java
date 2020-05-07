@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core.deployment.spi;
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.quarkus.core.RuntimeRegistry;
 import org.apache.camel.spi.Registry;
 
 /**
@@ -34,13 +35,13 @@ import org.apache.camel.spi.Registry;
  *
  */
 public final class CamelRegistryBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<Registry> value;
+    private final RuntimeValue<RuntimeRegistry> value;
 
-    public CamelRegistryBuildItem(RuntimeValue<Registry> value) {
+    public CamelRegistryBuildItem(RuntimeValue<RuntimeRegistry> value) {
         this.value = value;
     }
 
-    public RuntimeValue<Registry> getRegistry() {
+    public RuntimeValue<RuntimeRegistry> getRegistry() {
         return value;
     }
 }

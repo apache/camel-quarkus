@@ -33,7 +33,6 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-import io.vertx.core.Handler;
 import io.vertx.core.MultiMap;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpMethod;
@@ -41,7 +40,6 @@ import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.Route;
-import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.Consumer;
 import org.apache.camel.Exchange;
@@ -53,7 +51,6 @@ import org.apache.camel.TypeConverter;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpEndpoint;
 import org.apache.camel.component.platform.http.spi.Method;
-import org.apache.camel.quarkus.core.UploadAttacher;
 import org.apache.camel.spi.HeaderFilterStrategy;
 import org.apache.camel.support.DefaultConsumer;
 import org.apache.camel.support.DefaultMessage;
@@ -69,21 +66,17 @@ import org.jboss.logging.Logger;
 public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
     private static final Logger LOG = Logger.getLogger(QuarkusPlatformHttpConsumer.class);
 
-    private final Router router;
-    private final List<Handler<RoutingContext>> handlers;
+    private final QuarkusPlatformHttpEngine engine;
     private Route route;
     private final String fileNameExtWhitelist;
-    private final UploadAttacher uploadAttacher;
     private final Pattern PATH_PARAMETER_PATTERN = Pattern.compile("\\{([^/}]+)\\}");
 
-    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor, Router router,
-            List<Handler<RoutingContext>> handlers, UploadAttacher uploadAttacher) {
+    public QuarkusPlatformHttpConsumer(PlatformHttpEndpoint endpoint, Processor processor,
+            QuarkusPlatformHttpEngine engine) {
         super(endpoint, processor);
-        this.router = router;
-        this.handlers = handlers;
+        this.engine = engine;
         String list = endpoint.getFileNameExtWhitelist();
         this.fileNameExtWhitelist = list == null ? list : list.toLowerCase(Locale.US);
-        this.uploadAttacher = uploadAttacher;
     }
 
     @Override
@@ -99,7 +92,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
         final String path = endpoint.getPath();
         /* Transform from the Camel path param syntax /path/{key} to vert.x web's /path/:key */
         final String vertxPathParamPath = PATH_PARAMETER_PATTERN.matcher(path).replaceAll(":$1");
-        final Route newRoute = router.route(vertxPathParamPath);
+        final Route newRoute = engine.getRouter().route(vertxPathParamPath);
 
         final Set<Method> methods = Method.parseList(endpoint.getHttpMethodRestrict());
         if (!methods.equals(Method.getAll())) {
@@ -112,7 +105,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             newRoute.produces(endpoint.getProduces());
         }
 
-        handlers.forEach(newRoute::handler);
+        engine.getHandlers().forEach(newRoute::handler);
 
         newRoute.handler(
                 ctx -> {
@@ -431,7 +424,7 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             }
             if (accepted) {
                 final File localFile = new File(upload.uploadedFileName());
-                uploadAttacher.attachUpload(localFile, fileName, message);
+                engine.getUploadAttacher().attachUpload(localFile, fileName, message);
             } else {
                 LOG.debugf(
                         "Cannot add file as attachment: %s because the file is not accepted according to fileNameExtWhitelist: %s",
