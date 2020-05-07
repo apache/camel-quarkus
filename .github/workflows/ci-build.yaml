@@ -203,6 +203,7 @@ jobs:
           eval ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
             -Dnative \
             -Ddocker \
+            -DskipTests \
             -pl "${modules[*]}"
 
   # memoryhogs:
