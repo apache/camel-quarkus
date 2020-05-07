@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-elasticsearch-rest</artifactId>
-    <name>Camel Quarkus :: Integration Test :: Elasticsearch Rest</name>
+    <name>Camel Quarkus :: Integration Tests :: Elasticsearch Rest</name>
     <description>Integration tests for Camel Quarkus Elasticsearch Rest extension</description>
 
     <properties>

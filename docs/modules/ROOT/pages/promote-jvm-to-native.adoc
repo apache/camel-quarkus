@@ -35,7 +35,7 @@ $ {
    sed -i -r "s/camel-quarkus-build-parent-it/camel-quarkus-integration-tests/g" "integration-tests/${EXT}/pom.xml"
    sed -i '/relativePath/d' "integration-tests/${EXT}/pom.xml"
    sed -i -r "s/camel-quarkus-${EXT}-integration-test/camel-quarkus-integration-test-${EXT}/g" "integration-tests/${EXT}/pom.xml"
-   sed -i -r "s/Quarkus :: (.*) :: Integration Test/Quarkus :: Integration Test :: \1/g" "integration-tests/${EXT}/pom.xml"
+   sed -i -r "s/Quarkus :: (.*) :: Integration Test/Quarkus :: Integration Tests :: \1/g" "integration-tests/${EXT}/pom.xml"
   }
 ----
 

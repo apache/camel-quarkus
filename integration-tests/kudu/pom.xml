@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-kudu</artifactId>
-    <name>Camel Quarkus :: Integration Test :: Kudu</name>
+    <name>Camel Quarkus :: Integration Tests :: Kudu</name>
     <description>Integration tests for Camel Quarkus Kudu extension</description>
 
     <properties>
