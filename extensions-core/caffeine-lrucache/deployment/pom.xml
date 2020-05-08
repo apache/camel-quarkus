@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-caffeine-lrucache-deployment</artifactId>
-    <name>Caffeine LRUCache - Deployment</name>
+    <name>Camel Quarkus :: Caffeine LRUCache - Deployment</name>
 
     <dependencies>
         <dependency>
