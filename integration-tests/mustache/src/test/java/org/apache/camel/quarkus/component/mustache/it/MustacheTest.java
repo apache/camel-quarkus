@@ -21,54 +21,68 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class MustacheTest {
 
     @Test
-    void applyMustacheTemplateFromClassPathResourceShouldSucceed() {
-        String response = RestAssured.given().contentType(ContentType.TEXT).body("FromClassPath")
-                .post("/mustache/applyMustacheTemplateFromClassPathResource").then().statusCode(200)
-                .extract().asString();
-        assertEquals("\nMessage with body 'FromClassPath' and some header 'value'", response);
+    void templateFromClassPathResource() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("FromClassPath")
+                .post("/mustache/templateFromClassPathResource")
+                .then()
+                .statusCode(200)
+                .body(is("\nMessage with body 'FromClassPath' and some header 'value'"));
     }
 
     @Test
-    void applyMustacheTemplateFromHeaderShouldSucceed() {
-        String response = RestAssured.given().contentType(ContentType.TEXT).body("FromHeader")
-                .post("/mustache/applyMustacheTemplateFromHeader").then().statusCode(200).extract()
-                .asString();
-        assertEquals("Body='FromHeader'", response);
+    void templateFromHeader() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("FromHeader")
+                .post("/mustache/templateFromHeader")
+                .then()
+                .statusCode(200)
+                .body(is("Body='FromHeader'"));
     }
 
     @Test
-    void applyMustacheTemplateUriFromHeaderShouldSucceed() {
-        String response = RestAssured.given().contentType(ContentType.TEXT).body("UriFromHeader")
-                .post("/mustache/applyMustacheTemplateUriFromHeader").then().statusCode(200).extract()
-                .asString();
-        assertEquals("\nAnother body 'UriFromHeader'!", response);
+    void templateUriFromHeader() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("UriFromHeader")
+                .post("/mustache/templateUriFromHeader")
+                .then()
+                .statusCode(200)
+                .body(is("\nAnother body 'UriFromHeader'!"));
     }
 
     @Test
-    void applyMustacheTemplateWithInheritanceShouldSucceed() {
-        String response = RestAssured.get("/mustache/applyMustacheTemplateWithInheritance").then().statusCode(200).extract()
-                .asString();
-        assertEquals("\n\nStart ContentFrom(Child) End", response);
+    void templateWithInheritance() {
+        RestAssured.get("/mustache/templateWithInheritance")
+                .then()
+                .statusCode(200)
+                .body(is("\n\nStart ContentFrom(Child) End"));
     }
 
     @Test
-    void applyMustacheTemplateWithPartialsShouldSucceed() {
-        String response = RestAssured.get("/mustache/applyMustacheTemplateWithPartials").then().statusCode(200).extract()
-                .asString();
-        assertEquals("\nStart-\nIncluded-End", response);
+    void templateWithPartials() {
+        RestAssured.get("/mustache/templateWithPartials")
+                .then()
+                .statusCode(200)
+                .body(is("\nStart-\nIncluded-End"));
     }
 
     @Test
-    void applyMustacheTemplateFromRegistryShouldSucceed() {
-        String response = RestAssured.given().contentType(ContentType.TEXT).body("Entry")
-                .post("/mustache/applyMustacheTemplateFromRegistry").then().statusCode(200).extract()
-                .asString();
-        assertEquals("Begin-FromRegistry-Entry-End", response);
+    void templateFromRegistry() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Entry")
+                .post("/mustache/templateFromRegistry")
+                .then()
+                .statusCode(200)
+                .body(is("Begin-FromRegistry-Entry-End"));
     }
 }

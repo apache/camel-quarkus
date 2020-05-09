@@ -38,59 +38,59 @@ public class MustacheResource {
     @Inject
     ProducerTemplate template;
 
-    @Path("/applyMustacheTemplateFromClassPathResource")
+    @Path("/templateFromClassPathResource")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateFromClassPathResource(String message) {
-        LOG.infof("Calling applyMustacheTemplateFromClassPathResource with %s", message);
+    public String templateFromClassPathResource(String message) {
+        LOG.infof("Calling templateFromClassPathResource with %s", message);
         return template.requestBodyAndHeader("mustache://template/simple.mustache", message, "header", "value", String.class);
     }
 
-    @Path("/applyMustacheTemplateFromHeader")
+    @Path("/templateFromHeader")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateFromHeader(String message) {
-        LOG.infof("Calling applyMustacheTemplateFromHeader with %s", message);
+    public String templateFromHeader(String message) {
+        LOG.infof("Calling templateFromHeader with %s", message);
         return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
                 MustacheConstants.MUSTACHE_TEMPLATE,
                 "Body='{{body}}'", String.class);
     }
 
-    @Path("/applyMustacheTemplateUriFromHeader")
+    @Path("/templateUriFromHeader")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateUriFromHeader(String message) {
-        LOG.infof("Calling applyMustacheTemplateUriFromHeader with %s", message);
+    public String templateUriFromHeader(String message) {
+        LOG.infof("Calling templateUriFromHeader with %s", message);
         return template.requestBodyAndHeader("mustache://template/simple.mustache", message,
                 MustacheConstants.MUSTACHE_RESOURCE_URI,
                 "/template/another.mustache", String.class);
     }
 
-    @Path("/applyMustacheTemplateWithInheritance")
+    @Path("/templateWithInheritance")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateWithInheritance() {
-        LOG.infof("Calling applyMustacheTemplateWithInheritance");
+    public String templateWithInheritance() {
+        LOG.infof("Calling templateWithInheritance");
         return template.requestBody("mustache://template/child.mustache", null, String.class);
     }
 
-    @Path("/applyMustacheTemplateWithPartials")
+    @Path("/templateWithPartials")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateWithPartials() {
-        LOG.infof("Calling applyMustacheTemplateWithPartials");
+    public String templateWithPartials() {
+        LOG.infof("Calling templateWithPartials");
         return template.requestBody("mustache://template/includer.mustache", null, String.class);
     }
 
-    @Path("/applyMustacheTemplateFromRegistry")
+    @Path("/templateFromRegistry")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String applyMustacheTemplateFromRegistry(String message) {
-        LOG.infof("Calling applyMustacheTemplateFromRegistry with %s", message);
+    public String templateFromRegistry(String message) {
+        LOG.infof("Calling templateFromRegistry with %s", message);
         return template.requestBody("mustache://ref:templateFromRegistry", message, String.class);
     }
 }
