@@ -2040,11 +2040,6 @@
                 <version>1.1.0.Final</version>
             </dependency>
             <dependency>
-                <groupId>io.fabric8</groupId>
-                <artifactId>kubernetes-client</artifactId>
-                <version>4.9.0</version>
-            </dependency>
-            <dependency>
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
                 <version>${java.xml.ws.version}</version>
