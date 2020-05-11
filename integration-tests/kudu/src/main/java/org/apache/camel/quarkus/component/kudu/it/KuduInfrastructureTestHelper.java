@@ -37,23 +37,22 @@ import org.jboss.logging.Logger;
  * {@code KuduTestResource}.
  *
  * A) How to run integration tests against a custom setup:
- * Comment @EnabledIfSystemProperty annotations from {@code KuduTest} and {@code KuduIT}.
+ * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
  * Install Kudu master and tablet servers on the same network than integration tests.
  * Configure "camel.kudu.test.master.rpc-authority" in "application.properties", for instance:
  * camel.kudu.test.master.rpc-authority=kudu-master-hostname:7051
  * Run integration tests with mvn clean integration-test -P native
  *
- * B) How to run integration tests against the container based setup when NOT running on top of OpenJDK:
- * Comment @EnabledIfSystemProperty annotations from {@code KuduTest} and {@code KuduIT}.
- * Override the ip resolution of the host "kudu-tserver" to 127.0.0.1, e.g. by adding an entry in /etc/hosts file as
- * below:
+ * B) How to run integration tests against the container based setup:
+ * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
+ * When NOT running on top of OpenJDK 9+, you'll need to manually override the ip resolution of the host "kudu-tserver"
+ * to 127.0.0.1, e.g. by adding an entry in /etc/hosts file as below:
  * 127.0.0.1 kudu-tserver
  * Run integration tests with mvn clean integration-test -P native
- *
- * C) How to run integration tests against the container based setup when running on top of OpenJDK 9 onward:
- * No extra setup is needed as {@code overrideTabletServerHostnameResolution} takes care of redirecting
- * the Kudu tablet server traffic toward localhost.
- * Run integration tests with mvn clean integration-test -P native
+ * Note that under some platforms/configurations, testcontainers is not able to bridge master and tablet servers in a
+ * shared network.
+ * In such cases, a log like "0 tablet servers are alive" could be issued and falling back to a custom local setup is
+ * advised.
  */
 @ApplicationScoped
 public class KuduInfrastructureTestHelper {

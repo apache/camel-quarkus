@@ -28,13 +28,11 @@ import org.apache.kudu.client.KuduException;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.condition.DisabledOnJre;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.junit.jupiter.api.condition.JRE;
 
 import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.KUDU_AUTHORITY_CONFIG_KEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,8 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @QuarkusTestResource(KuduTestResource.class)
 @QuarkusTest
 @TestMethodOrder(OrderAnnotation.class)
-@EnabledIfSystemProperty(named = "java.runtime.name", matches = ".*OpenJDK.*")
-@DisabledOnJre(JRE.JAVA_8)
+@Disabled
 class KuduTest {
 
     private static final Logger LOG = Logger.getLogger(KuduTest.class);
