@@ -131,6 +131,7 @@
         <module>extensions</module>
         <module>extensions-jvm</module>
         <module>catalog</module>
+        <module>integration-tests-support</module>
         <module>integration-tests</module>
         <module>examples</module>
         <module>docs</module>
