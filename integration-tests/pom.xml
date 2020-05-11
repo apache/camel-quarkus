@@ -45,7 +45,6 @@
 
     <modules>
         <!-- build those first -->
-        <module>support</module>
         <module>core</module>
         <module>core-main</module>
         <module>core-main-xml-jaxb</module>
