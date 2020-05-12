@@ -14,11 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import java.util.function.Predicate;
-
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 
 @FunctionalInterface
 public interface CamelServiceFilter extends Predicate<CamelServiceBuildItem> {

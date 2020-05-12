@@ -28,8 +28,8 @@ import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
 import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 

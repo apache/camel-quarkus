@@ -27,8 +27,8 @@ import io.quarkus.undertow.deployment.ServletDeploymentManagerBuildItem;
 import io.undertow.websockets.jsr.WebSocketDeploymentInfo;
 import org.apache.camel.quarkus.component.websocket.jsr356.CamelWebSocketJSR356Config;
 import org.apache.camel.quarkus.component.websocket.jsr356.CamelWebSocketJSR356Recorder;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.websocket.jsr356.JSR356WebSocketComponent;
 

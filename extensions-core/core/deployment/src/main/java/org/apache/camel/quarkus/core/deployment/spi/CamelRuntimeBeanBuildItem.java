@@ -22,7 +22,6 @@ import java.util.Optional;
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.deployment.CamelBeanInfo;
 
 /**
  * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during

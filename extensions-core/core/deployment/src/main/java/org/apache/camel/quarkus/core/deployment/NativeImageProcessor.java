@@ -50,6 +50,7 @@ import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.ExchangeFormatter;
