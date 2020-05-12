@@ -25,8 +25,7 @@ import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.M
 import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
 import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
-import org.apache.camel.main.MainListener;
-import org.apache.camel.main.MainListenerSupport;
+import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.spi.ManagementStrategy;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.jboss.logging.Logger;
@@ -38,42 +37,52 @@ public class CamelMicroProfileMetricsRecorder {
         return new RuntimeValue<>(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
     }
 
-    public RuntimeValue<MainListener> createContextConfigurerListener(CamelMicroProfileMetricsConfig config) {
-        return new RuntimeValue<>(new MicroProfileMetricsContextConfigurerListener(config));
+    public RuntimeValue<CamelContextCustomizer> createContextCustomizer(CamelMicroProfileMetricsConfig config) {
+        return new RuntimeValue<>(new MicroProfileMetricsContextCustomizer(config));
     }
 
-    public void configureCamelContext(CamelMicroProfileMetricsConfig config,
-            RuntimeValue<CamelContext> camelContextRuntimeValue) {
-        CamelContext camelContext = camelContextRuntimeValue.getValue();
-        ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
-
-        if (config.enableRoutePolicy) {
-            camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
-        }
-
-        if (config.enableExchangeEventNotifier) {
-            managementStrategy.addEventNotifier(new MicroProfileMetricsExchangeEventNotifier());
-        }
-
-        if (config.enableRouteEventNotifier) {
-            managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
-        }
-
-        if (config.enableCamelContextEventNotifier) {
-            managementStrategy.addEventNotifier(new MicroProfileMetricsCamelContextEventNotifier());
-        }
+    public RuntimeValue<CamelContextCustomizer> createRuntimeContextCustomizer(CamelMicroProfileMetricsConfig config) {
+        return new RuntimeValue<>(new MicroProfileMetricsRuntimeContextCustomizer(config));
     }
 
-    private static class MicroProfileMetricsContextConfigurerListener extends MainListenerSupport {
-        private static final Logger LOGGER = Logger.getLogger(MicroProfileMetricsContextConfigurerListener.class);
+    private static class MicroProfileMetricsContextCustomizer implements CamelContextCustomizer {
         private final CamelMicroProfileMetricsConfig config;
 
-        public MicroProfileMetricsContextConfigurerListener(CamelMicroProfileMetricsConfig config) {
+        public MicroProfileMetricsContextCustomizer(CamelMicroProfileMetricsConfig config) {
             this.config = config;
         }
 
         @Override
-        public void configure(CamelContext camelContext) {
+        public void customize(CamelContext camelContext) {
+            if (config.enableRoutePolicy) {
+                camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
+            }
+
+            ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
+            if (config.enableExchangeEventNotifier) {
+                managementStrategy.addEventNotifier(new MicroProfileMetricsExchangeEventNotifier());
+            }
+
+            if (config.enableRouteEventNotifier) {
+                managementStrategy.addEventNotifier(new MicroProfileMetricsRouteEventNotifier());
+            }
+
+            if (config.enableCamelContextEventNotifier) {
+                managementStrategy.addEventNotifier(new MicroProfileMetricsCamelContextEventNotifier());
+            }
+        }
+    }
+
+    private static class MicroProfileMetricsRuntimeContextCustomizer implements CamelContextCustomizer {
+        private static final Logger LOGGER = Logger.getLogger(MicroProfileMetricsRuntimeContextCustomizer.class);
+        private final CamelMicroProfileMetricsConfig config;
+
+        public MicroProfileMetricsRuntimeContextCustomizer(CamelMicroProfileMetricsConfig config) {
+            this.config = config;
+        }
+
+        @Override
+        public void customize(CamelContext camelContext) {
             if (!config.enableMessageHistory) {
                 return;
             }

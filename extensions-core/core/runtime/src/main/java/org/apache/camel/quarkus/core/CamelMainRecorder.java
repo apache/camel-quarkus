@@ -25,6 +25,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
@@ -104,6 +105,17 @@ public class CamelMainRecorder {
             RuntimeValue<XMLRoutesDefinitionLoader> xmlRoutesLoader) {
 
         return new RuntimeValue<>(new CamelRoutesCollector(registryRoutesLoader.getValue(), xmlRoutesLoader.getValue()));
+    }
+
+    public void customize(RuntimeValue<CamelMain> main, RuntimeValue<CamelContextCustomizer> contextCustomizer) {
+        final CamelContextCustomizer customizer = contextCustomizer.getValue();
+
+        main.getValue().addMainListener(new MainListenerSupport() {
+            @Override
+            public void configure(CamelContext context) {
+                customizer.customize(context);
+            }
+        });
     }
 
 }
