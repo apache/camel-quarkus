@@ -24,7 +24,6 @@ cloud:
   - elasticsearch-rest
 core:
   - core
-  - core-impl
 main:
   - main
   - main-caffeine-lrucache
