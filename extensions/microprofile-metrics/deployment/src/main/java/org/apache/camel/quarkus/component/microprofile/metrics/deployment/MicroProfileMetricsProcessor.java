@@ -24,8 +24,8 @@ import org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConsta
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 
 class MicroProfileMetricsProcessor {
@@ -48,17 +48,19 @@ class MicroProfileMetricsProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelMainListenerBuildItem contextConfigurerListener(
+    CamelContextCustomizerBuildItem contextCustomizer(
             CamelMicroProfileMetricsRecorder recorder,
             CamelMicroProfileMetricsConfig config) {
 
-        return new CamelMainListenerBuildItem(recorder.createContextConfigurerListener(config));
+        return new CamelContextCustomizerBuildItem(recorder.createContextCustomizer(config));
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
+    @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    public void configureCamelContext(CamelMicroProfileMetricsRecorder recorder, CamelMicroProfileMetricsConfig config,
-            CamelContextBuildItem camelContextBuildItem) {
-        recorder.configureCamelContext(config, camelContextBuildItem.getCamelContext());
+    RuntimeCamelContextCustomizerBuildItem runtimeContextCustomizer(
+            CamelMicroProfileMetricsRecorder recorder,
+            CamelMicroProfileMetricsConfig config) {
+
+        return new RuntimeCamelContextCustomizerBuildItem(recorder.createRuntimeContextCustomizer(config));
     }
 }

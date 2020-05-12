@@ -80,6 +80,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterLoaderBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
@@ -429,10 +430,9 @@ class BuildProcessor {
                     CamelSupport.getCamelVersion(),
                     config);
 
-            customizerBuildItems.stream()
-                    .forEach(customizer -> {
-                        recorder.customize(context, customizer.getCamelContextCustomizer());
-                    });
+            customizerBuildItems.forEach(customizer -> {
+                recorder.customize(context, customizer.getCamelContextCustomizer());
+            });
 
             return new CamelContextBuildItem(context);
         }
@@ -604,18 +604,20 @@ class BuildProcessor {
         /**
          * This method is responsible to start camel-main ar runtime.
          *
-         * @param recorder  the recorder.
-         * @param main      a reference to a {@link CamelMain}.
-         * @param registry  a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
-         *                  placeholder to
-         *                  ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
-         * @param executor  the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
-         *                  happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
-         *                  threads and so on.
-         * @param shutdown  a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
-         * @param startList a placeholder to ensure camel-main start after the ArC container is fully initialized. This
-         *                  is required as under the hoods the camel registry may look-up beans form the
-         *                  container thus we need it to be fully initialized to avoid unexpected behaviors.
+         * @param recorder    the recorder.
+         * @param main        a reference to a {@link CamelMain}.
+         * @param registry    a reference to a {@link org.apache.camel.spi.Registry}; note that this parameter is here as
+         *                    placeholder to
+         *                    ensure the {@link org.apache.camel.spi.Registry} is fully configured before starting camel-main.
+         * @param executor    the {@link org.apache.camel.spi.ReactiveExecutor} to be configured on camel-main, this
+         *                    happens during {@link ExecutionTime#RUNTIME_INIT} because the executor may need to start
+         *                    threads and so on.
+         * @param shutdown    a reference to a {@link io.quarkus.runtime.ShutdownContext} used to register shutdown logic.
+         * @param startList   a placeholder to ensure camel-main start after the ArC container is fully initialized. This
+         *                    is required as under the hoods the camel registry may look-up beans form the
+         *                    container thus we need it to be fully initialized to avoid unexpected behaviors.
+         * @param customizers a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be executed
+         *                    during {@link ExecutionTime#RUNTIME_INIT} before starting the camel context.
          */
         @Record(ExecutionTime.RUNTIME_INIT)
         @BuildStep(onlyIf = Flags.MainEnabled.class)
@@ -625,7 +627,12 @@ class BuildProcessor {
                 CamelRuntimeRegistryBuildItem registry,
                 CamelReactiveExecutorBuildItem executor,
                 ShutdownContextBuildItem shutdown,
-                List<ServiceStartBuildItem> startList) {
+                List<ServiceStartBuildItem> startList,
+                List<RuntimeCamelContextCustomizerBuildItem> customizers) {
+
+            for (RuntimeCamelContextCustomizerBuildItem customizer : customizers) {
+                recorder.customize(main.getInstance(), customizer.getCamelContextCustomizer());
+            }
 
             recorder.setReactiveExecutor(main.getInstance(), executor.getInstance());
             recorder.start(shutdown, main.getInstance());
