@@ -50,7 +50,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support-core-ext</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-custom-log-component</artifactId>
         </dependency>
 
         <dependency>

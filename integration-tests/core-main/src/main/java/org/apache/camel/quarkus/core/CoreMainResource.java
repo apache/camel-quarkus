@@ -39,7 +39,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.quarkus.core.runtime.support.MyPair;
+import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.spi.BeanRepository;
 import org.apache.camel.spi.DataFormat;
