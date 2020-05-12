@@ -25,8 +25,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core-main-xml-jaxb</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core Main XML Jaxb :: Tests</name>
+    <artifactId>camel-quarkus-integration-test-main-xml-jaxb</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Main XML Jaxb :: Tests</name>
     <description>The camel integration tests</description>
 
     <properties>

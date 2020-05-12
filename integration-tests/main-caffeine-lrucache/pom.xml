@@ -25,8 +25,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-core-main-caffein-lrucache</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Core Main Caffeine LRUCache :: Tests</name>
+    <artifactId>camel-quarkus-integration-test-main-caffein-lrucache</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Main Caffeine LRUCache :: Tests</name>
     <description>The camel integration tests</description>
 
     <properties>
