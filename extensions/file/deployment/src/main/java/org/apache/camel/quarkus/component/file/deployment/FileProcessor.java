@@ -24,7 +24,7 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.file.GenericFile;
 import org.apache.camel.component.file.strategy.FileProcessStrategyFactory;
 import org.apache.camel.component.file.strategy.GenericFileProcessStrategyFactory;
-import org.apache.camel.quarkus.core.deployment.CamelServiceBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 
 class FileProcessor {
 

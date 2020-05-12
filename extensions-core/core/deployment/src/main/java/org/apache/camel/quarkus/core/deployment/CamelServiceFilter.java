@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.core.deployment;
 
 import java.util.function.Predicate;
 
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
+
 @FunctionalInterface
 public interface CamelServiceFilter extends Predicate<CamelServiceBuildItem> {
     String CAMEL_SERVICE_BASE_PATH = "META-INF/services/org/apache/camel";

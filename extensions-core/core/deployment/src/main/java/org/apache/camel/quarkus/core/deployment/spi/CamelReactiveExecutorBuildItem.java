@@ -14,28 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.builder.item.MultiBuildItem;
-import org.apache.camel.RoutesBuilder;
-import org.jboss.jandex.DotName;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.spi.ReactiveExecutor;
 
 /**
- * A {@link MultiBuildItem} holding class names of all {@link RoutesBuilder} implementations.
- * <p>
- * The class names are gathered from Jandex by {@code camel-quarkus-core}. Extensions are free to add
- * {@link CamelRoutesBuilderClassBuildItem}s programmatically.
+ * Holds the {@link ReactiveExecutor} {@link RuntimeValue}.
  */
-public final class CamelRoutesBuilderClassBuildItem extends MultiBuildItem {
+public final class CamelReactiveExecutorBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<ReactiveExecutor> instance;
 
-    private final DotName dotName;
-
-    public CamelRoutesBuilderClassBuildItem(DotName dotName) {
-        this.dotName = dotName;
+    public CamelReactiveExecutorBuildItem(RuntimeValue<ReactiveExecutor> instance) {
+        this.instance = instance;
     }
 
-    public DotName getDotName() {
-        return dotName;
-    };
-
+    public RuntimeValue<ReactiveExecutor> getInstance() {
+        return instance;
+    }
 }

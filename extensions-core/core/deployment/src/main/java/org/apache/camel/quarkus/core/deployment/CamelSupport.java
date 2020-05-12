@@ -33,6 +33,7 @@ import java.util.stream.Stream;
 import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.impl.engine.AbstractCamelContext;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.jboss.jandex.ClassInfo;
 

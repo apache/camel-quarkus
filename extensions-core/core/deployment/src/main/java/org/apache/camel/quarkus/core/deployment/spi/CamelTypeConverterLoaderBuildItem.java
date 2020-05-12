@@ -14,34 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.spi.TypeConverterLoader;
 
 /**
- * A {@link MultiBuildItem} holding a list of class names that would otherwise not be allowed to be registered for
- * reflection due to a Camel Quarkus policy.
+ * Holds the {@link TypeConverterLoader} {@link RuntimeValue}.
  */
-public final class UnbannedReflectiveBuildItem extends MultiBuildItem {
+public final class CamelTypeConverterLoaderBuildItem extends MultiBuildItem {
+    private final RuntimeValue<TypeConverterLoader> value;
 
-    final Set<String> classNames;
-
-    public UnbannedReflectiveBuildItem(Collection<String> classNames) {
-        this.classNames = new LinkedHashSet<>(classNames);
+    public CamelTypeConverterLoaderBuildItem(RuntimeValue<TypeConverterLoader> value) {
+        this.value = value;
     }
 
-    public UnbannedReflectiveBuildItem(String... classNames) {
-        this.classNames = new LinkedHashSet<>(Arrays.asList(classNames));
+    public RuntimeValue<TypeConverterLoader> getValue() {
+        return value;
     }
-
-    public Set<String> getClassNames() {
-        return Collections.unmodifiableSet(classNames);
-    }
-
 }

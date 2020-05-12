@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -29,7 +29,7 @@ import org.apache.camel.spi.Registry;
  *
  * They both refer to the same instance of {@link Registry} but in a different phase of the application bootstrap:
  * {@link CamelRuntimeBeanBuildItem} is bound to {@link ExecutionTime#RUNTIME_INIT} phase while
- * {@link org.apache.camel.quarkus.core.deployment.CamelRegistryBuildItem} is bound to {@link ExecutionTime#STATIC_INIT}
+ * {@link CamelRegistryBuildItem} is bound to {@link ExecutionTime#STATIC_INIT}
  * phase.
  *
  */

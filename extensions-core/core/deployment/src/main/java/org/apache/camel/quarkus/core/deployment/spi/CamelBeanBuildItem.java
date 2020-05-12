@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -22,18 +22,19 @@ import java.util.Optional;
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.quarkus.core.deployment.CamelBeanInfo;
 
 /**
  * A {@link MultiBuildItem} holding beans to add to {@link org.apache.camel.spi.Registry} during
- * {@link ExecutionTime#RUNTIME_INIT} phase.
- * <p>
- * You should use the sibling {@link CamelBeanBuildItem} for all beans that can be produced during
  * {@link ExecutionTime#STATIC_INIT} phase.
+ * <p>
+ * You can use the sibling {@link CamelRuntimeBeanBuildItem} to register beans in the {@link ExecutionTime#RUNTIME_INIT}
+ * phase - i.e. those ones that cannot be produced during {@link ExecutionTime#STATIC_INIT} phase.
  * <p>
  * Note that the field type should refer to the most specialized class to avoid the issue described in
  * https://issues.apache.org/jira/browse/CAMEL-13948.
  */
-public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements CamelBeanInfo {
+public final class CamelBeanBuildItem extends MultiBuildItem implements CamelBeanInfo {
     private final String name;
     private final String type;
     private final RuntimeValue<?> value;
@@ -42,7 +43,7 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
      * @param name the name of the bean
      * @param type the Java type of the bean
      */
-    public CamelRuntimeBeanBuildItem(String name, String type) {
+    public CamelBeanBuildItem(String name, String type) {
         this(name, type, null);
     }
 
@@ -52,7 +53,7 @@ public final class CamelRuntimeBeanBuildItem extends MultiBuildItem implements C
      * @param value the value to be bound to the registry, if <code>null</code> a new instance will be create
      *              by the {@link org.apache.camel.quarkus.core.CamelMainRecorder}
      */
-    public CamelRuntimeBeanBuildItem(String name, String type, RuntimeValue<?> value) {
+    public CamelBeanBuildItem(String name, String type, RuntimeValue<?> value) {
         this.name = Objects.requireNonNull(name);
         this.type = Objects.requireNonNull(type);
         this.value = value;

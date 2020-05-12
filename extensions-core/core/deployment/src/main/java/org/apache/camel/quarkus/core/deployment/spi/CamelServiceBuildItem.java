@@ -14,12 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import java.nio.file.Path;
 import java.util.Objects;
 
 import io.quarkus.builder.item.MultiBuildItem;
+import org.apache.camel.quarkus.core.deployment.CamelBeanInfo;
 
 /**
  * A {@link MultiBuildItem} holding information about a service defined in a property file somewhere under
@@ -27,11 +28,9 @@ import io.quarkus.builder.item.MultiBuildItem;
  */
 public final class CamelServiceBuildItem extends MultiBuildItem implements CamelBeanInfo {
 
-    final Path path;
-
-    final String name;
-
-    final String type;
+    public final Path path;
+    public final String name;
+    public final String type;
 
     public CamelServiceBuildItem(Path path, String type) {
         this(path, path.getFileName().toString(), type);

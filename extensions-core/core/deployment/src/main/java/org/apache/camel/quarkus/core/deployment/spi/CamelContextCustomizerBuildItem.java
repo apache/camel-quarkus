@@ -14,23 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.quarkus.core.CamelContextCustomizer;
 
 /**
- * Holds the {@link TypeConverterLoader} {@link RuntimeValue}.
+ * A {@link MultiBuildItem} holding the {@link CamelContextCustomizer} {@link RuntimeValue} and could be used
+ * to customize the camel context before produce the {@link CamelContextBuildItem}
  */
-public final class CamelTypeConverterLoaderBuildItem extends MultiBuildItem {
-    private final RuntimeValue<TypeConverterLoader> value;
+public final class CamelContextCustomizerBuildItem extends MultiBuildItem {
+    private final RuntimeValue<CamelContextCustomizer> value;
 
-    public CamelTypeConverterLoaderBuildItem(RuntimeValue<TypeConverterLoader> value) {
+    public CamelContextCustomizerBuildItem(RuntimeValue<CamelContextCustomizer> value) {
         this.value = value;
     }
 
-    public RuntimeValue<TypeConverterLoader> getValue() {
+    public RuntimeValue<CamelContextCustomizer> getCamelContextCustomizer() {
         return value;
     }
 }

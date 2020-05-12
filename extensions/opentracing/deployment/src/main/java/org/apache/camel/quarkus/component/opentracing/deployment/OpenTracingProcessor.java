@@ -24,7 +24,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
 import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 
 class OpenTracingProcessor {
 

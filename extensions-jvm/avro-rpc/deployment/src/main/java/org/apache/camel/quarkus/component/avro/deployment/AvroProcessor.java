@@ -24,7 +24,7 @@ import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.component.avro.AvroComponent;
 import org.apache.camel.quarkus.component.avro.AvroRecorder;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.jboss.logging.Logger;
 
 class AvroProcessor {

@@ -14,24 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.main.RoutesCollector;
 
 /**
- * A {@link MultiBuildItem} holding the {@link CamelContextCustomizer} {@link RuntimeValue} and could be used
- * to customize the camel context before produce the {@link CamelContextBuildItem}
+ * Holds the {@link RoutesCollector} {@link RuntimeValue}.
  */
-public final class CamelContextCustomizerBuildItem extends MultiBuildItem {
-    private final RuntimeValue<CamelContextCustomizer> value;
+public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<RoutesCollector> value;
 
-    public CamelContextCustomizerBuildItem(RuntimeValue<CamelContextCustomizer> value) {
+    public CamelRoutesCollectorBuildItem(RuntimeValue<RoutesCollector> value) {
         this.value = value;
     }
 
-    public RuntimeValue<CamelContextCustomizer> getCamelContextCustomizer() {
+    public RuntimeValue<RoutesCollector> getValue() {
         return value;
     }
 }

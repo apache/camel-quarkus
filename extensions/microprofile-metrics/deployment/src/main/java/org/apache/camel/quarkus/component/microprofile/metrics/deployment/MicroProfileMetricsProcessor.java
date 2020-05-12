@@ -23,9 +23,9 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsConfig;
 import org.apache.camel.quarkus.component.microprofile.metrics.runtime.CamelMicroProfileMetricsRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelMainListenerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelMainListenerBuildItem;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 
 class MicroProfileMetricsProcessor {

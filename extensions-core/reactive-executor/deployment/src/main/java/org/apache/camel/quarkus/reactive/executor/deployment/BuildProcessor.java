@@ -21,7 +21,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.vertx.deployment.VertxBuildItem;
 import org.apache.camel.quarkus.core.Flags;
-import org.apache.camel.quarkus.core.deployment.CamelReactiveExecutorBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelReactiveExecutorBuildItem;
 import org.apache.camel.quarkus.reactive.executor.ReactiveExecutorRecorder;
 
 public class BuildProcessor {

@@ -25,9 +25,9 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.rest.RestComponent;
 import org.apache.camel.quarkus.component.rest.RestRecorder;
 import org.apache.camel.quarkus.component.rest.graal.NoJAXBContext;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class RestProcessor {

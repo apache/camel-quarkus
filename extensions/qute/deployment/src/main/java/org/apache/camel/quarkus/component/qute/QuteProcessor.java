@@ -23,7 +23,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.component.qute.QuteComponent;
 import org.apache.camel.quarkus.component.qute.CamelQuteRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class QuteProcessor {
 

@@ -27,10 +27,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsProducers;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsRecorder;
 import org.apache.camel.quarkus.core.Flags;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.CamelServiceFilter;
-import org.apache.camel.quarkus.core.deployment.CamelServiceFilterBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
 class ReactiveStreamsProcessor {
     private static final String SCHEME = "reactive-streams";
