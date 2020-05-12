@@ -21,22 +21,31 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.containsString;
 
 @QuarkusTest
-public class VelocityBodyAsDomainObjectTest {
+public class VelocitySetHeaderTest {
 
     @Test
-    public void testBodyAsDomainObject() {
-        String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.", "\n");
-
+    public void testSendingApple() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .accept(ContentType.TEXT)
-                .post("/velocity/bodyAsDomainObject")
+                .post("/velocity/setHeaderApple")
                 .then()
                 .statusCode(200)
-                .body(equalTo(msg));
+                .body(containsString("apple"));
+    }
+
+    @Test
+    public void testSendingOrange() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .accept(ContentType.TEXT)
+                .post("/velocity/setHeaderOrange")
+                .then()
+                .statusCode(200)
+                .body(containsString("orange"));
     }
 
 }

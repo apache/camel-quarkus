@@ -31,34 +31,53 @@ import org.apache.camel.builder.RouteBuilder;
 
 @Path("/velocity")
 @ApplicationScoped
-public class VelocityLetterResource {
+public class VelocitySetHeaderResource {
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/velocityLetter")
+    @Path("/setHeaderApple")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String post(String message) {
-        Exchange exchange = producerTemplate.request("direct:a", new Processor() {
+    public String apple(String message) {
+        Exchange exchange = producerTemplate.request("direct:setHeader", new Processor() {
             @Override
             public void process(Exchange exchange) throws Exception {
-                exchange.getIn().setHeader("firstName", "Claus");
-                exchange.getIn().setHeader("lastName", "Ibsen");
-                exchange.getIn().setHeader("item", "Camel in Action");
-                exchange.getIn().setBody("PS: Next beer is on me, James");
+                exchange.getIn().setBody("apple");
             }
         });
 
-        return (String) exchange.getOut().getBody();
+        return (String) exchange.getOut().getHeader("fruit");
+    }
+
+    @Path("/setHeaderOrange")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String orange(String message) {
+        Exchange exchange = producerTemplate.request("direct:setHeader", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                exchange.getIn().setBody("orange");
+            }
+        });
+
+        return (String) exchange.getOut().getHeader("fruit");
     }
 
     public static class VelocityRouteBuilder extends RouteBuilder {
         @Override
         public void configure() {
-            from("direct:a")
-                .to("velocity:org/apache/camel/quarkus/component/velocity/it/letter.vm");
+            from("direct:setHeader")
+                .filter()
+                    .method("fruitFilter", "isApple")
+                    .to("velocity:org/apache/camel/quarkus/component/velocity/it/AppleTemplate.vm")
+                .end()
+                .filter()
+                    .method("fruitFilter", "isOrange")
+                    .to("velocity:org/apache/camel/quarkus/component/velocity/it/OrangeTemplate.vm")
+                .end();
         }
     }
 }

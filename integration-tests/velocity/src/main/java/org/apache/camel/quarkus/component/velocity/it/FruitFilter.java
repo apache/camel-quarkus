@@ -16,27 +16,21 @@
  */
 package org.apache.camel.quarkus.component.velocity.it;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
-import static org.hamcrest.Matchers.equalTo;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@QuarkusTest
-public class VelocityBodyAsDomainObjectTest {
+@ApplicationScoped
+@Named("fruitFilter")
+@RegisterForReflection
+public class FruitFilter {
 
-    @Test
-    public void testBodyAsDomainObject() {
-        String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.", "\n");
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .accept(ContentType.TEXT)
-                .post("/velocity/bodyAsDomainObject")
-                .then()
-                .statusCode(200)
-                .body(equalTo(msg));
+    public boolean isApple(String body) {
+        return "apple".equalsIgnoreCase(body);
     }
 
+    public boolean isOrange(String body) {
+        return "orange".equalsIgnoreCase(body);
+    }
 }

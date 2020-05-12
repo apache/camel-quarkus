@@ -90,7 +90,7 @@ public class VelocityBodyAsDomainObjectResource {
             @Override
             public void configure() {
                 from("direct:bodyAsDomainObject")
-                        .to("velocity:org/apache/camel/quarkus/component/velocity/it/BodyAsDomainObject.vm");
+                    .to("velocity:org/apache/camel/quarkus/component/velocity/it/BodyAsDomainObject.vm");
             }
         }
     }
