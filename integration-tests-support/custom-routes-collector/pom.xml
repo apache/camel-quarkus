@@ -18,31 +18,22 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
-        <relativePath>../poms/build-parent/pom.xml</relativePath>
+        <artifactId>camel-quarkus-integration-tests-support</artifactId>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-tests-support</artifactId>
+    <artifactId>camel-quarkus-integration-tests-support-custom-routes-collector-parent</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration Tests :: Support :: Parent</name>
-    <description>Ancillary modules required by some integration tests. Hosted outside the integration-tests directory
-        so that we can keep a flat hierarchy in the integration-tests directory.
-    </description>
+    <name>Camel Quarkus :: Integration Tests :: Support :: Custom Routes Collector</name>
 
     <modules>
-        <module>custom-dataformat</module>
-        <module>custom-log-component</module>
-        <module>custom-routes-collector</module>
-        <module>custom-type-converter</module>
-        <module>custom-main-listener</module>
-        <module>test-support</module>
-        <module>testcontainers-support</module>
+        <module>runtime</module>
+        <module>deployment</module>
     </modules>
 
 </project>

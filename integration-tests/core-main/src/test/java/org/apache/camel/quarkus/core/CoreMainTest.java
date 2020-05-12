@@ -27,7 +27,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import org.apache.camel.quarkus.core.runtime.support.SupportListener;
+import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListener;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
@@ -88,7 +88,7 @@ public class CoreMainTest {
         assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
 
         assertThat(p.getList("listeners", String.class))
-                .containsOnly(CamelMainEventDispatcher.class.getName(), SupportListener.class.getName());
+                .containsOnly(CamelMainEventDispatcher.class.getName(), CustomMainListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
                 .contains(CamelRoute.class.getName())
                 .doesNotContain(CamelRouteFiltered.class.getName());
