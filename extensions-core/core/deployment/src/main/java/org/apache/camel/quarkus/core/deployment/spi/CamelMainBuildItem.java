@@ -14,23 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.main.RoutesCollector;
+import org.apache.camel.quarkus.core.CamelMain;
 
 /**
- * Holds the {@link RoutesCollector} {@link RuntimeValue}.
+ * Holds the {@link CamelMain} {@link RuntimeValue}.
  */
-public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<RoutesCollector> value;
+public final class CamelMainBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<CamelMain> main;
 
-    public CamelRoutesCollectorBuildItem(RuntimeValue<RoutesCollector> value) {
-        this.value = value;
+    public CamelMainBuildItem(RuntimeValue<CamelMain> main) {
+        this.main = main;
     }
 
-    public RuntimeValue<RoutesCollector> getValue() {
-        return value;
+    public RuntimeValue<CamelMain> getInstance() {
+        return main;
     }
 }

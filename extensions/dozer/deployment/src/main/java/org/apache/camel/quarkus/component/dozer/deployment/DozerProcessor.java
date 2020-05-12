@@ -44,8 +44,8 @@ import org.apache.camel.converter.dozer.DozerBeanMapperConfiguration;
 import org.apache.camel.converter.dozer.DozerThreadContextClassLoader;
 import org.apache.camel.quarkus.component.dozer.CamelDozerConfig;
 import org.apache.camel.quarkus.component.dozer.CamelDozerRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 
 class DozerProcessor {
 

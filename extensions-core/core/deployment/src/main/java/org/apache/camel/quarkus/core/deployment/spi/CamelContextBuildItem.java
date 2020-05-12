@@ -14,23 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.CamelContext;
 
 /**
- * Holds the {@link org.apache.camel.spi.TypeConverterRegistry} {@link RuntimeValue}.
+ * Holds the {@link CamelContext} {@link RuntimeValue}.
  */
-public final class CamelTypeConverterRegistryBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<TypeConverterRegistry> value;
+public final class CamelContextBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<CamelContext> value;
 
-    public CamelTypeConverterRegistryBuildItem(RuntimeValue<TypeConverterRegistry> value) {
+    public CamelContextBuildItem(RuntimeValue<CamelContext> value) {
         this.value = value;
     }
 
-    public RuntimeValue<TypeConverterRegistry> getRegistry() {
+    public RuntimeValue<CamelContext> getCamelContext() {
         return value;
     }
 }

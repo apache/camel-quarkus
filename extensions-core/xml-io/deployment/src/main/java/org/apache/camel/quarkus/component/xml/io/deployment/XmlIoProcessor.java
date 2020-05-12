@@ -22,7 +22,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.xml.io.XmlIoRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRoutesLoaderBuildItems;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlIoProcessor {

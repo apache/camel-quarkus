@@ -20,8 +20,8 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.cron.api.CamelCronConfiguration;
-import org.apache.camel.quarkus.core.deployment.CamelServicePatternBuildItem;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 
 class CronProcessor {
 

@@ -23,7 +23,7 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.kubernetes.CamelKubernetesRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class KubernetesProcessor {
     private static final String FEATURE = "camel-kubernetes";

@@ -24,7 +24,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.olingo4.Olingo4AppEndpointConfiguration;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 import org.apache.olingo.server.core.ODataImpl;
 
 class Olingo4Processor {

@@ -14,23 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
+import org.apache.camel.spi.Registry;
 
 /**
- * Holds the {@link CamelContext} {@link RuntimeValue}.
+ * Holds the {@link Registry} {@link RuntimeValue}. It is made available after the beans from
+ * {@link CamelRuntimeBeanBuildItem}s were registered in the underlying {@link Registry}.
+ *
+ * <h3>{@link CamelRuntimeRegistryBuildItem} vs. {@link CamelRegistryBuildItem}</h3>
+ *
+ * They both refer to the same instance of {@link Registry} but in different phases of the application bootstrap:
+ * {@link CamelRuntimeBeanBuildItem} is bound to {@link ExecutionTime#RUNTIME_INIT} phase while
+ * {@link CamelRegistryBuildItem} is bound to {@link ExecutionTime#STATIC_INIT} phase.
  */
-public final class CamelContextBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<CamelContext> value;
+public final class CamelRuntimeRegistryBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<Registry> value;
 
-    public CamelContextBuildItem(RuntimeValue<CamelContext> value) {
+    public CamelRuntimeRegistryBuildItem(RuntimeValue<Registry> value) {
         this.value = value;
     }
 
-    public RuntimeValue<CamelContext> getCamelContext() {
+    public RuntimeValue<Registry> getRegistry() {
         return value;
     }
 }

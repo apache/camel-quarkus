@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.support.SupportRecorder;
 
 public class SupportBuildStep {

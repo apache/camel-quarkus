@@ -14,20 +14,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.builder.item.SimpleBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.spi.ModelToXMLDumper;
+import io.quarkus.builder.item.MultiBuildItem;
+import org.apache.camel.RoutesBuilder;
+import org.jboss.jandex.DotName;
 
-public final class CamelModelToXMLDumperBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<ModelToXMLDumper> value;
+/**
+ * A {@link MultiBuildItem} holding class names of all {@link RoutesBuilder} implementations.
+ * <p>
+ * The class names are gathered from Jandex by {@code camel-quarkus-core}. Extensions are free to add
+ * {@link CamelRoutesBuilderClassBuildItem}s programmatically.
+ */
+public final class CamelRoutesBuilderClassBuildItem extends MultiBuildItem {
 
-    public CamelModelToXMLDumperBuildItem(RuntimeValue<ModelToXMLDumper> value) {
-        this.value = value;
+    private final DotName dotName;
+
+    public CamelRoutesBuilderClassBuildItem(DotName dotName) {
+        this.dotName = dotName;
     }
 
-    public RuntimeValue<ModelToXMLDumper> getValue() {
-        return value;
-    }
+    public DotName getDotName() {
+        return dotName;
+    };
+
 }

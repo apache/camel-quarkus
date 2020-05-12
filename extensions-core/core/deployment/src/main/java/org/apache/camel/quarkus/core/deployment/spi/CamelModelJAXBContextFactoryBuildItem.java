@@ -14,18 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.spi.ModelJAXBContextFactory;
 
-public final class CamelServiceFilterBuildItem extends MultiBuildItem {
-    private final CamelServiceFilter predicate;
+/**
+ * Holds the {@link ModelJAXBContextFactory} instance.
+ */
+public final class CamelModelJAXBContextFactoryBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<ModelJAXBContextFactory> value;
 
-    public CamelServiceFilterBuildItem(CamelServiceFilter predicate) {
-        this.predicate = predicate;
+    public CamelModelJAXBContextFactoryBuildItem(RuntimeValue<ModelJAXBContextFactory> value) {
+        this.value = value;
     }
 
-    public CamelServiceFilter getPredicate() {
-        return predicate;
+    public RuntimeValue<ModelJAXBContextFactory> getContextFactory() {
+        return value;
     }
 }

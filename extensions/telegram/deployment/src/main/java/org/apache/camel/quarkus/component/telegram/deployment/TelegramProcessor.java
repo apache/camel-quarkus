@@ -24,7 +24,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.telegram.TelegramRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.jboss.jandex.DotName;
 
 class TelegramProcessor {

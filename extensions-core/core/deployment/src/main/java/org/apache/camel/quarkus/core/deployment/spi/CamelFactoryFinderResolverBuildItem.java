@@ -14,23 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.CamelMain;
+import org.apache.camel.spi.FactoryFinderResolver;
 
 /**
- * Holds the {@link CamelMain} {@link RuntimeValue}.
+ * A {@link SimpleBuildItem} holding a {@link FactoryFinderResolver} {@link RuntimeValue}.
  */
-public final class CamelMainBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<CamelMain> main;
+public final class CamelFactoryFinderResolverBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<FactoryFinderResolver> factoryFinderResolver;
 
-    public CamelMainBuildItem(RuntimeValue<CamelMain> main) {
-        this.main = main;
+    public CamelFactoryFinderResolverBuildItem(RuntimeValue<FactoryFinderResolver> factoryFinderResolverBuilder) {
+        this.factoryFinderResolver = factoryFinderResolverBuilder;
     }
 
-    public RuntimeValue<CamelMain> getInstance() {
-        return main;
+    public RuntimeValue<FactoryFinderResolver> getFactoryFinderResolver() {
+        return factoryFinderResolver;
     }
 }

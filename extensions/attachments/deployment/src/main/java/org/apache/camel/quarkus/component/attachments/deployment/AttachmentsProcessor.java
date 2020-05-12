@@ -22,7 +22,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.attachments.AttachmentsRecorder;
 import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.core.deployment.UploadAttacherBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 
 class AttachmentsProcessor {
 

@@ -29,6 +29,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;

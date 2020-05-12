@@ -36,7 +36,7 @@ import org.apache.camel.component.box.BoxGroupsManagerEndpointConfiguration;
 import org.apache.camel.component.box.BoxSearchManagerEndpointConfiguration;
 import org.apache.camel.component.box.BoxTasksManagerEndpointConfiguration;
 import org.apache.camel.component.box.BoxUsersManagerEndpointConfiguration;
-import org.apache.camel.quarkus.core.deployment.UnbannedReflectiveBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 
 class BoxProcessor {
 

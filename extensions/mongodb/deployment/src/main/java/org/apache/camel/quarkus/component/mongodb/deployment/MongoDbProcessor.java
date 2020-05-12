@@ -24,7 +24,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
 import io.quarkus.mongodb.runtime.MongoClientRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class MongoDbProcessor {
 
