@@ -46,12 +46,12 @@
     <modules>
         <!-- build those first -->
         <module>core</module>
-        <module>core-main</module>
-        <module>core-main-xml-jaxb</module>
-        <module>core-main-xml-io</module>
-        <module>core-main-collector</module>
-        <module>core-main-caffeine-lrucache</module>
         <module>core-impl</module>
+        <module>main</module>
+        <module>main-xml-jaxb</module>
+        <module>main-xml-io</module>
+        <module>main-collector</module>
+        <module>main-caffeine-lrucache</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
