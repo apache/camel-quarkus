@@ -42,10 +42,12 @@
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <ahc.version>2.10.4</ahc.version>
+        <animal-sniffer.version>1.18</animal-sniffer.version>
         <awssdk1.version>1.11.714</awssdk1.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.11.5</awssdk2.version>
         <camel.version>3.2.0</camel.version>
+        <debezium.version>1.1.0.Final</debezium.version>
         <elasticsearch.version>7.6.1</elasticsearch.version>
         <freemarker.version>2.3.30</freemarker.version>
         <github-api.version>1.111</github-api.version>
@@ -61,6 +63,7 @@
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jetty.version>9.4.18.v20190429</jetty.version>
         <kotlin.version>1.3.72</kotlin.version>
+        <kubernetes-client.version>4.9.0</kubernetes-client.version>
         <quarkus.version>1.4.2.Final</quarkus.version>
         <quarkus-qpid-jms.version>0.14.1</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
