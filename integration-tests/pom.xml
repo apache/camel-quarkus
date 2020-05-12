@@ -46,7 +46,6 @@
     <modules>
         <!-- build those first -->
         <module>core</module>
-        <module>core-impl</module>
         <module>main</module>
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
