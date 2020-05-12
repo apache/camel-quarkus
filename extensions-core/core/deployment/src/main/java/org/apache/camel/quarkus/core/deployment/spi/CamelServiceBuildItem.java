@@ -20,7 +20,6 @@ import java.nio.file.Path;
 import java.util.Objects;
 
 import io.quarkus.builder.item.MultiBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelBeanInfo;
 
 /**
  * A {@link MultiBuildItem} holding information about a service defined in a property file somewhere under

@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 import io.quarkus.arc.processor.BeanInfo;
 import io.quarkus.builder.item.SimpleBuildItem;
-import org.apache.camel.quarkus.core.deployment.CamelBeanInfo;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
