@@ -2037,12 +2037,12 @@
             <dependency>
                 <groupId>io.debezium</groupId>
                 <artifactId>debezium-api</artifactId>
-                <version>1.1.0.Final</version>
+                <version>${debezium.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.fabric8</groupId>
                 <artifactId>kubernetes-client</artifactId>
-                <version>4.9.0</version>
+                <version>${kubernetes-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.xml.ws</groupId>
@@ -2068,7 +2068,7 @@
             <dependency>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>animal-sniffer-annotations</artifactId>
-                <version>1.18</version>
+                <version>${animal-sniffer.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.woodstox</groupId>
