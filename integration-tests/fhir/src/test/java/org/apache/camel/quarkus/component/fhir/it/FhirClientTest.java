@@ -22,8 +22,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
-import org.apache.camel.quarkus.test.EnabledIf;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -32,8 +32,10 @@ class FhirClientTest {
     private static final Logger LOG = Logger.getLogger(FhirClientTest.class);
 
     @Test
-    @EnabledIf(FhirFlags.R5Enabled.class)
+    //@EnabledIf(FhirFlags.R5Enabled.class)
     public void fhirClientR5() {
+        Assumptions.assumeTrue(new FhirFlags.R5Enabled().getAsBoolean());
+
         LOG.info("Running R5 Client test");
 
         final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
@@ -45,8 +47,10 @@ class FhirClientTest {
     }
 
     @Test
-    @EnabledIf(FhirFlags.R4Enabled.class)
+    //@EnabledIf(FhirFlags.R4Enabled.class)
     public void fhirClientR4() {
+        Assumptions.assumeTrue(new FhirFlags.R4Enabled().getAsBoolean());
+
         LOG.info("Running R4 Client test");
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
@@ -58,8 +62,10 @@ class FhirClientTest {
     }
 
     @Test
-    @EnabledIf(FhirFlags.Dstu3Enabled.class)
+    //@EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void fhirClientDstu3() {
+        Assumptions.assumeTrue(new FhirFlags.Dstu3Enabled().getAsBoolean());
+
         LOG.info("Running DSTU3 Client test");
 
         final org.hl7.fhir.dstu3.model.Patient patient = getDstu3Patient();
@@ -71,8 +77,10 @@ class FhirClientTest {
     }
 
     @Test
-    @EnabledIf(FhirFlags.Dstu2Enabled.class)
+    // @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void fhirClientDstu2() {
+        Assumptions.assumeTrue(new FhirFlags.Dstu2Enabled().getAsBoolean());
+
         LOG.info("Running DSTU2 CLIENT test");
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
