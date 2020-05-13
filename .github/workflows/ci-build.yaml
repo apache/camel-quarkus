@@ -197,13 +197,13 @@ jobs:
             exit 1
           fi
 
-          for i in $TEST_MODULES
-          do modules+=("integration-tests/$i"); done
-          IFS=,
-          eval ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
-            -Dnative \
-            -Ddocker \
-            -pl "${modules[*]}"
+          for TEST_MODULE in ${TEST_MODULES}
+          do
+            ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
+              -Dnative \
+              -Ddocker \
+              -pl integration-tests/${TEST_MODULE}
+          done
 
   # memoryhogs:
   #   runs-on: ubuntu-latest
