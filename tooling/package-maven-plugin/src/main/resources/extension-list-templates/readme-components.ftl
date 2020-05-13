@@ -7,8 +7,8 @@ Level | Since | Description
 [#list components as row]
 
 | [=getDocLink(row)][[=row.title]] ([=row.artifactId]) +
-`[=row.syntax]` | [=row.target] +
- [=row.supportLevel] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
+`[=row.syntax]` | [=getTarget(row)] +
+ [=getSupportLevel(row)] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
 [/#list]
 
 |===

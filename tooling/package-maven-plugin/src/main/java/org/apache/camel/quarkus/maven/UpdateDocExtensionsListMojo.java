@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -36,10 +37,12 @@ import freemarker.template.TemplateException;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
-import org.apache.camel.quarkus.maven.CqCatalog.Kind;
-import org.apache.camel.quarkus.maven.CqCatalog.WrappedModel;
+import org.apache.camel.catalog.Kind;
+import org.apache.camel.tooling.model.ArtifactModel;
+import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.SupportLevel;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -102,67 +105,93 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
 
         final Configuration cfg = CqUtils.getTemplateConfig(basePath, DEFAULT_TEMPLATES_URI_BASE, templatesUriBase, encoding);
 
-        String document;
+        AtomicReference<String> document;
         try {
-            document = new String(Files.readAllBytes(extensionListPath), encoding);
+            document = new AtomicReference<>(new String(Files.readAllBytes(extensionListPath), encoding));
         } catch (IOException e) {
             throw new RuntimeException("Could not read " + extensionListPath, e);
         }
         final GetDocLink getDocLink = new GetDocLink(extensionListPath.getParent().resolve("extensions"));
+        final TemplateMethodModelEx getSupportLevel = new TemplateMethodModelEx() {
+            @Override
+            public Object exec(List arguments) throws TemplateModelException {
+                if (arguments.size() != 1) {
+                    throw new TemplateModelException("Wrong argument count in getSupportLevel()");
+                }
+                ArtifactModel<?> model = (ArtifactModel<?>) DeepUnwrap.unwrap((StringModel) arguments.get(0));
+                return model.getSupportLevel() == SupportLevel.Stable ? SupportLevel.Stable.name()
+                        : SupportLevel.Preview.name();
+            }
+        };
+        final TemplateMethodModelEx getTarget = new TemplateMethodModelEx() {
+            @Override
+            public Object exec(List arguments) throws TemplateModelException {
+                if (arguments.size() != 1) {
+                    throw new TemplateModelException("Wrong argument count in getTarget()");
+                }
+                ArtifactModel<?> model = (ArtifactModel<?>) DeepUnwrap.unwrap((StringModel) arguments.get(0));
+                return model.isNativeSupported() ? "Native" : "JVM";
+            }
+        };
         final CqCatalog catalog = new CqCatalog(catalogBasePath);
-        for (Kind kind : Kind.values()) {
 
-            final Map<String, Object> model = new HashMap<>(3);
-            final List<WrappedModel> models = kind.all(catalog)
-                    .filter(WrappedModel::isFirstScheme)
+        final Map<String, Object> model = new HashMap<>(org.apache.camel.catalog.Kind.values().length);
+
+        CqCatalog.kinds().forEach(kind -> {
+            final List<ArtifactModel<?>> models = catalog.models(kind)
+                    .filter(CqCatalog::isFirstScheme)
                     .peek(m -> {
                         // special for camel-mail where we want to refer its imap scheme to mail so its mail.adoc in the
                         // doc link
-                        if ("imap".equals(m.delegate.getName())) {
-                            final ComponentModel delegate = (ComponentModel) m.delegate;
+                        if ("imap".equals(m.getName())) {
+                            final ComponentModel delegate = (ComponentModel) m;
                             delegate.setName("mail");
                             delegate.setTitle("Mail");
                         }
-                        if (m.delegate.getName().startsWith("bindy")) {
-                            final DataFormatModel delegate = (DataFormatModel) m.delegate;
+                        if (m.getName().startsWith("bindy")) {
+                            final DataFormatModel delegate = (DataFormatModel) m;
                             delegate.setName("bindy");
                         }
                         // TODO: Fix typo in ES REST metadata. Remove for Camel 3.3.0.
-                        if (m.delegate.getName().equals("elasticsearch-rest")) {
-                            final ComponentModel delegate = (ComponentModel) m.delegate;
+                        if (m.getName().equals("elasticsearch-rest")) {
+                            final ComponentModel delegate = (ComponentModel) m;
                             delegate.setTitle("Elasticsearch Rest");
                         }
                     })
-                    .sorted()
+                    .sorted(BaseModel.compareTitle())
                     .collect(Collectors.toList());
             model.put("components", models);
             final int artifactIdCount = models.stream()
-                    .map(WrappedModel::getArtifactId)
+                    .map(ArtifactModel::getArtifactId)
                     .collect(toSet()).size();
             model.put("numberOfArtifacts", artifactIdCount);
             final long deprecatedCount = models.stream()
-                    .filter(m -> m.delegate.isDeprecated())
+                    .filter(m -> m.isDeprecated())
                     .count();
             model.put("numberOfDeprecated", deprecatedCount);
             model.put("getDocLink", getDocLink);
+            model.put("getSupportLevel", getSupportLevel);
+            model.put("getTarget", getTarget);
 
-            final String extList = evalTemplate(cfg, "readme-" + kind.getPluralName() + ".ftl", model);
-            document = replace(document, extensionListPath, extList, kind);
-        }
+            final String extList = evalTemplate(cfg, "readme-" + kind.name() + "s.ftl", model);
+            replace(document, extensionListPath, extList, kind);
+        });
 
         try {
-            Files.write(extensionListPath, document.getBytes(encoding));
+            Files.write(extensionListPath, document.get().getBytes(encoding));
         } catch (IOException e) {
             throw new RuntimeException("Could not write to " + extensionListPath, e);
         }
 
     }
 
-    static String replace(String document, Path documentPath, String list, Kind kind) {
-        final Pattern pat = Pattern.compile("(" + Pattern.quote("// " + kind.getPluralName() + ": START\n") + ")(.*)("
-                + Pattern.quote("// " + kind.getPluralName() + ": END\n") + ")", Pattern.DOTALL);
+    static void replace(AtomicReference<String> ref, Path documentPath, String list, org.apache.camel.catalog.Kind kind) {
+        final Pattern pat = Pattern.compile("(" + Pattern.quote("// " + kind.name() + "s: START\n") + ")(.*)("
+                + Pattern.quote("// " + kind.name() + "s: END\n") + ")", Pattern.DOTALL);
 
+        final String document = ref.get();
         final Matcher m = pat.matcher(document);
+
         final StringBuffer sb = new StringBuffer(document.length());
         if (m.find()) {
             m.appendReplacement(sb, "$1" + Matcher.quoteReplacement(list) + "$3");
@@ -170,7 +199,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
             throw new IllegalStateException("Could not find " + pat.pattern() + " in " + documentPath + ":\n\n" + document);
         }
         m.appendTail(sb);
-        return sb.toString();
+        ref.set(sb.toString());
     }
 
     static String evalTemplate(Configuration cfg, String templateUri, Map<String, Object> model) {
@@ -202,29 +231,29 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
             if (arguments.size() != 1) {
                 throw new TemplateModelException("Wrong argument count in toCamelCase()");
             }
-            WrappedModel model = (WrappedModel) DeepUnwrap.unwrap((StringModel) arguments.get(0));
+            ArtifactModel<?> model = (ArtifactModel<?>) DeepUnwrap.unwrap((StringModel) arguments.get(0));
             if (localDocExists(model)) {
                 return getLocalDocLink(model);
-            } else if (model.kind == Kind.other) {
+            } else if (Kind.other.name().equals(model.getKind())) {
                 return null;
             } else {
                 return String.format("link:https://camel.apache.org/components/latest/%s-%s.html",
-                        model.delegate.getName(),
+                        model.getName(),
                         model.getKind());
             }
         }
 
-        private boolean localDocExists(WrappedModel model) {
+        private boolean localDocExists(ArtifactModel<?> model) {
             final Path path = extensionsDocPath.resolve(getExtensionDocName(model));
             return path.toFile().exists();
         }
 
-        private String getLocalDocLink(WrappedModel model) {
+        private String getLocalDocLink(ArtifactModel<?> model) {
             return "xref:extensions/" + getExtensionDocName(model);
         }
 
-        private String getExtensionDocName(WrappedModel model) {
-            return model.getArtifactIdBase() + ".adoc";
+        private String getExtensionDocName(ArtifactModel<?> model) {
+            return CqUtils.getArtifactIdBase(model) + ".adoc";
         }
 
     }
