@@ -25,7 +25,7 @@
         <version>1.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camel-quarkus-sap-netweaver-integration-test</artifactId>
+    <artifactId>camel-quarkus-integration-test-sap-netweaver</artifactId>
     <name>Camel Quarkus :: Integration Tests :: SAP NetWeaver</name>
     <description>Integration tests for Camel Quarkus SAP NetWeaver extension</description>
 
