@@ -27,6 +27,7 @@ import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.maven.model.Model;
 
 public class CqUtils {
@@ -92,6 +93,17 @@ public class CqUtils {
                 : basePom.getParent() != null && basePom.getParent().getVersion() != null
                         ? basePom.getParent().getVersion()
                         : null;
+    }
+
+    public static String getArtifactIdBase(ArtifactModel<?> model) {
+        final String artifactId = model.getArtifactId();
+        if (artifactId.startsWith("camel-quarkus-")) {
+            return artifactId.substring("camel-quarkus-".length());
+        } else if (artifactId.startsWith("camel-")) {
+            return artifactId.substring("camel-".length());
+        }
+        throw new IllegalStateException(
+                "Unexpected artifactId " + artifactId + "; expected one starting with camel-quarkus- or camel-");
     }
 
 }

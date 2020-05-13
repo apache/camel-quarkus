@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.maven;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collections;
-import java.util.EnumMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,11 +32,14 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import org.apache.camel.quarkus.maven.CqCatalog.Kind;
-import org.apache.camel.quarkus.maven.CqCatalog.WrappedModel;
+import org.apache.camel.catalog.Kind;
+import org.apache.camel.tooling.model.ArtifactModel;
+import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.JsonMapper;
+import org.apache.camel.tooling.model.LanguageModel;
+import org.apache.camel.tooling.model.OtherModel;
+import org.apache.camel.tooling.model.SupportLevel;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -82,12 +84,9 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             skipArtifactIdBases = Collections.emptySet();
         }
 
-        final Map<Kind, Set<String>> schemesByKind = new EnumMap<>(Kind.class);
-        for (Kind kind : Kind.values()) {
-            schemesByKind.put(kind, new TreeSet<>());
-        }
+        final Map<String, Set<String>> schemesByKind = new LinkedHashMap<>();
+        CqCatalog.kinds().forEach(kind -> schemesByKind.put(kind.name(), new TreeSet<>()));
 
-        final Gson gson = new GsonBuilder().enableComplexMapKeySerialization().setPrettyPrinting().create();
         final CqCatalog catalog = new CqCatalog();
         extensionDirectories.stream()
                 .map(File::toPath)
@@ -95,105 +94,97 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                     CqUtils.findExtensionArtifactIdBases(extDir)
                             .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
                             .forEach(artifactIdBase -> {
-                                final List<WrappedModel> models = catalog.filterModels(artifactIdBase);
+                                final List<ArtifactModel<?>> models = catalog.filterModels(artifactIdBase);
                                 final CamelQuarkusExtension ext = CamelQuarkusExtension
                                         .read(extDir.resolve(artifactIdBase).resolve("pom.xml"), catalog);
                                 final boolean nativeSupported = !extDir.getFileName().toString().endsWith("-jvm");
                                 if (models.isEmpty()) {
-                                    appendOther(ext, nativeSupported, schemesByKind, gson, catalogPath);
+                                    final OtherModel model = new OtherModel();
+                                    final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
+                                    model.setName(name);
+                                    final String title = ext.getName().orElseThrow(() -> new RuntimeException(
+                                            "name is missing in " + ext.getRuntimePomXmlPath()));
+                                    model.setTitle(title);
+                                    model.setDescription(ext.getDescription().orElseThrow(() -> new RuntimeException(
+                                            "description is missing in " + ext.getRuntimePomXmlPath())));
+                                    model.setDeprecated(title.contains("(deprecated)"));
+                                    model.setLabel(ext.getLabel().orElse("quarkus"));
+                                    update(model, ext, nativeSupported);
+                                    serialize(catalogPath, model);
+                                    schemesByKind.get(model.getKind()).add(model.getName());
                                 } else {
-                                    for (WrappedModel model : models) {
-                                        final JsonObject newCatalogEntry = model.getJson();
-                                        final JsonObject kindObject = newCatalogEntry.get(model.kind.name()).getAsJsonObject();
-                                        final String firstVersion = ext.getFirstVersion()
-                                                .orElseThrow(() -> new RuntimeException(
-                                                        "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
-                                        // lets use the camel-quarkus version as first version instead of Apache Camel
-                                        // version
-                                        kindObject.addProperty("firstVersion", firstVersion);
-
-                                        // update json metadata to adapt to camel-quarkus-catalog
-                                        kindObject.addProperty("groupId", "org.apache.camel.quarkus");
-                                        kindObject.addProperty("artifactId", ext.getRuntimeArtifactId());
-                                        kindObject.addProperty("version", ext.getVersion());
-                                        kindObject.addProperty("compilationTarget", nativeSupported ? "Native" : "JVM");
-                                        kindObject.addProperty("supportLevel", nativeSupported ? "Stable" : "Preview");
-
-                                        final Path out = catalogPath.resolve(model.kind.getPluralName())
-                                                .resolve(model.delegate.getName() + ".json");
-                                        try {
-                                            Files.createDirectories(out.getParent());
-                                        } catch (IOException e) {
-                                            throw new RuntimeException("Could not create " + out.getParent(), e);
-                                        }
-                                        try (Writer w = Files.newBufferedWriter(out, StandardCharsets.UTF_8)) {
-                                            gson.toJson(newCatalogEntry, w);
-                                        } catch (IOException e) {
-                                            throw new RuntimeException("Could not write to " + out);
-                                        }
-
-                                        schemesByKind.get(model.kind).add(model.delegate.getName());
-
+                                    for (ArtifactModel<?> model : models) {
+                                        update(model, ext, nativeSupported);
+                                        serialize(catalogPath, model);
+                                        schemesByKind.get(model.getKind()).add(model.getName());
                                     }
                                 }
                             });
                 });
 
-        for (Kind kind : Kind.values()) {
-            final Path newCatalog = catalogPath.resolve(kind.getPluralName() + ".properties");
+        CqCatalog.kinds().forEach(kind -> {
+            final Path newCatalog = catalogPath.resolve(kind.name() + "s.properties");
             try {
                 Files.createDirectories(newCatalog.getParent());
                 Files.write(newCatalog,
-                        schemesByKind.get(kind).stream().collect(Collectors.joining("\n")).getBytes(StandardCharsets.UTF_8));
+                        schemesByKind.get(kind.name()).stream().collect(Collectors.joining("\n"))
+                                .getBytes(StandardCharsets.UTF_8));
             } catch (IOException e) {
-                throw new MojoExecutionException("Could not write to " + newCatalog);
+                throw new RuntimeException("Could not write to " + newCatalog);
             }
-        }
+        });
 
     }
 
-    void appendOther(CamelQuarkusExtension ext, boolean nativeSupported, Map<Kind, Set<String>> schemesByKind, Gson gson,
-            Path catalogPath) {
-        final JsonObject other = new JsonObject();
-        String firstVersion = ext.getFirstVersion().orElseThrow(() -> new RuntimeException(
-                "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
-        other.addProperty("firstVersion", firstVersion);
-        final Kind kind = Kind.other;
-        final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
-        schemesByKind.get(kind).add(name);
-        other.addProperty("name", name);
-        final String title = ext.getName().orElseThrow(() -> new RuntimeException(
-                "name is missing in " + ext.getRuntimePomXmlPath()));
-        other.addProperty("title", title);
-        other.addProperty("description", ext.getDescription().orElseThrow(() -> new RuntimeException(
-                "description is missing in " + ext.getRuntimePomXmlPath())));
-        if (title.contains("(deprecated)")) {
-            other.addProperty("deprecated", "true");
-        } else {
-            other.addProperty("deprecated", "false");
-        }
-        other.addProperty("label", ext.getLabel().orElse("quarkus"));
-        other.addProperty("groupId", "org.apache.camel.quarkus");
-        other.addProperty("artifactId", ext.getRuntimeArtifactId());
-        other.addProperty("version", ext.getVersion());
-        other.addProperty("compilationTarget", nativeSupported ? "Native" : "JVM");
-        other.addProperty("supportLevel", nativeSupported ? "Stable" : "Preview");
-
-        final JsonObject json = new JsonObject();
-        json.add("other", other);
-
-        // write new json file
-        final Path out = catalogPath.resolve(kind.getPluralName()).resolve(name + ".json");
+    private void serialize(final Path catalogPath, ArtifactModel<?> model) {
+        final Path out = catalogPath.resolve(model.getKind() + "s")
+                .resolve(model.getName() + ".json");
         try {
             Files.createDirectories(out.getParent());
         } catch (IOException e) {
             throw new RuntimeException("Could not create " + out.getParent(), e);
         }
-        try (Writer w = Files.newBufferedWriter(out, StandardCharsets.UTF_8)) {
-            gson.toJson(json, w);
+        String rawJson;
+        switch (Kind.valueOf(model.getKind())) {
+        case component:
+            rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
+            break;
+        case language:
+            rawJson = JsonMapper.createParameterJsonSchema((LanguageModel) model);
+            break;
+        case dataformat:
+            rawJson = JsonMapper.createParameterJsonSchema((DataFormatModel) model);
+            break;
+        case other:
+            rawJson = JsonMapper.createJsonSchema((OtherModel) model);
+            break;
+        default:
+            throw new IllegalStateException("Cannot serialize kind " + model.getKind());
+        }
+
+        try {
+            Files.write(out, rawJson.getBytes(StandardCharsets.UTF_8));
         } catch (IOException e) {
             throw new RuntimeException("Could not write to " + out);
         }
+    }
+
+    private static void update(ArtifactModel<?> model, CamelQuarkusExtension ext, boolean nativeSupported) {
+        final String firstVersion = ext.getFirstVersion()
+                .orElseThrow(() -> new RuntimeException(
+                        "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
+        // lets use the camel-quarkus version as first version instead of Apache Camel
+        // version
+
+        model.setFirstVersion(firstVersion);
+
+        // update json metadata to adapt to camel-quarkus-catalog
+        model.setGroupId("org.apache.camel.quarkus");
+        model.setArtifactId(ext.getRuntimeArtifactId());
+        model.setVersion(ext.getVersion());
+        model.setNativeSupported(nativeSupported);
+        model.setSupportLevel(nativeSupported ? SupportLevel.Stable : SupportLevel.Preview);
+
     }
 
     static class CamelQuarkusExtension {

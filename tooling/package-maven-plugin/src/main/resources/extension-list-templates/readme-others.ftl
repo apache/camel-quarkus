@@ -5,7 +5,7 @@ Number of miscellaneous extensions: [=components?size] in [=numberOfArtifacts] J
 | Extension | Target Level | Since | Description
 [#list components as row]
 
-|[#if getDocLink(row)??] [=getDocLink(row)][[=row.artifactId]] [#else] ([=row.artifactId])[/#if] | [=row.target] +
- [=row.supportLevel] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
+|[#if getDocLink(row)??] [=getDocLink(row)][[=row.artifactId]] [#else] ([=row.artifactId])[/#if] | [=getTarget(row)] +
+ [=getSupportLevel(row)] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
 [/#list]
 |===

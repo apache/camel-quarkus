@@ -6,7 +6,7 @@ Number of Camel data formats: [=components?size] in [=numberOfArtifacts] JAR art
 Level | Since | Description
 [#list components as row]
 
-| [=getDocLink(row)][[=row.title]] ([=row.artifactId]) | [=row.target] +
- [=row.supportLevel] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
+| [=getDocLink(row)][[=row.title]] ([=row.artifactId]) | [=getTarget(row)] +
+ [=getSupportLevel(row)] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
 [/#list]
 |===
