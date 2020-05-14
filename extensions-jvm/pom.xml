@@ -49,7 +49,6 @@
         <module>couchbase</module>
         <module>debezium-mongodb</module>
         <module>debezium-mysql</module>
-        <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>

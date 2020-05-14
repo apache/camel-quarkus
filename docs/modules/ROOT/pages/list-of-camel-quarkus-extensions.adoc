@@ -226,8 +226,8 @@ Level | Since | Description
  Preview | 1.0.0-M6 | Capture changes from a MySQL database.
 
 | link:https://camel.apache.org/components/latest/debezium-postgres-component.html[Debezium PostgresSQL Connector] (camel-quarkus-debezium-postgres) +
-`debezium-postgres:name` | JVM +
- Preview | 1.0.0-M6 | Capture changes from a PostgresSQL database.
+`debezium-postgres:name` | Native +
+ Stable | 1.0.0-M6 | Capture changes from a PostgresSQL database.
 
 | link:https://camel.apache.org/components/latest/debezium-sqlserver-component.html[Debezium SQL Server Connector] (camel-quarkus-debezium-sqlserver) +
 `debezium-sqlserver:name` | JVM +

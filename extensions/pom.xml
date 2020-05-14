@@ -69,6 +69,7 @@
         <module>cron</module>
         <module>csv</module>
         <module>dataformat</module>
+        <module>debezium-postgres</module>
         <module>direct</module>
         <module>dozer</module>
         <module>elasticsearch-rest</module>
