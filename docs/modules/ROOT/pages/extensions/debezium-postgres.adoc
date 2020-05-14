@@ -1,0 +1,30 @@
+[[debezium-postgres]]
+= Debezium Postgres Extension
+
+*Since Camel Quarkus 1.0.0-M6*
+
+*Only consumer is supported*
+
+The Debezium PostgresSQL component is wrapper around https://debezium.io/[Debezium] using
+https://debezium.io/documentation/reference/0.9/operations/embedded.html[Debezium Embedded], which enables Change Data
+Capture from PostgresSQL database using Debezium without the need for Kafka or Kafka Connect.
+
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-debezium-postgres</artifactId>
+</dependency>
+------------------------------------------------------------
+
+== Usage
+
+The extension provides support for the Camel https://camel.apache.org/components/latest/debezium-postgres-component.html[Debezium Postgres Connector].
+
+=== Limitations
+
+Not all offset stores are supported in the native mode. Supported ones are:
+
+* org.apache.kafka.connect.storage.FileOffsetBackingStore
+* org.apache.kafka.connect.storage.MemoryOffsetBackingStore
+
