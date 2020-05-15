@@ -111,7 +111,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '8' , '12' ]
+        java: [ '8' , '14' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
