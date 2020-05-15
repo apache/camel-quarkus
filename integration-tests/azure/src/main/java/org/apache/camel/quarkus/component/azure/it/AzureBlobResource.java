@@ -20,8 +20,10 @@ import java.io.ByteArrayInputStream;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -32,6 +34,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.microsoft.azure.storage.StorageCredentials;
+import com.microsoft.azure.storage.blob.CloudBlob;
+import com.microsoft.azure.storage.blob.CloudBlobContainer;
+import com.microsoft.azure.storage.blob.CloudBlockBlob;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.azure.blob.BlobBlock;
@@ -43,12 +49,30 @@ public class AzureBlobResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @PostConstruct
+    public void init() throws Exception {
+        StorageCredentials credentials = StorageCredentials.tryParseCredentials(System.getProperty("azurite.credentials"));
+        URI uri = new URI(System.getProperty("azurite.blob.service.url") + "camel-test");
+        CloudBlobContainer container = new CloudBlobContainer(uri, credentials);
+        container.create();
+    }
+
+    @javax.enterprise.inject.Produces
+    @Named("azureBlobClient")
+    public CloudBlob createBlobClient() throws Exception {
+        StorageCredentials credentials = StorageCredentials.tryParseCredentials(System.getProperty("azurite.credentials"));
+        URI uri = new URI(System.getProperty("azurite.blob.service.url") + "camel-test/test");
+        CloudBlockBlob cloudBlockBlob = new CloudBlockBlob(uri, credentials);
+        return cloudBlockBlob;
+    }
+
     @Path("/blob/create")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createBlob(String message) throws Exception {
         BlobBlock blob = new BlobBlock(new ByteArrayInputStream(message.getBytes(StandardCharsets.UTF_8)));
-        producerTemplate.sendBody("azure-blob://{{env:AZURE_STORAGE_ACCOUNT}}/camel-test/test?operation=uploadBlobBlocks",
+        producerTemplate.sendBody(
+                "azure-blob://devstoreaccount1/camel-test/test?operation=uploadBlobBlocks&azureBlobClient=#azureBlobClient&validateClientURI=false",
                 blob);
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
@@ -58,7 +82,7 @@ public class AzureBlobResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String readBlob() throws Exception {
         return producerTemplate.requestBodyAndHeader(
-                "azure-blob://{{env:AZURE_STORAGE_ACCOUNT}}/camel-test/test?operation=getBlob",
+                "azure-blob://devstoreaccount1/camel-test/test?operation=getBlob&azureBlobClient=#azureBlobClient&validateClientURI=false",
                 null, Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name(), String.class);
     }
 
@@ -66,7 +90,8 @@ public class AzureBlobResource {
     @PATCH
     @Consumes(MediaType.TEXT_PLAIN)
     public Response updateBlob(String message) throws Exception {
-        producerTemplate.sendBody("azure-blob://{{env:AZURE_STORAGE_ACCOUNT}}/camel-test/test?operation=updateBlockBlob",
+        producerTemplate.sendBody(
+                "azure-blob://devstoreaccount1/camel-test/test?operation=updateBlockBlob&azureBlobClient=#azureBlobClient&validateClientURI=false",
                 message);
         return Response.ok().build();
     }
@@ -74,7 +99,8 @@ public class AzureBlobResource {
     @Path("/blob/delete")
     @DELETE
     public Response deleteBlob() throws Exception {
-        producerTemplate.sendBody("azure-blob://{{env:AZURE_STORAGE_ACCOUNT}}/camel-test/test?operation=deleteBlob",
+        producerTemplate.sendBody(
+                "azure-blob://devstoreaccount1/camel-test/test?operation=deleteBlob&azureBlobClient=#azureBlobClient&validateClientURI=false",
                 null);
         return Response.noContent().build();
     }
