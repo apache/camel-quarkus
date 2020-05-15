@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Platform HTTP"
-description: "HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer"
+name: "Camel Platform HTTP"
+description: "Expose HTTP endpoints using the HTTP server available in the current platform"
 metadata:
-  keywords:
-  - "camel"
-  - "http"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/platform-http.html"
   categories:
   - "integration"

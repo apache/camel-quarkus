@@ -29,7 +29,7 @@
     <packaging>pom</packaging>
 
     <artifactId>camel-quarkus-caffeine-lrucache-parent</artifactId>
-    <name>Camel Quarkus :: Caffeine LRUCache - Parent</name>
+    <name>Camel Quarkus :: Caffeine LRUCache :: Parent</name>
 
     <dependencyManagement>
         <dependencies>

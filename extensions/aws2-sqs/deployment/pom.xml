@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-sqs-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Queue Service :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 Simple Queue Service (SQS) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

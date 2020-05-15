@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "OGNL"
-description: "To use OGNL scripts in Camel expressions or predicates."
+name: "Camel OGNL"
+description: "Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange"
 metadata:
   unlisted: true
-  keywords:
-  - "java"
-  - "language"
   guide: "https://camel.apache.org/components/latest/ognl-language.html"
   categories:
   - "integration"

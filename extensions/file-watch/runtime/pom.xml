@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-file-watch</artifactId>
     <name>Camel Quarkus :: File Watch :: Runtime</name>
-    <description>Watch file modification events in a folder</description>
 
     <properties>
         <firstVersion>1.0.0-M5</firstVersion>

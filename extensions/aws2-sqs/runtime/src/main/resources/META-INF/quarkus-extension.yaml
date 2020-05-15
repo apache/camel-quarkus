@@ -15,15 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 Simple Queue Service"
-description: "The aws2-sqs component is used for sending and receiving messages to Amazon's SQS service."
+name: "Camel AWS 2 Simple Queue Service (SQS)"
+description: "Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x"
 metadata:
   keywords:
-  - "camel"
-  - "aws"
-  - "cloud"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws2-sqs-component.html"
   categories:
   - "integration"
-

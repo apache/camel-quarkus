@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-zipfile</artifactId>
-    <name>Camel Quarkus :: ZipFile :: Runtime</name>
+    <name>Camel Quarkus :: Zip File :: Runtime</name>
 
     <properties>
         <firstVersion>0.2.0</firstVersion>

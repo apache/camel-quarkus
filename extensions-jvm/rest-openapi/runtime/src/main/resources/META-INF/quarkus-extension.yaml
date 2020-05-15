@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "REST OpenApi"
-description: "An awesome REST endpoint backed by OpenApi specifications."
+name: "Camel REST OpenApi"
+description: "Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface"
 metadata:
   unlisted: true
-  keywords:
-  - "http"
-  - "openapi"
-  - "rest"
   guide: "https://camel.apache.org/components/latest/rest-openapi-component.html"
   categories:
   - "integration"

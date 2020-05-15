@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-bean</artifactId>
     <name>Camel Quarkus :: Bean :: Runtime</name>
+    <description>Invoke methods of Java beans</description>
 
     <properties>
         <firstVersion>0.2.0</firstVersion>

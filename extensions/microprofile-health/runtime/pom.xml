@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-microprofile-health</artifactId>
     <name>Camel Quarkus :: MicroProfile Health :: Runtime</name>
-    <description>Integration with the Quarkus MicroProfile Health extension</description>
 
     <properties>
         <firstVersion>0.3.0</firstVersion>

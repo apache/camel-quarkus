@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Twitter"
-description: "Camel Twitter support"
+name: "Camel Twitter"
+description: "Send tweets and receive tweets, direct messages and access Twitter Search"
 metadata:
-  keywords:
-  - "camel"
-  - "social"
-  - "twitter"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/twitter-component.html"
   categories:
   - "integration"

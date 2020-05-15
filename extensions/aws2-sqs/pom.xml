@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-sqs-parent</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Queue Service</name>
+    <name>Camel Quarkus :: AWS 2 Simple Queue Service (SQS)</name>
     <packaging>pom</packaging>
 
     <modules>

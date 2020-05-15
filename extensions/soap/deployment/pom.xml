@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-soap-deployment</artifactId>
-    <name>Camel Quarkus :: Soap dataformat :: Deployment</name>
+    <name>Camel Quarkus :: SOAP dataformat :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-zipfile-deployment</artifactId>
-    <name>Camel Quarkus :: ZipFile :: Deployment</name>
+    <name>Camel Quarkus :: Zip File :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

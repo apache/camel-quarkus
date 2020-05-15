@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-tagsoup</artifactId>
-    <name>Camel Quarkus :: TagSoup :: Runtime</name>
+    <name>Camel Quarkus :: TagSoup (a.k.a. TidyMarkup) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M1</firstVersion>

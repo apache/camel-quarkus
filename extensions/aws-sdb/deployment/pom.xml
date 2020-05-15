@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-sdb-deployment</artifactId>
-    <name>Camel Quarkus :: AWS SimpleDB :: Deployment</name>
+    <name>Camel Quarkus :: AWS SimpleDB (SDB) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

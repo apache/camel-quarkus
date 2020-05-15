@@ -15,14 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 CloudWatch"
-description: "The aws2-cw component is used for sending metrics to an Amazon CloudWatch."
+name: "Camel AWS 2 CloudWatch"
+description: "Sending metrics to AWS CloudWatch using AWS SDK version 2.x"
 metadata:
   keywords:
-  - "camel"
-  - "aws"
-  - "cloud"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws2-cw-component.html"
   categories:
   - "integration"

@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus ControlBus"
-description: "Camel ControlBus support"
+name: "Camel Control Bus"
+description: "Manage and monitor Camel routes"
 metadata:
-  keywords:
-  - "camel"
-  - "monitoring"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/controlbus-component.html"
   categories:
   - "integration"

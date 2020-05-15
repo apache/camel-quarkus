@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-rest-openapi</artifactId>
     <name>Camel Quarkus :: REST OpenApi :: Runtime</name>
-    <description>An awesome REST endpoint backed by OpenApi specifications.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

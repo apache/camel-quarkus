@@ -15,12 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Ref"
-description: "Camel Ref support"
+name: "Camel Ref"
+description: "Route messages to an endpoint looked up dynamically by name in the Camel Registry"
 metadata:
-  keywords:
-  - "camel"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/ref-component.html"
   categories:
   - "integration"

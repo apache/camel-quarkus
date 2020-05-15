@@ -27,10 +27,11 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-kms</artifactId>
-    <name>Camel Quarkus :: AWS KMS :: Runtime</name>
+    <name>Camel Quarkus :: AWS Key Management Service (KMS) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M1</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

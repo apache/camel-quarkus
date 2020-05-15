@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-zipfile-parent</artifactId>
-    <name>Camel Quarkus :: ZipFile</name>
+    <name>Camel Quarkus :: Zip File</name>
     <packaging>pom</packaging>
 
     <modules>

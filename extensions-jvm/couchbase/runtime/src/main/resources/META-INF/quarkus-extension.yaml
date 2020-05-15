@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Couchbase"
-description: "Represents a Couchbase endpoint that can query Views with a Poll strategy and/or produce various type of operations."
+name: "Camel Couchbase"
+description: "Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases"
 metadata:
   unlisted: true
-  keywords:
-  - "database"
-  - "nosql"
   guide: "https://camel.apache.org/components/latest/couchbase-component.html"
   categories:
   - "integration"

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-controlbus</artifactId>
-    <name>Camel Quarkus :: ControlBus :: Runtime</name>
+    <name>Camel Quarkus :: Control Bus :: Runtime</name>
 
     <properties>
         <firstVersion>0.4.0</firstVersion>

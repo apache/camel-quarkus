@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Async HTTP Client (AHC)"
-description: "Camel Quarkus Async HTTP Client (AHC) support"
+name: "Camel AHC (Async Http Client)"
+description: "Call external HTTP services using Async Http Client"
 metadata:
-  keywords:
-  - "camel"
-  - "http"
-  - "client"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ahc.html"
   categories:
   - "integration"

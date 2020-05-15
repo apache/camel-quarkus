@@ -15,17 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Google Calendar"
-description: "The google-calendar component provides access to Google Calendar."
+name: "Camel Google Calendar"
+description: "Perform various operations on a Google Calendar"
 metadata:
-  keywords:
-  - "api"
-  - "camel"
-  - "calendar"
-  - "cloud"
-  - "google"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/google-calendar-component.html"
   categories:
   - "integration"
-  status: "stable"

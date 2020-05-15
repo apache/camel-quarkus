@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-bindy</artifactId>
     <name>Camel Quarkus :: Bindy :: Runtime</name>
-    <description>Camel Bindy Data Format</description>
 
     <properties>
         <firstVersion>1.0.0-M4</firstVersion>

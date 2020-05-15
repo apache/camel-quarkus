@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Reactive Streams"
-description: "Camel Reactive Streams component"
+name: "Camel Reactive Streams"
+description: "Exchange messages with reactive stream processing libraries compatible with the reactive streams standard"
 metadata:
-  keywords:
-  - "camel"
-  - "reactive-streams"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/reactive-streams-component.html"
   categories:
   - "integration"

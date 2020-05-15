@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-quartz</artifactId>
     <name>Camel Quarkus :: Quartz :: Runtime</name>
-    <description>Provides a scheduled delivery of messages using the Quartz 2.x scheduler.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-websocket-jsr356-parent</artifactId>
-    <name>Camel Quarkus :: WebSocket JSR 356</name>
+    <name>Camel Quarkus :: Javax Websocket (JSR 356)</name>
     <packaging>pom</packaging>
 
     <modules>

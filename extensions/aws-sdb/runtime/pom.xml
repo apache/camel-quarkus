@@ -27,11 +27,11 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-sdb</artifactId>
-    <name>Camel Quarkus :: AWS SimpleDB :: Runtime</name>
-    <description>The aws-sdb component is for storing and retrieving data from/to Amazon's SDB service.</description>
+    <name>Camel Quarkus :: AWS SimpleDB (SDB) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-kudu</artifactId>
     <name>Camel Quarkus :: Kudu :: Runtime</name>
-    <description>Represents a Kudu endpoint. A kudu endpoint allows you to interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

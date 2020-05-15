@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus MicroProfile Health"
-description: "Integration with the Quarkus MicroProfile Health extension"
+name: "Camel MicroProfile Health"
+description: "Bridging Eclipse MicroProfile Health with Camel health checks"
 metadata:
-  keywords:
-  - "camel"
-  - "microprofile"
-  - "health"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/microprofile-health.html"
   categories:
   - "integration"

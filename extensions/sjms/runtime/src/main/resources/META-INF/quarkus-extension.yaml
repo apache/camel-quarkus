@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus SJMS"
-description: "Camel Quarkus JMS support"
+name: "Camel Simple JMS"
+description: "Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API"
 metadata:
-  keywords:
-  - "camel"
-  - "messaging"
-  - "jms"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/sjms-component.html"
   categories:
   - "integration"

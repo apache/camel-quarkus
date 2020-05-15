@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-kubernetes</artifactId>
     <name>Camel Quarkus :: Kubernetes :: Runtime</name>
-    <description>The Kubernetes component provides integration with Kubernetes APIs.</description>
+    <description>Perform operations against Kubernetes API</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

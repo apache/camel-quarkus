@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-msk</artifactId>
     <name>Camel Quarkus :: AWS 2 MSK :: Runtime</name>
-    <description>The aws2-msk is used for managing Amazon MSK</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

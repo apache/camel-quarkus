@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-azure</artifactId>
     <name>Camel Quarkus :: Azure :: Runtime</name>
+    <description>Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service</description>
 
     <properties>
         <firstVersion>1.0.0-M4</firstVersion>

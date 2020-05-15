@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus JSON Path"
-description: "Camel JSON Path language"
+name: "Camel JSON Path"
+description: "Evaluate a JsonPath expression against a JSON message body"
 metadata:
-  keywords:
-  - "camel"
-  - "json"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/jsonpath-language.html"
   categories:
   - "integration"

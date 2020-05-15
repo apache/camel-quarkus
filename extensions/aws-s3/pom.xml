@@ -29,7 +29,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-s3-parent</artifactId>
-    <name>Camel Quarkus :: AWS</name>
+    <name>Camel Quarkus :: AWS S3 Storage Service</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

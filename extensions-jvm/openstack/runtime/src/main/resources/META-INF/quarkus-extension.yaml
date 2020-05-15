@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "OpenStack"
-description: "The openstack component allows you to interact with OpenStack APIs."
+name: "Camel OpenStack"
+description: "Interact with OpenStack APIs"
 metadata:
   unlisted: true
-  keywords:
-  - "cloud"
-  - "paas"
   guide: "https://camel.apache.org/components/latest/openstack-component.html"
   categories:
   - "integration"

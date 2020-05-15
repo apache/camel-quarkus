@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-openstack</artifactId>
     <name>Camel Quarkus :: OpenStack :: Runtime</name>
-    <description>The openstack component allows you to interact with OpenStack APIs.</description>
+    <description>Interact with OpenStack APIs</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

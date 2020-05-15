@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-protobuf</artifactId>
     <name>Camel Quarkus :: Protobuf :: Runtime</name>
-    <description>The Protobuf data format is used for serializing between Java objects and the Google Protobuf protocol.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

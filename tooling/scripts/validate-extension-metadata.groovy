@@ -51,17 +51,8 @@ for (String extensionDir in extensionDirs) {
                         messages.add(shortPath + ' must contain metadata section')
                         return
                     }
-                    if (!descriptor.metadata.guide?.equals('https://quarkus.io/guides/camel')) {
-                        messages.add(shortPath + ' must contain a link to the guide https://quarkus.io/guides/camel')
-                    }
-
-                    // keywords
-                    if (!descriptor.metadata.keywords) {
-                        messages.add(shortPath + ' metadata must contain keywords section')
-                        return
-                    }
-                    if (!descriptor.metadata.keywords?.contains('camel')) {
-                        messages.add(shortPath + ' metadata must contain a list of keywords with at least "camel" present')
+                    if (!descriptor.metadata.guide) {
+                        messages.add(shortPath + ' must contain a link to a guide')
                     }
 
                     // categories

@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus ActiveMQ"
-description: "Camel Quarkus ActiveMQ Support"
+name: "Camel ActiveMQ"
+description: "Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component"
 metadata:
-  keywords:
-    - "camel"
-    - "activemq"
-    - "messaging"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/activemq-component.html"
   categories:
-    - "integration"
+  - "integration"

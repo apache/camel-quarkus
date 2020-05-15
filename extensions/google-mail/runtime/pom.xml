@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-mail</artifactId>
     <name>Camel Quarkus :: Google Mail :: Runtime</name>
-    <description>The google-mail component provides access to Google Mail.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

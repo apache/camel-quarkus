@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-xml-io</artifactId>
-    <name>Camel Quarkus :: XML :: IO :: Runtime</name>
+    <name>Camel Quarkus :: XML :: Core XML IO :: Runtime</name>
     <description>An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp</description>
 
     <properties>

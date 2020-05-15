@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-controlbus-parent</artifactId>
-    <name>Camel Quarkus :: ControlBus</name>
+    <name>Camel Quarkus :: Control Bus</name>
     <packaging>pom</packaging>
 
     <modules>

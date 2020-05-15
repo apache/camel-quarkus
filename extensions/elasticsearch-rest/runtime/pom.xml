@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-elasticsearch-rest</artifactId>
     <name>Camel Quarkus :: Elasticsearch Rest :: Runtime</name>
-    <description>The elasticsearch component is used for interfacing with ElasticSearch server using REST API.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

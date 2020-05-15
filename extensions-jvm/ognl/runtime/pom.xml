@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-ognl</artifactId>
     <name>Camel Quarkus :: OGNL :: Runtime</name>
-    <description>To use OGNL scripts in Camel expressions or predicates.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

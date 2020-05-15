@@ -15,16 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus MongoDB"
-description: "Camel Java MongoDB support"
+name: "Camel MongoDB"
+description: "Perform operations on MongoDB documents and collections"
 metadata:
-  keywords:
-  - "camel"
-  - "mongo"
-  - "mongodb"
-  - "nosql"
-  - "datastore"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/mongodb.html"
   categories:
   - "integration"

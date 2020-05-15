@@ -15,12 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Log"
-description: "Camel Log support"
+name: "Camel Log"
+description: "Log messages to the underlying logging mechanism"
 metadata:
-  keywords:
-  - "camel"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/log-component.html"
   categories:
   - "integration"

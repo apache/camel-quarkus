@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-tarfile-deployment</artifactId>
-    <name>Camel Quarkus :: TarFile :: Deployment</name>
+    <name>Camel Quarkus :: Tar File :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

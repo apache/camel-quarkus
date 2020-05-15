@@ -26,10 +26,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-aws-eks</artifactId>
-    <name>Camel Quarkus :: AWS EKS :: Runtime</name>
+    <name>Camel Quarkus :: AWS Elastic Kubernetes Service (EKS) :: Runtime</name>
 
     <properties>
         <firstVersion>0.2.0</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

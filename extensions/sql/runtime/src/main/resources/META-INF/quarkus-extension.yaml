@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus SQL"
-description: "Camel SQL support"
+name: "Camel SQL"
+description: "Perform SQL queries using Spring JDBC"
 metadata:
-  keywords:
-  - "camel"
-  - "sql"
-  - "database"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/sql.html"
   categories:
   - "integration"

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-controlbus-deployment</artifactId>
-    <name>Camel Quarkus :: ControlBus :: Deployment</name>
+    <name>Camel Quarkus :: Control Bus :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

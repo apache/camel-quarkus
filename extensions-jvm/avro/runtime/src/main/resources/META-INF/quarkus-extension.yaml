@@ -15,15 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Avro"
-description: "Working with Apache Avro for data serialization."
+name: "Camel Avro"
+description: "Serialize and deserialize messages using Apache Avro binary data format"
 metadata:
   unlisted: true
-  keywords:
-  - "messaging"
-  - "transformation"
-  guide: "https://camel.apache.org/components/latest/avro-component.html"
+  guide: "https://camel.apache.org/components/latest/avro-dataformat.html"
   categories:
   - "integration"
   status: "preview"

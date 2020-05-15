@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-mq</artifactId>
     <name>Camel Quarkus :: AWS 2 MQ :: Runtime</name>
-    <description>The aws2-mq is used for managing Amazon MQ instances.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-lzf-deployment</artifactId>
-    <name>Camel Quarkus :: LZF :: Deployment</name>
+    <name>Camel Quarkus :: LZF Deflate Compression :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

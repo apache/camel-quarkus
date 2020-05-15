@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus CouchDB"
-description: "The Camel Quarkus CouchDB extension offers integration with CouchDB databases on top of Quarkus."
+name: "Camel CouchDB"
+description: "Consume changesets for inserts, updates and deletes in a CouchDB database, as well as get, save, update and delete documents from a CouchDB database"
 metadata:
-  keywords:
-  - "camel"
-  - "couchdb"
-  - "database"
-  - "nosql"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/couchdb.html"
   categories:
   - "integration"

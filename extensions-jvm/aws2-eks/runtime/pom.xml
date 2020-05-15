@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-eks</artifactId>
     <name>Camel Quarkus :: AWS 2 EKS :: Runtime</name>
-    <description>The aws2-eks is used for managing Amazon EKS</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

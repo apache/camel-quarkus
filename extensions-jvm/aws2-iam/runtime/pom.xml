@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-iam</artifactId>
     <name>Camel Quarkus :: AWS 2 IAM :: Runtime</name>
-    <description>The aws2-iam is used for managing Amazon IAM</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

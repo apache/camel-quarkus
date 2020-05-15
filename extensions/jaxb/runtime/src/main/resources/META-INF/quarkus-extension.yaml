@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus JAXB dataformat"
-description: "Camel JAXB dataformat support"
+name: "Camel JAXB"
+description: "Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard"
 metadata:
-  keywords:
-  - "camel"
-  - "jaxb"
-  - "transformation"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/jaxb-dataformat.html"
   categories:
   - "integration"

@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 EKS"
-description: "The aws2-eks is used for managing Amazon EKS"
+name: "Camel AWS 2 EKS"
+description: "Manage AWS EKS cluster instances using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  keywords:
-  - "cloud"
-  - "management"
   guide: "https://camel.apache.org/components/latest/aws2-eks-component.html"
   categories:
   - "integration"

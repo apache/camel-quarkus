@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-jaxb-parent</artifactId>
-    <name>Camel Quarkus :: JAXB extension</name>
+    <name>Camel Quarkus :: JAXB</name>
     <packaging>pom</packaging>
 
     <modules>

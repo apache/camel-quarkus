@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Debezium SQL Server Connector"
-description: "Represents a Debezium SQL Server endpoint which is used to capture changes in SQL Server database so that that applications can see those changes and respond to them."
+name: "Camel Debezium SQL Server Connector"
+description: "Capture changes from an SQL Server database"
 metadata:
   unlisted: true
-  keywords:
-  - "database"
-  - "sql"
-  - "sqlserver"
   guide: "https://camel.apache.org/components/latest/debezium-sqlserver-component.html"
   categories:
   - "integration"

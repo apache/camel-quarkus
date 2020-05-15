@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Netty HTTP"
-description: "Camel Netty HTTP support"
+name: "Camel Netty HTTP"
+description: "Netty HTTP server and client using the Netty 4.x"
 metadata:
-  keywords:
-  - "camel"
-  - "netty"
-  - "http"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/netty-http.html"
   categories:
   - "integration"

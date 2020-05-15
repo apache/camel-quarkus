@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-nitrite</artifactId>
     <name>Camel Quarkus :: Nitrite :: Runtime</name>
-    <description>Used for integrating Camel with Nitrite databases.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

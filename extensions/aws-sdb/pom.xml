@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-sdb-parent</artifactId>
-    <name>Camel Quarkus :: AWS SimpleDB</name>
+    <name>Camel Quarkus :: AWS SimpleDB (SDB)</name>
     <packaging>pom</packaging>
 
     <modules>

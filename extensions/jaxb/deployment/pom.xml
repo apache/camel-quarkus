@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-jaxb-deployment</artifactId>
-    <name>Camel Quarkus :: JAXB extension :: Deployment</name>
+    <name>Camel Quarkus :: JAXB :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

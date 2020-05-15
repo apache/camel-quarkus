@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-translate</artifactId>
     <name>Camel Quarkus :: AWS 2 Translate :: Runtime</name>
-    <description>The aws2-translate component is used for managing Amazon Translate</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

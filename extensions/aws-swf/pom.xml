@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-swf-parent</artifactId>
-    <name>Camel Quarkus :: AWS Simple Workflow</name>
+    <name>Camel Quarkus :: AWS Simple Workflow (SWF)</name>
     <packaging>pom</packaging>
 
     <modules>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-influxdb</artifactId>
     <name>Camel Quarkus :: InfluxDB :: Runtime</name>
-    <description>The influxdb component allows you to interact with InfluxDB, a time series database.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

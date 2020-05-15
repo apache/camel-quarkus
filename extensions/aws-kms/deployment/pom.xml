@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-kms-deployment</artifactId>
-    <name>Camel Quarkus :: AWS KMS :: Deployment</name>
+    <name>Camel Quarkus :: AWS Key Management Service (KMS) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-servicenow</artifactId>
     <name>Camel Quarkus :: ServiceNow :: Runtime</name>
-    <description>The servicenow component is used to integrate Camel with ServiceNow cloud services.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

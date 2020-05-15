@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-attachments</artifactId>
     <name>Camel Quarkus :: Attachments :: Runtime</name>
-    <description>Support for attachments on Camel messages.</description>
 
     <properties>
         <firstVersion>0.3.0</firstVersion>
