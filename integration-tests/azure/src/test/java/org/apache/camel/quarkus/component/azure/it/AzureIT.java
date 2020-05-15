@@ -17,11 +17,8 @@
 package org.apache.camel.quarkus.component.azure.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
-@EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_ACCOUNT", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_KEY", matches = ".+")
 class AzureIT extends AzureTest {
 
 }
