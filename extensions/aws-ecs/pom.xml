@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-ecs-parent</artifactId>
-    <name>Camel Quarkus :: AWS ECS</name>
+    <name>Camel Quarkus :: AWS Elastic Container Service (ECS)</name>
     <packaging>pom</packaging>
 
     <modules>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-couchdb</artifactId>
     <name>Camel Quarkus :: CouchDB :: Runtime</name>
-    <description>The couchdb component is used for integrate with CouchDB databases.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Base64"
-description: "Camel Base64 component"
+name: "Camel Base64"
+description: "Encode and decode data using Base64"
 metadata:
-  keywords:
-  - "camel"
-  - "transformation"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/base64-dataformat.html"
   categories:
   - "integration"

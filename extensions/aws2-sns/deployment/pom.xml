@@ -29,7 +29,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-sns-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Notification System :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 Simple Notification System (SNS) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

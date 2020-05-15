@@ -27,7 +27,6 @@
 
     <artifactId>camel-quarkus-servlet</artifactId>
     <name>Camel Quarkus :: Servlet :: Runtime</name>
-    <description>Camel servlet transport support.</description>
 
     <properties>
         <firstVersion>0.2.0</firstVersion>

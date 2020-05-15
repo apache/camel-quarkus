@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "PubNub"
-description: "To send and receive messages to PubNub data stream network for connected devices."
+name: "Camel PubNub"
+description: "Send and receive messages to/from PubNub data stream network for connected devices"
 metadata:
   unlisted: true
-  keywords:
-  - "cloud"
-  - "iot"
-  - "messaging"
   guide: "https://camel.apache.org/components/latest/pubnub-component.html"
   categories:
   - "integration"

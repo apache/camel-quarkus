@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-tarfile-parent</artifactId>
-    <name>Camel Quarkus :: TarFile</name>
+    <name>Camel Quarkus :: Tar File</name>
     <packaging>pom</packaging>
 
     <modules>

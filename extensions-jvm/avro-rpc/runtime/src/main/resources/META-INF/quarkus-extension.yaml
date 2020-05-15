@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Avro RPC"
-description: "Working with Apache Avro for RPC."
+name: "Camel Avro RPC"
+description: "Produce or consume Apache Avro RPC services"
 metadata:
   unlisted: true
-  keywords:
-  - "messaging"
-  - "transformation"
   guide: "https://camel.apache.org/components/latest/avro-rpc-component.html"
   categories:
   - "integration"

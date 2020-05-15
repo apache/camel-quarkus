@@ -15,17 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Google Sheets"
-description: "The google-sheets component provides access to Google Sheets."
+name: "Camel Google Sheets"
+description: "Manage spreadsheets in Google Sheets"
 metadata:
-  keywords:
-  - "api"
-  - "camel"
-  - "cloud"
-  - "google"
-  - "sheets"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/google-sheets-component.html"
   categories:
   - "integration"
-  status: "stable"

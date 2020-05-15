@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-qute</artifactId>
     <name>Camel Quarkus :: Qute :: Runtime</name>
-    <description>Camel component uses Quarkus Qute as the templating engine</description>
+    <description>Transform messages using Quarkus Qute templating engine</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

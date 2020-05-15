@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-cron</artifactId>
     <name>Camel Quarkus :: Cron :: Runtime</name>
-    <description>Camel Cron Component</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

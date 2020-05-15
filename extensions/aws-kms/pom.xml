@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-kms-parent</artifactId>
-    <name>Camel Quarkus :: AWS KMS</name>
+    <name>Camel Quarkus :: AWS Key Management Service (KMS)</name>
     <packaging>pom</packaging>
 
     <modules>

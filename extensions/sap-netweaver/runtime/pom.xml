@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-sap-netweaver</artifactId>
     <name>Camel Quarkus :: SAP NetWeaver :: Runtime</name>
-    <description>The sap-netweaver component integrates with the SAP NetWeaver Gateway using HTTP transports.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

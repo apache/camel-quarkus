@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-debezium-postgres</artifactId>
     <name>Camel Quarkus :: Debezium PostgresSQL Connector :: Runtime</name>
-    <description>Represents a Debezium PostgresSQL endpoint which is used to capture changes in PostgresSQL database so that that applications can see those changes and respond to them.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

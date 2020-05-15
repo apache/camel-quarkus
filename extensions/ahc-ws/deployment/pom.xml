@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-ahc-ws-deployment</artifactId>
-    <name>Camel Quarkus :: AHC-WS :: Deployment</name>
+    <name>Camel Quarkus :: AHC (Async Http Client) Websocket :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

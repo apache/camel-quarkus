@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Rest"
-description: "Camel REST component"
+name: "Camel Rest"
+description: "Expose REST services and their OpenAPI Specification or call external REST services"
 metadata:
-  keywords:
-  - "camel"
-  - "rest"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/rest-component.html"
   categories:
   - "integration"

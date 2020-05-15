@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-couchbase</artifactId>
     <name>Camel Quarkus :: Couchbase :: Runtime</name>
-    <description>Represents a Couchbase endpoint that can query Views with a Poll strategy and/or produce various type of operations.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

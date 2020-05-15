@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-jaxb</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: JAXB extension</name>
+    <name>Camel Quarkus :: Integration Tests :: JAXB</name>
     <description>Integration tests for Camel Quarkus JAXB extension</description>
 
     <properties>

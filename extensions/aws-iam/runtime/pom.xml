@@ -27,10 +27,11 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-iam</artifactId>
-    <name>Camel Quarkus :: AWS IAM :: Runtime</name>
+    <name>Camel Quarkus :: AWS Identity and Access Management (IAM) :: Runtime</name>
 
     <properties>
         <firstVersion>1.1.0</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

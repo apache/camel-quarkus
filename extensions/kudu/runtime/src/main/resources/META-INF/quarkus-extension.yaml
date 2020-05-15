@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Kudu"
-description: "Offer interaction with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem."
+name: "Camel Kudu"
+description: "Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem"
 metadata:
-  keywords:
-  - "camel"
-  - "cloud"
-  - "database"
-  - "iot"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/kudu-component.html"
   categories:
   - "integration"

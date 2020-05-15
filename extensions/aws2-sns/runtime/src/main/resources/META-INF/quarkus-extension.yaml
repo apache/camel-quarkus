@@ -15,14 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 Simple Notification System"
-description: "The aws2-sns component is used for sending messages to an Amazon Simple Notification Topic."
+name: "Camel AWS 2 Simple Notification System (SNS)"
+description: "Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x"
 metadata:
   keywords:
-  - "camel"
-  - "aws"
-  - "cloud"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws2-sns-component.html"
   categories:
   - "integration"

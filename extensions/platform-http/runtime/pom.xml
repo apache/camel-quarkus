@@ -28,12 +28,9 @@
 
     <artifactId>camel-quarkus-platform-http</artifactId>
     <name>Camel Quarkus :: Platform HTTP :: Runtime</name>
-    <description>HTTP platform component is used for integrating Camel HTTP with Quarkus HTTP layer</description>
 
     <properties>
-        <title>Camel Quarkus Platform HTTP</title>
         <firstVersion>0.3.0</firstVersion>
-        <label>core,http</label>
     </properties>
 
     <dependencyManagement>

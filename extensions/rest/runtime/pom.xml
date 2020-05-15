@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-rest</artifactId>
     <name>Camel Quarkus :: Rest :: Runtime</name>
+    <description>Expose REST services and their OpenAPI Specification or call external REST services.</description>
 
     <properties>
         <firstVersion>0.2.0</firstVersion>

@@ -15,14 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus AWS KMS"
-description: "A Camel Amazon KMS Web Service Component"
+name: "Camel AWS Key Management Service (KMS)"
+description: "Manage keys stored in AWS KMS instances"
 metadata:
   keywords:
-  - "camel"
-  - "aws"
-  - "cloud"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws-kms-component.html"
   categories:
   - "integration"

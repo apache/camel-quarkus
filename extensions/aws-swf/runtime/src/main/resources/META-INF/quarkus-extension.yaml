@@ -15,15 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS Simple Workflow"
-description: "The aws-swf component is used for managing workflows from Amazon Simple Workflow."
+name: "Camel AWS Simple Workflow (SWF)"
+description: "Manage workflows in the AWS Simple Workflow service"
 metadata:
-  unlisted: true
   keywords:
-  - "camel"
-  - "cloud"
-  - "workflow"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws-swf-component.html"
   categories:
   - "integration"

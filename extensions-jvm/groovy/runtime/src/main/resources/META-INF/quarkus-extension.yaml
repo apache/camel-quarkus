@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Groovy"
-description: "To use Groovy scripts in Camel expressions or predicates."
+name: "Camel Groovy"
+description: "Evaluate a Groovy script"
 metadata:
   unlisted: true
-  keywords:
-  - "language"
-  - "script"
   guide: "https://camel.apache.org/components/latest/groovy-language.html"
   categories:
   - "integration"

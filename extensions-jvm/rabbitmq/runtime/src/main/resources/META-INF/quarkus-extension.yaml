@@ -15,13 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "RabbitMQ"
-description: "The rabbitmq component allows you produce and consume messages from RabbitMQ instances."
+name: "Camel RabbitMQ"
+description: "Send and receive messages from RabbitMQ instances"
 metadata:
   unlisted: true
-  keywords:
-  - "messaging"
   guide: "https://camel.apache.org/components/latest/rabbitmq-component.html"
   categories:
   - "integration"

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-opentracing</artifactId>
     <name>Camel Quarkus :: OpenTracing :: Runtime</name>
-    <description>Distributed tracing using OpenTracing</description>
 
     <properties>
         <firstVersion>0.3.0</firstVersion>

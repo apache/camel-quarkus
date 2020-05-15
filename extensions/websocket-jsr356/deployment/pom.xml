@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-websocket-jsr356-deployment</artifactId>
-    <name>Camel Quarkus :: WebSocket JSR 356 :: Deployment</name>
+    <name>Camel Quarkus :: Javax Websocket (JSR 356) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-pubnub</artifactId>
     <name>Camel Quarkus :: PubNub :: Runtime</name>
-    <description>To send and receive messages to PubNub data stream network for connected devices.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

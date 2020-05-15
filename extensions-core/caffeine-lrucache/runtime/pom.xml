@@ -27,13 +27,11 @@
     </parent>
 
     <artifactId>camel-quarkus-caffeine-lrucache</artifactId>
-    <name>Camel Quarkus :: Caffeine LRUCache - Runtime</name>
-    <description>Provides an implementation of the LRUCacheFactory based on Caffeine</description>
+    <name>Camel Quarkus :: Caffeine LRUCache :: Runtime</name>
+    <description>An LRUCacheFactory implementation based on Caffeine</description>
 
     <properties>
-        <title>Camel Quarkus Caffeine LRUCache</title>
         <firstVersion>1.0.0-M5</firstVersion>
-        <label>core</label>
     </properties>
 
     <dependencies>

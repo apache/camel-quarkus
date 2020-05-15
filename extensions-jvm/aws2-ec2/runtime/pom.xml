@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-ec2</artifactId>
     <name>Camel Quarkus :: AWS 2 EC2 :: Runtime</name>
-    <description>The aws2-ec2 is used for managing Amazon EC2 instances.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

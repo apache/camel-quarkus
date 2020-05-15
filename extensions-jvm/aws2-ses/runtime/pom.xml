@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-ses</artifactId>
     <name>Camel Quarkus :: AWS 2 Simple Email Service :: Runtime</name>
-    <description>The aws2-ses component is used for sending emails with Amazon's SES service.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

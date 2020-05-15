@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-jacksonxml</artifactId>
-    <name>Camel Quarkus :: Jackson XML :: Runtime</name>
+    <name>Camel Quarkus :: JacksonXML :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M5</firstVersion>

@@ -15,16 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "ServiceNow"
-description: "The servicenow component is used to integrate Camel with ServiceNow cloud services."
+name: "Camel ServiceNow"
+description: "Interact with ServiceNow via its REST API"
 metadata:
-  keywords:
-  - "camel"
-  - "api"
-  - "cloud"
-  - "management"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/servicenow-component.html"
   categories:
   - "integration"
-  status: "preview"

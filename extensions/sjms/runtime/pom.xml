@@ -26,7 +26,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-sjms</artifactId>
-    <name>Camel Quarkus :: SJMS :: Runtime</name>
+    <name>Camel Quarkus :: Simple JMS :: Runtime</name>
+    <description>Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API.</description>
 
     <properties>
         <firstVersion>1.0.0-M1</firstVersion>

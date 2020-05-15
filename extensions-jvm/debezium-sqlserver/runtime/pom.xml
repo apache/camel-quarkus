@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-debezium-sqlserver</artifactId>
     <name>Camel Quarkus :: Debezium SQL Server Connector :: Runtime</name>
-    <description>Represents a Debezium SQL Server endpoint which is used to capture changes in SQL Server database so that that applications can see those changes and respond to them.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

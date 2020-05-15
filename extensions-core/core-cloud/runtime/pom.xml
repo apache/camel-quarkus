@@ -31,9 +31,8 @@
     <description>The Camel Quarkus core cloud module</description>
 
     <properties>
-        <title>Camel Quarkus Core Cloud</title>
         <firstVersion>0.2.0</firstVersion>
-        <label>core,cloud</label>
+        <quarkus.metadata.unlisted>true</quarkus.metadata.unlisted>
     </properties>
 
     <dependencyManagement>

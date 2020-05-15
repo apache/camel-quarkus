@@ -28,10 +28,10 @@
 
     <artifactId>camel-quarkus-aws2-cw</artifactId>
     <name>Camel Quarkus :: AWS 2 CloudWatch :: Runtime</name>
-    <description>The aws2-cw component is used for sending metrics to an Amazon CloudWatch.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

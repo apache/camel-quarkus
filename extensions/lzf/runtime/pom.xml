@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-lzf</artifactId>
-    <name>Camel Quarkus :: LZF :: Runtime</name>
+    <name>Camel Quarkus :: LZF Deflate Compression :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M4</firstVersion>

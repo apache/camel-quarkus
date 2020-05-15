@@ -15,13 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "gRPC"
-description: "The gRPC component allows to call and expose remote procedures via HTTP/2 with protobuf dataformat"
+name: "Camel gRPC"
+description: "Expose gRPC endpoints and access external gRPC endpoints"
 metadata:
   unlisted: true
-  keywords:
-  - "rpc"
   guide: "https://camel.apache.org/components/latest/grpc-component.html"
   categories:
   - "integration"

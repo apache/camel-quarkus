@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-iam-deployment</artifactId>
-    <name>Camel Quarkus :: AWS IAM :: Deployment</name>
+    <name>Camel Quarkus :: AWS Identity and Access Management (IAM) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-soap-parent</artifactId>
-    <name>Camel Quarkus :: Soap dataformat</name>
+    <name>Camel Quarkus :: SOAP dataformat</name>
     <packaging>pom</packaging>
 
     <modules>

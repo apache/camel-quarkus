@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-pubsub</artifactId>
     <name>Camel Quarkus :: Google Pubsub :: Runtime</name>
-    <description>Messaging client for Google Cloud Platform PubSub Service</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-xstream</artifactId>
     <name>Camel Quarkus :: XStream :: Runtime</name>
+    <description>Marshal and unmarshal POJOs to/from XML or JSON using XStream library.</description>
 
     <properties>
         <firstVersion>1.0.0-M5</firstVersion>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-tarfile</artifactId>
-    <name>Camel Quarkus :: TarFile :: Runtime</name>
+    <name>Camel Quarkus :: Tar File :: Runtime</name>
 
     <properties>
         <firstVersion>0.3.0</firstVersion>

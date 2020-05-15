@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Elasticsearch Rest"
-description: "The elasticsearch component is used for interfacing with ElasticSearch server using REST API."
+name: "Camel Elasticsearch Rest"
+description: "Send requests to with an ElasticSearch via REST API"
 metadata:
-  keywords:
-  - "camel"
-  - "elasticsearch"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/elasticsearch-rest-component.html"
   categories:
   - "integration"

@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus XML IO"
+name: "Camel Core XML IO"
 description: "An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp"
 metadata:
-  keywords:
-  - "camel"
-  - "xml"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/xml-io-null.html"
   categories:
   - "integration"

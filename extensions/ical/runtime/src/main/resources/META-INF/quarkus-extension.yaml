@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus iCal"
-description: "Camel iCal Data Format"
+name: "Camel iCal"
+description: "Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library"
 metadata:
-  keywords:
-  - "camel"
-  - "ical"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/ical-dataformat.html"
   categories:
   - "integration"

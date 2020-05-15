@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-websocket-jsr356</artifactId>
-    <name>Camel Quarkus :: WebSocket JSR 356 :: Runtime</name>
+    <name>Camel Quarkus :: Javax Websocket (JSR 356) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M4</firstVersion>

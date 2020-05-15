@@ -28,12 +28,9 @@
 
     <artifactId>camel-quarkus-reactive-executor</artifactId>
     <name>Camel Quarkus :: Core :: Reactive Executor :: Runtime</name>
-    <description>To use Quarkus reactive executor with Camel</description>
 
     <properties>
-        <title>Camel Quarkus Reactive Executor</title>
         <firstVersion>0.3.0</firstVersion>
-        <label>core</label>
     </properties>
 
     <dependencyManagement>

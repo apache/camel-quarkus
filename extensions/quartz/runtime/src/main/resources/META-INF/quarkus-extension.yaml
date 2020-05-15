@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Quartz"
-description: "Provides a scheduled delivery of messages using the Quartz 2.x scheduler."
+name: "Camel Quartz"
+description: "Schedule sending of messages using the Quartz 2.x scheduler"
 metadata:
-  keywords:
-  - "camel"
-  - "scheduling"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/quartz-component.html"
   categories:
   - "integration"
-  status: "stable"

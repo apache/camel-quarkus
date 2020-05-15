@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-aws2-kms</artifactId>
     <name>Camel Quarkus :: AWS 2 KMS :: Runtime</name>
-    <description>The aws2-kms is used for managing Amazon KMS</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

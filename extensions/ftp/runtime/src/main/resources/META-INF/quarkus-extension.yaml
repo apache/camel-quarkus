@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus FTP"
-description: "Camel FTP support"
+name: "Camel FTP"
+description: "Upload and download files to/from FTP or SFTP servers"
 metadata:
-  keywords:
-    - "camel"
-    - "ftp"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/ftp-component.html"
   categories:
-    - "integration"
+  - "integration"

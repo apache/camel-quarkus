@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Servlet"
-description: "Camel servlet transport support"
+name: "Camel Servlet"
+description: "Serve HTTP requests by a Servlet"
 metadata:
-  keywords:
-  - "camel"
-  - "servlet"
-  - "http"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/servlet-component.html"
   categories:
   - "integration"

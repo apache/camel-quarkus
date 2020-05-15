@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-drive</artifactId>
     <name>Camel Quarkus :: Google Drive :: Runtime</name>
-    <description>The google-drive component provides access to Google Drive file storage service.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Gson"
-description: "Camel Gson Data Format"
+name: "Camel Gson"
+description: "Marshal POJOs to JSON and back"
 metadata:
-  keywords:
-  - "camel"
-  - "gson"
-  - "json"
-  - "dataformat"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/gson-dataformat.html"
   categories:
   - "integration"

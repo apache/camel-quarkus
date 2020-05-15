@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus SAP Netweaver support"
-description: "Camel Quarkus SAP Netweaver extension integrates with the SAP NetWeaver Gateway using HTTP transports."
+name: "Camel SAP NetWeaver"
+description: "Send requests to SAP NetWeaver Gateway using HTTP"
 metadata:
-  keywords:
-  - "camel"
-  - "sap"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/sap-netweaver-component.html"
   categories:
   - "integration"
-  status: "stable"

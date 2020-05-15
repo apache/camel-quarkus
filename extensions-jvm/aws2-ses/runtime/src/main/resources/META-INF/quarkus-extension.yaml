@@ -15,14 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 Simple Email Service"
-description: "The aws2-ses component is used for sending emails with Amazon's SES service."
+name: "Camel AWS 2 Simple Email Service"
+description: "Send e-mails through AWS SES service using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  keywords:
-  - "cloud"
-  - "mail"
   guide: "https://camel.apache.org/components/latest/aws2-ses-component.html"
   categories:
   - "integration"

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-iam-parent</artifactId>
-    <name>Camel Quarkus :: AWS IAM</name>
+    <name>Camel Quarkus :: AWS Identity and Access Management (IAM)</name>
     <packaging>pom</packaging>
 
     <modules>

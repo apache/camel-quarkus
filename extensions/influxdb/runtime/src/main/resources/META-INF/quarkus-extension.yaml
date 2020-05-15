@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "InfluxDB"
-description: "The influxdb component allows you to interact with InfluxDB, a time series database."
+name: "Camel InfluxDB"
+description: "Interact with InfluxDB, a time series database"
 metadata:
-  keywords:
-  - "camel"
-  - "database"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/influxdb-component.html"
   categories:
   - "integration"
-  status: "stable"

@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-google-calendar</artifactId>
     <name>Camel Quarkus :: Google Calendar :: Runtime</name>
-    <description>The google-calendar component provides access to Google Calendar.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

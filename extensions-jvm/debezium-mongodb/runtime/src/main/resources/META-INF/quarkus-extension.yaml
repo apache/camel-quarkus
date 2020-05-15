@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Debezium MongoDB Connector"
-description: "Represents a Debezium MongoDB endpoint which is used to capture changes in MongoDB database so that that applications can see those changes and respond to them."
+name: "Camel Debezium MongoDB Connector"
+description: "Capture changes from a MongoDB database"
 metadata:
   unlisted: true
-  keywords:
-  - "database"
-  - "mongodb"
-  - "nosql"
   guide: "https://camel.apache.org/components/latest/debezium-mongodb-component.html"
   categories:
   - "integration"

@@ -15,14 +15,17 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS2 S3 Storage Service"
-description: "The aws2-s3 component is used for storing and retrieving object from Amazon S3 Storage Service."
+name: "Camel AWS2 S3 Storage Service"
+description: "Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x"
 metadata:
   keywords:
-  - "camel"
-  - "aws"
-  - "cloud"
-  guide: "https://quarkus.io/guides/camel"
+  - "Amazon"
+  guide: "https://camel.apache.org/components/latest/aws2-s3-component.html"
   categories:
   - "integration"

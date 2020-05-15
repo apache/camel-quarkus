@@ -27,10 +27,11 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-ec2</artifactId>
-    <name>Camel Quarkus :: AWS EC2 :: Runtime</name>
+    <name>Camel Quarkus :: AWS Elastic Compute Cloud (EC2) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M3</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

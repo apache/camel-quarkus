@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-avro</artifactId>
     <name>Camel Quarkus :: Avro :: Runtime</name>
-    <description>Working with Apache Avro for data serialization.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

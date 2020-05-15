@@ -31,6 +31,7 @@
 
     <properties>
         <firstVersion>1.0.0-M3</firstVersion>
+        <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 
     <dependencyManagement>

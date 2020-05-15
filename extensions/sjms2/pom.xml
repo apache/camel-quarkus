@@ -29,7 +29,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>camel-quarkus-sjms2-parent</artifactId>
-    <name>Camel Quarkus :: SJMS2</name>
+    <name>Camel Quarkus :: Simple JMS2</name>
     <packaging>pom</packaging>
     <modules>
         <module>deployment</module>

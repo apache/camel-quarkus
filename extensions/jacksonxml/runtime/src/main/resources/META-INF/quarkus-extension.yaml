@@ -15,15 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Jackson XML"
-description: "Camel Jackson XML support"
+name: "Camel JacksonXML"
+description: "Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson"
 metadata:
-  keywords:
-  - "camel"
-  - "jackson"
-  - "xml"
-  - "dataformat"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/jacksonxml-dataformat.html"
   categories:
-    - "integration"
+  - "integration"

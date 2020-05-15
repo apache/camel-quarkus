@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws-ecs-deployment</artifactId>
-    <name>Camel Quarkus :: AWS ECS :: Deployment</name>
+    <name>Camel Quarkus :: AWS Elastic Container Service (ECS) :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

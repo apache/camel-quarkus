@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Olingo4"
-description: "Camel Quarkus Olingo4 Support"
+name: "Camel Olingo4"
+description: "Communicate with OData 4.0 services using Apache Olingo OData API"
 metadata:
-  keywords:
-    - "camel"
-    - "olingo"
-    - "odata"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/olingo4-component.html"
   categories:
-    - "integration"
+  - "integration"

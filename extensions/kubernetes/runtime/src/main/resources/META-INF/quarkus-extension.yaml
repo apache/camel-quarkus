@@ -15,17 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Kubernetes"
-description: "Camel Quarkus Kubernetes & OpenShift support."
+name: "Camel Kubernetes"
+description: "Perform operations against Kubernetes API"
 metadata:
-  keywords:
-  - "camel"
-  - "cloud"
-  - "container"
-  - "kubernetes"
-  - "openshift"
-  - "paas"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/kubernetes-component.html"
   categories:
   - "integration"

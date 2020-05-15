@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-braintree</artifactId>
     <name>Camel Quarkus :: Braintree :: Runtime</name>
-    <description>Braintree</description>
 
     <properties>
         <firstVersion>1.2.0</firstVersion>

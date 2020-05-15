@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "AWS 2 DynamoDB"
-description: "The aws2-ddb component is used for storing and retrieving data from Amazon's DynamoDB service."
+name: "Camel AWS 2 DynamoDB"
+description: "Store and retrieve data from AWS DynamoDB service or receive messages from AWS DynamoDB Stream using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  keywords:
-  - "cloud"
-  - "database"
-  - "nosql"
   guide: "https://camel.apache.org/components/latest/aws2-ddb-component.html"
   categories:
   - "integration"

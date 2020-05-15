@@ -28,7 +28,6 @@
 
     <artifactId>camel-quarkus-rabbitmq</artifactId>
     <name>Camel Quarkus :: RabbitMQ :: Runtime</name>
-    <description>The rabbitmq component allows you produce and consume messages from RabbitMQ instances.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-lzf-parent</artifactId>
-    <name>Camel Quarkus :: LZF</name>
+    <name>Camel Quarkus :: LZF Deflate Compression</name>
     <packaging>pom</packaging>
 
     <modules>

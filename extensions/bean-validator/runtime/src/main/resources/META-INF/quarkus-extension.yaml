@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus Bean Validator"
-description: "Camel Java Beans Validation support"
+name: "Camel Bean Validator"
+description: "Validate the message body using the Java Bean Validation API"
 metadata:
-  keywords:
-  - "camel"
-  - "bean"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/bean-validator-component.html"
   categories:
   - "integration"

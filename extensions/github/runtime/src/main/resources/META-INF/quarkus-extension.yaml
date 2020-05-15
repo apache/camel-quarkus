@@ -15,13 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus GitHub"
-description: "Camel Quarkus GitHub Support"
+name: "Camel GitHub"
+description: "Interact with the GitHub API"
 metadata:
-  keywords:
-    - "camel"
-    - "github"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/components/latest/github-component.html"
   categories:
-    - "integration"
+  - "integration"

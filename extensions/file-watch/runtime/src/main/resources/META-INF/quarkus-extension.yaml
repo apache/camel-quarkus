@@ -15,14 +15,15 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Camel Quarkus File Watch"
-description: "Camel File Watch component"
+name: "Camel File Watch"
+description: "Get notified about file events in a directory using java.nio.file.WatchService"
 metadata:
-  keywords:
-  - "camel"
-  - "file"
-  - "watch"
-  guide: "https://quarkus.io/guides/camel"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/file-watch.html"
   categories:
   - "integration"

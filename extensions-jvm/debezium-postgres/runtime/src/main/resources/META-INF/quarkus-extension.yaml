@@ -15,15 +15,16 @@
 # limitations under the License.
 #
 
+# This is a generated file. Do not edit directly!
+# To re-generate, run the following command from the top level directory:
+#
+#   mvn -N cq:update-quarkus-metadata
+#
 ---
-name: "Debezium PostgresSQL Connector"
-description: "Represents a Debezium PostgresSQL endpoint which is used to capture changes in PostgresSQL database so that that applications can see those changes and respond to them."
+name: "Camel Debezium PostgresSQL Connector"
+description: "Capture changes from a PostgresSQL database"
 metadata:
   unlisted: true
-  keywords:
-  - "database"
-  - "postgres"
-  - "sql"
   guide: "https://camel.apache.org/components/latest/debezium-postgres-component.html"
   categories:
   - "integration"
