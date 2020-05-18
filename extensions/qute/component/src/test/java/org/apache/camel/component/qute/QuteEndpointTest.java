@@ -27,6 +27,7 @@ public class QuteEndpointTest extends QuteTest {
             public void configure() throws Exception {
                 QuteEndpoint endpoint = new QuteEndpoint();
                 endpoint.setCamelContext(context);
+                endpoint.setAllowContextMapAll(true);
                 endpoint.setResourceUri("org/apache/camel/component/qute/example.txt");
 
                 context.addEndpoint("qut", endpoint);

@@ -194,7 +194,7 @@ public class QuteEndpoint extends ResourceEndpoint {
             instance = template.instance();
         }
 
-        ExchangeHelper.createVariableMap(exchange).forEach(instance::data);
+        ExchangeHelper.createVariableMap(exchange, isAllowContextMapAll()).forEach(instance::data);
 
         Map<String, Object> map = exchange.getIn().getHeader(QuteConstants.QUTE_TEMPLATE_DATA, Map.class);
         if (map != null) {

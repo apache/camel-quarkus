@@ -356,11 +356,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected SupervisingRouteController createSupervisingRouteController() {
-        return new DefaultSupervisingRouteController();
-    }
-
-    @Override
     public void setTypeConverterRegistry(TypeConverterRegistry typeConverterRegistry) {
         super.setTypeConverterRegistry(typeConverterRegistry);
 

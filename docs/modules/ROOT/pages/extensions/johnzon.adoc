@@ -11,7 +11,7 @@ Marshal POJOs to JSON and back.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/json-johnzon-dataformat.html[JSon Johnzon data format]
+* https://camel.apache.org/components/latest/dataformats/json-johnzon-dataformat.html[JSON Johnzon data format]
 
 Please refer to the above link for usage and configuration details.
 
