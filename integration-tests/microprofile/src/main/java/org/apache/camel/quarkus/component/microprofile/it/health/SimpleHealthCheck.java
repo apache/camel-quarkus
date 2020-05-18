@@ -25,7 +25,6 @@ public final class SimpleHealthCheck extends AbstractHealthCheck {
 
     public SimpleHealthCheck() {
         super("test", "test");
-        getConfiguration().setEnabled(true);
     }
 
     @Override

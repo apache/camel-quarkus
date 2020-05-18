@@ -11,7 +11,7 @@ Manage AWS IAM instances.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-iam-component.html[AWS IAM component], URI syntax: `aws-iam:label`
+* https://camel.apache.org/components/latest/aws-iam-component.html[AWS Identity and Access Management (IAM) component], URI syntax: `aws-iam:label`
 
 Please refer to the above link for usage and configuration details.
 
