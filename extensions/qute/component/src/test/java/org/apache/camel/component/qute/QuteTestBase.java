@@ -80,10 +80,10 @@ public abstract class QuteTestBase {
 
         Object actual;
         if (expected == null) {
-            actual = exchange.getOut().getMandatoryBody();
+            actual = exchange.getMessage().getMandatoryBody();
             Assertions.assertEquals(expected, actual, "output body of: " + exchange);
         } else {
-            actual = exchange.getOut().getMandatoryBody(expected.getClass());
+            actual = exchange.getMessage().getMandatoryBody(expected.getClass());
         }
         Assertions.assertEquals(expected, actual, "output body of: " + exchange);
 

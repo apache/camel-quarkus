@@ -11,7 +11,7 @@ Call external HTTP services using Async Http Client.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ahc-component.html[AHC component], URI syntax: `ahc:httpUri`
+* https://camel.apache.org/components/latest/ahc-component.html[Async HTTP Client (AHC) component], URI syntax: `ahc:httpUri`
 
 Please refer to the above link for usage and configuration details.
 

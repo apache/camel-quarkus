@@ -49,8 +49,8 @@ public class ObservabilityTest {
                 .then()
                 .statusCode(200)
                 .body("status", Matchers.is("UP"),
-                        "checks.name", containsInAnyOrder("camel-liveness-checks", "camel"),
-                        "checks.data.custom-liveness-check", containsInAnyOrder(null, "UP"));
+                        "checks.name", containsInAnyOrder("camel-liveness-checks"),
+                        "checks.data.custom-liveness-check", containsInAnyOrder("UP"));
 
         // Verify readiness
         given()

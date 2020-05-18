@@ -7,7 +7,7 @@
 [.badges]
 [.badge-key]##Since Camel Quarkus##[.badge-version]##0.3.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
-Java Attachments support for Camel Message
+Support for attachments on Camel messages
 
 == What's inside
 
