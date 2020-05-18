@@ -29,6 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.QuarkusDevModeTest;
 import org.awaitility.Awaitility;
+import org.jboss.logging.Logger;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -38,6 +39,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class TimerDevModeTest {
+    private static final Logger log = Logger.getLogger(TimerDevModeTest.class);
     private static final Path LOG_FILE = Paths.get("target/" + TimerDevModeTest.class.getSimpleName() + ".log");
 
     @RegisterExtension
@@ -59,6 +61,7 @@ public class TimerDevModeTest {
             TEST.modifySourceFile(TimerRoute.class, oldSource -> oldSource.replace("Hello foo", "Hello bar"));
             assertLogMessage(logFileReader, "Hello bar", 30000);
         }
+        log.info("QuarkusDevModeTest.logMessageEdit() passed");
     }
 
     static void assertLogMessage(BufferedReader logFileReader, String msg, long timeout) throws IOException {
