@@ -63,7 +63,6 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>rabbitmq</module>
-        <module>rest-openapi</module>
     </modules>
 
 </project>
