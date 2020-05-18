@@ -120,6 +120,7 @@
         <module>reactive-streams</module>
         <module>ref</module>
         <module>rest</module>
+        <module>rest-openapi</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
         <module>scheduler</module>

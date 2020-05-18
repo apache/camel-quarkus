@@ -526,8 +526,8 @@ Level | Since | Description
  Stable | 0.2.0 | Expose OpenAPI Specification of the REST services defined using Camel REST DSL.
 
 | link:https://camel.apache.org/components/latest/rest-openapi-component.html[REST OpenApi] (camel-quarkus-rest-openapi) +
-`rest-openapi:specificationUri#operationId` | JVM +
- Preview | 1.0.0-M6 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
+`rest-openapi:specificationUri#operationId` | Native +
+ Stable | 1.0.0-M6 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
 
 | link:https://camel.apache.org/components/latest/salesforce-component.html[Salesforce] (camel-quarkus-salesforce) +
 `salesforce:operationName:topicName` | Native +
