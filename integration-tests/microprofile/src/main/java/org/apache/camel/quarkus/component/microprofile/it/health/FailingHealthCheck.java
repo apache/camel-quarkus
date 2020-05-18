@@ -25,6 +25,7 @@ public class FailingHealthCheck extends AbstractHealthCheck {
 
     public FailingHealthCheck() {
         super("failing-check");
+        getConfiguration().setEnabled(false);
     }
 
     @Override

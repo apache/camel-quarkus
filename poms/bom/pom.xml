@@ -626,6 +626,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-health</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-http</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
@@ -2185,7 +2190,7 @@
                 <artifactId>debezium-embedded</artifactId>
                 <version>${debezium.version}</version>
             </dependency>
-            <dependency>
+	    <dependency>
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
                 <version>${java.xml.ws.version}</version>
