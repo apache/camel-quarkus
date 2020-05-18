@@ -774,19 +774,19 @@ Number of miscellaneous extensions: 12 in 12 JAR artifacts (0 deprecated)
  Stable | 0.3.0 | Java Attachments support for Camel Message
 
 | (camel-quarkus-caffeine-lrucache) | Native +
- Stable | 1.0.0-M5 | Provides an implementation of the LRUCacheFactory based on Caffeine
+ Stable | 1.0.0-M5 | An LRUCacheFactory implementation based on Caffeine
 
 | (camel-quarkus-core-cloud) | Native +
  Stable | 0.2.0 | The Camel Quarkus core cloud module
 
 | (camel-quarkus-endpointdsl) | Native +
- Stable | 1.0.0-M3 | camel-quarkus-endpointdsl
+ Stable | 1.0.0-M3 | Code Camel endpoint URI using Java DSL instead of plain strings
 
 | (camel-quarkus-hystrix) | Native +
  Stable | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
 
 | (camel-quarkus-kotlin) | Native +
- Stable | 1.0.0-M3 | camel-quarkus-kotlin
+ Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | Native +
  Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
@@ -795,7 +795,7 @@ Number of miscellaneous extensions: 12 in 12 JAR artifacts (0 deprecated)
  Stable | 0.3.0 | Distributed tracing using OpenTracing
 
 | xref:extensions/qute.adoc[camel-quarkus-qute]  | Native +
- Stable | 1.0.0-M6 | Camel component uses Quarkus Qute as the templating engine
+ Stable | 1.0.0-M6 | Transform messages using Quarkus Qute templating engine
 
 | (camel-quarkus-reactive-executor) | Native +
  Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x
