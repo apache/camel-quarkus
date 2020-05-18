@@ -44,7 +44,7 @@ public class QuteTest extends QuteTestBase {
     protected RoutesBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() {
-                from("direct:a").to("qute:org/apache/camel/component/qute/example.txt");
+                from("direct:a").to("qute:org/apache/camel/component/qute/example.txt?allowContextMapAll=true");
             }
         };
     }

@@ -11,7 +11,7 @@ Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws2-sqs-component.html[AWS 2 Simple Queue Service component], URI syntax: `aws2-sqs:queueNameOrArn`
+* https://camel.apache.org/components/latest/aws2-sqs-component.html[AWS 2 Simple Queue Service (SQS) component], URI syntax: `aws2-sqs:queueNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

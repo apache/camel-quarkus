@@ -25,7 +25,6 @@ public class ReadinessCheck extends AbstractCamelMicroProfileReadinessCheck {
 
     public ReadinessCheck() {
         super("test-readiness");
-        getConfiguration().setEnabled(true);
     }
 
     @Override

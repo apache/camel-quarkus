@@ -34,11 +34,11 @@ class MicroProfileHealthTest {
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
-                        "checks.status", containsInAnyOrder("UP", "UP", "UP", "UP"),
-                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel", "camel-liveness-checks", "camel"),
-                        "checks.data.contextStatus", containsInAnyOrder(null, null, "Started", "Started"),
-                        "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "UP", "UP"),
-                        "checks.data.name", containsInAnyOrder(null, null, "quarkus-camel-example", "quarkus-camel-example"));
+                        "checks.status", containsInAnyOrder("UP", "UP", "UP"),
+                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel-liveness-checks", "camel"),
+                        "checks.data.contextStatus", containsInAnyOrder(null, null, "Started"),
+                        "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "UP"),
+                        "checks.data.name", containsInAnyOrder(null, null, "quarkus-camel-example"));
     }
 
     @Test
@@ -52,12 +52,12 @@ class MicroProfileHealthTest {
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
                     .body("status", is("DOWN"),
-                            "checks.status", containsInAnyOrder("DOWN", "UP", "DOWN", "UP"),
+                            "checks.status", containsInAnyOrder("DOWN", "UP", "DOWN"),
                             "checks.name",
-                            containsInAnyOrder("camel-readiness-checks", "camel", "camel-liveness-checks", "camel"),
-                            "checks.data.contextStatus", containsInAnyOrder(null, null, "Started", "Started"),
+                            containsInAnyOrder("camel-readiness-checks", "camel", "camel-liveness-checks"),
+                            "checks.data.contextStatus", containsInAnyOrder(null, null, "Started"),
                             "checks.data.name",
-                            containsInAnyOrder(null, null, "quarkus-camel-example", "quarkus-camel-example"));
+                            containsInAnyOrder(null, null, "quarkus-camel-example"));
         } finally {
             RestAssured.get("/microprofile-health/checks/failing/false")
                     .then()
@@ -71,11 +71,10 @@ class MicroProfileHealthTest {
                 .contentType(ContentType.JSON)
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
-                        "checks.status", containsInAnyOrder("UP", "UP"),
-                        "checks.name", containsInAnyOrder("camel-liveness-checks", "camel"),
-                        "checks.data.contextStatus", containsInAnyOrder(null, "Started"),
-                        "checks.data.name", containsInAnyOrder(null, "quarkus-camel-example"),
-                        "checks.data.test-liveness", containsInAnyOrder(null, "UP"));
+                        "checks.status", containsInAnyOrder("UP"),
+                        "checks.name", containsInAnyOrder("camel-liveness-checks"),
+                        "checks.data.test", containsInAnyOrder("UP"),
+                        "checks.data.test-liveness", containsInAnyOrder("UP"));
     }
 
     @Test
@@ -89,11 +88,11 @@ class MicroProfileHealthTest {
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
                     .body("status", is("DOWN"),
-                            "checks.status", containsInAnyOrder("UP", "DOWN"),
-                            "checks.name", containsInAnyOrder("camel-liveness-checks", "camel"),
-                            "checks.data.contextStatus", containsInAnyOrder(null, "Started"),
-                            "checks.data.name", containsInAnyOrder(null, "quarkus-camel-example"),
-                            "checks.data.test-liveness", containsInAnyOrder(null, "UP"));
+                            "checks.status", containsInAnyOrder("DOWN"),
+                            "checks.name", containsInAnyOrder("camel-liveness-checks"),
+                            "checks.data.test", containsInAnyOrder("UP"),
+                            "checks.data.test-liveness", containsInAnyOrder("UP"),
+                            "checks.data.failing-check", containsInAnyOrder("DOWN"));
         } finally {
             RestAssured.get("/microprofile-health/checks/failing/false")
                     .then()
@@ -148,7 +147,7 @@ class MicroProfileHealthTest {
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
                     .body("status", is("DOWN"),
-                            "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "DOWN", "DOWN"));
+                            "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "DOWN"));
         } finally {
             RestAssured.get("/microprofile-health/route/healthyRoute/start")
                     .then()

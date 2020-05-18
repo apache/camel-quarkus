@@ -11,7 +11,7 @@ Manage AWS IAM instances using AWS SDK version 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws2-iam-component.html[AWS 2 IAM component], URI syntax: `aws2-iam:label`
+* https://camel.apache.org/components/latest/aws2-iam-component.html[AWS 2 Identity and Access Management (IAM) component], URI syntax: `aws2-iam:label`
 
 Please refer to the above link for usage and configuration details.
 

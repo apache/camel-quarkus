@@ -11,7 +11,7 @@ Marshal and unmarshal POJOs to/from XML or JSON using XStream library.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/json-xstream-dataformat.html[JSon XStream data format]
+* https://camel.apache.org/components/latest/dataformats/json-xstream-dataformat.html[JSON XStream data format]
 * https://camel.apache.org/components/latest/dataformats/xstream-dataformat.html[XStream data format]
 
 Please refer to the above links for usage and configuration details.

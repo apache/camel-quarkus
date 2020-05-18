@@ -32,7 +32,6 @@ import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertie
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.*;
-import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.transformer.TransformerKey;
 import org.apache.camel.impl.validator.ValidatorKey;
 import org.apache.camel.model.*;
@@ -71,7 +70,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);
-        setDefaultExtension(HealthCheckRegistry.class, DefaultHealthCheckRegistry::new);
 
     }
 
@@ -339,7 +337,8 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HealthCheckRegistry createHealthCheckRegistry() {
-        return new DefaultHealthCheckRegistry(this);
+        return new BaseServiceResolver<>(HealthCheckRegistry.FACTORY, HealthCheckRegistry.class)
+                .resolve(getCamelContextReference()).orElse(null);
     }
 
     @Override
@@ -353,11 +352,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
                 .resolve(getCamelContextReference())
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
                         + "Add camel-jaxb to classpath."));
-    }
-
-    @Override
-    protected SupervisingRouteController createSupervisingRouteController() {
-        return new DefaultSupervisingRouteController();
     }
 
     @Override

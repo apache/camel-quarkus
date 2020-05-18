@@ -25,7 +25,6 @@ public class LivenessCheck extends AbstractCamelMicroProfileLivenessCheck {
 
     public LivenessCheck() {
         super("test-liveness");
-        getConfiguration().setEnabled(true);
     }
 
     @Override
