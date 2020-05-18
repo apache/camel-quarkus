@@ -43,8 +43,8 @@ dataformats:
   - csv
   - dataformat
   - jaxb
-  - xstream
   - soap
+  - xstream
 foundation:
   - bean
   - controlbus
@@ -54,9 +54,9 @@ foundation:
   - jsonpath
   - quartz
   - scheduler
+  - ref
   - seda
   - send-dynamic-http
-  - ref
 memoryhog-dataformat-json:
   - dataformats-json
 memoryhog-dozer:
