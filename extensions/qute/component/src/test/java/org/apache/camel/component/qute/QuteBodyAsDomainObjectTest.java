@@ -18,10 +18,9 @@ package org.apache.camel.component.qute;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class QuteBodyAsDomainObjectTest extends CamelTestSupport {
+public class QuteBodyAsDomainObjectTest extends QuteTestBase {
 
     @Test
     public void testWithObject() throws Exception {

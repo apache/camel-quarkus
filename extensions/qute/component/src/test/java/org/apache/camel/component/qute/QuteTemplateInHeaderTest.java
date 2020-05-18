@@ -24,10 +24,10 @@ import org.apache.camel.InvalidPayloadException;
 import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class QuteTemplateInHeaderTest extends CamelTestSupport {
+public class QuteTemplateInHeaderTest extends QuteTestBase {
     @Test
     public void testReceivesFooResponse() throws Exception {
         assertRespondsWith("cheese", "foo", "<hello>foo</hello>");
@@ -60,7 +60,7 @@ public class QuteTemplateInHeaderTest extends CamelTestSupport {
         assertOutMessageBodyEquals(response, expectedBody);
 
         Object template = response.getMessage().getHeader(QuteConstants.QUTE_TEMPLATE);
-        assertNull("Template header should have been removed", template);
+        Assertions.assertNull(template, "Template header should have been removed");
 
         Set<Map.Entry<String, Object>> entrySet = response.getMessage().getHeaders().entrySet();
         boolean keyFound = false;
@@ -69,7 +69,7 @@ public class QuteTemplateInHeaderTest extends CamelTestSupport {
                 keyFound = true;
             }
         }
-        assertTrue("Header should been found", keyFound);
+        Assertions.assertTrue(keyFound, "Header should been found");
     }
 
     @Override

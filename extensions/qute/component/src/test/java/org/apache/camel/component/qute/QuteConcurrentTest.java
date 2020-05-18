@@ -21,10 +21,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-public class QuteConcurrentTest extends CamelTestSupport {
+public class QuteConcurrentTest extends QuteTestBase {
     @Test
     public void testNoConcurrentProducers() throws Exception {
         doSendMessages(1, 1);
