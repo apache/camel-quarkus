@@ -20,10 +20,10 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.test.junit4.CamelTestSupport;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-public class QuteTest extends CamelTestSupport {
+public class QuteTest extends QuteTestBase {
 
     @Test
     public void testQuteExample() {
@@ -36,8 +36,8 @@ public class QuteTest extends CamelTestSupport {
             }
         });
 
-        assertEquals("Dear Christian. You ordered item 7 on Monday.", exchange.getMessage().getBody());
-        assertEquals("Christian", exchange.getMessage().getHeader("name"));
+        Assertions.assertEquals("Dear Christian. You ordered item 7 on Monday.", exchange.getMessage().getBody());
+        Assertions.assertEquals("Christian", exchange.getMessage().getHeader("name"));
     }
 
     @Override
