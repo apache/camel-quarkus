@@ -18,12 +18,13 @@ package org.apache.camel.quarkus.component.avro;
 
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.avro.Schema;
 
 @Recorder
 public class AvroRecorder {
 
-    public void recordDataFormatProducerRegistryInitialization(BeanContainer beanContainer, AvroSchemaRegistry schemaRegistry) {
-        beanContainer.instance(AvroDataFormatProducer.class).setAvroSchemaRegistry(schemaRegistry);
+    public void recordInjectedFieldSchemaRegistration(BeanContainer beanContainer, String injectedFieldId, Schema schema) {
+        beanContainer.instance(AvroDataFormatProducer.class).registerAvroSchema(injectedFieldId, schema);
     }
 
 }
