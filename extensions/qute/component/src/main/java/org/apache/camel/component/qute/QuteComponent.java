@@ -28,6 +28,8 @@ import org.apache.camel.support.ResourceHelper;
 @Component("qute")
 public class QuteComponent extends DefaultComponent {
 
+    @Metadata(defaultValue = "false")
+    private boolean allowTemplateFromHeader;
     @Metadata(label = "advanced")
     private Engine quteEngine;
 
@@ -45,14 +47,30 @@ public class QuteComponent extends DefaultComponent {
         this.quteEngine = quteEngine;
     }
 
+    public boolean isAllowTemplateFromHeader() {
+        return allowTemplateFromHeader;
+    }
+
+    /**
+     * Whether to allow to use resource template from header or not (default false).
+     *
+     * Enabling this allows to specify dynamic templates via message header. However this can
+     * be seen as a potential security vulnerability if the header is coming from a malicious user, so use this with care.
+     */
+    public void setAllowTemplateFromHeader(boolean allowTemplateFromHeader) {
+        this.allowTemplateFromHeader = allowTemplateFromHeader;
+    }
+
     @Override
     protected Endpoint createEndpoint(String uri, String remaining, Map<String, Object> parameters) throws Exception {
         boolean cache = getAndRemoveParameter(parameters, "contentCache", Boolean.class, Boolean.TRUE);
 
         QuteEndpoint answer = new QuteEndpoint(uri, this, remaining);
-        setProperties(answer, parameters);
         answer.setContentCache(cache);
+        answer.setAllowTemplateFromHeader(allowTemplateFromHeader);
         answer.setQuteEngine(quteEngine);
+
+        setProperties(answer, parameters);
 
         // if its a http resource then append any remaining parameters and update the resource uri
         if (ResourceHelper.isHttpUri(remaining)) {

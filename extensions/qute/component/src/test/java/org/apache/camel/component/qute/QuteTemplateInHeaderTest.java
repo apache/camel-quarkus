@@ -76,7 +76,7 @@ public class QuteTemplateInHeaderTest extends CamelTestSupport {
     protected RouteBuilder createRouteBuilder() {
         return new RouteBuilder() {
             public void configure() {
-                from("direct:a").to("qute://dummy");
+                from("direct:a").to("qute://dummy?allowTemplateFromHeader=true");
             }
         };
     }
