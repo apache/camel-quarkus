@@ -44,6 +44,8 @@ import org.apache.camel.util.ObjectHelper;
 public class QuteEndpoint extends ResourceEndpoint {
     private Engine quteEngine;
 
+    @UriParam(defaultValue = "false")
+    private boolean allowTemplateFromHeader;
     @UriParam
     private String encoding;
 
@@ -72,6 +74,20 @@ public class QuteEndpoint extends ResourceEndpoint {
             quteEngine = builder.build();
         }
         return quteEngine;
+    }
+
+    public boolean isAllowTemplateFromHeader() {
+        return allowTemplateFromHeader;
+    }
+
+    /**
+     * Whether to allow to use resource template from header or not (default false).
+     *
+     * Enabling this allows to specify dynamic templates via message header. However this can
+     * be seen as a potential security vulnerability if the header is coming from a malicious user, so use this with care.
+     */
+    public void setAllowTemplateFromHeader(boolean allowTemplateFromHeader) {
+        this.allowTemplateFromHeader = allowTemplateFromHeader;
     }
 
     private Optional<TemplateLocation> locate(String path) {
@@ -133,23 +149,32 @@ public class QuteEndpoint extends ResourceEndpoint {
         String path = getResourceUri();
         ObjectHelper.notNull(path, "resourceUri");
 
-        String newResourceUri = exchange.getIn().getHeader(QuteConstants.QUTE_RESOURCE_URI, String.class);
-        if (newResourceUri != null) {
-            exchange.getIn().removeHeader(QuteConstants.QUTE_RESOURCE_URI);
+        if (allowTemplateFromHeader) {
+            String newResourceUri = exchange.getIn().getHeader(QuteConstants.QUTE_RESOURCE_URI, String.class);
+            if (newResourceUri != null) {
+                exchange.getIn().removeHeader(QuteConstants.QUTE_RESOURCE_URI);
 
-            log.debug("{} set to {} creating new endpoint to handle exchange", QuteConstants.QUTE_RESOURCE_URI, newResourceUri);
-            QuteEndpoint newEndpoint = findOrCreateEndpoint(getEndpointUri(), newResourceUri);
-            newEndpoint.onExchange(exchange);
-            return;
+                log.debug("{} set to {} creating new endpoint to handle exchange", QuteConstants.QUTE_RESOURCE_URI,
+                        newResourceUri);
+                QuteEndpoint newEndpoint = findOrCreateEndpoint(getEndpointUri(), newResourceUri);
+                newEndpoint.onExchange(exchange);
+                return;
+            }
         }
 
-        String content = exchange.getIn().getHeader(QuteConstants.QUTE_TEMPLATE, String.class);
-        if (content != null) {
-            // remove the header to avoid it being propagated in the routing
-            exchange.getIn().removeHeader(QuteConstants.QUTE_TEMPLATE);
+        String content = null;
+        if (allowTemplateFromHeader) {
+            content = exchange.getIn().getHeader(QuteConstants.QUTE_TEMPLATE, String.class);
+            if (content != null) {
+                // remove the header to avoid it being propagated in the routing
+                exchange.getIn().removeHeader(QuteConstants.QUTE_TEMPLATE);
+            }
         }
 
-        TemplateInstance instance = exchange.getIn().getHeader(QuteConstants.QUTE_TEMPLATE_INSTANCE, TemplateInstance.class);
+        TemplateInstance instance = null;
+        if (allowTemplateFromHeader) {
+            instance = exchange.getIn().getHeader(QuteConstants.QUTE_TEMPLATE_INSTANCE, TemplateInstance.class);
+        }
         if (instance != null) {
             // use template instance from header
             if (log.isDebugEnabled()) {

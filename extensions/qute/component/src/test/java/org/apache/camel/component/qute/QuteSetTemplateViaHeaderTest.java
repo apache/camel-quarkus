@@ -59,7 +59,7 @@ public class QuteSetTemplateViaHeaderTest extends CamelTestSupport {
     protected RouteBuilder createRouteBuilder() throws Exception {
         return new RouteBuilder() {
             public void configure() throws Exception {
-                from("direct:a").to("qute:dummy").to("mock:result");
+                from("direct:a").to("qute:dummy?allowTemplateFromHeader=true").to("mock:result");
             }
         };
     }
