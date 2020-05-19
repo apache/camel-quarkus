@@ -24,10 +24,6 @@
 name: "Camel Avro"
 description: "Serialize and deserialize messages using Apache Avro binary data format"
 metadata:
-  keywords:
-  - "camel"
-  - "messaging"
-  - "transformation"
-  guide: "https://camel.apache.org/components/latest/dataformats/avro-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/avro.html"
   categories:
   - "integration"

@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -31,7 +32,7 @@ import org.apache.camel.dataformat.avro.AvroDataFormat;
 @Singleton
 public class AvroDataFormatProducer {
 
-    private final HashMap<String, Schema> schemaRegistry = new HashMap<>();
+    private final Map<String, Schema> schemaRegistry = new HashMap<>();
 
     public void registerAvroSchema(String injectedFieldId, Schema schema) {
         schemaRegistry.put(injectedFieldId, schema);

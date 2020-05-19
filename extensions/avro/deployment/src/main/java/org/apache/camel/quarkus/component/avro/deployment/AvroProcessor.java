@@ -99,7 +99,7 @@ class AvroProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    void recordAvroSchemasInitialization(BeanArchiveIndexBuildItem beanArchiveIndex,
+    void recordAvroSchemasResigtration(BeanArchiveIndexBuildItem beanArchiveIndex,
             BeanContainerBuildItem beanContainer, AvroRecorder avroRecorder) {
         IndexView index = beanArchiveIndex.getIndex();
         for (AnnotationInstance annotation : index.getAnnotations(BUILD_TIME_AVRO_DATAFORMAT_ANNOTATION)) {
@@ -108,7 +108,7 @@ class AvroProcessor {
             String injectedFieldId = fieldInfo.declaringClass().name() + "." + fieldInfo.name();
             try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(schemaResourceName)) {
                 Schema avroSchema = new Schema.Parser().parse(is);
-                avroRecorder.recordInjectedFieldSchema(beanContainer.getValue(), injectedFieldId, avroSchema);
+                avroRecorder.recordAvroSchemaResigtration(beanContainer.getValue(), injectedFieldId, avroSchema);
                 LOG.debug("Parsed the avro schema at build time from resource named " + schemaResourceName);
             } catch (SchemaParseException | IOException ex) {
                 final String message = "An issue occured while parsing schema resource on field " + injectedFieldId;

@@ -23,7 +23,7 @@ import org.apache.avro.Schema;
 @Recorder
 public class AvroRecorder {
 
-    public void recordInjectedFieldSchemaRegistration(BeanContainer beanContainer, String injectedFieldId, Schema schema) {
+    public void recordAvroSchemaResigtration(BeanContainer beanContainer, String injectedFieldId, Schema schema) {
         beanContainer.instance(AvroDataFormatProducer.class).registerAvroSchema(injectedFieldId, schema);
     }
 
