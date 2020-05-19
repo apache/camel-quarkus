@@ -56,8 +56,8 @@ jobs:
           fetch-depth: 0
       - name: Rebase branch master onto camel-master
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git fetch origin master
           git rebase origin/master
           git rev-parse origin/master > ~/build-data/master-sha.txt
@@ -116,8 +116,8 @@ jobs:
           fetch-depth: 0
       - name: Rebase branch master onto camel-master
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git fetch origin master
           git rebase $(cat ~/build-data/master-sha.txt)
       - name: Install yq
@@ -177,8 +177,8 @@ jobs:
           fetch-depth: 0
       - name: Rebase branch master onto camel-master
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
           git fetch origin master
           git rebase $(cat ~/build-data/master-sha.txt)
       - name: Report build status
