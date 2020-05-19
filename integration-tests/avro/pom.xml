@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-avro</artifactId>
-    <name>Camel Quarkus :: Integration Test :: Avro</name>
+    <name>Camel Quarkus :: Integration Tests :: Avro</name>
     <description>Integration tests for Camel Quarkus Avro extension</description>
 
     <properties>
