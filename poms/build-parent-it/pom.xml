@@ -59,6 +59,7 @@
                     <configuration>
                         <systemProperties>
                             <quarkus.http.test-port>${test.http.port.jvm}</quarkus.http.test-port>
+                            <quarkus.http.test-ssl-port>${test.https.port.jvm}</quarkus.http.test-ssl-port>
                         </systemProperties>
                     </configuration>
                 </plugin>
@@ -70,6 +71,7 @@
                             <configuration>
                                 <systemProperties>
                                     <quarkus.http.test-port>${test.http.port.native}</quarkus.http.test-port>
+                                    <quarkus.http.test-ssl-port>${test.https.port.native}</quarkus.http.test-ssl-port>
                                 </systemProperties>
                             </configuration>
                         </execution>
@@ -92,7 +94,9 @@
                         <configuration>
                             <portNames>
                                 <portName>test.http.port.jvm</portName>
+                                <portName>test.https.port.jvm</portName>
                                 <portName>test.http.port.native</portName>
+                                <portName>test.https.port.native</portName>
                             </portNames>
                         </configuration>
                     </execution>
