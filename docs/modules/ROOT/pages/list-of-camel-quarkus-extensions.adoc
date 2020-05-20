@@ -430,8 +430,8 @@ Level | Since | Description
  Stable | 1.0.0-M1 | Perform operations on MongoDB documents and collections.
 
 | link:https://camel.apache.org/components/latest/mongodb-gridfs-component.html[MongoDB GridFS] (camel-quarkus-mongodb-gridfs) +
-`mongodb-gridfs:connectionBean` | JVM +
- Preview | 1.0.0-M6 | Interact with MongoDB GridFS.
+`mongodb-gridfs:connectionBean` | Native +
+ Stable | 1.0.0-M6 | Interact with MongoDB GridFS.
 
 | xref:extensions/mustache.adoc[Mustache] (camel-quarkus-mustache) +
 `mustache:resourceUri` | Native +

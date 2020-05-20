@@ -108,6 +108,7 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>mongodb</module>
+        <module>mongodb-gridfs</module>
         <module>mustache</module>
         <module>netty</module>
         <module>netty-http</module>

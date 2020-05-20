@@ -1,4 +1,3 @@
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.mongodb.deployment;
+package org.apache.camel.quarkus.component.mongodb.it;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.test.junit.NativeImageTest;
 
-class MongoDbProcessor {
-
-    private static final String FEATURE = "camel-mongodb";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
+@NativeImageTest
+class MongodbGridfsIT extends MongodbGridfsTest {
 }
