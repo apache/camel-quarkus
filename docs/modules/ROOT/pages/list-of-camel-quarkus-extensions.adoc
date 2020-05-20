@@ -764,7 +764,7 @@ Level | Since | Description
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 12 in 12 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,5",options="header"]
 |===
@@ -787,6 +787,9 @@ Number of miscellaneous extensions: 12 in 12 JAR artifacts (0 deprecated)
 
 | (camel-quarkus-kotlin) | Native +
  Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
+
+| (camel-quarkus-microprofile-fault-tolerance) | Native +
+ Stable | 1.0.0-M8 | Circuit Breaker EIP using Microprofile Fault Tolerance
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | Native +
  Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks

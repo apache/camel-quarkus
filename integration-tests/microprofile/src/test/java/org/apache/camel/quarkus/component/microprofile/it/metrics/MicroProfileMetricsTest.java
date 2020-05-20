@@ -94,7 +94,7 @@ class MicroProfileMetricsTest {
         RestAssured.get("/microprofile-metrics/timer")
                 .then()
                 .statusCode(200);
-        assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=route7") > 0);
+        assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=mp-metrics-timer") > 0);
     }
 
     @Test
