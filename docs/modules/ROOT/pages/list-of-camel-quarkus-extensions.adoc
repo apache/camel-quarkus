@@ -25,7 +25,7 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 | Component | Target +
 Level | Since | Description
 
-| link:https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ] (camel-quarkus-activemq) +
+| xref:extensions/activemq.adoc[ActiveMQ] (camel-quarkus-activemq) +
 `activemq:destinationType:destinationName` | Native +
  Stable | 1.0.0-M5 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 

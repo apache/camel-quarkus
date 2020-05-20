@@ -1,0 +1,38 @@
+[[[=artifactIdBase]]]
+= [=name]
+
+*Since Camel Quarkus [=firstVersion], [=nativeSupported?then('JVM and native','JVM only')]*
+
+[=intro]
+
+== What's inside
+
+[#list models as model]
+* https://camel.apache.org/[=model.kind]s/latest/[=model.name]-[=model.kind].html[[=model.title][#if model.kind != "other" ] [=humanReadableKind(model.kind)][/#if]][#if model.kind != "component" ], URI syntax: `[=model.syntax]`[/#if]
+[/#list]
+
+Please refer to the above links for usage details.
+
+== Maven coordinates
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-[=artifactIdBase]</artifactId>
+</dependency>
+----
+
+Check the xref:user-guide.adoc[User guide] for more information about writing Camel Quarkus applications.
+[#if configuration?? ]
+
+== Configuration
+
+[=configuration]
+[/#if]
+[#if limitations?? ]
+
+== Limitations
+
+[=limitations]
+[/#if]

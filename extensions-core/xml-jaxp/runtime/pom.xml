@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-xml-jaxp</artifactId>
-    <name>Camel Quarkus :: XML :: Core JAXP :: Runtime</name>
+    <name>Camel Quarkus :: XML JAXP :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M5</firstVersion>

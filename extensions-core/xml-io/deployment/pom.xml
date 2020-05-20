@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-xml-io-deployment</artifactId>
-    <name>Camel Quarkus :: XML :: IO :: Deployment</name>
+    <name>Camel Quarkus :: XML :: XML IO :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>

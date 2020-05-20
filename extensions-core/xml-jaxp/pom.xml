@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-xml-jaxp-parent</artifactId>
-    <name>Camel Quarkus :: XML :: JAXP</name>
+    <name>Camel Quarkus :: XML JAXP</name>
     <packaging>pom</packaging>
 
     <modules>

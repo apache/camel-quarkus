@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.maven;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -32,8 +31,6 @@ import java.util.stream.Collectors;
 
 import freemarker.ext.beans.StringModel;
 import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
@@ -43,7 +40,6 @@ import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
 import org.apache.camel.tooling.model.SupportLevel;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -54,14 +50,12 @@ import static java.util.stream.Collectors.toSet;
 /**
  * Updates the documentation in:
  *
- * - extensions/readme.adoc
  * - docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc
  *
  * to be up to date with all the extensions that Apache Camel Quarkus ships.
  */
 @Mojo(name = "update-doc-extensions-list", threadSafe = true)
-public class UpdateDocExtensionsListMojo extends AbstractMojo {
-    static final String DEFAULT_TEMPLATES_URI_BASE = "classpath:/extension-list-templates";
+public class UpdateDocExtensionsListMojo extends AbstractDocGeneratorMojo {
     /**
      * The directory relative to which the catalog data is read.
      */
@@ -73,22 +67,6 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
      */
     @Parameter(defaultValue = "${project.basedir}/../../docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc")
     File extensionListFile;
-
-    /**
-     */
-    @Parameter(defaultValue = DEFAULT_TEMPLATES_URI_BASE, required = true, property = "camel-quarkus.templatesUriBase")
-    String templatesUriBase;
-    /**
-     * Directory where the changes should be performed. Default is the current directory of the current Java process.
-     */
-    @Parameter(property = "camel-quarkus.basedir", defaultValue = "${project.basedir}")
-    File baseDir;
-
-    /**
-     * Encoding to read and write files in the current source tree
-     */
-    @Parameter(defaultValue = "${project.build.sourceEncoding}", required = true, property = "camel-quarkus.encoding")
-    String encoding;
 
     /**
      * Execute goal.
@@ -103,7 +81,8 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         final Path basePath = baseDir.toPath();
         final Path extensionListPath = extensionListFile.toPath();
 
-        final Configuration cfg = CqUtils.getTemplateConfig(basePath, DEFAULT_TEMPLATES_URI_BASE, templatesUriBase, encoding);
+        final Configuration cfg = CqUtils.getTemplateConfig(basePath, AbstractDocGeneratorMojo.DEFAULT_TEMPLATES_URI_BASE,
+                templatesUriBase, encoding);
 
         AtomicReference<String> document;
         try {
@@ -168,7 +147,7 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
             model.put("getSupportLevel", getSupportLevel);
             model.put("getTarget", getTarget);
 
-            final String extList = evalTemplate(cfg, "readme-" + kind.name() + "s.ftl", model);
+            final String extList = evalTemplate(cfg, "readme-" + kind.name() + "s.ftl", model, new StringWriter()).toString();
             replace(document, extensionListPath, extList, kind);
         });
 
@@ -195,22 +174,6 @@ public class UpdateDocExtensionsListMojo extends AbstractMojo {
         }
         m.appendTail(sb);
         ref.set(sb.toString());
-    }
-
-    static String evalTemplate(Configuration cfg, String templateUri, Map<String, Object> model) {
-        try {
-            final Template template = cfg.getTemplate(templateUri);
-            try (Writer out = new StringWriter()) {
-                try {
-                    template.process(model, out);
-                } catch (TemplateException e) {
-                    throw new RuntimeException("Could not process template " + templateUri + ":\n\n" + out.toString(), e);
-                }
-                return out.toString();
-            }
-        } catch (IOException e) {
-            throw new RuntimeException("Could not evaluate template " + templateUri, e);
-        }
     }
 
     static class GetDocLink implements TemplateMethodModelEx {
