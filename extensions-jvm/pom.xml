@@ -56,7 +56,6 @@
         <module>google-pubsub</module>
         <module>groovy</module>
         <module>grpc</module>
-        <module>mongodb-gridfs</module>
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>

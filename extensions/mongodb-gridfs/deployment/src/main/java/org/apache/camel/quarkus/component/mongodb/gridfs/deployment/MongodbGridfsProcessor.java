@@ -1,4 +1,3 @@
-
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
@@ -15,14 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.mongodb.deployment;
+package org.apache.camel.quarkus.component.mongodb.gridfs.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-class MongoDbProcessor {
-
-    private static final String FEATURE = "camel-mongodb";
+class MongodbGridfsProcessor {
+    private static final String FEATURE = "camel-mongodb-gridfs";
 
     @BuildStep
     FeatureBuildItem feature() {
