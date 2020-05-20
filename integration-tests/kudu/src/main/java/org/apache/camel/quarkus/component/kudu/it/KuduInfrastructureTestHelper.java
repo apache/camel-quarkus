@@ -27,7 +27,7 @@ import io.quarkus.runtime.StartupEvent;
 import org.jboss.logging.Logger;
 
 /**
- * In order to run Kudu integration tests, {@KuduResource}, {@code KuduTest} and {@code KuduIT} should have access to:
+ * In order to run Kudu integration tests, {@code KuduTest} and {@code KuduIT} should have access to:
  * 1) A Kudu master server needed to create a table and also to obtain the host/port of the associated tablet server
  * 2) A Kudu tablet server needed to insert and scan records
  *
@@ -36,23 +36,29 @@ import org.jboss.logging.Logger;
  * Another solution could be to use the container based setup where Kudu servers are managed by
  * {@code KuduTestResource}.
  *
- * A) How to run integration tests against a custom setup:
- * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
+ * A) How to run integration tests against a custom setup (advised when not running on top of OpenJDK):
  * Install Kudu master and tablet servers on the same network than integration tests.
  * Configure "camel.kudu.test.master.rpc-authority" in "application.properties", for instance:
  * camel.kudu.test.master.rpc-authority=kudu-master-hostname:7051
  * Run integration tests with mvn clean integration-test -P native
  *
  * B) How to run integration tests against the container based setup:
- * Comment @Disabled and @DisabledOnNativeImage annotations from {@code KuduTest} and {@code KuduIT}.
- * When NOT running on top of OpenJDK 9+, you'll need to manually override the ip resolution of the host "kudu-tserver"
- * to 127.0.0.1, e.g. by adding an entry in /etc/hosts file as below:
- * 127.0.0.1 kudu-tserver
+ * The container based setup is activated by default when running on top of OpenJDK and should run out of the box as
+ * {@code KuduTestResource} runs master and tablet server containers in a shared network.
+ * When NOT running on top of OpenJDK, you can have a try by commenting @EnabledIfSystemProperty statements in
+ * {@code KuduTest} and {@code KuduIT}.
  * Run integration tests with mvn clean integration-test -P native
- * Note that under some platforms/configurations, testcontainers is not able to bridge master and tablet servers in a
- * shared network.
- * In such cases, a log like "0 tablet servers are alive" could be issued and falling back to a custom local setup is
- * advised.
+ *
+ * Troubleshooting the container based setup:
+ * If a message like "Unknown host kudu-tserver" is issued, it may be that
+ * {@link KuduInfrastructureTestHelper#overrideTabletServerHostnameResolution()}
+ * is not working. Please try to manually override the tablet server hostname resolution on your Operating System.
+ * For instance, adding an entry in /etc/hosts file like: "127.0.0.1 kudu-tserver"
+ *
+ * If a message like "Not enough live tablet server" is issued, it may be that the shared network setup by
+ * {@code KuduTestResource} is not working. In this case please refer to links below for a possible workaround:
+ * <a href="https://github.com/apache/camel-quarkus/issues/1206">
+ * <a href="https://github.com/moby/moby/issues/32138">
  */
 @ApplicationScoped
 public class KuduInfrastructureTestHelper {
