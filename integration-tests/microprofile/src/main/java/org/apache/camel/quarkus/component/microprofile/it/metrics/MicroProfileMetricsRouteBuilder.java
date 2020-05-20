@@ -47,6 +47,7 @@ public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
                 .to("microprofile-metrics:meter:camel-quarkus-meter");
 
         from("direct:timer")
+                .id("mp-metrics-timer")
                 .to("microprofile-metrics:timer:camel-quarkus-timer?action=start")
                 .delay(100)
                 .to("microprofile-metrics:timer:camel-quarkus-timer?action=stop");
