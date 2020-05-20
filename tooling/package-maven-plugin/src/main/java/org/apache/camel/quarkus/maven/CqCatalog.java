@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
@@ -40,6 +39,12 @@ public class CqCatalog {
 
     private final DefaultCamelCatalog catalog;
 
+    private static final ThreadLocal<CqCatalog> threadLocalCamelCatalog = ThreadLocal.withInitial(CqCatalog::new);
+
+    public static CqCatalog getThreadLocalCamelCatalog() {
+        return threadLocalCamelCatalog.get();
+    }
+
     public CqCatalog(Path baseDir) {
         super();
         final DefaultCamelCatalog c = new DefaultCamelCatalog(true);
@@ -53,7 +58,7 @@ public class CqCatalog {
         this.catalog = new DefaultCamelCatalog(true);
     }
 
-    public String toCamelComponentArtifactIdBase(String cqArtifactIdBase) {
+    public static String toCamelComponentArtifactIdBase(String cqArtifactIdBase) {
         if ("core".equals(cqArtifactIdBase)) {
             return "base";
         } else if ("reactive-executor".equals(cqArtifactIdBase)) {
@@ -63,7 +68,7 @@ public class CqCatalog {
         }
     }
 
-    public List<String> toCamelArtifactIdBase(String cqArtifactIdBase) {
+    public static List<String> toCamelArtifactIdBase(String cqArtifactIdBase) {
         if ("core".equals(cqArtifactIdBase)) {
             return Arrays.asList("camel-base", "camel-core-languages");
         } else if ("reactive-executor".equals(cqArtifactIdBase)) {
@@ -73,11 +78,10 @@ public class CqCatalog {
         }
     }
 
-    public List<ArtifactModel<?>> filterModels(String artifactIdBase) {
+    public Stream<ArtifactModel<?>> filterModels(String artifactIdBase) {
         List<String> camelArtifactIds = toCamelArtifactIdBase(artifactIdBase);
         return models()
-                .filter(model -> camelArtifactIds.contains(model.getArtifactId()))
-                .collect(Collectors.toList());
+                .filter(model -> camelArtifactIds.contains(model.getArtifactId()));
     }
 
     public Stream<ArtifactModel<?>> models() {

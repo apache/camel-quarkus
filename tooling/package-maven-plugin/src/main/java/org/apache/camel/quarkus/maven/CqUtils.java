@@ -19,6 +19,10 @@ package org.apache.camel.quarkus.maven;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import freemarker.cache.ClassTemplateLoader;
@@ -27,13 +31,15 @@ import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
+import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.maven.model.Model;
+import org.apache.maven.plugin.logging.Log;
 
 public class CqUtils {
     public static final String CLASSPATH_PREFIX = "classpath:";
-
     public static final String FILE_PREFIX = "file:";
+    private static final String NAME_SUFFIX = " :: Runtime";
 
     static TemplateLoader createTemplateLoader(Path basePath, String defaultUriBase, String templatesUriBase) {
         final TemplateLoader defaultLoader = new ClassTemplateLoader(CqUtils.class,
@@ -106,4 +112,59 @@ public class CqUtils {
                 "Unexpected artifactId " + artifactId + "; expected one starting with camel-quarkus- or camel-");
     }
 
+    public static String getArtifactIdBase(String cqArtifactId) {
+        if (cqArtifactId.startsWith("camel-quarkus-")) {
+            return cqArtifactId.substring("camel-quarkus-".length());
+        }
+        throw new IllegalStateException(
+                "Unexpected artifactId " + cqArtifactId + "; expected one starting with camel-quarkus-");
+    }
+
+    public static String getNameBase(String name) {
+        if (!name.endsWith(NAME_SUFFIX)) {
+            throw new IllegalStateException(
+                    "Unexpected Maven module name '" + name + "'; expected to end with " + NAME_SUFFIX);
+        }
+        final int startDelimPos = name.lastIndexOf(" :: ", name.length() - NAME_SUFFIX.length() - 1);
+        if (startDelimPos < 0) {
+            throw new IllegalStateException(
+                    "Unexpected Maven module name '" + name + "'; expected to start with with '<whatever> :: '");
+        }
+        return name.substring(startDelimPos + 4, name.length() - NAME_SUFFIX.length());
+    }
+
+    public static String humanReadableKind(Kind kind) {
+        switch (kind) {
+        case component:
+            return "component";
+        case dataformat:
+            return "data format";
+        case language:
+            return "languages";
+        case other:
+            return null;
+        default:
+            throw new IllegalStateException("Unexpected kind " + kind);
+        }
+    }
+
+    public static String getDescription(List<ArtifactModel<?>> models, String descriptionFromPom, Log log) {
+        if (descriptionFromPom != null) {
+            return descriptionFromPom;
+        } else if (models.size() == 1) {
+            return models.get(0).getDescription();
+        } else {
+            final Set<String> uniqueDescriptions = models.stream()
+                    .map(m -> m.getDescription())
+                    .collect(Collectors.toCollection(LinkedHashSet::new));
+            final String description = uniqueDescriptions
+                    .stream()
+                    .collect(Collectors.joining(" "));
+            if (uniqueDescriptions.size() > 1) {
+                log.warn("Consider adding and explicit <description> if you do not like the concatenated description: "
+                        + description);
+            }
+            return description;
+        }
+    }
 }

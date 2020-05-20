@@ -68,6 +68,24 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-package-maven-plugin</artifactId>
+                <version>${project.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.camel</groupId>
+                        <artifactId>camel-catalog</artifactId>
+                        <version>${camel.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <goals><goal>update-extension-doc-page</goal></goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
             </plugin>

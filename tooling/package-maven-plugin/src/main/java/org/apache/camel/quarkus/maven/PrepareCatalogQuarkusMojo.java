@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,8 +25,6 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -40,15 +37,11 @@ import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.SupportLevel;
-import org.apache.maven.model.Dependency;
-import org.apache.maven.model.Model;
-import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
 
 /**
  * Prepares the Quarkus provider camel catalog to include component it supports
@@ -87,17 +80,19 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         final Map<String, Set<String>> schemesByKind = new LinkedHashMap<>();
         CqCatalog.kinds().forEach(kind -> schemesByKind.put(kind.name(), new TreeSet<>()));
 
-        final CqCatalog catalog = new CqCatalog();
+        final CqCatalog catalog = CqCatalog.getThreadLocalCamelCatalog();
         extensionDirectories.stream()
                 .map(File::toPath)
                 .forEach(extDir -> {
                     CqUtils.findExtensionArtifactIdBases(extDir)
                             .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
                             .forEach(artifactIdBase -> {
-                                final List<ArtifactModel<?>> models = catalog.filterModels(artifactIdBase);
-                                final CamelQuarkusExtension ext = CamelQuarkusExtension
-                                        .read(extDir.resolve(artifactIdBase).resolve("pom.xml"), catalog);
-                                final boolean nativeSupported = !extDir.getFileName().toString().endsWith("-jvm");
+                                final List<ArtifactModel<?>> models = catalog.filterModels(artifactIdBase)
+                                        .collect(Collectors.toList());
+                                final Path runtimePomXmlPath = extDir.resolve(artifactIdBase).resolve("runtime/pom.xml")
+                                        .toAbsolutePath().normalize();
+                                final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimePomXmlPath);
+                                final boolean nativeSupported = ext.isNativeSupported();
                                 if (models.isEmpty()) {
                                     final OtherModel model = new OtherModel();
                                     final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
@@ -184,126 +179,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         model.setVersion(ext.getVersion());
         model.setNativeSupported(nativeSupported);
         model.setSupportLevel(nativeSupported ? SupportLevel.Stable : SupportLevel.Preview);
-
-    }
-
-    static class CamelQuarkusExtension {
-
-        public static CamelQuarkusExtension read(Path parentPomXmlPath, CqCatalog catalog) {
-            final Path runtimePomXmlPath = parentPomXmlPath.getParent().resolve("runtime/pom.xml").toAbsolutePath().normalize();
-            try (Reader parentReader = Files.newBufferedReader(parentPomXmlPath, StandardCharsets.UTF_8);
-                    Reader runtimeReader = Files.newBufferedReader(runtimePomXmlPath, StandardCharsets.UTF_8)) {
-                final MavenXpp3Reader rxppReader = new MavenXpp3Reader();
-                final Model parentPom = rxppReader.read(parentReader);
-                final Model runtimePom = rxppReader.read(runtimeReader);
-                final List<Dependency> deps = runtimePom.getDependencies();
-
-                final String aid = runtimePom.getArtifactId();
-                String camelComponentArtifactId = null;
-                if (deps != null && !deps.isEmpty()) {
-                    Optional<Dependency> artifact = deps.stream()
-                            .filter(dep ->
-
-                            "org.apache.camel".equals(dep.getGroupId()) &&
-                                    ("compile".equals(dep.getScope()) || dep.getScope() == null))
-                            .findFirst();
-                    if (artifact.isPresent()) {
-                        camelComponentArtifactId = catalog.toCamelComponentArtifactIdBase(artifact.get().getArtifactId());
-                    }
-                }
-                final Properties props = runtimePom.getProperties() != null ? runtimePom.getProperties() : new Properties();
-
-                String name = props.getProperty("title");
-                if (name == null) {
-                    name = parentPom.getName().replace("Camel Quarkus :: ", "");
-                }
-
-                final String version = CqUtils.getVersion(runtimePom);
-
-                return new CamelQuarkusExtension(
-                        parentPomXmlPath,
-                        runtimePomXmlPath,
-                        camelComponentArtifactId,
-                        (String) props.get("firstVersion"),
-                        aid,
-                        name,
-                        runtimePom.getDescription(),
-                        props.getProperty("label"),
-                        version);
-            } catch (IOException | XmlPullParserException e) {
-                throw new RuntimeException("Could not read " + parentPomXmlPath, e);
-            }
-        }
-
-        private final String label;
-        private final String version;
-
-        private final String description;
-
-        private final String runtimeArtifactId;
-
-        private final Path parentPomXmlPath;
-        private final Path runtimePomXmlPath;
-        private final String camelComponentArtifactId;
-        private final String firstVersion;
-        private final String name;
-
-        public CamelQuarkusExtension(
-                Path pomXmlPath,
-                Path runtimePomXmlPath,
-                String camelComponentArtifactId,
-                String firstVersion,
-                String runtimeArtifactId,
-                String name,
-                String description,
-                String label, String version) {
-            super();
-            this.parentPomXmlPath = pomXmlPath;
-            this.runtimePomXmlPath = runtimePomXmlPath;
-            this.camelComponentArtifactId = camelComponentArtifactId;
-            this.firstVersion = firstVersion;
-            this.runtimeArtifactId = runtimeArtifactId;
-            this.name = name;
-            this.description = description;
-            this.label = label;
-            this.version = version;
-        }
-
-        public String getVersion() {
-            return version;
-        }
-
-        public Path getParentPomXmlPath() {
-            return parentPomXmlPath;
-        }
-
-        public Optional<String> getFirstVersion() {
-            return Optional.ofNullable(firstVersion);
-        }
-
-        public Path getRuntimePomXmlPath() {
-            return runtimePomXmlPath;
-        }
-
-        public Optional<String> getLabel() {
-            return Optional.ofNullable(label);
-        }
-
-        public Optional<String> getDescription() {
-            return Optional.ofNullable(description);
-        }
-
-        public String getRuntimeArtifactId() {
-            return runtimeArtifactId;
-        }
-
-        public String getCamelComponentArtifactId() {
-            return camelComponentArtifactId;
-        }
-
-        public Optional<String> getName() {
-            return Optional.ofNullable(name);
-        }
 
     }
 
