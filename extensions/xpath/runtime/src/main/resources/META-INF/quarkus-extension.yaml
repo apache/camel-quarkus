@@ -24,6 +24,6 @@
 name: "Camel XPath"
 description: "Evaluate an XPath expression against an XML payload"
 metadata:
-  guide: "https://camel.apache.org/components/latest/xpath-language.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xpath.html"
   categories:
   - "integration"

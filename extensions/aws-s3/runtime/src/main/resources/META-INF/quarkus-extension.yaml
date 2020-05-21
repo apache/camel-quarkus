@@ -26,6 +26,6 @@ description: "Store and retrie objects from AWS S3 Storage Service"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-s3-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-s3.html"
   categories:
   - "integration"

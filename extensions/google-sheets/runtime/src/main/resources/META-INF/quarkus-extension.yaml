@@ -24,6 +24,6 @@
 name: "Camel Google Sheets"
 description: "Manage spreadsheets in Google Sheets"
 metadata:
-  guide: "https://camel.apache.org/components/latest/google-sheets-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/google-sheets.html"
   categories:
   - "integration"

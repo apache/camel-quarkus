@@ -24,6 +24,6 @@
 name: "Camel JacksonXML"
 description: "Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson"
 metadata:
-  guide: "https://camel.apache.org/components/latest/jacksonxml-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jacksonxml.html"
   categories:
   - "integration"

@@ -26,6 +26,6 @@ description: "Manage AWS EKS cluster instances"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-eks-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-eks.html"
   categories:
   - "integration"

@@ -25,7 +25,7 @@ name: "Camel AWS 2 MSK"
 description: "Manage AWS MSK instances using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/aws2-msk-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-msk.html"
   categories:
   - "integration"
   status: "preview"

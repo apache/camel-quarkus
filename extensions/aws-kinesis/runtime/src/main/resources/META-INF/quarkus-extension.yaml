@@ -26,6 +26,6 @@ description: "Consume and produce records from AWS Kinesis Streams and AWS Kines
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-kinesis-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-kinesis.html"
   categories:
   - "integration"

@@ -24,6 +24,6 @@
 name: "Camel Data Format"
 description: "Use a Camel Data Format as a regular Camel Component"
 metadata:
-  guide: "https://camel.apache.org/components/latest/dataformat-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/dataformat.html"
   categories:
   - "integration"

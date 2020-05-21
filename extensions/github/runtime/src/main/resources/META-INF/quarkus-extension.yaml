@@ -24,6 +24,6 @@
 name: "Camel GitHub"
 description: "Interact with the GitHub API"
 metadata:
-  guide: "https://camel.apache.org/components/latest/github-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/github.html"
   categories:
   - "integration"

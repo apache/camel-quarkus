@@ -26,6 +26,6 @@ description: "Sending and receive messages to/from AWS SQS service"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-sqs-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-sqs.html"
   categories:
   - "integration"

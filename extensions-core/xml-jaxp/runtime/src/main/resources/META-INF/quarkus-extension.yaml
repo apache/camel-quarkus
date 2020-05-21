@@ -21,9 +21,9 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Core JAXP"
+name: "Camel XML JAXP"
 description: "Tokenize XML payloads using the specified path expression"
 metadata:
-  guide: "https://camel.apache.org/components/latest/xml-jaxp-language.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xml-jaxp.html"
   categories:
   - "integration"

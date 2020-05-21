@@ -24,6 +24,6 @@
 name: "Camel Servlet"
 description: "Serve HTTP requests by a Servlet"
 metadata:
-  guide: "https://camel.apache.org/components/latest/servlet-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/servlet.html"
   categories:
   - "integration"

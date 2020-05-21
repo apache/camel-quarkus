@@ -24,6 +24,6 @@
 name: "Camel Endpoint DSL"
 description: "Code Camel endpoint URI using Java DSL instead of plain strings"
 metadata:
-  guide: "https://camel.apache.org/components/latest/endpointdsl-null.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/endpointdsl.html"
   categories:
   - "integration"

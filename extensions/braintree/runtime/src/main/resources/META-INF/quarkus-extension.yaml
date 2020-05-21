@@ -24,6 +24,6 @@
 name: "Camel Braintree"
 description: "Process payments using Braintree Payments"
 metadata:
-  guide: "https://camel.apache.org/components/latest/braintree-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/braintree.html"
   categories:
   - "integration"

@@ -24,6 +24,6 @@
 name: "Camel File"
 description: "Read and write files"
 metadata:
-  guide: "https://camel.apache.org/components/latest/file-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/file.html"
   categories:
   - "integration"

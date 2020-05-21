@@ -24,6 +24,6 @@
 name: "Camel Mail"
 description: "Send and receive emails using imap, pop3 and smtp protocols"
 metadata:
-  guide: "https://camel.apache.org/components/latest/mail-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/mail.html"
   categories:
   - "integration"

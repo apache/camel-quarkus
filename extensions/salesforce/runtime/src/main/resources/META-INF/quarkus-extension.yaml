@@ -24,6 +24,6 @@
 name: "Camel Salesforce"
 description: "Communicate with Salesforce using Java DTOs"
 metadata:
-  guide: "https://camel.apache.org/components/latest/salesforce-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/salesforce.html"
   categories:
   - "integration"

@@ -24,6 +24,6 @@
 name: "Camel CSV"
 description: "Handle CSV (Comma Separated Values) payloads"
 metadata:
-  guide: "https://camel.apache.org/components/latest/csv-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/csv.html"
   categories:
   - "integration"

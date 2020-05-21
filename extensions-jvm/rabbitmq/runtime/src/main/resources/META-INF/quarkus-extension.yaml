@@ -25,7 +25,7 @@ name: "Camel RabbitMQ"
 description: "Send and receive messages from RabbitMQ instances"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/rabbitmq-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/rabbitmq.html"
   categories:
   - "integration"
   status: "preview"

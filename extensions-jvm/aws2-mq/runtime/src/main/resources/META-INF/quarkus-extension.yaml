@@ -25,7 +25,7 @@ name: "Camel AWS 2 MQ"
 description: "Manage AWS MQ instances using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/aws2-mq-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-mq.html"
   categories:
   - "integration"
   status: "preview"

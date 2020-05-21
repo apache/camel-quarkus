@@ -26,6 +26,6 @@ description: "Manage AWS ECS cluster instances"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-ecs-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-ecs.html"
   categories:
   - "integration"

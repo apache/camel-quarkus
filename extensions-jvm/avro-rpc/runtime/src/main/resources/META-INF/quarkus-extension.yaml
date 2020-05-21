@@ -25,7 +25,7 @@ name: "Camel Avro RPC"
 description: "Produce or consume Apache Avro RPC services"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/avro-rpc-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/avro-rpc.html"
   categories:
   - "integration"
   status: "preview"

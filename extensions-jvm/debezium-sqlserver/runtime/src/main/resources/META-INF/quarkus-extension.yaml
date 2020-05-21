@@ -25,7 +25,7 @@ name: "Camel Debezium SQL Server Connector"
 description: "Capture changes from an SQL Server database"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/debezium-sqlserver-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html"
   categories:
   - "integration"
   status: "preview"

@@ -25,7 +25,7 @@ name: "Camel AWS 2 EKS"
 description: "Manage AWS EKS cluster instances using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/aws2-eks-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-eks.html"
   categories:
   - "integration"
   status: "preview"

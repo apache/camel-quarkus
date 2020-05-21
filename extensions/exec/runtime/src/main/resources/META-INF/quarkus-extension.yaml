@@ -24,6 +24,6 @@
 name: "Camel Exec"
 description: "Execute commands on the underlying operating system"
 metadata:
-  guide: "https://camel.apache.org/components/latest/exec-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/exec.html"
   categories:
   - "integration"

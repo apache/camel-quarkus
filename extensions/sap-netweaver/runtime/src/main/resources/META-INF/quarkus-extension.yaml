@@ -24,6 +24,6 @@
 name: "Camel SAP NetWeaver"
 description: "Send requests to SAP NetWeaver Gateway using HTTP"
 metadata:
-  guide: "https://camel.apache.org/components/latest/sap-netweaver-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/sap-netweaver.html"
   categories:
   - "integration"

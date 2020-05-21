@@ -24,6 +24,6 @@
 name: "Camel Control Bus"
 description: "Manage and monitor Camel routes"
 metadata:
-  guide: "https://camel.apache.org/components/latest/controlbus-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/controlbus.html"
   categories:
   - "integration"

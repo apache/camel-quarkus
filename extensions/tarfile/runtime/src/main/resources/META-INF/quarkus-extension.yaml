@@ -24,6 +24,6 @@
 name: "Camel Tar File"
 description: "Archive files into tarballs or extract files from tarballs"
 metadata:
-  guide: "https://camel.apache.org/components/latest/tarfile-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/tarfile.html"
   categories:
   - "integration"

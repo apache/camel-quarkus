@@ -24,6 +24,6 @@
 name: "Camel SEDA"
 description: "Asynchronously call another endpoint from any Camel Context in the same JVM"
 metadata:
-  guide: "https://camel.apache.org/components/latest/seda-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/seda.html"
   categories:
   - "integration"

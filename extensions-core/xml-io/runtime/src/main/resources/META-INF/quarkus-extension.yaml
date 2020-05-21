@@ -21,9 +21,9 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Core XML IO"
+name: "Camel XML IO"
 description: "An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp"
 metadata:
-  guide: "https://camel.apache.org/components/latest/xml-io-null.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xml-io.html"
   categories:
   - "integration"

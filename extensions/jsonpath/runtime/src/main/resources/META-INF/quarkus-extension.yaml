@@ -24,6 +24,6 @@
 name: "Camel JSON Path"
 description: "Evaluate a JsonPath expression against a JSON message body"
 metadata:
-  guide: "https://camel.apache.org/components/latest/jsonpath-language.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jsonpath.html"
   categories:
   - "integration"

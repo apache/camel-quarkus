@@ -24,6 +24,6 @@
 name: "Camel Timer"
 description: "Generate messages in specified intervals using java.util.Timer"
 metadata:
-  guide: "https://camel.apache.org/components/latest/timer-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/timer.html"
   categories:
   - "integration"

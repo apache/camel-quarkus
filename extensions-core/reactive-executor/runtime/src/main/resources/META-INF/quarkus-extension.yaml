@@ -24,6 +24,6 @@
 name: "Camel Reactive Executor"
 description: "Reactive Executor for camel-core using Vert.x"
 metadata:
-  guide: "https://camel.apache.org/components/latest/reactive-executor-other.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/reactive-executor.html"
   categories:
   - "integration"

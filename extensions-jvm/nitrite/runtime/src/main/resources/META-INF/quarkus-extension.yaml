@@ -25,7 +25,7 @@ name: "Camel Nitrite"
 description: "Access Nitrite databases"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/nitrite-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/nitrite.html"
   categories:
   - "integration"
   status: "preview"

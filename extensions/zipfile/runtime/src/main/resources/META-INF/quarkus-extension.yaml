@@ -24,6 +24,6 @@
 name: "Camel Zip File"
 description: "Compression and decompress streams using java.util.zip.ZipStream"
 metadata:
-  guide: "https://camel.apache.org/components/latest/zipfile-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/zipfile.html"
   categories:
   - "integration"

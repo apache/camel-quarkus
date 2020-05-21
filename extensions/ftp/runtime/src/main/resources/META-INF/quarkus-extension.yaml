@@ -24,6 +24,6 @@
 name: "Camel FTP"
 description: "Upload and download files to/from FTP or SFTP servers"
 metadata:
-  guide: "https://camel.apache.org/components/latest/ftp-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ftp.html"
   categories:
   - "integration"

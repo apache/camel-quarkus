@@ -25,7 +25,7 @@ name: "Camel AWS 2 Simple Email Service"
 description: "Send e-mails through AWS SES service using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/aws2-ses-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-ses.html"
   categories:
   - "integration"
   status: "preview"

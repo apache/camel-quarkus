@@ -26,6 +26,6 @@ description: "Translate texts using AWS Translate"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-translate-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-translate.html"
   categories:
   - "integration"
