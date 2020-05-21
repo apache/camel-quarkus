@@ -87,6 +87,42 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>groovy-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <!-- gRPC is managed in Quarkus BOM but we still need ${grpc.version} for the protobuf-maven-plugin bellow -->
+                        <!-- To solve that we parse the Quarkus BOM POM and set the grpc.version property dynamically -->
+                        <!-- instead of hardcoding it -->
+                        <id>set-grpc-version-property</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <properties>
+                                <localRepository>${settings.localRepository}</localRepository>
+                                <quarkusVersion>${quarkus.version}</quarkusVersion>
+                            </properties>
+                            <source>
+                                import java.nio.file.Path
+                                import java.nio.file.Paths
+                                import java.nio.file.Files
+                                final Path localMavenRepoPath = Paths.get(properties['localRepository'])
+                                final Path quarkusBomPath = localMavenRepoPath.resolve('io/quarkus/quarkus-bom/' + properties['quarkusVersion'] + '/quarkus-bom-' + properties['quarkusVersion'] + '.pom')
+                                if (!Files.exists(quarkusBomPath)) {
+                                    throw new IllegalStateException(quarkusBomPath + ' should exist')
+                                }
+                                def pomProject = new XmlParser().parseText(quarkusBomPath.getText('UTF-8'))
+                                final String grpcVersion = pomProject.properties.'grpc.version'.text()
+                                println 'setting grpc.version = ' + grpcVersion + ' as found in Quarkus BOM'
+                                project.properties['grpc.version'] = grpcVersion
+                            </source>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <extensions>true</extensions>

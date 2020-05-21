@@ -22,7 +22,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
-import io.quarkus.mongodb.runtime.MongoClientRecorder;
+import io.quarkus.mongodb.runtime.MongoClientBeanUtil;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class SupportMongoDBProcessor {
@@ -42,7 +42,7 @@ class SupportMongoDBProcessor {
         for (MongoClientBuildItem mongoClient : mongoClients) {
             // If there is a default mongo client instance, then bind it to the camel registry
             // with the default mongo client name used by the camel-mongodb component
-            if (MongoClientRecorder.DEFAULT_MONGOCLIENT_NAME.equals(mongoClient.getName())) {
+            if (MongoClientBeanUtil.isDefault(mongoClient.getName())) {
                 runtimeBeans.produce(
                         new CamelRuntimeBeanBuildItem(
                                 "camelMongoClient",
