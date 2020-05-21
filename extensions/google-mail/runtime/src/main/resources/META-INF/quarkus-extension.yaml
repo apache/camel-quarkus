@@ -24,6 +24,6 @@
 name: "Camel Google Mail"
 description: "Manage messages in Google Mail"
 metadata:
-  guide: "https://camel.apache.org/components/latest/google-mail-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/google-mail.html"
   categories:
   - "integration"

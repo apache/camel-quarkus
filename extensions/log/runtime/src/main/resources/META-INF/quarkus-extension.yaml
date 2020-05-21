@@ -24,6 +24,6 @@
 name: "Camel Log"
 description: "Log messages to the underlying logging mechanism"
 metadata:
-  guide: "https://camel.apache.org/components/latest/log-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/log.html"
   categories:
   - "integration"

@@ -24,6 +24,6 @@
 name: "Camel Core"
 description: "Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze"
 metadata:
-  guide: "https://camel.apache.org/components/latest/core-language.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/core.html"
   categories:
   - "integration"

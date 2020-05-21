@@ -26,6 +26,6 @@ description: "Manage and invoke AWS Lambda functions"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-lambda-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-lambda.html"
   categories:
   - "integration"

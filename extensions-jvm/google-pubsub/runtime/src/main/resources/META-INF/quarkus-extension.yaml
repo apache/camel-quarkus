@@ -25,7 +25,7 @@ name: "Camel Google Pubsub"
 description: "Send and receive messages to/from Google Cloud Platform PubSub Service"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/google-pubsub-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/google-pubsub.html"
   categories:
   - "integration"
   status: "preview"

@@ -24,6 +24,6 @@
 name: "Camel Ref"
 description: "Route messages to an endpoint looked up dynamically by name in the Camel Registry"
 metadata:
-  guide: "https://camel.apache.org/components/latest/ref-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ref.html"
   categories:
   - "integration"

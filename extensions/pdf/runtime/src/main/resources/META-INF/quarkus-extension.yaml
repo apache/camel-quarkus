@@ -24,6 +24,6 @@
 name: "Camel PDF"
 description: "Create, modify or extract content from PDF documents"
 metadata:
-  guide: "https://camel.apache.org/components/latest/pdf-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/pdf.html"
   categories:
   - "integration"

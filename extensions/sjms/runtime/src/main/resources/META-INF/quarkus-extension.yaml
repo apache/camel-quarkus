@@ -24,6 +24,6 @@
 name: "Camel Simple JMS"
 description: "Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API"
 metadata:
-  guide: "https://camel.apache.org/components/latest/sjms-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/sjms.html"
   categories:
   - "integration"

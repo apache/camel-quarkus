@@ -24,6 +24,6 @@
 name: "Camel Zip Deflate Compression"
 description: "Compress and decompress streams using java.util.zip.Deflater, java.util.zip.Inflater or java.util.zip.GZIPStream"
 metadata:
-  guide: "https://camel.apache.org/components/latest/zip-deflater-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/zip-deflater.html"
   categories:
   - "integration"

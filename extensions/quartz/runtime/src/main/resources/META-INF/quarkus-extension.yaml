@@ -24,6 +24,6 @@
 name: "Camel Quartz"
 description: "Schedule sending of messages using the Quartz 2.x scheduler"
 metadata:
-  guide: "https://camel.apache.org/components/latest/quartz-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/quartz.html"
   categories:
   - "integration"

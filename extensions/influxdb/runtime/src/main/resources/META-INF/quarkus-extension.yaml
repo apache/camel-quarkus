@@ -24,6 +24,6 @@
 name: "Camel InfluxDB"
 description: "Interact with InfluxDB, a time series database"
 metadata:
-  guide: "https://camel.apache.org/components/latest/influxdb-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/influxdb.html"
   categories:
   - "integration"

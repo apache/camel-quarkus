@@ -609,6 +609,7 @@
                                 <inherited>false</inherited>
                                 <goals>
                                     <goal>format</goal>
+                                    <goal>update-quarkus-metadata</goal>
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
@@ -643,7 +644,7 @@
                                             <artifactIdPrefix>camel-quarkus-support-</artifactIdPrefix>
                                         </extensionDir>
                                         <extensionDir>
-                                            <path>integration-tests/support</path>
+                                            <path>integration-tests-support</path>
                                             <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
                                         </extensionDir>
                                     </extensionDirs>

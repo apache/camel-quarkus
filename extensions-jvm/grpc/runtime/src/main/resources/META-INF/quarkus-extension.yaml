@@ -25,7 +25,7 @@ name: "Camel gRPC"
 description: "Expose gRPC endpoints and access external gRPC endpoints"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/grpc-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/grpc.html"
   categories:
   - "integration"
   status: "preview"

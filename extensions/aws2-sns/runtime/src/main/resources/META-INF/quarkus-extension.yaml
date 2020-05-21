@@ -26,6 +26,6 @@ description: "Send messages to an AWS Simple Notification Topic using AWS SDK ve
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws2-sns-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-sns.html"
   categories:
   - "integration"

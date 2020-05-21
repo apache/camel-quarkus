@@ -21,9 +21,9 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel JAXB"
+name: "Camel XML JAXB"
 description: "An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io"
 metadata:
-  guide: "https://camel.apache.org/components/latest/xml-jaxb-null.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xml-jaxb.html"
   categories:
   - "integration"

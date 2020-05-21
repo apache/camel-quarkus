@@ -24,6 +24,6 @@
 name: "Camel Bean"
 description: "Invoke methods of Java beans"
 metadata:
-  guide: "https://camel.apache.org/components/latest/bean-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/bean.html"
   categories:
   - "integration"

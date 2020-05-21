@@ -26,6 +26,6 @@ description: "Manage keys stored in AWS KMS instances"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/components/latest/aws-kms-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-kms.html"
   categories:
   - "integration"

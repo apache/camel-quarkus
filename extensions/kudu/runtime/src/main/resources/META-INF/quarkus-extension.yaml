@@ -24,6 +24,6 @@
 name: "Camel Kudu"
 description: "Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem"
 metadata:
-  guide: "https://camel.apache.org/components/latest/kudu-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/kudu.html"
   categories:
   - "integration"

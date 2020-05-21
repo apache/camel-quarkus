@@ -24,6 +24,6 @@
 name: "Camel Infinispan"
 description: "Read and write from/to Infinispan distributed key/value store and data grid"
 metadata:
-  guide: "https://camel.apache.org/components/latest/infinispan-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/infinispan.html"
   categories:
   - "integration"

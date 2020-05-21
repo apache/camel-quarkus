@@ -24,6 +24,6 @@
 name: "Camel Google Calendar"
 description: "Perform various operations on a Google Calendar"
 metadata:
-  guide: "https://camel.apache.org/components/latest/google-calendar-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/google-calendar.html"
   categories:
   - "integration"

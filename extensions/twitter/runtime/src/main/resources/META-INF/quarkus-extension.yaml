@@ -24,6 +24,6 @@
 name: "Camel Twitter"
 description: "Send tweets and receive tweets, direct messages and access Twitter Search"
 metadata:
-  guide: "https://camel.apache.org/components/latest/twitter-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/twitter.html"
   categories:
   - "integration"

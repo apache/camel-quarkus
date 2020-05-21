@@ -25,7 +25,7 @@ name: "Camel AWS 2 DynamoDB"
 description: "Store and retrieve data from AWS DynamoDB service or receive messages from AWS DynamoDB Stream using AWS SDK version 2.x"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/aws2-ddb-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-ddb.html"
   categories:
   - "integration"
   status: "preview"

@@ -24,6 +24,6 @@
 name: "Camel Hystrix"
 description: "Circuit Breaker EIP using Netflix Hystrix"
 metadata:
-  guide: "https://camel.apache.org/components/latest/hystrix-other.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/hystrix.html"
   categories:
   - "integration"

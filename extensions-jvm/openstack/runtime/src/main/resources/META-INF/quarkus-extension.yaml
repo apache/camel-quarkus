@@ -25,7 +25,7 @@ name: "Camel OpenStack"
 description: "Interact with OpenStack APIs"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/openstack-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/openstack.html"
   categories:
   - "integration"
   status: "preview"

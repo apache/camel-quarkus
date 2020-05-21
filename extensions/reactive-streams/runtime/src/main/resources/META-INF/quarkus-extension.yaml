@@ -24,6 +24,6 @@
 name: "Camel Reactive Streams"
 description: "Exchange messages with reactive stream processing libraries compatible with the reactive streams standard"
 metadata:
-  guide: "https://camel.apache.org/components/latest/reactive-streams-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/reactive-streams.html"
   categories:
   - "integration"

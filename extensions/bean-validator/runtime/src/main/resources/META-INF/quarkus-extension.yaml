@@ -24,6 +24,6 @@
 name: "Camel Bean Validator"
 description: "Validate the message body using the Java Bean Validation API"
 metadata:
-  guide: "https://camel.apache.org/components/latest/bean-validator-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/bean-validator.html"
   categories:
   - "integration"

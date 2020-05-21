@@ -24,6 +24,6 @@
 name: "Camel iCal"
 description: "Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library"
 metadata:
-  guide: "https://camel.apache.org/components/latest/ical-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ical.html"
   categories:
   - "integration"

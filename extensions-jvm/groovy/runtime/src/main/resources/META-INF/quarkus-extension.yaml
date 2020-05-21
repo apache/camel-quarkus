@@ -25,7 +25,7 @@ name: "Camel Groovy"
 description: "Evaluate a Groovy script"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/components/latest/groovy-language.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/groovy.html"
   categories:
   - "integration"
   status: "preview"

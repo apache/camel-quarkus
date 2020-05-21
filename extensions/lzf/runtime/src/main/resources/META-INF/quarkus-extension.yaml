@@ -24,6 +24,6 @@
 name: "Camel LZF Deflate Compression"
 description: "Compress and decompress streams using LZF deflate algorithm"
 metadata:
-  guide: "https://camel.apache.org/components/latest/lzf-dataformat.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/lzf.html"
   categories:
   - "integration"
