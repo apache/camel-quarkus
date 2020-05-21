@@ -1,0 +1,2 @@
+* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you want to use
+ non-default encodings for the stream endpoint `encoding` URI parameter.

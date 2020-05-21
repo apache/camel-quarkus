@@ -1,0 +1,23 @@
+To optimize XSLT processing, the extension needs to know the locations of the XSLT templates at build time.
+The XSLT source URIs have to be passed via the `quarkus.camel.xslt.sources` property. Multiple URIs can be separated
+by comma.
+
+[source,properties]
+----
+quarkus.camel.xslt.sources = transform.xsl, classpath:path/to/my/file.xsl
+----
+
+Scheme-less URIs are interpreted as `classpath:` URIs.
+
+Only `classpath:` URIs are supported on Quarkus. `file:`, `http:` and other kinds of URIs do not work by design.
+
+[NOTE]
+====
+The content of the XSLT source URIs is parsed and compiled into Java classes at build time. These Java classes are the
+only source of XSLT information at runtime. The XSLT source files may not be included in the application archive at all.
+====
+
+[WARNING]
+====
+the extension does not yet support Java 11.
+====

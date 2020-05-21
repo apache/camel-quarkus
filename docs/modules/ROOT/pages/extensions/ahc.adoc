@@ -10,9 +10,9 @@ Call external HTTP services using Async Http Client.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ahc-component.html[AHC component]
+* https://camel.apache.org/components/latest/ahc-component.html[AHC component], URI syntax: `ahc:httpUri`
 
-Please refer to the above links for usage details.
+Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 
@@ -26,7 +26,7 @@ Please refer to the above links for usage details.
 
 Check the xref:user-guide.adoc[User guide] for more information about writing Camel Quarkus applications.
 
-== Configuration
+== Additional Camel Quarkus configuration
 
 * Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
   your application to send or receive requests using non-default encodings.

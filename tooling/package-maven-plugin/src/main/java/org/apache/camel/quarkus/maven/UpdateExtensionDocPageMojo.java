@@ -69,6 +69,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("intro", loadSection(basePath, "intro.adoc", charset,
                 CqUtils.getDescription(models, ext.getDescription().orElse(null), getLog())));
         model.put("models", models);
+        model.put("usage", loadSection(basePath, "usage.adoc", charset, null));
         model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null));
         model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
@@ -101,7 +102,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         Path p = basePath.resolve("src/main/doc/" + fileName);
         if (Files.exists(p)) {
             try {
-                return new String(Files.readAllBytes(p), charset);
+                final String result = new String(Files.readAllBytes(p), charset);
+                if (!result.endsWith("\n")) {
+                    return result + "\n";
+                }
+                return result;
             } catch (IOException e) {
                 throw new RuntimeException("Could not read " + p, e);
             }
