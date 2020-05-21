@@ -50,6 +50,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
+      - name: Cancel Previous Runs
+        uses: n1hility/cancel-previous-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Clean VM
         run: |
           df -h /
