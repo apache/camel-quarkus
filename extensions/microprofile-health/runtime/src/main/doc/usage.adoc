@@ -1,0 +1,23 @@
+You can register health checks for your applications with the https://camel.apache.org/manual/latest/health-check.html[Camel health check API].
+
+By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. For finer control over whether
+a check is registered as a liveness or readiness check, you can extend either `AbstractCamelMicroProfileLivenessCheck` or `AbstractCamelMicroProfileReadinessCheck`.
+
+Any checks provided by your application are automatically discovered and bound to the Camel registry. They will be available via
+the Quarkus health endpoints `/health/live` and `/health/ready`.
+
+You can also provide custom `HealthCheckRepository` implementations and these are also automatically discovered and bound to the Camel registry for you.
+
+Refer to the https://quarkus.io/guides/health-guide[Quarkus health guide] for further information.
+
+=== Provided health checks
+
+Some checks are automatically registered for your application.
+
+==== Camel Context Health
+
+Inspects the Camel Context status and causes the health check status to be `DOWN` if the status is anything other than 'Started'.
+
+==== Camel Route Health
+
+Inspects the status of each route and causes the health check status to be `DOWN` if any route status is not 'Started'.

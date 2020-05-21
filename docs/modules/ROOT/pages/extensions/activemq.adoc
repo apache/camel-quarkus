@@ -10,9 +10,9 @@ Send messages to (or consume from) Apache ActiveMQ. This component extends the C
 
 == What's inside
 
-* https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ component]
+* https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ component], URI syntax: `activemq:destinationType:destinationName`
 
-Please refer to the above links for usage details.
+Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 

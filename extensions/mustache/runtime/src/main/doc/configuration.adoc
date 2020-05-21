@@ -1,0 +1,15 @@
+Beyond standard usages described above, a trick is needed when using mustache templates from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+
+For instance, the route below would load the mustache template from a classpath resource named _template/simple.mustache_:
+[source,java]
+----
+from("direct:start").to("mustache://template/simple.mustache");
+----
+
+In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+[source,properties]
+----
+quarkus.camel.native.resources.include-patterns = template/*.mustache
+----
+
+More information about selecting resources for inclusion in the native executable could be found at xref:native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].

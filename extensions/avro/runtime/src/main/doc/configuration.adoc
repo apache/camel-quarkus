@@ -1,0 +1,15 @@
+Beyond standard usages known from vanilla Camel, Camel Quarkus adds the possibility to parse the Avro schema at build time both in JVM and Native mode via the `@BuildTimeAvroDataFormat` annotation.
+
+For instance below, in the first step the `user.avsc` schema resource is parsed at build time.
+In the second step, an AvroDataFormat instance using the previously parsed schema is injected in the `buildTimeAvroDataFormat` field at runtime. At the end of the day, the injected data format is used
+from the `configure()` method in order to marshal an incoming message.
+[source,java]
+----
+@BuildTimeAvroDataFormat("user.avsc")
+AvroDataFormat buildTimeAvroDataFormat;
+
+@Override
+public void configure() {
+  from("direct:marshalUsingBuildTimeAvroDataFormat").marshal(buildTimeAvroDataFormat);
+}
+----
