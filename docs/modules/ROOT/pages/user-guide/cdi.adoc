@@ -1,9 +1,10 @@
 = Contexts and Dependency Injection (CDI) in Camel Quarkus
+:page-aliases: cdi.adoc
 
 CDI plays a central role in Quarkus and Camel Quarkus offers a first class support for it too.
 
 You may use `@Inject`, `@ConfigProperty` and similar annotations e.g. to inject beans and configuration values to
-your Camel `RouteBuilder`s. Here is the `RouteBuilder` from our `timer-log-cdi` xref:examples.adoc[example]:
+your Camel `RouteBuilder`s. Here is the `RouteBuilder` from our `timer-log-cdi` xref:user-guide/examples.adoc[example]:
 
 [source,java]
 ----

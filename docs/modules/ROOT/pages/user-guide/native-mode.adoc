@@ -1,4 +1,5 @@
 = Native mode
+:page-aliases: native-mode.adoc
 
 Things to consider before you run your application in the native mode.
 

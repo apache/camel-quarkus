@@ -9,7 +9,7 @@ In case you are missing some Camel feature in the list:
 
 * Upvote https://github.com/apache/camel-quarkus/issues[an existing issue] or create
   https://github.com/apache/camel-quarkus/issues/new[a new one] so that we can better prioritize our work.
-* You may also want to try to add the extension yourself following our xref:contributor-guide.adoc[Contributor guide].
+* You may also want to try to add the extension yourself following our xref:contributor-guide/index.adoc[Contributor guide].
 * You may try your luck using the given camel component on Quarkus directly (without an extension). Most probably it
   will work in the JVM mode and fail in the native mode. Do not hesitate to
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.

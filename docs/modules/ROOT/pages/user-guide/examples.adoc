@@ -1,14 +1,15 @@
 = Camel Quarkus Examples
+:page-aliases: examples.adoc
 
 We offer several examples in our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]. To learn
-how to use them, please follow the xref:first-steps.adoc[First steps] chapter of the User guide.
+how to use them, please follow the xref:user-guide/first-steps.adoc[First steps] chapter of the User guide.
 
 // examples: START
 Number of Examples: 8 (0 deprecated)
 [width="100%",cols="3,7",options="header"]
 |===
 | Example | Description
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/observability/README.adoc[Observability] (observability) | An example that demonstrates how to add support for metrics, health checks and distributed tracing 
+| link:https://github.com/apache/camel-quarkus/tree/master/examples/observability/README.adoc[Observability] (observability) | An example that demonstrates how to add support for metrics, health checks and distributed tracing
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/rest-json/README.adoc[Rest Json] (rest-json) | This example is a port of Quarkus' quickstart to Camel
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log/README.adoc[Timer Log] (timer-log) | An example of basic Hello World that uses a Camel timer
 | link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-cdi/README.adoc[Timer Log CDI] (timer-log-cdi) | An example of basic Hello World that uses CDI to set-up a Camel timer

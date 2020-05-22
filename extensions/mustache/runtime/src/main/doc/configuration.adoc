@@ -12,4 +12,4 @@ In order to work in native mode the `include-patterns` configuration should be s
 quarkus.camel.native.resources.include-patterns = template/*.mustache
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].

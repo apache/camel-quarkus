@@ -1,5 +1,6 @@
 [[promote-jvm-to-native]]
 = Promote JVM extension to Native
+:page-aliases: promote-jvm-to-native.adoc
 
 The directory `extensions-jvm` contains extensions that have not been tested in
 link:https://quarkus.io/guides/building-native-image[native mode] yet. Configuring the
@@ -108,7 +109,7 @@ $ {
    Make sure you run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate
    the `quarkus-extension.yaml` file. As a result the `unlisted: true` line should disappear.
 +
-   Check the xref:extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
+   Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
 
 9. Add the integration test to an existing or new test category in `.github/test-categories.yaml`, for instance:
 +
@@ -137,4 +138,4 @@ mvn clean verify -P native
 from runtime to build time. The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good
 ally for this.
 
-13. Please also check the xref:create-new-extension.adoc[Create new extension] page as it contains some useful tips for a good contribution.
+13. Please also check the xref:contributor-guide/create-new-extension.adoc[Create new extension] page as it contains some useful tips for a good contribution.

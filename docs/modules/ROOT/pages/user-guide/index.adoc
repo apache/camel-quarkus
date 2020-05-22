@@ -1,5 +1,6 @@
 [[user-guide]]
 = User guide
+:page-aliases: user-guide.adoc
 
 This guide is for developers writing Camel applications on top of Quarkus.
 
@@ -13,4 +14,4 @@ xref:list-of-camel-quarkus-extensions.adoc[complete list].
 
 == What's next?
 
-We recommend to continue with xref:first-steps.adoc[First steps].
+We recommend to continue with xref:user-guide/first-steps.adoc[First steps].

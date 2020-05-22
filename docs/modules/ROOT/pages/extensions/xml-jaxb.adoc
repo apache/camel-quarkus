@@ -18,4 +18,4 @@ An XML stack for parsing XML route definitions. A legacy alternative to the fast
 </dependency>
 ----
 
-Check the xref:user-guide.adoc[User guide] for more information about writing Camel Quarkus applications.
+Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.

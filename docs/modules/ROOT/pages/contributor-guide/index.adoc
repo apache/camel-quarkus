@@ -1,5 +1,6 @@
 [[contributor-guide]]
 = Contributor guide
+:page-aliases: contributor-guide.adoc
 
 [[prerequisites]]
 == Prerequisites
@@ -47,5 +48,5 @@ $ mvn clean install -Pnative
 
 == What's next?
 
-* xref:create-new-extension.adoc[Create new extension].
-* xref:promote-jvm-to-native.adoc[Promote a JVM extension to Native].
+* xref:contributor-guide/create-new-extension.adoc[Create new extension].
+* xref:contributor-guide/promote-jvm-to-native.adoc[Promote a JVM extension to Native].

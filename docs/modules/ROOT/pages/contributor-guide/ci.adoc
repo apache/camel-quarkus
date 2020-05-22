@@ -1,5 +1,6 @@
 [[ci]]
 = Camel Quarkus CI Builds
+:page-aliases: ci.adoc
 
 == Branches
 
