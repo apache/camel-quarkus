@@ -4,7 +4,8 @@
 [[xslt]]
 = XSLT
 
-*Since Camel Quarkus 0.4.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.4.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Transforms XML payload using an XSLT template.
 

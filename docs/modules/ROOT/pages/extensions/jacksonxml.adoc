@@ -4,7 +4,8 @@
 [[jacksonxml]]
 = JacksonXML
 
-*Since Camel Quarkus 1.0.0-M5, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M5## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 

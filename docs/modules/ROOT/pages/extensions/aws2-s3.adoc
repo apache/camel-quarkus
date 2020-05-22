@@ -4,7 +4,8 @@
 [[aws2-s3]]
 = AWS2 S3 Storage Service
 
-*Since Camel Quarkus 1.0.0-M7, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M7## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 

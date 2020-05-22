@@ -4,7 +4,8 @@
 [[influxdb]]
 = InfluxDB
 
-*Since Camel Quarkus 1.0.0-M6, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Interact with InfluxDB, a time series database.
 

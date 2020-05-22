@@ -4,7 +4,8 @@
 [[websocket-jsr356]]
 = Javax Websocket (JSR 356)
 
-*Since Camel Quarkus 1.0.0-M4, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Expose websocket endpoints using JSR356.
 

@@ -4,7 +4,8 @@
 [[aws2-translate]]
 = AWS 2 Translate
 
-*Since Camel Quarkus 1.0.0-M6, JVM only*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
 Translate texts using AWS Translate and AWS SDK version 2.x.
 

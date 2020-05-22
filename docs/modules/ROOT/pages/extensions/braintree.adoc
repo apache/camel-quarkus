@@ -4,7 +4,8 @@
 [[braintree]]
 = Braintree
 
-*Since Camel Quarkus 1.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Process payments using Braintree Payments.
 

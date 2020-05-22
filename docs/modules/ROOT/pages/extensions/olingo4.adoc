@@ -4,7 +4,8 @@
 [[olingo4]]
 = Olingo4
 
-*Since Camel Quarkus 1.0.0-M4, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Communicate with OData 4.0 services using Apache Olingo OData API.
 

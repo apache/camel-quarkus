@@ -4,7 +4,8 @@
 [[sjms2]]
 = Simple JMS2
 
-*Since Camel Quarkus 1.0.0-M1, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M1## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
 

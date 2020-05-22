@@ -4,7 +4,8 @@
 [[aws-eks]]
 = AWS Elastic Kubernetes Service (EKS)
 
-*Since Camel Quarkus 0.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Manage AWS EKS cluster instances.
 

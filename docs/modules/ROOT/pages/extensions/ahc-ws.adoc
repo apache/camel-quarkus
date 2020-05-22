@@ -4,7 +4,8 @@
 [[ahc-ws]]
 = AHC (Async Http Client) Websocket
 
-*Since Camel Quarkus 1.0.0-M3, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M3## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Exchange data with external Websocket servers using Async Http Client.
 

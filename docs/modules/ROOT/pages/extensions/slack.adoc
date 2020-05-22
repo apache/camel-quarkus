@@ -4,7 +4,8 @@
 [[slack]]
 = Slack
 
-*Since Camel Quarkus 0.3.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.3.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Send and receive messages to/from Slack.
 

@@ -4,7 +4,8 @@
 [[core]]
 = Core
 
-*Since Camel Quarkus 0.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze
 
