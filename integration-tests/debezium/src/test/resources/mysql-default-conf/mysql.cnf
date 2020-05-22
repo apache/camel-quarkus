@@ -1,0 +1,18 @@
+# similar to  https://github.com/debezium/docker-images/blob/master/examples/mysql/1.2/
+
+[mysqld]
+skip-host-cache
+skip-name-resolve
+user=mysql
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+# Enable binary replication log and set the prefix, expiration, and log format.
+# The prefix is arbitrary, expiration can be short for integration tests but would
+# be longer on a production system. Row-level info is required for ingest to work.
+# Server ID is required, but this will vary on production systems
+server-id         = 223344
+log_bin           = mysql-bin
+expire_logs_days  = 1
+binlog_format     = row

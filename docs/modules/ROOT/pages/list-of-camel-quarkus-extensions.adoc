@@ -122,7 +122,7 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
 | xref:extensions/debezium-mongodb.adoc[Debezium MongoDB Connector] | camel-quarkus-debezium-mongodb | JVM + Preview | 1.0.0-M6 | Capture changes from a MongoDB database.
 
-| xref:extensions/debezium-mysql.adoc[Debezium MySQL Connector] | camel-quarkus-debezium-mysql | JVM + Preview | 1.0.0-M6 | Capture changes from a MySQL database.
+| xref:extensions/debezium-mysql.adoc[Debezium MySQL Connector] | camel-quarkus-debezium-mysql | Native + Stable | 1.0.0-M6 | Capture changes from a MySQL database.
 
 | xref:extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector] | camel-quarkus-debezium-postgres | Native + Stable | 1.0.0-M6 | Capture changes from a PostgresSQL database.
 

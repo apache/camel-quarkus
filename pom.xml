@@ -347,6 +347,7 @@
                         <excludes>
                             <exclude>**/*.adoc</exclude>
                             <exclude>**/*.avsc</exclude>
+                            <exclude>**/*.cnf</exclude>
                             <exclude>**/*.csv</exclude>
                             <exclude>**/*.ftl</exclude>
                             <exclude>**/*.graphql</exclude>
