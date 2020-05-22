@@ -14,32 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.debezium.postgres.deployment;
+package org.apache.camel.quarkus.support.debezium.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
-class DebeziumPostgresProcessor {
-
-    private static final String FEATURE = "camel-debezium-postgres";
+public class DebeziumSupportFeature {
+    static final String FEATURE = "camel-support-debezium";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(false, false,
-                new String[] { "io.debezium.connector.postgresql.PostgresConnector",
-                        "io.debezium.connector.postgresql.PostgresConnectorTask" });
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-postgres"));
     }
 }

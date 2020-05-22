@@ -17,19 +17,18 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-debezium-postgres-parent</artifactId>
+        <artifactId>camel-quarkus-debezium-mysql-parent</artifactId>
         <version>1.1.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-debezium-postgres</artifactId>
-    <name>Camel Quarkus :: Debezium PostgresSQL Connector :: Runtime</name>
+    <artifactId>camel-quarkus-debezium-mysql</artifactId>
+    <name>Camel Quarkus :: Debezium MySQL Connector :: Runtime</name>
+    <description>Capture changes from a MySQL database.</description>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>
@@ -58,7 +57,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
-            <artifactId>camel-debezium-postgres</artifactId>
+            <artifactId>camel-debezium-mysql</artifactId>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.maven</groupId>
@@ -68,12 +67,29 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-postgresql</artifactId>
+            <artifactId>quarkus-jdbc-mysql</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-package-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>update-extension-doc-page</id>
+                        <goals><goal>update-extension-doc-page</goal></goals>
+                        <phase>process-resources</phase>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>

@@ -32,7 +32,7 @@ main:
   - main-xml-jaxb
 database:
   - couchdb
-  - debezium-postgres
+  - debezium
   - influxdb
   - jdbc
   - kudu

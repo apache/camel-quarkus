@@ -14,17 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.debezium.postgres.deployment;
+package org.apache.camel.quarkus.support.debezium.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.IndexView;
 
-class DebeziumPostgresProcessor {
-
-    private static final String FEATURE = "camel-debezium-postgres";
+public class DebeziumSupportProcessor {
+    static final String FEATURE = "camel-support-debezium";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -32,14 +33,29 @@ class DebeziumPostgresProcessor {
     }
 
     @BuildStep
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+
+        String[] dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
+                .filter(n -> n.startsWith("org.apache.kafka.connect.json")
+                        || n.startsWith("io.debezium.embedded.spi"))
+                .sorted()
+                .toArray(String[]::new);
+
+        return new ReflectiveClassBuildItem(false, true, dtos);
+    }
+
+    @BuildStep
     ReflectiveClassBuildItem reflectiveClasses() {
         return new ReflectiveClassBuildItem(false, false,
-                new String[] { "io.debezium.connector.postgresql.PostgresConnector",
-                        "io.debezium.connector.postgresql.PostgresConnectorTask" });
+                new String[] { "org.apache.kafka.connect.storage.FileOffsetBackingStore",
+                        "org.apache.kafka.connect.storage.MemoryOffsetBackingStore",
+                        "io.debezium.relational.history.FileDatabaseHistory" });
     }
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-connector-postgres"));
+        indexDependency.produce(new IndexDependencyBuildItem("org.apache.kafka", "connect-json"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-embedded"));
     }
 }
