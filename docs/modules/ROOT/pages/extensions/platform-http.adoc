@@ -27,7 +27,7 @@ Please refer to the above link for usage and configuration details.
 </dependency>
 ----
 
-Check the xref:user-guide.adoc[User guide] for more information about writing Camel Quarkus applications.
+Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
 == Usage
 
@@ -114,6 +114,6 @@ https://quarkus.io/guides/all-config[Quarkus documentation], esp. `quarkus.http.
 
 == Additional Camel Quarkus configuration
 
-* Check the xref:native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
+* Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
   your application to send or receive requests using non-default encodings.
 

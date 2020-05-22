@@ -1,4 +1,5 @@
 = Extension metadata
+:page-aliases: extension-metadata.adoc
 
 == `quarkus-extension.yaml`
 

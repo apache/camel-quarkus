@@ -1,4 +1,5 @@
 = First steps
+:page-aliases: first-steps.adoc
 
 We recommend you to choose an example from our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]
 as a base for your real world project.

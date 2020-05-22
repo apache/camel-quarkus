@@ -24,7 +24,7 @@ Please refer to the above link for usage and configuration details.
 </dependency>
 ----
 
-Check the xref:user-guide.adoc[User guide] for more information about writing Camel Quarkus applications.
+Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
 == Usage
 

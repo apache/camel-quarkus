@@ -1,5 +1,6 @@
 [[ReleaseGuide-ReleaseGuide]]
 = Apache Camel Quarkus release process
+:page-aliases: release-guide.adoc
 
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see
 https://camel.apache.org/manual/latest/release-guide.html With Camel Quarkus, adding `-Prelease` to
