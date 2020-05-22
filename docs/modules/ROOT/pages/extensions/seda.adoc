@@ -4,7 +4,8 @@
 [[seda]]
 = SEDA
 
-*Since Camel Quarkus 1.0.0-M1, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M1## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Asynchronously call another endpoint from any Camel Context in the same JVM.
 

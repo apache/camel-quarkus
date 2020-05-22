@@ -4,7 +4,8 @@
 [[sql]]
 = SQL
 
-*Since Camel Quarkus 1.0.0-M2, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M2## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Perform SQL queries using Spring JDBC.
 

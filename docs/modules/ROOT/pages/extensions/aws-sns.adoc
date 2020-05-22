@@ -4,7 +4,8 @@
 [[aws-sns]]
 = AWS Simple Notification System (SNS)
 
-*Since Camel Quarkus 0.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Send messages to an AWS Simple Notification Topic.
 

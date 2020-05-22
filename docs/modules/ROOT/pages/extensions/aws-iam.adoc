@@ -4,7 +4,8 @@
 [[aws-iam]]
 = AWS Identity and Access Management (IAM)
 
-*Since Camel Quarkus 1.1.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Manage AWS IAM instances.
 

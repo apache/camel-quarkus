@@ -4,7 +4,8 @@
 [[stream]]
 = Stream
 
-*Since Camel Quarkus 1.0.0-M4, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Read from system-in and write to system-out and system-err streams.
 

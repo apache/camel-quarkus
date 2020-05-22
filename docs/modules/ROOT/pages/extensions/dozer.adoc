@@ -4,7 +4,8 @@
 [[dozer]]
 = Dozer
 
-*Since Camel Quarkus 1.0.0-M1, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M1## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Map between Java beans using the Dozer mapping library.
 

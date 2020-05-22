@@ -4,7 +4,8 @@
 [[google-pubsub]]
 = Google Pubsub
 
-*Since Camel Quarkus 1.0.0-M6, JVM only*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
 Send and receive messages to/from Google Cloud Platform PubSub Service.
 

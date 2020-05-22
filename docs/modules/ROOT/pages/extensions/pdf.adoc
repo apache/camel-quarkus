@@ -4,7 +4,8 @@
 [[pdf]]
 = PDF
 
-*Since Camel Quarkus 0.3.1, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.3.1## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Create, modify or extract content from PDF documents.
 

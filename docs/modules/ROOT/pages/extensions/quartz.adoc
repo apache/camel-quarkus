@@ -4,7 +4,8 @@
 [[quartz]]
 = Quartz
 
-*Since Camel Quarkus 1.0.0-M6, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Schedule sending of messages using the Quartz 2.x scheduler.
 

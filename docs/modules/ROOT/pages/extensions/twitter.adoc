@@ -4,7 +4,8 @@
 [[twitter]]
 = Twitter
 
-*Since Camel Quarkus 0.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Send tweets and receive tweets, direct messages and access Twitter Search
 

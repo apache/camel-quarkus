@@ -4,7 +4,8 @@
 [[exec]]
 = Exec
 
-*Since Camel Quarkus 0.4.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.4.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Execute commands on the underlying operating system.
 

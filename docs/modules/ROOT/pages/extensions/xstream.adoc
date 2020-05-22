@@ -4,7 +4,8 @@
 [[xstream]]
 = XStream
 
-*Since Camel Quarkus 1.0.0-M5, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M5## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Marshal and unmarshal POJOs to/from XML or JSON using XStream library.
 

@@ -4,7 +4,8 @@
 [[aws-sqs]]
 = AWS Simple Queue Service (SQS)
 
-*Since Camel Quarkus 0.2.0, JVM and native*
+[.badges]
+[.badge-key]##Since Camel Quarkus##[.badge-version]##0.2.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Sending and receive messages to/from AWS SQS service.
 
