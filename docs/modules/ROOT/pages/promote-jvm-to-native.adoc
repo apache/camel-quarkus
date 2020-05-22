@@ -91,11 +91,24 @@ $ {
 
 7. Create a native test at `integration-tests/$\{EXT}/src/test/java/org/apache/camel/quarkus/component/$\{EXT}/it/$\{EXT}IT.java`
 
-8. Check `extensions/$\{EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml`:
-* Ensure guide is set to `"https://quarkus.io/guides/camel"`
-* Ensure keyword `camel` is present
-* Ensure `unlisted` is NOT present
-* Remove the `preview` status
+
+8. Check the `extensions/$\{EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml` file.
++
+   The
+   `description` comes from Camel Catalog. If it looks improper or too long due to concatenation of multiple
+   component descriptions, you may override it by setting an explicit `<description>` in the runtime `pom.xml`
+   of your new extension. If you think the value coming from Camel Catalog should be changed, please
+   https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel issue] and ask to fix the metadata
+   for the given Camel component.
++
+   If there is some important keyword missing in both the `name` and `description` through which your new extension
+   should definitely be findable on https://code.quarkus.io[code.quarkus.io], consider setting
+   `<quarkus.metadata.keywords>` property in your runtime `pom.xml`.
++
+   Make sure you run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate
+   the `quarkus-extension.yaml` file. As a result the `unlisted: true` line should disappear.
++
+   Check the xref:extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
 
 9. Add the integration test to an existing or new test category in `.github/test-categories.yaml`, for instance:
 +
