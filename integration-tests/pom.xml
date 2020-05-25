@@ -125,6 +125,7 @@
         <module>qute</module>
         <module>reactive-streams</module>
         <module>ref</module>
+        <module>rest</module>
         <module>rest-binding-mode-xml</module>
         <module>rest-openapi</module>
         <module>salesforce</module>

@@ -25,9 +25,9 @@
         <version>1.1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-rest-binding-mode-xml</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Rest :: Binding Mode XML</name>
-    <description>Integration tests for Camel Quarkus Rest extension with XML binding mode</description>
+    <artifactId>camel-quarkus-integration-test-rest</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Rest</name>
+    <description>Integration tests for Camel Quarkus Rest extension</description>
 
     <properties>
         <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
@@ -45,12 +45,8 @@
             <artifactId>camel-quarkus-rest</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-jaxb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-jaxb</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -62,11 +58,6 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.assertj</groupId>
-            <artifactId>assertj-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -25,6 +25,11 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
+        // by default the camel-quarkus-rest component sets platform-http
+        // as the component that provides the transport and since here we
+        // are testing the servlet component. we have to force it
+        restConfiguration()
+                .component("servlet");
 
         rest()
                 .get("/rest-get")
