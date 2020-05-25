@@ -106,6 +106,7 @@ platform:
   - platform-http
   - platform-http-engine
   - reactive-streams
+  - rest
   - rest-openapi
 saas:
   - box

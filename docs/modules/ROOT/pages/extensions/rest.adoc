@@ -27,3 +27,8 @@ Please refer to the above links for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+This extension configures the xref:extensions/platform-http.adoc as the component that provides the REST transport.
+

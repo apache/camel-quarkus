@@ -17,7 +17,11 @@
 package org.apache.camel.quarkus.component.rest.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.component.rest.RestRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 
@@ -36,5 +40,11 @@ class RestProcessor {
                 true,
                 "META-INF/services/org/apache/camel/rest/*",
                 "META-INF/services/org/apache/camel/restapi/*");
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextCustomizerBuildItem customizeCamelContext(RestRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.customizeCamelContext());
     }
 }
