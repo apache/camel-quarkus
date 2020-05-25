@@ -14,26 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.rest;
+package org.apache.camel.quarkus.component.rest.it;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.CamelContext;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.junit.jupiter.api.Test;
 
-@Recorder
-public class RestRecorder {
-    public RuntimeValue<QuarkusRestComponent> createRestComponent() {
-        return new RuntimeValue<>(new QuarkusRestComponent());
-    }
+import static org.hamcrest.Matchers.is;
 
-    public RuntimeValue<CamelContextCustomizer> customizeCamelContext() {
-        return new RuntimeValue<>(new CamelContextCustomizer() {
-            @Override
-            public void customize(CamelContext context) {
-                context.getRestConfiguration().setComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
-            }
-        });
+@QuarkusTest
+class RestTest {
+    @Test
+    public void inspectConfiguration() {
+        RestAssured.when()
+                .get("/rest/inspect/configuration")
+                .then()
+                .statusCode(200)
+                .body("component", is(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME));
     }
 }

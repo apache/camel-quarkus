@@ -14,26 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.rest;
+package org.apache.camel.quarkus.component.rest.it;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.platform.http.PlatformHttpConstants;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
 
-@Recorder
-public class RestRecorder {
-    public RuntimeValue<QuarkusRestComponent> createRestComponent() {
-        return new RuntimeValue<>(new QuarkusRestComponent());
-    }
+@Path("/rest")
+@ApplicationScoped
+public class RestResource {
+    @Inject
+    CamelContext camelContext;
 
-    public RuntimeValue<CamelContextCustomizer> customizeCamelContext() {
-        return new RuntimeValue<>(new CamelContextCustomizer() {
-            @Override
-            public void customize(CamelContext context) {
-                context.getRestConfiguration().setComponent(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME);
-            }
-        });
+    @Path("/inspect/configuration")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject inspectConfiguration() {
+        return Json.createObjectBuilder()
+                .add("component", camelContext.getRestConfiguration().getComponent())
+                .build();
     }
 }

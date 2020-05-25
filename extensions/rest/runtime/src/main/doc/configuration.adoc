@@ -1,0 +1,1 @@
+By default this extension configures the xref:extensions/platform-http.adoc as the component that provides the REST transport.

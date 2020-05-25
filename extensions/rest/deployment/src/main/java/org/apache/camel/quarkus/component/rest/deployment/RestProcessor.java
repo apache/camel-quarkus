@@ -26,6 +26,7 @@ import org.apache.camel.component.rest.RestComponent;
 import org.apache.camel.quarkus.component.rest.RestRecorder;
 import org.apache.camel.quarkus.component.rest.graal.NoJAXBContext;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
@@ -66,7 +67,6 @@ class RestProcessor {
     // Excluding io.rest-assured:xml-path from the transitive dependencies does not seem to work
     // as it lead to the RestAssured framework to fail to instantiate.
     //
-
     @BuildStep(onlyIf = NoJAXBContext.class)
     void serviceFilter(
             Capabilities capabilities,
@@ -97,5 +97,11 @@ class RestProcessor {
                         "rest",
                         RestComponent.class.getName(),
                         recorder.createRestComponent()));
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelContextCustomizerBuildItem customizeCamelContext(RestRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.customizeCamelContext());
     }
 }
