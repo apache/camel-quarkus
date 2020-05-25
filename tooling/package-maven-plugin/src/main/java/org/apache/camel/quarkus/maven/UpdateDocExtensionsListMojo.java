@@ -34,7 +34,6 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
-import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
 import org.apache.camel.tooling.model.ComponentModel;
@@ -48,7 +47,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import static java.util.stream.Collectors.toSet;
 
 /**
- * Updates the documentation in:
+ * Updates the lists of components, data formats,
  *
  * - docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc
  *
@@ -90,7 +89,7 @@ public class UpdateDocExtensionsListMojo extends AbstractDocGeneratorMojo {
         } catch (IOException e) {
             throw new RuntimeException("Could not read " + extensionListPath, e);
         }
-        final GetDocLink getDocLink = new GetDocLink(extensionListPath.getParent().resolve("extensions"));
+        final GetDocLink getDocLink = new GetDocLink(extensionListPath.getParent().resolve("extensions"), extensionListPath);
         final TemplateMethodModelEx getSupportLevel = new TemplateMethodModelEx() {
             @Override
             public Object exec(List arguments) throws TemplateModelException {
@@ -178,40 +177,30 @@ public class UpdateDocExtensionsListMojo extends AbstractDocGeneratorMojo {
 
     static class GetDocLink implements TemplateMethodModelEx {
         private final Path extensionsDocPath;
+        private final Path extensionListPath;
 
-        public GetDocLink(Path extensionsDocPath) {
+        public GetDocLink(Path extensionsDocPath, Path extensionListPath) {
             super();
             this.extensionsDocPath = extensionsDocPath;
+            this.extensionListPath = extensionListPath;
         }
 
         @Override
         public Object exec(List arguments) throws TemplateModelException {
             if (arguments.size() != 1) {
-                throw new TemplateModelException("Wrong argument count in toCamelCase()");
+                throw new TemplateModelException("Expected one argument for getDocLink(); found " + arguments.size());
             }
             ArtifactModel<?> model = (ArtifactModel<?>) DeepUnwrap.unwrap((StringModel) arguments.get(0));
-            if (localDocExists(model)) {
-                return getLocalDocLink(model);
-            } else if (Kind.other.name().equals(model.getKind())) {
-                return null;
-            } else {
-                return String.format("link:https://camel.apache.org/components/latest/%s-%s.html",
-                        model.getName(),
-                        model.getKind());
+            final String artifactIdBase = CqUtils.getArtifactIdBase(model);
+            final String extensionPageName = artifactIdBase + ".adoc";
+            final Path extensionPagePath = extensionsDocPath.resolve(extensionPageName);
+            if (!Files.exists(extensionPagePath)) {
+                throw new IllegalStateException(
+                        "File " + extensionPagePath + " must exist to be able to refer to it from " + extensionListPath
+                                + ".\nYou may need to add\n\n    org.apache.camel.quarkus:camel-quarkus-package-maven-plugin:update-extension-doc-page\n\nmojo in "
+                                + artifactIdBase + " runtime module");
             }
-        }
-
-        private boolean localDocExists(ArtifactModel<?> model) {
-            final Path path = extensionsDocPath.resolve(getExtensionDocName(model));
-            return path.toFile().exists();
-        }
-
-        private String getLocalDocLink(ArtifactModel<?> model) {
-            return "xref:extensions/" + getExtensionDocName(model);
-        }
-
-        private String getExtensionDocName(ArtifactModel<?> model) {
-            return CqUtils.getArtifactIdBase(model) + ".adoc";
+            return "xref:extensions/" + extensionPageName;
         }
 
     }

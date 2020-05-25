@@ -773,7 +773,7 @@ Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 | xref:extensions/attachments.adoc[camel-quarkus-attachments]  | Native +
  Stable | 0.3.0 | Java Attachments support for Camel Message
 
-| (camel-quarkus-caffeine-lrucache) | Native +
+| xref:extensions/caffeine-lrucache.adoc[camel-quarkus-caffeine-lrucache]  | Native +
  Stable | 1.0.0-M5 | An LRUCacheFactory implementation based on Caffeine
 
 | xref:extensions/core-cloud.adoc[camel-quarkus-core-cloud]  | Native +
@@ -788,7 +788,7 @@ Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 | xref:extensions/kotlin.adoc[camel-quarkus-kotlin]  | Native +
  Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
-| (camel-quarkus-microprofile-fault-tolerance) | Native +
+| xref:extensions/microprofile-fault-tolerance.adoc[camel-quarkus-microprofile-fault-tolerance]  | Native +
  Stable | 1.0.0-M8 | Circuit Breaker EIP using Microprofile Fault Tolerance
 
 | xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | Native +
