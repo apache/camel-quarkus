@@ -443,7 +443,7 @@ Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 
 |  xref:extensions/kotlin.adoc[Kotlin]  | camel-quarkus-kotlin | Native + Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
-|  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-M8 | Circuit Breaker EIP using Microprofile Fault Tolerance
+|  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-CR1 | Circuit Breaker EIP using Microprofile Fault Tolerance
 
 |  xref:extensions/microprofile-health.adoc[Microprofile Health]  | camel-quarkus-microprofile-health | Native + Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
 
