@@ -20,603 +20,305 @@ In case you are missing some Camel feature in the list:
 // components: START
 Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
-[width="100%",cols="4,1,1,5",options="header"]
+[width="100%",cols="4,1,1,1,5",options="header"]
 |===
-| Component | Target +
-Level | Since | Description
-
-| xref:extensions/activemq.adoc[ActiveMQ] (camel-quarkus-activemq) +
-`activemq:destinationType:destinationName` | Native +
- Stable | 1.0.0-M5 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
-
-| xref:extensions/ahc.adoc[AHC] (camel-quarkus-ahc) +
-`ahc:httpUri` | Native +
- Stable | 1.0.0-M3 | Call external HTTP services using Async Http Client.
-
-| xref:extensions/ahc-ws.adoc[AHC Websocket] (camel-quarkus-ahc-ws) +
-`ahc-ws:httpUri` | Native +
- Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
-
-| xref:extensions/amqp.adoc[AMQP] (camel-quarkus-amqp) +
-`amqp:destinationType:destinationName` | Native +
- Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
-
-| xref:extensions/avro-rpc.adoc[Avro] (camel-quarkus-avro-rpc) +
-`avro:transport:host:port/messageName` | JVM +
- Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
-
-| xref:extensions/aws2-cw.adoc[AWS 2 CloudWatch] (camel-quarkus-aws2-cw) +
-`aws2-cw:namespace` | Native +
- Stable | 1.0.0-M6 | Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
-
-| xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB] (camel-quarkus-aws2-ddb) +
-`aws2-ddb:tableName` | JVM +
- Preview | 1.0.0-M6 | Store and retrieve data from AWS DynamoDB service using AWS SDK version 2.x.
-
-| xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB Streams] (camel-quarkus-aws2-ddb) +
-`aws2-ddbstream:tableName` | JVM +
- Preview | 1.0.0-M6 | Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
-
-| xref:extensions/aws2-ec2.adoc[AWS 2 EC2] (camel-quarkus-aws2-ec2) +
-`aws2-ec2:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-ecs.adoc[AWS 2 ECS] (camel-quarkus-aws2-ecs) +
-`aws2-ecs:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-eks.adoc[AWS 2 EKS] (camel-quarkus-aws2-eks) +
-`aws2-eks:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-iam.adoc[AWS 2 IAM] (camel-quarkus-aws2-iam) +
-`aws2-iam:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-kms.adoc[AWS 2 KMS] (camel-quarkus-aws2-kms) +
-`aws2-kms:label` | JVM +
- Preview | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-mq.adoc[AWS 2 MQ] (camel-quarkus-aws2-mq) +
-`aws2-mq:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS MQ instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-msk.adoc[AWS 2 MSK] (camel-quarkus-aws2-msk) +
-`aws2-msk:label` | JVM +
- Preview | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
-
-| xref:extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] (camel-quarkus-aws2-s3) +
-`aws2-s3://bucketNameOrArn` | Native +
- Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
-
-| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service] (camel-quarkus-aws2-ses) +
-`aws2-ses:from` | JVM +
- Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
-
-| xref:extensions/aws2-sns.adoc[AWS 2 Simple Notification System] (camel-quarkus-aws2-sns) +
-`aws2-sns:topicNameOrArn` | Native +
- Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
-
-| xref:extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service] (camel-quarkus-aws2-sqs) +
-`aws2-sqs:queueNameOrArn` | Native +
- Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
-
-| xref:extensions/aws2-translate.adoc[AWS 2 Translate] (camel-quarkus-aws2-translate) +
-`aws2-translate:label` | JVM +
- Preview | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
-
-| xref:extensions/aws-ec2.adoc[AWS EC2] (camel-quarkus-aws-ec2) +
-`aws-ec2:label` | Native +
- Stable | 1.0.0-M3 | Manage AWS EC2 instances.
-
-| xref:extensions/aws-ecs.adoc[AWS ECS] (camel-quarkus-aws-ecs) +
-`aws-ecs:label` | Native +
- Stable | 1.0.0-M1 | Manage AWS ECS cluster instances.
-
-| xref:extensions/aws-eks.adoc[AWS EKS] (camel-quarkus-aws-eks) +
-`aws-eks:label` | Native +
- Stable | 0.2.0 | Manage AWS EKS cluster instances.
-
-| xref:extensions/aws-iam.adoc[AWS IAM] (camel-quarkus-aws-iam) +
-`aws-iam:label` | Native +
- Stable | 1.1.0 | Manage AWS IAM instances.
-
-| xref:extensions/aws-kinesis.adoc[AWS Kinesis] (camel-quarkus-aws-kinesis) +
-`aws-kinesis:streamName` | Native +
- Stable | 1.0.0-M3 | Consume and produce records from AWS Kinesis Streams.
-
-| xref:extensions/aws-kinesis.adoc[AWS Kinesis Firehose] (camel-quarkus-aws-kinesis) +
-`aws-kinesis-firehose:streamName` | Native +
- Stable | 1.0.0-M3 | Consume data from AWS Kinesis Firehose streams.
-
-| xref:extensions/aws-kms.adoc[AWS KMS] (camel-quarkus-aws-kms) +
-`aws-kms:label` | Native +
- Stable | 1.0.0-M1 | Manage keys stored in AWS KMS instances.
-
-| xref:extensions/aws-lambda.adoc[AWS Lambda] (camel-quarkus-aws-lambda) +
-`aws-lambda:function` | Native +
- Stable | 1.0.0-M3 | Manage and invoke AWS Lambda functions.
-
-| xref:extensions/aws-s3.adoc[AWS S3 Storage Service] (camel-quarkus-aws-s3) +
-`aws-s3://bucketNameOrArn` | Native +
- Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
-
-| xref:extensions/aws-sns.adoc[AWS Simple Notification System] (camel-quarkus-aws-sns) +
-`aws-sns:topicNameOrArn` | Native +
- Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
-
-| xref:extensions/aws-sqs.adoc[AWS Simple Queue Service] (camel-quarkus-aws-sqs) +
-`aws-sqs:queueNameOrArn` | Native +
- Stable | 0.2.0 | Sending and receive messages to/from AWS SQS service.
-
-| xref:extensions/aws-swf.adoc[AWS Simple Workflow] (camel-quarkus-aws-swf) +
-`aws-swf:type` | Native +
- Stable | 1.0.0-M6 | Manage workflows in the AWS Simple Workflow service.
-
-| xref:extensions/aws-sdb.adoc[AWS SimpleDB] (camel-quarkus-aws-sdb) +
-`aws-sdb:domainName` | Native +
- Stable | 1.0.0-M6 | Store and Retrieve data from/to AWS SDB service.
-
-| xref:extensions/aws-translate.adoc[AWS Translate] (camel-quarkus-aws-translate) +
-`aws-translate:label` | Native +
- Stable | 1.0.0-M3 | Translate texts using AWS Translate.
-
-| xref:extensions/azure.adoc[Azure Storage Blob Service (Legacy)] (camel-quarkus-azure) +
-`azure-blob:containerOrBlobUri` | Native +
- Stable | 1.0.0-M4 | Store and retrieve blobs from Azure Storage Blob Service.
-
-| xref:extensions/azure.adoc[Azure Storage Queue Service (Legacy)] (camel-quarkus-azure) +
-`azure-queue:containerAndQueueUri` | Native +
- Stable | 1.0.0-M4 | Store and retrieve messages from Azure Storage Queue Service.
-
-| xref:extensions/bean.adoc[Bean] (camel-quarkus-bean) +
-`bean:beanName` | Native +
- Stable | 0.2.0 | Invoke methods of Java beans stored in Camel registry.
-
-| xref:extensions/bean-validator.adoc[Bean Validator] (camel-quarkus-bean-validator) +
-`bean-validator:label` | Native +
- Stable | 1.0.0-M1 | Validate the message body using the Java Bean Validation API.
-
-| xref:extensions/box.adoc[Box] (camel-quarkus-box) +
-`box:apiName/methodName` | Native +
- Stable | 1.0.0-M4 | Upload, download and manage files, folders, groups, collaborations, etc. on box.com.
-
-| xref:extensions/braintree.adoc[Braintree] (camel-quarkus-braintree) +
-`braintree:apiName/methodName` | Native +
- Stable | 1.2.0 | Process payments using Braintree Payments.
-
-| xref:extensions/cassandraql.adoc[Cassandra CQL] (camel-quarkus-cassandraql) +
-`cql:beanRef:hosts:port/keyspace` | JVM +
- Preview | 1.0.0-M6 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
-
-| xref:extensions/bean.adoc[Class] (camel-quarkus-bean) +
-`class:beanName` | Native +
- Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
-
-| xref:extensions/consul.adoc[Consul] (camel-quarkus-consul) +
-`consul:apiEndpoint` | Native +
- Stable | 1.0.0-M3 | Integrate with Consul service discovery and configuration store.
-
-| xref:extensions/controlbus.adoc[Control Bus] (camel-quarkus-controlbus) +
-`controlbus:command:language` | Native +
- Stable | 0.4.0 | Manage and monitor Camel routes.
-
-| xref:extensions/couchbase.adoc[Couchbase] (camel-quarkus-couchbase) +
-`couchbase:protocol:hostname:port` | JVM +
- Preview | 1.0.0-M6 | Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
-
-| xref:extensions/couchdb.adoc[CouchDB] (camel-quarkus-couchdb) +
-`couchdb:protocol:hostname:port/database` | Native +
- Stable | 1.0.0-M6 | Consume changesets for inserts, updates and deletes in a CouchDB database, as well as get, save, update and delete documents from a CouchDB database.
-
-| xref:extensions/cron.adoc[Cron] (camel-quarkus-cron) +
-`cron:name` | Native +
- Stable | 1.0.0-M6 | A generic interface for triggering events at times specified through the Unix cron syntax.
-
-| xref:extensions/dataformat.adoc[Data Format] (camel-quarkus-dataformat) +
-`dataformat:name:operation` | Native +
- Stable | 0.4.0 | Use a Camel Data Format as a regular Camel Component.
-
-| xref:extensions/debezium-mongodb.adoc[Debezium MongoDB Connector] (camel-quarkus-debezium-mongodb) +
-`debezium-mongodb:name` | JVM +
- Preview | 1.0.0-M6 | Capture changes from a MongoDB database.
-
-| xref:extensions/debezium-mysql.adoc[Debezium MySQL Connector] (camel-quarkus-debezium-mysql) +
-`debezium-mysql:name` | JVM +
- Preview | 1.0.0-M6 | Capture changes from a MySQL database.
-
-| xref:extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector] (camel-quarkus-debezium-postgres) +
-`debezium-postgres:name` | Native +
- Stable | 1.0.0-M6 | Capture changes from a PostgresSQL database.
-
-| xref:extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector] (camel-quarkus-debezium-sqlserver) +
-`debezium-sqlserver:name` | JVM +
- Preview | 1.0.0-M6 | Capture changes from an SQL Server database.
-
-| xref:extensions/direct.adoc[Direct] (camel-quarkus-direct) +
-`direct:name` | Native +
- Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
-
-| xref:extensions/dozer.adoc[Dozer] (camel-quarkus-dozer) +
-`dozer:name` | Native +
- Stable | 1.0.0-M1 | Map between Java beans using the Dozer mapping library.
-
-| xref:extensions/elasticsearch-rest.adoc[Elasticsearch Rest] (camel-quarkus-elasticsearch-rest) +
-`elasticsearch-rest:clusterName` | Native +
- Stable | 1.0.0-M6 | Send requests to with an ElasticSearch via REST API.
-
-| xref:extensions/exec.adoc[Exec] (camel-quarkus-exec) +
-`exec:executable` | Native +
- Stable | 0.4.0 | Execute commands on the underlying operating system.
-
-| xref:extensions/fhir.adoc[FHIR] (camel-quarkus-fhir) +
-`fhir:apiName/methodName` | Native +
- Stable | 0.3.0 | Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard.
-
-| xref:extensions/file.adoc[File] (camel-quarkus-file) +
-`file:directoryName` | Native +
- Stable | 0.4.0 | Read and write files.
-
-| xref:extensions/file-watch.adoc[File Watch] (camel-quarkus-file-watch) +
-`file-watch:path` | Native +
- Stable | 1.0.0-M5 | Get notified about file events in a directory using java.nio.file.WatchService.
-
-| xref:extensions/ftp.adoc[FTP] (camel-quarkus-ftp) +
-`ftp:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | Upload and download files to/from FTP servers.
-
-| xref:extensions/ftp.adoc[FTPS] (camel-quarkus-ftp) +
-`ftps:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | Upload and download files to/from FTP servers supporting the FTPS protocol.
-
-| xref:extensions/github.adoc[GitHub] (camel-quarkus-github) +
-`github:type/branchName` | Native +
- Stable | 1.0.0-M6 | Interact with the GitHub API.
-
-| xref:extensions/google-bigquery.adoc[Google BigQuery] (camel-quarkus-google-bigquery) +
-`google-bigquery:projectId:datasetId:tableId` | JVM +
- Preview | 1.0.0-M6 | Google BigQuery data warehouse for analytics.
-
-| xref:extensions/google-bigquery.adoc[Google BigQuery Standard SQL] (camel-quarkus-google-bigquery) +
-`google-bigquery-sql:projectId:query` | JVM +
- Preview | 1.0.0-M6 | Access Google Cloud BigQuery service using SQL queries.
-
-| xref:extensions/google-calendar.adoc[Google Calendar] (camel-quarkus-google-calendar) +
-`google-calendar:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | Perform various operations on a Google Calendar.
-
-| xref:extensions/google-calendar.adoc[Google Calendar Stream] (camel-quarkus-google-calendar) +
-`google-calendar-stream:index` | Native +
- Stable | 1.0.0-M6 | Poll for changes in a Google Calendar.
-
-| xref:extensions/google-drive.adoc[Google Drive] (camel-quarkus-google-drive) +
-`google-drive:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | Manage files in Google Drive.
-
-| xref:extensions/google-mail.adoc[Google Mail] (camel-quarkus-google-mail) +
-`google-mail:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | Manage messages in Google Mail.
-
-| xref:extensions/google-mail.adoc[Google Mail Stream] (camel-quarkus-google-mail) +
-`google-mail-stream:index` | Native +
- Stable | 1.0.0-M6 | Poll for incoming messages in Google Mail.
-
-| xref:extensions/google-pubsub.adoc[Google Pubsub] (camel-quarkus-google-pubsub) +
-`google-pubsub:projectId:destinationName` | JVM +
- Preview | 1.0.0-M6 | Send and receive messages to/from Google Cloud Platform PubSub Service.
-
-| xref:extensions/google-sheets.adoc[Google Sheets] (camel-quarkus-google-sheets) +
-`google-sheets:apiName/methodName` | Native +
- Stable | 1.0.0-M6 | Manage spreadsheets in Google Sheets.
-
-| xref:extensions/google-sheets.adoc[Google Sheets Stream] (camel-quarkus-google-sheets) +
-`google-sheets-stream:apiName` | Native +
- Stable | 1.0.0-M6 | Poll for changes in Google Sheets.
-
-| xref:extensions/graphql.adoc[GraphQL] (camel-quarkus-graphql) +
-`graphql:httpUri` | Native +
- Stable | 1.0.0-M5 | Send GraphQL queries and mutations to external systems.
-
-| xref:extensions/grpc.adoc[gRPC] (camel-quarkus-grpc) +
-`grpc:host:port/service` | JVM +
- Preview | 1.0.0-M6 | Expose gRPC endpoints and access external gRPC endpoints.
-
-| xref:extensions/http.adoc[HTTP] (camel-quarkus-http) +
-`http:httpUri` | Native +
- Stable | 1.0.0-M3 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
-
-| xref:extensions/infinispan.adoc[Infinispan] (camel-quarkus-infinispan) +
-`infinispan:cacheName` | Native +
- Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
-
-| xref:extensions/influxdb.adoc[InfluxDB] (camel-quarkus-influxdb) +
-`influxdb:connectionBean` | Native +
- Stable | 1.0.0-M6 | Interact with InfluxDB, a time series database.
-
-| xref:extensions/websocket-jsr356.adoc[Javax Websocket] (camel-quarkus-websocket-jsr356) +
-`websocket-jsr356:uri` | Native +
- Stable | 1.0.0-M4 | Expose websocket endpoints using JSR356.
-
-| xref:extensions/jdbc.adoc[JDBC] (camel-quarkus-jdbc) +
-`jdbc:dataSourceName` | Native +
- Stable | 0.2.0 | Access databases through SQL and JDBC.
-
-| xref:extensions/jira.adoc[Jira] (camel-quarkus-jira) +
-`jira:type` | Native +
- Stable | 1.0.0-M4 | Interact with JIRA issue tracker.
-
-| xref:extensions/jms.adoc[JMS] (camel-quarkus-jms) +
-`jms:destinationType:destinationName` | Native +
- Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
-
-| xref:extensions/kafka.adoc[Kafka] (camel-quarkus-kafka) +
-`kafka:topic` | Native +
- Stable | 1.0.0-M1 | Sent and receive messages to/from an Apache Kafka broker.
-
-| xref:extensions/kubernetes.adoc[Kubernetes ConfigMap] (camel-quarkus-kubernetes) +
-`kubernetes-config-maps:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes ConfigMaps and get notified on ConfigMaps changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Deployments] (camel-quarkus-kubernetes) +
-`kubernetes-deployments:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Deployments and get notified on Deployment changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes HPA] (camel-quarkus-kubernetes) +
-`kubernetes-hpa:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Horizontal Pod Autoscalers (HPA) and get notified on HPA changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Job] (camel-quarkus-kubernetes) +
-`kubernetes-job:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Jobs.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Namespaces] (camel-quarkus-kubernetes) +
-`kubernetes-namespaces:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Namespaces and get notified on Namespace changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Nodes] (camel-quarkus-kubernetes) +
-`kubernetes-nodes:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Nodes and get notified on Node changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Persistent Volume] (camel-quarkus-kubernetes) +
-`kubernetes-persistent-volumes:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes and get notified on Persistent Volume changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Persistent Volume Claim] (camel-quarkus-kubernetes) +
-`kubernetes-persistent-volumes-claims:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes Claims and get notified on Persistent Volumes Claim changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Pods] (camel-quarkus-kubernetes) +
-`kubernetes-pods:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Pods and get notified on Pod changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Replication Controller] (camel-quarkus-kubernetes) +
-`kubernetes-replication-controllers:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Replication Controllers and get notified on Replication Controllers changes.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Resources Quota] (camel-quarkus-kubernetes) +
-`kubernetes-resources-quota:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Resources Quotas.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Secrets] (camel-quarkus-kubernetes) +
-`kubernetes-secrets:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Secrets.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Service Account] (camel-quarkus-kubernetes) +
-`kubernetes-service-accounts:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Service Accounts.
-
-| xref:extensions/kubernetes.adoc[Kubernetes Services] (camel-quarkus-kubernetes) +
-`kubernetes-services:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on Kubernetes Services and get notified on Service changes.
-
-| xref:extensions/kudu.adoc[Kudu] (camel-quarkus-kudu) +
-`kudu:host:port/tableName` | Native +
- Stable | 1.0.0-M6 | Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
-
-| xref:extensions/log.adoc[Log] (camel-quarkus-log) +
-`log:loggerName` | Native +
- Stable | 0.2.0 | Log messages to the underlying logging mechanism.
-
-| xref:extensions/mail.adoc[Mail] (camel-quarkus-mail) +
-`imap:host:port` | Native +
- Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
-
-| xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] (camel-quarkus-microprofile-metrics) +
-`microprofile-metrics:metricType:metricName` | Native +
- Stable | 0.2.0 | Expose metrics from Camel routes.
-
-| xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
-`mongodb:connectionBean` | Native +
- Stable | 1.0.0-M1 | Perform operations on MongoDB documents and collections.
-
-| xref:extensions/mongodb-gridfs.adoc[MongoDB GridFS] (camel-quarkus-mongodb-gridfs) +
-`mongodb-gridfs:connectionBean` | Native +
- Stable | 1.0.0-M6 | Interact with MongoDB GridFS.
-
-| xref:extensions/mustache.adoc[Mustache] (camel-quarkus-mustache) +
-`mustache:resourceUri` | Native +
- Stable | 1.0.0-M5 | Transform messages using a Mustache template.
-
-| xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
-`netty:protocol:host:port` | Native +
- Stable | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x.
-
-| xref:extensions/netty-http.adoc[Netty HTTP] (camel-quarkus-netty-http) +
-`netty-http:protocol:host:port/path` | Native +
- Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x.
-
-| xref:extensions/nitrite.adoc[Nitrite] (camel-quarkus-nitrite) +
-`nitrite:database` | JVM +
- Preview | 1.0.0-M6 | Access Nitrite databases.
-
-| xref:extensions/olingo4.adoc[Olingo4] (camel-quarkus-olingo4) +
-`olingo4:apiName/methodName` | Native +
- Stable | 1.0.0-M4 | Communicate with OData 4.0 services using Apache Olingo OData API.
-
-| xref:extensions/kubernetes.adoc[Openshift Build Config] (camel-quarkus-kubernetes) +
-`openshift-build-configs:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on OpenShift Build Configs.
-
-| xref:extensions/kubernetes.adoc[Openshift Builds] (camel-quarkus-kubernetes) +
-`openshift-builds:masterUrl` | Native +
- Stable | 1.0.0-M6 | Perform operations on OpenShift Builds.
-
-| xref:extensions/openstack.adoc[OpenStack Cinder] (camel-quarkus-openstack) +
-`openstack-cinder:host` | JVM +
- Preview | 1.0.0-M6 | Access data in OpenStack Cinder block storage.
-
-| xref:extensions/openstack.adoc[OpenStack Glance] (camel-quarkus-openstack) +
-`openstack-glance:host` | JVM +
- Preview | 1.0.0-M6 | Manage VM images and metadata definitions in OpenStack Glance.
-
-| xref:extensions/openstack.adoc[OpenStack Keystone] (camel-quarkus-openstack) +
-`openstack-keystone:host` | JVM +
- Preview | 1.0.0-M6 | Access OpenStack Keystone for API client authentication, service discovery and distributed multi-tenant authorization.
-
-| xref:extensions/openstack.adoc[OpenStack Neutron] (camel-quarkus-openstack) +
-`openstack-neutron:host` | JVM +
- Preview | 1.0.0-M6 | Access OpenStack Neutron for network services.
-
-| xref:extensions/openstack.adoc[OpenStack Nova] (camel-quarkus-openstack) +
-`openstack-nova:host` | JVM +
- Preview | 1.0.0-M6 | Access OpenStack to manage compute resources.
-
-| xref:extensions/openstack.adoc[OpenStack Swift] (camel-quarkus-openstack) +
-`openstack-swift:host` | JVM +
- Preview | 1.0.0-M6 | Access OpenStack Swift object/blob store.
-
-| xref:extensions/paho.adoc[Paho] (camel-quarkus-paho) +
-`paho:topic` | Native +
- Stable | 0.2.0 | Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
-
-| xref:extensions/pdf.adoc[PDF] (camel-quarkus-pdf) +
-`pdf:operation` | Native +
- Stable | 0.3.1 | Create, modify or extract content from PDF documents.
-
-| xref:extensions/platform-http.adoc[Platform HTTP] (camel-quarkus-platform-http) +
-`platform-http:path` | Native +
- Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the current platform.
-
-| xref:extensions/pubnub.adoc[PubNub] (camel-quarkus-pubnub) +
-`pubnub:channel` | JVM +
- Preview | 1.0.0-M6 | Send and receive messages to/from PubNub data stream network for connected devices.
-
-| xref:extensions/quartz.adoc[Quartz] (camel-quarkus-quartz) +
-`quartz:groupName/triggerName` | Native +
- Stable | 1.0.0-M6 | Schedule sending of messages using the Quartz 2.x scheduler.
-
-| xref:extensions/rabbitmq.adoc[RabbitMQ] (camel-quarkus-rabbitmq) +
-`rabbitmq:exchangeName` | JVM +
- Preview | 1.0.0-M6 | Send and receive messages from RabbitMQ instances.
-
-| xref:extensions/reactive-streams.adoc[Reactive Streams] (camel-quarkus-reactive-streams) +
-`reactive-streams:stream` | Native +
- Stable | 1.0.0-M3 | Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.
-
-| xref:extensions/ref.adoc[Ref] (camel-quarkus-ref) +
-`ref:name` | Native +
- Stable | 1.0.0-M5 | Route messages to an endpoint looked up dynamically by name in the Camel Registry.
-
-| xref:extensions/rest.adoc[REST] (camel-quarkus-rest) +
-`rest:method:path:uriTemplate` | Native +
- Stable | 0.2.0 | Expose REST services or call external REST services.
+| Component | Artifact | Support Level | Since | Description
 
-| xref:extensions/rest.adoc[REST API] (camel-quarkus-rest) +
-`rest-api:path/contextIdPattern` | Native +
- Stable | 0.2.0 | Expose OpenAPI Specification of the REST services defined using Camel REST DSL.
+| xref:extensions/activemq.adoc[ActiveMQ] | camel-quarkus-activemq | Native + Stable | 1.0.0-M5 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 
-| xref:extensions/rest-openapi.adoc[REST OpenApi] (camel-quarkus-rest-openapi) +
-`rest-openapi:specificationUri#operationId` | Native +
- Stable | 1.0.0-M6 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
+| xref:extensions/ahc.adoc[AHC] | camel-quarkus-ahc | Native + Stable | 1.0.0-M3 | Call external HTTP services using Async Http Client.
 
-| xref:extensions/salesforce.adoc[Salesforce] (camel-quarkus-salesforce) +
-`salesforce:operationName:topicName` | Native +
- Stable | 0.2.0 | Communicate with Salesforce using Java DTOs.
+| xref:extensions/ahc-ws.adoc[AHC Websocket] | camel-quarkus-ahc-ws | Native + Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
 
-| xref:extensions/sap-netweaver.adoc[SAP NetWeaver] (camel-quarkus-sap-netweaver) +
-`sap-netweaver:url` | Native +
- Stable | 1.0.0-M6 | Send requests to SAP NetWeaver Gateway using HTTP.
+| xref:extensions/amqp.adoc[AMQP] | camel-quarkus-amqp | Native + Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
 
-| xref:extensions/scheduler.adoc[Scheduler] (camel-quarkus-scheduler) +
-`scheduler:name` | Native +
- Stable | 0.4.0 | Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService.
+| xref:extensions/avro-rpc.adoc[Avro] | camel-quarkus-avro-rpc | JVM + Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
 
-| xref:extensions/seda.adoc[SEDA] (camel-quarkus-seda) +
-`seda:name` | Native +
- Stable | 1.0.0-M1 | Asynchronously call another endpoint from any Camel Context in the same JVM.
+| xref:extensions/aws2-cw.adoc[AWS 2 CloudWatch] | camel-quarkus-aws2-cw | Native + Stable | 1.0.0-M6 | Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 
-| xref:extensions/servicenow.adoc[ServiceNow] (camel-quarkus-servicenow) +
-`servicenow:instanceName` | Native +
- Stable | 1.0.0-M6 | Interact with ServiceNow via its REST API.
+| xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB] | camel-quarkus-aws2-ddb | JVM + Preview | 1.0.0-M6 | Store and retrieve data from AWS DynamoDB service using AWS SDK version 2.x.
 
-| xref:extensions/servlet.adoc[Servlet] (camel-quarkus-servlet) +
-`servlet:contextPath` | Native +
- Stable | 0.2.0 | Serve HTTP requests by a Servlet.
+| xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB Streams] | camel-quarkus-aws2-ddb | JVM + Preview | 1.0.0-M6 | Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
 
-| xref:extensions/ftp.adoc[SFTP] (camel-quarkus-ftp) +
-`sftp:host:port/directoryName` | Native +
- Stable | 1.0.0-M1 | Upload and download files to/from SFTP servers.
+| xref:extensions/aws2-ec2.adoc[AWS 2 EC2] | camel-quarkus-aws2-ec2 | JVM + Preview | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
 
-| xref:extensions/sjms.adoc[Simple JMS] (camel-quarkus-sjms) +
-`sjms:destinationType:destinationName` | Native +
- Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API.
+| xref:extensions/aws2-ecs.adoc[AWS 2 ECS] | camel-quarkus-aws2-ecs | JVM + Preview | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
 
-| xref:extensions/sjms.adoc[Simple JMS Batch] (camel-quarkus-sjms) +
-`sjms-batch:destinationName` | Native +
- Stable | 1.0.0-M1 | Highly performant and transactional batch consumption of messages from a JMS queue.
+| xref:extensions/aws2-eks.adoc[AWS 2 EKS] | camel-quarkus-aws2-eks | JVM + Preview | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
 
-| xref:extensions/sjms2.adoc[Simple JMS2] (camel-quarkus-sjms2) +
-`sjms2:destinationType:destinationName` | Native +
- Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
+| xref:extensions/aws2-iam.adoc[AWS 2 IAM] | camel-quarkus-aws2-iam | JVM + Preview | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
 
-| xref:extensions/slack.adoc[Slack] (camel-quarkus-slack) +
-`slack:channel` | Native +
- Stable | 0.3.0 | Send and receive messages to/from Slack.
+| xref:extensions/aws2-kms.adoc[AWS 2 KMS] | camel-quarkus-aws2-kms | JVM + Preview | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
 
-| xref:extensions/sql.adoc[SQL] (camel-quarkus-sql) +
-`sql:query` | Native +
- Stable | 1.0.0-M2 | Perform SQL queries using Spring JDBC.
+| xref:extensions/aws2-mq.adoc[AWS 2 MQ] | camel-quarkus-aws2-mq | JVM + Preview | 1.0.0-M6 | Manage AWS MQ instances using AWS SDK version 2.x.
 
-| xref:extensions/sql.adoc[SQL Stored Procedure] (camel-quarkus-sql) +
-`sql-stored:template` | Native +
- Stable | 1.0.0-M2 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
+| xref:extensions/aws2-msk.adoc[AWS 2 MSK] | camel-quarkus-aws2-msk | JVM + Preview | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
 
-| xref:extensions/stream.adoc[Stream] (camel-quarkus-stream) +
-`stream:kind` | Native +
- Stable | 1.0.0-M4 | Read from system-in and write to system-out and system-err streams.
+| xref:extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | camel-quarkus-aws2-s3 | Native + Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
-| xref:extensions/telegram.adoc[Telegram] (camel-quarkus-telegram) +
-`telegram:type` | Native +
- Stable | 1.0.0-M4 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
+| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service] | camel-quarkus-aws2-ses | JVM + Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
 
-| xref:extensions/timer.adoc[Timer] (camel-quarkus-timer) +
-`timer:timerName` | Native +
- Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
+| xref:extensions/aws2-sns.adoc[AWS 2 Simple Notification System] | camel-quarkus-aws2-sns | Native + Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 
-| xref:extensions/twitter.adoc[Twitter Direct Message] (camel-quarkus-twitter) +
-`twitter-directmessage:user` | Native +
- Stable | 0.2.0 | Send and receive Twitter direct messages.
+| xref:extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service] | camel-quarkus-aws2-sqs | Native + Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 
-| xref:extensions/twitter.adoc[Twitter Search] (camel-quarkus-twitter) +
-`twitter-search:keywords` | Native +
- Stable | 0.2.0 | Access Twitter Search.
+| xref:extensions/aws2-translate.adoc[AWS 2 Translate] | camel-quarkus-aws2-translate | JVM + Preview | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
 
-| xref:extensions/twitter.adoc[Twitter Timeline] (camel-quarkus-twitter) +
-`twitter-timeline:timelineType` | Native +
- Stable | 0.2.0 | Send tweets and receive tweets from user's timeline.
+| xref:extensions/aws-ec2.adoc[AWS EC2] | camel-quarkus-aws-ec2 | Native + Stable | 1.0.0-M3 | Manage AWS EC2 instances.
 
-| xref:extensions/validator.adoc[Validator] (camel-quarkus-validator) +
-`validator:resourceUri` | Native +
- Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
+| xref:extensions/aws-ecs.adoc[AWS ECS] | camel-quarkus-aws-ecs | Native + Stable | 1.0.0-M1 | Manage AWS ECS cluster instances.
 
-| xref:extensions/vm.adoc[VM] (camel-quarkus-vm) +
-`vm:name` | Native +
- Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
+| xref:extensions/aws-eks.adoc[AWS EKS] | camel-quarkus-aws-eks | Native + Stable | 0.2.0 | Manage AWS EKS cluster instances.
 
-| xref:extensions/xslt.adoc[XSLT] (camel-quarkus-xslt) +
-`xslt:resourceUri` | Native +
- Stable | 0.4.0 | Transforms XML payload using an XSLT template.
+| xref:extensions/aws-iam.adoc[AWS IAM] | camel-quarkus-aws-iam | Native + Stable | 1.1.0 | Manage AWS IAM instances.
 
+| xref:extensions/aws-kinesis.adoc[AWS Kinesis] | camel-quarkus-aws-kinesis | Native + Stable | 1.0.0-M3 | Consume and produce records from AWS Kinesis Streams.
+
+| xref:extensions/aws-kinesis.adoc[AWS Kinesis Firehose] | camel-quarkus-aws-kinesis | Native + Stable | 1.0.0-M3 | Consume data from AWS Kinesis Firehose streams.
+
+| xref:extensions/aws-kms.adoc[AWS KMS] | camel-quarkus-aws-kms | Native + Stable | 1.0.0-M1 | Manage keys stored in AWS KMS instances.
+
+| xref:extensions/aws-lambda.adoc[AWS Lambda] | camel-quarkus-aws-lambda | Native + Stable | 1.0.0-M3 | Manage and invoke AWS Lambda functions.
+
+| xref:extensions/aws-s3.adoc[AWS S3 Storage Service] | camel-quarkus-aws-s3 | Native + Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
+
+| xref:extensions/aws-sns.adoc[AWS Simple Notification System] | camel-quarkus-aws-sns | Native + Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
+
+| xref:extensions/aws-sqs.adoc[AWS Simple Queue Service] | camel-quarkus-aws-sqs | Native + Stable | 0.2.0 | Sending and receive messages to/from AWS SQS service.
+
+| xref:extensions/aws-swf.adoc[AWS Simple Workflow] | camel-quarkus-aws-swf | Native + Stable | 1.0.0-M6 | Manage workflows in the AWS Simple Workflow service.
+
+| xref:extensions/aws-sdb.adoc[AWS SimpleDB] | camel-quarkus-aws-sdb | Native + Stable | 1.0.0-M6 | Store and Retrieve data from/to AWS SDB service.
+
+| xref:extensions/aws-translate.adoc[AWS Translate] | camel-quarkus-aws-translate | Native + Stable | 1.0.0-M3 | Translate texts using AWS Translate.
+
+| xref:extensions/azure.adoc[Azure Storage Blob Service (Legacy)] | camel-quarkus-azure | Native + Stable | 1.0.0-M4 | Store and retrieve blobs from Azure Storage Blob Service.
+
+| xref:extensions/azure.adoc[Azure Storage Queue Service (Legacy)] | camel-quarkus-azure | Native + Stable | 1.0.0-M4 | Store and retrieve messages from Azure Storage Queue Service.
+
+| xref:extensions/bean.adoc[Bean] | camel-quarkus-bean | Native + Stable | 0.2.0 | Invoke methods of Java beans stored in Camel registry.
+
+| xref:extensions/bean-validator.adoc[Bean Validator] | camel-quarkus-bean-validator | Native + Stable | 1.0.0-M1 | Validate the message body using the Java Bean Validation API.
+
+| xref:extensions/box.adoc[Box] | camel-quarkus-box | Native + Stable | 1.0.0-M4 | Upload, download and manage files, folders, groups, collaborations, etc. on box.com.
+
+| xref:extensions/braintree.adoc[Braintree] | camel-quarkus-braintree | Native + Stable | 1.2.0 | Process payments using Braintree Payments.
+
+| xref:extensions/cassandraql.adoc[Cassandra CQL] | camel-quarkus-cassandraql | JVM + Preview | 1.0.0-M6 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
+
+| xref:extensions/bean.adoc[Class] | camel-quarkus-bean | Native + Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
+
+| xref:extensions/consul.adoc[Consul] | camel-quarkus-consul | Native + Stable | 1.0.0-M3 | Integrate with Consul service discovery and configuration store.
+
+| xref:extensions/controlbus.adoc[Control Bus] | camel-quarkus-controlbus | Native + Stable | 0.4.0 | Manage and monitor Camel routes.
+
+| xref:extensions/couchbase.adoc[Couchbase] | camel-quarkus-couchbase | JVM + Preview | 1.0.0-M6 | Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
+
+| xref:extensions/couchdb.adoc[CouchDB] | camel-quarkus-couchdb | Native + Stable | 1.0.0-M6 | Consume changesets for inserts, updates and deletes in a CouchDB database, as well as get, save, update and delete documents from a CouchDB database.
+
+| xref:extensions/cron.adoc[Cron] | camel-quarkus-cron | Native + Stable | 1.0.0-M6 | A generic interface for triggering events at times specified through the Unix cron syntax.
+
+| xref:extensions/dataformat.adoc[Data Format] | camel-quarkus-dataformat | Native + Stable | 0.4.0 | Use a Camel Data Format as a regular Camel Component.
+
+| xref:extensions/debezium-mongodb.adoc[Debezium MongoDB Connector] | camel-quarkus-debezium-mongodb | JVM + Preview | 1.0.0-M6 | Capture changes from a MongoDB database.
+
+| xref:extensions/debezium-mysql.adoc[Debezium MySQL Connector] | camel-quarkus-debezium-mysql | JVM + Preview | 1.0.0-M6 | Capture changes from a MySQL database.
+
+| xref:extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector] | camel-quarkus-debezium-postgres | Native + Stable | 1.0.0-M6 | Capture changes from a PostgresSQL database.
+
+| xref:extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector] | camel-quarkus-debezium-sqlserver | JVM + Preview | 1.0.0-M6 | Capture changes from an SQL Server database.
+
+| xref:extensions/direct.adoc[Direct] | camel-quarkus-direct | Native + Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
+
+| xref:extensions/dozer.adoc[Dozer] | camel-quarkus-dozer | Native + Stable | 1.0.0-M1 | Map between Java beans using the Dozer mapping library.
+
+| xref:extensions/elasticsearch-rest.adoc[Elasticsearch Rest] | camel-quarkus-elasticsearch-rest | Native + Stable | 1.0.0-M6 | Send requests to with an ElasticSearch via REST API.
+
+| xref:extensions/exec.adoc[Exec] | camel-quarkus-exec | Native + Stable | 0.4.0 | Execute commands on the underlying operating system.
+
+| xref:extensions/fhir.adoc[FHIR] | camel-quarkus-fhir | Native + Stable | 0.3.0 | Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard.
+
+| xref:extensions/file.adoc[File] | camel-quarkus-file | Native + Stable | 0.4.0 | Read and write files.
+
+| xref:extensions/file-watch.adoc[File Watch] | camel-quarkus-file-watch | Native + Stable | 1.0.0-M5 | Get notified about file events in a directory using java.nio.file.WatchService.
+
+| xref:extensions/ftp.adoc[FTP] | camel-quarkus-ftp | Native + Stable | 1.0.0-M1 | Upload and download files to/from FTP servers.
+
+| xref:extensions/ftp.adoc[FTPS] | camel-quarkus-ftp | Native + Stable | 1.0.0-M1 | Upload and download files to/from FTP servers supporting the FTPS protocol.
+
+| xref:extensions/github.adoc[GitHub] | camel-quarkus-github | Native + Stable | 1.0.0-M6 | Interact with the GitHub API.
+
+| xref:extensions/google-bigquery.adoc[Google BigQuery] | camel-quarkus-google-bigquery | JVM + Preview | 1.0.0-M6 | Google BigQuery data warehouse for analytics.
+
+| xref:extensions/google-bigquery.adoc[Google BigQuery Standard SQL] | camel-quarkus-google-bigquery | JVM + Preview | 1.0.0-M6 | Access Google Cloud BigQuery service using SQL queries.
+
+| xref:extensions/google-calendar.adoc[Google Calendar] | camel-quarkus-google-calendar | Native + Stable | 1.0.0-M6 | Perform various operations on a Google Calendar.
+
+| xref:extensions/google-calendar.adoc[Google Calendar Stream] | camel-quarkus-google-calendar | Native + Stable | 1.0.0-M6 | Poll for changes in a Google Calendar.
+
+| xref:extensions/google-drive.adoc[Google Drive] | camel-quarkus-google-drive | Native + Stable | 1.0.0-M6 | Manage files in Google Drive.
+
+| xref:extensions/google-mail.adoc[Google Mail] | camel-quarkus-google-mail | Native + Stable | 1.0.0-M6 | Manage messages in Google Mail.
+
+| xref:extensions/google-mail.adoc[Google Mail Stream] | camel-quarkus-google-mail | Native + Stable | 1.0.0-M6 | Poll for incoming messages in Google Mail.
+
+| xref:extensions/google-pubsub.adoc[Google Pubsub] | camel-quarkus-google-pubsub | JVM + Preview | 1.0.0-M6 | Send and receive messages to/from Google Cloud Platform PubSub Service.
+
+| xref:extensions/google-sheets.adoc[Google Sheets] | camel-quarkus-google-sheets | Native + Stable | 1.0.0-M6 | Manage spreadsheets in Google Sheets.
+
+| xref:extensions/google-sheets.adoc[Google Sheets Stream] | camel-quarkus-google-sheets | Native + Stable | 1.0.0-M6 | Poll for changes in Google Sheets.
+
+| xref:extensions/graphql.adoc[GraphQL] | camel-quarkus-graphql | Native + Stable | 1.0.0-M5 | Send GraphQL queries and mutations to external systems.
+
+| xref:extensions/grpc.adoc[gRPC] | camel-quarkus-grpc | JVM + Preview | 1.0.0-M6 | Expose gRPC endpoints and access external gRPC endpoints.
+
+| xref:extensions/http.adoc[HTTP] | camel-quarkus-http | Native + Stable | 1.0.0-M3 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
+
+| xref:extensions/infinispan.adoc[Infinispan] | camel-quarkus-infinispan | Native + Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
+
+| xref:extensions/influxdb.adoc[InfluxDB] | camel-quarkus-influxdb | Native + Stable | 1.0.0-M6 | Interact with InfluxDB, a time series database.
+
+| xref:extensions/websocket-jsr356.adoc[Javax Websocket] | camel-quarkus-websocket-jsr356 | Native + Stable | 1.0.0-M4 | Expose websocket endpoints using JSR356.
+
+| xref:extensions/jdbc.adoc[JDBC] | camel-quarkus-jdbc | Native + Stable | 0.2.0 | Access databases through SQL and JDBC.
+
+| xref:extensions/jira.adoc[Jira] | camel-quarkus-jira | Native + Stable | 1.0.0-M4 | Interact with JIRA issue tracker.
+
+| xref:extensions/jms.adoc[JMS] | camel-quarkus-jms | Native + Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
+
+| xref:extensions/kafka.adoc[Kafka] | camel-quarkus-kafka | Native + Stable | 1.0.0-M1 | Sent and receive messages to/from an Apache Kafka broker.
+
+| xref:extensions/kubernetes.adoc[Kubernetes ConfigMap] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes ConfigMaps and get notified on ConfigMaps changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Deployments] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Deployments and get notified on Deployment changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes HPA] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Horizontal Pod Autoscalers (HPA) and get notified on HPA changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Job] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Jobs.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Namespaces] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Namespaces and get notified on Namespace changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Nodes] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Nodes and get notified on Node changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Persistent Volume] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes and get notified on Persistent Volume changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Persistent Volume Claim] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Persistent Volumes Claims and get notified on Persistent Volumes Claim changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Pods] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Pods and get notified on Pod changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Replication Controller] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Replication Controllers and get notified on Replication Controllers changes.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Resources Quota] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Resources Quotas.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Secrets] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Secrets.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Service Account] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Service Accounts.
+
+| xref:extensions/kubernetes.adoc[Kubernetes Services] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes Services and get notified on Service changes.
+
+| xref:extensions/kudu.adoc[Kudu] | camel-quarkus-kudu | Native + Stable | 1.0.0-M6 | Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+
+| xref:extensions/log.adoc[Log] | camel-quarkus-log | Native + Stable | 0.2.0 | Log messages to the underlying logging mechanism.
+
+| xref:extensions/mail.adoc[Mail] | camel-quarkus-mail | Native + Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
+
+| xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] | camel-quarkus-microprofile-metrics | Native + Stable | 0.2.0 | Expose metrics from Camel routes.
+
+| xref:extensions/mongodb.adoc[MongoDB] | camel-quarkus-mongodb | Native + Stable | 1.0.0-M1 | Perform operations on MongoDB documents and collections.
+
+| xref:extensions/mongodb-gridfs.adoc[MongoDB GridFS] | camel-quarkus-mongodb-gridfs | Native + Stable | 1.0.0-M6 | Interact with MongoDB GridFS.
+
+| xref:extensions/mustache.adoc[Mustache] | camel-quarkus-mustache | Native + Stable | 1.0.0-M5 | Transform messages using a Mustache template.
+
+| xref:extensions/netty.adoc[Netty] | camel-quarkus-netty | Native + Stable | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x.
+
+| xref:extensions/netty-http.adoc[Netty HTTP] | camel-quarkus-netty-http | Native + Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x.
+
+| xref:extensions/nitrite.adoc[Nitrite] | camel-quarkus-nitrite | JVM + Preview | 1.0.0-M6 | Access Nitrite databases.
+
+| xref:extensions/olingo4.adoc[Olingo4] | camel-quarkus-olingo4 | Native + Stable | 1.0.0-M4 | Communicate with OData 4.0 services using Apache Olingo OData API.
+
+| xref:extensions/kubernetes.adoc[Openshift Build Config] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on OpenShift Build Configs.
+
+| xref:extensions/kubernetes.adoc[Openshift Builds] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on OpenShift Builds.
+
+| xref:extensions/openstack.adoc[OpenStack Cinder] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Access data in OpenStack Cinder block storage.
+
+| xref:extensions/openstack.adoc[OpenStack Glance] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Manage VM images and metadata definitions in OpenStack Glance.
+
+| xref:extensions/openstack.adoc[OpenStack Keystone] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Access OpenStack Keystone for API client authentication, service discovery and distributed multi-tenant authorization.
+
+| xref:extensions/openstack.adoc[OpenStack Neutron] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Access OpenStack Neutron for network services.
+
+| xref:extensions/openstack.adoc[OpenStack Nova] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Access OpenStack to manage compute resources.
+
+| xref:extensions/openstack.adoc[OpenStack Swift] | camel-quarkus-openstack | JVM + Preview | 1.0.0-M6 | Access OpenStack Swift object/blob store.
+
+| xref:extensions/paho.adoc[Paho] | camel-quarkus-paho | Native + Stable | 0.2.0 | Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
+
+| xref:extensions/pdf.adoc[PDF] | camel-quarkus-pdf | Native + Stable | 0.3.1 | Create, modify or extract content from PDF documents.
+
+| xref:extensions/platform-http.adoc[Platform HTTP] | camel-quarkus-platform-http | Native + Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the current platform.
+
+| xref:extensions/pubnub.adoc[PubNub] | camel-quarkus-pubnub | JVM + Preview | 1.0.0-M6 | Send and receive messages to/from PubNub data stream network for connected devices.
+
+| xref:extensions/quartz.adoc[Quartz] | camel-quarkus-quartz | Native + Stable | 1.0.0-M6 | Schedule sending of messages using the Quartz 2.x scheduler.
+
+| xref:extensions/rabbitmq.adoc[RabbitMQ] | camel-quarkus-rabbitmq | JVM + Preview | 1.0.0-M6 | Send and receive messages from RabbitMQ instances.
+
+| xref:extensions/reactive-streams.adoc[Reactive Streams] | camel-quarkus-reactive-streams | Native + Stable | 1.0.0-M3 | Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.
+
+| xref:extensions/ref.adoc[Ref] | camel-quarkus-ref | Native + Stable | 1.0.0-M5 | Route messages to an endpoint looked up dynamically by name in the Camel Registry.
+
+| xref:extensions/rest.adoc[REST] | camel-quarkus-rest | Native + Stable | 0.2.0 | Expose REST services or call external REST services.
+
+| xref:extensions/rest.adoc[REST API] | camel-quarkus-rest | Native + Stable | 0.2.0 | Expose OpenAPI Specification of the REST services defined using Camel REST DSL.
+
+| xref:extensions/rest-openapi.adoc[REST OpenApi] | camel-quarkus-rest-openapi | Native + Stable | 1.0.0-M6 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
+
+| xref:extensions/salesforce.adoc[Salesforce] | camel-quarkus-salesforce | Native + Stable | 0.2.0 | Communicate with Salesforce using Java DTOs.
+
+| xref:extensions/sap-netweaver.adoc[SAP NetWeaver] | camel-quarkus-sap-netweaver | Native + Stable | 1.0.0-M6 | Send requests to SAP NetWeaver Gateway using HTTP.
+
+| xref:extensions/scheduler.adoc[Scheduler] | camel-quarkus-scheduler | Native + Stable | 0.4.0 | Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService.
+
+| xref:extensions/seda.adoc[SEDA] | camel-quarkus-seda | Native + Stable | 1.0.0-M1 | Asynchronously call another endpoint from any Camel Context in the same JVM.
+
+| xref:extensions/servicenow.adoc[ServiceNow] | camel-quarkus-servicenow | Native + Stable | 1.0.0-M6 | Interact with ServiceNow via its REST API.
+
+| xref:extensions/servlet.adoc[Servlet] | camel-quarkus-servlet | Native + Stable | 0.2.0 | Serve HTTP requests by a Servlet.
+
+| xref:extensions/ftp.adoc[SFTP] | camel-quarkus-ftp | Native + Stable | 1.0.0-M1 | Upload and download files to/from SFTP servers.
+
+| xref:extensions/sjms.adoc[Simple JMS] | camel-quarkus-sjms | Native + Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API.
+
+| xref:extensions/sjms.adoc[Simple JMS Batch] | camel-quarkus-sjms | Native + Stable | 1.0.0-M1 | Highly performant and transactional batch consumption of messages from a JMS queue.
+
+| xref:extensions/sjms2.adoc[Simple JMS2] | camel-quarkus-sjms2 | Native + Stable | 1.0.0-M1 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
+
+| xref:extensions/slack.adoc[Slack] | camel-quarkus-slack | Native + Stable | 0.3.0 | Send and receive messages to/from Slack.
+
+| xref:extensions/sql.adoc[SQL] | camel-quarkus-sql | Native + Stable | 1.0.0-M2 | Perform SQL queries using Spring JDBC.
+
+| xref:extensions/sql.adoc[SQL Stored Procedure] | camel-quarkus-sql | Native + Stable | 1.0.0-M2 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
+
+| xref:extensions/stream.adoc[Stream] | camel-quarkus-stream | Native + Stable | 1.0.0-M4 | Read from system-in and write to system-out and system-err streams.
+
+| xref:extensions/telegram.adoc[Telegram] | camel-quarkus-telegram | Native + Stable | 1.0.0-M4 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
+
+| xref:extensions/timer.adoc[Timer] | camel-quarkus-timer | Native + Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
+
+| xref:extensions/twitter.adoc[Twitter Direct Message] | camel-quarkus-twitter | Native + Stable | 0.2.0 | Send and receive Twitter direct messages.
+
+| xref:extensions/twitter.adoc[Twitter Search] | camel-quarkus-twitter | Native + Stable | 0.2.0 | Access Twitter Search.
+
+| xref:extensions/twitter.adoc[Twitter Timeline] | camel-quarkus-twitter | Native + Stable | 0.2.0 | Send tweets and receive tweets from user's timeline.
+
+| xref:extensions/validator.adoc[Validator] | camel-quarkus-validator | Native + Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
+
+| xref:extensions/vm.adoc[VM] | camel-quarkus-vm | Native + Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
+
+| xref:extensions/xslt.adoc[XSLT] | camel-quarkus-xslt | Native + Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 |===
 // components: END
 
@@ -625,88 +327,61 @@ Level | Since | Description
 // dataformats: START
 Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 
-[width="100%",cols="4,1,1,5",options="header"]
+[width="100%",cols="4,1,1,1,5",options="header"]
 |===
-| Data Format | Target +
-Level | Since | Description
+| Data Format | Artifact | Support Level | Since | Description
 
-| xref:extensions/avro.adoc[Avro] (camel-quarkus-avro) | Native +
- Stable | 1.0.0-M6 | Serialize and deserialize messages using Apache Avro binary data format.
+| xref:extensions/avro.adoc[Avro] | camel-quarkus-avro | Native + Stable | 1.0.0-M6 | Serialize and deserialize messages using Apache Avro binary data format.
 
-| xref:extensions/base64.adoc[Base64] (camel-quarkus-base64) | Native +
- Stable | 1.0.0-M1 | Encode and decode data using Base64.
+| xref:extensions/base64.adoc[Base64] | camel-quarkus-base64 | Native + Stable | 1.0.0-M1 | Encode and decode data using Base64.
 
-| xref:extensions/bindy.adoc[Bindy CSV] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| xref:extensions/bindy.adoc[Bindy CSV] | camel-quarkus-bindy | Native + Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:extensions/bindy.adoc[Bindy Fixed Length] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| xref:extensions/bindy.adoc[Bindy Fixed Length] | camel-quarkus-bindy | Native + Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:extensions/bindy.adoc[Bindy Key Value Pair] (camel-quarkus-bindy) | Native +
- Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
+| xref:extensions/bindy.adoc[Bindy Key Value Pair] | camel-quarkus-bindy | Native + Stable | 1.0.0-M4 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:extensions/csv.adoc[CSV] (camel-quarkus-csv) | Native +
- Stable | 0.2.0 | Handle CSV (Comma Separated Values) payloads.
+| xref:extensions/csv.adoc[CSV] | camel-quarkus-csv | Native + Stable | 0.2.0 | Handle CSV (Comma Separated Values) payloads.
 
-| xref:extensions/fhir.adoc[FHIR JSon] (camel-quarkus-fhir) | Native +
- Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
+| xref:extensions/fhir.adoc[FHIR JSon] | camel-quarkus-fhir | Native + Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
 
-| xref:extensions/fhir.adoc[FHIR XML] (camel-quarkus-fhir) | Native +
- Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
+| xref:extensions/fhir.adoc[FHIR XML] | camel-quarkus-fhir | Native + Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
 
-| xref:extensions/zip-deflater.adoc[GZip Deflater] (camel-quarkus-zip-deflater) | Native +
- Stable | 1.0.0-M4 | Compress and decompress messages using java.util.zip.GZIPStream.
+| xref:extensions/zip-deflater.adoc[GZip Deflater] | camel-quarkus-zip-deflater | Native + Stable | 1.0.0-M4 | Compress and decompress messages using java.util.zip.GZIPStream.
 
-| xref:extensions/ical.adoc[iCal] (camel-quarkus-ical) | Native +
- Stable | 1.0.0-M5 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
+| xref:extensions/ical.adoc[iCal] | camel-quarkus-ical | Native + Stable | 1.0.0-M5 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 
-| xref:extensions/jacksonxml.adoc[JacksonXML] (camel-quarkus-jacksonxml) | Native +
- Stable | 1.0.0-M5 | Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
+| xref:extensions/jacksonxml.adoc[JacksonXML] | camel-quarkus-jacksonxml | Native + Stable | 1.0.0-M5 | Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
-| xref:extensions/jaxb.adoc[JAXB] (camel-quarkus-jaxb) | Native +
- Stable | 1.0.0-M5 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
+| xref:extensions/jaxb.adoc[JAXB] | camel-quarkus-jaxb | Native + Stable | 1.0.0-M5 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
-| xref:extensions/gson.adoc[JSon GSon] (camel-quarkus-gson) | Native +
- Stable | 1.0.0-M4 | Marshal POJOs to JSON and back.
+| xref:extensions/gson.adoc[JSon GSon] | camel-quarkus-gson | Native + Stable | 1.0.0-M4 | Marshal POJOs to JSON and back.
 
-| xref:extensions/jackson.adoc[JSon Jackson] (camel-quarkus-jackson) | Native +
- Stable | 0.3.0 | Marshal POJOs to JSON and back.
+| xref:extensions/jackson.adoc[JSon Jackson] | camel-quarkus-jackson | Native + Stable | 0.3.0 | Marshal POJOs to JSON and back.
 
-| xref:extensions/johnzon.adoc[JSon Johnzon] (camel-quarkus-johnzon) | Native +
- Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
+| xref:extensions/johnzon.adoc[JSon Johnzon] | camel-quarkus-johnzon | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
-| xref:extensions/xstream.adoc[JSon XStream] (camel-quarkus-xstream) | Native +
- Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
+| xref:extensions/xstream.adoc[JSon XStream] | camel-quarkus-xstream | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
-| xref:extensions/lzf.adoc[LZF Deflate Compression] (camel-quarkus-lzf) | Native +
- Stable | 1.0.0-M4 | Compress and decompress streams using LZF deflate algorithm.
+| xref:extensions/lzf.adoc[LZF Deflate Compression] | camel-quarkus-lzf | Native + Stable | 1.0.0-M4 | Compress and decompress streams using LZF deflate algorithm.
 
-| xref:extensions/mail.adoc[MIME Multipart] (camel-quarkus-mail) | Native +
- Stable | 0.2.0 | Marshal Camel messages with attachments into MIME-Multipart messages and back.
+| xref:extensions/mail.adoc[MIME Multipart] | camel-quarkus-mail | Native + Stable | 0.2.0 | Marshal Camel messages with attachments into MIME-Multipart messages and back.
 
-| xref:extensions/protobuf.adoc[Protobuf] (camel-quarkus-protobuf) | JVM +
- Preview | 1.0.0-M6 | Serialize and deserialize Java objects using Google's Protocol buffers.
+| xref:extensions/protobuf.adoc[Protobuf] | camel-quarkus-protobuf | JVM + Preview | 1.0.0-M6 | Serialize and deserialize Java objects using Google's Protocol buffers.
 
-| xref:extensions/soap.adoc[SOAP] (camel-quarkus-soap) | Native +
- Stable | 1.0.0-M5 | Marshal Java objects to SOAP messages and back.
+| xref:extensions/soap.adoc[SOAP] | camel-quarkus-soap | Native + Stable | 1.0.0-M5 | Marshal Java objects to SOAP messages and back.
 
-| xref:extensions/tarfile.adoc[Tar File] (camel-quarkus-tarfile) | Native +
- Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
+| xref:extensions/tarfile.adoc[Tar File] | camel-quarkus-tarfile | Native + Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
-| xref:extensions/tagsoup.adoc[TidyMarkup] (camel-quarkus-tagsoup) | Native +
- Stable | 1.0.0-M1 | Parse (potentially invalid) HTML into valid HTML or DOM.
+| xref:extensions/tagsoup.adoc[TidyMarkup] | camel-quarkus-tagsoup | Native + Stable | 1.0.0-M1 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
-| xref:extensions/xstream.adoc[XStream] (camel-quarkus-xstream) | Native +
- Stable | 1.0.0-M5 | Marshal and unmarshal POJOs to/from XML using XStream library.
+| xref:extensions/xstream.adoc[XStream] | camel-quarkus-xstream | Native + Stable | 1.0.0-M5 | Marshal and unmarshal POJOs to/from XML using XStream library.
 
-| xref:extensions/snakeyaml.adoc[YAML SnakeYAML] (camel-quarkus-snakeyaml) | Native +
- Stable | 0.4.0 | Marshal and unmarshal Java objects to and from YAML.
+| xref:extensions/snakeyaml.adoc[YAML SnakeYAML] | camel-quarkus-snakeyaml | Native + Stable | 0.4.0 | Marshal and unmarshal Java objects to and from YAML.
 
-| xref:extensions/zip-deflater.adoc[Zip Deflate Compression] (camel-quarkus-zip-deflater) | Native +
- Stable | 1.0.0-M4 | Compress and decompress streams using java.util.zip.Deflater and java.util.zip.Inflater.
+| xref:extensions/zip-deflater.adoc[Zip Deflate Compression] | camel-quarkus-zip-deflater | Native + Stable | 1.0.0-M4 | Compress and decompress streams using java.util.zip.Deflater and java.util.zip.Inflater.
 
-| xref:extensions/zipfile.adoc[Zip File] (camel-quarkus-zipfile) | Native +
- Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStream.
+| xref:extensions/zipfile.adoc[Zip File] | camel-quarkus-zipfile | Native + Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStream.
 |===
 // dataformats: END
 
@@ -715,49 +390,35 @@ Level | Since | Description
 // languages: START
 Number of Camel languages: 13 in 7 JAR artifacts (0 deprecated)
 
-[width="100%",cols="4,1,1,5",options="header"]
+[width="100%",cols="4,1,1,1,5",options="header"]
 |===
-| Language | Target +
-Level | Since | Description
+| Language | Artifact | Support Level | Since | Description
 
-| xref:extensions/bean.adoc[Bean method] (camel-quarkus-bean) | Native +
- Stable | 0.2.0 | Call a method of the specified Java bean passing the Exchange, Body or specific headers to it.
+| xref:extensions/bean.adoc[Bean method] | camel-quarkus-bean | Native + Stable | 0.2.0 | Call a method of the specified Java bean passing the Exchange, Body or specific headers to it.
 
-| xref:extensions/core.adoc[Constant] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | A fixed value set only once during the route startup.
+| xref:extensions/core.adoc[Constant] | camel-quarkus-core | Native + Stable | 0.2.0 | A fixed value set only once during the route startup.
 
-| xref:extensions/core.adoc[ExchangeProperty] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Get the value of named Camel Exchange property.
+| xref:extensions/core.adoc[ExchangeProperty] | camel-quarkus-core | Native + Stable | 0.2.0 | Get the value of named Camel Exchange property.
 
-| xref:extensions/core.adoc[File] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | For expressions and predicates using the file/simple language.
+| xref:extensions/core.adoc[File] | camel-quarkus-core | Native + Stable | 0.2.0 | For expressions and predicates using the file/simple language.
 
-| xref:extensions/groovy.adoc[Groovy] (camel-quarkus-groovy) | JVM +
- Preview | 1.0.0-M6 | Evaluate a Groovy script.
+| xref:extensions/groovy.adoc[Groovy] | camel-quarkus-groovy | JVM + Preview | 1.0.0-M6 | Evaluate a Groovy script.
 
-| xref:extensions/core.adoc[Header] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Get the value of the named Camel Message header.
+| xref:extensions/core.adoc[Header] | camel-quarkus-core | Native + Stable | 0.2.0 | Get the value of the named Camel Message header.
 
-| xref:extensions/jsonpath.adoc[JsonPath] (camel-quarkus-jsonpath) | Native +
- Stable | 1.0.0-M3 | Evaluate a JsonPath expression against a JSON message body.
+| xref:extensions/jsonpath.adoc[JsonPath] | camel-quarkus-jsonpath | Native + Stable | 1.0.0-M3 | Evaluate a JsonPath expression against a JSON message body.
 
-| xref:extensions/ognl.adoc[OGNL] (camel-quarkus-ognl) | JVM +
- Preview | 1.0.0-M6 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
+| xref:extensions/ognl.adoc[OGNL] | camel-quarkus-ognl | JVM + Preview | 1.0.0-M6 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 
-| xref:extensions/core.adoc[Ref] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Look up an expression in the Camel Registry and evaluate it.
+| xref:extensions/core.adoc[Ref] | camel-quarkus-core | Native + Stable | 0.2.0 | Look up an expression in the Camel Registry and evaluate it.
 
-| xref:extensions/core.adoc[Simple] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Evaluate Camel's built-in Simple language expression against the Camel Exchange.
+| xref:extensions/core.adoc[Simple] | camel-quarkus-core | Native + Stable | 0.2.0 | Evaluate Camel's built-in Simple language expression against the Camel Exchange.
 
-| xref:extensions/core.adoc[Tokenize] (camel-quarkus-core) | Native +
- Stable | 0.2.0 | Tokenize text payloads using the specified delimiter patterns.
+| xref:extensions/core.adoc[Tokenize] | camel-quarkus-core | Native + Stable | 0.2.0 | Tokenize text payloads using the specified delimiter patterns.
 
-| xref:extensions/xml-jaxp.adoc[XML Tokenize] (camel-quarkus-xml-jaxp) | Native +
- Stable | 1.0.0-M5 | Tokenize XML payloads using the specified path expression.
+| xref:extensions/xml-jaxp.adoc[XML Tokenize] | camel-quarkus-xml-jaxp | Native + Stable | 1.0.0-M5 | Tokenize XML payloads using the specified path expression.
 
-| xref:extensions/xpath.adoc[XPath] (camel-quarkus-xpath) | Native +
- Stable | 1.0.0-M4 | Evaluate an XPath expression against an XML payload.
+| xref:extensions/xpath.adoc[XPath] | camel-quarkus-xpath | Native + Stable | 1.0.0-M4 | Evaluate an XPath expression against an XML payload.
 |===
 // languages: END
 
@@ -766,47 +427,34 @@ Level | Since | Description
 // others: START
 Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 
-[width="100%",cols="4,1,1,5",options="header"]
+[width="100%",cols="4,1,1,1,5",options="header"]
 |===
-| Extension | Target Level | Since | Description
+| Extension | Artifact | Support Level | Since | Description
 
-| xref:extensions/attachments.adoc[camel-quarkus-attachments]  | Native +
- Stable | 0.3.0 | Java Attachments support for Camel Message
+|  xref:extensions/attachments.adoc[Attachments]  | camel-quarkus-attachments | Native + Stable | 0.3.0 | Java Attachments support for Camel Message
 
-| xref:extensions/caffeine-lrucache.adoc[camel-quarkus-caffeine-lrucache]  | Native +
- Stable | 1.0.0-M5 | An LRUCacheFactory implementation based on Caffeine
+|  xref:extensions/caffeine-lrucache.adoc[Caffeine LRUCache]  | camel-quarkus-caffeine-lrucache | Native + Stable | 1.0.0-M5 | An LRUCacheFactory implementation based on Caffeine
 
-| xref:extensions/core-cloud.adoc[camel-quarkus-core-cloud]  | Native +
- Stable | 0.2.0 | The Camel Quarkus core cloud module
+|  xref:extensions/core-cloud.adoc[Cloud]  | camel-quarkus-core-cloud | Native + Stable | 0.2.0 | The Camel Quarkus core cloud module
 
-| xref:extensions/endpointdsl.adoc[camel-quarkus-endpointdsl]  | Native +
- Stable | 1.0.0-M3 | Code Camel endpoint URI using Java DSL instead of plain strings
+|  xref:extensions/endpointdsl.adoc[Endpoint DSL]  | camel-quarkus-endpointdsl | Native + Stable | 1.0.0-M3 | Code Camel endpoint URI using Java DSL instead of plain strings
 
-| xref:extensions/hystrix.adoc[camel-quarkus-hystrix]  | Native +
- Stable | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
+|  xref:extensions/hystrix.adoc[Hystrix]  | camel-quarkus-hystrix | Native + Stable | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
 
-| xref:extensions/kotlin.adoc[camel-quarkus-kotlin]  | Native +
- Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
+|  xref:extensions/kotlin.adoc[Kotlin]  | camel-quarkus-kotlin | Native + Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
-| xref:extensions/microprofile-fault-tolerance.adoc[camel-quarkus-microprofile-fault-tolerance]  | Native +
- Stable | 1.0.0-M8 | Circuit Breaker EIP using Microprofile Fault Tolerance
+|  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-M8 | Circuit Breaker EIP using Microprofile Fault Tolerance
 
-| xref:extensions/microprofile-health.adoc[camel-quarkus-microprofile-health]  | Native +
- Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
+|  xref:extensions/microprofile-health.adoc[Microprofile Health]  | camel-quarkus-microprofile-health | Native + Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
 
-| xref:extensions/opentracing.adoc[camel-quarkus-opentracing]  | Native +
- Stable | 0.3.0 | Distributed tracing using OpenTracing
+|  xref:extensions/opentracing.adoc[OpenTracing]  | camel-quarkus-opentracing | Native + Stable | 0.3.0 | Distributed tracing using OpenTracing
 
-| xref:extensions/qute.adoc[camel-quarkus-qute]  | Native +
- Stable | 1.0.0-M6 | Transform messages using Quarkus Qute templating engine
+|  xref:extensions/qute.adoc[Qute]  | camel-quarkus-qute | Native + Stable | 1.0.0-M6 | Transform messages using Quarkus Qute templating engine
 
-| xref:extensions/reactive-executor.adoc[camel-quarkus-reactive-executor]  | Native +
- Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x
+|  xref:extensions/reactive-executor.adoc[Reactive Executor Vert.x]  | camel-quarkus-reactive-executor | Native + Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x
 
-| xref:extensions/xml-io.adoc[camel-quarkus-xml-io]  | Native +
- Stable | 1.0.0-M5 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
+|  xref:extensions/xml-io.adoc[XML IO]  | camel-quarkus-xml-io | Native + Stable | 1.0.0-M5 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 
-| xref:extensions/xml-jaxb.adoc[camel-quarkus-xml-jaxb]  | Native +
- Stable | 1.0.0-M5 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
+|  xref:extensions/xml-jaxb.adoc[XML JAXB]  | camel-quarkus-xml-jaxb | Native + Stable | 1.0.0-M5 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
 |===
 // others: END
