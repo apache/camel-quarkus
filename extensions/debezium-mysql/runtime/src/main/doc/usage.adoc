@@ -1,0 +1,8 @@
+We can not add driver as a compile scope dependency for legal reasons.
+
+To use extension, you have to add runtime dependency to mysql driver. Suggested version and driver is
+`mysql:mysql-connector-java:8.0.20`. (It is the transitive dependency from `o.quarkus:quarkus-jdbc-mysql:1.5.0.CR1`)
+
+To execute integration tests you have to add driver jar into the specific folder in the module. Name of the file (which
+also specifies version) is defined as property `mysql.driver.file` with default value
+`libs/mysql-connector-java-8.0.20.jar`

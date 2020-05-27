@@ -38,6 +38,7 @@ To execute integration tests you have to add driver jar into the specific folder
 also specifies version) is defined as property `mysql.driver.file` with default value
 `libs/mysql-connector-java-8.0.20.jar`
 
+
 == Camel Quarkus limitations
 
 While you can use any of the available Kafka offset stores in JVM mode, only the following offset stores are supported

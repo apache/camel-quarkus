@@ -28,8 +28,8 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-debezium-common</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Debezium Connectors</name>
+    <artifactId>camel-quarkus-integration-test-debezium</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Debezium</name>
     <description>Integration tests for Camel Quarkus Debezium Extensions</description>
 
     <properties>
