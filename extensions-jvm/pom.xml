@@ -48,7 +48,6 @@
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
-        <module>debezium-sqlserver</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

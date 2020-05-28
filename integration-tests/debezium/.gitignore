@@ -1,1 +1,2 @@
 libs/mysql-connector-java-*.jar
+src/test/resources/*-license-*

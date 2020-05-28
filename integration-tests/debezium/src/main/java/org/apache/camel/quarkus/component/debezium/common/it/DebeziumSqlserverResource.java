@@ -22,42 +22,43 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/debezium-mysql")
+@Path("/debezium-sqlserver")
 @ApplicationScoped
-public class DebeziumMysqlResource extends AbstractDebeziumResource {
+public class DebeziumSqlserverResource extends AbstractDebeziumResource {
 
-    public static final String PROPERTY_DB_HISTORY_FILE = DebeziumMysqlResource.class.getSimpleName()
+    public static final String PROPERTY_DB_HISTORY_FILE = DebeziumSqlserverResource.class.getSimpleName()
             + "_databaseHistoryFileFilename";
 
-    //debezium on mysql needs more privileges, therefore it will use root user
-    public static final String DB_ROOT_USERNAME = "root";
+    public static final String DB_NAME = "testDB";
 
-    public DebeziumMysqlResource() {
-        super(Type.mysql);
+    public DebeziumSqlserverResource() {
+        super(Type.sqlserver);
     }
 
-    @Path("/receiveEmptyMessages")
+    @Path("/receiveAsRecord")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String receiveEmptyMessages() {
-        return super.receiveEmptyMessages();
+    @Produces(MediaType.APPLICATION_JSON)
+    public Record receiveAsRecord() {
+        return super.receiveAsRecord();
     }
 
     @Path("/receive")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String receive() {
-        String s = super.receive();
-        return s;
+        Record record = super.receiveAsRecord();
+        //mssql return empty Strring instead of nulls, wich leads to different status code 200 vs 204
+        if (record == null || ("d".equals(record.getOperation()) && "".equals(record.getValue()))) {
+            return null;
+        }
+        return record.getValue();
     }
 
     @Override
     String getEndpoinUrl(String hostname, String port, String username, String password, String databaseServerName,
             String offsetStorageFileName) {
-        //use root user to get all required privileges
-        return super.getEndpoinUrl(hostname, port, DB_ROOT_USERNAME, password, databaseServerName, offsetStorageFileName)
-                //and add specific parameters
-                + "&databaseServerId=223344"
+        return super.getEndpoinUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
+                + "&databaseDbname=" + DB_NAME
                 + "&databaseHistoryFileFilename=" + System.getProperty(PROPERTY_DB_HISTORY_FILE);
     }
 }

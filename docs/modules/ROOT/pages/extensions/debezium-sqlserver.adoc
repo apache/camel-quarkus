@@ -5,7 +5,7 @@
 = Debezium SQL Server Connector
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M6## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Capture changes from an SQL Server database.
 
@@ -26,3 +26,22 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+SQL server may require encryption. In that case `quarkus.ssl.native=false` parameter has to be added during execution.
+See https://quarkus.io/guides/native-and-ssl for more details.
+
+
+
+== Camel Quarkus limitations
+
+While you can use any of the available Kafka offset stores in JVM mode, only the following offset stores are supported
+in native mode:
+
+* `org.apache.kafka.connect.storage.FileOffsetBackingStore`
+* `org.apache.kafka.connect.storage.MemoryOffsetBackingStore`
+
+Please file an https://github.com/apache/camel-quarkus/issues/new[issue] if you are missing some specific offset store
+in native mode.
+

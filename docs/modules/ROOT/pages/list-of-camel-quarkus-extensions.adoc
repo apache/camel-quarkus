@@ -126,7 +126,7 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
 | xref:extensions/debezium-postgres.adoc[Debezium PostgresSQL Connector] | camel-quarkus-debezium-postgres | Native + Stable | 1.0.0-M6 | Capture changes from a PostgresSQL database.
 
-| xref:extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector] | camel-quarkus-debezium-sqlserver | JVM + Preview | 1.0.0-M6 | Capture changes from an SQL Server database.
+| xref:extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector] | camel-quarkus-debezium-sqlserver | Native + Stable | 1.0.0-M6 | Capture changes from an SQL Server database.
 
 | xref:extensions/direct.adoc[Direct] | camel-quarkus-direct | Native + Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
 

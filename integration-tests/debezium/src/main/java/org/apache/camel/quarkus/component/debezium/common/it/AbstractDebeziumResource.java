@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
+import org.apache.camel.component.debezium.DebeziumConstants;
 
 /**
  * Parent for debezium based resources.
@@ -27,7 +28,7 @@ import org.apache.camel.Exchange;
  * To change parameters in endpoint url, please override getEndpoinUrl method and change parameters there.
  */
 public abstract class AbstractDebeziumResource {
-    private static final long TIMEOUT = 2000;
+    private static final long TIMEOUT = 10000;
 
     private final Type type;
 
@@ -50,11 +51,16 @@ public abstract class AbstractDebeziumResource {
     }
 
     public String receive() {
-        Exchange exchange = receiveAsExange();
+        return receiveAsRecord().getValue();
+    }
+
+    public Record receiveAsRecord() {
+        Exchange exchange = receiveAsExchange();
         if (exchange == null) {
             return null;
         }
-        return exchange.getIn().getBody(String.class);
+        return new Record(exchange.getIn().getHeader(DebeziumConstants.HEADER_OPERATION, String.class),
+                exchange.getIn().getBody(String.class));
     }
 
     public String receiveEmptyMessages() {
@@ -62,7 +68,7 @@ public abstract class AbstractDebeziumResource {
         int i = 0;
         Exchange exchange;
         while (i++ < 10) {
-            exchange = receiveAsExange();
+            exchange = receiveAsExchange();
             //if exchange is null (timeout), all empty messages are received
             if (exchange == null) {
                 return null;
@@ -77,13 +83,14 @@ public abstract class AbstractDebeziumResource {
         return null;
     }
 
-    public Exchange receiveAsExange() {
-        return consumerTemplate.receive(getEndpoinUrl(
+    private Exchange receiveAsExchange() {
+        String endpoint = getEndpoinUrl(
                 System.getProperty(type.getPropertyHostname()),
                 System.getProperty(type.getPropertyPort()),
                 System.getProperty(type.getPropertyUsername()),
                 System.getProperty(type.getPropertyPassword()),
                 "qa",
-                System.getProperty(type.getPropertyOffsetFileName())), TIMEOUT);
+                System.getProperty(type.getPropertyOffsetFileName()));
+        return consumerTemplate.receive(endpoint, TIMEOUT);
     }
 }

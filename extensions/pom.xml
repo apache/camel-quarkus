@@ -71,6 +71,7 @@
         <module>dataformat</module>
         <module>debezium-mysql</module>
         <module>debezium-postgres</module>
+        <module>debezium-sqlserver</module>
         <module>direct</module>
         <module>dozer</module>
         <module>elasticsearch-rest</module>
