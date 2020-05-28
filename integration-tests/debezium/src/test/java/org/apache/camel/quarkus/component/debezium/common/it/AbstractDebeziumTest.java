@@ -43,7 +43,7 @@ public abstract class AbstractDebeziumTest {
     private static String COMPANY_2 = "Even Better Company";
     private static String CITY_1 = "Prague";
     private static String CITY_2 = "Paris";
-    private static int REPEAT_COUNT = 5;
+    private static int REPEAT_COUNT = 3;
 
     /**
      * Each impleentation is responsible for connection creation and its closure.
@@ -56,13 +56,23 @@ public abstract class AbstractDebeziumTest {
         this.type = type;
     }
 
+    protected String getCompanyTableName() {
+        return "COMPANY";
+    }
+
     @Test
     @Order(1)
-    public void insert() throws SQLException {
+    public void testInsert() throws SQLException {
+        if (getConnection() == null) {
+            LOG.warn("Test 'testInsert' is skipped, because container is not running.");
+            return;
+        }
+
         int i = 0;
 
         while (i++ < REPEAT_COUNT) {
-            executeUpdate("INSERT INTO COMPANY (name, city) VALUES ('" + COMPANY_1 + "_" + i + "', '" + CITY_1 + "')");
+            executeUpdate(String.format("INSERT INTO %s (name, city) VALUES ('%s', '%s')", getCompanyTableName(),
+                    COMPANY_1 + "_" + i, CITY_1));
 
             Response response = receiveResponse();
 
@@ -80,18 +90,26 @@ public abstract class AbstractDebeziumTest {
             break;
         }
 
-        Assert.assertTrue("Debezium does not respond", i < REPEAT_COUNT);
+        Assert.assertTrue("Debezium does not respond (consider changing timeout in AbstractDebeziumResource).",
+                i < REPEAT_COUNT);
     }
 
     @Test
     @Order(2)
     public void testUpdate() throws SQLException {
-        executeUpdate("INSERT INTO COMPANY (name, city) VALUES ('" + COMPANY_2 + "', '" + CITY_2 + "')");
+        if (getConnection() == null) {
+            LOG.warn("Test 'testUpdate' is skipped, because container is not running.");
+            return;
+        }
+
+        executeUpdate(String.format("INSERT INTO %s (name, city) VALUES ('%s', '%s')", getCompanyTableName(),
+                COMPANY_2, CITY_2));
 
         //validate that event is in queue
         receiveResponse(200, containsString(COMPANY_2));
 
-        executeUpdate("UPDATE COMPANY SET name = '" + COMPANY_2 + "_changed' WHERE city = '" + CITY_2 + "'");
+        executeUpdate(String.format("UPDATE %s SET name = '%s_changed' WHERE city = '%s'", getCompanyTableName(),
+                COMPANY_2, CITY_2));
 
         //validate that event for delete is in queue
         receiveResponse(204, is(emptyOrNullString()));
@@ -102,13 +120,18 @@ public abstract class AbstractDebeziumTest {
     @Test
     @Order(3)
     public void testDelete() throws SQLException {
-        int res = executeUpdate("DELETE FROM COMPANY");
+        if (getConnection() == null) {
+            LOG.warn("Test 'testDelete' is skipped, because container is not running.");
+            return;
+        }
+
+        int res = executeUpdate("DELETE FROM " + getCompanyTableName());
         int i = 0;
         for (i = 0; i < res; i++) {
             //validate that event for delete is in queue
             receiveResponse(204, is(emptyOrNullString()));
         }
-        Assert.assertTrue("No records were deleted", i > 0);
+        Assert.assertTrue("No records were deleted", i > 1);
     }
 
     protected Response receiveResponse() {

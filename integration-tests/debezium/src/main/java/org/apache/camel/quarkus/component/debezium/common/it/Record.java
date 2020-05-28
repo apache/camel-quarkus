@@ -16,41 +16,32 @@
  */
 package org.apache.camel.quarkus.component.debezium.common.it;
 
-/**
- * Each supported debezium connecter has to have its own Type.
- * Types are used to return type specific names of system properties, which will be used for sharing container
- * properties.
- */
-public enum Type {
+public class Record {
 
-    postgres, mysql, sqlserver;
+    private String operation;
+    private String value;
 
-    /** name of the camel component */
-    public String getComponent() {
-        return "debezium-" + name();
+    public Record() {
     }
 
-    public String getPropertyHostname() {
-        return name() + "_hostname";
+    public Record(String operation, String value) {
+        this.operation = operation;
+        this.value = value;
     }
 
-    public String getPropertyPort() {
-        return name() + "_port";
+    public String getOperation() {
+        return operation;
     }
 
-    public String getPropertyOffsetFileName() {
-        return name() + "_offsetStorageFileName";
+    public void setOperation(String operation) {
+        this.operation = operation;
     }
 
-    public String getPropertyUsername() {
-        return name() + "_username";
+    public String getValue() {
+        return value;
     }
 
-    public String getPropertyPassword() {
-        return name() + "_password";
-    }
-
-    public String getPropertyJdbc() {
-        return name() + "_jdbc";
+    public void setValue(String value) {
+        this.value = value;
     }
 }

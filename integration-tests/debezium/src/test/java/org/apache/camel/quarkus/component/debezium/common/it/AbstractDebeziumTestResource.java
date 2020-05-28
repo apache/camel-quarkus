@@ -74,6 +74,7 @@ public abstract class AbstractDebeziumTestResource<T extends GenericContainer> i
             return map;
 
         } catch (Exception e) {
+            LOGGER.error("Container does not start", e);
             throw new RuntimeException(e);
         }
     }

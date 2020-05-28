@@ -1,0 +1,3 @@
+SQL server may require encryption. In that case `quarkus.ssl.native=false` parameter has to be added during execution.
+See https://quarkus.io/guides/native-and-ssl for more details.
+

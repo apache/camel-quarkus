@@ -31,16 +31,20 @@
     <description>Integration tests for Camel Quarkus Debezium Extensions</description>
 
     <properties>
+        <sqlserver.EULA.accepted>true</sqlserver.EULA.accepted>
         <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
         <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
         <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-debezium-postgres-deployment,camel-quarkus-debezium-mysql-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-debezium-postgres-deployment,camel-quarkus-debezium-mysql-deployment,camel-quarkus-debezium-sqlserver-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
         <!-- You need to download the driver yourself. We cannot add a compile scope dependency for legal reasons. -->
-        <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-myslq.html#_usage for more details -->
-        <mysql.driver.file>libs/mysql-connector-java.jar</mysql.driver.file>
+        <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-mysql.html#_usage for more details -->
+        <mysql.driver.file>libs/mysql-connector-java-8.0.20.jar</mysql.driver.file>
+        <!-- You are required to accept an EULA for SQL container image. We cannot do it by default for legal reasons. -->
+        <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html#_integration-testing for more details -->
+        <sqlserver.EULA>src/test/resources/container-license-acceptance.txt</sqlserver.EULA>
     </properties>
 
     <dependencyManagement>
@@ -60,9 +64,14 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-debezium-postgres</artifactId>
         </dependency>
+
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -89,6 +98,11 @@
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>mysql</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>mssqlserver</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -158,34 +172,18 @@
             </dependencies>
         </profile>
         <profile>
-            <id>noMysqlDriver</id>
+            <id>sqlserver</id>
             <activation>
                 <file>
-                    <missing>${mysql.driver.file}</missing>
+                    <exists>${sqlserver.EULA}</exists>
                 </file>
             </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/*Mysql*</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <configuration>
-                            <excludes>
-                                <exclude>**/*Mysql*</exclude>
-                            </excludes>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <dependencies>
+                <dependency>
+                    <groupId>org.apache.camel.quarkus</groupId>
+                    <artifactId>camel-quarkus-debezium-sqlserver</artifactId>
+                </dependency>
+            </dependencies>
         </profile>
     </profiles>
 
