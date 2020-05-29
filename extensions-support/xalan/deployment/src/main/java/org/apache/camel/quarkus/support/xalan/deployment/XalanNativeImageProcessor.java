@@ -49,6 +49,7 @@ class XalanNativeImageProcessor {
                 "org.apache.camel.quarkus.support.xalan.XalanTransformerFactory",
                 "org.apache.xalan.xsltc.dom.ObjectFactory",
                 "org.apache.xalan.xsltc.dom.XSLTCDTMManager",
+                "org.apache.xalan.xsltc.trax.ObjectFactory",
                 "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
                 "org.apache.xml.serializer.OutputPropertiesFactory",
                 "org.apache.xml.serializer.CharInfo",

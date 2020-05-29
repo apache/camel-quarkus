@@ -839,6 +839,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-microprofile-fault-tolerance</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.eclipse.microprofile.fault-tolerance</groupId>
+                        <artifactId>microprofile-fault-tolerance-api</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
