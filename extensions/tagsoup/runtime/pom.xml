@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-jaxb</artifactId>
+            <artifactId>camel-quarkus-support-xml</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
