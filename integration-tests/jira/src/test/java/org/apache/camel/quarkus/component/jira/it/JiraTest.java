@@ -20,22 +20,24 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.matchesPattern;
 
 @QuarkusTest
-@EnabledIfEnvironmentVariable(named = "JIRA_ISSUES_PROJECT_KEY", matches = "[A-Z0-9]+")
-@EnabledIfEnvironmentVariable(named = "JIRA_URL", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "JIRA_USERNAME", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "JIRA_PASSWORD", matches = ".+")
 public class JiraTest {
 
     @Test
     public void testJiraComponent() {
+        String jiraUrl = System.getenv("JIRA_URL");
+        if (jiraUrl == null) {
+            jiraUrl = String.format("http://localhost:%s/jira",
+                    System.getProperty("quarkus.http.test-port", System.getProperty("quarkus.http.port")));
+        }
+
         RestAssured
                 .given()
                 .contentType(ContentType.TEXT)
+                .queryParam("jiraUrl", jiraUrl)
                 .body("Demo issue body")
                 .when()
                 .post("/jira/post")

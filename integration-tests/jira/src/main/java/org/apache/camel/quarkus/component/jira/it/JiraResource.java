@@ -25,6 +25,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -49,14 +50,15 @@ public class JiraResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
+    public Response post(@QueryParam("jiraUrl") String jiraUrl, String message) throws Exception {
         Map<String, Object> headers = new HashMap<>();
         headers.put(JiraConstants.ISSUE_PROJECT_KEY, projectKey);
         headers.put(JiraConstants.ISSUE_TYPE_NAME, "Task");
         headers.put(JiraConstants.ISSUE_SUMMARY, "Demo Bug");
 
         log.infof("Sending to jira: %s", message);
-        Issue issue = producerTemplate.requestBodyAndHeaders("jira:addIssue", message, headers, Issue.class);
+
+        Issue issue = producerTemplate.requestBodyAndHeaders("jira:addIssue?jiraUrl=" + jiraUrl, message, headers, Issue.class);
 
         log.infof("Created new issue: %s", issue.getKey());
         return Response

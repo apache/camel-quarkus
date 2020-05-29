@@ -1,10 +1,8 @@
 == Camel Quarkus Jira Integration Tests
 
-To run `camel-quarkus-jira` integration tests, you need a running Jira instance to test against.
+By default integration tests are performed against a mock Jira JAX-RS endpoint which is defined in class `FakeJiraResource`.
 
-A simple way of doing this is to use the https://hub.docker.com/r/atlassian/jira-software[Jira Docker image].
-
-Set the following environment variables:
+To run `camel-quarkus-jira` integration tests against a real Jira instance, set the environment variables described below.
 
 [source,shell]
 ----
@@ -14,4 +12,4 @@ export JIRA_USERNAME=my-jira-username
 export JIRA_PASSWORD=my-jira-password
 ----
 
-
+A simple way of setting up a Jira server is to use the https://hub.docker.com/r/atlassian/jira-software[Jira Docker image].
