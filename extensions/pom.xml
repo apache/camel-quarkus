@@ -116,6 +116,7 @@
         <module>netty</module>
         <module>netty-http</module>
         <module>olingo4</module>
+        <module>openapi-java</module>
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>

@@ -93,6 +93,7 @@ networking:
   - websocket-jsr356
 platform:
   - microprofile
+  - openapi-java
   - opentracing
   - platform-http
   - platform-http-engine
