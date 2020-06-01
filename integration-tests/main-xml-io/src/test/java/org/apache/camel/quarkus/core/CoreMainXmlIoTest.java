@@ -41,6 +41,7 @@ public class CoreMainXmlIoTest {
 
         assertThat(p.getString("xml-loader")).isEqualTo(ModelParserXMLRoutesDefinitionLoader.class.getName());
         assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
+        assertThat(p.getString("xml-model-factory")).isEqualTo(DisabledModelJAXBContextFactory.class.getName());
 
         assertThat(p.getList("routeBuilders", String.class))
                 .isEmpty();

@@ -27,19 +27,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.spi.Registry;
 
 @Path("/test")
 @ApplicationScoped
 public class CoreMainXmlJaxbResource {
     @Inject
     CamelMain main;
-    @Inject
-    Registry registry;
-    @Inject
-    CamelContext context;
 
     @Path("/main/describe")
     @GET
@@ -67,6 +61,7 @@ public class CoreMainXmlJaxbResource {
         return Json.createObjectBuilder()
                 .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
                 .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
+                .add("xml-model-factory", camelContext.getModelJAXBContextFactory().getClass().getName())
                 .add("routes-collector", collector)
                 .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)

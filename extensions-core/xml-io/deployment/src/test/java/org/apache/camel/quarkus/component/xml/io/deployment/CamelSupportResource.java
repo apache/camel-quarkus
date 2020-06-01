@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xml.jaxb.deployment;
+package org.apache.camel.quarkus.component.xml.io.deployment;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

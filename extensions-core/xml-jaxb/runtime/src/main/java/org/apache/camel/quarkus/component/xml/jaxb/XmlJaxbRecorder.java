@@ -23,10 +23,8 @@ import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.xml.jaxb.DefaultModelJAXBContextFactory;
 import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
-import org.apache.camel.xml.jaxb.JaxbXMLRoutesDefinitionLoader;
 import org.graalvm.nativeimage.ImageInfo;
 
 @Recorder
@@ -42,10 +40,6 @@ public class XmlJaxbRecorder {
             }
         }
         return new RuntimeValue<>(factory);
-    }
-
-    public RuntimeValue<XMLRoutesDefinitionLoader> newJaxbXMLRoutesDefinitionLoader() {
-        return new RuntimeValue<>(new JaxbXMLRoutesDefinitionLoader());
     }
 
     public RuntimeValue<ModelToXMLDumper> newJaxbModelToXMLDumper() {

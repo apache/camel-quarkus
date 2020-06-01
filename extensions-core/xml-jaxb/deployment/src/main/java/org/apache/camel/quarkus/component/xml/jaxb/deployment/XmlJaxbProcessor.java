@@ -28,7 +28,6 @@ import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.quarkus.component.xml.jaxb.XmlJaxbRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
@@ -57,12 +56,6 @@ class XmlJaxbProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     CamelModelJAXBContextFactoryBuildItem contextFactory(XmlJaxbRecorder recorder) {
         return new CamelModelJAXBContextFactoryBuildItem(recorder.newContextFactory());
-    }
-
-    @BuildStep
-    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    CamelRoutesLoaderBuildItems.Xml xmlLoader(XmlJaxbRecorder recorder) {
-        return new CamelRoutesLoaderBuildItems.Xml(recorder.newJaxbXMLRoutesDefinitionLoader());
     }
 
     @BuildStep
