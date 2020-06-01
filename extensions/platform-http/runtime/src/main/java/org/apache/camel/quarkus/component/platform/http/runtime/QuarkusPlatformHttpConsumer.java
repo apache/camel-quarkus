@@ -219,6 +219,14 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             ExchangeHelper.setFailureHandled(exchange);
         }
 
+        // set the content-length if it can be determined, or chunked encoding
+        final Integer length = determineContentLength(exchange, body);
+        if (length != null) {
+            response.putHeader("Content-Length", String.valueOf(length));
+        } else {
+            response.setChunked(true);
+        }
+
         // set the content type in the response.
         final String contentType = MessageHelper.getContentType(message);
         if (contentType != null) {
@@ -226,6 +234,18 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
             response.putHeader("Content-Type", contentType);
         }
         return body;
+    }
+
+    /*
+     * Copied from org.apache.camel.component.platform.http.vertx.VertxPlatformHttpSupport.determineContentLength(Exchange, Object)
+     */
+    static Integer determineContentLength(Exchange camelExchange, Object body) {
+        if (body instanceof byte[]) {
+            return ((byte[]) body).length;
+        } else if (body instanceof ByteBuffer) {
+            return ((ByteBuffer) body).remaining();
+        }
+        return null;
     }
 
     /*
