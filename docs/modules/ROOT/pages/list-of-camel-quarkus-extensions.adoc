@@ -425,7 +425,7 @@ Number of Camel languages: 13 in 7 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 14 in 14 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -446,6 +446,8 @@ Number of miscellaneous extensions: 13 in 13 JAR artifacts (0 deprecated)
 |  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-CR1 | Circuit Breaker EIP using Microprofile Fault Tolerance
 
 |  xref:extensions/microprofile-health.adoc[Microprofile Health]  | camel-quarkus-microprofile-health | Native + Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
+
+|  xref:extensions/openapi-java.adoc[Openapi Java]  | camel-quarkus-openapi-java | Native + Stable | 1.0.0-CR2 | Rest-dsl support for using openapi doc
 
 |  xref:extensions/opentracing.adoc[OpenTracing]  | camel-quarkus-opentracing | Native + Stable | 0.3.0 | Distributed tracing using OpenTracing
 
