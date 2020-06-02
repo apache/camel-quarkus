@@ -60,16 +60,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-opentracing</artifactId>
         </dependency>
-
-        <!-- TODO: Remove this when Quarkus Jaeger extension issues are fixed https://github.com/quarkusio/quarkus/issues/8578 -->
-        <dependency>
-            <groupId>org.eclipse.microprofile.metrics</groupId>
-            <artifactId>microprofile-metrics-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.smallrye</groupId>
-            <artifactId>smallrye-metrics</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
