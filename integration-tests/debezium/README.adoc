@@ -1,0 +1,3 @@
+To run the MySQL Debezium integration tests you have to store the driver jar under
+`libs/mysql-connector-java.jar` in the current Maven module. The path can be changed by setting the
+`mysql.driver.file` property on the command line.

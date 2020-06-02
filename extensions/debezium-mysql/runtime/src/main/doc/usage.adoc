@@ -1,8 +1,17 @@
-We can not add driver as a compile scope dependency for legal reasons.
+We cannot add the MySQL JDBC driver as a compile scope dependency of this extension because it is GPL2 licensed and it
+would be against the policy of the Apache Software Foundation.
 
-To use extension, you have to add runtime dependency to mysql driver. Suggested version and driver is
-`mysql:mysql-connector-java:8.0.20`. (It is the transitive dependency from `o.quarkus:quarkus-jdbc-mysql:1.5.0.CR1`)
+Therefore you have to add the dependency to your project yourself, as long as you are able to comply with its license
+terms.
 
-To execute integration tests you have to add driver jar into the specific folder in the module. Name of the file (which
-also specifies version) is defined as property `mysql.driver.file` with default value
-`libs/mysql-connector-java-8.0.20.jar`
+`quarkus-bom` (transitively included by `camel-quakrus-bom` and `quarkus-universe-bom`) manages a version
+of `mysql:mysql-connector-java` compatible with Camel Quarkus. So you do not need specify the version of the
+driver if you import any of the mentioned BOMs. The following should be sufficient for Maven:
+
+[source,xml]
+----
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+</dependency>
+----
