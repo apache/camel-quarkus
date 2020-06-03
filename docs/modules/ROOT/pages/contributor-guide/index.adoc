@@ -11,7 +11,7 @@
   documentation.
 * If your are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
-* JDK 8+
+* Java 11
 * Maven 3.6.2+ (unless you use the Maven Wrapper, a.k.a. `mvnw` available in the source tree).
 
 [[how-to-build]]
