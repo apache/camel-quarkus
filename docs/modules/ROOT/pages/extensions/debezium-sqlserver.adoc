@@ -29,9 +29,10 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Usage
 
-SQL server may require encryption. In that case `quarkus.ssl.native=false` parameter has to be added during execution.
-See https://quarkus.io/guides/native-and-ssl for more details.
-
+Depending on its configuration, SQL server may require SSL encryption on JDBC connections. In such a case, you will need
+to add `quarkus.ssl.native=true` to your `application.properties`.
+See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.html[Native mode]
+section of Camel Quarkus user guide.
 
 
 == Camel Quarkus limitations

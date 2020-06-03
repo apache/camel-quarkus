@@ -1,7 +1,0 @@
-We can not start SQL container for legal reasons.
-
-To execute integration tests you are required to accept an EULA for SQL container image. Please add file named
-`container-license-acceptance.txt` with content `mcr.microsoft.com/mssql/server:2017-CU12` into the test resource
-folder (`integration-tests/debezium/src/test/resources`).
-
-For more details see https://www.testcontainers.org/modules/databases/mssqlserver/

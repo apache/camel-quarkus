@@ -1,3 +1,24 @@
+== MySQL
+
 To run the MySQL Debezium integration tests you have to store the driver jar under
 `libs/mysql-connector-java.jar` in the current Maven module. The path can be changed by setting the
 `mysql.driver.file` property on the command line.
+
+== MS SQL Server
+
+We cannot enable starting the container hosting the MS SQL test instance by default, because it requires expressing
+consent with its EULA by placing a specific file on a specific location. The Apache Software Foundation's policy
+prevents us of doing it unconditionally for anybody who clones this repository.
+
+Therefore, to execute the MS SQL Server integration tests you need to accept the
+https://go.microsoft.com/fwlink/?linkid=857698[EULA] by creating file `integration-tests/debezium/src/test/resources/container-license-acceptance.txt` with content `mcr.microsoft.com/mssql/server:2017-CU12`
+in the current Maven module.
+
+On a Unix-like system, you can run
+
+[source,shell]
+----
+$ echo "mcr.microsoft.com/mssql/server:2017-CU12" > integration-tests/debezium/src/test/resources/container-license-acceptance.txt
+----
+
+For more details see https://www.testcontainers.org/modules/databases/mssqlserver/
