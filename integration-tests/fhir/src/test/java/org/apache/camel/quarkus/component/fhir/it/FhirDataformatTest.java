@@ -21,9 +21,9 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
+import org.apache.camel.quarkus.test.EnabledIf;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -31,10 +31,8 @@ class FhirDataformatTest {
     private static final Logger LOG = Logger.getLogger(FhirDataformatTest.class);
 
     @Test
-    //@EnabledIf(FhirFlags.Dstu2Enabled.class)
+    @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void jsonDstu2() {
-        Assumptions.assumeTrue(new FhirFlags.Dstu2Enabled().getAsBoolean());
-
         LOG.info("Running DSTU2 JSON test");
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
@@ -46,10 +44,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.Dstu2Enabled.class)
+    @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void xmlDstu2() {
-        Assumptions.assumeTrue(new FhirFlags.Dstu2Enabled().getAsBoolean());
-
         LOG.info("Running DSTU2 XML test");
 
         final ca.uhn.fhir.model.dstu2.resource.Patient patient = getDstu2Patient();
@@ -61,10 +57,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.Dstu3Enabled.class)
+    @EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void jsonDstu3() {
-        Assumptions.assumeTrue(new FhirFlags.Dstu3Enabled().getAsBoolean());
-
         LOG.info("Running DSTU3 JSON test");
 
         final Patient patient = getDstu3Patient();
@@ -76,10 +70,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.Dstu3Enabled.class)
+    @EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void xmlDstu3() {
-        Assumptions.assumeTrue(new FhirFlags.Dstu3Enabled().getAsBoolean());
-
         LOG.info("Running DSTU3 XML test");
 
         final Patient patient = getDstu3Patient();
@@ -91,10 +83,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.R4Enabled.class)
+    @EnabledIf(FhirFlags.R4Enabled.class)
     public void jsonR4() {
-        Assumptions.assumeTrue(new FhirFlags.R4Enabled().getAsBoolean());
-
         LOG.info("Running R4 JSON test");
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
@@ -106,10 +96,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.R4Enabled.class)
+    @EnabledIf(FhirFlags.R4Enabled.class)
     public void xmlR4() {
-        Assumptions.assumeTrue(new FhirFlags.R4Enabled().getAsBoolean());
-
         LOG.info("Running R4 XML test");
 
         final org.hl7.fhir.r4.model.Patient patient = getR4Patient();
@@ -121,10 +109,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.R5Enabled.class)
+    @EnabledIf(FhirFlags.R5Enabled.class)
     public void jsonR5() {
-        Assumptions.assumeTrue(new FhirFlags.R5Enabled().getAsBoolean());
-
         LOG.info("Running R5 JSON test");
 
         final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
@@ -136,10 +122,8 @@ class FhirDataformatTest {
     }
 
     @Test
-    //@EnabledIf(FhirFlags.R5Enabled.class)
+    @EnabledIf(FhirFlags.R5Enabled.class)
     public void xmlR5() {
-        Assumptions.assumeTrue(new FhirFlags.R5Enabled().getAsBoolean());
-
         LOG.info("Running R5 XML test");
 
         final org.hl7.fhir.r5.model.Patient patient = getR5Patient();
