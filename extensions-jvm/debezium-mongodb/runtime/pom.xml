@@ -61,16 +61,6 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-debezium-mongodb</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.mongodb</groupId>
-                    <artifactId>bson</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mongodb</groupId>
-                    <artifactId>mongodb-driver-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
     </dependencies>
 
