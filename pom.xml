@@ -64,7 +64,6 @@
         <jetty.version>9.4.18.v20190429</jetty.version>
         <kubernetes-client.version>4.10.1</kubernetes-client.version>
         <kotlin.version>1.3.72</kotlin.version>
-        <mongodb.version>4.0.1</mongodb.version>
         <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
         <quarkus.version>1.5.0.Final</quarkus.version>
