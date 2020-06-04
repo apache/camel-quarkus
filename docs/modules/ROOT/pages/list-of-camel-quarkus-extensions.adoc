@@ -40,7 +40,7 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB Streams] | camel-quarkus-aws2-ddb | JVM + Preview | 1.0.0-M6 | Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-ec2.adoc[AWS 2 EC2] | camel-quarkus-aws2-ec2 | JVM + Preview | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
+| xref:extensions/aws2-ec2.adoc[AWS 2 EC2] | camel-quarkus-aws2-ec2 | Native + Stable | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
 
 | xref:extensions/aws2-ecs.adoc[AWS 2 ECS] | camel-quarkus-aws2-ecs | JVM + Preview | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
 
