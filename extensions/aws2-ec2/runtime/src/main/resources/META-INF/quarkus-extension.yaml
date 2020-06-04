@@ -24,8 +24,6 @@
 name: "Camel AWS 2 EC2"
 description: "Manage AWS EC2 instances using AWS SDK version 2.x"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-ec2.html"
   categories:
   - "integration"
-  status: "preview"
