@@ -8,7 +8,7 @@ as a base for your real world project.
 
 * A `git` client
 * An IDE
-* JDK 11+ with JAVA_HOME configured appropriately
+* JDK 8+ with JAVA_HOME configured appropriately
 * Apache Maven 3.6.2+
 * GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set, see
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
