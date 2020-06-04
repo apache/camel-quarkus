@@ -487,9 +487,6 @@
                                         <version>3.6.2</version>
                                     </requireMavenVersion>
                                     <rules>
-                                        <requireJavaVersion>
-                                            <version>11</version>
-                                        </requireJavaVersion>
                                         <dependencyConvergence />
                                         <requireMavenVersion>
                                             <version>${supported-maven-versions}</version>

@@ -115,7 +115,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '14' ]
+        java: [ '8' , '14' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -219,7 +219,7 @@ jobs:
   #     - name: Set Up Java
   #       uses: actions/setup-java@v1
   #       with:
-  #         java-version: 11
+  #         java-version: 1.8
   #      - name: Download Maven Repo
   #        uses: actions/download-artifact@v1
   #        with:
