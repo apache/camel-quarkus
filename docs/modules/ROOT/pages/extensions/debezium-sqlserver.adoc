@@ -31,7 +31,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 Depending on its configuration, SQL server may require SSL encryption on JDBC connections. In such a case, you will need
 to add `quarkus.ssl.native=true` to your `application.properties`.
-See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.html[Native mode]
+See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.adoc[Native mode]
 section of Camel Quarkus user guide.
 
 
