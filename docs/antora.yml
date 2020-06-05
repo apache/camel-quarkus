@@ -16,7 +16,7 @@
 #
 
 name: camel-quarkus
-title: Camel Quarkus Extensions
+title: Camel Quarkus
 version: latest
 nav:
 - modules/ROOT/nav.adoc

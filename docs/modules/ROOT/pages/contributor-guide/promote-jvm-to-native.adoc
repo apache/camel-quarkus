@@ -14,128 +14,48 @@ Please find some guiding steps below to start this quest:
 2. Let others know that you work on promoting the given extension by either creating a
    https://github.com/apache/camel-quarkus/issues/new[new issue] or asking to assign an existing one to you.
 
-3. Select the JVM Only extension to be promoted, for instance the grpc extension like below:
+3. Use the `promote` mojo of `cq-maven-plugin` to perform the automatable steps:
 +
 [source,shell]
 ----
 $ cd camel-quarkus
-$ export EXT='grpc'
+$ mvn -N cq:promote -Dcq.artifactIdBase=...
 ----
++
+where `cq.artifactIdBase` needs to be set to the unique part of the `artifactId` of the extension you are
+promoting. E.g. if you are promoting an extension with `artifactId` `camel-quarkus-foo`, you need to set
+`-Dcq.artifactIdBase=foo`.
++
+The `promote` mojo does the following for you:
++
+* Copies the test module from `extensions-jvm/foo/integration-test` to `integration-tests/foo`
+* Adjusts the `name` and `artifactId` of the test module
+* Adds `native` profile to the test module
+* Creates a native test class extending the existing JVM mode test class
+* Copies the rest of the extension code from `extensions-jvm/foo` to `extensions/foo`
+* Removes the warning build step from the processor class in the deployment module
 
-4. Split the JVM Only extension into `extensions` and `integration-tests` folders, from a shell execute:
+4. Assign the integration test to an existing or new test category in `.github/test-categories.yaml` so that
+   it gets executed by the CI.
+
+5. Add some meaningful tests to `FooTest` and make sure they pass in both JVM and native mode:
 +
 [source,shell]
 ----
-$ {
-   sed -i '/integration-test/d' "extensions-jvm/${EXT}/pom.xml"
-   sed -i "/<module>${EXT}<\/module>/d" "extensions-jvm/pom.xml"
-   git mv "extensions-jvm/${EXT}/integration-test/" "integration-tests/${EXT}"
-   git mv "extensions-jvm/${EXT}" "extensions/${EXT}"
-   sed -i -r "s/(.*)activemq(.*)/\1activemq\2\n\1${EXT}\2/g" extensions/pom.xml
-   sed -i -r "s/(.*)activemq(.*)/\1activemq\2\n\1${EXT}\2/g" integration-tests/pom.xml
-   sed -i -r "s/camel-quarkus-build-parent-it/camel-quarkus-integration-tests/g" "integration-tests/${EXT}/pom.xml"
-   sed -i '/relativePath/d' "integration-tests/${EXT}/pom.xml"
-   sed -i -r "s/camel-quarkus-${EXT}-integration-test/camel-quarkus-integration-test-${EXT}/g" "integration-tests/${EXT}/pom.xml"
-   sed -i -r "s/Quarkus :: (.*) :: Integration Test/Quarkus :: Integration Tests :: \1/g" "integration-tests/${EXT}/pom.xml"
-  }
+$ cd integration-tests/foo
+$ mvn clean verify -Pnative
 ----
 
-5. Add the native profile at the end of `integration-tests/$\{EXT}/pom.xml`:
-+
-[source,xml]
-----
-    <profiles>
-        <profile>
-            <id>native</id>
-            <activation>
-                <property>
-                    <name>native</name>
-                </property>
-            </activation>
-            <properties>
-                <quarkus.package.type>native</quarkus.package.type>
-            </properties>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-----
+Consider shifting some tasks from runtime to build time.
+The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good ally for this.
 
-6. Remove the warning link:https://quarkus.io/guides/writing-extensions#build-step-processors[build step] from `extensions/$\{EXT}/deployment/src/main/java/org/apache/camel/quarkus/component/$\{EXT}/deployment/$\{EXT}Processor.java`:
-+
-[source,java]
-----
-    /**
-     * Remove this once this extension starts supporting the native mode.
-     */
-    @BuildStep(onlyIf = NativeBuild.class)
-    @Record(value = ExecutionTime.RUNTIME_INIT)
-    void warnJvmInNative(JvmOnlyRecorder recorder) {
-        JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
-        recorder.warnJvmInNative(FEATURE); // warn at runtime
-    }
-----
-
-7. Create a native test at `integration-tests/$\{EXT}/src/test/java/org/apache/camel/quarkus/component/$\{EXT}/it/$\{EXT}IT.java`
-
-
-8. Check the `extensions/$\{EXT}/runtime/src/main/resources/META-INF/quarkus-extension.yaml` file.
-+
-   The
-   `description` comes from Camel Catalog. If it looks improper or too long due to concatenation of multiple
-   component descriptions, you may override it by setting an explicit `<description>` in the runtime `pom.xml`
-   of your new extension. If you think the value coming from Camel Catalog should be changed, please
-   https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel issue] and ask to fix the metadata
-   for the given Camel component.
-+
-   If there is some important keyword missing in both the `name` and `description` through which your new extension
-   should definitely be findable on https://code.quarkus.io[code.quarkus.io], consider setting
-   `<quarkus.metadata.keywords>` property in your runtime `pom.xml`.
-+
-   Make sure you run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate
-   the `quarkus-extension.yaml` file. As a result the `unlisted: true` line should disappear.
-+
-   Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
-
-9. Add the integration test to an existing or new test category in `.github/test-categories.yaml`, for instance:
-+
-[source,yaml]
-----
-rpc:
-  - grpc
-----
-
-10. Unify source files format, update docs and rebuild the whole project:
+6. Unify source files format, update docs and rebuild the whole project:
 +
 [source,shell]
 ----
-mvn clean install -D skipTests -P format
+$ mvn clean install -DskipTests -Pformat
 ----
 
-11. Execute integration tests:
-+
-[source,shell]
-----
-cd "integration-tests/${EXT}"
-mvn clean verify -P native
-----
+7. Squash your commits before sending a pull request.
 
-12. Now it's time to solve native build issues if any, extend integration tests coverage and perhaps even shifting some tasks
-from runtime to build time. The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good
-ally for this.
-
-13. Please also check the xref:contributor-guide/create-new-extension.adoc[Create new extension] page as it contains some useful tips for a good contribution.
+Good luck!
