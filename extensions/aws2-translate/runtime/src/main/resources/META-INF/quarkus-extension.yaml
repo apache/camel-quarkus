@@ -24,8 +24,6 @@
 name: "Camel AWS 2 Translate"
 description: "Translate texts using AWS Translate and AWS SDK version 2.x"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-translate.html"
   categories:
   - "integration"
-  status: "preview"
