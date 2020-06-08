@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.aws2;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.aws2.cw.Cw2Constants;
+import org.apache.camel.component.aws2.translate.Translate2Constants;
+import org.apache.camel.component.aws2.translate.Translate2LanguageEnum;
 
 public class CamelRoute extends RouteBuilder {
 
@@ -51,6 +53,13 @@ public class CamelRoute extends RouteBuilder {
                 .setHeader(Cw2Constants.METRIC_UNIT, constant("Count"))
                 .to("aws2-cw://test")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-translate?repeatCount=1")
+                .setHeader(Translate2Constants.SOURCE_LANGUAGE, constant(Translate2LanguageEnum.ITALIAN))
+                .setHeader(Translate2Constants.TARGET_LANGUAGE, constant(Translate2LanguageEnum.GERMAN))
+                .setBody(constant("Ciao"))
+                .to("aws2-translate://cluster?operation=translateText")
+                .log("Translation: ${body}");
     }
 
 }
