@@ -43,7 +43,6 @@
         <module>aws2-mq</module>
         <module>aws2-msk</module>
         <module>aws2-ses</module>
-        <module>aws2-translate</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>

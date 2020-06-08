@@ -62,7 +62,7 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service] | camel-quarkus-aws2-sqs | Native + Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-translate.adoc[AWS 2 Translate] | camel-quarkus-aws2-translate | JVM + Preview | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
+| xref:extensions/aws2-translate.adoc[AWS 2 Translate] | camel-quarkus-aws2-translate | Native + Stable | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
 
 | xref:extensions/aws-ec2.adoc[AWS EC2] | camel-quarkus-aws-ec2 | Native + Stable | 1.0.0-M3 | Manage AWS EC2 instances.
 
