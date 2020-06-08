@@ -19,8 +19,10 @@ package org.apache.camel.quarkus.component.couchdb.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class CouchdbProcessor {
@@ -37,7 +39,14 @@ class CouchdbProcessor {
         List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
         items.add(new ReflectiveClassBuildItem(false, true, "org.lightcouch.Response"));
         items.add(new ReflectiveClassBuildItem(false, true, "org.lightcouch.CouchDbInfo"));
+        items.add(new ReflectiveClassBuildItem(false, true, "org.lightcouch.ChangesResult$Row"));
+        items.add(new ReflectiveClassBuildItem(false, true, "org.lightcouch.ChangesResult$Row$Rev"));
         return items;
+    }
+
+    @BuildStep
+    void addDependenciesToIndexer(BuildProducer<IndexDependencyBuildItem> indexDependencyProducer) {
+        indexDependencyProducer.produce(new IndexDependencyBuildItem("com.google.code.gson", "gson"));
     }
 
 }

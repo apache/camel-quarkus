@@ -64,4 +64,20 @@ public class CouchdbTestDocument {
         }
         return jsonObject;
     }
+
+    public static CouchdbTestDocument fromJsonObject(JsonObject jsonObject) {
+        CouchdbTestDocument doc = new CouchdbTestDocument();
+        if (jsonObject.has("_id")) {
+            doc.setId(jsonObject.get("_id").getAsString());
+        }
+        if (jsonObject.has("_rev")) {
+            doc.setRevision(jsonObject.get("_rev").getAsString());
+        }
+        if (jsonObject.has("value")) {
+            doc.setValue(jsonObject.get("value").getAsString());
+        } else if (jsonObject.has("_deleted")) {
+            doc.setValue("delete");
+        }
+        return doc;
+    }
 }
