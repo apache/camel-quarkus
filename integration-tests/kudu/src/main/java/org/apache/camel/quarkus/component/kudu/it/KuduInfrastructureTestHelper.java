@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.kudu.it;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
@@ -74,20 +75,26 @@ public class KuduInfrastructureTestHelper {
 
     public static void overrideTabletServerHostnameResolution() {
         try {
-            // Warm up the InetAddress cache
-            InetAddress.getByName("localhost");
-            Field cacheField = InetAddress.class.getDeclaredField("cache");
-            cacheField.setAccessible(true);
-            Object cache = cacheField.get(null);
-
-            Method get = cache.getClass().getMethod("get", Object.class);
-            Object localHostCachedAddresses = get.invoke(cache, "localhost");
-
-            Method put = cache.getClass().getMethod("put", Object.class, Object.class);
-            put.invoke(cache, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses);
-        } catch (Exception ex) {
-            final String msg = "An issue occurred while attempting the Open JDK9+ override of the kudu tablet server hostname resolution";
-            LOG.warn(msg, ex);
+            if (System.getProperty("java.version").startsWith("1.8")) {
+                /* Warm up the InetAddress cache and get localhost addresses */
+                final InetAddress[] localHostCachedAddresses = InetAddress.getAllByName("localhost");
+                final Method cacheAddressesMethod = InetAddress.class.getDeclaredMethod("cacheAddresses", String.class,
+                        InetAddress[].class, boolean.class);
+                cacheAddressesMethod.setAccessible(true);
+                cacheAddressesMethod.invoke(null, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses, true);
+            } else {
+                // Warm up the InetAddress cache
+                InetAddress.getByName("localhost");
+                final Field cacheField = InetAddress.class.getDeclaredField("cache");
+                cacheField.setAccessible(true);
+                final Object cache = cacheField.get(null);
+                final Method get = ConcurrentHashMap.class.getMethod("get", Object.class);
+                final Object localHostCachedAddresses = get.invoke(cache, "localhost");
+                final Method put = ConcurrentHashMap.class.getMethod("put", Object.class, Object.class);
+                put.invoke(cache, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses);
+            }
+        } catch (Exception e) {
+            throw new IllegalStateException("Could not hack the kudu tablet server hostname resolution", e);
         }
     }
 }

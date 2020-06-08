@@ -17,13 +17,8 @@
 package org.apache.camel.quarkus.component.kudu.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.DisabledOnJre;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
-import org.junit.jupiter.api.condition.JRE;
 
 @NativeImageTest
-@EnabledIfSystemProperty(named = "java.runtime.name", matches = ".*OpenJDK.*")
-@DisabledOnJre(JRE.JAVA_8)
 class KuduIT extends KuduTest {
 
 }
