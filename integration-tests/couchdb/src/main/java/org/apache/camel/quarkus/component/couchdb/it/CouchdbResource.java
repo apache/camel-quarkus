@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.couchdb.it;
 
+import java.util.Collection;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -33,12 +36,15 @@ import org.apache.camel.component.couchdb.CouchDbOperations;
 import org.jboss.logging.Logger;
 import org.lightcouch.NoDocumentException;
 
+import static org.apache.camel.quarkus.component.couchdb.it.CouchDbRoute.COUCHDB_ENDPOINT_URI;
+
 @Path("/couchdb")
 @ApplicationScoped
 public class CouchdbResource {
 
-    private static final String baseUri = "couchdb:http://{{camel.couchdb.test.server.authority}}/database";
     private static final Logger LOG = Logger.getLogger(CouchdbResource.class);
+
+    private final ConcurrentLinkedQueue<CouchdbTestDocument> loggedEvents = new ConcurrentLinkedQueue<>();
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -49,7 +55,7 @@ public class CouchdbResource {
     @Produces(MediaType.APPLICATION_JSON)
     public CouchdbTestDocument create(CouchdbTestDocument document) {
         LOG.info("Invoking create");
-        Exchange createExchange = producerTemplate.request(baseUri + "?createDatabase=true",
+        Exchange createExchange = producerTemplate.request(COUCHDB_ENDPOINT_URI,
                 e -> e.getMessage().setBody(document.toJsonObject()));
         document.setId(createExchange.getMessage().getHeader(CouchDbConstants.HEADER_DOC_ID, String.class));
         document.setRevision(createExchange.getMessage().getHeader(CouchDbConstants.HEADER_DOC_REV, String.class));
@@ -62,7 +68,7 @@ public class CouchdbResource {
     @Produces(MediaType.APPLICATION_JSON)
     public String get(CouchdbTestDocument document) {
         LOG.info("Invoking get");
-        Exchange getExchange = producerTemplate.request(baseUri, e -> {
+        Exchange getExchange = producerTemplate.request(COUCHDB_ENDPOINT_URI, e -> {
             e.getMessage().setBody(document.toJsonObject());
             e.getMessage().setHeader(CouchDbConstants.HEADER_METHOD, CouchDbOperations.GET);
             e.getMessage().setHeader(CouchDbConstants.HEADER_DOC_ID, document.getId());
@@ -80,7 +86,7 @@ public class CouchdbResource {
     @Produces(MediaType.APPLICATION_JSON)
     public CouchdbTestDocument update(CouchdbTestDocument document) {
         LOG.info("Invoking update");
-        Exchange updateExchange = producerTemplate.request(baseUri, e -> {
+        Exchange updateExchange = producerTemplate.request(COUCHDB_ENDPOINT_URI, e -> {
             e.getMessage().setBody(document.toJsonObject());
         });
         document.setId(updateExchange.getMessage().getHeader(CouchDbConstants.HEADER_DOC_ID, String.class));
@@ -94,12 +100,23 @@ public class CouchdbResource {
     @Produces(MediaType.APPLICATION_JSON)
     public CouchdbTestDocument delete(CouchdbTestDocument document) {
         LOG.info("Invoking delete");
-        Exchange deleteExchange = producerTemplate.request(baseUri, e -> {
+        Exchange deleteExchange = producerTemplate.request(COUCHDB_ENDPOINT_URI, e -> {
             e.getMessage().setBody(document.toJsonObject());
             e.getMessage().setHeader(CouchDbConstants.HEADER_METHOD, CouchDbOperations.DELETE);
         });
         document.setId(deleteExchange.getMessage().getHeader(CouchDbConstants.HEADER_DOC_ID, String.class));
         document.setRevision(deleteExchange.getMessage().getHeader(CouchDbConstants.HEADER_DOC_REV, String.class));
         return document;
+    }
+
+    void logEvent(CouchdbTestDocument event) {
+        loggedEvents.add(event);
+    }
+
+    @Path("/get-events")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Collection<CouchdbTestDocument> getEvents() {
+        return loggedEvents;
     }
 }
