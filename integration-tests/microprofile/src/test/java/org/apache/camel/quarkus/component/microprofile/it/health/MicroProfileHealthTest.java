@@ -35,7 +35,8 @@ class MicroProfileHealthTest {
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
                         "checks.status", containsInAnyOrder("UP", "UP", "UP"),
-                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel-liveness-checks", "camel"),
+                        "checks.name",
+                        containsInAnyOrder("camel-readiness-checks", "camel-liveness-checks", "camel-context-check"),
                         "checks.data.contextStatus", containsInAnyOrder(null, null, "Started"),
                         "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "UP"),
                         "checks.data.name", containsInAnyOrder(null, null, "quarkus-camel-example"));
@@ -54,7 +55,7 @@ class MicroProfileHealthTest {
                     .body("status", is("DOWN"),
                             "checks.status", containsInAnyOrder("DOWN", "UP", "DOWN"),
                             "checks.name",
-                            containsInAnyOrder("camel-readiness-checks", "camel", "camel-liveness-checks"),
+                            containsInAnyOrder("camel-readiness-checks", "camel-context-check", "camel-liveness-checks"),
                             "checks.data.contextStatus", containsInAnyOrder(null, null, "Started"),
                             "checks.data.name",
                             containsInAnyOrder(null, null, "quarkus-camel-example"));
@@ -107,7 +108,7 @@ class MicroProfileHealthTest {
                 .header("Content-Type", containsString("charset=UTF-8"))
                 .body("status", is("UP"),
                         "checks.status", containsInAnyOrder("UP", "UP"),
-                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel"),
+                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel-context-check"),
                         "checks.data.contextStatus", containsInAnyOrder(null, "Started"),
                         "checks.data.name", containsInAnyOrder(null, "quarkus-camel-example"),
                         "checks.data.test-readiness", containsInAnyOrder(null, "UP"));
@@ -125,7 +126,7 @@ class MicroProfileHealthTest {
                     .header("Content-Type", containsString("charset=UTF-8"))
                     .body("status", is("DOWN"),
                             "checks.status", containsInAnyOrder("UP", "DOWN"),
-                            "checks.name", containsInAnyOrder("camel-readiness-checks", "camel"),
+                            "checks.name", containsInAnyOrder("camel-readiness-checks", "camel-context-check"),
                             "checks.data.contextStatus", containsInAnyOrder(null, "Started"),
                             "checks.data.name", containsInAnyOrder(null, "quarkus-camel-example"),
                             "checks.data.test-readiness", containsInAnyOrder(null, "UP"));
