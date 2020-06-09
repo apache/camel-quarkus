@@ -25,13 +25,17 @@ import javax.enterprise.inject.Vetoed;
 import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.health.HealthCheck;
+import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.health.HealthCheckRepository;
 import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.microprofile.health.AbstractCamelMicroProfileHealthCheck;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthConfig;
+import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.eclipse.microprofile.health.Liveness;
@@ -45,6 +49,8 @@ import org.jboss.jandex.IndexView;
 
 class MicroProfileHealthProcessor {
 
+    private static final DotName CAMEL_HEALTH_CHECK_REGISTRY_DOTNAME = DotName
+            .createSimple(HealthCheckRegistry.class.getName());
     private static final DotName CAMEL_HEALTH_CHECK_DOTNAME = DotName.createSimple(HealthCheck.class.getName());
     private static final DotName CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME = DotName
             .createSimple(HealthCheckRepository.class.getName());
@@ -56,6 +62,15 @@ class MicroProfileHealthProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    CamelBeanBuildItem metricRegistry(CamelMicroProfileHealthRecorder recorder, CamelMicroProfileHealthConfig config) {
+        return new CamelBeanBuildItem(
+                "HealthCheckRegistry",
+                HealthCheckRegistry.class.getName(),
+                recorder.createHealthCheckRegistry(config));
     }
 
     @BuildStep
