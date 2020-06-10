@@ -68,7 +68,7 @@ because the test project needs to get finished. You need to build `poms/bom` and
 9. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
    ask for help in the given GitHub issue or via https://gitter.im/apache/camel-quarkus[Camel Quarkus chat].
 
-10. Read the xref:contributor-guide/extension-documentation.adoc[Extension documentation] page and add `configuration.adoc`,
+10. Read the xref:extension-documentation.adoc[Extension documentation] page and add `configuration.adoc`,
    `usage.adoc`, etc. in `src/main/doc` directory of the runtime module if necessary.
 +
    After completing the extension documentation, run `mvn clean install -DskipTests`
