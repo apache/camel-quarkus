@@ -85,8 +85,6 @@ import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
-import org.apache.camel.spi.FactoryFinder;
-import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.jboss.jandex.ClassInfo;
@@ -190,14 +188,6 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/language/*",
                     "META-INF/services/org/apache/camel/dataformat/*",
                     "META-INF/services/org/apache/camel/send-dynamic/*"));
-
-            // TODO: this can be removed and the RestBindingJaxbDataFormatFactory can be discovered
-            //       and instantiated when camel is on the classpath with a camel context customizer
-            //       when https://github.com/apache/camel-quarkus/issues/984 will be implemented
-            services.produce(new CamelServicePatternBuildItem(
-                    CamelServiceDestination.DISCOVERY,
-                    true,
-                    FactoryFinder.DEFAULT_PATH + RestBindingJaxbDataFormatFactory.FACTORY));
 
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.DISCOVERY,

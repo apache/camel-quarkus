@@ -18,8 +18,12 @@ package org.apache.camel.quarkus.component.jaxb.deployment;
 
 import com.sun.xml.bind.v2.runtime.output.FastInfosetStreamWriterOutput;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.quarkus.component.jaxb.JaxbRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 
 class JaxbProcessor {
 
@@ -33,6 +37,12 @@ class JaxbProcessor {
     @BuildStep
     RuntimeInitializedClassBuildItem fastInfosetStreamWriterOutput() {
         return new RuntimeInitializedClassBuildItem(FastInfosetStreamWriterOutput.class.getCanonicalName());
+    }
+
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT)
+    CamelContextCustomizerBuildItem contextCustomizer(JaxbRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.newRestBindingJaxbDataFormatFactoryContextCustomizer());
     }
 
 }
