@@ -34,6 +34,7 @@
     <modules>
         <module>observability</module>
         <module>http-log</module>
+        <module>health</module>
         <module>rest-json</module>
         <module>timer-log</module>
         <module>timer-log-cdi</module>
