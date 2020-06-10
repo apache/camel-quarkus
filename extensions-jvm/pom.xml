@@ -36,7 +36,6 @@
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>avro-rpc</module>
         <module>aws2-ddb</module>
-        <module>aws2-ecs</module>
         <module>aws2-eks</module>
         <module>aws2-iam</module>
         <module>aws2-kms</module>
