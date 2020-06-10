@@ -436,7 +436,7 @@
                             <artifactIdPrefix>camel-quarkus-support-</artifactIdPrefix>
                         </extensionDir>
                         <extensionDir>
-                            <path>integration-tests/support</path>
+                            <path>integration-tests-support</path>
                             <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
                         </extensionDir>
                     </extensionDirs>
