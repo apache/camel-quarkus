@@ -59,7 +59,8 @@ public class ObservabilityTest {
                 .then()
                 .statusCode(200)
                 .body("status", Matchers.is("UP"),
-                        "checks.name", containsInAnyOrder("camel-readiness-checks", "camel", "Uptime readiness check"),
+                        "checks.name",
+                        containsInAnyOrder("camel-readiness-checks", "camel-context-check", "Uptime readiness check"),
                         "checks.data.custom-readiness-check", containsInAnyOrder(null, "UP"));
     }
 }
