@@ -48,5 +48,5 @@ $ mvn clean install -Pnative
 
 == What's next?
 
-* xref:contributor-guide/create-new-extension.adoc[Create new extension].
-* xref:contributor-guide/promote-jvm-to-native.adoc[Promote a JVM extension to Native].
+* xref:create-new-extension.adoc[Create new extension].
+* xref:promote-jvm-to-native.adoc[Promote a JVM extension to Native].
