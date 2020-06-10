@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
+Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -315,6 +315,8 @@ Number of Camel components: 148 in 113 JAR artifacts (0 deprecated)
 | xref:extensions/twitter.adoc[Twitter Timeline] | camel-quarkus-twitter | Native + Stable | 0.2.0 | Send tweets and receive tweets from user's timeline.
 
 | xref:extensions/validator.adoc[Validator] | camel-quarkus-validator | Native + Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
+
+| xref:extensions/vertx.adoc[Vert.x] | camel-quarkus-vertx | Native + Stable | 1.0.0-CR2 | Send and receive messages to/from Vert.x Event Bus.
 
 | xref:extensions/vm.adoc[VM] | camel-quarkus-vm | Native + Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
