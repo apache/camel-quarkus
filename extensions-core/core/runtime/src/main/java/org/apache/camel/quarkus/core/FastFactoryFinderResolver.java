@@ -64,7 +64,7 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
     }
 
     // exposed for testing purpose
-    Map<String, Class<?>> getClassMap() {
+    public Map<String, Class<?>> getClassMap() {
         return Collections.unmodifiableMap(this.classMap);
     }
 

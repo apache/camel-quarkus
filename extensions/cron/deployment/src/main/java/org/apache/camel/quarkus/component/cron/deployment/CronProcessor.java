@@ -20,6 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.cron.api.CamelCronConfiguration;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 
@@ -44,7 +45,7 @@ class CronProcessor {
 
     @BuildStep
     CamelServicePatternBuildItem camelCronServicePattern() {
-        return new CamelServicePatternBuildItem(CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY, true,
+        return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, true,
                 "META-INF/services/org/apache/camel/cron/*");
     }
 }

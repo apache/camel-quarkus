@@ -19,15 +19,22 @@ package org.apache.camel.quarkus.reactive.executor;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
+import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
-import org.apache.camel.spi.ReactiveExecutor;
 
 @Recorder
 public class ReactiveExecutorRecorder {
-    public RuntimeValue<ReactiveExecutor> createReactiveExecutor(RuntimeValue<Vertx> vertx) {
-        VertXReactiveExecutor executor = new VertXReactiveExecutor();
-        executor.setVertx(vertx.getValue());
+    public RuntimeValue<CamelContextCustomizer> createReactiveExecutorCustomizer(RuntimeValue<Vertx> vertx) {
+        return new RuntimeValue<>(new CamelContextCustomizer() {
+            @Override
+            public void customize(CamelContext context) {
+                VertXReactiveExecutor executor = new VertXReactiveExecutor();
+                executor.setVertx(vertx.getValue());
 
-        return new RuntimeValue<>(executor);
+                context.adapt(ExtendedCamelContext.class).setReactiveExecutor(executor);
+            }
+        });
     }
 }

@@ -27,10 +27,10 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
     /**
-     * Build time configuration options for {@code camel-main}.
+     * Build time configuration options for {@link CamelRuntime} bootstrap.
      */
     @ConfigItem
-    public MainConfig main;
+    public BootstrapConfig bootstrap;
 
     /**
      * Build time configuration options for Camel services.
@@ -45,28 +45,24 @@ public class CamelConfig {
     public RuntimeCatalogConfig runtimeCatalog;
 
     /**
+     * Build time configuration options for routes discovery.
+     */
+    @ConfigItem
+    public RoutesDiscoveryConfig routesDiscovery;
+
+    /**
      * Build time configuration options related to the building of native executable.
      */
     @ConfigItem(name = "native")
     public NativeConfig native_;
 
     @ConfigGroup
-    public static class MainConfig {
+    public static class BootstrapConfig {
         /**
-         * Enable {@code camel-main}. If {@code true}, routes are automatically
-         * loaded and started and the entire lifecycle of the Camel Context is
-         * under the control of the {@code camel-main} component. Otherwise, the
-         * application developer is responsible for performing all the mentioned
-         * tasks.
+         * When set to true, the {@link CamelRuntime} will be started automatically.
          */
         @ConfigItem(defaultValue = "true")
         public boolean enabled;
-
-        /**
-         * Build time configuration options for routes discovery.
-         */
-        @ConfigItem
-        public RoutesDiscoveryConfig routesDiscovery;
     }
 
     @ConfigGroup

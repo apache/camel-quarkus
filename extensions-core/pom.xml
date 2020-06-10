@@ -40,6 +40,7 @@
         <module>xml-jaxb</module>
         <module>xml-jaxp</module>
         <module>caffeine-lrucache</module>
+        <module>main</module>
     </modules>
 
 </project>

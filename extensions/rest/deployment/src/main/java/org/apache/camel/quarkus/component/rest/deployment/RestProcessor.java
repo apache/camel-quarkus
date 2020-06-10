@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.rest.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 
 class RestProcessor {
@@ -31,7 +32,7 @@ class RestProcessor {
     @BuildStep
     CamelServicePatternBuildItem restFactories() {
         return new CamelServicePatternBuildItem(
-                CamelServicePatternBuildItem.CamelServiceDestination.DISCOVERY,
+                CamelServiceDestination.DISCOVERY,
                 true,
                 "META-INF/services/org/apache/camel/rest/*",
                 "META-INF/services/org/apache/camel/restapi/*");
