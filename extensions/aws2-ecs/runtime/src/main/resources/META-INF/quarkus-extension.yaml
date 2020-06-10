@@ -24,8 +24,6 @@
 name: "Camel AWS 2 ECS"
 description: "Manage AWS ECS cluster instances using AWS SDK version 2.x"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-ecs.html"
   categories:
   - "integration"
-  status: "preview"

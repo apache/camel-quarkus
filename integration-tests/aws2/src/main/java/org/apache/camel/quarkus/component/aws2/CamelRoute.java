@@ -60,6 +60,10 @@ public class CamelRoute extends RouteBuilder {
                 .setBody(constant("Ciao"))
                 .to("aws2-translate://cluster?operation=translateText")
                 .log("Translation: ${body}");
+
+        from("timer:quarkus-ecs?repeatCount=1")
+                .to("aws2-ecs://cluster?operation=listClusters")
+                .to("log:sf?showAll=true");
     }
 
 }
