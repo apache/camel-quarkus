@@ -150,6 +150,7 @@
         <module>timer</module>
         <module>twitter</module>
         <module>validator</module>
+        <module>vertx</module>
         <module>vm</module>
         <module>websocket-jsr356</module>
         <module>xpath</module>

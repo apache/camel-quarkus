@@ -84,6 +84,7 @@ misc:
   - qute
   - stream
   - tarfile
+  - vertx
 networking:
   - ftp
   - http
