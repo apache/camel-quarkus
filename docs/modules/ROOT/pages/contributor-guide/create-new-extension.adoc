@@ -2,7 +2,7 @@
 = Create a new extension
 :page-aliases: create-new-extension.adoc
 
-1. You should know xref:index.adoc#how-to-build[how to build].
+1. You should know xref:contributor-guide/index.adoc#how-to-build[how to build].
 
 2. Go through the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] to get an idea of
    what is expected from you.
