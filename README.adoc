@@ -29,7 +29,7 @@ in your project.
 
 == How to build
 
-See the contributor guide xref:docs/modules/ROOT/pages/contributor-guide/contributor-guide.adoc[in the source tree] or on the
+See the contributor guide xref:docs/modules/ROOT/pages/contributor-guide/index.adoc[in the source tree] or on the
 https://camel.apache.org/camel-quarkus/latest/contributor-guide/index.html[Apache Camel website].
 
 
