@@ -82,13 +82,6 @@ public class CoreResource {
         return registry.findByType(CamelContext.class).size() == 1;
     }
 
-    @Path("/registry/lookup-main")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean lookupMain() {
-        return registry.findByType(CamelMain.class).size() == 1;
-    }
-
     @Path("/context/version")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

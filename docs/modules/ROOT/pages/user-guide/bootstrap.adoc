@@ -1,0 +1,35 @@
+= Bootstrap Camel Quarkus
+:page-aliases: bootstrap.adoc
+
+Camel Quarkus automatically configure and deploy a Camel Context bean which by default is started/stopped according to the Quarkus Application lifecycle. The configuration step happens at build time during Quarkus' augmentation phase and it is driven by the Camel Quarkus extensions which can be tuned using Camel Quarkus specific properties indentified by "camel.quarkus" as prefix. After the configuration is done, a minimal Camel Runtime is assembled and started at RUNTIME_INIT time. At that point, any additional configuration should be done using CDI, below an example bout how to configure a Camel Component:
+
+[source,java]
+----
+@ApplicationScoped
+public class Configurations {
+    /**
+     * Produces a {@link LogComponent} instance with a custom exchange formatter.
+     */
+    @Named
+    LogComponent log() {
+        DefaultExchangeFormatter formatter = new DefaultExchangeFormatter();
+        formatter.setShowExchangePattern(false);
+        formatter.setShowBodyType(false);
+
+        LogComponent component = new LogComponent();
+        component.setExchangeFormatter(formatter);
+
+        return component;
+    }
+}
+----
+
+To configure component and other aspects of Apache Camel through properties, you can add the camel-core-main extension which brings functionnalities from https://camel.apache.org/components/latest/others/main.html[Apache Camel Main] to Camel Quarkus. By adding such extension the programmatic configuration of the Log Component done above, can be done through properties:
+
+
+[source,properties]
+----
+camel.component.log.exchange-formtatter = #class:org.apache.camel.support.processor.DefaultExchangeFormatter
+camel.component.log.exchange-formtatter.show-exchange-pattern = false
+camel.component.log.exchange-formtatter.show-body-type = false
+----

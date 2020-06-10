@@ -26,7 +26,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsProducers;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsRecorder;
-import org.apache.camel.quarkus.core.Flags;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
@@ -46,9 +45,9 @@ class ReactiveStreamsProcessor {
         return new CamelServiceFilterBuildItem(CamelServiceFilter.forComponent(SCHEME));
     }
 
-    @BuildStep(onlyIf = Flags.MainEnabled.class)
+    @BuildStep
     void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
-        // thi extension will made some reactive camel reactive streams object availbale
+        // thi extension will made some reactive camel reactive streams object available
         // for injection in order to easy the use CamelReactiveStreams in CDI.
         //
         // For more info about what object are published, have a look at

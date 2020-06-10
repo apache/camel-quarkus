@@ -36,6 +36,15 @@
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.quarkus</groupId>
+                <artifactId>quarkus-junit5-internal</artifactId>
+                <version>${quarkus.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -47,6 +56,7 @@
         <!-- build those first -->
         <module>core</module>
         <module>main</module>
+        <module>main-devmode</module>
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
         <module>main-collector</module>

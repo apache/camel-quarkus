@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.core;
 
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.CamelContext;
-import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
@@ -29,6 +27,7 @@ import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
+import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
@@ -55,41 +54,6 @@ public class CamelRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    public RuntimeValue<CamelContext> createContext(
-            RuntimeValue<Registry> registry,
-            RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
-            RuntimeValue<ModelJAXBContextFactory> contextFactory,
-            RuntimeValue<XMLRoutesDefinitionLoader> xmlLoader,
-            RuntimeValue<ModelToXMLDumper> xmlModelDumper,
-            RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
-            BeanContainer beanContainer,
-            String version,
-            CamelConfig config) {
-
-        FastCamelContext context = new FastCamelContext(
-                factoryFinderResolver.getValue(),
-                version,
-                xmlLoader.getValue(),
-                xmlModelDumper.getValue());
-
-        context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
-        context.setRegistry(registry.getValue());
-        context.setTypeConverterRegistry(typeConverterRegistry.getValue());
-        context.setLoadTypeConverters(false);
-        context.setModelJAXBContextFactory(contextFactory.getValue());
-        context.build();
-
-        // register to the container
-        beanContainer.instance(CamelProducers.class).setContext(context);
-
-        return new RuntimeValue<>(context);
-    }
-
-    public void customize(RuntimeValue<CamelContext> context, RuntimeValue<CamelContextCustomizer> contextCustomizer) {
-        contextCustomizer.getValue().customize(context.getValue());
     }
 
     public void bind(
@@ -153,5 +117,9 @@ public class CamelRecorder {
 
     public RuntimeValue<FactoryFinderResolver> factoryFinderResolver(RuntimeValue<Builder> builder) {
         return new RuntimeValue<>(builder.getValue().build());
+    }
+
+    public RuntimeValue<ReactiveExecutor> createReactiveExecutor() {
+        return new RuntimeValue<>(new DefaultReactiveExecutor());
     }
 }

@@ -31,11 +31,15 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class TimerRoute extends RouteBuilder {
 
-    /** {@code timer.period} is defined in {@code src/main/resources/application.properties} */
+    /**
+     * {@code timer.period} is defined in {@code src/main/resources/application.properties}
+     */
     @ConfigProperty(name = "timer.period", defaultValue = "1000")
     String period;
 
-    /** An injected bean */
+    /**
+     * An injected bean
+     */
     @Inject
     Counter counter;
 
@@ -43,6 +47,8 @@ public class TimerRoute extends RouteBuilder {
     public void configure() throws Exception {
         fromF("timer:foo?period=%s", period)
                 .setBody(exchange -> "Incremented the counter: " + counter.increment())
-                .to("log:example?showExchangePattern=false&showBodyType=false");
+                // the configuration of the log component is programmatically done using CDI
+                // by the org.acme.timer.Beans::log method.
+                .to("log:example");
     }
 }

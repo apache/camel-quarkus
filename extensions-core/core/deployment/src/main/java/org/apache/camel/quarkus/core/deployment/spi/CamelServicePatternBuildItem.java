@@ -29,38 +29,19 @@ import io.quarkus.builder.item.MultiBuildItem;
  * {@code META-INF/services/org/apache/camel} which define discoverable Camel services.
  */
 public final class CamelServicePatternBuildItem extends MultiBuildItem {
+    private final CamelServiceDestination destination;
+    private final boolean include;
+    private final List<String> patterns;
 
-    /**
-     * Where a Camel service should be further processed
-     */
-    public enum CamelServiceDestination {
-        /**
-         * Marks Camel services to be discoverable via FactoryFinder mechanism.
-         */
-        DISCOVERY,
-        /**
-         * Marks Camel services to be bound to the {@link org.apache.camel.spi.Registry}.
-         */
-        REGISTRY
-    }
-
-    public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include,
-            String... patterns) {
+    public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include, String... patterns) {
         this(destination, include, Arrays.asList(patterns));
     }
 
-    public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include,
-            Collection<String> patterns) {
+    public CamelServicePatternBuildItem(CamelServiceDestination destination, boolean include, Collection<String> patterns) {
         this.destination = destination;
         this.include = include;
         this.patterns = Collections.unmodifiableList(new ArrayList<>(patterns));
     }
-
-    private final CamelServiceDestination destination;
-
-    private final boolean include;
-
-    private final List<String> patterns;
 
     /**
      * @return a {@link CamelServiceDestination} that says where this service should be further processed. See
@@ -84,5 +65,4 @@ public final class CamelServicePatternBuildItem extends MultiBuildItem {
     public List<String> getPatterns() {
         return patterns;
     }
-
 }

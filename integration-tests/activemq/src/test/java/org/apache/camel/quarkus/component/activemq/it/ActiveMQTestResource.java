@@ -49,7 +49,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             container.start();
 
             return Collections.singletonMap(
-                    "camel.component.activemq.brokerUrl",
+                    "camel.component.activemq.broker-url",
                     String.format("tcp://%s:%d", container.getContainerIpAddress(), container.getMappedPort(TCP_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);

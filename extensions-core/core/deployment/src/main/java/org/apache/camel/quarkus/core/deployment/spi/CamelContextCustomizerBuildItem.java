@@ -31,7 +31,7 @@ public final class CamelContextCustomizerBuildItem extends MultiBuildItem {
         this.value = value;
     }
 
-    public RuntimeValue<CamelContextCustomizer> getCamelContextCustomizer() {
+    public RuntimeValue<CamelContextCustomizer> get() {
         return value;
     }
 }

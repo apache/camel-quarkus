@@ -34,9 +34,14 @@ import org.apache.camel.util.ObjectHelper;
 @Singleton
 public class CamelProducers {
     private volatile CamelContext context;
+    private volatile CamelRuntime runtime;
 
     public void setContext(CamelContext context) {
         this.context = context;
+    }
+
+    public void setRuntime(CamelRuntime runtime) {
+        this.runtime = runtime;
     }
 
     @Singleton
@@ -49,6 +54,12 @@ public class CamelProducers {
     @Produces
     Registry camelRegistry() {
         return this.context.getRegistry();
+    }
+
+    @Singleton
+    @Produces
+    CamelRuntime camelRuntime() {
+        return this.runtime;
     }
 
     @Produces

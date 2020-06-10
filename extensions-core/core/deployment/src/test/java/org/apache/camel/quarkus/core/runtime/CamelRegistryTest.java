@@ -26,8 +26,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import io.quarkus.test.QuarkusUnitTest;
-import org.apache.camel.BeanInject;
-import org.apache.camel.BindToRegistry;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -75,19 +73,11 @@ public class CamelRegistryTest {
     }
 
     @Test
-    public void testCamelDI() {
-        assertThat(registry.findByType(MyCDIRoute.class))
-                .isNotEmpty()
-                .first().hasFieldOrPropertyWithValue("bean1", "a");
-    }
-
-    @Test
     public void testLookupByName() {
         assertThat(registry.lookupByName("bean-1")).isInstanceOfSatisfying(String.class, s -> assertThat(s).isEqualTo("a"));
         assertThat(registry.lookupByName("bean-2")).isInstanceOfSatisfying(String.class, s -> assertThat(s).isEqualTo("b"));
         assertThat(registry.lookupByNameAndType("bean-1", String.class)).isEqualTo("a");
         assertThat(registry.lookupByNameAndType("bean-2", String.class)).isEqualTo("b");
-        assertThat(registry.lookupByName("myProcessor")).isInstanceOf(Processor.class);
     }
 
     @Test
@@ -117,20 +107,11 @@ public class CamelRegistryTest {
         @Override
         public void configure() throws Exception {
         }
-
-        @BindToRegistry
-        public Processor myProcessor() {
-            return e -> {
-            };
-        }
     }
 
     @Named("my-route")
     @ApplicationScoped
     public static class MyCDIRoute extends RouteBuilder {
-        @BeanInject("bean-1")
-        String bean1;
-
         @Override
         public void configure() throws Exception {
         }
