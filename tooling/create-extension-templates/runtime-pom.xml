@@ -33,7 +33,7 @@
     <description>[=description]</description>
 
     <properties>
-        <firstVersion>1.0.0-CR2</firstVersion>
+        <firstVersion>1.0.0-CR3</firstVersion>
     </properties>
 
     <dependencyManagement>
