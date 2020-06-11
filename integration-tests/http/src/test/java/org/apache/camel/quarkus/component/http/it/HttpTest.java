@@ -54,7 +54,7 @@ class HttpTest {
 
     @ParameterizedTest
     @ValueSource(strings = { "ahc",
-            "http" /*, "netty-http" disabled because of https://github.com/apache/camel-quarkus/issues/695 */ })
+            "http" , "netty-http"})
     public void httpsProducer(String component) {
         RestAssured
                 .given()
