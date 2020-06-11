@@ -1,0 +1,3 @@
+The extension leverages the https://github.com/amqphub/quarkus-qpid-jms/[Quarkus Qpid JMS] extension. A ConnectionFactory bean is automatically created
+and wired into the AMQP component for you. The connection factory can be configured
+via the Quarkus Qpid JMS https://github.com/amqphub/quarkus-qpid-jms#configuration[configuration options].
