@@ -1,0 +1,14 @@
+The extension automatically registers a Kubernetes Client bean named `kubernetesClient`. You can reference the bean in your routes like this:
+
+    from("direct:pods")
+        .to("kubernetes-pods:///?kubernetesClient=#kubernetesClient&operation=listPods")
+
+By default the client is configured from the local kubeconfig file. You can customize the client configuration via properties within `application.properties`:
+
+[source,properties]
+----
+quarkus.kubernetes-client.master-url=https://my.k8s.host
+quarkus.kubernetes-client.namespace=my-namespace
+----
+
+The full set of configuration options are documented in the https://quarkus.io/guides/kubernetes-client#quarkus-kubernetes-client_configuration[Quarkus Kubernetes Client guide].

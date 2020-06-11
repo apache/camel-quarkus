@@ -1,0 +1,8 @@
+The extension leverages the https://quarkus.io/guides/mongodb[Quarkus MongoDB Client] extension. The Mongo client can be configured
+via the Quarkus MongoDB Client https://quarkus.io/guides/mongodb#configuration-reference[configuration options].
+
+The Camel Quarkus MongoDB extension automatically registers a MongoDB client bean named `camelMongoClient`. This can be referenced in the mongodb endpoint URI
+`connectionBean` path parameter. For example:
+
+    from("direct:start")
+        .to("mongodb-gridfs:camelMongoClient?database=test&operation=listAll")
