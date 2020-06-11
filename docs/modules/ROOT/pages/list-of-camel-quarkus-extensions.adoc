@@ -316,7 +316,7 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 | xref:extensions/validator.adoc[Validator] | camel-quarkus-validator | Native + Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
 
-| xref:extensions/vertx.adoc[Vert.x] | camel-quarkus-vertx | Native + Stable | 1.0.0-CR2 | Send and receive messages to/from Vert.x Event Bus.
+| xref:extensions/vertx.adoc[Vert.x] | camel-quarkus-vertx | Native + Stable | 1.0.0-CR3 | Send and receive messages to/from Vert.x Event Bus.
 
 | xref:extensions/vm.adoc[VM] | camel-quarkus-vm | Native + Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
