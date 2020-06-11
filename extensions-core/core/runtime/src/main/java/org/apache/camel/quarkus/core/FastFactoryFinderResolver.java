@@ -39,6 +39,25 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         this.classMap = classMap;
     }
 
+    static String mapKey(String resourcePath, String key) {
+        final int len = resourcePath.length() + key.length() + 1;
+        final StringBuilder sb = new StringBuilder(len);
+
+        if (resourcePath.startsWith("/")) {
+            sb.append(resourcePath, 1, resourcePath.length());
+        } else {
+            sb.append(resourcePath);
+        }
+
+        if (!resourcePath.endsWith("/")) {
+            sb.append("/");
+        }
+
+        sb.append(key);
+
+        return sb.toString();
+    }
+
     @Override
     public FactoryFinder resolveFactoryFinder(ClassResolver classResolver, String resourcePath) {
         return new FastFactoryFinder(resourcePath);
@@ -47,24 +66,6 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
     // exposed for testing purpose
     Map<String, Class<?>> getClassMap() {
         return Collections.unmodifiableMap(this.classMap);
-    }
-
-    static String mapKey(String resourcePath, String prefix, String key) {
-        final int len = resourcePath.length() + (prefix == null ? 0 : prefix.length()) + key.length() + 1;
-        final StringBuilder sb = new StringBuilder(len);
-        if (resourcePath.startsWith("/")) {
-            sb.append(resourcePath, 1, resourcePath.length());
-        } else {
-            sb.append(resourcePath);
-        }
-        if (!resourcePath.endsWith("/")) {
-            sb.append("/");
-        }
-        if (prefix != null) {
-            sb.append(prefix);
-        }
-        sb.append(key);
-        return sb.toString();
     }
 
     public static class Builder {
@@ -105,17 +106,17 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
         @Override
         public Optional<Object> newInstance(String key) {
-            return doNewInstance(key, null);
+            return doNewInstance(key);
         }
 
         @Override
         public <T> Optional<T> newInstance(String key, Class<T> type) {
-            return doNewInstance(key, null).map(type::cast);
+            return doNewInstance(key).map(type::cast);
         }
 
         @Override
         public Optional<Class<?>> findClass(String key) {
-            final String mapKey = mapKey(path, null, key);
+            final String mapKey = mapKey(path, key);
             final Class<?> cl = classMap.get(mapKey);
             LOG.tracef("Found a non-optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
@@ -123,13 +124,13 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
 
         @Override
         public Optional<Class<?>> findOptionalClass(String key) {
-            final String mapKey = mapKey(path, null, key);
+            final String mapKey = mapKey(path, key);
             final Class<?> cl = classMap.get(mapKey);
             LOG.tracef("Found an optional class for key %s: %s", mapKey, cl == null ? "null" : cl.getName());
             return Optional.ofNullable(cl);
         }
 
-        private Optional<Object> doNewInstance(String key, String propertyPrefix) {
+        private Optional<Object> doNewInstance(String key) {
             return findClass(key).map(ObjectHelper::newInstance);
         }
     }
