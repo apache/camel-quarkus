@@ -16,12 +16,12 @@
  */
 package org.apache.camel.quarkus.component.influxdb.it;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
+import javax.enterprise.inject.Disposes;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,63 +29,53 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.ProducerTemplate;
+import io.quarkus.arc.Unremovable;
+import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.influxdb.InfluxDbConstants;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.influxdb.InfluxDB;
 import org.influxdb.InfluxDBFactory;
 import org.influxdb.dto.BatchPoints;
 import org.influxdb.dto.Pong;
 import org.influxdb.dto.Query;
 import org.influxdb.dto.QueryResult;
-import org.jboss.logging.Logger;
 
 @Path("/influxdb")
 @ApplicationScoped
 public class InfluxdbResource {
-
-    private static final Logger LOG = Logger.getLogger(InfluxdbResource.class);
-
     public static final String DB_NAME = "myTestTimeSeries";
-
-    public static final String INFLUXDB_CONNECTION_PROPERTY = "quarkus.influxdb.connection.url";
-    public static final String INFLUXDB_VERSION = "1.7.10";
-
-    private static final String INFLUXDB_CONNECTION = "http://{{" + INFLUXDB_CONNECTION_PROPERTY + "}}/";
-    private static final String INFLUXDB_CONNECTION_NAME = "influxDb_connection";
-    private static final String INFLUXDB_ENDPOINT_URL = "influxdb:" + INFLUXDB_CONNECTION_NAME;
+    public static final String INFLUXDB_CONNECTION_PROPERTY = "influxdb.connection.url";
+    public static final String INFLUXDB_CONNECTION_NAME = "influxDbConnection";
 
     @Inject
-    ProducerTemplate producerTemplate;
+    FluentProducerTemplate producerTemplate;
 
-    @Inject
-    CamelContext context;
+    @ConfigProperty(name = INFLUXDB_CONNECTION_PROPERTY)
+    String connectionUrl;
 
-    private InfluxDB influxDB;
+    @Unremovable
+    @Singleton
+    @javax.enterprise.inject.Produces
+    InfluxDB createInfluxDbConnection() {
+        InfluxDB influxDbConnection = InfluxDBFactory.connect(connectionUrl);
+        influxDbConnection.query(new Query("CREATE DATABASE " + DB_NAME));
 
-    void onStart(@Observes org.apache.camel.quarkus.core.CamelMainEvents.BeforeConfigure ev) {
-        influxDB = InfluxDBFactory.connect(context.getPropertiesComponent().parseUri(INFLUXDB_CONNECTION));
-
-        influxDB.query(new Query("CREATE DATABASE " + DB_NAME));
-
-        context.getRegistry().bind(INFLUXDB_CONNECTION_NAME, influxDB);
+        return influxDbConnection;
     }
 
-    void beforeStop(@Observes org.apache.camel.quarkus.core.CamelMainEvents.BeforeStop ev) {
-        if (influxDB != null) {
-            influxDB.query(new Query("DROP DATABASE " + DB_NAME, ""));
-            influxDB.close();
-        }
+    void disposeInfluxDbConnection(@Disposes InfluxDB influxDbConnection) {
+        influxDbConnection.query(new Query("DROP DATABASE " + DB_NAME, ""));
+        influxDbConnection.close();
     }
 
     @Path("/ping")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String ping() {
-        Pong pong = producerTemplate.requestBody(INFLUXDB_ENDPOINT_URL + "?operation=ping", null, Pong.class);
-
-        return pong.getVersion();
+        return producerTemplate.toF(
+                "influxdb:%s?operation=ping", INFLUXDB_CONNECTION_NAME)
+                .request(Pong.class)
+                .getVersion();
     }
 
     @Path("/insert")
@@ -93,11 +83,10 @@ public class InfluxdbResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
     public boolean insert(Point point) {
-        org.influxdb.dto.Point p = point.toPoint();
-
-        org.influxdb.dto.Point result = producerTemplate.requestBody(
-                INFLUXDB_ENDPOINT_URL + "?databaseName=" + DB_NAME + "&operation=insert&retentionPolicy=autogen", p,
-                org.influxdb.dto.Point.class);
+        org.influxdb.dto.Point result = producerTemplate.toF(
+                "influxdb:%s?databaseName=%s&operation=insert&retentionPolicy=autogen", INFLUXDB_CONNECTION_NAME, DB_NAME)
+                .withBody(point.toPoint())
+                .request(org.influxdb.dto.Point.class);
 
         return result != null;
     }
@@ -106,13 +95,12 @@ public class InfluxdbResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String batch(Points points) {
-        BatchPoints p = points.toBatchPoints();
-
-        BatchPoints result = producerTemplate.requestBody(INFLUXDB_ENDPOINT_URL + "?batch=true", p,
-                BatchPoints.class);
-
-        return String.valueOf(result.getPoints().size());
+    public int batch(Points points) {
+        return producerTemplate.toF(
+                "influxdb:%s?batch=true", INFLUXDB_CONNECTION_NAME)
+                .withBody(points.toBatchPoints())
+                .request(BatchPoints.class)
+                .getPoints().size();
     }
 
     @Path("/query")
@@ -120,15 +108,15 @@ public class InfluxdbResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String query(String query) throws Exception {
-        Exchange exchange = producerTemplate.request(
-                INFLUXDB_ENDPOINT_URL + "?databaseName=" + DB_NAME + "&operation=query&retentionPolicy=autogen",
-                e -> e.getIn().setHeader(InfluxDbConstants.INFLUXDB_QUERY, query));
-        List<QueryResult.Result> results = exchange.getMessage().getBody(QueryResult.class).getResults();
-        return results.stream()
-                .flatMap(r -> r.getSeries() != null ? r.getSeries().stream() : null)
-                .map(s -> s.getName())
+        QueryResult result = producerTemplate.toF(
+                "influxdb:%s?databaseName=%s&operation=query&retentionPolicy=autogen", INFLUXDB_CONNECTION_NAME, DB_NAME)
+                .withHeader(InfluxDbConstants.INFLUXDB_QUERY, query)
+                .request(QueryResult.class);
+
+        return result.getResults().stream()
+                .filter(r -> r.getSeries() != null)
+                .flatMap(r -> r.getSeries().stream())
+                .map(QueryResult.Series::getName)
                 .collect(Collectors.joining(", "));
-
     }
-
 }

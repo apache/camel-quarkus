@@ -31,8 +31,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(InfluxdbTestResource.class)
@@ -42,30 +42,27 @@ class InfluxdbTest {
     @Test
     @Order(1)
     public void pingTest() {
-        RestAssured.given().get("/influxdb/ping").then().body(is(InfluxdbResource.INFLUXDB_VERSION));
+        RestAssured.given().get("/influxdb/ping").then().body(is(InfluxdbTestResource.INFLUXDB_VERSION));
     }
 
     @Test
     @Order(2)
     public void insertTest() {
-
         Point point = createBatchPoints().getPoints().get(0);
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(point)
                 .post("/influxdb/insert")
                 .then()
                 .statusCode(200)
                 .body(is("true"));
-
     }
 
     @Test
     @Order(3)
     public void batchInsertTest() {
-
         Points points = createBatchPoints();
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(points)
                 .post("/influxdb/batch")
@@ -78,7 +75,7 @@ class InfluxdbTest {
     @Order(4)
     public void queryTest() {
         // result should contain only 1 result with name 'cpu', because 'cpu' is only part of batchInsert, which was executed before
-        RestAssured.given() //
+        RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("select * from cpu")
                 .post("/influxdb/query")
@@ -92,8 +89,7 @@ class InfluxdbTest {
     public void doesNotAddCamelHeaders() {
         Map<String, Object> pointInMapFormat = new HashMap<>();
         pointInMapFormat.put(InfluxDbConstants.MEASUREMENT_NAME, "testCPU");
-        double value = 99.999999d;
-        pointInMapFormat.put("busy", value);
+        pointInMapFormat.put("busy", 99.999999d);
 
         org.influxdb.dto.Point p = CamelInfluxDbConverters.fromMapToPoint(pointInMapFormat);
         assertNotNull(p);
@@ -101,12 +97,10 @@ class InfluxdbTest {
         String line = p.lineProtocol();
 
         assertNotNull(line);
-
-        assertTrue(!line.contains(InfluxDbConstants.MEASUREMENT_NAME));
-
+        assertFalse(line.contains(InfluxDbConstants.MEASUREMENT_NAME));
     }
 
-    private Points createBatchPoints() {
+    private static Points createBatchPoints() {
         Points points = new Points();
         points.setDatabase(InfluxdbResource.DB_NAME);
 

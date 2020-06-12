@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.component.influxdb.it;
 import java.util.Map;
 
 import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import org.apache.camel.quarkus.testcontainers.ContainerSupport;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,19 +29,19 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class InfluxdbTestResource implements ContainerResourceLifecycleManager {
+    public static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbTestResource.class);
+    public static final int INFLUXDB_PORT = 8086;
+    public static final String INFLUXDB_VERSION = "1.7.10";
+    public static final String INFLUXDB_IMAGE = "influxdb:" + INFLUXDB_VERSION;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbTestResource.class);
-    private static final int INFLUXDB_PORT = 8086;
-    private static final String INFLUXDB_IMAGE = "influxdb:" + InfluxdbResource.INFLUXDB_VERSION;
-
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new GenericContainer(INFLUXDB_IMAGE)
+            container = new GenericContainer<>(INFLUXDB_IMAGE)
                     .withExposedPorts(INFLUXDB_PORT)
                     .waitingFor(Wait.forListeningPort());
 
@@ -48,7 +49,7 @@ public class InfluxdbTestResource implements ContainerResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     InfluxdbResource.INFLUXDB_CONNECTION_PROPERTY,
-                    container.getContainerIpAddress() + ":" + container.getMappedPort(INFLUXDB_PORT));
+                    "http://" + ContainerSupport.getHostAndPort(container, INFLUXDB_PORT));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
