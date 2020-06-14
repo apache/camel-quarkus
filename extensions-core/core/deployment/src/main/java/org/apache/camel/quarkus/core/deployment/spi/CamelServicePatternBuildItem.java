@@ -34,9 +34,13 @@ public final class CamelServicePatternBuildItem extends MultiBuildItem {
      * Where a Camel service should be further processed
      */
     public enum CamelServiceDestination {
-        /** Service marked with {@link #DISCOVERY} should be made discoverable via FactoryFinder mechanism */
+        /**
+         * Marks Camel services to be discoverable via FactoryFinder mechanism.
+         */
         DISCOVERY,
-        /** Service marked with {@link #DISCOVERY} should be registered in the Camel registry */
+        /**
+         * Marks Camel services to be bound to the {@link org.apache.camel.spi.Registry}.
+         */
         REGISTRY
     }
 
