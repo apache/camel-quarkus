@@ -189,11 +189,11 @@ class BuildProcessor {
                     "META-INF/services/org/apache/camel/dataformat/*",
                     "META-INF/services/org/apache/camel/send-dynamic/*"));
 
+            // TODO: Remove this after upgrade to Camel versions > 3.4.0
             services.produce(new CamelServicePatternBuildItem(
                     CamelServiceDestination.DISCOVERY,
                     false,
-                    "META-INF/services/org/apache/camel/configurer/avro-component",
-                    "META-INF/services/org/apache/camel/configurer/avro-endpoint"));
+                    "META-INF/services/org/apache/camel/configurer/ThreadPoolProfileConfigurationProperties"));
         }
 
         @BuildStep
