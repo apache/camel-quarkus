@@ -80,6 +80,24 @@
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-log4j-appender</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>connect-runtime</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>connect-file</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>connect-runtime</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
