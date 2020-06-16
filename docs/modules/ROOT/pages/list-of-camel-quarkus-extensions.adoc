@@ -44,7 +44,7 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-ecs.adoc[AWS 2 ECS] | camel-quarkus-aws2-ecs | Native + Stable | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-eks.adoc[AWS 2 EKS] | camel-quarkus-aws2-eks | JVM + Preview | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
+| xref:extensions/aws2-eks.adoc[AWS 2 EKS] | camel-quarkus-aws2-eks | Native + Stable | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
 
 | xref:extensions/aws2-iam.adoc[AWS 2 IAM] | camel-quarkus-aws2-iam | JVM + Preview | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
 
