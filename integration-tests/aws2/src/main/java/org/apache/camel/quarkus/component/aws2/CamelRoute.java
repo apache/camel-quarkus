@@ -69,6 +69,10 @@ public class CamelRoute extends RouteBuilder {
                 .setHeader("CamelAwsEKSOperation", constant("listClusters"))
                 .to("aws2-eks://cluster")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-iam?repeatCount=1")
+                .to("aws2-iam://cluster?operation=listAccessKeys")
+                .to("log:sf?showAll=true");
     }
 
 }
