@@ -50,6 +50,18 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-iam</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-xml-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-aws2-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
