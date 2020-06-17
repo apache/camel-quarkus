@@ -110,6 +110,7 @@
         <module>jira</module>
         <module>jms</module>
         <module>johnzon</module>
+        <module>json-validator</module>
         <module>jsonpath</module>
         <module>kafka</module>
         <module>kotlin</module>
