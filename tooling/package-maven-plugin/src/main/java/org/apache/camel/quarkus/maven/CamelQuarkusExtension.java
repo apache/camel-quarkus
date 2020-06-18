@@ -21,6 +21,7 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
@@ -72,7 +73,8 @@ public class CamelQuarkusExtension {
                     runtimePom.getDescription(),
                     props.getProperty("label"),
                     version,
-                    !runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString().endsWith("-jvm"));
+                    !runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString().endsWith("-jvm"),
+                    deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps));
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("Could not read " + runtimePomXmlPath, e);
         }
@@ -87,6 +89,7 @@ public class CamelQuarkusExtension {
     private final String firstVersion;
     private final String name;
     private final boolean nativeSupported;
+    private final List<Dependency> dependencies;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
@@ -97,7 +100,8 @@ public class CamelQuarkusExtension {
             String description,
             String label,
             String version,
-            boolean nativeSupported) {
+            boolean nativeSupported,
+            List<Dependency> dependencies) {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
         this.camelComponentArtifactId = camelComponentArtifactId;
@@ -108,6 +112,7 @@ public class CamelQuarkusExtension {
         this.label = label;
         this.version = version;
         this.nativeSupported = nativeSupported;
+        this.dependencies = dependencies;
     }
 
     public String getVersion() {
@@ -148,6 +153,10 @@ public class CamelQuarkusExtension {
 
     public boolean isNativeSupported() {
         return nativeSupported;
+    }
+
+    public List<Dependency> getDependencies() {
+        return dependencies;
     }
 
 }

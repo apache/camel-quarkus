@@ -167,4 +167,19 @@ public class CqUtils {
             return description;
         }
     }
+
+    public static Path findExtensionDirectory(Path sourceTreeRoot, String artifactId) {
+        if (artifactId.startsWith("camel-quarkus-support-")) {
+            return sourceTreeRoot.resolve("extensions-support")
+                    .resolve(artifactId.substring("camel-quarkus-support-".length()));
+        } else {
+            final String depArtifactIdBase = artifactId.substring("camel-quarkus-".length());
+            return Stream.of("extensions-core", "extensions")
+                    .map(dir -> sourceTreeRoot.resolve(dir).resolve(depArtifactIdBase))
+                    .filter(Files::exists)
+                    .findFirst()
+                    .orElseThrow(
+                            () -> new IllegalStateException("Could not find directory of " + depArtifactIdBase + " extension"));
+        }
+    }
 }
