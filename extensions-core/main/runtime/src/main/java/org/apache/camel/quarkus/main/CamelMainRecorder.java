@@ -39,9 +39,8 @@ public class CamelMainRecorder {
             RuntimeValue<CamelContext> runtime,
             RuntimeValue<RoutesCollector> routesCollector,
             BeanContainer container) {
-        CamelMain main = new CamelMain();
+        CamelMain main = new CamelMain(runtime.getValue());
         main.setRoutesCollector(routesCollector.getValue());
-        main.setCamelContext(runtime.getValue());
         main.addMainListener(new CamelMainEventDispatcher());
 
         // autowire only non null values as components may have configured

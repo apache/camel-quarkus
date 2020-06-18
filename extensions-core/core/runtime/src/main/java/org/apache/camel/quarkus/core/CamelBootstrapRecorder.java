@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.function.Supplier;
+
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
@@ -23,7 +25,7 @@ import org.jboss.logging.Logger;
 
 @Recorder
 public class CamelBootstrapRecorder {
-    public void start(ShutdownContext shutdown, RuntimeValue<CamelRuntime> runtime) {
+    public void addShutdownTask(ShutdownContext shutdown, RuntimeValue<CamelRuntime> runtime) {
         shutdown.addShutdownTask(new Runnable() {
             @Override
             public void run() {
@@ -34,12 +36,13 @@ public class CamelBootstrapRecorder {
                 }
             }
         });
+    }
 
+    public void start(RuntimeValue<CamelRuntime> runtime, Supplier<String[]> arguments) {
         try {
             Logger logger = Logger.getLogger(CamelBootstrapRecorder.class);
             logger.infof("bootstrap runtime: %s", runtime.getValue().getClass().getName());
-
-            runtime.getValue().start();
+            runtime.getValue().start(arguments.get());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

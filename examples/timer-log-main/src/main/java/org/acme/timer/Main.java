@@ -14,27 +14,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.log.deployment;
+package org.acme.timer;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import org.apache.camel.quarkus.main.CamelMainApplication;
 
-class LogProcessor {
-
-    private static final String FEATURE = "camel-log";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+@QuarkusMain
+public class Main {
+    public static void main(String... args) {
+        Quarkus.run(CamelMainApplication.class, args);
     }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(
-                true,
-                false,
-                org.apache.camel.support.processor.DefaultExchangeFormatter.class);
-    }
-
 }

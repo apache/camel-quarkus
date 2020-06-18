@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -34,11 +35,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 public class CamelMainRoutesFilterTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addClasses(MyRoute.class, MyRouteFiltered.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
@@ -63,13 +66,17 @@ public class CamelMainRoutesFilterTest {
 
     @Test
     public void testRoutesFilter() {
-        assertThat(main.getCamelContext().getRoutes())
-                .hasSize(1)
-                .first().hasFieldOrPropertyWithValue("id", "my-route");
-
         assertThat(main.configure().getRoutesBuilders())
                 .hasSize(1)
                 .first().isInstanceOf(MyRoute.class);
+
+        // since Camel is started in a dedicated thread, then routes
+        // may not be available until some time
+        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
+            assertThat(main.getCamelContext().getRoutes())
+                    .hasSize(1)
+                    .first().hasFieldOrPropertyWithValue("id", "my-route");
+        });
     }
 
     public static class MyRoute extends RouteBuilder {

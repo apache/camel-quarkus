@@ -26,8 +26,10 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.QuarkusMain;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
@@ -44,8 +46,14 @@ import org.apache.camel.quarkus.main.CamelMainRecorder;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.main.deployment.spi.CamelRoutesCollectorBuildItem;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CamelMainProcessor {
+    private static Logger LOGGER = LoggerFactory.getLogger(CamelMainProcessor.class);
+
     @BuildStep
     void unremovableBeans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
         beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
@@ -128,16 +136,17 @@ public class CamelMainProcessor {
      * <li>Health
      * </ul>
      * <li>take control of the application life-cycle and initiates Quarkus shutdown according to some conditions as example
-     * after having processed a certain number of messagees.
+     * after having processed a certain number of messages..
      * </ul>
      *
+     * @param  index         a reference to a {@link IndexView}
      * @param  beanContainer a reference to a fully initialized CDI bean container
      * @param  recorder      the recorder.
      * @param  main          a reference to a {@link CamelMain}.
-     * @param  customizers   a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be executed
-     *                       before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
-     * @param  startList     a placeholder to ensure camel-main start after the ArC container is fully initialized. This
-     *                       is required as under the hoods the camel registry may look-up beans form the
+     * @param  customizers   a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be
+     *                       executed before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
+     * @param  startList     a placeholder to ensure camel-main start after the ArC container is fully initialized.
+     *                       This is required as under the hoods the camel registry may look-up beans form the
      *                       container thus we need it to be fully initialized to avoid unexpected behaviors.
      * @param  runtimeTasks  a placeholder to ensure all the runtime task are properly are done.
      * @return               a build item holding a {@link CamelRuntime} instance.
@@ -145,6 +154,7 @@ public class CamelMainProcessor {
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     CamelRuntimeBuildItem runtime(
+            CombinedIndexBuildItem index,
             BeanContainerBuildItem beanContainer,
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
@@ -163,6 +173,7 @@ public class CamelMainProcessor {
                 customizers.stream().map(RuntimeCamelContextCustomizerBuildItem::get).collect(Collectors.toList()));
 
         return new CamelRuntimeBuildItem(
-                recorder.createRuntime(beanContainer.getValue(), main.getInstance()));
+                recorder.createRuntime(beanContainer.getValue(), main.getInstance()),
+                index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty());
     }
 }

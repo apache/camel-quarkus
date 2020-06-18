@@ -14,27 +14,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.log.deployment;
+package org.acme.timer;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import javax.enterprise.context.ApplicationScoped;
 
-class LogProcessor {
+import org.apache.camel.builder.RouteBuilder;
 
-    private static final String FEATURE = "camel-log";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+/**
+ * A simple {@link RouteBuilder}.
+ */
+@ApplicationScoped
+public class TimerRoute extends RouteBuilder {
+    @Override
+    public void configure() throws Exception {
+        from("timer:foo?period={{timer.period}}")
+                .setBody().constant("Hello from Main!")
+                .to("log:example");
     }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(
-                true,
-                false,
-                org.apache.camel.support.processor.DefaultExchangeFormatter.class);
-    }
-
 }

@@ -14,27 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.log.deployment;
+package org.apache.camel.quarkus.main;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.arc.Arc;
+import io.quarkus.runtime.QuarkusApplication;
+import org.apache.camel.quarkus.core.CamelRuntime;
 
-class LogProcessor {
-
-    private static final String FEATURE = "camel-log";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+public class CamelMainApplication implements QuarkusApplication {
+    @Override
+    public int run(String... args) throws Exception {
+        CamelRuntime runtime = Arc.container().instance(CamelRuntime.class).get();
+        runtime.start(args);
+        return runtime.waitForExit();
     }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(
-                true,
-                false,
-                org.apache.camel.support.processor.DefaultExchangeFormatter.class);
-    }
-
 }

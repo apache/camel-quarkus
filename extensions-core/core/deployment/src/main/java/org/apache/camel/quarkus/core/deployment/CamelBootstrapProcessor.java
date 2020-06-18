@@ -20,6 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Produce;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.RawCommandLineArgumentsBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.ShutdownContext;
 import org.apache.camel.quarkus.core.CamelBootstrapRecorder;
@@ -31,14 +32,24 @@ class CamelBootstrapProcessor {
     /**
      * Starts the given {@link CamelRuntimeBuildItem}.
      *
-     * @param recorder the recorder.
-     * @param runtime  a reference to the {@link CamelRuntimeBuildItem}.
-     * @param shutdown a reference to a {@link ShutdownContext} used tor register the Camel's related shutdown tasks.
+     * @param recorder             the recorder.
+     * @param runtime              a reference to the {@link CamelRuntimeBuildItem}.
+     * @param commandLineArguments a reference to the raw command line arguments as they were passed to the application.
+     * @param shutdown             a reference to a {@link ShutdownContext} used tor register the Camel's related shutdown
+     *                             tasks.
      */
     @BuildStep(onlyIf = { CamelConfigFlags.BootstrapEnabled.class })
     @Record(value = ExecutionTime.RUNTIME_INIT)
     @Produce(CamelBootstrapCompletedBuildItem.class)
-    void boot(CamelBootstrapRecorder recorder, CamelRuntimeBuildItem runtime, ShutdownContextBuildItem shutdown) {
-        recorder.start(shutdown, runtime.get());
+    void boot(
+            CamelBootstrapRecorder recorder,
+            CamelRuntimeBuildItem runtime,
+            RawCommandLineArgumentsBuildItem commandLineArguments,
+            ShutdownContextBuildItem shutdown) {
+
+        recorder.addShutdownTask(shutdown, runtime.runtime());
+        if (runtime.isAutoStartup()) {
+            recorder.start(runtime.runtime(), commandLineArguments);
+        }
     }
 }
