@@ -24,8 +24,6 @@
 name: "Camel AWS 2 KMS"
 description: "Manage keys stored in AWS KMS instances using AWS SDK version 2.x"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-kms.html"
   categories:
   - "integration"
-  status: "preview"
