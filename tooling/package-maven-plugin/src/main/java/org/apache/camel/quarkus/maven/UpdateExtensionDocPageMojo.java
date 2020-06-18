@@ -19,12 +19,15 @@ package org.apache.camel.quarkus.maven;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import freemarker.template.Configuration;
 import freemarker.template.TemplateMethodModelEx;
@@ -32,12 +35,15 @@ import freemarker.template.TemplateModelException;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
+import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 
 @Mojo(name = "update-extension-doc-page", threadSafe = true)
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
+
+    private static final Map<String, Boolean> nativeSslActivators = new ConcurrentHashMap<>();
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -72,6 +78,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("usage", loadSection(basePath, "usage.adoc", charset, null));
         model.put("configuration", loadSection(basePath, "configuration.adoc", charset, null));
         model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
+        model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
+                basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
             public Object exec(List arguments) throws TemplateModelException {
@@ -95,6 +103,53 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             Files.write(docPagePath, pageText.getBytes(charset));
         } catch (IOException e) {
             throw new RuntimeException("Could not write to " + docPagePath, e);
+        }
+    }
+
+    static boolean detectNativeSsl(Path sourceTreeRoot, Path basePath, String artifactId, List<Dependency> dependencies,
+            Map<String, Boolean> cache) {
+        if (cache.computeIfAbsent(artifactId,
+                aid -> detectNativeSsl(basePath.resolve("../deployment").toAbsolutePath().normalize()))) {
+            return true;
+        }
+        for (Dependency dependency : dependencies) {
+            if ("org.apache.camel.quarkus".equals(dependency.getGroupId())
+                    && !dependency.getArtifactId().endsWith("-component")) {
+                final String depArtifactId = dependency.getArtifactId();
+                if (cache.computeIfAbsent(
+                        depArtifactId,
+                        aid -> detectNativeSsl(
+                                CqUtils.findExtensionDirectory(sourceTreeRoot, depArtifactId).resolve("deployment")))) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static boolean detectNativeSsl(Path deploymentBasePath) {
+        final Path deploymentPackageDir = deploymentBasePath.resolve("src/main/java/org/apache/camel/quarkus")
+                .toAbsolutePath()
+                .normalize();
+
+        if (!Files.exists(deploymentPackageDir)) {
+            return false;
+        }
+
+        try (Stream<Path> files = Files.walk(deploymentPackageDir)) {
+            final boolean anyMatch = files
+                    .filter(p -> p.getFileName().toString().endsWith("Processor.java"))
+                    .map(p -> {
+                        try {
+                            return new String(Files.readAllBytes(p), StandardCharsets.UTF_8);
+                        } catch (Exception e) {
+                            throw new RuntimeException("Could not read from " + p, e);
+                        }
+                    })
+                    .anyMatch(source -> source.contains("new ExtensionSslNativeSupportBuildItem"));
+            return anyMatch;
+        } catch (IOException e) {
+            throw new RuntimeException("Could not walk " + deploymentPackageDir, e);
         }
     }
 
