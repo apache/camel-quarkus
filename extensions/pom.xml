@@ -58,6 +58,7 @@
         <module>aws2-ecs</module>
         <module>aws2-eks</module>
         <module>aws2-iam</module>
+        <module>aws2-kms</module>
         <module>aws2-s3</module>
         <module>aws2-sns</module>
         <module>aws2-sqs</module>
