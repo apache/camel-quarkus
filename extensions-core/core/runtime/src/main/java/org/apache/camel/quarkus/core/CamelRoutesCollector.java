@@ -76,7 +76,7 @@ public class CamelRoutesCollector implements RoutesCollector {
                     }
                 }
             } catch (FileNotFoundException e) {
-                LOGGER.debug("No XML routes found in {}. Skipping XML routes detection.", part);
+                LOGGER.warn("File {} can not be found. Skipping XML routes detection.", part);
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeException(e);
             }
