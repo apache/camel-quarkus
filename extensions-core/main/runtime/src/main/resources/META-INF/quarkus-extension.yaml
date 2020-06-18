@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel Main"
-description: "Bootstrap Camel using Camel Main which bring advanced auto-configuration capabilities and integration with Quarkus Command Mode"
+description: "Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/main.html"
   categories:

@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
+Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -26,13 +26,13 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 | xref:extensions/activemq.adoc[ActiveMQ] | camel-quarkus-activemq | Native + Stable | 1.0.0-M5 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 
-| xref:extensions/ahc.adoc[AHC] | camel-quarkus-ahc | Native + Stable | 1.0.0-M3 | Call external HTTP services using Async Http Client.
-
-| xref:extensions/ahc-ws.adoc[AHC Websocket] | camel-quarkus-ahc-ws | Native + Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
-
 | xref:extensions/amqp.adoc[AMQP] | camel-quarkus-amqp | Native + Stable | 1.0.0-M6 | Messaging with AMQP protocol using Apache QPid Client.
 
-| xref:extensions/avro-rpc.adoc[Avro] | camel-quarkus-avro-rpc | JVM + Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
+| xref:extensions/ahc.adoc[Async HTTP Client (AHC)] | camel-quarkus-ahc | Native + Stable | 1.0.0-M3 | Call external HTTP services using Async Http Client.
+
+| xref:extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket] | camel-quarkus-ahc-ws | Native + Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
+
+| xref:extensions/avro-rpc.adoc[Avro RPC] | camel-quarkus-avro-rpc | JVM + Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
 
 | xref:extensions/aws2-cw.adoc[AWS 2 CloudWatch] | camel-quarkus-aws2-cw | Native + Stable | 1.0.0-M6 | Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 
@@ -40,53 +40,53 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-ddb.adoc[AWS 2 DynamoDB Streams] | camel-quarkus-aws2-ddb | Native + Stable | 1.0.0-M6 | Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-ec2.adoc[AWS 2 EC2] | camel-quarkus-aws2-ec2 | Native + Stable | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
+| xref:extensions/aws2-ec2.adoc[AWS 2 Elastic Compute Cloud (EC2)] | camel-quarkus-aws2-ec2 | Native + Stable | 1.0.0-M6 | Manage AWS EC2 instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-ecs.adoc[AWS 2 ECS] | camel-quarkus-aws2-ecs | Native + Stable | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
+| xref:extensions/aws2-ecs.adoc[AWS 2 Elastic Container Service (ECS)] | camel-quarkus-aws2-ecs | Native + Stable | 1.0.0-M6 | Manage AWS ECS cluster instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-eks.adoc[AWS 2 EKS] | camel-quarkus-aws2-eks | Native + Stable | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
+| xref:extensions/aws2-eks.adoc[AWS 2 Elastic Kubernetes Service (EKS)] | camel-quarkus-aws2-eks | Native + Stable | 1.0.0-M6 | Manage AWS EKS cluster instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-iam.adoc[AWS 2 IAM] | camel-quarkus-aws2-iam | Native + Stable | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
+| xref:extensions/aws2-iam.adoc[AWS 2 Identity and Access Management (IAM)] | camel-quarkus-aws2-iam | Native + Stable | 1.0.0-M6 | Manage AWS IAM instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-kms.adoc[AWS 2 KMS] | camel-quarkus-aws2-kms | JVM + Preview | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
+| xref:extensions/aws2-kms.adoc[AWS 2 Key Management Service (KMS)] | camel-quarkus-aws2-kms | Native + Stable | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
+
+| xref:extensions/aws2-msk.adoc[AWS 2 Managed Streaming for Apache Kafka (MSK)] | camel-quarkus-aws2-msk | JVM + Preview | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
 
 | xref:extensions/aws2-mq.adoc[AWS 2 MQ] | camel-quarkus-aws2-mq | JVM + Preview | 1.0.0-M6 | Manage AWS MQ instances using AWS SDK version 2.x.
 
-| xref:extensions/aws2-msk.adoc[AWS 2 MSK] | camel-quarkus-aws2-msk | JVM + Preview | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
-
 | xref:extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | camel-quarkus-aws2-s3 | Native + Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service] | camel-quarkus-aws2-ses | JVM + Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
+| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)] | camel-quarkus-aws2-ses | JVM + Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-sns.adoc[AWS 2 Simple Notification System] | camel-quarkus-aws2-sns | Native + Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
+| xref:extensions/aws2-sns.adoc[AWS 2 Simple Notification System (SNS)] | camel-quarkus-aws2-sns | Native + Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 
-| xref:extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service] | camel-quarkus-aws2-sqs | Native + Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
+| xref:extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service (SQS)] | camel-quarkus-aws2-sqs | Native + Stable | 1.0.0-M6 | Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 
 | xref:extensions/aws2-translate.adoc[AWS 2 Translate] | camel-quarkus-aws2-translate | Native + Stable | 1.0.0-M6 | Translate texts using AWS Translate and AWS SDK version 2.x.
 
-| xref:extensions/aws-ec2.adoc[AWS EC2] | camel-quarkus-aws-ec2 | Native + Stable | 1.0.0-M3 | Manage AWS EC2 instances.
+| xref:extensions/aws-ec2.adoc[AWS Elastic Compute Cloud (EC2)] | camel-quarkus-aws-ec2 | Native + Stable | 1.0.0-M3 | Manage AWS EC2 instances.
 
-| xref:extensions/aws-ecs.adoc[AWS ECS] | camel-quarkus-aws-ecs | Native + Stable | 1.0.0-M1 | Manage AWS ECS cluster instances.
+| xref:extensions/aws-ecs.adoc[AWS Elastic Container Service (ECS)] | camel-quarkus-aws-ecs | Native + Stable | 1.0.0-M1 | Manage AWS ECS cluster instances.
 
-| xref:extensions/aws-eks.adoc[AWS EKS] | camel-quarkus-aws-eks | Native + Stable | 0.2.0 | Manage AWS EKS cluster instances.
+| xref:extensions/aws-eks.adoc[AWS Elastic Kubernetes Service (EKS)] | camel-quarkus-aws-eks | Native + Stable | 0.2.0 | Manage AWS EKS cluster instances.
 
-| xref:extensions/aws-iam.adoc[AWS IAM] | camel-quarkus-aws-iam | Native + Stable | 1.1.0 | Manage AWS IAM instances.
+| xref:extensions/aws-iam.adoc[AWS Identity and Access Management (IAM)] | camel-quarkus-aws-iam | Native + Stable | 1.1.0 | Manage AWS IAM instances.
+
+| xref:extensions/aws-kms.adoc[AWS Key Management Service (KMS)] | camel-quarkus-aws-kms | Native + Stable | 1.0.0-M1 | Manage keys stored in AWS KMS instances.
 
 | xref:extensions/aws-kinesis.adoc[AWS Kinesis] | camel-quarkus-aws-kinesis | Native + Stable | 1.0.0-M3 | Consume and produce records from AWS Kinesis Streams.
 
 | xref:extensions/aws-kinesis.adoc[AWS Kinesis Firehose] | camel-quarkus-aws-kinesis | Native + Stable | 1.0.0-M3 | Consume data from AWS Kinesis Firehose streams.
 
-| xref:extensions/aws-kms.adoc[AWS KMS] | camel-quarkus-aws-kms | Native + Stable | 1.0.0-M1 | Manage keys stored in AWS KMS instances.
-
 | xref:extensions/aws-lambda.adoc[AWS Lambda] | camel-quarkus-aws-lambda | Native + Stable | 1.0.0-M3 | Manage and invoke AWS Lambda functions.
 
 | xref:extensions/aws-s3.adoc[AWS S3 Storage Service] | camel-quarkus-aws-s3 | Native + Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
 
-| xref:extensions/aws-sns.adoc[AWS Simple Notification System] | camel-quarkus-aws-sns | Native + Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
+| xref:extensions/aws-sns.adoc[AWS Simple Notification System (SNS)] | camel-quarkus-aws-sns | Native + Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
 
-| xref:extensions/aws-sqs.adoc[AWS Simple Queue Service] | camel-quarkus-aws-sqs | Native + Stable | 0.2.0 | Sending and receive messages to/from AWS SQS service.
+| xref:extensions/aws-sqs.adoc[AWS Simple Queue Service (SQS)] | camel-quarkus-aws-sqs | Native + Stable | 0.2.0 | Sending and receive messages to/from AWS SQS service.
 
-| xref:extensions/aws-swf.adoc[AWS Simple Workflow] | camel-quarkus-aws-swf | Native + Stable | 1.0.0-M6 | Manage workflows in the AWS Simple Workflow service.
+| xref:extensions/aws-swf.adoc[AWS Simple Workflow (SWF)] | camel-quarkus-aws-swf | Native + Stable | 1.0.0-M6 | Manage workflows in the AWS Simple Workflow service.
 
 | xref:extensions/aws-sdb.adoc[AWS SimpleDB] | camel-quarkus-aws-sdb | Native + Stable | 1.0.0-M6 | Store and Retrieve data from/to AWS SDB service.
 
@@ -306,6 +306,8 @@ Number of Camel components: 149 in 114 JAR artifacts (0 deprecated)
 
 | xref:extensions/telegram.adoc[Telegram] | camel-quarkus-telegram | Native + Stable | 1.0.0-M4 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
 
+| xref:extensions/tika.adoc[Tika] | camel-quarkus-tika | Native + Stable | 1.0.0-CR3 | Parse documents and extract metadata and text using Apache Tika.
+
 | xref:extensions/timer.adoc[Timer] | camel-quarkus-timer | Native + Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
 
 | xref:extensions/twitter.adoc[Twitter Direct Message] | camel-quarkus-twitter | Native + Stable | 0.2.0 | Send and receive Twitter direct messages.
@@ -357,13 +359,13 @@ Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 
 | xref:extensions/jaxb.adoc[JAXB] | camel-quarkus-jaxb | Native + Stable | 1.0.0-M5 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
-| xref:extensions/gson.adoc[JSon GSon] | camel-quarkus-gson | Native + Stable | 1.0.0-M4 | Marshal POJOs to JSON and back.
+| xref:extensions/gson.adoc[JSON Gson] | camel-quarkus-gson | Native + Stable | 1.0.0-M4 | Marshal POJOs to JSON and back.
 
-| xref:extensions/jackson.adoc[JSon Jackson] | camel-quarkus-jackson | Native + Stable | 0.3.0 | Marshal POJOs to JSON and back.
+| xref:extensions/jackson.adoc[JSON Jackson] | camel-quarkus-jackson | Native + Stable | 0.3.0 | Marshal POJOs to JSON and back.
 
-| xref:extensions/johnzon.adoc[JSon Johnzon] | camel-quarkus-johnzon | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
+| xref:extensions/johnzon.adoc[JSON Johnzon] | camel-quarkus-johnzon | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
-| xref:extensions/xstream.adoc[JSon XStream] | camel-quarkus-xstream | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
+| xref:extensions/xstream.adoc[JSON XStream] | camel-quarkus-xstream | Native + Stable | 1.0.0-M5 | Marshal POJOs to JSON and back.
 
 | xref:extensions/lzf.adoc[LZF Deflate Compression] | camel-quarkus-lzf | Native + Stable | 1.0.0-M4 | Compress and decompress streams using LZF deflate algorithm.
 
@@ -427,13 +429,13 @@ Number of Camel languages: 13 in 7 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 15 in 15 JAR artifacts (0 deprecated)
+Number of miscellaneous extensions: 15 in 15 JAR artifacts (1 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
 | Extension | Artifact | Support Level | Since | Description
 
-|  xref:extensions/attachments.adoc[Attachments]  | camel-quarkus-attachments | Native + Stable | 0.3.0 | Java Attachments support for Camel Message
+|  xref:extensions/attachments.adoc[Attachments]  | camel-quarkus-attachments | Native + Stable | 0.3.0 | Support for attachments on Camel messages
 
 |  xref:extensions/caffeine-lrucache.adoc[Caffeine LRUCache]  | camel-quarkus-caffeine-lrucache | Native + Stable | 1.0.0-M5 | An LRUCacheFactory implementation based on Caffeine
 
@@ -441,13 +443,13 @@ Number of miscellaneous extensions: 15 in 15 JAR artifacts (0 deprecated)
 
 |  xref:extensions/endpointdsl.adoc[Endpoint DSL]  | camel-quarkus-endpointdsl | Native + Stable | 1.0.0-M3 | Code Camel endpoint URI using Java DSL instead of plain strings
 
-|  xref:extensions/hystrix.adoc[Hystrix]  | camel-quarkus-hystrix | Native + Stable | 1.0.0-M1 | Circuit Breaker EIP using Netflix Hystrix
+|  xref:extensions/hystrix.adoc[Hystrix]  | camel-quarkus-hystrix | Native + Stable | 1.0.0-M1 | *deprecated* Circuit Breaker EIP using Netflix Hystrix
 
 |  xref:extensions/kotlin.adoc[Kotlin]  | camel-quarkus-kotlin | Native + Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
 |  xref:extensions/main.adoc[Main]  | camel-quarkus-main | Native + Stable | 1.0.0-CR3 | Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode
 
-|  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-CR1 | Circuit Breaker EIP using Microprofile Fault Tolerance
+|  xref:extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]  | camel-quarkus-microprofile-fault-tolerance | Native + Stable | 1.0.0-CR1 | Circuit Breaker EIP using MicroProfile Fault Tolerance
 
 |  xref:extensions/microprofile-health.adoc[Microprofile Health]  | camel-quarkus-microprofile-health | Native + Stable | 0.3.0 | Bridging Eclipse MicroProfile Health with Camel health checks
 
