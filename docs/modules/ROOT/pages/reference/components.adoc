@@ -83,10 +83,10 @@ Stable | 1.0.0 | Manage AWS IAM instances using AWS SDK version 2.x.
 Stable | 1.0.0 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis] | [.camel-element-artifact]##camel-quarkus-aws2-kinesis## | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
+Preview | 1.1.0 | Consume and produce records from and to AWS Kinesis Streams using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis Firehose] | [.camel-element-artifact]##camel-quarkus-aws2-kinesis## | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Consume data from AWS Kinesis Firehose streams using AWS SDK version 2.x.
+Preview | 1.1.0 | Produce data to AWS Kinesis Firehose streams using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-lambda.adoc[AWS 2 Lambda] | [.camel-element-artifact]##camel-quarkus-aws2-lambda## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Manage and invoke AWS Lambda functions using AWS SDK version 2.x.
@@ -98,7 +98,7 @@ Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
 Stable | 1.0.0 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | [.camel-element-artifact]##camel-quarkus-aws2-s3## | [.camel-element-Native]##Native## +
-Stable | 1.0.0 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
+Stable | 1.0.0 | Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)] | [.camel-element-artifact]##camel-quarkus-aws2-ses## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send e-mails through AWS SES service using AWS SDK version 2.x.
@@ -137,7 +137,7 @@ Stable | 1.0.0 | Consume data from AWS Kinesis Firehose streams.
 Stable | 1.0.0 | Manage and invoke AWS Lambda functions.
 
 | xref:reference/extensions/aws-s3.adoc[AWS S3 Storage Service] | [.camel-element-artifact]##camel-quarkus-aws-s3## | [.camel-element-Native]##Native## +
-Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
+Stable | 0.2.0 | Store and retrieve objects from AWS S3 Storage Service.
 
 | xref:reference/extensions/aws-sns.adoc[AWS Simple Notification System (SNS)] | [.camel-element-artifact]##camel-quarkus-aws-sns## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
@@ -157,14 +157,14 @@ Stable | 1.0.0 | Translate texts using AWS Translate.
 | xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service] | [.camel-element-artifact]##camel-quarkus-azure-storage-blob## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
 
-| xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Legacy)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
-Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service.
+| xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Deprecated)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
+Stable | 1.0.0 | [.camel-element-deprecated]*deprecated* Store and retrieve blobs from Azure Storage Blob Service.
 
 | xref:reference/extensions/azure-storage-queue.adoc[Azure Storage Queue Service] | [.camel-element-artifact]##camel-quarkus-azure-storage-queue## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.
 
-| xref:reference/extensions/azure.adoc[Azure Storage Queue Service (Legacy)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
-Stable | 1.0.0 | Store and retrieve messages from Azure Storage Queue Service.
+| xref:reference/extensions/azure.adoc[Azure Storage Queue Service (Deprecated)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
+Stable | 1.0.0 | [.camel-element-deprecated]*deprecated* Store and retrieve messages from Azure Storage Queue Service.
 
 | xref:reference/extensions/bean.adoc[Bean] | [.camel-element-artifact]##camel-quarkus-bean## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Invoke methods of Java beans stored in Camel registry.
@@ -194,7 +194,7 @@ Preview | 1.1.0 | Perform caching operations using Caffeine Cache.
 Preview | 1.1.0 | Perform caching operations using Caffeine Cache with an attached CacheLoader.
 
 | xref:reference/extensions/cassandraql.adoc[Cassandra CQL] | [.camel-element-artifact]##camel-quarkus-cassandraql## | [.camel-element-JVM]##JVM## +
-Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
+Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 
 | xref:reference/extensions/chatscript.adoc[ChatScript] | [.camel-element-artifact]##camel-quarkus-chatscript## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Chat with a ChatScript Server.
