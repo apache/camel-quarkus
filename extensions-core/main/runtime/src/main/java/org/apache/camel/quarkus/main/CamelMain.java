@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.main;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -31,6 +33,7 @@ import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
+import org.apache.camel.main.MainShutdownStrategy.ShutdownEventListener;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
@@ -157,6 +160,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     private class ShutdownStrategy implements MainShutdownStrategy {
         private final AtomicBoolean completed;
         private final CountDownLatch latch;
+        private final Set<ShutdownEventListener> listeners = new LinkedHashSet<>();
 
         public ShutdownStrategy() {
             this.completed = new AtomicBoolean(false);
@@ -172,6 +176,15 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         public boolean shutdown() {
             if (completed.compareAndSet(false, true)) {
                 latch.countDown();
+                for (ShutdownEventListener l : listeners) {
+                    try {
+                        LOG.trace("ShutdownEventListener: {}", l);
+                        l.onShutdown();
+                    } catch (Throwable e) {
+                        // ignore as we must continue
+                        LOG.debug("Error during ShutdownEventListener: {}. This exception is ignored.", l, e);
+                    }
+                }
                 Quarkus.asyncExit(getExitCode());
                 return true;
             }
@@ -191,6 +204,10 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
                         "Could not await stopping CamelMain within {} {}. You may want to increase camel.main.shutdown.timeout",
                         timeout, unit);
             }
+        }
+
+        public void addShutdownListener(ShutdownEventListener listener) {
+            listeners.add(listener);
         }
     }
 }

@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.IndexView;
 
@@ -38,7 +39,7 @@ public class DebeziumSupportProcessor {
 
         String[] dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
                 .filter(n -> n.startsWith("org.apache.kafka.connect.json")
-                        || n.startsWith("io.debezium.embedded.spi"))
+                        || n.startsWith("io.debezium.engine.spi"))
                 .sorted()
                 .toArray(String[]::new);
 
@@ -50,12 +51,19 @@ public class DebeziumSupportProcessor {
         return new ReflectiveClassBuildItem(false, false,
                 new String[] { "org.apache.kafka.connect.storage.FileOffsetBackingStore",
                         "org.apache.kafka.connect.storage.MemoryOffsetBackingStore",
-                        "io.debezium.relational.history.FileDatabaseHistory" });
+                        "io.debezium.relational.history.FileDatabaseHistory",
+                        "io.debezium.embedded.ConvertingEngineBuilderFactory" });
     }
 
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("org.apache.kafka", "connect-json"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-embedded"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-api"));
+    }
+
+    @BuildStep
+    void registerServiceProviders(BuildProducer<NativeImageResourceBuildItem> nativeImage) {
+        nativeImage.produce(
+                new NativeImageResourceBuildItem("META-INF/services/io.debezium.engine.DebeziumEngine$BuilderFactory"));
     }
 }
