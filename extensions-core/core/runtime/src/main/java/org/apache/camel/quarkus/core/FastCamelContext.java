@@ -87,6 +87,17 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    public String addRouteFromTemplate(String routeId, String routeTemplateId, Map<String, Object> parameters)
+            throws Exception {
+        return model.addRouteFromTemplate(routeId, routeTemplateId, parameters);
+    }
+
+    @Override
+    public RouteTemplateParameterBuilder addRouteFromTemplate(String routeTemplateId) {
+        return new RouteTemplateParameterBuilder(this, routeTemplateId);
+    }
+
+    @Override
     protected Registry createRegistry() {
         throw new UnsupportedOperationException();
     }
@@ -509,6 +520,36 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     public void removeRouteDefinition(RouteDefinition routeDefinition) throws Exception {
         model.removeRouteDefinition(routeDefinition);
+    }
+
+    @Override
+    public List<RouteTemplateDefinition> getRouteTemplateDefinitions() {
+        return model.getRouteTemplateDefinitions();
+    }
+
+    @Override
+    public RouteTemplateDefinition getRouteTemplateDefinition(String id) {
+        return model.getRouteTemplateDefinition(id);
+    }
+
+    @Override
+    public void addRouteTemplateDefinitions(Collection<RouteTemplateDefinition> routeTemplateDefinitions) throws Exception {
+        model.addRouteTemplateDefinitions(routeTemplateDefinitions);
+    }
+
+    @Override
+    public void addRouteTemplateDefinition(RouteTemplateDefinition routeTemplateDefinition) throws Exception {
+        model.addRouteTemplateDefinition(routeTemplateDefinition);
+    }
+
+    @Override
+    public void removeRouteTemplateDefinitions(Collection<RouteTemplateDefinition> routeTemplateDefinitions) throws Exception {
+        model.removeRouteTemplateDefinitions(routeTemplateDefinitions);
+    }
+
+    @Override
+    public void removeRouteTemplateDefinition(RouteTemplateDefinition routeTemplateDefinition) throws Exception {
+        model.removeRouteTemplateDefinition(routeTemplateDefinition);
     }
 
     @Override
