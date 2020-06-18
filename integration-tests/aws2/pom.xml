@@ -66,11 +66,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-<<<<<<< HEAD
             <artifactId>camel-quarkus-aws2-kms</artifactId>
-=======
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-mq</artifactId>
->>>>>>> Added an AWS2-MQ native extension
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
