@@ -26,6 +26,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.main.RoutesCollector;
+import org.apache.camel.model.RouteTemplatesDefinition;
 import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.model.rest.RestsDefinition;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
@@ -78,6 +79,31 @@ public class CamelMainRoutesCollector implements RoutesCollector {
                 }
             } catch (FileNotFoundException e) {
                 LOGGER.warn("File {} can not be found. Skipping XML routes detection.", part);
+            } catch (Exception e) {
+                throw RuntimeCamelException.wrapRuntimeException(e);
+            }
+        }
+
+        return answer;
+    }
+
+    @Override
+    public List<RouteTemplatesDefinition> collectXmlRouteTemplatesFromDirectory(CamelContext camelContext, String directory)
+            throws Exception {
+        List<RouteTemplatesDefinition> answer = new ArrayList<>();
+        PackageScanResourceResolver resolver = camelContext.adapt(ExtendedCamelContext.class).getPackageScanResourceResolver();
+
+        for (String part : directory.split(",")) {
+            LOGGER.info("Loading additional Camel XML route templates from: {}", part);
+            try {
+                for (InputStream is : resolver.findResources(part)) {
+                    Object definition = xmlRoutesLoader.loadRouteTemplatesDefinition(camelContext, is);
+                    if (definition instanceof RestsDefinition) {
+                        answer.add((RouteTemplatesDefinition) definition);
+                    }
+                }
+            } catch (FileNotFoundException e) {
+                LOGGER.debug("No XML route templates found in {}. Skipping XML route templates detection.", part);
             } catch (Exception e) {
                 throw RuntimeCamelException.wrapRuntimeException(e);
             }

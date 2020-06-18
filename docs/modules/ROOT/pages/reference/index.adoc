@@ -17,7 +17,7 @@ In case you are missing some extension in the list:
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.
 ====
 
-166 extensions (1 deprecated, 14 JVM only)
+166 extensions (2 deprecated, 14 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -75,7 +75,7 @@ Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
 Stable | 1.0.0 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 |  xref:reference/extensions/aws2-s3.adoc[AWS 2 S3 Storage Service]  | camel-quarkus-aws2-s3 | Native +
-Stable | 1.0.0 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
+Stable | 1.0.0 | Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 |  xref:reference/extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)]  | camel-quarkus-aws2-ses | Native +
 Stable | 1.0.0 | Send e-mails through AWS SES service using AWS SDK version 2.x.
@@ -111,7 +111,7 @@ Stable | 1.0.0 | Consume and produce records from AWS Kinesis Streams and AWS Ki
 Stable | 1.0.0 | Manage and invoke AWS Lambda functions.
 
 |  xref:reference/extensions/aws-s3.adoc[AWS S3 Storage Service]  | camel-quarkus-aws-s3 | Native +
-Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
+Stable | 0.2.0 | Store and retrieve objects from AWS S3 Storage Service.
 
 |  xref:reference/extensions/aws-sns.adoc[AWS Simple Notification System (SNS)]  | camel-quarkus-aws-sns | Native +
 Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
@@ -129,7 +129,7 @@ Stable | 1.0.0 | Store and Retrieve data from/to AWS SDB service.
 Stable | 1.0.0 | Translate texts using AWS Translate.
 
 |  xref:reference/extensions/azure.adoc[Azure]  | camel-quarkus-azure | Native +
-Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service
+Stable | 1.0.0 | *deprecated* Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service
 
 |  xref:reference/extensions/base64.adoc[Base64]  | camel-quarkus-base64 | Native +
 Stable | 1.0.0 | Encode and decode data using Base64.
@@ -153,7 +153,7 @@ Stable | 1.2.0 | Process payments using Braintree Payments.
 Stable | 1.0.0 | An LRUCacheFactory implementation based on Caffeine
 
 |  xref:reference/extensions/cassandraql.adoc[Cassandra CQL]  | camel-quarkus-cassandraql | JVM +
-Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
+Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 
 |  xref:reference/extensions/core-cloud.adoc[Cloud]  | camel-quarkus-core-cloud | Native +
 Stable | 0.2.0 | The Camel Quarkus core cloud module

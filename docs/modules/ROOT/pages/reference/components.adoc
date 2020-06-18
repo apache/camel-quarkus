@@ -4,7 +4,7 @@
 [camel-quarkus-components]
 = Camel components supported on Quarkus
 
-157 components in 122 JAR artifacts (0 deprecated, 17 JVM only)
+157 components in 122 JAR artifacts (2 deprecated, 17 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -59,7 +59,7 @@ Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
 Stable | 1.0.0 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | camel-quarkus-aws2-s3 | Native +
-Stable | 1.0.0 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
+Stable | 1.0.0 | Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)] | camel-quarkus-aws2-ses | Native +
 Stable | 1.0.0 | Send e-mails through AWS SES service using AWS SDK version 2.x.
@@ -98,7 +98,7 @@ Stable | 1.0.0 | Consume data from AWS Kinesis Firehose streams.
 Stable | 1.0.0 | Manage and invoke AWS Lambda functions.
 
 | xref:reference/extensions/aws-s3.adoc[AWS S3 Storage Service] | camel-quarkus-aws-s3 | Native +
-Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
+Stable | 0.2.0 | Store and retrieve objects from AWS S3 Storage Service.
 
 | xref:reference/extensions/aws-sns.adoc[AWS Simple Notification System (SNS)] | camel-quarkus-aws-sns | Native +
 Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
@@ -115,11 +115,11 @@ Stable | 1.0.0 | Store and Retrieve data from/to AWS SDB service.
 | xref:reference/extensions/aws-translate.adoc[AWS Translate] | camel-quarkus-aws-translate | Native +
 Stable | 1.0.0 | Translate texts using AWS Translate.
 
-| xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Legacy)] | camel-quarkus-azure | Native +
-Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service.
+| xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Deprecated)] | camel-quarkus-azure | Native +
+Stable | 1.0.0 | *deprecated* Store and retrieve blobs from Azure Storage Blob Service.
 
-| xref:reference/extensions/azure.adoc[Azure Storage Queue Service (Legacy)] | camel-quarkus-azure | Native +
-Stable | 1.0.0 | Store and retrieve messages from Azure Storage Queue Service.
+| xref:reference/extensions/azure.adoc[Azure Storage Queue Service (Deprecated)] | camel-quarkus-azure | Native +
+Stable | 1.0.0 | *deprecated* Store and retrieve messages from Azure Storage Queue Service.
 
 | xref:reference/extensions/bean.adoc[Bean] | camel-quarkus-bean | Native +
 Stable | 0.2.0 | Invoke methods of Java beans stored in Camel registry.
@@ -134,7 +134,7 @@ Stable | 1.0.0 | Upload, download and manage files, folders, groups, collaborati
 Stable | 1.2.0 | Process payments using Braintree Payments.
 
 | xref:reference/extensions/cassandraql.adoc[Cassandra CQL] | camel-quarkus-cassandraql | JVM +
-Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
+Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 
 | xref:reference/extensions/bean.adoc[Class] | camel-quarkus-bean | Native +
 Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
