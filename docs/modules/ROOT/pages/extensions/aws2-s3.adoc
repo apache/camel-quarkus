@@ -7,7 +7,7 @@
 [.badges]
 [.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
-Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
+Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 == What's inside
 
