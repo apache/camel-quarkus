@@ -29,6 +29,11 @@ public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoa
     }
 
     @Override
+    public Object loadRouteTemplatesDefinition(CamelContext context, InputStream inputStream) throws Exception {
+        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-io");
+    }
+
+    @Override
     public Object loadRestsDefinition(CamelContext context, InputStream inputStream) throws Exception {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-io");
     }
