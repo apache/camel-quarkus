@@ -18,54 +18,30 @@ package org.apache.camel.quarkus.main;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelContextAware;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.RoutesBuilder;
-import org.apache.camel.main.BaseMainSupport;
+import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
+import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.spi.CamelBeanPostProcessor;
-import org.apache.camel.support.service.ServiceHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.apache.camel.spi.HasCamelContext;
 
-public class CamelMain extends BaseMainSupport implements CamelContextAware {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
-
-    @Override
-    public void setCamelContext(CamelContext camelContext) {
+public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
+    public CamelMain(CamelContext camelContext) {
         this.camelContext = camelContext;
     }
 
     @Override
-    protected void doInit() throws Exception {
-        super.doInit();
-        postProcessCamelContext(getCamelContext());
-        getCamelContext().init();
-    }
-
-    @Override
-    protected void doStart() throws Exception {
-        for (MainListener listener : listeners) {
-            listener.beforeStart(this);
-        }
-
-        getCamelContext().start();
-
-        for (MainListener listener : listeners) {
-            listener.afterStart(this);
-        }
-    }
-
-    @Override
-    protected void postProcessCamelContext(CamelContext camelContext) throws Exception {
-        super.postProcessCamelContext(camelContext);
-
-        // post process classes with camel's post processor so classes have support
-        // for camel's simple di
+    protected void loadRouteBuilders(CamelContext camelContext) throws Exception {
+        // routes are discovered and pre-instantiated which allow to post process them to support Camel's DI
         CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
         for (RoutesBuilder builder : mainConfigurationProperties.getRoutesBuilders()) {
             postProcessor.postProcessBeforeInitialization(builder, builder.getClass().getName());
@@ -74,35 +50,40 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
     }
 
     @Override
-    protected void loadRouteBuilders(CamelContext camelContext) throws Exception {
-        // classes are automatically discovered by build processors
+    protected void doInit() throws Exception {
+        setShutdownStrategy(new ShutdownStrategy());
+
+        super.doInit();
+        initCamelContext();
+    }
+
+    @Override
+    protected void doStart() throws Exception {
+        super.doStart();
+        try {
+            // if we were veto started then mark as completed
+            this.camelContext.start();
+        } finally {
+            if (getCamelContext().isVetoStarted()) {
+                completed();
+            }
+        }
     }
 
     @Override
     protected void doStop() throws Exception {
-        try {
-            if (camelTemplate != null) {
-                ServiceHelper.stopService(camelTemplate);
-                camelTemplate = null;
-            }
-        } catch (Exception e) {
-            LOGGER.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
-        }
-
-        for (MainListener listener : listeners) {
-            listener.beforeStop(this);
-        }
-
-        getCamelContext().stop();
-
-        for (MainListener listener : listeners) {
-            listener.afterStop(this);
-        }
+        super.doStop();
+        this.camelContext.stop();
     }
 
     @Override
     protected ProducerTemplate findOrCreateCamelTemplate() {
-        return getCamelContext().createProducerTemplate();
+        return this.camelContext.createProducerTemplate();
+    }
+
+    @Override
+    protected void initCamelContext() throws Exception {
+        postProcessCamelContext(camelContext);
     }
 
     @Override
@@ -116,5 +97,46 @@ public class CamelMain extends BaseMainSupport implements CamelContextAware {
 
     MainConfigurationProperties getMainConfigurationProperties() {
         return mainConfigurationProperties;
+    }
+
+    /**
+     * Implementation of a {@link MainShutdownStrategy} based on Quarkus Command Mode.
+     *
+     * @see <a href="https://quarkus.io/guides/command-mode-reference">Quarkus Command Mode Applications</a>
+     */
+    private class ShutdownStrategy implements MainShutdownStrategy {
+        private final AtomicBoolean completed;
+        private final CountDownLatch latch;
+
+        public ShutdownStrategy() {
+            this.completed = new AtomicBoolean(false);
+            this.latch = new CountDownLatch(1);
+        }
+
+        @Override
+        public boolean isRunAllowed() {
+            return !completed.get();
+        }
+
+        @Override
+        public boolean shutdown() {
+            if (completed.compareAndSet(false, true)) {
+                latch.countDown();
+                Quarkus.asyncExit(getExitCode());
+                return true;
+            }
+
+            return false;
+        }
+
+        @Override
+        public void await() throws InterruptedException {
+            latch.await();
+        }
+
+        @Override
+        public void await(long timeout, TimeUnit unit) throws InterruptedException {
+            latch.await(timeout, unit);
+        }
     }
 }

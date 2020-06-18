@@ -16,13 +16,19 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.Arrays;
+
+import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelRuntime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An implementation of the {@link CamelRuntime} based on camel-main.
  */
 public class CamelMainRuntime implements CamelRuntime {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainRuntime.class);
     private final CamelMain main;
 
     public CamelMainRuntime(CamelMain main) {
@@ -30,13 +36,31 @@ public class CamelMainRuntime implements CamelRuntime {
     }
 
     @Override
-    public void start() {
-        main.start();
+    public void start(String[] args) {
+        if (args.length > 0) {
+            LOGGER.info("Starting camel-quarkus with args: {}", Arrays.toString(args));
+        }
+
+        new Thread(() -> {
+            try {
+                main.run(args);
+            } catch (Exception e) {
+                LOGGER.error("Failed to start application", e);
+                stop();
+                throw new RuntimeException(e);
+            }
+        }).start();
     }
 
     @Override
     public void stop() {
         main.stop();
+    }
+
+    @Override
+    public int waitForExit() {
+        Quarkus.waitForExit();
+        return this.main.getExitCode();
     }
 
     @Override

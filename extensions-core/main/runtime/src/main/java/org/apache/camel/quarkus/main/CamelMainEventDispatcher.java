@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.main;
 
+import javax.enterprise.inject.spi.BeanManager;
+
 import io.quarkus.arc.Arc;
 import org.apache.camel.CamelContext;
 import org.apache.camel.main.BaseMainSupport;
@@ -66,6 +68,9 @@ public class CamelMainEventDispatcher implements org.apache.camel.main.MainListe
     }
 
     private static <T> void fireEvent(Class<T> clazz, T event) {
-        Arc.container().beanManager().getEvent().select(clazz).fire(event);
+        BeanManager beanManager = Arc.container().beanManager();
+        if (beanManager != null) {
+            beanManager.getEvent().select(clazz).fire(event);
+        }
     }
 }

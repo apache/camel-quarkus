@@ -22,7 +22,9 @@ import org.apache.camel.spi.HasCamelContext;
  * Represent a runnable Camel instance.
  */
 public interface CamelRuntime extends HasCamelContext {
-    void start();
+    void start(String[] args);
 
     void stop();
+
+    int waitForExit();
 }
