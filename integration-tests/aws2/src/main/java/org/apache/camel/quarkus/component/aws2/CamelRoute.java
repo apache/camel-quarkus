@@ -81,6 +81,10 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-mq?repeatCount=1")
                 .to("aws2-mq://test?operation=listBrokers")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-msk?repeatCount=1")
+                .to("aws2-msk://cluster?operation=listClusters")
+                .to("log:sf?showAll=true");
     }
 
 }
