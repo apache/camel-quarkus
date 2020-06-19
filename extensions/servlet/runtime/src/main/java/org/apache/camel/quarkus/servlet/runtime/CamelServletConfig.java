@@ -28,24 +28,16 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 /**
  * {@link ConfigRoot} for {@link #defaultServlet}.
  */
-@ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
+@ConfigRoot(name = "camel.servlet", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public final class CamelServletConfig {
 
-    /** {@code camel-servlet} component configuration */
-    public ServletsConfig servlet;
+    /** The default servlet with implicit name {@value ServletConfig.DEFAULT_SERVLET_NAME} */
+    @ConfigItem(name = ConfigItem.PARENT)
+    public ServletConfig defaultServlet;
 
-    @ConfigGroup
-    public static class ServletsConfig {
-
-        /** The default servlet with implicit name {@value ServletConfig.DEFAULT_SERVLET_NAME} */
-        @ConfigItem(name = ConfigItem.PARENT)
-        public ServletConfig defaultServlet;
-
-        /** A collection of named servlets */
-        @ConfigItem(name = ConfigItem.PARENT)
-        public Map<String, ServletConfig> namedServlets;
-
-    }
+    /** A collection of named servlets */
+    @ConfigItem(name = ConfigItem.PARENT)
+    public Map<String, ServletConfig> namedServlets;
 
     /** {@code camel-servlet} component configuration */
     @ConfigGroup
