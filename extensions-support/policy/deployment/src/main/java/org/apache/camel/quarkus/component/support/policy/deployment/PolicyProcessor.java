@@ -49,9 +49,6 @@ class PolicyProcessor {
          */
         return new UnbannedReflectiveBuildItem(
                 "org.apache.camel.support.processor.DefaultExchangeFormatter",
-                "org.apache.camel.component.pdf.PdfConfiguration",
-                "org.apache.camel.component.netty.NettyConfiguration",
-                "org.apache.camel.component.netty.NettyServerBootstrapConfiguration",
                 "org.apache.camel.component.fhir.FhirUpdateEndpointConfiguration",
                 "org.apache.camel.component.fhir.FhirOperationEndpointConfiguration",
                 "org.apache.camel.component.fhir.FhirConfiguration",
