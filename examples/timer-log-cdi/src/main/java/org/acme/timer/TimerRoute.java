@@ -47,7 +47,7 @@ public class TimerRoute extends RouteBuilder {
     public void configure() throws Exception {
         fromF("timer:foo?period=%s", period)
                 .setBody(exchange -> "Incremented the counter: " + counter.increment())
-                // the configuration of the log component is programmatically done using CDI
+                // the configuration of the log component is done programmatically using CDI
                 // by the org.acme.timer.Beans::log method.
                 .to("log:example");
     }

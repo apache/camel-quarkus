@@ -1,14 +1,19 @@
 = Bootstrap Camel Quarkus
-:page-aliases: bootstrap.adoc
 
-Camel Quarkus automatically configure and deploy a Camel Context bean which by default is started/stopped according to the Quarkus Application lifecycle. The configuration step happens at build time during Quarkus' augmentation phase and it is driven by the Camel Quarkus extensions which can be tuned using Camel Quarkus specific properties indentified by "camel.quarkus" as prefix. After the configuration is done, a minimal Camel Runtime is assembled and started at RUNTIME_INIT time. At that point, any additional configuration should be done using CDI, below an example bout how to configure a Camel Component:
+Camel Quarkus automatically configures and deploys a Camel Context bean which by default is started/stopped according to the Quarkus Application lifecycle. The configuration step happens at build time during Quarkus' augmentation phase and it is driven by the Camel Quarkus extensions which can be tuned using Camel Quarkus specific `camel.quarkus.*` properties. After the configuration is done, a minimal Camel Runtime is assembled and started at `RUNTIME_INIT` time. At that point, any additional configuration should be done using CDI. Below is an example showing how to configure a Camel Component:
 
 [source,java]
 ----
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.support.processor.DefaultExchangeFormatter;
+
 @ApplicationScoped
 public class Configurations {
     /**
-     * Produces a {@link LogComponent} instance with a custom exchange formatter.
+     * Produces a {@link LogComponent} instance with a custom exchange formatter set-up.
      */
     @Named
     LogComponent log() {
@@ -24,7 +29,7 @@ public class Configurations {
 }
 ----
 
-To configure component and other aspects of Apache Camel through properties, you can add the camel-core-main extension which brings functionnalities from https://camel.apache.org/components/latest/others/main.html[Apache Camel Main] to Camel Quarkus. By adding such extension the programmatic configuration of the Log Component done above, can be done through properties:
+To configure component and other aspects of Apache Camel through properties, you can add the `camel-core-main` extension which brings functionalities from https://camel.apache.org/components/latest/others/main.html[Apache Camel Main] to Camel Quarkus. By adding such extension the programmatic configuration of the Log Component done above, can be done through properties:
 
 
 [source,properties]

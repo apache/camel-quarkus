@@ -1,6 +1,6 @@
 = timer-log
 
-This is a basic hello world example that uses a cusomt main to set-up
+This is a basic hello world example that uses a custom main to set-up
 a Camel timer that triggers every second and prints to the log.
 
 TIP: Check the https://camel.apache.org/camel-quarkus/latest/first-steps.html[Camel Quarkus User guide] for prerequisites
