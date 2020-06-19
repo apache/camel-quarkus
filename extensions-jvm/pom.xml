@@ -35,7 +35,6 @@
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>avro-rpc</module>
-        <module>aws2-msk</module>
         <module>aws2-ses</module>
         <module>cassandraql</module>
         <module>couchbase</module>
