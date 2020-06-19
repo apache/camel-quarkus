@@ -76,7 +76,10 @@ public class CamelRoute extends RouteBuilder {
 
         from("timer:quarkus-kms?repeatCount=1")
                 .setHeader("CamelAwsKMSOperation", constant("listKeys"))
-                .to("aws2-kms://cluster")
+                .to("aws2-kms://cluster");
+
+        from("timer:quarkus-mq?repeatCount=1")
+                .to("aws2-mq://test?operation=listBrokers")
                 .to("log:sf?showAll=true");
     }
 
