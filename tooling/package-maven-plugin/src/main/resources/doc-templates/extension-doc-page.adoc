@@ -33,6 +33,12 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 [=usage]
 [/#if]
+[#if limitations?? ]
+
+== Camel Quarkus limitations
+
+[=limitations]
+[/#if]
 [#if activatesNativeSsl ]
 
 == SSL in native mode
@@ -41,15 +47,31 @@ This extension auto-enables SSL support in native mode. Hence you do not need to
 `quarkus.ssl.native=true` to your `application.properties` yourself. See also
 https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 [/#if]
-[#if configuration?? ]
+[#if configuration?? || configOptions?size != 0 ]
 
 == Additional Camel Quarkus configuration
+[#if configuration??]
 
 [=configuration]
 [/#if]
-[#if limitations?? ]
+[#if configOptions?size != 0 ]
 
-== Camel Quarkus limitations
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
 
-[=limitations]
+[#list configOptions as configDocItem][#assign anchor = toAnchor(configDocItem.configDocKey.key)]
+
+|[=configDocItem.configDocKey.configPhase.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.configDocKey.key]]`
+
+[=configDocItem.configDocKey.configDoc]
+| `[=configDocItem.configDocKey.type]`
+| [#if configDocItem.configDocKey.defaultValue?has_content]`[=configDocItem.configDocKey.defaultValue]`[#elseif ! configDocItem.configDocKey.optional]required icon:exclamation-circle[title=Configuration property is required][/#if]
+[/#list]
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
+[/#if]
 [/#if]

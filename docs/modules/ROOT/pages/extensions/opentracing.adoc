@@ -73,3 +73,25 @@ The Camel OpenTracing extension exposes the following configuration properties.
 |
 |===
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.opentracing.encoding]]`link:#quarkus.camel.opentracing.encoding[quarkus.camel.opentracing.encoding]`
+
+Sets whether header keys need to be encoded
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.opentracing.exclude-patterns]]`link:#quarkus.camel.opentracing.exclude-patterns[quarkus.camel.opentracing.exclude-patterns]`
+
+Sets whether to disable tracing for endpoint URIs that match the given patterns
+| `string`
+| 
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

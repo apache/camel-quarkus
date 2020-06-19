@@ -69,3 +69,19 @@ The Camel MicroProfile Health extension exposes the following configuration prop
 |`true`
 |===
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.health.enabled]]`link:#quarkus.camel.health.enabled[quarkus.camel.health.enabled]`
+
+Set whether to enable Camel health checks
+| `boolean`
+| `true`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

@@ -195,3 +195,43 @@ Set whether to enable the `MicroProfileMetricsCamelContextEventNotifier` for cap
 |`true`
 |===
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-route-policy]]`link:#quarkus.camel.metrics.enable-route-policy[quarkus.camel.metrics.enable-route-policy]`
+
+Set whether to enable the MicroProfileMetricsRoutePolicyFactory for capturing metrics on route processing times.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-message-history]]`link:#quarkus.camel.metrics.enable-message-history[quarkus.camel.metrics.enable-message-history]`
+
+Set whether to enable the MicroProfileMetricsMessageHistoryFactory for capturing metrics on individual route node processing times. Depending on the number of configured route nodes, there is the potential to create a large volume of metrics. Therefore, this option is disabled by default.
+| `boolean`
+| `false`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-exchange-event-notifier]]`link:#quarkus.camel.metrics.enable-exchange-event-notifier[quarkus.camel.metrics.enable-exchange-event-notifier]`
+
+Set whether to enable the MicroProfileMetricsExchangeEventNotifier for capturing metrics on exchange processing times.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-route-event-notifier]]`link:#quarkus.camel.metrics.enable-route-event-notifier[quarkus.camel.metrics.enable-route-event-notifier]`
+
+Set whether to enable the MicroProfileMetricsRouteEventNotifier for capturing metrics on the total number of routes and total number of routes running.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.metrics.enable-camel-context-event-notifier]]`link:#quarkus.camel.metrics.enable-camel-context-event-notifier[quarkus.camel.metrics.enable-camel-context-event-notifier]`
+
+Set whether to enable the MicroProfileMetricsCamelContextEventNotifier for capturing metrics about the CamelContext, such as status and uptime.
+| `boolean`
+| `true`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
