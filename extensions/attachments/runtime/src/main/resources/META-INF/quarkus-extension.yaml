@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel Attachments"
-description: "Java Attachments support for Camel Message"
+description: "Support for attachments on Camel messages"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/attachments.html"
   categories:
