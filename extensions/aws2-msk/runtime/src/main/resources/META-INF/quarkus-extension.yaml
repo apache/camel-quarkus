@@ -21,9 +21,9 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Attachments"
-description: "Support for attachments on Camel messages"
+name: "Camel AWS 2 MSK"
+description: "Manage AWS MSK instances using AWS SDK version 2.x"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/attachments.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-msk.html"
   categories:
   - "integration"

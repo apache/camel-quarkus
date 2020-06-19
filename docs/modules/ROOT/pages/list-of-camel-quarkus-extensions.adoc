@@ -50,6 +50,8 @@ Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-kms.adoc[AWS 2 Key Management Service (KMS)] | camel-quarkus-aws2-kms | Native + Stable | 1.0.0-M6 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
 
+| xref:extensions/aws2-msk.adoc[AWS 2 Managed Streaming for Apache Kafka (MSK)] | camel-quarkus-aws2-msk | Native + Stable | 1.0.0-M6 | Manage AWS MSK instances using AWS SDK version 2.x.
+
 | xref:extensions/aws2-mq.adoc[AWS 2 MQ] | camel-quarkus-aws2-mq | Native + Stable | 1.0.0-M6 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 | xref:extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | camel-quarkus-aws2-s3 | Native + Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
