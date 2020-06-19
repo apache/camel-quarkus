@@ -102,17 +102,6 @@
                     </mojoDependencies>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <configuration>
-                    <!--
-                        compatibility issue with asciidoc 2.1.0 (camel) vs 2.0.0 (quarkus)
-                        TODO: investigate a better option
-                    -->
-                    <skip />
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
