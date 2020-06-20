@@ -53,3 +53,25 @@ It is disabled by default but can be enabled with the following configuration pr
 quarkus.camel.dozer.type-converter-enabled = true
 ----
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.dozer.mapping-files]]`link:#quarkus.camel.dozer.mapping-files[quarkus.camel.dozer.mapping-files]`
+
+A comma separated list of Dozer XML mapping configuration file URIs.
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.dozer.type-converter-enabled]]`link:#quarkus.camel.dozer.type-converter-enabled[quarkus.camel.dozer.type-converter-enabled]`
+
+Sets whether to configure the DozerTypeConverter for the CamelContext
+| `boolean`
+| `false`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

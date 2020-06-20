@@ -53,3 +53,25 @@ only source of XSLT information at runtime. The XSLT source files may not be inc
 the extension does not yet support Java 11.
 ====
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.sources]]`link:#quarkus.camel.xslt.sources[quarkus.camel.xslt.sources]`
+
+A comma separated list of templates to compile.
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.xslt.package-name]]`link:#quarkus.camel.xslt.package-name[quarkus.camel.xslt.package-name]`
+
+The package name for the generated classes.
+| `string`
+| `org.apache.camel.quarkus.component.xslt.generated`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

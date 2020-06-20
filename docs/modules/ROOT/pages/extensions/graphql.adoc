@@ -35,11 +35,18 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 
 == Additional Camel Quarkus configuration
 
-When configuring `graphql` endpoints to reference query files from the classpath, set the following configuration
-property to ensure that they are available in native mode:
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
 
-[source,properties]
-----
-quarkus.camel.graphql.query-files = queries.graphql, classpath:graphql/my-query.graphql
-----
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.graphql.query-files]]`link:#quarkus.camel.graphql.query-files[quarkus.camel.graphql.query-files]`
+
+A comma separated list of paths to files containing GraphQL queries for use by GraphQL endpoints. Query files that only need to be accessible from the classpath should be specified on this property. Paths can either be schemeless (E.g graphql/my-query.graphql) or be prefixed with the classpath: URI scheme (E.g classpath:graphql/my-query.graphql). Other URI schemes are not supported.
+| `string`
+| 
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
 

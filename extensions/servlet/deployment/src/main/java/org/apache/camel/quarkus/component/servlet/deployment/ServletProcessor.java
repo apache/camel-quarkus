@@ -42,13 +42,13 @@ class ServletProcessor {
     @BuildStep
     void build(BuildProducer<ServletBuildItem> servlet, BuildProducer<AdditionalBeanBuildItem> additionalBean) {
         boolean servletCreated = false;
-        if (camelServletConfig.servlet.defaultServlet.isValid()) {
+        if (camelServletConfig.defaultServlet.isValid()) {
             servlet.produce(
-                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.servlet.defaultServlet, additionalBean));
+                    newServlet(ServletConfig.DEFAULT_SERVLET_NAME, camelServletConfig.defaultServlet, additionalBean));
             servletCreated = true;
         }
 
-        for (Entry<String, ServletConfig> e : camelServletConfig.servlet.namedServlets.entrySet()) {
+        for (Entry<String, ServletConfig> e : camelServletConfig.namedServlets.entrySet()) {
             if (ServletConfig.DEFAULT_SERVLET_NAME.equals(e.getKey())) {
                 throw new IllegalStateException(
                         String.format("Use quarkus.camel.servlet.url-patterns instead of quarkus.camel.servlet.%s.url-patterns",

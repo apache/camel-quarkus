@@ -26,3 +26,51 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.url-patterns]]`link:#quarkus.camel.servlet.url-patterns[quarkus.camel.servlet.url-patterns]`
+
+A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/*`, `/services/*`
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.servlet-class]]`link:#quarkus.camel.servlet.servlet-class[quarkus.camel.servlet.servlet-class]`
+
+A fully qualified name of a servlet class to serve paths that match `url-patterns`
+| `string`
+| `org.apache.camel.component.servlet.CamelHttpTransportServlet`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.servlet-name]]`link:#quarkus.camel.servlet.servlet-name[quarkus.camel.servlet.servlet-name]`
+
+A servletName as it would be defined in a `web.xml` file or in the `javax.servlet.annotation.WebServlet#name()` annotation.
+| `string`
+| `CamelServlet`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.url-patterns]]`link:#quarkus.camel.servlet.-named-servlets-.url-patterns[quarkus.camel.servlet."named-servlets".url-patterns]`
+
+A comma separated list of path patterns under which the CamelServlet should be accessible. Example path patterns: `/*`, `/services/*`
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.servlet-class]]`link:#quarkus.camel.servlet.-named-servlets-.servlet-class[quarkus.camel.servlet."named-servlets".servlet-class]`
+
+A fully qualified name of a servlet class to serve paths that match `url-patterns`
+| `string`
+| `org.apache.camel.component.servlet.CamelHttpTransportServlet`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.servlet.-named-servlets-.servlet-name]]`link:#quarkus.camel.servlet.-named-servlets-.servlet-name[quarkus.camel.servlet."named-servlets".servlet-name]`
+
+A servletName as it would be defined in a `web.xml` file or in the `javax.servlet.annotation.WebServlet#name()` annotation.
+| `string`
+| `CamelServlet`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+

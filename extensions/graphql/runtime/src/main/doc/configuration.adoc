@@ -1,7 +1,0 @@
-When configuring `graphql` endpoints to reference query files from the classpath, set the following configuration
-property to ensure that they are available in native mode:
-
-[source,properties]
-----
-quarkus.camel.graphql.query-files = queries.graphql, classpath:graphql/my-query.graphql
-----

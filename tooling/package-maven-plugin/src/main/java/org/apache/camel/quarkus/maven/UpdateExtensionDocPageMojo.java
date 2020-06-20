@@ -17,21 +17,31 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateMethodModelEx;
 import freemarker.template.TemplateModelException;
+import io.quarkus.annotation.processor.Constants;
+import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
+import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
@@ -43,6 +53,8 @@ import org.apache.maven.plugins.annotations.Mojo;
 @Mojo(name = "update-extension-doc-page", threadSafe = true)
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
+    private static List<String> list;
+    private static List<String> list2;
     private static final Map<String, Boolean> nativeSslActivators = new ConcurrentHashMap<>();
 
     @Override
@@ -80,6 +92,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
                 basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
+        model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
             public Object exec(List arguments) throws TemplateModelException {
@@ -87,6 +100,66 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     throw new TemplateModelException("Wrong argument count in toCamelCase()");
                 }
                 return CqUtils.humanReadableKind(Kind.valueOf(String.valueOf(arguments.get(0))));
+            }
+        });
+        model.put("toAnchor", new TemplateMethodModelEx() {
+            @Override
+            public Object exec(List arguments) throws TemplateModelException {
+                if (arguments.size() != 1) {
+                    throw new TemplateModelException("Wrong argument count in toCamelCase()");
+                }
+                String string = String.valueOf(arguments.get(0));
+                string = Normalizer.normalize(string, Normalizer.Form.NFKC)
+                        .replaceAll("[àáâãäåāąă]", "a")
+                        .replaceAll("[çćčĉċ]", "c")
+                        .replaceAll("[ďđð]", "d")
+                        .replaceAll("[èéêëēęěĕė]", "e")
+                        .replaceAll("[ƒſ]", "f")
+                        .replaceAll("[ĝğġģ]", "g")
+                        .replaceAll("[ĥħ]", "h")
+                        .replaceAll("[ìíîïīĩĭįı]", "i")
+                        .replaceAll("[ĳĵ]", "j")
+                        .replaceAll("[ķĸ]", "k")
+                        .replaceAll("[łľĺļŀ]", "l")
+                        .replaceAll("[ñńňņŉŋ]", "n")
+                        .replaceAll("[òóôõöøōőŏœ]", "o")
+                        .replaceAll("[Þþ]", "p")
+                        .replaceAll("[ŕřŗ]", "r")
+                        .replaceAll("[śšşŝș]", "s")
+                        .replaceAll("[ťţŧț]", "t")
+                        .replaceAll("[ùúûüūůűŭũų]", "u")
+                        .replaceAll("[ŵ]", "w")
+                        .replaceAll("[ýÿŷ]", "y")
+                        .replaceAll("[žżź]", "z")
+                        .replaceAll("[æ]", "ae")
+                        .replaceAll("[ÀÁÂÃÄÅĀĄĂ]", "A")
+                        .replaceAll("[ÇĆČĈĊ]", "C")
+                        .replaceAll("[ĎĐÐ]", "D")
+                        .replaceAll("[ÈÉÊËĒĘĚĔĖ]", "E")
+                        .replaceAll("[ĜĞĠĢ]", "G")
+                        .replaceAll("[ĤĦ]", "H")
+                        .replaceAll("[ÌÍÎÏĪĨĬĮİ]", "I")
+                        .replaceAll("[Ĵ]", "J")
+                        .replaceAll("[Ķ]", "K")
+                        .replaceAll("[ŁĽĹĻĿ]", "L")
+                        .replaceAll("[ÑŃŇŅŊ]", "N")
+                        .replaceAll("[ÒÓÔÕÖØŌŐŎ]", "O")
+                        .replaceAll("[ŔŘŖ]", "R")
+                        .replaceAll("[ŚŠŞŜȘ]", "S")
+                        .replaceAll("[ÙÚÛÜŪŮŰŬŨŲ]", "U")
+                        .replaceAll("[Ŵ]", "W")
+                        .replaceAll("[ÝŶŸ]", "Y")
+                        .replaceAll("[ŹŽŻ]", "Z")
+                        .replaceAll("[ß]", "ss");
+
+                // Apostrophes.
+                string = string.replaceAll("([a-z])'s([^a-z])", "$1s$2");
+                // Allow only letters, -, _, .
+                string = string.replaceAll("[^\\w-_\\.]", "-").replaceAll("-{2,}", "-");
+                // Get rid of any - at the start and end.
+                string = string.replaceAll("-+$", "").replaceAll("^-+", "");
+
+                return string.toLowerCase();
             }
         });
 
@@ -167,6 +240,63 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             }
         } else {
             return default_;
+        }
+    }
+
+    static List<ConfigDocItem> listConfigOptions(Path basePath, Path multiModuleProjectDirectory) {
+        final List<String> configRootClasses = loadConfigRoots(basePath);
+        if (configRootClasses.isEmpty()) {
+            return Collections.emptyList();
+        }
+        final Path configRootsModelsPath = multiModuleProjectDirectory
+                .resolve("target/asciidoc/generated/config/all-configuration-roots-generated-doc.properties");
+        if (!Files.exists(configRootsModelsPath)) {
+            throw new IllegalStateException("You should run " + UpdateExtensionDocPageMojo.class.getSimpleName()
+                    + " after compileation with io.quarkus.annotation.processor.ExtensionAnnotationProcessor");
+        }
+        final Properties configRootsModels = new Properties();
+        try (InputStream in = Files.newInputStream(configRootsModelsPath)) {
+            configRootsModels.load(in);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read from " + configRootsModelsPath);
+        }
+
+        final ObjectMapper mapper = new ObjectMapper();
+        final List<ConfigDocItem> configDocItems = new ArrayList<ConfigDocItem>();
+        for (String configRootClass : configRootClasses) {
+            final String rawModel = configRootsModels.getProperty(configRootClass);
+            if (rawModel == null) {
+                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsPath);
+            }
+            try {
+                final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
+                for (ConfigDocItem item : items) {
+                    /* Sanitize the pipe chars to avoid closing an AsciiDoc table cell inadvertently */
+                    item.getConfigDocKey().setConfigDoc(item.getConfigDocKey().getConfigDoc().replace("|", "\\|"));
+                    configDocItems.add(item);
+                }
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException("Could not parse " + rawModel, e);
+            }
+
+        }
+        DocGeneratorUtil.sort(configDocItems);
+        return configDocItems;
+    }
+
+    static List<String> loadConfigRoots(Path basePath) {
+        final Path configRootsListPath = basePath.resolve("target/classes/META-INF/quarkus-config-roots.list");
+        if (!Files.exists(configRootsListPath)) {
+            return Collections.emptyList();
+        }
+        try (Stream<String> lines = Files.lines(configRootsListPath, StandardCharsets.UTF_8)) {
+            return lines
+                    .map(String::trim)
+                    .filter(l -> !l.isEmpty())
+                    .map(l -> l.replace('$', '.'))
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read from " + configRootsListPath, e);
         }
     }
 

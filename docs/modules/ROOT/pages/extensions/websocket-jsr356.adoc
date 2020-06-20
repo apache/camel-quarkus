@@ -41,3 +41,19 @@ quarkus.camel.websocket-jsr356.server-endpoint-paths=/foo,/foo/bar,/foo/bar/chee
 
 Note that paths are relative to the value of `quarkus.http.root-path`.
 
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.websocket-jsr356.server-endpoint-paths]]`link:#quarkus.camel.websocket-jsr356.server-endpoint-paths[quarkus.camel.websocket-jsr356.server-endpoint-paths]`
+
+A comma separated list of server endpoint paths that the websocket consumer will bind to.
+| `string`
+| 
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
