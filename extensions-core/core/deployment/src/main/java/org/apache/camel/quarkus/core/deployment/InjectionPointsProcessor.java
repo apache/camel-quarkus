@@ -37,6 +37,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import org.apache.camel.Component;
 import org.apache.camel.quarkus.core.InjectionPointsRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -65,11 +66,13 @@ public class InjectionPointsProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem injectedComponents(
+    void injectedComponents(
             CombinedIndexBuildItem index,
             InjectionPointsRecorder recorder,
             BeanRegistrationPhaseBuildItem beanRegistrationPhase,
-            BuildProducer<SyntheticBeanBuildItem> syntheticBeans) {
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            BuildProducer<CamelRuntimeTaskBuildItem> runtimeTasks,
+            BuildProducer<BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem> beanConfigurator) {
 
         final Collection<ClassInfo> components = index.getIndex().getAllKnownImplementors(INTERFACE_NAME_COMPONENT);
         final Set<String> created = new HashSet<>();
@@ -117,8 +120,13 @@ public class InjectionPointsProcessor {
             }
         }
 
-        // method using BeanRegistrationPhaseBuildItem should return a BeanConfiguratorBuildItem
+        // Ensure the task is executed before the runtime is assembled
+        runtimeTasks.produce(new CamelRuntimeTaskBuildItem("components-injection"));
+
+        // Methods using BeanRegistrationPhaseBuildItem should return/produce a BeanConfiguratorBuildItem
         // otherwise the build step may be processed at the wrong time.
-        return new BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem();
+        //
+        // See BeanRegistrationPhaseBuildItem javadoc
+        beanConfigurator.produce(new BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem());
     }
 }
