@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.lang.annotation.Annotation;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,37 +32,10 @@ import io.quarkus.arc.ArcContainer;
 import org.apache.camel.spi.BeanRepository;
 
 public final class RuntimeBeanRepository implements BeanRepository {
-    @Override
-    public Object lookupByName(String name) {
-        return lookupByNameAndType(name, Object.class);
-    }
-
-    @Override
-    public <T> T lookupByNameAndType(String name, Class<T> type) {
-        final ArcContainer container = Arc.container();
-        final BeanManager manager = container.beanManager();
-
-        return getReferenceByName(manager, name, type).orElse(null);
-    }
-
-    @Override
-    public <T> Map<String, T> findByTypeWithName(Class<T> type) {
-        return getReferencesByTypeWithName(type);
-    }
-
-    @Override
-    public <T> Set<T> findByType(Class<T> type) {
-        final ArcContainer container = Arc.container();
-        final BeanManager manager = container.beanManager();
-
-        return getReferencesByType(manager, type);
-    }
-
     private static <T> Map<String, T> getReferencesByTypeWithName(Class<T> type, Annotation... qualifiers) {
-        final ArcContainer container = Arc.container();
-        final BeanManager manager = container.beanManager();
-
-        return getReferencesByTypeWithName(manager, type, qualifiers);
+        return getBeanManager()
+                .map(manager -> getReferencesByTypeWithName(manager, type, qualifiers))
+                .orElseGet(Collections::emptyMap);
     }
 
     private static <T> Set<T> getReferencesByType(BeanManager manager, Class<T> type, Annotation... qualifiers) {
@@ -97,5 +71,38 @@ public final class RuntimeBeanRepository implements BeanRepository {
         }
 
         return answer;
+    }
+
+    private static Optional<BeanManager> getBeanManager() {
+        ArcContainer container = Arc.container();
+        if (container == null) {
+            return Optional.empty();
+        }
+
+        return Optional.ofNullable(container.beanManager());
+    }
+
+    @Override
+    public Object lookupByName(String name) {
+        return lookupByNameAndType(name, Object.class);
+    }
+
+    @Override
+    public <T> T lookupByNameAndType(String name, Class<T> type) {
+        return getBeanManager()
+                .flatMap(manager -> getReferenceByName(manager, name, type))
+                .orElse(null);
+    }
+
+    @Override
+    public <T> Map<String, T> findByTypeWithName(Class<T> type) {
+        return getReferencesByTypeWithName(type);
+    }
+
+    @Override
+    public <T> Set<T> findByType(Class<T> type) {
+        return getBeanManager()
+                .map(manager -> getReferencesByType(manager, type))
+                .orElseGet(Collections::emptySet);
     }
 }
