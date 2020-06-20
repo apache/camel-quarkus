@@ -74,9 +74,9 @@ jobs:
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
       - name: Set up JDK 11
-        uses: joschi/setup-jdk@v1
+        uses: AdoptOpenJDK/install-jdk@v1
         with:
-          java-version: 11
+          version: '11'
       - name: Build Quarkus
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
@@ -129,9 +129,9 @@ jobs:
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
-        uses: joschi/setup-jdk@v1
+        uses: AdoptOpenJDK/install-jdk@v1
         with:
-          java-version: ${{ matrix.java }}
+          version: ${{ matrix.java }}
       - name: Download Maven Repo
         uses: actions/download-artifact@v1
         with:
@@ -166,9 +166,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
-        uses: joschi/setup-jdk@v1
+        uses: AdoptOpenJDK/install-jdk@v1
         with:
-          java-version: 11
+          version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v1
         with:

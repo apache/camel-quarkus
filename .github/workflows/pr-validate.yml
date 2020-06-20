@@ -46,9 +46,9 @@ jobs:
         echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
     - uses: actions/checkout@v1
     - name: Set up JDK 11
-      uses: joschi/setup-jdk@v1
+      uses: AdoptOpenJDK/install-jdk@v1
       with:
-        java-version: 11
+        version: '11'
     - name: mvn validate
       run: |
         ./mvnw ${BRANCH_OPTIONS} -fae -ntp \
