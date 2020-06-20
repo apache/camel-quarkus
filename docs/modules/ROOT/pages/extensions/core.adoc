@@ -40,29 +40,11 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 | Configuration property | Type | Default
 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.enabled]]`link:#quarkus.camel.main.enabled[quarkus.camel.main.enabled]`
+|icon:lock[title=Fixed at build time] [[quarkus.camel.bootstrap.enabled]]`link:#quarkus.camel.bootstrap.enabled[quarkus.camel.bootstrap.enabled]`
 
-Enable `camel-main`. If `true`, routes are automatically loaded and started and the entire lifecycle of the Camel Context is under the control of the `camel-main` component. Otherwise, the application developer is responsible for performing all the mentioned tasks.
+When set to true, the `CamelRuntime` will be started automatically.
 | `boolean`
 | `true`
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.routes-discovery.enabled]]`link:#quarkus.camel.main.routes-discovery.enabled[quarkus.camel.main.routes-discovery.enabled]`
-
-Enable automatic discovery of routes during static initialization.
-| `boolean`
-| `true`
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.routes-discovery.exclude-patterns]]`link:#quarkus.camel.main.routes-discovery.exclude-patterns[quarkus.camel.main.routes-discovery.exclude-patterns]`
-
-Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to exclude all classes starting with Bar use: **/Bar* To exclude all routes form a specific package use: com/mycompany/bar/* To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/** And to exclude all routes from two specific packages use: com/mycompany/bar/*,com/mycompany/stuff/*
-| `string`
-| 
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.routes-discovery.include-patterns]]`link:#quarkus.camel.main.routes-discovery.include-patterns[quarkus.camel.main.routes-discovery.include-patterns]`
-
-Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to include all classes starting with Foo use: **/Foo* To include all routes form a specific package use: com/mycompany/foo/* To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/** And to include all routes from two specific packages use: com/mycompany/foo/*,com/mycompany/stuff/*
-| `string`
-| 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.service.discovery.exclude-patterns]]`link:#quarkus.camel.service.discovery.exclude-patterns[quarkus.camel.service.discovery.exclude-patterns]`
 
@@ -123,6 +105,24 @@ If `true` the Runtime Camel Catalog embedded in the application will contain JSO
  Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `false` except for making the behavior consistent with native mode.
 | `boolean`
 | `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.enabled]]`link:#quarkus.camel.routes-discovery.enabled[quarkus.camel.routes-discovery.enabled]`
+
+Enable automatic discovery of routes during static initialization.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.exclude-patterns]]`link:#quarkus.camel.routes-discovery.exclude-patterns[quarkus.camel.routes-discovery.exclude-patterns]`
+
+Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to exclude all classes starting with Bar use: **/Bar* To exclude all routes form a specific package use: com/mycompany/bar/* To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/** And to exclude all routes from two specific packages use: com/mycompany/bar/*,com/mycompany/stuff/*
+| `string`
+| 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.include-patterns]]`link:#quarkus.camel.routes-discovery.include-patterns[quarkus.camel.routes-discovery.include-patterns]`
+
+Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to include all classes starting with Foo use: **/Foo* To include all routes form a specific package use: com/mycompany/foo/* To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/** And to include all routes from two specific packages use: com/mycompany/foo/*,com/mycompany/stuff/*
+| `string`
+| 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.resources.exclude-patterns]]`link:#quarkus.camel.native.resources.exclude-patterns[quarkus.camel.native.resources.exclude-patterns]`
 

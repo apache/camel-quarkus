@@ -54,26 +54,6 @@ quarkus.camel.opentracing.exclude-patterns=direct:*,netty-http:*
 
 == Additional Camel Quarkus configuration
 
-The Camel OpenTracing extension exposes the following configuration properties.
-
-[cols="80,.^10,.^10"]
-|===
-|Configuration property |Type |Default
-
-|`quarkus.camel.opentracing.encoding`
-
- Sets whether header keys need to be encoded
-|boolean
-|`false`
-
-|`quarkus.camel.opentracing.exclude-patterns`
-
- Sets whether to disable tracing for endpoint URIs that match the given patterns
-|List<String>
-|
-|===
-
-
 [width="100%",cols="80,5,15",options="header"]
 |===
 | Configuration property | Type | Default

@@ -56,20 +56,6 @@ Inspects the status of each route and causes the health check status to be `DOWN
 
 == Additional Camel Quarkus configuration
 
-The Camel MicroProfile Health extension exposes the following configuration properties.
-
-[cols="80,.^10,.^10"]
-|===
-|Configuration property |Type |Default
-
-|`quarkus.camel.health.enabled`
-
- Set whether to enable Camel health checks
-|boolean
-|`true`
-|===
-
-
 [width="100%",cols="80,5,15",options="header"]
 |===
 | Configuration property | Type | Default
