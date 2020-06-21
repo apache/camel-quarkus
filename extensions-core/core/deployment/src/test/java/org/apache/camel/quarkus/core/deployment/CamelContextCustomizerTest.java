@@ -40,9 +40,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CamelContextCustomizerTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
+            .addBuildChainCustomizer(buildCustomizer())
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(RestConfigurationCustomizer.class))
-            .addBuildChainCustomizer(buildCustomizer());
+                    .addClasses(RestConfigurationCustomizer.class));
 
     static Consumer<BuildChainBuilder> buildCustomizer() {
         return new Consumer<BuildChainBuilder>() {

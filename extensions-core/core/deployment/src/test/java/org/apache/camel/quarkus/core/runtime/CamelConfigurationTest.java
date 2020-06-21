@@ -44,8 +44,6 @@ public class CamelConfigurationTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(BeanProducers.class)
-                    .addClasses(MyExchangeFormatter.class, MyOtherExchangeFormatter.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject

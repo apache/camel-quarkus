@@ -48,10 +48,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CamelRegistryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(BeanProducer.class)
-                    .addClasses(MyRoute.class, MyCDIRoute.class, MyCDIProducer.class)
-                    .addClasses(MyLanguage.class, MyDataFormat.class, MyComponent.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
     Registry registry;
