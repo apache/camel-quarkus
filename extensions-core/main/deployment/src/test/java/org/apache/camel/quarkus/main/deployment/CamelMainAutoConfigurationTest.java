@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -39,13 +40,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 public class CamelMainAutoConfigurationTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClass(BeanProducers.class)
-                    .addClasses(MyExchangeFormatter.class, MyOtherExchangeFormatter.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
@@ -69,6 +69,9 @@ public class CamelMainAutoConfigurationTest {
 
     @Test
     public void testComponentAutoConfiguration() {
+        // ensure the camel context is started before doing any assertion
+        await().atMost(10, TimeUnit.SECONDS).until(main::isStarted);
+
         // ensure that the exchange formatter explicit set to the LogComponent
         // is not overridden by any ExchangeFormatter instance available from
         // the container

@@ -34,8 +34,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CamelInjectionPointTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(Configurer.class, MyExchangeFormatter.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
     Configurer configurer;

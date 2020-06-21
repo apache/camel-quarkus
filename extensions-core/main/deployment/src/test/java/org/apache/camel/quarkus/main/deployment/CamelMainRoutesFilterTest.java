@@ -41,7 +41,6 @@ public class CamelMainRoutesFilterTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(MyRoute.class, MyRouteFiltered.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
@@ -66,17 +65,16 @@ public class CamelMainRoutesFilterTest {
 
     @Test
     public void testRoutesFilter() {
+        // ensure the camel context is started before doing any assertion
+        await().atMost(10, TimeUnit.SECONDS).until(main::isStarted);
+
         assertThat(main.configure().getRoutesBuilders())
                 .hasSize(1)
                 .first().isInstanceOf(MyRoute.class);
 
-        // since Camel is started in a dedicated thread, then routes
-        // may not be available until some time
-        await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
-            assertThat(main.getCamelContext().getRoutes())
-                    .hasSize(1)
-                    .first().hasFieldOrPropertyWithValue("id", "my-route");
-        });
+        assertThat(main.getCamelContext().getRoutes())
+                .hasSize(1)
+                .first().hasFieldOrPropertyWithValue("id", "my-route");
     }
 
     public static class MyRoute extends RouteBuilder {

@@ -45,7 +45,6 @@ public class CamelMainInjectTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
-                    .addClasses(MyRoutes.class, MyProcessor.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
