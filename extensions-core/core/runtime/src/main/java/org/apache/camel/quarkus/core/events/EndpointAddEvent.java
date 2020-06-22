@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.core.events;
 
 import org.apache.camel.Endpoint;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onEndpointAdd(Endpoint)
+ */
 public class EndpointAddEvent extends EndpointEvent {
     public EndpointAddEvent(Endpoint endpoint) {
         super(endpoint);

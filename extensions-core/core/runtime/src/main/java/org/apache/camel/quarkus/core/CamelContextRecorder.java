@@ -55,7 +55,7 @@ public class CamelContextRecorder {
         context.setModelJAXBContextFactory(contextFactory.getValue());
         context.build();
         context.addLifecycleStrategy(new CamelLifecycleEventBridge());
-        context.getManagementStrategy().addEventNotifier(new CamelEventBridge());
+        context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);

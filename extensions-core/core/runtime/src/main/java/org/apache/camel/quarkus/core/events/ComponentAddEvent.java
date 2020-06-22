@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.core.events;
 
 import org.apache.camel.Component;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onComponentAdd(String, Component)
+ */
 public class ComponentAddEvent extends ComponentEvent {
     public ComponentAddEvent(Component component) {
         super(component);

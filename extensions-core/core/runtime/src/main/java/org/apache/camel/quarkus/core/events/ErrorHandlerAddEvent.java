@@ -20,6 +20,9 @@ import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onErrorHandlerAdd(Route, Processor, ErrorHandlerFactory)
+ */
 public class ErrorHandlerAddEvent extends ErrorHandlerEvent {
     public ErrorHandlerAddEvent(Route route, Processor errorHandler, ErrorHandlerFactory errorHandlerFactory) {
         super(route, errorHandler, errorHandlerFactory);

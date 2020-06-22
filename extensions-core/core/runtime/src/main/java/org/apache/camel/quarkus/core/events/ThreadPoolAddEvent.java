@@ -21,6 +21,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.camel.CamelContext;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onThreadPoolAdd(CamelContext, ThreadPoolExecutor, String, String, String,
+ *      String)
+ */
 public class ThreadPoolAddEvent extends ThreadPoolEvent {
     private final String id;
     private final String sourceId;

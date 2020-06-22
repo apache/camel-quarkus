@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.core.events;
 
 import org.apache.camel.Component;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onComponentRemove(String, Component)
+ */
 public class ComponentRemoveEvent extends ComponentEvent {
     public ComponentRemoveEvent(Component component) {
         super(component);

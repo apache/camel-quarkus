@@ -20,6 +20,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.apache.camel.CamelContext;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onThreadPoolRemove(CamelContext, ThreadPoolExecutor)
+ */
 public class ThreadPoolRemoveEvent extends ThreadPoolEvent {
     public ThreadPoolRemoveEvent(CamelContext camelContext, ThreadPoolExecutor executor) {
         super(camelContext, executor);

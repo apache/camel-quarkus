@@ -20,6 +20,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.spi.CamelEvent;
 
+/**
+ * Base {@link CamelEvent} for {@link Component} related events.
+ */
 public class ComponentEvent implements CamelEvent.CamelContextEvent {
     private final Component component;
 

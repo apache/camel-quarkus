@@ -20,6 +20,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onServiceRemove(CamelContext, Service, Route)
+ */
 public class ServiceRemoveEvent extends ServiceEvent {
     public ServiceRemoveEvent(CamelContext camelContext, Service service, Route route) {
         super(camelContext, service, route);

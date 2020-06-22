@@ -23,6 +23,9 @@ import org.apache.camel.Route;
 import org.apache.camel.Service;
 import org.apache.camel.spi.CamelEvent;
 
+/**
+ * Base {@link CamelEvent} for {@link Service} related events.
+ */
 public class ServiceEvent implements CamelEvent.CamelContextEvent {
     private final CamelContext camelContext;
     private final Service service;

@@ -21,6 +21,9 @@ import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.spi.CamelEvent;
 
+/**
+ * Base {@link CamelEvent} for {@link ErrorHandlerFactory} related events.
+ */
 public class ErrorHandlerEvent implements CamelEvent.RouteEvent {
     private final Route route;
     private final Processor errorHandler;
