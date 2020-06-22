@@ -103,7 +103,7 @@
         <google-auth-library-credentials.version>0.19.0</google-auth-library-credentials.version>
         <google-auth-library-oauth2-http.version>0.19.0</google-auth-library-oauth2-http.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-        <groovy.version>3.0.2</groovy.version>
+        <groovy.version>3.0.4</groovy.version>
         <jandex-maven-plugin.version>1.0.8</jandex-maven-plugin.version>
         <os-maven-plugin.version>1.6.2</os-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
@@ -323,6 +323,13 @@
                             <artifactId>groovy-all</artifactId>
                             <version>${groovy.version}</version>
                             <type>pom</type>
+                            <exclusions>
+                                <exclusion>
+                                    <!-- groovy-testng depends on testng 7.2.0 wich is not on maven central -->
+                                    <groupId>org.codehaus.groovy</groupId>
+                                    <artifactId>groovy-testng</artifactId>
+                                </exclusion>
+                            </exclusions>
                         </dependency>
                     </dependencies>
                 </plugin>
