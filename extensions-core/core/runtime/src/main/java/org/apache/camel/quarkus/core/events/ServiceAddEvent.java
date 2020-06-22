@@ -20,6 +20,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onServiceAdd(CamelContext, Service, Route)
+ */
 public class ServiceAddEvent extends ServiceEvent {
     public ServiceAddEvent(CamelContext camelContext, Service service, Route route) {
         super(camelContext, service, route);

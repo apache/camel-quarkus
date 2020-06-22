@@ -21,6 +21,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 import org.apache.camel.CamelContext;
 import org.apache.camel.spi.CamelEvent;
 
+/**
+ * Base {@link CamelEvent} for {@link ThreadPoolExecutor} related events.
+ */
 public class ThreadPoolEvent implements CamelEvent.CamelContextEvent {
     private final CamelContext camelContext;
     private final ThreadPoolExecutor threadPool;

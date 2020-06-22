@@ -19,22 +19,26 @@ package org.apache.camel.quarkus.core;
 import javax.enterprise.inject.spi.BeanManager;
 
 import io.quarkus.arc.Arc;
-import io.quarkus.arc.ArcContainer;
 import org.apache.camel.spi.CamelEvent;
+import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.support.EventNotifierSupport;
 
-public class CamelEventBridge extends EventNotifierSupport {
+/**
+ * Bridges Camel Management events to CDI.
+ *
+ * @see EventNotifier
+ */
+public class CamelManagementEventBridge extends EventNotifierSupport {
+    private BeanManager beanManager;
+
+    @Override
+    protected void doInit() {
+        beanManager = Arc.container().beanManager();
+    }
+
     @Override
     public void notify(CamelEvent event) throws Exception {
-        ArcContainer container = Arc.container();
-        if (container == null) {
-            return;
-        }
-
-        BeanManager manager = container.beanManager();
-        if (manager != null) {
-            manager.fireEvent(event);
-        }
+        beanManager.getEvent().select(CamelEvent.class).fire(event);
     }
 
     @Override

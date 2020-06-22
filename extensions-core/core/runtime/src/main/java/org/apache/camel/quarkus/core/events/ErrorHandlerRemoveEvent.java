@@ -20,6 +20,9 @@ import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onErrorHandlerRemove(Route, Processor, ErrorHandlerFactory)
+ */
 public class ErrorHandlerRemoveEvent extends ErrorHandlerEvent {
     public ErrorHandlerRemoveEvent(Route route, Processor errorHandler, ErrorHandlerFactory errorHandlerFactory) {
         super(route, errorHandler, errorHandlerFactory);

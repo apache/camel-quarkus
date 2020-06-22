@@ -20,6 +20,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.spi.CamelEvent;
 
+/**
+ * Base {@link CamelEvent} for {@link Endpoint} related events.
+ */
 public class EndpointEvent implements CamelEvent.CamelContextEvent {
     private final Endpoint endpoint;
 

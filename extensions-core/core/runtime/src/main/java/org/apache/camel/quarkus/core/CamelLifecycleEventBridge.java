@@ -16,12 +16,13 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Collection;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Supplier;
 
 import javax.enterprise.inject.spi.BeanManager;
 
 import io.quarkus.arc.Arc;
-import io.quarkus.arc.ArcContainer;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
@@ -29,6 +30,7 @@ import org.apache.camel.ErrorHandlerFactory;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
+import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.quarkus.core.events.ComponentAddEvent;
 import org.apache.camel.quarkus.core.events.ComponentRemoveEvent;
 import org.apache.camel.quarkus.core.events.EndpointAddEvent;
@@ -40,9 +42,39 @@ import org.apache.camel.quarkus.core.events.ServiceRemoveEvent;
 import org.apache.camel.quarkus.core.events.ThreadPoolAddEvent;
 import org.apache.camel.quarkus.core.events.ThreadPoolRemoveEvent;
 import org.apache.camel.spi.CamelEvent;
-import org.apache.camel.support.LifecycleStrategySupport;
+import org.apache.camel.spi.LifecycleStrategy;
+import org.apache.camel.util.function.Suppliers;
 
-public class CamelLifecycleEventBridge extends LifecycleStrategySupport {
+/**
+ * Bridges {@link org.apache.camel.spi.LifecycleStrategy} callbacks and CDI by producing the correspondent
+ * events.
+ * <p>
+ * Note that this class does not implement all the callback as some notifications them are already covered
+ * by management events {@link CamelManagementEventBridge}
+ * <p>
+ * 
+ * @see ComponentAddEvent
+ * @see ComponentRemoveEvent
+ * @see EndpointAddEvent
+ * @see EndpointRemoveEvent
+ * @see ErrorHandlerAddEvent
+ * @see ErrorHandlerRemoveEvent
+ * @see ServiceAddEvent
+ * @see ServiceRemoveEvent
+ * @see ThreadPoolAddEvent
+ * @see ThreadPoolRemoveEvent
+ */
+public class CamelLifecycleEventBridge implements LifecycleStrategy {
+    private final Supplier<BeanManager> beanManager;
+
+    public CamelLifecycleEventBridge() {
+        this.beanManager = Suppliers.memorize(Arc.container()::beanManager);
+    }
+
+    private <T extends CamelEvent> void fireEvent(T event) {
+        beanManager.get().getEvent().select(CamelEvent.class).fire(event);
+    }
+
     @Override
     public void onComponentAdd(String name, Component component) {
         fireEvent(new ComponentAddEvent(component));
@@ -94,17 +126,37 @@ public class CamelLifecycleEventBridge extends LifecycleStrategySupport {
         fireEvent(new ServiceRemoveEvent(context, service, route));
     }
 
-    private static <T extends CamelEvent> void fireEvent(T event) {
-        fireEvent(CamelEvent.class, event);
+    @Override
+    public void onContextStart(CamelContext context) throws VetoCamelContextStartException {
+        // superseded by management events
     }
 
-    private static <T> void fireEvent(Class<T> clazz, T event) {
-        ArcContainer container = Arc.container();
-        if (container != null) {
-            BeanManager beanManager = container.beanManager();
-            if (beanManager != null) {
-                beanManager.getEvent().select(clazz).fire(event);
-            }
-        }
+    @Override
+    public void onContextStop(CamelContext context) {
+
+        // superseded by management events
+    }
+
+    @Override
+    public void onRoutesAdd(Collection<Route> routes) {
+
+        // superseded by management events
+    }
+
+    @Override
+    public void onRoutesRemove(Collection<Route> routes) {
+
+        // superseded by management events
+    }
+
+    @Override
+    public void onRouteContextCreate(Route route) {
+
+        // superseded by management events
+    }
+
+    @Override
+    public void onContextInitialized(CamelContext context) throws VetoCamelContextStartException {
+        // superseded by management events
     }
 }

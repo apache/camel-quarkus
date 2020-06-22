@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.core.events;
 
 import org.apache.camel.Endpoint;
 
+/**
+ * @see org.apache.camel.spi.LifecycleStrategy#onEndpointRemove(Endpoint)
+ */
 public class EndpointRemoveEvent extends EndpointEvent {
     public EndpointRemoveEvent(Endpoint endpoint) {
         super(endpoint);
