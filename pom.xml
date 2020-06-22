@@ -99,7 +99,7 @@
         <supported-maven-versions>[3.5.3,)</supported-maven-versions>
 
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
-        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <google-auth-library-credentials.version>0.19.0</google-auth-library-credentials.version>
         <google-auth-library-oauth2-http.version>0.19.0</google-auth-library-oauth2-http.version>
         <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
