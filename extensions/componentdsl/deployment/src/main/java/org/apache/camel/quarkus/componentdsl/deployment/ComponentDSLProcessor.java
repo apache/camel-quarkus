@@ -14,21 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main;
+package org.apache.camel.quarkus.componentdsl.deployment;
 
-import org.apache.camel.builder.EndpointConsumerBuilder;
-import org.apache.camel.builder.EndpointProducerBuilder;
-import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-public class CamelRouteWithEndpointDSL extends EndpointRouteBuilder {
+class ComponentDSLProcessor {
+    private static final String FEATURE = "camel-componentdsl";
 
-    @Override
-    public void configure() {
-        EndpointConsumerBuilder consumer = direct("endpointdsl");
-        EndpointProducerBuilder producer = log("keep-alive").showAll(true);
-
-        from(consumer)
-                .id("endpointdsl")
-                .to(producer);
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
 }

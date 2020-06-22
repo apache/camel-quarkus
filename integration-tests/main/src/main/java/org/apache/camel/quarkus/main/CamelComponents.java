@@ -16,21 +16,18 @@
  */
 package org.apache.camel.quarkus.main;
 
-import javax.enterprise.inject.Produces;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.apache.camel.builder.component.ComponentsBuilderFactory;
 import org.apache.camel.component.direct.DirectComponent;
 
-@Singleton
+@ApplicationScoped
 public class CamelComponents {
     @Singleton
-    @Named("direct")
-    @Produces
-    DirectComponent directComponent() {
-        DirectComponent component = new DirectComponent();
-        component.setTimeout(1234);
-
-        return component;
+    @Named
+    DirectComponent direct() {
+        return ComponentsBuilderFactory.direct().timeout(1234).build();
     }
 }
