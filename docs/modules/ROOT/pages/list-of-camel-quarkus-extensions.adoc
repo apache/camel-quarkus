@@ -451,6 +451,8 @@ Number of miscellaneous extensions: 16 in 16 JAR artifacts (1 deprecated)
 
 |  xref:extensions/hystrix.adoc[Hystrix]  | camel-quarkus-hystrix | Native + Stable | 1.0.0-M1 | *deprecated* Circuit Breaker EIP using Netflix Hystrix
 
+|  xref:extensions/jta.adoc[JTA]  | camel-quarkus-jta | Native + Stable | 1.0.0-CR3 | Using Camel With JTA Transaction Manager
+
 |  xref:extensions/kotlin.adoc[Kotlin]  | camel-quarkus-kotlin | Native + Stable | 1.0.0-M3 | Write Camel integration routes in Kotlin
 
 |  xref:extensions/main.adoc[Main]  | camel-quarkus-main | Native + Stable | 1.0.0-CR3 | Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode

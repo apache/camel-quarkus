@@ -54,6 +54,7 @@ foundation:
   - exec
   - file
   - hystrix
+  - jta
   - jsonpath
   - quartz
   - scheduler
