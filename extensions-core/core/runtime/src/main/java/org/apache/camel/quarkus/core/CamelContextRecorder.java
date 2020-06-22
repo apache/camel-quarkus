@@ -54,6 +54,7 @@ public class CamelContextRecorder {
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
         context.build();
+        context.getManagementStrategy().addEventNotifier(new CamelEventBridge());
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);
