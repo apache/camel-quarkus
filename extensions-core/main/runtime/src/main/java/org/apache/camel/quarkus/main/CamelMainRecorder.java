@@ -41,7 +41,7 @@ public class CamelMainRecorder {
             BeanContainer container) {
         CamelMain main = new CamelMain(runtime.getValue());
         main.setRoutesCollector(routesCollector.getValue());
-        main.addMainListener(new CamelMainEventDispatcher());
+        main.addMainListener(new CamelMainEventBridge());
 
         // autowire only non null values as components may have configured
         // through CDI or from a Build Item thus those values should not be
