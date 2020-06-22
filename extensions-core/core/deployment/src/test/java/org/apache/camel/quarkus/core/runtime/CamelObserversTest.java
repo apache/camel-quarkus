@@ -26,20 +26,20 @@ import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.direct.DirectComponent;
 import org.apache.camel.impl.event.RouteStartedEvent;
+import org.apache.camel.quarkus.core.events.ComponentAddEvent;
+import org.apache.camel.quarkus.core.events.EndpointAddEvent;
+import org.apache.camel.quarkus.core.events.ServiceAddEvent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
 public class CamelObserversTest {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelObserversTest.class);
-
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
@@ -50,29 +50,66 @@ public class CamelObserversTest {
     @Test
     public void testObservers() {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
-            assertThat(handler.routes()).contains("myRoute");
+            assertThat(handler.routes())
+                    .contains(MyRoutes.ROUTE_ID);
+            assertThat(handler.components())
+                    .contains(DirectComponent.class.getName());
+            assertThat(handler.endpoints())
+                    .contains(MyRoutes.FROM_ENDPOINT);
+            assertThat(handler.service())
+                    .isNotEmpty();
         });
     }
 
     @ApplicationScoped
     public static class EventHandler {
         private final Set<String> routes = new CopyOnWriteArraySet<>();
+        private final Set<String> endpoints = new CopyOnWriteArraySet<>();
+        private final Set<String> components = new CopyOnWriteArraySet<>();
+        private final Set<String> service = new CopyOnWriteArraySet<>();
 
         public void onRouteStarted(@Observes RouteStartedEvent event) {
             routes.add(event.getRoute().getRouteId());
         }
 
+        public void onComponentAdd(@Observes ComponentAddEvent event) {
+            components.add(event.getComponent().getClass().getName());
+        }
+
+        public void onEndpointAdd(@Observes EndpointAddEvent event) {
+            endpoints.add(event.getEndpoint().getEndpointUri());
+        }
+
+        public void onServiceAdd(@Observes ServiceAddEvent event) {
+            service.add(event.getService().getClass().getName());
+        }
+
         public Set<String> routes() {
             return routes;
+        }
+
+        public Set<String> components() {
+            return components;
+        }
+
+        public Set<String> endpoints() {
+            return endpoints;
+        }
+
+        public Set<String> service() {
+            return service;
         }
     }
 
     @ApplicationScoped
     public static class MyRoutes extends RouteBuilder {
+        public static String ROUTE_ID = "myRoute";
+        public static String FROM_ENDPOINT = "direct://start";
+
         @Override
         public void configure() throws Exception {
-            from("direct:start")
-                    .routeId("myRoute")
+            from(FROM_ENDPOINT)
+                    .routeId(ROUTE_ID)
                     .log("${body}");
         }
     }
