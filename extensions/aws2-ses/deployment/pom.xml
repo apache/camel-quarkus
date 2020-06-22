@@ -26,18 +26,14 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-aws2-ses</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Email Service :: Runtime</name>
-
-    <properties>
-        <firstVersion>1.0.0-M6</firstVersion>
-    </properties>
+    <artifactId>camel-quarkus-aws2-ses-deployment</artifactId>
+    <name>Camel Quarkus :: AWS 2 Simple Email Service :: Deployment</name>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
+                <artifactId>camel-quarkus-bom-deployment</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
@@ -48,31 +44,28 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core</artifactId>
+            <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-aws2-ses</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-ses</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-xml-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-support-aws2-deployment</artifactId>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-package-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>update-extension-doc-page</id>
-                        <goals><goal>update-extension-doc-page</goal></goals>
-                        <phase>process-classes</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -88,4 +81,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
