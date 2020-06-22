@@ -74,6 +74,7 @@
         <module>bindy</module>
         <module>box</module>
         <module>braintree</module>
+        <module>componentdsl</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>couchdb</module>
