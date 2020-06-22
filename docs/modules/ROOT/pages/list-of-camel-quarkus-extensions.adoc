@@ -56,7 +56,7 @@ Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
 
 | xref:extensions/aws2-s3.adoc[AWS 2 S3 Storage Service] | camel-quarkus-aws2-s3 | Native + Stable | 1.0.0-M7 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
-| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)] | camel-quarkus-aws2-ses | JVM + Preview | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
+| xref:extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)] | camel-quarkus-aws2-ses | Native + Stable | 1.0.0-M6 | Send e-mails through AWS SES service using AWS SDK version 2.x.
 
 | xref:extensions/aws2-sns.adoc[AWS 2 Simple Notification System (SNS)] | camel-quarkus-aws2-sns | Native + Stable | 1.0.0-M6 | Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 
