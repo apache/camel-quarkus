@@ -91,7 +91,7 @@ public class CoreMainTest {
         assertThat(p.getString("routes-collector.type-xml")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
 
         assertThat(p.getList("listeners", String.class))
-                .containsAnyOf(CamelMainEventDispatcher.class.getName(), CustomMainListener.class.getName());
+                .containsAnyOf(CamelMainEventBridge.class.getName(), CustomMainListener.class.getName());
         assertThat(p.getList("routeBuilders", String.class))
                 .contains(CamelRoute.class.getName())
                 .doesNotContain(CamelRouteFiltered.class.getName());
