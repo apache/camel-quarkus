@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
+Number of Camel components: 151 in 116 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -33,6 +33,8 @@ Number of Camel components: 150 in 115 JAR artifacts (0 deprecated)
 | xref:extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket] | camel-quarkus-ahc-ws | Native + Stable | 1.0.0-M3 | Exchange data with external Websocket servers using Async Http Client.
 
 | xref:extensions/avro-rpc.adoc[Avro RPC] | camel-quarkus-avro-rpc | JVM + Preview | 1.0.0-M6 | Produce or consume Apache Avro RPC services.
+
+| xref:extensions/aws2-athena.adoc[AWS 2 Athena] | camel-quarkus-aws2-athena | Native + Stable | 1.0.0-CR3 | Access AWS Athena service using AWS SDK version 2.x.
 
 | xref:extensions/aws2-cw.adoc[AWS 2 CloudWatch] | camel-quarkus-aws2-cw | Native + Stable | 1.0.0-M6 | Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 
