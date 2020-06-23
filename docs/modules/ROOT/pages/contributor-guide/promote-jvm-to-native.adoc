@@ -45,7 +45,7 @@ The `promote` mojo does the following for you:
 $ cd integration-tests/foo
 $ mvn clean verify -Pnative
 ----
-
++
 Consider shifting some tasks from runtime to build time.
 The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good ally for this.
 
