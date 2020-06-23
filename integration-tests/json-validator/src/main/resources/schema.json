@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "definitions": {}, 
+  "properties": {
+    "id": {
+      "default": 1, 
+      "description": "An explanation about the purpose of this instance.", 
+      "title": "The id schema",
+      "type": "integer"
+    }, 
+    "name": {
+      "default": "A green door", 
+      "description": "An explanation about the purpose of this instance.", 
+      "title": "The name schema",
+      "type": "string"
+    }, 
+    "price": {
+      "default": 12.5, 
+      "description": "An explanation about the purpose of this instance.", 
+      "title": "The price schema",
+      "type": "number"
+    }
+  }, 
+  "required": [
+    "name", 
+    "id", 
+    "price"
+  ], 
+  "type": "object"
+}

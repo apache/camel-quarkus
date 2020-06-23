@@ -99,6 +99,7 @@
         <module>jaxb</module>
         <module>jdbc</module>
         <module>jira</module>
+        <module>json-validator</module>
         <module>jsonpath</module>
         <module>kafka</module>
         <module>kubernetes</module>

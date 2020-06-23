@@ -188,6 +188,8 @@ Number of Camel components: 151 in 116 JAR artifacts (0 deprecated)
 
 | xref:extensions/jms.adoc[JMS] | camel-quarkus-jms | Native + Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
 
+| xref:extensions/json-validator.adoc[JSON Schema Validator] | camel-quarkus-json-validator | Native + Stable | 1.0.0-CR3 | Validate JSON payloads using NetworkNT JSON Schema.
+
 | xref:extensions/kafka.adoc[Kafka] | camel-quarkus-kafka | Native + Stable | 1.0.0-M1 | Sent and receive messages to/from an Apache Kafka broker.
 
 | xref:extensions/kubernetes.adoc[Kubernetes ConfigMap] | camel-quarkus-kubernetes | Native + Stable | 1.0.0-M6 | Perform operations on Kubernetes ConfigMaps and get notified on ConfigMaps changes.

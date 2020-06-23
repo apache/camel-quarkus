@@ -116,4 +116,5 @@ social:
   - twitter
 validation:
   - bean-validator
+  - json-validator
   - validator
