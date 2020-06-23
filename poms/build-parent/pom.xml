@@ -83,7 +83,7 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-package-maven-plugin</artifactId>
+                    <artifactId>camel-quarkus-maven-plugin</artifactId>
                     <version>${project.version}</version>
                 </plugin>
                 <plugin>
