@@ -67,7 +67,7 @@
             <!-- generate and include all components in the catalog -->
             <plugin>
                 <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-package-maven-plugin</artifactId>
+                <artifactId>camel-quarkus-maven-plugin</artifactId>
                 <version>${project.version}</version>
                 <dependencies>
                     <!-- include camel-catalog on classpath -->

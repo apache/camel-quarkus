@@ -33,7 +33,7 @@
     <description>Camel Quarkus Tooling Parent POM</description>
 
     <modules>
-        <module>package-maven-plugin</module>
+        <module>maven-plugin</module>
         <module>test-list</module>
     </modules>
 

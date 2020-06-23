@@ -197,7 +197,7 @@ public class UpdateDocExtensionsListMojo extends AbstractDocGeneratorMojo {
             if (!Files.exists(extensionPagePath)) {
                 throw new IllegalStateException(
                         "File " + extensionPagePath + " must exist to be able to refer to it from " + extensionListPath
-                                + ".\nYou may need to add\n\n    org.apache.camel.quarkus:camel-quarkus-package-maven-plugin:update-extension-doc-page\n\nmojo in "
+                                + ".\nYou may need to add\n\n    org.apache.camel.quarkus:camel-quarkus-maven-plugin:update-extension-doc-page\n\nmojo in "
                                 + artifactIdBase + " runtime module");
             }
             return "xref:extensions/" + extensionPageName;
