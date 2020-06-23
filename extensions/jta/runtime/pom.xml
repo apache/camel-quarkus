@@ -30,7 +30,7 @@
 
     <artifactId>camel-quarkus-jta</artifactId>
     <name>Camel Quarkus :: JTA :: Runtime</name>
-    <description>Using Camel With JTA Transaction Manager</description>
+    <description>Using Camel with JTA Transaction Manager</description>
 
     <properties>
         <firstVersion>1.0.0-CR3</firstVersion>
