@@ -17,9 +17,12 @@
 package org.apache.camel.quarkus.component.vertx.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.vertx.deployment.VertxBuildItem;
-import io.vertx.core.Vertx;
+import org.apache.camel.component.vertx.VertxComponent;
+import org.apache.camel.quarkus.component.vertx.CamelVertxRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class VertxProcessor {
@@ -31,8 +34,10 @@ class VertxProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    CamelRuntimeBeanBuildItem configureVertxRegistryBean(VertxBuildItem vertx) {
-        return new CamelRuntimeBeanBuildItem("vertx", Vertx.class.getName(), vertx.getVertx());
+    CamelRuntimeBeanBuildItem configureVertxRegistryBean(CamelVertxRecorder recorder, VertxBuildItem vertx) {
+        return new CamelRuntimeBeanBuildItem("vertx", VertxComponent.class.getName(),
+                recorder.createVertxComponent(vertx.getVertx()));
     }
 }

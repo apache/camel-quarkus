@@ -28,6 +28,14 @@ class VertxTest {
 
     @Test
     public void testVertxComponent() {
+        // Verify that the Vertx instance set up by the Quarkus extension
+        // is the one used in the Camel component
+        RestAssured.given()
+                .get("/vertx/verify/instance")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+
         String message = "Camel Quarkus Vert.x";
         RestAssured.given()
                 .contentType(ContentType.TEXT)
