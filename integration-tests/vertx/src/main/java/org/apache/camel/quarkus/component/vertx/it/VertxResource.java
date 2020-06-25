@@ -20,19 +20,29 @@ import java.net.URI;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.vertx.core.Vertx;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.vertx.VertxComponent;
 
 @Path("/vertx")
 public class VertxResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext camelContext;
+
+    @Inject
+    Vertx vertx;
 
     @Path("/post")
     @POST
@@ -41,5 +51,13 @@ public class VertxResource {
     public Response post(String message) throws Exception {
         String result = producerTemplate.requestBody("direct:start", message, String.class);
         return Response.created(new URI("https://camel.apache.org/")).entity(result).build();
+    }
+
+    @Path("/verify/instance")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean quarkusVertxInstanceUsedInVertxComponent() {
+        VertxComponent component = camelContext.getComponent("vertx", VertxComponent.class);
+        return component.getVertx() == vertx;
     }
 }
