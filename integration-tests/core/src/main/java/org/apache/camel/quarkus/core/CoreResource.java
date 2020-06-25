@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelContextAware;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
@@ -80,6 +82,16 @@ public class CoreResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean lookupContext() {
         return registry.findByType(CamelContext.class).size() == 1;
+    }
+
+    @Path("/registry/camel-context-aware/initialized")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean camelContextAwareBeansHaveContextSet() {
+        return registry.findByType(CamelContextAware.class).stream()
+                .filter(camelContextAware -> camelContextAware.getCamelContext() == null)
+                .collect(Collectors.toList())
+                .isEmpty();
     }
 
     @Path("/context/version")
@@ -211,5 +223,4 @@ public class CoreResource {
             return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
         }
     }
-
 }
