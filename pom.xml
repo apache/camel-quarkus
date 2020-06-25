@@ -117,8 +117,7 @@
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
-        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <cq-plugin.version>0.10.0</cq-plugin.version>
         <protobuf-java.version>3.11.0</protobuf-java.version>
         <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
@@ -265,6 +264,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
+                        <useModulePath>false</useModulePath>
                         <failIfNoTests>false</failIfNoTests>
                         <systemProperties>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
@@ -276,6 +276,9 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <useModulePath>false</useModulePath>
+                    </configuration>
                 </plugin>
 
                 <plugin>
