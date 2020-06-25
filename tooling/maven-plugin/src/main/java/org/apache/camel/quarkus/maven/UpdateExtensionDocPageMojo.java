@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -29,7 +28,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -42,6 +40,7 @@ import freemarker.template.TemplateModelException;
 import io.quarkus.annotation.processor.Constants;
 import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
 import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
+import io.quarkus.annotation.processor.generate_doc.FsMap;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
@@ -54,8 +53,6 @@ import org.apache.maven.plugins.annotations.Parameter;
 @Mojo(name = "update-extension-doc-page", threadSafe = true)
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
-    private static List<String> list;
-    private static List<String> list2;
     private static final Map<String, Boolean> nativeSslActivators = new ConcurrentHashMap<>();
 
     @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
@@ -256,25 +253,20 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         if (configRootClasses.isEmpty()) {
             return Collections.emptyList();
         }
-        final Path configRootsModelsPath = multiModuleProjectDirectory
-                .resolve("target/asciidoc/generated/config/all-configuration-roots-generated-doc.properties");
-        if (!Files.exists(configRootsModelsPath)) {
+        final Path configRootsModelsDir = multiModuleProjectDirectory
+                .resolve("target/asciidoc/generated/config/all-configuration-roots-generated-doc");
+        if (!Files.exists(configRootsModelsDir)) {
             throw new IllegalStateException("You should run " + UpdateExtensionDocPageMojo.class.getSimpleName()
                     + " after compileation with io.quarkus.annotation.processor.ExtensionAnnotationProcessor");
         }
-        final Properties configRootsModels = new Properties();
-        try (InputStream in = Files.newInputStream(configRootsModelsPath)) {
-            configRootsModels.load(in);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not read from " + configRootsModelsPath);
-        }
+        final FsMap configRootsModels = new FsMap(configRootsModelsDir);
 
         final ObjectMapper mapper = new ObjectMapper();
         final List<ConfigDocItem> configDocItems = new ArrayList<ConfigDocItem>();
         for (String configRootClass : configRootClasses) {
-            final String rawModel = configRootsModels.getProperty(configRootClass);
+            final String rawModel = configRootsModels.get(configRootClass);
             if (rawModel == null) {
-                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsPath);
+                throw new IllegalStateException("Could not find " + configRootClass + " in " + configRootsModelsDir);
             }
             try {
                 final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
