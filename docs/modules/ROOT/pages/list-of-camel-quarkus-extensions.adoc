@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 151 in 116 JAR artifacts (0 deprecated)
+Number of Camel components: 152 in 117 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -445,7 +445,7 @@ Number of miscellaneous extensions: 16 in 16 JAR artifacts (1 deprecated)
 
 |  xref:extensions/core-cloud.adoc[Cloud]  | camel-quarkus-core-cloud | Native + Stable | 0.2.0 | The Camel Quarkus core cloud module
 
-|  xref:extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | Native + Stable | 1.0.0-M3 | Create Camel components with a fluent Java DSL
+|  xref:extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | Native + Stable | 1.0.0-CR3 | Create Camel components with a fluent Java DSL
 
 |  xref:extensions/endpointdsl.adoc[Endpoint DSL]  | camel-quarkus-endpointdsl | Native + Stable | 1.0.0-M3 | Code Camel endpoint URI using Java DSL instead of plain strings
 
