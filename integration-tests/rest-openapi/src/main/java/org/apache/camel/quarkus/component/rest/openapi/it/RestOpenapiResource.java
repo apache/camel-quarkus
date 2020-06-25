@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.rest.openapi.it;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -25,9 +24,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.netty.http.NettyHttpComponent;
 
 @Path("/rest-openapi")
 public class RestOpenapiResource {
@@ -40,14 +37,5 @@ public class RestOpenapiResource {
     public Response invokeListFruitsOperation(@QueryParam("port") int port) {
         String response = producerTemplate.requestBodyAndHeader("direct:start", null, "test-port", port, String.class);
         return Response.ok().entity(response).build();
-    }
-
-    // TODO: Remove this for Camel 3.4.0. See https://issues.apache.org/jira/browse/CAMEL-15076
-    @javax.enterprise.inject.Produces
-    @Named("netty-http")
-    public NettyHttpComponent createNettyHttpComponent(CamelContext context) {
-        NettyHttpComponent nettyHttpComponent = new NettyHttpComponent();
-        nettyHttpComponent.setCamelContext(context);
-        return nettyHttpComponent;
     }
 }
