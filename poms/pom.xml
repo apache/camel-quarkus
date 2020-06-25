@@ -33,7 +33,6 @@
 
     <modules>
         <module>bom</module>
-        <module>bom-deployment</module>
         <module>bom-test</module>
         <module>build-parent</module>
         <module>build-parent-it</module>

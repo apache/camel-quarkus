@@ -31,18 +31,6 @@
     <artifactId>camel-quarkus-caffeine-lrucache-parent</artifactId>
     <name>Camel Quarkus :: Caffeine LRUCache :: Parent</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-bom-deployment</artifactId>
-                <version>${quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <modules>
         <module>deployment</module>
         <module>runtime</module>
