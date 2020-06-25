@@ -40,6 +40,11 @@ public class CoreTest {
     }
 
     @Test
+    public void testCamelContextAwareRegistryBeansInitialized() {
+        RestAssured.when().get("/test/registry/camel-context-aware/initialized").then().body(is("true"));
+    }
+
+    @Test
     public void testCamelBeanBuildItem() {
         Response response = RestAssured.get("/test/registry/log/exchange-formatter").andReturn();
 

@@ -23,10 +23,10 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
-import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
@@ -36,7 +36,6 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
-import org.apache.camel.spi.Registry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,17 +44,24 @@ public class CamelRegistryProcessor {
 
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelRegistryBuildItem registry(
+    CamelRegistryBuildItem registry(CamelRecorder recorder) {
+        return new CamelRegistryBuildItem(recorder.createRegistry());
+    }
+
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep
+    public void bindBeansToRegistry(
             CamelRecorder recorder,
             RecorderContext recorderContext,
             CamelConfig camelConfig,
             ApplicationArchivesBuildItem applicationArchives,
             ContainerBeansBuildItem containerBeans,
+            CamelRegistryBuildItem registry,
+            // CamelContextBuildItem placeholder ensures this build step runs after the CamelContext is created
+            CamelContextBuildItem camelContextBuildItem,
             List<CamelBeanBuildItem> registryItems,
             List<CamelServiceFilterBuildItem> serviceFilters,
             List<CamelServicePatternBuildItem> servicePatterns) {
-
-        final RuntimeValue<Registry> registry = recorder.createRegistry();
 
         final PathFilter pathFilter = servicePatterns.stream()
                 .filter(patterns -> patterns.getDestination() == CamelServiceDestination.REGISTRY)
@@ -87,7 +93,7 @@ public class CamelRegistryProcessor {
                     LOGGER.debug("Binding bean with name: {}, type {}", si.name, si.type);
 
                     recorder.bind(
-                            registry,
+                            registry.getRegistry(),
                             si.name,
                             recorderContext.classProxy(si.type));
                 });
@@ -98,7 +104,7 @@ public class CamelRegistryProcessor {
                     LOGGER.debug("Binding bean with name: {}, type {}", item.getName(), item.getType());
                     if (item.getValue().isPresent()) {
                         recorder.bind(
-                                registry,
+                                registry.getRegistry(),
                                 item.getName(),
                                 recorderContext.classProxy(item.getType()),
                                 item.getValue().get());
@@ -106,13 +112,12 @@ public class CamelRegistryProcessor {
                         // the instance of the service will be instantiated by the recorder, this avoid
                         // creating a recorder for trivial services.
                         recorder.bind(
-                                registry,
+                                registry.getRegistry(),
                                 item.getName(),
                                 recorderContext.classProxy(item.getType()));
                     }
                 });
 
-        return new CamelRegistryBuildItem(registry);
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
@@ -122,6 +127,8 @@ public class CamelRegistryProcessor {
             RecorderContext recorderContext,
             ContainerBeansBuildItem containerBeans,
             CamelRegistryBuildItem registry,
+            // CamelContextBuildItem placeholder ensures this build step runs after the CamelContext is created
+            CamelContextBuildItem camelContextBuildItem,
             List<CamelRuntimeBeanBuildItem> registryItems) {
 
         registryItems.stream()
