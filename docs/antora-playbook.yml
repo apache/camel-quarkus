@@ -30,3 +30,5 @@ ui:
     snapshot: true
 output:
   dir: ./target/site
+urls:
+  redirect_facility: httpd

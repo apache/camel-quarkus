@@ -4,8 +4,13 @@
   "description": "Apache Camel extensions for Quarkus Documentation",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@antora/cli": "~2.3.0",
-    "@antora/site-generator-default": "~2.3.0",
+    "@antora/asciidoc-loader": "2.3.3",
+    "@antora/cli": "2.3.3",
+    "@antora/content-aggregator": "2.3.3",
+    "@antora/content-classifier": "2.3.3",
+    "@antora/document-converter": "2.3.3",
+    "@antora/playbook-builder": "2.3.3",
+    "@antora/site-generator-default": "2.3.3",
     "@antora/xref-validator": "gitlab:antora/xref-validator",
     "lite-server": "^2.4.0"
   },
