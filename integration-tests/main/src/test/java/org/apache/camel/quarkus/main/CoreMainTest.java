@@ -82,7 +82,7 @@ public class CoreMainTest {
                 .extract()
                 .body()
                 .jsonPath();
-
+        //empty comment #2
         assertThat(p.getString("xml-loader")).isEqualTo(DisabledXMLRoutesDefinitionLoader.class.getName());
         assertThat(p.getString("xml-model-dumper")).isEqualTo(DisabledModelToXMLDumper.class.getName());
 
