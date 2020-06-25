@@ -62,6 +62,11 @@
         <module>main-collector</module>
         <module>main-caffeine-lrucache</module>
 
+        <!--
+        https://github.com/apache/camel-quarkus/issues/1311
+        <module>debezium</module>
+        -->
+
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
         <module>amqp</module>
@@ -82,10 +87,6 @@
         <module>csv</module>
         <module>dataformat</module>
         <module>dataformats-json</module>
-        <!--
-        https://github.com/apache/camel-quarkus/issues/1311
-        <module>debezium</module>
-        -->
         <module>dozer</module>
         <module>elasticsearch-rest</module>
         <module>exec</module>

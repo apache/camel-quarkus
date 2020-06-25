@@ -628,7 +628,6 @@
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
-                                        <sortDependencyManagementPath>poms/bom-deployment/pom.xml</sortDependencyManagementPath>
                                     </sortDependencyManagementPaths>
                                     <updateMvndRuleDirs>
                                         <updateMvndRuleDir>examples</updateMvndRuleDir>
