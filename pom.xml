@@ -47,7 +47,7 @@
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.13.33</awssdk2.version>
         <camel.version>3.5.0-SNAPSHOT</camel.version>
-        <debezium.version>1.1.2.Final</debezium.version>
+        <debezium.version>1.2.0.Final</debezium.version>
         <elasticsearch.version>7.6.1</elasticsearch.version>
         <freemarker.version>2.3.30</freemarker.version>
         <github-api.version>1.111</github-api.version>

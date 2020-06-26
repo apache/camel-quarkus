@@ -28,18 +28,15 @@ CREATE TABLE Test.COMPANY(
     CITY  varchar(255),
     PRIMARY KEY (NAME)
 );
--- by using system property, sql agent is started, but it could happen that it is not running yet, which will fail
--- during setting of cdc for table. We are waiting for max 20 seconds if service is running
-DECLARE @Counter INT
-SET @Counter=1
-WHILE (SELECT dss.[status] FROM   sys.dm_server_services dss WHERE  dss.[servicename] LIKE N'SQL Server Agent (%') != 4 AND @Counter <= 20
-BEGIN
-	WAITFOR DELAY '00:00:01'
-	SET @Counter  = @Counter  + 1
-END
+-- sql agent is started by providing of the system property, but it could happen that it is still starting during this
+-- execution. In that case, this script fails during setting of cdc for table. In case of failure because of:
+-- 'The error returned was 14258: Cannot perform this operation while SQLServerAgent is starting.'
+-- please increase following delay accordingly
+WAITFOR DELAY '00:00:10'
 
-INSERT INTO Test.COMPANY (name, city) VALUES ('init', 'init');
 EXEC sys.sp_cdc_enable_table @source_schema=N'Test', @source_name=N'COMPANY', @role_name = NULL,@filegroup_name=N'PRIMARY', @supports_net_changes=0;
+INSERT INTO Test.COMPANY (name, city) VALUES ('init', 'init');
+
 
 
 

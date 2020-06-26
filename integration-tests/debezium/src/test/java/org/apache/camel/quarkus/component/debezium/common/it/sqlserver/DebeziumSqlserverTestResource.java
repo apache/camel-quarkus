@@ -57,7 +57,15 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
             return Collections.emptyMap();
         }
 
-        Map<String, String> properties = super.start();
+        Map<String, String> properties;
+        try {
+            properties = super.start();
+        } catch (Exception e) {
+            LOG.warn("If initSqlScript.sql fails with the message 'The error returned was 14258: " +
+                    "'Cannot perform this operation while SQLServerAgent is starting.', " +
+                    "please increase a delay interval in the script.");
+            throw e;
+        }
 
         try {
             historyFile = Files.createTempFile(getClass().getSimpleName() + "-history-file-", "");

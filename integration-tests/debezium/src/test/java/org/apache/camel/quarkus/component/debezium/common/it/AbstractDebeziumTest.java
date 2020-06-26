@@ -43,7 +43,7 @@ public abstract class AbstractDebeziumTest {
     private static String COMPANY_2 = "Even Better Company";
     private static String CITY_1 = "Prague";
     private static String CITY_2 = "Paris";
-    private static int REPEAT_COUNT = 3;
+    public static int REPEAT_COUNT = 3;
 
     /**
      * Each impleentation is responsible for connection creation and its closure.
