@@ -26,3 +26,9 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+The extension leverages https://quarkus.io/guides/vertx[Quarkus Vert.x]. Various aspects of the Vert.x runtime can be configured
+via the options outlined in the https://quarkus.io/guides/all-config#quarkus-vertx-core_quarkus-vertx-core[configuration guide].
+
