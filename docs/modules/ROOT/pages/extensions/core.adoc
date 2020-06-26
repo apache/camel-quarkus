@@ -50,7 +50,7 @@ When set to true, the `CamelRuntime` will be started automatically.
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism. 
  The excludes have higher precedence than includes. The excludes defined here can also be used to veto the discoverability of services included by Camel Quarkus extensions. 
- Example values: `META-INF/services/org/apache/camel/foo/*,META-INF/services/org/apache/camel/foo/**/bar`
+ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
@@ -58,7 +58,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be discoverable via the `org.apache.camel.spi.FactoryFinder` mechanism unless the given file is excluded via `exclude-patterns`. 
  Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
- Example values: `META-INF/services/org/apache/camel/foo/*,META-INF/services/org/apache/camel/foo/**/bar`
+ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
@@ -66,7 +66,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will not be added to Camel registry during application's static initialization. 
  The excludes have higher precedence than includes. The excludes defined here can also be used to veto the registration of services included by Camel Quarkus extensions. 
- Example values: `META-INF/services/org/apache/camel/foo/*,META-INF/services/org/apache/camel/foo/**/bar`
+ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
@@ -74,7 +74,7 @@ A comma-separated list of Ant-path style patterns to match Camel service definit
 
 A comma-separated list of Ant-path style patterns to match Camel service definition files in the classpath. The services defined in the matching files will be added to Camel registry during application's static initialization unless the given file is excluded via `exclude-patterns`. 
  Note that Camel Quarkus extensions may include some services by default. The services selected here added to those services and the exclusions defined in `exclude-patterns` are applied to the union set. 
- Example values: `META-INF/services/org/apache/camel/foo/*,META-INF/services/org/apache/camel/foo/**/bar`
+ Example values: `META-INF/services/org/apache/camel/foo/++*++,META-INF/services/org/apache/camel/foo/++**++/bar`
 | `string`
 | 
 
@@ -114,13 +114,13 @@ Enable automatic discovery of routes during static initialization.
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.exclude-patterns]]`link:#quarkus.camel.routes-discovery.exclude-patterns[quarkus.camel.routes-discovery.exclude-patterns]`
 
-Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to exclude all classes starting with Bar use: **/Bar* To exclude all routes form a specific package use: com/mycompany/bar/* To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/** And to exclude all routes from two specific packages use: com/mycompany/bar/*,com/mycompany/stuff/*
+Used for exclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to exclude all classes starting with Bar use: ++**++/Bar++*++ To exclude all routes form a specific package use: com/mycompany/bar/++*++ To exclude all routes form a specific package and its sub-packages use double wildcards: com/mycompany/bar/++**++ And to exclude all routes from two specific packages use: com/mycompany/bar/++*++,com/mycompany/stuff/++*++
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.routes-discovery.include-patterns]]`link:#quarkus.camel.routes-discovery.include-patterns[quarkus.camel.routes-discovery.include-patterns]`
 
-Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to include all classes starting with Foo use: **/Foo* To include all routes form a specific package use: com/mycompany/foo/* To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/** And to include all routes from two specific packages use: com/mycompany/foo/*,com/mycompany/stuff/*
+Used for inclusive filtering scanning of RouteBuilder classes. The exclusive filtering takes precedence over inclusive filtering. The pattern is using Ant-path style pattern. Multiple patterns can be specified separated by comma. For example to include all classes starting with Foo use: ++**++/Foo++*++ To include all routes form a specific package use: com/mycompany/foo/++*++ To include all routes form a specific package and its sub-packages use double wildcards: com/mycompany/foo/++**++ And to include all routes from two specific packages use: com/mycompany/foo/++*++,com/mycompany/stuff/++*++
 | `string`
 | 
 
@@ -150,7 +150,7 @@ A comma separated list of Ant-path style patterns to match class names that shou
  By default, no classes are included. The set selected by this option can be narrowed down by `exclude-patterns`. 
  Note that Quarkus extensions typically register the required classes for reflection by themselves. This option is useful in situations when the built in functionality is not sufficient. 
  Note that this option enables the full reflective access for constructors, fields and methods. If you need a finer grained control, consider using `io.quarkus.runtime.annotations.RegisterForReflection` annotation in your Java code. 
- For this option to work properly, the artifacts containing the selected classes must either contain a Jandex index (`META-INF/jandex.idx`) or they must be registered for indexing using the `quarkus.index-dependency.*` family of options in `application.properties` - e.g. quarkus.index-dependency.my-dep.group-id = org.my-group quarkus.index-dependency.my-dep.artifact-id = my-artifact  where `my-dep` is a label of your choice to tell Quarkus that `org.my-group` and with `my-artifact` belong together.
+ For this option to work properly, the artifacts containing the selected classes must either contain a Jandex index (`META-INF/jandex.idx`) or they must be registered for indexing using the `quarkus.index-dependency.++*++` family of options in `application.properties` - e.g. quarkus.index-dependency.my-dep.group-id = org.my-group quarkus.index-dependency.my-dep.artifact-id = my-artifact  where `my-dep` is a label of your choice to tell Quarkus that `org.my-group` and with `my-artifact` belong together.
 | `string`
 | 
 |===
