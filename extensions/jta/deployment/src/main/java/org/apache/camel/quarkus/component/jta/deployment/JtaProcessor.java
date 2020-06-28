@@ -42,6 +42,7 @@ class JtaProcessor {
     @BuildStep
     void transactedPolicy(
             BuildProducer<AdditionalBeanBuildItem> additionalBeans,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             Capabilities capabilities) {
         if (capabilities.isCapabilityPresent(Capabilities.TRANSACTIONS)) {
             AdditionalBeanBuildItem.Builder builder = AdditionalBeanBuildItem.builder();
@@ -53,6 +54,9 @@ class JtaProcessor {
             builder.addBeanClass(SupportsJtaTransactionPolicy.class);
 
             additionalBeans.produce(builder.build());
+
+            reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
+                    IllegalStateException.class.getName()));
         }
     }
 
