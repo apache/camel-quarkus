@@ -16,12 +16,36 @@
  */
 package org.apache.camel.quarkus.component.jta.it;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 
 public class JtaRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        from("direct:test")
-                .transacted().transform().constant("Hello World");
+        onException(IllegalStateException.class).maximumRedeliveries(0).handled(true)
+                .process(exchange -> {
+                    Exception cause = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Exception.class);
+                    if (cause != null) {
+                        exchange.getMessage().setBody(cause.getMessage());
+                    }
+                });
+
+        from("direct:required")
+                .transacted().transform().constant("required");
+
+        from("direct:requires_new")
+                .transacted("PROPAGATION_REQUIRES_NEW").transform().constant("requires_new");
+
+        from("direct:mandatory")
+                .transacted("PROPAGATION_MANDATORY").transform().constant("mandatory");
+
+        from("direct:never")
+                .transacted("PROPAGATION_NEVER").transform().constant("never");
+
+        from("direct:supports")
+                .transacted("PROPAGATION_SUPPORTS").transform().constant("supports");
+
+        from("direct:not_supported")
+                .transacted("PROPAGATION_NOT_SUPPORTED").transform().constant("not_supported");
     }
 }

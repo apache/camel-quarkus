@@ -20,9 +20,11 @@ import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -39,17 +41,27 @@ public class JtaResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/post")
+    @Path("/{policy}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
-        LOG.infof("Sending to jta: %s", message);
-        final String response = producerTemplate.requestBody("direct:test", message, String.class);
+    public Response post(@PathParam("policy") String policy, String message) throws Exception {
+        LOG.infof("Sending to jta policy %s: %s", policy, message);
+        final String response = producerTemplate.requestBody("direct:" + policy, message, String.class);
         LOG.infof("Got response from jta: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(response)
                 .build();
     }
+
+    @Path("/in_tx/{policy}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @Transactional
+    public Response postInTx(@PathParam("policy") String policy, String message) throws Exception {
+        return post(policy, message);
+    }
+
 }

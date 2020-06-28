@@ -21,17 +21,114 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.is;
+
 @QuarkusTest
 class JtaTest {
 
     @Test
-    public void test() {
+    public void testNoTx() {
         final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
-        RestAssured.given() //
+
+        RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post("/jta/post") //
+                .post("/jta/required")
                 .then()
-                .statusCode(201);
+                .statusCode(201)
+                .body(is("required"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/requires_new")
+                .then()
+                .statusCode(201)
+                .body(is("requires_new"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/mandatory")
+                .then()
+                .statusCode(201)
+                .body(is("Policy 'PROPAGATION_MANDATORY' is configured but no active transaction was found!"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/never")
+                .then()
+                .statusCode(201)
+                .body(is("never"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/supports")
+                .then()
+                .statusCode(201)
+                .body(is("supports"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/not_supported")
+                .then()
+                .statusCode(201)
+                .body(is("not_supported"));
+    }
+
+    @Test
+    public void testInTx() {
+        final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/required")
+                .then()
+                .statusCode(201)
+                .body(is("required"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/requires_new")
+                .then()
+                .statusCode(201)
+                .body(is("requires_new"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/mandatory")
+                .then()
+                .statusCode(201)
+                .body(is("mandatory"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/never")
+                .then()
+                .statusCode(201)
+                .body(is("Policy 'PROPAGATION_NEVER' is configured but an active transaction was found!"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/supports")
+                .then()
+                .statusCode(201)
+                .body(is("supports"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/jta/in_tx/not_supported")
+                .then()
+                .statusCode(201)
+                .body(is("not_supported"));
     }
 }

@@ -70,7 +70,7 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         }
     }
 
-    protected void rollback(boolean isNew) throws Exception {
+    final protected void rollback(boolean isNew) throws Exception {
         try {
             if (isNew) {
                 transactionManager.rollback();
@@ -82,11 +82,11 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         }
     }
 
-    protected Transaction suspendTransaction() throws Exception {
+    final protected Transaction suspendTransaction() throws Exception {
         return transactionManager.suspend();
     }
 
-    protected void resumeTransaction(final Transaction suspendedTransaction) {
+    final protected void resumeTransaction(final Transaction suspendedTransaction) {
         if (suspendedTransaction == null) {
             return;
         }
@@ -98,7 +98,7 @@ public abstract class TransactionalJtaTransactionPolicy extends JtaTransactionPo
         }
     }
 
-    protected boolean hasActiveTransaction() throws Exception {
+    final protected boolean hasActiveTransaction() throws Exception {
         return transactionManager.getStatus() != Status.STATUS_MARKED_ROLLBACK
                 && transactionManager.getStatus() != Status.STATUS_NO_TRANSACTION;
     }

@@ -30,7 +30,7 @@
 
     <artifactId>camel-quarkus-jta</artifactId>
     <name>Camel Quarkus :: JTA :: Runtime</name>
-    <description>Using Camel with JTA Transaction Manager</description>
+    <description>Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager</description>
 
     <properties>
         <firstVersion>1.0.0-CR3</firstVersion>

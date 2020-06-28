@@ -7,7 +7,7 @@
 [.badges]
 [.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-CR3## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
-Using Camel With JTA Transaction Manager
+Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager
 
 == What's inside
 

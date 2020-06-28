@@ -24,7 +24,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.jta.MandatoryJtaTransactionPolicy;
-import org.apache.camel.quarkus.component.jta.NestedJtaTransactionPolicy;
 import org.apache.camel.quarkus.component.jta.NeverJtaTransactionPolicy;
 import org.apache.camel.quarkus.component.jta.NotSupportedJtaTransactionPolicy;
 import org.apache.camel.quarkus.component.jta.RequiredJtaTransactionPolicy;
@@ -49,7 +48,6 @@ class JtaProcessor {
             builder.addBeanClass(RequiredJtaTransactionPolicy.class);
             builder.addBeanClass(RequiresNewJtaTransactionPolicy.class);
             builder.addBeanClass(MandatoryJtaTransactionPolicy.class);
-            builder.addBeanClass(NestedJtaTransactionPolicy.class);
             builder.addBeanClass(NeverJtaTransactionPolicy.class);
             builder.addBeanClass(NotSupportedJtaTransactionPolicy.class);
             builder.addBeanClass(SupportsJtaTransactionPolicy.class);
@@ -58,7 +56,7 @@ class JtaProcessor {
         }
     }
 
-    @BuildStep
+    @BuildStep //TODO remove this BuildStep when https://github.com/quarkusio/quarkus/issues/10180 gets resolved
     void registerNarayanaReflectiveClass(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
                 new ReflectiveClassBuildItem(false, false, SocketProcessId.class.getName()));

@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.jta;
 import javax.inject.Named;
 
 @Named("PROPAGATION_REQUIRED")
-public class RequiredJtaTransactionPolicy extends TransactionalJtaTransactionPolicy {
+public final class RequiredJtaTransactionPolicy extends TransactionalJtaTransactionPolicy {
 
     @Override
     public void run(final Runnable runnable) throws Throwable {
