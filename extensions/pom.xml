@@ -114,6 +114,7 @@
         <module>johnzon</module>
         <module>json-validator</module>
         <module>jsonpath</module>
+        <module>jta</module>
         <module>kafka</module>
         <module>kotlin</module>
         <module>kubernetes</module>
