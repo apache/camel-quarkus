@@ -90,17 +90,21 @@ jobs:
         run: |
           ./mvnw -V -ntp ${BRANCH_OPTIONS} \
             clean install
+      - name: Fail if there are uncommitted changes
+        shell: bash
+        run: |
+          [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
       - name: Tar Maven Repo
         shell: bash
         run: |
-          tar -czf maven-repo.tgz -C ~ .m2/repository
-          ls -lh maven-repo.tgz
+          tar -czf ../maven-repo.tgz -C ~ .m2/repository
+          ls -lh ../maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
         uses: actions/upload-artifact@v1
         with:
           name: maven-repo
-          path: maven-repo.tgz
+          path: ../maven-repo.tgz
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -136,17 +140,22 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: maven-repo
-          path: .
+          path: ..
       - name: Extract Maven Repo
         shell: bash
         run: |
           df -h /
-          tar -xzf maven-repo.tgz -C ~
+          tar -xzf ../maven-repo.tgz -C ~
           df -h /
       - name: Build on ${{ matrix.java }}
         run: |
           ./mvnw -V -ntp ${BRANCH_OPTIONS} \
             clean verify
+      - name: Fail if there are uncommitted changes
+        shell: bash
+        run: |
+          [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
+
   native-tests:
     name: Native Tests - ${{matrix.category}}
     needs: build
@@ -173,12 +182,12 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: maven-repo
-          path: .
+          path: ..
       - name: Extract Maven Repo
         shell: bash
         run: |
           df -h /
-          tar -xzf maven-repo.tgz -C ~
+          tar -xzf ../maven-repo.tgz -C ~
           df -h /
       - name: Install yq
         run: |
@@ -209,6 +218,10 @@ jobs:
             -Dnative \
             -Ddocker \
             -pl "${modules[*]}"
+      - name: Fail if there are uncommitted changes
+        shell: bash
+        run: |
+          [[ -z $(git status --porcelain) ]] || { echo 'There are uncommitted changes'; git status; exit 1; }
 
   # memoryhogs:
   #   runs-on: ubuntu-latest
@@ -224,10 +237,10 @@ jobs:
   #        uses: actions/download-artifact@v1
   #        with:
   #          name: maven-repo
-  #          path: .
+  #          path: ..
   #      - name: Extract Maven Repo
   #        shell: bash
-  #        run: tar -xzf maven-repo.tgz -C ~
+  #        run: tar -xzf ../maven-repo.tgz -C ~
   #     # run the :camel-quarkus-integration-test-fhir as standalone process
   #     # as it building the native image including camel-fhir requires lot
   #     # of memory this we nee to limit it to avoid the process fail for OOM.
