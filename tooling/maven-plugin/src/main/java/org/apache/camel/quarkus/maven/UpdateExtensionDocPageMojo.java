@@ -49,6 +49,7 @@ import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 @Mojo(name = "update-extension-doc-page", threadSafe = true)
 public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
@@ -57,8 +58,15 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
     private static List<String> list2;
     private static final Map<String, Boolean> nativeSslActivators = new ConcurrentHashMap<>();
 
+    @Parameter(defaultValue = "false", property = "camel-quarkus.update-extension-doc-page.skip")
+    boolean skip = false;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
+        if (skip) {
+            getLog().info("Skipping per user request");
+            return;
+        }
         final Charset charset = Charset.forName(encoding);
         final Path basePath = baseDir.toPath();
 
