@@ -19,7 +19,10 @@ package org.apache.camel.quarkus.component.dataformat.it;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -59,10 +62,15 @@ class DataformatTest {
 
     @Test
     public void ical() throws ParseException, IOException {
-        final ZonedDateTime START = ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]");
-        final ZonedDateTime END = ZonedDateTime.parse("2007-12-03T11:16:31+01:00[Europe/Paris]");
+        final ZonedDateTime START = LocalDateTime.of(2007, 12, 3, 10, 15, 30).atZone(ZoneId.systemDefault());
+        final ZonedDateTime END = LocalDateTime.of(2007, 12, 03, 11, 16, 31).atZone(ZoneId.systemDefault());
 
-        final String icalString = IOUtils.toString(getClass().getResourceAsStream("/test.ics"), StandardCharsets.UTF_8);
+        final String icsTemplate = IOUtils.toString(getClass().getResourceAsStream("/test.ics"), StandardCharsets.UTF_8);
+        final String icalString = String.format(
+                icsTemplate,
+                toFormatedLocalDateTime(START),
+                toFormatedLocalDateTime(END),
+                START.getZone().getId());
 
         final String actualIcal = RestAssured
                 .given()
@@ -85,6 +93,14 @@ class DataformatTest {
                 .statusCode(200)
                 .extract().body().asString();
         Assertions.assertEquals(icalString, body.replace("\r", ""));
+    }
+
+    static String toFormatedLocalDateTime(ZonedDateTime zonedDateTime) {
+        String result = zonedDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'hhmmss"));
+        if (zonedDateTime.getZone().getId().equals("Etc/UTC")) {
+            result += "Z";
+        }
+        return result;
     }
 
 }
