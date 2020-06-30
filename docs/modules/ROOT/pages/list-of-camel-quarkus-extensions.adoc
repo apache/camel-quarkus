@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 152 in 117 JAR artifacts (0 deprecated)
+Number of Camel components: 153 in 118 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -187,6 +187,8 @@ Number of Camel components: 152 in 117 JAR artifacts (0 deprecated)
 | xref:extensions/jira.adoc[Jira] | camel-quarkus-jira | Native + Stable | 1.0.0-M4 | Interact with JIRA issue tracker.
 
 | xref:extensions/jms.adoc[JMS] | camel-quarkus-jms | Native + Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
+
+| xref:extensions/jolt.adoc[JOLT] | camel-quarkus-jolt | Native + Stable | 1.0.0-CR3 | JSON to JSON transformation using JOLT.
 
 | xref:extensions/json-validator.adoc[JSON Schema Validator] | camel-quarkus-json-validator | Native + Stable | 1.0.0-CR3 | Validate JSON payloads using NetworkNT JSON Schema.
 

@@ -1,0 +1,9 @@
+[
+	{
+		"operation": "modify-overwrite-beta",
+		"spec": {
+			// Divide and Round : decimal point to round to is first param
+			"aDivCRounded4": "=divideAndRound(4,@(1,a),@(1,c))"
+		}
+	}
+]

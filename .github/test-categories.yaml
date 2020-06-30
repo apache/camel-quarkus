@@ -81,6 +81,7 @@ misc:
   - braintree
   - compression
   - graphql
+  - jolt
   - mustache
   - pdf
   - qute
