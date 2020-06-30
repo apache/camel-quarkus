@@ -22,11 +22,9 @@ import java.time.ZonedDateTime;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.PropertyList;
-import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.Role;
 import net.fortuna.ical4j.model.property.Attendee;
@@ -36,6 +34,7 @@ import net.fortuna.ical4j.model.property.DtStamp;
 import net.fortuna.ical4j.model.property.DtStart;
 import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.TzId;
 import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 
@@ -45,8 +44,6 @@ public class ICalUtils {
         // Create a TimeZone
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
         String tzId = start.getZone().getId();
-        TimeZone timezone = registry.getTimeZone(tzId.equals("Z") ? "UTC" : tzId);
-        VTimeZone tz = timezone.getVTimeZone();
 
         // Create the event
         PropertyList propertyList = new PropertyList();
@@ -59,7 +56,7 @@ public class ICalUtils {
         VEvent meeting = new VEvent(propertyList);
 
         // add timezone info..
-        meeting.getProperties().add(tz.getTimeZoneId());
+        meeting.getProperties().add(new TzId(tzId));
 
         // generate unique identifier..
         meeting.getProperties().add(new Uid("00000000"));
@@ -82,16 +79,7 @@ public class ICalUtils {
     }
 
     static DateTime toDateTime(ZonedDateTime zonedDateTime, TimeZoneRegistry registry) {
-        final String tzId = zonedDateTime.getZone().getId();
-        final TimeZone timezone = registry.getTimeZone(tzId.equals("Z") ? "UTC" : tzId);
-        // workaround for https://github.com/apache/camel-quarkus/issues/838
-        final DateTime result = new DateTime();
-        result.setTimeZone(timezone);
-        result.setTime(zonedDateTime.toInstant().toEpochMilli());
-        // To reproduce https://github.com/apache/camel-quarkus/issues/838 comment the above, enable the following
-        // and remove the TZ from DTSTART and DTEND in src/test/resources/test.ics
-        // final DateTime result = new DateTime(zonedDateTime.toInstant().toEpochMilli());
-        return result;
+        return new DateTime(zonedDateTime.toInstant().toEpochMilli());
     }
 
 }
