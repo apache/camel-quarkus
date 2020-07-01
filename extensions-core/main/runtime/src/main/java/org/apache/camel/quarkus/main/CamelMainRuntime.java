@@ -40,16 +40,25 @@ public class CamelMainRuntime implements CamelRuntime {
         if (args.length > 0) {
             LOGGER.info("Starting camel-quarkus with args: {}", Arrays.toString(args));
         }
+        try {
+            main.parseArguments(args);
+            main.initAndStart();
 
-        new Thread(() -> {
-            try {
-                main.run(args);
-            } catch (Exception e) {
-                LOGGER.error("Failed to start application", e);
-                stop();
-                throw new RuntimeException(e);
-            }
-        }).start();
+            new Thread(() -> {
+                try {
+                    main.run();
+                    LOGGER.info("MainSupport exiting code: {}", main.getExitCode());
+                } catch (Exception e) {
+                    LOGGER.error("Failed to start application", e);
+                    stop();
+                    throw new RuntimeException(e);
+                }
+            }).start();
+        } catch (Exception e) {
+            LOGGER.error("Failed to start application", e);
+            stop();
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

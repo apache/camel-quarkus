@@ -33,6 +33,7 @@ import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.support.service.ServiceHelper;
 
 public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
     public CamelMain(CamelContext camelContext) {
@@ -97,6 +98,47 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
     MainConfigurationProperties getMainConfigurationProperties() {
         return mainConfigurationProperties;
+    }
+
+    public void initAndStart() throws Exception {
+        if (shutdownStrategy.isRunAllowed()) {
+            init();
+            // if we have an issue starting then propagate the exception to caller
+            beforeStart();
+            start();
+            try {
+                afterStart();
+            } catch (Exception e) {
+                // however while running then just log errors
+                LOG.error("Failed: {}", e, e);
+            }
+        }
+    }
+
+    public void run() throws Exception {
+        if (shutdownStrategy.isRunAllowed()) {
+            try {
+                waitUntilCompleted();
+                internalBeforeStop();
+                beforeStop();
+                stop();
+                afterStop();
+            } catch (Exception e) {
+                // however while running then just log errors
+                LOG.error("Failed: {}", e, e);
+            }
+        }
+    }
+
+    private void internalBeforeStop() {
+        try {
+            if (camelTemplate != null) {
+                ServiceHelper.stopService(camelTemplate);
+                camelTemplate = null;
+            }
+        } catch (Exception e) {
+            LOG.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
+        }
     }
 
     /**
