@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -93,7 +92,6 @@ public class CamelDevModeTest {
                 StandardCopyOption.REPLACE_EXISTING);
     }
 
-    @Disabled("Requires https://github.com/quarkusio/quarkus/pull/10109")
     @Test
     public void testRoutesDiscovery() throws IOException {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {

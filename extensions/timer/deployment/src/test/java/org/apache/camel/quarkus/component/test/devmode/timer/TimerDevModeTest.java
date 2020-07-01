@@ -34,7 +34,6 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
@@ -49,7 +48,6 @@ public class TimerDevModeTest {
                     .addAsResource(applicationProperties(), "application.properties"))
             .setLogFileName(LOG_FILE.getFileName().toString());
 
-    @Disabled("Requires https://github.com/quarkusio/quarkus/pull/10109")
     @Test
     void logMessageEdit() throws IOException {
         Awaitility.await()
