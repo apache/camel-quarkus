@@ -41,13 +41,6 @@
 
             <!-- External BOMs -->
             <dependency><!-- this needs to occur before quarkus-bom to get a higher prio -->
-                <groupId>software.amazon.awssdk</groupId>
-                <artifactId>bom</artifactId>
-                <version>${awssdk2.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency><!-- this needs to occur before quarkus-bom to get a higher prio -->
                 <groupId>io.fabric8</groupId>
                 <artifactId>kubernetes-client-bom</artifactId>
                 <version>${kubernetes-client.version}</version>
