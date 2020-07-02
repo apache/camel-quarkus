@@ -89,15 +89,25 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
     @Order(0)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testReceiveInitCompany() {
-        //receive first record (operation r) for the init company - using larger timeout
-        Response response = receiveResponse("/receiveAsRecord");
+        int i = 0;
 
-        response.then()
-                .statusCode(200);
+        while (i++ < AbstractDebeziumTest.REPEAT_COUNT) {
+            //receive first record (operation r) for the init company - using larger timeout
+            Response response = receiveResponse("/receiveAsRecord");
 
-        Record record = response.getBody().as(Record.class);
-        Assert.assertEquals("r", record.getOperation());
-        Assert.assertEquals("Struct{NAME=init,CITY=init}", record.getValue());
+            response.then()
+                    .statusCode(200);
+
+            Record record = response.getBody().as(Record.class);
+
+            if (record.getOperation() == null) {
+                continue;
+            }
+
+            Assert.assertEquals("r", record.getOperation());
+            Assert.assertEquals("Struct{NAME=init,CITY=init}", record.getValue());
+            break;
+        }
     }
 
     @Test
