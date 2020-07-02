@@ -21,13 +21,14 @@ import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import org.apache.camel.CamelContext;
@@ -145,21 +146,21 @@ public class CamelMainProcessor {
      * @param  main          a reference to a {@link CamelMain}.
      * @param  customizers   a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be
      *                       executed before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
-     * @param  startList     a placeholder to ensure camel-main start after the ArC container is fully initialized.
-     *                       This is required as under the hoods the camel registry may look-up beans form the
-     *                       container thus we need it to be fully initialized to avoid unexpected behaviors.
      * @param  runtimeTasks  a placeholder to ensure all the runtime task are properly are done.
      * @return               a build item holding a {@link CamelRuntime} instance.
      */
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+    /* @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
+     * fully initialized. This is required as under the hoods the camel registry may look-up beans form the
+     * container thus we need it to be fully initialized to avoid unexpected behaviors. */
+    @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     CamelRuntimeBuildItem runtime(
             CombinedIndexBuildItem index,
             BeanContainerBuildItem beanContainer,
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
-            List<ServiceStartBuildItem> startList,
             List<CamelRuntimeTaskBuildItem> runtimeTasks) {
 
         // Run the customizer before starting the context to give a last chance
