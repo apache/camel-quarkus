@@ -16,11 +16,13 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Produce;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.RawCommandLineArgumentsBuildItem;
+import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.ShutdownContext;
 import org.apache.camel.quarkus.core.CamelBootstrapRecorder;
@@ -45,11 +47,15 @@ class CamelBootstrapProcessor {
             CamelBootstrapRecorder recorder,
             CamelRuntimeBuildItem runtime,
             RawCommandLineArgumentsBuildItem commandLineArguments,
-            ShutdownContextBuildItem shutdown) {
+            ShutdownContextBuildItem shutdown,
+            BuildProducer<ServiceStartBuildItem> serviceStartBuildItems) {
 
         recorder.addShutdownTask(shutdown, runtime.runtime());
         if (runtime.isAutoStartup()) {
             recorder.start(runtime.runtime(), commandLineArguments);
         }
+        /* Make sure that Quarkus orders this method before starting to serve HTTP endpoints.
+         * Otherwise first requests might reach Camel context in a non-yet-started state. */
+        serviceStartBuildItems.produce(new ServiceStartBuildItem("camel-runtime"));
     }
 }

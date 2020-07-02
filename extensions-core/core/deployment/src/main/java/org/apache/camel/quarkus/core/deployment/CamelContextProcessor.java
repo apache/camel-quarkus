@@ -19,11 +19,12 @@ package org.apache.camel.quarkus.core.deployment;
 import java.util.List;
 
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -116,9 +117,6 @@ public class CamelContextProcessor {
      * @param  customizers          a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} used to customize
      *                              the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
      * @param  routesBuilderClasses a list of known {@link org.apache.camel.RoutesBuilder} classes.
-     * @param  startList            a placeholder to ensure camel-main start after the ArC container is fully initialized.
-     *                              This is required as under the hoods the camel registry may look-up beans form the
-     *                              container thus we need it to be fully initialized to avoid unexpected behaviors.
      * @param  runtimeTasks         a placeholder to ensure all the runtime task are properly are done.
      *                              to the registry.
      * @return                      a build item holding a {@link CamelRuntime} instance.
@@ -126,6 +124,10 @@ public class CamelContextProcessor {
     @Overridable
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+    /* @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
+     * fully initialized. This is required as under the hoods the camel registry may look-up beans form the
+     * container thus we need it to be fully initialized to avoid unexpected behaviors. */
+    @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     public CamelRuntimeBuildItem runtime(
             BeanContainerBuildItem beanContainer,
             ContainerBeansBuildItem containerBeans,
@@ -133,7 +135,6 @@ public class CamelContextProcessor {
             CamelContextBuildItem context,
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            List<ServiceStartBuildItem> startList,
             List<CamelRuntimeTaskBuildItem> runtimeTasks) {
 
         for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
