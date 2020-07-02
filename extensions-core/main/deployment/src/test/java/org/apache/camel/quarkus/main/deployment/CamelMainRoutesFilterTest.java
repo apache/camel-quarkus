@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -35,7 +34,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.awaitility.Awaitility.await;
 
 public class CamelMainRoutesFilterTest {
     @RegisterExtension
@@ -65,9 +63,6 @@ public class CamelMainRoutesFilterTest {
 
     @Test
     public void testRoutesFilter() {
-        // ensure the camel context is started before doing any assertion
-        await().atMost(10, TimeUnit.SECONDS).until(main::isStarted);
-
         assertThat(main.configure().getRoutesBuilders())
                 .hasSize(1)
                 .first().isInstanceOf(MyRoute.class);

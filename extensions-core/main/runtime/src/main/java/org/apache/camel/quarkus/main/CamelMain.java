@@ -33,10 +33,14 @@ import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
+import org.apache.camel.support.service.ServiceHelper;
 
 public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
+    private final AtomicBoolean engineStarted;
+
     public CamelMain(CamelContext camelContext) {
         this.camelContext = camelContext;
+        this.engineStarted = new AtomicBoolean();
     }
 
     @Override
@@ -74,6 +78,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     protected void doStop() throws Exception {
         super.doStop();
         this.camelContext.stop();
+        this.engineStarted.set(false);
     }
 
     @Override
@@ -97,6 +102,47 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
     MainConfigurationProperties getMainConfigurationProperties() {
         return mainConfigurationProperties;
+    }
+
+    /**
+     * Start the engine.
+     */
+    public void startEngine() throws Exception {
+        if (shutdownStrategy.isRunAllowed() && engineStarted.compareAndSet(false, true)) {
+            init();
+            beforeStart();
+            start();
+            afterStart();
+        }
+    }
+
+    /**
+     * Start the engine if not done already and wait until completed, or the JVM terminates.
+     */
+    public void runEngine() throws Exception {
+        if (shutdownStrategy.isRunAllowed()) {
+            startEngine();
+            waitUntilCompleted();
+
+            try {
+                if (camelTemplate != null) {
+                    ServiceHelper.stopService(camelTemplate);
+                    camelTemplate = null;
+                }
+            } catch (Exception e) {
+                LOG.debug("Error stopping camelTemplate due " + e.getMessage() + ". This exception is ignored.", e);
+            }
+
+            beforeStop();
+            stop();
+            afterStop();
+        }
+    }
+
+    @Override
+    public void run(String[] args) throws Exception {
+        parseArguments(args);
+        runEngine();
     }
 
     /**
