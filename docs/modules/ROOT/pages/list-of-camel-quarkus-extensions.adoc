@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 153 in 118 JAR artifacts (0 deprecated)
+Number of Camel components: 154 in 119 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -229,6 +229,8 @@ Number of Camel components: 153 in 118 JAR artifacts (0 deprecated)
 | xref:extensions/mail.adoc[Mail] | camel-quarkus-mail | Native + Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] | camel-quarkus-microprofile-metrics | Native + Stable | 0.2.0 | Expose metrics from Camel routes.
+
+| xref:extensions/mock.adoc[Mock] | camel-quarkus-mock | Native + Stable | 1.0.0-CR3 | Test routes and mediation rules using mocks.
 
 | xref:extensions/mongodb.adoc[MongoDB] | camel-quarkus-mongodb | Native + Stable | 1.0.0-M1 | Perform operations on MongoDB documents and collections.
 

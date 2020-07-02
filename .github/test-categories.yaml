@@ -83,6 +83,7 @@ misc:
   - graphql
   - jolt
   - mustache
+  - mock
   - pdf
   - qute
   - stream
