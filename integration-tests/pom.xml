@@ -109,6 +109,7 @@
         <module>mail</module>
         <module>messaging</module>
         <module>microprofile</module>
+        <module>mock</module>
         <module>mongodb</module>
         <module>mustache</module>
         <module>netty</module>
