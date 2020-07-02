@@ -16,13 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jolt.it;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
-import io.quarkus.bootstrap.util.IoUtils;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -43,8 +42,10 @@ class JoltTest {
 
     @Test
     public void sampleShouldSucceed() throws IOException {
-        File requestBody = new File("src/test/resources/sample-input.json");
-        String expectedResponseBody = IoUtils.readFile(Paths.get("src/test/resources/sample-output.json"));
+        final String requestBody = IOUtils.toString(getClass().getResourceAsStream("/sample-input.json"),
+                StandardCharsets.UTF_8);
+        final String expectedResponseBody = IOUtils.toString(getClass().getResourceAsStream("/sample-output.json"),
+                StandardCharsets.UTF_8);
 
         given().body(requestBody).contentType(ContentType.JSON).put("/jolt/sample").then().statusCode(200)
                 .body(is(expectedResponseBody));
@@ -52,8 +53,10 @@ class JoltTest {
 
     @Test
     public void functionShouldSucceed() throws IOException {
-        File requestBody = new File("src/test/resources/function-input.json");
-        String expectedResponseBody = IoUtils.readFile(Paths.get("src/test/resources/function-output.json"));
+        final String requestBody = IOUtils.toString(getClass().getResourceAsStream("/function-input.json"),
+                StandardCharsets.UTF_8);
+        final String expectedResponseBody = IOUtils.toString(getClass().getResourceAsStream("/function-output.json"),
+                StandardCharsets.UTF_8);
 
         given().body(requestBody).contentType(ContentType.JSON).put("/jolt/function").then().statusCode(200)
                 .body(is(expectedResponseBody));
