@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus</artifactId>
-        <version>1.0.0-CR3</version>
+        <version>1.1.0-SNAPSHOT</version>
     </parent>
 
     <artifactId>camel-quarkus-tooling</artifactId>
