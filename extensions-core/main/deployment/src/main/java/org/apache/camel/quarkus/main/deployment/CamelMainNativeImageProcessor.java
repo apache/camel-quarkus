@@ -30,6 +30,7 @@ public class CamelMainNativeImageProcessor {
                 org.apache.camel.main.Resilience4jConfigurationProperties.class,
                 org.apache.camel.model.Resilience4jConfigurationDefinition.class,
                 org.apache.camel.model.Resilience4jConfigurationCommon.class,
-                org.apache.camel.spi.RestConfiguration.class);
+                org.apache.camel.spi.RestConfiguration.class,
+                org.apache.camel.quarkus.main.CamelMainApplication.class);
     }
 }
