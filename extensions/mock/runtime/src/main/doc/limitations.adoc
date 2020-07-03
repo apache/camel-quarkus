@@ -1,0 +1,4 @@
+Injection of CDI beans (described in Usage) does not work in native mode.
+
+In the native mode the test and the application under test are running in two different processes and it is not possible
+to share a mock bean between them (see https://quarkus.io/guides/getting-started-testing#native-executable-testing[Quarkus documentation]).
