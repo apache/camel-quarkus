@@ -51,8 +51,8 @@
             <artifactId>quarkus-elasticsearch-rest-client</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elasticsearch-rest-high-level-client</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

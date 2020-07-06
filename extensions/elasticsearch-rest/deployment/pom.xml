@@ -35,6 +35,10 @@
             <artifactId>quarkus-elasticsearch-rest-client-deployment</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-elasticsearch-rest-high-level-client-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
