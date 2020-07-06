@@ -30,6 +30,8 @@
         <include>**/*</include>
       </includes>
       <excludes>
+        <!-- exclude the node installation from docs -->
+        <exclude>docs/node/**</exclude>
 
         <!-- release-plugin temp files -->
         <exclude>**/pom.xml.releaseBackup</exclude>
