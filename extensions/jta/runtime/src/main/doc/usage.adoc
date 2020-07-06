@@ -1,0 +1,13 @@
+This extension could be used when you need the `transacted()` in the router. It leverages the transaction capability provided by the narayana-jta extension in the Quarkus. 
+
+
+Refer to the https://quarkus.io/guides/transaction[Quarkus Transaction guide] for the more details about the transaction. For a simple usage:
+
+[source,java]
+----
+from("direct:transaction")
+    .transacted()
+    .to("sql:INSERT INTO A TABLE ...?dataSource=ds1")
+    .to("sql:INSERT INTO A TABLE ...?dataSource=ds2")
+    .log("all data are in the ds1 and ds2")
+----
