@@ -26,6 +26,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
+import org.apache.camel.BindToRegistry;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
@@ -69,6 +70,10 @@ public class CamelRoute extends RouteBuilder {
 
         from("direct:method")
                 .bean(MyBean.class, "sayHello")
+                .to("log:named");
+
+        from("direct:handler")
+                .to("bean:withHandler")
                 .to("log:named");
 
     }
@@ -158,4 +163,10 @@ public class CamelRoute extends RouteBuilder {
             return "Hello " + body + " from the MyBean";
         }
     }
+
+    @BindToRegistry
+    public static WithHandlerBean withHandler() {
+        return new WithHandlerBean();
+    }
+
 }

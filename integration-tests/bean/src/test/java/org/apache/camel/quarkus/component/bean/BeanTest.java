@@ -59,6 +59,16 @@ public class BeanTest {
     }
 
     @Test
+    public void handler() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kermit")
+                .post("/bean/handler")
+                .then()
+                .body(equalTo("Hello Kermit from the WithHandlerBean"));
+    }
+
+    @Test
     public void inject() {
 
         /* Ensure that @Inject works */

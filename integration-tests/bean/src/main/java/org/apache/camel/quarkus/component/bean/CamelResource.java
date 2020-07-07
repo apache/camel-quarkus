@@ -63,6 +63,14 @@ public class CamelResource {
         return template.requestBody("direct:method", statement, String.class);
     }
 
+    @Path("/handler")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String handler(String statement) {
+        return template.requestBody("direct:handler", statement, String.class);
+    }
+
     @Path("/increment")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
