@@ -35,7 +35,7 @@ would be against the policy of the Apache Software Foundation.
 Therefore you have to add the dependency to your project yourself, as long as you are able to comply with its license
 terms.
 
-`quarkus-bom` (transitively included by `camel-quakrus-bom` and `quarkus-universe-bom`) manages a version
+`quarkus-bom` (transitively included by `camel-quarkus-bom` and `quarkus-universe-bom`) manages a version
 of `mysql:mysql-connector-java` compatible with Camel Quarkus. So you do not need specify the version of the
 driver if you import any of the mentioned BOMs. The following should be sufficient for Maven:
 

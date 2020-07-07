@@ -196,6 +196,6 @@ $ ps -o rss,command -p $(pgrep my-app)
 
 That's under 35 MB of RAM!
 
-TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable quide] contains more details
+TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable guide] contains more details
 including
 https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].

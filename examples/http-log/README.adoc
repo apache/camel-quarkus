@@ -4,7 +4,7 @@ This is a basic hello world example that uses CDI and JAX-RS to setup
 a Quarkus REST service and a Camel route to service HTTP traffic.
 
 The Quarkus REST service `ExampleResource.java` and the Camel route `CamelRoute.java`
-are independent andare present in this example to demonstrate how you can build microservices
+are independent and are present in this example to demonstrate how you can build microservices
 with both Quarkus and Camel separated.
 
 You can of course also combine Quarkus REST services with Camel (see further below).
