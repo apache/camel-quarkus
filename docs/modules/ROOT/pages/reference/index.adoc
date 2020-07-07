@@ -17,7 +17,7 @@ In case you are missing some extension in the list:
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.
 ====
 
-166 extensions (2 deprecated, 14 JVM only)
+167 extensions (2 deprecated, 14 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -472,6 +472,9 @@ Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
 |  xref:reference/extensions/telegram.adoc[Telegram]  | camel-quarkus-telegram | Native +
 Stable | 1.0.0 | Send and receive messages acting as a Telegram Bot Telegram Bot API.
+
+|  xref:reference/extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]  | camel-quarkus-threadpoolfactory-vertx | Native +
+Stable | 1.0.0-CR4 | ThreadPoolFactory for camel-core using Vert.x
 
 |  xref:reference/extensions/tagsoup.adoc[TidyMarkup]  | camel-quarkus-tagsoup | Native +
 Stable | 1.0.0 | Parse (potentially invalid) HTML into valid HTML or DOM.
