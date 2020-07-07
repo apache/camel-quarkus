@@ -58,6 +58,9 @@ Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x
 | xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging] | [.camel-element-artifact]##camel-quarkus-smallrye-reactive-messaging## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Camel integration with SmallRye Reactive Messaging
 
+| xref:reference/extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x] | [.camel-element-artifact]##camel-quarkus-threadpoolfactory-vertx## | [.camel-element-Native]##Native## +
+Stable | 1.0.0-CR4 | ThreadPoolFactory for camel-core using Vert.x
+
 | xref:reference/extensions/xml-io.adoc[XML IO] | [.camel-element-artifact]##camel-quarkus-xml-io## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 

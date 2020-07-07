@@ -246,6 +246,7 @@
             camel-quarkus-tagsoup
             camel-quarkus-tarfile
             camel-quarkus-telegram
+            camel-quarkus-threadpoolfactory-vertx
             camel-quarkus-tika
             camel-quarkus-timer
             camel-quarkus-twitter
