@@ -443,7 +443,7 @@ Number of Camel languages: 13 in 7 JAR artifacts (0 deprecated)
 == Miscellaneous Extensions
 
 // others: START
-Number of miscellaneous extensions: 18 in 18 JAR artifacts (1 deprecated)
+Number of miscellaneous extensions: 19 in 19 JAR artifacts (1 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -480,6 +480,8 @@ Number of miscellaneous extensions: 18 in 18 JAR artifacts (1 deprecated)
 |  xref:extensions/reactive-executor.adoc[Reactive Executor Vert.x]  | camel-quarkus-reactive-executor | Native + Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x
 
 |  xref:extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]  | camel-quarkus-smallrye-reactive-messaging | Native + Stable | 1.0.0 | Camel integration with SmallRye Reactive Messaging
+
+|  xref:extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]  | camel-quarkus-threadpoolfactory-vertx | Native + Stable | 1.0.0-CR4 | ThreadPoolFactory for camel-core using Vert.x
 
 |  xref:extensions/xml-io.adoc[XML IO]  | camel-quarkus-xml-io | Native + Stable | 1.0.0 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 
