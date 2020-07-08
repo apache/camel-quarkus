@@ -40,8 +40,6 @@
         <exclude>**/target/**</exclude>
 
         <exclude>**/build/**</exclude>
-        <!-- exclude>data/**</exclude>
-        <exclude>*/data/**</exclude -->
         <exclude>activemq-data/**</exclude>
         <exclude>*/activemq-data/**</exclude>
         <exclude>**/eclipse-classes/**</exclude>
@@ -66,6 +64,8 @@
 
         <exclude>**/node_modules/**</exclude>
         <exclude>**/.flattened-pom.xml</exclude>
+
+        <exclude>**/mvnw**</exclude>
       </excludes>
     </fileSet>
 
