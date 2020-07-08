@@ -1,12 +1,15 @@
-= Bootstrap Camel Quarkus
+= Bootstrap and configuration
 
 Camel Quarkus automatically configures and deploys a Camel Context bean which by default is started/stopped according to
 the Quarkus Application lifecycle. The configuration step happens at build time during Quarkus' augmentation phase and
 it is driven by the Camel Quarkus extensions which can be tuned using Camel Quarkus specific `camel.quarkus.*`
 properties. After the configuration is done, a minimal Camel Runtime is assembled and started at
-`https://quarkus.io/guides/writing-extensions#bootstrap-three-phases[RUNTIME_INIT]` time.
-At that point, any additional configuration should be done using CDI. Below is an example showing how to configure a
-Camel Component:
+https://quarkus.io/guides/writing-extensions#bootstrap-three-phases[RUNTIME_INIT] time.
+
+
+== CDI
+
+The https://quarkus.io/guides/cdi-reference[CDI] APIs can be used to configure the Camel behavior as example, to configure the `LogComponent` you can write a code like:
 
 [source,java]
 ----
@@ -21,7 +24,7 @@ public class Configurations {
     /**
      * Produces a {@link LogComponent} instance with a custom exchange formatter set-up.
      */
-    @Named
+    @Named // <1>
     LogComponent log() {
         DefaultExchangeFormatter formatter = new DefaultExchangeFormatter();
         formatter.setShowExchangePattern(false);
@@ -34,12 +37,36 @@ public class Configurations {
     }
 }
 ----
+<1> Camel uses the uri scheme to look-up component from its registry wich requires to add the `@Named` annotation to the method otherwise the CDI container would create an anonymous bean and Camel would not be able to look it up.  
+
+Because in Camel Quarkus the Camel components are discovered during the Quarkus' augmentation phase, producing a new component as shown in the example above would invalidate any optimization that may have been made.
+
+As a better alternative you can use `@Inject` to obtain an instance of a component automatically created by Camel or you can observe one of the https://github.com/apache/camel-quarkus/tree/master/extensions-core/core/runtime/src/main/java/org/apache/camel/quarkus/core/events[events] fired by Camel Quarkus as shown in the the following examplein in which we use `@Observes` to be notified about components added to the Camel Context:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import org.apache.camel.quarkus.core.events.ComponentAddEvent;
+import org.apache.camel.component.log.LogComponent;
+
+@ApplicationScoped
+public static class EventHandler {
+    public void onComponentAdd(@Observes ComponentAddEvent event) {
+        if (event.getComponent() instanceof LogComponent) {
+            // do something with the log component
+        }
+    }
+}
+----
+
+== Camel Main
 
 To configure components and other aspects of Apache Camel through properties, you can add the `camel-quarkus-main`
 extension which brings functionalities from https://camel.apache.org/components/latest/others/main.html[Apache Camel
 Main] to Camel Quarkus.
 
-In the example below, we perform the same configuration of the Log component via properties like we did above using Java:
+In the example below, we apply the same configuration as the one from the Java example above by using properties:
 
 [source,properties]
 ----
@@ -47,3 +74,31 @@ camel.component.log.exchange-formtatter = #class:org.apache.camel.support.proces
 camel.component.log.exchange-formtatter.show-exchange-pattern = false
 camel.component.log.exchange-formtatter.show-body-type = false
 ----
+
+In addition to support for configuring Camel through properties, `camel-quarkus-main` allows to use conventions to configure the Camel behavior as example, if there a single `ExchangeFormatter` instance in the CDI container, then it will automatically wire that bean to the `LogComponent`.
+
+Camel Main also brings the option to write https://quarkus.io/guides/command-mode-reference[Quarkus Command Mode Applications] with control about when the Camel runtime should start:
+
+[source,java]
+----
+import io.quarkus.runtime.Quarkus;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import org.apache.camel.quarkus.main.CamelMainApplication;
+
+@QuarkusMain
+public class Main {
+    public static void main(String... args) {
+        //
+        // your logic here
+        //
+
+        Quarkus.run(CamelMainApplication.class, args); // <1>
+    }
+}
+----
+<1> Start Quarkus and the Camel Quarkus runtime 
+
+[NOTE]
+====
+It is recommended to perform very little loginc in the Java Main.
+====
