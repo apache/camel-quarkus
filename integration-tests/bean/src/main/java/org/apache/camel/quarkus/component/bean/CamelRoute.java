@@ -76,6 +76,10 @@ public class CamelRoute extends RouteBuilder {
                 .to("bean:withHandler")
                 .to("log:named");
 
+        from("direct:handlerOnProxy")
+                .to("bean:withHandlerOnProxy")
+                .to("log:named");
+
     }
 
     @SuppressWarnings("unchecked")
