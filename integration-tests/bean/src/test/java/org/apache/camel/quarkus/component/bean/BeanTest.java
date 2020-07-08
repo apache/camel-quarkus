@@ -69,6 +69,16 @@ public class BeanTest {
     }
 
     @Test
+    public void handlerWithProxy() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kermit")
+                .post("/bean/handlerOnProxy")
+                .then()
+                .body(equalTo("Hello Kermit from the WithHandlerBean"));
+    }
+
+    @Test
     public void inject() {
 
         /* Ensure that @Inject works */

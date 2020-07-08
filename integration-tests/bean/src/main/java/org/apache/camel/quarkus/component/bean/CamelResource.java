@@ -71,6 +71,14 @@ public class CamelResource {
         return template.requestBody("direct:handler", statement, String.class);
     }
 
+    @Path("/handlerOnProxy")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String handlerOnProxy(String statement) {
+        return template.requestBody("direct:handlerOnProxy", statement, String.class);
+    }
+
     @Path("/increment")
     @GET
     @Produces(MediaType.TEXT_PLAIN)

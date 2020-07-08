@@ -16,10 +16,15 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Handler;
 
+@ApplicationScoped
+@Named("withHandlerOnProxy")
 @RegisterForReflection
 public class WithHandlerBean {
     /**
