@@ -35,7 +35,7 @@ The `promote` mojo does the following for you:
 * Copies the rest of the extension code from `extensions-jvm/foo` to `extensions/foo`
 * Removes the warning build step from the processor class in the deployment module
 
-4. Assign the integration test to an existing or new test category in `.github/test-categories.yaml` so that
+4. Assign the integration test to an existing or new test category in `tooling/scripts/test-categories.yaml` so that
    it gets executed by the CI.
 
 5. Add some meaningful tests to `FooTest` and make sure they pass in both JVM and native mode:

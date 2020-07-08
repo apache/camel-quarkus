@@ -24,7 +24,7 @@ import org.yaml.snakeyaml.Yaml
 
 final Path treeRootDir = project.getBasedir().toPath()
 
-final String testCategoriesDefRelPath = '.github/test-categories.yaml'
+final String testCategoriesDefRelPath = 'tooling/scripts/test-categories.yaml'
 final Path jobDefPath = treeRootDir.resolve(testCategoriesDefRelPath)
 final Set<String> executedBaseNames = [] as Set
 
