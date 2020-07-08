@@ -100,5 +100,5 @@ public class Main {
 
 [NOTE]
 ====
-It is recommended to perform very little loginc in the Java Main.
+It is recommended to perform very little logic in the Java Main.
 ====
