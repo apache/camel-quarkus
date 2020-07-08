@@ -9,7 +9,7 @@ https://quarkus.io/guides/writing-extensions#bootstrap-three-phases[RUNTIME_INIT
 
 == CDI
 
-The https://quarkus.io/guides/cdi-reference[CDI] APIs can be used to configure the Camel behavior as example, to configure the `LogComponent` you can write a code like:
+The https://quarkus.io/guides/cdi-reference[CDI] APIs can be used to configure various aspects of Camel behavior. For example, to configure the `LogComponent` you can write a code like:
 
 [source,java]
 ----
