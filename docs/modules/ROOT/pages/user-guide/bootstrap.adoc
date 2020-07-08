@@ -75,7 +75,7 @@ camel.component.log.exchange-formtatter.show-exchange-pattern = false
 camel.component.log.exchange-formtatter.show-body-type = false
 ----
 
-In addition to support for configuring Camel through properties, `camel-quarkus-main` allows to use conventions to configure the Camel behavior as example, if there a single `ExchangeFormatter` instance in the CDI container, then it will automatically wire that bean to the `LogComponent`.
+In addition to support configuring Camel through properties, `camel-quarkus-main` allows you to use conventions to configure the Camel behavior. For example, if there is a single `ExchangeFormatter` instance in the CDI container, then it will automatically wire that bean to the `LogComponent`.
 
 Camel Main also brings the option to write https://quarkus.io/guides/command-mode-reference[Quarkus Command Mode Applications] with control about when the Camel runtime should start:
 
