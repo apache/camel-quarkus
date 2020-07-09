@@ -36,6 +36,7 @@ database:
   - debezium
   - influxdb
   - jdbc
+  - jpa
   - kudu
   - mongodb
   - sql
