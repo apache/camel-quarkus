@@ -100,6 +100,7 @@
         <module>jdbc</module>
         <module>jira</module>
         <module>jolt</module>
+        <module>jpa</module>
         <module>json-validator</module>
         <module>jsonpath</module>
         <module>jta</module>

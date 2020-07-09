@@ -1,0 +1,6 @@
+The extension leverages https://quarkus.io/guides/hibernate-orm[Quarkus Hibernate ORM] to provide the JPA implementation via Hibernate.
+
+Refer to the https://quarkus.io/guides/hibernate-orm[Quarkus Hibernate ORM] documentation to see how to configure Hibernate and your datasource,
+
+When a single persistence unit is used, the Camel Quarkus JPA extension will automatically configure the JPA component with a
+`EntityManagerFactory` and `TransactionManager`.
