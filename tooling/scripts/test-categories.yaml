@@ -29,6 +29,7 @@ main:
   - main-caffeine-lrucache
   - main-collector
   - main-devmode
+  - main-command-mode
   - main-xml-io
   - main-xml-jaxb
 database:
