@@ -34,8 +34,12 @@ import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public final class CamelMain extends MainCommandLineSupport implements HasCamelContext {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
+
     private final AtomicBoolean engineStarted;
 
     public CamelMain(CamelContext camelContext) {
@@ -182,7 +186,11 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
         @Override
         public void await(long timeout, TimeUnit unit) throws InterruptedException {
-            latch.await(timeout, unit);
+            if (!latch.await(timeout, unit)) {
+                LOGGER.warn(
+                        "Could not await stopping CamelMain within {} {}. You may want to increase camel.main.shutdown.timeout",
+                        timeout, unit);
+            }
         }
     }
 }

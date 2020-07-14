@@ -16,5 +16,28 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.time.Duration;
+
+import io.quarkus.runtime.annotations.ConfigGroup;
+import io.quarkus.runtime.annotations.ConfigItem;
+import io.quarkus.runtime.annotations.ConfigPhase;
+import io.quarkus.runtime.annotations.ConfigRoot;
+
+@ConfigRoot(name = "camel.main", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelMainConfig {
+
+    /**
+     * Build time configuration options for {@link CamelMain} shutdown.
+     */
+    @ConfigItem
+    public ShutdownConfig shutdown;
+
+    @ConfigGroup
+    public static class ShutdownConfig {
+        /**
+         * A timeout (with millisecond precision) to wait for {@link CamelMain#stop()} to finish
+         */
+        @ConfigItem(defaultValue = "PT3S")
+        public Duration timeout;
+    }
 }
