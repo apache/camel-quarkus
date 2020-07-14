@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
@@ -30,9 +31,11 @@ import org.slf4j.LoggerFactory;
 public class CamelMainRuntime implements CamelRuntime {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainRuntime.class);
     private final CamelMain main;
+    private final long shutdownTimeoutMs;
 
-    public CamelMainRuntime(CamelMain main) {
+    public CamelMainRuntime(CamelMain main, long shutdownTimeoutMs) {
         this.main = main;
+        this.shutdownTimeoutMs = shutdownTimeoutMs;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class CamelMainRuntime implements CamelRuntime {
                     stop();
                     throw new RuntimeException(e);
                 }
-            }).start();
+            }, "camel-main").start();
         } catch (Exception e) {
             LOGGER.error("Failed to start application", e);
             stop();
@@ -64,6 +67,12 @@ public class CamelMainRuntime implements CamelRuntime {
     @Override
     public void stop() {
         main.stop();
+        /* Wait till the Camel shutdown is finished in camel-main thread started in start(String[]) above */
+        try {
+            main.getShutdownStrategy().await(shutdownTimeoutMs, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     @Override

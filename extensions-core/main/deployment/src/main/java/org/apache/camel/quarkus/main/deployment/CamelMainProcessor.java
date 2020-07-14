@@ -42,6 +42,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.quarkus.main.CamelMainConfig;
 import org.apache.camel.quarkus.main.CamelMainProducers;
 import org.apache.camel.quarkus.main.CamelMainRecorder;
 import org.apache.camel.quarkus.main.deployment.spi.CamelMainBuildItem;
@@ -140,14 +141,15 @@ public class CamelMainProcessor {
      * after having processed a certain number of messages..
      * </ul>
      *
-     * @param  index         a reference to a {@link IndexView}
-     * @param  beanContainer a reference to a fully initialized CDI bean container
-     * @param  recorder      the recorder.
-     * @param  main          a reference to a {@link CamelMain}.
-     * @param  customizers   a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be
-     *                       executed before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
-     * @param  runtimeTasks  a placeholder to ensure all the runtime task are properly are done.
-     * @return               a build item holding a {@link CamelRuntime} instance.
+     * @param  index           a reference to a {@link IndexView}
+     * @param  beanContainer   a reference to a fully initialized CDI bean container
+     * @param  recorder        the recorder.
+     * @param  main            a reference to a {@link CamelMain}.
+     * @param  customizers     a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be
+     *                         executed before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
+     * @param  runtimeTasks    a placeholder to ensure all the runtime task are properly are done.
+     * @param  camelMainConfig a {@link CamelMainConfig}
+     * @return                 a build item holding a {@link CamelRuntime} instance.
      */
     @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
@@ -161,7 +163,8 @@ public class CamelMainProcessor {
             CamelMainRecorder recorder,
             CamelMainBuildItem main,
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
-            List<CamelRuntimeTaskBuildItem> runtimeTasks) {
+            List<CamelRuntimeTaskBuildItem> runtimeTasks,
+            CamelMainConfig camelMainConfig) {
 
         // Run the customizer before starting the context to give a last chance
         // to amend the Camel Context setup.
@@ -174,7 +177,10 @@ public class CamelMainProcessor {
                 customizers.stream().map(RuntimeCamelContextCustomizerBuildItem::get).collect(Collectors.toList()));
 
         return new CamelRuntimeBuildItem(
-                recorder.createRuntime(beanContainer.getValue(), main.getInstance()),
+                recorder.createRuntime(
+                        beanContainer.getValue(),
+                        main.getInstance(),
+                        camelMainConfig.shutdown.timeout.toMillis()),
                 index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty());
     }
 }

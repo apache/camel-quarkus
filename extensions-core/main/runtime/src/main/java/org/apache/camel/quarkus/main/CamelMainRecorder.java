@@ -98,8 +98,11 @@ public class CamelMainRecorder {
         });
     }
 
-    public RuntimeValue<CamelRuntime> createRuntime(BeanContainer beanContainer, RuntimeValue<CamelMain> main) {
-        final CamelRuntime runtime = new CamelMainRuntime(main.getValue());
+    public RuntimeValue<CamelRuntime> createRuntime(
+            BeanContainer beanContainer,
+            RuntimeValue<CamelMain> main,
+            long shutdownTimeoutMs) {
+        final CamelRuntime runtime = new CamelMainRuntime(main.getValue(), shutdownTimeoutMs);
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setRuntime(runtime);
