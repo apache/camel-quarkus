@@ -279,8 +279,6 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             try {
                 final List<ConfigDocItem> items = mapper.readValue(rawModel, Constants.LIST_OF_CONFIG_ITEMS_TYPE_REF);
                 for (ConfigDocItem item : items) {
-                    /* Sanitize the pipe chars to avoid closing an AsciiDoc table cell inadvertently */
-                    item.getConfigDocKey().setConfigDoc(item.getConfigDocKey().getConfigDoc().replace("|", "\\|"));
                     configDocItems.add(item);
                 }
             } catch (JsonProcessingException e) {
