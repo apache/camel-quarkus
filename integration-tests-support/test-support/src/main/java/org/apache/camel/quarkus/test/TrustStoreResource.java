@@ -36,7 +36,7 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         final String graalVmHome = System.getenv("GRAALVM_HOME");
-        final String javaHome = System.getenv("JAVA_HOME");
+        final String javaHome = System.getProperty("java.home", System.getenv("JAVA_HOME"));
 
         Path trustStorePath;
 
