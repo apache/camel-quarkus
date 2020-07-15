@@ -18,7 +18,6 @@ import java.nio.file.Path
 import java.nio.file.Paths
 
 final List<String> badDeps = []
-final List<String> parityViolations = []
 final File pomXml = new File(project.basedir, "pom.xml")
 
 /* groupIds that contain extensions */
@@ -39,78 +38,13 @@ if (pomXml.exists()) {
             badDeps << "in ${relativePomPath} : ${it.groupId.text()}:${it.artifactId.text()}"
         }
 
-    /* Enforce the dependency parity between runtime and deployment modules */
-    final String deploymentArtifactId = pomXmlProject.artifactId.text()
-    if (isDeploymentArtifactId(deploymentArtifactId)) {
-        final String runtimeArtifactId = toRuntimeArtifactId(deploymentArtifactId)
-
-        if (pomXmlProject.dependencies.dependency.findAll { runtimeArtifactId.equals(it.artifactId.text()) }.size() == 0) {
-            parityViolations << "${relativePomPath} must depend on ${runtimeArtifactId}"
-        }
-
-        final Set<Tuple2> expectedRuntimeDeps = [] as LinkedHashSet
-        pomXmlProject.dependencies.dependency
-            .findAll {
-                isDeploymentArtifactId(it.artifactId.text()) && !it.scope
-            }
-            .each {
-                expectedRuntimeDeps.add(new Tuple2(it.groupId.text(), toRuntimeArtifactId(it.artifactId.text())))
-            }
-
-        final Set<Tuple2> actualRuntimeDeps = [] as LinkedHashSet
-        final File runtimePomXml = new File(project.basedir, "../runtime/pom.xml")
-
-        final Path relativeRuntimePomPath = treeRootDir.relativize(runtimePomXml.toPath().toAbsolutePath().normalize())
-
-        def runtimeProject = new XmlParser().parseText(runtimePomXml.getText('UTF-8'))
-        runtimeProject.dependencies.dependency
-            .findAll {
-                extensionGroupIds.contains(it.groupId.text()) &&
-                    !nonExtensionArtifactIds.contains(it.artifactId.text()) &&
-                    !it.scope
-            }
-            .each {
-                actualRuntimeDeps.add(new Tuple2(it.groupId.text(), it.artifactId.text()))
-            }
-
-        // println "expectedRuntimeDeps: " + expectedRuntimeDeps
-        // println "actualRuntimeDeps:   " + actualRuntimeDeps
-
-        expectedRuntimeDeps
-            .findAll {
-                !actualRuntimeDeps.contains(it)
-            }
-            .each {
-                parityViolations << "${relativeRuntimePomPath}     is missing  ${it.first}:${it.second}  dependency?"
-            }
-
-        actualRuntimeDeps
-            .findAll {
-                !expectedRuntimeDeps.contains(it)
-            }
-            .each {
-                parityViolations << "${relativePomPath}  is missing  ${it.first}:${it.second}-deployment  dependency?"
-            }
-
-    }
 }
 
-if (!badDeps.isEmpty() || !parityViolations.isEmpty()) {
+if (!badDeps.isEmpty()) {
     final StringBuilder msg = new StringBuilder()
     if (!badDeps.isEmpty()) {
         msg.append("\nRemove explicit version from the following dependencies and rather manage them in one of the BOMs:\n\n    "
                 + badDeps.join("\n    "))
     }
-    if (!parityViolations.isEmpty()) {
-        msg.append("\nViolations in the parity between deployment module dependencies and runtime module dependencies:\n\n    "
-                + parityViolations.join("\n    "))
-    }
     throw new RuntimeException(msg.toString())
-}
-
-boolean isDeploymentArtifactId(String artifactId) {
-    return artifactId.endsWith("-deployment")
-}
-String toRuntimeArtifactId(String deploymentArtifactId) {
-    return deploymentArtifactId.substring(0, deploymentArtifactId.length() - "-deployment".length())
 }
