@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-s3-deployment</artifactId>
-    <name>Camel Quarkus :: AWS2 S3 Storage Service :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 S3 Storage Service :: Deployment</name>
 
     <dependencies>
         <dependency>

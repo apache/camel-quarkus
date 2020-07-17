@@ -27,3 +27,6 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/hystrix.html"
   categories:
   - "integration"
+  status:
+  - "stable"
+  - "deprecated"

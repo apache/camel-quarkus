@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/rest-openapi.html"
   categories:
   - "integration"
+  status:
+  - "stable"

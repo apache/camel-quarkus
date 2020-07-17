@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ses-parent</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Email Service</name>
+    <name>Camel Quarkus :: AWS 2 Simple Email Service (SES)</name>
     <packaging>pom</packaging>
 
     <modules>

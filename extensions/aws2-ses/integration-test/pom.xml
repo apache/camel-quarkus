@@ -27,8 +27,8 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ses-integration-test</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Email Service :: Integration Test</name>
-    <description>Integration tests for Camel Quarkus AWS 2 Simple Email Service extension</description>
+    <name>Camel Quarkus :: AWS 2 Simple Email Service (SES) :: Integration Test</name>
+    <description>Integration tests for Camel Quarkus AWS 2 Simple Email Service (SES) extension</description>
 
     <properties>
         <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->

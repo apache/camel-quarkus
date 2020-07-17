@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-ahc-parent</artifactId>
-    <name>Camel Quarkus :: AHC (Async Http Client)</name>
+    <name>Camel Quarkus :: Async HTTP Client (AHC)</name>
     <packaging>pom</packaging>
 
     <modules>

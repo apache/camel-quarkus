@@ -29,3 +29,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-swf.html"
   categories:
   - "integration"
+  status:
+  - "stable"

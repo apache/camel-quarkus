@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-s3-parent</artifactId>
-    <name>Camel Quarkus :: AWS2 S3 Storage Service</name>
+    <name>Camel Quarkus :: AWS 2 S3 Storage Service</name>
     <packaging>pom</packaging>
 
     <modules>

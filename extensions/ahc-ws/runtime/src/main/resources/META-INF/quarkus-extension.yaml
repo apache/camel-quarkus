@@ -21,9 +21,11 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel AHC (Async Http Client) Websocket"
+name: "Camel Async HTTP Client (AHC) Websocket"
 description: "Exchange data with external Websocket servers using Async Http Client"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ahc-ws.html"
   categories:
   - "integration"
+  status:
+  - "stable"

@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/file.html"
   categories:
   - "integration"
+  status:
+  - "stable"

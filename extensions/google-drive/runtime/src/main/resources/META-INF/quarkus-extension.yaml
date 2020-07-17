@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/google-drive.html"
   categories:
   - "integration"
+  status:
+  - "stable"

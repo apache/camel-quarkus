@@ -28,4 +28,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/debezium-mongodb.html"
   categories:
   - "integration"
-  status: "preview"
+  status:
+  - "preview"
