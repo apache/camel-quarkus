@@ -21,7 +21,7 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel AWS2 S3 Storage Service"
+name: "Camel AWS 2 S3 Storage Service"
 description: "Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x"
 metadata:
   keywords:
@@ -29,3 +29,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-s3.html"
   categories:
   - "integration"
+  status:
+  - "stable"

@@ -21,9 +21,11 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel AWS 2 EC2"
+name: "Camel AWS 2 Elastic Compute Cloud (EC2)"
 description: "Manage AWS EC2 instances using AWS SDK version 2.x"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-ec2.html"
   categories:
   - "integration"
+  status:
+  - "stable"

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-iam</artifactId>
-    <name>Camel Quarkus :: AWS 2 IAM :: Runtime</name>
+    <name>Camel Quarkus :: AWS 2 Identity and Access Management (IAM) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

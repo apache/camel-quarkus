@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-s3</artifactId>
-    <name>Camel Quarkus :: AWS2 S3 Storage Service :: Runtime</name>
+    <name>Camel Quarkus :: AWS 2 S3 Storage Service :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M7</firstVersion>

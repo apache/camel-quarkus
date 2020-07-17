@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/debezium-sqlserver.html"
   categories:
   - "integration"
+  status:
+  - "stable"

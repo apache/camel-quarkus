@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ecs</artifactId>
-    <name>Camel Quarkus :: AWS 2 ECS :: Runtime</name>
+    <name>Camel Quarkus :: AWS 2 Elastic Container Service (ECS) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

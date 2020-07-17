@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ec2-parent</artifactId>
-    <name>Camel Quarkus :: AWS 2 EC2</name>
+    <name>Camel Quarkus :: AWS 2 Elastic Compute Cloud (EC2)</name>
     <packaging>pom</packaging>
 
     <modules>

@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/controlbus.html"
   categories:
   - "integration"
+  status:
+  - "stable"

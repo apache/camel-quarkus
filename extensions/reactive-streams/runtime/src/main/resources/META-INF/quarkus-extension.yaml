@@ -27,3 +27,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/reactive-streams.html"
   categories:
   - "integration"
+  status:
+  - "stable"

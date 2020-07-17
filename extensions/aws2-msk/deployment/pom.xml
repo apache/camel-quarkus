@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-msk-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 MSK :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 Managed Streaming for Apache Kafka (MSK) :: Deployment</name>
 
     <dependencies>
         <dependency>

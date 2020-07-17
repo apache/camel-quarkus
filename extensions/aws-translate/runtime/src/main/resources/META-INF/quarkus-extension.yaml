@@ -29,3 +29,5 @@ metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-translate.html"
   categories:
   - "integration"
+  status:
+  - "stable"

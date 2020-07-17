@@ -21,9 +21,11 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel AWS 2 MSK"
+name: "Camel AWS 2 Managed Streaming for Apache Kafka (MSK)"
 description: "Manage AWS MSK instances using AWS SDK version 2.x"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-msk.html"
   categories:
   - "integration"
+  status:
+  - "stable"

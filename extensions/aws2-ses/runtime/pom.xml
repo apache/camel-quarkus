@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ses</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Email Service :: Runtime</name>
+    <name>Camel Quarkus :: AWS 2 Simple Email Service (SES) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

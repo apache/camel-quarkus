@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-kms</artifactId>
-    <name>Camel Quarkus :: AWS 2 KMS :: Runtime</name>
+    <name>Camel Quarkus :: AWS 2 Key Management Service (KMS) :: Runtime</name>
 
     <properties>
         <firstVersion>1.0.0-M6</firstVersion>

@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-eks-parent</artifactId>
-    <name>Camel Quarkus :: AWS 2 EKS</name>
+    <name>Camel Quarkus :: AWS 2 Elastic Kubernetes Service (EKS)</name>
     <packaging>pom</packaging>
 
     <modules>

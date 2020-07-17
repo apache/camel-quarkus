@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ses-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 Simple Email Service :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 Simple Email Service (SES) :: Deployment</name>
 
     <dependencies>
         <dependency>

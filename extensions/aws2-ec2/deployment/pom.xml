@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-aws2-ec2-deployment</artifactId>
-    <name>Camel Quarkus :: AWS 2 EC2 :: Deployment</name>
+    <name>Camel Quarkus :: AWS 2 Elastic Compute Cloud (EC2) :: Deployment</name>
 
     <dependencies>
         <dependency>

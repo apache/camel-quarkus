@@ -37,5 +37,6 @@ metadata:
   - "[=category]"
 [/#list]
 [/#if]
-[#if !nativeSupported ]  status: "[=nativeSupported?then('stable', 'preview')]"
-[/#if]
+  status:
+  - "[=nativeSupported?then('stable', 'preview')]"
+[#if deprecated ]  - "deprecated"[/#if]
