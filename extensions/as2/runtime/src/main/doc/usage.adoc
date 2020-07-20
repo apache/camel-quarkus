@@ -1,0 +1,4 @@
+Depending on its configuration, this component may require SSL encryption on its connections. In such a case, you will need
+to add `quarkus.ssl.native=true` to your `application.properties`.
+See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.adoc[Native mode]
+section of Camel Quarkus user guide.

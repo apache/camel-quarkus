@@ -35,6 +35,9 @@ Preview | 1.1.0 | Send notifications to Apple iOS devices.
 |  xref:reference/extensions/arangodb.adoc[ArangoDb]  | camel-quarkus-arangodb | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Perform operations on ArangoDb when used as a Document Database, or as a Graph Database
 
+|  xref:reference/extensions/as2.adoc[AS2]  | camel-quarkus-as2 | [.camel-element-Native]##Native## +
+Stable | 1.0.0-CR4 | Transfer data securely and reliably using the AS2 protocol (RFC4130).
+
 |  xref:reference/extensions/asterisk.adoc[Asterisk]  | camel-quarkus-asterisk | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Interact with Asterisk PBX Server.
 
