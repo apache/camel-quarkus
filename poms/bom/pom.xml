@@ -131,6 +131,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-as2</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-attachments</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -1272,6 +1277,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-amqp-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-as2</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-as2-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -2746,6 +2761,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-bouncycastle</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-bouncycastle-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-common</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -3259,6 +3284,16 @@
                 <groupId>org.asynchttpclient</groupId>
                 <artifactId>async-http-client</artifactId>
                 <version>${ahc.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <groupId>org.bouncycastle</groupId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <groupId>org.bouncycastle</groupId>
+                <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.codehaus.groovy</groupId>
