@@ -95,6 +95,7 @@ misc:
   - qute
   - stream
   - tika
+  - as2
 networking2-dataformats:
   - git
   - mail
