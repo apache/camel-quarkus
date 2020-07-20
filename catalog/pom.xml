@@ -44,6 +44,7 @@
             camel-quarkus-amqp
             camel-quarkus-apns
             camel-quarkus-arangodb
+            camel-quarkus-as2
             camel-quarkus-asterisk
             camel-quarkus-atmos
             camel-quarkus-atom
@@ -227,6 +228,7 @@
             camel-quarkus-support-ahc
             camel-quarkus-support-aws
             camel-quarkus-support-aws2
+            camel-quarkus-support-bouncycastle
             camel-quarkus-support-common
             camel-quarkus-support-commons-logging
             camel-quarkus-support-consul-client
