@@ -67,6 +67,7 @@
         <module>activemq</module>
         <module>amqp</module>
         <module>arangodb</module>
+        <module>as2</module>
         <module>avro</module>
         <module>aws</module>
         <module>aws2</module>
