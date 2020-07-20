@@ -17,6 +17,7 @@
 *** xref:reference/extensions/activemq.adoc[ActiveMQ]
 *** xref:reference/extensions/amqp.adoc[AMQP]
 *** xref:reference/extensions/arangodb.adoc[ArangoDb]
+*** xref:reference/extensions/as2.adoc[AS2]
 *** xref:reference/extensions/ahc.adoc[Async HTTP Client (AHC)]
 *** xref:reference/extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket]
 *** xref:reference/extensions/attachments.adoc[Attachments]

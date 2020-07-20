@@ -97,6 +97,7 @@ misc:
   - tika
   - vertx
 networking:
+  - as2
   - ftp
   - http
   - mail

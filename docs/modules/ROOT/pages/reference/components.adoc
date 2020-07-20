@@ -4,7 +4,7 @@
 [camel-quarkus-components]
 = Camel components supported on Quarkus
 
-158 components in 123 JAR artifacts (2 deprecated, 17 JVM only)
+159 components in 124 JAR artifacts (2 deprecated, 17 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -18,6 +18,9 @@ Stable | 1.0.0 | Messaging with AMQP protocol using Apache QPid Client.
 
 | xref:reference/extensions/arangodb.adoc[ArangoDb] | camel-quarkus-arangodb | Native +
 Stable | 1.1.0 | Perform operations on ArangoDb documents, collections and graphs.
+
+| xref:reference/extensions/as2.adoc[AS2] | camel-quarkus-as2 | Native +
+Stable | 1.0.0-CR4 | Transfer data securely and reliably using the AS2 protocol (RFC4130).
 
 | xref:reference/extensions/ahc.adoc[Async HTTP Client (AHC)] | camel-quarkus-ahc | Native +
 Stable | 1.0.0 | Call external HTTP services using Async Http Client.
