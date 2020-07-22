@@ -39,7 +39,7 @@ public class DebeziumSupportProcessor {
 
         String[] dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
                 .filter(n -> n.startsWith("org.apache.kafka.connect.json")
-                        || n.startsWith("io.debezium.embedded.spi"))
+                        || n.startsWith("io.debezium.engine.spi"))
                 .sorted()
                 .toArray(String[]::new);
 
@@ -58,7 +58,7 @@ public class DebeziumSupportProcessor {
     @BuildStep
     void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("org.apache.kafka", "connect-json"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-embedded"));
+        indexDependency.produce(new IndexDependencyBuildItem("io.debezium", "debezium-api"));
     }
 
     @BuildStep
