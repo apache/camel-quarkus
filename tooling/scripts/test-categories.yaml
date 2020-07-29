@@ -83,6 +83,7 @@ misc:
   - braintree
   - compression
   - graphql
+  - grok
   - jolt
   - mustache
   - mock

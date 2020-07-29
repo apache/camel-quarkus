@@ -93,6 +93,7 @@
         <module>github</module>
         <module>google</module>
         <module>graphql</module>
+        <module>grok</module>
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>

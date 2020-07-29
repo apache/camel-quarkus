@@ -99,6 +99,7 @@
         <module>google-mail</module>
         <module>google-sheets</module>
         <module>graphql</module>
+        <module>grok</module>
         <module>gson</module>
         <module>http</module>
         <module>hystrix</module>
