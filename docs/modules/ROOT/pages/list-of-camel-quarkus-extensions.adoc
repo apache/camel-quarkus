@@ -339,7 +339,7 @@ Number of Camel components: 155 in 120 JAR artifacts (0 deprecated)
 == Camel Data Formats
 
 // dataformats: START
-Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
+Number of Camel data formats: 27 in 22 JAR artifacts (0 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -360,6 +360,8 @@ Number of Camel data formats: 26 in 21 JAR artifacts (0 deprecated)
 | xref:extensions/fhir.adoc[FHIR JSon] | camel-quarkus-fhir | Native + Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
 
 | xref:extensions/fhir.adoc[FHIR XML] | camel-quarkus-fhir | Native + Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
+
+| xref:extensions/grok.adoc[Grok] | camel-quarkus-grok | Native + Stable | 1.0.0-CR4 | Unmarshal unstructured data to objects using Logstash based Grok patterns.
 
 | xref:extensions/zip-deflater.adoc[GZip Deflater] | camel-quarkus-zip-deflater | Native + Stable | 1.0.0-M4 | Compress and decompress messages using java.util.zip.GZIPStream.
 
