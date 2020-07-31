@@ -33,10 +33,5 @@ public class MyRouteBuilder extends RouteBuilder {
         from("timer:foo?period={{myPeriod}}").routeId("timer")
                 .bean(monkey, "chaos")
                 .log("${body}");
-
-        // this route is invalid and fails during startup
-        // the supervising route controller will take over and attempt
-        // to restart this route
-        from("netty:tcp:unknownhost").to("log:dummy").routeId("netty");
     }
 }
