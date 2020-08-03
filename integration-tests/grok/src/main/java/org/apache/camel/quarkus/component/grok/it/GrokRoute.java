@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.grok.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.grok.GrokDataFormat;
@@ -26,12 +28,16 @@ import org.apache.camel.spi.DataFormat;
 @ApplicationScoped
 public class GrokRoute extends RouteBuilder {
 
+    @Produces
+    @Named("myAnotherCustomPatternBean")
+    GrokPattern myAnotherCustomPatternBean = new GrokPattern("FOOBAR_WITH_PREFIX_AND_SUFFIX", "-- %{FOOBAR}+ --");
+
+    @Produces
+    @Named("myCustomPatternBean")
+    GrokPattern myCustomPatternBean = new GrokPattern("FOOBAR", "foo|bar");
+
     @Override
     public void configure() {
-
-        bindToRegistry("myCustomPatternBean", new GrokPattern("FOOBAR", "foo|bar"));
-        GrokPattern myAnotherCustomPatternBean = new GrokPattern("FOOBAR_WITH_PREFIX_AND_SUFFIX", "-- %{FOOBAR}+ --");
-        bindToRegistry("myAnotherCustomPatternBean", myAnotherCustomPatternBean);
 
         from("direct:log").unmarshal().grok("%{COMMONAPACHELOG}").setBody(simple("ip: ${body[4][clientip]}"));
         from("direct:fooBar").unmarshal().grok("%{FOOBAR_WITH_PREFIX_AND_SUFFIX:fooBar}").setBody(simple("${body[fooBar]}"));
