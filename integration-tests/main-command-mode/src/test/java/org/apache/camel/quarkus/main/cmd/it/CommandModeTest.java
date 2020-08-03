@@ -17,36 +17,21 @@
 package org.apache.camel.quarkus.main.cmd.it;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.concurrent.TimeoutException;
 
+import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.InvalidExitValueException;
-import org.zeroturnaround.exec.ProcessExecutor;
 import org.zeroturnaround.exec.ProcessResult;
 
 public class CommandModeTest {
 
     @Test
     void hello() throws InvalidExitValueException, IOException, InterruptedException, TimeoutException {
-
-        final ProcessResult result = new ProcessExecutor()
-                .command(command("Joe"))
-                .readOutput(true)
-                .execute();
+        final ProcessResult result = new QuarkusProcessExecutor("-Dgreeted.subject=Joe").execute();
 
         Assertions.assertThat(result.getExitValue()).isEqualTo(0);
         Assertions.assertThat(result.outputUTF8()).contains("Hello Joe!");
-
     }
-
-    protected String[] command(String greetingSubject) {
-        final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
-        final String javaExecutable = System.getProperty("java.home") + (isWindows ? "/bin/java.exe" : "/bin/java");
-        final String runnerJar = System.getProperty("quarkus.runner.jar");
-        Assertions.assertThat(Paths.get(runnerJar)).exists();
-        return new String[] { javaExecutable, "-Dgreeted.subject=" + greetingSubject, "-jar", runnerJar };
-    }
-
 }

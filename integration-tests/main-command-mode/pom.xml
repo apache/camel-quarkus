@@ -37,7 +37,7 @@
         <!--     mvn process-resources -Pformat    from the root directory -->
         <mvnd.builder.rule>camel-quarkus-log-deployment,camel-quarkus-main-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment</mvnd.builder.rule>
 
-        <quarkus.runner.jar>${basedir}/target/${project.artifactId}-${project.version}-runner.jar</quarkus.runner.jar>
+        <quarkus.runner.jar>${project.build.directory}/${project.artifactId}-${project.version}-runner.jar</quarkus.runner.jar>
     </properties>
 
     <dependencies>
@@ -66,8 +66,8 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.zeroturnaround</groupId>
-            <artifactId>zt-exec</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-process-executor-support</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -99,7 +99,7 @@
                         <phase>integration-test</phase>
                         <configuration>
                             <systemProperties>
-                                <quarkus.runner.jar>${quarkus.runner.jar}</quarkus.runner.jar>
+                                <quarkus.runner>${quarkus.runner.jar}</quarkus.runner>
                             </systemProperties>
                         </configuration>
                     </execution>
@@ -118,7 +118,7 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.runner.jar>${basedir}/target/${project.artifactId}-${project.version}-native-image-source-jar/${project.artifactId}-${project.version}-runner.jar</quarkus.runner.jar>
+                <quarkus.runner.jar>${project.build.directory}/${project.artifactId}-${project.version}-native-image-source-jar/${project.artifactId}-${project.version}-runner.jar</quarkus.runner.jar>
             </properties>
             <build>
                 <plugins>
@@ -133,7 +133,7 @@
                                 </goals>
                                 <configuration>
                                     <systemProperties>
-                                        <quarkus.runner>${basedir}/target/${project.artifactId}-${project.version}-runner</quarkus.runner>
+                                        <quarkus.runner>${project.build.directory}/${project.artifactId}-${project.version}-runner</quarkus.runner>
                                     </systemProperties>
                                 </configuration>
                             </execution>

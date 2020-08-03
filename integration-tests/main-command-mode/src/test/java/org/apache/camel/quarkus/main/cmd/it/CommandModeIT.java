@@ -16,17 +16,5 @@
  */
 package org.apache.camel.quarkus.main.cmd.it;
 
-import java.nio.file.Paths;
-
-import org.assertj.core.api.Assertions;
-
 public class CommandModeIT extends CommandModeTest {
-
-    protected String[] command(String greetingSubject) {
-        final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
-        final String runner = System.getProperty("quarkus.runner") + (isWindows ? ".exe" : "");
-        Assertions.assertThat(Paths.get(runner)).exists();
-        return new String[] { runner, "-Dgreeted.subject=" + greetingSubject };
-    }
-
 }
