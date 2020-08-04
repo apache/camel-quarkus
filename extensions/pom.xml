@@ -125,6 +125,7 @@
         <module>log</module>
         <module>lzf</module>
         <module>mail</module>
+        <module>master</module>
         <module>microprofile-fault-tolerance</module>
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>

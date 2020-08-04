@@ -67,7 +67,12 @@ public class QuarkusProcessExecutor {
         final boolean isWindows = System.getProperty("os.name").toLowerCase().contains("windows");
         final String javaExecutable = System.getProperty("java.home") + (isWindows ? "/bin/java.exe" : "/bin/java");
         String runner = System.getProperty("quarkus.runner");
-        if (runner != null && !Paths.get(runner).toFile().exists()) {
+
+        if (runner == null) {
+            throw new IllegalStateException("The quarkus.runner system property is not set");
+        }
+
+        if (!Paths.get(runner).toFile().exists()) {
             throw new IllegalStateException("Quarkus application runner does not exist: " + runner);
         }
 

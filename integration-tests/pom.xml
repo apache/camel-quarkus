@@ -110,6 +110,7 @@
         <module>kubernetes</module>
         <module>kudu</module>
         <module>mail</module>
+        <module>master</module>
         <module>messaging</module>
         <module>microprofile</module>
         <module>mock</module>
