@@ -21,10 +21,10 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Grok"
-description: "Unmarshal unstructured data to objects using Logstash based Grok patterns"
+name: "Camel Master"
+description: "Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/grok.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/master.html"
   categories:
   - "integration"
   status:
