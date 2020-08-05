@@ -70,6 +70,7 @@
         <quarkus-qpid-jms.version>0.16.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
+        <smallrye.reactive.messaging.camel.version>2.2.1</smallrye.reactive.messaging.camel.version>
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>5.2.7.RELEASE</spring.version>
         <snakeyaml.version>1.26</snakeyaml.version>

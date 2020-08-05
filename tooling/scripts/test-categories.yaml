@@ -109,6 +109,7 @@ platform:
   - reactive-streams
   - rest
   - rest-openapi
+  - smallrye-reactive-messaging
 saas:
   - box
   - github

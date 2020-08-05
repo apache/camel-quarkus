@@ -137,6 +137,7 @@
         <module>servicenow</module>
         <module>servlet</module>
         <module>slack</module>
+        <module>smallrye-reactive-messaging</module>
         <module>soap</module>
         <module>sql</module>
         <module>stream</module>
