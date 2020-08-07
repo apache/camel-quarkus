@@ -18,11 +18,8 @@ package org.apache.camel.quarkus.component.cron.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.cron.api.CamelCronConfiguration;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 
 class CronProcessor {
 
@@ -31,16 +28,6 @@ class CronProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    UnbannedReflectiveBuildItem whitelistConfigurationClasses() {
-        return new UnbannedReflectiveBuildItem(CamelCronConfiguration.class.getName());
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(true, false, CamelCronConfiguration.class);
     }
 
     @BuildStep

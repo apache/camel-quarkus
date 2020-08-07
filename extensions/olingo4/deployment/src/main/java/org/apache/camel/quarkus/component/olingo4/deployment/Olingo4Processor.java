@@ -23,8 +23,6 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.olingo4.Olingo4AppEndpointConfiguration;
-import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
 import org.apache.olingo.server.core.ODataImpl;
 
 class Olingo4Processor {
@@ -37,12 +35,6 @@ class Olingo4Processor {
     }
 
     @BuildStep
-    UnbannedReflectiveBuildItem whitelistOlingo4AppEndpointConfiguration() {
-        // TODO: Remove this and the associated ReflectiveClassBuildItem for this class in Camel 3.1
-        return new UnbannedReflectiveBuildItem(Olingo4AppEndpointConfiguration.class.getName());
-    }
-
-    @BuildStep
     AdditionalApplicationArchiveMarkerBuildItem olingoArchiveMarker() {
         return new AdditionalApplicationArchiveMarkerBuildItem("org/apache/olingo");
     }
@@ -50,7 +42,6 @@ class Olingo4Processor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, ODataImpl.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, Olingo4AppEndpointConfiguration.class));
     }
 
     @BuildStep
