@@ -27,20 +27,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.fhir.FhirCapabilitiesEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirConfiguration;
-import org.apache.camel.component.fhir.FhirCreateEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirDeleteEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirHistoryEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirLoadPageEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirMetaEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirOperationEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirPatchEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirReadEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirSearchEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirTransactionEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirUpdateEndpointConfiguration;
-import org.apache.camel.component.fhir.FhirValidateEndpointConfiguration;
 import org.apache.camel.quarkus.component.fhir.FhirContextProducers;
 
 final class FhirProcessor {
@@ -54,25 +40,6 @@ final class FhirProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep()
-    ReflectiveClassBuildItem fhirEndpointConfiguration() {
-        return new ReflectiveClassBuildItem(true, true,
-                FhirCreateEndpointConfiguration.class,
-                FhirCapabilitiesEndpointConfiguration.class,
-                FhirDeleteEndpointConfiguration.class,
-                FhirHistoryEndpointConfiguration.class,
-                FhirLoadPageEndpointConfiguration.class,
-                FhirMetaEndpointConfiguration.class,
-                FhirOperationEndpointConfiguration.class,
-                FhirPatchEndpointConfiguration.class,
-                FhirReadEndpointConfiguration.class,
-                FhirSearchEndpointConfiguration.class,
-                FhirTransactionEndpointConfiguration.class,
-                FhirUpdateEndpointConfiguration.class,
-                FhirValidateEndpointConfiguration.class,
-                FhirConfiguration.class);
     }
 
     @BuildStep()

@@ -16,9 +16,6 @@
  */
 package org.apache.camel.quarkus.component.braintree.deployment;
 
-import java.util.Collection;
-import java.util.stream.Collectors;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -30,11 +27,6 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.braintree.BraintreeComponent;
 import org.apache.camel.quarkus.component.braintree.graal.BraintreeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 class BraintreeProcessor {
 
@@ -46,23 +38,7 @@ class BraintreeProcessor {
     }
 
     @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<UnbannedReflectiveBuildItem> unbannedClass, CombinedIndexBuildItem combinedIndex) {
-        IndexView index = combinedIndex.getIndex();
-        Collection<AnnotationInstance> uriParams = index
-                .getAnnotations(DotName.createSimple("org.apache.camel.spi.UriParams"));
-
-        String[] braintreeConfigClasses = uriParams.stream()
-                .map(annotation -> annotation.target())
-                .filter(annotationTarget -> annotationTarget.kind().equals(AnnotationTarget.Kind.CLASS))
-                .map(annotationTarget -> annotationTarget.asClass().name().toString())
-                .filter(className -> className.startsWith("org.apache.camel.component.braintree"))
-                .collect(Collectors.toList())
-                .toArray(new String[0]);
-
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, braintreeConfigClasses));
-        unbannedClass.produce(new UnbannedReflectiveBuildItem(braintreeConfigClasses));
-
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 "com.braintreegateway.Address",
                 "com.braintreegateway.BraintreeGateway",

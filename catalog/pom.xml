@@ -226,7 +226,6 @@
             camel-quarkus-support-jetty
             camel-quarkus-support-mail
             camel-quarkus-support-mongodb
-            camel-quarkus-support-policy
             camel-quarkus-support-retrofit
             camel-quarkus-support-spring
             camel-quarkus-support-webhook
