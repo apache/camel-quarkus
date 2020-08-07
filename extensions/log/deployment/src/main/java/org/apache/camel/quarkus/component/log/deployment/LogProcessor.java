@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.log.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class LogProcessor {
 
@@ -28,13 +27,4 @@ class LogProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
-
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClasses() {
-        return new ReflectiveClassBuildItem(
-                true,
-                false,
-                org.apache.camel.support.processor.DefaultExchangeFormatter.class);
-    }
-
 }
