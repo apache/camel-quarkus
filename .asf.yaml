@@ -23,4 +23,7 @@ github:
     - integration
     - java
     - quarkus
-
+  enabled_merge_buttons:
+    merge: false
+    rebase: true
+    squash: true
