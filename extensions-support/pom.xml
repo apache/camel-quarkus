@@ -46,7 +46,6 @@
         <module>jetty</module>
         <module>mail</module>
         <module>mongodb</module>
-        <module>policy</module>
         <module>retrofit</module>
         <module>spring</module>
         <module>webhook</module>

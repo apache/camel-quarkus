@@ -37,7 +37,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-nitrite-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-nitrite-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>

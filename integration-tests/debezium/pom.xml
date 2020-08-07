@@ -38,7 +38,7 @@
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
         <!-- Please update rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-debezium-postgres-deployment,camel-quarkus-debezium-mysql-deployment,camel-quarkus-debezium-sqlserver-deployment,camel-quarkus-support-policy-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-debezium-postgres-deployment,camel-quarkus-debezium-mysql-deployment,camel-quarkus-debezium-sqlserver-deployment</mvnd.builder.rule>
         <!-- You need to download the driver yourself. We cannot add a compile scope dependency for legal reasons. -->
         <!-- See https://camel.apache.org/camel-quarkus/latest/extensions/debezium-mysql.html#_usage for more details -->
         <mysql.driver.file>libs/mysql-connector-java-8.0.20.jar</mysql.driver.file>

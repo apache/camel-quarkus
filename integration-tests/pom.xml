@@ -45,12 +45,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-policy</artifactId><!-- enforce the policy in all tests -->
-        </dependency>
-    </dependencies>
 
     <modules>
         <!-- build those first -->
