@@ -16,19 +16,10 @@
  */
 package org.apache.camel.quarkus.component.google.mail.deployment;
 
-import java.util.Collection;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UnbannedReflectiveBuildItem;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 class GoogleMailProcessor {
 
@@ -42,25 +33,5 @@ class GoogleMailProcessor {
     @BuildStep
     void applicationArchiveMarkers(BuildProducer<AdditionalApplicationArchiveMarkerBuildItem> applicationArchiveMarker) {
         applicationArchiveMarker.produce(new AdditionalApplicationArchiveMarkerBuildItem("com/google/api/services/gmail"));
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            BuildProducer<UnbannedReflectiveBuildItem> unbannedClass, CombinedIndexBuildItem combinedIndex) {
-        IndexView index = combinedIndex.getIndex();
-
-        // Google mail component configuration class reflection
-        Collection<AnnotationInstance> uriParams = index
-                .getAnnotations(DotName.createSimple("org.apache.camel.spi.UriParams"));
-
-        String[] googleMailConfigClasses = uriParams.stream()
-                .map(annotation -> annotation.target())
-                .filter(annotationTarget -> annotationTarget.kind().equals(AnnotationTarget.Kind.CLASS))
-                .map(annotationTarget -> annotationTarget.asClass().name().toString())
-                .filter(className -> className.startsWith("org.apache.camel.component.google.mail"))
-                .toArray(String[]::new);
-
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, googleMailConfigClasses));
-        unbannedClass.produce(new UnbannedReflectiveBuildItem(googleMailConfigClasses));
     }
 }
