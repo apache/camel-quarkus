@@ -16,23 +16,13 @@
  */
 package org.acme.health;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-
 import org.apache.camel.builder.RouteBuilder;
 
-@ApplicationScoped
 public class MyRouteBuilder extends RouteBuilder {
 
-    // we can inject the bean via this annotation
-    @Inject
-    MonkeyHealthCheck monkey;
-
     @Override
-    public void configure() throws Exception {
-        from("timer:foo?period={{myPeriod}}").routeId("timer")
-                .bean(monkey, "chaos")
-                .log("${body}");
+    public void configure() {
+        from("timer:foo?period={{myPeriod}}").routeId("timer").log("Doing one more task");
 
         // this route is invalid and fails during startup
         // the supervising route controller will take over and attempt
