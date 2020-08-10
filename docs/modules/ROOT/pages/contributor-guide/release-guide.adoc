@@ -2,17 +2,40 @@
 = Apache Camel Quarkus release process
 :page-aliases: release-guide.adoc
 
-The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see
-https://camel.apache.org/manual/latest/release-guide.html With Camel Quarkus, adding `-Prelease` to
-`release:prepare` and `release:perform` is not necessary. Given that you want to release version `0.1.0`,
-the release command would be the following:
+The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see the
+https://camel.apache.org/manual/latest/release-guide.html[Release guide] page of the Camel documentation.
+
+Here, just a sketch of the repeating part, after you have performed the initial setup following the
+https://camel.apache.org/manual/latest/release-guide.html[Camel Release guide].
+
+== Create a release branch
 
 [source,shell]
 ----
-$ mvn clean release:clean release:prepare -DreleaseVersion=0.1.0 -DdevelopmentVersion=0.2.0-SNAPSHOT -B release:perform
+$ export VERSION=... # the version you are releasing, e.g. 0.1.0
+$ export NEXT_VERSION=... # the next development iteration, e.g. 0.1.1-SNAPSHOT
+$ git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
+$ git checkout master # master is the branch from which you want to release
+$ git reset --hard upstream/master # make sure you are in sync with upstream
+$ git checkout -b release/$VERSION
 ----
 
-In addition to the above, the following step is needed:
+== `release:prepare` and `release:perform`
 
-* After releasing the staging repository on https://oss.sonatype.org, update the value of `camel-quarkus-last-release`
-attribute in the camel-quarkus https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
+With Camel Quarkus, adding `-Prelease` to `release:prepare` and `release:perform` is not necessary,
+because all necessary profiles are set in the configuration of the `maven-release-plugin`.
+
+The Maven command to release is as follows:
+
+[source,shell]
+----
+$ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -DdevelopmentVersion=$NEXT_VERSION -B release:perform
+----
+
+== Further steps
+
+In addition to the above, the following is needed:
+
+* After releasing the staging repository on https://repository.apache.org[https://repository.apache.org], update the
+value of `camel-quarkus-last-release` attribute in the camel-quarkus
+https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
