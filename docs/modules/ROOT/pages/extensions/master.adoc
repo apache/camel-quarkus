@@ -5,7 +5,7 @@
 = Master
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-CR4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
 

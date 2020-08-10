@@ -230,7 +230,7 @@ Number of Camel components: 156 in 121 JAR artifacts (0 deprecated)
 
 | xref:extensions/mail.adoc[Mail] | camel-quarkus-mail | Native + Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
 
-| xref:extensions/master.adoc[Master] | camel-quarkus-master | Native + Stable | 1.0.0-CR4 | Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
+| xref:extensions/master.adoc[Master] | camel-quarkus-master | Native + Stable | 1.1.0 | Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
 
 | xref:extensions/microprofile-metrics.adoc[MicroProfile Metrics] | camel-quarkus-microprofile-metrics | Native + Stable | 0.2.0 | Expose metrics from Camel routes.
 

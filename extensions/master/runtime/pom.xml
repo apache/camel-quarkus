@@ -33,7 +33,7 @@
     <description>Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.</description>
 
     <properties>
-        <firstVersion>1.0.0-CR4</firstVersion>
+        <firstVersion>1.1.0</firstVersion>
     </properties>
 
     <dependencyManagement>
