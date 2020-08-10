@@ -18,40 +18,34 @@ package org.acme.health;
 
 import java.util.Map;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import org.apache.camel.health.HealthCheckResultBuilder;
 import org.apache.camel.impl.health.AbstractHealthCheck;
 
 /**
- * A chaos monkey health check that reports UP or DOWN in a chaotic way.
- *
- * This is a custom implementation of a Camel {@link org.apache.camel.health.HealthCheck}
- * which is automatic discovered if bound in the {@link org.apache.camel.spi.Registry} and
- * used as part of Camel's health-check system.
+ * A user defined health check that reports UNKNOWN on first call, then UP for
+ * 10 seconds and finally DOWN afterward. This is a custom implementation of a
+ * Camel {@link org.apache.camel.health.HealthCheck} and used as part of Camel's
+ * health-check system.
  */
-@ApplicationScoped
-public class MonkeyHealthCheck extends AbstractHealthCheck {
+public class RunTooLongHealthCheck extends AbstractHealthCheck {
 
-    private boolean up = true;
+    private volatile long firstCallTimeMillis = 0;
 
-    public MonkeyHealthCheck() {
-        super("custom", "monkey");
+    public RunTooLongHealthCheck() {
+        super("custom", "toolong");
     }
 
     @Override
     protected void doCall(HealthCheckResultBuilder builder, Map<String, Object> options) {
-        builder.detail("monkey", "The chaos monkey was here");
-        if (up) {
+        builder.detail("toolong", "Reports DOWN when run for too long");
+        if (firstCallTimeMillis == 0) {
+            builder.unknown();
+            firstCallTimeMillis = System.currentTimeMillis();
+        } else if ((System.currentTimeMillis() - firstCallTimeMillis) < 10 * 1000L) {
             builder.up();
         } else {
             builder.down();
         }
-    }
-
-    public String chaos() {
-        up = !up;
-        return up ? "All is okay" : "Chaos monkey was here";
     }
 
     @Override
