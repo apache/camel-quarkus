@@ -5,7 +5,7 @@
 = Base64
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M1## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Encode and decode data using Base64.
 

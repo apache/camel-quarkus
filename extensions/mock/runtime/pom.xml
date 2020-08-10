@@ -31,7 +31,7 @@
     <description>Test routes and mediation rules using mocks.</description>
 
     <properties>
-        <firstVersion>1.0.0-CR3</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

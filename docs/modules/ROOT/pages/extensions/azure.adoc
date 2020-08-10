@@ -5,7 +5,7 @@
 = Azure
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-M4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service
 

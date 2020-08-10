@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: Jira :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M4</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <repositories>

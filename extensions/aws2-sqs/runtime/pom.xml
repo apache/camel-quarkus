@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: AWS 2 Simple Queue Service (SQS) :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M6</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
         <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 

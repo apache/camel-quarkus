@@ -31,7 +31,7 @@
     <description>An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io</description>
 
     <properties>
-        <firstVersion>1.0.0-M5</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

@@ -5,7 +5,7 @@
 = Component DSL
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-CR3## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Create Camel components with a fluent Java DSL
 

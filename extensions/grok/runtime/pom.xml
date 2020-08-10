@@ -33,7 +33,7 @@
     <description>Unmarshal unstructured data to objects using Logstash based Grok patterns.</description>
 
     <properties>
-        <firstVersion>1.0.0-CR4</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

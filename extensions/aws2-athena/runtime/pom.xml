@@ -31,7 +31,7 @@
     <description>Access AWS Athena service using AWS SDK version 2.x.</description>
 
     <properties>
-        <firstVersion>1.0.0-CR3</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

@@ -5,7 +5,7 @@
 = Tika
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-CR3## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Parse documents and extract metadata and text using Apache Tika.
 

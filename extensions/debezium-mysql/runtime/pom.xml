@@ -31,7 +31,7 @@
     <description>Capture changes from a MySQL database.</description>
 
     <properties>
-        <firstVersion>1.0.0-M6</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

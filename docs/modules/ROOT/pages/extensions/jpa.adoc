@@ -5,7 +5,7 @@
 = JPA
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0-CR4## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.0.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Store and retrieve Java objects from databases using Java Persistence API (JPA).
 

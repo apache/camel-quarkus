@@ -29,7 +29,7 @@
     <name>Camel Quarkus :: Support :: AWS :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M3</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

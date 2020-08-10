@@ -31,7 +31,7 @@
     <description>Rest-dsl support for using OpenAPI doc</description>
 
     <properties>
-        <firstVersion>1.0.0-CR2</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

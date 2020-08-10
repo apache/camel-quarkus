@@ -29,7 +29,7 @@
     <name>Camel Quarkus :: Simple JMS2 :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M1</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>
