@@ -7,16 +7,16 @@ them automatic discovered by Camel and used as parts of its health-check system.
 TIP: Check the https://camel.apache.org/camel-quarkus/latest/first-steps.html[Camel Quarkus User guide] for prerequisites
 and other general information.
 
-The example has two routes, a timer that calls a bean that flips a boolean that
-causes the custom health check to be in either UP or DOWN state.
+The example has two routes. The timer route performs a given task at regular interval. For the sake of this example we'll say
+that this task unexpectedly freezes the service from time to time. The details can be consulted at http://localhost:8080/health. 
+The custom health check is expected to report UNKNOWN on first consultation, then UP during 10 seconds, and finally DOWN so as to
+simulate that the service is frozen.
 
 The 2nd route is on purpose made to fail on startup by configuring netty to an unknown host.
 Camel supervising route controller will attempt to restart the route up till 10 times before exhausting.
+The routes health check will therefore report this route as DOWN until its exhausted where the states are changed to UNKNOWN.
 
-The routes health check will therefore report this route as DOWN until its exhausted
-where the states are changed to UNKNOWN.
-
-The details can be seen at runtime from the calling the following url from a web browser: http://localhost:8080/health
+The details can be seen at runtime via the following url from a web browser: http://localhost:8080/health.
 
 === Start in the Development mode
 
@@ -44,10 +44,11 @@ https://camel.apache.org/camel-quarkus/latest/first-steps.html#_package_and_run_
 
 [source,shell]
 ----
+
 $ mvn clean package
 $ java -jar target/*-runner.jar
 ...
-[io.quarkus] (main) Quarkus 1.3.2 started in 1.163s. Listening on: http://[::]:8080
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.885s. Listening on: http://0.0.0.0:8080
 ----
 
 === Native mode
@@ -62,7 +63,7 @@ To prepare a native executable using GraalVM, run the following command:
 $ mvn clean package -Pnative
 $ ./target/*-runner
 ...
-[io.quarkus] (main) Quarkus 1.3.2 started in 0.013s. Listening on: http://[::]:8080
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.026s. Listening on: http://0.0.0.0:8080
 ...
 ----
 
