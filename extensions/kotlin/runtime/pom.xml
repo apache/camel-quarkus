@@ -30,7 +30,7 @@
     <description>Write Camel integration routes in Kotlin</description>
 
     <properties>
-        <firstVersion>1.0.0-M3</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>

@@ -30,7 +30,7 @@
     <name>Camel Quarkus :: AWS 2 Managed Streaming for Apache Kafka (MSK) :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0-M6</firstVersion>
+        <firstVersion>1.0.0</firstVersion>
     </properties>
 
     <dependencyManagement>
