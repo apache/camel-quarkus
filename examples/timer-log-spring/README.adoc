@@ -1,4 +1,4 @@
-= timer-log
+= timer-log-spring
 
 This is a basic hello world example that uses Spring to set-up
 a Camel timer that triggers every second and prints to the
@@ -37,7 +37,7 @@ https://camel.apache.org/camel-quarkus/latest/first-steps.html#_package_and_run_
 $ mvn clean package
 $ java -jar target/*-runner.jar
 ...
-[io.quarkus] (main) Quarkus 1.3.2 started in 1.163s. Listening on: http://[::]:8080
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.497s.
 ----
 
 ==== Native mode
@@ -52,6 +52,6 @@ To prepare a native executable using GraalVM, run the following command:
 $ mvn clean package -Pnative
 $ ./target/*-runner
 ...
-[io.quarkus] (main) Quarkus 1.3.2 started in 0.013s. Listening on: http://[::]:8080
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.007s.
 ...
 ----

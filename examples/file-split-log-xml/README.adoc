@@ -46,7 +46,7 @@ $ mvn clean package
 $ java -jar target/*-runner.jar
 ...
 
-[org.apa.cam.qua.cor.FastCamelContext] (main) Apache Camel 3.0.0 (CamelContext: camel-quarkus-xml) started in 0.081 seconds
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.570s.
 ----
 
 ==== Native mode
@@ -61,6 +61,6 @@ To prepare a native executable using GraalVM, run the following command:
 $ mvn clean package -Pnative
 $ ./target/*-runner
 ...
-[io.quarkus] (main) camel-quarkus-examples-file-log-xml 1.1.0-SNAPSHOT (running on Quarkus 1.1.0.Final) started in 0.011s.
+[io.quarkus] (main) camel-quarkus-examples-... started in 0.011s.
 ...
 ----
