@@ -41,7 +41,7 @@ public class Configurations {
 
 In Camel Quarkus the Camel components are discovered during the augmentation phase, producing a new component as shown in the example above would invalidate any optimization that may have been made.
 
-As a better alternative you can use `@Inject` to obtain an instance of a component automatically created by Camel or you can observe one of the https://github.com/apache/camel-quarkus/tree/master/extensions-core/core/runtime/src/main/java/org/apache/camel/quarkus/core/events[events] fired by Camel Quarkus as shown in the the following example, in which we use `@Observes` to be notified about components added to the Camel Context:
+As a better alternative you can use `@Inject` to obtain an instance of a component automatically created by Camel or you can observe one of the https://github.com/apache/camel-quarkus/tree/master/extensions-core/core/runtime/src/main/java/org/apache/camel/quarkus/core/events[events] fired by Camel Quarkus as shown in the following example, in which we use `@Observes` to be notified about components added to the Camel Context:
 
 [source,java]
 ----

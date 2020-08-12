@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.main.events;
 import org.apache.camel.main.BaseMainSupport;
 
 /**
- * Event fired after the the CamelContext has been created and before the
+ * Event fired after the CamelContext has been created and before the
  * auto-configured step starts.
  */
 public class BeforeInitialize extends MainEvent {

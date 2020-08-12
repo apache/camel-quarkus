@@ -46,7 +46,7 @@ TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Qu
 
 === Refer to a bean by name
 
-To refer to a bean in a route definition by name, just annotate the the bean with `@Named("myNamedBean")` and
+To refer to a bean in a route definition by name, just annotate the bean with `@Named("myNamedBean")` and
 `@ApplicationScoped` (or some other
 https://quarkus.io/guides/cdi-reference#supported_features[supported] scope). The `@RegisterForReflection` annotation
 is important for the native mode.
