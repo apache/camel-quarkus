@@ -23,7 +23,7 @@ public class CoreRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("timer:keep-alive")
-                .id("timer")
+                .routeId("timer")
                 .setBody().constant("I'm alive !")
                 .to("log:keep-alive");
 

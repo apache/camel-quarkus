@@ -33,10 +33,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 public class CoreTest {
+
     @Test
     public void testContainerLookupFromRegistry() {
         RestAssured.when().get("/test/registry/lookup-registry").then().body(is("true"));
         RestAssured.when().get("/test/registry/lookup-context").then().body(is("true"));
+    }
+
+    @Test
+    public void testLookupRoutes() {
+        RestAssured.when().get("/test/routes/lookup-routes").then().body(is("bar,timer"));
     }
 
     @Test
