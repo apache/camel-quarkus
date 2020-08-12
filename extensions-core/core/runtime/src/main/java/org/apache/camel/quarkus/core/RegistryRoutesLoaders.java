@@ -24,6 +24,8 @@ import java.util.Set;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.builder.RouteBuilderConfigurer;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.slf4j.Logger;
@@ -55,6 +57,17 @@ public final class RegistryRoutesLoaders {
 
             final List<RoutesBuilder> routes = new ArrayList<>();
             final AntPathMatcher matcher = new AntPathMatcher();
+
+            Set<RouteBuilderConfigurer> configurers = camelContext.getRegistry().findByType(RouteBuilderConfigurer.class);
+            for (RouteBuilderConfigurer configurer : configurers) {
+                RouteBuilder rb = new RouteBuilder() {
+                    @Override
+                    public void configure() throws Exception {
+                        configurer.accept(this);
+                    }
+                };
+                routes.add(rb);
+            }
 
             Set<RoutesBuilder> builders = camelContext.getRegistry().findByType(RoutesBuilder.class);
             for (RoutesBuilder routesBuilder : builders) {
