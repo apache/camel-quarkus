@@ -23,6 +23,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.camel.support.DefaultLRUCacheFactory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -37,6 +38,13 @@ public class CoreTest {
     public void testContainerLookupFromRegistry() {
         RestAssured.when().get("/test/registry/lookup-registry").then().body(is("true"));
         RestAssured.when().get("/test/registry/lookup-context").then().body(is("true"));
+    }
+
+    @Test
+    @Disabled
+    // TODO: Fix discovery of methods that produces RouteBuilderConfigurer
+    public void testLookupRoutes() {
+        RestAssured.when().get("/test/routes/lookup-routes").then().body(is("true"));
     }
 
     @Test
