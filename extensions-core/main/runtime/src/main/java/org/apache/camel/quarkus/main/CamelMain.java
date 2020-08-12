@@ -18,8 +18,6 @@ package org.apache.camel.quarkus.main;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.quarkus.runtime.Quarkus;
@@ -31,6 +29,7 @@ import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
+import org.apache.camel.main.SimpleMainShutdownStrategy;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
@@ -59,7 +58,10 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
 
     @Override
     protected void doInit() throws Exception {
-        setShutdownStrategy(new ShutdownStrategy());
+        MainShutdownStrategy shutdownStrategy = new SimpleMainShutdownStrategy();
+        shutdownStrategy.addShutdownListener(() -> Quarkus.asyncExit(getExitCode()));
+
+        setShutdownStrategy(shutdownStrategy);
 
         super.doInit();
         initCamelContext();
@@ -147,50 +149,5 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     public void run(String[] args) throws Exception {
         parseArguments(args);
         runEngine();
-    }
-
-    /**
-     * Implementation of a {@link MainShutdownStrategy} based on Quarkus Command Mode.
-     *
-     * @see <a href="https://quarkus.io/guides/command-mode-reference">Quarkus Command Mode Applications</a>
-     */
-    private class ShutdownStrategy implements MainShutdownStrategy {
-        private final AtomicBoolean completed;
-        private final CountDownLatch latch;
-
-        public ShutdownStrategy() {
-            this.completed = new AtomicBoolean(false);
-            this.latch = new CountDownLatch(1);
-        }
-
-        @Override
-        public boolean isRunAllowed() {
-            return !completed.get();
-        }
-
-        @Override
-        public boolean shutdown() {
-            if (completed.compareAndSet(false, true)) {
-                latch.countDown();
-                Quarkus.asyncExit(getExitCode());
-                return true;
-            }
-
-            return false;
-        }
-
-        @Override
-        public void await() throws InterruptedException {
-            latch.await();
-        }
-
-        @Override
-        public void await(long timeout, TimeUnit unit) throws InterruptedException {
-            if (!latch.await(timeout, unit)) {
-                LOGGER.warn(
-                        "Could not await stopping CamelMain within {} {}. You may want to increase camel.main.shutdown.timeout",
-                        timeout, unit);
-            }
-        }
     }
 }
