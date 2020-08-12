@@ -79,6 +79,8 @@ class CamelProcessor {
             "org.apache.camel.RoutesBuilder");
     private static final DotName ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.RouteBuilder");
+    private static final DotName ROUTE_BUILDER_CONFIGURER_TYPE = DotName.createSimple(
+            "org.apache.camel.builder.RouteBuilderConfigurer");
     private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.AdviceWithRouteBuilder");
     private static final DotName DATA_FORMAT_TYPE = DotName.createSimple(
@@ -94,6 +96,7 @@ class CamelProcessor {
 
     private static final Set<DotName> UNREMOVABLE_BEANS_TYPES = CamelSupport.setOf(
             ROUTES_BUILDER_TYPE,
+            ROUTE_BUILDER_CONFIGURER_TYPE,
             DATA_FORMAT_TYPE,
             LANGUAGE_TYPE,
             COMPONENT_TYPE,
