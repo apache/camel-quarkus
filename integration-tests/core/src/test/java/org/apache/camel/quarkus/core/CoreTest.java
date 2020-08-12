@@ -42,7 +42,7 @@ public class CoreTest {
 
     @Test
     public void testLookupRoutes() {
-        RestAssured.when().get("/test/routes/lookup-routes").then().body(is("true"));
+        RestAssured.when().get("/test/routes/lookup-routes").then().body(is("bar,timer"));
     }
 
     @Test
