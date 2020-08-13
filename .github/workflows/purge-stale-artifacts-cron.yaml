@@ -29,8 +29,9 @@ jobs:
     steps:
       - name: Purge Stale Artifacts
         run: |
+          TWELVE_HOURS_AGO="$(date --iso-8601=seconds -d "-12 hours" | cut -f1 -d'+')Z"
           ARTIFACTS=$(curl -s -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts)
-          for ID in $(echo ${ARTIFACTS} | jq '.artifacts[] | select (.expired == false and .name == "maven-repo") | .id'); do
+          for ID in $(echo ${ARTIFACTS} | jq --arg twelveHoursAgo ${TWELVE_HOURS_AGO} '.artifacts[] | select (.expired == false and .name == "maven-repo" and .created_at <= $twelveHoursAgo) | .id'); do
               echo "Deleting artifact ${ID} from ${GITHUB_REPOSITORY}"
               curl -s -X DELETE -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/${ID}
               sleep 5
