@@ -169,7 +169,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         });
 
         final Path docPagePath = multiModuleProjectDirectoryPath
-                .resolve("docs/modules/ROOT/pages/extensions/" + ext.getRuntimeArtifactIdBase() + ".adoc");
+                .resolve("docs/modules/ROOT/pages/reference/extensions/" + ext.getRuntimeArtifactIdBase() + ".adoc");
         try {
             Files.createDirectories(docPagePath.getParent());
         } catch (IOException e) {

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
@@ -110,6 +111,23 @@ public class CqCatalog {
         } else {
             return true;
         }
+    }
+
+    public static List<ArtifactModel<?>> primaryModel(Stream<ArtifactModel<?>> input) {
+        final List<ArtifactModel<?>> models = input
+                .filter(CqCatalog::isFirstScheme)
+                .filter(m -> !m.getName().startsWith("google-") || !m.getName().endsWith("-stream")) // ignore the google stream component variants
+                .collect(Collectors.toList());
+        if (models.size() > 1) {
+            List<ArtifactModel<?>> componentModels = models.stream()
+                    .filter(m -> m.getKind().equals("component"))
+                    .collect(Collectors.toList());
+            if (componentModels.size() == 1) {
+                /* If there is only one component take that one */
+                return componentModels;
+            }
+        }
+        return models;
     }
 
     static class CqVersionManager extends DefaultVersionManager {

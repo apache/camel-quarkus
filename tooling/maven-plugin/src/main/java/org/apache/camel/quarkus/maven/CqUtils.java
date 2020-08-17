@@ -140,12 +140,20 @@ public class CqUtils {
         case dataformat:
             return "data format";
         case language:
-            return "languages";
+            return "language";
         case other:
-            return null;
+            return "misc. component";
         default:
             throw new IllegalStateException("Unexpected kind " + kind);
         }
+    }
+
+    public static String humanReadableKindPlural(Kind kind) {
+        return humanReadableKind(kind) + "s";
+    }
+
+    public static String kindPlural(Kind kind) {
+        return kind.name() + "s";
     }
 
     public static String getDescription(List<ArtifactModel<?>> models, String descriptionFromPom, Log log) {
@@ -182,4 +190,5 @@ public class CqUtils {
                             () -> new IllegalStateException("Could not find directory of " + depArtifactIdBase + " extension"));
         }
     }
+
 }
