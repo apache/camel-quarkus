@@ -65,7 +65,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     List<File> extensionDirectories;
 
     /**
-     * A set of artifactIdBases that are nor extensions and should be excluded from the catalog
+     * A set of artifactIdBases that are not extensions and should be excluded from the catalog
      */
     @Parameter(property = "cq.skipArtifactIdBases")
     Set<String> skipArtifactIdBases;
