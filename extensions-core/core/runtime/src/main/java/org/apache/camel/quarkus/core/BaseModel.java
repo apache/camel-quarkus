@@ -27,6 +27,7 @@ import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.util.CollectionStringBuffer;
 
 public abstract class BaseModel implements Model {
@@ -120,8 +121,9 @@ public abstract class BaseModel implements Model {
 
     @Override
     public RouteTemplateDefinition getRouteTemplateDefinition(String id) {
+        NodeIdFactory nodeIdFactory = camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory();
         for (RouteTemplateDefinition route : routeTemplateDefinitions) {
-            if (route.idOrCreate(camelContext.adapt(ExtendedCamelContext.class).getNodeIdFactory()).equals(id)) {
+            if (route.idOrCreate(nodeIdFactory).equals(id)) {
                 return route;
             }
         }
@@ -138,12 +140,12 @@ public abstract class BaseModel implements Model {
 
     @Override
     public void addRouteTemplateDefinition(RouteTemplateDefinition routeTemplateDefinition) throws Exception {
-        this.routeTemplateDefinitions.addAll(routeTemplateDefinitions);
+        this.routeTemplateDefinitions.add(routeTemplateDefinition);
     }
 
     @Override
     public void removeRouteTemplateDefinitions(Collection<RouteTemplateDefinition> routeTemplateDefinitions) throws Exception {
-        routeTemplateDefinitions.removeAll(routeTemplateDefinitions);
+        this.routeTemplateDefinitions.removeAll(routeTemplateDefinitions);
     }
 
     @Override
