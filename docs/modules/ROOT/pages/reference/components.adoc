@@ -4,7 +4,7 @@
 [camel-quarkus-components]
 = Camel components supported on Quarkus
 
-156 components in 121 JAR artifacts (0 deprecated, 17 JVM only)
+157 components in 122 JAR artifacts (0 deprecated, 17 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -189,6 +189,9 @@ Stable | 0.4.0 | Read and write files.
 
 | xref:reference/extensions/file-watch.adoc[File Watch] | camel-quarkus-file-watch | Native +
 Stable | 1.0.0 | Get notified about file events in a directory using java.nio.file.WatchService.
+
+| xref:reference/extensions/flatpack.adoc[Flatpack] | camel-quarkus-flatpack | Native +
+Stable | 1.1.0 | Parse fixed width and delimited files using the FlatPack library.
 
 | xref:reference/extensions/ftp.adoc[FTP] | camel-quarkus-ftp | Native +
 Stable | 1.0.0 | Upload and download files to/from FTP servers.

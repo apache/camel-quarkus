@@ -82,6 +82,7 @@ messaging:
 misc:
   - braintree
   - compression
+  - flatpack
   - graphql
   - grok
   - jolt

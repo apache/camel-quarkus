@@ -89,6 +89,7 @@
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
+        <module>flatpack</module>
         <module>ftp</module>
         <module>github</module>
         <module>google</module>

@@ -4,7 +4,7 @@
 [camel-quarkus-dataformats]
 = Camel data formats supported on Quarkus
 
-27 data formats in 22 JAR artifacts (0 deprecated, 1 JVM only)
+28 data formats in 23 JAR artifacts (0 deprecated, 1 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -33,6 +33,9 @@ Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
 
 | xref:reference/extensions/fhir.adoc[FHIR XML] | camel-quarkus-fhir | Native +
 Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
+
+| xref:reference/extensions/flatpack.adoc[Flatpack] | camel-quarkus-flatpack | Native +
+Stable | 1.1.0 | Marshal and unmarshal Java lists and maps to/from flat files (such as CSV, delimited, or fixed length formats) using Flatpack library.
 
 | xref:reference/extensions/grok.adoc[Grok] | camel-quarkus-grok | Native +
 Stable | 1.0.0 | Unmarshal unstructured data to objects using Logstash based Grok patterns.
