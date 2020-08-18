@@ -32,8 +32,8 @@ E.g `<artifactId>camel-file</artifactId>` should be `<artifactId>camel-quarkus-f
 
 == Additional Camel Quarkus configuration
 
-This extension leverages the Camel xref:extensions/reactive-streams.adoc[Reactive Streams] extension. Various aspects of the reactive streams component can be configured
-via the configuration options outlined within the xref:extensions/reactive-streams.adoc[documentation].
+This extension leverages the Camel xref:reference/extensions/reactive-streams.adoc[Reactive Streams] extension. Various aspects of the reactive streams component can be configured
+via the configuration options outlined within the xref:reference/extensions/reactive-streams.adoc[documentation].
 
 This extension also leverages the Quarkus SmallRye Reactive Messaging extension. Its configuration options are documented https://quarkus.io/guides/all-config#quarkus-smallrye-reactive-messaging_quarkus-smallrye-reactive-messaging[here].
 

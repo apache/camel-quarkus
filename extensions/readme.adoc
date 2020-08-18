@@ -140,7 +140,7 @@ Number of Camel components: 72 in 62 JAR artifacts (0 deprecated)
 | xref:extensions/mongodb.adoc[MongoDB] (camel-quarkus-mongodb) +
 `mongodb:connectionBean` | 1.0.0-M1 | Component for working with documents stored in MongoDB database.
 
-| xref:extensions/netty.adoc[Netty] (camel-quarkus-netty) +
+| xref:reference/extensions/netty.adoc[Netty] (camel-quarkus-netty) +
 `netty:protocol:host:port` | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x library.
 
 | xref:extensions/netty-http.adoc[Netty HTTP] (camel-quarkus-netty-http) +

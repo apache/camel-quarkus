@@ -10,7 +10,7 @@ https://github.com/apache/camel-quarkus/issues[Issue reports] and fixes are welc
 == Which Camel components are supported on Quarkus?
 
 The answer is very easy: those ones that have a Quarkus extension - see the
-xref:list-of-camel-quarkus-extensions.adoc[complete list].
+xref:reference/index.adoc[complete list].
 
 == What's next?
 
