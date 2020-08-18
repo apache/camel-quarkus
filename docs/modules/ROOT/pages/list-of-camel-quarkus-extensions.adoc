@@ -18,7 +18,7 @@ In case you are missing some Camel feature in the list:
 == Camel Components
 
 // components: START
-Number of Camel components: 156 in 121 JAR artifacts (2 deprecated)
+Number of Camel components: 157 in 122 JAR artifacts (2 deprecated)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -27,6 +27,8 @@ Number of Camel components: 156 in 121 JAR artifacts (2 deprecated)
 | xref:extensions/activemq.adoc[ActiveMQ] | camel-quarkus-activemq | Native + Stable | 1.0.0 | Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 
 | xref:extensions/amqp.adoc[AMQP] | camel-quarkus-amqp | Native + Stable | 1.0.0 | Messaging with AMQP protocol using Apache QPid Client.
+
+| xref:extensions/arangodb.adoc[ArangoDb] | camel-quarkus-arangodb | Native + Stable | 1.1.0 | Perform operations on ArangoDb documents, collections and graphs.
 
 | xref:extensions/ahc.adoc[Async HTTP Client (AHC)] | camel-quarkus-ahc | Native + Stable | 1.0.0 | Call external HTTP services using Async Http Client.
 
