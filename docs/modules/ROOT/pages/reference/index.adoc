@@ -17,7 +17,7 @@ In case you are missing some extension in the list:
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.
 ====
 
-167 extensions (2 deprecated, 14 JVM only)
+168 extensions (2 deprecated, 14 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -28,6 +28,9 @@ Stable | 1.0.0 | Send messages to (or consume from) Apache ActiveMQ. This compon
 
 |  xref:reference/extensions/amqp.adoc[AMQP]  | camel-quarkus-amqp | Native +
 Stable | 1.0.0 | Messaging with AMQP protocol using Apache QPid Client.
+
+|  xref:reference/extensions/arangodb.adoc[ArangoDb]  | camel-quarkus-arangodb | Native +
+Stable | 1.1.0 | Perform operations on ArangoDb documents, collections and graphs.
 
 |  xref:reference/extensions/ahc.adoc[Async HTTP Client (AHC)]  | camel-quarkus-ahc | Native +
 Stable | 1.0.0 | Call external HTTP services using Async Http Client.
