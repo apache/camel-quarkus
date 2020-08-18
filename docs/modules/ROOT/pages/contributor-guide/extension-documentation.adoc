@@ -9,7 +9,7 @@ The resulting AsciiDoc files are stored in
 `https://github.com/apache/camel-quarkus/tree/master/docs/modules/ROOT/pages/extensions[docs/modules/ROOT/pages/extensions]`.
 From there, the pages are published by Antora to the Camel website.
 
-The pages are referenced i.a. from the xref:list-of-camel-quarkus-extensions.adoc[List of Camel Quarkus extensions]
+The pages are referenced i.a. from the xref:reference/index.adoc[List of Camel Quarkus extensions]
 and from Camel Quarkus items on https://code.quarkus.io/[code.quarkus.io].
 
 The `update-extension-doc-page` mojo merges the https://github.com/apache/camel-quarkus/blame/master/tooling/package-maven-plugin/src/main/resources/doc-templates/extension-doc-page.adoc[FreeMarker template] with the following data:
