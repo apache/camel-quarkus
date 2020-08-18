@@ -43,6 +43,7 @@
             camel-quarkus-ahc-ws
             camel-quarkus-amqp
             camel-quarkus-apns
+            camel-quarkus-arangodb
             camel-quarkus-asterisk
             camel-quarkus-atmos
             camel-quarkus-atom
