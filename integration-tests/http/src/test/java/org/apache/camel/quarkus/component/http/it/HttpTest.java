@@ -68,11 +68,11 @@ class HttpTest {
     public void restcountries() throws Exception {
         RestAssured
                 .given()
-                .baseUri("https://restcountries.eu")
+                .baseUri("https://restcountries.com")
                 .port(443)
                 .when()
                 .accept("application/json")
-                .get("/rest/v2/alpha/cz")
+                .get("/v2/alpha/cz")
                 .then()
                 .statusCode(200)
                 .body(containsString("Czech Republic"));
