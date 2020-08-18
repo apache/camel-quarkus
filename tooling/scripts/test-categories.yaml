@@ -44,6 +44,7 @@ database:
   - kudu
   - mongodb
   - sql
+  - arangodb
 dataformats:
   - avro
   - base64
