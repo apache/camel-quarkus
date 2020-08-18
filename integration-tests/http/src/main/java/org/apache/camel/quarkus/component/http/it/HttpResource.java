@@ -60,7 +60,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getHttps() {
         return producerTemplate
-                .to("ahc:https://restcountries.eu/rest/v2/alpha/cz?bridgeEndpoint=true")
+                .to("ahc:https://restcountries.com/v2/alpha/cz?bridgeEndpoint=true")
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -117,7 +117,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String httpGetHttps() {
         return producerTemplate
-                .to("https://restcountries.eu/rest/v2/alpha/cz?bridgeEndpoint=true")
+                .to("https://restcountries.com/v2/alpha/cz?bridgeEndpoint=true")
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -156,7 +156,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String nettyHttpGetHttps() {
         return producerTemplate
-                .to("netty-http:https://restcountries.eu/rest/v2/alpha/cz?ssl=true&passphrase=changeit&keyStoreResource=classpath:jsse/keystore.p12&trustStoreResource=file:{{javax.net.ssl.trustStore}}")
+                .to("netty-http:https://restcountries.com/v2/alpha/cz?ssl=true&passphrase=changeit&keyStoreResource=classpath:jsse/keystore.p12&trustStoreResource=file:{{javax.net.ssl.trustStore}}")
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
