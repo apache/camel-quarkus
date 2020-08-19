@@ -24,7 +24,7 @@
 name: "Camel Tika"
 description: "Parse documents and extract metadata and text using Apache Tika"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/tika.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/tika.html"
   categories:
   - "integration"
   status:

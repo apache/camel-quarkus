@@ -24,7 +24,7 @@
 name: "Camel MicroProfile Metrics"
 description: "Expose metrics from Camel routes"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/microprofile-metrics.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/microprofile-metrics.html"
   categories:
   - "integration"
   status:

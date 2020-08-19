@@ -24,7 +24,7 @@
 name: "Camel SQL"
 description: "Perform SQL queries using Spring JDBC"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/sql.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/sql.html"
   categories:
   - "integration"
   status:

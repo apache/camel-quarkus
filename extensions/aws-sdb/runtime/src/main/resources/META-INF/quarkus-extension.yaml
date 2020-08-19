@@ -26,7 +26,7 @@ description: "Store and Retrieve data from/to AWS SDB service"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-sdb.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws-sdb.html"
   categories:
   - "integration"
   status:

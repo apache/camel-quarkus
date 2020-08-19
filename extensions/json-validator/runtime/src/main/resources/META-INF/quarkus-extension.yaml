@@ -24,7 +24,7 @@
 name: "Camel JSON Schema Validator"
 description: "Validate JSON payloads using NetworkNT JSON Schema"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/json-validator.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/json-validator.html"
   categories:
   - "integration"
   status:

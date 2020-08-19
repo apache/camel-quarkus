@@ -24,7 +24,7 @@
 name: "Camel Mustache"
 description: "Transform messages using a Mustache template"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/mustache.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/mustache.html"
   categories:
   - "integration"
   status:

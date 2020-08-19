@@ -26,7 +26,7 @@ description: "Sending and receive messages to/from AWS SQS service using AWS SDK
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-sqs.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-sqs.html"
   categories:
   - "integration"
   status:

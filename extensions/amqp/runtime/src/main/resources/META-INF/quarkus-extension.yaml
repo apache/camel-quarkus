@@ -24,7 +24,7 @@
 name: "Camel AMQP"
 description: "Messaging with AMQP protocol using Apache QPid Client"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/amqp.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/amqp.html"
   categories:
   - "integration"
   status:

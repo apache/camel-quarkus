@@ -24,7 +24,7 @@
 name: "Camel Direct"
 description: "Call another endpoint from the same Camel Context synchronously"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/direct.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/direct.html"
   categories:
   - "integration"
   status:

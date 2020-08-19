@@ -24,7 +24,7 @@
 name: "Camel Base64"
 description: "Encode and decode data using Base64"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/base64.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/base64.html"
   categories:
   - "integration"
   status:

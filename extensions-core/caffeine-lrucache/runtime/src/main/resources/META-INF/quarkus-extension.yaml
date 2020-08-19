@@ -24,7 +24,7 @@
 name: "Camel Caffeine LRUCache"
 description: "An LRUCacheFactory implementation based on Caffeine"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/caffeine-lrucache.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/caffeine-lrucache.html"
   categories:
   - "integration"
   status:

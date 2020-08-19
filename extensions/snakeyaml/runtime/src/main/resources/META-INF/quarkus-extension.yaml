@@ -24,7 +24,7 @@
 name: "Camel SnakeYAML"
 description: "Marshal and unmarshal Java objects to and from YAML"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/snakeyaml.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/snakeyaml.html"
   categories:
   - "integration"
   status:

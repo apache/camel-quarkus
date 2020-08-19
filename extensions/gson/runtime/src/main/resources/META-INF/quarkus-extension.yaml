@@ -24,7 +24,7 @@
 name: "Camel Gson"
 description: "Marshal POJOs to JSON and back"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/gson.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/gson.html"
   categories:
   - "integration"
   status:

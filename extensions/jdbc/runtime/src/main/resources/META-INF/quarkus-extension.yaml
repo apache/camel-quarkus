@@ -24,7 +24,7 @@
 name: "Camel JDBC"
 description: "Access databases through SQL and JDBC"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jdbc.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jdbc.html"
   categories:
   - "integration"
   status:

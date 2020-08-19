@@ -24,7 +24,7 @@
 name: "Camel SmallRye Reactive Messaging"
 description: "Camel integration with SmallRye Reactive Messaging"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/smallrye-reactive-messaging.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/smallrye-reactive-messaging.html"
   categories:
   - "integration"
   status:

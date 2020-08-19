@@ -24,7 +24,7 @@
 name: "Camel Slack"
 description: "Send and receive messages to/from Slack"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/slack.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/slack.html"
   categories:
   - "integration"
   status:

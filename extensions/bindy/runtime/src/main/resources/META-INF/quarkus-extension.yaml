@@ -24,7 +24,7 @@
 name: "Camel Bindy"
 description: "Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages)"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/bindy.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/bindy.html"
   categories:
   - "integration"
   status:

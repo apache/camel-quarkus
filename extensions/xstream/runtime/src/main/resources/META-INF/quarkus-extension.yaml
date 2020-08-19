@@ -24,7 +24,7 @@
 name: "Camel XStream"
 description: "Marshal and unmarshal POJOs to/from XML or JSON using XStream library"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xstream.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xstream.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel Debezium PostgresSQL Connector"
 description: "Capture changes from a PostgresSQL database"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/debezium-postgres.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/debezium-postgres.html"
   categories:
   - "integration"
   status:

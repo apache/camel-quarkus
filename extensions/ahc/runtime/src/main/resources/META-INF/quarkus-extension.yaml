@@ -24,7 +24,7 @@
 name: "Camel Async HTTP Client (AHC)"
 description: "Call external HTTP services using Async Http Client"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ahc.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ahc.html"
   categories:
   - "integration"
   status:

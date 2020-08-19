@@ -24,7 +24,7 @@
 name: "Camel ServiceNow"
 description: "Interact with ServiceNow via its REST API"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/servicenow.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/servicenow.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel Azure"
 description: "Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/azure.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/azure.html"
   categories:
   - "integration"
   status:

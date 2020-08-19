@@ -24,7 +24,7 @@
 name: "Camel Platform HTTP"
 description: "Expose HTTP endpoints using the HTTP server available in the current platform"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/platform-http.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/platform-http.html"
   categories:
   - "integration"
   status:

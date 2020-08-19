@@ -26,7 +26,7 @@ description: "Manage AWS EC2 instances"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-ec2.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws-ec2.html"
   categories:
   - "integration"
   status:

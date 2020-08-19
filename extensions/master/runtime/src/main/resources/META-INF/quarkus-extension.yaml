@@ -24,7 +24,7 @@
 name: "Camel Master"
 description: "Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/master.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/master.html"
   categories:
   - "integration"
   status:
