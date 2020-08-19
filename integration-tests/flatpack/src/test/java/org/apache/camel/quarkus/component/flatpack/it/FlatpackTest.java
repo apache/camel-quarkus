@@ -16,8 +16,8 @@
  */
 package org.apache.camel.quarkus.component.flatpack.it;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.apache.camel.converter.IOConverter;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -37,7 +37,8 @@ class FlatpackTest {
 
     @Test
     public void delimitedUnmarshalShouldSucceed() throws IOException {
-        String data = IOConverter.toString(new File("src/test/data/delim/INVENTORY-CommaDelimitedWithQualifier.txt"), null);
+        String data = IOUtils.toString(getClass().getResourceAsStream("/delim/INVENTORY-CommaDelimitedWithQualifier.txt"),
+                StandardCharsets.UTF_8);
 
         given().body(data).when().get("/flatpack/delimited-unmarshal").then().statusCode(200).body(is("4-SOME VALVE"));
     }
@@ -66,8 +67,7 @@ class FlatpackTest {
 
     @Test
     public void fixedLengthUnmarshalShouldSucceed() throws IOException {
-        String data = IOConverter.toString(new File("src/test/data/fixed/PEOPLE-FixedLength.txt"), null);
-
+        String data = IOUtils.toString(getClass().getResourceAsStream("/fixed/PEOPLE-FixedLength.txt"), StandardCharsets.UTF_8);
         given().body(data).when().get("/flatpack/fixed-length-unmarshal").then().statusCode(200).body(is("4-JOHN"));
     }
 
