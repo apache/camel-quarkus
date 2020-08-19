@@ -288,12 +288,15 @@ class CamelProcessor {
 
         RuntimeValue<Builder> builder = recorder.factoryFinderResolverBuilder();
 
-        camelServices.forEach(service -> {
-            recorder.factoryFinderResolverEntry(
-                    builder,
-                    service.path.toString(),
-                    recorderContext.classProxy(service.type));
-        });
+        camelServices
+                // FIXME: Remove the following line after CAMEL-15426 is fixed
+                .stream().filter(s -> !s.name.equals("MySecondBar") && !s.name.equals("MySecondFoo"))
+                .forEach(service -> {
+                    recorder.factoryFinderResolverEntry(
+                            builder,
+                            service.path.toString(),
+                            recorderContext.classProxy(service.type));
+                });
 
         return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));
     }
