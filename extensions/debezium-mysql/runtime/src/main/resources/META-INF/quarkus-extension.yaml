@@ -24,7 +24,7 @@
 name: "Camel Debezium MySQL Connector"
 description: "Capture changes from a MySQL database"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/debezium-mysql.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/debezium-mysql.html"
   categories:
   - "integration"
   status:

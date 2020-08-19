@@ -24,7 +24,7 @@
 name: "Camel Kafka"
 description: "Sent and receive messages to/from an Apache Kafka broker"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/kafka.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kafka.html"
   categories:
   - "integration"
   status:

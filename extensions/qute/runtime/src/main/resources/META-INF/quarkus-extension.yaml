@@ -24,7 +24,7 @@
 name: "Camel Qute"
 description: "Transform messages using Quarkus Qute templating engine"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/qute.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/qute.html"
   categories:
   - "integration"
   status:

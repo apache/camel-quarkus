@@ -24,7 +24,7 @@
 name: "Camel JMS"
 description: "Sent and receive messages to/from a JMS Queue or Topic"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jms.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jms.html"
   categories:
   - "integration"
   status:

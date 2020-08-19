@@ -24,7 +24,7 @@
 name: "Camel VM"
 description: "Call another endpoint in the same CamelContext asynchronously"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/vm.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/vm.html"
   categories:
   - "integration"
   status:

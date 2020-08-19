@@ -24,7 +24,7 @@
 name: "Camel MicroProfile Health"
 description: "Bridging Eclipse MicroProfile Health with Camel health checks"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/microprofile-health.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/microprofile-health.html"
   categories:
   - "integration"
   status:

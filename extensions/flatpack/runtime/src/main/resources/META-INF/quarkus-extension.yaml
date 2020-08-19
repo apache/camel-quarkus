@@ -24,7 +24,7 @@
 name: "Camel Flatpack"
 description: "Parse fixed width and delimited files using the FlatPack library"
 metadata:
-  guide: "https://camel.apache.org/components/latest/flatpack-component.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/flatpack.html"
   categories:
   - "integration"
   status:

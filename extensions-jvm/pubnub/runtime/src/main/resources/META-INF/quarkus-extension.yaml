@@ -25,7 +25,7 @@ name: "Camel PubNub"
 description: "Send and receive messages to/from PubNub data stream network for connected devices"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/pubnub.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/pubnub.html"
   categories:
   - "integration"
   status:

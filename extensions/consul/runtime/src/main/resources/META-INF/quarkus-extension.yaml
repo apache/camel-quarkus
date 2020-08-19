@@ -24,7 +24,7 @@
 name: "Camel Consul"
 description: "Integrate with Consul service discovery and configuration store"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/consul.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/consul.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel OpenAPI Java"
 description: "Rest-dsl support for using OpenAPI doc"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/openapi-java.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/openapi-java.html"
   categories:
   - "integration"
   status:

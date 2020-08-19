@@ -24,7 +24,7 @@
 name: "Camel Kubernetes"
 description: "Perform operations against Kubernetes API"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/kubernetes.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kubernetes.html"
   categories:
   - "integration"
   status:

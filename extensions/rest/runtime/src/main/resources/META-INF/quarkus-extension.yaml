@@ -24,7 +24,7 @@
 name: "Camel Rest"
 description: "Expose REST services and their OpenAPI Specification or call external REST services"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/rest.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/rest.html"
   categories:
   - "integration"
   status:

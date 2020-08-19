@@ -24,7 +24,7 @@
 name: "Camel Async HTTP Client (AHC) Websocket"
 description: "Exchange data with external Websocket servers using Async Http Client"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ahc-ws.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ahc-ws.html"
   categories:
   - "integration"
   status:

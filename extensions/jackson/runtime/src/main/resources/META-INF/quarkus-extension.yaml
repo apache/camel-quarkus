@@ -24,7 +24,7 @@
 name: "Camel Jackson"
 description: "Marshal POJOs to JSON and back"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jackson.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jackson.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel Box"
 description: "Upload, download and manage files, folders, groups, collaborations, etc. on box.com"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/box.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/box.html"
   categories:
   - "integration"
   status:

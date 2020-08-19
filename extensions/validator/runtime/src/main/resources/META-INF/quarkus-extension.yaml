@@ -24,7 +24,7 @@
 name: "Camel Validator"
 description: "Validate the payload using XML Schema and JAXP Validation"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/validator.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/validator.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel Component DSL"
 description: "Create Camel components with a fluent Java DSL"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/componentdsl.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/componentdsl.html"
   categories:
   - "integration"
   status:

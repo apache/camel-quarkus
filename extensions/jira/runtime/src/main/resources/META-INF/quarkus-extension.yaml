@@ -24,7 +24,7 @@
 name: "Camel Jira"
 description: "Interact with JIRA issue tracker"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jira.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jira.html"
   categories:
   - "integration"
   status:

@@ -25,7 +25,7 @@ name: "Camel Protobuf"
 description: "Serialize and deserialize Java objects using Google's Protocol buffers"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/protobuf.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/protobuf.html"
   categories:
   - "integration"
   status:

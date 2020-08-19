@@ -24,7 +24,7 @@
 name: "Camel OpenTracing"
 description: "Distributed tracing using OpenTracing"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/opentracing.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/opentracing.html"
   categories:
   - "integration"
   status:

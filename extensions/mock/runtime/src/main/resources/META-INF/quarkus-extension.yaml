@@ -24,7 +24,7 @@
 name: "Camel Mock"
 description: "Test routes and mediation rules using mocks"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/mock.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/mock.html"
   categories:
   - "integration"
   status:

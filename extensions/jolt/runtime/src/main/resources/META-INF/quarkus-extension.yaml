@@ -24,7 +24,7 @@
 name: "Camel JOLT"
 description: "JSON to JSON transformation using JOLT"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/jolt.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jolt.html"
   categories:
   - "integration"
   status:

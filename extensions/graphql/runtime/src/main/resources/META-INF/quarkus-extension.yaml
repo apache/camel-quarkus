@@ -24,7 +24,7 @@
 name: "Camel GraphQL"
 description: "Send GraphQL queries and mutations to external systems"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/graphql.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/graphql.html"
   categories:
   - "integration"
   status:

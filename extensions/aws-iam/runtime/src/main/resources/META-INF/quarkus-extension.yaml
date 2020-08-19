@@ -26,7 +26,7 @@ description: "Manage AWS IAM instances"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-iam.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws-iam.html"
   categories:
   - "integration"
   status:

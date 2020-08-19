@@ -24,7 +24,7 @@
 name: "Camel TagSoup (a.k.a. TidyMarkup)"
 description: "Parse (potentially invalid) HTML into valid HTML or DOM"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/tagsoup.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/tagsoup.html"
   categories:
   - "integration"
   status:

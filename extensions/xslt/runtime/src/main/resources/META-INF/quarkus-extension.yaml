@@ -24,7 +24,7 @@
 name: "Camel XSLT"
 description: "Transforms XML payload using an XSLT template"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/xslt.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xslt.html"
   categories:
   - "integration"
   status:

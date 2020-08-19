@@ -26,7 +26,7 @@ description: "Manage workflows in the AWS Simple Workflow service"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws-swf.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws-swf.html"
   categories:
   - "integration"
   status:

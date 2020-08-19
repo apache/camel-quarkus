@@ -26,7 +26,7 @@ description: "Sending metrics to AWS CloudWatch using AWS SDK version 2.x"
 metadata:
   keywords:
   - "Amazon"
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/aws2-cw.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-cw.html"
   categories:
   - "integration"
   status:

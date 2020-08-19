@@ -24,7 +24,7 @@
 name: "Camel Vert.x"
 description: "Send and receive messages to/from Vert.x Event Bus"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/vertx.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/vertx.html"
   categories:
   - "integration"
   status:

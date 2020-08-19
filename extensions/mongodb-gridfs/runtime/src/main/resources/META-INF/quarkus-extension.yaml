@@ -24,7 +24,7 @@
 name: "Camel MongoDB GridFS"
 description: "Interact with MongoDB GridFS"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/mongodb-gridfs.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/mongodb-gridfs.html"
   categories:
   - "integration"
   status:

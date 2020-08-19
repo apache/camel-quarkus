@@ -24,7 +24,7 @@
 name: "Camel Olingo4"
 description: "Communicate with OData 4.0 services using Apache Olingo OData API"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/olingo4.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/olingo4.html"
   categories:
   - "integration"
   status:

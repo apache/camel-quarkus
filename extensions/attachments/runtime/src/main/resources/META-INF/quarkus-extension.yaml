@@ -24,7 +24,7 @@
 name: "Camel Attachments"
 description: "Support for attachments on Camel messages"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/attachments.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/attachments.html"
   categories:
   - "integration"
   status:

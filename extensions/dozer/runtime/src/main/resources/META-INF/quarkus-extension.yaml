@@ -24,7 +24,7 @@
 name: "Camel Dozer"
 description: "Map between Java beans using the Dozer mapping library"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/dozer.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/dozer.html"
   categories:
   - "integration"
   status:

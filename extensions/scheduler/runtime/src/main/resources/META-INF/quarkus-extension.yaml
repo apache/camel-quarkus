@@ -24,7 +24,7 @@
 name: "Camel Scheduler"
 description: "Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/scheduler.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/scheduler.html"
   categories:
   - "integration"
   status:

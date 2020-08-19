@@ -25,7 +25,7 @@ name: "Camel Cassandra CQL"
 description: "Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API)"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/cassandraql.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cassandraql.html"
   categories:
   - "integration"
   status:

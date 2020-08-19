@@ -24,7 +24,7 @@
 name: "Camel Main"
 description: "Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/main.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/main.html"
   categories:
   - "integration"
   status:

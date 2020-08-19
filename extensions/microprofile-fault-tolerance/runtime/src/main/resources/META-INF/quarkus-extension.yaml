@@ -24,7 +24,7 @@
 name: "Camel Microprofile Fault Tolerance"
 description: "Circuit Breaker EIP using Microprofile Fault Tolerance"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/microprofile-fault-tolerance.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/microprofile-fault-tolerance.html"
   categories:
   - "integration"
   status:

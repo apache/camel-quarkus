@@ -24,7 +24,7 @@
 name: "Camel Javax Websocket (JSR 356)"
 description: "Expose websocket endpoints using JSR356"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/websocket-jsr356.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/websocket-jsr356.html"
   categories:
   - "integration"
   status:

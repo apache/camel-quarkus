@@ -25,7 +25,7 @@ name: "Camel OGNL"
 description: "Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/ognl.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ognl.html"
   categories:
   - "integration"
   status:

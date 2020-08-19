@@ -25,7 +25,7 @@ name: "Camel Couchbase"
 description: "Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases"
 metadata:
   unlisted: true
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/couchbase.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/couchbase.html"
   categories:
   - "integration"
   status:

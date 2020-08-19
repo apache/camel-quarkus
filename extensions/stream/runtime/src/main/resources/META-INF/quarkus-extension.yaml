@@ -24,7 +24,7 @@
 name: "Camel Stream"
 description: "Read from system-in and write to system-out and system-err streams"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/stream.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/stream.html"
   categories:
   - "integration"
   status:

@@ -24,7 +24,7 @@
 name: "Camel HTTP"
 description: "Send requests to external HTTP servers using Apache HTTP Client 4.x"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/http.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/http.html"
   categories:
   - "integration"
   status:
