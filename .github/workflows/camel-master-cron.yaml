@@ -15,12 +15,12 @@
 # limitations under the License.
 #
 
-name: Weekly Build Camel Master
+name: Daily Build Camel Master
 
 on:
   schedule:
-    # Run every Monday at midnight
-    - cron:  '0 0 * * 1'
+    # Run every day at midnight
+    - cron:  '0 0 * * *'
 
 env:
   LANG: en_US

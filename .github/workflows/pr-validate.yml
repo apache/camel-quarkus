@@ -26,6 +26,7 @@ on:
       - "[0-9]+.[0-9]+.x"
     paths-ignore:
       - '**.adoc'
+      - 'Jenkinsfile'
       - 'KEYS'
       - 'LICENSE.txt'
       - 'NOTICE.txt'
