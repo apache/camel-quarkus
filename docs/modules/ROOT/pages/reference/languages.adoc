@@ -4,48 +4,76 @@
 [camel-quarkus-languages]
 = Camel languages supported on Quarkus
 
-13 languages in 7 JAR artifacts (0 deprecated, 2 JVM only)
+[#cq-languages-table-row-count]##?## languages in [#cq-languages-table-artifact-count]##?## JAR artifacts ([#cq-languages-table-deprecated-count]##?## deprecated, [#cq-languages-table-jvm-count]##?## JVM only)
 
-[width="100%",cols="4,1,1,1,5",options="header"]
+[#cq-languages-table.counted-table,width="100%",cols="4,1,1,1,5",options="header"]
 |===
 | Language | Artifact | Support Level | Since | Description
 
-| xref:reference/extensions/bean.adoc[Bean method] | camel-quarkus-bean | Native +
+| xref:reference/extensions/bean.adoc[Bean method] | [.camel-element-artifact]##camel-quarkus-bean## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Call a method of the specified Java bean passing the Exchange, Body or specific headers to it.
 
-| xref:reference/extensions/core.adoc[Constant] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[Constant] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | A fixed value set only once during the route startup.
 
-| xref:reference/extensions/core.adoc[ExchangeProperty] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[ExchangeProperty] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Get the value of named Camel Exchange property.
 
-| xref:reference/extensions/core.adoc[File] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[File] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | For expressions and predicates using the file/simple language.
 
-| xref:reference/extensions/groovy.adoc[Groovy] | camel-quarkus-groovy | JVM +
+| xref:reference/extensions/groovy.adoc[Groovy] | [.camel-element-artifact]##camel-quarkus-groovy## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Evaluate a Groovy script.
 
-| xref:reference/extensions/core.adoc[Header] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[Header] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Get the value of the named Camel Message header.
 
-| xref:reference/extensions/jsonpath.adoc[JsonPath] | camel-quarkus-jsonpath | Native +
+| xref:reference/extensions/jsonpath.adoc[JsonPath] | [.camel-element-artifact]##camel-quarkus-jsonpath## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate a JsonPath expression against a JSON message body.
 
-| xref:reference/extensions/ognl.adoc[OGNL] | camel-quarkus-ognl | JVM +
+| xref:reference/extensions/ognl.adoc[OGNL] | [.camel-element-artifact]##camel-quarkus-ognl## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 
-| xref:reference/extensions/core.adoc[Ref] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[Ref] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Look up an expression in the Camel Registry and evaluate it.
 
-| xref:reference/extensions/core.adoc[Simple] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[Simple] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Evaluate Camel's built-in Simple language expression against the Camel Exchange.
 
-| xref:reference/extensions/core.adoc[Tokenize] | camel-quarkus-core | Native +
+| xref:reference/extensions/core.adoc[Tokenize] | [.camel-element-artifact]##camel-quarkus-core## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Tokenize text payloads using the specified delimiter patterns.
 
-| xref:reference/extensions/xml-jaxp.adoc[XML Tokenize] | camel-quarkus-xml-jaxp | Native +
+| xref:reference/extensions/xml-jaxp.adoc[XML Tokenize] | [.camel-element-artifact]##camel-quarkus-xml-jaxp## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Tokenize XML payloads using the specified path expression.
 
-| xref:reference/extensions/xpath.adoc[XPath] | camel-quarkus-xpath | Native +
+| xref:reference/extensions/xpath.adoc[XPath] | [.camel-element-artifact]##camel-quarkus-xpath## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate an XPath expression against an XML payload.
 |===
+
+++++
+<script type="text/javascript">
+var countedTables = document.getElementsByClassName("counted-table");
+if (countedTables) {
+    var i;
+    for (i = 0; i < countedTables.length; i++) {
+        var table = countedTables[i];
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rowCountElement = document.getElementById(table.id + "-row-count");
+        rowCountElement.innerHTML = tbody.getElementsByTagName("tr").length;
+        var deprecatedCountElement = document.getElementById(table.id + "-deprecated-count");
+        deprecatedCountElement.innerHTML = tbody.getElementsByClassName("camel-element-deprecated").length;
+        var jvmCountElement = document.getElementById(table.id + "-jvm-count");
+        jvmCountElement.innerHTML = tbody.getElementsByClassName("camel-element-JVM").length;
+
+        var artifactCountElement = document.getElementById(table.id + "-artifact-count");
+        var artifactElements = tbody.getElementsByClassName("camel-element-artifact");
+        var artifactIdSet = new Set();
+        var j;
+        for (j = 0; j < artifactElements.length; j++) {
+            artifactIdSet.add(artifactElements[j].innerHTML);
+        }
+        artifactCountElement.innerHTML = artifactIdSet.size;
+    }
+}
+</script>
+++++

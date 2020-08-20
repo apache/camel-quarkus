@@ -49,8 +49,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import static java.util.stream.Collectors.toSet;
-
 /**
  * Updates the lists of components, data formats,
  *
@@ -253,18 +251,6 @@ public class UpdateDocExtensionsListMojo extends AbstractDocGeneratorMojo {
             TemplateMethodModelEx getTarget, final Path camelBitsListPath, final Collection<ArtifactModel<?>> models) {
         final Map<String, Object> model = new HashMap<>();
         model.put("components", models);
-        final int artifactIdCount = models.stream()
-                .map(ArtifactModel::getArtifactId)
-                .collect(toSet()).size();
-        model.put("numberOfArtifacts", artifactIdCount);
-        final long deprecatedCount = models.stream()
-                .filter(m -> m.isDeprecated())
-                .count();
-        model.put("numberOfDeprecated", deprecatedCount);
-        final long numberofJvmOnly = models.stream()
-                .filter(m -> !m.isNativeSupported())
-                .count();
-        model.put("numberofJvmOnly", numberofJvmOnly);
         model.put("getDocLink", new GetDocLink(referenceBasePath.resolve("extensions"), camelBitsListPath));
         model.put("getSupportLevel", getSupportLevel);
         model.put("getTarget", getTarget);
