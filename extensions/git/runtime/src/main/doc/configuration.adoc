@@ -1,0 +1,1 @@
+If you plan to run your application in native mode and the remote Git repositories it will access require SSL, you will need to set `quarkus.ssl.native=true` in your `application.properties`. See https://quarkus.io/guides/native-and-ssl[Quarkus native and SSL guide] for more details.
