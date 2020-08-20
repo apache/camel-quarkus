@@ -30,3 +30,11 @@ https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarku
 This build creates an issue on failure, which can be tracked here:
 
 https://github.com/apache/camel-quarkus/issues?q=is%3Aopen+is%3Aissue+label%3Abuild%2Fquarkus-master
+
+== Snapshot Deploy Build
+
+https://ci-builds.apache.org/job/Camel/job/Camel%20Quarkus%20SNAPSHOT%20Deploy/
+
+SNAPSHOTs are built and published on push for each branch to:
+
+https://repository.apache.org/snapshots/
