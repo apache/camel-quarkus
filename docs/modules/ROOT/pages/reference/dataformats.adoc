@@ -4,93 +4,121 @@
 [camel-quarkus-dataformats]
 = Camel data formats supported on Quarkus
 
-28 data formats in 23 JAR artifacts (0 deprecated, 1 JVM only)
+[#cq-dataformats-table-row-count]##?## data formats in [#cq-dataformats-table-artifact-count]##?## JAR artifacts ([#cq-dataformats-table-deprecated-count]##?## deprecated, [#cq-dataformats-table-jvm-count]##?## JVM only)
 
-[width="100%",cols="4,1,1,1,5",options="header"]
+[#cq-dataformats-table.counted-table,width="100%",cols="4,1,1,1,5",options="header"]
 |===
 | Data format | Artifact | Support Level | Since | Description
 
-| xref:reference/extensions/avro.adoc[Avro] | camel-quarkus-avro | Native +
+| xref:reference/extensions/avro.adoc[Avro] | [.camel-element-artifact]##camel-quarkus-avro## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Serialize and deserialize messages using Apache Avro binary data format.
 
-| xref:reference/extensions/base64.adoc[Base64] | camel-quarkus-base64 | Native +
+| xref:reference/extensions/base64.adoc[Base64] | [.camel-element-artifact]##camel-quarkus-base64## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Encode and decode data using Base64.
 
-| xref:reference/extensions/bindy.adoc[Bindy CSV] | camel-quarkus-bindy | Native +
+| xref:reference/extensions/bindy.adoc[Bindy CSV] | [.camel-element-artifact]##camel-quarkus-bindy## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:reference/extensions/bindy.adoc[Bindy Fixed Length] | camel-quarkus-bindy | Native +
+| xref:reference/extensions/bindy.adoc[Bindy Fixed Length] | [.camel-element-artifact]##camel-quarkus-bindy## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:reference/extensions/bindy.adoc[Bindy Key Value Pair] | camel-quarkus-bindy | Native +
+| xref:reference/extensions/bindy.adoc[Bindy Key Value Pair] | [.camel-element-artifact]##camel-quarkus-bindy## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
-| xref:reference/extensions/csv.adoc[CSV] | camel-quarkus-csv | Native +
+| xref:reference/extensions/csv.adoc[CSV] | [.camel-element-artifact]##camel-quarkus-csv## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Handle CSV (Comma Separated Values) payloads.
 
-| xref:reference/extensions/fhir.adoc[FHIR JSon] | camel-quarkus-fhir | Native +
+| xref:reference/extensions/fhir.adoc[FHIR JSon] | [.camel-element-artifact]##camel-quarkus-fhir## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from JSON.
 
-| xref:reference/extensions/fhir.adoc[FHIR XML] | camel-quarkus-fhir | Native +
+| xref:reference/extensions/fhir.adoc[FHIR XML] | [.camel-element-artifact]##camel-quarkus-fhir## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Marshall and unmarshall FHIR objects to/from XML.
 
-| xref:reference/extensions/flatpack.adoc[Flatpack] | camel-quarkus-flatpack | Native +
+| xref:reference/extensions/flatpack.adoc[Flatpack] | [.camel-element-artifact]##camel-quarkus-flatpack## | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Marshal and unmarshal Java lists and maps to/from flat files (such as CSV, delimited, or fixed length formats) using Flatpack library.
 
-| xref:reference/extensions/grok.adoc[Grok] | camel-quarkus-grok | Native +
+| xref:reference/extensions/grok.adoc[Grok] | [.camel-element-artifact]##camel-quarkus-grok## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal unstructured data to objects using Logstash based Grok patterns.
 
-| xref:reference/extensions/zip-deflater.adoc[GZip Deflater] | camel-quarkus-zip-deflater | Native +
+| xref:reference/extensions/zip-deflater.adoc[GZip Deflater] | [.camel-element-artifact]##camel-quarkus-zip-deflater## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress messages using java.util.zip.GZIPStream.
 
-| xref:reference/extensions/ical.adoc[iCal] | camel-quarkus-ical | Native +
+| xref:reference/extensions/ical.adoc[iCal] | [.camel-element-artifact]##camel-quarkus-ical## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 
-| xref:reference/extensions/jacksonxml.adoc[JacksonXML] | camel-quarkus-jacksonxml | Native +
+| xref:reference/extensions/jacksonxml.adoc[JacksonXML] | [.camel-element-artifact]##camel-quarkus-jacksonxml## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
-| xref:reference/extensions/jaxb.adoc[JAXB] | camel-quarkus-jaxb | Native +
+| xref:reference/extensions/jaxb.adoc[JAXB] | [.camel-element-artifact]##camel-quarkus-jaxb## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
-| xref:reference/extensions/gson.adoc[JSON Gson] | camel-quarkus-gson | Native +
+| xref:reference/extensions/gson.adoc[JSON Gson] | [.camel-element-artifact]##camel-quarkus-gson## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 
-| xref:reference/extensions/jackson.adoc[JSON Jackson] | camel-quarkus-jackson | Native +
+| xref:reference/extensions/jackson.adoc[JSON Jackson] | [.camel-element-artifact]##camel-quarkus-jackson## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Marshal POJOs to JSON and back.
 
-| xref:reference/extensions/johnzon.adoc[JSON Johnzon] | camel-quarkus-johnzon | Native +
+| xref:reference/extensions/johnzon.adoc[JSON Johnzon] | [.camel-element-artifact]##camel-quarkus-johnzon## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 
-| xref:reference/extensions/xstream.adoc[JSON XStream] | camel-quarkus-xstream | Native +
+| xref:reference/extensions/xstream.adoc[JSON XStream] | [.camel-element-artifact]##camel-quarkus-xstream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 
-| xref:reference/extensions/lzf.adoc[LZF Deflate Compression] | camel-quarkus-lzf | Native +
+| xref:reference/extensions/lzf.adoc[LZF Deflate Compression] | [.camel-element-artifact]##camel-quarkus-lzf## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress streams using LZF deflate algorithm.
 
-| xref:reference/extensions/mail.adoc[MIME Multipart] | camel-quarkus-mail | Native +
+| xref:reference/extensions/mail.adoc[MIME Multipart] | [.camel-element-artifact]##camel-quarkus-mail## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Marshal Camel messages with attachments into MIME-Multipart messages and back.
 
-| xref:reference/extensions/protobuf.adoc[Protobuf] | camel-quarkus-protobuf | JVM +
+| xref:reference/extensions/protobuf.adoc[Protobuf] | [.camel-element-artifact]##camel-quarkus-protobuf## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Serialize and deserialize Java objects using Google's Protocol buffers.
 
-| xref:reference/extensions/soap.adoc[SOAP] | camel-quarkus-soap | Native +
+| xref:reference/extensions/soap.adoc[SOAP] | [.camel-element-artifact]##camel-quarkus-soap## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 
-| xref:reference/extensions/tarfile.adoc[Tar File] | camel-quarkus-tarfile | Native +
+| xref:reference/extensions/tarfile.adoc[Tar File] | [.camel-element-artifact]##camel-quarkus-tarfile## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
-| xref:reference/extensions/tagsoup.adoc[TidyMarkup] | camel-quarkus-tagsoup | Native +
+| xref:reference/extensions/tagsoup.adoc[TidyMarkup] | [.camel-element-artifact]##camel-quarkus-tagsoup## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
-| xref:reference/extensions/xstream.adoc[XStream] | camel-quarkus-xstream | Native +
+| xref:reference/extensions/xstream.adoc[XStream] | [.camel-element-artifact]##camel-quarkus-xstream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal POJOs to/from XML using XStream library.
 
-| xref:reference/extensions/snakeyaml.adoc[YAML SnakeYAML] | camel-quarkus-snakeyaml | Native +
+| xref:reference/extensions/snakeyaml.adoc[YAML SnakeYAML] | [.camel-element-artifact]##camel-quarkus-snakeyaml## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Marshal and unmarshal Java objects to and from YAML.
 
-| xref:reference/extensions/zip-deflater.adoc[Zip Deflate Compression] | camel-quarkus-zip-deflater | Native +
+| xref:reference/extensions/zip-deflater.adoc[Zip Deflate Compression] | [.camel-element-artifact]##camel-quarkus-zip-deflater## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress streams using java.util.zip.Deflater and java.util.zip.Inflater.
 
-| xref:reference/extensions/zipfile.adoc[Zip File] | camel-quarkus-zipfile | Native +
+| xref:reference/extensions/zipfile.adoc[Zip File] | [.camel-element-artifact]##camel-quarkus-zipfile## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStream.
 |===
+
+++++
+<script type="text/javascript">
+var countedTables = document.getElementsByClassName("counted-table");
+if (countedTables) {
+    var i;
+    for (i = 0; i < countedTables.length; i++) {
+        var table = countedTables[i];
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rowCountElement = document.getElementById(table.id + "-row-count");
+        rowCountElement.innerHTML = tbody.getElementsByTagName("tr").length;
+        var deprecatedCountElement = document.getElementById(table.id + "-deprecated-count");
+        deprecatedCountElement.innerHTML = tbody.getElementsByClassName("camel-element-deprecated").length;
+        var jvmCountElement = document.getElementById(table.id + "-jvm-count");
+        jvmCountElement.innerHTML = tbody.getElementsByClassName("camel-element-JVM").length;
+
+        var artifactCountElement = document.getElementById(table.id + "-artifact-count");
+        var artifactElements = tbody.getElementsByClassName("camel-element-artifact");
+        var artifactIdSet = new Set();
+        var j;
+        for (j = 0; j < artifactElements.length; j++) {
+            artifactIdSet.add(artifactElements[j].innerHTML);
+        }
+        artifactCountElement.innerHTML = artifactIdSet.size;
+    }
+}
+</script>
+++++

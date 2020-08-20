@@ -14,14 +14,33 @@ In case you are missing some extension in the list:
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.
 ====
 
-[=components?size] extensions ([=numberOfDeprecated] deprecated, [=numberofJvmOnly] JVM only)
+[=r"[#"]cq-extensions-table-row-count]##?## extensions ([=r"[#"]cq-extensions-table-deprecated-count]##?## deprecated, [=r"[#"]cq-extensions-table-jvm-count]##?## JVM only)
 
-[width="100%",cols="4,1,1,1,5",options="header"]
+[=r"[#"]cq-extensions-table.counted-table,width="100%",cols="4,1,1,1,5",options="header"]
 |===
 | Extension | Artifact | Support Level | Since | Description
 [#list components as row]
 
-| [#if getDocLink(row)??] [=getDocLink(row)][[=row.title]] [#else] ([=row.title])[/#if] | [=row.artifactId] | [=getTarget(row)] +
-[=getSupportLevel(row)] | [=row.firstVersion] | [#if row.deprecated]*deprecated* [/#if][=row.description]
+| [#if getDocLink(row)??] [=getDocLink(row)][[=row.title]] [#else] ([=row.title])[/#if] | [=row.artifactId] | [.camel-element-[=getTarget(row)]]##[=getTarget(row)]## +
+[=getSupportLevel(row)] | [=row.firstVersion] | [#if row.deprecated][.camel-element-deprecated]*deprecated* [/#if][=row.description]
 [/#list]
 |===
+
+++++
+<script type="text/javascript">
+var countedTables = document.getElementsByClassName("counted-table");
+if (countedTables) {
+    var i;
+    for (i = 0; i < countedTables.length; i++) {
+        var table = countedTables[i];
+        var tbody = table.getElementsByTagName("tbody")[0];
+        var rowCountElement = document.getElementById(table.id + "-row-count");
+        rowCountElement.innerHTML = tbody.getElementsByTagName("tr").length;
+        var deprecatedCountElement = document.getElementById(table.id + "-deprecated-count");
+        deprecatedCountElement.innerHTML = tbody.getElementsByClassName("camel-element-deprecated").length;
+        var jvmCountElement = document.getElementById(table.id + "-jvm-count");
+        jvmCountElement.innerHTML = tbody.getElementsByClassName("camel-element-JVM").length;
+    }
+}
+</script>
+++++
