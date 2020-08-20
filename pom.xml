@@ -570,7 +570,7 @@
         <profile>
             <id>jdk-8-classpath</id>
             <activation>
-                <jdk>[9,</jdk>
+                <jdk>[9,)</jdk>
             </activation>
             <build>
                 <plugins>
