@@ -17,7 +17,7 @@ In case you are missing some extension in the list:
   https://github.com/apache/camel-quarkus/issues[report] any issues you encounter.
 ====
 
-166 extensions (1 deprecated, 14 JVM only)
+167 extensions (1 deprecated, 14 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -226,6 +226,9 @@ Stable | 1.1.0 | Parse fixed width and delimited files using the FlatPack librar
 
 |  xref:reference/extensions/ftp.adoc[FTP]  | camel-quarkus-ftp | Native +
 Stable | 1.0.0 | Upload and download files to/from FTP or SFTP servers.
+
+|  xref:reference/extensions/git.adoc[Git]  | camel-quarkus-git | Native +
+Stable | 1.1.0 | Perform operations on git repositories.
 
 |  xref:reference/extensions/github.adoc[GitHub]  | camel-quarkus-github | Native +
 Stable | 1.0.0 | Interact with the GitHub API.

@@ -63,6 +63,7 @@ foundation:
   - ref
   - seda
   - send-dynamic-http
+  - git
 memoryhog-dataformat-json:
   - dataformats-json
 memoryhog-dozer:

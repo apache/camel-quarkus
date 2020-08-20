@@ -4,7 +4,7 @@
 [camel-quarkus-components]
 = Camel components supported on Quarkus
 
-157 components in 122 JAR artifacts (0 deprecated, 17 JVM only)
+158 components in 123 JAR artifacts (0 deprecated, 17 JVM only)
 
 [width="100%",cols="4,1,1,1,5",options="header"]
 |===
@@ -198,6 +198,9 @@ Stable | 1.0.0 | Upload and download files to/from FTP servers.
 
 | xref:reference/extensions/ftp.adoc[FTPS] | camel-quarkus-ftp | Native +
 Stable | 1.0.0 | Upload and download files to/from FTP servers supporting the FTPS protocol.
+
+| xref:reference/extensions/git.adoc[Git] | camel-quarkus-git | Native +
+Stable | 1.1.0 | Perform operations on git repositories.
 
 | xref:reference/extensions/github.adoc[GitHub] | camel-quarkus-github | Native +
 Stable | 1.0.0 | Interact with the GitHub API.

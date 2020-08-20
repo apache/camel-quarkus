@@ -91,6 +91,7 @@
         <module>file</module>
         <module>flatpack</module>
         <module>ftp</module>
+        <module>git</module>
         <module>github</module>
         <module>google</module>
         <module>graphql</module>

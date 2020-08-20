@@ -82,6 +82,7 @@
 *** xref:reference/extensions/file-watch.adoc[File Watch]
 *** xref:reference/extensions/flatpack.adoc[Flatpack]
 *** xref:reference/extensions/ftp.adoc[FTP]
+*** xref:reference/extensions/git.adoc[Git]
 *** xref:reference/extensions/github.adoc[GitHub]
 *** xref:reference/extensions/google-bigquery.adoc[Google BigQuery]
 *** xref:reference/extensions/google-calendar.adoc[Google Calendar]
