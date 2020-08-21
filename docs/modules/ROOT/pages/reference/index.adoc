@@ -425,8 +425,8 @@ Stable | 1.0.0 | Schedule sending of messages using the Quartz 2.x scheduler.
 |  xref:reference/extensions/qute.adoc[Qute]  | camel-quarkus-qute | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Transform messages using Quarkus Qute templating engine
 
-|  xref:reference/extensions/rabbitmq.adoc[RabbitMQ]  | camel-quarkus-rabbitmq | [.camel-element-JVM]##JVM## +
-Preview | 1.0.0 | Send and receive messages from RabbitMQ instances.
+|  xref:reference/extensions/rabbitmq.adoc[RabbitMQ]  | camel-quarkus-rabbitmq | [.camel-element-Native]##Native## +
+Stable | 1.0.0 | Send and receive messages from RabbitMQ instances.
 
 |  xref:reference/extensions/reactive-executor.adoc[Reactive Executor Vert.x]  | camel-quarkus-reactive-executor | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Reactive Executor for camel-core using Vert.x

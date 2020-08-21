@@ -80,6 +80,7 @@ messaging:
   - amqp
   - kafka
   - messaging
+  - rabbitmq
 misc:
   - braintree
   - compression
