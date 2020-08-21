@@ -28,6 +28,9 @@ Stable | 1.0.0 | Call external HTTP services using Async Http Client.
 | xref:reference/extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket] | [.camel-element-artifact]##camel-quarkus-ahc-ws## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Exchange data with external Websocket servers using Async Http Client.
 
+| xref:reference/extensions/atom.adoc[Atom] | [.camel-element-artifact]##camel-quarkus-atom## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Poll Atom RSS feeds.
+
 | xref:reference/extensions/avro-rpc.adoc[Avro RPC] | [.camel-element-artifact]##camel-quarkus-avro-rpc## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Produce or consume Apache Avro RPC services.
 
