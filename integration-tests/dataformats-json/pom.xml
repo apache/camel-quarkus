@@ -30,13 +30,13 @@
     <description>Integration tests for Camel Quarkus extension providing JSON related data formats</description>
 
     <properties>
-        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
+        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/mvndaemon/mvnd -->
         <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
         <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
-        <!-- Please update rule whenever you change the dependencies of this module by running -->
+        <!-- Please update the rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-direct-deployment,camel-quarkus-gson-deployment,camel-quarkus-jackson-deployment,camel-quarkus-jacksonxml-deployment,camel-quarkus-johnzon-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-vm-deployment,camel-quarkus-xml-jaxb-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-direct-deployment,camel-quarkus-gson-deployment,camel-quarkus-jackson-deployment,camel-quarkus-jacksonxml-deployment,camel-quarkus-johnzon-deployment,camel-quarkus-log-deployment,camel-quarkus-main-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-vm-deployment,camel-quarkus-xml-io-deployment,camel-quarkus-xml-jaxb-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>

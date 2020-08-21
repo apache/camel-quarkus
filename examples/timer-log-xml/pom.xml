@@ -32,13 +32,13 @@
     <description>Camel Quarkus Example :: Timer to Log XML</description>
 
     <properties>
-        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/gnodet/mvnd -->
+        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/mvndaemon/mvnd -->
         <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
         <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
         <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
-        <!-- Please update rule whenever you change the dependencies of this module by running -->
+        <!-- Please update the rule whenever you change the dependencies of this module by running -->
         <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-xml-io-deployment,camel-quarkus-log-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment</mvnd.builder.rule>
+        <mvnd.builder.rule>camel-quarkus-log-deployment,camel-quarkus-main-deployment,camel-quarkus-support-policy-deployment,camel-quarkus-timer-deployment,camel-quarkus-xml-io-deployment</mvnd.builder.rule>
     </properties>
 
     <dependencies>
