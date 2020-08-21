@@ -141,6 +141,17 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-atom</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-attachments</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -1312,6 +1323,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-asterisk-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-atom</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-atom-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -3298,6 +3319,11 @@
                 <groupId>javax.xml.ws</groupId>
                 <artifactId>jaxws-api</artifactId>
                 <version>${java.xml.ws.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>${jaxen.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>

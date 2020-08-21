@@ -20,6 +20,7 @@
 *** xref:reference/extensions/asterisk.adoc[Asterisk]
 *** xref:reference/extensions/ahc.adoc[Async HTTP Client (AHC)]
 *** xref:reference/extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket]
+*** xref:reference/extensions/atom.adoc[Atom]
 *** xref:reference/extensions/attachments.adoc[Attachments]
 *** xref:reference/extensions/avro.adoc[Avro]
 *** xref:reference/extensions/avro-rpc.adoc[Avro RPC]
