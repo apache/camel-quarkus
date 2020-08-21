@@ -53,11 +53,11 @@ class PlatformHttpTest {
 
     @Test
     public void rest() throws Throwable {
-        RestAssured.get("/platform-http/rest-get")
+        RestAssured.get("/my-context/platform-http/rest-get")
                 .then().body(equalTo("GET: /rest-get"));
         RestAssured.given()
                 .contentType("text/plain")
-                .post("/platform-http/rest-post")
+                .post("/my-context/platform-http/rest-post")
                 .then().body(equalTo("POST: /rest-post"));
     }
 
@@ -65,13 +65,13 @@ class PlatformHttpTest {
     public void consumes() throws Throwable {
         RestAssured.given()
                 .contentType("application/json")
-                .post("/platform-http/rest-post")
+                .post("/my-context/platform-http/rest-post")
                 .then()
                 .statusCode(415);
 
         RestAssured.given()
                 .contentType("text/plain")
-                .post("/platform-http/rest-post")
+                .post("/my-context/platform-http/rest-post")
                 .then()
                 .statusCode(200);
 
@@ -93,14 +93,14 @@ class PlatformHttpTest {
         RestAssured.given()
                 .accept("application/json")
                 .contentType("text/plain")
-                .post("/platform-http/rest-post")
+                .post("/my-context/platform-http/rest-post")
                 .then()
                 .statusCode(406);
 
         RestAssured.given()
                 .accept("text/plain")
                 .contentType("text/plain")
-                .post("/platform-http/rest-post")
+                .post("/my-context/platform-http/rest-post")
                 .then()
                 .statusCode(200);
 
@@ -123,9 +123,9 @@ class PlatformHttpTest {
     public void invalidMethod() {
         RestAssured.post("/platform-http/hello")
                 .then().statusCode(405);
-        RestAssured.post("/platform-http/rest-get")
+        RestAssured.post("/my-context/platform-http/rest-get")
                 .then().statusCode(405);
-        RestAssured.get("/platform-http/rest-post")
+        RestAssured.get("/my-context/platform-http/rest-post")
                 .then().statusCode(405);
     }
 
@@ -234,7 +234,7 @@ class PlatformHttpTest {
     @Test
     public void pathParam() throws Exception {
         RestAssured.given()
-                .get("/platform-http/hello-by-name/Kermit")
+                .get("/my-context/platform-http/hello-by-name/Kermit")
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello Kermit"));
@@ -250,9 +250,11 @@ class PlatformHttpTest {
                 .body()
                 .asString();
 
+        System.out.println("path = " + path);
+
         RestAssured.given()
                 .urlEncodingEnabled(false)
-                .post(path)
+                .post("/my-context" + path)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello Camel Quarkus Webhook"));
