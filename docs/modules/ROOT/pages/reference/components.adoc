@@ -406,8 +406,8 @@ Preview | 1.0.0 | Send and receive messages to/from PubNub data stream network f
 | xref:reference/extensions/quartz.adoc[Quartz] | [.camel-element-artifact]##camel-quarkus-quartz## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Schedule sending of messages using the Quartz 2.x scheduler.
 
-| xref:reference/extensions/rabbitmq.adoc[RabbitMQ] | [.camel-element-artifact]##camel-quarkus-rabbitmq## | [.camel-element-JVM]##JVM## +
-Preview | 1.0.0 | Send and receive messages from RabbitMQ instances.
+| xref:reference/extensions/rabbitmq.adoc[RabbitMQ] | [.camel-element-artifact]##camel-quarkus-rabbitmq## | [.camel-element-Native]##Native## +
+Stable | 1.0.0 | Send and receive messages from RabbitMQ instances.
 
 | xref:reference/extensions/reactive-streams.adoc[Reactive Streams] | [.camel-element-artifact]##camel-quarkus-reactive-streams## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.
