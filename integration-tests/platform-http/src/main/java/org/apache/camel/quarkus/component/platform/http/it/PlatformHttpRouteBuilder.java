@@ -27,11 +27,18 @@ import org.apache.camel.Exchange;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.webhook.WebhookConfiguration;
+import org.apache.camel.model.rest.RestBindingMode;
 
 public class PlatformHttpRouteBuilder extends RouteBuilder {
     @SuppressWarnings("unchecked")
     @Override
     public void configure() {
+        restConfiguration().component("platform-http").bindingMode(RestBindingMode.off)
+                // and output using pretty print
+                .dataFormatProperty("prettyPrint", "true")
+                // setup context path and port number that api will use
+                .contextPath("my-context");
+
         rest()
                 .get("/platform-http/rest-get")
                 .route()
