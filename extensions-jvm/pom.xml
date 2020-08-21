@@ -34,6 +34,7 @@
 
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>apns</module>
         <module>avro-rpc</module>
         <module>cassandraql</module>
         <module>couchbase</module>

@@ -29,6 +29,9 @@ Stable | 1.0.0 | Send messages to (or consume from) Apache ActiveMQ. This compon
 |  xref:reference/extensions/amqp.adoc[AMQP]  | camel-quarkus-amqp | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Messaging with AMQP protocol using Apache QPid Client.
 
+|  xref:reference/extensions/apns.adoc[APNS]  | camel-quarkus-apns | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send notifications to Apple iOS devices.
+
 |  xref:reference/extensions/ahc.adoc[Async HTTP Client (AHC)]  | camel-quarkus-ahc | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Call external HTTP services using Async Http Client.
 

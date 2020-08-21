@@ -42,6 +42,7 @@
             camel-quarkus-ahc
             camel-quarkus-ahc-ws
             camel-quarkus-amqp
+            camel-quarkus-apns
             camel-quarkus-attachments
             camel-quarkus-avro
             camel-quarkus-avro-rpc
