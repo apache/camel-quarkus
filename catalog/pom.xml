@@ -44,6 +44,7 @@
             camel-quarkus-amqp
             camel-quarkus-apns
             camel-quarkus-asterisk
+            camel-quarkus-atmos
             camel-quarkus-atom
             camel-quarkus-attachments
             camel-quarkus-avro
