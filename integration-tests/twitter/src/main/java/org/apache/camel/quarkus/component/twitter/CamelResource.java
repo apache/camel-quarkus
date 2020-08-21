@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.twitter;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -68,7 +70,8 @@ public class CamelResource {
         final Status s = producerTemplate.requestBody("twitter-timeline://user", message, Status.class);
         LOG.infof("Posted a tweet %s", s.getText());
         return Response
-                .created(new URI(String.format("https://twitter.com/%s/status/%d", s.getUser().getName(), s.getId())))
+                .created(new URI(String.format("https://twitter.com/%s/status/%d",
+                        URLEncoder.encode(s.getUser().getName(), StandardCharsets.UTF_8.toString()), s.getId())))
                 .header("messageId", s.getId())
                 .entity(s.getText())
                 .build();
