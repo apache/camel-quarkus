@@ -121,16 +121,16 @@ class ArangodbTest {
                 .contentType(ContentType.TEXT);
         Response response = request.get("/arangodb/camel/foo/bar1");
         assertEquals(200, response.getStatusCode());
-        String document = response.body().asString().trim();
-        assertTrue(document.contains("\"_key\":\"keyBar1\""));
+        String result = response.body().asString();
+        assertTrue(result.contains("\"_key\":\"keyBar1\""));
 
         //get document with foo = bar2
         request = RestAssured.given()
                 .contentType(ContentType.TEXT);
         response = request.get("/arangodb/camel/foo/bar2");
         assertEquals(200, response.getStatusCode());
-        document = response.body().asString().trim();
-        assertTrue(document.contains("\"_key\":\"keyBar2\""));
+        result = response.body().asString().trim();
+        assertTrue(result.contains("\"_key\":\"keyBar2\""));
     }
 
     @BeforeAll

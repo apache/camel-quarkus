@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.arangodb.it;
 
 import java.net.URI;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.arangodb.ArangoCursor;
 import com.arangodb.entity.DocumentCreateEntity;
 import com.arangodb.entity.DocumentDeleteEntity;
 import com.arangodb.util.MapBuilder;
@@ -61,7 +61,7 @@ public class ArangodbResource {
     public Response put(String message) throws Exception {
         LOG.infof("Saving to arangodb: %s", message);
         final DocumentCreateEntity response = producerTemplate.requestBody(
-                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&collection=camel&operation=SAVE_DOCUMENT",
+                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=SAVE_DOCUMENT",
                 message, DocumentCreateEntity.class);
         LOG.infof("Got response from arangodb: %s", response);
         return Response
@@ -76,7 +76,7 @@ public class ArangodbResource {
     public Response get(@PathParam("key") String key) throws Exception {
         LOG.infof("Retrieve document from arangodb with key: %s", key);
         final String response = producerTemplate.requestBodyAndHeader(
-                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&collection=camel&operation=FIND_DOCUMENT_BY_KEY",
+                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=FIND_DOCUMENT_BY_KEY",
                 key, RESULT_CLASS_TYPE, String.class, String.class);
         LOG.infof("Got response from arangodb: %s", response);
         return Response
@@ -90,7 +90,7 @@ public class ArangodbResource {
     public Response delete(@PathParam("key") String key) throws Exception {
         LOG.infof("Delete document from arangodb with key : %s", key);
         producerTemplate.requestBody(
-                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&collection=camel&operation=DELETE_DOCUMENT",
+                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=DELETE_DOCUMENT",
                 key, DocumentDeleteEntity.class);
 
         return Response
@@ -108,7 +108,7 @@ public class ArangodbResource {
         headers.put(ARANGO_KEY, key);
 
         producerTemplate.requestBodyAndHeaders(
-                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&collection=camel&operation=UPDATE_DOCUMENT",
+                "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&documentCollection=camel&operation=UPDATE_DOCUMENT",
                 msg, headers, String.class);
         return Response
                 .ok()
@@ -131,18 +131,13 @@ public class ArangodbResource {
         headers.put(AQL_QUERY_OPTIONS, null);
         headers.put(RESULT_CLASS_TYPE, String.class);
 
-        final ArangoCursor<String> responseCursor = producerTemplate.requestBodyAndHeaders(
+        final Collection<String> responseList = producerTemplate.requestBodyAndHeaders(
                 "arangodb:test?host={{camel.arangodb.host}}&port={{camel.arangodb.port}}&operation=AQL_QUERY",
-                fooName, headers, ArangoCursor.class);
-
-        String response = "";
-        if (responseCursor.hasNext()) {
-            response = responseCursor.next();
-        }
+                fooName, headers, Collection.class);
 
         return Response
                 .ok()
-                .entity(response)
+                .entity(responseList.toString())
                 .build();
     }
 }
