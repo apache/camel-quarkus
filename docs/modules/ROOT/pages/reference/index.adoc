@@ -41,6 +41,9 @@ Stable | 1.0.0 | Call external HTTP services using Async Http Client.
 |  xref:reference/extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket]  | camel-quarkus-ahc-ws | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Exchange data with external Websocket servers using Async Http Client.
 
+|  xref:reference/extensions/atmos.adoc[Atmos]  | camel-quarkus-atmos | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Integract with EMC's ViPR object data services using the Atmos Client.
+
 |  xref:reference/extensions/atom.adoc[Atom]  | camel-quarkus-atom | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Poll Atom RSS feeds.
 
