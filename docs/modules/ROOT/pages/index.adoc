@@ -1,7 +1,20 @@
 = Apache Camel extensions for Quarkus
 
-This project hosts the efforts to port and package the 280+ Camel components as Quarkus extensions.
+This project aims to bring the awesome integration capabilities of https://camel.apache.org/manual/latest/[Apache Camel]
+and its vast https://camel.apache.org/components/latest/[component library] to the
+https://quarkus.io/[Quarkus runtime].
 
-https://quarkus.io/[Quarkus] is a Java platform offering fast boot times and low memory footprint. It targets both stock JVMs (OpenJDK in the first place) and https://www.graalvm.org/[GraalVM].
+This enables users to take advantage of the performance benefits, https://quarkus.io/vision/developer-joy[developer joy]
+and the https://quarkus.io/vision/container-first[container first ethos] that Quarkus provides.
 
-https://quarkus.io/extensions/[Quarkus extensions] are units of Quarkus distribution. They configure, boot and integrate a technology (in our case Camel components) into your Quarkus application. You will typically use them as dependencies in your project.
+Camel Quarkus provides xref:reference/index.adoc[Quarkus extensions] for many of the Camel components.
+
+Camel Quarkus also takes advantage of the many performance improvements made in Camel 3, which results in a lower memory footprint, less reliance on reflection (which is good for native application support) and faster startup times.
+
+You can define Camel routes using the Java DSL, XML & Kotlin (see the xref:user-guide/examples.adoc[examples]).
+
+=== Where to go next?
+
+* xref:user-guide/index.adoc[User guide]
+* xref:contributor-guide/index.adoc[Contributor guide]
+* xref:reference/index.adoc[Extensions reference]
