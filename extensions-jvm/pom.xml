@@ -42,6 +42,7 @@
         <module>avro-rpc</module>
         <module>aws2-kinesis</module>
         <module>aws2-lambda</module>
+        <module>azure-storage-blob</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>

@@ -154,6 +154,9 @@ Stable | 1.0.0 | Store and Retrieve data from/to AWS SDB service.
 | xref:reference/extensions/aws-translate.adoc[AWS Translate] | [.camel-element-artifact]##camel-quarkus-aws-translate## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Translate texts using AWS Translate.
 
+| xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service] | [.camel-element-artifact]##camel-quarkus-azure-storage-blob## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
+
 | xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Legacy)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service.
 
