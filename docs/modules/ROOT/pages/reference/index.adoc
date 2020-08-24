@@ -152,6 +152,9 @@ Stable | 1.0.0 | Translate texts using AWS Translate.
 |  xref:reference/extensions/azure.adoc[Azure]  | camel-quarkus-azure | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service or store and retrieve messages from Azure Storage Queue Service
 
+|  xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service]  | camel-quarkus-azure-storage-blob | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
+
 |  xref:reference/extensions/base64.adoc[Base64]  | camel-quarkus-base64 | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Encode and decode data using Base64.
 

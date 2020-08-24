@@ -57,6 +57,7 @@
 *** xref:reference/extensions/aws-sdb.adoc[AWS SimpleDB]
 *** xref:reference/extensions/aws-translate.adoc[AWS Translate]
 *** xref:reference/extensions/azure.adoc[Azure]
+*** xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service]
 *** xref:reference/extensions/base64.adoc[Base64]
 *** xref:reference/extensions/bean.adoc[Bean]
 *** xref:reference/extensions/bean-validator.adoc[Bean Validator]
