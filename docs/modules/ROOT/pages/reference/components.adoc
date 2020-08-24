@@ -160,6 +160,9 @@ Preview | 1.1.0 | Store and retrieve blobs from Azure Storage Blob Service using
 | xref:reference/extensions/azure.adoc[Azure Storage Blob Service (Legacy)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve blobs from Azure Storage Blob Service.
 
+| xref:reference/extensions/azure-storage-queue.adoc[Azure Storage Queue Service] | [.camel-element-artifact]##camel-quarkus-azure-storage-queue## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.
+
 | xref:reference/extensions/azure.adoc[Azure Storage Queue Service (Legacy)] | [.camel-element-artifact]##camel-quarkus-azure## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve messages from Azure Storage Queue Service.
 
