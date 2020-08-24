@@ -184,6 +184,12 @@ Stable | 1.0.0 | Upload, download and manage files, folders, groups, collaborati
 | xref:reference/extensions/braintree.adoc[Braintree] | [.camel-element-artifact]##camel-quarkus-braintree## | [.camel-element-Native]##Native## +
 Stable | 1.2.0 | Process payments using Braintree Payments.
 
+| xref:reference/extensions/caffeine.adoc[Caffeine Cache] | [.camel-element-artifact]##camel-quarkus-caffeine## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform caching operations using Caffeine Cache.
+
+| xref:reference/extensions/caffeine.adoc[Caffeine LoadCache] | [.camel-element-artifact]##camel-quarkus-caffeine## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform caching operations using Caffeine Cache with an attached CacheLoader.
+
 | xref:reference/extensions/cassandraql.adoc[Cassandra CQL] | [.camel-element-artifact]##camel-quarkus-cassandraql## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
 
