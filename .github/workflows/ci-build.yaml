@@ -162,6 +162,7 @@ jobs:
     name: Native Tests - ${{matrix.category}}
     needs: build
     runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.build.outputs.matrix) }}
