@@ -34,6 +34,24 @@ Preview | 1.1.0 | Integract with EMC's ViPR object data services using the Atmos
 | xref:reference/extensions/atom.adoc[Atom] | [.camel-element-artifact]##camel-quarkus-atom## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Poll Atom RSS feeds.
 
+| xref:reference/extensions/atomix.adoc[Atomix Map] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed map.
+
+| xref:reference/extensions/atomix.adoc[Atomix Messaging] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's group messaging.
+
+| xref:reference/extensions/atomix.adoc[Atomix MultiMap] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed multi map.
+
+| xref:reference/extensions/atomix.adoc[Atomix Queue] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed queue.
+
+| xref:reference/extensions/atomix.adoc[Atomix Set] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed set.
+
+| xref:reference/extensions/atomix.adoc[Atomix Value] | [.camel-element-artifact]##camel-quarkus-atomix## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed value.
+
 | xref:reference/extensions/avro-rpc.adoc[Avro RPC] | [.camel-element-artifact]##camel-quarkus-avro-rpc## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Produce or consume Apache Avro RPC services.
 

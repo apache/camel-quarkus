@@ -38,6 +38,7 @@
         <module>asterisk</module>
         <module>atmos</module>
         <module>atom</module>
+        <module>atomix</module>
         <module>avro-rpc</module>
         <module>cassandraql</module>
         <module>couchbase</module>

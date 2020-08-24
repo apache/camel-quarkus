@@ -22,6 +22,7 @@
 *** xref:reference/extensions/ahc-ws.adoc[Async HTTP Client (AHC) Websocket]
 *** xref:reference/extensions/atmos.adoc[Atmos]
 *** xref:reference/extensions/atom.adoc[Atom]
+*** xref:reference/extensions/atomix.adoc[Atomix Map]
 *** xref:reference/extensions/attachments.adoc[Attachments]
 *** xref:reference/extensions/avro.adoc[Avro]
 *** xref:reference/extensions/avro-rpc.adoc[Avro RPC]
