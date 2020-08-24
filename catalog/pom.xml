@@ -82,6 +82,7 @@
             camel-quarkus-aws2-translate
             camel-quarkus-azure
             camel-quarkus-azure-storage-blob
+            camel-quarkus-azure-storage-queue
             camel-quarkus-base64
             camel-quarkus-bean
             camel-quarkus-bean-validator
