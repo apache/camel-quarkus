@@ -280,6 +280,9 @@ Stable | 1.2.0 | Sent and receive messages to/from a JMS Queue or Topic.
 | xref:reference/extensions/jolt.adoc[JOLT] | [.camel-element-artifact]##camel-quarkus-jolt## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | JSON to JSON transformation using JOLT.
 
+| xref:reference/extensions/jooq.adoc[JOOQ] | [.camel-element-artifact]##camel-quarkus-jooq## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Store and retrieve Java objects from an SQL database using JOOQ.
+
 | xref:reference/extensions/jpa.adoc[JPA] | [.camel-element-artifact]##camel-quarkus-jpa## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve Java objects from databases using Java Persistence API (JPA).
 

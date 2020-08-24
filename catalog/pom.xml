@@ -142,6 +142,7 @@
             camel-quarkus-jms
             camel-quarkus-johnzon
             camel-quarkus-jolt
+            camel-quarkus-jooq
             camel-quarkus-jpa
             camel-quarkus-json-validator
             camel-quarkus-jsonpath
