@@ -82,6 +82,12 @@ Stable | 1.0.0 | Manage AWS IAM instances using AWS SDK version 2.x.
 | xref:reference/extensions/aws2-kms.adoc[AWS 2 Key Management Service (KMS)] | [.camel-element-artifact]##camel-quarkus-aws2-kms## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Manage keys stored in AWS KMS instances using AWS SDK version 2.x.
 
+| xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis] | [.camel-element-artifact]##camel-quarkus-aws2-kinesis## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
+
+| xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis Firehose] | [.camel-element-artifact]##camel-quarkus-aws2-kinesis## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Consume data from AWS Kinesis Firehose streams using AWS SDK version 2.x.
+
 | xref:reference/extensions/aws2-msk.adoc[AWS 2 Managed Streaming for Apache Kafka (MSK)] | [.camel-element-artifact]##camel-quarkus-aws2-msk## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
 
