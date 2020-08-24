@@ -1,0 +1,36 @@
+= Observability
+
+== Health & liveness checks
+
+Health & liveness checks are supported via the
+xref:reference/extensions/microprofile-health.html[MicroProfile Health] extension. They can be configured via the
+https://camel.apache.org/manual/latest/health-check.html[Camel Health] API or via
+https://quarkus.io/guides/microprofile-health[Quarkus MicroProfile Health].
+
+All configured checks are available on the standard MicroProfile Health endpoint URLs:
+
+* http://localhost:8080/health
+* http://localhost:8080/health/live
+* http://localhost:8080/health/ready
+
+There's an example project which demonstrates health checks: https://github.com/apache/camel-quarkus/tree/master/examples/health
+
+== Metrics
+
+We provide the xref:reference/extensions/microprofile-metrics.html[MicroProfile Metrics] extension which integrates with
+https://quarkus.io/guides/microprofile-metrics[Quarkus MicroProfile Metrics] under the hood. Some basic Camel metrics
+are provided for you out of the box, and these can be supplemented by configuring additional metrics in your routes.
+
+Metrics are available on the standard MicroProfile metrics endpoint:
+
+* http://localhost:8080/metrics
+
+== Tracing
+
+xref:reference/extensions/opentracing.html[Camel Quarkus OpenTracing extension] integrates with the
+https://quarkus.io/guides/opentracing[Quarkus OpenTracing extension]. All you need to do is set up the required
+https://quarkus.io/guides/opentracing#create-the-configuration[configuration] properties and an `OpenTracingTracer`
+will get automatically added to the registry for Camel to use.
+
+There's an example project demonstrating the above features here:
+https://github.com/apache/camel-quarkus/tree/master/examples/observability
