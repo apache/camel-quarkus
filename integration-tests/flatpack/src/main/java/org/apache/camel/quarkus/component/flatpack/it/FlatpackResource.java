@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.flatpack.it;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +77,51 @@ public class FlatpackResource {
     public String fixedLengthMarshal(List<Map<String, String>> object) {
         LOG.infof("Invoking fixedLengthMarshal with object: %s", object);
         return producerTemplate.requestBody("direct:fixed-length-marshal", object, String.class);
+    }
+
+    @Path("/delimited")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedList<?> delimited(String data) {
+        LOG.infof("Invoking delimited with data: %s", data);
+        return producerTemplate.requestBody("direct:delimited", data, LinkedList.class);
+    }
+
+    @Path("/fixed")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedList<?> fixed(String data) {
+        LOG.infof("Invoking fixed with data: %s", data);
+        return producerTemplate.requestBody("direct:fixed", data, LinkedList.class);
+    }
+
+    @Path("/headerAndTrailer")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedList<?> headerAndTrailer(String data) {
+        LOG.infof("Invoking headerAndTrailer with data: %s", data);
+        return producerTemplate.requestBody("direct:header-and-trailer", data, LinkedList.class);
+    }
+
+    @Path("/noDescriptor")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public LinkedList<?> noDescriptor(String data) {
+        LOG.infof("Invoking noDescriptor with data: %s", data);
+        return producerTemplate.requestBody("direct:no-descriptor", data, LinkedList.class);
+    }
+
+    @Path("/invalid")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String invalid(String data) {
+        LOG.infof("Invoking invalid with data: %s", data);
+        return producerTemplate.requestBody("direct:fixed", data, String.class);
     }
 
 }
