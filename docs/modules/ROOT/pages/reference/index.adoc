@@ -170,6 +170,9 @@ Stable | 1.0.0 | Validate the message body using the Java Bean Validation API.
 |  xref:reference/extensions/bindy.adoc[Bindy]  | camel-quarkus-bindy | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
+|  xref:reference/extensions/bonita.adoc[Bonita]  | camel-quarkus-bonita | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Communicate with a remote Bonita BPM process engine.
+
 |  xref:reference/extensions/box.adoc[Box]  | camel-quarkus-box | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload, download and manage files, folders, groups, collaborations, etc. on box.com.
 

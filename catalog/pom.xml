@@ -87,6 +87,7 @@
             camel-quarkus-bean
             camel-quarkus-bean-validator
             camel-quarkus-bindy
+            camel-quarkus-bonita
             camel-quarkus-box
             camel-quarkus-braintree
             camel-quarkus-caffeine-lrucache

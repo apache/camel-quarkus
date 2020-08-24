@@ -463,6 +463,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-bonita</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-box</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -1804,6 +1809,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bindy-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bonita</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-bonita-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -3455,6 +3470,11 @@
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.soap</groupId>
+                <artifactId>javax.xml.soap-api</artifactId>
+                <version>${soap-api.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.xml.ws</groupId>

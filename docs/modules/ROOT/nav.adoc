@@ -64,6 +64,7 @@
 *** xref:reference/extensions/bean.adoc[Bean]
 *** xref:reference/extensions/bean-validator.adoc[Bean Validator]
 *** xref:reference/extensions/bindy.adoc[Bindy]
+*** xref:reference/extensions/bonita.adoc[Bonita]
 *** xref:reference/extensions/box.adoc[Box]
 *** xref:reference/extensions/braintree.adoc[Braintree]
 *** xref:reference/extensions/caffeine-lrucache.adoc[Caffeine LRUCache]

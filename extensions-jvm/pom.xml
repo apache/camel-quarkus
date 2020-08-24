@@ -44,6 +44,7 @@
         <module>aws2-lambda</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
+        <module>bonita</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
