@@ -34,6 +34,7 @@
 *** xref:reference/extensions/aws2-eks.adoc[AWS 2 Elastic Kubernetes Service (EKS)]
 *** xref:reference/extensions/aws2-iam.adoc[AWS 2 Identity and Access Management (IAM)]
 *** xref:reference/extensions/aws2-kms.adoc[AWS 2 Key Management Service (KMS)]
+*** xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis]
 *** xref:reference/extensions/aws2-msk.adoc[AWS 2 Managed Streaming for Apache Kafka (MSK)]
 *** xref:reference/extensions/aws2-mq.adoc[AWS 2 MQ]
 *** xref:reference/extensions/aws2-s3.adoc[AWS 2 S3 Storage Service]
