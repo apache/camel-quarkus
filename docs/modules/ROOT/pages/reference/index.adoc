@@ -194,6 +194,9 @@ Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrif
 |  xref:reference/extensions/chatscript.adoc[ChatScript]  | camel-quarkus-chatscript | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Chat with a ChatScript Server.
 
+|  xref:reference/extensions/chunk.adoc[Chunk]  | camel-quarkus-chunk | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform messages using Chunk templating engine.
+
 |  xref:reference/extensions/core-cloud.adoc[Cloud]  | camel-quarkus-core-cloud | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | The Camel Quarkus core cloud module
 
