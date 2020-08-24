@@ -49,6 +49,7 @@
         <module>caffeine</module>
         <module>cassandraql</module>
         <module>chatscript</module>
+        <module>chunk</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
         <module>dropbox</module>

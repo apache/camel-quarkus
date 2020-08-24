@@ -95,6 +95,7 @@
             camel-quarkus-caffeine-lrucache
             camel-quarkus-cassandraql
             camel-quarkus-chatscript
+            camel-quarkus-chunk
             camel-quarkus-componentdsl
             camel-quarkus-consul
             camel-quarkus-controlbus
