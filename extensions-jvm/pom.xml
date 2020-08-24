@@ -46,6 +46,7 @@
         <module>azure-storage-queue</module>
         <module>beanstalk</module>
         <module>bonita</module>
+        <module>caffeine</module>
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>

@@ -182,6 +182,9 @@ Stable | 1.0.0 | Upload, download and manage files, folders, groups, collaborati
 |  xref:reference/extensions/braintree.adoc[Braintree]  | camel-quarkus-braintree | [.camel-element-Native]##Native## +
 Stable | 1.2.0 | Process payments using Braintree Payments.
 
+|  xref:reference/extensions/caffeine.adoc[Caffeine Cache]  | camel-quarkus-caffeine | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform caching operations using Caffeine Cache.
+
 |  xref:reference/extensions/caffeine-lrucache.adoc[Caffeine LRUCache]  | camel-quarkus-caffeine-lrucache | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | An LRUCacheFactory implementation based on Caffeine
 
