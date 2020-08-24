@@ -163,6 +163,7 @@
             camel-quarkus-mongodb
             camel-quarkus-mongodb-gridfs
             camel-quarkus-mustache
+            camel-quarkus-nats
             camel-quarkus-netty
             camel-quarkus-netty-http
             camel-quarkus-nitrite

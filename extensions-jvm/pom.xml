@@ -48,6 +48,7 @@
         <module>groovy</module>
         <module>grpc</module>
         <module>jooq</module>
+        <module>nats</module>
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>
