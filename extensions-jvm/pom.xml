@@ -47,6 +47,7 @@
         <module>cassandraql</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
+        <module>dropbox</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

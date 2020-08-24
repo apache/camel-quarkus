@@ -230,6 +230,9 @@ Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously
 |  xref:reference/extensions/dozer.adoc[Dozer]  | camel-quarkus-dozer | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Map between Java beans using the Dozer mapping library.
 
+|  xref:reference/extensions/dropbox.adoc[Dropbox]  | camel-quarkus-dropbox | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.
+
 |  xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]  | camel-quarkus-elasticsearch-rest | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 

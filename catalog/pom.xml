@@ -107,6 +107,7 @@
             camel-quarkus-debezium-sqlserver
             camel-quarkus-direct
             camel-quarkus-dozer
+            camel-quarkus-dropbox
             camel-quarkus-elasticsearch-rest
             camel-quarkus-endpointdsl
             camel-quarkus-exec
