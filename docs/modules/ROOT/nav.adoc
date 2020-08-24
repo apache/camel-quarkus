@@ -78,6 +78,7 @@
 *** xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector]
 *** xref:reference/extensions/direct.adoc[Direct]
 *** xref:reference/extensions/dozer.adoc[Dozer]
+*** xref:reference/extensions/dropbox.adoc[Dropbox]
 *** xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]
 *** xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]
 *** xref:reference/extensions/exec.adoc[Exec]
