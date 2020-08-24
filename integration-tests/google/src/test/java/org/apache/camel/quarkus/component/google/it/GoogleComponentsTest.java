@@ -231,5 +231,18 @@ class GoogleComponentsTest {
                 .then()
                 .statusCode(200)
                 .body(is(title + " Updated"));
+
+        // Delete sheet via google-drive component
+        RestAssured.given()
+                .queryParam("fileId", sheetId)
+                .delete("/google-drive/delete")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("fileId", sheetId)
+                .get("/google-drive/read")
+                .then()
+                .statusCode(404);
     }
 }
