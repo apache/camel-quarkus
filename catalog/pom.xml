@@ -91,6 +91,7 @@
             camel-quarkus-bonita
             camel-quarkus-box
             camel-quarkus-braintree
+            camel-quarkus-browse
             camel-quarkus-caffeine
             camel-quarkus-caffeine-lrucache
             camel-quarkus-cassandraql

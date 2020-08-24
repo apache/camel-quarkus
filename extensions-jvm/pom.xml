@@ -46,6 +46,7 @@
         <module>azure-storage-queue</module>
         <module>beanstalk</module>
         <module>bonita</module>
+        <module>browse</module>
         <module>caffeine</module>
         <module>cassandraql</module>
         <module>chatscript</module>
