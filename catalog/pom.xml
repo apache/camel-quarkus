@@ -46,6 +46,7 @@
             camel-quarkus-asterisk
             camel-quarkus-atmos
             camel-quarkus-atom
+            camel-quarkus-atomix
             camel-quarkus-attachments
             camel-quarkus-avro
             camel-quarkus-avro-rpc

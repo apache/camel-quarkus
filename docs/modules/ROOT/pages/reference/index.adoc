@@ -47,6 +47,9 @@ Preview | 1.1.0 | Integract with EMC's ViPR object data services using the Atmos
 |  xref:reference/extensions/atom.adoc[Atom]  | camel-quarkus-atom | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Poll Atom RSS feeds.
 
+|  xref:reference/extensions/atomix.adoc[Atomix Map]  | camel-quarkus-atomix | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access Atomix's distributed map.
+
 |  xref:reference/extensions/attachments.adoc[Attachments]  | camel-quarkus-attachments | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Support for attachments on Camel messages
 
