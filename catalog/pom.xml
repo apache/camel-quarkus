@@ -72,6 +72,7 @@
             camel-quarkus-aws2-iam
             camel-quarkus-aws2-kinesis
             camel-quarkus-aws2-kms
+            camel-quarkus-aws2-lambda
             camel-quarkus-aws2-mq
             camel-quarkus-aws2-msk
             camel-quarkus-aws2-s3
