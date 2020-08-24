@@ -71,6 +71,7 @@
 *** xref:reference/extensions/caffeine.adoc[Caffeine Cache]
 *** xref:reference/extensions/caffeine-lrucache.adoc[Caffeine LRUCache]
 *** xref:reference/extensions/cassandraql.adoc[Cassandra CQL]
+*** xref:reference/extensions/chatscript.adoc[ChatScript]
 *** xref:reference/extensions/core-cloud.adoc[Cloud]
 *** xref:reference/extensions/componentdsl.adoc[Component DSL]
 *** xref:reference/extensions/consul.adoc[Consul]

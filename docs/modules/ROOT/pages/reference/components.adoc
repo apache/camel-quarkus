@@ -193,6 +193,9 @@ Preview | 1.1.0 | Perform caching operations using Caffeine Cache with an attach
 | xref:reference/extensions/cassandraql.adoc[Cassandra CQL] | [.camel-element-artifact]##camel-quarkus-cassandraql## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API).
 
+| xref:reference/extensions/chatscript.adoc[ChatScript] | [.camel-element-artifact]##camel-quarkus-chatscript## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Chat with a ChatScript Server.
+
 | xref:reference/extensions/bean.adoc[Class] | [.camel-element-artifact]##camel-quarkus-bean## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
 
