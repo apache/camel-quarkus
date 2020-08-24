@@ -140,6 +140,7 @@
 *** xref:reference/extensions/mongodb.adoc[MongoDB]
 *** xref:reference/extensions/mongodb-gridfs.adoc[MongoDB GridFS]
 *** xref:reference/extensions/mustache.adoc[Mustache]
+*** xref:reference/extensions/nats.adoc[Nats]
 *** xref:reference/extensions/netty.adoc[Netty]
 *** xref:reference/extensions/netty-http.adoc[Netty HTTP]
 *** xref:reference/extensions/nitrite.adoc[Nitrite]
