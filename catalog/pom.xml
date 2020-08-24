@@ -86,6 +86,7 @@
             camel-quarkus-base64
             camel-quarkus-bean
             camel-quarkus-bean-validator
+            camel-quarkus-beanstalk
             camel-quarkus-bindy
             camel-quarkus-bonita
             camel-quarkus-box

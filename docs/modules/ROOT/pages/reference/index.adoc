@@ -167,6 +167,9 @@ Stable | 0.2.0 | Invoke methods of Java beans
 |  xref:reference/extensions/bean-validator.adoc[Bean Validator]  | camel-quarkus-bean-validator | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Validate the message body using the Java Bean Validation API.
 
+|  xref:reference/extensions/beanstalk.adoc[Beanstalk]  | camel-quarkus-beanstalk | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Retrieve and post-process Beanstalk jobs.
+
 |  xref:reference/extensions/bindy.adoc[Bindy]  | camel-quarkus-bindy | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
