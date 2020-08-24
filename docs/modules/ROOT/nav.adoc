@@ -68,6 +68,7 @@
 *** xref:reference/extensions/bonita.adoc[Bonita]
 *** xref:reference/extensions/box.adoc[Box]
 *** xref:reference/extensions/braintree.adoc[Braintree]
+*** xref:reference/extensions/browse.adoc[Browse]
 *** xref:reference/extensions/caffeine.adoc[Caffeine Cache]
 *** xref:reference/extensions/caffeine-lrucache.adoc[Caffeine LRUCache]
 *** xref:reference/extensions/cassandraql.adoc[Cassandra CQL]
