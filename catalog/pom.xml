@@ -110,6 +110,7 @@
             camel-quarkus-couchbase
             camel-quarkus-couchdb
             camel-quarkus-cron
+            camel-quarkus-crypto
             camel-quarkus-csv
             camel-quarkus-dataformat
             camel-quarkus-debezium-mongodb
