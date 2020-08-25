@@ -250,6 +250,15 @@ Preview | 1.1.0 | Upload, download and manage files, folders, groups, collaborat
 | xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest] | [.camel-element-artifact]##camel-quarkus-elasticsearch-rest## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 
+| xref:reference/extensions/etcd.adoc[Etcd Keys] | [.camel-element-artifact]##camel-quarkus-etcd## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Get, set or delete keys in etcd key-value store.
+
+| xref:reference/extensions/etcd.adoc[Etcd Stats] | [.camel-element-artifact]##camel-quarkus-etcd## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access etcd cluster statistcs.
+
+| xref:reference/extensions/etcd.adoc[Etcd Watch] | [.camel-element-artifact]##camel-quarkus-etcd## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Watch specific etcd keys or directories for changes.
+
 | xref:reference/extensions/exec.adoc[Exec] | [.camel-element-artifact]##camel-quarkus-exec## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Execute commands on the underlying operating system.
 

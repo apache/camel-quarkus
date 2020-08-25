@@ -260,6 +260,9 @@ Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 |  xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]  | camel-quarkus-endpointdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Code Camel endpoint URI using Java DSL instead of plain strings
 
+|  xref:reference/extensions/etcd.adoc[Etcd Keys]  | camel-quarkus-etcd | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Get, set or delete keys in etcd key-value store.
+
 |  xref:reference/extensions/exec.adoc[Exec]  | camel-quarkus-exec | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Execute commands on the underlying operating system.
 
