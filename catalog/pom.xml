@@ -195,6 +195,7 @@
             camel-quarkus-platform-http
             camel-quarkus-protobuf
             camel-quarkus-pubnub
+            camel-quarkus-pulsar
             camel-quarkus-quartz
             camel-quarkus-qute
             camel-quarkus-rabbitmq

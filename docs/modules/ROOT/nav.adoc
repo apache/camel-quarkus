@@ -168,6 +168,7 @@
 *** xref:reference/extensions/platform-http.adoc[Platform HTTP]
 *** xref:reference/extensions/protobuf.adoc[Protobuf]
 *** xref:reference/extensions/pubnub.adoc[PubNub]
+*** xref:reference/extensions/pulsar.adoc[Pulsar]
 *** xref:reference/extensions/quartz.adoc[Quartz]
 *** xref:reference/extensions/qute.adoc[Qute]
 *** xref:reference/extensions/rabbitmq.adoc[RabbitMQ]

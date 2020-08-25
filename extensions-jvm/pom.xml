@@ -72,6 +72,7 @@
         <module>openstack</module>
         <module>protobuf</module>
         <module>pubnub</module>
+        <module>pulsar</module>
     </modules>
 
 </project>
