@@ -123,6 +123,7 @@
             camel-quarkus-djl
             camel-quarkus-dns
             camel-quarkus-dozer
+            camel-quarkus-drill
             camel-quarkus-dropbox
             camel-quarkus-elasticsearch-rest
             camel-quarkus-endpointdsl
