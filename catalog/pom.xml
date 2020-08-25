@@ -119,6 +119,7 @@
             camel-quarkus-debezium-sqlserver
             camel-quarkus-digitalocean
             camel-quarkus-direct
+            camel-quarkus-disruptor
             camel-quarkus-dns
             camel-quarkus-dozer
             camel-quarkus-dropbox
