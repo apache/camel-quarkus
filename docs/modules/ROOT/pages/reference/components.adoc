@@ -253,6 +253,9 @@ Stable | 1.0.0 | Capture changes from an SQL Server database.
 | xref:reference/extensions/direct.adoc[Direct] | [.camel-element-artifact]##camel-quarkus-direct## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
 
+| xref:reference/extensions/dns.adoc[DNS] | [.camel-element-artifact]##camel-quarkus-dns## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform DNS queries using DNSJava.
+
 | xref:reference/extensions/dozer.adoc[Dozer] | [.camel-element-artifact]##camel-quarkus-dozer## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Map between Java beans using the Dozer mapping library.
 
