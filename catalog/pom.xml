@@ -100,6 +100,7 @@
             camel-quarkus-cm-sms
             camel-quarkus-cmis
             camel-quarkus-coap
+            camel-quarkus-cometd
             camel-quarkus-componentdsl
             camel-quarkus-consul
             camel-quarkus-controlbus
