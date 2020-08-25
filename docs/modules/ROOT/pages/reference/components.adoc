@@ -223,6 +223,9 @@ Stable | 1.0.0 | Integrate with Consul service discovery and configuration store
 | xref:reference/extensions/controlbus.adoc[Control Bus] | [.camel-element-artifact]##camel-quarkus-controlbus## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Manage and monitor Camel routes.
 
+| xref:reference/extensions/corda.adoc[Corda] | [.camel-element-artifact]##camel-quarkus-corda## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations against Corda blockchain platform using corda-rpc library.
+
 | xref:reference/extensions/couchbase.adoc[Couchbase] | [.camel-element-artifact]##camel-quarkus-couchbase## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
 

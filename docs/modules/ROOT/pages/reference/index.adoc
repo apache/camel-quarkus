@@ -224,6 +224,9 @@ Stable | 1.0.0 | Integrate with Consul service discovery and configuration store
 |  xref:reference/extensions/controlbus.adoc[Control Bus]  | camel-quarkus-controlbus | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Manage and monitor Camel routes.
 
+|  xref:reference/extensions/corda.adoc[Corda]  | camel-quarkus-corda | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations against Corda blockchain platform using corda-rpc library.
+
 |  xref:reference/extensions/core.adoc[Core]  | camel-quarkus-core | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze
 
