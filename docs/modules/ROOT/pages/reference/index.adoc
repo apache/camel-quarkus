@@ -206,6 +206,9 @@ Stable | 0.2.0 | The Camel Quarkus core cloud module
 |  xref:reference/extensions/cm-sms.adoc[CM SMS Gateway]  | camel-quarkus-cm-sms | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send SMS messages via CM SMS Gateway.
 
+|  xref:reference/extensions/cmis.adoc[CMIS]  | camel-quarkus-cmis | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Read and write data from to/from a CMIS compliant content repositories.
+
 |  xref:reference/extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Create Camel components with a fluent Java DSL
 

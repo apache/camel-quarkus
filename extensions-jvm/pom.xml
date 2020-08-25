@@ -52,6 +52,7 @@
         <module>chatscript</module>
         <module>chunk</module>
         <module>cm-sms</module>
+        <module>cmis</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
         <module>dropbox</module>

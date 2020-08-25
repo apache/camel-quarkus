@@ -98,6 +98,7 @@
             camel-quarkus-chatscript
             camel-quarkus-chunk
             camel-quarkus-cm-sms
+            camel-quarkus-cmis
             camel-quarkus-componentdsl
             camel-quarkus-consul
             camel-quarkus-controlbus
