@@ -23,9 +23,12 @@ import java.util.Map;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -70,13 +73,51 @@ public class ServicenowResource {
         LOG.infof("Sending to servicenow: %s", message);
         final JsonNode response = producerTemplate.requestBodyAndHeaders(
                 "servicenow:" + instance, incident, headers, JsonNode.class);
-
-        String number = response.findPath("number").textValue();
+        String sysId = response.findPath("sys_id").textValue();
 
         LOG.infof("Got response from servicenow: %s", response);
         return Response
                 .created(new URI("https://camel.apache.org/"))
-                .entity(number)
+                .entity(sysId)
                 .build();
+    }
+
+    @Path("/get")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response get(@QueryParam("incidentSysId") String incidentSysId) {
+
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(ServiceNowConstants.RESOURCE, ServiceNowConstants.RESOURCE_TABLE);
+        headers.put(ServiceNowConstants.API_VERSION, "v1");
+        headers.put(ServiceNowConstants.ACTION, ServiceNowConstants.ACTION_RETRIEVE);
+        headers.put(ServiceNowParams.PARAM_TABLE_NAME.getHeader(), "incident");
+        headers.put(ServiceNowParams.PARAM_SYS_ID.getHeader(), incidentSysId);
+        headers.put(ServiceNowConstants.RESPONSE_MODEL, JsonNode.class);
+
+        try {
+            final JsonNode response = producerTemplate.requestBodyAndHeaders("servicenow:" + instance, null, headers,
+                    JsonNode.class);
+            LOG.infof("Got response from servicenow: %s", response);
+            String number = response.findPath("number").textValue();
+            return Response.ok(number).build();
+        } catch (Exception e) {
+            LOG.error(e);
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+    }
+
+    @Path("/delete")
+    @DELETE
+    public Response delete(@QueryParam("incidentSysId") String incidentSysId) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put(ServiceNowConstants.RESOURCE, ServiceNowConstants.RESOURCE_TABLE);
+        headers.put(ServiceNowConstants.API_VERSION, "v1");
+        headers.put(ServiceNowConstants.ACTION, ServiceNowConstants.ACTION_DELETE);
+        headers.put(ServiceNowParams.PARAM_TABLE_NAME.getHeader(), "incident");
+        headers.put(ServiceNowParams.PARAM_SYS_ID.getHeader(), incidentSysId);
+
+        producerTemplate.requestBodyAndHeaders("servicenow:" + instance, null, headers);
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 }
