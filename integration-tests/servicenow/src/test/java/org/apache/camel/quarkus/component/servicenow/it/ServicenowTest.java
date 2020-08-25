@@ -32,12 +32,37 @@ class ServicenowTest {
 
     @Test
     public void test() {
-        RestAssured.given()
+        // Create incident
+        final String incidentSysId = RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Demo incident")
                 .post("/servicenow/post")
                 .then()
                 .statusCode(201)
+                .extract().body().asString();
+
+        // Retrieve incident
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("incidentSysId", incidentSysId)
+                .get("/servicenow/get")
+                .then()
+                .statusCode(200)
                 .body(matchesPattern("INC[0-9]+"));
+
+        // Delete incident
+        RestAssured.given()
+                .queryParam("incidentSysId", incidentSysId)
+                .delete("/servicenow/delete")
+                .then()
+                .statusCode(204);
+
+        // Check it is deleted
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("incidentSysId", incidentSysId)
+                .get("/servicenow/get")
+                .then()
+                .statusCode(404);
     }
 }
