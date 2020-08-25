@@ -79,7 +79,7 @@ public class [=toCapCamelCase(artifactIdBase)]Resource {
     CamelContext context;
 
 [#list models as model]
-    @Path("/load/[=model.kind]/[=model.name]")
+    @Path("/load/[=model.kind]/[=toKebabCase(model.name)]")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response load[=toCapCamelCase(model.kind)][=toCapCamelCase(model.name)]() throws Exception {
