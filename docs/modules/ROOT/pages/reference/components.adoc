@@ -253,6 +253,9 @@ Stable | 1.0.0 | Capture changes from a PostgresSQL database.
 | xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector] | [.camel-element-artifact]##camel-quarkus-debezium-sqlserver## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Capture changes from an SQL Server database.
 
+| xref:reference/extensions/digitalocean.adoc[DigitalOcean] | [.camel-element-artifact]##camel-quarkus-digitalocean## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Manage Droplets and resources within the DigitalOcean cloud.
+
 | xref:reference/extensions/direct.adoc[Direct] | [.camel-element-artifact]##camel-quarkus-direct## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Call another endpoint from the same Camel Context synchronously.
 
