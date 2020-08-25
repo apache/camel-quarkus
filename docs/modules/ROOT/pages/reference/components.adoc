@@ -205,6 +205,9 @@ Preview | 1.1.0 | Transform messages using Chunk templating engine.
 | xref:reference/extensions/bean.adoc[Class] | [.camel-element-artifact]##camel-quarkus-bean## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
 
+| xref:reference/extensions/cm-sms.adoc[CM SMS Gateway] | [.camel-element-artifact]##camel-quarkus-cm-sms## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send SMS messages via CM SMS Gateway.
+
 | xref:reference/extensions/consul.adoc[Consul] | [.camel-element-artifact]##camel-quarkus-consul## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Integrate with Consul service discovery and configuration store.
 

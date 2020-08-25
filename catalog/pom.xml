@@ -97,6 +97,7 @@
             camel-quarkus-cassandraql
             camel-quarkus-chatscript
             camel-quarkus-chunk
+            camel-quarkus-cm-sms
             camel-quarkus-componentdsl
             camel-quarkus-consul
             camel-quarkus-controlbus
