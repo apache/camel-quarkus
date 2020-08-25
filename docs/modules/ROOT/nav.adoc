@@ -87,6 +87,7 @@
 *** xref:reference/extensions/couchbase.adoc[Couchbase]
 *** xref:reference/extensions/couchdb.adoc[CouchDB]
 *** xref:reference/extensions/cron.adoc[Cron]
+*** xref:reference/extensions/crypto.adoc[Crypto (JCE)]
 *** xref:reference/extensions/csv.adoc[CSV]
 *** xref:reference/extensions/dataformat.adoc[Data Format]
 *** xref:reference/extensions/debezium-mongodb.adoc[Debezium MongoDB Connector]

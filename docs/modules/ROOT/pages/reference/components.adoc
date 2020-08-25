@@ -235,6 +235,9 @@ Stable | 1.0.0 | Consume changesets for inserts, updates and deletes in a CouchD
 | xref:reference/extensions/cron.adoc[Cron] | [.camel-element-artifact]##camel-quarkus-cron## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | A generic interface for triggering events at times specified through the Unix cron syntax.
 
+| xref:reference/extensions/crypto.adoc[Crypto (JCE)] | [.camel-element-artifact]##camel-quarkus-crypto## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Sign and verify exchanges using the Signature Service of the Java Cryptographic Extension (JCE).
+
 | xref:reference/extensions/dataformat.adoc[Data Format] | [.camel-element-artifact]##camel-quarkus-dataformat## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Use a Camel Data Format as a regular Camel Component.
 

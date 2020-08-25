@@ -25,6 +25,9 @@ Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (suc
 | xref:reference/extensions/bindy.adoc[Bindy Key Value Pair] | [.camel-element-artifact]##camel-quarkus-bindy## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
+| xref:reference/extensions/crypto.adoc[Crypto (Java Cryptographic Extension)] | [.camel-element-artifact]##camel-quarkus-crypto## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Encrypt and decrypt messages using Java Cryptography Extension (JCE).
+
 | xref:reference/extensions/csv.adoc[CSV] | [.camel-element-artifact]##camel-quarkus-csv## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Handle CSV (Comma Separated Values) payloads.
 
@@ -69,6 +72,9 @@ Stable | 1.0.0 | Compress and decompress streams using LZF deflate algorithm.
 
 | xref:reference/extensions/mail.adoc[MIME Multipart] | [.camel-element-artifact]##camel-quarkus-mail## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Marshal Camel messages with attachments into MIME-Multipart messages and back.
+
+| xref:reference/extensions/crypto.adoc[PGP] | [.camel-element-artifact]##camel-quarkus-crypto## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Encrypt and decrypt messages using Java Cryptographic Extension (JCE) and PGP.
 
 | xref:reference/extensions/protobuf.adoc[Protobuf] | [.camel-element-artifact]##camel-quarkus-protobuf## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Serialize and deserialize Java objects using Google's Protocol buffers.
