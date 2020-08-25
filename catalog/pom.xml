@@ -117,6 +117,7 @@
             camel-quarkus-debezium-mysql
             camel-quarkus-debezium-postgres
             camel-quarkus-debezium-sqlserver
+            camel-quarkus-digitalocean
             camel-quarkus-direct
             camel-quarkus-dns
             camel-quarkus-dozer
