@@ -82,6 +82,7 @@
 *** xref:reference/extensions/componentdsl.adoc[Component DSL]
 *** xref:reference/extensions/consul.adoc[Consul]
 *** xref:reference/extensions/controlbus.adoc[Control Bus]
+*** xref:reference/extensions/corda.adoc[Corda]
 *** xref:reference/extensions/core.adoc[Core]
 *** xref:reference/extensions/couchbase.adoc[Couchbase]
 *** xref:reference/extensions/couchdb.adoc[CouchDB]

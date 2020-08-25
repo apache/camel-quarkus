@@ -55,6 +55,7 @@
         <module>cmis</module>
         <module>coap</module>
         <module>cometd</module>
+        <module>corda</module>
         <module>couchbase</module>
         <module>debezium-mongodb</module>
         <module>dropbox</module>

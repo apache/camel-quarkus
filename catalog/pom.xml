@@ -104,6 +104,7 @@
             camel-quarkus-componentdsl
             camel-quarkus-consul
             camel-quarkus-controlbus
+            camel-quarkus-corda
             camel-quarkus-core
             camel-quarkus-core-cloud
             camel-quarkus-couchbase
