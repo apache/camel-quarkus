@@ -96,6 +96,7 @@
 *** xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector]
 *** xref:reference/extensions/digitalocean.adoc[DigitalOcean]
 *** xref:reference/extensions/direct.adoc[Direct]
+*** xref:reference/extensions/disruptor.adoc[Disruptor]
 *** xref:reference/extensions/dns.adoc[DNS]
 *** xref:reference/extensions/dozer.adoc[Dozer]
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
