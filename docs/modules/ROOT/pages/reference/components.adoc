@@ -208,6 +208,9 @@ Stable | 0.2.0 | Invoke methods of Java beans specified by class name.
 | xref:reference/extensions/cm-sms.adoc[CM SMS Gateway] | [.camel-element-artifact]##camel-quarkus-cm-sms## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send SMS messages via CM SMS Gateway.
 
+| xref:reference/extensions/cmis.adoc[CMIS] | [.camel-element-artifact]##camel-quarkus-cmis## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Read and write data from to/from a CMIS compliant content repositories.
+
 | xref:reference/extensions/consul.adoc[Consul] | [.camel-element-artifact]##camel-quarkus-consul## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Integrate with Consul service discovery and configuration store.
 
