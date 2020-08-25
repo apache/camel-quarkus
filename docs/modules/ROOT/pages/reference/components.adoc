@@ -478,6 +478,9 @@ Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the cu
 | xref:reference/extensions/pubnub.adoc[PubNub] | [.camel-element-artifact]##camel-quarkus-pubnub## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Send and receive messages to/from PubNub data stream network for connected devices.
 
+| xref:reference/extensions/pulsar.adoc[Pulsar] | [.camel-element-artifact]##camel-quarkus-pulsar## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages from/to Apache Pulsar messaging system.
+
 | xref:reference/extensions/quartz.adoc[Quartz] | [.camel-element-artifact]##camel-quarkus-quartz## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Schedule sending of messages using the Quartz 2.x scheduler.
 

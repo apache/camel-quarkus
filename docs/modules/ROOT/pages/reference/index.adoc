@@ -467,6 +467,9 @@ Preview | 1.0.0 | Serialize and deserialize Java objects using Google's Protocol
 |  xref:reference/extensions/pubnub.adoc[PubNub]  | camel-quarkus-pubnub | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Send and receive messages to/from PubNub data stream network for connected devices.
 
+|  xref:reference/extensions/pulsar.adoc[Pulsar]  | camel-quarkus-pulsar | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages from/to Apache Pulsar messaging system.
+
 |  xref:reference/extensions/quartz.adoc[Quartz]  | camel-quarkus-quartz | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Schedule sending of messages using the Quartz 2.x scheduler.
 
