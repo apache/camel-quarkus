@@ -271,6 +271,9 @@ Preview | 1.1.0 | Perform DNS queries using DNSJava.
 | xref:reference/extensions/dozer.adoc[Dozer] | [.camel-element-artifact]##camel-quarkus-dozer## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Map between Java beans using the Dozer mapping library.
 
+| xref:reference/extensions/drill.adoc[Drill] | [.camel-element-artifact]##camel-quarkus-drill## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform queries against an Apache Drill cluster.
+
 | xref:reference/extensions/dropbox.adoc[Dropbox] | [.camel-element-artifact]##camel-quarkus-dropbox## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.
 

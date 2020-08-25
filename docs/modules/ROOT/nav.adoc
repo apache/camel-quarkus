@@ -100,6 +100,7 @@
 *** xref:reference/extensions/disruptor.adoc[Disruptor]
 *** xref:reference/extensions/dns.adoc[DNS]
 *** xref:reference/extensions/dozer.adoc[Dozer]
+*** xref:reference/extensions/drill.adoc[Drill]
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
 *** xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]
 *** xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]
