@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.slack.it;
 
+import java.util.UUID;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -39,13 +42,21 @@ class SlackTest {
 
     @Test
     public void testSlackProduceConsumeMessages() {
-        RestAssured.post("/slack/message")
+        final String message = "Hello Camel Quarkus Slack" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/slack/message")
                 .then()
                 .statusCode(201);
 
         RestAssured.get("/slack/messages")
                 .then()
                 .statusCode(200)
-                .body(equalTo("Hello Camel Quarkus Slack"));
+                .body(equalTo(message));
+    }
+
+    boolean externalSlackEnabled() {
+        return System.getenv("SLACK_WEBHOOK_URL") != null;
     }
 }
