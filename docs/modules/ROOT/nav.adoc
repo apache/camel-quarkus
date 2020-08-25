@@ -78,6 +78,7 @@
 *** xref:reference/extensions/cm-sms.adoc[CM SMS Gateway]
 *** xref:reference/extensions/cmis.adoc[CMIS]
 *** xref:reference/extensions/coap.adoc[CoAP]
+*** xref:reference/extensions/cometd.adoc[CometD]
 *** xref:reference/extensions/componentdsl.adoc[Component DSL]
 *** xref:reference/extensions/consul.adoc[Consul]
 *** xref:reference/extensions/controlbus.adoc[Control Bus]

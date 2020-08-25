@@ -212,6 +212,9 @@ Preview | 1.1.0 | Read and write data from to/from a CMIS compliant content repo
 |  xref:reference/extensions/coap.adoc[CoAP]  | camel-quarkus-coap | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from COAP capable devices.
 
+|  xref:reference/extensions/cometd.adoc[CometD]  | camel-quarkus-cometd | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Offers publish/subscribe, peer-to-peer (via a server), and RPC style messaging using the CometD/Bayeux protocol.
+
 |  xref:reference/extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Create Camel components with a fluent Java DSL
 

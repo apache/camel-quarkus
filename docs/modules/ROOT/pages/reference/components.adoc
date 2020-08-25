@@ -214,6 +214,9 @@ Preview | 1.1.0 | Read and write data from to/from a CMIS compliant content repo
 | xref:reference/extensions/coap.adoc[CoAP] | [.camel-element-artifact]##camel-quarkus-coap## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from COAP capable devices.
 
+| xref:reference/extensions/cometd.adoc[CometD] | [.camel-element-artifact]##camel-quarkus-cometd## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Offers publish/subscribe, peer-to-peer (via a server), and RPC style messaging using the CometD/Bayeux protocol.
+
 | xref:reference/extensions/consul.adoc[Consul] | [.camel-element-artifact]##camel-quarkus-consul## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Integrate with Consul service discovery and configuration store.
 
