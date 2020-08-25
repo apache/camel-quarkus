@@ -20,6 +20,7 @@ import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -54,8 +55,9 @@ public class SlackResource {
 
     @Path("/message")
     @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     public Response createSlackMessage(String message) throws Exception {
-        producerTemplate.requestBody("slack://general?" + SLACK_AUTH_PARAMS, "Hello Camel Quarkus Slack");
+        producerTemplate.requestBody("slack://general?" + SLACK_AUTH_PARAMS, message);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
