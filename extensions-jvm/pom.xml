@@ -60,6 +60,7 @@
         <module>debezium-mongodb</module>
         <module>dns</module>
         <module>dropbox</module>
+        <module>etcd</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

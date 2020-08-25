@@ -122,6 +122,7 @@
             camel-quarkus-dropbox
             camel-quarkus-elasticsearch-rest
             camel-quarkus-endpointdsl
+            camel-quarkus-etcd
             camel-quarkus-exec
             camel-quarkus-fhir
             camel-quarkus-file
