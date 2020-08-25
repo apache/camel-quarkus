@@ -203,6 +203,9 @@ Preview | 1.1.0 | Transform messages using Chunk templating engine.
 |  xref:reference/extensions/core-cloud.adoc[Cloud]  | camel-quarkus-core-cloud | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | The Camel Quarkus core cloud module
 
+|  xref:reference/extensions/cm-sms.adoc[CM SMS Gateway]  | camel-quarkus-cm-sms | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send SMS messages via CM SMS Gateway.
+
 |  xref:reference/extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Create Camel components with a fluent Java DSL
 
