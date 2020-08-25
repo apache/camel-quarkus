@@ -112,6 +112,7 @@
             camel-quarkus-debezium-postgres
             camel-quarkus-debezium-sqlserver
             camel-quarkus-direct
+            camel-quarkus-dns
             camel-quarkus-dozer
             camel-quarkus-dropbox
             camel-quarkus-elasticsearch-rest
