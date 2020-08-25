@@ -260,6 +260,9 @@ Stable | 1.0.0 | Capture changes from a PostgresSQL database.
 |  xref:reference/extensions/debezium-sqlserver.adoc[Debezium SQL Server Connector]  | camel-quarkus-debezium-sqlserver | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Capture changes from an SQL Server database.
 
+|  xref:reference/extensions/djl.adoc[Deep Java Library]  | camel-quarkus-djl | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Infer Deep Learning models from message exchanges data using Deep Java Library (DJL).
+
 |  xref:reference/extensions/digitalocean.adoc[DigitalOcean]  | camel-quarkus-digitalocean | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Manage Droplets and resources within the DigitalOcean cloud.
 
