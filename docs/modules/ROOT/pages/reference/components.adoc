@@ -610,6 +610,9 @@ Stable | 1.0.0 | Send and receive messages to/from Vert.x Event Bus.
 | xref:reference/extensions/vm.adoc[VM] | [.camel-element-artifact]##camel-quarkus-vm## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
+| xref:reference/extensions/xchange.adoc[XChange] | [.camel-element-artifact]##camel-quarkus-xchange## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Access market data and trade on Bitcoin and Altcoin exchanges.
+
 | xref:reference/extensions/xj.adoc[XJ] | [.camel-element-artifact]##camel-quarkus-xj## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Transform JSON and XML message using a XSLT.
 
