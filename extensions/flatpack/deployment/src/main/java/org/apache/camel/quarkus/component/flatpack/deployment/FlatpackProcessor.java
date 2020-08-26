@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.flatpack.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.flatpack.FlatpackException;
 
 class FlatpackProcessor {
 
@@ -36,8 +34,4 @@ class FlatpackProcessor {
         return new NativeImageResourceBuildItem("net/sf/flatpack/xml/flatpack.dtd", "fpconvert.properties");
     }
 
-    @BuildStep
-    ReflectiveClassBuildItem registerReflectiveClasses() {
-        return new ReflectiveClassBuildItem(false, false, FlatpackException.class);
-    }
 }
