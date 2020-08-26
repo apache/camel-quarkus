@@ -203,6 +203,7 @@
 *** xref:reference/extensions/tagsoup.adoc[TidyMarkup]
 *** xref:reference/extensions/tika.adoc[Tika]
 *** xref:reference/extensions/timer.adoc[Timer]
+*** xref:reference/extensions/twilio.adoc[Twilio]
 *** xref:reference/extensions/twitter.adoc[Twitter]
 *** xref:reference/extensions/validator.adoc[Validator]
 *** xref:reference/extensions/velocity.adoc[Velocity]

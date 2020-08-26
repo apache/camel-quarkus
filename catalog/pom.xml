@@ -251,6 +251,7 @@
             camel-quarkus-telegram
             camel-quarkus-tika
             camel-quarkus-timer
+            camel-quarkus-twilio
             camel-quarkus-twitter
             camel-quarkus-validator
             camel-quarkus-velocity

@@ -587,6 +587,9 @@ Stable | 1.0.0 | Parse documents and extract metadata and text using Apache Tika
 |  xref:reference/extensions/timer.adoc[Timer]  | camel-quarkus-timer | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Generate messages in specified intervals using java.util.Timer.
 
+|  xref:reference/extensions/twilio.adoc[Twilio]  | camel-quarkus-twilio | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with Twilio REST APIs using Twilio Java SDK.
+
 |  xref:reference/extensions/twitter.adoc[Twitter]  | camel-quarkus-twitter | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Send tweets and receive tweets, direct messages and access Twitter Search
 
