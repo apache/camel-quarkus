@@ -226,6 +226,7 @@
             camel-quarkus-soap
             camel-quarkus-sql
             camel-quarkus-stream
+            camel-quarkus-stub
             camel-quarkus-support-ahc
             camel-quarkus-support-aws
             camel-quarkus-support-aws2
