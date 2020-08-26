@@ -70,6 +70,7 @@
         <module>google-pubsub</module>
         <module>groovy</module>
         <module>grpc</module>
+        <module>ipfs</module>
         <module>jooq</module>
         <module>nats</module>
         <module>nitrite</module>
