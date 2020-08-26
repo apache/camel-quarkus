@@ -25,7 +25,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
-import org.apache.camel.builder.RouteBuilderConfigurer;
+import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -36,7 +36,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CamelMainRouteBuilderConfigurerDiscoveryTest {
+public class CamelMainLambdaRouteBuilderDiscoveryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -67,7 +67,7 @@ public class CamelMainRouteBuilderConfigurerDiscoveryTest {
     }
 
     @Produces
-    public RouteBuilderConfigurer myRoute() {
+    public LambdaRouteBuilder myRoute() {
         return rb -> rb.from("direct:in").routeId("my-route").to("log:out");
     }
 
