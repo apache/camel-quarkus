@@ -78,6 +78,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>yammer</module>
         <module>zendesk</module>
         <module>zookeeper</module>
         <module>zookeeper-master</module>

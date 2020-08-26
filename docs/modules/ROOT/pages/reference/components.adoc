@@ -604,6 +604,9 @@ Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 | xref:reference/extensions/xslt.adoc[XSLT] | [.camel-element-artifact]##camel-quarkus-xslt## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 
+| xref:reference/extensions/yammer.adoc[Yammer] | [.camel-element-artifact]##camel-quarkus-yammer## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with the Yammer enterprise social network.
+
 | xref:reference/extensions/zendesk.adoc[Zendesk] | [.camel-element-artifact]##camel-quarkus-zendesk## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Manage Zendesk tickets, users, organizations, etc.
 

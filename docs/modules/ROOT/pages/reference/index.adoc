@@ -611,6 +611,9 @@ Stable | 1.0.0 | Marshal and unmarshal POJOs to/from XML or JSON using XStream l
 |  xref:reference/extensions/snakeyaml.adoc[YAML SnakeYAML]  | camel-quarkus-snakeyaml | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Marshal and unmarshal Java objects to and from YAML.
 
+|  xref:reference/extensions/yammer.adoc[Yammer]  | camel-quarkus-yammer | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with the Yammer enterprise social network.
+
 |  xref:reference/extensions/zendesk.adoc[Zendesk]  | camel-quarkus-zendesk | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Manage Zendesk tickets, users, organizations, etc.
 
