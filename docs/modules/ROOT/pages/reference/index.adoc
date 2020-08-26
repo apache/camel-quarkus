@@ -599,6 +599,9 @@ Stable | 1.0.0 | An XML stack for parsing XML route definitions. A legacy altern
 |  xref:reference/extensions/xml-jaxp.adoc[XML Tokenize]  | camel-quarkus-xml-jaxp | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Tokenize XML payloads using the specified path expression.
 
+|  xref:reference/extensions/xmpp.adoc[XMPP]  | camel-quarkus-xmpp | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages to/from an XMPP chat server.
+
 |  xref:reference/extensions/xpath.adoc[XPath]  | camel-quarkus-xpath | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate an XPath expression against an XML payload.
 
