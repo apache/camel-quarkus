@@ -253,6 +253,7 @@
             camel-quarkus-vertx
             camel-quarkus-vm
             camel-quarkus-websocket-jsr356
+            camel-quarkus-xj
             camel-quarkus-xml-io
             camel-quarkus-xml-jaxb
             camel-quarkus-xml-jaxp

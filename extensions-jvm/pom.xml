@@ -78,6 +78,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>xj</module>
         <module>xmlsecurity</module>
         <module>xmpp</module>
         <module>xslt-saxon</module>
