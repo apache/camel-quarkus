@@ -22,9 +22,8 @@ cloud:
   - azure
   - consul
   - elasticsearch-rest
-core:
+core-main-validation:
   - core
-main:
   - main
   - main-caffeine-lrucache
   - main-collector
@@ -32,6 +31,9 @@ main:
   - main-command-mode
   - main-xml-io
   - main-xml-jaxb
+  - bean-validator
+  - json-validator
+  - validator
 database:
   - couchdb
   - debezium
@@ -64,17 +66,16 @@ foundation:
   - seda
   - send-dynamic-http
   - git
-memoryhog-dataformat-json:
-  - dataformats-json
-memoryhog-dozer:
-  - dozer
-memoryhog-infinispan:
-  - infinispan
-memoryhog-olingo4:
-  - olingo4
-memoryhog-xml:
+xml-json-olingo4:
   - rest-binding-mode-xml
   - xml
+  - dataformats-json
+  - olingo4
+dozer-ispn-social:
+  - dozer
+  - infinispan
+  - telegram
+  - twitter
 messaging:
   - activemq
   - amqp
@@ -83,10 +84,7 @@ messaging:
   - rabbitmq
 misc:
   - braintree
-  - compression
-  - flatpack
   - graphql
-  - grok
   - jolt
   - master
   - mock
@@ -94,16 +92,19 @@ misc:
   - pdf
   - qute
   - stream
-  - tarfile
   - tika
-  - vertx
-networking:
+networking-dataformats:
   - ftp
   - http
   - mail
   - netty
   - servlet
   - websocket-jsr356
+  - vertx
+  - compression
+  - flatpack
+  - grok
+  - tarfile
 platform:
   - microprofile
   - openapi-java
@@ -123,10 +124,3 @@ saas:
   - sap-netweaver
   - servicenow
   - slack
-social:
-  - telegram
-  - twitter
-validation:
-  - bean-validator
-  - json-validator
-  - validator
