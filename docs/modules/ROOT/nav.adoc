@@ -207,6 +207,7 @@
 *** xref:reference/extensions/validator.adoc[Validator]
 *** xref:reference/extensions/vertx.adoc[Vert.x]
 *** xref:reference/extensions/vm.adoc[VM]
+*** xref:reference/extensions/weka.adoc[Weka]
 *** xref:reference/extensions/wordpress.adoc[Wordpress]
 *** xref:reference/extensions/workday.adoc[Workday]
 *** xref:reference/extensions/xchange.adoc[XChange]

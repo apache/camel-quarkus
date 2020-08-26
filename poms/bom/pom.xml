@@ -1393,6 +1393,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-weka</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-wordpress</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3625,6 +3630,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-weka</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-weka-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-wordpress</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -3847,6 +3862,11 @@
                 <version>${woodstox-core.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.fommil.netlib</groupId>
+                <artifactId>core</artifactId>
+                <version>${fommil.netlib.core.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.api.grpc</groupId>
                 <artifactId>proto-google-common-protos</artifactId>
                 <version>${proto-google-common-protos.version}</version>
@@ -3916,6 +3936,11 @@
                 <groupId>com.squareup.retrofit2</groupId>
                 <artifactId>retrofit</artifactId>
                 <version>${retrofit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.istack</groupId>
+                <artifactId>istack-commons-runtime</artifactId>
+                <version>${istack-commons-runtime.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.mail</groupId>
