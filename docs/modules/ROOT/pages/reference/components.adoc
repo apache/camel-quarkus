@@ -604,6 +604,9 @@ Stable | 0.2.0 | Send tweets and receive tweets from user's timeline.
 | xref:reference/extensions/validator.adoc[Validator] | [.camel-element-artifact]##camel-quarkus-validator## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
 
+| xref:reference/extensions/velocity.adoc[Velocity] | [.camel-element-artifact]##camel-quarkus-velocity## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform messages using a Velocity template.
+
 | xref:reference/extensions/vertx.adoc[Vert.x] | [.camel-element-artifact]##camel-quarkus-vertx## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send and receive messages to/from Vert.x Event Bus.
 
