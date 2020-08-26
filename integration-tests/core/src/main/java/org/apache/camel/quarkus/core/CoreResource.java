@@ -40,7 +40,7 @@ import org.apache.camel.CamelContextAware;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Route;
-import org.apache.camel.builder.RouteBuilderConfigurer;
+import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.model.ModelCamelContext;
@@ -73,7 +73,7 @@ public class CoreResource {
     }
 
     @javax.enterprise.inject.Produces
-    public RouteBuilderConfigurer myOtherRoute() {
+    public LambdaRouteBuilder myOtherRoute() {
         return rb -> rb.from("timer:bar").routeId("bar").to("log:bar");
     }
 
@@ -81,7 +81,7 @@ public class CoreResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String lookupRoutes() {
-        // there should be 2 routes, the one with RouteBuilderConfigurer method above and from CoreRoutes.java
+        // there should be 2 routes, the one with LambdaRouteBuilder method above and from CoreRoutes.java
         return context.getRoutes().stream().map(Route::getId).sorted().collect(Collectors.joining(","));
     }
 
