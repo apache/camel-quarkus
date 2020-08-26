@@ -258,6 +258,7 @@
             camel-quarkus-xml-jaxp
             camel-quarkus-xpath
             camel-quarkus-xslt
+            camel-quarkus-xslt-saxon
             camel-quarkus-xstream
             camel-quarkus-yammer
             camel-quarkus-zendesk

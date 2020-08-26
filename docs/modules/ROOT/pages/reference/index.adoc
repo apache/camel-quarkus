@@ -605,6 +605,9 @@ Stable | 1.0.0 | Evaluate an XPath expression against an XML payload.
 |  xref:reference/extensions/xslt.adoc[XSLT]  | camel-quarkus-xslt | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 
+|  xref:reference/extensions/xslt-saxon.adoc[XSLT Saxon]  | camel-quarkus-xslt-saxon | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform XML payloads using an XSLT template using Saxon.
+
 |  xref:reference/extensions/xstream.adoc[XStream]  | camel-quarkus-xstream | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal POJOs to/from XML or JSON using XStream library.
 
