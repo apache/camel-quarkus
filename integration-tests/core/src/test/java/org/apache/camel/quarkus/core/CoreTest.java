@@ -25,8 +25,7 @@ import io.restassured.response.Response;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.Matchers.emptyOrNullString;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -42,7 +41,13 @@ public class CoreTest {
 
     @Test
     public void testLookupRoutes() {
-        RestAssured.when().get("/test/routes/lookup-routes").then().body(is("bar,timer"));
+        RestAssured.when().get("/test/routes/lookup-routes").then().body(containsString("bar"), containsString("timer"));
+    }
+
+    @Test
+    public void testRouteTemplate() {
+        RestAssured.when().get("/test/routes/template/myTemplate/World").then().body(is("Hello World"));
+        RestAssured.when().get("/test/routes/template/myTemplate/Earth").then().body(is("Hello Earth"));
     }
 
     @Test

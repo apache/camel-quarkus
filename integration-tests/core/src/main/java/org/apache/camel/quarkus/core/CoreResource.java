@@ -41,6 +41,7 @@ import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
 import org.apache.camel.Route;
 import org.apache.camel.builder.LambdaRouteBuilder;
+import org.apache.camel.builder.TemplatedRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.model.ModelCamelContext;
@@ -83,6 +84,20 @@ public class CoreResource {
     public String lookupRoutes() {
         // there should be 2 routes, the one with LambdaRouteBuilder method above and from CoreRoutes.java
         return context.getRoutes().stream().map(Route::getId).sorted().collect(Collectors.joining(","));
+    }
+
+    @Path("/routes/template/{id}/{greeting}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String routeTemplate(@PathParam("id") String id, @PathParam("greeting") String greeting) {
+        String uuid = context.getUuidGenerator().generateUuid();
+        TemplatedRouteBuilder.builder(context, id)
+                .routeId(uuid)
+                .parameter("uuid", uuid)
+                .parameter("greeting", greeting)
+                .add();
+
+        return context.createFluentProducerTemplate().toF("direct:%s", uuid).request(String.class);
     }
 
     @Path("/registry/lookup-registry")
