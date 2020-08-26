@@ -616,6 +616,9 @@ Stable | 1.0.0 | Compress and decompress streams using java.util.zip.Deflater, j
 
 |  xref:reference/extensions/zipfile.adoc[Zip File]  | camel-quarkus-zipfile | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStream.
+
+|  xref:reference/extensions/zookeeper.adoc[ZooKeeper]  | camel-quarkus-zookeeper | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Manage ZooKeeper clusters.
 |===
 
 ++++

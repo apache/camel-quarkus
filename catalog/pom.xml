@@ -261,6 +261,7 @@
             camel-quarkus-xstream
             camel-quarkus-zip-deflater
             camel-quarkus-zipfile
+            camel-quarkus-zookeeper
         </mvnd.builder.rule>
     </properties>
 
