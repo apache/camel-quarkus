@@ -71,6 +71,7 @@
         <module>groovy</module>
         <module>grpc</module>
         <module>ipfs</module>
+        <module>irc</module>
         <module>jooq</module>
         <module>nats</module>
         <module>nitrite</module>
