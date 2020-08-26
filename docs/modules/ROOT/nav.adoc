@@ -211,6 +211,7 @@
 *** xref:reference/extensions/xslt.adoc[XSLT]
 *** xref:reference/extensions/xstream.adoc[XStream]
 *** xref:reference/extensions/snakeyaml.adoc[YAML SnakeYAML]
+*** xref:reference/extensions/zendesk.adoc[Zendesk]
 *** xref:reference/extensions/zip-deflater.adoc[Zip Deflate Compression]
 *** xref:reference/extensions/zipfile.adoc[Zip File]
 *** xref:reference/extensions/zookeeper.adoc[ZooKeeper]
