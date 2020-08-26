@@ -256,6 +256,7 @@
             camel-quarkus-vertx
             camel-quarkus-vm
             camel-quarkus-websocket-jsr356
+            camel-quarkus-workday
             camel-quarkus-xchange
             camel-quarkus-xj
             camel-quarkus-xml-io
