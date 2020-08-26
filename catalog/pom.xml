@@ -255,6 +255,7 @@
             camel-quarkus-validator
             camel-quarkus-vertx
             camel-quarkus-vm
+            camel-quarkus-web3j
             camel-quarkus-websocket-jsr356
             camel-quarkus-weka
             camel-quarkus-wordpress

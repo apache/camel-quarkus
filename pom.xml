@@ -64,6 +64,7 @@
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jetty.version>9.4.18.v20190429</jetty.version>
+        <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <kafka.version>2.5.0</kafka.version>
         <kubernetes-client.version>4.10.2</kubernetes-client.version>
         <kotlin.version>1.3.72</kotlin.version>
@@ -82,6 +83,8 @@
         <xalan.version>2.7.2</xalan.version>
         <xerces.version>2.12.0</xerces.version>
         <xstream.version>1.4.11</xstream.version>
+        <web3j.version>3.6.0</web3j.version><!-- keep in sync with Camel -->
+        <web3j.quorum.version>0.8.0</web3j.quorum.version><!-- keep in sync with Camel -->
         <woodstox-core.version>6.1.1</woodstox-core.version><!-- keep in sync with Camel -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->

@@ -1383,6 +1383,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-web3j</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-webhook</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3620,6 +3625,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-web3j</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-web3j-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-websocket-jsr356</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -3867,6 +3882,17 @@
                 <version>${fommil.netlib.core.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.github.jnr</groupId>
+                <artifactId>jnr-ffi</artifactId>
+                <version>${jnr-ffi.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.ow2.asm</groupId>
+                        <artifactId>asm-util</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
                 <groupId>com.google.api.grpc</groupId>
                 <artifactId>proto-google-common-protos</artifactId>
                 <version>${proto-google-common-protos.version}</version>
@@ -4094,6 +4120,26 @@
                 <groupId>org.threeten</groupId>
                 <artifactId>threetenbp</artifactId>
                 <version>${threetenbp.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>core</artifactId>
+                <version>${web3j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>geth</artifactId>
+                <version>${web3j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>parity</artifactId>
+                <version>${web3j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.web3j</groupId>
+                <artifactId>quorum</artifactId>
+                <version>${web3j.quorum.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.yaml</groupId>
