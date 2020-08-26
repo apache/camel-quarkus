@@ -249,6 +249,7 @@
             camel-quarkus-tagsoup
             camel-quarkus-tarfile
             camel-quarkus-telegram
+            camel-quarkus-thrift
             camel-quarkus-tika
             camel-quarkus-timer
             camel-quarkus-twilio

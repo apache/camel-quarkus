@@ -200,6 +200,7 @@
 *** xref:reference/extensions/stream.adoc[Stream]
 *** xref:reference/extensions/tarfile.adoc[Tar File]
 *** xref:reference/extensions/telegram.adoc[Telegram]
+*** xref:reference/extensions/thrift.adoc[Thrift]
 *** xref:reference/extensions/tagsoup.adoc[TidyMarkup]
 *** xref:reference/extensions/tika.adoc[Tika]
 *** xref:reference/extensions/timer.adoc[Timer]

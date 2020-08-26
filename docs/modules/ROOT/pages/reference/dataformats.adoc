@@ -85,6 +85,9 @@ Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 | xref:reference/extensions/tarfile.adoc[Tar File] | [.camel-element-artifact]##camel-quarkus-tarfile## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
+| xref:reference/extensions/thrift.adoc[Thrift] | [.camel-element-artifact]##camel-quarkus-thrift## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Serialize and deserialize messages using Apache Thrift binary data format.
+
 | xref:reference/extensions/tagsoup.adoc[TidyMarkup] | [.camel-element-artifact]##camel-quarkus-tagsoup## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
