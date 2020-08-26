@@ -590,6 +590,9 @@ Stable | 1.0.0 | Send and receive messages to/from Vert.x Event Bus.
 |  xref:reference/extensions/vm.adoc[VM]  | camel-quarkus-vm | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
+|  xref:reference/extensions/xj.adoc[XJ]  | camel-quarkus-xj | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform JSON and XML message using a XSLT.
+
 |  xref:reference/extensions/xml-io.adoc[XML IO]  | camel-quarkus-xml-io | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 
