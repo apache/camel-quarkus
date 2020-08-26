@@ -262,6 +262,7 @@
             camel-quarkus-zip-deflater
             camel-quarkus-zipfile
             camel-quarkus-zookeeper
+            camel-quarkus-zookeeper-master
         </mvnd.builder.rule>
     </properties>
 

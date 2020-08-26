@@ -619,6 +619,9 @@ Stable | 0.2.0 | Compression and decompress streams using java.util.zip.ZipStrea
 
 |  xref:reference/extensions/zookeeper.adoc[ZooKeeper]  | camel-quarkus-zookeeper | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Manage ZooKeeper clusters.
+
+|  xref:reference/extensions/zookeeper-master.adoc[ZooKeeper Master]  | camel-quarkus-zookeeper-master | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
 |===
 
 ++++
