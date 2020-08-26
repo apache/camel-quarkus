@@ -256,6 +256,7 @@
             camel-quarkus-xml-io
             camel-quarkus-xml-jaxb
             camel-quarkus-xml-jaxp
+            camel-quarkus-xmlsecurity
             camel-quarkus-xmpp
             camel-quarkus-xpath
             camel-quarkus-xslt

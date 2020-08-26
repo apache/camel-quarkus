@@ -596,6 +596,9 @@ Stable | 1.0.0 | An XML stack for parsing XML route definitions. A fast an light
 |  xref:reference/extensions/xml-jaxb.adoc[XML JAXB]  | camel-quarkus-xml-jaxb | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
 
+|  xref:reference/extensions/xmlsecurity.adoc[XML Security Sign]  | camel-quarkus-xmlsecurity | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Sign XML payloads using the XML signature specification.
+
 |  xref:reference/extensions/xml-jaxp.adoc[XML Tokenize]  | camel-quarkus-xml-jaxp | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Tokenize XML payloads using the specified path expression.
 
