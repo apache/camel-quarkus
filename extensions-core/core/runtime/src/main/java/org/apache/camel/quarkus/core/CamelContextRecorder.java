@@ -21,8 +21,8 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.builder.RouteBuilderConfigurer;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
@@ -99,7 +99,7 @@ public class CamelContextRecorder {
 
     public void addRoutesFromContainer(RuntimeValue<CamelContext> context) {
         try {
-            for (RouteBuilderConfigurer builder : context.getValue().getRegistry().findByType(RouteBuilderConfigurer.class)) {
+            for (LambdaRouteBuilder builder : context.getValue().getRegistry().findByType(LambdaRouteBuilder.class)) {
                 context.getValue().addRoutes(new RouteBuilder() {
                     @Override
                     public void configure() throws Exception {
