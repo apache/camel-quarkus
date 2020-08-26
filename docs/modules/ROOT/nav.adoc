@@ -205,6 +205,7 @@
 *** xref:reference/extensions/timer.adoc[Timer]
 *** xref:reference/extensions/twitter.adoc[Twitter]
 *** xref:reference/extensions/validator.adoc[Validator]
+*** xref:reference/extensions/velocity.adoc[Velocity]
 *** xref:reference/extensions/vertx.adoc[Vert.x]
 *** xref:reference/extensions/vm.adoc[VM]
 *** xref:reference/extensions/weather.adoc[Weather]
