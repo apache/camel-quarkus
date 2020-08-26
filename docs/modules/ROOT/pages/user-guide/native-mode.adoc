@@ -41,6 +41,21 @@ In the example above, resources named _docs/included.adoc_ and _images/included.
 `include-patterns` and `exclude-patterns` are list of comma separated link:https://github.com/apache/camel/blob/master/core/camel-util/src/main/java/org/apache/camel/util/AntPathMatcher.java[Ant-path style patterns].
 At the end of the day, resources matching `include-patterns` are marked for inclusion at the exception of resources matching `exclude-patterns`.
 
+[[using-onexception-clause-in-native-mode]]
+== Using onException clause in native mode
+
+When using https://camel.apache.org/manual/latest/exception-clause.html[camel onException handling] in native mode, it is the application developer responsibility to register exception classes for reflection.
+
+For instance, having a camel context with onException handling as below:
+
+[source,java]
+----
+onException(MyException.class).handled(true);
+from("direct:route-that-could-produce-my-exception").throw(MyException.class);
+----
+
+The class `mypackage.MyException` should be registered for reflection, see more in xref:user-guide/native-mode.adoc#reflection[Registering classes for reflection].
+
 [[reflection]]
 == Registering classes for reflection
 
