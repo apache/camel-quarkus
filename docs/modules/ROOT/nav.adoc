@@ -198,6 +198,7 @@
 *** xref:reference/extensions/soap.adoc[SOAP]
 *** xref:reference/extensions/sql.adoc[SQL]
 *** xref:reference/extensions/stream.adoc[Stream]
+*** xref:reference/extensions/stub.adoc[Stub]
 *** xref:reference/extensions/tarfile.adoc[Tar File]
 *** xref:reference/extensions/telegram.adoc[Telegram]
 *** xref:reference/extensions/thrift.adoc[Thrift]

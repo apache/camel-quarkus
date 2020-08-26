@@ -572,6 +572,9 @@ Stable | 1.0.0 | Perform SQL queries using Spring JDBC.
 |  xref:reference/extensions/stream.adoc[Stream]  | camel-quarkus-stream | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Read from system-in and write to system-out and system-err streams.
 
+|  xref:reference/extensions/stub.adoc[Stub]  | camel-quarkus-stub | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Stub out any physical endpoints while in development or testing.
+
 |  xref:reference/extensions/tarfile.adoc[Tar File]  | camel-quarkus-tarfile | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
