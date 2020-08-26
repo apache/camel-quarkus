@@ -259,6 +259,7 @@
             camel-quarkus-xpath
             camel-quarkus-xslt
             camel-quarkus-xstream
+            camel-quarkus-yammer
             camel-quarkus-zendesk
             camel-quarkus-zip-deflater
             camel-quarkus-zipfile
