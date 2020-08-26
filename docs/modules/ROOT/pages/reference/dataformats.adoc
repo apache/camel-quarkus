@@ -88,6 +88,9 @@ Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 | xref:reference/extensions/tagsoup.adoc[TidyMarkup] | [.camel-element-artifact]##camel-quarkus-tagsoup## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
+| xref:reference/extensions/xmlsecurity.adoc[XML Security] | [.camel-element-artifact]##camel-quarkus-xmlsecurity## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Encrypt and decrypt XML payloads using Apache Santuario.
+
 | xref:reference/extensions/xstream.adoc[XStream] | [.camel-element-artifact]##camel-quarkus-xstream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal POJOs to/from XML using XStream library.
 

@@ -206,6 +206,7 @@
 *** xref:reference/extensions/vm.adoc[VM]
 *** xref:reference/extensions/xml-io.adoc[XML IO]
 *** xref:reference/extensions/xml-jaxb.adoc[XML JAXB]
+*** xref:reference/extensions/xmlsecurity.adoc[XML Security Sign]
 *** xref:reference/extensions/xml-jaxp.adoc[XML Tokenize]
 *** xref:reference/extensions/xmpp.adoc[XMPP]
 *** xref:reference/extensions/xpath.adoc[XPath]
