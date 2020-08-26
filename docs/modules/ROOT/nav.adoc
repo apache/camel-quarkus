@@ -129,6 +129,7 @@
 *** xref:reference/extensions/infinispan.adoc[Infinispan]
 *** xref:reference/extensions/influxdb.adoc[InfluxDB]
 *** xref:reference/extensions/ipfs.adoc[IPFS]
+*** xref:reference/extensions/irc.adoc[IRC]
 *** xref:reference/extensions/jacksonxml.adoc[JacksonXML]
 *** xref:reference/extensions/websocket-jsr356.adoc[Javax Websocket]
 *** xref:reference/extensions/jaxb.adoc[JAXB]

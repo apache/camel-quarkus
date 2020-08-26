@@ -158,6 +158,7 @@
             camel-quarkus-integration-test-support-custom-routes-collector
             camel-quarkus-integration-test-support-custom-type-converter
             camel-quarkus-ipfs
+            camel-quarkus-irc
             camel-quarkus-jackson
             camel-quarkus-jacksonxml
             camel-quarkus-jaxb

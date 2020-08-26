@@ -365,6 +365,9 @@ Stable | 1.0.0 | Interact with InfluxDB, a time series database.
 |  xref:reference/extensions/ipfs.adoc[IPFS]  | camel-quarkus-ipfs | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Access the Interplanetary File System (IPFS).
 
+|  xref:reference/extensions/irc.adoc[IRC]  | camel-quarkus-irc | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages to/from and IRC chat.
+
 |  xref:reference/extensions/jacksonxml.adoc[JacksonXML]  | camel-quarkus-jacksonxml | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
