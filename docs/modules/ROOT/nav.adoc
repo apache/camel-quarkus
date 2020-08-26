@@ -187,6 +187,7 @@
 *** xref:reference/extensions/salesforce.adoc[Salesforce]
 *** xref:reference/extensions/sap-netweaver.adoc[SAP NetWeaver]
 *** xref:reference/extensions/scheduler.adoc[Scheduler]
+*** xref:reference/extensions/jsch.adoc[SCP]
 *** xref:reference/extensions/seda.adoc[SEDA]
 *** xref:reference/extensions/servicenow.adoc[ServiceNow]
 *** xref:reference/extensions/servlet.adoc[Servlet]
