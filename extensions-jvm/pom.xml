@@ -73,6 +73,7 @@
         <module>ipfs</module>
         <module>irc</module>
         <module>jooq</module>
+        <module>jsch</module>
         <module>nats</module>
         <module>nitrite</module>
         <module>ognl</module>
