@@ -207,6 +207,7 @@
 *** xref:reference/extensions/validator.adoc[Validator]
 *** xref:reference/extensions/vertx.adoc[Vert.x]
 *** xref:reference/extensions/vm.adoc[VM]
+*** xref:reference/extensions/workday.adoc[Workday]
 *** xref:reference/extensions/xchange.adoc[XChange]
 *** xref:reference/extensions/xj.adoc[XJ]
 *** xref:reference/extensions/xml-io.adoc[XML IO]
