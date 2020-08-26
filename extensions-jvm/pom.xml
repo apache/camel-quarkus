@@ -78,6 +78,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>zookeeper</module>
     </modules>
 
 </project>
