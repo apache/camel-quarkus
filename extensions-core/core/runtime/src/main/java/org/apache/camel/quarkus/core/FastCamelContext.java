@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
@@ -705,6 +706,8 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         if (!alreadyStartingRoutes) {
             setStartingRoutes(true);
         }
+
+        PropertiesComponent pc = getCamelContextReference().getPropertiesComponent();
         try {
             RouteDefinitionHelper.forceAssignIds(getCamelContextReference(), routeDefinitions);
             for (RouteDefinition routeDefinition : routeDefinitions) {
@@ -713,6 +716,14 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
                 if (duplicate != null) {
                     throw new FailedToStartRouteException(routeDefinition.getId(),
                             "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
+                }
+
+                // if the route definition was created via a route template then we need to prepare its parameters when the route is being created and started
+                if (routeDefinition.isTemplate() != null && routeDefinition.isTemplate()
+                        && routeDefinition.getTemplateParameters() != null) {
+                    Properties prop = new Properties();
+                    prop.putAll(routeDefinition.getTemplateParameters());
+                    pc.setLocalProperties(prop);
                 }
 
                 // must ensure route is prepared, before we can start it
