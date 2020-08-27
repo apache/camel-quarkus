@@ -376,6 +376,39 @@ Preview | 1.0.0 | Expose gRPC endpoints and access external gRPC endpoints.
 | xref:reference/extensions/guava-eventbus.adoc[Guava EventBus] | [.camel-element-artifact]##camel-quarkus-guava-eventbus## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from Guava EventBus.
 
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Atomic Number] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Instance] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Consume join/leave events of a cache instance in a Hazelcast cluster.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast List] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed list.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Map] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed map.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Multimap] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed multimap.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Queue] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed queue.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Replicated Map] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast replicated map.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Ringbuffer] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed ringbuffer.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast SEDA] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Asynchronously send/receive Exchanges between Camel routes running on potentially distinct JVMs/hosts backed by Hazelcast BlockingQueue.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Set] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations on Hazelcast distributed set.
+
+| xref:reference/extensions/hazelcast.adoc[Hazelcast Topic] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages to/from Hazelcast distributed topic.
+
 | xref:reference/extensions/http.adoc[HTTP] | [.camel-element-artifact]##camel-quarkus-http## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
