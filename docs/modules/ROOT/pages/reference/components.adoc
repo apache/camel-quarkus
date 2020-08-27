@@ -424,6 +424,27 @@ Preview | 1.1.0 | IEC 60870 supervisory control and data acquisition (SCADA) cli
 | xref:reference/extensions/iec60870.adoc[IEC 60870 Server] | [.camel-element-artifact]##camel-quarkus-iec60870## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | IEC 60870 supervisory control and data acquisition (SCADA) server using NeoSCADA implementation.
 
+| xref:reference/extensions/ignite.adoc[Ignite Cache] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform cache operations on an Ignite cache or consume changes from a continuous query.
+
+| xref:reference/extensions/ignite.adoc[Ignite Compute] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Run compute operations on an Ignite cluster.
+
+| xref:reference/extensions/ignite.adoc[Ignite Events] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Receive events from an Ignite cluster by creating a local event listener.
+
+| xref:reference/extensions/ignite.adoc[Ignite ID Generator] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with Ignite Atomic Sequences and ID Generators .
+
+| xref:reference/extensions/ignite.adoc[Ignite Messaging] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages from an Ignite topic.
+
+| xref:reference/extensions/ignite.adoc[Ignite Queues] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with Ignite Queue data structures.
+
+| xref:reference/extensions/ignite.adoc[Ignite Sets] | [.camel-element-artifact]##camel-quarkus-ignite## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with Ignite Set data structures.
+
 | xref:reference/extensions/infinispan.adoc[Infinispan] | [.camel-element-artifact]##camel-quarkus-infinispan## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
 
