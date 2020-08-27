@@ -137,6 +137,7 @@
 *** xref:reference/extensions/http.adoc[HTTP]
 *** xref:reference/extensions/hystrix.adoc[Hystrix]
 *** xref:reference/extensions/ical.adoc[iCal]
+*** xref:reference/extensions/iec60870.adoc[IEC 60870 Client]
 *** xref:reference/extensions/infinispan.adoc[Infinispan]
 *** xref:reference/extensions/influxdb.adoc[InfluxDB]
 *** xref:reference/extensions/ipfs.adoc[IPFS]

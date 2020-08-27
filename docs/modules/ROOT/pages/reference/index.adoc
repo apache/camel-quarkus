@@ -389,6 +389,9 @@ Stable | 1.0.0 | [.camel-element-deprecated]*deprecated* Circuit Breaker EIP usi
 |  xref:reference/extensions/ical.adoc[iCal]  | camel-quarkus-ical | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 
+|  xref:reference/extensions/iec60870.adoc[IEC 60870 Client]  | camel-quarkus-iec60870 | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
+
 |  xref:reference/extensions/infinispan.adoc[Infinispan]  | camel-quarkus-infinispan | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
 

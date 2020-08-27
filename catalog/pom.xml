@@ -162,6 +162,7 @@
             camel-quarkus-http-common
             camel-quarkus-hystrix
             camel-quarkus-ical
+            camel-quarkus-iec60870
             camel-quarkus-infinispan
             camel-quarkus-influxdb
             camel-quarkus-integration-test-support-custom-log-component
