@@ -116,6 +116,7 @@
 *** xref:reference/extensions/flink.adoc[Flink]
 *** xref:reference/extensions/fop.adoc[FOP]
 *** xref:reference/extensions/ftp.adoc[FTP]
+*** xref:reference/extensions/ganglia.adoc[Ganglia]
 *** xref:reference/extensions/git.adoc[Git]
 *** xref:reference/extensions/github.adoc[GitHub]
 *** xref:reference/extensions/google-bigquery.adoc[Google BigQuery]

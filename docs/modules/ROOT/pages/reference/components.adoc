@@ -325,6 +325,9 @@ Stable | 1.0.0 | Upload and download files to/from FTP servers.
 | xref:reference/extensions/ftp.adoc[FTPS] | [.camel-element-artifact]##camel-quarkus-ftp## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload and download files to/from FTP servers supporting the FTPS protocol.
 
+| xref:reference/extensions/ganglia.adoc[Ganglia] | [.camel-element-artifact]##camel-quarkus-ganglia## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send metrics to Ganglia monitoring system.
+
 | xref:reference/extensions/git.adoc[Git] | [.camel-element-artifact]##camel-quarkus-git## | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Perform operations on git repositories.
 
