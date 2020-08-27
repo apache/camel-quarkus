@@ -127,6 +127,7 @@
             camel-quarkus-dropbox
             camel-quarkus-ehcache
             camel-quarkus-elasticsearch-rest
+            camel-quarkus-elsql
             camel-quarkus-endpointdsl
             camel-quarkus-etcd
             camel-quarkus-exec

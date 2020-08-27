@@ -66,6 +66,7 @@
         <module>drill</module>
         <module>dropbox</module>
         <module>ehcache</module>
+        <module>elsql</module>
         <module>etcd</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
