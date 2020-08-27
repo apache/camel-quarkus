@@ -76,26 +76,26 @@ dozer-ispn-social:
   - infinispan
   - telegram
   - twitter
-messaging:
+  - master
+  - mock
+messaging-networking1:
   - activemq
   - amqp
   - kafka
   - messaging
   - rabbitmq
+  - ftp
+  - http
+  - graphql
 misc:
   - braintree
-  - graphql
   - jolt
-  - master
-  - mock
   - mustache
   - pdf
   - qute
   - stream
   - tika
-networking-dataformats:
-  - ftp
-  - http
+networking2-dataformats:
   - mail
   - netty
   - servlet
