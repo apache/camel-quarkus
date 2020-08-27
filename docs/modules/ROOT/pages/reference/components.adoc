@@ -418,6 +418,12 @@ Preview | 1.1.0 | Send and receive messages to/from Hipchat service.
 | xref:reference/extensions/http.adoc[HTTP] | [.camel-element-artifact]##camel-quarkus-http## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
+| xref:reference/extensions/iec60870.adoc[IEC 60870 Client] | [.camel-element-artifact]##camel-quarkus-iec60870## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA implementation.
+
+| xref:reference/extensions/iec60870.adoc[IEC 60870 Server] | [.camel-element-artifact]##camel-quarkus-iec60870## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | IEC 60870 supervisory control and data acquisition (SCADA) server using NeoSCADA implementation.
+
 | xref:reference/extensions/infinispan.adoc[Infinispan] | [.camel-element-artifact]##camel-quarkus-infinispan## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store and data grid.
 
