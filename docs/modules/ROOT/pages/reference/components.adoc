@@ -409,6 +409,9 @@ Preview | 1.1.0 | Perform operations on Hazelcast distributed set.
 | xref:reference/extensions/hazelcast.adoc[Hazelcast Topic] | [.camel-element-artifact]##camel-quarkus-hazelcast## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from Hazelcast distributed topic.
 
+| xref:reference/extensions/hdfs.adoc[HDFS] | [.camel-element-artifact]##camel-quarkus-hdfs## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Read and write from/to an HDFS filesystem using Hadoop 2.x.
+
 | xref:reference/extensions/http.adoc[HTTP] | [.camel-element-artifact]##camel-quarkus-http## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 

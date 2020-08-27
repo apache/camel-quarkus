@@ -374,6 +374,9 @@ Preview | 1.1.0 | Send and receive messages to/from Guava EventBus.
 |  xref:reference/extensions/hazelcast.adoc[Hazelcast Atomic Number]  | camel-quarkus-hazelcast | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
 
+|  xref:reference/extensions/hdfs.adoc[HDFS]  | camel-quarkus-hdfs | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Read and write from/to an HDFS filesystem using Hadoop 2.x.
+
 |  xref:reference/extensions/http.adoc[HTTP]  | camel-quarkus-http | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
