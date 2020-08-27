@@ -313,6 +313,9 @@ Stable | 1.0.0 | Get notified about file events in a directory using java.nio.fi
 | xref:reference/extensions/flatpack.adoc[Flatpack] | [.camel-element-artifact]##camel-quarkus-flatpack## | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Parse fixed width and delimited files using the FlatPack library.
 
+| xref:reference/extensions/flink.adoc[Flink] | [.camel-element-artifact]##camel-quarkus-flink## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send DataSet jobs to an Apache Flink cluster.
+
 | xref:reference/extensions/ftp.adoc[FTP] | [.camel-element-artifact]##camel-quarkus-ftp## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload and download files to/from FTP servers.
 
