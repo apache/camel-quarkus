@@ -154,6 +154,7 @@
             camel-quarkus-groovy
             camel-quarkus-grpc
             camel-quarkus-gson
+            camel-quarkus-guava-eventbus
             camel-quarkus-http
             camel-quarkus-http-common
             camel-quarkus-hystrix

@@ -130,6 +130,7 @@
 *** xref:reference/extensions/grok.adoc[Grok]
 *** xref:reference/extensions/groovy.adoc[Groovy]
 *** xref:reference/extensions/grpc.adoc[gRPC]
+*** xref:reference/extensions/guava-eventbus.adoc[Guava EventBus]
 *** xref:reference/extensions/http.adoc[HTTP]
 *** xref:reference/extensions/hystrix.adoc[Hystrix]
 *** xref:reference/extensions/ical.adoc[iCal]
