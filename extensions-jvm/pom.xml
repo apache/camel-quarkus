@@ -77,6 +77,7 @@
         <module>google-pubsub</module>
         <module>groovy</module>
         <module>grpc</module>
+        <module>guava-eventbus</module>
         <module>ipfs</module>
         <module>irc</module>
         <module>jooq</module>

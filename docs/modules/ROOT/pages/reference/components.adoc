@@ -373,6 +373,9 @@ Stable | 1.0.0 | Send GraphQL queries and mutations to external systems.
 | xref:reference/extensions/grpc.adoc[gRPC] | [.camel-element-artifact]##camel-quarkus-grpc## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Expose gRPC endpoints and access external gRPC endpoints.
 
+| xref:reference/extensions/guava-eventbus.adoc[Guava EventBus] | [.camel-element-artifact]##camel-quarkus-guava-eventbus## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages to/from Guava EventBus.
+
 | xref:reference/extensions/http.adoc[HTTP] | [.camel-element-artifact]##camel-quarkus-http## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
