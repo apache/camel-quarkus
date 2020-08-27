@@ -68,6 +68,7 @@
         <module>ehcache</module>
         <module>elsql</module>
         <module>etcd</module>
+        <module>facebook</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

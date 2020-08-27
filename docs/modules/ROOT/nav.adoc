@@ -108,6 +108,7 @@
 *** xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]
 *** xref:reference/extensions/etcd.adoc[Etcd Keys]
 *** xref:reference/extensions/exec.adoc[Exec]
+*** xref:reference/extensions/facebook.adoc[Facebook]
 *** xref:reference/extensions/fhir.adoc[FHIR]
 *** xref:reference/extensions/file.adoc[File]
 *** xref:reference/extensions/file-watch.adoc[File Watch]

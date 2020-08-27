@@ -131,6 +131,7 @@
             camel-quarkus-endpointdsl
             camel-quarkus-etcd
             camel-quarkus-exec
+            camel-quarkus-facebook
             camel-quarkus-fhir
             camel-quarkus-file
             camel-quarkus-file-watch
