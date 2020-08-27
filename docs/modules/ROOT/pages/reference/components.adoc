@@ -298,6 +298,9 @@ Preview | 1.1.0 | Watch specific etcd keys or directories for changes.
 | xref:reference/extensions/exec.adoc[Exec] | [.camel-element-artifact]##camel-quarkus-exec## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Execute commands on the underlying operating system.
 
+| xref:reference/extensions/facebook.adoc[Facebook] | [.camel-element-artifact]##camel-quarkus-facebook## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send requests to Facebook APIs supported by Facebook4J.
+
 | xref:reference/extensions/fhir.adoc[FHIR] | [.camel-element-artifact]##camel-quarkus-fhir## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard.
 
