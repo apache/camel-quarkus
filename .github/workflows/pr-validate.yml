@@ -35,7 +35,7 @@ env:
   LANG: en_US
 
 jobs:
-  build:
+  check-format:
     runs-on: ubuntu-latest
     steps:
     - name: Setup apache-snapshots profile
