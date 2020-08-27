@@ -320,6 +320,9 @@ Stable | 1.1.0 | Parse fixed width and delimited files using the FlatPack librar
 |  xref:reference/extensions/flink.adoc[Flink]  | camel-quarkus-flink | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send DataSet jobs to an Apache Flink cluster.
 
+|  xref:reference/extensions/fop.adoc[FOP]  | camel-quarkus-fop | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Render messages into PDF and other output formats supported by Apache FOP.
+
 |  xref:reference/extensions/ftp.adoc[FTP]  | camel-quarkus-ftp | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload and download files to/from FTP or SFTP servers.
 

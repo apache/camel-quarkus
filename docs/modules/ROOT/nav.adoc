@@ -114,6 +114,7 @@
 *** xref:reference/extensions/file-watch.adoc[File Watch]
 *** xref:reference/extensions/flatpack.adoc[Flatpack]
 *** xref:reference/extensions/flink.adoc[Flink]
+*** xref:reference/extensions/fop.adoc[FOP]
 *** xref:reference/extensions/ftp.adoc[FTP]
 *** xref:reference/extensions/git.adoc[Git]
 *** xref:reference/extensions/github.adoc[GitHub]
