@@ -104,6 +104,7 @@
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
 *** xref:reference/extensions/ehcache.adoc[Ehcache]
 *** xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]
+*** xref:reference/extensions/elsql.adoc[ElSQL]
 *** xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]
 *** xref:reference/extensions/etcd.adoc[Etcd Keys]
 *** xref:reference/extensions/exec.adoc[Exec]

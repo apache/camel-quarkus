@@ -283,6 +283,9 @@ Preview | 1.1.0 | Perform caching operations using Ehcache.
 | xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest] | [.camel-element-artifact]##camel-quarkus-elasticsearch-rest## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 
+| xref:reference/extensions/elsql.adoc[ElSQL] | [.camel-element-artifact]##camel-quarkus-elsql## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Use ElSql to define SQL queries. Extends the SQL Component.
+
 | xref:reference/extensions/etcd.adoc[Etcd Keys] | [.camel-element-artifact]##camel-quarkus-etcd## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Get, set or delete keys in etcd key-value store.
 

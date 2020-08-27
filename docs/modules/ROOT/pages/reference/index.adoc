@@ -290,6 +290,9 @@ Preview | 1.1.0 | Perform caching operations using Ehcache.
 |  xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]  | camel-quarkus-elasticsearch-rest | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 
+|  xref:reference/extensions/elsql.adoc[ElSQL]  | camel-quarkus-elsql | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Use ElSql to define SQL queries. Extends the SQL Component.
+
 |  xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]  | camel-quarkus-endpointdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Code Camel endpoint URI using Java DSL instead of plain strings
 
