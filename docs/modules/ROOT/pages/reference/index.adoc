@@ -326,6 +326,9 @@ Preview | 1.1.0 | Render messages into PDF and other output formats supported by
 |  xref:reference/extensions/ftp.adoc[FTP]  | camel-quarkus-ftp | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload and download files to/from FTP or SFTP servers.
 
+|  xref:reference/extensions/ganglia.adoc[Ganglia]  | camel-quarkus-ganglia | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send metrics to Ganglia monitoring system.
+
 |  xref:reference/extensions/git.adoc[Git]  | camel-quarkus-git | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Perform operations on git repositories.
 
