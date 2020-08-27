@@ -156,6 +156,7 @@
             camel-quarkus-gson
             camel-quarkus-guava-eventbus
             camel-quarkus-hazelcast
+            camel-quarkus-hdfs
             camel-quarkus-http
             camel-quarkus-http-common
             camel-quarkus-hystrix

@@ -79,6 +79,7 @@
         <module>grpc</module>
         <module>guava-eventbus</module>
         <module>hazelcast</module>
+        <module>hdfs</module>
         <module>ipfs</module>
         <module>irc</module>
         <module>jooq</module>
