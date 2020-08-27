@@ -102,6 +102,7 @@
 *** xref:reference/extensions/dozer.adoc[Dozer]
 *** xref:reference/extensions/drill.adoc[Drill]
 *** xref:reference/extensions/dropbox.adoc[Dropbox]
+*** xref:reference/extensions/ehcache.adoc[Ehcache]
 *** xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]
 *** xref:reference/extensions/endpointdsl.adoc[Endpoint DSL]
 *** xref:reference/extensions/etcd.adoc[Etcd Keys]

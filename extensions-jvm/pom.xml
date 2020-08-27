@@ -65,6 +65,7 @@
         <module>dns</module>
         <module>drill</module>
         <module>dropbox</module>
+        <module>ehcache</module>
         <module>etcd</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>

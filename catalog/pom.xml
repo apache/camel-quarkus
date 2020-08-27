@@ -125,6 +125,7 @@
             camel-quarkus-dozer
             camel-quarkus-drill
             camel-quarkus-dropbox
+            camel-quarkus-ehcache
             camel-quarkus-elasticsearch-rest
             camel-quarkus-endpointdsl
             camel-quarkus-etcd

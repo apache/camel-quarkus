@@ -284,6 +284,9 @@ Preview | 1.1.0 | Perform queries against an Apache Drill cluster.
 |  xref:reference/extensions/dropbox.adoc[Dropbox]  | camel-quarkus-dropbox | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.
 
+|  xref:reference/extensions/ehcache.adoc[Ehcache]  | camel-quarkus-ehcache | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform caching operations using Ehcache.
+
 |  xref:reference/extensions/elasticsearch-rest.adoc[Elasticsearch Rest]  | camel-quarkus-elasticsearch-rest | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to with an ElasticSearch via REST API.
 
