@@ -140,6 +140,7 @@
             camel-quarkus-fop
             camel-quarkus-ftp
             camel-quarkus-ganglia
+            camel-quarkus-geocoder
             camel-quarkus-git
             camel-quarkus-github
             camel-quarkus-google-bigquery

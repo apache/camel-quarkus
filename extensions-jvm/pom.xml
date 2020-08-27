@@ -72,6 +72,7 @@
         <module>flink</module>
         <module>fop</module>
         <module>ganglia</module>
+        <module>geocoder</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

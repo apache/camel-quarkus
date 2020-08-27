@@ -329,6 +329,9 @@ Stable | 1.0.0 | Upload and download files to/from FTP or SFTP servers.
 |  xref:reference/extensions/ganglia.adoc[Ganglia]  | camel-quarkus-ganglia | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send metrics to Ganglia monitoring system.
 
+|  xref:reference/extensions/geocoder.adoc[Geocoder]  | camel-quarkus-geocoder | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Find geocodes (latitude and longitude) for a given address or the other way round.
+
 |  xref:reference/extensions/git.adoc[Git]  | camel-quarkus-git | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Perform operations on git repositories.
 
