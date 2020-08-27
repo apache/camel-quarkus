@@ -69,6 +69,7 @@
         <module>elsql</module>
         <module>etcd</module>
         <module>facebook</module>
+        <module>flink</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>groovy</module>

@@ -48,6 +48,7 @@
         <awssdk2.version>2.13.33</awssdk2.version>
         <camel.version>3.4.3</camel.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version><!-- keep in sync with Camel -->
+        <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <debezium.version>1.2.0.Final</debezium.version>
         <freemarker.version>2.3.30</freemarker.version>
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->

@@ -136,6 +136,7 @@
             camel-quarkus-file
             camel-quarkus-file-watch
             camel-quarkus-flatpack
+            camel-quarkus-flink
             camel-quarkus-ftp
             camel-quarkus-git
             camel-quarkus-github
