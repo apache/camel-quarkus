@@ -463,6 +463,9 @@ Preview | 1.1.0 | Send and receive messages to/from and IRC chat.
 | xref:reference/extensions/websocket-jsr356.adoc[Javax Websocket] | [.camel-element-artifact]##camel-quarkus-websocket-jsr356## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Expose websocket endpoints using JSR356.
 
+| xref:reference/extensions/jbpm.adoc[JBPM] | [.camel-element-artifact]##camel-quarkus-jbpm## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with jBPM workflow engine over REST.
+
 | xref:reference/extensions/jdbc.adoc[JDBC] | [.camel-element-artifact]##camel-quarkus-jdbc## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Access databases through SQL and JDBC.
 

@@ -86,6 +86,7 @@
         <module>iota</module>
         <module>ipfs</module>
         <module>irc</module>
+        <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
         <module>nats</module>

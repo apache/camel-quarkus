@@ -419,6 +419,9 @@ Stable | 1.0.0 | Expose websocket endpoints using JSR356.
 |  xref:reference/extensions/jaxb.adoc[JAXB]  | camel-quarkus-jaxb | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
+|  xref:reference/extensions/jbpm.adoc[JBPM]  | camel-quarkus-jbpm | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with jBPM workflow engine over REST.
+
 |  xref:reference/extensions/jdbc.adoc[JDBC]  | camel-quarkus-jdbc | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Access databases through SQL and JDBC.
 
