@@ -401,6 +401,9 @@ Stable | 0.2.0 | Read and write from/to Infinispan distributed key/value store a
 |  xref:reference/extensions/influxdb.adoc[InfluxDB]  | camel-quarkus-influxdb | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Interact with InfluxDB, a time series database.
 
+|  xref:reference/extensions/iota.adoc[IOTA]  | camel-quarkus-iota | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Manage financial transactions using IOTA distributed ledger.
+
 |  xref:reference/extensions/ipfs.adoc[IPFS]  | camel-quarkus-ipfs | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Access the Interplanetary File System (IPFS).
 

@@ -83,6 +83,7 @@
         <module>hipchat</module>
         <module>iec60870</module>
         <module>ignite</module>
+        <module>iota</module>
         <module>ipfs</module>
         <module>irc</module>
         <module>jooq</module>

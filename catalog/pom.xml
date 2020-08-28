@@ -170,6 +170,7 @@
             camel-quarkus-integration-test-support-custom-main-listener
             camel-quarkus-integration-test-support-custom-routes-collector
             camel-quarkus-integration-test-support-custom-type-converter
+            camel-quarkus-iota
             camel-quarkus-ipfs
             camel-quarkus-irc
             camel-quarkus-jackson
