@@ -141,6 +141,7 @@
 *** xref:reference/extensions/ignite.adoc[Ignite Cache]
 *** xref:reference/extensions/infinispan.adoc[Infinispan]
 *** xref:reference/extensions/influxdb.adoc[InfluxDB]
+*** xref:reference/extensions/iota.adoc[IOTA]
 *** xref:reference/extensions/ipfs.adoc[IPFS]
 *** xref:reference/extensions/irc.adoc[IRC]
 *** xref:reference/extensions/jacksonxml.adoc[JacksonXML]

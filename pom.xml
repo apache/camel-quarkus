@@ -89,6 +89,7 @@
         <web3j.version>3.6.0</web3j.version><!-- keep in sync with Camel -->
         <web3j.quorum.version>0.8.0</web3j.quorum.version><!-- keep in sync with Camel -->
         <woodstox-core.version>6.1.1</woodstox-core.version><!-- keep in sync with Camel -->
+        <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <activemq-version>5.15.12</activemq-version>
