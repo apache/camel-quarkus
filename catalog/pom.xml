@@ -176,6 +176,7 @@
             camel-quarkus-jackson
             camel-quarkus-jacksonxml
             camel-quarkus-jaxb
+            camel-quarkus-jbpm
             camel-quarkus-jdbc
             camel-quarkus-jira
             camel-quarkus-jms
