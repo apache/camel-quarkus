@@ -31,7 +31,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 public class CamelTwitterTest {
 
     @Test
-    public void direct() {
+    public void direct() throws InterruptedException {
         final String uuid = UUID.randomUUID().toString().replace("-", "");
         final String msg = String.format("Direct message from camel-quarkus-twitter %s", uuid);
         /* Direct message */
@@ -40,13 +40,15 @@ public class CamelTwitterTest {
                 .then().statusCode(201);
 
         /* Check that the above message or a message sent by a previous run of this test was polled by the consumer. */
+        final int initialDelayMs = 60000;
         final int retries = 5;
         final int delayMs = 3000;
         String body = null;
         boolean passed = false;
+        Thread.sleep(initialDelayMs);
         for (int i = 0; i < retries; i++) {
             body = RestAssured.get("/twitter/directmessage").asString();
-            if (body.contains("camel-quarkus-twitter")) {
+            if (body.contains(msg)) {
                 /* test passed */
                 passed = true;
                 break;
@@ -60,8 +62,8 @@ public class CamelTwitterTest {
             }
         }
         if (!passed) {
-            Assertions.fail("Could not find a message containing 'camel-quarkus-twitter' in user's direct messages within ~"
-                    + (retries * delayMs) + " ms; got messages: " + body);
+            Assertions.fail("Could not find a message containing " + msg + " in user's direct messages within ~"
+                    + initialDelayMs + (retries * delayMs) + " ms; got messages: " + body);
         }
     }
 
@@ -134,5 +136,4 @@ public class CamelTwitterTest {
             }
         }
     }
-
 }
