@@ -93,7 +93,8 @@ public class CamelResource {
     public String getDirectmessages() {
         LOG.infof("Polling direct messages of user '%s'", twitterUserName);
         final String result = consumerTemplate.receiveBodyNoWait(
-                String.format("twitter-directmessage://%s?count=16&type=polling&delay=3000", twitterUserName), String.class);
+                String.format("twitter-directmessage://%s?count=16&type=polling&delay=3000&sortById=false", twitterUserName),
+                String.class);
         LOG.infof("Received direct messages: %s", result);
         return result;
     }
