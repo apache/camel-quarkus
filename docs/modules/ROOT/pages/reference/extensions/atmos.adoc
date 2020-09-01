@@ -8,7 +8,7 @@
 [.badges]
 [.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
-Integract with EMC's ViPR object data services using the Atmos Client.
+Integrate with EMC's ViPR object data services using the Atmos Client.
 
 == What's inside
 
