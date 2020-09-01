@@ -28,9 +28,9 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
-import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
 
 @QuarkusTest
@@ -105,8 +105,32 @@ class FileTest {
                 .statusCode(204);
     }
 
+    @Test
+    public void quartzSchedulerFilePollingConsumer() throws InterruptedException {
+        String fileName = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(FILE_BODY)
+                .post("/file/create/quartz")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+
+        String targetFileName = Paths.get(fileName).toFile().getName();
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            return Files.exists(Paths.get("target/quartz/out", targetFileName));
+        });
+
+        RestAssured
+                .get("/file/get/{folder}/{name}", "quartz/out", targetFileName)
+                .then()
+                .statusCode(200)
+                .body(equalTo(FILE_BODY));
+    }
+
     private static void awaitEvent(final Path dir, final Path file, final String type) {
-        Awaitility.await()
+        await()
                 .pollInterval(10, TimeUnit.MILLISECONDS)
                 .atMost(10, TimeUnit.SECONDS)
                 .until(() -> {

@@ -24,6 +24,11 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 class QuartzProcessor {
 
     private static final String FEATURE = "camel-quartz";
+    private static final String[] QUARTZ_JOB_CLASSES = new String[] {
+            "org.apache.camel.component.quartz.CamelJob",
+            "org.apache.camel.component.quartz.StatefulCamelJob",
+            "org.apache.camel.pollconsumer.quartz.QuartzScheduledPollConsumerJob"
+    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -37,6 +42,6 @@ class QuartzProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(false, false, "org.apache.camel.component.quartz.CamelJob");
+        return new ReflectiveClassBuildItem(false, false, QUARTZ_JOB_CLASSES);
     }
 }

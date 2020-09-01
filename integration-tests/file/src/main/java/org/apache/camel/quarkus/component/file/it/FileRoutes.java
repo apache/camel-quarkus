@@ -40,5 +40,7 @@ public class FileRoutes extends RouteBuilder {
                 + "readLockTimeout=5000")
                         .to("file://target/" + READ_LOCK_OUT);
 
+        from("file://target/quartz?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
+                .to("file://target/quartz/out");
     }
 }
