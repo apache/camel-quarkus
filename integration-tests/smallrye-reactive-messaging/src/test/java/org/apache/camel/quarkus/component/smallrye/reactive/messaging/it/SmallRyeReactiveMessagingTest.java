@@ -25,12 +25,15 @@ import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 class SmallRyeReactiveMessagingTest {
+
+    private static final Logger LOG = Logger.getLogger(SmallRyeReactiveMessagingTest.class);
 
     @Test
     public void testSmallRyeReactiveMessagingCamelRouteSubscriber() {
@@ -66,6 +69,7 @@ class SmallRyeReactiveMessagingTest {
                     .extract()
                     .body()
                     .asString();
+            LOG.infof("Values: %s", response);
             return response.equals("A,B,C,D");
         });
     }
