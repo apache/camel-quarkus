@@ -26,9 +26,12 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
 import org.eclipse.microprofile.reactive.messaging.Incoming;
 import org.eclipse.microprofile.reactive.messaging.Outgoing;
+import org.jboss.logging.Logger;
 import org.reactivestreams.Publisher;
 
 public class PublisherRoute extends RouteBuilder {
+
+    private static final Logger LOG = Logger.getLogger(PublisherRoute.class);
 
     @Inject
     CamelReactiveStreamsService camel;
@@ -38,7 +41,10 @@ public class PublisherRoute extends RouteBuilder {
 
     @Incoming("sink")
     public CompletionStage<Void> sink(String value) {
+        LOG.infof("Results before add: %s", String.join(",", results.getResults()));
+        LOG.infof("Adding result value: %s", value);
         results.addResult(value);
+        LOG.infof("Results after add: %s", String.join(",", results.getResults()));
         return CompletableFuture.completedFuture(null);
     }
 
