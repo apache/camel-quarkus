@@ -44,7 +44,7 @@ At the end of the day, resources matching `include-patterns` are marked for incl
 [[using-onexception-clause-in-native-mode]]
 == Using onException clause in native mode
 
-When using https://camel.apache.org/manual/latest/exception-clause.html[camel onException handling] in native mode, it is the application developer responsibility to register exception classes for reflection.
+When using https://camel.apache.org/manual/latest/exception-clause.html[camel onException handling] in native mode, it is the application developer's responsibility to register exception classes for reflection.
 
 For instance, having a camel context with onException handling as below:
 
@@ -65,7 +65,7 @@ registered for reflection at compile time.
 In many cases, application developers do not need to care because Quarkus extensions are able to detect the classes that
 require the reflection and register them automatically.
 
-However, in some situations Quarkus extensions may miss some classes and it is up to the application developer to
+However, in some situations, Quarkus extensions may miss some classes and it is up to the application developer to
 register them. There are two ways to do that:
 
 1. The `https://quarkus.io/guides/writing-native-applications-tips#alternative-with-registerforreflection[@io.quarkus.runtime.annotations.RegisterForReflection]`
