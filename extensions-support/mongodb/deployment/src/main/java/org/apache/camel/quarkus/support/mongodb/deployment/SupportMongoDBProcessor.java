@@ -35,20 +35,23 @@ class SupportMongoDBProcessor {
     }
 
     @BuildStep
-    void registerCamelMongoClientProducer(
+    void registerCamelMongoClientProducers(
             List<MongoClientBuildItem> mongoClients,
             BuildProducer<CamelRuntimeBeanBuildItem> runtimeBeans) {
 
         for (MongoClientBuildItem mongoClient : mongoClients) {
-            // If there is a default mongo client instance, then bind it to the camel registry
-            // with the default mongo client name used by the camel-mongodb component
-            if (MongoClientBeanUtil.isDefault(mongoClient.getName())) {
-                runtimeBeans.produce(
-                        new CamelRuntimeBeanBuildItem(
-                                "camelMongoClient",
-                                "com.mongodb.client.MongoClient",
-                                mongoClient.getClient()));
-            }
+            String clientName = getMongoClientName(mongoClient.getName());
+            runtimeBeans.produce(
+                    new CamelRuntimeBeanBuildItem(
+                            clientName,
+                            "com.mongodb.client.MongoClient",
+                            mongoClient.getClient()));
         }
     }
+
+    private String getMongoClientName(String clientName) {
+        // Use the default mongo client instance name if it is the default connection
+        return MongoClientBeanUtil.isDefault(clientName) ? "camelMongoClient" : clientName;
+    }
+
 }
