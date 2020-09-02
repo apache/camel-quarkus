@@ -662,6 +662,9 @@ Preview | 1.1.0 | Transform messages using a Velocity template.
 |  xref:reference/extensions/vertx.adoc[Vert.x]  | camel-quarkus-vertx | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send and receive messages to/from Vert.x Event Bus.
 
+|  xref:reference/extensions/vertx-http.adoc[Vert.x HTTP Client]  | camel-quarkus-vertx-http | [.camel-element-Native]##Native## +
+Stable | 1.1.0 | Camel HTTP client support with Vert.x
+
 |  xref:reference/extensions/vm.adoc[VM]  | camel-quarkus-vm | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 

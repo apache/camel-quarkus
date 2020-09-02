@@ -173,4 +173,43 @@ public class HttpResource {
                 .withHeader(Exchange.HTTP_METHOD, "POST")
                 .request(String.class);
     }
+
+    // *****************************
+    //
+    // camel-vertx-http
+    //
+    // *****************************
+
+    @Path("/vertx-http/get")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpGet(@QueryParam("test-port") int port) {
+        return producerTemplate
+                .to("vertx-http:http://localhost:" + port + "/service/get")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/get-https")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpHttps() {
+        return producerTemplate
+                .to("vertx-http:https://restcountries.com/v2/alpha/cz")
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .request(String.class);
+    }
+
+    @Path("/vertx-http/post")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpPost(@QueryParam("test-port") int port, String message) {
+        return producerTemplate
+                .to("vertx-http:http://localhost:" + port + "/service/toUpper")
+                .withBody(message)
+                .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
+                .withHeader(Exchange.HTTP_METHOD, "POST")
+                .request(String.class);
+    }
 }

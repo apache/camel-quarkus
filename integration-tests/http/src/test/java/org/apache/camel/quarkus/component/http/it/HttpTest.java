@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(TrustStoreResource.class)
 class HttpTest {
     @ParameterizedTest
-    @ValueSource(strings = { "ahc", "http", "netty-http" })
+    @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
     public void basicProducer(String component) {
         RestAssured
                 .given()
@@ -53,8 +53,7 @@ class HttpTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "ahc",
-            "http", "netty-http" })
+    @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
     public void httpsProducer(String component) {
         RestAssured
                 .given()
