@@ -89,7 +89,6 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
-        <module>nats</module>
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>

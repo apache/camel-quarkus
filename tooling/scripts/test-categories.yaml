@@ -83,6 +83,7 @@ messaging-networking1:
   - amqp
   - kafka
   - messaging
+  - nats
   - rabbitmq
   - ftp
   - http
