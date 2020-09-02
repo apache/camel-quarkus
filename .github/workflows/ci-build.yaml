@@ -300,8 +300,7 @@ jobs:
           IFS=,
           eval ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
-            -Dnative \
-            -Ddocker \
+            -Pnative,docker,ci \
             -pl "${modules[*]}"
       - name: Fail if there are uncommitted changes
         shell: bash
