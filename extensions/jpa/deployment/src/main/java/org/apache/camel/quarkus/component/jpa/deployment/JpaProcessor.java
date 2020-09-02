@@ -16,16 +16,11 @@
  */
 package org.apache.camel.quarkus.component.jpa.deployment;
 
-import java.util.List;
-
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.hibernate.orm.deployment.PersistenceUnitDescriptorBuildItem;
-import io.quarkus.hibernate.orm.runtime.DefaultEntityManagerFactoryProducer;
 import org.apache.camel.component.jpa.JpaComponent;
 import org.apache.camel.quarkus.component.jpa.CamelJpaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
@@ -43,21 +38,12 @@ class JpaProcessor {
     @BuildStep
     void configureJpaComponentBean(
             BuildProducer<CamelRuntimeBeanBuildItem> camelRuntimeBean,
-            BuildProducer<AdditionalBeanBuildItem> additionalBeans,
-            List<PersistenceUnitDescriptorBuildItem> descriptors,
             CamelJpaRecorder recorder) {
 
-        // If there's only 1 persistent unit, then auto configure the JPA component with the EntityManagerFactory
-        if (descriptors.size() == 1) {
-            // Set DefaultEntityManagerFactoryProducer as unremovable as there's no hard requirement for Camel users to @Inject EntityManagerFactory
-            AdditionalBeanBuildItem bean = AdditionalBeanBuildItem.unremovableOf(DefaultEntityManagerFactoryProducer.class);
-            additionalBeans.produce(bean);
-
-            camelRuntimeBean.produce(
-                    new CamelRuntimeBeanBuildItem(
-                            "jpa",
-                            JpaComponent.class.getName(),
-                            recorder.createJpaComponent()));
-        }
+        camelRuntimeBean.produce(
+                new CamelRuntimeBeanBuildItem(
+                        "jpa",
+                        JpaComponent.class.getName(),
+                        recorder.createJpaComponent()));
     }
 }
