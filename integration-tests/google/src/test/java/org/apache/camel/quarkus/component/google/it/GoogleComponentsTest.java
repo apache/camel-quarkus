@@ -180,11 +180,18 @@ class GoogleComponentsTest {
                 .body(is(message));
 
         // Delete
-        RestAssured.given()
-                .queryParam("messageId", messageId)
-                .delete("/google-mail/delete")
-                .then()
-                .statusCode(204);
+        Awaitility.await()
+                .pollDelay(500, TimeUnit.MILLISECONDS)
+                .pollInterval(100, TimeUnit.MILLISECONDS)
+                .atMost(10, TimeUnit.SECONDS).until(() -> {
+                    final int code = RestAssured.given()
+                            .queryParam("messageId", messageId)
+                            .delete("/google-mail/delete")
+                            .then()
+                            .extract()
+                            .statusCode();
+                    return code == 204;
+                });
 
         RestAssured.given()
                 .queryParam("messageId", messageId)
