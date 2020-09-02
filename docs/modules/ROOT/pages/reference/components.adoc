@@ -565,8 +565,8 @@ Stable | 1.0.0 | Interact with MongoDB GridFS.
 | xref:reference/extensions/mustache.adoc[Mustache] | [.camel-element-artifact]##camel-quarkus-mustache## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Transform messages using a Mustache template.
 
-| xref:reference/extensions/nats.adoc[Nats] | [.camel-element-artifact]##camel-quarkus-nats## | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Send and receive messages from NATS messaging system.
+| xref:reference/extensions/nats.adoc[Nats] | [.camel-element-artifact]##camel-quarkus-nats## | [.camel-element-Native]##Native## +
+Stable | 1.1.0 | Send and receive messages from NATS messaging system.
 
 | xref:reference/extensions/netty.adoc[Netty] | [.camel-element-artifact]##camel-quarkus-netty## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Socket level networking using TCP or UDP with the Netty 4.x.
