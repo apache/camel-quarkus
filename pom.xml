@@ -206,6 +206,17 @@
 
     <repositories>
         <repository>
+            <id>camel.next.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1243/</url>
+            <name>Camel 3.5.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
             <name>Apache Snapshot Repo</name>
@@ -218,6 +229,17 @@
         </repository>
     </repositories>
     <pluginRepositories>
+        <pluginRepository>
+            <id>camel.next.staging</id>
+            <url>https://repository.apache.org/content/repositories/orgapachecamel-1243/</url>
+            <name>Camel 3.5.0 Staging Repo</name>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
         <pluginRepository>
             <id>apache.snapshots</id>
             <url>https://repository.apache.org/snapshots/</url>
