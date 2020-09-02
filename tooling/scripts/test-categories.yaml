@@ -97,6 +97,7 @@ misc:
   - stream
   - tika
   - as2
+  - kotlin
 networking2-dataformats:
   - git
   - mail
