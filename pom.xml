@@ -135,7 +135,7 @@
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <cq-plugin.version>0.17.0</cq-plugin.version>
+        <cq-plugin.version>0.18.0</cq-plugin.version>
         <protobuf-java.version>3.11.0</protobuf-java.version>
         <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
         <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>
@@ -339,6 +339,10 @@
                         </extensionDirectories>
                         <skipArtifactIdBases>
                             <skipArtifactIdBase>http-common</skipArtifactIdBase>
+                            <skipArtifactIdBase>integration-test-support-custom-log-component</skipArtifactIdBase>
+                            <skipArtifactIdBase>integration-test-support-custom-main-listener</skipArtifactIdBase>
+                            <skipArtifactIdBase>integration-test-support-custom-routes-collector</skipArtifactIdBase>
+                            <skipArtifactIdBase>integration-test-support-custom-type-converter</skipArtifactIdBase>
                         </skipArtifactIdBases>
                     </configuration>
                     <dependencies>
@@ -667,10 +671,10 @@
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
                                     </sortDependencyManagementPaths>
-                                    <updateMvndRuleDirs>
-                                        <updateMvndRuleDir>examples</updateMvndRuleDir>
-                                        <updateMvndRuleDir>integration-tests</updateMvndRuleDir>
-                                    </updateMvndRuleDirs>
+                                    <updateVirtualDependenciesDirs>
+                                        <updateVirtualDependenciesDir>examples</updateVirtualDependenciesDir>
+                                        <updateVirtualDependenciesDir>integration-tests</updateVirtualDependenciesDir>
+                                    </updateVirtualDependenciesDirs>
                                     <extensionDirs>
                                         <extensionDir>
                                             <path>extensions</path>
