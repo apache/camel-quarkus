@@ -30,7 +30,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 public class ElasticSearchTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ElasticSearchTestResource.class);
-    private static final String ELASTICSEARCH_IMAGE = "elasticsearch:7.7.0";
+    private static final String ELASTICSEARCH_IMAGE = "elasticsearch:7.8.0";
     private static final int ELASTICSEARCH_PORT = 9200;
 
     private GenericContainer container;

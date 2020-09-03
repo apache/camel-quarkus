@@ -42,7 +42,7 @@ public class KuduTestResource implements ContainerResourceLifecycleManager {
     private static final int KUDU_MASTER_HTTP_PORT = 8051;
     private static final int KUDU_TABLET_RPC_PORT = 7050;
     private static final int KUDU_TABLET_HTTP_PORT = 8050;
-    private static final String KUDU_IMAGE = "apache/kudu:1.9.0";
+    private static final String KUDU_IMAGE = "apache/kudu:1.12.0";
     private static final String KUDU_MASTER_NETWORK_ALIAS = "kudu-master";
     private static final String KUDU_TABLET_NETWORK_ALIAS = KuduInfrastructureTestHelper.KUDU_TABLET_SERVER_HOSTNAME;
 
