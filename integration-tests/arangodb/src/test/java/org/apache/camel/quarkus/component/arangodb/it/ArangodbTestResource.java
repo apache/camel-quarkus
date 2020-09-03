@@ -44,7 +44,7 @@ public class ArangodbTestResource implements ContainerResourceLifecycleManager {
                     .withExposedPorts(PORT_DEFAULT)
                     .withEnv(ARANGO_NO_AUTH, "1")
                     .withNetworkAliases(CONTAINER_NAME)
-                    .waitingFor(Wait.forListeningPort());
+                    .waitingFor(Wait.forLogMessage(".*ArangoDB [(]version .*[)] is ready for business. Have fun!.*", 1));
 
             container.start();
 
