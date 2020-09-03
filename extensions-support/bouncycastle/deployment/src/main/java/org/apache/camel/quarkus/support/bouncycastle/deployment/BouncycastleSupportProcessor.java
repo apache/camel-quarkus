@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.support.bouncycastle.deployment;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -32,15 +37,31 @@ public class BouncycastleSupportProcessor {
     }
 
     @BuildStep
-    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex,
+            CamelBouncycastleConfig bouncycastleConfig) {
         IndexView index = combinedIndex.getIndex();
+
+        //gather all ciphers and digests from configuration and filter classes from index
+        //by startsWith and not case sensitive (there are classes e.g. *.asymmetric.X509 and *.asymmetric.x509.PEMUtil)
+        final List<String> packages = Stream.of(
+                bouncycastleConfig.digests.orElse(Collections.emptyList()).stream().map(p -> "digest." + p),
+                bouncycastleConfig.asymmetricCiphers.orElse(Collections.emptyList()).stream().map(p -> "asymmetric." + p),
+                bouncycastleConfig.symmetricCiphers.orElse(Collections.emptyList()).stream().map(p -> "symmetric." + p))
+                .flatMap(s -> s)
+                .map(p -> "org.bouncycastle.jcajce.provider." + p.toLowerCase())
+                .collect(Collectors.toList());
 
         String[] dtos = index.getKnownClasses().stream()
                 .map(ci -> ci.name().toString())
-                .filter(n -> n.startsWith("org.bouncycastle.jcajce.provider.digest.") ||
-                        n.startsWith("org.bouncycastle.jcajce.provider.symmetric.") ||
-                        n.startsWith("org.bouncycastle.jcajce.provider.asymmetric.") ||
-                        n.startsWith("org.bouncycastle.jcajce.provider.keystore."))
+                .filter(n -> {
+                    String lowerCased = n.toLowerCase();
+                    for (String s : packages) {
+                        if (lowerCased.startsWith(s)) {
+                            return true;
+                        }
+                    }
+                    return false;
+                })
                 .sorted()
                 .toArray(String[]::new);
 

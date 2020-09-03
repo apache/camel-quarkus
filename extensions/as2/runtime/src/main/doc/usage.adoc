@@ -2,3 +2,15 @@ Depending on its configuration, this component may require SSL encryption on its
 to add `quarkus.ssl.native=true` to your `application.properties`.
 See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.adoc[Native mode]
 section of Camel Quarkus user guide.
+
+To optimize memory and CPU requirements, the extension needs to know which ciphers and digest will be used at build time.
+The digests and cipher names have to be passed via the `quarkus.camel.bouncycastle.digests`,
+`quarkus.camel.bouncycastle.asymmetric-ciphers` and/or `quarkus.camel.bouncycastle.symmetric-ciphers` properties. Multiple
+values can be separated by comma and values are not case sensitive.
+
+[source,properties]
+----
+quarkus.camel.bouncycastle.asymmetric-ciphers=rsa,x509
+quarkus.camel.bouncycastle.symmetric-ciphers=des
+quarkus.camel.bouncycastle.digests=sha1,md5,sha512
+----
