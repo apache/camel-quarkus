@@ -96,7 +96,7 @@ Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
 Stable | 1.0.0 | Manage AWS MQ instances using AWS SDK version 2.x.
 
 |  xref:reference/extensions/aws2-s3.adoc[AWS 2 S3 Storage Service]  | camel-quarkus-aws2-s3 | [.camel-element-Native]##Native## +
-Stable | 1.0.0 | Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x.
+Stable | 1.0.0 | Store and retrie objects from AWS S3 Storage Service using AWS SDK version 2.x.
 
 |  xref:reference/extensions/aws2-ses.adoc[AWS 2 Simple Email Service (SES)]  | camel-quarkus-aws2-ses | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send e-mails through AWS SES service using AWS SDK version 2.x.
@@ -132,7 +132,7 @@ Stable | 1.0.0 | Consume and produce records from AWS Kinesis Streams and AWS Ki
 Stable | 1.0.0 | Manage and invoke AWS Lambda functions.
 
 |  xref:reference/extensions/aws-s3.adoc[AWS S3 Storage Service]  | camel-quarkus-aws-s3 | [.camel-element-Native]##Native## +
-Stable | 0.2.0 | Store and retrieve objects from AWS S3 Storage Service.
+Stable | 0.2.0 | Store and retrie objects from AWS S3 Storage Service.
 
 |  xref:reference/extensions/aws-sns.adoc[AWS Simple Notification System (SNS)]  | camel-quarkus-aws-sns | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Send messages to an AWS Simple Notification Topic.
@@ -213,7 +213,7 @@ Preview | 1.1.0 | Read and write data from to/from a CMIS compliant content repo
 Preview | 1.1.0 | Send and receive messages to/from COAP capable devices.
 
 |  xref:reference/extensions/cometd.adoc[CometD]  | camel-quarkus-cometd | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Offers to publish/subscribe, peer-to-peer (via a server), and RPC style messaging using the CometD/Bayeux protocol.
+Preview | 1.1.0 | Offers publish/subscribe, peer-to-peer (via a server), and RPC style messaging using the CometD/Bayeux protocol.
 
 |  xref:reference/extensions/componentdsl.adoc[Component DSL]  | camel-quarkus-componentdsl | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Create Camel components with a fluent Java DSL
