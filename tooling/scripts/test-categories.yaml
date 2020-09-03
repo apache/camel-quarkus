@@ -88,6 +88,7 @@ messaging-networking1:
   - ftp
   - http
   - graphql
+  - vertx-websocket
 misc:
   - braintree
   - jolt

@@ -277,6 +277,7 @@
             camel-quarkus-velocity
             camel-quarkus-vertx
             camel-quarkus-vertx-http
+            camel-quarkus-vertx-websocket
             camel-quarkus-vm
             camel-quarkus-weather
             camel-quarkus-web3j
