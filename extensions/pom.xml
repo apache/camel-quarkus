@@ -176,6 +176,7 @@
         <module>validator</module>
         <module>vertx</module>
         <module>vertx-http</module>
+        <module>vertx-websocket</module>
         <module>vm</module>
         <module>websocket-jsr356</module>
         <module>xpath</module>
