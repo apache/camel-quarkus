@@ -30,16 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: Vert.x</name>
     <description>Integration tests for Camel Quarkus Vert.x extension</description>
 
-    <properties>
-        <!-- mvnd, a.k.a. Maven Daemon: https://github.com/mvndaemon/mvnd -->
-        <!-- The following rule tells mvnd to build the listed deployment modules before this module. -->
-        <!-- This is important because mvnd builds modules in parallel by default. The deployment modules are not -->
-        <!-- explicit dependencies of this module in the Maven sense, although they are required by the Quarkus Maven plugin. -->
-        <!-- Please update the rule whenever you change the dependencies of this module by running -->
-        <!--     mvn process-resources -Pformat    from the root directory -->
-        <mvnd.builder.rule>camel-quarkus-direct-deployment,camel-quarkus-vertx-deployment</mvnd.builder.rule>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -76,6 +66,34 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- The following dependencies guarantee that this module is built after them. You can update them by runing `mvn process-resources -Pformat -N` from the source tree root directory -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-vertx-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
