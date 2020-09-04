@@ -32,7 +32,10 @@ if (pomXml.exists()) {
     def pomXmlProject = new XmlParser().parseText(pomXml.getText('UTF-8'))
     pomXmlProject.dependencies.dependency
         .findAll {
-            !it.version.text().isEmpty()
+            !it.version.text().isEmpty() &&
+                !it.artifactId.text().endsWith('-deployment') &&
+                !'test'.equals(it.scope.text()) &&
+                !'pom'.equals(it.type.text())
         }
         .each {
             badDeps << "in ${relativePomPath} : ${it.groupId.text()}:${it.artifactId.text()}"
