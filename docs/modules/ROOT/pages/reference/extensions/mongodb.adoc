@@ -45,3 +45,26 @@ The Camel Quarkus MongoDB extension automatically registers a MongoDB client bea
     from("direct:start")
     .to("mongodb:camelMongoClient?database=myDb&collection=myCollection&operation=findAll")
 
+You can also create a "named" client and reference in your route by injecting a client and the related configuration as explained in the https://quarkus.io/guides/mongodb#named-mongo-client-injection[Quarkus MongoDB extension client injection]. For example:
+
+....
+//application.properties
+quarkus.mongodb.mongoClient1.connection-string = mongodb://root:example@localhost:27017/
+....
+....
+//Routes.java
+
+    @ApplicationScoped
+    public class Routes extends RouteBuilder {
+        @Inject
+        @MongoClientName("mongoClient1")
+        MongoClient mongoClient1;
+
+        @Override
+        public void configure() throws Exception {
+            from("direct:start")
+                    .to("mongodb:mongoClient1?database=myDb&collection=myCollection&operation=findAll");
+        }
+    }
+....
+
