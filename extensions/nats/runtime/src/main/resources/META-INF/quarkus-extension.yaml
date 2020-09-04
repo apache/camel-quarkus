@@ -24,9 +24,8 @@
 name: "Camel Nats"
 description: "Send and receive messages from NATS messaging system"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/nats.html"
   categories:
   - "integration"
   status:
-  - "preview"
+  - "stable"
