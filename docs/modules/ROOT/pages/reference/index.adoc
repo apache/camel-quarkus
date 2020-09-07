@@ -551,6 +551,9 @@ Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the cu
 |  xref:reference/extensions/pgevent.adoc[PostgresSQL Event]  | camel-quarkus-pgevent | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive PostgreSQL events via LISTEN and NOTIFY commands.
 
+|  xref:reference/extensions/pg-replication-slot.adoc[PostgresSQL Replication Slot]  | camel-quarkus-pg-replication-slot | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Poll for PostgreSQL Write-Ahead Log (WAL) records using Streaming Replication Slots.
+
 |  xref:reference/extensions/printer.adoc[Printer]  | camel-quarkus-printer | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send print jobs to printers.
 
