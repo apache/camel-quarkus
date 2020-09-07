@@ -201,6 +201,7 @@
 *** xref:reference/extensions/ref.adoc[Ref]
 *** xref:reference/extensions/rest.adoc[Rest]
 *** xref:reference/extensions/rest-openapi.adoc[REST OpenApi]
+*** xref:reference/extensions/robotframework.adoc[Robot Framework]
 *** xref:reference/extensions/rss.adoc[RSS]
 *** xref:reference/extensions/saga.adoc[Saga]
 *** xref:reference/extensions/salesforce.adoc[Salesforce]
