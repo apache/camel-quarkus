@@ -214,6 +214,7 @@
 *** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
 *** xref:reference/extensions/soap.adoc[SOAP]
 *** xref:reference/extensions/sql.adoc[SQL]
+*** xref:reference/extensions/stomp.adoc[Stomp]
 *** xref:reference/extensions/stream.adoc[Stream]
 *** xref:reference/extensions/stringtemplate.adoc[String Template]
 *** xref:reference/extensions/stub.adoc[Stub]

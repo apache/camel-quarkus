@@ -682,6 +682,9 @@ Stable | 1.0.0 | Perform SQL queries using Spring JDBC.
 | xref:reference/extensions/sql.adoc[SQL Stored Procedure] | [.camel-element-artifact]##camel-quarkus-sql## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
 
+| xref:reference/extensions/stomp.adoc[Stomp] | [.camel-element-artifact]##camel-quarkus-stomp## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and rececive messages to/from STOMP (Simple Text Oriented Messaging Protocol) compliant message brokers.
+
 | xref:reference/extensions/stream.adoc[Stream] | [.camel-element-artifact]##camel-quarkus-stream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Read from system-in and write to system-out and system-err streams.
 
