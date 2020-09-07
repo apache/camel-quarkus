@@ -676,6 +676,9 @@ Stable | 1.0.0 | Send and receive messages to/from a JMS Queue or Topic using pl
 | xref:reference/extensions/slack.adoc[Slack] | [.camel-element-artifact]##camel-quarkus-slack## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Send and receive messages to/from Slack.
 
+| xref:reference/extensions/solr.adoc[Solr] | [.camel-element-artifact]##camel-quarkus-solr## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform operations against Apache Lucene Solr.
+
 | xref:reference/extensions/soroush.adoc[Soroush] | [.camel-element-artifact]##camel-quarkus-soroush## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages as a Soroush chat bot.
 
