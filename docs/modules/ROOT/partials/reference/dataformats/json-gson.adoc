@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: json-gson
 :cq-camel-part-title: JSON Gson
-:cq-camel-part-description: Marshal POJOs to JSON and back.
+:cq-camel-part-description: Marshal POJOs to JSON and back using Gson
 :cq-extension-page-title: Gson

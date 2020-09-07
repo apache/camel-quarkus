@@ -45,7 +45,7 @@
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.14.3</awssdk2.version>
         <bouncycastle.version>1.66</bouncycastle.version>
-        <camel.version>3.5.0</camel.version>
+        <camel.version>3.6.0</camel.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
@@ -60,11 +60,12 @@
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <github-api.version>1.111</github-api.version>
         <google-http-client.version>1.34.0</google-http-client.version>
+        <google-api-common.version>1.9.0</google-api-common.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <guava.version>29.0-jre</guava.version>
         <gson.version>2.8.5</gson.version>
         <hadoop2.version>2.10.0</hadoop2.version><!-- Spark -->
         <hapi.version>4.1.0</hapi.version>
-        <hbase.version>2.2.3</hbase.version><!-- Keep in sync with Camel -->
+        <hbase.version>2.3.1</hbase.version><!-- Keep in sync with Camel -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>2.20</influxdb.version>
         <jackson.version>2.11.3</jackson.version> <!-- keep in sync with Quarkus -->
@@ -83,6 +84,7 @@
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
+        <opencensus-api.version>0.26.0</opencensus-api.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <quarkus.version>1.9.0.Final</quarkus.version>
         <quarkus-qpid-jms.version>0.19.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
@@ -91,7 +93,7 @@
         <smallrye.reactive.messaging.camel.version>2.4.0</smallrye.reactive.messaging.camel.version>
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
-        <spring.version>5.2.8.RELEASE</spring.version>
+        <spring.version>5.2.9.RELEASE</spring.version>
         <snakeyaml.version>1.26</snakeyaml.version>
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
         <threetenbp.version>1.4.0</threetenbp.version>
