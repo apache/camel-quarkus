@@ -539,6 +539,9 @@ Preview | 1.0.0 | Interact with OpenStack APIs
 |  xref:reference/extensions/opentracing.adoc[OpenTracing]  | camel-quarkus-opentracing | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Distributed tracing using OpenTracing
 
+|  xref:reference/extensions/optaplanner.adoc[OptaPlanner]  | camel-quarkus-optaplanner | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Solve planning problems with OptaPlanner.
+
 |  xref:reference/extensions/paho.adoc[Paho]  | camel-quarkus-paho | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
 
