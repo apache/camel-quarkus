@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: json-johnzon
 :cq-camel-part-title: JSON Johnzon
-:cq-camel-part-description: Marshal POJOs to JSON and back.
+:cq-camel-part-description: Marshal POJOs to JSON and back using Johnzon
 :cq-extension-page-title: Johnzon

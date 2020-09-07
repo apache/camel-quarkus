@@ -69,6 +69,7 @@ import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.impl.engine.DefaultTracer;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
 import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
+import org.apache.camel.impl.engine.DefaultUriFactoryResolver;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.RouteService;
@@ -138,6 +139,7 @@ import org.apache.camel.spi.Transformer;
 import org.apache.camel.spi.TransformerRegistry;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.UnitOfWorkFactory;
+import org.apache.camel.spi.UriFactoryResolver;
 import org.apache.camel.spi.UuidGenerator;
 import org.apache.camel.spi.Validator;
 import org.apache.camel.spi.ValidatorRegistry;
@@ -438,6 +440,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected UriFactoryResolver createUriFactoryResolver() {
+        return new DefaultUriFactoryResolver();
+    }
+
+    @Override
     protected HealthCheckRegistry createHealthCheckRegistry() {
         return new BaseServiceResolver<>(HealthCheckRegistry.FACTORY, HealthCheckRegistry.class)
                 .resolve(getCamelContextReference()).orElse(null);
@@ -641,6 +648,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     public void removeRouteTemplateDefinition(RouteTemplateDefinition routeTemplateDefinition) throws Exception {
         model.removeRouteTemplateDefinition(routeTemplateDefinition);
+    }
+
+    @Override
+    public void addRouteTemplateDefinitionConverter(String templateIdPattern, RouteTemplateDefinition.Converter converter) {
+        model.addRouteTemplateDefinitionConverter(templateIdPattern, converter);
     }
 
     @Override

@@ -27,7 +27,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.github.benmanes.caffeine.cache.Cache;
 import org.apache.camel.CamelContext;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.caffeine.CaffeineConstants;
@@ -59,11 +58,7 @@ public class CaffeineResource {
             @PathParam("key") String key,
             String value) {
 
-        // This won't be needed after https://issues.apache.org/jira/browse/CAMEL-15524
-        FluentProducerTemplate t = context.getRegistry().lookupByNameAndType(cacheName, Cache.class) != null
-                ? template.toF("%s://%s?cache=#%s", componentName, cacheName, cacheName)
-                : template.toF("%s://%s", componentName, cacheName);
-
+        FluentProducerTemplate t = template.toF("%s://%s", componentName, cacheName);
         t.withHeader(CaffeineConstants.ACTION, CaffeineConstants.ACTION_PUT);
         t.withHeader(CaffeineConstants.KEY, key);
         t.withBody(value);
@@ -79,11 +74,7 @@ public class CaffeineResource {
             @PathParam("cacheName") String cacheName,
             @PathParam("key") String key) {
 
-        // This won't be needed after https://issues.apache.org/jira/browse/CAMEL-15524
-        FluentProducerTemplate t = context.getRegistry().lookupByNameAndType(cacheName, Cache.class) != null
-                ? template.toF("%s://%s?cache=#%s", componentName, cacheName, cacheName)
-                : template.toF("%s://%s", componentName, cacheName);
-
+        FluentProducerTemplate t = template.toF("%s://%s", componentName, cacheName);
         t.withHeader(CaffeineConstants.ACTION, CaffeineConstants.ACTION_GET);
         t.withHeader(CaffeineConstants.KEY, key);
 

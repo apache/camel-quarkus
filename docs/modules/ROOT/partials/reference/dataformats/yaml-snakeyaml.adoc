@@ -9,5 +9,5 @@
 :cq-native-since: 0.4.0
 :cq-camel-part-name: yaml-snakeyaml
 :cq-camel-part-title: YAML SnakeYAML
-:cq-camel-part-description: Marshal and unmarshal Java objects to and from YAML.
+:cq-camel-part-description: Marshal and unmarshal Java objects to and from YAML using SnakeYAML
 :cq-extension-page-title: SnakeYAML

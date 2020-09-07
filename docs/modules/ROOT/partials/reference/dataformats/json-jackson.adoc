@@ -9,5 +9,5 @@
 :cq-native-since: 0.3.0
 :cq-camel-part-name: json-jackson
 :cq-camel-part-title: JSON Jackson
-:cq-camel-part-description: Marshal POJOs to JSON and back.
+:cq-camel-part-description: Marshal POJOs to JSON and back using Jackson
 :cq-extension-page-title: Jackson
