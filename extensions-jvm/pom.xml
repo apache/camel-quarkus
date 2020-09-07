@@ -95,6 +95,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>stax</module>
         <module>stomp</module>
         <module>stringtemplate</module>
         <module>stub</module>
