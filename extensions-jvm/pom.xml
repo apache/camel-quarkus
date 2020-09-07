@@ -94,6 +94,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>quickfix</module>
         <module>robotframework</module>
         <module>rss</module>
         <module>saga</module>
