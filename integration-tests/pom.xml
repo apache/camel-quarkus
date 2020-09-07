@@ -81,6 +81,7 @@
         <module>dataformats-json</module>
         <module>debezium</module>
         <module>dozer</module>
+        <module>dropbox</module>
         <module>elasticsearch-rest</module>
         <module>exec</module>
         <module>fhir</module>

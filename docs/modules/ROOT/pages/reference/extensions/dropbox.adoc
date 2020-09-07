@@ -6,7 +6,7 @@
 :page-aliases: extensions/dropbox.adoc
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.
 
@@ -27,3 +27,9 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].

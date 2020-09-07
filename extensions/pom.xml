@@ -88,6 +88,7 @@
         <module>debezium-sqlserver</module>
         <module>direct</module>
         <module>dozer</module>
+        <module>dropbox</module>
         <module>elasticsearch-rest</module>
         <module>endpointdsl</module>
         <module>exec</module>
