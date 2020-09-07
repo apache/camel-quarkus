@@ -94,6 +94,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>saxon</module>
         <module>schematron</module>
         <module>sip</module>
         <module>smpp</module>

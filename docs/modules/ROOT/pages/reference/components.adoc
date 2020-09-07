@@ -793,6 +793,9 @@ Preview | 1.1.0 | Verify XML payloads using the XML signature specification.
 | xref:reference/extensions/xmpp.adoc[XMPP] | [.camel-element-artifact]##camel-quarkus-xmpp## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from an XMPP chat server.
 
+| xref:reference/extensions/saxon.adoc[XQuery] | [.camel-element-artifact]##camel-quarkus-saxon## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Query and/or transform XML payloads using XQuery and Saxon.
+
 | xref:reference/extensions/xslt.adoc[XSLT] | [.camel-element-artifact]##camel-quarkus-xslt## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 

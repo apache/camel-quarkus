@@ -743,6 +743,9 @@ Preview | 1.1.0 | Send and receive messages to/from an XMPP chat server.
 |  xref:reference/extensions/xpath.adoc[XPath]  | camel-quarkus-xpath | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate an XPath expression against an XML payload.
 
+|  xref:reference/extensions/saxon.adoc[XQuery]  | camel-quarkus-saxon | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Query and/or transform XML payloads using XQuery and Saxon.
+
 |  xref:reference/extensions/xslt.adoc[XSLT]  | camel-quarkus-xslt | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Transforms XML payload using an XSLT template.
 
