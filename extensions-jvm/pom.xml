@@ -88,6 +88,7 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
+        <module>mybatis</module>
         <module>nagios</module>
         <module>nitrite</module>
         <module>nsq</module>
