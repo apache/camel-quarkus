@@ -91,6 +91,7 @@
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>
+        <module>pgevent</module>
         <module>printer</module>
         <module>protobuf</module>
         <module>pubnub</module>

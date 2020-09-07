@@ -190,6 +190,7 @@
 *** xref:reference/extensions/paho.adoc[Paho]
 *** xref:reference/extensions/pdf.adoc[PDF]
 *** xref:reference/extensions/platform-http.adoc[Platform HTTP]
+*** xref:reference/extensions/pgevent.adoc[PostgresSQL Event]
 *** xref:reference/extensions/printer.adoc[Printer]
 *** xref:reference/extensions/protobuf.adoc[Protobuf]
 *** xref:reference/extensions/pubnub.adoc[PubNub]
