@@ -614,6 +614,9 @@ Stable | 0.3.0 | Send and receive messages to/from Slack.
 |  xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]  | camel-quarkus-smallrye-reactive-messaging | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Camel integration with SmallRye Reactive Messaging
 
+|  xref:reference/extensions/snmp.adoc[SNMP]  | camel-quarkus-snmp | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Receive traps and poll SNMP (Simple Network Management Protocol) capable devices.
+
 |  xref:reference/extensions/soap.adoc[SOAP]  | camel-quarkus-soap | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 
