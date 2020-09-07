@@ -48,6 +48,9 @@ Stable | 1.0.0 | Tokenize XML payloads using the specified path expression.
 
 | xref:reference/extensions/xpath.adoc[XPath] | [.camel-element-artifact]##camel-quarkus-xpath## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate an XPath expression against an XML payload.
+
+| xref:reference/extensions/saxon.adoc[XQuery] | [.camel-element-artifact]##camel-quarkus-saxon## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Evaluate an XQuery expressions against an XML payload.
 |===
 
 ++++
