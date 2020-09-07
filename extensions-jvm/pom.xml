@@ -95,6 +95,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>stringtemplate</module>
         <module>stub</module>
         <module>thrift</module>
         <module>twilio</module>
