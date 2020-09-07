@@ -79,6 +79,9 @@ Preview | 1.1.0 | Encrypt and decrypt messages using Java Cryptographic Extensio
 | xref:reference/extensions/protobuf.adoc[Protobuf] | [.camel-element-artifact]##camel-quarkus-protobuf## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Serialize and deserialize Java objects using Google's Protocol buffers.
 
+| xref:reference/extensions/rss.adoc[RSS] | [.camel-element-artifact]##camel-quarkus-rss## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform from ROME SyndFeed Java Objects to XML and vice-versa.
+
 | xref:reference/extensions/soap.adoc[SOAP] | [.camel-element-artifact]##camel-quarkus-soap## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 
