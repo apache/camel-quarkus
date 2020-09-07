@@ -50,7 +50,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String get(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("ahc:http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .toF("ahc:http://localhost:%d/service/get?bridgeEndpoint=true", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -58,9 +58,10 @@ public class HttpResource {
     @Path("/ahc/get-https")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getHttps() {
+    public String getHttps(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("ahc:https://restcountries.com/v2/alpha/cz?bridgeEndpoint=true")
+                .toF("ahc:https://localhost:%d/countries/cz?bridgeEndpoint=true&sslContextParameters=#sslContextParameters",
+                        port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -71,7 +72,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String post(@QueryParam("test-port") int port, String message) {
         return producerTemplate
-                .to("ahc://http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
+                .toF("ahc://http://localhost:%d/service/toUpper?bridgeEndpoint=true", port)
                 .withBody(message)
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
@@ -107,7 +108,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String httpGet(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .toF("http://localhost:%d/service/get?bridgeEndpoint=true", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -115,9 +116,9 @@ public class HttpResource {
     @Path("/http/get-https")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String httpGetHttps() {
+    public String httpGetHttps(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("https://restcountries.com/v2/alpha/cz?bridgeEndpoint=true")
+                .toF("https://localhost:%d/countries/cz?bridgeEndpoint=true&sslContextParameters=#sslContextParameters", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -128,7 +129,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String httpPost(@QueryParam("test-port") int port, String message) {
         return producerTemplate
-                .to("http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
+                .toF("http://localhost:%d/service/toUpper?bridgeEndpoint=true", port)
                 .withBody(message)
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
@@ -146,7 +147,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String nettyHttpGet(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("netty-http:http://localhost:" + port + "/service/get?bridgeEndpoint=true")
+                .toF("netty-http:http://localhost:%d/service/get?bridgeEndpoint=true", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -154,9 +155,9 @@ public class HttpResource {
     @Path("/netty-http/get-https")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String nettyHttpGetHttps() {
+    public String nettyHttpGetHttps(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("netty-http:https://restcountries.com/v2/alpha/cz?ssl=true&passphrase=changeit&keyStoreResource=classpath:jsse/keystore.p12&trustStoreResource=file:{{javax.net.ssl.trustStore}}")
+                .toF("netty-http:https://localhost:%d/countries/cz?sslContextParameters=#sslContextParameters", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -167,7 +168,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String hettyHttpPost(@QueryParam("test-port") int port, String message) {
         return producerTemplate
-                .to("netty-http://http://localhost:" + port + "/service/toUpper?bridgeEndpoint=true")
+                .toF("netty-http:http://localhost:%d/service/toUpper?bridgeEndpoint=true", port)
                 .withBody(message)
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
@@ -185,7 +186,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String vertxHttpGet(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("vertx-http:http://localhost:" + port + "/service/get")
+                .toF("vertx-http:http://localhost:%d/service/get", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -193,9 +194,9 @@ public class HttpResource {
     @Path("/vertx-http/get-https")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String vertxHttpHttps() {
+    public String vertxHttpHttps(@QueryParam("test-port") int port) {
         return producerTemplate
-                .to("vertx-http:https://restcountries.com/v2/alpha/cz")
+                .toF("vertx-http:https://localhost:%d/countries/cz?sslContextParameters=#sslContextParameters", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
@@ -206,7 +207,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String vertxHttpPost(@QueryParam("test-port") int port, String message) {
         return producerTemplate
-                .to("vertx-http:http://localhost:" + port + "/service/toUpper")
+                .toF("vertx-http:http://localhost:%d/service/toUpper", port)
                 .withBody(message)
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
