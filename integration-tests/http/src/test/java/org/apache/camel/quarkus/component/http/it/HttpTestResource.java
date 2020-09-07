@@ -25,7 +25,8 @@ import org.apache.camel.quarkus.test.AvailablePortFinder;
 public class HttpTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
-        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty-http.test-port");
+        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty-http.test-port",
+                "camel.netty-http.https-test-port");
     }
 
     @Override

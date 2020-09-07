@@ -378,6 +378,7 @@
                             <exclude>**/*.ftl</exclude>
                             <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>
+                            <exclude>**/*.jks</exclude>
                             <exclude>**/*.lock</exclude>
                             <exclude>**/*.mp3</exclude>
                             <exclude>**/*.mp4</exclude>

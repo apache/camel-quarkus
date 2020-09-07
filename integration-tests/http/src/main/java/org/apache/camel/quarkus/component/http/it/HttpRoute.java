@@ -16,7 +16,17 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
+import java.io.InputStream;
+
+import javax.inject.Named;
+
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.support.jsse.KeyManagersParameters;
+import org.apache.camel.support.jsse.KeyStoreParameters;
+import org.apache.camel.support.jsse.SSLContextParameters;
+import org.apache.camel.support.jsse.TrustManagersParameters;
 
 public class HttpRoute extends RouteBuilder {
     @Override
@@ -24,7 +34,40 @@ public class HttpRoute extends RouteBuilder {
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
                 .transform().constant("Netty Hello World");
 
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.https-test-port}}/countries/cz?ssl=true&sslContextParameters=#sslContextParameters")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        InputStream stream = HttpRoute.class.getResourceAsStream("/restcountries/cz.json");
+                        String json = exchange.getContext().getTypeConverter().convertTo(String.class, stream);
+                        exchange.getMessage().setBody(json);
+                    }
+                });
+
         from("direct:ahcWsIn")
                 .toD("ahc-ws:localhost:${header.test-port}/ahc-ws/greeting");
+    }
+
+    @Named
+    public SSLContextParameters sslContextParameters() {
+        KeyStoreParameters keystoreParameters = new KeyStoreParameters();
+        keystoreParameters.setResource("/jsse/keystore.p12");
+        keystoreParameters.setPassword("changeit");
+
+        KeyStoreParameters truststoreParameters = new KeyStoreParameters();
+        truststoreParameters.setResource("/jsse/truststore.jks");
+        truststoreParameters.setPassword("changeit");
+
+        TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
+        trustManagersParameters.setKeyStore(truststoreParameters);
+        SSLContextParameters sslContextParameters = new SSLContextParameters();
+        sslContextParameters.setTrustManagers(trustManagersParameters);
+
+        KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
+        keyManagersParameters.setKeyPassword("changeit");
+        keyManagersParameters.setKeyStore(keystoreParameters);
+        sslContextParameters.setKeyManagers(keyManagersParameters);
+
+        return sslContextParameters;
     }
 }

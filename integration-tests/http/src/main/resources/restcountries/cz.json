@@ -1,0 +1,81 @@
+{
+  "name": "Czech Republic",
+  "topLevelDomain": [
+    ".cz"
+  ],
+  "alpha2Code": "CZ",
+  "alpha3Code": "CZE",
+  "callingCodes": [
+    "420"
+  ],
+  "capital": "Prague",
+  "altSpellings": [
+    "CZ",
+    "Česká republika",
+    "Česko"
+  ],
+  "region": "Europe",
+  "subregion": "Eastern Europe",
+  "population": 10558524,
+  "latlng": [
+    49.75,
+    15.5
+  ],
+  "demonym": "Czech",
+  "area": 78865.0,
+  "gini": 26.0,
+  "timezones": [
+    "UTC+01:00"
+  ],
+  "borders": [
+    "AUT",
+    "DEU",
+    "POL",
+    "SVK"
+  ],
+  "nativeName": "Česká republika",
+  "numericCode": "203",
+  "currencies": [
+    {
+      "code": "CZK",
+      "name": "Czech koruna",
+      "symbol": "Kč"
+    }
+  ],
+  "languages": [
+    {
+      "iso639_1": "cs",
+      "iso639_2": "ces",
+      "name": "Czech",
+      "nativeName": "čeština"
+    },
+    {
+      "iso639_1": "sk",
+      "iso639_2": "slk",
+      "name": "Slovak",
+      "nativeName": "slovenčina"
+    }
+  ],
+  "translations": {
+    "de": "Tschechische Republik",
+    "es": "República Checa",
+    "fr": "République tchèque",
+    "ja": "チェコ",
+    "it": "Repubblica Ceca",
+    "br": "República Tcheca",
+    "pt": "República Checa",
+    "nl": "Tsjechië",
+    "hr": "Češka",
+    "fa": "جمهوری چک"
+  },
+  "flag": "https://restcountries.eu/data/cze.svg",
+  "regionalBlocs": [
+    {
+      "acronym": "EU",
+      "name": "European Union",
+      "otherAcronyms": [],
+      "otherNames": []
+    }
+  ],
+  "cioc": "CZE"
+}
