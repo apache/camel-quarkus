@@ -95,6 +95,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>snmp</module>
         <module>solr</module>
         <module>soroush</module>
         <module>splunk</module>
