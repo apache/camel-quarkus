@@ -95,6 +95,7 @@
         <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
+        <module>soroush</module>
         <module>splunk</module>
         <module>splunk-hec</module>
         <module>stax</module>
