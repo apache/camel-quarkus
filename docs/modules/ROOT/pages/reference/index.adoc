@@ -560,6 +560,9 @@ Preview | 1.1.0 | Send and receive messages from/to Apache Pulsar messaging syst
 |  xref:reference/extensions/quartz.adoc[Quartz]  | camel-quarkus-quartz | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Schedule sending of messages using the Quartz 2.x scheduler.
 
+|  xref:reference/extensions/quickfix.adoc[QuickFix]  | camel-quarkus-quickfix | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Open a Financial Interchange (FIX) session using an embedded QuickFix/J engine.
+
 |  xref:reference/extensions/qute.adoc[Qute]  | camel-quarkus-qute | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Transform messages using Quarkus Qute templating engine
 
