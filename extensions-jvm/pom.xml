@@ -89,6 +89,7 @@
         <module>jooq</module>
         <module>jsch</module>
         <module>nitrite</module>
+        <module>nsq</module>
         <module>ognl</module>
         <module>openstack</module>
         <module>optaplanner</module>

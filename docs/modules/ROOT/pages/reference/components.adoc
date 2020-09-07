@@ -577,6 +577,9 @@ Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x.
 | xref:reference/extensions/nitrite.adoc[Nitrite] | [.camel-element-artifact]##camel-quarkus-nitrite## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Access Nitrite databases.
 
+| xref:reference/extensions/nsq.adoc[NSQ] | [.camel-element-artifact]##camel-quarkus-nsq## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages from NSQ realtime distributed messaging platform.
+
 | xref:reference/extensions/olingo4.adoc[Olingo4] | [.camel-element-artifact]##camel-quarkus-olingo4## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Communicate with OData 4.0 services using Apache Olingo OData API.
 

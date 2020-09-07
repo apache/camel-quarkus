@@ -182,6 +182,7 @@
 *** xref:reference/extensions/netty.adoc[Netty]
 *** xref:reference/extensions/netty-http.adoc[Netty HTTP]
 *** xref:reference/extensions/nitrite.adoc[Nitrite]
+*** xref:reference/extensions/nsq.adoc[NSQ]
 *** xref:reference/extensions/ognl.adoc[OGNL]
 *** xref:reference/extensions/olingo4.adoc[Olingo4]
 *** xref:reference/extensions/openapi-java.adoc[Openapi Java]
