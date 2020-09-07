@@ -135,7 +135,7 @@
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
-        <cq-plugin.version>0.18.0</cq-plugin.version>
+        <cq-plugin.version>0.18.1</cq-plugin.version>
         <protobuf-java.version>3.11.0</protobuf-java.version>
         <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
         <rpkgtests-maven-plugin.version>0.6.0</rpkgtests-maven-plugin.version>

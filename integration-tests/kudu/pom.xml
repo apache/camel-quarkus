@@ -70,7 +70,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- The following dependencies guarantee that this module is built after them. You can update them by runing `mvn process-resources -Pformat -N` from the source tree root directory -->
+        <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-bean-deployment</artifactId>
