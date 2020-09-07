@@ -231,6 +231,7 @@
 *** xref:reference/extensions/splunk.adoc[Splunk]
 *** xref:reference/extensions/splunk-hec.adoc[Splunk HEC]
 *** xref:reference/extensions/sql.adoc[SQL]
+*** xref:reference/extensions/ssh.adoc[SSH]
 *** xref:reference/extensions/stax.adoc[StAX]
 *** xref:reference/extensions/stomp.adoc[Stomp]
 *** xref:reference/extensions/stream.adoc[Stream]
