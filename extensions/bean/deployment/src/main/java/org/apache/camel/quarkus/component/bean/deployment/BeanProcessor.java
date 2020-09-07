@@ -16,16 +16,53 @@
  */
 package org.apache.camel.quarkus.component.bean.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.support.language.DefaultAnnotationExpressionFactory;
+import org.apache.camel.support.language.LanguageAnnotation;
+import org.jboss.jandex.AnnotationInstance;
+import org.jboss.jandex.AnnotationValue;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 class BeanProcessor {
 
     private static final String FEATURE = "camel-bean";
+    private static final Logger LOGGER = LoggerFactory.getLogger(BeanProcessor.class);
+    private static final DotName LANGUAGE_ANNOTATION = DotName.createSimple(LanguageAnnotation.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void registerReflectiveClasses(CombinedIndexBuildItem index, BuildProducer<ReflectiveClassBuildItem> producer) {
+        IndexView view = index.getIndex();
+        for (AnnotationInstance languageAnnotationInstance : view.getAnnotations(LANGUAGE_ANNOTATION)) {
+            ClassInfo languageClassInfo = languageAnnotationInstance.target().asClass();
+            LOGGER.debug("Found language @interface {} annotated with @LanguageAnnotation", languageClassInfo.name());
+            if (!view.getAnnotations(languageClassInfo.name()).isEmpty()) {
+                LOGGER.debug("Registered {} as reflective class", languageClassInfo.name());
+                producer.produce(new ReflectiveClassBuildItem(true, false, languageClassInfo.name().toString()));
+
+                AnnotationValue languageAnnotationExpressionFactory = languageAnnotationInstance.value("factory");
+                if (languageAnnotationExpressionFactory == null) {
+                    LOGGER.debug("Registered {} as reflective class", DefaultAnnotationExpressionFactory.class.getName());
+                    producer.produce(new ReflectiveClassBuildItem(false, false, DefaultAnnotationExpressionFactory.class));
+                } else {
+                    LOGGER.debug("Registered {} as reflective class", languageAnnotationExpressionFactory.asString());
+                    producer.produce(
+                            new ReflectiveClassBuildItem(false, false, languageAnnotationExpressionFactory.asString()));
+                }
+            }
+        }
     }
 
 }

@@ -80,6 +80,10 @@ public class CamelRoute extends RouteBuilder {
                 .to("bean:withHandlerOnProxy")
                 .to("log:named");
 
+        from("direct:with-language-param-bindings")
+                .routeId("wlpb-route-31wp")
+                .to("bean:withLanguageParamBindingsBean")
+                .to("log:withLanguageParamBindings");
     }
 
     @SuppressWarnings("unchecked")
