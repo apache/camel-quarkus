@@ -177,6 +177,7 @@
 *** xref:reference/extensions/mock.adoc[Mock]
 *** xref:reference/extensions/mongodb.adoc[MongoDB]
 *** xref:reference/extensions/mongodb-gridfs.adoc[MongoDB GridFS]
+*** xref:reference/extensions/msv.adoc[MSV]
 *** xref:reference/extensions/mustache.adoc[Mustache]
 *** xref:reference/extensions/mvel.adoc[MVEL]
 *** xref:reference/extensions/mybatis.adoc[MyBatis]

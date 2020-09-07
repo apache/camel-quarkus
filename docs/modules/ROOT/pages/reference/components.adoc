@@ -562,6 +562,9 @@ Stable | 1.0.0 | Perform operations on MongoDB documents and collections.
 | xref:reference/extensions/mongodb-gridfs.adoc[MongoDB GridFS] | [.camel-element-artifact]##camel-quarkus-mongodb-gridfs## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Interact with MongoDB GridFS.
 
+| xref:reference/extensions/msv.adoc[MSV] | [.camel-element-artifact]##camel-quarkus-msv## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Validate XML payloads using Multi-Schema Validator (MSV).
+
 | xref:reference/extensions/mustache.adoc[Mustache] | [.camel-element-artifact]##camel-quarkus-mustache## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Transform messages using a Mustache template.
 
