@@ -31,6 +31,9 @@ Stable | 0.2.0 | Get the value of the named Camel Message header.
 | xref:reference/extensions/jsonpath.adoc[JsonPath] | [.camel-element-artifact]##camel-quarkus-jsonpath## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate a JsonPath expression against a JSON message body.
 
+| xref:reference/extensions/mvel.adoc[MVEL] | [.camel-element-artifact]##camel-quarkus-mvel## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Evaluate an MVEL template against the Camel Exchange.
+
 | xref:reference/extensions/ognl.adoc[OGNL] | [.camel-element-artifact]##camel-quarkus-ognl## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 
