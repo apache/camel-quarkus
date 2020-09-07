@@ -685,6 +685,9 @@ Stable | 1.0.0 | Perform SQL queries as a JDBC Stored Procedures using Spring JD
 | xref:reference/extensions/stream.adoc[Stream] | [.camel-element-artifact]##camel-quarkus-stream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Read from system-in and write to system-out and system-err streams.
 
+| xref:reference/extensions/stringtemplate.adoc[String Template] | [.camel-element-artifact]##camel-quarkus-stringtemplate## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform messages using StringTemplate engine.
+
 | xref:reference/extensions/stub.adoc[Stub] | [.camel-element-artifact]##camel-quarkus-stub## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Stub out any physical endpoints while in development or testing.
 
