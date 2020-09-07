@@ -767,8 +767,8 @@ Stable | 1.1.0 | Camel WebSocket support with Vert.x
 |  xref:reference/extensions/vm.adoc[VM]  | camel-quarkus-vm | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Call another endpoint in the same CamelContext asynchronously.
 
-|  xref:reference/extensions/weather.adoc[Weather]  | camel-quarkus-weather | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Poll the weather information from Open Weather Map.
+|  xref:reference/extensions/weather.adoc[Weather]  | camel-quarkus-weather | [.camel-element-Native]##Native## +
+Stable | 1.1.0 | Poll the weather information from Open Weather Map.
 
 |  xref:reference/extensions/web3j.adoc[Web3j Ethereum Blockchain]  | camel-quarkus-web3j | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Interact with Ethereum nodes using web3j client API.

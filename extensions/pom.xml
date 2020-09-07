@@ -180,6 +180,7 @@
         <module>vertx-http</module>
         <module>vertx-websocket</module>
         <module>vm</module>
+        <module>weather</module>
         <module>websocket-jsr356</module>
         <module>xpath</module>
         <module>xslt</module>
