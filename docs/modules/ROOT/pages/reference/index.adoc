@@ -614,6 +614,9 @@ Stable | 0.3.0 | Send and receive messages to/from Slack.
 |  xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]  | camel-quarkus-smallrye-reactive-messaging | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Camel integration with SmallRye Reactive Messaging
 
+|  xref:reference/extensions/smpp.adoc[SMPP]  | camel-quarkus-smpp | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive SMS messages using a SMSC (Short Message Service Center).
+
 |  xref:reference/extensions/snmp.adoc[SNMP]  | camel-quarkus-snmp | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Receive traps and poll SNMP (Simple Network Management Protocol) capable devices.
 

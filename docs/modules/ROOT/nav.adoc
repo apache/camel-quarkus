@@ -212,6 +212,7 @@
 *** xref:reference/extensions/sjms2.adoc[Simple JMS2]
 *** xref:reference/extensions/slack.adoc[Slack]
 *** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
+*** xref:reference/extensions/smpp.adoc[SMPP]
 *** xref:reference/extensions/snmp.adoc[SNMP]
 *** xref:reference/extensions/soap.adoc[SOAP]
 *** xref:reference/extensions/solr.adoc[Solr]
