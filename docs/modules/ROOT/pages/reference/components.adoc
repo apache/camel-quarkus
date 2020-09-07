@@ -649,6 +649,9 @@ Stable | 1.0.0 | Send requests to SAP NetWeaver Gateway using HTTP.
 | xref:reference/extensions/scheduler.adoc[Scheduler] | [.camel-element-artifact]##camel-quarkus-scheduler## | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService.
 
+| xref:reference/extensions/schematron.adoc[Schematron] | [.camel-element-artifact]##camel-quarkus-schematron## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Validate XML payload using the Schematron Library.
+
 | xref:reference/extensions/jsch.adoc[SCP] | [.camel-element-artifact]##camel-quarkus-jsch## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Copy files to/from remote hosts using the secure copy protocol (SCP).
 
