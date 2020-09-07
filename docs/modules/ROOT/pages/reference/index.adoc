@@ -548,6 +548,9 @@ Stable | 0.3.1 | Create, modify or extract content from PDF documents.
 |  xref:reference/extensions/platform-http.adoc[Platform HTTP]  | camel-quarkus-platform-http | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Expose HTTP endpoints using the HTTP server available in the current platform.
 
+|  xref:reference/extensions/pgevent.adoc[PostgresSQL Event]  | camel-quarkus-pgevent | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive PostgreSQL events via LISTEN and NOTIFY commands.
+
 |  xref:reference/extensions/printer.adoc[Printer]  | camel-quarkus-printer | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send print jobs to printers.
 
