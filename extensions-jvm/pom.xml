@@ -88,6 +88,7 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
+        <module>msv</module>
         <module>mvel</module>
         <module>mybatis</module>
         <module>nagios</module>
