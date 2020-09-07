@@ -617,6 +617,9 @@ Stable | 1.0.0 | Camel integration with SmallRye Reactive Messaging
 |  xref:reference/extensions/soap.adoc[SOAP]  | camel-quarkus-soap | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 
+|  xref:reference/extensions/splunk.adoc[Splunk]  | camel-quarkus-splunk | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Publish or search for events in Splunk.
+
 |  xref:reference/extensions/splunk-hec.adoc[Splunk HEC]  | camel-quarkus-splunk-hec | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | The splunk component allows to publish events in Splunk using the HTTP Event Collector.
 
