@@ -123,4 +123,10 @@ public class BeanTest {
         RestAssured.when().get("/bean/with-producer").then().body(equalTo("with-producer"));
     }
 
+    @Test
+    public void withLanguageParamBindings() {
+        RestAssured.when().get("/bean/with-language-param-bindings").then()
+                .body(equalTo("wlpb-hello(wlpb-route-31wp,cflap-bean-31wp)"));
+    }
+
 }

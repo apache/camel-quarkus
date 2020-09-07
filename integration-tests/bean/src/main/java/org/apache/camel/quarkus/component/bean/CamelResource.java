@@ -142,4 +142,11 @@ public class CamelResource {
         return template.requestBody("direct:with-producer", null, String.class);
     }
 
+    @Path("/with-language-param-bindings")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String withLanguageParamBindings() {
+        return template.requestBody("direct:with-language-param-bindings", null, String.class);
+    }
+
 }
