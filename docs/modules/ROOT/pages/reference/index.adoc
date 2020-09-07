@@ -524,6 +524,9 @@ Stable | 0.2.0 | Netty HTTP server and client using the Netty 4.x.
 |  xref:reference/extensions/nitrite.adoc[Nitrite]  | camel-quarkus-nitrite | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Access Nitrite databases.
 
+|  xref:reference/extensions/nsq.adoc[NSQ]  | camel-quarkus-nsq | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages from NSQ realtime distributed messaging platform.
+
 |  xref:reference/extensions/ognl.adoc[OGNL]  | camel-quarkus-ognl | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 
