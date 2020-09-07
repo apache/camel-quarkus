@@ -1,0 +1,12 @@
+== Camel Quarkus Dropbox Integration Tests
+
+To run the Dropbox integration tests, you need a valid Dropbox https://www.dropbox.com/developers[developer account]. Then from
+the developer console, create a new app and make a note of the access token.
+
+Then set the following environment variables. Note that `DROPBOX_CLIENT_IDENTIFIER` should be set to the name of your Dropbox app:
+
+[source,shell]
+----
+export DROPBOX_ACCESS_TOKEN=your-access-token
+export DROPBOX_CLIENT_IDENTIFIER=your-client-identifier
+----

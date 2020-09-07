@@ -64,7 +64,6 @@
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>
-        <module>dropbox</module>
         <module>ehcache</module>
         <module>elsql</module>
         <module>etcd</module>

@@ -70,6 +70,7 @@ xml-json-olingo4:
   - rest-binding-mode-xml
   - xml
   - dataformats-json
+  - dropbox
   - olingo4
 dozer-ispn-social:
   - dozer
