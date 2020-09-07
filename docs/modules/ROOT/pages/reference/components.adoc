@@ -682,6 +682,9 @@ Stable | 1.0.0 | Perform SQL queries using Spring JDBC.
 | xref:reference/extensions/sql.adoc[SQL Stored Procedure] | [.camel-element-artifact]##camel-quarkus-sql## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
 
+| xref:reference/extensions/stax.adoc[StAX] | [.camel-element-artifact]##camel-quarkus-stax## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Process XML payloads by a SAX ContentHandler.
+
 | xref:reference/extensions/stomp.adoc[Stomp] | [.camel-element-artifact]##camel-quarkus-stomp## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and rececive messages to/from STOMP (Simple Text Oriented Messaging Protocol) compliant message brokers.
 
