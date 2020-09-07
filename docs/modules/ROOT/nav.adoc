@@ -213,6 +213,7 @@
 *** xref:reference/extensions/slack.adoc[Slack]
 *** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
 *** xref:reference/extensions/soap.adoc[SOAP]
+*** xref:reference/extensions/splunk.adoc[Splunk]
 *** xref:reference/extensions/splunk-hec.adoc[Splunk HEC]
 *** xref:reference/extensions/sql.adoc[SQL]
 *** xref:reference/extensions/stax.adoc[StAX]
