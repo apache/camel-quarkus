@@ -512,6 +512,9 @@ Stable | 1.0.0 | Interact with MongoDB GridFS.
 |  xref:reference/extensions/mustache.adoc[Mustache]  | camel-quarkus-mustache | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Transform messages using a Mustache template.
 
+|  xref:reference/extensions/mvel.adoc[MVEL]  | camel-quarkus-mvel | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform messages using an MVEL template.
+
 |  xref:reference/extensions/mybatis.adoc[MyBatis]  | camel-quarkus-mybatis | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Performs a query, poll, insert, update or delete in a relational database using MyBatis.
 
