@@ -99,7 +99,6 @@
         <module>thrift</module>
         <module>twilio</module>
         <module>velocity</module>
-        <module>weather</module>
         <module>web3j</module>
         <module>weka</module>
         <module>wordpress</module>

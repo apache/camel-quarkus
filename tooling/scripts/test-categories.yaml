@@ -71,6 +71,7 @@ xml-json-olingo4:
   - xml
   - dataformats-json
   - olingo4
+  - weather
 dozer-ispn-social:
   - dozer
   - infinispan
