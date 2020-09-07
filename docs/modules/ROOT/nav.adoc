@@ -210,6 +210,7 @@
 *** xref:reference/extensions/servlet.adoc[Servlet]
 *** xref:reference/extensions/sjms.adoc[Simple JMS]
 *** xref:reference/extensions/sjms2.adoc[Simple JMS2]
+*** xref:reference/extensions/sip.adoc[SIP]
 *** xref:reference/extensions/slack.adoc[Slack]
 *** xref:reference/extensions/smallrye-reactive-messaging.adoc[SmallRye Reactive Messaging]
 *** xref:reference/extensions/smpp.adoc[SMPP]
