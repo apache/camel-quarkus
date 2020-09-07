@@ -5,7 +5,7 @@
 :cq-artifact-id: camel-quarkus-snakeyaml
 :cq-native-supported: true
 :cq-status: Stable
-:cq-description: Marshal and unmarshal Java objects to and from YAML.
+:cq-description: Marshal and unmarshal Java objects to and from YAML using SnakeYAML
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0
 :cq-native-since: 0.4.0
@@ -13,7 +13,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##0.4.0## [.badge-key]##Native since##[.badge-supported]##0.4.0##
 
-Marshal and unmarshal Java objects to and from YAML.
+Marshal and unmarshal Java objects to and from YAML using SnakeYAML
 
 == What's inside
 

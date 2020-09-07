@@ -44,7 +44,7 @@
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.14.3</awssdk2.version>
         <bouncycastle.version>1.66</bouncycastle.version>
-        <camel.version>3.5.0</camel.version>
+        <camel.version>3.6.0-SNAPSHOT</camel.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <debezium.version>1.2.1.Final</debezium.version>
@@ -53,6 +53,7 @@
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <github-api.version>1.111</github-api.version>
         <google-http-client.version>1.34.0</google-http-client.version>
+        <google-api-common.version>1.9.0</google-api-common.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <guava.version>29.0-jre</guava.version>
         <gson.version>2.8.5</gson.version>
         <hapi.version>4.1.0</hapi.version>
@@ -71,6 +72,7 @@
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
+        <opencensus-api.version>0.26.0</opencensus-api.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <quarkus.version>1.8.1.Final</quarkus.version>
         <quarkus-qpid-jms.version>0.18.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
@@ -78,7 +80,7 @@
         <smallrye.reactive.messaging.camel.version>2.4.0</smallrye.reactive.messaging.camel.version>
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
-        <spring.version>5.2.8.RELEASE</spring.version>
+        <spring.version>5.2.9.RELEASE</spring.version>
         <snakeyaml.version>1.26</snakeyaml.version>
         <threetenbp.version>1.4.0</threetenbp.version>
         <xalan.version>2.7.2</xalan.version>

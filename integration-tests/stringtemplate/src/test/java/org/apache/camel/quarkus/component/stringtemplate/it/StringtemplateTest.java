@@ -71,7 +71,6 @@ class StringtemplateTest {
                 put("name", "Sheldon");
                 put("item", "7");
                 put(StringTemplateConstants.STRINGTEMPLATE_VARIABLE_MAP, variableMap);
-                put(StringTemplateConstants.STRINGTEMPLATE_RESOURCE_URI, variableMap);
             }
         };
         //`allowTemplateFromHeader` is need to be set to true because of https://issues.apache.org/jira/browse/CAMEL-15577

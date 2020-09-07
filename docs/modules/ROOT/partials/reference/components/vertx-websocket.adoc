@@ -9,5 +9,5 @@
 :cq-native-since: 1.1.0
 :cq-camel-part-name: vertx-websocket
 :cq-camel-part-title: Vert.x WebSocket
-:cq-camel-part-description: Camel WebSocket support with Vert.x
+:cq-camel-part-description: Expose WebSocket endpoints and connect to remote WebSocket servers using Vert.x
 :cq-extension-page-title: Vert.x WebSocket

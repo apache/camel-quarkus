@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel SnakeYAML"
-description: "Marshal and unmarshal Java objects to and from YAML"
+description: "Marshal and unmarshal Java objects to and from YAML using SnakeYAML"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/snakeyaml.html"
   categories:

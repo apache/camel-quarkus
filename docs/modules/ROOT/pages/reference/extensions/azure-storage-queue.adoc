@@ -16,7 +16,7 @@ The azure-storage-queue component is used for storing and retrieving the message
 
 == What's inside
 
-* https://camel.apache.org/components/latest/azure-storage-queue-component.html[Azure Storage Queue Service component], URI syntax: `azure-storage-queue:queueName`
+* https://camel.apache.org/components/latest/azure-storage-queue-component.html[Azure Storage Queue Service component], URI syntax: `azure-storage-queue:accountName/queueName`
 
 Please refer to the above link for usage and configuration details.
 
