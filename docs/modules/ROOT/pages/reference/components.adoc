@@ -673,6 +673,9 @@ Stable | 1.0.0 | Highly performant and transactional batch consumption of messag
 | xref:reference/extensions/sjms2.adoc[Simple JMS2] | [.camel-element-artifact]##camel-quarkus-sjms2## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
 
+| xref:reference/extensions/sip.adoc[SIP] | [.camel-element-artifact]##camel-quarkus-sip## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Send and receive messages using the SIP protocol (used in telecommunications).
+
 | xref:reference/extensions/slack.adoc[Slack] | [.camel-element-artifact]##camel-quarkus-slack## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Send and receive messages to/from Slack.
 
