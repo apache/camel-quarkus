@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: atmos
 :cq-camel-part-title: Atmos
-:cq-camel-part-description: Integract with EMC's ViPR object data services using the Atmos Client.
+:cq-camel-part-description: Integrate with EMC's ViPR object data services using the Atmos Client.
 :cq-extension-page-title: Atmos
