@@ -9,5 +9,5 @@
 :cq-native-since: 1.1.0
 :cq-camel-part-name: vertx-http
 :cq-camel-part-title: Vert.x HTTP Client
-:cq-camel-part-description: Camel HTTP client support with Vert.x
+:cq-camel-part-description: Send requests to external HTTP servers using Vert.x
 :cq-extension-page-title: Vert.x HTTP Client

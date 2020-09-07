@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: json-fastjson
 :cq-camel-part-title: JSON Fastjson
-:cq-camel-part-description: Marshal POJOs to JSON and back.
+:cq-camel-part-description: Marshal POJOs to JSON and back using Fastjson
 :cq-extension-page-title: JSON Fastjson
