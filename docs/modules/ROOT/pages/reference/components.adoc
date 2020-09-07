@@ -733,6 +733,9 @@ Stable | 1.0.0 | Perform SQL queries using Spring JDBC.
 | xref:reference/extensions/sql.adoc[SQL Stored Procedure] | [.camel-element-artifact]##camel-quarkus-sql## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Perform SQL queries as a JDBC Stored Procedures using Spring JDBC.
 
+| xref:reference/extensions/ssh.adoc[SSH] | [.camel-element-artifact]##camel-quarkus-ssh## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Execute commands on remote hosts using SSH.
+
 | xref:reference/extensions/stax.adoc[StAX] | [.camel-element-artifact]##camel-quarkus-stax## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Process XML payloads by a SAX ContentHandler.
 
