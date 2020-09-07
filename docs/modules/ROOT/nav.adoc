@@ -187,6 +187,7 @@
 *** xref:reference/extensions/openapi-java.adoc[Openapi Java]
 *** xref:reference/extensions/openstack.adoc[OpenStack]
 *** xref:reference/extensions/opentracing.adoc[OpenTracing]
+*** xref:reference/extensions/optaplanner.adoc[OptaPlanner]
 *** xref:reference/extensions/paho.adoc[Paho]
 *** xref:reference/extensions/pdf.adoc[PDF]
 *** xref:reference/extensions/platform-http.adoc[Platform HTTP]

@@ -604,6 +604,9 @@ Preview | 1.0.0 | Access OpenStack to manage compute resources.
 | xref:reference/extensions/openstack.adoc[OpenStack Swift] | [.camel-element-artifact]##camel-quarkus-openstack## | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Access OpenStack Swift object/blob store.
 
+| xref:reference/extensions/optaplanner.adoc[OptaPlanner] | [.camel-element-artifact]##camel-quarkus-optaplanner## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Solve planning problems with OptaPlanner.
+
 | xref:reference/extensions/paho.adoc[Paho] | [.camel-element-artifact]##camel-quarkus-paho## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
 
