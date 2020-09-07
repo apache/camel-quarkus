@@ -581,6 +581,9 @@ Stable | 0.2.0 | Expose REST services and their OpenAPI Specification or call ex
 |  xref:reference/extensions/rest-openapi.adoc[REST OpenApi]  | camel-quarkus-rest-openapi | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
 
+|  xref:reference/extensions/robotframework.adoc[Robot Framework]  | camel-quarkus-robotframework | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Pass camel exchanges to acceptence test written in Robot DSL.
+
 |  xref:reference/extensions/rss.adoc[RSS]  | camel-quarkus-rss | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Poll RSS feeds.
 
