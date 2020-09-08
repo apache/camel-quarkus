@@ -601,6 +601,12 @@ Preview | 1.1.0 | Send and receive messages from NSQ realtime distributed messag
 | xref:reference/extensions/olingo4.adoc[Olingo4] | [.camel-element-artifact]##camel-quarkus-olingo4## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Communicate with OData 4.0 services using Apache Olingo OData API.
 
+| xref:reference/extensions/milo.adoc[OPC UA Client] | [.camel-element-artifact]##camel-quarkus-milo## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Connect to OPC UA servers using the binary protocol for acquiring telemetry data.
+
+| xref:reference/extensions/milo.adoc[OPC UA Server] | [.camel-element-artifact]##camel-quarkus-milo## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Make telemetry data available as an OPC UA server.
+
 | xref:reference/extensions/kubernetes.adoc[Openshift Build Config] | [.camel-element-artifact]##camel-quarkus-kubernetes## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Perform operations on OpenShift Build Configs.
 
