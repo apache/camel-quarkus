@@ -548,6 +548,9 @@ Preview | 1.0.0 | Evaluate an Apache Commons Object Graph Navigation Library (OG
 |  xref:reference/extensions/olingo4.adoc[Olingo4]  | camel-quarkus-olingo4 | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Communicate with OData 4.0 services using Apache Olingo OData API.
 
+|  xref:reference/extensions/milo.adoc[OPC UA Client]  | camel-quarkus-milo | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Connect to OPC UA servers using the binary protocol for acquiring telemetry data.
+
 |  xref:reference/extensions/openapi-java.adoc[Openapi Java]  | camel-quarkus-openapi-java | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Rest-dsl support for using openapi doc
 
