@@ -37,6 +37,9 @@ Stable | 1.0.0 | Write Camel integration routes in Kotlin
 | xref:reference/extensions/main.adoc[Main] | [.camel-element-artifact]##camel-quarkus-main## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode
 
+| xref:reference/extensions/management.adoc[Management] | [.camel-element-artifact]##camel-quarkus-management## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | JMX management strategy and associated managed resources.
+
 | xref:reference/extensions/microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance] | [.camel-element-artifact]##camel-quarkus-microprofile-fault-tolerance## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Circuit Breaker EIP using MicroProfile Fault Tolerance
 

@@ -500,6 +500,9 @@ Stable | 1.0.0 | Compress and decompress streams using LZF deflate algorithm.
 |  xref:reference/extensions/main.adoc[Main]  | camel-quarkus-main | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode
 
+|  xref:reference/extensions/management.adoc[Management]  | camel-quarkus-management | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | JMX management strategy and associated managed resources.
+
 |  xref:reference/extensions/master.adoc[Master]  | camel-quarkus-master | [.camel-element-Native]##Native## +
 Stable | 1.1.0 | Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
 
