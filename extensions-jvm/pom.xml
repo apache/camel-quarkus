@@ -87,6 +87,7 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
+        <module>jslt</module>
         <module>jt400</module>
         <module>language</module>
         <module>ldap</module>

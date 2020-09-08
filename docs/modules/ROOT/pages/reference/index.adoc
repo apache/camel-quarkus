@@ -446,6 +446,9 @@ Preview | 1.1.0 | Store and retrieve Java objects from an SQL database using JOO
 |  xref:reference/extensions/jpa.adoc[JPA]  | camel-quarkus-jpa | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve Java objects from databases using Java Persistence API (JPA).
 
+|  xref:reference/extensions/jslt.adoc[JSLT]  | camel-quarkus-jslt | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Query or transform JSON payloads using an JSLT.
+
 |  xref:reference/extensions/gson.adoc[JSON Gson]  | camel-quarkus-gson | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 
