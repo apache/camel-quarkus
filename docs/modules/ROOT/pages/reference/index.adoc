@@ -479,6 +479,9 @@ Stable | 1.0.0 | Interact with Apache Kudu, a free and open source column-orient
 |  xref:reference/extensions/log.adoc[Log]  | camel-quarkus-log | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Log messages to the underlying logging mechanism.
 
+|  xref:reference/extensions/lumberjack.adoc[Lumberjack]  | camel-quarkus-lumberjack | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Receive logs messages using the Lumberjack protocol.
+
 |  xref:reference/extensions/lzf.adoc[LZF Deflate Compression]  | camel-quarkus-lzf | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress streams using LZF deflate algorithm.
 

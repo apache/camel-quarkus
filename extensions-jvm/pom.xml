@@ -87,6 +87,7 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
+        <module>lumberjack</module>
         <module>milo</module>
         <module>mllp</module>
         <module>msv</module>
