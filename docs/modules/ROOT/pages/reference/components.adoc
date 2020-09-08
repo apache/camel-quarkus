@@ -472,6 +472,9 @@ Stable | 1.0.0 | Expose websocket endpoints using JSR356.
 | xref:reference/extensions/jbpm.adoc[JBPM] | [.camel-element-artifact]##camel-quarkus-jbpm## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Interact with jBPM workflow engine over REST.
 
+| xref:reference/extensions/jclouds.adoc[JClouds] | [.camel-element-artifact]##camel-quarkus-jclouds## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Interact with jclouds compute & blobstore service.
+
 | xref:reference/extensions/jcr.adoc[JCR] | [.camel-element-artifact]##camel-quarkus-jcr## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Read and write nodes to/from a JCR compliant content repository.
 
