@@ -1,0 +1,2 @@
+The JMX management beans exposed by this extension will not work in native mode, as GraalVM has no support for JMX. Therefore, attempting to build a native
+image with this extension on the classpath will result in a build failure.

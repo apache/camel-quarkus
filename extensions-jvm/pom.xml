@@ -97,6 +97,7 @@
         <module>ldif</module>
         <module>lucene</module>
         <module>lumberjack</module>
+        <module>management</module>
         <module>milo</module>
         <module>mllp</module>
         <module>msv</module>
