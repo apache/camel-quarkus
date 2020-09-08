@@ -553,6 +553,9 @@ Stable | 1.1.0 | Have only a single consumer in a cluster consuming from a given
 | xref:reference/extensions/microprofile-metrics.adoc[MicroProfile Metrics] | [.camel-element-artifact]##camel-quarkus-microprofile-metrics## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Expose metrics from Camel routes.
 
+| xref:reference/extensions/mllp.adoc[MLLP] | [.camel-element-artifact]##camel-quarkus-mllp## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Communicate with external systems using the MLLP protocol.
+
 | xref:reference/extensions/mock.adoc[Mock] | [.camel-element-artifact]##camel-quarkus-mock## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Test routes and mediation rules using mocks.
 
