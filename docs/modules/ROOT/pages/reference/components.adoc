@@ -544,6 +544,9 @@ Stable | 1.0.0 | Interact with Apache Kudu, a free and open source column-orient
 | xref:reference/extensions/log.adoc[Log] | [.camel-element-artifact]##camel-quarkus-log## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Log messages to the underlying logging mechanism.
 
+| xref:reference/extensions/lumberjack.adoc[Lumberjack] | [.camel-element-artifact]##camel-quarkus-lumberjack## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Receive logs messages using the Lumberjack protocol.
+
 | xref:reference/extensions/mail.adoc[Mail] | [.camel-element-artifact]##camel-quarkus-mail## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Send and receive emails using imap, pop3 and smtp protocols.
 
