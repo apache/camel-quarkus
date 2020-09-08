@@ -118,6 +118,15 @@ Preview | 1.1.0 | Serialize and deserialize messages using Apache Thrift binary 
 | xref:reference/extensions/tagsoup.adoc[TidyMarkup] | [.camel-element-artifact]##camel-quarkus-tagsoup## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Parse (potentially invalid) HTML into valid HTML or DOM.
 
+| xref:reference/extensions/univocity-parsers.adoc[uniVocity CSV] | [.camel-element-artifact]##camel-quarkus-univocity-parsers## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers.
+
+| xref:reference/extensions/univocity-parsers.adoc[uniVocity Fixed Length] | [.camel-element-artifact]##camel-quarkus-univocity-parsers## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal Java objects from and to fixed length records using UniVocity Parsers.
+
+| xref:reference/extensions/univocity-parsers.adoc[uniVocity TSV] | [.camel-element-artifact]##camel-quarkus-univocity-parsers## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal Java objects from and to TSV (Tab-Separated Values) records using UniVocity Parsers.
+
 | xref:reference/extensions/xmlsecurity.adoc[XML Security] | [.camel-element-artifact]##camel-quarkus-xmlsecurity## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Encrypt and decrypt XML payloads using Apache Santuario.
 
