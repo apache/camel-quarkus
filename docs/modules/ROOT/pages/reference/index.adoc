@@ -800,6 +800,9 @@ Preview | 1.1.0 | Interact with Twilio REST APIs using Twilio Java SDK.
 |  xref:reference/extensions/twitter.adoc[Twitter]  | camel-quarkus-twitter | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Send tweets and receive tweets, direct messages and access Twitter Search
 
+|  xref:reference/extensions/univocity-parsers.adoc[uniVocity CSV]  | camel-quarkus-univocity-parsers | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers.
+
 |  xref:reference/extensions/validator.adoc[Validator]  | camel-quarkus-validator | [.camel-element-Native]##Native## +
 Stable | 0.4.0 | Validate the payload using XML Schema and JAXP Validation.
 
