@@ -482,6 +482,9 @@ Stable | 1.0.0 | Marshal POJOs to JSON and back.
 |  xref:reference/extensions/json-validator.adoc[JSON Schema Validator]  | camel-quarkus-json-validator | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Validate JSON payloads using NetworkNT JSON Schema.
 
+|  xref:reference/extensions/jsonapi.adoc[JSonApi]  | camel-quarkus-jsonapi | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal JSON:API resources using JSONAPI-Converter library.
+
 |  xref:reference/extensions/jsonpath.adoc[JsonPath]  | camel-quarkus-jsonpath | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate a JsonPath expression against a JSON message body.
 

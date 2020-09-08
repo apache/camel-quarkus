@@ -70,6 +70,9 @@ Stable | 1.0.0 | Marshal POJOs to JSON and back.
 | xref:reference/extensions/xstream.adoc[JSON XStream] | [.camel-element-artifact]##camel-quarkus-xstream## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 
+| xref:reference/extensions/jsonapi.adoc[JSonApi] | [.camel-element-artifact]##camel-quarkus-jsonapi## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal JSON:API resources using JSONAPI-Converter library.
+
 | xref:reference/extensions/lzf.adoc[LZF Deflate Compression] | [.camel-element-artifact]##camel-quarkus-lzf## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress streams using LZF deflate algorithm.
 
