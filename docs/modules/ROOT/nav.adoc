@@ -166,6 +166,7 @@
 *** xref:reference/extensions/kotlin.adoc[Kotlin]
 *** xref:reference/extensions/kubernetes.adoc[Kubernetes]
 *** xref:reference/extensions/kudu.adoc[Kudu]
+*** xref:reference/extensions/ldif.adoc[LDIF]
 *** xref:reference/extensions/log.adoc[Log]
 *** xref:reference/extensions/lucene.adoc[Lucene]
 *** xref:reference/extensions/lumberjack.adoc[Lumberjack]
