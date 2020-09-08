@@ -161,6 +161,7 @@
 *** xref:reference/extensions/johnzon.adoc[JSON Johnzon]
 *** xref:reference/extensions/json-validator.adoc[JSON Schema Validator]
 *** xref:reference/extensions/jsonpath.adoc[JsonPath]
+*** xref:reference/extensions/jt400.adoc[JT400]
 *** xref:reference/extensions/jta.adoc[JTA]
 *** xref:reference/extensions/kafka.adoc[Kafka]
 *** xref:reference/extensions/kotlin.adoc[Kotlin]

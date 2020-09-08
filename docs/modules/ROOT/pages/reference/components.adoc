@@ -493,6 +493,9 @@ Stable | 1.0.0 | Store and retrieve Java objects from databases using Java Persi
 | xref:reference/extensions/json-validator.adoc[JSON Schema Validator] | [.camel-element-artifact]##camel-quarkus-json-validator## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Validate JSON payloads using NetworkNT JSON Schema.
 
+| xref:reference/extensions/jt400.adoc[JT400] | [.camel-element-artifact]##camel-quarkus-jt400## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Exchanges messages with an IBM i system using data queues, message queues, or program call. IBM i is the replacement for AS/400 and iSeries servers.
+
 | xref:reference/extensions/kafka.adoc[Kafka] | [.camel-element-artifact]##camel-quarkus-kafka## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Sent and receive messages to/from an Apache Kafka broker.
 
