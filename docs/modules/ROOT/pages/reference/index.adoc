@@ -38,6 +38,9 @@ Stable | 1.1.0 | Perform operations on ArangoDb when used as a Document Database
 |  xref:reference/extensions/as2.adoc[AS2]  | camel-quarkus-as2 | [.camel-element-Native]##Native## +
 Stable | 1.0.0-CR4 | Transfer data securely and reliably using the AS2 protocol (RFC4130).
 
+|  xref:reference/extensions/asn1.adoc[ASN.1 File]  | camel-quarkus-asn1 | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Encode and decode data structures using Abstract Syntax Notation One (ASN.1).
+
 |  xref:reference/extensions/asterisk.adoc[Asterisk]  | camel-quarkus-asterisk | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Interact with Asterisk PBX Server.
 
