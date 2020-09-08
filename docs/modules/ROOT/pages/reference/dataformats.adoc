@@ -70,6 +70,9 @@ Stable | 1.0.0 | Unmarshal a XML payloads to POJOs and back using XMLMapper exte
 | xref:reference/extensions/jaxb.adoc[JAXB] | [.camel-element-artifact]##camel-quarkus-jaxb## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 
+| xref:reference/extensions/fastjson.adoc[JSON Fastjson] | [.camel-element-artifact]##camel-quarkus-fastjson## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal POJOs to JSON and back.
+
 | xref:reference/extensions/gson.adoc[JSON Gson] | [.camel-element-artifact]##camel-quarkus-gson## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal POJOs to JSON and back.
 

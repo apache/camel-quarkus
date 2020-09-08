@@ -71,6 +71,7 @@
         <module>elsql</module>
         <module>etcd</module>
         <module>facebook</module>
+        <module>fastjson</module>
         <module>flink</module>
         <module>fop</module>
         <module>ganglia</module>

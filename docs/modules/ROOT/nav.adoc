@@ -168,6 +168,7 @@
 *** xref:reference/extensions/jooq.adoc[JOOQ]
 *** xref:reference/extensions/jpa.adoc[JPA]
 *** xref:reference/extensions/jslt.adoc[JSLT]
+*** xref:reference/extensions/fastjson.adoc[JSON Fastjson]
 *** xref:reference/extensions/gson.adoc[JSON Gson]
 *** xref:reference/extensions/jackson.adoc[JSON Jackson]
 *** xref:reference/extensions/johnzon.adoc[JSON Johnzon]
