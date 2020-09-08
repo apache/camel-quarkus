@@ -41,7 +41,6 @@
         <module>atomix</module>
         <module>avro-rpc</module>
         <module>aws2-kinesis</module>
-        <module>aws2-lambda</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
         <module>beanstalk</module>
