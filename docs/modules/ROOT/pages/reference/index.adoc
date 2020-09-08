@@ -476,6 +476,9 @@ Stable | 1.0.0 | Perform operations against Kubernetes API
 |  xref:reference/extensions/kudu.adoc[Kudu]  | camel-quarkus-kudu | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
+|  xref:reference/extensions/ldif.adoc[LDIF]  | camel-quarkus-ldif | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Perform updates on an LDAP server from an LDIF body content.
+
 |  xref:reference/extensions/log.adoc[Log]  | camel-quarkus-log | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Log messages to the underlying logging mechanism.
 
