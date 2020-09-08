@@ -122,6 +122,7 @@
 *** xref:reference/extensions/flatpack.adoc[Flatpack]
 *** xref:reference/extensions/flink.adoc[Flink]
 *** xref:reference/extensions/fop.adoc[FOP]
+*** xref:reference/extensions/freemarker.adoc[Freemarker]
 *** xref:reference/extensions/ftp.adoc[FTP]
 *** xref:reference/extensions/ganglia.adoc[Ganglia]
 *** xref:reference/extensions/geocoder.adoc[Geocoder]

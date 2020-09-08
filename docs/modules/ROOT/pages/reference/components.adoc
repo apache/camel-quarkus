@@ -328,6 +328,9 @@ Preview | 1.1.0 | Send DataSet jobs to an Apache Flink cluster.
 | xref:reference/extensions/fop.adoc[FOP] | [.camel-element-artifact]##camel-quarkus-fop## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Render messages into PDF and other output formats supported by Apache FOP.
 
+| xref:reference/extensions/freemarker.adoc[Freemarker] | [.camel-element-artifact]##camel-quarkus-freemarker## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform messages using FreeMarker templates.
+
 | xref:reference/extensions/ftp.adoc[FTP] | [.camel-element-artifact]##camel-quarkus-ftp## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Upload and download files to/from FTP servers.
 
