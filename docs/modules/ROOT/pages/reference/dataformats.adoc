@@ -34,6 +34,9 @@ Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (suc
 | xref:reference/extensions/bindy.adoc[Bindy Key Value Pair] | [.camel-element-artifact]##camel-quarkus-bindy## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal Java beans from and to flat payloads (such as CSV, delimited, fixed length formats, or FIX messages).
 
+| xref:reference/extensions/cbor.adoc[CBOR] | [.camel-element-artifact]##camel-quarkus-cbor## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Unmarshal a CBOR payload to POJO and back.
+
 | xref:reference/extensions/crypto.adoc[Crypto (Java Cryptographic Extension)] | [.camel-element-artifact]##camel-quarkus-crypto## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Encrypt and decrypt messages using Java Cryptography Extension (JCE).
 
