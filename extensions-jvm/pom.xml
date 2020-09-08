@@ -94,6 +94,7 @@
         <module>jooq</module>
         <module>jsch</module>
         <module>jslt</module>
+        <module>jsonapi</module>
         <module>jt400</module>
         <module>language</module>
         <module>ldap</module>
