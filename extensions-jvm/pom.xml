@@ -136,6 +136,7 @@
         <module>stomp</module>
         <module>stringtemplate</module>
         <module>stub</module>
+        <module>syslog</module>
         <module>thrift</module>
         <module>twilio</module>
         <module>velocity</module>

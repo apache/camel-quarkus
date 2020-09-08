@@ -752,6 +752,9 @@ Preview | 1.1.0 | Transform messages using StringTemplate engine.
 |  xref:reference/extensions/stub.adoc[Stub]  | camel-quarkus-stub | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Stub out any physical endpoints while in development or testing.
 
+|  xref:reference/extensions/syslog.adoc[Syslog]  | camel-quarkus-syslog | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshall SyslogMessages to RFC3164 and RFC5424 messages and back.
+
 |  xref:reference/extensions/tarfile.adoc[Tar File]  | camel-quarkus-tarfile | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 

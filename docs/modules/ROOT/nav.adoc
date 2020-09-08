@@ -258,6 +258,7 @@
 *** xref:reference/extensions/stream.adoc[Stream]
 *** xref:reference/extensions/stringtemplate.adoc[String Template]
 *** xref:reference/extensions/stub.adoc[Stub]
+*** xref:reference/extensions/syslog.adoc[Syslog]
 *** xref:reference/extensions/tarfile.adoc[Tar File]
 *** xref:reference/extensions/telegram.adoc[Telegram]
 *** xref:reference/extensions/threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]
