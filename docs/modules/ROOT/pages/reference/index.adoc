@@ -212,6 +212,9 @@ Stable | 1.0.0 | An LRUCacheFactory implementation based on Caffeine
 |  xref:reference/extensions/cassandraql.adoc[Cassandra CQL]  | camel-quarkus-cassandraql | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 
+|  xref:reference/extensions/cbor.adoc[CBOR]  | camel-quarkus-cbor | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Unmarshal a CBOR payload to POJO and back.
+
 |  xref:reference/extensions/chatscript.adoc[ChatScript]  | camel-quarkus-chatscript | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Chat with a ChatScript Server.
 
