@@ -88,6 +88,9 @@ Preview | 1.1.0 | Transform from ROME SyndFeed Java Objects to XML and vice-vers
 | xref:reference/extensions/soap.adoc[SOAP] | [.camel-element-artifact]##camel-quarkus-soap## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal Java objects to SOAP messages and back.
 
+| xref:reference/extensions/syslog.adoc[Syslog] | [.camel-element-artifact]##camel-quarkus-syslog## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshall SyslogMessages to RFC3164 and RFC5424 messages and back.
+
 | xref:reference/extensions/tarfile.adoc[Tar File] | [.camel-element-artifact]##camel-quarkus-tarfile## | [.camel-element-Native]##Native## +
 Stable | 0.3.0 | Archive files into tarballs or extract files from tarballs.
 
