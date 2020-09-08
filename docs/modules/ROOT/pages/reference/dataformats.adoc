@@ -10,6 +10,9 @@
 |===
 | Data format | Artifact | Support Level | Since | Description
 
+| xref:reference/extensions/asn1.adoc[ASN.1 File] | [.camel-element-artifact]##camel-quarkus-asn1## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Encode and decode data structures using Abstract Syntax Notation One (ASN.1).
+
 | xref:reference/extensions/avro.adoc[Avro] | [.camel-element-artifact]##camel-quarkus-avro## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Serialize and deserialize messages using Apache Avro binary data format.
 
