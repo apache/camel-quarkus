@@ -476,6 +476,9 @@ Stable | 1.0.0 | Perform operations against Kubernetes API
 |  xref:reference/extensions/kudu.adoc[Kudu]  | camel-quarkus-kudu | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
+|  xref:reference/extensions/language.adoc[Language]  | camel-quarkus-language | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Execute scripts in any of the languages supported by Camel.
+
 |  xref:reference/extensions/ldap.adoc[LDAP]  | camel-quarkus-ldap | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Perform searches on LDAP servers.
 
