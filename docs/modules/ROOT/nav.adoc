@@ -150,6 +150,7 @@
 *** xref:reference/extensions/websocket-jsr356.adoc[Javax Websocket]
 *** xref:reference/extensions/jaxb.adoc[JAXB]
 *** xref:reference/extensions/jbpm.adoc[JBPM]
+*** xref:reference/extensions/jclouds.adoc[JClouds]
 *** xref:reference/extensions/jcr.adoc[JCR]
 *** xref:reference/extensions/jdbc.adoc[JDBC]
 *** xref:reference/extensions/jing.adoc[Jing]
