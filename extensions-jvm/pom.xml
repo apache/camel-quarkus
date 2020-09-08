@@ -85,6 +85,7 @@
         <module>ipfs</module>
         <module>irc</module>
         <module>jbpm</module>
+        <module>jcr</module>
         <module>jing</module>
         <module>jooq</module>
         <module>jsch</module>

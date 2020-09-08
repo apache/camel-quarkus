@@ -428,6 +428,9 @@ Stable | 1.0.0 | Unmarshal XML payloads to POJOs and back using JAXB2 XML marsha
 |  xref:reference/extensions/jbpm.adoc[JBPM]  | camel-quarkus-jbpm | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Interact with jBPM workflow engine over REST.
 
+|  xref:reference/extensions/jcr.adoc[JCR]  | camel-quarkus-jcr | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Read and write nodes to/from a JCR compliant content repository.
+
 |  xref:reference/extensions/jdbc.adoc[JDBC]  | camel-quarkus-jdbc | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Access databases through SQL and JDBC.
 
