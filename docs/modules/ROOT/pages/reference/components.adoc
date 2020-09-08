@@ -490,6 +490,9 @@ Preview | 1.1.0 | Store and retrieve Java objects from an SQL database using JOO
 | xref:reference/extensions/jpa.adoc[JPA] | [.camel-element-artifact]##camel-quarkus-jpa## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Store and retrieve Java objects from databases using Java Persistence API (JPA).
 
+| xref:reference/extensions/jslt.adoc[JSLT] | [.camel-element-artifact]##camel-quarkus-jslt## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Query or transform JSON payloads using an JSLT.
+
 | xref:reference/extensions/json-validator.adoc[JSON Schema Validator] | [.camel-element-artifact]##camel-quarkus-json-validator## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Validate JSON payloads using NetworkNT JSON Schema.
 
