@@ -461,6 +461,9 @@ Stable | 1.0.0 | Validate JSON payloads using NetworkNT JSON Schema.
 |  xref:reference/extensions/jsonpath.adoc[JsonPath]  | camel-quarkus-jsonpath | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Evaluate a JsonPath expression against a JSON message body.
 
+|  xref:reference/extensions/jt400.adoc[JT400]  | camel-quarkus-jt400 | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Exchanges messages with an IBM i system using data queues, message queues, or program call. IBM i is the replacement for AS/400 and iSeries servers.
+
 |  xref:reference/extensions/jta.adoc[JTA]  | camel-quarkus-jta | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Using Camel With JTA Transaction Manager
 
