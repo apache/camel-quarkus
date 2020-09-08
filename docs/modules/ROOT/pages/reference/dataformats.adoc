@@ -46,6 +46,9 @@ Stable | 1.0.0 | Unmarshal unstructured data to objects using Logstash based Gro
 | xref:reference/extensions/zip-deflater.adoc[GZip Deflater] | [.camel-element-artifact]##camel-quarkus-zip-deflater## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Compress and decompress messages using java.util.zip.GZIPStream.
 
+| xref:reference/extensions/hl7.adoc[HL7] | [.camel-element-artifact]##camel-quarkus-hl7## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal HL7 (Health Care) model objects using the HL7 MLLP codec.
+
 | xref:reference/extensions/ical.adoc[iCal] | [.camel-element-artifact]##camel-quarkus-ical## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 
