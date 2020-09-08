@@ -484,6 +484,9 @@ Preview | 1.1.0 | Read and write nodes to/from a JCR compliant content repositor
 | xref:reference/extensions/jdbc.adoc[JDBC] | [.camel-element-artifact]##camel-quarkus-jdbc## | [.camel-element-Native]##Native## +
 Stable | 0.2.0 | Access databases through SQL and JDBC.
 
+| xref:reference/extensions/jgroups.adoc[JGroups] | [.camel-element-artifact]##camel-quarkus-jgroups## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Exchange messages with JGroups clusters.
+
 | xref:reference/extensions/jing.adoc[Jing] | [.camel-element-artifact]##camel-quarkus-jing## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Validate XML against a RelaxNG schema (XML Syntax or Compact Syntax) using Jing library.
 
