@@ -87,6 +87,7 @@
         <module>jbpm</module>
         <module>jooq</module>
         <module>jsch</module>
+        <module>ldap</module>
         <module>ldif</module>
         <module>lucene</module>
         <module>lumberjack</module>
