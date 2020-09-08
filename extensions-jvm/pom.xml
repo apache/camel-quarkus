@@ -79,6 +79,7 @@
         <module>hazelcast</module>
         <module>hdfs</module>
         <module>hipchat</module>
+        <module>hl7</module>
         <module>iec60870</module>
         <module>ignite</module>
         <module>iota</module>

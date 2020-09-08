@@ -389,6 +389,9 @@ Preview | 1.1.0 | Read and write from/to an HDFS filesystem using Hadoop 2.x.
 |  xref:reference/extensions/hipchat.adoc[Hipchat]  | camel-quarkus-hipchat | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from Hipchat service.
 
+|  xref:reference/extensions/hl7.adoc[HL7]  | camel-quarkus-hl7 | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Marshal and unmarshal HL7 (Health Care) model objects using the HL7 MLLP codec.
+
 |  xref:reference/extensions/http.adoc[HTTP]  | camel-quarkus-http | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Send requests to external HTTP servers using Apache HTTP Client 4.x.
 
