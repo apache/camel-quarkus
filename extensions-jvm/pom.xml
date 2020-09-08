@@ -88,6 +88,7 @@
         <module>jclouds</module>
         <module>jcr</module>
         <module>jgroups</module>
+        <module>jgroups-raft</module>
         <module>jing</module>
         <module>jooq</module>
         <module>jsch</module>
