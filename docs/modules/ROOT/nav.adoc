@@ -151,6 +151,7 @@
 *** xref:reference/extensions/jaxb.adoc[JAXB]
 *** xref:reference/extensions/jbpm.adoc[JBPM]
 *** xref:reference/extensions/jdbc.adoc[JDBC]
+*** xref:reference/extensions/jing.adoc[Jing]
 *** xref:reference/extensions/jira.adoc[Jira]
 *** xref:reference/extensions/jms.adoc[JMS]
 *** xref:reference/extensions/jolt.adoc[JOLT]
