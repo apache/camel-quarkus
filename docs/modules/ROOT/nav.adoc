@@ -155,6 +155,7 @@
 *** xref:reference/extensions/jcr.adoc[JCR]
 *** xref:reference/extensions/jdbc.adoc[JDBC]
 *** xref:reference/extensions/jgroups.adoc[JGroups]
+*** xref:reference/extensions/jgroups-raft.adoc[JGroups raft]
 *** xref:reference/extensions/jing.adoc[Jing]
 *** xref:reference/extensions/jira.adoc[Jira]
 *** xref:reference/extensions/jms.adoc[JMS]
