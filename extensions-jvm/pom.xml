@@ -87,6 +87,7 @@
         <module>jbpm</module>
         <module>jclouds</module>
         <module>jcr</module>
+        <module>jgroups</module>
         <module>jing</module>
         <module>jooq</module>
         <module>jsch</module>
