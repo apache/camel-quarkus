@@ -64,6 +64,7 @@
 *** xref:reference/extensions/azure.adoc[Azure]
 *** xref:reference/extensions/azure-storage-blob.adoc[Azure Storage Blob Service]
 *** xref:reference/extensions/azure-storage-queue.adoc[Azure Storage Queue Service]
+*** xref:reference/extensions/barcode.adoc[Barcode]
 *** xref:reference/extensions/base64.adoc[Base64]
 *** xref:reference/extensions/bean.adoc[Bean]
 *** xref:reference/extensions/bean-validator.adoc[Bean Validator]

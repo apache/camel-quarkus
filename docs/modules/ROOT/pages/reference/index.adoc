@@ -170,6 +170,9 @@ Preview | 1.1.0 | Store and retrieve blobs from Azure Storage Blob Service using
 |  xref:reference/extensions/azure-storage-queue.adoc[Azure Storage Queue Service]  | camel-quarkus-azure-storage-queue | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.
 
+|  xref:reference/extensions/barcode.adoc[Barcode]  | camel-quarkus-barcode | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform strings to various 1D/2D barcode bitmap formats and back.
+
 |  xref:reference/extensions/base64.adoc[Base64]  | camel-quarkus-base64 | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Encode and decode data using Base64.
 

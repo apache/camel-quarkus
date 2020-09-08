@@ -16,6 +16,9 @@ Preview | 1.1.0 | Encode and decode data structures using Abstract Syntax Notati
 | xref:reference/extensions/avro.adoc[Avro] | [.camel-element-artifact]##camel-quarkus-avro## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Serialize and deserialize messages using Apache Avro binary data format.
 
+| xref:reference/extensions/barcode.adoc[Barcode] | [.camel-element-artifact]##camel-quarkus-barcode## | [.camel-element-JVM]##JVM## +
+Preview | 1.1.0 | Transform strings to various 1D/2D barcode bitmap formats and back.
+
 | xref:reference/extensions/base64.adoc[Base64] | [.camel-element-artifact]##camel-quarkus-base64## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Encode and decode data using Base64.
 
