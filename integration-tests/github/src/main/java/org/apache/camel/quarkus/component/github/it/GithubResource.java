@@ -28,6 +28,8 @@ import org.eclipse.egit.github.core.CommitFile;
 @Path("/github")
 public class GithubResource {
 
+    private static final String GITHUB_AUTH_PARAMS = "username={{env:GITHUB_USERNAME:}}&password={{env:GITHUB_PASSWORD:}}";
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -39,8 +41,7 @@ public class GithubResource {
         commitFile.setSha("6195efafd0a8100795247e35942b5c61fea79267");
 
         return producerTemplate.requestBody(
-                "github:GETCOMMITFILE?repoOwner=apache&repoName=camel-quarkus",
+                "github:GETCOMMITFILE?repoOwner=apache&repoName=camel-quarkus&" + GITHUB_AUTH_PARAMS,
                 commitFile, String.class);
     }
-
 }
