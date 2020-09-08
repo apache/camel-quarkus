@@ -45,6 +45,7 @@
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
         <module>barcode</module>
+        <module>beanio</module>
         <module>beanstalk</module>
         <module>bonita</module>
         <module>browse</module>
