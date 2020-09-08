@@ -94,8 +94,8 @@ Preview | 1.1.0 | Consume and produce records from and to AWS Kinesis Streams us
 | xref:reference/extensions/aws2-kinesis.adoc[AWS 2 Kinesis Firehose] | [.camel-element-artifact]##camel-quarkus-aws2-kinesis## | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Produce data to AWS Kinesis Firehose streams using AWS SDK version 2.x.
 
-| xref:reference/extensions/aws2-lambda.adoc[AWS 2 Lambda] | [.camel-element-artifact]##camel-quarkus-aws2-lambda## | [.camel-element-JVM]##JVM## +
-Preview | 1.1.0 | Manage and invoke AWS Lambda functions using AWS SDK version 2.x.
+| xref:reference/extensions/aws2-lambda.adoc[AWS 2 Lambda] | [.camel-element-artifact]##camel-quarkus-aws2-lambda## | [.camel-element-Native]##Native## +
+Stable | 1.1.0 | Manage and invoke AWS Lambda functions using AWS SDK version 2.x.
 
 | xref:reference/extensions/aws2-msk.adoc[AWS 2 Managed Streaming for Apache Kafka (MSK)] | [.camel-element-artifact]##camel-quarkus-aws2-msk## | [.camel-element-Native]##Native## +
 Stable | 1.0.0 | Manage AWS MSK instances using AWS SDK version 2.x.
