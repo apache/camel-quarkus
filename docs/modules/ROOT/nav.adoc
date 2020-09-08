@@ -167,6 +167,7 @@
 *** xref:reference/extensions/kubernetes.adoc[Kubernetes]
 *** xref:reference/extensions/kudu.adoc[Kudu]
 *** xref:reference/extensions/log.adoc[Log]
+*** xref:reference/extensions/lucene.adoc[Lucene]
 *** xref:reference/extensions/lumberjack.adoc[Lumberjack]
 *** xref:reference/extensions/lzf.adoc[LZF Deflate Compression]
 *** xref:reference/extensions/main.adoc[Main]
