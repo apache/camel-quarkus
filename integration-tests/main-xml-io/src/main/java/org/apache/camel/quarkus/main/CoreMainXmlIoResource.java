@@ -22,18 +22,24 @@ import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.ProducerTemplate;
 
 @Path("/test")
 @ApplicationScoped
 public class CoreMainXmlIoResource {
     @Inject
     CamelMain main;
+
+    @Inject
+    ProducerTemplate template;
 
     @Path("/main/describe")
     @GET
@@ -68,5 +74,13 @@ public class CoreMainXmlIoResource {
                 .add("routes", routes)
                 .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
                 .build();
+    }
+
+    @Path("/xml-io/namespace-aware")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    @Consumes(MediaType.APPLICATION_XML)
+    public String namespaceAware(String body) {
+        return template.requestBody("direct:namespace-aware", body, String.class);
     }
 }
