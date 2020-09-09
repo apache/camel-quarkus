@@ -1,0 +1,38 @@
+[[create-jvm-only-extension]]
+= Create a JVM-only extension
+
+== Why JVM-only extensions
+
+Quarkus applications can be built and run in two modes: JVM and native. While native mode is clearly superior when it
+comes to application start time, memory consumption and size on disk, the JVM mode may still be a valid option. Here is
+why:
+
+First, Quarkus works really well on stock JVMs, such as OpenJDK. While the memory consumption and start times are not
+as good as in native mode, they are still very good when
+https://quarkus.io/blog/runtime-performance/#application-start-time[compared] to traditional JVM stacks.
+
+Second, JVM mode beats native mode in https://quarkus.io/blog/runtime-performance/#throughput-reqsec[peak throughput]
+and https://quarkus.io/blog/runtime-performance/#response-times-ms[response latency]. You should prefer JVM mode if
+these metrics matter to you.
+
+And third, creating a Quarkus extension that works well both in JVM and native mode requires some time and
+xref:contributor-guide/create-new-extension.adoc[expertise]. In case some extension is needed quickly and the native
+support is dispensable, relying on JVM-only extensions may make a lot of sense.
+
+== How to create a JVM-only extension
+
+The steps are the same as when xref:contributor-guide/create-new-extension.adoc[creating a native extension], except
+for the following:
+
+* Add `-Dcq.nativeSupported=false` to `cq:create` mojo invocation:
++
+[source,shell]
+----
+$ cd camel-quarkus
+$ mvn cq:create -N -Dcq.artifactIdBase=foo-abc -Dcq.nativeSupported=false
+----
++
+* A basic integration test is generated for you. It just checks that the newly added Camel component can be loaded.
+  Adding some meaningful assertions to the generated test is highly welcome though.
+* You do not need to add the test to `tooling/scripts/test-categories.yaml` because it is necessary only for
+  native tests.

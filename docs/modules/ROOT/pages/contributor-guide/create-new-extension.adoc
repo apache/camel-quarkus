@@ -44,21 +44,21 @@ because the test project needs to get finished. You need to build `poms/bom` and
 7. Review the generated
    `extensions/foo-abc/runtime/src/main/resources/META-INF/quarkus-extension.yaml` file.
 +
-   The
-   `description` comes from Camel Catalog. If it looks improper or too long due to concatenation of multiple
-   component descriptions, you may override it by setting an explicit `<description>` in the runtime `pom.xml`
-   of your new extension. If you think the value coming from Camel Catalog should be changed, please
-   https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel issue] and ask to fix the metadata
-   for the given Camel component.
+The
+`description` comes from Camel Catalog. If it looks improper or too long due to concatenation of multiple
+component descriptions, you may override it by setting an explicit `<description>` in the runtime `pom.xml`
+of your new extension. If you think the value coming from Camel Catalog should be changed, please
+https://issues.apache.org/jira/secure/CreateIssue!default.jspa[file a new Camel issue] and ask to fix the metadata
+for the given Camel component.
 +
-   If there is some important keyword missing in both the `name` and `description` through which your new extension
-   should definitely be findable on https://code.quarkus.io[code.quarkus.io], consider setting
-   `<quarkus.metadata.keywords>` property in your runtime `pom.xml`.
+If there is some important keyword missing in both the `name` and `description` through which your new extension
+should definitely be findable on https://code.quarkus.io[code.quarkus.io], consider setting
+`<quarkus.metadata.keywords>` property in your runtime `pom.xml`.
 +
-   Run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate the
-   `quarkus-extension.yaml` file.
+Run `mvn -N cq:update-quarkus-metadata` from the source tree's root directory to re-generate the
+`quarkus-extension.yaml` file.
 +
-   Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
+Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] page for more details about the `quarkus-extension.yaml` file
 
 8. Review the dependencies in the generated runtime and deployment modules. In case the given library is supported by
    Quarkus, you may want to add a dependency on the corresponding Quarkus extension.
