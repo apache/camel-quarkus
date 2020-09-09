@@ -19,14 +19,7 @@ package org.apache.camel.quarkus.component.vertx.http;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
-import io.vertx.core.buffer.Buffer;
-import io.vertx.ext.web.client.HttpRequest;
-import org.apache.camel.Exchange;
-import org.apache.camel.component.vertx.http.DefaultVertxHttpBinding;
 import org.apache.camel.component.vertx.http.VertxHttpComponent;
-import org.apache.camel.spi.HeaderFilterStrategy;
-import org.apache.camel.support.ExchangeHelper;
-import org.apache.camel.util.ObjectHelper;
 
 @Recorder
 public class CamelVertxHttpRecorder {
@@ -34,20 +27,6 @@ public class CamelVertxHttpRecorder {
     public RuntimeValue<?> createVertxHttpComponent(RuntimeValue<Vertx> vertx) {
         VertxHttpComponent component = new VertxHttpComponent();
         component.setVertx(vertx.getValue());
-        component.setVertxHttpBinding(new QuarkusVertxHttpBinding());
         return new RuntimeValue<>(component);
-    }
-
-    // TODO: Remove when https://issues.apache.org/jira/browse/CAMEL-15495 is resolved
-    static class QuarkusVertxHttpBinding extends DefaultVertxHttpBinding {
-        @Override
-        public void populateRequestHeaders(Exchange exchange, HttpRequest<Buffer> request, HeaderFilterStrategy strategy) {
-            super.populateRequestHeaders(exchange, request, strategy);
-
-            String contentType = ExchangeHelper.getContentType(exchange);
-            if (ObjectHelper.isNotEmpty(contentType)) {
-                request.putHeader(Exchange.CONTENT_TYPE, contentType);
-            }
-        }
     }
 }
