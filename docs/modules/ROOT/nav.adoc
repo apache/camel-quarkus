@@ -8,6 +8,7 @@
 * xref:contributor-guide/index.adoc[Contributor guide]
 ** xref:contributor-guide/create-new-extension.adoc[Create new extension]
 ** xref:contributor-guide/promote-jvm-to-native.adoc[Promote JVM extension to Native]
+** xref:contributor-guide/create-jvm-only-extension.adoc[Create JVM-only extension]
 ** xref:contributor-guide/extension-metadata.adoc[Extension metadata]
 ** xref:contributor-guide/extension-documentation.adoc[Extension documentation]
 ** xref:contributor-guide/ci.adoc[Continuous Integration]
