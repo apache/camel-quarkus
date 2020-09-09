@@ -152,6 +152,10 @@ public class CoreMainTest {
         // to ensure that FastCamelContext won't change in a way it cannot be configured
         // consistently across runtimes using camel-main properties.
         assertThat(p.getString("config.resilience4j-sliding-window-size")).isEqualTo("1234");
+
+        // ensure reflection is not used
+        assertThat(p.getLong("bean-introspection-invocations")).isEqualTo(0);
+
     }
 
     @Test

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.util.Arrays;
 import java.util.List;
 
 import io.quarkus.deployment.annotations.BuildStep;
@@ -46,6 +47,21 @@ public class CamelRegistryProcessor {
     @BuildStep
     CamelRegistryBuildItem registry(CamelRecorder recorder) {
         return new CamelRegistryBuildItem(recorder.createRegistry());
+    }
+
+    /*
+     * TODO: this is a workaround for https://github.com/apache/camel-quarkus/issues/1765
+     *       remove it after https://issues.apache.org/jira/browse/CAMEL-15518
+     */
+    @BuildStep
+    List<CamelBeanBuildItem> contextConfigurer() {
+        return Arrays.asList(
+                new CamelBeanBuildItem(
+                        "org.apache.camel.ExtendedCamelContext",
+                        "org.apache.camel.impl.ExtendedCamelContextConfigurer"),
+                new CamelBeanBuildItem(
+                        "org.apache.camel.impl.ExtendedCamelContext",
+                        "org.apache.camel.impl.ExtendedCamelContextConfigurer"));
     }
 
     @Record(ExecutionTime.STATIC_INIT)
