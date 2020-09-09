@@ -56,6 +56,8 @@
                             </includes>
                             <excludes>
                                 <exclude>support/**/*</exclude>
+                                <exclude>master/pom.xml</exclude>
+                                <exclude>main-command-mode/pom.xml</exclude>
                             </excludes>
                         </fileSet>
                     </fileSets>
