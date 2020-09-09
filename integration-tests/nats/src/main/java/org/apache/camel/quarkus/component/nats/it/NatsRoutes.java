@@ -18,8 +18,13 @@ package org.apache.camel.quarkus.component.nats.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.support.jsse.KeyManagersParameters;
+import org.apache.camel.support.jsse.KeyStoreParameters;
+import org.apache.camel.support.jsse.SSLContextParameters;
+import org.apache.camel.support.jsse.TrustManagersParameters;
 
 @ApplicationScoped
 public class NatsRoutes extends RouteBuilder {
@@ -32,6 +37,7 @@ public class NatsRoutes extends RouteBuilder {
         from("natsBasicAuth:test").routeId("basic-auth").bean(natsResource, "storeMessage");
         from("natsNoAuth:test").routeId("no-auth").bean(natsResource, "storeMessage");
         from("natsTokenAuth:test").routeId("token-auth").bean(natsResource, "storeMessage");
+        from("natsTlsAuth:test?sslContextParameters=#ssl&secure=true").routeId("tls-auth").bean(natsResource, "storeMessage");
 
         from("natsNoAuth:max?maxMessages=2").routeId("2-msg-max").bean(natsResource, "storeMessage");
 
@@ -41,5 +47,27 @@ public class NatsRoutes extends RouteBuilder {
 
         from("natsNoAuth:request-reply").setBody().simple("${body} => Reply");
         from("natsNoAuth:reply").routeId("reply").bean(natsResource, "storeMessage");
+    }
+
+    @Named("ssl")
+    private SSLContextParameters createSSLContextParameters() {
+        SSLContextParameters sslContextParameters = new SSLContextParameters();
+
+        KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
+        KeyStoreParameters keyStore = new KeyStoreParameters();
+        keyStore.setPassword("password");
+        keyStore.setResource("certs/keystore.jks");
+        keyManagersParameters.setKeyPassword("password");
+        keyManagersParameters.setKeyStore(keyStore);
+        sslContextParameters.setKeyManagers(keyManagersParameters);
+
+        TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
+        KeyStoreParameters trustStore = new KeyStoreParameters();
+        trustStore.setPassword("password");
+        trustStore.setResource("certs/truststore.jks");
+        trustManagersParameters.setKeyStore(trustStore);
+        sslContextParameters.setTrustManagers(trustManagersParameters);
+
+        return sslContextParameters;
     }
 }
