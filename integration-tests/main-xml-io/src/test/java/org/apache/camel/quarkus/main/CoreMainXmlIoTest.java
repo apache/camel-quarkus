@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
@@ -27,6 +28,7 @@ import org.apache.camel.xml.in.ModelParserXMLRoutesDefinitionLoader;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 public class CoreMainXmlIoTest {
@@ -49,5 +51,20 @@ public class CoreMainXmlIoTest {
                 .isEmpty();
         assertThat(p.getList("routes", String.class))
                 .contains("my-xml-route");
+    }
+
+    @Test
+    public void namespaceAware() {
+        String message = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+                + "<foo:foo-text xmlns:foo=\"http://camel.apache.org/foo\">bar</foo:foo-text>";
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(message)
+                .post("/test/xml-io/namespace-aware")
+                .then()
+                .statusCode(200)
+                .body(is("bar"));
+
     }
 }

@@ -19,6 +19,7 @@
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://camel.apache.org/schema/spring"
+        xmlns:foo="http://camel.apache.org/foo"
         xsi:schemaLocation="
             http://camel.apache.org/schema/spring
             http://camel.apache.org/schema/spring/camel-spring.xsd">
@@ -29,6 +30,15 @@
             <constant>Hello World!!!</constant>
         </setBody>
         <to uri="log:from-xml"/>
+    </route>
+
+    <route id="namespace-aware-route">
+        <from uri="direct:namespace-aware"/>
+        <setBody>
+           <xpath resultType="java.lang.String">
+              /foo:foo-text/text()
+           </xpath>
+        </setBody>
     </route>
 
 </routes>
