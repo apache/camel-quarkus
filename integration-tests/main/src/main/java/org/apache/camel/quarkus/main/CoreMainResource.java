@@ -167,6 +167,7 @@ public class CoreMainResource {
                         .add("languages", languagesInRegistry))
                 .add("factory-finder", Json.createObjectBuilder()
                         .add("class-map", factoryClassMap))
+                .add("bean-introspection-invocations", camelContext.getBeanIntrospection().getInvokedCounter())
                 .build();
     }
 
