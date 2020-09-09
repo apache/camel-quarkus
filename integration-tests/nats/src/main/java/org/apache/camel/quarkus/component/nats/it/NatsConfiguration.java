@@ -25,6 +25,7 @@ public class NatsConfiguration {
 
     public static final String NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-basic-auth";
     public static final String NATS_BROKER_URL_NO_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-no-auth";
+    public static final String NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-tls-auth";
     public static final String NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-token-auth";
 
     @ConfigProperty(name = NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY)
@@ -32,6 +33,9 @@ public class NatsConfiguration {
 
     @ConfigProperty(name = NATS_BROKER_URL_NO_AUTH_CONFIG_KEY)
     String natsNoAuthBrokerUrl;
+
+    @ConfigProperty(name = NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY)
+    String natsTlsAuthBrokerUrl;
 
     @ConfigProperty(name = NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY)
     String natsTokenAuthBrokerUrl;
@@ -47,6 +51,13 @@ public class NatsConfiguration {
     NatsComponent natsNoAuth() {
         NatsComponent component = new NatsComponent();
         component.setServers(natsNoAuthBrokerUrl);
+        return component;
+    }
+
+    @Named
+    NatsComponent natsTlsAuth() {
+        NatsComponent component = new NatsComponent();
+        component.setServers(natsTlsAuthBrokerUrl);
         return component;
     }
 

@@ -21,12 +21,14 @@ import java.util.Map;
 import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_NO_AUTH_CONFIG_KEY;
+import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
@@ -39,7 +41,7 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
     private static final int NATS_SERVER_PORT = 4222;
     private static final String TOKEN_AUTH_TOKEN = "!admin23456";
 
-    private GenericContainer basicAuthContainer, noAuthContainer, tokenAuthContainer;
+    private GenericContainer basicAuthContainer, noAuthContainer, tlsAuthContainer, tokenAuthContainer;
 
     @Override
     public Map<String, String> start() {
@@ -63,6 +65,20 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
         Integer noAuthPort = noAuthContainer.getMappedPort(NATS_SERVER_PORT);
         String noAuthBrokerUrl = String.format("%s:%s", noAuthIp, noAuthPort);
 
+        // Start the container needed for the TLS authentication test
+        tlsAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
+                .withClasspathResourceMapping("certs", "/certs", BindMode.READ_ONLY)
+                .withCommand("--tls",
+                        "--tlscert=/certs/server.pem",
+                        "--tlskey=/certs/key.pem",
+                        "--tlsverify",
+                        "--tlscacert=/certs/ca.pem")
+                .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
+        tlsAuthContainer.start();
+        String tlsAuthIp = tlsAuthContainer.getContainerIpAddress();
+        Integer tlsAuthPort = tlsAuthContainer.getMappedPort(NATS_SERVER_PORT);
+        String tlsAuthBrokerUrl = String.format("%s:%d", tlsAuthIp, tlsAuthPort);
+
         // Start the container needed for the token authentication test
         tokenAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
                 .withCommand("-DV", "-auth", TOKEN_AUTH_TOKEN)
@@ -72,16 +88,18 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
         Integer tokenAuthPort = tokenAuthContainer.getMappedPort(NATS_SERVER_PORT);
         String tokenAuthBrokerUrl = String.format("%s@%s:%d", TOKEN_AUTH_TOKEN, tokenAuthIp, tokenAuthPort);
 
-        Map<String, String> Properties = mapOf(NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY, basicAuthBrokerUrl);
-        Properties.put(NATS_BROKER_URL_NO_AUTH_CONFIG_KEY, noAuthBrokerUrl);
-        Properties.put(NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY, tokenAuthBrokerUrl);
-        return Properties;
+        Map<String, String> properties = mapOf(NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY, basicAuthBrokerUrl);
+        properties.put(NATS_BROKER_URL_NO_AUTH_CONFIG_KEY, noAuthBrokerUrl);
+        properties.put(NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY, tlsAuthBrokerUrl);
+        properties.put(NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY, tokenAuthBrokerUrl);
+        return properties;
     }
 
     @Override
     public void stop() {
         stop(basicAuthContainer, "natsBasicAuthContainer");
         stop(noAuthContainer, "natsNoAuthContainer");
+        stop(tlsAuthContainer, "natsTlsAuthContainer");
         stop(tokenAuthContainer, "natsTokenAuthContainer");
     }
 

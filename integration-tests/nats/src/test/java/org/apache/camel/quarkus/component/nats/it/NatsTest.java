@@ -60,6 +60,20 @@ class NatsTest {
     }
 
     @Test
+    void tlsAuthProduceConsumeRoundTripShouldSucceed() {
+        Header header = new Header("sendToEndpointUri", "natsTlsAuth:test?sslContextParameters=#ssl&secure=true");
+        given().when().header(header).body("tls-auth-msg").post("/nats/send").then().statusCode(204);
+
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            return given().get("/nats/messages/tls-auth").path("size()").equals(1);
+        });
+
+        String[] messages = given().get("/nats/messages/tls-auth").then().statusCode(200).extract().as(String[].class);
+        assertEquals(1, messages.length);
+        assertEquals("tls-auth-msg", messages[0]);
+    }
+
+    @Test
     void tokenAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsTokenAuth:test");
         given().when().header(header).body("token-auth-msg").post("/nats/send").then().statusCode(204);

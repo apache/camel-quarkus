@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.nats.deployment;
 import io.nats.client.Options;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
@@ -34,5 +35,10 @@ class NatsProcessor {
     @BuildStep
     void registerReflectiveClasses(BuildProducer<ReflectiveClassBuildItem> producer) {
         producer.produce(new ReflectiveClassBuildItem(false, false, Options.DEFAULT_DATA_PORT_TYPE));
+    }
+
+    @BuildStep
+    ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
+        return new ExtensionSslNativeSupportBuildItem(FEATURE);
     }
 }
