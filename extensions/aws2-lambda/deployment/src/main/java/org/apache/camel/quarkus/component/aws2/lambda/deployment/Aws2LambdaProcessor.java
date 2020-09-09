@@ -16,17 +16,52 @@
  */
 package org.apache.camel.quarkus.component.aws2.lambda.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.logging.Logger;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import software.amazon.awssdk.core.interceptor.ExecutionInterceptor;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.jboss.jandex.DotName;
 
 class Aws2LambdaProcessor {
 
-    private static final Logger LOG = Logger.getLogger(Aws2LambdaProcessor.class);
     private static final String FEATURE = "camel-aws2-lambda";
+
+    public static final String AWS_SDK_APPLICATION_ARCHIVE_MARKERS = "software/amazon/awssdk";
+
+    private static final List<String> INTERCEPTOR_PATHS = Arrays.asList(
+            "software/amazon/awssdk/global/handlers/execution.interceptors");
+
+    private static final DotName EXECUTION_INTERCEPTOR_NAME = DotName.createSimple(ExecutionInterceptor.class.getName());
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep(applicationArchiveMarkers = { AWS_SDK_APPLICATION_ARCHIVE_MARKERS })
+    void process(CombinedIndexBuildItem combinedIndexBuildItem,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
+            BuildProducer<NativeImageResourceBuildItem> resource) {
+
+        INTERCEPTOR_PATHS.forEach(path -> resource.produce(new NativeImageResourceBuildItem(path)));
+
+        List<String> knownInterceptorImpls = combinedIndexBuildItem.getIndex()
+                .getAllKnownImplementors(EXECUTION_INTERCEPTOR_NAME)
+                .stream()
+                .map(c -> c.name().toString()).collect(Collectors.toList());
+
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false,
+                knownInterceptorImpls.toArray(new String[knownInterceptorImpls.size()])));
+
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
+                String.class.getCanonicalName()));
     }
 }
