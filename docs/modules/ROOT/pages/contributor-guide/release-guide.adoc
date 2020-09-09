@@ -8,6 +8,12 @@ https://camel.apache.org/manual/latest/release-guide.html[Release guide] page of
 Here, just a sketch of the repeating part, after you have performed the initial setup following the
 https://camel.apache.org/manual/latest/release-guide.html[Camel Release guide].
 
+== Pre release tasks
+
+* Check for an updated release of the https://github.com/amqphub/quarkus-qpid-jms[Quarkus Qpid JMS Extension] that aligns with the Quarkus version that Camel Quarkus is using. If one is available, update the `quarkus-qpid-jms.version` property in the project root `pom.xml`.
+
+* Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
+
 == Create a release branch
 
 [source,shell]
