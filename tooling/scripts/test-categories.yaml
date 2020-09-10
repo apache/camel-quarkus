@@ -114,6 +114,7 @@ networking2-dataformats:
   - flatpack
   - grok
   - tarfile
+  - ssh
 platform:
   - microprofile
   - openapi-java

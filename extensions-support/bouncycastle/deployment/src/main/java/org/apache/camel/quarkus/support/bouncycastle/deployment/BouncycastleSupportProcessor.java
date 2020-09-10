@@ -16,11 +16,15 @@
  */
 package org.apache.camel.quarkus.support.bouncycastle.deployment;
 
+import java.util.Arrays;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
 import org.jboss.jandex.IndexView;
 
 public class BouncycastleSupportProcessor {
@@ -50,5 +54,16 @@ public class BouncycastleSupportProcessor {
     @BuildStep
     IndexDependencyBuildItem registerBCDependencyForIndex() {
         return new IndexDependencyBuildItem("org.bouncycastle", "bcprov-jdk15on");
+    }
+
+    @BuildStep
+    void secureRandomConfiguration(BuildProducer<RuntimeReinitializedClassBuildItem> reinitialized) {
+        for (String s : Arrays.asList(
+                "java.security.SecureRandom",
+                "org.bouncycastle.crypto.CryptoServicesRegistrar",
+                "org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV",
+                "org.bouncycastle.jcajce.provider.drbg.DRBG$Default")) {
+            reinitialized.produce(new RuntimeReinitializedClassBuildItem(s));
+        }
     }
 }
