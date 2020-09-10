@@ -21,10 +21,10 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel Browse"
-description: "Inspect the messages received on endpoints supporting BrowsableEndpoint"
+name: "Camel SSH"
+description: "Execute commands on remote hosts using SSH"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/browse.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ssh.html"
   categories:
   - "integration"
   status:

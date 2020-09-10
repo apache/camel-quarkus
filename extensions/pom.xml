@@ -175,6 +175,7 @@
         <module>snakeyaml</module>
         <module>soap</module>
         <module>sql</module>
+        <module>ssh</module>
         <module>stream</module>
         <module>tagsoup</module>
         <module>tarfile</module>

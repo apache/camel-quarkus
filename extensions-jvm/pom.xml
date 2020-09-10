@@ -132,7 +132,6 @@
         <module>soroush</module>
         <module>splunk</module>
         <module>splunk-hec</module>
-        <module>ssh</module>
         <module>stax</module>
         <module>stomp</module>
         <module>stringtemplate</module>

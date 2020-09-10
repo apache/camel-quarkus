@@ -144,6 +144,7 @@
         <module>smallrye-reactive-messaging</module>
         <module>soap</module>
         <module>sql</module>
+        <module>ssh</module>
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>
