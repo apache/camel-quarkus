@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.smallrye.reactive.messaging.it;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -52,6 +54,8 @@ public class SmallRyeReactiveMessagingResource {
     @Produces(MediaType.TEXT_PLAIN)
     @GET
     public String getValues() {
-        return String.join(",", results.getResults());
+        List<String> values = results.getResults();
+        Collections.sort(values);
+        return String.join(",", values);
     }
 }
