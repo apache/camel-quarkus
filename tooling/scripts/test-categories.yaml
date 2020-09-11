@@ -16,6 +16,9 @@
 #
 
 # Association of test categories and integration test modules. Used by GitHub workflows.
+cache:
+  - infinispan
+  - caffeine
 cloud:
   - aws
   - aws2
@@ -73,9 +76,8 @@ xml-json-olingo4:
   - dropbox
   - olingo4
   - weather
-dozer-ispn-social:
+dozer-social:
   - dozer
-  - infinispan
   - telegram
   - twitter
   - master

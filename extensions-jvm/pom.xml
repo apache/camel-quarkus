@@ -49,7 +49,6 @@
         <module>beanstalk</module>
         <module>bonita</module>
         <module>browse</module>
-        <module>caffeine</module>
         <module>cassandraql</module>
         <module>cbor</module>
         <module>chatscript</module>
