@@ -1525,6 +1525,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-optaplanner</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.optaplanner</groupId>
+                        <artifactId>optaplanner-core</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.optaplanner</groupId>
+                        <artifactId>optaplanner-persistence-common</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>

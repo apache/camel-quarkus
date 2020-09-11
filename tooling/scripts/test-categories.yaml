@@ -87,6 +87,7 @@ xml-json-olingo4:
   - weather
   - geocoder
   - lumberjack
+  - optaplanner
 dozer-social:
   - crypto
   - dozer
