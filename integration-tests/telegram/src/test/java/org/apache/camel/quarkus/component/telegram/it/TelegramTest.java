@@ -34,7 +34,6 @@ import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
@@ -43,7 +42,6 @@ import static org.hamcrest.Matchers.lessThan;
 
 @QuarkusTest
 @QuarkusTestResource(TrustStoreResource.class)
-@EnabledIfEnvironmentVariable(named = "TELEGRAM_AUTHORIZATION_TOKEN", matches = "[^ ]+")
 public class TelegramTest {
 
     private static final Logger LOG = Logger.getLogger(TelegramTest.class);
