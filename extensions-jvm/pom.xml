@@ -108,7 +108,6 @@
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>
-        <module>optaplanner</module>
         <module>printer</module>
         <module>pubnub</module>
         <module>pulsar</module>

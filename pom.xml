@@ -87,6 +87,7 @@
         <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
         <opencensus-api.version>0.26.0</opencensus-api.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
+        <optaplanner.version>7.46.0.Final</optaplanner.version>
         <quarkus.version>1.10.1.Final</quarkus.version>
         <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
@@ -116,6 +117,7 @@
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
         <mock-javamail.version>1.9</mock-javamail.version>
+        <mvel2.version>2.4.8.Final</mvel2.version>
         <pdfbox.version>2.0.21</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.3.0</sshd.version>
