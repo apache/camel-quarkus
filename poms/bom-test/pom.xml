@@ -90,6 +90,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
