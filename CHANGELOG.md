@@ -11,6 +11,7 @@
 **Closed issues:**
 
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1773](https://github.com/apache/camel-quarkus/issues/1773)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
@@ -27,10 +28,6 @@
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.1...1.1.0)
-
-**Implemented enhancements:**
-
-- Google PubSub example [\#1659](https://github.com/apache/camel-quarkus/issues/1659)
 
 **Fixed bugs:**
 
@@ -296,7 +293,6 @@
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
-- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
 
@@ -388,6 +384,7 @@
 
 **Merged pull requests:**
 
+- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
@@ -913,6 +910,7 @@
 - File Watch support [\#795](https://github.com/apache/camel-quarkus/issues/795)
 - JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
 - JAXB dataformat support [\#786](https://github.com/apache/camel-quarkus/issues/786)
+- JacksonXML support [\#785](https://github.com/apache/camel-quarkus/issues/785)
 - iCal support [\#784](https://github.com/apache/camel-quarkus/issues/784)
 - GZip Deflater support [\#783](https://github.com/apache/camel-quarkus/issues/783)
 - Add support for camel-johnzon extension [\#775](https://github.com/apache/camel-quarkus/issues/775)
@@ -970,7 +968,6 @@
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
-- JacksonXML support [\#785](https://github.com/apache/camel-quarkus/issues/785)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
@@ -1397,7 +1394,6 @@
 - chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
-- Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
@@ -1413,6 +1409,7 @@
 
 **Merged pull requests:**
 
+- Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
