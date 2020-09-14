@@ -75,7 +75,7 @@ the User guide for more details.
 ====
 
 10. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
-   ask for help in the given GitHub issue or via https://gitter.im/apache/camel-quarkus[Camel Quarkus chat].
+   ask for help in the given GitHub issue or via https://camel.zulipchat.com[Camel Quarkus chat].
 
 11. Read the xref:contributor-guide/extension-documentation.adoc[Extension documentation] page and add `configuration.adoc`,
    `usage.adoc`, etc. in `src/main/doc` directory of the runtime module if necessary.
