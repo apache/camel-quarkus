@@ -22,4 +22,4 @@ nav:
 - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    camel-quarkus-last-release: 1.0.0
+    camel-quarkus-last-release: 1.1.0
