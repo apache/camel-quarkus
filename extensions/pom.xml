@@ -90,6 +90,7 @@
         <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
         <module>direct</module>
+        <module>disruptor</module>
         <module>dozer</module>
         <module>dropbox</module>
         <module>elasticsearch-rest</module>

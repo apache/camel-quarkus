@@ -1,0 +1,1 @@
+The `disruptor-vm` component is not available on Camel Quarkus. This is because it is supposed to provide support for communication across multiple CamelContext instances within a single JVM, but by design, there is always just a single `CamelContext` on Camel Quarkus. Therefore `disruptor-vm` would make no sense.

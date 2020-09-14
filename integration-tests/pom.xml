@@ -81,6 +81,7 @@
         <module>dataformat</module>
         <module>dataformats-json</module>
         <module>debezium</module>
+        <module>disruptor</module>
         <module>dozer</module>
         <module>dropbox</module>
         <module>elasticsearch-rest</module>
