@@ -293,6 +293,7 @@
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
+- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
 
@@ -384,7 +385,6 @@
 
 **Merged pull requests:**
 
-- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
@@ -471,7 +471,6 @@
 - Create extension for camel-openapi-java [\#1293](https://github.com/apache/camel-quarkus/pull/1293) ([lburgazzoli](https://github.com/lburgazzoli))
 - Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
@@ -541,6 +540,7 @@
 
 **Merged pull requests:**
 
+- Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - Add Peter Palaga's PGP key [\#1268](https://github.com/apache/camel-quarkus/pull/1268) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.5.0.Final [\#1267](https://github.com/apache/camel-quarkus/pull/1267) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove camel-rest workaround as the fic for the issue is included in Apache Camel 3.3.0 [\#1265](https://github.com/apache/camel-quarkus/pull/1265) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1185,6 +1185,7 @@
 - Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
@@ -1205,7 +1206,6 @@
 
 - Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
-- Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix commons-logging setup [\#545](https://github.com/apache/camel-quarkus/pull/545) ([lburgazzoli](https://github.com/lburgazzoli))
 - examples: add timer-log kotlin example [\#542](https://github.com/apache/camel-quarkus/pull/542) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1394,6 +1394,7 @@
 - chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
+- Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
@@ -1409,7 +1410,6 @@
 
 **Merged pull requests:**
 
-- Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
@@ -1667,6 +1667,7 @@
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
+- chore\(build\): cleanup build set-up [\#61](https://github.com/apache/camel-quarkus/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [0.0.2](https://github.com/apache/camel-quarkus/tree/0.0.2) (2019-07-29)
 
@@ -1718,7 +1719,6 @@
 - Prepare for Camel 3.0.0-M3/4 [\#67](https://github.com/apache/camel-quarkus/pull/67) ([ppalaga](https://github.com/ppalaga))
 - Upgrade quarkus to v0.19.1 [\#66](https://github.com/apache/camel-quarkus/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.19.0 [\#64](https://github.com/apache/camel-quarkus/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore\(build\): cleanup build set-up [\#61](https://github.com/apache/camel-quarkus/pull/61) ([lburgazzoli](https://github.com/lburgazzoli))
 - Review extensions' dependencies chains [\#59](https://github.com/apache/camel-quarkus/pull/59) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#31 Move infinispan integration-tests out of core [\#55](https://github.com/apache/camel-quarkus/pull/55) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): remove travis build [\#53](https://github.com/apache/camel-quarkus/pull/53) ([lburgazzoli](https://github.com/lburgazzoli))
