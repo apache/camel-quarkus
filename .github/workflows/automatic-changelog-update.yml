@@ -33,6 +33,7 @@ jobs:
         uses: charmixer/auto-changelog-action@v1.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          exclude_labels: "duplicate,question,invalid,wontfix,build/camel-master,build/quarkus-master"
 
       - name: Commit files
         env:
