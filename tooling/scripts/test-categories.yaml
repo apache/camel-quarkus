@@ -103,6 +103,7 @@ misc:
   - tika
   - as2
   - kotlin
+  - disruptor
 networking2-dataformats:
   - git
   - mail

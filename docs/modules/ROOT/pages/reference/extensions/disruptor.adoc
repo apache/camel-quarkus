@@ -6,7 +6,7 @@
 :page-aliases: extensions/disruptor.adoc
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##Since Camel Quarkus##[.badge-version]##1.1.0## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-supported]##supported##
 
 Provides asynchronous SEDA behavior using LMAX Disruptor.
 
@@ -28,3 +28,8 @@ Please refer to the above links for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Camel Quarkus limitations
+
+The `disruptor-vm` component is not available on Camel Quarkus. This is because it is supposed to provide support for communication across multiple CamelContext instances within a single JVM, but by design, there is always just a single `CamelContext` on Camel Quarkus. Therefore `disruptor-vm` would make no sense.
+
