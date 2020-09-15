@@ -109,6 +109,7 @@
         <module>google-sheets</module>
         <module>graphql</module>
         <module>grok</module>
+        <module>grpc</module>
         <module>gson</module>
         <module>http</module>
         <module>hystrix</module>

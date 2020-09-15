@@ -4,8 +4,8 @@
 = gRPC
 :cq-artifact-id: camel-quarkus-grpc
 :cq-artifact-id-base: grpc
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
