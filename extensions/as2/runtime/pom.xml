@@ -33,7 +33,8 @@
     <description>Transfer data securely and reliably using the AS2 protocol (RFC4130).</description>
 
     <properties>
-        <firstVersion>1.0.0-CR4</firstVersion>
+        <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

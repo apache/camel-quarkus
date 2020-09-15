@@ -33,7 +33,7 @@
     <description>Use ElSql to define SQL queries. Extends the SQL Component.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

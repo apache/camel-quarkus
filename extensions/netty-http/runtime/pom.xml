@@ -29,7 +29,8 @@
     <name>Camel Quarkus :: Netty HTTP :: Runtime</name>
 
     <properties>
-        <firstVersion>0.2.0</firstVersion>
+        <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.2.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

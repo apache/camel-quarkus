@@ -33,7 +33,7 @@
     <description>Read and write from/to an HDFS filesystem using Hadoop 2.x.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

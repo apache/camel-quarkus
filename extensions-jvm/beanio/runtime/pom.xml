@@ -33,7 +33,7 @@
     <description>Marshal and unmarshal Java beans to and from flat files (such as CSV, delimited, or fixed length formats).</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

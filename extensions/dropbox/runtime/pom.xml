@@ -33,7 +33,8 @@
     <description>Upload, download and manage files, folders, groups, collaborations, etc on Dropbox.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.1.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>
