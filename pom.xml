@@ -100,6 +100,7 @@
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
         <mock-javamail.version>1.9</mock-javamail.version>
+        <pdfbox.version>2.0.21</pdfbox.version>
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
         <testcontainers.version>1.14.3</testcontainers.version>
