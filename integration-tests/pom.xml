@@ -101,6 +101,7 @@
         <module>influxdb</module>
         <module>jaxb</module>
         <module>jdbc</module>
+        <module>jing</module>
         <module>jira</module>
         <module>jolt</module>
         <module>jpa</module>

@@ -119,6 +119,7 @@
         <module>jacksonxml</module>
         <module>jaxb</module>
         <module>jdbc</module>
+        <module>jing</module>
         <module>jira</module>
         <module>jms</module>
         <module>johnzon</module>
