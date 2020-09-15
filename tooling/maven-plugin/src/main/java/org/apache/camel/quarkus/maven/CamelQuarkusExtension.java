@@ -36,6 +36,9 @@ import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
  */
 public class CamelQuarkusExtension {
 
+    public static final String CAMEL_QUARKUS_JVM_SINCE = "camel.quarkus.jvmSince";
+    public static final String CAMEL_QUARKUS_NATIVE_SINCE = "camel.quarkus.nativeSince";
+
     public static CamelQuarkusExtension read(Path runtimePomXmlPath) {
         try (Reader runtimeReader = Files.newBufferedReader(runtimePomXmlPath, StandardCharsets.UTF_8)) {
             final MavenXpp3Reader rxppReader = new MavenXpp3Reader();
@@ -67,7 +70,8 @@ public class CamelQuarkusExtension {
             return new CamelQuarkusExtension(
                     runtimePomXmlPath,
                     camelComponentArtifactId,
-                    (String) props.get("firstVersion"),
+                    (String) props.get(CAMEL_QUARKUS_JVM_SINCE),
+                    (String) props.get(CAMEL_QUARKUS_NATIVE_SINCE),
                     aid,
                     name,
                     runtimePom.getDescription(),
@@ -86,15 +90,17 @@ public class CamelQuarkusExtension {
     private final String runtimeArtifactId;
     private final Path runtimePomXmlPath;
     private final String camelComponentArtifactId;
-    private final String firstVersion;
+    private final String jvmSince;
     private final String name;
     private final boolean nativeSupported;
+    private final String nativeSince;
     private final List<Dependency> dependencies;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
             String camelComponentArtifactId,
-            String firstVersion,
+            String jvmSince,
+            String nativeSince,
             String runtimeArtifactId,
             String name,
             String description,
@@ -105,7 +111,8 @@ public class CamelQuarkusExtension {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
         this.camelComponentArtifactId = camelComponentArtifactId;
-        this.firstVersion = firstVersion;
+        this.jvmSince = jvmSince;
+        this.nativeSince = nativeSince;
         this.runtimeArtifactId = runtimeArtifactId;
         this.name = name;
         this.description = description;
@@ -119,8 +126,8 @@ public class CamelQuarkusExtension {
         return version;
     }
 
-    public Optional<String> getFirstVersion() {
-        return Optional.ofNullable(firstVersion);
+    public Optional<String> getJvmSince() {
+        return Optional.ofNullable(jvmSince);
     }
 
     public Path getRuntimePomXmlPath() {
@@ -157,6 +164,10 @@ public class CamelQuarkusExtension {
 
     public List<Dependency> getDependencies() {
         return dependencies;
+    }
+
+    public Optional<String> getNativeSince() {
+        return Optional.ofNullable(nativeSince);
     }
 
 }

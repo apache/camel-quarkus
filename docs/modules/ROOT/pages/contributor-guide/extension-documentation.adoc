@@ -15,7 +15,8 @@ and from Camel Quarkus items on https://code.quarkus.io/[code.quarkus.io].
 The `update-extension-doc-page` mojo merges the https://github.com/apache/camel-quarkus/blame/master/tooling/package-maven-plugin/src/main/resources/doc-templates/extension-doc-page.adoc[FreeMarker template] with the following data:
 
 * `artifactIdBase`: the `artifactId` of the runtime module without the `camel-quarkus-` prefix.
-* `firstVersion`: the `<firstVersion>` property in the runtime `pom.xml`
+* `jvmSince`: the `<camel.quarkus.jvmSince>` property in the runtime `pom.xml`
+* `nativeSince`: the `<camel.quarkus.nativeSince>` property in the runtime `pom.xml`
 * `nativeSupported`: `false` if the given extension lives under `extensions-jvm`, `true` otherwise.
 * `models`: the list of Camel
    https://github.com/apache/camel/blob/master/tooling/camel-tooling-model/src/main/java/org/apache/camel/tooling/model/ComponentModel.java[components]
