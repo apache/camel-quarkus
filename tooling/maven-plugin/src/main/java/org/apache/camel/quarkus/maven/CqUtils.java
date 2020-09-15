@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.maven;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -189,6 +190,10 @@ public class CqUtils {
                     .orElseThrow(
                             () -> new IllegalStateException("Could not find directory of " + depArtifactIdBase + " extension"));
         }
+    }
+
+    public static boolean isDeprecated(String title, Collection<ArtifactModel<?>> models) {
+        return title.contains("(deprecated)") || models.stream().anyMatch(m -> m.isDeprecated());
     }
 
 }

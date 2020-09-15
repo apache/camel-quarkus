@@ -1,9 +1,16 @@
-[[[=artifactIdBase]]]
 = [=name]
-:page-aliases: extensions/[=artifactIdBase].adoc
+[#if pageAliases?? ]:page-aliases: [=pageAliases]
+[/#if]
+:cq-artifact-id: camel-quarkus-[=artifactIdBase]
+:cq-native-supported: [=nativeSupported?then('true', 'false')]
+:cq-status: [=nativeSupported?then('Stable', 'Preview')]
+:cq-description: [=description]
+:cq-deprecated: [=deprecated?then('true', 'false')]
+:cq-jvm-since: [=jvmSince]
+:cq-native-since: [=nativeSince]
 
 [.badges]
-[.badge-key]##Since Camel Quarkus##[.badge-version]##[=firstVersion]## [.badge-key]##JVM##[.badge-supported]##supported## [.badge-key]##Native##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then('', 'un')]supported##
+[.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##
 
 [=intro]
 [#if models?size > 0]

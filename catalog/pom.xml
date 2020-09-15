@@ -4127,7 +4127,7 @@
                         <!-- prepare the catalog and update doc files, etc. -->
                         <goals>
                             <goal>prepare-catalog-quarkus</goal>
-                            <goal>update-doc-extensions-list</goal>
+                            <!-- <goal>update-doc-extensions-list</goal> -->
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>

@@ -18,7 +18,7 @@ In case you are missing some extension in the list:
 
 [=r"[#"]cq-extensions-table.counted-table,width="100%",cols="4,1,1,1,5",options="header"]
 |===
-| Extension | Artifact | Support Level | Since | Description
+| Extension | Artifact | Support Level | Description
 [#list components as row]
 
 | [#if getDocLink(row)??] [=getDocLink(row)][[=row.title]] [#else] ([=row.title])[/#if] | [=row.artifactId] | [.camel-element-[=getTarget(row)]]##[=getTarget(row)]## +

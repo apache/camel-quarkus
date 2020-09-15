@@ -12,11 +12,12 @@
     "@antora/playbook-builder": "2.3.3",
     "@antora/site-generator-default": "2.3.3",
     "@antora/xref-validator": "gitlab:antora/xref-validator",
+    "@djencks/asciidoctor-antora-indexer": "^0.0.5",
     "lite-server": "^2.4.0"
   },
   "scripts": {
     "preview": "cd target/site && lite-server",
-    "build": "yarn antora --stacktrace antora-playbook.yml",
+    "build": "node_modules/.bin/antora antora-playbook.yml --stacktrace",
     "dev": "yarn build && yarn preview",
     "checks": "yarn antora --generator @antora/xref-validator antora-playbook.yml"
   }
