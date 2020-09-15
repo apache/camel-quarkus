@@ -30,7 +30,8 @@
     <name>Camel Quarkus :: Nitrite :: Runtime</name>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

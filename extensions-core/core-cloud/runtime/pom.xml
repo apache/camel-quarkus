@@ -31,7 +31,8 @@
     <description>The Camel Quarkus core cloud module</description>
 
     <properties>
-        <firstVersion>0.2.0</firstVersion>
+        <camel.quarkus.jvmSince>0.2.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.2.0</camel.quarkus.nativeSince>
         <quarkus.metadata.unlisted>true</quarkus.metadata.unlisted>
     </properties>
 

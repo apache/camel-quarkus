@@ -33,7 +33,7 @@
     <description>The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

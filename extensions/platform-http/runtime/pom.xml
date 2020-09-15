@@ -30,7 +30,8 @@
     <name>Camel Quarkus :: Platform HTTP :: Runtime</name>
 
     <properties>
-        <firstVersion>0.3.0</firstVersion>
+        <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.3.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

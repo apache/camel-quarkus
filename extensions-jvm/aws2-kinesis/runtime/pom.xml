@@ -33,7 +33,7 @@
     <description>Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

@@ -31,7 +31,8 @@
     <description>Parse documents and extract metadata and text using Apache Tika.</description>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

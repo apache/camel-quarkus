@@ -29,7 +29,8 @@
     <name>Camel Quarkus :: AWS Elastic Kubernetes Service (EKS) :: Runtime</name>
 
     <properties>
-        <firstVersion>0.2.0</firstVersion>
+        <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.0.1</camel.quarkus.nativeSince>
         <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
     </properties>
 

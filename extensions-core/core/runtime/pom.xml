@@ -30,7 +30,8 @@
     <description>Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze</description>
 
     <properties>
-        <firstVersion>0.2.0</firstVersion>
+        <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.0.1</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

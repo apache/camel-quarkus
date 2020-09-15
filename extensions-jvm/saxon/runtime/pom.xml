@@ -33,7 +33,7 @@
     <description>Query and/or transform XML payloads using XQuery and Saxon.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

@@ -33,7 +33,7 @@
     <description>Marshall SyslogMessages to RFC3164 and RFC5424 messages and back.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

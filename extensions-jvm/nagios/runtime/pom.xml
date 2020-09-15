@@ -33,7 +33,7 @@
     <description>Send passive checks to Nagios using JSendNSCA.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

@@ -33,7 +33,7 @@
     <description>Perform cache operations on an Ignite cache or consume changes from a continuous query.</description>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
     </properties>
 
     <dependencyManagement>

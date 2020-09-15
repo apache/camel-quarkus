@@ -30,7 +30,8 @@
     <name>Camel Quarkus :: XSLT :: Runtime</name>
 
     <properties>
-        <firstVersion>0.4.0</firstVersion>
+        <camel.quarkus.jvmSince>0.4.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>0.4.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

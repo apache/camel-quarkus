@@ -30,7 +30,8 @@
     <description>Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode</description>
 
     <properties>
-        <firstVersion>1.0.0</firstVersion>
+        <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>

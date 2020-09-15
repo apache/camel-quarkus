@@ -30,7 +30,8 @@
     <name>Camel Quarkus :: Support :: Bouncy Castle :: Runtime</name>
 
     <properties>
-        <firstVersion>1.1.0</firstVersion>
+        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.1.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>
@@ -53,7 +54,7 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-        </dependency>        
+        </dependency>
     </dependencies>
 
     <build>
