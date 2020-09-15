@@ -4,15 +4,15 @@
 = gRPC
 :page-aliases: extensions/grpc.adoc
 :cq-artifact-id: camel-quarkus-grpc
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Expose gRPC endpoints and access external gRPC endpoints.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
 Expose gRPC endpoints and access external gRPC endpoints.
 
@@ -33,3 +33,13 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+This extension leverages https://quarkus.io/guides/grpc-service-implementation[Quarkus gRPC]. The configuration of the gRPC consumer is different than normal,
+since Quarkus manages the lifecycle of the gRPC server. This means that the consumer endpoint host and port is driven by the configuration properties `quarkus.grpc.server.host`
+and `quarkus.grpc.server.port` and thus the Camel gRPC endpoint configuration for the host & port is effectively ignored. But, it's still good practice to have the
+endpoint configuration host / port mirror the Quarkus gRPC host / port property values to avoid confusion and ambiguity.
+
+The full list of Quarkus gRPC configuration options can be found at the https://quarkus.io/guides/grpc-service-implementation#server-configuration[Quarkus gRPC guide].
+

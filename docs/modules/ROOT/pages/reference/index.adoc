@@ -389,8 +389,8 @@ Stable | 1.0.0 | Unmarshal unstructured data to objects using Logstash based Gro
 |  xref:reference/extensions/groovy.adoc[Groovy]  | camel-quarkus-groovy | [.camel-element-JVM]##JVM## +
 Preview | 1.0.0 | Evaluate a Groovy script.
 
-|  xref:reference/extensions/grpc.adoc[gRPC]  | camel-quarkus-grpc | [.camel-element-JVM]##JVM## +
-Preview | 1.0.0 | Expose gRPC endpoints and access external gRPC endpoints.
+|  xref:reference/extensions/grpc.adoc[gRPC]  | camel-quarkus-grpc | [.camel-element-Native]##Native## +
+Stable | 1.0.0 | Expose gRPC endpoints and access external gRPC endpoints.
 
 |  xref:reference/extensions/guava-eventbus.adoc[Guava EventBus]  | camel-quarkus-guava-eventbus | [.camel-element-JVM]##JVM## +
 Preview | 1.1.0 | Send and receive messages to/from Guava EventBus.
