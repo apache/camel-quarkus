@@ -71,7 +71,6 @@
         <module>facebook</module>
         <module>fastjson</module>
         <module>flink</module>
-        <module>fop</module>
         <module>freemarker</module>
         <module>ganglia</module>
         <module>geocoder</module>

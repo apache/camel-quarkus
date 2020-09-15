@@ -1,0 +1,12 @@
+While you can use any of the available output types in JVM mode, only PDF output type is supported
+in native mode. PDF output type in native mode has several limitations:
+
+* Default sRGB color space is always disabled because of https://github.com/oracle/graal/issues/2850[Graal VM issue #2850]
+and `disable-srgb-colorspace` https://xmlgraphics.apache.org/fop/2.1/configuration.html[FOP configuration property] is
+ignored.
+
+* If custom fonts are used, font cache has to be disabled because of https://github.com/oracle/graal/issues/460[Graal VM issue #460].
+Please set the https://xmlgraphics.apache.org/fop/2.1/configuration.html[FOP configuration property] `use-cache` to `false`.
+
+Please file an https://github.com/apache/camel-quarkus/issues/new[issue] if you are missing some specific output format
+in native mode.
