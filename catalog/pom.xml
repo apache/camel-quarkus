@@ -4127,7 +4127,6 @@
                         <!-- prepare the catalog and update doc files, etc. -->
                         <goals>
                             <goal>prepare-catalog-quarkus</goal>
-                            <!-- <goal>update-doc-extensions-list</goal> -->
                         </goals>
                         <phase>process-resources</phase>
                         <configuration>
@@ -4139,7 +4138,6 @@
                             <skipArtifactIdBases>
                                 <skipArtifactIdBase>http-common</skipArtifactIdBase>
                             </skipArtifactIdBases>
-                            <extensionListFile>${camel.quarkus.project.root}/docs/modules/ROOT/pages/list-of-camel-quarkus-extensions.adoc</extensionListFile>
                         </configuration>
                     </execution>
                 </executions>
