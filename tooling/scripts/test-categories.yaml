@@ -74,6 +74,7 @@ xml-json-olingo4:
   - xml
   - dataformats-json
   - dropbox
+  - jing
   - olingo4
   - weather
 dozer-social:
