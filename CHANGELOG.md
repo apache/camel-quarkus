@@ -12,12 +12,18 @@
 
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
+- Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
+- Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
+- Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
 
 **Merged pull requests:**
 
+- Remove UpdateDocExtensionsListMojo followup \#1777 [\#1794](https://github.com/apache/camel-quarkus/pull/1794) ([ppalaga](https://github.com/ppalaga))
+- Added jing native support fixes \#1741 [\#1792](https://github.com/apache/camel-quarkus/pull/1792) ([aldettinger](https://github.com/aldettinger))
+- Disruptor native support [\#1791](https://github.com/apache/camel-quarkus/pull/1791) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update camel-quarkus-last-release property to 1.1.0 [\#1789](https://github.com/apache/camel-quarkus/pull/1789) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document update [\#1788](https://github.com/apache/camel-quarkus/pull/1788) ([NiteshKoushik](https://github.com/NiteshKoushik))
 - Switch from Gitter to Zulip [\#1787](https://github.com/apache/camel-quarkus/pull/1787) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -26,6 +32,7 @@
 - Added automatic changelog gh action [\#1784](https://github.com/apache/camel-quarkus/pull/1784) ([oscerd](https://github.com/oscerd))
 - Fix intermittent failures of SmallRyeReactiveMessagingIT [\#1780](https://github.com/apache/camel-quarkus/pull/1780) ([jamesnetherton](https://github.com/jamesnetherton))
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
+- Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
@@ -158,7 +165,6 @@
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
-- Add ArangoDB component extension fixes \#1533 [\#1540](https://github.com/apache/camel-quarkus/pull/1540) ([zbendhiba](https://github.com/zbendhiba))
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -451,7 +457,6 @@
 - Fixup \#1193 Debezium SQL Server Connector native support [\#1304](https://github.com/apache/camel-quarkus/pull/1304) ([ppalaga](https://github.com/ppalaga))
 - Minor fixes [\#1302](https://github.com/apache/camel-quarkus/pull/1302) ([ppalaga](https://github.com/ppalaga))
 - 1.0.0-CR2 post release polishing [\#1296](https://github.com/apache/camel-quarkus/pull/1296) ([ppalaga](https://github.com/ppalaga))
-- Remove superflous metrics dependencies from OpenTracing extension [\#1295](https://github.com/apache/camel-quarkus/pull/1295) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable SSL for Azure extension \#1269 [\#1294](https://github.com/apache/camel-quarkus/pull/1294) ([galderz](https://github.com/galderz))
 - Create extension for camel-openapi-java [\#1293](https://github.com/apache/camel-quarkus/pull/1293) ([lburgazzoli](https://github.com/lburgazzoli))
 - Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -492,6 +497,7 @@
 
 **Merged pull requests:**
 
+- Remove superflous metrics dependencies from OpenTracing extension [\#1295](https://github.com/apache/camel-quarkus/pull/1295) ([jamesnetherton](https://github.com/jamesnetherton))
 - extension dependencies issue [\#1276](https://github.com/apache/camel-quarkus/pull/1276) ([lburgazzoli](https://github.com/lburgazzoli))
 - Stub Jira endpoints for integration testing [\#1270](https://github.com/apache/camel-quarkus/pull/1270) ([jamesnetherton](https://github.com/jamesnetherton))
 
