@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.xml.jaxp.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlJaxpProcessor {
@@ -33,5 +34,12 @@ class XmlJaxpProcessor {
     @BuildStep
     CapabilityBuildItem capability() {
         return new CapabilityBuildItem(CamelCapabilities.XML);
+    }
+
+    @BuildStep
+    NativeImageResourceBundleBuildItem initBundles() {
+        //not needed for functionality, but in case of some errors it may solve problem caused by missing bundle
+        return new NativeImageResourceBundleBuildItem(
+                "com.sun.org.apache.xerces.internal.impl.msg.SAXMessages");
     }
 }
