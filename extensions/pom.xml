@@ -78,6 +78,7 @@
         <module>bindy</module>
         <module>box</module>
         <module>braintree</module>
+        <module>browse</module>
         <module>caffeine</module>
         <module>componentdsl</module>
         <module>consul</module>
