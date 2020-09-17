@@ -187,6 +187,7 @@
         <module>twitter</module>
         <module>univocity-parsers</module>
         <module>validator</module>
+        <module>velocity</module>
         <module>vertx</module>
         <module>vertx-http</module>
         <module>vertx-websocket</module>

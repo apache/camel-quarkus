@@ -154,6 +154,7 @@
         <module>twitter</module>
         <module>univocity-parsers</module>
         <module>validator</module>
+        <module>velocity</module>
         <module>vertx</module>
         <module>vertx-websocket</module>
         <module>weather</module>
