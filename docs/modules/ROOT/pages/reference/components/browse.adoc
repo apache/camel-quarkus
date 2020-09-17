@@ -4,11 +4,11 @@
 = Browse
 :cq-artifact-id: camel-quarkus-browse
 :cq-artifact-id-base: browse
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: n/a
+:cq-native-since: 1.2.0
 :cq-camel-part-name: browse
 :cq-camel-part-title: Browse
 :cq-camel-part-description: Inspect the messages received on endpoints supporting BrowsableEndpoint.
