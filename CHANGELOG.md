@@ -14,14 +14,18 @@
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
+- FOP native support [\#1642](https://github.com/apache/camel-quarkus/issues/1642)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
 - Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
 - Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
+- gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
 
 **Merged pull requests:**
 
+- gRPC native support [\#1797](https://github.com/apache/camel-quarkus/pull/1797) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove UpdateDocExtensionsListMojo followup \#1777 [\#1794](https://github.com/apache/camel-quarkus/pull/1794) ([ppalaga](https://github.com/ppalaga))
+- FOP native support \#1642 [\#1793](https://github.com/apache/camel-quarkus/pull/1793) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Added jing native support fixes \#1741 [\#1792](https://github.com/apache/camel-quarkus/pull/1792) ([aldettinger](https://github.com/aldettinger))
 - Disruptor native support [\#1791](https://github.com/apache/camel-quarkus/pull/1791) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update camel-quarkus-last-release property to 1.1.0 [\#1789](https://github.com/apache/camel-quarkus/pull/1789) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -457,6 +461,7 @@
 - Fixup \#1193 Debezium SQL Server Connector native support [\#1304](https://github.com/apache/camel-quarkus/pull/1304) ([ppalaga](https://github.com/ppalaga))
 - Minor fixes [\#1302](https://github.com/apache/camel-quarkus/pull/1302) ([ppalaga](https://github.com/ppalaga))
 - 1.0.0-CR2 post release polishing [\#1296](https://github.com/apache/camel-quarkus/pull/1296) ([ppalaga](https://github.com/ppalaga))
+- Remove superflous metrics dependencies from OpenTracing extension [\#1295](https://github.com/apache/camel-quarkus/pull/1295) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable SSL for Azure extension \#1269 [\#1294](https://github.com/apache/camel-quarkus/pull/1294) ([galderz](https://github.com/galderz))
 - Create extension for camel-openapi-java [\#1293](https://github.com/apache/camel-quarkus/pull/1293) ([lburgazzoli](https://github.com/lburgazzoli))
 - Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -497,7 +502,6 @@
 
 **Merged pull requests:**
 
-- Remove superflous metrics dependencies from OpenTracing extension [\#1295](https://github.com/apache/camel-quarkus/pull/1295) ([jamesnetherton](https://github.com/jamesnetherton))
 - extension dependencies issue [\#1276](https://github.com/apache/camel-quarkus/pull/1276) ([lburgazzoli](https://github.com/lburgazzoli))
 - Stub Jira endpoints for integration testing [\#1270](https://github.com/apache/camel-quarkus/pull/1270) ([jamesnetherton](https://github.com/jamesnetherton))
 
@@ -1377,7 +1381,6 @@
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
-- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -1392,6 +1395,7 @@
 
 **Merged pull requests:**
 
+- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
