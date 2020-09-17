@@ -149,6 +149,7 @@
         <module>telegram</module>
         <module>tika</module>
         <module>twitter</module>
+        <module>univocity-parsers</module>
         <module>validator</module>
         <module>vertx</module>
         <module>vertx-websocket</module>

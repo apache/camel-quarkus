@@ -108,6 +108,7 @@ networking2-dataformats:
   - netty
   - send-dynamic-http
   - servlet
+  - univocity-parsers
   - websocket-jsr356
   - vertx
   - compression
