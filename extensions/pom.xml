@@ -183,6 +183,7 @@
         <module>tika</module>
         <module>timer</module>
         <module>twitter</module>
+        <module>univocity-parsers</module>
         <module>validator</module>
         <module>vertx</module>
         <module>vertx-http</module>
