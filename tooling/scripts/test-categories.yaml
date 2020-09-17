@@ -102,6 +102,7 @@ misc:
   - pdf
   - qute
   - tika
+  - velocity
   - as2
   - kotlin
   - disruptor
