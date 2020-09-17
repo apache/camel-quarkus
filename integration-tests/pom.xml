@@ -75,7 +75,6 @@
         <module>caffeine</module>
         <module>compression</module>
         <module>consul</module>
-        <module>controlbus</module>
         <module>couchdb</module>
         <module>csv</module>
         <module>dataformat</module>
@@ -90,6 +89,7 @@
         <module>file</module>
         <module>flatpack</module>
         <module>fop</module>
+        <module>foundation</module>
         <module>ftp</module>
         <module>git</module>
         <module>github</module>
@@ -118,7 +118,6 @@
         <module>master</module>
         <module>messaging</module>
         <module>microprofile</module>
-        <module>mock</module>
         <module>mongodb</module>
         <module>mustache</module>
         <module>nats</module>
@@ -133,14 +132,11 @@
         <module>qute</module>
         <module>rabbitmq</module>
         <module>reactive-streams</module>
-        <module>ref</module>
         <module>rest</module>
         <module>rest-binding-mode-xml</module>
         <module>rest-openapi</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
-        <module>scheduler</module>
-        <module>seda</module>
         <module>send-dynamic-http</module>
         <module>servicenow</module>
         <module>servlet</module>
@@ -148,7 +144,6 @@
         <module>smallrye-reactive-messaging</module>
         <module>soap</module>
         <module>sql</module>
-        <module>stream</module>
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>

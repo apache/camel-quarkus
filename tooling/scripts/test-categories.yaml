@@ -60,16 +60,13 @@ dataformats:
   - xstream
 foundation:
   - bean
-  - controlbus
   - exec
   - file
+  - foundation
   - hystrix
   - jta
   - jsonpath
   - quartz
-  - scheduler
-  - ref
-  - seda
 xml-json-olingo4:
   - rest-binding-mode-xml
   - xml
@@ -83,7 +80,6 @@ dozer-social:
   - telegram
   - twitter
   - master
-  - mock
 messaging-networking1:
   - activemq
   - amqp
@@ -102,7 +98,6 @@ misc:
   - mustache
   - pdf
   - qute
-  - stream
   - tika
   - as2
   - kotlin
