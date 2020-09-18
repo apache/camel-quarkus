@@ -65,9 +65,9 @@ pipeline {
             }
         }
 
-        stage('Build, Test & Deploy') {
+        stage('Deploy') {
             steps {
-                sh "./mvnw ${MAVEN_PARAMS} clean deploy"
+                sh "./mvnw ${MAVEN_PARAMS} -DskipTests -Denforce=false -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip clean deploy"
             }
         }
     }
