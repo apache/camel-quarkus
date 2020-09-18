@@ -18,11 +18,13 @@
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
 - Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
 - Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
+- Browse native support [\#816](https://github.com/apache/camel-quarkus/issues/816)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
 - gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
 
 **Merged pull requests:**
 
+- Browse native support [\#1801](https://github.com/apache/camel-quarkus/pull/1801) ([jamesnetherton](https://github.com/jamesnetherton))
 - gRPC native support [\#1797](https://github.com/apache/camel-quarkus/pull/1797) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove UpdateDocExtensionsListMojo followup \#1777 [\#1794](https://github.com/apache/camel-quarkus/pull/1794) ([ppalaga](https://github.com/ppalaga))
 - FOP native support \#1642 [\#1793](https://github.com/apache/camel-quarkus/pull/1793) ([JiriOndrusek](https://github.com/JiriOndrusek))
@@ -1381,6 +1383,7 @@
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
+- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -1395,7 +1398,6 @@
 
 **Merged pull requests:**
 
-- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
