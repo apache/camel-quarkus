@@ -28,6 +28,7 @@ import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.AdditionalIndexedClassesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -42,6 +43,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.quarkus.main.CamelMainApplication;
 import org.apache.camel.quarkus.main.CamelMainConfig;
 import org.apache.camel.quarkus.main.CamelMainProducers;
 import org.apache.camel.quarkus.main.CamelMainRecorder;
@@ -182,5 +184,11 @@ public class CamelMainProcessor {
                         main.getInstance(),
                         camelMainConfig.shutdown.timeout.toMillis()),
                 index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty());
+    }
+
+    @BuildStep
+    AdditionalIndexedClassesBuildItem indexCamelMainApplication() {
+        // Required for launching CamelMain based applications from the IDE
+        return new AdditionalIndexedClassesBuildItem(CamelMainApplication.class.getName());
     }
 }
