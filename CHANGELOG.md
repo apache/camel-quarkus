@@ -10,6 +10,9 @@
 
 **Closed issues:**
 
+- NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
+- 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
+- Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
@@ -18,12 +21,17 @@
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
 - Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
 - Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
+- Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Browse native support [\#816](https://github.com/apache/camel-quarkus/issues/816)
+- SSH support [\#798](https://github.com/apache/camel-quarkus/issues/798)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
 - gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 1.8.1.Final [\#1809](https://github.com/apache/camel-quarkus/pull/1809) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix launch of camel main applications from IntelliJ [\#1808](https://github.com/apache/camel-quarkus/pull/1808) ([jamesnetherton](https://github.com/jamesnetherton))
+- feat\(ssh\): promoting native extension [\#1802](https://github.com/apache/camel-quarkus/pull/1802) ([squakez](https://github.com/squakez))
 - Browse native support [\#1801](https://github.com/apache/camel-quarkus/pull/1801) ([jamesnetherton](https://github.com/jamesnetherton))
 - gRPC native support [\#1797](https://github.com/apache/camel-quarkus/pull/1797) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove UpdateDocExtensionsListMojo followup \#1777 [\#1794](https://github.com/apache/camel-quarkus/pull/1794) ([ppalaga](https://github.com/ppalaga))
@@ -192,6 +200,7 @@
 - IPFS native support [\#1623](https://github.com/apache/camel-quarkus/issues/1623)
 - Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
 - Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
+- GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
 - Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
 - Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 
@@ -226,7 +235,6 @@
 - Running a Camel-main batch application [\#1474](https://github.com/apache/camel-quarkus/issues/1474)
 - Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
 - \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
-- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - vertx-websocket extension [\#1507](https://github.com/apache/camel-quarkus/issues/1507)
 - Health example fails to start [\#1500](https://github.com/apache/camel-quarkus/issues/1500)
 - Debezium test fails on branch camel-master [\#1490](https://github.com/apache/camel-quarkus/issues/1490)
@@ -892,9 +900,7 @@
 - Re-org the source tree [\#865](https://github.com/apache/camel-quarkus/issues/865)
 - Support for camel-xml-io [\#847](https://github.com/apache/camel-quarkus/issues/847)
 - Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
-- Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
-- GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
 - File Watch support [\#795](https://github.com/apache/camel-quarkus/issues/795)
 - JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
 - JAXB dataformat support [\#786](https://github.com/apache/camel-quarkus/issues/786)
@@ -959,6 +965,7 @@
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
+- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - Create a XPath language extension [\#739](https://github.com/apache/camel-quarkus/issues/739)
 - Create dataformats-json itests from jackson itests [\#729](https://github.com/apache/camel-quarkus/issues/729)
 - Move the Atlassian Maven repository to the Jira runtime module. [\#716](https://github.com/apache/camel-quarkus/issues/716)
