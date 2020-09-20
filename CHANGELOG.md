@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.1.0...HEAD)
 
+**Implemented enhancements:**
+
+- Suggestion: Add column for native supported version in camel quarkus extensions list [\#1781](https://github.com/apache/camel-quarkus/issues/1781)
+
 **Fixed bugs:**
 
 - Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
@@ -21,7 +25,6 @@
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
 - Disruptor native support [\#1597](https://github.com/apache/camel-quarkus/issues/1597)
 - Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
-- Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Browse native support [\#816](https://github.com/apache/camel-quarkus/issues/816)
 - SSH support [\#798](https://github.com/apache/camel-quarkus/issues/798)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
@@ -179,6 +182,7 @@
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
+- Add ArangoDB component extension fixes \#1533 [\#1540](https://github.com/apache/camel-quarkus/pull/1540) ([zbendhiba](https://github.com/zbendhiba))
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -200,7 +204,6 @@
 - IPFS native support [\#1623](https://github.com/apache/camel-quarkus/issues/1623)
 - Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
 - Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
-- GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
 - Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
 - Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 
@@ -235,6 +238,7 @@
 - Running a Camel-main batch application [\#1474](https://github.com/apache/camel-quarkus/issues/1474)
 - Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
 - \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
+- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - vertx-websocket extension [\#1507](https://github.com/apache/camel-quarkus/issues/1507)
 - Health example fails to start [\#1500](https://github.com/apache/camel-quarkus/issues/1500)
 - Debezium test fails on branch camel-master [\#1490](https://github.com/apache/camel-quarkus/issues/1490)
@@ -900,7 +904,9 @@
 - Re-org the source tree [\#865](https://github.com/apache/camel-quarkus/issues/865)
 - Support for camel-xml-io [\#847](https://github.com/apache/camel-quarkus/issues/847)
 - Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
+- Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
+- GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
 - File Watch support [\#795](https://github.com/apache/camel-quarkus/issues/795)
 - JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
 - JAXB dataformat support [\#786](https://github.com/apache/camel-quarkus/issues/786)
@@ -965,7 +971,6 @@
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
-- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - Create a XPath language extension [\#739](https://github.com/apache/camel-quarkus/issues/739)
 - Create dataformats-json itests from jackson itests [\#729](https://github.com/apache/camel-quarkus/issues/729)
 - Move the Atlassian Maven repository to the Jira runtime module. [\#716](https://github.com/apache/camel-quarkus/issues/716)
@@ -1391,6 +1396,8 @@
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
+- Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
+- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -1406,12 +1413,10 @@
 **Merged pull requests:**
 
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
 - Fix \#220 platform-http component should return 204 for success and no… [\#348](https://github.com/apache/camel-quarkus/pull/348) ([ppalaga](https://github.com/ppalaga))
 - Set camel-quarkus-last-release: 0.3.0 in site.yml [\#345](https://github.com/apache/camel-quarkus/pull/345) ([ppalaga](https://github.com/ppalaga))
 - Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
-- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 - Improve camel service discovery and filtering [\#340](https://github.com/apache/camel-quarkus/pull/340) ([lburgazzoli](https://github.com/lburgazzoli))
 - main: impove events and build phase [\#339](https://github.com/apache/camel-quarkus/pull/339) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#326 platform-http should return 415 for an unaccepted content type [\#335](https://github.com/apache/camel-quarkus/pull/335) ([ppalaga](https://github.com/ppalaga))
@@ -1537,6 +1542,7 @@
 - cleanup aws and paho extensions [\#212](https://github.com/apache/camel-quarkus/pull/212) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
+- Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
@@ -1581,7 +1587,6 @@
 
 **Merged pull requests:**
 
-- Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
 - Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
