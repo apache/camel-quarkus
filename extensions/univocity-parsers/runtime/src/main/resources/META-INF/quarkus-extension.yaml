@@ -24,9 +24,8 @@
 name: "Camel uniVocity CSV"
 description: "Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/univocity-parsers.html"
   categories:
   - "integration"
   status:
-  - "preview"
+  - "stable"

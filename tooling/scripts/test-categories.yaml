@@ -29,11 +29,13 @@ cloud:
   - smallrye-reactive-messaging
 core-main-validation:
   - core
+  - core-discovery-disabled
   - main
   - main-caffeine-lrucache
   - main-collector
-  - main-devmode
   - main-command-mode
+  - main-devmode
+  - main-discovery-disabled
   - main-xml-io
   - main-xml-jaxb
   - bean-validator
