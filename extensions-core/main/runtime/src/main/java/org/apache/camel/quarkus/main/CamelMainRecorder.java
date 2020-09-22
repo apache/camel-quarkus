@@ -31,7 +31,6 @@ import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 @Recorder
 public class CamelMainRecorder {
@@ -52,11 +51,11 @@ public class CamelMainRecorder {
         // no need to look for sources.
         main.setDefaultPropertyPlaceholderLocation("false");
 
-        // xml rest/routes should be explicitly configured as an
-        // additional dependency is required thus, disable auto
-        // discovery
+        // xml rest/routes/templates should be explicitly configured as an
+        // additional dependency is required thus, disable auto discovery
         main.configure().setXmlRoutes("false");
         main.configure().setXmlRests("false");
+        main.configure().setXmlRouteTemplates("false");
 
         // register to the container
         container.instance(CamelMainProducers.class).setMain(main);
@@ -80,11 +79,8 @@ public class CamelMainRecorder {
         main.getValue().addMainListener(listener.getValue());
     }
 
-    public RuntimeValue<RoutesCollector> newRoutesCollector(
-            RuntimeValue<RegistryRoutesLoader> registryRoutesLoader,
-            RuntimeValue<XMLRoutesDefinitionLoader> xmlRoutesLoader) {
-
-        return new RuntimeValue<>(new CamelMainRoutesCollector(registryRoutesLoader.getValue(), xmlRoutesLoader.getValue()));
+    public RuntimeValue<RoutesCollector> newRoutesCollector(RuntimeValue<RegistryRoutesLoader> registryRoutesLoader) {
+        return new RuntimeValue<>(new CamelMainRoutesCollector(registryRoutesLoader.getValue()));
     }
 
     public void customizeContext(RuntimeValue<CamelMain> main, List<RuntimeValue<CamelContextCustomizer>> contextCustomizers) {

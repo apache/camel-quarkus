@@ -55,7 +55,7 @@ public class CoreMainXmlJaxbResource {
         if (main.getRoutesCollector() instanceof CamelMainRoutesCollector) {
             CamelMainRoutesCollector crc = (CamelMainRoutesCollector) main.getRoutesCollector();
             collector.add("type-registry", crc.getRegistryRoutesLoader().getClass().getName());
-            collector.add("type-xml", crc.getXmlRoutesLoader().getClass().getName());
+            collector.add("type-xml", camelContext.getXMLRoutesDefinitionLoader().getClass().getName());
         }
 
         return Json.createObjectBuilder()

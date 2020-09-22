@@ -33,6 +33,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import org.apache.camel.CamelContext;
+import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
@@ -66,8 +67,10 @@ public class CamelMainProcessor {
     @Overridable
     @BuildStep
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    public CamelRoutesLoaderBuildItems.Registry routesLoader(CamelRecorder recorder) {
-        return new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader());
+    public CamelRoutesLoaderBuildItems.Registry routesLoader(CamelConfig config, CamelRecorder recorder) {
+        return config.routesDiscovery.enabled
+                ? new CamelRoutesLoaderBuildItems.Registry(recorder.newDefaultRegistryRoutesLoader())
+                : new CamelRoutesLoaderBuildItems.Registry(recorder.newDisabledRegistryRoutesLoader());
     }
 
     @Overridable
@@ -75,11 +78,9 @@ public class CamelMainProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesCollectorBuildItem routesCollector(
             CamelMainRecorder recorder,
-            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader,
-            CamelRoutesLoaderBuildItems.Xml xmlRoutesLoader) {
+            CamelRoutesLoaderBuildItems.Registry registryRoutesLoader) {
 
-        return new CamelRoutesCollectorBuildItem(
-                recorder.newRoutesCollector(registryRoutesLoader.getLoader(), xmlRoutesLoader.getLoader()));
+        return new CamelRoutesCollectorBuildItem(recorder.newRoutesCollector(registryRoutesLoader.getLoader()));
     }
 
     /**

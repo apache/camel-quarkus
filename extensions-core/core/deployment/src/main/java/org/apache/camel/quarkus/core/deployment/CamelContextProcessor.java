@@ -119,6 +119,7 @@ public class CamelContextProcessor {
      * @param  routesBuilderClasses a list of known {@link org.apache.camel.RoutesBuilder} classes.
      * @param  runtimeTasks         a placeholder to ensure all the runtime task are properly are done.
      *                              to the registry.
+     * @param  config               a reference to the Camel Quarkus configuration
      * @return                      a build item holding a {@link CamelRuntime} instance.
      */
     @Overridable
@@ -135,7 +136,8 @@ public class CamelContextProcessor {
             CamelContextBuildItem context,
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            List<CamelRuntimeTaskBuildItem> runtimeTasks) {
+            List<CamelRuntimeTaskBuildItem> runtimeTasks,
+            CamelConfig config) {
 
         for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
             // don't add routes builders that are known by the container
@@ -146,7 +148,9 @@ public class CamelContextProcessor {
             recorder.addRoutes(context.getCamelContext(), item.getDotName().toString());
         }
 
-        recorder.addRoutesFromContainer(context.getCamelContext());
+        if (config.routesDiscovery.enabled) {
+            recorder.addRoutesFromContainer(context.getCamelContext());
+        }
 
         // run the customizer before starting the context to give a last second
         // chance to amend camel context setup

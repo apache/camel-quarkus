@@ -107,6 +107,10 @@ public class CamelRecorder {
         return new RuntimeValue<>(new RegistryRoutesLoaders.Default());
     }
 
+    public RuntimeValue<RegistryRoutesLoader> newDisabledRegistryRoutesLoader() {
+        return new RuntimeValue<>(new RegistryRoutesLoaders.Disabled());
+    }
+
     public RuntimeValue<Builder> factoryFinderResolverBuilder() {
         return new RuntimeValue<>(new FastFactoryFinderResolver.Builder());
     }
