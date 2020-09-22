@@ -47,6 +47,8 @@ public class MongoDbTestResource implements ContainerResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     "quarkus.mongodb.hosts",
+                    container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString(),
+                    "quarkus.mongodb." + MongoDbResource.NAMED_MONGO_CLIENT_NAME + ".hosts",
                     container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString());
         } catch (Exception e) {
             throw new RuntimeException(e);

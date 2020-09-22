@@ -24,25 +24,34 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 @QuarkusTestResource(MongoDbTestResource.class)
 class MongoDbTest {
-    @Test
-    public void testMongoDbComponent() {
+    @ParameterizedTest
+    @ValueSource(strings = { MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, MongoDbResource.NAMED_MONGO_CLIENT_NAME })
+    public void testMongoDbComponent(String namedClient) {
+        // As we will create a route for each client, we use a different collection for each route
+        String collectionName = String.format("%sCamelTest", namedClient);
+
         // Write to collection
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body("{message:\"Hello Camel Quarkus Mongo DB\"}")
-                .post("/mongodb/collection/camelTest")
+                .header("mongoClientName", namedClient)
+                .post("/mongodb/collection/" + collectionName)
                 .then()
                 .statusCode(201);
 
         // Retrieve from collection
-        JsonPath jsonPath = RestAssured.get("/mongodb/collection/camelTest")
+        JsonPath jsonPath = RestAssured
+                .given()
+                .header("mongoClientName", namedClient)
+                .get("/mongodb/collection/" + collectionName)
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)

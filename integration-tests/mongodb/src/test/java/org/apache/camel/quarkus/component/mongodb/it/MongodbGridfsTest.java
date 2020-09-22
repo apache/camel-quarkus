@@ -21,7 +21,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
@@ -29,15 +30,18 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(MongoDbTestResource.class)
 class MongodbGridfsTest {
 
-    @Test
-    public void testMongodbGridfsComponent() {
-        final String fileContent = "Hello Camel Quarkus MongoDB GridFS";
+    @ParameterizedTest
+    @ValueSource(strings = { MongodbGridfsResource.DEFAULT_MONGO_CLIENT_NAME, MongodbGridfsResource.NAMED_MONGO_CLIENT_NAME })
+    public void testMongodbGridfsComponent(String namedClient) {
+        final String fileContent = "Hello Camel Quarkus MongoDB GridFS [" + namedClient + "]";
+        final String fileName = namedClient + "-test.txt";
 
         // Upload file
         String objectId = RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(fileContent)
-                .post("/mongodb-gridfs/upload/test.txt")
+                .header("mongoClientName", namedClient)
+                .post("/mongodb-gridfs/upload/" + fileName)
                 .then()
                 .statusCode(201)
                 .extract()
@@ -48,20 +52,23 @@ class MongodbGridfsTest {
 
         // Retrieve file
         RestAssured.given()
-                .get("/mongodb-gridfs/get/test.txt")
+                .header("mongoClientName", namedClient)
+                .get("/mongodb-gridfs/get/" + fileName)
                 .then()
                 .statusCode(200)
                 .body(is(fileContent));
 
         // Delete file
         RestAssured.given()
-                .delete("/mongodb-gridfs/delete/test.txt")
+                .header("mongoClientName", namedClient)
+                .delete("/mongodb-gridfs/delete/" + fileName)
                 .then()
                 .statusCode(204);
 
         // Verify file deletion
         RestAssured.given()
-                .get("/mongodb-gridfs/get/test.txt")
+                .header("mongoClientName", namedClient)
+                .get("/mongodb-gridfs/get/" + fileName)
                 .then()
                 .statusCode(404);
     }
