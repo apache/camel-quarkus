@@ -32,6 +32,8 @@
 
 **Merged pull requests:**
 
+- Added UniVocity data formats native support \#1756 [\#1813](https://github.com/apache/camel-quarkus/pull/1813) ([aldettinger](https://github.com/aldettinger))
+- Align guava & google-http-client versions with Quarkus [\#1811](https://github.com/apache/camel-quarkus/pull/1811) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.8.1.Final [\#1809](https://github.com/apache/camel-quarkus/pull/1809) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix launch of camel main applications from IntelliJ [\#1808](https://github.com/apache/camel-quarkus/pull/1808) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat\(ssh\): promoting native extension [\#1802](https://github.com/apache/camel-quarkus/pull/1802) ([squakez](https://github.com/squakez))
@@ -329,7 +331,6 @@
 
 **Closed issues:**
 
-- \[QUESTION\] is there an equivalent in Quarkus/Kotlin to application.properties:camel.springboot.duration-max-seconds? [\#1441](https://github.com/apache/camel-quarkus/issues/1441)
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
@@ -1323,7 +1324,6 @@
 
 - Create a Camel File extension [\#398](https://github.com/apache/camel-quarkus/issues/398)
 - Create a Camel SnakeYAML extension [\#338](https://github.com/apache/camel-quarkus/issues/338)
-- Create a Camel VM extension [\#318](https://github.com/apache/camel-quarkus/issues/318)
 
 **Fixed bugs:**
 
@@ -1427,6 +1427,7 @@
 
 **Implemented enhancements:**
 
+- Create a Camel VM extension [\#318](https://github.com/apache/camel-quarkus/issues/318)
 - Create a Camel Slack extension [\#305](https://github.com/apache/camel-quarkus/issues/305)
 
 **Fixed bugs:**
