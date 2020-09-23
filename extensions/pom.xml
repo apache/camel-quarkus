@@ -179,6 +179,7 @@
         <module>sql</module>
         <module>ssh</module>
         <module>stream</module>
+        <module>stringtemplate</module>
         <module>tagsoup</module>
         <module>tarfile</module>
         <module>telegram</module>

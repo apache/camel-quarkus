@@ -140,7 +140,6 @@
         <module>splunk-hec</module>
         <module>stax</module>
         <module>stomp</module>
-        <module>stringtemplate</module>
         <module>stub</module>
         <module>syslog</module>
         <module>thrift</module>
