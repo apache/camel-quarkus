@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -29,14 +31,49 @@ import java.util.stream.Stream;
 
 import org.apache.camel.catalog.CamelCatalog;
 import org.apache.camel.catalog.DefaultCamelCatalog;
+import org.apache.camel.catalog.DefaultRuntimeProvider;
 import org.apache.camel.catalog.DefaultVersionManager;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.catalog.RuntimeProvider;
 import org.apache.camel.catalog.impl.CatalogHelper;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DataFormatModel;
 
 public class CqCatalog {
+
+    public enum Flavor {
+        camel("org.apache.camel", "camel-catalog") {
+            @Override
+            public RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c) {
+                return new DefaultRuntimeProvider(c);
+            }
+        },
+        camelQuarkus("org.apache.camel.quarkus", "camel-quarkus-catalog") {
+            @Override
+            public RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c) {
+                return new CqRuntimeProvider(c);
+            }
+        };
+
+        private final String groupId;
+        private final String artifactId;
+
+        private Flavor(String groupId, String artifactId) {
+            this.groupId = groupId;
+            this.artifactId = artifactId;
+        }
+
+        public abstract RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c);
+
+        public String getGroupId() {
+            return groupId;
+        }
+
+        public String getArtifactId() {
+            return artifactId;
+        }
+    }
 
     private final DefaultCamelCatalog catalog;
 
@@ -46,10 +83,10 @@ public class CqCatalog {
         return threadLocalCamelCatalog.get();
     }
 
-    public CqCatalog(Path baseDir) {
+    public CqCatalog(Path baseDir, Flavor flavor) {
         super();
         final DefaultCamelCatalog c = new DefaultCamelCatalog(true);
-        c.setRuntimeProvider(new CqRuntimeProvider(c));
+        c.setRuntimeProvider(flavor.createRuntimeProvider(c));
         c.setVersionManager(new CqVersionManager(c, baseDir));
         this.catalog = c;
     }
@@ -113,6 +150,41 @@ public class CqCatalog {
         }
     }
 
+    public static boolean hasAlternativeScheme(ArtifactModel<?> model, String scheme) {
+        if (scheme.equals(model.getName())) {
+            return true;
+        } else if (model.getKind().equals("component")) {
+            final String altSchemes = ((ComponentModel) model).getAlternativeSchemes();
+            if (altSchemes == null || altSchemes.isEmpty()) {
+                return false;
+            } else {
+                return altSchemes.endsWith("," + scheme) || altSchemes.indexOf("," + scheme + ",") > 0;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static ArtifactModel<?> findFirstSchemeModel(ArtifactModel<?> model, List<ArtifactModel<?>> models) {
+        if (model.getKind().equals("component")) {
+            final String altSchemes = ((ComponentModel) model).getAlternativeSchemes();
+            if (altSchemes == null || altSchemes.isEmpty()) {
+                return model;
+            } else {
+                final String scheme = model.getName();
+                return models.stream()
+                        .filter(m -> "component".equals(m.getKind()))
+                        .filter(CqCatalog::isFirstScheme)
+                        .filter(m -> CqCatalog.hasAlternativeScheme(m, scheme))
+                        .findFirst()
+                        .orElseThrow(() -> new IllegalStateException(
+                                "Could not find first scheme model for scheme " + scheme + " in " + models));
+            }
+        } else {
+            return model;
+        }
+    }
+
     public static List<ArtifactModel<?>> primaryModel(Stream<ArtifactModel<?>> input) {
         final List<ArtifactModel<?>> models = input
                 .filter(CqCatalog::isFirstScheme)
@@ -128,6 +200,21 @@ public class CqCatalog {
             }
         }
         return models;
+    }
+
+    public static ArtifactModel<?> toCamelDocsModel(ArtifactModel<?> m) {
+        if ("imap".equals(m.getName())) {
+            final ComponentModel clone = (ComponentModel) CqUtils.cloneArtifactModel(m);
+            clone.setName("mail");
+            clone.setTitle("Mail");
+            return clone;
+        }
+        if (m.getName().startsWith("bindy")) {
+            final DataFormatModel clone = (DataFormatModel) CqUtils.cloneArtifactModel(m);
+            clone.setName("bindy");
+            return clone;
+        }
+        return m;
     }
 
     static class CqVersionManager extends DefaultVersionManager {
@@ -281,6 +368,35 @@ public class CqCatalog {
                 }
             }
             return names;
+        }
+    }
+
+    public static class GavCqCatalog extends CqCatalog implements AutoCloseable {
+
+        private final FileSystem jarFileSystem;
+
+        public static GavCqCatalog open(Path localRepository, Flavor flavor, String version) {
+            final Path jarPath = CqUtils.copyJar(localRepository, flavor.getGroupId(), flavor.getArtifactId(), version);
+            try {
+                final FileSystem fs = FileSystems.newFileSystem(jarPath, (ClassLoader) null);
+                return new GavCqCatalog(fs, flavor);
+            } catch (IOException e) {
+                throw new RuntimeException("Could not open file system " + jarPath, e);
+            }
+        }
+
+        GavCqCatalog(FileSystem jarFileSystem, Flavor flavor) {
+            super(jarFileSystem.getRootDirectories().iterator().next(), flavor);
+            this.jarFileSystem = jarFileSystem;
+        }
+
+        @Override
+        public void close() {
+            try {
+                jarFileSystem.close();
+            } catch (IOException e) {
+                throw new RuntimeException("Could not close catalog " + jarFileSystem, e);
+            }
         }
     }
 

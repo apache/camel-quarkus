@@ -1,4 +1,10 @@
 = Camel misc. components supported on Quarkus
+:indexer-version: latest
+:indexer-component: components
+:indexer-module: others
+:indexer-rel-filter: *.adoc
+:indexer-human-readable-kind: Misc. component
+:indexer-human-readable-kind-plural: misc. components
 
 There are indexCount:[relative=reference/others/\*.adoc] misc. components (indexCount:[relative=reference/others/\*.adoc,attributes='cq-deprecated=true'] deprecated, indexCount:[relative=reference/others/\*.adoc,attributes='cq-native-supported=false'] JVM only)
 

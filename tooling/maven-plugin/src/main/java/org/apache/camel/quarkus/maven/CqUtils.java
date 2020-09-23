@@ -17,6 +17,9 @@
 package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
@@ -34,6 +37,11 @@ import freemarker.template.Configuration;
 import freemarker.template.TemplateExceptionHandler;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
+import org.apache.camel.tooling.model.ComponentModel;
+import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.JsonMapper;
+import org.apache.camel.tooling.model.LanguageModel;
+import org.apache.camel.tooling.model.OtherModel;
 import org.apache.maven.model.Model;
 import org.apache.maven.plugin.logging.Log;
 
@@ -194,6 +202,48 @@ public class CqUtils {
 
     public static boolean isDeprecated(String title, Collection<ArtifactModel<?>> models) {
         return title.contains("(deprecated)") || models.stream().anyMatch(m -> m.isDeprecated());
+    }
+
+    static Path copyJar(Path localRepository, String groupId, String artifactId, String version) {
+        final String relativeJarPath = groupId.replace('.', '/') + "/" + artifactId + "/" + version + "/" + artifactId + "-"
+                + version + ".jar";
+        final Path localPath = localRepository.resolve(relativeJarPath);
+        final boolean localExists = Files.exists(localPath);
+        final String remoteUri = "https://repository.apache.org/content/groups/public/" + relativeJarPath;
+        Path result;
+        try {
+            result = Files.createTempFile(null, localPath.getFileName().toString());
+            try (InputStream in = (localExists ? Files.newInputStream(localPath) : new URL(remoteUri).openStream());
+                    OutputStream out = Files.newOutputStream(result)) {
+                final byte[] buf = new byte[4096];
+                int len;
+                while ((len = in.read(buf)) >= 0) {
+                    out.write(buf, 0, len);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Could not copy " + (localExists ? localPath : remoteUri) + " to " + result, e);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create temp file", e);
+        }
+        return result;
+    }
+
+    public static ArtifactModel<?> cloneArtifactModel(ArtifactModel<?> model) {
+        final Kind kind = Kind.valueOf(model.getKind());
+        switch (kind) {
+        case component:
+            return JsonMapper.generateComponentModel(JsonMapper.asJsonObject((ComponentModel) model));
+        case dataformat:
+            return JsonMapper.generateDataFormatModel(JsonMapper.asJsonObject((DataFormatModel) model));
+        case language:
+            return JsonMapper.generateLanguageModel(JsonMapper.asJsonObject((LanguageModel) model));
+        case other:
+            return JsonMapper.generateOtherModel(JsonMapper.asJsonObject((OtherModel) model));
+        default:
+            throw new IllegalArgumentException("Unexpected kind " + kind);
+        }
+
     }
 
 }
