@@ -147,6 +147,7 @@
         <module>soap</module>
         <module>sql</module>
         <module>ssh</module>
+        <module>stringtemplate</module>
         <module>syndication</module>
         <module>tarfile</module>
         <module>telegram</module>

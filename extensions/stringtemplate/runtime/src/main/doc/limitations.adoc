@@ -1,0 +1,6 @@
+If property `allowContextMapAll` is set to `true` there is a limitation in native mode. Reflective calls to methods
+of several classes in camel are not allowed (for example `org.apache.camel.support.DefaultExchange`). Therefore
+some expressions won't work (for example `<exchange.properties.*>).
+
+You can allow reflective calls to such classes (for example by using application.properties), but keep in mind that it brings
+some security risks.

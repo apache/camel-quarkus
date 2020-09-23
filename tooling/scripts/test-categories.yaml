@@ -101,6 +101,7 @@ misc:
   - mustache
   - pdf
   - qute
+  - stringtemplate
   - tika
   - velocity
   - as2
