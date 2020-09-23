@@ -25,7 +25,7 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.eclipse.microprofile.config.ConfigProvider;
+import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,10 +53,7 @@ class CamelMainHotDeploymentProcessor {
     }
 
     private static List<HotDeploymentWatchedFileBuildItem> locations(String property) {
-        String[] locations = ConfigProvider.getConfig()
-                .getOptionalValue(property, String[].class)
-                .orElse(EMPTY_STRING_ARRAY);
-
+        String[] locations = CamelSupport.getOptionalConfigValue(property, String[].class, EMPTY_STRING_ARRAY);
         List<HotDeploymentWatchedFileBuildItem> items = Stream.of(locations)
                 .filter(location -> location.startsWith(FILE_PREFIX))
                 .map(location -> location.substring(FILE_PREFIX.length()))
