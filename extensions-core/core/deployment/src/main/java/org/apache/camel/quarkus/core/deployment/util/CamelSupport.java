@@ -34,6 +34,7 @@ import io.quarkus.deployment.ApplicationArchive;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.jandex.ClassInfo;
 
 public final class CamelSupport {
@@ -117,5 +118,11 @@ public final class CamelSupport {
         }
 
         return Objects.requireNonNull(version, "Could not determine Camel version");
+    }
+
+    public static <T> T getOptionalConfigValue(String property, Class<T> type, T defaultValue) {
+        return ConfigProvider.getConfig()
+                .getOptionalValue(property, type)
+                .orElse(defaultValue);
     }
 }
