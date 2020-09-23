@@ -1,4 +1,3 @@
-= [=camelPartTitle]
 :cq-artifact-id: camel-quarkus-[=artifactIdBase]
 :cq-artifact-id-base: [=artifactIdBase]
 :cq-native-supported: [=nativeSupported?then('true', 'false')]

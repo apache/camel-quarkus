@@ -18,7 +18,7 @@
 == What's inside
 
 [#list models as model]
-* https://camel.apache.org/components/latest/[#if model.kind != "component" ][=model.kind]s/[/#if][=model.name][#if model.kind != "other" ]-[=model.kind][/#if].html[[=model.title][#if model.kind != "other" ] [=humanReadableKind(model.kind)][/#if]][#if model.kind == "component" ], URI syntax: `[=model.syntax]`[/#if]
+* [=camelBitLink(model, models)][[=model.title][#if model.kind != "other" ] [=humanReadableKind(model.kind)][/#if]][#if model.kind == "component" ], URI syntax: `[=model.syntax]`[/#if]
 [/#list]
 
 Please refer to the above link[#if models?size != 1]s[/#if] for usage and configuration details.

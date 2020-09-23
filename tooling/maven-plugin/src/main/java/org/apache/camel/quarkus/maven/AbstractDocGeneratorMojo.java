@@ -28,7 +28,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
- * Base for {@link UpdateDocExtensionsListMojo} and {@link UpdateExtensionDocPageMojo}.
+ * Base for {@link CheckExtensionPagesMojo} and {@link UpdateExtensionDocPageMojo}.
  */
 abstract class AbstractDocGeneratorMojo extends AbstractMojo {
     public static final String DEFAULT_TEMPLATES_URI_BASE = "classpath:/doc-templates";
