@@ -10,13 +10,15 @@
 
 **Fixed bugs:**
 
+- 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
 - Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
 
 **Closed issues:**
 
+- Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
 - Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
+- Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
-- 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
 - Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
@@ -35,6 +37,9 @@
 
 **Merged pull requests:**
 
+- Remove redundant skip of maven-enforcer-plugin execution [\#1825](https://github.com/apache/camel-quarkus/pull/1825) ([jamesnetherton](https://github.com/jamesnetherton))
+- Configure NativeImageResourceBuildItem for camel route classpath resources [\#1821](https://github.com/apache/camel-quarkus/pull/1821) ([jamesnetherton](https://github.com/jamesnetherton))
+- Run verify for the docs module on the CI \#1819 [\#1820](https://github.com/apache/camel-quarkus/pull/1820) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus disable auto route discovery not working [\#1817](https://github.com/apache/camel-quarkus/pull/1817) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added UniVocity data formats native support \#1756 [\#1813](https://github.com/apache/camel-quarkus/pull/1813) ([aldettinger](https://github.com/aldettinger))
 - Align guava & google-http-client versions with Quarkus [\#1811](https://github.com/apache/camel-quarkus/pull/1811) ([jamesnetherton](https://github.com/jamesnetherton))
