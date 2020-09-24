@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -88,13 +91,24 @@ public class HttpResource {
     @POST
     @Produces(MediaType.TEXT_PLAIN)
     public String triggerAhcWsProducerConsumer(@QueryParam("test-port") int port, String message) throws Exception {
-        producerTemplate
-                .to("direct:ahcWsIn")
-                .withBody(message)
-                .withHeader("test-port", port)
-                .send();
+        String uri = String.format("ahc-ws:localhost:%d/ahc-ws/greeting", port);
 
-        return consumerTemplate.receiveBody("ahc-ws:localhost:" + port + "/ahc-ws/greeting", 5000, String.class);
+        // Start consumer
+        CompletableFuture<String> future = CompletableFuture
+                .supplyAsync(() -> consumerTemplate.receiveBody(uri, 10000, String.class));
+
+        // Wait for consumer connect
+        int attempts = 0;
+        while (!GreetingServerEndpoint.connected && attempts < 25) {
+            Thread.sleep(250);
+            attempts++;
+        }
+
+        // Send WS payload
+        producerTemplate.to(uri).withBody(message).send();
+
+        // Get result from the consumer
+        return future.get(5, TimeUnit.SECONDS);
     }
 
     // *****************************
