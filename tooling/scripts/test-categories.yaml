@@ -77,6 +77,7 @@ xml-json-olingo4:
   - jing
   - olingo4
   - weather
+  - geocoder
 dozer-social:
   - dozer
   - telegram

@@ -1,0 +1,3 @@
+The extension uses Locale.English to do the conversion of Double latitude and longitude values, in order to match the format required by the Google Maps API.
+
+An example of setting the Locale en_US for GraalVm: https://www.graalvm.org/reference-manual/ruby/UTF8Locale/
