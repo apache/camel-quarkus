@@ -1,0 +1,1 @@
+// Empty partial for a Camel bit unsupported by Camel Quarkus to avoid warnings when this file is included from a Camel page
