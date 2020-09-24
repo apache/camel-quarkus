@@ -43,9 +43,6 @@ public class HttpRoute extends RouteBuilder {
                         exchange.getMessage().setBody(json);
                     }
                 });
-
-        from("direct:ahcWsIn")
-                .toD("ahc-ws:localhost:${header.test-port}/ahc-ws/greeting");
     }
 
     @Named

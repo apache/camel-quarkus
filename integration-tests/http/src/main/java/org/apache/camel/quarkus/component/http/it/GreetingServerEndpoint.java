@@ -16,14 +16,34 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
+import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+
+import org.jboss.logging.Logger;
 
 @ServerEndpoint("/ahc-ws/greeting")
 public class GreetingServerEndpoint {
 
+    public static volatile boolean connected = false;
+    private static final Logger LOG = Logger.getLogger(GreetingServerEndpoint.class);
+
+    @OnOpen
+    public void onOpen(Session session) {
+        LOG.infof("WebSocket connection opened for session %s", session.getId());
+        connected = true;
+    }
+
+    @OnClose
+    public void onClose(Session session) {
+        LOG.infof("WebSocket connection closed for session %s", session.getId());
+        connected = false;
+    }
+
     @OnMessage
-    public String onMessage(String message) {
-        return "Hello " + message;
+    public void onMessage(Session session, String message) {
+        session.getAsyncRemote().sendText("Hello " + message);
     }
 }
