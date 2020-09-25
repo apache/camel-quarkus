@@ -64,7 +64,6 @@
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
-        <module>atom</module>
         <module>avro</module>
         <module>aws</module>
         <module>aws2</module>
@@ -148,6 +147,7 @@
         <module>soap</module>
         <module>sql</module>
         <module>ssh</module>
+        <module>syndication</module>
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>
