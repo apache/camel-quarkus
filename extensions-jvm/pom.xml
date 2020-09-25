@@ -120,7 +120,6 @@
         <module>pulsar</module>
         <module>quickfix</module>
         <module>robotframework</module>
-        <module>rss</module>
         <module>saga</module>
         <module>saxon</module>
         <module>schematron</module>
