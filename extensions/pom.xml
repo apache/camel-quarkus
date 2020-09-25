@@ -39,6 +39,7 @@
         <module>amqp</module>
         <module>arangodb</module>
         <module>as2</module>
+        <module>atom</module>
         <module>attachments</module>
         <module>avro</module>
         <module>aws-ec2</module>

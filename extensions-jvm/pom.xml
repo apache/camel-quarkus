@@ -38,7 +38,6 @@
         <module>asn1</module>
         <module>asterisk</module>
         <module>atmos</module>
-        <module>atom</module>
         <module>atomix</module>
         <module>avro-rpc</module>
         <module>aws2-kinesis</module>
