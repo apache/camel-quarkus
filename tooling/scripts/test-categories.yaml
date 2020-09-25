@@ -82,6 +82,7 @@ dozer-social:
   - telegram
   - twitter
   - master
+  - atom
 messaging-networking1:
   - activemq
   - amqp
