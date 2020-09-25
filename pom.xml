@@ -409,6 +409,7 @@
                             <exclude>**/resources/routes.2</exclude>
                             <exclude>**/generated/**</exclude>
                             <exclude>.envrc</exclude>
+                            <exclude>**/.idea/**</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
