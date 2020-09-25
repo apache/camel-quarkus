@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel Johnzon"
-description: "Marshal POJOs to JSON and back"
+description: "Marshal POJOs to JSON and back using Johnzon"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/johnzon.html"
   categories:

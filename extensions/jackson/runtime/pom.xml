@@ -27,6 +27,7 @@
 
     <artifactId>camel-quarkus-jackson</artifactId>
     <name>Camel Quarkus :: Jackson :: Runtime</name>
+    <description>Marshal POJOs to JSON and back using Jackson</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.3.0</camel.quarkus.jvmSince>

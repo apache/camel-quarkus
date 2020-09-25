@@ -30,7 +30,7 @@
 
     <artifactId>camel-quarkus-fastjson</artifactId>
     <name>Camel Quarkus :: JSON Fastjson :: Runtime</name>
-    <description>Marshal POJOs to JSON and back.</description>
+    <description>Marshal POJOs to JSON and back using Fastjson</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-johnzon</artifactId>
     <name>Camel Quarkus :: Johnzon :: Runtime</name>
+    <description>Marshal POJOs to JSON and back using Johnzon</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

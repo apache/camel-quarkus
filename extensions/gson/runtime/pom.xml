@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-gson</artifactId>
     <name>Camel Quarkus :: Gson :: Runtime</name>
+    <description>Marshal POJOs to JSON and back using Gson</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
