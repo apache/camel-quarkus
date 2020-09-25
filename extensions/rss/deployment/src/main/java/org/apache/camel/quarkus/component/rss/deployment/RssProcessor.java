@@ -52,9 +52,8 @@ class RssProcessor {
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         // Register for reflection feed parser / generator classes from rome.properties
-        try {
-            InputStream stream = Thread.currentThread().getContextClassLoader()
-                    .getResourceAsStream("com/rometools/rome/rome.properties");
+        try (InputStream stream = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("com/rometools/rome/rome.properties")) {
             Properties properties = new Properties();
             properties.load(stream);
 
