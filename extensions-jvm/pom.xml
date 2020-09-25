@@ -89,6 +89,7 @@
         <module>irc</module>
         <module>jasypt</module>
         <module>jbpm</module>
+        <module>jcache</module>
         <module>jclouds</module>
         <module>jcr</module>
         <module>jgroups</module>
