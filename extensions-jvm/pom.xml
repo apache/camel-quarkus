@@ -87,6 +87,7 @@
         <module>iota</module>
         <module>ipfs</module>
         <module>irc</module>
+        <module>jasypt</module>
         <module>jbpm</module>
         <module>jclouds</module>
         <module>jcr</module>
