@@ -79,6 +79,7 @@
         <module>guava-eventbus</module>
         <module>hazelcast</module>
         <module>hdfs</module>
+        <module>headersmap</module>
         <module>hipchat</module>
         <module>hl7</module>
         <module>iec60870</module>
