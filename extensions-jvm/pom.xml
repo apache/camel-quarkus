@@ -102,6 +102,7 @@
         <module>ldap</module>
         <module>ldif</module>
         <module>leveldb</module>
+        <module>lra</module>
         <module>lucene</module>
         <module>lumberjack</module>
         <module>management</module>
