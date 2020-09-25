@@ -10,6 +10,7 @@
 
 **Fixed bugs:**
 
+- Intermittent failure of AhcWsProducerConsumer [\#1815](https://github.com/apache/camel-quarkus/issues/1815)
 - 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
 - Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
 
@@ -20,6 +21,7 @@
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
+- Generate partials instead of pages for the individual Camel bits [\#1795](https://github.com/apache/camel-quarkus/issues/1795)
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
@@ -37,10 +39,12 @@
 
 **Merged pull requests:**
 
+- Fix intermittent failure of AHC-WS itest [\#1827](https://github.com/apache/camel-quarkus/pull/1827) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant skip of maven-enforcer-plugin execution [\#1825](https://github.com/apache/camel-quarkus/pull/1825) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1821](https://github.com/apache/camel-quarkus/pull/1821) ([jamesnetherton](https://github.com/jamesnetherton))
 - Run verify for the docs module on the CI \#1819 [\#1820](https://github.com/apache/camel-quarkus/pull/1820) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus disable auto route discovery not working [\#1817](https://github.com/apache/camel-quarkus/pull/1817) ([lburgazzoli](https://github.com/lburgazzoli))
+- Use partials instead of pages for the individual Camel bits [\#1814](https://github.com/apache/camel-quarkus/pull/1814) ([ppalaga](https://github.com/ppalaga))
 - Added UniVocity data formats native support \#1756 [\#1813](https://github.com/apache/camel-quarkus/pull/1813) ([aldettinger](https://github.com/aldettinger))
 - Align guava & google-http-client versions with Quarkus [\#1811](https://github.com/apache/camel-quarkus/pull/1811) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.8.1.Final [\#1809](https://github.com/apache/camel-quarkus/pull/1809) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -321,7 +325,6 @@
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
-- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
 
@@ -404,6 +407,7 @@
 
 **Merged pull requests:**
 
+- org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
@@ -617,8 +621,8 @@
 - deps: update kotlin to v1.3.72 [\#1159](https://github.com/apache/camel-quarkus/pull/1159) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve master -\> camel-master sync workflow [\#1158](https://github.com/apache/camel-quarkus/pull/1158) ([jamesnetherton](https://github.com/jamesnetherton))
 - build: create build-parent-it pom to collect common integration tests set-up [\#1151](https://github.com/apache/camel-quarkus/pull/1151) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatic sync branch master to camel-master [\#1150](https://github.com/apache/camel-quarkus/pull/1150) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Activemq to version 5.11.12 [\#1149](https://github.com/apache/camel-quarkus/pull/1149) ([oscerd](https://github.com/oscerd))
+- Update quarkus to v1.4.1.Final [\#1147](https://github.com/apache/camel-quarkus/pull/1147) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M7](https://github.com/apache/camel-quarkus/tree/1.0.0-M7) (2020-04-27)
 
@@ -657,7 +661,7 @@
 
 **Merged pull requests:**
 
-- Update quarkus to v1.4.1.Final [\#1147](https://github.com/apache/camel-quarkus/pull/1147) ([lburgazzoli](https://github.com/lburgazzoli))
+- Automatic sync branch master to camel-master [\#1150](https://github.com/apache/camel-quarkus/pull/1150) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Upgrade Quarkus Qpid JMS to 0.14.0 [\#1143](https://github.com/apache/camel-quarkus/pull/1143) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude docs module from quarkus-master sync build [\#1139](https://github.com/apache/camel-quarkus/pull/1139) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Github-api to version 1.111 [\#1138](https://github.com/apache/camel-quarkus/pull/1138) ([oscerd](https://github.com/oscerd))
@@ -905,6 +909,7 @@
 
 - Quarkus fails to start with uri: platform-http://hello [\#879](https://github.com/apache/camel-quarkus/issues/879)
 - @BindToRegistry fields need to be explicitly registered for reflection in order to work in native mode [\#867](https://github.com/apache/camel-quarkus/issues/867)
+- FhirDataformatTest failure -TransformerFactoryImpl not found [\#748](https://github.com/apache/camel-quarkus/issues/748)
 - Camel MongoDB extension does not register camelMongoClient bean [\#747](https://github.com/apache/camel-quarkus/issues/747)
 
 **Closed issues:**
@@ -966,7 +971,6 @@
 **Fixed bugs:**
 
 - Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
-- FhirDataformatTest failure -TransformerFactoryImpl not found [\#748](https://github.com/apache/camel-quarkus/issues/748)
 - Salesforce extension does not work in native mode [\#740](https://github.com/apache/camel-quarkus/issues/740)
 - NoSuchMethodError: TransformerFactory.newInstance\(String,ClassLoader\) in dev mode [\#721](https://github.com/apache/camel-quarkus/issues/721)
 - PDF itest fails in native mode when building the font cache [\#670](https://github.com/apache/camel-quarkus/issues/670)
