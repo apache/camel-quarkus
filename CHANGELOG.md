@@ -915,6 +915,7 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
+- Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
@@ -953,7 +954,6 @@
 **Merged pull requests:**
 
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
-- Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1142,6 +1142,7 @@
 - \[graalvm-19.3.0\] camel-quarkus-bean fails to compile in native mode [\#540](https://github.com/apache/camel-quarkus/issues/540)
 - Dozer extension should use JaxbFileRootBuildItem [\#539](https://github.com/apache/camel-quarkus/issues/539)
 - Add support/spring artifact for common substrate support [\#538](https://github.com/apache/camel-quarkus/issues/538)
+- Rely on configurers for Configuration classes instead of using reflection [\#518](https://github.com/apache/camel-quarkus/issues/518)
 - camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
 - Re-enable the FHIR tests once the FHIR testing service is back again [\#352](https://github.com/apache/camel-quarkus/issues/352)
 - Dev mode does not work on Java 12 [\#289](https://github.com/apache/camel-quarkus/issues/289)
@@ -1226,7 +1227,6 @@
 - Manjaro: Dependency Problem with Platform-HTTP [\#532](https://github.com/apache/camel-quarkus/issues/532)
 - Re-introduce RoutesBuilderBuildItem [\#526](https://github.com/apache/camel-quarkus/issues/526)
 - XSLT documentation is misleading [\#520](https://github.com/apache/camel-quarkus/issues/520)
-- Rely on configurers for Configuration classes instead of using reflection [\#518](https://github.com/apache/camel-quarkus/issues/518)
 - Create AWS-IAM Extension [\#514](https://github.com/apache/camel-quarkus/issues/514)
 - Do not use hard coded ports in integration-tests [\#508](https://github.com/apache/camel-quarkus/issues/508)
 - camel-sql extension [\#505](https://github.com/apache/camel-quarkus/issues/505)
@@ -1248,6 +1248,7 @@
 - Add a workaround for Camel's DI \(see CAMEL-14271\) [\#525](https://github.com/apache/camel-quarkus/pull/525) ([lburgazzoli](https://github.com/lburgazzoli))
 - refactor FHIR integration tests [\#524](https://github.com/apache/camel-quarkus/pull/524) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#520 XSLT documentation is misleading [\#523](https://github.com/apache/camel-quarkus/pull/523) ([ppalaga](https://github.com/ppalaga))
+- Do not check licenses in integration-tests/sjms/data [\#522](https://github.com/apache/camel-quarkus/pull/522) ([ppalaga](https://github.com/ppalaga))
 - chore: cleanup poms [\#519](https://github.com/apache/camel-quarkus/pull/519) ([lburgazzoli](https://github.com/lburgazzoli))
 - introduce testcontainers [\#517](https://github.com/apache/camel-quarkus/pull/517) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create AWS-IAM Extension [\#515](https://github.com/apache/camel-quarkus/pull/515) ([oscerd](https://github.com/oscerd))
@@ -1300,7 +1301,6 @@
 
 **Merged pull requests:**
 
-- Do not check licenses in integration-tests/sjms/data [\#522](https://github.com/apache/camel-quarkus/pull/522) ([ppalaga](https://github.com/ppalaga))
 - feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 - Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
