@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.List;
+
 import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -46,7 +48,13 @@ public class CoreMainXmlJaxbTest {
 
         assertThat(p.getList("routeBuilders", String.class))
                 .isEmpty();
-        assertThat(p.getList("routes", String.class))
+
+        List<String> routes = p.getList("routes", String.class);
+        assertThat(routes)
                 .contains("my-xml-route");
+        assertThat(routes)
+                .contains("templated-route");
+        assertThat(routes)
+                .contains("rest-route");
     }
 }
