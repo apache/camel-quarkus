@@ -28,6 +28,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.builder.TemplatedRouteBuilder;
 
 @Path("/test")
 @ApplicationScoped
@@ -46,6 +47,12 @@ public class CoreMainXmlJaxbResource {
 
         JsonArrayBuilder routeBuilders = Json.createArrayBuilder();
         main.configure().getRoutesBuilders().forEach(builder -> routeBuilders.add(builder.getClass().getName()));
+
+        TemplatedRouteBuilder.builder(main.getCamelContext(), "myTemplate")
+                .parameter("name", "Camel Quarkus")
+                .parameter("greeting", "Hello")
+                .routeId("templated-route")
+                .add();
 
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
