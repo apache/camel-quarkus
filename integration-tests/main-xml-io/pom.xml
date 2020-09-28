@@ -127,7 +127,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-platform-http-deployment</artifactId>
+            <artifactId>camel-quarkus-rest-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

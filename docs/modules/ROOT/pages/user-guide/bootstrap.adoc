@@ -102,3 +102,91 @@ public class Main {
 ====
 It is recommended to perform very little logic in the Java Main.
 ====
+
+=== XML Configuration
+
+In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath. E.g either `camel-quarkus-xml-io` or 
+`camel-quarkus-xml-jaxb`. `camel-quarkus-xml-io` is preferred due to its lightweight implementation.
+
+==== Routes
+
+With Camel Main, you can set a property that points to the location of route XML files:
+
+[source,properties]
+----
+camel.main.xml-routes = routes/routes.xml, file:src/main/routes/other-routes.xml
+----
+
+[NOTE]
+====
+Path globbing like `camel.main.xml-routes = *./routes.xml` currently does not work in native mode.
+====
+
+Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not supported. The route XML should be in the simplified version like:
+
+[source,xml]
+----
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://camel.apache.org/schema/spring"
+        xsi:schemaLocation="
+            http://camel.apache.org/schema/spring
+            http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+    <route id="xml-route">
+        <from uri="timer:from-xml?period=1000"/>
+        <log message="Hello XML!"/>
+    </route>
+
+</routes>
+----
+
+==== REST DSL
+
+The Camel https://camel.apache.org/manual/latest/rest-dsl.html[REST DSL] can be defined in XML and configured with Camel Main via a property:
+
+[source,properties]
+----
+camel.main.xml-rests = rests/rests.xml, file:src/main/rests/other-rests.xml
+----
+
+The XML for the REST configuration looks like:
+
+[source,xml]
+----
+<rests xmlns="http://camel.apache.org/schema/spring">
+	<rest id="greeting" path="/greeting">
+	    <get uri="/hello">
+            <setBody>
+                <constant>Hello World!</constant>
+            </setBody>
+        </get>
+    </rest>
+</rests>
+----
+
+==== Route Templates
+
+https://camel.apache.org/manual/latest/route-template.html[Route templates] can be defined in XML and configured with Camel Main via a property:
+
+[source,properties]
+----
+camel.main.xml-route-templates = templates/route-template.xml, file:src/main/rests/other-route-template.xml
+----
+
+The XML for the route template configuration looks like:
+
+[source,xml]
+----
+<routeTemplates xmlns="http://camel.apache.org/schema/spring">
+    <routeTemplate id="myTemplate">
+        <templateParameter name="name"/>
+        <templateParameter name="greeting"/>
+        <templateParameter name="myPeriod" defaultValue="3s"/>
+        <route>
+            <from uri="timer:{{name}}?period={{myPeriod}}"/>
+            <setBody><simple>{{greeting}} ${body}</simple></setBody>
+            <log message="${body}"/>
+        </route>
+    </routeTemplate>
+</routeTemplates>
+----
