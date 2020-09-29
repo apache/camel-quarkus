@@ -18,6 +18,7 @@
 
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
+- A user guide page informing about various ways to define routes [\#1823](https://github.com/apache/camel-quarkus/issues/1823)
 - Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
 - Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
@@ -45,6 +46,8 @@
 
 **Merged pull requests:**
 
+- Upgrade to cq-maven-plugin 0.20.0, set nativeSince property when prom… [\#1854](https://github.com/apache/camel-quarkus/pull/1854) ([ppalaga](https://github.com/ppalaga))
+- Document camel main xml configuration properties [\#1853](https://github.com/apache/camel-quarkus/pull/1853) ([jamesnetherton](https://github.com/jamesnetherton))
 - Shiro, Ribbon, JCache JVM support [\#1849](https://github.com/apache/camel-quarkus/pull/1849) ([ppalaga](https://github.com/ppalaga))
 - Duplicate license headers in Velocity test templates \#1843 [\#1847](https://github.com/apache/camel-quarkus/pull/1847) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Ensure InputStream is closed after reading rome.properties [\#1842](https://github.com/apache/camel-quarkus/pull/1842) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -915,7 +918,6 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -955,6 +957,7 @@
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
+- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
