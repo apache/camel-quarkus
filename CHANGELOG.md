@@ -30,6 +30,7 @@
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
+- String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
 - FOP native support [\#1642](https://github.com/apache/camel-quarkus/issues/1642)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
@@ -57,6 +58,7 @@
 - Exclude .idea directory from license checks [\#1833](https://github.com/apache/camel-quarkus/pull/1833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use distinct descriptions for the for the various JSON data formats [\#1832](https://github.com/apache/camel-quarkus/pull/1832) ([ppalaga](https://github.com/ppalaga))
 - Atom native support [\#1831](https://github.com/apache/camel-quarkus/pull/1831) ([jamesnetherton](https://github.com/jamesnetherton))
+- String template native support \#1694 [\#1828](https://github.com/apache/camel-quarkus/pull/1828) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix intermittent failure of AHC-WS itest [\#1827](https://github.com/apache/camel-quarkus/pull/1827) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant skip of maven-enforcer-plugin execution [\#1825](https://github.com/apache/camel-quarkus/pull/1825) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1821](https://github.com/apache/camel-quarkus/pull/1821) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -516,7 +518,6 @@
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -865,6 +866,7 @@
 - Upgrade Quarkus Qpid JMS to 0.13.1 [\#1007](https://github.com/apache/camel-quarkus/pull/1007) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make consul depend on core-cloud \#1003 [\#1004](https://github.com/apache/camel-quarkus/pull/1004) ([galderz](https://github.com/galderz))
 - New source assembly descriptor and root pom rename [\#1002](https://github.com/apache/camel-quarkus/pull/1002) ([ppalaga](https://github.com/ppalaga))
+- Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add jaxb dependency \#996 [\#997](https://github.com/apache/camel-quarkus/pull/997) ([galderz](https://github.com/galderz))
 - Automatic sync branch master to quarkus-master [\#993](https://github.com/apache/camel-quarkus/pull/993) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update Quarkus to v1.3.1.Final [\#992](https://github.com/apache/camel-quarkus/pull/992) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -918,6 +920,7 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
+- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -957,7 +960,6 @@
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
