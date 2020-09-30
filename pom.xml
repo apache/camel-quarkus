@@ -75,7 +75,7 @@
         <quarkus-qpid-jms.version>0.18.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
-        <smallrye.reactive.messaging.camel.version>2.2.1</smallrye.reactive.messaging.camel.version>
+        <smallrye.reactive.messaging.camel.version>2.4.0</smallrye.reactive.messaging.camel.version>
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>5.2.8.RELEASE</spring.version>

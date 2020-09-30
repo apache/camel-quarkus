@@ -33,7 +33,6 @@ import org.jboss.jandex.MethodInfo;
 class SmallRyeReactiveMessagingProcessor {
 
     private static final DotName CAMEL_CONNECTOR_DOTNAME = DotName.createSimple(CamelConnector.class.getName());
-
     private static final String FEATURE = "camel-smallrye-reactive-messaging";
 
     @BuildStep
@@ -66,14 +65,6 @@ class SmallRyeReactiveMessagingProcessor {
                         AnnotationInstance producesAnnotation = getAnnotationInstance(DotNames.PRODUCES, methodInfo);
                         context.transform()
                                 .remove(annotationInstance -> annotationInstance.target().equals(producesAnnotation.target()))
-                                .done();
-                    }
-
-                    // Remove @PostConstruct from the init method as the configuration logic is handled by the reactive-streams extension
-                    if (methodInfo.name().equals("init")) {
-                        AnnotationInstance postConstructAnnotation = getAnnotationInstance(DotNames.POST_CONSTRUCT, methodInfo);
-                        context.transform()
-                                .remove(methodAnnotation -> methodAnnotation.target().equals(postConstructAnnotation.target()))
                                 .done();
                     }
                 }
