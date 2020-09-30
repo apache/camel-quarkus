@@ -28,7 +28,7 @@
     </parent>
 
     <artifactId>camel-quarkus-ssh-integration-test</artifactId>
-    <name>Camel Quarkus :: SSH :: Integration Test</name>
+    <name>Camel Quarkus :: Integration Tests :: SSH</name>
     <description>Integration tests for Camel Quarkus SSH extension</description>
 
     <dependencyManagement>
