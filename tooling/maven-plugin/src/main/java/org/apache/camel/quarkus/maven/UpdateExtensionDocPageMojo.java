@@ -46,6 +46,7 @@ import io.quarkus.annotation.processor.generate_doc.FsMap;
 import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.BaseModel;
+import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -120,6 +121,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("limitations", loadSection(basePath, "limitations.adoc", charset, null));
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
                 basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
+        model.put("activatesContextMapAll",
+                ext.isNativeSupported() && detectAllowContextMapAll(catalog, ext.getRuntimeArtifactIdBase()));
         model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
@@ -314,6 +317,28 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         } catch (IOException e) {
             throw new RuntimeException("Could not walk " + deploymentPackageDir, e);
         }
+    }
+
+    static boolean detectAllowContextMapAll(CqCatalog catalog, String artifactId) {
+        final String allowContextMapAll = "allowContextMapAll";
+        return catalog.filterModels(artifactId)
+                .filter(m -> m instanceof ComponentModel)
+                .map(m -> (ComponentModel) m)
+                .anyMatch(componentModel -> {
+                    for (ComponentModel.ComponentOptionModel model : componentModel.getOptions()) {
+                        if (model.getName().equals(allowContextMapAll)) {
+                            return true;
+                        }
+                    }
+
+                    for (ComponentModel.EndpointOptionModel model : componentModel.getEndpointOptions()) {
+                        if (model.getName().equals(allowContextMapAll)) {
+                            return true;
+                        }
+                    }
+
+                    return false;
+                });
     }
 
     private static String loadSection(Path basePath, String fileName, Charset charset, String default_) {

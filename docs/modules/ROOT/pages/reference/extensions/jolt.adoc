@@ -33,6 +33,11 @@ Please refer to the above link for usage and configuration details.
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== allowContextMapAll option in native mode
+
+The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
+`CamelContext` & `Exchange`. This is considered a security risk and thus access to the feature is not provided by default.
+
 == Additional Camel Quarkus configuration
 
 Beyond standard usages described above, a trick is needed when using jolt specs from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
