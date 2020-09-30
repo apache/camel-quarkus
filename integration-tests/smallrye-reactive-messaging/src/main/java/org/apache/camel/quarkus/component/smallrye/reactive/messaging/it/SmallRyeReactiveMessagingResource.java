@@ -40,6 +40,9 @@ public class SmallRyeReactiveMessagingResource {
     @Inject
     ResultsBean results;
 
+    @Inject
+    FilesMessageConsumer filesMessageConsumer;
+
     @Path("/post")
     @Consumes(MediaType.TEXT_PLAIN)
     @POST
@@ -57,5 +60,13 @@ public class SmallRyeReactiveMessagingResource {
         List<String> values = results.getResults();
         Collections.sort(values);
         return String.join(",", values);
+    }
+
+    @Path("/file")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public String getFiles() {
+        List<String> bodies = filesMessageConsumer.getFileBodies();
+        return String.join(",", bodies);
     }
 }

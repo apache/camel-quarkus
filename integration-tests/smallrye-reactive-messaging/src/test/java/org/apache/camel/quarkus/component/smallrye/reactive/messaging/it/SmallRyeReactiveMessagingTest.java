@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.smallrye.reactive.messaging.it;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,6 +69,22 @@ class SmallRyeReactiveMessagingTest {
                     .body()
                     .asString();
             return response.equals("A,B,C,D");
+        });
+    }
+
+    @Test
+    public void testPropertiesConfiguredFileConsumer() throws IOException {
+        String content = "Hello Camel Quarkus Reactive Streams Messaging";
+        Files.write(Paths.get("target/test/test.txt"), content.getBytes(StandardCharsets.UTF_8));
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            String response = RestAssured.get("/smallrye-reactive-messaging/file")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString();
+            return response.equals(content);
         });
     }
 }
