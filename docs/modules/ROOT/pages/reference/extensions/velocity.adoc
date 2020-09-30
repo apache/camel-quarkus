@@ -32,15 +32,10 @@ Please refer to the above link for usage and configuration details.
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
-== Camel Quarkus limitations
+== allowContextMapAll option in native mode
 
-If property `allowContextMapAll` is set to `true` there is a limitation in native mode. Reflective calls to methods
-of several classes in camel are not allowed (for example `org.apache.camel.support.DefaultExchange`). Therefore
-some expressions won't work (for example `${exchange.properties.*}).
-
-You can allow reflective calls to such classes (for example by using application.properties), but keep in mind that it brings
-some security risks.
-
+The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
+`CamelContext` & `Exchange`. This is considered a security risk and thus access to the feature is not provided by default.
 
 == Additional Camel Quarkus configuration
 
