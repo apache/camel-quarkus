@@ -1,3 +1,1 @@
-The extension uses Locale.English to do the conversion of Double latitude and longitude values, in order to match the format required by the Google Maps API.
-
-An example of setting the Locale en_US for GraalVm: https://www.graalvm.org/reference-manual/ruby/UTF8Locale/
+Locales different from the build machine's default locale do not work well in native mode due to https://github.com/oracle/graal/issues/1645[this GraalVM bug]. The `google-maps-services` library this extension depends on uses `Locale.English` to format double latitude and longitude values. As a consequence of these two facts, the locale on the building machine must be set to some English locale, such as `en_US.UTF-8`, `en_GB.UTF-8` or `en_IE.UTF-8` so that the calls to the Google Maps API work properly. On Linux, you need to check the value of the `LANG` environment variable, e.g. via `echo $LANG` and change the value via `export LANG=en_US.UTF-8` if necessary.
