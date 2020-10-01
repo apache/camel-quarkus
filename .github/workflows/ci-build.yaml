@@ -355,12 +355,12 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
-      - name: cd examples && mvn clean test/verify
+      - name: clone and verify examples
         run: |
-          cd examples
-          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false \
-            ${MVN_TARGETS}
+          git clone --depth 1 --branch camel-quarkus-master https://github.com/apache/camel-quarkus-examples.git \
+            && cd camel-quarkus-examples \
+            && echo "Current Examples commit:" $(git rev-parse HEAD) \
+            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} ${MVN_TARGETS}
 
   # memoryhogs:
   #   runs-on: ubuntu-latest
