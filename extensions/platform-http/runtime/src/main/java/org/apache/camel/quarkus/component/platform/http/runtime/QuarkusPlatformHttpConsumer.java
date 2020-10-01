@@ -404,21 +404,23 @@ public class QuarkusPlatformHttpConsumer extends DefaultConsumer {
                 },
                 false,
                 result -> {
+                    Throwable failure = null;
                     try {
                         if (result.succeeded()) {
                             try {
                                 writeResponse(ctx, exchange, getEndpoint().getHeaderFilterStrategy());
                             } catch (Exception e) {
-                                getExceptionHandler().handleException(
-                                        "Failed handling platform-http endpoint " + getEndpoint().getPath(),
-                                        e);
+                                failure = e;
                             }
                         } else {
+                            failure = result.cause();
+                        }
+
+                        if (failure != null) {
                             getExceptionHandler().handleException(
                                     "Failed handling platform-http endpoint " + getEndpoint().getPath(),
-                                    result.cause());
-
-                            ctx.fail(result.cause());
+                                    failure);
+                            ctx.fail(failure);
                         }
                     } finally {
                         doneUoW(exchange);
