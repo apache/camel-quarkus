@@ -1,0 +1,10 @@
+== Camel Quarkus Geocoder Integration Tests
+
+To run `camel-quarkus-geocoder` integration tests using google maps service, you will need a google cloud https://developers.google.com/maps/documentation/javascript/get-api-key[API key].
+
+Then set the following environment variable:
+
+[source,shell]
+----
+GOOGLE_API_KEY=your-api-id
+----

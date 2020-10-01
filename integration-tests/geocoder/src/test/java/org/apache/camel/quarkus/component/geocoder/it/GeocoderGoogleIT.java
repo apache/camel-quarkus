@@ -17,8 +17,10 @@
 package org.apache.camel.quarkus.component.geocoder.it;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
+@EnabledIfEnvironmentVariable(named = "GOOGLE_API_KEY", matches = ".+")
 class GeocoderGoogleIT extends GeocoderGoogleTest {
 
 }

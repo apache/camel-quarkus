@@ -32,25 +32,17 @@ import org.jboss.logging.Logger;
 @Path("/google")
 @ApplicationScoped
 public class GeocoderGoogleResource {
-    public static final String GOOGLE_GEOCODER_API_KEY = "google.api.key";
-
     private static final Logger LOG = Logger.getLogger(GeocoderGoogleResource.class);
-    private static final String NO_API_KEY = "NO_API_KEY";
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @ConfigProperty(name = "google.api.key", defaultValue = NO_API_KEY)
+    @ConfigProperty(name = "google.api.key")
     String apiKey;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByCurrentLocation() {
-        if (NO_API_KEY.equals(apiKey)) {
-            // disable service if no API KEY
-            LOG.errorf("Please set the API_KEY in the %s configuration key", GOOGLE_GEOCODER_API_KEY);
-            return null;
-        }
         LOG.infof("Retrieve info from current location");
         final GeocodingResult[] response = producerTemplate.requestBody(
                 "geocoder:address:current?headersOnly=false&apiKey=" + apiKey,
@@ -63,11 +55,6 @@ public class GeocoderGoogleResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByAddress(@PathParam("address") String address) {
-        if (NO_API_KEY.equals(apiKey)) {
-            // disable service if no API KEY
-            LOG.errorf("Please set the API_KEY in the %s configuration key", GOOGLE_GEOCODER_API_KEY);
-            return null;
-        }
         LOG.infof("Retrieve info from address : %s", address);
         final GeocodingResult[] response = producerTemplate.requestBody(
                 "geocoder:address:" + address + "?apiKey=" + apiKey,
@@ -80,11 +67,6 @@ public class GeocoderGoogleResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByCoordinate(@PathParam("lat") String latitude, @PathParam("lon") String longitude) {
-        if (NO_API_KEY.equals(apiKey)) {
-            // disable service if no API KEY
-            LOG.errorf("Please set the API_KEY in the %s configuration key", GOOGLE_GEOCODER_API_KEY);
-            return null;
-        }
         LOG.infof("Retrieve  info from georgraphic coordinates latitude : %s, longitude %s", latitude, longitude);
         final GeocodingResult[] response = producerTemplate.requestBody(
                 "geocoder:latlng:" + latitude + "," + longitude + "?apiKey=" + apiKey,
