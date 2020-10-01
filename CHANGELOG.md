@@ -22,6 +22,7 @@
 - Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
 - Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
+- allowContextMapAll requires template engines to have reflective access to camel core classess  [\#1807](https://github.com/apache/camel-quarkus/issues/1807)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
 - Generate partials instead of pages for the individual Camel bits [\#1795](https://github.com/apache/camel-quarkus/issues/1795)
@@ -47,6 +48,9 @@
 
 **Merged pull requests:**
 
+- Tidy up pom.xml files [\#1858](https://github.com/apache/camel-quarkus/pull/1858) ([ppalaga](https://github.com/ppalaga))
+- platform-http: handle requests using a thread from the worker pool [\#1857](https://github.com/apache/camel-quarkus/pull/1857) ([lburgazzoli](https://github.com/lburgazzoli))
+- Document allowContextMapAll native mode limitations [\#1855](https://github.com/apache/camel-quarkus/pull/1855) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to cq-maven-plugin 0.20.0, set nativeSince property when prom… [\#1854](https://github.com/apache/camel-quarkus/pull/1854) ([ppalaga](https://github.com/ppalaga))
 - Document camel main xml configuration properties [\#1853](https://github.com/apache/camel-quarkus/pull/1853) ([jamesnetherton](https://github.com/jamesnetherton))
 - Shiro, Ribbon, JCache JVM support [\#1849](https://github.com/apache/camel-quarkus/pull/1849) ([ppalaga](https://github.com/ppalaga))
@@ -63,6 +67,7 @@
 - Remove redundant skip of maven-enforcer-plugin execution [\#1825](https://github.com/apache/camel-quarkus/pull/1825) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1821](https://github.com/apache/camel-quarkus/pull/1821) ([jamesnetherton](https://github.com/jamesnetherton))
 - Run verify for the docs module on the CI \#1819 [\#1820](https://github.com/apache/camel-quarkus/pull/1820) ([ppalaga](https://github.com/ppalaga))
+- Improve mock backend logging [\#1818](https://github.com/apache/camel-quarkus/pull/1818) ([llowinge](https://github.com/llowinge))
 - Camel quarkus disable auto route discovery not working [\#1817](https://github.com/apache/camel-quarkus/pull/1817) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use partials instead of pages for the individual Camel bits [\#1814](https://github.com/apache/camel-quarkus/pull/1814) ([ppalaga](https://github.com/ppalaga))
 - Added UniVocity data formats native support \#1756 [\#1813](https://github.com/apache/camel-quarkus/pull/1813) ([aldettinger](https://github.com/aldettinger))
@@ -212,7 +217,6 @@
 - Update mvnd rules and split their entries by newlines where merge con… [\#1555](https://github.com/apache/camel-quarkus/pull/1555) ([ppalaga](https://github.com/ppalaga))
 - Fix telegram itest component property resolution [\#1554](https://github.com/apache/camel-quarkus/pull/1554) ([llowinge](https://github.com/llowinge))
 - Compute the component counts using JavaScript to avoid merge conflicts [\#1552](https://github.com/apache/camel-quarkus/pull/1552) ([ppalaga](https://github.com/ppalaga))
-- Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
@@ -518,6 +522,7 @@
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -834,7 +839,6 @@
 - RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
 - Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
 - Utility to generate/scaffold an extension for a camel component [\#616](https://github.com/apache/camel-quarkus/issues/616)
-- OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 
 **Merged pull requests:**
 
@@ -866,7 +870,6 @@
 - Upgrade Quarkus Qpid JMS to 0.13.1 [\#1007](https://github.com/apache/camel-quarkus/pull/1007) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make consul depend on core-cloud \#1003 [\#1004](https://github.com/apache/camel-quarkus/pull/1004) ([galderz](https://github.com/galderz))
 - New source assembly descriptor and root pom rename [\#1002](https://github.com/apache/camel-quarkus/pull/1002) ([ppalaga](https://github.com/ppalaga))
-- Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add jaxb dependency \#996 [\#997](https://github.com/apache/camel-quarkus/pull/997) ([galderz](https://github.com/galderz))
 - Automatic sync branch master to quarkus-master [\#993](https://github.com/apache/camel-quarkus/pull/993) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Update Quarkus to v1.3.1.Final [\#992](https://github.com/apache/camel-quarkus/pull/992) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1368,6 +1371,7 @@
 
 - Create a Camel exec extension [\#417](https://github.com/apache/camel-quarkus/issues/417)
 - bean-validator extension [\#411](https://github.com/apache/camel-quarkus/issues/411)
+- OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 - dataformat extension [\#408](https://github.com/apache/camel-quarkus/issues/408)
 - xslt extension [\#406](https://github.com/apache/camel-quarkus/issues/406)
 - Add scheduler extension [\#403](https://github.com/apache/camel-quarkus/issues/403)
