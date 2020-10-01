@@ -45,12 +45,12 @@ on:
 
 env:
   LANG: en_US.UTF-8
+  MAVEN_OPTS: -Xmx3000m
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -e
 
 jobs:
   initial-mvn-install:
     runs-on: ubuntu-latest
-    env:
-      MAVEN_OPTS: -Xmx3000m
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
@@ -79,12 +79,12 @@ jobs:
           git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
-            && ./mvnw -B clean install -DskipTests -DskipITs
+            && ./mvnw ${MAVEN_ARGS} clean install -DskipTests -DskipITs
       - name: Checkout
         uses: actions/checkout@v2
       - name: mvn clean install -DskipTests
         run: |
-          ./mvnw -V -ntp ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip \
+          ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip \
             -T1C -Dorg.slf4j.simpleLogger.showThreadName=true
       - name: Fail if there are uncommitted changes
         shell: bash
@@ -168,7 +168,7 @@ jobs:
           for i in $TEST_MODULES
           do modules+=("integration-tests/$i"); done
           IFS=,
-          eval ./mvnw -V -ntp ${BRANCH_OPTIONS} clean verify \
+          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
             -Pnative,docker,ci \
             -pl "${modules[*]}"
@@ -215,19 +215,19 @@ jobs:
       - name: cd extensions-core && mvn test
         run: |
           cd extensions-core
-          ../mvnw -V -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd extensions && mvn test
         run: |
           cd extensions
-          ../mvnw -V -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd docs && mvn verify
         run: |
           cd docs
-          ../mvnw -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
             verify
 
@@ -268,7 +268,7 @@ jobs:
       - name: cd extensions-jvm && mvn clean test
         run: |
           cd extensions-jvm
-          ../mvnw -V -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
             clean test
 
@@ -310,7 +310,7 @@ jobs:
       - name: cd integration-tests && mvn clean verify
         run: |
           cd integration-tests
-          ../mvnw -V -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
             clean verify
 
@@ -359,7 +359,7 @@ jobs:
       - name: cd examples && mvn clean test/verify
         run: |
           cd examples
-          ../mvnw -V -ntp ${BRANCH_OPTIONS} \
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforce=false \
             ${MVN_TARGETS}
 
@@ -386,7 +386,7 @@ jobs:
   #     # of memory this we nee to limit it to avoid the process fail for OOM.
   #     - name: Integration Tests
   #       run: |
-  #         ./mvnw -V -B \
+  #         ./mvnw ${MAVEN_ARGS} \
   #           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
   #           -Dnative \
   #           -Ddocker \
