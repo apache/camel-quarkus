@@ -93,6 +93,7 @@
         <module>fop</module>
         <module>foundation</module>
         <module>ftp</module>
+        <module>geocoder</module>
         <module>git</module>
         <module>github</module>
         <module>google</module>
