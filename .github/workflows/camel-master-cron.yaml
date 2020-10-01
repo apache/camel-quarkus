@@ -24,13 +24,13 @@ on:
 
 env:
   LANG: en_US
+  MAVEN_OPTS: -Xmx3000m
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -e
 
 jobs:
   build:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
-    env:
-      MAVEN_OPTS: -Xmx3000m
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
@@ -67,7 +67,7 @@ jobs:
           version: '11'
       - name: Build Camel Quarkus
         run: |
-          ./mvnw -B -ntp clean install -Papache-snapshots -pl '!docs'
+          ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs'
       - name: Tar Maven Repo
         shell: bash
         run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
@@ -91,7 +91,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -148,7 +148,7 @@ jobs:
             do modules+=("integration-tests/$i");
           done
           IFS=,
-          eval ./mvnw -B -ntp clean verify \
+          eval ./mvnw clean verify \
             -Papache-snapshots \
             -Dnative \
             -Ddocker \
@@ -156,7 +156,7 @@ jobs:
       - name: Report Build Failure
         if: failure()
         run: |
-          ./mvnw verify -N -B -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -184,7 +184,7 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw verify -N -B -ntp -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
       - name: Sync branch Master to Camel Master
         if: steps.report.outputs.overall_build_status == 'success'
         run: |

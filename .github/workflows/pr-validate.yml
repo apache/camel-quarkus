@@ -33,6 +33,8 @@ on:
 
 env:
   LANG: en_US
+  MAVEN_OPTS: -Xmx3000m
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -e
 
 jobs:
   check-format:
@@ -53,7 +55,7 @@ jobs:
         version: '11'
     - name: mvn validate
       run: |
-        ./mvnw ${BRANCH_OPTIONS} -fae -ntp \
+        ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} -fae \
           -DskipTests \
           -Pcheck-format \
           clean validate

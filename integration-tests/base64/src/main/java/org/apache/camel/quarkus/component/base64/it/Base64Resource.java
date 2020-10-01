@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.base64.it;
 
 import java.net.URI;
+import java.util.Locale;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -47,6 +48,14 @@ public class Base64Resource {
         LOG.infof("Sending to base64: %s", message);
         final String response = producerTemplate.requestBody("direct:start", message, String.class);
         LOG.infof("Got response from base64: %s", response);
+        LOG.warn("Default locale " + Locale.getDefault());
+        for (Locale l : Locale.getAvailableLocales()) {
+            LOG.warn("-- avail locale " + l);
+        }
+        LOG.warn("de-de " + String.format(Locale.GERMANY, "%.8f,%.8f", 0.1, 0.1));
+        LOG.warn("US " + String.format(Locale.US, "%.8f,%.8f", 0.1, 0.1));
+        LOG.warn("ENGLISH" + String.format(Locale.ENGLISH, "%.8f,%.8f", 0.1, 0.1));
+        LOG.warn("root " + String.format(Locale.ROOT, "%.8f,%.8f", 0.1, 0.1));
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .header("content-length", response.length())
