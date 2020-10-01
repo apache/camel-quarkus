@@ -1,0 +1,1 @@
+Camel Quarkus Examples were moved to a separate repository https://github.com/apache/camel-quarkus-examples
