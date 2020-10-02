@@ -32,7 +32,9 @@
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
 - String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
+- Move examples to a separate git repository [\#1691](https://github.com/apache/camel-quarkus/issues/1691)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
+- Geocoder native support [\#1645](https://github.com/apache/camel-quarkus/issues/1645)
 - FOP native support [\#1642](https://github.com/apache/camel-quarkus/issues/1642)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
 - MongoClientName annotation class not available when using camel-quarkus-mongodb extension [\#1608](https://github.com/apache/camel-quarkus/issues/1608)
@@ -48,8 +50,12 @@
 
 **Merged pull requests:**
 
+- Move examples to a separate git repository [\#1864](https://github.com/apache/camel-quarkus/pull/1864) ([ppalaga](https://github.com/ppalaga))
+- Fix platform-http handler exception handling [\#1863](https://github.com/apache/camel-quarkus/pull/1863) ([jamesnetherton](https://github.com/jamesnetherton))
+- Turn of Maven connection pooling to avoid connection issues on the CI… [\#1859](https://github.com/apache/camel-quarkus/pull/1859) ([ppalaga](https://github.com/ppalaga))
 - Tidy up pom.xml files [\#1858](https://github.com/apache/camel-quarkus/pull/1858) ([ppalaga](https://github.com/ppalaga))
 - platform-http: handle requests using a thread from the worker pool [\#1857](https://github.com/apache/camel-quarkus/pull/1857) ([lburgazzoli](https://github.com/lburgazzoli))
+- Geocoder native support fixes \#1645 [\#1856](https://github.com/apache/camel-quarkus/pull/1856) ([zbendhiba](https://github.com/zbendhiba))
 - Document allowContextMapAll native mode limitations [\#1855](https://github.com/apache/camel-quarkus/pull/1855) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to cq-maven-plugin 0.20.0, set nativeSince property when prom… [\#1854](https://github.com/apache/camel-quarkus/pull/1854) ([ppalaga](https://github.com/ppalaga))
 - Document camel main xml configuration properties [\#1853](https://github.com/apache/camel-quarkus/pull/1853) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -190,7 +196,6 @@
 - More CI tweaks [\#1651](https://github.com/apache/camel-quarkus/pull/1651) ([ppalaga](https://github.com/ppalaga))
 - HDFS, hazelcast, Guava EventBus, Geocoder and Ganglia JVM support [\#1650](https://github.com/apache/camel-quarkus/pull/1650) ([ppalaga](https://github.com/ppalaga))
 - FOP, Flink, Facebook, ElSQL and Ehcache JVM support [\#1643](https://github.com/apache/camel-quarkus/pull/1643) ([ppalaga](https://github.com/ppalaga))
-- Weather, Velocity, Twilio, Thrift and Stub JVM support [\#1636](https://github.com/apache/camel-quarkus/pull/1636) ([ppalaga](https://github.com/ppalaga))
 - XChange, Workday, Wordpress, Weka and Web3j JVM support [\#1629](https://github.com/apache/camel-quarkus/pull/1629) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.7.1.Final [\#1628](https://github.com/apache/camel-quarkus/pull/1628) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add IPFS, IRC & JSch JVM only extensions [\#1627](https://github.com/apache/camel-quarkus/pull/1627) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -217,6 +222,7 @@
 - Update mvnd rules and split their entries by newlines where merge con… [\#1555](https://github.com/apache/camel-quarkus/pull/1555) ([ppalaga](https://github.com/ppalaga))
 - Fix telegram itest component property resolution [\#1554](https://github.com/apache/camel-quarkus/pull/1554) ([llowinge](https://github.com/llowinge))
 - Compute the component counts using JavaScript to avoid merge conflicts [\#1552](https://github.com/apache/camel-quarkus/pull/1552) ([ppalaga](https://github.com/ppalaga))
+- Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
@@ -504,6 +510,7 @@
 - Debezium tests fail on Quarkus Platform in native mode \#1311 [\#1325](https://github.com/apache/camel-quarkus/pull/1325) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add servlet-api to classpath to help pointsto analysis \#1319 [\#1324](https://github.com/apache/camel-quarkus/pull/1324) ([galderz](https://github.com/galderz))
 - Added couchdb consumer support in native mode \#1022 [\#1323](https://github.com/apache/camel-quarkus/pull/1323) ([aldettinger](https://github.com/aldettinger))
+- microprofile-health extensions should create health registry and init… [\#1320](https://github.com/apache/camel-quarkus/pull/1320) ([davsclaus](https://github.com/davsclaus))
 - Fix \#1314 Make Kudu native test runnable on Quarkus Platform on Java … [\#1318](https://github.com/apache/camel-quarkus/pull/1318) ([ppalaga](https://github.com/ppalaga))
 - Aws2 translate [\#1317](https://github.com/apache/camel-quarkus/pull/1317) ([oscerd](https://github.com/oscerd))
 - Leverage cq:promote when porting extensions from JVM to native [\#1316](https://github.com/apache/camel-quarkus/pull/1316) ([ppalaga](https://github.com/ppalaga))
@@ -839,6 +846,7 @@
 - RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
 - Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
 - Utility to generate/scaffold an extension for a camel component [\#616](https://github.com/apache/camel-quarkus/issues/616)
+- OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 
 **Merged pull requests:**
 
@@ -1371,7 +1379,6 @@
 
 - Create a Camel exec extension [\#417](https://github.com/apache/camel-quarkus/issues/417)
 - bean-validator extension [\#411](https://github.com/apache/camel-quarkus/issues/411)
-- OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 - dataformat extension [\#408](https://github.com/apache/camel-quarkus/issues/408)
 - xslt extension [\#406](https://github.com/apache/camel-quarkus/issues/406)
 - Add scheduler extension [\#403](https://github.com/apache/camel-quarkus/issues/403)
