@@ -1,21 +1,17 @@
 = Camel Quarkus Examples
 :page-aliases: examples.adoc
+:indexer-version: latest
+:indexer-component: camel-quarkus-examples
+:indexer-module: ROOT
+:indexer-rel-filter: *.adoc
 
-We offer several examples in our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]. To learn
-how to use them, please follow the xref:user-guide/first-steps.adoc[First steps] chapter of the User guide.
+We offer several examples in https://github.com/apache/camel-quarkus-examples[Camel Quarkus examples repository]. To
+learn how to use them, please follow the xref:user-guide/first-steps.adoc[First steps] chapter of the User guide.
 
-// examples: START
-Number of Examples: 8 (0 deprecated)
+Number of Examples: indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}"]
 [width="100%",cols="3,7",options="header"]
 |===
 | Example | Description
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/observability/README.adoc[Observability] (observability) | An example that demonstrates how to add support for metrics, health checks and distributed tracing
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/rest-json/README.adoc[Rest Json] (rest-json) | This example is a port of Quarkus' quickstart to Camel
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log/README.adoc[Timer Log] (timer-log) | An example of basic Hello World that uses a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-cdi/README.adoc[Timer Log CDI] (timer-log-cdi) | An example of basic Hello World that uses CDI to set-up a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-kotlin[Timer Log Kotlin] (timer-log-kotlin) | An example of basic Hello World that uses Kotlin to set-up a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-xml/README.adoc[Timer Log XML] (timer-log-xml) | An example of basic Hello World that uses XML to set-up a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/timer-log-spring/README.adoc[Timer Log Spring] (timer-log-spring) | An example of basic Hello World that uses Spring to set-up a Camel timer
-| link:https://github.com/apache/camel-quarkus/tree/master/examples/file-split-log-xml/README.adoc[File Split Log XML] (file-split-log-xml) | An example of basic Hello World that uses XML to set-up a Camel file consumer
 |===
-// examples: END
+
+indexTable::[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",cells="=`$\{cqExampleUrl}[$\{cqExampleTitle}]`,cq-example-description"]
