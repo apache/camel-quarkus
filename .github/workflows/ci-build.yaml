@@ -46,7 +46,7 @@ on:
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
-  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -e
+  MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
 
 jobs:
   initial-mvn-install:
