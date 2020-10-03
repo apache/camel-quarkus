@@ -10,6 +10,7 @@
 
 **Fixed bugs:**
 
+- The stream has no active subscriptions when using camel-quarkus-smallrye-reactive-messaging [\#1851](https://github.com/apache/camel-quarkus/issues/1851)
 - Intermittent failure of AhcWsProducerConsumer [\#1815](https://github.com/apache/camel-quarkus/issues/1815)
 - 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
 - Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
@@ -50,6 +51,9 @@
 
 **Merged pull requests:**
 
+- Generate the list of examples from the AsciiDoc pages generated in the [\#1870](https://github.com/apache/camel-quarkus/pull/1870) ([ppalaga](https://github.com/ppalaga))
+- Let's see if removing -Dmaven.wagon.http.pool=false solves the Maven … [\#1867](https://github.com/apache/camel-quarkus/pull/1867) ([ppalaga](https://github.com/ppalaga))
+- Upgrade SmallRye Reactive Messaging Camel to 2.4.0 [\#1866](https://github.com/apache/camel-quarkus/pull/1866) ([jamesnetherton](https://github.com/jamesnetherton))
 - Move examples to a separate git repository [\#1864](https://github.com/apache/camel-quarkus/pull/1864) ([ppalaga](https://github.com/ppalaga))
 - Fix platform-http handler exception handling [\#1863](https://github.com/apache/camel-quarkus/pull/1863) ([jamesnetherton](https://github.com/jamesnetherton))
 - Turn of Maven connection pooling to avoid connection issues on the CI… [\#1859](https://github.com/apache/camel-quarkus/pull/1859) ([ppalaga](https://github.com/ppalaga))
@@ -196,6 +200,7 @@
 - More CI tweaks [\#1651](https://github.com/apache/camel-quarkus/pull/1651) ([ppalaga](https://github.com/ppalaga))
 - HDFS, hazelcast, Guava EventBus, Geocoder and Ganglia JVM support [\#1650](https://github.com/apache/camel-quarkus/pull/1650) ([ppalaga](https://github.com/ppalaga))
 - FOP, Flink, Facebook, ElSQL and Ehcache JVM support [\#1643](https://github.com/apache/camel-quarkus/pull/1643) ([ppalaga](https://github.com/ppalaga))
+- Weather, Velocity, Twilio, Thrift and Stub JVM support [\#1636](https://github.com/apache/camel-quarkus/pull/1636) ([ppalaga](https://github.com/ppalaga))
 - XChange, Workday, Wordpress, Weka and Web3j JVM support [\#1629](https://github.com/apache/camel-quarkus/pull/1629) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.7.1.Final [\#1628](https://github.com/apache/camel-quarkus/pull/1628) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add IPFS, IRC & JSch JVM only extensions [\#1627](https://github.com/apache/camel-quarkus/pull/1627) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -510,7 +515,6 @@
 - Debezium tests fail on Quarkus Platform in native mode \#1311 [\#1325](https://github.com/apache/camel-quarkus/pull/1325) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add servlet-api to classpath to help pointsto analysis \#1319 [\#1324](https://github.com/apache/camel-quarkus/pull/1324) ([galderz](https://github.com/galderz))
 - Added couchdb consumer support in native mode \#1022 [\#1323](https://github.com/apache/camel-quarkus/pull/1323) ([aldettinger](https://github.com/aldettinger))
-- microprofile-health extensions should create health registry and init… [\#1320](https://github.com/apache/camel-quarkus/pull/1320) ([davsclaus](https://github.com/davsclaus))
 - Fix \#1314 Make Kudu native test runnable on Quarkus Platform on Java … [\#1318](https://github.com/apache/camel-quarkus/pull/1318) ([ppalaga](https://github.com/ppalaga))
 - Aws2 translate [\#1317](https://github.com/apache/camel-quarkus/pull/1317) ([oscerd](https://github.com/oscerd))
 - Leverage cq:promote when porting extensions from JVM to native [\#1316](https://github.com/apache/camel-quarkus/pull/1316) ([ppalaga](https://github.com/ppalaga))
