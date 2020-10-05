@@ -118,4 +118,9 @@ public class CoreTest {
                 .statusCode(200)
                 .body(is("(Joe,null)"));
     }
+
+    @Test
+    void testDefaultHeadersMapFactoryConfigured() {
+        RestAssured.when().get("/test/headersmap-factory").then().body(is("true"));
+    }
 }

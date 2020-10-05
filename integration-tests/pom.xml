@@ -100,6 +100,7 @@
         <module>graphql</module>
         <module>grok</module>
         <module>grpc</module>
+        <module>headersmap</module>
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>

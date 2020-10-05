@@ -44,6 +44,7 @@ import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.TemplatedRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.LRUCacheFactory;
@@ -252,5 +253,12 @@ public class CoreResource {
                 | SecurityException | IllegalArgumentException e) {
             return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
         }
+    }
+
+    @Path("/headersmap-factory")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean headersMapFactory() {
+        return context.adapt(ExtendedCamelContext.class).getHeadersMapFactory() instanceof DefaultHeadersMapFactory;
     }
 }

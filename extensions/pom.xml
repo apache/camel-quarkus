@@ -115,6 +115,7 @@
         <module>grok</module>
         <module>grpc</module>
         <module>gson</module>
+        <module>headersmap</module>
         <module>http</module>
         <module>hystrix</module>
         <module>ical</module>
