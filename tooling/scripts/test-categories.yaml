@@ -65,6 +65,7 @@ foundation:
   - exec
   - file
   - foundation
+  - headersmap
   - hystrix
   - jta
   - jsonpath

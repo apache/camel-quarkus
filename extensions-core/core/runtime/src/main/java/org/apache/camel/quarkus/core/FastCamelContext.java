@@ -313,9 +313,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HeadersMapFactory createHeadersMapFactory() {
-        return new BaseServiceResolver<>(HeadersMapFactory.FACTORY, HeadersMapFactory.class)
-                .resolve(getCamelContextReference())
-                .orElseGet(DefaultHeadersMapFactory::new);
+        return new DefaultHeadersMapFactory();
     }
 
     @Override
