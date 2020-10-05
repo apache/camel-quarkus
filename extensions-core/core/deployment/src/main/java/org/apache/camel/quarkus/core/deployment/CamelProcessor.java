@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
@@ -60,6 +61,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterLoaderBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.RoutesBuilderClassExcludeBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
@@ -218,8 +220,8 @@ class CamelProcessor {
         // account even if it should not.
         //
         // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
-        //       a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
-        //       any discovery at runtime.
+        // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
+        // any discovery at runtime.
         //
         for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
             for (Path root : archive.getRootDirs()) {
@@ -315,7 +317,8 @@ class CamelProcessor {
     @BuildStep(onlyIf = { CamelConfigFlags.RoutesDiscoveryEnabled.class })
     public List<CamelRoutesBuilderClassBuildItem> discoverRoutesBuilderClassNames(
             CombinedIndexBuildItem combinedIndex,
-            CamelConfig config) {
+            CamelConfig config,
+            List<RoutesBuilderClassExcludeBuildItem> routesBuilderClassExcludes) {
 
         final IndexView index = combinedIndex.getIndex();
 
@@ -324,15 +327,21 @@ class CamelProcessor {
         allKnownImplementors.addAll(index.getAllKnownSubclasses(ROUTE_BUILDER_TYPE));
         allKnownImplementors.addAll(index.getAllKnownSubclasses(ADVICE_WITH_ROUTE_BUILDER_TYPE));
 
+        final Predicate<DotName> pathFilter = new PathFilter.Builder()
+                .exclude(
+                        routesBuilderClassExcludes.stream()
+                                .map(RoutesBuilderClassExcludeBuildItem::getPattern)
+                                .collect(Collectors.toList()))
+                .exclude(config.routesDiscovery.excludePatterns)
+                .include(config.routesDiscovery.includePatterns)
+                .build().asDotNamePredicate();
+
         return allKnownImplementors
                 .stream()
                 // public and non-abstract
                 .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
                 .map(ClassInfo::name)
-                .filter(new PathFilter.Builder()
-                        .exclude(config.routesDiscovery.excludePatterns)
-                        .include(config.routesDiscovery.includePatterns)
-                        .build().asDotNamePredicate())
+                .filter(pathFilter)
                 .map(CamelRoutesBuilderClassBuildItem::new)
                 .collect(Collectors.toList());
     }
