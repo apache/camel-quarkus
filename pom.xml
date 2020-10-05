@@ -83,6 +83,7 @@
         <kubernetes-client.version>4.10.3</kubernetes-client.version>
         <kotlin.version>1.3.72</kotlin.version>
         <netty3.version>3.10.6.Final</netty3.version><!-- Spark -->
+        <mvel2.version>2.4.10.Final</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
@@ -117,7 +118,6 @@
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
         <mock-javamail.version>1.9</mock-javamail.version>
-        <mvel2.version>2.4.8.Final</mvel2.version>
         <pdfbox.version>2.0.21</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.3.0</sshd.version>

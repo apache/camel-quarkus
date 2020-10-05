@@ -44,20 +44,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus</artifactId>
-                <version>${optaplanner.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mvel</groupId>
-                <artifactId>mvel2</artifactId>
-                <version>${mvel2.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -73,17 +59,6 @@
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.mvel</groupId>
-                    <artifactId>mvel2</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- delete mvel2 dependency when optaplanner 7.45.0.Final is released-->
-        <dependency>
-            <groupId>org.mvel</groupId>
-            <artifactId>mvel2</artifactId>
         </dependency>
     </dependencies>
 

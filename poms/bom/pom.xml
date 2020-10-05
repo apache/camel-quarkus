@@ -5637,6 +5637,21 @@
                 <version>${jcodings.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.mvel</groupId>
+                <artifactId>mvel2</artifactId>
+                <version>${mvel2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-quarkus</artifactId>
+                <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-quarkus-deployment</artifactId>
+                <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>
