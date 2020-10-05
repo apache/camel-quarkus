@@ -16,12 +16,15 @@
  */
 package org.apache.camel.quarkus.component.lra.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.RoutesBuilderClassExcludeBuildItem;
+import org.apache.camel.service.lra.LRASagaRoutes;
 import org.jboss.logging.Logger;
 
 class LraProcessor {
@@ -42,5 +45,10 @@ class LraProcessor {
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
         recorder.warnJvmInNative(FEATURE); // warn at runtime
+    }
+
+    @BuildStep
+    void excludeLraRoutes(BuildProducer<RoutesBuilderClassExcludeBuildItem> routesBuilderClassExcludes) {
+        routesBuilderClassExcludes.produce(RoutesBuilderClassExcludeBuildItem.ofClass(LRASagaRoutes.class));
     }
 }
