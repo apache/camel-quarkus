@@ -3,7 +3,7 @@
 :indexer-version: latest
 :indexer-component: camel-quarkus-examples
 :indexer-module: ROOT
-:indexer-rel-filter: *.adoc
+:indexer-rel-filter: examples/*.adoc
 
 We offer several examples in https://github.com/apache/camel-quarkus-examples[Camel Quarkus examples repository]. To
 learn how to use them, please follow the xref:user-guide/first-steps.adoc[First steps] chapter of the User guide.

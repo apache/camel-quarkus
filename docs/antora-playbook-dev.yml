@@ -27,6 +27,7 @@ content:
   - url: git@github.com:apache/camel.git
     branches: HEAD
     start_path: docs/components
+  #- url: ./../../camel-quarkus-examples
   - url: git@github.com:apache/camel-quarkus-examples.git
     branches: HEAD
     start_path: docs
