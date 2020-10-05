@@ -384,6 +384,7 @@
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
+- Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
 - JAX-RS endpoint accessible before Camel context is started [\#1439](https://github.com/apache/camel-quarkus/issues/1439)
 - Jolt support [\#1421](https://github.com/apache/camel-quarkus/issues/1421)
@@ -533,6 +534,7 @@
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -819,7 +821,6 @@
 - CouchDB support [\#910](https://github.com/apache/camel-quarkus/issues/910)
 - Couchbase support \(JVM only\) [\#909](https://github.com/apache/camel-quarkus/issues/909)
 - Cassandra CQL support [\#908](https://github.com/apache/camel-quarkus/issues/908)
-- Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - GraphQLResource should read from the classpath instead from the filesystem [\#901](https://github.com/apache/camel-quarkus/issues/901)
 - camel-quarkus-elasticsearch-rest build fails with "Dependency convergence error" [\#899](https://github.com/apache/camel-quarkus/issues/899)
 - List the JVM-only extensions in the docs [\#897](https://github.com/apache/camel-quarkus/issues/897)
@@ -887,7 +888,6 @@
 - Update Quarkus to v1.3.1.Final [\#992](https://github.com/apache/camel-quarkus/pull/992) ([lburgazzoli](https://github.com/lburgazzoli))
 - Make a tabular list of examples for the examples page [\#991](https://github.com/apache/camel-quarkus/pull/991) ([AemieJ](https://github.com/AemieJ))
 - \[CAMEL-13704\] - Added PR template file with instructions on what to include [\#990](https://github.com/apache/camel-quarkus/pull/990) ([Xxyumi-hub](https://github.com/Xxyumi-hub))
-- Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
 - Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Move quarkus.camel.resources.\* config options to quarkus.camel.native… [\#983](https://github.com/apache/camel-quarkus/pull/983) ([ppalaga](https://github.com/ppalaga))
 - Add GitHub extension [\#982](https://github.com/apache/camel-quarkus/pull/982) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1120,6 +1120,7 @@
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
 - Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
+- Consider porting the Twitter Camel support [\#57](https://github.com/apache/camel-quarkus/issues/57)
 
 **Fixed bugs:**
 
@@ -1446,7 +1447,6 @@
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
-- Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -1466,6 +1466,7 @@
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
 - Fix \#220 platform-http component should return 204 for success and no… [\#348](https://github.com/apache/camel-quarkus/pull/348) ([ppalaga](https://github.com/ppalaga))
 - Set camel-quarkus-last-release: 0.3.0 in site.yml [\#345](https://github.com/apache/camel-quarkus/pull/345) ([ppalaga](https://github.com/ppalaga))
+- Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
 - Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 - Improve camel service discovery and filtering [\#340](https://github.com/apache/camel-quarkus/pull/340) ([lburgazzoli](https://github.com/lburgazzoli))
 - main: impove events and build phase [\#339](https://github.com/apache/camel-quarkus/pull/339) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1689,10 +1690,6 @@
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/0.0.2...0.1.0)
-
-**Implemented enhancements:**
-
-- Consider porting the Twitter Camel support [\#57](https://github.com/apache/camel-quarkus/issues/57)
 
 **Closed issues:**
 
