@@ -45,3 +45,6 @@ In addition to the above, the following is needed:
 * After releasing the staging repository on https://repository.apache.org[https://repository.apache.org], update the
 value of `camel-quarkus-last-release` attribute in the camel-quarkus
 https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
+* Check the state of `camel-quarkus-master` branch in the
+  https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
+  new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-master` to `master`.
