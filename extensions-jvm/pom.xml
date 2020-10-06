@@ -116,7 +116,6 @@
         <module>ognl</module>
         <module>openstack</module>
         <module>optaplanner</module>
-        <module>pg-replication-slot</module>
         <module>pgevent</module>
         <module>printer</module>
         <module>protobuf</module>

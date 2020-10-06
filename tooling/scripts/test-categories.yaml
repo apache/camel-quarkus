@@ -49,6 +49,7 @@ database:
   - jpa
   - kudu
   - mongodb
+  - pg-replication-slot
   - sql
   - arangodb
 dataformats:

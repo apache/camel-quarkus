@@ -130,6 +130,7 @@
         <module>openapi-java</module>
         <module>opentracing</module>
         <module>pdf</module>
+        <module>pg-replication-slot</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>
         <module>quartz</module>
