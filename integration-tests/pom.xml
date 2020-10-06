@@ -78,6 +78,7 @@
         <module>compression</module>
         <module>consul</module>
         <module>couchdb</module>
+        <module>crypto</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>dataformats-json</module>

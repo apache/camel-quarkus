@@ -84,6 +84,7 @@ dozer-social:
   - twitter
   - master
   - syndication
+  - crypto
 messaging-networking1:
   - activemq
   - amqp
