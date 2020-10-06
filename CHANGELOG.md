@@ -18,6 +18,8 @@
 **Closed issues:**
 
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
+- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1840](https://github.com/apache/camel-quarkus/issues/1840)
+- Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
 - A user guide page informing about various ways to define routes [\#1823](https://github.com/apache/camel-quarkus/issues/1823)
 - Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
@@ -51,6 +53,9 @@
 
 **Merged pull requests:**
 
+- Add an Examples step to the release guide [\#1875](https://github.com/apache/camel-quarkus/pull/1875) ([ppalaga](https://github.com/ppalaga))
+- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1873](https://github.com/apache/camel-quarkus/pull/1873) ([ppalaga](https://github.com/ppalaga))
+- Headersmap native support [\#1872](https://github.com/apache/camel-quarkus/pull/1872) ([jamesnetherton](https://github.com/jamesnetherton))
 - Generate the list of examples from the AsciiDoc pages generated in the [\#1870](https://github.com/apache/camel-quarkus/pull/1870) ([ppalaga](https://github.com/ppalaga))
 - Let's see if removing -Dmaven.wagon.http.pool=false solves the Maven … [\#1867](https://github.com/apache/camel-quarkus/pull/1867) ([ppalaga](https://github.com/ppalaga))
 - Upgrade SmallRye Reactive Messaging Camel to 2.4.0 [\#1866](https://github.com/apache/camel-quarkus/pull/1866) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -384,6 +389,7 @@
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
+- Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
 - Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
 - JAX-RS endpoint accessible before Camel context is started [\#1439](https://github.com/apache/camel-quarkus/issues/1439)
@@ -515,6 +521,7 @@
 - Debezium tests fail on Quarkus Platform in native mode \#1311 [\#1325](https://github.com/apache/camel-quarkus/pull/1325) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add servlet-api to classpath to help pointsto analysis \#1319 [\#1324](https://github.com/apache/camel-quarkus/pull/1324) ([galderz](https://github.com/galderz))
 - Added couchdb consumer support in native mode \#1022 [\#1323](https://github.com/apache/camel-quarkus/pull/1323) ([aldettinger](https://github.com/aldettinger))
+- health example - requires Camel 3.4 [\#1321](https://github.com/apache/camel-quarkus/pull/1321) ([davsclaus](https://github.com/davsclaus))
 - Fix \#1314 Make Kudu native test runnable on Quarkus Platform on Java … [\#1318](https://github.com/apache/camel-quarkus/pull/1318) ([ppalaga](https://github.com/ppalaga))
 - Aws2 translate [\#1317](https://github.com/apache/camel-quarkus/pull/1317) ([oscerd](https://github.com/oscerd))
 - Leverage cq:promote when porting extensions from JVM to native [\#1316](https://github.com/apache/camel-quarkus/pull/1316) ([ppalaga](https://github.com/ppalaga))
@@ -534,7 +541,6 @@
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -579,7 +585,6 @@
 - Unregister unnecessary Camel configuration classes from reflection [\#1266](https://github.com/apache/camel-quarkus/issues/1266)
 - REST OpenApi native support [\#1235](https://github.com/apache/camel-quarkus/issues/1235)
 - Add support for MicroProfile Fault Tolerance [\#1234](https://github.com/apache/camel-quarkus/issues/1234)
-- Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
 - NullPointerException with telegram webhook [\#1200](https://github.com/apache/camel-quarkus/issues/1200)
 - ClassNotFoundException: CamelCronService [\#1195](https://github.com/apache/camel-quarkus/issues/1195)
 - Remove Elasticsearch Rest doc title fix when upgrading to Camel 3.3.0 [\#1167](https://github.com/apache/camel-quarkus/issues/1167)
@@ -888,6 +893,7 @@
 - Update Quarkus to v1.3.1.Final [\#992](https://github.com/apache/camel-quarkus/pull/992) ([lburgazzoli](https://github.com/lburgazzoli))
 - Make a tabular list of examples for the examples page [\#991](https://github.com/apache/camel-quarkus/pull/991) ([AemieJ](https://github.com/AemieJ))
 - \[CAMEL-13704\] - Added PR template file with instructions on what to include [\#990](https://github.com/apache/camel-quarkus/pull/990) ([Xxyumi-hub](https://github.com/Xxyumi-hub))
+- Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
 - Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Move quarkus.camel.resources.\* config options to quarkus.camel.native… [\#983](https://github.com/apache/camel-quarkus/pull/983) ([ppalaga](https://github.com/ppalaga))
 - Add GitHub extension [\#982](https://github.com/apache/camel-quarkus/pull/982) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1120,7 +1126,6 @@
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
 - Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
-- Consider porting the Twitter Camel support [\#57](https://github.com/apache/camel-quarkus/issues/57)
 
 **Fixed bugs:**
 
@@ -1690,6 +1695,10 @@
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/0.0.2...0.1.0)
+
+**Implemented enhancements:**
+
+- Consider porting the Twitter Camel support [\#57](https://github.com/apache/camel-quarkus/issues/57)
 
 **Closed issues:**
 
