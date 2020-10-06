@@ -58,7 +58,6 @@
         <module>cometd</module>
         <module>corda</module>
         <module>couchbase</module>
-        <module>crypto</module>
         <module>debezium-mongodb</module>
         <module>digitalocean</module>
         <module>djl</module>
