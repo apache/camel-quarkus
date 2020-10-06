@@ -158,6 +158,7 @@
         <module>opentracing</module>
         <module>paho</module>
         <module>pdf</module>
+        <module>pg-replication-slot</module>
         <module>platform-http</module>
         <module>quartz</module>
         <module>qute</module>
