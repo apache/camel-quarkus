@@ -23,6 +23,7 @@ github:
     - integration
     - java
     - quarkus
+    - hacktoberfest
   enabled_merge_buttons:
     merge: false
     rebase: true
