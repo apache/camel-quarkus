@@ -31,21 +31,21 @@ import org.jboss.logging.Logger;
 
 @Path("/google")
 @ApplicationScoped
+@Produces(MediaType.APPLICATION_JSON)
 public class GeocoderGoogleResource {
     private static final Logger LOG = Logger.getLogger(GeocoderGoogleResource.class);
 
     @Inject
     ProducerTemplate producerTemplate;
 
-    @ConfigProperty(name = "google.api.key")
-    String apiKey;
+    @ConfigProperty(name = "google.api.key", defaultValue = "AIzaFakeKey")
+    String googleApiKey;
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByCurrentLocation() {
         LOG.infof("Retrieve info from current location");
         final GeocodingResult[] response = producerTemplate.requestBody(
-                "geocoder:address:current?headersOnly=false&apiKey=" + apiKey,
+                String.format("geocoder:address:current?apiKey=%s", googleApiKey),
                 "Hello World", GeocodingResult[].class);
         LOG.infof("Response : %s", response);
         return response;
@@ -53,11 +53,10 @@ public class GeocoderGoogleResource {
 
     @Path("address/{address}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByAddress(@PathParam("address") String address) {
         LOG.infof("Retrieve info from address : %s", address);
         final GeocodingResult[] response = producerTemplate.requestBody(
-                "geocoder:address:" + address + "?apiKey=" + apiKey,
+                String.format("geocoder:address:%s?apiKey=%s", address, googleApiKey),
                 "Hello World", GeocodingResult[].class);
         LOG.infof("Response: %s", response);
         return response;
@@ -65,11 +64,10 @@ public class GeocoderGoogleResource {
 
     @Path("lat/{lat}/lon/{lon}")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public GeocodingResult[] getByCoordinate(@PathParam("lat") String latitude, @PathParam("lon") String longitude) {
         LOG.infof("Retrieve  info from georgraphic coordinates latitude : %s, longitude %s", latitude, longitude);
         final GeocodingResult[] response = producerTemplate.requestBody(
-                "geocoder:latlng:" + latitude + "," + longitude + "?apiKey=" + apiKey,
+                String.format("geocoder:latlng:%s,%s?apiKey=%s", latitude, longitude, googleApiKey),
                 "Hello World", GeocodingResult[].class);
         LOG.infof("Response : %s", response);
         return response;
