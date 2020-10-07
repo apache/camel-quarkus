@@ -20,13 +20,11 @@ import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.hasKey;
 
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderGoogleResource.class)
-@EnabledIfEnvironmentVariable(named = "GOOGLE_API_KEY", matches = ".+")
 class GeocoderGoogleTest {
 
     @Test
