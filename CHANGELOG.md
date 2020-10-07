@@ -11,6 +11,7 @@
 **Fixed bugs:**
 
 - The stream has no active subscriptions when using camel-quarkus-smallrye-reactive-messaging [\#1851](https://github.com/apache/camel-quarkus/issues/1851)
+- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1840](https://github.com/apache/camel-quarkus/issues/1840)
 - Intermittent failure of AhcWsProducerConsumer [\#1815](https://github.com/apache/camel-quarkus/issues/1815)
 - 1.1.0 Main fails to start in IntelliJ [\#1800](https://github.com/apache/camel-quarkus/issues/1800)
 - Camel-Quarkus Kafka: Failed to configure SaslClientAuthenticator [\#1687](https://github.com/apache/camel-quarkus/issues/1687)
@@ -18,7 +19,6 @@
 **Closed issues:**
 
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
-- NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1840](https://github.com/apache/camel-quarkus/issues/1840)
 - Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
 - A user guide page informing about various ways to define routes [\#1823](https://github.com/apache/camel-quarkus/issues/1823)
@@ -389,7 +389,6 @@
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
-- Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
 - Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
 - JAX-RS endpoint accessible before Camel context is started [\#1439](https://github.com/apache/camel-quarkus/issues/1439)
@@ -521,7 +520,6 @@
 - Debezium tests fail on Quarkus Platform in native mode \#1311 [\#1325](https://github.com/apache/camel-quarkus/pull/1325) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add servlet-api to classpath to help pointsto analysis \#1319 [\#1324](https://github.com/apache/camel-quarkus/pull/1324) ([galderz](https://github.com/galderz))
 - Added couchdb consumer support in native mode \#1022 [\#1323](https://github.com/apache/camel-quarkus/pull/1323) ([aldettinger](https://github.com/aldettinger))
-- health example - requires Camel 3.4 [\#1321](https://github.com/apache/camel-quarkus/pull/1321) ([davsclaus](https://github.com/davsclaus))
 - Fix \#1314 Make Kudu native test runnable on Quarkus Platform on Java … [\#1318](https://github.com/apache/camel-quarkus/pull/1318) ([ppalaga](https://github.com/ppalaga))
 - Aws2 translate [\#1317](https://github.com/apache/camel-quarkus/pull/1317) ([oscerd](https://github.com/oscerd))
 - Leverage cq:promote when porting extensions from JVM to native [\#1316](https://github.com/apache/camel-quarkus/pull/1316) ([ppalaga](https://github.com/ppalaga))
@@ -585,6 +583,7 @@
 - Unregister unnecessary Camel configuration classes from reflection [\#1266](https://github.com/apache/camel-quarkus/issues/1266)
 - REST OpenApi native support [\#1235](https://github.com/apache/camel-quarkus/issues/1235)
 - Add support for MicroProfile Fault Tolerance [\#1234](https://github.com/apache/camel-quarkus/issues/1234)
+- Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
 - NullPointerException with telegram webhook [\#1200](https://github.com/apache/camel-quarkus/issues/1200)
 - ClassNotFoundException: CamelCronService [\#1195](https://github.com/apache/camel-quarkus/issues/1195)
 - Remove Elasticsearch Rest doc title fix when upgrading to Camel 3.3.0 [\#1167](https://github.com/apache/camel-quarkus/issues/1167)
