@@ -124,7 +124,6 @@
         <module>saga</module>
         <module>saxon</module>
         <module>schematron</module>
-        <module>shiro</module>
         <module>sip</module>
         <module>smpp</module>
         <module>snmp</module>
