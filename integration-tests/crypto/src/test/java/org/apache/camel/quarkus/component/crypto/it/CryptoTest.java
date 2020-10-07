@@ -24,6 +24,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.crypto.it.CryptoResource.MESSAGE;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,7 +60,8 @@ class CryptoTest {
                 .body(signature)
                 .post("/crypto/signature/verify")
                 .then()
-                .statusCode(204);
+                .statusCode(200)
+                .body(is("true"));
     }
 
     @Test

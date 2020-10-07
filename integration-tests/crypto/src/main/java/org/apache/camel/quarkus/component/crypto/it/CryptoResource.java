@@ -30,6 +30,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
@@ -64,8 +65,22 @@ public class CryptoResource {
     @Path("/signature/verify")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public void verify(String signature) {
-        producerTemplate.sendBodyAndHeader("direct:verify", MESSAGE, DigitalSignatureConstants.SIGNATURE, signature);
+    public Response verify(String signature) {
+        Exchange exchange = producerTemplate.send("direct:verify", new Processor() {
+            @Override
+            public void process(Exchange exchange) throws Exception {
+                Message message = exchange.getMessage();
+                message.setHeader(DigitalSignatureConstants.SIGNATURE, signature);
+                message.setBody(MESSAGE);
+            }
+        });
+
+        if (exchange.isFailed()) {
+            // Expected in the signature verification failure scenario
+            return Response.serverError().build();
+        }
+
+        return Response.ok(exchange.getMessage().getHeaders().size() == 0).build();
     }
 
     @Path("/encrypt")

@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.crypto.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.crypto.DigitalSignatureConstants;
 
 class CryptoProcessor {
 
@@ -32,5 +34,12 @@ class CryptoProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activeNativeSSLSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        // TODO: Remove this when upgrading to Camel >= 3.6.0
+        // https://github.com/apache/camel-quarkus/issues/1881
+        return new ReflectiveClassBuildItem(false, true, DigitalSignatureConstants.class);
     }
 }
