@@ -172,6 +172,7 @@
         <module>seda</module>
         <module>servicenow</module>
         <module>servlet</module>
+        <module>shiro</module>
         <module>sjms</module>
         <module>sjms2</module>
         <module>slack</module>
