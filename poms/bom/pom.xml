@@ -5385,11 +5385,6 @@
                 <version>${jaxen.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpclient.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>connect-runtime</artifactId>
                 <version>${kafka.version}</version>
