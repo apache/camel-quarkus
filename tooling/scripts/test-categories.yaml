@@ -42,6 +42,7 @@ core-main-validation:
   - json-validator
   - validator
 database:
+  - arangodb
   - couchdb
   - debezium
   - influxdb
@@ -49,9 +50,9 @@ database:
   - jpa
   - kudu
   - mongodb
+  - pgevent
   - pg-replication-slot
   - sql
-  - arangodb
 dataformats:
   - avro
   - base64
