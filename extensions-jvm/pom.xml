@@ -112,7 +112,6 @@
         <module>mybatis</module>
         <module>nagios</module>
         <module>nitrite</module>
-        <module>nsq</module>
         <module>ognl</module>
         <module>openstack</module>
         <module>optaplanner</module>

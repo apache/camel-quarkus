@@ -116,6 +116,7 @@ networking2-dataformats:
   - git
   - mail
   - netty
+  - nsq
   - send-dynamic-http
   - servlet
   - univocity-parsers
