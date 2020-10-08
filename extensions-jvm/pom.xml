@@ -115,7 +115,6 @@
         <module>ognl</module>
         <module>openstack</module>
         <module>optaplanner</module>
-        <module>pgevent</module>
         <module>printer</module>
         <module>protobuf</module>
         <module>pubnub</module>

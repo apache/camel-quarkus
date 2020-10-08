@@ -132,6 +132,7 @@
         <module>opentracing</module>
         <module>pdf</module>
         <module>pg-replication-slot</module>
+        <module>pgevent</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>
         <module>quartz</module>
