@@ -16,12 +16,8 @@
  */
 package org.apache.camel.quarkus.component.caffeine.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
 class CaffeineProcessor {
@@ -31,16 +27,5 @@ class CaffeineProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void reflectiveClasses(
-            CombinedIndexBuildItem combinedIndex,
-            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "com.github.benmanes.caffeine.cache.CacheLoader"));
-        for (ClassInfo info : combinedIndex.getIndex().getAllKnownImplementors(CACHE_LOADER_NAME)) {
-            reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, info.name().toString()));
-        }
     }
 }
