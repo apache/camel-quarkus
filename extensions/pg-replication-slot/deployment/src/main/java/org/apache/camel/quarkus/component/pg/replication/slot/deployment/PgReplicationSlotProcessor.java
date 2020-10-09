@@ -17,10 +17,7 @@
 package org.apache.camel.quarkus.component.pg.replication.slot.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.pg.replication.slot.PostgresDriverRegistrationRecorder;
 
 class PgReplicationSlotProcessor {
 
@@ -31,9 +28,4 @@ class PgReplicationSlotProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    public void registerPostgresDriver(PostgresDriverRegistrationRecorder recorder) {
-        recorder.registerPostgresDriver();
-    }
 }
