@@ -145,6 +145,7 @@
         <module>rest</module>
         <module>rest-binding-mode-xml</module>
         <module>rest-openapi</module>
+        <module>saga</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
         <module>send-dynamic-http</module>
