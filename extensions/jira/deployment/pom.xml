@@ -46,6 +46,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-support-commons-logging-deployment</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-common-deployment</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
