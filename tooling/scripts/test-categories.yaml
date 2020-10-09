@@ -73,6 +73,7 @@ foundation:
   - jta
   - jsonpath
   - quartz
+  - saga
 xml-json-olingo4:
   - rest-binding-mode-xml
   - xml
