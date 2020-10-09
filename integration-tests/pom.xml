@@ -119,6 +119,7 @@
         <module>kotlin</module>
         <module>kubernetes</module>
         <module>kudu</module>
+        <module>leveldb</module>
         <module>mail</module>
         <module>master</module>
         <module>messaging</module>
