@@ -49,6 +49,7 @@ database:
   - jdbc
   - jpa
   - kudu
+  - leveldb
   - mongodb
   - pgevent
   - pg-replication-slot
