@@ -38,7 +38,7 @@ public class CamelVertxHttpRecorder {
         return new RuntimeValue<>(component);
     }
 
-    // TODO: Remove when https://issues.apache.org/jira/browse/CAMEL-15495 is resolved
+    // TODO: Remove when https://issues.apache.org/jira/browse/CAMEL-15495 is resolved see https://github.com/apache/camel-quarkus/issues/1675
     static class QuarkusVertxHttpBinding extends DefaultVertxHttpBinding {
         @Override
         public void populateRequestHeaders(Exchange exchange, HttpRequest<Buffer> request, HeaderFilterStrategy strategy) {

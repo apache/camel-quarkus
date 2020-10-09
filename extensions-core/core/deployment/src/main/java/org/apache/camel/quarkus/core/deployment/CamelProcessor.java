@@ -221,7 +221,7 @@ class CamelProcessor {
         //
         // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
         // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
-        // any discovery at runtime.
+        // any discovery at runtime; see https://github.com/apache/camel-quarkus/issues/1896
         //
         for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
             for (Path root : archive.getRootDirs()) {

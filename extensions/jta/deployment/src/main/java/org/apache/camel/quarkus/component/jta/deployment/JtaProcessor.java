@@ -60,7 +60,7 @@ class JtaProcessor {
         }
     }
 
-    @BuildStep //TODO remove this BuildStep when https://github.com/quarkusio/quarkus/issues/10180 gets resolved
+    @BuildStep //TODO workaround for https://github.com/apache/camel-quarkus/issues/1895
     void registerNarayanaReflectiveClass(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(
                 new ReflectiveClassBuildItem(false, false, SocketProcessId.class.getName()));
