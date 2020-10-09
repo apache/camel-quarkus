@@ -18,6 +18,7 @@
 
 **Closed issues:**
 
+- arkus [\#1892](https://github.com/apache/camel-quarkus/issues/1892)
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
 - Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
@@ -29,12 +30,15 @@
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
 - Generate partials instead of pages for the individual Camel bits [\#1795](https://github.com/apache/camel-quarkus/issues/1795)
+- \[Quarkus 1.9\] Caffeine: remove CacheLoader processor  [\#1790](https://github.com/apache/camel-quarkus/issues/1790)
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
+- \[Quarkus 1.9\] Move httpmine from our BOM to Quarkus BOM [\#1763](https://github.com/apache/camel-quarkus/issues/1763)
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - PostgresSQL Replication Slot native support [\#1720](https://github.com/apache/camel-quarkus/issues/1720)
 - RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
+- Stop managing httpclient-cache as it is managed by Quarkus [\#1704](https://github.com/apache/camel-quarkus/issues/1704)
 - String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
 - Move examples to a separate git repository [\#1691](https://github.com/apache/camel-quarkus/issues/1691)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
@@ -55,6 +59,8 @@
 
 **Merged pull requests:**
 
+- Quarkus 1.9.0 post upgrade fixes [\#1890](https://github.com/apache/camel-quarkus/pull/1890) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 1.9.0.CR1 [\#1887](https://github.com/apache/camel-quarkus/pull/1887) ([jamesnetherton](https://github.com/jamesnetherton))
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -245,6 +251,7 @@
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
 - Let the list of extensions page show extensions, move list of supported [\#1534](https://github.com/apache/camel-quarkus/pull/1534) ([ppalaga](https://github.com/ppalaga))
 - Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1285,6 +1292,7 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
+- feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1330,7 +1338,6 @@
 
 **Merged pull requests:**
 
-- feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 - Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
@@ -1370,6 +1377,7 @@
 - xslt extension not working on java 11 [\#437](https://github.com/apache/camel-quarkus/pull/437) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update latest version released to 0.4.0 [\#436](https://github.com/apache/camel-quarkus/pull/436) ([oscerd](https://github.com/oscerd))
 - Consolidate microprofile integration tests [\#434](https://github.com/apache/camel-quarkus/pull/434) ([lburgazzoli](https://github.com/lburgazzoli))
+- Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
@@ -1413,7 +1421,6 @@
 
 **Merged pull requests:**
 
-- Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#356 Issues in the List of extensions [\#425](https://github.com/apache/camel-quarkus/pull/425) ([ppalaga](https://github.com/ppalaga))
 - build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
 - xslt extension not building in native mode [\#422](https://github.com/apache/camel-quarkus/pull/422) ([lburgazzoli](https://github.com/lburgazzoli))
