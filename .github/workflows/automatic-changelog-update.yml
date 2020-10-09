@@ -24,6 +24,7 @@ on:
 
 jobs:
   generate_changelog:
+    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     name: Generate changelog for master branch
     steps:
