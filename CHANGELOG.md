@@ -33,10 +33,12 @@
 - \[Quarkus 1.9\] Caffeine: remove CacheLoader processor  [\#1790](https://github.com/apache/camel-quarkus/issues/1790)
 - Wrong jira component version definition in camel-quarkus-bom 1.0.1 file [\#1775](https://github.com/apache/camel-quarkus/issues/1775)
 - Adding Changelog generated automatically through gh action [\#1772](https://github.com/apache/camel-quarkus/issues/1772)
+- Component counts not shown on the website [\#1770](https://github.com/apache/camel-quarkus/issues/1770)
 - \[Quarkus 1.9\] Move httpmine from our BOM to Quarkus BOM [\#1763](https://github.com/apache/camel-quarkus/issues/1763)
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - PostgresSQL Replication Slot native support [\#1720](https://github.com/apache/camel-quarkus/issues/1720)
+- Be able to determine that the test was run against external service or not [\#1717](https://github.com/apache/camel-quarkus/issues/1717)
 - RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
 - Stop managing httpclient-cache as it is managed by Quarkus [\#1704](https://github.com/apache/camel-quarkus/issues/1704)
 - String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
@@ -50,20 +52,26 @@
 - Crypto \(JCE\) native support [\#1593](https://github.com/apache/camel-quarkus/issues/1593)
 - Atom native support [\#1560](https://github.com/apache/camel-quarkus/issues/1560)
 - Use asciidoctor-antora-indexer to produce lists of extensions and components on the reference pages [\#1557](https://github.com/apache/camel-quarkus/issues/1557)
+- Add styles for Quarkus config options fixed at build time [\#1410](https://github.com/apache/camel-quarkus/issues/1410)
+- File specific issues for TODOs where necessary [\#1285](https://github.com/apache/camel-quarkus/issues/1285)
 - Velocity Support [\#837](https://github.com/apache/camel-quarkus/issues/837)
 - Browse native support [\#816](https://github.com/apache/camel-quarkus/issues/816)
 - SSH support [\#798](https://github.com/apache/camel-quarkus/issues/798)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
 - gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
+- Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 
 **Merged pull requests:**
 
+- File specific issues for TODOs where necessary \#1285 [\#1897](https://github.com/apache/camel-quarkus/pull/1897) ([ppalaga](https://github.com/ppalaga))
+- Restrict changelog workflow to only run on apache/camel-quarkus repo [\#1893](https://github.com/apache/camel-quarkus/pull/1893) ([jamesnetherton](https://github.com/jamesnetherton))
 - Quarkus 1.9.0 post upgrade fixes [\#1890](https://github.com/apache/camel-quarkus/pull/1890) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.0.CR1 [\#1887](https://github.com/apache/camel-quarkus/pull/1887) ([jamesnetherton](https://github.com/jamesnetherton))
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix twitter itest so it initially waits when start polling tweets [\#1877](https://github.com/apache/camel-quarkus/pull/1877) ([llowinge](https://github.com/llowinge))
 - Add an Examples step to the release guide [\#1875](https://github.com/apache/camel-quarkus/pull/1875) ([ppalaga](https://github.com/ppalaga))
 - NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1873](https://github.com/apache/camel-quarkus/pull/1873) ([ppalaga](https://github.com/ppalaga))
 - Headersmap native support [\#1872](https://github.com/apache/camel-quarkus/pull/1872) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1292,7 +1300,6 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
-- feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1338,6 +1345,7 @@
 
 **Merged pull requests:**
 
+- feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 - Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
