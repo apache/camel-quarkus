@@ -1422,6 +1422,7 @@
 - Issues in the List of extensions  [\#356](https://github.com/apache/camel-quarkus/issues/356)
 - Update contributor guide: s/json/yaml/, extension adoc page [\#354](https://github.com/apache/camel-quarkus/issues/354)
 - Add category to extension descriptors [\#347](https://github.com/apache/camel-quarkus/issues/347)
+- Create a Camel pdf component extension [\#341](https://github.com/apache/camel-quarkus/issues/341)
 - Experiment with the code formatter plugin https://code.revelc.net/formatter-maven-plugin/ [\#337](https://github.com/apache/camel-quarkus/issues/337)
 - Make the maven plugin depend on the camel package-maven-plugin [\#336](https://github.com/apache/camel-quarkus/issues/336)
 - Create a Camel Netty TCP extension [\#248](https://github.com/apache/camel-quarkus/issues/248)
@@ -1510,7 +1511,6 @@
 
 **Closed issues:**
 
-- Create a Camel pdf component extension [\#341](https://github.com/apache/camel-quarkus/issues/341)
 - Do not use docker to run native tests [\#332](https://github.com/apache/camel-quarkus/issues/332)
 - Document the platform-http extension [\#324](https://github.com/apache/camel-quarkus/issues/324)
 - Make camel-attachments an optional dependency of platform-http [\#322](https://github.com/apache/camel-quarkus/issues/322)
