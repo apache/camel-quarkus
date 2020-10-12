@@ -1,8 +1,7 @@
 = First steps
 :page-aliases: first-steps.adoc
 
-We recommend you to choose an example from our https://github.com/apache/camel-quarkus/tree/master/examples[source tree]
-as a base for your real-world project.
+The following guide outlines various ways to create a Camel Quarkus project. 
 
 == Prerequisites
 
@@ -10,89 +9,103 @@ as a base for your real-world project.
 * An IDE
 * JDK 8+ with JAVA_HOME configured appropriately
 * Apache Maven 3.6.2+
-* GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set, see
+* GraalVM with the `native-image` command installed and the `GRAALVM_HOME` environment variable set. See
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
   documentation.
 * If you are on Linux, `docker` is sufficient for the native mode too. Use `-Pnative,docker` instead of `-Pnative`
   if you choose this option.
 
-== Step by step with the `rest-json` example
+== code.quarkus.io
 
-1. Clone Camel Quarkus and check out the latest release tag
+Projects can be bootstrapped and generated at https://code.quarkus.io. All of the Camel Quarkus extensions can be found under the 'Integration' heading. Use the 'search' field to help with finding extensions that you are interested in.
+
+Simply select the component extensions that you want to work with and click the 'Generate your application' button to download a basic skeleton project. There is also the option to push the project directly to GitHub.
+
+When the project archive download has completed successfully, unzip and import into your favorite IDE.
+
+== Maven plugin
+
+Quarkus provides a Maven plugin that enables you to quickly bootstrap projects. For example, to create a project skeleton that includes the `timer` and `log` component extensions:
+
+[source,shell]
+----
+$ mvn io.quarkus:quarkus-maven-plugin:1.8.3.Final:create \
+    -DprojectGroupId=org.acme \
+    -DprojectArtifactId=getting-started \
+    -Dextensions=camel-quarkus-log,camel-quarkus-timer
+
+$ cd getting-started
+----
+
+NOTE: Windows users should omit the `\` if using `cmd`. When using `Powershell`, wrap the `-D` parameters in double quotes.
+
+
+https://gradle.org/[Gradle] support is also available. See the https://quarkus.io/guides/gradle-tooling[Quarkus Gradle] guide for more information.
+
+== IDE plugins
+
+Quarkus has plugins for most of the popular development IDEs. They provide Quarkus language support, code / config completion, project creation wizards and much more. The plugins are available at each respective IDE marketplace.
+
+* https://marketplace.eclipse.org/content/quarkus-tools[Eclipse plugin] 
+* https://plugins.jetbrains.com/plugin/13234-quarkus-tools[IntelliJ plugin]
+* https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus[VSCode plugin]
+
+Check the plugin documentation to discover how to create projects for your preferred IDE.
+
+== Example projects
+
+Camel Quarkus provides a GitHub repository containing a set of xref:user-guide/examples.adoc[example projects].
+
+https://github.com/apache/camel-quarkus-examples
+
+The master branch is always aligned with the latest Camel Quarkus release.
+
+=== Step by step with the `rest-json` example
+
+1. Clone the Camel Quarkus example projects.
 +
 [source,shell]
 ----
-$ git clone https://github.com/apache/camel-quarkus.git
-$ cd camel-quarkus
-# checkout the latest tag
-$ git checkout $(git describe --abbrev=0)
+$ git clone https://github.com/apache/camel-quarkus-examples.git
 ----
 
-2. Copy the `rest-json` example out of the Camel Quarkus source tree.
+2. Copy the `rest-json` example out of the source tree.
 +
 [source,shell]
 ----
-$ cd ..
-$ cp -r camel-quarkus/examples/rest-json .
+$ cp -r camel-quarkus-examples/rest-json .
 $ cd rest-json
 ----
 
-3. Open the `pom.xml` file in your IDE.
-+
-Make sure that the parent is `org.apache.camel.quarkus:camel-quarkus-bom` and do the changes as
-sketched below:
-+
-[source,xml,subs="attributes+"]
-----
-<project>
-    <parent>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-bom</artifactId><!--1-->
-        <version>{camel-quarkus-last-release}</version>
-        <!-- <relativePath>../../bom/pom.xml</relativePath> --><!--2-->
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
+3. Open the `pom.xml` file in your IDE. Change the project `groupId`, `artifactId` & `version` as necessary.
 
-    <groupId>org.my-org</groupId><!--3-->
-    <artifactId>my-app</artifactId><!--4-->
-    <version>0.0.1-SNAPSHOT</version><!--5-->
+==== Explore the application code
 
-    ...
-
-</project>
-----
-<1> Change the `<artifactId>` element to `camel-quarkus-bom`.
-<2> Remove the `<relativePath>` element.
-<3> Add a `groupId` of your choice.
-<4> Change the `artifactId` to whatever you like
-<5> Add the `version`
-
-== Explore the application code
-
-The application has just two compile dependencies:
+The application has three compile dependencies:
 
 [source,xml,subs="attributes+"]
 ----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-main</artifactId>
+</dependency>
 <dependency>
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus-platform-http</artifactId>
 </dependency>
 <dependency>
     <groupId>org.apache.camel</groupId>
-    <artifactId>camel-jackson</artifactId>
+    <artifactId>camel-quarkus-jackson</artifactId>
 </dependency>
 ----
 
-They are managed in `camel-quarkus-bom` that we use as the Maven parent. `camel-quarkus-bom` and its ancestors also
-manage plugins necessary for a typical Camel Quarkus application. In case you cannot use `camel-quarkus-bom` as a
-parent of your application, make sure that you add those plugins manually.
+They are managed within the `camel-quarkus-bom` that is imported in `<dependencyManagement>`.
 
-There are only three classes in the application: `Routes` defining the Camel routes and a couple of entity classes
-(`Fruit` and `Legume`).
+There are only three classes in the application/ `Routes` defining the Camel routes and a couple of entity classes. `Fruit` and `Legume`.
 
-`src/main/resources/application.properties` configure the application. E.g. the `camel.context.name` is set there.
+The application is configured by properties defined within `src/main/resources/application.properties`. E.g. the `camel.context.name` is set there.
 
-== Development mode
+==== Development mode
 
 [source,shell]
 ----
@@ -109,7 +122,7 @@ Then change something in the code and see the changes applied by refreshing the 
 
 Please refer to https://quarkus.io/guides/maven-tooling#development-mode[Quarkus documentation] for more details.
 
-== Testing
+==== Testing
 
 There are two test classes in our example: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
 mode.
@@ -133,9 +146,9 @@ $ mvn clean verify -Pnative
 
 This takes about 2.5 minutes (once you have all dependencies cached).
 
-== Package and run the application
+==== Package and run the application
 
-=== JVM mode
+===== JVM mode
 
 `mvn package` prepares a thin `jar` for running on a stock JVM:
 
@@ -154,14 +167,14 @@ You can run it as follows:
 ----
 $ java -jar target/*-runner.jar
 ...
-[io.quarkus] (main) Quarkus 0.23.2 started in 1.163s. Listening on: http://[::]:8080
+[io.quarkus] (main) Quarkus started in 1.163s. Listening on: http://[::]:8080
 ----
 
 Notice the boot time around a second.
 
 The thin `jar` contains just the application code. To run it, the dependencies in `target/lib` are required too.
 
-=== Native mode
+===== Native mode
 
 To prepare a native executable using GraalVM, run the following command:
 
@@ -181,7 +194,7 @@ it can be run directly:
 ----
 $ ./target/*-runner
 ...
-[io.quarkus] (main) Quarkus 0.23.2 started in 0.013s. Listening on: http://[::]:8080
+[io.quarkus] (main) Quarkus started in 0.013s. Listening on: http://[::]:8080
 ...
 ----
 
