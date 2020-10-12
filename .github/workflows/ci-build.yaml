@@ -50,6 +50,7 @@ env:
 
 jobs:
   initial-mvn-install:
+    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}

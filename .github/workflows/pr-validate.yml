@@ -38,6 +38,7 @@ env:
 
 jobs:
   check-format:
+    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     steps:
     - name: Setup apache-snapshots profile
