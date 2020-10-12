@@ -47,6 +47,8 @@
         <camel.version>3.5.0</camel.version>
         <commons-beanutils.version>1.9.4</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
+        <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
+        <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <debezium.version>1.3.0.Final</debezium.version>
         <elasticsearch.version>7.8.0</elasticsearch.version>
         <freemarker.version>2.3.30</freemarker.version>
@@ -56,9 +58,12 @@
         <guava.version>29.0-jre</guava.version>
         <gson.version>2.8.5</gson.version>
         <hapi.version>4.1.0</hapi.version>
+        <hbase.version>2.2.3</hbase.version><!-- Keep in sync with Camel -->
+        <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>2.20</influxdb.version>
         <jackson.version>2.10.5</jackson.version>
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
+        <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jetty.version>9.4.18.v20190429</jetty.version>
@@ -90,12 +95,16 @@
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
         <activemq-version>5.15.12</activemq-version>
+        <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
+        <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>1.3.3</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
+        <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <jakarta.mail.version>1.6.5</jakarta.mail.version>
         <mock-javamail.version>1.9</mock-javamail.version>
         <pdfbox.version>2.0.21</pdfbox.version>
+        <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
         <testcontainers.version>1.14.3</testcontainers.version>
