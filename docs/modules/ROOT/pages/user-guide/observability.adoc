@@ -13,7 +13,7 @@ All configured checks are available on the standard MicroProfile Health endpoint
 * http://localhost:8080/health/live
 * http://localhost:8080/health/ready
 
-There's an example project which demonstrates health checks: https://github.com/apache/camel-quarkus/tree/master/examples/health
+There's an example project which demonstrates health checks: https://github.com/apache/camel-quarkus-examples/tree/master/health
 
 == Metrics
 
@@ -33,4 +33,4 @@ https://quarkus.io/guides/opentracing#create-the-configuration[configuration] pr
 will get automatically added to the registry for Camel to use.
 
 There's an example project demonstrating the above features here:
-https://github.com/apache/camel-quarkus/tree/master/examples/observability
+https://github.com/apache/camel-quarkus-examples/tree/master/observability
