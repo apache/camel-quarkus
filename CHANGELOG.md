@@ -19,9 +19,12 @@
 **Closed issues:**
 
 - arkus [\#1892](https://github.com/apache/camel-quarkus/issues/1892)
+- IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
+- \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
 - Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
+- Document all ways to start a new project [\#1824](https://github.com/apache/camel-quarkus/issues/1824)
 - A user guide page informing about various ways to define routes [\#1823](https://github.com/apache/camel-quarkus/issues/1823)
 - Run verify for the docs module on the CI [\#1819](https://github.com/apache/camel-quarkus/issues/1819)
 - Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
@@ -64,11 +67,15 @@
 
 **Merged pull requests:**
 
+- Prevent CI workflows running on forks [\#1904](https://github.com/apache/camel-quarkus/pull/1904) ([jamesnetherton](https://github.com/jamesnetherton))
+- Document all ways to start a new project [\#1903](https://github.com/apache/camel-quarkus/pull/1903) ([jamesnetherton](https://github.com/jamesnetherton))
+- camel-quarkus-jira: Add resteasy-common dependency [\#1899](https://github.com/apache/camel-quarkus/pull/1899) ([mmelko](https://github.com/mmelko))
 - File specific issues for TODOs where necessary \#1285 [\#1897](https://github.com/apache/camel-quarkus/pull/1897) ([ppalaga](https://github.com/ppalaga))
 - Restrict changelog workflow to only run on apache/camel-quarkus repo [\#1893](https://github.com/apache/camel-quarkus/pull/1893) ([jamesnetherton](https://github.com/jamesnetherton))
 - Quarkus 1.9.0 post upgrade fixes [\#1890](https://github.com/apache/camel-quarkus/pull/1890) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.0.CR1 [\#1887](https://github.com/apache/camel-quarkus/pull/1887) ([jamesnetherton](https://github.com/jamesnetherton))
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Debezium 1.3.0.Final [\#1882](https://github.com/apache/camel-quarkus/pull/1882) ([ppalaga](https://github.com/ppalaga))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix twitter itest so it initially waits when start polling tweets [\#1877](https://github.com/apache/camel-quarkus/pull/1877) ([llowinge](https://github.com/llowinge))
