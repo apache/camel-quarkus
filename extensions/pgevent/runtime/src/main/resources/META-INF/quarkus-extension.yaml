@@ -24,9 +24,8 @@
 name: "Camel PostgresSQL Event"
 description: "Send and receive PostgreSQL events via LISTEN and NOTIFY commands"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/pgevent.html"
   categories:
   - "integration"
   status:
-  - "preview"
+  - "stable"
