@@ -48,15 +48,15 @@ class PgeventProcessor {
     @BuildStep
     void registerNativeImageResources(BuildProducer<ServiceProviderBuildItem> services) {
         Stream.of(
-                PGEVENT_SERVICE_BASE + ProcProvider.class.getName(),
-                PGEVENT_SERVICE_BASE + Driver.class.getName())
+                ProcProvider.class.getName(),
+                Driver.class.getName())
                 .forEach(service -> {
                     try {
                         Set<String> implementations = ServiceUtil.classNamesNamedIn(
                                 Thread.currentThread().getContextClassLoader(),
-                                service);
+                                PGEVENT_SERVICE_BASE + service);
                         services.produce(
-                                new ServiceProviderBuildItem(ProcProvider.class.getName(),
+                                new ServiceProviderBuildItem(service,
                                         implementations.toArray(new String[0])));
 
                     } catch (IOException e) {
