@@ -131,16 +131,21 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricIntValue("camel.context.uptime") > 0);
     }
 
+    @Test
+    public void testAdviceWith() {
+        RestAssured.get("/microprofile-metrics/advicewith")
+                .then()
+                .statusCode(200);
+        assertTrue(getMetricIntValue("camel.route.count") >= 7);
+        assertTrue(getMetricIntValue("camel.route.running.count") >= 7);
+    }
+
     private int getMetricIntValue(String metricName, String... tags) {
         return getApplicationMetrics().getInt(sanitizeMetricName(metricName, tags));
     }
 
     private float getMetricFloatValue(String metricName, String... tags) {
         return getApplicationMetrics().getFloat(sanitizeMetricName(metricName, tags));
-    }
-
-    private Map<String, Object> getMetricMapValue(String metricName, String... tags) {
-        return getApplicationMetrics().getMap(sanitizeMetricName(metricName, tags));
     }
 
     private String sanitizeMetricName(String metricName, String... tags) {
