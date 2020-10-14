@@ -23,7 +23,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWithRouteBuilder;
 
 @Path("/microprofile-metrics")
 @ApplicationScoped
@@ -31,6 +33,9 @@ public class MicroProfileMetricsResource {
 
     @Inject
     ProducerTemplate template;
+
+    @Inject
+    CamelContext context;
 
     @Path("/counter")
     @GET
@@ -85,6 +90,15 @@ public class MicroProfileMetricsResource {
     @GET
     public Response logMessage() throws Exception {
         template.sendBody("log:message", "Test log message");
+        return Response.ok().build();
+    }
+
+    @Path("/advicewith")
+    @GET
+    public Response adviceWith() throws Exception {
+        AdviceWithRouteBuilder.adviceWith(context, "log", advisor -> {
+            advisor.replaceFromWith("direct:replaced");
+        });
         return Response.ok().build();
     }
 }
