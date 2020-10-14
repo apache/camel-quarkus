@@ -41,6 +41,7 @@
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
 - PostgresSQL Replication Slot native support [\#1720](https://github.com/apache/camel-quarkus/issues/1720)
+- PostgresSQL Event native support [\#1719](https://github.com/apache/camel-quarkus/issues/1719)
 - Be able to determine that the test was run against external service or not [\#1717](https://github.com/apache/camel-quarkus/issues/1717)
 - RSS component native support [\#1711](https://github.com/apache/camel-quarkus/issues/1711)
 - Stop managing httpclient-cache as it is managed by Quarkus [\#1704](https://github.com/apache/camel-quarkus/issues/1704)
@@ -67,6 +68,8 @@
 
 **Merged pull requests:**
 
+- HBase JVM support [\#1906](https://github.com/apache/camel-quarkus/pull/1906) ([ppalaga](https://github.com/ppalaga))
+- PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
 - Prevent CI workflows running on forks [\#1904](https://github.com/apache/camel-quarkus/pull/1904) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document all ways to start a new project [\#1903](https://github.com/apache/camel-quarkus/pull/1903) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel-quarkus-jira: Add resteasy-common dependency [\#1899](https://github.com/apache/camel-quarkus/pull/1899) ([mmelko](https://github.com/mmelko))
@@ -478,7 +481,6 @@
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
-- Make sure that Quarkus orders booting our runtime before starting to serve HTTP endpoints. [\#1445](https://github.com/apache/camel-quarkus/pull/1445) ([ppalaga](https://github.com/ppalaga))
 - Split main startup logic [\#1444](https://github.com/apache/camel-quarkus/pull/1444) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve the bootstrap docs [\#1442](https://github.com/apache/camel-quarkus/pull/1442) ([ppalaga](https://github.com/ppalaga))
 - Re-enable TimerDevModeTest.logMessageEdit\(\) after the upgrade to Quar… [\#1440](https://github.com/apache/camel-quarkus/pull/1440) ([ppalaga](https://github.com/ppalaga))
