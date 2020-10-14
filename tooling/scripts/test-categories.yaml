@@ -82,6 +82,7 @@ xml-json-olingo4:
   - olingo4
   - weather
   - geocoder
+  - lumberjack
 dozer-social:
   - dozer
   - telegram

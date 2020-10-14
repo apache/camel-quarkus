@@ -101,7 +101,6 @@
         <module>ldif</module>
         <module>lra</module>
         <module>lucene</module>
-        <module>lumberjack</module>
         <module>management</module>
         <module>milo</module>
         <module>mllp</module>
