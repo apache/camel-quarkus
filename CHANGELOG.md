@@ -10,6 +10,7 @@
 
 **Fixed bugs:**
 
+- pgevent : config issue [\#1917](https://github.com/apache/camel-quarkus/issues/1917)
 - The stream has no active subscriptions when using camel-quarkus-smallrye-reactive-messaging [\#1851](https://github.com/apache/camel-quarkus/issues/1851)
 - NoSuchMethodException: org.apache.camel.service.lra.LRASagaRoutes.\<init\>\(\) [\#1840](https://github.com/apache/camel-quarkus/issues/1840)
 - Intermittent failure of AhcWsProducerConsumer [\#1815](https://github.com/apache/camel-quarkus/issues/1815)
@@ -40,6 +41,7 @@
 - \[Quarkus 1.9\] Move httpmine from our BOM to Quarkus BOM [\#1763](https://github.com/apache/camel-quarkus/issues/1763)
 - uniVocity data formats native support [\#1756](https://github.com/apache/camel-quarkus/issues/1756)
 - Jing native support [\#1741](https://github.com/apache/camel-quarkus/issues/1741)
+- NSQ native support [\#1722](https://github.com/apache/camel-quarkus/issues/1722)
 - PostgresSQL Replication Slot native support [\#1720](https://github.com/apache/camel-quarkus/issues/1720)
 - PostgresSQL Event native support [\#1719](https://github.com/apache/camel-quarkus/issues/1719)
 - Be able to determine that the test was run against external service or not [\#1717](https://github.com/apache/camel-quarkus/issues/1717)
@@ -68,6 +70,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 1.9.0.Final [\#1921](https://github.com/apache/camel-quarkus/pull/1921) ([jamesnetherton](https://github.com/jamesnetherton))
+- Added nsq native support fixes \#1722 [\#1920](https://github.com/apache/camel-quarkus/pull/1920) ([aldettinger](https://github.com/aldettinger))
+- pgevent: correct service name [\#1919](https://github.com/apache/camel-quarkus/pull/1919) ([zbendhiba](https://github.com/zbendhiba))
+- Workaround AdviceWithRouteBuilder and MicroprofileMetrics conflict [\#1915](https://github.com/apache/camel-quarkus/pull/1915) ([jamesnetherton](https://github.com/jamesnetherton))
 - HBase JVM support [\#1906](https://github.com/apache/camel-quarkus/pull/1906) ([ppalaga](https://github.com/ppalaga))
 - PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
 - Prevent CI workflows running on forks [\#1904](https://github.com/apache/camel-quarkus/pull/1904) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -481,6 +487,7 @@
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
+- Make sure that Quarkus orders booting our runtime before starting to serve HTTP endpoints. [\#1445](https://github.com/apache/camel-quarkus/pull/1445) ([ppalaga](https://github.com/ppalaga))
 - Split main startup logic [\#1444](https://github.com/apache/camel-quarkus/pull/1444) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve the bootstrap docs [\#1442](https://github.com/apache/camel-quarkus/pull/1442) ([ppalaga](https://github.com/ppalaga))
 - Re-enable TimerDevModeTest.logMessageEdit\(\) after the upgrade to Quar… [\#1440](https://github.com/apache/camel-quarkus/pull/1440) ([ppalaga](https://github.com/ppalaga))
@@ -1025,7 +1032,6 @@
 - Upgrade to Quarkus 1.3.0.CR1 [\#851](https://github.com/apache/camel-quarkus/pull/851) ([jamesnetherton](https://github.com/jamesnetherton))
 - add camel-jaxb into extensions [\#850](https://github.com/apache/camel-quarkus/pull/850) ([mmelko](https://github.com/mmelko))
 - Support for camel-xml-io [\#849](https://github.com/apache/camel-quarkus/pull/849) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
 - Fix since versions on various places [\#845](https://github.com/apache/camel-quarkus/pull/845) ([ppalaga](https://github.com/ppalaga))
 - Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
@@ -1081,6 +1087,7 @@
 
 **Merged pull requests:**
 
+- Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
 - Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
@@ -1195,7 +1202,6 @@
 - \[graalvm-19.3.0\] camel-quarkus-bean fails to compile in native mode [\#540](https://github.com/apache/camel-quarkus/issues/540)
 - Dozer extension should use JaxbFileRootBuildItem [\#539](https://github.com/apache/camel-quarkus/issues/539)
 - Add support/spring artifact for common substrate support [\#538](https://github.com/apache/camel-quarkus/issues/538)
-- camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
 - Re-enable the FHIR tests once the FHIR testing service is back again [\#352](https://github.com/apache/camel-quarkus/issues/352)
 - Dev mode does not work on Java 12 [\#289](https://github.com/apache/camel-quarkus/issues/289)
 - Error building with caffeine on GraalVM 19.1.1 \(quarkus snapshot\) [\#80](https://github.com/apache/camel-quarkus/issues/80)
@@ -1348,6 +1354,7 @@
 - Consolidate microprofile integration tests [\#433](https://github.com/apache/camel-quarkus/issues/433)
 - camel-hystrix extension [\#429](https://github.com/apache/camel-quarkus/issues/429)
 - XSLT extension does not work with file: URIs [\#428](https://github.com/apache/camel-quarkus/issues/428)
+- camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
 - Use @Inject in the timer-log-cdi example [\#416](https://github.com/apache/camel-quarkus/issues/416)
 - Document that beans managed by Arc are not instantiated from a static initializer [\#415](https://github.com/apache/camel-quarkus/issues/415)
 - Using custom camel componet into quarkus-camel [\#379](https://github.com/apache/camel-quarkus/issues/379)
