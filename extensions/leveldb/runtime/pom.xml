@@ -62,12 +62,6 @@
                     <artifactId>leveldbjni-all</artifactId>
                     <groupId>org.fusesource.leveldbjni</groupId>
                 </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-leveldb</artifactId>
-            <exclusions>
                 <exclusion>
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>*</artifactId>
