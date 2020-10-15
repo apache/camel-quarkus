@@ -61,7 +61,7 @@
         <hbase.version>2.2.3</hbase.version><!-- Keep in sync with Camel -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>2.20</influxdb.version>
-        <jackson.version>2.10.5</jackson.version>
+        <jackson.version>2.11.3</jackson.version> <!-- keep in sync with Quarkus -->
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <jaxen.version>1.2.0</jaxen.version>
