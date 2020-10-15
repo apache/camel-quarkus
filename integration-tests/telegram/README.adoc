@@ -8,7 +8,7 @@ Then set the following environment variables:
 
 [source,shell]
 ----
-$ export TELEGRAM_AUTHORIZATION_TOKEN=my-autorization-token
+$ export TELEGRAM_AUTHORIZATION_TOKEN=my-authorization-token
 $ export TELEGRAM_CHAT_ID=my-chatId
 ----
 
