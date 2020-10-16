@@ -23,6 +23,7 @@ on:
       - master
       - camel-master
       - quarkus-master
+      - release/1.3.0
       - "[0-9]+.[0-9]+.x"
     paths-ignore:
       - '**.adoc'
@@ -70,6 +71,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - name: Set up JDK 11
         uses: AdoptOpenJDK/install-jdk@v1
         with:
@@ -126,6 +131,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -196,6 +205,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: AdoptOpenJDK/install-jdk@v1
@@ -249,6 +262,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: AdoptOpenJDK/install-jdk@v1
@@ -291,6 +308,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ matrix.java }}
         uses: AdoptOpenJDK/install-jdk@v1
@@ -331,6 +352,10 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
+      - name: Enable Camel 3.6.0 staging repo
+        if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
+        run: |
+          echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
       - name: Activate native tests on Java 11
         if: matrix.java == '11'
         run: |
