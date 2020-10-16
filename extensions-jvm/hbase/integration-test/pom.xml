@@ -52,6 +52,11 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j-log4j12.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>20.0</version><!-- The last version that contains com.google.common.util.concurrent.Futures.addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback) required by hbase-test-util -->
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -89,6 +94,11 @@
             <artifactId>hbase-testing-util</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -96,9 +106,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <skip>true</skip>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>io.quarkus</groupId>
