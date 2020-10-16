@@ -2,7 +2,16 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.1.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.2.0...HEAD)
+
+**Merged pull requests:**
+
+- typo corrected [\#1926](https://github.com/apache/camel-quarkus/pull/1926) ([talhacevik](https://github.com/talhacevik))
+- Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
+
+## [1.2.0](https://github.com/apache/camel-quarkus/tree/1.2.0) (2020-10-15)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.1.0...1.2.0)
 
 **Implemented enhancements:**
 
@@ -19,10 +28,13 @@
 
 **Closed issues:**
 
-- arkus [\#1892](https://github.com/apache/camel-quarkus/issues/1892)
 - IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
+- NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
+- Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
+- Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
 - Duplicate license headers in Velocity test templates [\#1843](https://github.com/apache/camel-quarkus/issues/1843)
+- LevelDB native support [\#1839](https://github.com/apache/camel-quarkus/issues/1839)
 - Headersmap native support [\#1838](https://github.com/apache/camel-quarkus/issues/1838)
 - List of misc. components empty after the recent docs generation changes [\#1834](https://github.com/apache/camel-quarkus/issues/1834)
 - Document all ways to start a new project [\#1824](https://github.com/apache/camel-quarkus/issues/1824)
@@ -31,7 +43,6 @@
 - Camel quarkus disable auto route discovery not working [\#1816](https://github.com/apache/camel-quarkus/issues/1816)
 - Configure NativeImageResourceBuildItem for camel route classpath resources [\#1812](https://github.com/apache/camel-quarkus/issues/1812)
 - allowContextMapAll requires template engines to have reflective access to camel core classess  [\#1807](https://github.com/apache/camel-quarkus/issues/1807)
-- NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Find a proper place for registering SAXMessages native resource bundle  [\#1796](https://github.com/apache/camel-quarkus/issues/1796)
 - Generate partials instead of pages for the individual Camel bits [\#1795](https://github.com/apache/camel-quarkus/issues/1795)
 - \[Quarkus 1.9\] Caffeine: remove CacheLoader processor  [\#1790](https://github.com/apache/camel-quarkus/issues/1790)
@@ -50,6 +61,8 @@
 - String template native support [\#1694](https://github.com/apache/camel-quarkus/issues/1694)
 - Move examples to a separate git repository [\#1691](https://github.com/apache/camel-quarkus/issues/1691)
 - Make mvn -N cq:format remove empty application.properties files [\#1676](https://github.com/apache/camel-quarkus/issues/1676)
+- Document cq:create -Dcq.nativeSupported=false for creating JVM-only extensions [\#1662](https://github.com/apache/camel-quarkus/issues/1662)
+- camel-quarkus-activemq extension broker url configuration [\#1661](https://github.com/apache/camel-quarkus/issues/1661)
 - Geocoder native support [\#1645](https://github.com/apache/camel-quarkus/issues/1645)
 - FOP native support [\#1642](https://github.com/apache/camel-quarkus/issues/1642)
 - SmallRyeReactiveMessagingIT fails intermittently [\#1632](https://github.com/apache/camel-quarkus/issues/1632)
@@ -65,11 +78,11 @@
 - SSH support [\#798](https://github.com/apache/camel-quarkus/issues/798)
 - Caffeine native support [\#794](https://github.com/apache/camel-quarkus/issues/794)
 - gRPC native support [\#762](https://github.com/apache/camel-quarkus/issues/762)
-- Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
-- Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.19.0 [\#1924](https://github.com/apache/camel-quarkus/pull/1924) ([jamesnetherton](https://github.com/jamesnetherton))
+- Trigger changelog generation on workflow\_dispatch [\#1923](https://github.com/apache/camel-quarkus/pull/1923) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.0.Final [\#1921](https://github.com/apache/camel-quarkus/pull/1921) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added nsq native support fixes \#1722 [\#1920](https://github.com/apache/camel-quarkus/pull/1920) ([aldettinger](https://github.com/aldettinger))
 - pgevent: correct service name [\#1919](https://github.com/apache/camel-quarkus/pull/1919) ([zbendhiba](https://github.com/zbendhiba))
@@ -78,6 +91,7 @@
 - PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
 - Prevent CI workflows running on forks [\#1904](https://github.com/apache/camel-quarkus/pull/1904) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document all ways to start a new project [\#1903](https://github.com/apache/camel-quarkus/pull/1903) ([jamesnetherton](https://github.com/jamesnetherton))
+- LevelDB native support \#1839 [\#1902](https://github.com/apache/camel-quarkus/pull/1902) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - camel-quarkus-jira: Add resteasy-common dependency [\#1899](https://github.com/apache/camel-quarkus/pull/1899) ([mmelko](https://github.com/mmelko))
 - File specific issues for TODOs where necessary \#1285 [\#1897](https://github.com/apache/camel-quarkus/pull/1897) ([ppalaga](https://github.com/ppalaga))
 - Restrict changelog workflow to only run on apache/camel-quarkus repo [\#1893](https://github.com/apache/camel-quarkus/pull/1893) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -156,10 +170,6 @@
 
 **Closed issues:**
 
-- Document cq:create -Dcq.nativeSupported=false for creating JVM-only extensions [\#1662](https://github.com/apache/camel-quarkus/issues/1662)
-- camel-quarkus-activemq extension broker url configuration [\#1661](https://github.com/apache/camel-quarkus/issues/1661)
-- \[Camel 3.5?\] contextPath ignored for platform-http with REST DSL [\#1563](https://github.com/apache/camel-quarkus/issues/1563)
-- \[Camel 3.5\] Configuring api context path with property camel.context.rest-configuration.api-context-path does not work [\#1303](https://github.com/apache/camel-quarkus/issues/1303)
 - camel-quarkus-main - Uses reflection for setting its name [\#1765](https://github.com/apache/camel-quarkus/issues/1765)
 - Add TLS based authentication support to the nats extension [\#1761](https://github.com/apache/camel-quarkus/issues/1761)
 - @Simple annotated bean parameter binding not working in native mode [\#1685](https://github.com/apache/camel-quarkus/issues/1685)
@@ -172,6 +182,7 @@
 - Dropbox native support [\#1577](https://github.com/apache/camel-quarkus/issues/1577)
 - AWS 2 Lambda native support [\#1572](https://github.com/apache/camel-quarkus/issues/1572)
 - make camel-management a camel-quarkus extension.  [\#1564](https://github.com/apache/camel-quarkus/issues/1564)
+- \[Camel 3.5?\] contextPath ignored for platform-http with REST DSL [\#1563](https://github.com/apache/camel-quarkus/issues/1563)
 - Telegram test doesn't work [\#1550](https://github.com/apache/camel-quarkus/issues/1550)
 - Flatpack component support [\#1541](https://github.com/apache/camel-quarkus/issues/1541)
 - http related tests rely on external service that may sometimes be down [\#1538](https://github.com/apache/camel-quarkus/issues/1538)
@@ -188,6 +199,7 @@
 - \[Camel 3.5\] Move FastUuidGenerator to Camel [\#1470](https://github.com/apache/camel-quarkus/issues/1470)
 - Add support for smallrye-reactive-messaging-camel [\#1469](https://github.com/apache/camel-quarkus/issues/1469)
 - Extension for camel-threadpoolfactory-vertx [\#1430](https://github.com/apache/camel-quarkus/issues/1430)
+- \[Camel 3.5\] Configuring api context path with property camel.context.rest-configuration.api-context-path does not work [\#1303](https://github.com/apache/camel-quarkus/issues/1303)
 - \[Camel 3.5\] Create a vert.x websocket extension [\#1301](https://github.com/apache/camel-quarkus/issues/1301)
 - Investigate removing reflective class configuration for components that extend AbstractApiComponent [\#1108](https://github.com/apache/camel-quarkus/issues/1108)
 - Flatpack dataformat support [\#796](https://github.com/apache/camel-quarkus/issues/796)
@@ -1032,6 +1044,7 @@
 - Upgrade to Quarkus 1.3.0.CR1 [\#851](https://github.com/apache/camel-quarkus/pull/851) ([jamesnetherton](https://github.com/jamesnetherton))
 - add camel-jaxb into extensions [\#850](https://github.com/apache/camel-quarkus/pull/850) ([mmelko](https://github.com/mmelko))
 - Support for camel-xml-io [\#849](https://github.com/apache/camel-quarkus/pull/849) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
 - Fix since versions on various places [\#845](https://github.com/apache/camel-quarkus/pull/845) ([ppalaga](https://github.com/ppalaga))
 - Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
@@ -1087,7 +1100,6 @@
 
 **Merged pull requests:**
 
-- Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
 - Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
@@ -1202,6 +1214,7 @@
 - \[graalvm-19.3.0\] camel-quarkus-bean fails to compile in native mode [\#540](https://github.com/apache/camel-quarkus/issues/540)
 - Dozer extension should use JaxbFileRootBuildItem [\#539](https://github.com/apache/camel-quarkus/issues/539)
 - Add support/spring artifact for common substrate support [\#538](https://github.com/apache/camel-quarkus/issues/538)
+- camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
 - Re-enable the FHIR tests once the FHIR testing service is back again [\#352](https://github.com/apache/camel-quarkus/issues/352)
 - Dev mode does not work on Java 12 [\#289](https://github.com/apache/camel-quarkus/issues/289)
 - Error building with caffeine on GraalVM 19.1.1 \(quarkus snapshot\) [\#80](https://github.com/apache/camel-quarkus/issues/80)
@@ -1354,7 +1367,6 @@
 - Consolidate microprofile integration tests [\#433](https://github.com/apache/camel-quarkus/issues/433)
 - camel-hystrix extension [\#429](https://github.com/apache/camel-quarkus/issues/429)
 - XSLT extension does not work with file: URIs [\#428](https://github.com/apache/camel-quarkus/issues/428)
-- camel-json-path extension [\#426](https://github.com/apache/camel-quarkus/issues/426)
 - Use @Inject in the timer-log-cdi example [\#416](https://github.com/apache/camel-quarkus/issues/416)
 - Document that beans managed by Arc are not instantiated from a static initializer [\#415](https://github.com/apache/camel-quarkus/issues/415)
 - Using custom camel componet into quarkus-camel [\#379](https://github.com/apache/camel-quarkus/issues/379)
