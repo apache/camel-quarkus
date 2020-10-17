@@ -1,13 +1,14 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
+## [1.3.0](https://github.com/apache/camel-quarkus/tree/1.3.0) (2020-10-16)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.2.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.2.0...1.3.0)
 
 **Merged pull requests:**
 
 - typo corrected [\#1926](https://github.com/apache/camel-quarkus/pull/1926) ([talhacevik](https://github.com/talhacevik))
 - Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
+- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.2.0](https://github.com/apache/camel-quarkus/tree/1.2.0) (2020-10-15)
 
@@ -436,7 +437,6 @@
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
-- Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
 - JAX-RS endpoint accessible before Camel context is started [\#1439](https://github.com/apache/camel-quarkus/issues/1439)
 - Jolt support [\#1421](https://github.com/apache/camel-quarkus/issues/1421)
@@ -872,6 +872,7 @@
 - CouchDB support [\#910](https://github.com/apache/camel-quarkus/issues/910)
 - Couchbase support \(JVM only\) [\#909](https://github.com/apache/camel-quarkus/issues/909)
 - Cassandra CQL support [\#908](https://github.com/apache/camel-quarkus/issues/908)
+- Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - GraphQLResource should read from the classpath instead from the filesystem [\#901](https://github.com/apache/camel-quarkus/issues/901)
 - camel-quarkus-elasticsearch-rest build fails with "Dependency convergence error" [\#899](https://github.com/apache/camel-quarkus/issues/899)
 - List the JVM-only extensions in the docs [\#897](https://github.com/apache/camel-quarkus/issues/897)
