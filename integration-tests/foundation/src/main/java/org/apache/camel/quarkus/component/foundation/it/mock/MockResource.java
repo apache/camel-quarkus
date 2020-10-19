@@ -26,10 +26,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.reifier.RouteReifier;
 import org.jboss.logging.Logger;
 import org.wildfly.common.Assert;
 
@@ -51,7 +51,7 @@ public class MockResource {
 
         // advice the first route using the inlined AdviceWith route builder
         // which has extended capabilities than the regular route builder
-        RouteReifier.adviceWith(context.adapt(ModelCamelContext.class).getRouteDefinition("forMocking"), context,
+        AdviceWith.adviceWith(context.adapt(ModelCamelContext.class).getRouteDefinition("forMocking"), context,
                 new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
