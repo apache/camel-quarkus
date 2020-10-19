@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.3.0...HEAD)
+
+**Closed issues:**
+
+- How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
+
 ## [1.3.0](https://github.com/apache/camel-quarkus/tree/1.3.0) (2020-10-16)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.2.0...1.3.0)
@@ -1854,7 +1862,6 @@
 - chore\(build\): use project.version [\#15](https://github.com/apache/camel-quarkus/pull/15) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
-- Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
 
 
 
