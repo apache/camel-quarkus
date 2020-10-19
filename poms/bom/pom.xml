@@ -656,6 +656,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-core-processor</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-couchbase</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -5600,6 +5605,11 @@
                 <groupId>org.jruby.jcodings</groupId>
                 <artifactId>jcodings</artifactId>
                 <version>${jcodings.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jruby.joni</groupId>
+                <artifactId>joni</artifactId>
+                <version>${joni.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
