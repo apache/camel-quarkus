@@ -39,11 +39,23 @@ class SqlTest {
                 .then()
                 .statusCode(201);
 
-        // Retrieve camel species
+        // Retrieve camel species as map
         RestAssured.get("/sql/get/Dromedarius")
                 .then()
                 .statusCode(200)
                 .body(is("[{ID=1, SPECIES=Dromedarius}]"));
+
+        // Retrieve camel species as list
+        RestAssured.get("/sql/get/Dromedarius/list")
+                .then()
+                .statusCode(200)
+                .body(is("Dromedarius 1"));
+
+        // Retrieve camel species as type
+        RestAssured.get("/sql/get/Dromedarius/list/type")
+                .then()
+                .statusCode(200)
+                .body(is("Dromedarius 1"));
     }
 
     @Test

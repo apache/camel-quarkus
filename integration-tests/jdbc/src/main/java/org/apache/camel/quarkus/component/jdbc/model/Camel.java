@@ -14,16 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jdbc;
+package org.apache.camel.quarkus.component.jdbc.model;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-public class CamelRoute extends RouteBuilder {
-    @Override
-    public void configure() {
-        from("direct:execute")
-                .to("jdbc:camel-ds")
-                .to("log:jdbc-result?")
-                .convertBodyTo(String.class);
+@RegisterForReflection
+public class Camel {
+
+    private int id;
+    private String species;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getSpecies() {
+        return species;
+    }
+
+    public void setSpecies(String species) {
+        this.species = species;
     }
 }

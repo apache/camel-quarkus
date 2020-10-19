@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -34,6 +36,7 @@ import javax.ws.rs.core.MediaType;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.jdbc.model.Camel;
 
 @Path("/test")
 @ApplicationScoped
@@ -65,7 +68,39 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSpeciesById(@PathParam("id") String id) throws Exception {
-        return template.requestBody("direct:execute", "select species from camels where id = " + id, String.class);
+        return template.requestBody("jdbc:camel-ds", "select species from camels where id = " + id, String.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/species/{id}/list")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSpeciesByIdWithSelectList(@PathParam("id") String id) throws Exception {
+        List<LinkedHashMap<String, Object>> result = template
+                .requestBody("jdbc:camel-ds?outputType=SelectList", "select * from camels where id = " + id, List.class);
+
+        if (result.isEmpty()) {
+            throw new IllegalStateException("Expected at least 1 camel result but none were found");
+        }
+
+        LinkedHashMap<String, Object> data = result.get(0);
+        return data.get("SPECIES") + " " + data.get("ID");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/species/{id}/type")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getSpeciesByIdWithDefinedType(@PathParam("id") String id) throws Exception {
+        List<Camel> results = template.requestBody("jdbc:camel-ds?outputClass=" + Camel.class.getName(),
+                "select * from camels where id = " + id, List.class);
+
+        if (results.isEmpty()) {
+            throw new IllegalStateException("Expected at least 1 camel result but none were found");
+        }
+
+        Camel camel = results.get(0);
+        return camel.getSpecies() + " " + camel.getId();
     }
 
     @Path("/execute")
@@ -73,6 +108,6 @@ public class CamelResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String executeStatement(String statement) throws Exception {
-        return template.requestBody("direct:execute", statement, String.class);
+        return template.requestBody("jdbc:camel-ds", statement, String.class);
     }
 }

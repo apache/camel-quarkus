@@ -37,6 +37,16 @@ public class CamelJdbcTest {
     }
 
     @Test
+    void testGetSpeciesByIdWithResultList() {
+        RestAssured.when().get("/test/species/1/list").then().body(is("Camelus dromedarius 1"));
+    }
+
+    @Test
+    void testGetSpeciesByIdWithDefinedType() {
+        RestAssured.when().get("/test/species/1/type").then().body(is("Camelus dromedarius 1"));
+    }
+
+    @Test
     void testExecuteStatement() {
         RestAssured.given()
                 .contentType(ContentType.TEXT).body("select id from camels order by id desc")
