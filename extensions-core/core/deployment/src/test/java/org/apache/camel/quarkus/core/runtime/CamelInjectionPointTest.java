@@ -44,10 +44,8 @@ public class CamelInjectionPointTest {
     @Test
     public void testConfigurer() {
         assertThat(configurer.getLog()).isNotNull();
-        assertThat(configurer.getLog().isBasicPropertyBinding()).isTrue();
         assertThat(configurer.getLog().getExchangeFormatter()).isInstanceOf(MyExchangeFormatter.class);
         assertThat(holder.getLog()).isNotNull();
-        assertThat(holder.getLog().isBasicPropertyBinding()).isTrue();
         assertThat(holder.getLog().getExchangeFormatter()).isInstanceOf(MyExchangeFormatter.class);
     }
 
@@ -58,7 +56,6 @@ public class CamelInjectionPointTest {
 
         @PostConstruct
         void setUpLogComponent() {
-            log.setBasicPropertyBinding(true);
             log.setExchangeFormatter(new MyExchangeFormatter());
         }
 

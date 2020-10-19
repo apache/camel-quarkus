@@ -21,9 +21,9 @@ import javax.inject.Inject;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.saga.InMemorySagaService;
 import org.apache.camel.model.SagaPropagation;
 import org.apache.camel.saga.CamelSagaService;
+import org.apache.camel.saga.InMemorySagaService;
 
 @ApplicationScoped
 public class SagaRoute extends RouteBuilder {

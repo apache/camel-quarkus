@@ -101,19 +101,7 @@ class LeveldbTest {
                 .statusCode(201)
                 .extract().as(Boolean.class);
 
-        if (doeasBinaryDataWork()) {
-            assertTrue(theSame);
-        } else {
-            assertFalse(theSame);
-        }
-    }
-
-    /**
-     * Until binary payload is not supported, in native binary test will fail.
-     * Needs https://issues.apache.org/jira/browse/CAMEL-15679
-     */
-    boolean doeasBinaryDataWork() {
-        return true;
+        assertTrue(theSame);
     }
 
     private Map<String, List<Map<String, Object>>> testAggregate(String path, List<String> messages) {

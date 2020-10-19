@@ -20,8 +20,4 @@ import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
 class LeveldbIT extends LeveldbTest {
-    @Override
-    boolean doeasBinaryDataWork() {
-        return false;
-    }
 }

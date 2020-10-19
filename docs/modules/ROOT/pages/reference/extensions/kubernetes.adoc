@@ -18,6 +18,7 @@ Perform operations against Kubernetes API
 == What's inside
 
 * xref:latest@components::kubernetes-config-maps-component.adoc[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
+* xref:latest@components::kubernetes-custom-resources-component.adoc[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
 * xref:latest@components::kubernetes-deployments-component.adoc[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
 * xref:latest@components::kubernetes-hpa-component.adoc[Kubernetes HPA component], URI syntax: `kubernetes-hpa:masterUrl`
 * xref:latest@components::kubernetes-job-component.adoc[Kubernetes Job component], URI syntax: `kubernetes-job:masterUrl`

@@ -22,5 +22,4 @@ public class FastModel extends BaseModel {
     public FastModel(CamelContext camelContext) {
         super(camelContext);
     }
-
 }

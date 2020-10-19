@@ -40,6 +40,7 @@ import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
@@ -345,5 +346,12 @@ class CamelProcessor {
                 .filter(pathFilter)
                 .map(CamelRoutesBuilderClassBuildItem::new)
                 .collect(Collectors.toList());
+    }
+
+    @BuildStep
+    NativeImageResourceBuildItem initResources() {
+        return new NativeImageResourceBuildItem(
+                "META-INF/services/org/apache/camel/bean-processor-factory",
+                "META-INF/services/org/apache/camel/rest-registry-factory");
     }
 }

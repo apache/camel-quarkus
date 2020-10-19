@@ -42,11 +42,6 @@ public class CamelMainRecorder {
         main.setRoutesCollector(routesCollector.getValue());
         main.addMainListener(new CamelMainEventBridge());
 
-        // autowire only non null values as components may have configured
-        // through CDI or from a Build Item thus those values should not be
-        // overridden
-        main.configure().setAutowireComponentPropertiesNonNullOnly(true);
-
         // properties are loaded through MicroProfile Config so there's
         // no need to look for sources.
         main.setDefaultPropertyPlaceholderLocation("false");

@@ -36,7 +36,6 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.Component;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.component.log.LogComponent;
-import org.apache.camel.component.timer.TimerComponent;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver;
 import org.apache.camel.quarkus.it.support.typeconverter.MyPair;
@@ -63,13 +62,6 @@ public class CoreMainResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String getProperty(@PathParam("name") String name) throws Exception {
         return main.getCamelContext().resolvePropertyPlaceholders("{{" + name + "}}");
-    }
-
-    @Path("/timer/property-binding")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public boolean timerResolvePropertyPlaceholders() throws Exception {
-        return main.getCamelContext().getComponent("timer", TimerComponent.class).isBasicPropertyBinding();
     }
 
     @Path("/registry/log/exchange-formatter")
