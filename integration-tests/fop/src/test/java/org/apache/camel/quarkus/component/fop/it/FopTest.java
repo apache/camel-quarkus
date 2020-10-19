@@ -20,7 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -29,6 +33,7 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,6 +42,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class FopTest {
 
     public static final String MSG = "hello";
+    private static Path tmpDir;
+
+    @BeforeAll
+    static void copyResources() throws IOException {
+        /*
+         * Local files are not available when this test is run in Quarkus Platform.
+         * ppalaga was not able to find a way to make FOP load the font declared in mycfg.xml from the classpath
+         * As a workaround, the resources are simply copied from the class loader to target/tmp directory
+         * before the test starts
+         */
+        tmpDir = Paths.get("target/tmp");
+        Files.createDirectories(tmpDir);
+        final ClassLoader cl = FopTest.class.getClassLoader();
+        Stream.of("Freedom-10eM.ttf", "mycfg.xml")
+                .forEach(resource -> {
+                    final Path target = tmpDir.resolve(resource);
+                    if (!Files.exists(target)) {
+                        try (InputStream in = cl.getResourceAsStream(resource)) {
+                            Files.copy(in, target);
+                        } catch (IOException e) {
+                            throw new RuntimeException("Could not read resource " + resource, e);
+                        }
+                    }
+                });
+    }
 
     @Test
     public void convertToPdf() throws IOException {
@@ -45,14 +75,15 @@ class FopTest {
 
     @Test
     public void convertToPdfWithCustomFont() throws IOException {
-        convertToPdf(msg -> decorateTextWithXSLFO(msg, "Freedom"), "/mycfg.xml");
+        convertToPdf(msg -> decorateTextWithXSLFO(msg, "Freedom"),
+                tmpDir.resolve("mycfg.xml").toAbsolutePath().toUri().toString());
     }
 
     private void convertToPdf(Function<String, String> msgCreator, String userConfigFile) throws IOException {
         RequestSpecification requestSpecification = RestAssured.given()
                 .contentType(ContentType.XML);
         if (userConfigFile != null) {
-            requestSpecification.queryParam("userConfigURL", "file:" + getClass().getResource(userConfigFile).getFile());
+            requestSpecification.queryParam("userConfigURL", userConfigFile);
         }
         ExtractableResponse response = requestSpecification
                 .body(msgCreator.apply(MSG))
