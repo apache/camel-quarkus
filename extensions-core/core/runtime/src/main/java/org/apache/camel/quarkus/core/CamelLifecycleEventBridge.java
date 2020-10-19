@@ -26,8 +26,6 @@ import io.quarkus.arc.Arc;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
-import org.apache.camel.ErrorHandlerFactory;
-import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.Service;
 import org.apache.camel.VetoCamelContextStartException;
@@ -93,16 +91,6 @@ public class CamelLifecycleEventBridge implements LifecycleStrategy {
     @Override
     public void onEndpointRemove(Endpoint endpoint) {
         fireEvent(new EndpointRemoveEvent(endpoint));
-    }
-
-    @Override
-    public void onErrorHandlerAdd(Route route, Processor errorHandler, ErrorHandlerFactory errorHandlerFactory) {
-        fireEvent(new ErrorHandlerAddEvent(route, errorHandler, errorHandlerFactory));
-    }
-
-    @Override
-    public void onErrorHandlerRemove(Route route, Processor errorHandler, ErrorHandlerFactory errorHandlerFactory) {
-        fireEvent(new ErrorHandlerRemoveEvent(route, errorHandler, errorHandlerFactory));
     }
 
     @Override

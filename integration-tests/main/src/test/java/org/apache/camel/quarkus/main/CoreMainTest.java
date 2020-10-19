@@ -51,13 +51,7 @@ public class CoreMainTest {
     @Test
     public void testProperties() {
         RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
-        RestAssured.when().get("/test/property/camel.component.timer.basic-property-binding").then().body(is("true"));
         RestAssured.when().get("/test/property/the.message").then().body(is("test"));
-    }
-
-    @Test
-    public void timerPropertyPropagated() {
-        RestAssured.when().get("/test/timer/property-binding").then().body(is("true"));
     }
 
     @Test
