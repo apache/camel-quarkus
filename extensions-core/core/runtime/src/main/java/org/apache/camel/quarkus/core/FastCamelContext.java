@@ -22,10 +22,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.concurrent.ExecutorService;
 import java.util.function.Function;
 
-import org.apache.camel.AsyncProcessor;
 import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
@@ -36,12 +34,12 @@ import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.ValueHolder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
-import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseServiceResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
@@ -54,17 +52,19 @@ import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
+import org.apache.camel.impl.engine.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
 import org.apache.camel.impl.engine.DefaultInjector;
+import org.apache.camel.impl.engine.DefaultInterceptEndpointFactory;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.impl.engine.DefaultNodeIdFactory;
 import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
-import org.apache.camel.impl.engine.DefaultProcessorFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.impl.engine.DefaultRouteController;
+import org.apache.camel.impl.engine.DefaultRouteFactory;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.impl.engine.DefaultTracer;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
@@ -73,8 +73,8 @@ import org.apache.camel.impl.engine.DefaultUriFactoryResolver;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.RouteService;
-import org.apache.camel.impl.transformer.TransformerKey;
-import org.apache.camel.impl.validator.ValidatorKey;
+import org.apache.camel.impl.engine.TransformerKey;
+import org.apache.camel.impl.engine.ValidatorKey;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.FaultToleranceConfigurationDefinition;
 import org.apache.camel.model.HystrixConfigurationDefinition;
@@ -91,12 +91,16 @@ import org.apache.camel.model.language.ExpressionDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
-import org.apache.camel.processor.MulticastProcessor;
+import org.apache.camel.processor.DefaultAnnotationBasedProcessorFactory;
+import org.apache.camel.processor.DefaultDeferServiceFactory;
+import org.apache.camel.processor.DefaultInternalProcessorFactory;
+import org.apache.camel.processor.DefaultProcessorFactory;
 import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.reifier.errorhandler.ErrorHandlerReifier;
 import org.apache.camel.reifier.language.ExpressionReifier;
 import org.apache.camel.reifier.transformer.TransformerReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.AnnotationBasedProcessorFactory;
 import org.apache.camel.spi.AsyncProcessorAwaitManager;
 import org.apache.camel.spi.BeanIntrospection;
 import org.apache.camel.spi.BeanProcessorFactory;
@@ -110,17 +114,21 @@ import org.apache.camel.spi.ConfigurerResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.DataType;
+import org.apache.camel.spi.DeferServiceFactory;
 import org.apache.camel.spi.EndpointRegistry;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
+import org.apache.camel.spi.InterceptEndpointFactory;
+import org.apache.camel.spi.InternalProcessorFactory;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
@@ -132,6 +140,7 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
+import org.apache.camel.spi.RouteFactory;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.spi.Tracer;
@@ -275,6 +284,21 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected InternalProcessorFactory createInternalProcessorFactory() {
+        return new DefaultInternalProcessorFactory();
+    }
+
+    @Override
+    protected InterceptEndpointFactory createInterceptEndpointFactory() {
+        return new DefaultInterceptEndpointFactory();
+    }
+
+    @Override
+    protected RouteFactory createRouteFactory() {
+        return new DefaultRouteFactory();
+    }
+
+    @Override
     protected MessageHistoryFactory createMessageHistoryFactory() {
         return new DefaultMessageHistoryFactory();
     }
@@ -324,6 +348,16 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
                 .resolve(getCamelContextReference())
                 .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProxyFactory on classpath. "
                         + "Add camel-bean to classpath."));
+    }
+
+    @Override
+    protected AnnotationBasedProcessorFactory createAnnotationBasedProcessorFactory() {
+        return new DefaultAnnotationBasedProcessorFactory();
+    }
+
+    @Override
+    protected DeferServiceFactory createDeferServiceFactory() {
+        return new DefaultDeferServiceFactory();
     }
 
     @Override
@@ -422,14 +456,6 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     protected ReactiveExecutor createReactiveExecutor() {
         return new DefaultReactiveExecutor();
-    }
-
-    @Override
-    public AsyncProcessor createMulticast(Collection<Processor> processors, ExecutorService executor,
-            boolean shutdownExecutorService) {
-        return new MulticastProcessor(getCamelContextReference(), null, processors, null,
-                true, executor, shutdownExecutorService, false, false,
-                0, null, false, false);
     }
 
     @Override
@@ -804,6 +830,16 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    public ModelReifierFactory getModelReifierFactory() {
+        return model.getModelReifierFactory();
+    }
+
+    @Override
+    public void setModelReifierFactory(ModelReifierFactory modelReifierFactory) {
+        model.setModelReifierFactory(modelReifierFactory);
+    }
+
+    @Override
     public void startRouteDefinitions(List<RouteDefinition> routeDefinitions) throws Exception {
         // indicate we are staring the route using this thread so
         // we are able to query this if needed
@@ -860,7 +896,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     public RouteDefinition adviceWith(RouteDefinition definition, AdviceWithRouteBuilder builder) throws Exception {
-        return RouteReifier.adviceWith(definition, this, builder);
+        return AdviceWith.adviceWith(definition, this, builder);
     }
 
     @SuppressWarnings("unchecked")

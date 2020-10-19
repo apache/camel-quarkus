@@ -22,11 +22,13 @@ import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.impl.DefaultModelReifierFactory;
 import org.apache.camel.model.*;
 import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
+import org.apache.camel.spi.ModelReifierFactory;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.util.CollectionStringBuffer;
 
@@ -34,6 +36,7 @@ public abstract class BaseModel implements Model {
 
     private final CamelContext camelContext;
 
+    private ModelReifierFactory modelReifierFactory = new DefaultModelReifierFactory();
     private final List<RouteDefinition> routeDefinitions = new ArrayList<>();
     private final List<RouteTemplateDefinition> routeTemplateDefinitions = new ArrayList<>();
     private final List<RestDefinition> restDefinitions = new ArrayList<>();
@@ -427,6 +430,16 @@ public abstract class BaseModel implements Model {
     @Override
     public List<ModelLifecycleStrategy> getModelLifecycleStrategies() {
         return modelLifecycleStrategies;
+    }
+
+    @Override
+    public ModelReifierFactory getModelReifierFactory() {
+        return modelReifierFactory;
+    }
+
+    @Override
+    public void setModelReifierFactory(ModelReifierFactory modelReifierFactory) {
+        this.modelReifierFactory = modelReifierFactory;
     }
 
     /**
