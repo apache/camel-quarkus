@@ -14,46 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.jpa.it.model;
+package org.apache.camel.quarkus.component.sql.it.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.NamedQuery;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-@Entity
-@NamedQuery(name = "findWithId", query = "SELECT f FROM Fruit f WHERE f.id = :fruitId")
-public class Fruit {
+@RegisterForReflection
+public class Camel {
 
-    @Id
-    @GeneratedValue
-    private Integer id;
+    private int id;
+    private String species;
 
-    @Column(length = 50, unique = true)
-    private String name;
-
-    public Fruit() {
-    }
-
-    public Fruit(String name) {
-        this.name = name;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getSpecies() {
+        return species;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setSpecies(String species) {
+        this.species = species;
     }
-
 }

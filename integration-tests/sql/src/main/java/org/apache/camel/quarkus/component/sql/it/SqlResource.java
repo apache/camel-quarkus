@@ -40,6 +40,7 @@ import javax.ws.rs.core.Response;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.sql.it.model.Camel;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 @Path("/sql")
@@ -75,6 +76,43 @@ public class SqlResource {
         return producerTemplate.requestBodyAndHeaders("sql:classpath:sql/get-camels.sql",
                 null, params,
                 String.class);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/get/{species}/list")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getCamelSelectList(@PathParam("species") String species) throws Exception {
+        List<LinkedCaseInsensitiveMap<Object>> result = producerTemplate.requestBody(
+                "sql:SELECT * FROM camel WHERE species = '" + species + "'?outputType=SelectList",
+                null,
+                List.class);
+
+        if (result.isEmpty()) {
+            throw new IllegalStateException("Expected at least 1 camel result but none were found");
+        }
+
+        LinkedCaseInsensitiveMap<Object> data = result.get(0);
+        return data.get("SPECIES") + " " + data.get("ID");
+    }
+
+    @SuppressWarnings("unchecked")
+    @Path("/get/{species}/list/type")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getCamelSelectListWithType(@PathParam("species") String species) throws Exception {
+        List<Camel> camels = producerTemplate.requestBody("sql:SELECT * FROM camel WHERE "
+                + "species = '" + species + "'?outputType=SelectList"
+                + "&outputClass=org.apache.camel.quarkus.component.sql.it.model.Camel",
+                null,
+                List.class);
+
+        if (camels.isEmpty()) {
+            throw new IllegalStateException("Expected at least 1 camel result but none were found");
+        }
+
+        Camel result = camels.get(0);
+        return result.getSpecies() + " " + result.getId();
     }
 
     @Path("/post")

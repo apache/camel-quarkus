@@ -24,6 +24,7 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(H2DatabaseTestResource.class)
@@ -48,5 +49,29 @@ class JpaTest {
                 .then()
                 .statusCode(200)
                 .body("name", contains(fruits));
+
+        // Retrieve with entity id as body
+        RestAssured.get("/jpa/get/1")
+                .then()
+                .statusCode(200)
+                .body("name", is("Orange"));
+
+        // Retrieve with JPA query
+        RestAssured.get("/jpa/get/query/1")
+                .then()
+                .statusCode(200)
+                .body("name", contains("Orange"));
+
+        // Retrieve with named JPA query
+        RestAssured.get("/jpa/get/query/named/1")
+                .then()
+                .statusCode(200)
+                .body("name", contains("Orange"));
+
+        // Retrieve with native query
+        RestAssured.get("/jpa/get/query/native/1")
+                .then()
+                .statusCode(200)
+                .body(is("Orange"));
     }
 }

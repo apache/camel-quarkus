@@ -16,10 +16,14 @@
  */
 package org.apache.camel.quarkus.component.messaging.it;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -47,5 +51,80 @@ class JmsTest {
                 .then()
                 .statusCode(200)
                 .body(is(message));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "Text", "Bytes" })
+    public void testJmsMessageType(String type) {
+        RestAssured.given()
+                .get("/messaging/jms/type/" + type)
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
+    @Test
+    public void testJmsMapMessage() {
+        Map<String, String> message = new HashMap<>();
+        message.put("foo", "bar");
+        message.put("cheese", "wine");
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(message)
+                .post("/messaging/jms/map")
+                .then()
+                .statusCode(200)
+                .body(is("{\"foo\":\"bar\",\"cheese\":\"wine\"}"));
+    }
+
+    @Test
+    public void testJmsMessageListenerContainerFactory() {
+        String message = "Camel JMS With Custom MessageListenerContainerFactory";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/custom/message/listener/factory")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    public void testJmsDestinationResolver() {
+        String message = "Camel JMS With Custom DestinationResolver";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/custom/destination/resolver")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    public void testJmsTopic() {
+        String message = "Camel JMS Topic Message";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/topic")
+                .then()
+                .statusCode(201);
+    }
+
+    @Test
+    public void testJmsSelector() {
+        RestAssured.given()
+                .get("/messaging/jms/selector/foo='bar'")
+                .then()
+                .statusCode(200)
+                .body(is("Camel JMS Selector Match"));
+    }
+
+    @Test
+    public void testJmsTransaction() {
+        RestAssured.given()
+                .get("/messaging/jms/transaction")
+                .then()
+                .statusCode(200)
+                .body(is("JMS Transaction Success"));
     }
 }
