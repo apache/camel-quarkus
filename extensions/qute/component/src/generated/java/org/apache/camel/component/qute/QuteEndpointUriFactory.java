@@ -20,8 +20,7 @@ public class QuteEndpointUriFactory extends org.apache.camel.support.component.E
     private static final Set<String> PROPERTY_NAMES;
     private static final Set<String> SECRET_PROPERTY_NAMES;
     static {
-        Set<String> props = new HashSet<>(8);
-        props.add("basicPropertyBinding");
+        Set<String> props = new HashSet<>(7);
         props.add("allowTemplateFromHeader");
         props.add("lazyStartProducer");
         props.add("synchronous");
@@ -39,14 +38,14 @@ public class QuteEndpointUriFactory extends org.apache.camel.support.component.E
     }
 
     @Override
-    public String buildUri(String scheme, Map<String, Object> properties) throws URISyntaxException {
+    public String buildUri(String scheme, Map<String, Object> properties, boolean encode) throws URISyntaxException {
         String syntax = scheme + BASE;
         String uri = syntax;
 
         Map<String, Object> copy = new HashMap<>(properties);
 
         uri = buildPathParameter(syntax, uri, "resourceUri", null, true, copy);
-        uri = buildQueryParameters(uri, copy);
+        uri = buildQueryParameters(uri, copy, encode);
         return uri;
     }
 

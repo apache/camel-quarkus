@@ -18,6 +18,7 @@ Camel core functionality and basic Camel languages: Constant, ExchangeProperty, 
 == What's inside
 
 * xref:latest@components:languages:constant-language.adoc[Constant language]
+* xref:latest@components:languages:csimple-language.adoc[CSimple language]
 * xref:latest@components:languages:exchangeProperty-language.adoc[ExchangeProperty language]
 * xref:latest@components:languages:file-language.adoc[File language]
 * xref:latest@components:languages:header-language.adoc[Header language]

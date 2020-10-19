@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.6.0</version>
+        <version>3.7.0-SNAPSHOT</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -44,7 +44,7 @@
         <avro-ipc-version>1.10.0</avro-ipc-version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
-        <camel.version>3.6.0</camel.version>
+        <camel.version>3.7.0-SNAPSHOT</camel.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
@@ -69,6 +69,7 @@
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
+        <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
