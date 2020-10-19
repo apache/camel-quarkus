@@ -72,9 +72,9 @@ public class CamelConfigurationTest {
             assertThat(component.getExchangeFormatter()).isInstanceOf(MyExchangeFormatter.class);
         });
 
-        // ensure that no auto-wiring happen
+        // ensure that auto-wiring happens
         assertThat(camelContext.getComponent("log", LogComponent.class)).satisfies(component -> {
-            assertThat(component.getExchangeFormatter()).isNull();
+            assertThat(component.getExchangeFormatter()).isInstanceOf(MyOtherExchangeFormatter.class);
         });
     }
 

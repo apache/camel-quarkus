@@ -24,6 +24,7 @@ import org.apache.camel.AggregationStrategy;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.leveldb.LevelDBAggregationRepository;
+import org.apache.camel.quarkus.component.leveldb.QuarkusLevelDBAggregationRepository;
 
 public class LeveldbRouteBuilder extends RouteBuilder {
     public static final String DIRECT_START = "direct:start";
@@ -39,21 +40,22 @@ public class LeveldbRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        LevelDBAggregationRepository repo = new LevelDBAggregationRepository("repo", DATA_FOLDER + "leveldb.dat");
+        LevelDBAggregationRepository repo = new QuarkusLevelDBAggregationRepository("repo", DATA_FOLDER + "leveldb.dat");
 
         from(DIRECT_START)
                 .aggregate(header("id"), new MyAggregationStrategy())
                 .completionSize(7).aggregationRepository(repo)
                 .to(MOCK_RESULT);
 
-        LevelDBAggregationRepository repoBinary = new LevelDBAggregationRepository("repo", DATA_FOLDER + "levelBinarydb.dat");
+        LevelDBAggregationRepository repoBinary = new QuarkusLevelDBAggregationRepository("repo",
+                DATA_FOLDER + "levelBinarydb.dat");
 
         from(DIRECT_BINARY)
                 .aggregate(header("id"), new BinaryAggregationStrategy())
                 .completionSize(3).aggregationRepository(repoBinary)
                 .to(MOCK_RESULT);
 
-        LevelDBAggregationRepository repoWithFailure = new LevelDBAggregationRepository("repoWithFailure",
+        LevelDBAggregationRepository repoWithFailure = new QuarkusLevelDBAggregationRepository("repoWithFailure",
                 DATA_FOLDER + "leveldbWithFailure.dat");
 
         repoWithFailure.setUseRecovery(true);
@@ -72,7 +74,7 @@ public class LeveldbRouteBuilder extends RouteBuilder {
                 .to(MOCK_RESULT)
                 .end();
 
-        LevelDBAggregationRepository repoDeadLetter = new LevelDBAggregationRepository("repoDeadLetter",
+        LevelDBAggregationRepository repoDeadLetter = new QuarkusLevelDBAggregationRepository("repoDeadLetter",
                 DATA_FOLDER + "leveldbDeadLetter.dat");
 
         repoDeadLetter.setUseRecovery(true);
