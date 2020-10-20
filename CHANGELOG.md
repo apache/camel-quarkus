@@ -6,7 +6,13 @@
 
 **Closed issues:**
 
+- FOP tests fail in Quarkus Platform [\#1930](https://github.com/apache/camel-quarkus/issues/1930)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
+
+**Merged pull requests:**
+
+- FOP tests fail in Quarkus Platform \#1930 [\#1931](https://github.com/apache/camel-quarkus/pull/1931) ([ppalaga](https://github.com/ppalaga))
+- Jenkinsfile build: changed the JDK name following INFRA new approach [\#1929](https://github.com/apache/camel-quarkus/pull/1929) ([oscerd](https://github.com/oscerd))
 
 ## [1.3.0](https://github.com/apache/camel-quarkus/tree/1.3.0) (2020-10-16)
 
@@ -1862,6 +1868,7 @@
 - chore\(build\): use project.version [\#15](https://github.com/apache/camel-quarkus/pull/15) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
+- Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
 
 
 
