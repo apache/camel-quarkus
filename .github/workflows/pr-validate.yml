@@ -49,10 +49,6 @@ jobs:
       if: github.base_ref == 'quarkus-master'
       run: |
         echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
-    - name: Enable Camel 3.6.0 staging repo
-      if: github.ref == 'refs/heads/master' || github.base_ref == 'master'
-      run: |
-        echo '::set-env name=BRANCH_OPTIONS::-s '$(pwd)'/settings-camel-3.6.0.xml'
     - uses: actions/checkout@v1
     - name: Set up JDK 11
       uses: AdoptOpenJDK/install-jdk@v1
