@@ -33,8 +33,12 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>beans</module>
+        <module>context</module>
+        <module>core</module>
         <module>deployment</module>
         <module>runtime</module>
+        <module>integration-test</module>
     </modules>
 
 </project>

@@ -1,0 +1,49 @@
+= Spring Support
+
+This extension provides common support for Camel components that depend on `org.springframework` libraries:
+
+* spring-beans
+* spring-context
+* spring-core
+
+== Repackaging of core Spring libraries
+
+The Quarkus Spring extensions offers a limited set of supported packages for the Spring framework. This is achieved by shading the desired packages into a new quarkus-spring-*-api dependency. These can be found at the https://github.com/quarkusio/quarkus-spring-api[quarkus-spring-api] project.
+
+A side effect of this is that the Quarkus Spring extensions enforce the exclusion of the original Spring artifacts from the build via the `quarkus-bootstrap-maven-plugin`. For example:
+
+[source,xml]
+----
+<plugin>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+    <configuration>
+        <excludedArtifacts>
+            <excludedArtifact>org.springframework:spring-core</excludedArtifact>
+            <excludedArtifact>org.springframework:spring-beans</excludedArtifact>
+            <excludedArtifact>org.springframework:spring-context</excludedArtifact>
+        </excludedArtifacts>
+    </configuration>
+</plugin>
+----
+
+Therefore, in order to circumvent the artifact exclusion, the excluded Spring artifacts are shaded and repackaged with relevant packages required by various Camel extensions.
+
+[width="100%",cols="30,70",options="header"]
+|===
+| Original Spring Artifact Name | Repackaged Artifact Name
+
+
+| `spring-beans`
+| `camel-quarkus-support-spring-beans`
+
+| `spring-context`
+| `camel-quarkus-support-spring-context`
+
+| `spring-core`
+| `camel-quarkus-support-spring-core`
+|=== 
+
+== Native support
+
+This extension contains the relevant Quarkus `BuildStep`s and GraalVM substitutions that enable the Spring core libraries to work properly in native mode.
