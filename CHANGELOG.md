@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- Remove Camel 3.6.0 staging repository [\#1934](https://github.com/apache/camel-quarkus/pull/1934) ([jamesnetherton](https://github.com/jamesnetherton))
+- Increase test coverage for Spring dependent extensions [\#1932](https://github.com/apache/camel-quarkus/pull/1932) ([jamesnetherton](https://github.com/jamesnetherton))
 - FOP tests fail in Quarkus Platform \#1930 [\#1931](https://github.com/apache/camel-quarkus/pull/1931) ([ppalaga](https://github.com/ppalaga))
 - Jenkinsfile build: changed the JDK name following INFRA new approach [\#1929](https://github.com/apache/camel-quarkus/pull/1929) ([oscerd](https://github.com/oscerd))
 
@@ -321,7 +323,6 @@
 - 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
 - Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.1](https://github.com/apache/camel-quarkus/tree/1.0.1) (2020-08-26)
 
@@ -415,6 +416,7 @@
 - Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR2 [\#1513](https://github.com/apache/camel-quarkus/pull/1513) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR1 [\#1508](https://github.com/apache/camel-quarkus/pull/1508) ([ppalaga](https://github.com/ppalaga))
 - Added grok support \#1466 [\#1504](https://github.com/apache/camel-quarkus/pull/1504) ([aldettinger](https://github.com/aldettinger))
 - Fixup \#1244 Improve the docs about the default REST transport provider [\#1503](https://github.com/apache/camel-quarkus/pull/1503) ([ppalaga](https://github.com/ppalaga))
@@ -1869,6 +1871,7 @@
 - Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
 - Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
+- Add Maven wrapper and .travis.yml [\#2](https://github.com/apache/camel-quarkus/pull/2) ([ppalaga](https://github.com/ppalaga))
 
 
 
