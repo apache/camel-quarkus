@@ -81,10 +81,11 @@ jobs:
           ls -lh maven-repo.tgz
           df -h
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: maven-repo
           path: maven-repo.tgz
+          retention-days: 1
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -111,7 +112,7 @@ jobs:
       matrix: ${{ fromJson(needs.build.outputs.matrix) }}
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: .
@@ -172,7 +173,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: .

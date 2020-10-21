@@ -93,14 +93,15 @@ jobs:
       - name: Tar Maven Repo
         shell: bash
         run: |
-          tar -czf ../maven-repo.tgz -C ~ .m2/repository
-          ls -lh ../maven-repo.tgz
+          tar -czf ${{ runner.temp }}/maven-repo.tgz -C ~ .m2/repository
+          ls -lh ${{ runner.temp }}/maven-repo.tgz
           df -h /
       - name: Persist Maven Repo
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
           name: maven-repo
-          path: ../maven-repo.tgz
+          path: ${{ runner.temp }}/maven-repo.tgz
+          retention-days: 1
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
@@ -133,7 +134,7 @@ jobs:
         with:
           version: '11'
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: ..
@@ -202,7 +203,7 @@ jobs:
         with:
           version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: ..
@@ -255,7 +256,7 @@ jobs:
         with:
           version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: ..
@@ -297,7 +298,7 @@ jobs:
         with:
           version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: ..
@@ -346,7 +347,7 @@ jobs:
         with:
           version: ${{ matrix.java }}
       - name: Download Maven Repo
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: maven-repo
           path: ..
