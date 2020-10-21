@@ -7,10 +7,10 @@
 :cq-description: Solve planning problems with OptaPlanner.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: 1.2.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.2.0##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Solve planning problems with OptaPlanner.
 
