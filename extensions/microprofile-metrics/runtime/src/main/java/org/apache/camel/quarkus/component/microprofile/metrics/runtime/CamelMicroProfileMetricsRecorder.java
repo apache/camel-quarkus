@@ -55,11 +55,7 @@ public class CamelMicroProfileMetricsRecorder {
         @Override
         public void customize(CamelContext camelContext) {
             if (config.enableRoutePolicy) {
-                MicroProfileMetricsRoutePolicyFactory routePolicyFactory = new MicroProfileMetricsRoutePolicyFactory();
-                // TODO: Remove this after upgrade to Camel >= 3.6.0
-                // https://github.com/apache/camel-quarkus/issues/1894
-                routePolicyFactory.setMetricRegistry(MetricRegistries.get(MetricRegistry.Type.APPLICATION));
-                camelContext.addRoutePolicyFactory(routePolicyFactory);
+                camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
             }
 
             ManagementStrategy managementStrategy = camelContext.getManagementStrategy();
