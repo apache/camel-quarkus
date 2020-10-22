@@ -4,13 +4,25 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.3.0...HEAD)
 
+**Fixed bugs:**
+
+- AdviceWithRouteBuilder replaceFromWith and microprofile-metrics conflict [\#1894](https://github.com/apache/camel-quarkus/issues/1894)
+- Main extension cannot load rest XML definitions [\#1852](https://github.com/apache/camel-quarkus/issues/1852)
+
 **Closed issues:**
 
 - FOP tests fail in Quarkus Platform [\#1930](https://github.com/apache/camel-quarkus/issues/1930)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
+- Crypto extension requires reflective access to DigitalSignatureConstants [\#1881](https://github.com/apache/camel-quarkus/issues/1881)
+- Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
+- Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 
 **Merged pull requests:**
 
+- Camel 3.6.0 upgrade leftovers [\#1940](https://github.com/apache/camel-quarkus/pull/1940) ([jamesnetherton](https://github.com/jamesnetherton))
+- Exclude glassfish dependencies from hbase-testing-util [\#1939](https://github.com/apache/camel-quarkus/pull/1939) ([jamesnetherton](https://github.com/jamesnetherton))
+- Lumberjack native support fixes \#1732 [\#1938](https://github.com/apache/camel-quarkus/pull/1938) ([zbendhiba](https://github.com/zbendhiba))
+- Set retention-days parameter on upload-artifact action [\#1936](https://github.com/apache/camel-quarkus/pull/1936) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove Camel 3.6.0 staging repository [\#1934](https://github.com/apache/camel-quarkus/pull/1934) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase test coverage for Spring dependent extensions [\#1932](https://github.com/apache/camel-quarkus/pull/1932) ([jamesnetherton](https://github.com/jamesnetherton))
 - FOP tests fail in Quarkus Platform \#1930 [\#1931](https://github.com/apache/camel-quarkus/pull/1931) ([ppalaga](https://github.com/ppalaga))
@@ -34,7 +46,6 @@
 
 - typo corrected [\#1926](https://github.com/apache/camel-quarkus/pull/1926) ([talhacevik](https://github.com/talhacevik))
 - Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
-- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.2.0](https://github.com/apache/camel-quarkus/tree/1.2.0) (2020-10-15)
 
@@ -57,6 +68,7 @@
 
 - IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
+- Lumberjack native support [\#1732](https://github.com/apache/camel-quarkus/issues/1732)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
@@ -113,6 +125,7 @@
 - Upgrade Quarkus to 1.9.0.Final [\#1921](https://github.com/apache/camel-quarkus/pull/1921) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added nsq native support fixes \#1722 [\#1920](https://github.com/apache/camel-quarkus/pull/1920) ([aldettinger](https://github.com/aldettinger))
 - pgevent: correct service name [\#1919](https://github.com/apache/camel-quarkus/pull/1919) ([zbendhiba](https://github.com/zbendhiba))
+- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 - Workaround AdviceWithRouteBuilder and MicroprofileMetrics conflict [\#1915](https://github.com/apache/camel-quarkus/pull/1915) ([jamesnetherton](https://github.com/jamesnetherton))
 - HBase JVM support [\#1906](https://github.com/apache/camel-quarkus/pull/1906) ([ppalaga](https://github.com/ppalaga))
 - PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
@@ -323,6 +336,7 @@
 - 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
 - Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.1](https://github.com/apache/camel-quarkus/tree/1.0.1) (2020-08-26)
 
@@ -416,7 +430,6 @@
 - Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR2 [\#1513](https://github.com/apache/camel-quarkus/pull/1513) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR1 [\#1508](https://github.com/apache/camel-quarkus/pull/1508) ([ppalaga](https://github.com/ppalaga))
 - Added grok support \#1466 [\#1504](https://github.com/apache/camel-quarkus/pull/1504) ([aldettinger](https://github.com/aldettinger))
 - Fixup \#1244 Improve the docs about the default REST transport provider [\#1503](https://github.com/apache/camel-quarkus/pull/1503) ([ppalaga](https://github.com/ppalaga))
@@ -1871,7 +1884,6 @@
 - Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
 - Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
-- Add Maven wrapper and .travis.yml [\#2](https://github.com/apache/camel-quarkus/pull/2) ([ppalaga](https://github.com/ppalaga))
 
 
 
