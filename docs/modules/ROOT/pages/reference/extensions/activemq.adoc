@@ -33,6 +33,12 @@ Please refer to the above link for usage and configuration details.
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Camel Quarkus limitations
+
+ActiveMQ https://activemq.apache.org/selectors.html[XPath selectors] are disabled in native mode as the functionality depends on `activemq-broker`. This dependency 
+is excluded from the dependency tree, since none of the ActiveMQ broker functionality is supported in native mode.
+
+
 == SSL in native mode
 
 This extension auto-enables SSL support in native mode. Hence you do not need to add
