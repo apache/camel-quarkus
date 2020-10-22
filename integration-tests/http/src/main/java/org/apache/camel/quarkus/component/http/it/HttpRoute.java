@@ -38,9 +38,10 @@ public class HttpRoute extends RouteBuilder {
                 .process(new Processor() {
                     @Override
                     public void process(Exchange exchange) throws Exception {
-                        InputStream stream = HttpRoute.class.getResourceAsStream("/restcountries/cz.json");
-                        String json = exchange.getContext().getTypeConverter().convertTo(String.class, stream);
-                        exchange.getMessage().setBody(json);
+                        try (InputStream stream = HttpRoute.class.getResourceAsStream("/restcountries/cz.json")) {
+                            String json = exchange.getContext().getTypeConverter().convertTo(String.class, stream);
+                            exchange.getMessage().setBody(json);
+                        }
                     }
                 });
     }
