@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.lumberjack.it;
 
+import java.util.List;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -24,19 +26,25 @@ import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 @TestHTTPEndpoint(LumberjackResource.class)
 @QuarkusTestResource(LumberjackTestResource.class)
 class LumberjackTest {
+
+    static final int VERSION_V2 = '2';
+    static final int TYPE_ACKNOWLEDGE = 'A';
+
     @Test
-    public void testWithoutSSL() {
+    public void testWithoutSSL() throws InterruptedException {
+        List<LumberjackAckResponse> ackResponseList = sendPayload("camel.lumberjack.ssl.none.test-port", false);
+        assertAck(ackResponseList);
+
         RestAssured.given()
-                .get("/ssl/none")
+                .get("/results/ssl/none")
                 .then()
                 .statusCode(200)
-                .body("windowSizes[0]", equalTo(10))
-                .body("windowSizes[1]", equalTo(15))
                 .body("logs", hasSize(25))
                 .body("logs[0].input_type", equalTo("log"))
                 .body("logs[0].source", equalTo(
@@ -44,13 +52,14 @@ class LumberjackTest {
     }
 
     @Test
-    public void testWitSSL() {
+    public void testWitSSL() throws InterruptedException {
+        List<LumberjackAckResponse> ackResponseList = sendPayload("camel.lumberjack.ssl.test-port", true);
+        assertAck(ackResponseList);
+
         RestAssured.given()
-                .get("/ssl/route")
+                .get("/results/ssl/route")
                 .then()
                 .statusCode(200)
-                .body("windowSizes[0]", equalTo(10))
-                .body("windowSizes[1]", equalTo(15))
                 .body("logs", hasSize(25))
                 .body("logs[0].input_type", equalTo("log"))
                 .body("logs[0].source", equalTo(
@@ -58,16 +67,35 @@ class LumberjackTest {
     }
 
     @Test
-    public void testWitGlobalSSL() {
+    public void testWitGlobalSSL() throws InterruptedException {
+        List<LumberjackAckResponse> ackResponseList = sendPayload("camel.lumberjack.ssl.global.test-port", true);
+        assertAck(ackResponseList);
+
         RestAssured.given()
-                .get("/ssl/global")
+                .get("/results/ssl/global")
                 .then()
                 .statusCode(200)
-                .body("windowSizes[0]", equalTo(10))
-                .body("windowSizes[1]", equalTo(15))
                 .body("logs", hasSize(25))
                 .body("logs[0].input_type", equalTo("log"))
                 .body("logs[0].source", equalTo(
                         "/home/qatest/collectNetwork/log/data-integration/00000000-f000-0000-1541-8da26f200001/absorption.log"));
+    }
+
+    private void assertAck(List<LumberjackAckResponse> ackResponseList) {
+        assertEquals(2, ackResponseList.size());
+        assertEquals(VERSION_V2, ackResponseList.get(0).getVersion());
+        assertEquals(VERSION_V2, ackResponseList.get(1).getVersion());
+        assertEquals(TYPE_ACKNOWLEDGE, ackResponseList.get(0).getFrame());
+        assertEquals(TYPE_ACKNOWLEDGE, ackResponseList.get(1).getFrame());
+        assertEquals(10, ackResponseList.get(0).getSequence());
+        assertEquals(15, ackResponseList.get(1).getSequence());
+        assertEquals(0, ackResponseList.get(0).getRemaining());
+        assertEquals(0, ackResponseList.get(1).getRemaining());
+    }
+
+    private List<LumberjackAckResponse> sendPayload(String portName, boolean withSsl) throws InterruptedException {
+        final int port = Integer.getInteger(portName);
+        List<LumberjackAckResponse> ackResponseList = LumberjackClientUtil.sendMessages(port, withSsl);
+        return ackResponseList;
     }
 }

@@ -53,7 +53,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-bean</artifactId>
+            <artifactId>camel-quarkus-mock</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -80,7 +80,7 @@
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-bean-deployment</artifactId>
+            <artifactId>camel-quarkus-lumberjack-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
@@ -91,11 +91,9 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
-        <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-lumberjack-deployment</artifactId>
+            <artifactId>camel-quarkus-mock-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

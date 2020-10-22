@@ -20,20 +20,10 @@ import java.util.List;
 import java.util.Map;
 
 public class LumberjackResponse {
-    List<Integer> windowSizes;
     List<Map<String, Map>> logs;
 
-    public LumberjackResponse(List<Integer> windowSizes, List<Map<String, Map>> logs) {
-        this.windowSizes = windowSizes;
+    public LumberjackResponse(List<Map<String, Map>> logs) {
         this.logs = logs;
-    }
-
-    public List<Integer> getWindowSizes() {
-        return windowSizes;
-    }
-
-    public void setWindowSizes(List<Integer> windowSizes) {
-        this.windowSizes = windowSizes;
     }
 
     public List<Map<String, Map>> getLogs() {
