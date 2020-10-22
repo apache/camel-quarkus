@@ -21,10 +21,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.net.ssl.SSLEngine;
 
 import io.netty.bootstrap.Bootstrap;
@@ -37,33 +35,29 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.ssl.SslHandler;
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
+import org.apache.camel.support.jsse.TrustManagersParameters;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 
-@RegisterForReflection
-@ApplicationScoped
-public class LumberjackService {
-
-    private static List<Map<String, Map>> logs;
+public class LumberjackClientUtil {
 
     /**
-     * Send messages to Lumberjack server
+     * Send payload to Lumberjack server
      * 
      * @param  port
-     * @param  sslContextParameters
+     * @param  withSslContextParameters
      * @return
      * @throws InterruptedException
      */
-    List<Integer> sendMessages(int port, SSLContextParameters sslContextParameters) throws InterruptedException {
-        // init list of results
-        initLogs();
-
+    public static List<LumberjackAckResponse> sendMessages(int port, boolean withSslContextParameters)
+            throws InterruptedException {
+        final SSLContextParameters sslContextParameters = withSslContextParameters ? createClientSSLContextParameters() : null;
         NioEventLoopGroup eventLoopGroup = new NioEventLoopGroup();
         try {
             // This list will hold the acknowledgment response sequence numbers
-            List<Integer> responses = new ArrayList<>();
+            List<LumberjackAckResponse> responses = new ArrayList<>();
 
             // This initializer configures the SSL and an acknowledgment recorder
             ChannelInitializer<Channel> initializer = new ChannelInitializer<Channel>() {
@@ -80,12 +74,13 @@ public class LumberjackService {
                     pipeline.addLast(new SimpleChannelInboundHandler<ByteBuf>() {
                         @Override
                         protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
-                            // read 2 first bytes
-                            msg.readUnsignedByte();
-                            msg.readUnsignedByte();
+                            short version = msg.readUnsignedByte();
+                            short frame = msg.readUnsignedByte();
+                            int sequence = msg.readInt();
+                            int remaining = msg.readableBytes();
                             // getting the lumberjack window sizes
                             synchronized (responses) {
-                                responses.add(msg.readInt());
+                                responses.add(new LumberjackAckResponse(version, frame, sequence, remaining));
                             }
                         }
                     });
@@ -135,27 +130,20 @@ public class LumberjackService {
     }
 
     /**
-     * init results from consumer
-     */
-    public void initLogs() {
-        logs = new ArrayList<>();
-    }
-
-    /**
-     * Gets responses from Lumberjack consumer
-     * 
-     * @param log
-     */
-    public static void addLog(Map<String, Map> log) {
-        logs.add(log);
-    }
-
-    /**
-     * gets all results from consumer
-     * 
+     * Creates SSL Context Parameters for the client
+     *
      * @return
      */
-    public List<Map<String, Map>> getLogs() {
-        return logs;
+    public static SSLContextParameters createClientSSLContextParameters() {
+        SSLContextParameters sslContextParameters = new SSLContextParameters();
+
+        TrustManagersParameters trustManagersParameters = new TrustManagersParameters();
+        KeyStoreParameters trustStore = new KeyStoreParameters();
+        trustStore.setPassword("changeit");
+        trustStore.setResource("ssl/keystore.jks");
+        trustManagersParameters.setKeyStore(trustStore);
+        sslContextParameters.setTrustManagers(trustManagersParameters);
+
+        return sslContextParameters;
     }
 }

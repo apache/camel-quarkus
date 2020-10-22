@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.lumberjack.it;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -25,7 +27,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.logging.Logger;
 
 @Path("/lumberjack")
@@ -34,46 +37,43 @@ public class LumberjackResource {
 
     private static final Logger LOG = Logger.getLogger(LumberjackResource.class);
 
-    @ConfigProperty(name = "camel.lumberjack.ssl.test-port")
-    Integer sslPort;
-    @ConfigProperty(name = "camel.lumberjack.ssl.none.test-port")
-    Integer noSslPort;
-    @ConfigProperty(name = "camel.lumberjack.ssl.global.test-port")
-    Integer globalSslPort;
-
     @Inject
-    LumberjackService lumberjackService;
-    @Inject
-    LumberjackSslService sslService;
+    CamelContext context;
 
-    @Path("ssl/none")
+    @Path("results/ssl/none")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public LumberjackResponse sendWithoutSsl() throws InterruptedException {
-        LOG.infof("sending messages without SSL mode on port %s", noSslPort);
-        List<Integer> responses = lumberjackService.sendMessages(noSslPort, null);
-        LOG.infof("getting responses %s", responses);
-        return new LumberjackResponse(responses, lumberjackService.getLogs());
+    public LumberjackResponse getMessagesOfWithoutSsl() throws InterruptedException {
+        return getLumberjackResponse(LumberjackRoutes.MOCK_ENDPOINT_WITHOUT_SSL);
     }
 
-    @Path("ssl/route")
+    @Path("results/ssl/route")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public LumberjackResponse sendWithSsl() throws InterruptedException {
-        LOG.infof("sending messages with SSL on port %s", sslPort);
-        List<Integer> responses = lumberjackService.sendMessages(sslPort, sslService.createClientSSLContextParameters());
-        LOG.infof("getting responses %s", responses);
-        return new LumberjackResponse(responses, lumberjackService.getLogs());
+    public LumberjackResponse getMessagesOfWithSsl() throws InterruptedException {
+        return getLumberjackResponse(LumberjackRoutes.MOCK_ENDPOINT_WITH_SSL);
     }
 
-    @Path("ssl/global")
+    @Path("results/ssl/global")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public LumberjackResponse sendWithGlobalSsl() throws InterruptedException {
-        LOG.infof("sending messages with Global SSL mode on port %s", globalSslPort);
-        List<Integer> responses = lumberjackService.sendMessages(globalSslPort,
-                sslService.createClientSSLContextParameters());
-        LOG.infof("getting responses %s", responses);
-        return new LumberjackResponse(responses, lumberjackService.getLogs());
+    public LumberjackResponse getMessagesOfWithGlobalSsl() throws InterruptedException {
+        return getLumberjackResponse(LumberjackRoutes.MOCK_ENDPOINT_WITH_GLOBAL_SSL);
+    }
+
+    private LumberjackResponse getLumberjackResponse(String endpointName) {
+        LOG.infof("getting response from mock endpoint %s", endpointName);
+        MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
+        return new LumberjackResponse(extractDataFromMock(mockEndpoint));
+    }
+
+    private List<Map<String, Map>> extractDataFromMock(MockEndpoint mockEndpoint) {
+        List<Map<String, Map>> data = mockEndpoint.getReceivedExchanges().stream().sequential()
+                .map(exchange -> {
+                    Map<String, Map> map = exchange.getIn().getBody(Map.class);
+                    return map;
+                })
+                .collect(Collectors.toList());
+        return data;
     }
 }

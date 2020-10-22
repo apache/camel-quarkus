@@ -17,17 +17,22 @@
 package org.apache.camel.quarkus.component.lumberjack.it;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Produces;
 
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.lumberjack.LumberjackComponent;
+import org.apache.camel.support.jsse.KeyManagersParameters;
+import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class LumberjackRoutes extends RouteBuilder {
+
+    public static final String MOCK_ENDPOINT_WITHOUT_SSL = "mock:none";
+    public static final String MOCK_ENDPOINT_WITH_SSL = "mock:ssl";
+    public static final String MOCK_ENDPOINT_WITH_GLOBAL_SSL = "mock:global";
 
     @ConfigProperty(name = "camel.lumberjack.ssl.test-port")
     Integer sslPort;
@@ -35,9 +40,6 @@ public class LumberjackRoutes extends RouteBuilder {
     Integer noSslPort;
     @ConfigProperty(name = "camel.lumberjack.ssl.global.test-port")
     Integer globalSslPort;
-
-    @Inject
-    LumberjackSslService sslService;
 
     /**
      * We need to implement some conditional configuration of the {@link LumberjackComponent} thus we create it
@@ -53,28 +55,47 @@ public class LumberjackRoutes extends RouteBuilder {
         final LumberjackComponent lumberjackComponent = new LumberjackComponent();
         lumberjackComponent.setCamelContext(getContext());
         lumberjackComponent.setUseGlobalSslContextParameters(true);
-        lumberjackComponent.setSslContextParameters(sslService.createServerSSLContextParameters());
+        lumberjackComponent.setSslContextParameters(createServerSSLContextParameters());
         return lumberjackComponent;
     }
 
     @Produces
     @Named("ssl")
     SSLContextParameters ssl() {
-        return sslService.createServerSSLContextParameters();
+        return createServerSSLContextParameters();
     }
 
     @Override
     public void configure() throws Exception {
         // Route without SSL
         from(String.format("lumberjack:0.0.0.0:%s", noSslPort))
-                .bean(LumberjackService.class, "addLog");
+                .to(MOCK_ENDPOINT_WITHOUT_SSL);
 
         // Route with SSL
         from(String.format("lumberjack:0.0.0.0:%s?sslContextParameters=#ssl", sslPort))
-                .bean(LumberjackService.class, "addLog");
+                .to(MOCK_ENDPOINT_WITH_SSL);
 
         // Route with global SSL
         from(String.format("lumberjack-global-ssl:0.0.0.0:%s", globalSslPort))
-                .bean(LumberjackService.class, "addLog");
+                .to(MOCK_ENDPOINT_WITH_GLOBAL_SSL);
+    }
+
+    /**
+     * Creates SSL Context Parameters for the server
+     *
+     * @return
+     */
+    public SSLContextParameters createServerSSLContextParameters() {
+        SSLContextParameters sslContextParameters = new SSLContextParameters();
+
+        KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
+        KeyStoreParameters keyStore = new KeyStoreParameters();
+        keyStore.setPassword("changeit");
+        keyStore.setResource("ssl/keystore.jks");
+        keyManagersParameters.setKeyPassword("changeit");
+        keyManagersParameters.setKeyStore(keyStore);
+        sslContextParameters.setKeyManagers(keyManagersParameters);
+
+        return sslContextParameters;
     }
 }
