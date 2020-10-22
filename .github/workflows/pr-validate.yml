@@ -44,11 +44,11 @@ jobs:
     - name: Setup apache-snapshots profile
       if: github.base_ref == 'camel-master'
       run: |
-        echo '::set-env name=BRANCH_OPTIONS::-Papache-snapshots'
+        echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
     - name: Setup oss-snapshots profile
       if: github.base_ref == 'quarkus-master'
       run: |
-        echo '::set-env name=BRANCH_OPTIONS::-Poss-snapshots'
+        echo "BRANCH_OPTIONS=-Poss-snapshots" >> $GITHUB_ENV
     - uses: actions/checkout@v1
     - name: Set up JDK 11
       uses: AdoptOpenJDK/install-jdk@v1
