@@ -36,12 +36,12 @@ import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.ValueHolder;
+import org.apache.camel.builder.AdviceWith;
 import org.apache.camel.builder.AdviceWithRouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
-import org.apache.camel.impl.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.AbstractCamelContext;
 import org.apache.camel.impl.engine.BaseServiceResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
@@ -54,9 +54,11 @@ import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
+import org.apache.camel.impl.engine.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
 import org.apache.camel.impl.engine.DefaultInjector;
+import org.apache.camel.impl.engine.DefaultInterceptEndpointFactory;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.impl.engine.DefaultNodeIdFactory;
@@ -65,6 +67,7 @@ import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.impl.engine.DefaultProcessorFactory;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.impl.engine.DefaultRouteController;
+import org.apache.camel.impl.engine.DefaultRouteFactory;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.impl.engine.DefaultTracer;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
@@ -73,8 +76,8 @@ import org.apache.camel.impl.engine.DefaultUriFactoryResolver;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.RouteService;
-import org.apache.camel.impl.transformer.TransformerKey;
-import org.apache.camel.impl.validator.ValidatorKey;
+import org.apache.camel.impl.engine.TransformerKey;
+import org.apache.camel.impl.engine.ValidatorKey;
 import org.apache.camel.model.DataFormatDefinition;
 import org.apache.camel.model.FaultToleranceConfigurationDefinition;
 import org.apache.camel.model.HystrixConfigurationDefinition;
@@ -116,6 +119,7 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
 import org.apache.camel.spi.InflightRepository;
 import org.apache.camel.spi.Injector;
+import org.apache.camel.spi.InterceptEndpointFactory;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
 import org.apache.camel.spi.ManagementNameStrategy;
@@ -132,6 +136,7 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
+import org.apache.camel.spi.RouteFactory;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.spi.Tracer;
@@ -272,6 +277,16 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     protected ProcessorFactory createProcessorFactory() {
         return new DefaultProcessorFactory();
+    }
+
+    @Override
+    protected InterceptEndpointFactory createInterceptEndpointFactory() {
+        return new DefaultInterceptEndpointFactory();
+    }
+
+    @Override
+    protected RouteFactory createRouteFactory() {
+        return new DefaultRouteFactory();
     }
 
     @Override
@@ -860,7 +875,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     public RouteDefinition adviceWith(RouteDefinition definition, AdviceWithRouteBuilder builder) throws Exception {
-        return RouteReifier.adviceWith(definition, this, builder);
+        return AdviceWith.adviceWith(definition, this, builder);
     }
 
     @SuppressWarnings("unchecked")
