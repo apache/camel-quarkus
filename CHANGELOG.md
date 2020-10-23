@@ -8,20 +8,30 @@
 
 - AdviceWithRouteBuilder replaceFromWith and microprofile-metrics conflict [\#1894](https://github.com/apache/camel-quarkus/issues/1894)
 - Main extension cannot load rest XML definitions [\#1852](https://github.com/apache/camel-quarkus/issues/1852)
+- quarkus-spring-web breaks startup of camel-quarkus-activemq [\#1759](https://github.com/apache/camel-quarkus/issues/1759)
 
 **Closed issues:**
 
+- lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
+- ActiveMQ Default XPath evaluator could not be loaded [\#1933](https://github.com/apache/camel-quarkus/issues/1933)
 - FOP tests fail in Quarkus Platform [\#1930](https://github.com/apache/camel-quarkus/issues/1930)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
+- Unreleased Resource: Streams [\#1913](https://github.com/apache/camel-quarkus/issues/1913)
+- \[Camel Quarkus 1.2\] Remove quarkus.camel.native.resources.include-patterns = routes/\*.xml in examples [\#1901](https://github.com/apache/camel-quarkus/issues/1901)
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1881](https://github.com/apache/camel-quarkus/issues/1881)
+- Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 
 **Merged pull requests:**
 
+- lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
+- ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
 - Camel 3.6.0 upgrade leftovers [\#1940](https://github.com/apache/camel-quarkus/pull/1940) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude glassfish dependencies from hbase-testing-util [\#1939](https://github.com/apache/camel-quarkus/pull/1939) ([jamesnetherton](https://github.com/jamesnetherton))
 - Lumberjack native support fixes \#1732 [\#1938](https://github.com/apache/camel-quarkus/pull/1938) ([zbendhiba](https://github.com/zbendhiba))
+- Enable Spring dependent extensions to work with Quarkus Spring [\#1937](https://github.com/apache/camel-quarkus/pull/1937) ([jamesnetherton](https://github.com/jamesnetherton))
 - Set retention-days parameter on upload-artifact action [\#1936](https://github.com/apache/camel-quarkus/pull/1936) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove Camel 3.6.0 staging repository [\#1934](https://github.com/apache/camel-quarkus/pull/1934) ([jamesnetherton](https://github.com/jamesnetherton))
 - Increase test coverage for Spring dependent extensions [\#1932](https://github.com/apache/camel-quarkus/pull/1932) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -46,6 +56,7 @@
 
 - typo corrected [\#1926](https://github.com/apache/camel-quarkus/pull/1926) ([talhacevik](https://github.com/talhacevik))
 - Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
+- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.2.0](https://github.com/apache/camel-quarkus/tree/1.2.0) (2020-10-15)
 
@@ -125,7 +136,6 @@
 - Upgrade Quarkus to 1.9.0.Final [\#1921](https://github.com/apache/camel-quarkus/pull/1921) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added nsq native support fixes \#1722 [\#1920](https://github.com/apache/camel-quarkus/pull/1920) ([aldettinger](https://github.com/aldettinger))
 - pgevent: correct service name [\#1919](https://github.com/apache/camel-quarkus/pull/1919) ([zbendhiba](https://github.com/zbendhiba))
-- Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 - Workaround AdviceWithRouteBuilder and MicroprofileMetrics conflict [\#1915](https://github.com/apache/camel-quarkus/pull/1915) ([jamesnetherton](https://github.com/jamesnetherton))
 - HBase JVM support [\#1906](https://github.com/apache/camel-quarkus/pull/1906) ([ppalaga](https://github.com/ppalaga))
 - PostgresSQL Event native support fixes \#1719 [\#1905](https://github.com/apache/camel-quarkus/pull/1905) ([zbendhiba](https://github.com/zbendhiba))
@@ -137,7 +147,6 @@
 - Restrict changelog workflow to only run on apache/camel-quarkus repo [\#1893](https://github.com/apache/camel-quarkus/pull/1893) ([jamesnetherton](https://github.com/jamesnetherton))
 - Quarkus 1.9.0 post upgrade fixes [\#1890](https://github.com/apache/camel-quarkus/pull/1890) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.0.CR1 [\#1887](https://github.com/apache/camel-quarkus/pull/1887) ([jamesnetherton](https://github.com/jamesnetherton))
-- Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Debezium 1.3.0.Final [\#1882](https://github.com/apache/camel-quarkus/pull/1882) ([ppalaga](https://github.com/ppalaga))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
