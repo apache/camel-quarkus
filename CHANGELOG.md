@@ -1037,7 +1037,6 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -1077,6 +1076,7 @@
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
+- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1104,10 +1104,6 @@
 ## [1.0.0-M4](https://github.com/apache/camel-quarkus/tree/1.0.0-M4) (2020-03-03)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
-
-**Implemented enhancements:**
-
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
@@ -1217,7 +1213,6 @@
 - Bump To Quarkus 1.0.0-M3 [\#664](https://github.com/apache/camel-quarkus/pull/664) ([oscerd](https://github.com/oscerd))
 - Add integration test for Jackson unmarshalling with different POJOs [\#663](https://github.com/apache/camel-quarkus/pull/663) ([philschaller](https://github.com/philschaller))
 - Upgrade TestContainers to version 1.12.5 [\#662](https://github.com/apache/camel-quarkus/pull/662) ([oscerd](https://github.com/oscerd))
-- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M3](https://github.com/apache/camel-quarkus/tree/1.0.0-M3) (2020-01-24)
 
@@ -1226,6 +1221,7 @@
 **Implemented enhancements:**
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
+- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
@@ -1276,6 +1272,7 @@
 **Merged pull requests:**
 
 - Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
+- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel ReactiveStreams extension \(initial implementation\) [\#659](https://github.com/apache/camel-quarkus/pull/659) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update Quarkus to v1.2.0.Final [\#658](https://github.com/apache/camel-quarkus/pull/658) ([lburgazzoli](https://github.com/lburgazzoli))
 - factory-finder: move reactive-executor filter to core processor as the related service is always programmatically configured [\#657](https://github.com/apache/camel-quarkus/pull/657) ([lburgazzoli](https://github.com/lburgazzoli))
