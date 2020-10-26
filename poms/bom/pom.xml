@@ -1543,7 +1543,7 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-platform-http</artifactId>
+                <artifactId>camel-platform-http-vertx</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>

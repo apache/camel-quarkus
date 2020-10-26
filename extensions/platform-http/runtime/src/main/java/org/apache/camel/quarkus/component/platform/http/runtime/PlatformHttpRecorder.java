@@ -16,30 +16,37 @@
  */
 package org.apache.camel.quarkus.component.platform.http.runtime;
 
-import java.util.List;
-
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Handler;
+import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
-import org.apache.camel.quarkus.core.UploadAttacher;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 
 @Recorder
 public class PlatformHttpRecorder {
-    public RuntimeValue<PlatformHttpEngine> createEngine(
-            RuntimeValue<Router> router,
-            List<Handler<RoutingContext>> handlers,
-            RuntimeValue<UploadAttacher> uploadAttacher) {
-        return new RuntimeValue<>(new QuarkusPlatformHttpEngine(router.getValue(), handlers, uploadAttacher.getValue()));
+    public RuntimeValue<PlatformHttpEngine> createEngine() {
+        return new RuntimeValue<>(new VertxPlatformHttpEngine());
     }
 
     public RuntimeValue<PlatformHttpComponent> createComponent(RuntimeValue<PlatformHttpEngine> engine) {
         PlatformHttpComponent component = new PlatformHttpComponent();
         component.setEngine(engine.getValue());
-
         return new RuntimeValue<>(component);
+    }
+
+    public RuntimeValue<VertxPlatformHttpRouter> createVertxPlatformHttpRouter(RuntimeValue<Vertx> vertx,
+            RuntimeValue<Router> router, Handler<RoutingContext> handler) {
+        VertxPlatformHttpRouter vertxPlatformHttpRouter = new VertxPlatformHttpRouter(vertx.getValue(), router.getValue()) {
+            @Override
+            public Handler<RoutingContext> bodyHandler() {
+                return handler;
+            }
+        };
+        return new RuntimeValue<>(vertxPlatformHttpRouter);
     }
 }

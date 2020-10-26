@@ -16,22 +16,22 @@
  */
 package org.apache.camel.quarkus.component.platform.http.deployment;
 
-import java.util.Collections;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.vertx.deployment.VertxBuildItem;
 import io.quarkus.vertx.http.deployment.BodyHandlerBuildItem;
 import io.quarkus.vertx.http.deployment.VertxWebRouterBuildItem;
+import io.vertx.ext.web.Router;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
 import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpRecorder;
-import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
@@ -52,25 +52,29 @@ class PlatformHttpProcessor {
 
     @Record(ExecutionTime.RUNTIME_INIT)
     @BuildStep
-    PlatformHttpEngineBuildItem platformHttpEngine(
-            PlatformHttpRecorder recorder,
-            VertxWebRouterBuildItem router,
-            BodyHandlerBuildItem bodyHandler,
-            UploadAttacherBuildItem uploadAttacher) {
-
-        return new PlatformHttpEngineBuildItem(
-                recorder.createEngine(
-                        router.getRouter(),
-                        Collections.singletonList(bodyHandler.getHandler()),
-                        uploadAttacher.getInstance()));
+    PlatformHttpEngineBuildItem platformHttpEngine(PlatformHttpRecorder recorder) {
+        return new PlatformHttpEngineBuildItem(recorder.createEngine());
     }
 
     @BuildStep
     CamelRuntimeBeanBuildItem platformHttpEngineBean(PlatformHttpEngineBuildItem engine) {
         return new CamelRuntimeBeanBuildItem(
                 PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME,
-                QuarkusPlatformHttpEngine.class.getName(),
+                VertxPlatformHttpEngine.class.getName(),
                 engine.getInstance());
+    }
+
+    @Record(ExecutionTime.RUNTIME_INIT)
+    @BuildStep
+    CamelRuntimeBeanBuildItem platformHttpRouterBean(
+            VertxBuildItem vertx,
+            VertxWebRouterBuildItem router,
+            BodyHandlerBuildItem bodyHandler,
+            PlatformHttpRecorder recorder) {
+        return new CamelRuntimeBeanBuildItem(
+                VertxPlatformHttpRouter.PLATFORM_HTTP_ROUTER_NAME,
+                Router.class.getName(),
+                recorder.createVertxPlatformHttpRouter(vertx.getVertx(), router.getRouter(), bodyHandler.getHandler()));
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
