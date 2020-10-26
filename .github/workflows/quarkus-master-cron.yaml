@@ -70,7 +70,7 @@ jobs:
           git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
-            && ./mvnw ${MAVEN_ARGS} clean install -DskipTests -DskipITs -Denforcer.skip -Dquarkus.build.skip -DskipDocs
+            && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
       - name: Build Camel Quarkus
         run: |
           ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs'

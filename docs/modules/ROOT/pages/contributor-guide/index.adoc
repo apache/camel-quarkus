@@ -25,11 +25,11 @@ $ git clone https://github.com/apache/camel-quarkus.git
 $ cd camel-quarkus
 ----
 
-A fast build without tests:
+A fast build without tests and various checks:
 
 [source,shell]
 ----
-$ mvn clean install -DskipTests
+$ mvn clean install -Dquickly
 ----
 
 A build with integration tests in the JVM mode only:
@@ -45,6 +45,8 @@ A build with integration tests in both the JVM mode and the native mode:
 ----
 $ mvn clean install -Pnative
 ----
+
+TIP: You may want to install and use https://github.com/mvndaemon/mvnd[`mvnd` - the Maven Daemon] for faster builds.
 
 == What's next?
 

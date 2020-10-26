@@ -14,7 +14,7 @@ image:https://img.shields.io/badge/zulip-join_chat-brightgreen.svg["Chat on Zuli
 
 == What is this
 
-This project hosts the efforts to port and package the 280+ Camel components as Quarkus extensions.
+This project hosts the efforts to port and package the 300+ Camel components as Quarkus extensions.
 
 http://camel.apache.org/[Apache Camel] is the Swiss knife of integrating heterogeneous systems with more than a decade
 of history and a lively community of users and developers.
