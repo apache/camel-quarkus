@@ -49,7 +49,7 @@ class SparkTest {
     }
 
     @Test
-    // TODO: Spark 2.x does not support Java 9+. The upgrade to Spark 3.x will solve that, see https://issues.apache.org/jira/browse/CAMEL-15650
+    // TODO: Spark 2.x does not support Java 9+ https://github.com/apache/camel-quarkus/issues/1955
     @EnabledForJreRange(max = JRE.JAVA_8)
     public void conditionalDataframe() throws IOException {
         RestAssured.get("/spark/dataframe/Micra/count")
@@ -59,7 +59,7 @@ class SparkTest {
     }
 
     @Test
-    @Disabled // TODO this does not work on plain Camel either; see https://issues.apache.org/jira/browse/CAMEL-15696
+    @Disabled // TODO this does not work on plain Camel either https://github.com/apache/camel-quarkus/issues/1956
     public void hiveCount() throws IOException {
         RestAssured.get("/spark/hive/count")
                 .then()
