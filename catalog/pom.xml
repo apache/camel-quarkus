@@ -4249,9 +4249,9 @@
                         <phase>process-resources</phase>
                         <configuration>
                             <extensionDirectories>
-                                <extensionDirectory>${camel.quarkus.project.root}/extensions-core</extensionDirectory>
-                                <extensionDirectory>${camel.quarkus.project.root}/extensions</extensionDirectory>
-                                <extensionDirectory>${camel.quarkus.project.root}/extensions-jvm</extensionDirectory>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions-core</extensionDirectory>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions</extensionDirectory>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions-jvm</extensionDirectory>
                             </extensionDirectories>
                             <skipArtifactIdBases>
                                 <skipArtifactIdBase>http-common</skipArtifactIdBase>

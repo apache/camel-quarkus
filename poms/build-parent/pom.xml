@@ -104,7 +104,7 @@
                     <artifactId>formatter-maven-plugin</artifactId>
                     <version>${formatter-maven-plugin.version}</version>
                     <configuration>
-                        <configFile>${camel.quarkus.project.root}/tooling/eclipse-formatter-config.xml</configFile>
+                        <configFile>${maven.multiModuleProjectDirectory}/tooling/eclipse-formatter-config.xml</configFile>
                         <skip>${format.skip}</skip>
                     </configuration>
                 </plugin>
@@ -124,23 +124,6 @@
         </pluginManagement>
 
         <plugins>
-            <plugin>
-                <groupId>org.commonjava.maven.plugins</groupId>
-                <artifactId>directory-maven-plugin</artifactId>
-                <version>${directory-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <id>directories</id>
-                        <goals>
-                            <goal>highest-basedir</goal>
-                        </goals>
-                        <phase>validate</phase>
-                        <configuration>
-                            <property>camel.quarkus.project.root</property>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
@@ -164,7 +147,7 @@
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${camel.quarkus.project.root}/tooling/legal</directory>
+                                    <directory>${maven.multiModuleProjectDirectory}/tooling/legal</directory>
                                 </resource>
                             </resources>
                         </configuration>
@@ -223,7 +206,10 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file://${camel.quarkus.project.root}/tooling/scripts/validate-dependencies.groovy</source>
+                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/validate-dependencies.groovy</source>
+                                    <properties>
+                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
+                                    </properties>
                                 </configuration>
                             </execution>
                         </executions>
