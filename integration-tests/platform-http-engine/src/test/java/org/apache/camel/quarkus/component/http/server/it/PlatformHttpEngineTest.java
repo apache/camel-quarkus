@@ -20,7 +20,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
-import org.apache.camel.quarkus.component.platform.http.runtime.QuarkusPlatformHttpEngine;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -36,9 +36,8 @@ class PlatformHttpEngineTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(QuarkusPlatformHttpEngine.class.getName()),
-                        PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()),
-                        "handlers-size", is(1));
+                        PlatformHttpConstants.PLATFORM_HTTP_ENGINE_NAME, is(VertxPlatformHttpEngine.class.getName()),
+                        PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME, is(PlatformHttpComponent.class.getName()));
     }
 
     @Test

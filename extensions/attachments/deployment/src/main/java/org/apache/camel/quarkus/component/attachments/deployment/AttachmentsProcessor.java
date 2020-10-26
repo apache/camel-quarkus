@@ -17,12 +17,7 @@
 package org.apache.camel.quarkus.component.attachments.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.attachments.AttachmentsRecorder;
-import org.apache.camel.quarkus.core.UploadAttacher;
-import org.apache.camel.quarkus.core.deployment.spi.UploadAttacherBuildItem;
 
 class AttachmentsProcessor {
 
@@ -32,18 +27,4 @@ class AttachmentsProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
-
-    /**
-     * Produces the "real" {@link UploadAttacher} thus overriding the default no-op one produced by
-     * {@code camel-quarkus-core-deployment}.
-     *
-     * @param  recorder the {@link AttachmentsRecorder}
-     * @return          a new {@link UploadAttacherBuildItem}
-     */
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    UploadAttacherBuildItem uploadAttacher(AttachmentsRecorder recorder) {
-        return new UploadAttacherBuildItem(recorder.creatUploadAttacher());
-    }
-
 }
