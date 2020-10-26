@@ -44,7 +44,8 @@
         <exclude>*/activemq-data/**</exclude>
         <exclude>**/eclipse-classes/**</exclude>
         <exclude>**/.*</exclude>
-        <exclude>**/.*/**</exclude>
+        <exclude>**/.github/**</exclude>
+        <exclude>**/.mvn/wrapper/**</exclude>
 
         <exclude>**/surefire*</exclude>
         <exclude>**/svn-commit*</exclude>
