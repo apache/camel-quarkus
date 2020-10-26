@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.support.xalan.deployment;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -59,15 +60,23 @@ class XalanNativeImageProcessor {
     @BuildStep
     List<NativeImageResourceBundleBuildItem> resourceBundles() {
         return Arrays.asList(
-                new NativeImageResourceBundleBuildItem("com.sun.org.apache.xalan.internal.xsltc.compiler.util.ErrorMessages"),
+                new NativeImageResourceBundleBuildItem("org.apache.xalan.xsltc.compiler.util.ErrorMessages"),
                 new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.utils.SerializerMessages"),
                 new NativeImageResourceBundleBuildItem("org.apache.xml.serializer.XMLEntities"));
     }
 
     @BuildStep
-    List<NativeImageResourceBuildItem> resources() {
-        return Arrays.asList(
-                new NativeImageResourceBuildItem("org/apache/xml/serializer/output_xml.properties"));
+    void resources(BuildProducer<NativeImageResourceBuildItem> resource) {
+
+        Stream.of(
+                "html",
+                "text",
+                "xml",
+                "unknown")
+                .map(s -> "org/apache/xml/serializer/output_" + s + ".properties")
+                .map(NativeImageResourceBuildItem::new)
+                .forEach(resource::produce);
+
     }
 
     @BuildStep
