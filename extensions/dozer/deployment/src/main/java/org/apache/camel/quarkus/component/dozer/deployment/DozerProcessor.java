@@ -113,10 +113,6 @@ class DozerProcessor {
                 DozerThreadContextClassLoader.class,
                 ExpressionFactoryImpl.class));
 
-        reflectiveClass.produce(
-                new ReflectiveClassBuildItem(false, false,
-                        "com.sun.org.apache.xerces.internal.impl.dv.xs.SchemaDVFactoryImpl"));
-
         reflectiveClass.produce(new ReflectiveClassBuildItem(
                 true,
                 false,

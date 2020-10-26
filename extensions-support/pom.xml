@@ -51,7 +51,6 @@
         <module>spring</module>
         <module>webhook</module>
         <module>xstream</module>
-        <module>xml</module>
         <module>xalan</module>
     </modules>
 </project>
