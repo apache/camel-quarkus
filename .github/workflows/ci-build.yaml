@@ -80,7 +80,7 @@ jobs:
           git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
-            && ./mvnw ${MAVEN_ARGS} clean install -DskipTests -DskipITs
+            && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
       - name: Checkout
         uses: actions/checkout@v2
       - name: mvn clean install -DskipTests
@@ -170,7 +170,7 @@ jobs:
           do modules+=("integration-tests/$i"); done
           IFS=,
           eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             -Pnative,docker,ci \
             -pl "${modules[*]}"
       - name: Fail if there are uncommitted changes
@@ -217,19 +217,19 @@ jobs:
         run: |
           cd extensions-core
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false -Dcamel-quarkus.update-extension-doc-page.skip \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd extensions && mvn test
         run: |
           cd extensions
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false -Dcamel-quarkus.update-extension-doc-page.skip \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd docs && mvn verify
         run: |
           cd docs
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             verify
 
   extensions-jvm-tests:
@@ -270,7 +270,7 @@ jobs:
         run: |
           cd extensions-jvm
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             clean test
 
   integration-tests-alternative-jvm:
@@ -312,7 +312,7 @@ jobs:
         run: |
           cd integration-tests
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
-            -Dformatter.skip -Dimpsort.skip -Denforce=false \
+            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             clean verify
 
   examples-tests:

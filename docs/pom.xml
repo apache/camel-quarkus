@@ -45,16 +45,6 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-descriptor</id>
-                        <phase>none</phase><!-- skip to save time -->
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
                 <executions>
                     <execution>
@@ -68,10 +58,10 @@
 
     <profiles>
         <profile>
-            <id>docs-checks</id>
+            <id>full</id>
             <activation>
                 <property>
-                    <name>!skipTests</name>
+                    <name>!quickly</name>
                 </property>
             </activation>
             <build>
@@ -79,7 +69,7 @@
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
-                        <version>1.6</version>
+                        <version>${frontend-maven-plugin.version}</version>
                         <executions>
                             <execution>
                                 <id>install node and yarn</id>
