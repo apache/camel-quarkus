@@ -13,18 +13,27 @@
 **Closed issues:**
 
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
+- LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
 - ActiveMQ Default XPath evaluator could not be loaded [\#1933](https://github.com/apache/camel-quarkus/issues/1933)
 - FOP tests fail in Quarkus Platform [\#1930](https://github.com/apache/camel-quarkus/issues/1930)
+- Document Spark peculiarities [\#1928](https://github.com/apache/camel-quarkus/issues/1928)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
 - Unreleased Resource: Streams [\#1913](https://github.com/apache/camel-quarkus/issues/1913)
+- SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
 - \[Camel Quarkus 1.2\] Remove quarkus.camel.native.resources.include-patterns = routes/\*.xml in examples [\#1901](https://github.com/apache/camel-quarkus/issues/1901)
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1881](https://github.com/apache/camel-quarkus/issues/1881)
 - Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
+- \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
+- Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
 
 **Merged pull requests:**
 
+- Leverage Quarkus JAXP extension where applicable \#1806 [\#1958](https://github.com/apache/camel-quarkus/pull/1958) ([ppalaga](https://github.com/ppalaga))
+- Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
+- Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
+- Replace ${camel.quarkus.project.root} set by directory-maven-plugin w… [\#1953](https://github.com/apache/camel-quarkus/pull/1953) ([ppalaga](https://github.com/ppalaga))
 - lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
 - ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -302,7 +311,6 @@
 - More CI tweaks [\#1651](https://github.com/apache/camel-quarkus/pull/1651) ([ppalaga](https://github.com/ppalaga))
 - HDFS, hazelcast, Guava EventBus, Geocoder and Ganglia JVM support [\#1650](https://github.com/apache/camel-quarkus/pull/1650) ([ppalaga](https://github.com/ppalaga))
 - FOP, Flink, Facebook, ElSQL and Ehcache JVM support [\#1643](https://github.com/apache/camel-quarkus/pull/1643) ([ppalaga](https://github.com/ppalaga))
-- Cherry pick fixes to 1.0.x [\#1637](https://github.com/apache/camel-quarkus/pull/1637) ([ppalaga](https://github.com/ppalaga))
 - Weather, Velocity, Twilio, Thrift and Stub JVM support [\#1636](https://github.com/apache/camel-quarkus/pull/1636) ([ppalaga](https://github.com/ppalaga))
 - XChange, Workday, Wordpress, Weka and Web3j JVM support [\#1629](https://github.com/apache/camel-quarkus/pull/1629) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.7.1.Final [\#1628](https://github.com/apache/camel-quarkus/pull/1628) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -363,6 +371,7 @@
 
 **Merged pull requests:**
 
+- Cherry pick fixes to 1.0.x [\#1637](https://github.com/apache/camel-quarkus/pull/1637) ([ppalaga](https://github.com/ppalaga))
 - Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0](https://github.com/apache/camel-quarkus/tree/1.0.0) (2020-08-10)
@@ -461,6 +470,7 @@
 - improve bootstrap and configuration documentation [\#1464](https://github.com/apache/camel-quarkus/pull/1464) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issues with building from the source release zip [\#1463](https://github.com/apache/camel-quarkus/pull/1463) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
@@ -545,7 +555,6 @@
 
 **Merged pull requests:**
 
-- Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
@@ -1213,7 +1222,6 @@
 - Bump To Quarkus 1.0.0-M3 [\#664](https://github.com/apache/camel-quarkus/pull/664) ([oscerd](https://github.com/oscerd))
 - Add integration test for Jackson unmarshalling with different POJOs [\#663](https://github.com/apache/camel-quarkus/pull/663) ([philschaller](https://github.com/philschaller))
 - Upgrade TestContainers to version 1.12.5 [\#662](https://github.com/apache/camel-quarkus/pull/662) ([oscerd](https://github.com/oscerd))
-- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M3](https://github.com/apache/camel-quarkus/tree/1.0.0-M3) (2020-01-24)
 
@@ -1273,6 +1281,7 @@
 **Merged pull requests:**
 
 - Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
+- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel ReactiveStreams extension \(initial implementation\) [\#659](https://github.com/apache/camel-quarkus/pull/659) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update Quarkus to v1.2.0.Final [\#658](https://github.com/apache/camel-quarkus/pull/658) ([lburgazzoli](https://github.com/lburgazzoli))
 - factory-finder: move reactive-executor filter to core processor as the related service is always programmatically configured [\#657](https://github.com/apache/camel-quarkus/pull/657) ([lburgazzoli](https://github.com/lburgazzoli))
