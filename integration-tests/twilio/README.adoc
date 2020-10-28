@@ -1,0 +1,22 @@
+== Camel Quarkus Twilio Integration Tests
+
+By default the Twilio integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-twilio` integration tests against the real API, you must first create a Twilio account https://www.twilio.com/try-twilio.
+
+Then find your API https://www.twilio.com/docs/iam/test-credentials[test credentials] and set the following environment variables:
+
+[source,shell]
+----
+export TWILIO_USERNAME=your-user-name
+export TWILIO_PASSWORD=your-password
+export TWILIO_ACCOUNT_SID=your-account-sid
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

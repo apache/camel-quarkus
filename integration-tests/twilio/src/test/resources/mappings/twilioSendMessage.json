@@ -1,0 +1,31 @@
+{
+  "id" : "86fb6910-1118-4067-b2e1-9520828b76a9",
+  "name" : "2010-04-01_accounts_test_messagesjson",
+  "request" : {
+    "url" : "/2010-04-01/Accounts/test/Messages.json",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "To=%2B14108675310&From=%2B15005550006&Body=Hello+Camel+Quarkus+Twilio",
+      "caseInsensitive" : false
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"sid\": \"SM2691e2c49c654cf1bbc96300f3d68b2b\", \"date_created\": \"Tue, 27 Oct 2020 14:14:03 +0000\", \"date_updated\": \"Tue, 27 Oct 2020 14:14:03 +0000\", \"date_sent\": null, \"account_sid\": \"test\", \"to\": \"+14108675310\", \"from\": \"+15005550006\", \"messaging_service_sid\": null, \"body\": \"Hello Camel Quarkus Twilio\", \"status\": \"queued\", \"num_segments\": \"1\", \"num_media\": \"0\", \"direction\": \"outbound-api\", \"api_version\": \"2010-04-01\", \"price\": null, \"price_unit\": \"USD\", \"error_code\": null, \"error_message\": null, \"uri\": \"/2010-04-01/Accounts/test/Messages/SM2691e2c49c654cf1bbc96300f3d68b2b.json\", \"subresource_uris\": {\"media\": \"/2010-04-01/Accounts/test/Messages/SM2691e2c49c654cf1bbc96300f3d68b2b/Media.json\"}}",
+    "headers" : {
+      "Date" : "Tue, 27 Oct 2020 14:14:03 GMT",
+      "Content-Type" : "application/json",
+      "Twilio-Concurrent-Requests" : "1",
+      "Twilio-Request-Id" : "RQd1b0d893e7c148d1b3a1ded5c2f0fa76",
+      "Twilio-Request-Duration" : "0.042",
+      "X-Powered-By" : "AT-5000",
+      "X-Shenanigans" : "none",
+      "X-Home-Region" : "us1",
+      "X-API-Domain" : "api.twilio.com",
+      "Strict-Transport-Security" : "max-age=31536000"
+    }
+  },
+  "uuid" : "86fb6910-1118-4067-b2e1-9520828b76a9",
+  "persistent" : true,
+  "insertionIndex" : 2
+}
