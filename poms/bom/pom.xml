@@ -5592,6 +5592,11 @@
                 <version>${jcodings.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.jruby.joni</groupId>
+                <artifactId>joni</artifactId>
+                <version>${joni.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-aop</artifactId>
                 <version>${spring.version}</version>

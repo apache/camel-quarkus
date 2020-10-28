@@ -72,6 +72,7 @@
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
+        <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
