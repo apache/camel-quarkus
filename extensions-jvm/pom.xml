@@ -108,7 +108,6 @@
         <module>msv</module>
         <module>mvel</module>
         <module>mybatis</module>
-        <module>nagios</module>
         <module>nitrite</module>
         <module>ognl</module>
         <module>openstack</module>

@@ -108,6 +108,7 @@ misc:
   - fop
   - jolt
   - mustache
+  - nagios
   - pdf
   - qute
   - shiro
