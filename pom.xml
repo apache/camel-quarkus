@@ -119,6 +119,7 @@
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
         <testcontainers.version>1.14.3</testcontainers.version>
+        <wiremock.version>2.27.2</wiremock.version>
         <zt-exec.version>1.11</zt-exec.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->

@@ -1,0 +1,48 @@
+== WireMock test support
+
+This module provides test support for http://wiremock.org/[WireMock]. This enables the HTTP interactions between Camel & third party services to be
+stubbed, recorded & replayed.
+
+=== Usage
+
+Add the following test scoped dependency into the extension integration test pom.xml:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+    <scope>test</scope>
+</dependency>
+----
+
+Next create a class that extends the abstract `WireMockTestResourceLifecycleManager`. You'll need to implement abstract methods:
+
+* `getRecordTargetBaseUrl` - To specify the base URL of the service interactions to be recorded
+* `isMockingEnabled` - To determine whether the test should start the mock server or invoke the real service
+
+You can also override the `start` method to perform custom initialization logic and return additional configuration properties that Camel components may need.
+
+`WireMockTestResourceLifecycleManager` sets a system property named `wiremock.url`, which is the base URL to the running WireMock server. 
+In playback mode, you'll need to configure the Camel component under test to direct its API calls to this URL.
+
+==== Recording HTTP interactions
+
+The fundamentals of WireMock record and playback are documented http://wiremock.org/docs/record-playback/[here]. Setup of the `WireMockServer` is already handled by
+`WireMockTestResourceLifecycleManager`. All you need to do is ensure directory `src/test/resources/mappings` exists and to trigger recording by either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Environment variable `WIREMOCK_RECORD=true`
+
+When all tests complete, the recorded HTTP interactions will show up in the 'mappings' directory. The recorded stub file names are quite complex, feel free
+to update them to something more human friendly.
+
+By default, stub mapping files are not saved when requests return an unsuccessful response code. You can alter this behaviour by overriding method `isDeleteRecordedMappingsOnError`.
+
+It's important to inspect the recorded files for the presence of any real API keys, secrets or passwords and replace them with made up values.
+
+WireMock generates new stub files on each recording, so it's a good idea to remove the existing contents from the 'mappings' directory
+before a recording run.
