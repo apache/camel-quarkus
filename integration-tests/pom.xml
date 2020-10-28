@@ -161,6 +161,7 @@
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>
+        <module>twilio</module>
         <module>twitter</module>
         <module>univocity-parsers</module>
         <module>validator</module>
