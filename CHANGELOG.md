@@ -26,10 +26,12 @@
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
+- Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
 
 **Merged pull requests:**
 
+- Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
 - Leverage Quarkus JAXP extension where applicable \#1806 [\#1958](https://github.com/apache/camel-quarkus/pull/1958) ([ppalaga](https://github.com/ppalaga))
 - Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
 - Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
