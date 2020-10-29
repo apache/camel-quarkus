@@ -1,0 +1,46 @@
+{
+  "id" : "5bdc14e5-6db7-4e11-a7c0-aefcbe2b6931",
+  "name" : "api_v2_ticketsjson",
+  "request" : {
+    "url" : "/api/v2/tickets.json",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"ticket\":{\"subject\":\"Camel Quarkus Test Subject\",\"description\":\"Camel Quarkus Ticket\",\"has_incidents\":false}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"ticket\":{\"url\":\"https://camelquarkus.zendesk.com/api/v2/tickets/5.json\",\"id\":5,\"external_id\":null,\"via\":{\"channel\":\"api\",\"source\":{\"from\":{},\"to\":{},\"rel\":null}},\"created_at\":\"2020-10-28T14:55:59Z\",\"updated_at\":\"2020-10-28T14:55:59Z\",\"type\":null,\"subject\":\"Camel Quarkus Test Subject\",\"raw_subject\":\"Camel Quarkus Test Subject\",\"description\":\"Camel Quarkus Ticket\",\"priority\":null,\"status\":\"open\",\"recipient\":null,\"requester_id\":405513237792,\"submitter_id\":405513237792,\"assignee_id\":405513237792,\"organization_id\":361211613931,\"group_id\":360013293211,\"collaborator_ids\":[],\"follower_ids\":[],\"email_cc_ids\":[],\"forum_topic_id\":null,\"problem_id\":null,\"has_incidents\":false,\"is_public\":true,\"due_at\":null,\"tags\":[],\"custom_fields\":[],\"satisfaction_rating\":null,\"sharing_agreement_ids\":[],\"fields\":[],\"followup_ids\":[],\"brand_id\":360004782671,\"allow_channelback\":false,\"allow_attachments\":true},\"audit\":{\"id\":1255700309671,\"ticket_id\":5,\"created_at\":\"2020-10-28T14:55:59Z\",\"author_id\":405513237792,\"metadata\":{\"system\":{\"client\":\"AHC/2.1\",\"ip_address\":\"86.133.68.50\",\"location\":\"Eastleigh, ENG, United Kingdom\",\"latitude\":50.9664,\"longitude\":-1.3283},\"custom\":{}},\"events\":[{\"id\":1255700309791,\"type\":\"Comment\",\"author_id\":405513237792,\"body\":\"Camel Quarkus Ticket\",\"html_body\":\"<div class=\\\"zd-comment\\\" dir=\\\"auto\\\"><p dir=\\\"auto\\\">Camel Quarkus Ticket</p></div>\",\"plain_body\":\"Camel Quarkus Ticket\",\"public\":true,\"attachments\":[],\"audit_id\":1255700309671},{\"id\":1255700309951,\"type\":\"Create\",\"value\":\"Camel Quarkus Test Subject\",\"field_name\":\"subject\"},{\"id\":1255700310031,\"type\":\"Create\",\"value\":\"405513237792\",\"field_name\":\"requester_id\"},{\"id\":1255700310071,\"type\":\"Create\",\"value\":\"open\",\"field_name\":\"status\"},{\"id\":1255700310171,\"type\":\"Create\",\"value\":null,\"field_name\":\"priority\"},{\"id\":1255700310231,\"type\":\"Create\",\"value\":null,\"field_name\":\"type\"},{\"id\":1255700310291,\"type\":\"Create\",\"value\":\"405513237792\",\"field_name\":\"assignee_id\"},{\"id\":1255700310371,\"type\":\"Create\",\"value\":\"360013293211\",\"field_name\":\"group_id\"},{\"id\":1255700310491,\"type\":\"Create\",\"value\":\"361211613931\",\"field_name\":\"organization_id\"},{\"id\":1255700310611,\"type\":\"Notification\",\"via\":{\"channel\":\"rule\",\"source\":{\"from\":{\"deleted\":false,\"title\":\"Notify requester of new proactive ticket\",\"id\":360178424611},\"rel\":\"trigger\"}},\"subject\":\"{{ticket.title}}\",\"body\":\"This ticket was created on your behalf.\\n\\n{{ticket.comments_formatted}}\\n\\nTo add additional comments, reply to this email.\",\"recipients\":[405513237792]},{\"id\":1255700311031,\"type\":\"Notification\",\"via\":{\"channel\":\"rule\",\"source\":{\"from\":{\"deleted\":false,\"title\":\"Notify all agents of received request\",\"id\":360178424731},\"rel\":\"trigger\"}},\"subject\":\"[{{ticket.account}}] {{ticket.title}}\",\"body\":\"A ticket (#{{ticket.id}}) by {{ticket.requester.name}} has been received. It is unassigned.\\n\\n{{ticket.comments_formatted}}\",\"recipients\":[405513237792]}],\"via\":{\"channel\":\"api\",\"source\":{\"from\":{},\"to\":{\"name\":\"Camel Quarkus\",\"address\":\"dev@camel.apache.org\"},\"rel\":null}}}}",
+    "headers" : {
+      "Date" : "Wed, 28 Oct 2020 14:56:00 GMT",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Set-Cookie" : [ "__cfduid=dd47b8b844ca0cd490960787c7ca40d771603896959; expires=Fri, 27-Nov-20 14:55:59 GMT; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; SameSite=Lax", "__cfruid=10fa707e419d6bbf2df8e9910d4aef7e9e86594a-1603896960; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; Secure; SameSite=None" ],
+      "X-Zendesk-API-Version" : "v2",
+      "X-Zendesk-Application-Version" : "v7117.17",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Location" : "https://camelquarkus.zendesk.com/api/v2/tickets/5.json",
+      "X-Rate-Limit" : "400",
+      "X-Rate-Limit-Remaining" : "399",
+      "Strict-Transport-Security" : "max-age=31536000;",
+      "ETag" : "W/\"e73b3d71c1ab984141cf66fab39070a5\"",
+      "Cache-Control" : "max-age=0, private, must-revalidate",
+      "X-Zendesk-Origin-Server" : "classic-app-server-6b95b9474c-8v2mh",
+      "X-Request-Id" : [ "5e95803b5dd5f3ef-SEA", "5e95803b5dd5f3ef-SEA" ],
+      "X-Runtime" : "1.043450",
+      "X-Zendesk-Zorg" : "yes",
+      "X-Content-Type-Options" : "nosniff",
+      "CF-Cache-Status" : "DYNAMIC",
+      "cf-request-id" : "06114e791e0000f3ef2ebe8000000001",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Report-To" : "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report?s=LlKhthi24FAofOTvyrEpjFp%2FthubREBCs7tYBD%2B6399UJYknUrojMoTlGOKNoJvbXsFFz%2B8RWuTZY8Gu8%2F%2BvN%2FoIwvkn3ErdSXQoJxlW4ox9ZX%2FqJ17SYTt09g%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+      "NEL" : "{\"report_to\":\"cf-nel\",\"max_age\":604800}",
+      "Server" : "cloudflare",
+      "CF-RAY" : "5e95803b5dd5f3ef-LHR"
+    }
+  },
+  "uuid" : "5bdc14e5-6db7-4e11-a7c0-aefcbe2b6931",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

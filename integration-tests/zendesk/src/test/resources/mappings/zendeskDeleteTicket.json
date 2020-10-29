@@ -1,0 +1,37 @@
+{
+  "id" : "88639adc-16c0-4749-8b00-412d9df8a5df",
+  "name" : "api_v2_tickets_5json",
+  "request" : {
+    "url" : "/api/v2/tickets/5.json",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "Date" : "Wed, 28 Oct 2020 14:56:02 GMT",
+      "Set-Cookie" : [ "__cfduid=d49e084a70c9175b8080a446440b59d6d1603896961; expires=Fri, 27-Nov-20 14:56:01 GMT; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; SameSite=Lax", "__cf_bm=2b856eb758a02cc6b25ec0ff1fe07b9570a2fb4a-1603896962-1800-AVT4lSzByr9T7M/keoh68L6OJY1m+ApslmWa1f7xZqMx; path=/; expires=Wed, 28-Oct-20 15:26:02 GMT; domain=.camelquarkus.zendesk.com; HttpOnly; Secure; SameSite=None", "__cfruid=5987ccf9bababf13354295470f94d01ee6caec66-1603896962; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; Secure; SameSite=None" ],
+      "X-Zendesk-API-Version" : "v2",
+      "X-Zendesk-Application-Version" : "v7117.17",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Rate-Limit" : "400",
+      "X-Rate-Limit-Remaining" : "397",
+      "Strict-Transport-Security" : "max-age=31536000;",
+      "Cache-Control" : "no-cache",
+      "X-Zendesk-Origin-Server" : "classic-app-server-6b95b9474c-nwrhr",
+      "X-Request-Id" : [ "5e95804b59f8f3ef-SEA", "5e95804b59f8f3ef-SEA" ],
+      "X-Runtime" : "0.502698",
+      "X-Zendesk-Zorg" : "yes",
+      "X-Content-Type-Options" : "nosniff",
+      "CF-Cache-Status" : "DYNAMIC",
+      "cf-request-id" : "06114e83170000f3ef2d3ee000000001",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Report-To" : "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report?s=9hq6tYREvVG84Nh8eEx5jqb%2Bg%2BhCl0am6RxogpDLnINMiVUpbUClaCjWmCii7Xb1B8v%2BYF0ABo4u8OHSEfPww9Bnx2GHWjkCXOVkjkxSUSu6W5UwSZlUxSspqA%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+      "NEL" : "{\"report_to\":\"cf-nel\",\"max_age\":604800}",
+      "Server" : "cloudflare",
+      "CF-RAY" : "5e95804b59f8f3ef-LHR"
+    }
+  },
+  "uuid" : "88639adc-16c0-4749-8b00-412d9df8a5df",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

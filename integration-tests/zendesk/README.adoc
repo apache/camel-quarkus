@@ -1,0 +1,22 @@
+== Camel Quarkus Zendesk Integration Tests
+
+By default the Zendesk integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-zendesk` integration tests against the real API, you must first create a Zendesk account https://www.zendesk.com/register/.
+
+This https://develop.zendesk.com/hc/en-us/articles/360001068527[guide] explains how to enable API access and configure password authentication. Once done, set the following environment variables:
+
+[source,shell]
+----
+export ZENDESK_USERNAME=your-user-name
+export ZENDESK_PASSWORD=your-password
+export ZENDESK_SERVER_URL=your-unique-server-url
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

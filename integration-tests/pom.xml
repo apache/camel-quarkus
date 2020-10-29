@@ -172,6 +172,7 @@
         <module>websocket-jsr356</module>
         <module>xml</module>
         <module>xstream</module>
+        <module>zendesk</module>
     </modules>
 
 </project>

@@ -84,12 +84,13 @@ xml-json-olingo4:
   - geocoder
   - lumberjack
 dozer-social:
+  - crypto
   - dozer
   - telegram
   - twitter
   - master
   - syndication
-  - crypto
+  - zendesk
 messaging-networking1:
   - activemq
   - amqp

@@ -1,0 +1,43 @@
+{
+  "id" : "3b422755-cc63-478f-9157-da526b00e614",
+  "name" : "api_v2_tickets_5json",
+  "request" : {
+    "url" : "/api/v2/tickets/5.json",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ticket\":{\"url\":\"https://camelquarkus.zendesk.com/api/v2/tickets/5.json\",\"id\":5,\"external_id\":null,\"via\":{\"channel\":\"api\",\"source\":{\"from\":{},\"to\":{},\"rel\":null}},\"created_at\":\"2020-10-28T14:55:59Z\",\"updated_at\":\"2020-10-28T14:55:59Z\",\"type\":null,\"subject\":\"Camel Quarkus Test Subject\",\"raw_subject\":\"Camel Quarkus Test Subject\",\"description\":\"Camel Quarkus Ticket\",\"priority\":null,\"status\":\"open\",\"recipient\":null,\"requester_id\":405513237792,\"submitter_id\":405513237792,\"assignee_id\":405513237792,\"organization_id\":361211613931,\"group_id\":360013293211,\"collaborator_ids\":[],\"follower_ids\":[],\"email_cc_ids\":[],\"forum_topic_id\":null,\"problem_id\":null,\"has_incidents\":false,\"is_public\":true,\"due_at\":null,\"tags\":[],\"custom_fields\":[],\"satisfaction_rating\":null,\"sharing_agreement_ids\":[],\"fields\":[],\"followup_ids\":[],\"brand_id\":360004782671,\"allow_channelback\":false,\"allow_attachments\":true}}",
+    "headers" : {
+      "Date" : "Wed, 28 Oct 2020 14:56:01 GMT",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Set-Cookie" : [ "__cfduid=dbaf55cf91d4bcc4dbcc80cb96abd994b1603896960; expires=Fri, 27-Nov-20 14:56:00 GMT; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; SameSite=Lax", "__cfruid=818e30103b8b4ffe8dd9c20273b0b8b32d8d6366-1603896961; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; Secure; SameSite=None" ],
+      "X-Zendesk-API-Version" : "v2",
+      "X-Zendesk-Application-Version" : "v7117.17",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Rate-Limit" : "400",
+      "X-Rate-Limit-Remaining" : "398",
+      "Strict-Transport-Security" : "max-age=31536000;",
+      "ETag" : "W/\"87c27b010d0b1ca4972841f7a73714c3\"",
+      "Cache-Control" : "max-age=0, private, must-revalidate",
+      "X-Zendesk-Origin-Server" : "classic-app-server-6b95b9474c-cxkww",
+      "X-Request-Id" : [ "5e9580449b61f3ef-LHR", "5e9580449b61f3ef-LHR" ],
+      "X-Runtime" : "0.218464",
+      "X-Zendesk-Zorg" : "yes",
+      "X-Content-Type-Options" : "nosniff",
+      "CF-Cache-Status" : "DYNAMIC",
+      "cf-request-id" : "06114e7ee00000f3ef5a072000000001",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Report-To" : "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report?s=J6tj0rH0uGj5Fs48xvSmBS4X3nbbjEGfQvQM02N5ckgVFWt9GCthlhw8ZCfnmSh%2FmJpmUdNWd%2BK2vET1eS3TVKGyrItuw4Li4kIjKkiXFApVDjZM2iOSAW3hig%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+      "NEL" : "{\"report_to\":\"cf-nel\",\"max_age\":604800}",
+      "Server" : "cloudflare",
+      "CF-RAY" : "5e9580449b61f3ef-LHR"
+    }
+  },
+  "uuid" : "3b422755-cc63-478f-9157-da526b00e614",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-v2-tickets-5.json",
+  "requiredScenarioState" : "Started",
+  "newScenarioState" : "scenario-1-api-v2-tickets-5.json-2",
+  "insertionIndex" : 2
+}
