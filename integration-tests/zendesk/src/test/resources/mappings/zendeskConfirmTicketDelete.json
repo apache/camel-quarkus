@@ -1,0 +1,40 @@
+{
+  "id" : "ade731dd-c30b-41dc-8550-8a4058f21079",
+  "name" : "api_v2_tickets_5json",
+  "request" : {
+    "url" : "/api/v2/tickets/5.json",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"error\":\"RecordNotFound\",\"description\":\"Not found\"}",
+    "headers" : {
+      "Date" : "Wed, 28 Oct 2020 14:56:03 GMT",
+      "Content-Type" : "application/json; charset=UTF-8",
+      "Set-Cookie" : [ "__cfduid=df3a8230bde79a6f55dec1b56988394741603896962; expires=Fri, 27-Nov-20 14:56:02 GMT; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; SameSite=Lax", "__cfruid=cddfc46bcc00c25dbb25b3a839b2105fbf1a1fdb-1603896963; path=/; domain=.camelquarkus.zendesk.com; HttpOnly; Secure; SameSite=None" ],
+      "X-Zendesk-API-Version" : "v2",
+      "X-Zendesk-Application-Version" : "v7117.17",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "X-Rate-Limit" : "400",
+      "X-Rate-Limit-Remaining" : "396",
+      "Strict-Transport-Security" : "max-age=31536000;",
+      "Cache-Control" : "no-cache",
+      "X-Zendesk-Origin-Server" : "classic-app-server-6b95b9474c-cl4vk",
+      "X-Request-Id" : [ "5e958050bde5f3ef-SEA", "5e958050bde5f3ef-SEA" ],
+      "X-Runtime" : "0.186546",
+      "X-Zendesk-Zorg" : "yes",
+      "CF-Cache-Status" : "DYNAMIC",
+      "cf-request-id" : "06114e866f0000f3ef35b66000000001",
+      "Expect-CT" : "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
+      "Report-To" : "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report?s=Fhl9dd8j7B%2FeVgHKR2k7EqT5dPJhegIoMU%2FHJTM%2FE4fkckkoE%2B9JpzchNLLvyr6xCExWECWGA7CzFnREsLqFvhOTBgDfJcfr%2F4UXURbHom2Yv1ZCMV8RgHVAXQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+      "NEL" : "{\"report_to\":\"cf-nel\",\"max_age\":604800}",
+      "Server" : "cloudflare",
+      "CF-RAY" : "5e958050bde5f3ef-LHR"
+    }
+  },
+  "uuid" : "ade731dd-c30b-41dc-8550-8a4058f21079",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-api-v2-tickets-5.json",
+  "requiredScenarioState" : "scenario-1-api-v2-tickets-5.json-2",
+  "insertionIndex" : 4
+}

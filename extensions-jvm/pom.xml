@@ -144,7 +144,6 @@
         <module>xmpp</module>
         <module>xslt-saxon</module>
         <module>yammer</module>
-        <module>zendesk</module>
         <module>zookeeper</module>
         <module>zookeeper-master</module>
     </modules>

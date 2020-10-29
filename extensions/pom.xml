@@ -209,6 +209,7 @@
         <module>xpath</module>
         <module>xslt</module>
         <module>xstream</module>
+        <module>zendesk</module>
         <module>zip-deflater</module>
         <module>zipfile</module>
     </modules>
