@@ -1,0 +1,33 @@
+{
+  "id" : "eff347f9-40ff-40b8-aa22-3fd1f10548bb",
+  "name" : "now_v1_table_incident",
+  "request" : {
+    "url" : "/now/v1/table/incident?sysparm_display_value=false&sysparm_exclude_reference_link=false&sysparm_input_display_value=false&sysparm_suppress_auto_sys_field=false",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"description\":\"Demo incident\",\"severity\":1,\"impact\":1}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"result\":{\"parent\":\"\",\"made_sla\":\"true\",\"caused_by\":\"\",\"watch_list\":\"\",\"upon_reject\":\"cancel\",\"sys_updated_on\":\"2020-10-30 14:12:31\",\"child_incidents\":\"0\",\"approval_history\":\"\",\"skills\":\"\",\"number\":\"INC0011411\",\"resolved_by\":\"\",\"sys_updated_by\":\"admin\",\"opened_by\":{\"link\":\"https://fake.service-now.com/api/now/v1/table/sys_user/6816f79cc0a8016401c5a33be04be441\",\"value\":\"6816f79cc0a8016401c5a33be04be441\"},\"user_input\":\"\",\"sys_created_on\":\"2020-10-30 14:12:31\",\"sys_domain\":{\"link\":\"https://fake.service-now.com/api/now/v1/table/sys_user_group/global\",\"value\":\"global\"},\"state\":\"1\",\"sys_created_by\":\"admin\",\"knowledge\":\"false\",\"order\":\"\",\"calendar_stc\":\"\",\"closed_at\":\"\",\"cmdb_ci\":\"\",\"delivery_plan\":\"\",\"impact\":\"1\",\"active\":\"true\",\"work_notes_list\":\"\",\"business_service\":\"\",\"priority\":\"3\",\"sys_domain_path\":\"/\",\"rfc\":\"\",\"time_worked\":\"\",\"expected_start\":\"\",\"opened_at\":\"2020-10-30 14:12:31\",\"business_duration\":\"\",\"group_list\":\"\",\"work_end\":\"\",\"caller_id\":\"\",\"reopened_time\":\"\",\"resolved_at\":\"\",\"approval_set\":\"\",\"subcategory\":\"\",\"work_notes\":\"\",\"short_description\":\"\",\"close_code\":\"\",\"correlation_display\":\"\",\"delivery_task\":\"\",\"work_start\":\"\",\"assignment_group\":\"\",\"additional_assignee_list\":\"\",\"business_stc\":\"\",\"description\":\"Demo incident\",\"calendar_duration\":\"\",\"close_notes\":\"\",\"notify\":\"1\",\"service_offering\":\"\",\"sys_class_name\":\"incident\",\"closed_by\":\"\",\"follow_up\":\"\",\"parent_incident\":\"\",\"sys_id\":\"9aae36efdb4020505b022ad94b9619cc\",\"contact_type\":\"email\",\"reopened_by\":\"\",\"incident_state\":\"1\",\"urgency\":\"3\",\"problem_id\":\"\",\"company\":\"\",\"reassignment_count\":\"0\",\"activity_due\":\"\",\"assigned_to\":\"\",\"severity\":\"1\",\"comments\":\"\",\"approval\":\"not requested\",\"sla_due\":\"\",\"comments_and_work_notes\":\"\",\"due_date\":\"\",\"sys_mod_count\":\"0\",\"reopen_count\":\"0\",\"sys_tags\":\"\",\"escalation\":\"\",\"upon_approval\":\"proceed\",\"correlation_id\":\"\",\"location\":\"\",\"category\":\"inquiry\"}}",
+    "headers" : {
+      "X-Is-Logged-In" : "true",
+      "X-Transaction-ID" : "deae726fdbcc",
+      "Location" : "https://fake.service-now.com/api/now/v1/table/incident/9aae36efdb4020505b022ad94b9619cc",
+      "Pragma" : "no-store,no-cache",
+      "Cache-control" : "no-cache,no-store,must-revalidate,max-age=-1",
+      "Expires" : "0",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Fri, 30 Oct 2020 14:12:31 GMT",
+      "Server" : "ServiceNow",
+      "Set-Cookie" : [ "JSESSIONID=97FE019CBE537FADAA5D3BBC643BB0EB; Path=/; HttpOnly; SameSite=None; Secure", "glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_route=glide.1b928f91f1244fdcdc488a67644bfe83; Max-Age=2147483647; Expires=Wed, 17-Nov-2088 17:26:38 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_session_store=9AAE726FDBCCEC105B022AD94B9619D7; Max-Age=1800; Expires=Fri, 30-Oct-2020 14:42:31 GMT; Path=/; HttpOnly; SameSite=None; Secure", "BIGipServerpool_fake=226514954.37950.0000; path=/; Httponly; Secure; SameSite=None; Secure" ],
+      "Strict-Transport-Security" : "max-age=63072000; includeSubDomains"
+    }
+  },
+  "uuid" : "eff347f9-40ff-40b8-aa22-3fd1f10548bb",
+  "persistent" : true,
+  "insertionIndex" : 1
+}

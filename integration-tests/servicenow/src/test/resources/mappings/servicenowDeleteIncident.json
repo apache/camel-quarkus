@@ -1,0 +1,22 @@
+{
+  "id" : "96dff3b5-f262-449e-9898-afae52a7e035",
+  "name" : "now_v1_table_incident_9aae36efdb4020505b022ad94b9619cc",
+  "request" : {
+    "url" : "/now/v1/table/incident/9aae36efdb4020505b022ad94b9619cc",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "X-Is-Logged-In" : "true",
+      "X-Transaction-ID" : "a2ae36efdb40",
+      "Date" : "Fri, 30 Oct 2020 14:12:32 GMT",
+      "Server" : "ServiceNow",
+      "Set-Cookie" : [ "JSESSIONID=90305EB445391DB5306650D650364F5F; Path=/; HttpOnly; SameSite=None; Secure", "glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_route=glide.1b928f91f1244fdcdc488a67644bfe83; Max-Age=2147483647; Expires=Wed, 17-Nov-2088 17:26:39 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_session_store=6EAE36EFDB4020505B022AD94B9619B6; Max-Age=1800; Expires=Fri, 30-Oct-2020 14:42:32 GMT; Path=/; HttpOnly; SameSite=None; Secure", "BIGipServerpool_fake=226514954.37950.0000; path=/; Httponly; Secure; SameSite=None; Secure" ],
+      "Strict-Transport-Security" : "max-age=63072000; includeSubDomains"
+    }
+  },
+  "uuid" : "96dff3b5-f262-449e-9898-afae52a7e035",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

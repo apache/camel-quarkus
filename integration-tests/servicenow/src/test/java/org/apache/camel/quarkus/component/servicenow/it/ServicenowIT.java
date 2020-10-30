@@ -17,12 +17,8 @@
 package org.apache.camel.quarkus.component.servicenow.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_INSTANCE", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_USERNAME", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_PASSWORD", matches = ".+")
 class ServicenowIT extends ServicenowTest {
 
 }
