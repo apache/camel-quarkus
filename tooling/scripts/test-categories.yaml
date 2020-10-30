@@ -24,6 +24,7 @@ cache-networking3:
   - http
   - jsch
   - ssh
+  - hazelcast
 cloud:
   - solr
   - aws

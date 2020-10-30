@@ -54,6 +54,11 @@
             </dependency>
 
             <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>quarkus-test-hazelcast</artifactId>
+                <version>${quarkus-hazelcast-client.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-integration-test-support-custom-dataformat</artifactId>
                 <version>${camel-quarkus.version}</version>

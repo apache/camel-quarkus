@@ -104,6 +104,7 @@
         <module>graphql</module>
         <module>grok</module>
         <module>grpc</module>
+        <module>hazelcast</module>
         <module>headersmap</module>
         <module>http</module>
         <module>hystrix</module>
