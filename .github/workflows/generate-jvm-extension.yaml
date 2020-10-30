@@ -1,0 +1,82 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+name: Generate JVM Extensions
+
+on:
+  workflow_dispatch:
+    inputs:
+      artifactIds:
+        description: 'Comma separated list of Camel component artifact ids. E.g activemq,ahc-ws,kafka'
+        required: true
+
+jobs:
+  generate-jvm-extensions:
+    if: github.repository == 'apache/camel-quarkus'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
+      - name: Generate JVM Extensions
+        id: generate
+        if: ${{ steps.generate.outputs.extensions-added }} == "true"
+        run: |
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+          ARTIFACT_IDS=$(echo "${{ github.event.inputs.artifactIds }}" | sed 's/camel-//g')
+          BRANCH_NAME="add-jvm-extensions-$(uuidgen | cut -f1 -d'-')"
+
+          git checkout -b ${BRANCH_NAME}
+
+          # Unfortunately the catalog requires all of the extension projects to be built...
+          sed -i -e '/<module>integration\-tests\-support<\/module>/d' -e '/<module>integration\-tests<\/module>/d' -e '/<module>docs<\/module>/d' ./pom.xml
+          ./mvnw -V -ntp -Dquickly clean install -T1C
+
+          # Remove pom hacks
+          git reset --hard HEAD
+
+          OLDIFS=${IFS}
+          IFS=,
+
+          for ARTIFACT_ID in ${ARTIFACT_IDS}; do
+            # Create extension
+            ./mvnw -V -ntp cq:create -N -Dcq.artifactIdBase=${ARTIFACT_ID} -Dcq.nativeSupported=false
+
+            # Verify extension builds, run formatting steps & docs generation
+            ./mvnw -V -ntp \
+              -pl extensions-jvm/${ARTIFACT_ID} \
+              -pl extensions-jvm/${ARTIFACT_ID}/runtime \
+              -pl extensions-jvm/${ARTIFACT_ID}/deployment \
+              -pl extensions-jvm/${ARTIFACT_ID}/integration-test clean package
+
+            git add .
+            git commit -m "${ARTIFACT_ID} JVM support"
+          done
+
+          IFS=${OLDIFS}
+
+          git push --set-upstream origin ${BRANCH_NAME}
+
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} gh pr create \
+            --title="Add JVM only extensions for ${ARTIFACT_IDS}" \
+            --body="This is an auto-generated pull request to add JVM only support for <code>${ARTIFACT_IDS}</code>.<br/><br/>You can edit the changes by checking out branch <code>${BRANCH_NAME}</code>." \
+            --label="JVM"
