@@ -41,6 +41,7 @@
         <module>atomix</module>
         <module>avro-rpc</module>
         <module>aws-xray</module>
+        <module>aws2-eventbridge</module>
         <module>aws2-kinesis</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
