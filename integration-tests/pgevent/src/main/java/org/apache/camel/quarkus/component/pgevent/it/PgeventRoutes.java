@@ -16,55 +16,45 @@
  */
 package org.apache.camel.quarkus.component.pgevent.it;
 
-import javax.inject.Named;
-import javax.ws.rs.Produces;
+import javax.enterprise.context.ApplicationScoped;
 
-import com.impossibl.postgres.jdbc.PGDataSource;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+@ApplicationScoped
 public class PgeventRoutes extends RouteBuilder {
+
+    public static final String MOCK_ENDPOINT_CLASSIC_CONF = "mock:classic";
+    public static final String MOCK_ENDPOINT_AGROALDATASOURCE = "mock:datasource";
+
     @ConfigProperty(name = "database.host")
     String host;
     @ConfigProperty(name = "database.port")
     Integer port;
     @ConfigProperty(name = "database.name")
     String databaseName;
-    @ConfigProperty(name = "database.user")
+    @ConfigProperty(name = "quarkus.datasource.pgDatasource.username")
     String user;
-    @ConfigProperty(name = "database.password")
+    @ConfigProperty(name = "quarkus.datasource.pgDatasource.password")
     String password;
 
     @Override
     public void configure() throws Exception {
         // producer for simple pub-sub
         from("direct:pgevent-pub")
-                .to("pgevent://{{database.host}}:{{database.port}}/{{database.name}}/testchannel?user={{database.user}}&pass={{database.password}}");
+                .to(String.format("pgevent://%s:%s/%s/testchannel?user=%s&pass=%s", host, port, databaseName, user, password));
 
         //consumer for simple pub-sub
-        from("pgevent://{{database.host}}:{{database.port}}/{{database.name}}/testchannel?user={{database.user}}&pass={{database.password}}")
-                .log("Message got ${body}")
-                .bean(MyBean.class);
+        from(String.format("pgevent://%s:%s/%s/testchannel?user=%s&pass=%s", host, port, databaseName, user, password))
+                .to(MOCK_ENDPOINT_CLASSIC_CONF);
 
         // producer with datasource
         from("direct:pgevent-datasource")
-                .to("pgevent:///postgres/testchannel?datasource=#pgDataSource");
+                .to("pgevent:///postgres/testchannel?datasource=#pgDatasource");
 
         // consumer with datasource
-        from("pgevent:///postgres/testchannel?datasource=#pgDataSource")
-                .log("Message got ${body}")
-                .bean(MyBean.class);
+        from("pgevent:///postgres/testchannel?datasource=#pgDatasource")
+                .to(MOCK_ENDPOINT_AGROALDATASOURCE);
     }
 
-    @Produces
-    @Named("pgDataSource")
-    public PGDataSource loadDataSource() throws Exception {
-        PGDataSource dataSource = new PGDataSource();
-        dataSource.setHost(host);
-        dataSource.setPort(port);
-        dataSource.setDatabaseName(databaseName);
-        dataSource.setUser(user);
-        dataSource.setPassword(password);
-        return dataSource;
-    }
 }

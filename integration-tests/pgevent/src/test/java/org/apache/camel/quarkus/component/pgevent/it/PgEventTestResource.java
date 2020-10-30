@@ -47,7 +47,9 @@ public class PgEventTestResource implements ContainerResourceLifecycleManager {
                 "database.port",
                 container.getMappedPort(POSTGRES_PORT).toString(),
                 "database.host",
-                container.getHost());
+                container.getHost(),
+                "quarkus.datasource.pgDatasource.jdbc.url",
+                String.format("jdbc:pgsql://%s:%s/postgres", container.getHost(), container.getMappedPort(POSTGRES_PORT)));
     }
 
     @Override

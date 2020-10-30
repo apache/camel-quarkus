@@ -31,3 +31,31 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+You can use pgevent extension with Agroal Datasource.
+
+Add the quarkus-agroal dependency :
+[source,xml]
+------------------------------------------------------------
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-agroal</artifactId>
+</dependency>
+------------------------------------------------------------
+
+Set Agroal properties, example for named DataSource `pgDatasource` :
+-----------
+quarkus.datasource.pgDatasource.db-kind=pgsql
+quarkus.datasource.pgDatasource.jdbc.url=jdbc:pgsql://localhost:5432/myDB
+quarkus.datasource.pgDatasource.username=postgres
+quarkus.datasource.pgDatasource.password=mysecretpassword
+quarkus.datasource.pgDatasource.jdbc.max-size=16
+-----------
+
+Inject the DataSource name in the camel Route, example :
+-----------
+pgevent:///postgres/testchannel?datasource=#pgDatasource
+-----------
+

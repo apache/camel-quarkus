@@ -22,9 +22,12 @@ import java.util.Set;
 import java.util.stream.Stream;
 
 import com.impossibl.postgres.system.procs.ProcProvider;
+import io.quarkus.agroal.spi.JdbcDriverBuildItem;
+import io.quarkus.datasource.common.runtime.DatabaseKind;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.SslNativeConfigBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
@@ -63,6 +66,17 @@ class PgeventProcessor {
                         throw new RuntimeException(e);
                     }
                 });
+    }
+
+    /**
+     * Setting Agroal Datasource driver for pgjdbc-ng driver
+     *
+     */
+    @BuildStep
+    void registerDriver(BuildProducer<JdbcDriverBuildItem> jdbcDriver,
+            SslNativeConfigBuildItem sslNativeConfigBuildItem) {
+        jdbcDriver.produce(new JdbcDriverBuildItem(DatabaseKind.POSTGRESQL, "com.impossibl.postgres.jdbc.PGDriver",
+                "com.impossibl.postgres.jdbc.xa.PGXADataSource"));
     }
 
 }
