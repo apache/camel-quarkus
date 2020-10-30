@@ -60,6 +60,11 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-netty</artifactId>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-agroal</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
     <build>
