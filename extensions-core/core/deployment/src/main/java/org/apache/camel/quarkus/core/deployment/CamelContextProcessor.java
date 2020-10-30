@@ -159,6 +159,7 @@ public class CamelContextProcessor {
         }
 
         return new CamelRuntimeBuildItem(
-                recorder.createRuntime(beanContainer.getValue(), context.getCamelContext()));
+                recorder.createRuntime(beanContainer.getValue(), context.getCamelContext()),
+                config.bootstrap.enabled);
     }
 }

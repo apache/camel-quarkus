@@ -24,10 +24,6 @@ public final class CamelRuntimeBuildItem extends SimpleBuildItem {
     private final RuntimeValue<CamelRuntime> runtime;
     private final boolean autoStartup;
 
-    public CamelRuntimeBuildItem(RuntimeValue<CamelRuntime> runtime) {
-        this(runtime, true);
-    }
-
     public CamelRuntimeBuildItem(RuntimeValue<CamelRuntime> runtime, boolean autoStartup) {
         this.runtime = runtime;
         this.autoStartup = autoStartup;

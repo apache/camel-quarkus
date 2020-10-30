@@ -26,7 +26,6 @@ import io.quarkus.deployment.builditem.ServiceStartBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.runtime.ShutdownContext;
 import org.apache.camel.quarkus.core.CamelBootstrapRecorder;
-import org.apache.camel.quarkus.core.CamelConfigFlags;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBootstrapCompletedBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem;
 
@@ -40,7 +39,7 @@ class CamelBootstrapProcessor {
      * @param shutdown             a reference to a {@link ShutdownContext} used tor register the Camel's related shutdown
      *                             tasks.
      */
-    @BuildStep(onlyIf = { CamelConfigFlags.BootstrapEnabled.class })
+    @BuildStep
     @Record(value = ExecutionTime.RUNTIME_INIT)
     @Produce(CamelBootstrapCompletedBuildItem.class)
     void boot(
