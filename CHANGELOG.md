@@ -12,6 +12,7 @@
 
 **Closed issues:**
 
+- json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
 - LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
 - ActiveMQ Default XPath evaluator could not be loaded [\#1933](https://github.com/apache/camel-quarkus/issues/1933)
@@ -26,11 +27,18 @@
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
+- Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
+- Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
 
 **Merged pull requests:**
 
+- Fixup Provide a quick profile \#1607 [\#1968](https://github.com/apache/camel-quarkus/pull/1968) ([ppalaga](https://github.com/ppalaga))
+- Zendesk native support [\#1967](https://github.com/apache/camel-quarkus/pull/1967) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 1.9.1.Final [\#1966](https://github.com/apache/camel-quarkus/pull/1966) ([jamesnetherton](https://github.com/jamesnetherton))
+- Twilio native support [\#1964](https://github.com/apache/camel-quarkus/pull/1964) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#819 saga native support [\#1963](https://github.com/apache/camel-quarkus/pull/1963) ([zhfeng](https://github.com/zhfeng))
 - Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
 - Leverage Quarkus JAXP extension where applicable \#1806 [\#1958](https://github.com/apache/camel-quarkus/pull/1958) ([ppalaga](https://github.com/ppalaga))
 - Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
@@ -91,6 +99,7 @@
 - IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Lumberjack native support [\#1732](https://github.com/apache/camel-quarkus/issues/1732)
+- Saga native support [\#819](https://github.com/apache/camel-quarkus/issues/819)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
@@ -369,7 +378,6 @@
 - Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
 - Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
 - Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
-- Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 
 **Merged pull requests:**
 
@@ -963,6 +971,7 @@
 - RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
 - Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
 - Utility to generate/scaffold an extension for a camel component [\#616](https://github.com/apache/camel-quarkus/issues/616)
+- Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 - OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 
 **Merged pull requests:**
