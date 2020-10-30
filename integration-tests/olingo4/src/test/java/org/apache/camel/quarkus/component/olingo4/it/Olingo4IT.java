@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.olingo4.it;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/1972")
 @NativeImageTest
 class Olingo4IT extends Olingo4Test {
 

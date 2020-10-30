@@ -31,11 +31,13 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.olingo4.it.Olingo4Resource.TEST_SERVICE_BASE_URL;
 import static org.hamcrest.core.Is.is;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/1972")
 @QuarkusTest
 @QuarkusTestResource(TrustStoreResource.class)
 class Olingo4Test {
