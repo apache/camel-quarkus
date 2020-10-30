@@ -1,0 +1,30 @@
+This extension leverages https://github.com/hazelcast/quarkus-hazelcast-client[Hazelcast Client for Quarkus]. The configuration of the HazelcastInstance is managed by the extension. To configure Hazelcast Instance, check the https://github.com/hazelcast/quarkus-hazelcast-client[Hazelcast Client for Quarkus] guide.
+
+*Please note that the camel-quarkus-hazelcast component works only with the client mode.*
+
+To use the Hazelcast instance in the camel-quarkus-hazelcast component, you should configure the component with :
+
+* The HazelcastInstance initialized by the Hazelcast Client for Quarkus
+* The component mode as : "client"
+
+Example of configuration for HazelcastMap component:
+
+[source,java]
+----
+    @Inject
+    HazelcastInstance hazelcastInstance;
+
+    @Produces
+    @ApplicationScoped
+    @Unremovable
+    @Named("hazelcast-map")
+    HazelcastDefaultComponent hazelcastMap() {
+        final HazelcastMapComponent hazelcastComponent = new HazelcastMapComponent();
+        hazelcastComponent.setHazelcastInstance(hazelcastInstance);
+        hazelcastComponent.setHazelcastMode(HazelcastConstants.HAZELCAST_CLIENT_MODE);
+        return getHazelcastComponent(hazelcastComponent);
+    }
+----
+
+You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/hazelcast[integration test]
+in our source tree as an example.

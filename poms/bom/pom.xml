@@ -62,6 +62,8 @@
                 <scope>import</scope>
             </dependency>
 
+
+
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
             <!--$ org.apache.camel $-->
@@ -5460,6 +5462,21 @@
                 <groupId>com.google.zxing</groupId>
                 <artifactId>core</artifactId>
                 <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>hazelcast</artifactId>
+                <version>${hazelcast.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>quarkus-hazelcast-client</artifactId>
+                <version>${quarkus-hazelcast-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>quarkus-hazelcast-client-deployment</artifactId>
+                <version>${quarkus-hazelcast-client.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.nimbusds</groupId>
