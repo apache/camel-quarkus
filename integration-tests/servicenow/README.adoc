@@ -1,5 +1,7 @@
 == Camel Quarkus ServiceNow Integration Tests
 
+By default the ServiceNow integration tests use WireMock to stub the API interactions.
+
 To run the `camel-quarkus-servicenow` integration tests, you will need a https://servicenow.com[ServiceNow] instance.
 
 Then set the following environment variables:
@@ -10,3 +12,11 @@ export SERVICENOW_INSTANCE=my-instance
 export SERVICENOW_USERNAME=my-username
 export SERVICENOW_PASSWORD=my-password
 ----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

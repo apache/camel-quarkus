@@ -1,0 +1,29 @@
+{
+  "id" : "a5b46fb7-d51e-49f5-84d2-5f22a4eadeb3",
+  "name" : "now_v1_table_incident_9aae36efdb4020505b022ad94b9619cc",
+  "request" : {
+    "url" : "/now/v1/table/incident/9aae36efdb4020505b022ad94b9619cc?sysparm_display_value=false&sysparm_exclude_reference_link=false",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 404,
+    "body" : "{\"error\":{\"message\":\"No Record found\",\"detail\":\"Record doesn't exist or ACL restricts the record retrieval\"},\"status\":\"failure\"}",
+    "headers" : {
+      "X-Is-Logged-In" : "true",
+      "X-Transaction-ID" : "faaeba2f1bc4",
+      "Pragma" : "no-store,no-cache",
+      "Cache-control" : "no-cache,no-store,must-revalidate,max-age=-1",
+      "Expires" : "0",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Fri, 30 Oct 2020 14:12:31 GMT",
+      "Server" : "ServiceNow",
+      "Set-Cookie" : [ "JSESSIONID=4BF3C6F757D76F05F9B24C9F04E22358; Path=/; HttpOnly; SameSite=None; Secure", "glide_user=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_session=; Max-Age=0; Expires=Thu, 01-Jan-1970 00:00:10 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_user_route=glide.47b57eb1ea96b0d680a38a6721421254; Max-Age=2147483647; Expires=Wed, 17-Nov-2088 17:26:39 GMT; Path=/; HttpOnly; SameSite=None; Secure", "glide_session_store=B6AEBA2F1BC4641093371F4EAD4BCB56; Max-Age=1800; Expires=Fri, 30-Oct-2020 14:42:32 GMT; Path=/; HttpOnly; SameSite=None; Secure", "BIGipServerpool_fake=360929290.47166.0000; path=/; Httponly; Secure; SameSite=None; Secure" ],
+      "Strict-Transport-Security" : "max-age=63072000; includeSubDomains"
+    }
+  },
+  "uuid" : "a5b46fb7-d51e-49f5-84d2-5f22a4eadeb3",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-now-v1-table-incident-9aae36efdb4020505b022ad94b9619cc",
+  "requiredScenarioState" : "scenario-1-now-v1-table-incident-9aae36efdb4020505b022ad94b9619cc-2",
+  "insertionIndex" : 4
+}

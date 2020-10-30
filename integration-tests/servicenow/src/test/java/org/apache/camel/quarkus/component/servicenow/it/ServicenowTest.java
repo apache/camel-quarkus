@@ -16,18 +16,16 @@
  */
 package org.apache.camel.quarkus.component.servicenow.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.matchesPattern;
 
 @QuarkusTest
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_INSTANCE", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_USERNAME", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SERVICENOW_PASSWORD", matches = ".+")
+@QuarkusTestResource(ServicenowTestResource.class)
 class ServicenowTest {
 
     @Test

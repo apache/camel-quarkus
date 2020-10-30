@@ -49,7 +49,7 @@ public class ServicenowResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @ConfigProperty(name = "servicenow.instance")
+    @ConfigProperty(name = "camel.component.servicenow.instance-name")
     String instance;
 
     @Path("/post")
