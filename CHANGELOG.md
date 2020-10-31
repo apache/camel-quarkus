@@ -30,10 +30,15 @@
 - Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
 - Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
+- Automate the process of creating jvm only extensions  [\#1561](https://github.com/apache/camel-quarkus/issues/1561)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
+- Provide test facilities [\#457](https://github.com/apache/camel-quarkus/issues/457)
 
 **Merged pull requests:**
 
+- Configuration option \(not\) to start the runtime \#1969 [\#1977](https://github.com/apache/camel-quarkus/pull/1977) ([ppalaga](https://github.com/ppalaga))
+- Add JVM only extensions for aws2-eventbridge [\#1975](https://github.com/apache/camel-quarkus/pull/1975) ([github-actions[bot]](https://github.com/apps/github-actions))
+- Automate the process of creating jvm only extensions [\#1974](https://github.com/apache/camel-quarkus/pull/1974) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup Provide a quick profile \#1607 [\#1968](https://github.com/apache/camel-quarkus/pull/1968) ([ppalaga](https://github.com/ppalaga))
 - Zendesk native support [\#1967](https://github.com/apache/camel-quarkus/pull/1967) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.1.Final [\#1966](https://github.com/apache/camel-quarkus/pull/1966) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -378,6 +383,7 @@
 - Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
 - Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
 - Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
+- Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 
 **Merged pull requests:**
 
@@ -971,7 +977,6 @@
 - RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
 - Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
 - Utility to generate/scaffold an extension for a camel component [\#616](https://github.com/apache/camel-quarkus/issues/616)
-- Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
 - OGNL language support [\#410](https://github.com/apache/camel-quarkus/issues/410)
 
 **Merged pull requests:**
