@@ -36,7 +36,7 @@ import org.apache.camel.component.slack.helper.SlackMessage;
 @ApplicationScoped
 public class SlackResource {
 
-    private static final String SLACK_AUTH_PARAMS = "serverUrl={{env:SLACK_SERVER_URL:http://localhost:8099/slack}}&token={{env:SLACK_TOKEN:a-fake-token-for-testing}}";
+    private static final String SLACK_AUTH_PARAMS = "serverUrl={{sys:slack.server-url}}&token={{sys:slack.token}}";
 
     @Inject
     ProducerTemplate producerTemplate;
