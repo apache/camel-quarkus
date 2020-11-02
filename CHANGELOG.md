@@ -32,7 +32,6 @@
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
 - Automate the process of creating jvm only extensions  [\#1561](https://github.com/apache/camel-quarkus/issues/1561)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
-- Provide test facilities [\#457](https://github.com/apache/camel-quarkus/issues/457)
 
 **Merged pull requests:**
 
