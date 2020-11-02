@@ -17,9 +17,9 @@ Send tweets and receive tweets, direct messages and access Twitter Search
 
 == What's inside
 
-* https://camel.apache.org/components/latest/twitter-directmessage-component.html[Twitter Direct Message component], URI syntax: `twitter-directmessage:user`
-* https://camel.apache.org/components/latest/twitter-search-component.html[Twitter Search component], URI syntax: `twitter-search:keywords`
-* https://camel.apache.org/components/latest/twitter-timeline-component.html[Twitter Timeline component], URI syntax: `twitter-timeline:timelineType`
+* xref:latest@components:ROOT:twitter-directmessage-component.adoc[Twitter Direct Message component], URI syntax: `twitter-directmessage:user`
+* xref:latest@components:ROOT:twitter-search-component.adoc[Twitter Search component], URI syntax: `twitter-search:keywords`
+* xref:latest@components:ROOT:twitter-timeline-component.adoc[Twitter Timeline component], URI syntax: `twitter-timeline:timelineType`
 
 Please refer to the above links for usage and configuration details.
 

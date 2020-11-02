@@ -17,7 +17,7 @@ Send and receive messages from RabbitMQ instances.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/rabbitmq-component.html[RabbitMQ component], URI syntax: `rabbitmq:exchangeName`
+* xref:latest@components:ROOT:rabbitmq-component.adoc[RabbitMQ component], URI syntax: `rabbitmq:exchangeName`
 
 Please refer to the above link for usage and configuration details.
 

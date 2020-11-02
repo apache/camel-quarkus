@@ -17,7 +17,7 @@ Store and retrieve Java objects from databases using Java Persistence API (JPA).
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jpa-component.html[JPA component], URI syntax: `jpa:entityType`
+* xref:latest@components:ROOT:jpa-component.adoc[JPA component], URI syntax: `jpa:entityType`
 
 Please refer to the above link for usage and configuration details.
 

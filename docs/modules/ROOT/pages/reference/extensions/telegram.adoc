@@ -17,7 +17,7 @@ Send and receive messages acting as a Telegram Bot Telegram Bot API.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/telegram-component.html[Telegram component], URI syntax: `telegram:type`
+* xref:latest@components:ROOT:telegram-component.adoc[Telegram component], URI syntax: `telegram:type`
 
 Please refer to the above link for usage and configuration details.
 

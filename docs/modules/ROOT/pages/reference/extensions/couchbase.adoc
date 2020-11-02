@@ -17,7 +17,7 @@ Query Couchbase Views with a poll strategy and/or perform various operations aga
 
 == What's inside
 
-* https://camel.apache.org/components/latest/couchbase-component.html[Couchbase component], URI syntax: `couchbase:protocol:hostname:port`
+* xref:latest@components:ROOT:couchbase-component.adoc[Couchbase component], URI syntax: `couchbase:protocol:hostname:port`
 
 Please refer to the above link for usage and configuration details.
 

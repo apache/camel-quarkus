@@ -17,7 +17,7 @@ Access databases through SQL and JDBC.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jdbc-component.html[JDBC component], URI syntax: `jdbc:dataSourceName`
+* xref:latest@components:ROOT:jdbc-component.adoc[JDBC component], URI syntax: `jdbc:dataSourceName`
 
 Please refer to the above link for usage and configuration details.
 

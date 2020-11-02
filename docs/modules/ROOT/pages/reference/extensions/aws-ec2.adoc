@@ -17,7 +17,7 @@ Manage AWS EC2 instances.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-ec2-component.html[AWS Elastic Compute Cloud (EC2) component], URI syntax: `aws-ec2:label`
+* xref:latest@components:ROOT:aws-ec2-component.adoc[AWS Elastic Compute Cloud (EC2) component], URI syntax: `aws-ec2:label`
 
 Please refer to the above link for usage and configuration details.
 

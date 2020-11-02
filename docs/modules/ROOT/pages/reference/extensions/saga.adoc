@@ -16,7 +16,7 @@ Execute custom actions within a route using the Saga EIP.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/saga-component.html[Saga component], URI syntax: `saga:action`
+* xref:latest@components:ROOT:saga-component.adoc[Saga component], URI syntax: `saga:action`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,10 +16,10 @@ Send and receive messages to/from COAP capable devices.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/coap-component.html[CoAP component], URI syntax: `coap:uri`
-* https://camel.apache.org/components/latest/coap-component.html[CoAP component], URI syntax: `coap+tcp:uri`
-* https://camel.apache.org/components/latest/coap-component.html[CoAP component], URI syntax: `coaps+tcp:uri`
-* https://camel.apache.org/components/latest/coap-component.html[CoAP (Secure) component], URI syntax: `coaps:uri`
+* xref:latest@components:ROOT:coap-component.adoc[CoAP component], URI syntax: `coap:uri`
+* xref:latest@components:ROOT:coap-component.adoc[CoAP component], URI syntax: `coap+tcp:uri`
+* xref:latest@components:ROOT:coap-component.adoc[CoAP component], URI syntax: `coaps+tcp:uri`
+* xref:latest@components:ROOT:coap-component.adoc[CoAP (Secure) component], URI syntax: `coaps:uri`
 
 Please refer to the above links for usage and configuration details.
 

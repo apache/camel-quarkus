@@ -16,7 +16,7 @@ Exchange messages with JGroups-raft clusters.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jgroups-raft-component.html[JGroups raft component], URI syntax: `jgroups-raft:clusterName`
+* xref:latest@components:ROOT:jgroups-raft-component.adoc[JGroups raft component], URI syntax: `jgroups-raft:clusterName`
 
 Please refer to the above link for usage and configuration details.
 

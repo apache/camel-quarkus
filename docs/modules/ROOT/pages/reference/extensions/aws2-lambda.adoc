@@ -16,7 +16,7 @@ Manage and invoke AWS Lambda functions using AWS SDK version 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws2-lambda-component.html[AWS 2 Lambda component], URI syntax: `aws2-lambda:function`
+* xref:latest@components:ROOT:aws2-lambda-component.adoc[AWS 2 Lambda component], URI syntax: `aws2-lambda:function`
 
 Please refer to the above link for usage and configuration details.
 

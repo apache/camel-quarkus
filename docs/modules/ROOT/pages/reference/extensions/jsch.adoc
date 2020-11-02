@@ -16,7 +16,7 @@ Copy files to/from remote hosts using the secure copy protocol (SCP).
 
 == What's inside
 
-* https://camel.apache.org/components/latest/scp-component.html[SCP component], URI syntax: `scp:host:port/directoryName`
+* xref:latest@components:ROOT:scp-component.adoc[SCP component], URI syntax: `scp:host:port/directoryName`
 
 Please refer to the above link for usage and configuration details.
 

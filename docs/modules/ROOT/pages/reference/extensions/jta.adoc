@@ -17,7 +17,7 @@ Enclose Camel routes in the transactions using Java Transaction API (JTA) and Na
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/jta.html[JTA]
+* xref:latest@components:others:jta.adoc[JTA]
 
 Please refer to the above link for usage and configuration details.
 

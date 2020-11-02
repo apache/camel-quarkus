@@ -16,7 +16,7 @@ Send SMS messages via CM SMS Gateway.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/cm-sms-component.html[CM SMS Gateway component], URI syntax: `cm-sms:host`
+* xref:latest@components:ROOT:cm-sms-component.adoc[CM SMS Gateway component], URI syntax: `cm-sms:host`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Send and receive messages from NATS messaging system.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/nats-component.html[Nats component], URI syntax: `nats:topic`
+* xref:latest@components:ROOT:nats-component.adoc[Nats component], URI syntax: `nats:topic`
 
 Please refer to the above link for usage and configuration details.
 

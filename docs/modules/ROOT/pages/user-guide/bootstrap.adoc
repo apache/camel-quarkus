@@ -63,7 +63,7 @@ public static class EventHandler {
 == Camel Main
 
 To configure components and other aspects of Apache Camel through properties, you can add the `camel-quarkus-main`
-extension which brings functionalities from https://camel.apache.org/components/latest/others/main.html[Apache Camel
+extension which brings functionalities from xref:latest@components:others:main.adoc[Apache Camel
 Main] to Camel Quarkus.
 
 In the example below, we apply the same configuration as the one from the Java example above by using properties:

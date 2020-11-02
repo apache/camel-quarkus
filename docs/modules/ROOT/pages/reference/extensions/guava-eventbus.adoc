@@ -16,7 +16,7 @@ Send and receive messages to/from Guava EventBus.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/guava-eventbus-component.html[Guava EventBus component], URI syntax: `guava-eventbus:eventBusRef`
+* xref:latest@components:ROOT:guava-eventbus-component.adoc[Guava EventBus component], URI syntax: `guava-eventbus:eventBusRef`
 
 Please refer to the above link for usage and configuration details.
 

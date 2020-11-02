@@ -16,8 +16,8 @@ Connect to OPC UA servers using the binary protocol for acquiring telemetry data
 
 == What's inside
 
-* https://camel.apache.org/components/latest/milo-client-component.html[OPC UA Client component], URI syntax: `milo-client:endpointUri`
-* https://camel.apache.org/components/latest/milo-server-component.html[OPC UA Server component], URI syntax: `milo-server:itemId`
+* xref:latest@components:ROOT:milo-client-component.adoc[OPC UA Client component], URI syntax: `milo-client:endpointUri`
+* xref:latest@components:ROOT:milo-server-component.adoc[OPC UA Server component], URI syntax: `milo-server:itemId`
 
 Please refer to the above links for usage and configuration details.
 

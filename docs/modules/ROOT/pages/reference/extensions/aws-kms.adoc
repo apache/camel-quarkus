@@ -17,7 +17,7 @@ Manage keys stored in AWS KMS instances.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-kms-component.html[AWS Key Management Service (KMS) component], URI syntax: `aws-kms:label`
+* xref:latest@components:ROOT:aws-kms-component.adoc[AWS Key Management Service (KMS) component], URI syntax: `aws-kms:label`
 
 Please refer to the above link for usage and configuration details.
 

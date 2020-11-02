@@ -17,7 +17,7 @@ Parse (potentially invalid) HTML into valid HTML or DOM.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/tidyMarkup-dataformat.html[TidyMarkup data format]
+* xref:latest@components:dataformats:tidyMarkup-dataformat.adoc[TidyMarkup data format]
 
 Please refer to the above link for usage and configuration details.
 

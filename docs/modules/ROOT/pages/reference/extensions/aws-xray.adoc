@@ -16,7 +16,7 @@ Distributed tracing using AWS XRay
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/aws-xray.html[AWS XRay]
+* xref:latest@components:others:aws-xray.adoc[AWS XRay]
 
 Please refer to the above link for usage and configuration details.
 

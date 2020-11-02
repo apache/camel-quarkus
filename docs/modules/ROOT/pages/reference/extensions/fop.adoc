@@ -16,7 +16,7 @@ Render messages into PDF and other output formats supported by Apache FOP.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/fop-component.html[FOP component], URI syntax: `fop:outputType`
+* xref:latest@components:ROOT:fop-component.adoc[FOP component], URI syntax: `fop:outputType`
 
 Please refer to the above link for usage and configuration details.
 

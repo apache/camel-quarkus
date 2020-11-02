@@ -16,7 +16,7 @@ Send and receive messages from NSQ realtime distributed messaging platform.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/nsq-component.html[NSQ component], URI syntax: `nsq:topic`
+* xref:latest@components:ROOT:nsq-component.adoc[NSQ component], URI syntax: `nsq:topic`
 
 Please refer to the above link for usage and configuration details.
 

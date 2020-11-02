@@ -16,7 +16,7 @@ Open a Financial Interchange (FIX) session using an embedded QuickFix/J engine.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/quickfix-component.html[QuickFix component], URI syntax: `quickfix:configurationName`
+* xref:latest@components:ROOT:quickfix-component.adoc[QuickFix component], URI syntax: `quickfix:configurationName`
 
 Please refer to the above link for usage and configuration details.
 

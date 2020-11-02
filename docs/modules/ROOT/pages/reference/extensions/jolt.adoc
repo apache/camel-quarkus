@@ -17,7 +17,7 @@ JSON to JSON transformation using JOLT.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jolt-component.html[JOLT component], URI syntax: `jolt:resourceUri`
+* xref:latest@components:ROOT:jolt-component.adoc[JOLT component], URI syntax: `jolt:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Archive files into tarballs or extract files from tarballs.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/tarfile-dataformat.html[Tar File data format]
+* xref:latest@components:dataformats:tarfile-dataformat.adoc[Tar File data format]
 
 Please refer to the above link for usage and configuration details.
 

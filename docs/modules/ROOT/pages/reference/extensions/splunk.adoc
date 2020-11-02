@@ -16,7 +16,7 @@ Publish or search for events in Splunk.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/splunk-component.html[Splunk component], URI syntax: `splunk:name`
+* xref:latest@components:ROOT:splunk-component.adoc[Splunk component], URI syntax: `splunk:name`
 
 Please refer to the above link for usage and configuration details.
 

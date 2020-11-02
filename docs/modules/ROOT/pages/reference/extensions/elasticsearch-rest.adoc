@@ -17,7 +17,7 @@ Send requests to with an ElasticSearch via REST API.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/elasticsearch-rest-component.html[Elasticsearch Rest component], URI syntax: `elasticsearch-rest:clusterName`
+* xref:latest@components:ROOT:elasticsearch-rest-component.adoc[Elasticsearch Rest component], URI syntax: `elasticsearch-rest:clusterName`
 
 Please refer to the above link for usage and configuration details.
 

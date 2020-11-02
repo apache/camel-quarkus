@@ -16,7 +16,7 @@ Security using Jasypt
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/jasypt.html[Jasypt]
+* xref:latest@components:others:jasypt.adoc[Jasypt]
 
 Please refer to the above link for usage and configuration details.
 

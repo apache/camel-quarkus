@@ -17,8 +17,8 @@ Expose REST services and their OpenAPI Specification or call external REST servi
 
 == What's inside
 
-* https://camel.apache.org/components/latest/rest-component.html[REST component], URI syntax: `rest:method:path:uriTemplate`
-* https://camel.apache.org/components/latest/rest-api-component.html[REST API component], URI syntax: `rest-api:path/contextIdPattern`
+* xref:latest@components:ROOT:rest-component.adoc[REST component], URI syntax: `rest:method:path:uriTemplate`
+* xref:latest@components:ROOT:rest-api-component.adoc[REST API component], URI syntax: `rest-api:path/contextIdPattern`
 
 Please refer to the above links for usage and configuration details.
 

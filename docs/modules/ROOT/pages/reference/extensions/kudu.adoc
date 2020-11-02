@@ -17,7 +17,7 @@ Interact with Apache Kudu, a free and open source column-oriented data store of 
 
 == What's inside
 
-* https://camel.apache.org/components/latest/kudu-component.html[Kudu component], URI syntax: `kudu:host:port/tableName`
+* xref:latest@components:ROOT:kudu-component.adoc[Kudu component], URI syntax: `kudu:host:port/tableName`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Reading and write from/to an HBase store (Hadoop database).
 
 == What's inside
 
-* https://camel.apache.org/components/latest/hbase-component.html[HBase component], URI syntax: `hbase:tableName`
+* xref:latest@components:ROOT:hbase-component.adoc[HBase component], URI syntax: `hbase:tableName`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Communicate with a remote Bonita BPM process engine.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/bonita-component.html[Bonita component], URI syntax: `bonita:operation`
+* xref:latest@components:ROOT:bonita-component.adoc[Bonita component], URI syntax: `bonita:operation`
 
 Please refer to the above link for usage and configuration details.
 

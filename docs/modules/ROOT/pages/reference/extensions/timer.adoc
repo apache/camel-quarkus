@@ -17,7 +17,7 @@ Generate messages in specified intervals using java.util.Timer.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/timer-component.html[Timer component], URI syntax: `timer:timerName`
+* xref:latest@components:ROOT:timer-component.adoc[Timer component], URI syntax: `timer:timerName`
 
 Please refer to the above link for usage and configuration details.
 

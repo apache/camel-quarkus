@@ -17,7 +17,7 @@ Call another endpoint in the same CamelContext asynchronously.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/vm-component.html[VM component], URI syntax: `vm:name`
+* xref:latest@components:ROOT:vm-component.adoc[VM component], URI syntax: `vm:name`
 
 Please refer to the above link for usage and configuration details.
 

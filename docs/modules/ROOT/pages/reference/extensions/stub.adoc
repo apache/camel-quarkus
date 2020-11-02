@@ -16,7 +16,7 @@ Stub out any physical endpoints while in development or testing.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/stub-component.html[Stub component], URI syntax: `stub:name`
+* xref:latest@components:ROOT:stub-component.adoc[Stub component], URI syntax: `stub:name`
 
 Please refer to the above link for usage and configuration details.
 

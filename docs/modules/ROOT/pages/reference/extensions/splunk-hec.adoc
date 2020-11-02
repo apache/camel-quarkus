@@ -16,7 +16,7 @@ The splunk component allows to publish events in Splunk using the HTTP Event Col
 
 == What's inside
 
-* https://camel.apache.org/components/latest/splunk-hec-component.html[Splunk HEC component], URI syntax: `splunk-hec:splunkURL/token`
+* xref:latest@components:ROOT:splunk-hec-component.adoc[Splunk HEC component], URI syntax: `splunk-hec:splunkURL/token`
 
 Please refer to the above link for usage and configuration details.
 

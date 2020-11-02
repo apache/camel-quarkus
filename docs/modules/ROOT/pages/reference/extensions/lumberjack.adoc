@@ -16,7 +16,7 @@ Receive logs messages using the Lumberjack protocol.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/lumberjack-component.html[Lumberjack component], URI syntax: `lumberjack:host:port`
+* xref:latest@components:ROOT:lumberjack-component.adoc[Lumberjack component], URI syntax: `lumberjack:host:port`
 
 Please refer to the above link for usage and configuration details.
 

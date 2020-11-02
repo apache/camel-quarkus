@@ -16,8 +16,8 @@ Send and receive SMS messages using a SMSC (Short Message Service Center).
 
 == What's inside
 
-* https://camel.apache.org/components/latest/smpp-component.html[SMPP component], URI syntax: `smpp:host:port`
-* https://camel.apache.org/components/latest/smpp-component.html[SMPP (Secure) component], URI syntax: `smpps:host:port`
+* xref:latest@components:ROOT:smpp-component.adoc[SMPP component], URI syntax: `smpp:host:port`
+* xref:latest@components:ROOT:smpp-component.adoc[SMPP (Secure) component], URI syntax: `smpps:host:port`
 
 Please refer to the above links for usage and configuration details.
 

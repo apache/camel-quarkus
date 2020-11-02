@@ -16,7 +16,7 @@ Read and write from/to an HDFS filesystem using Hadoop 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/hdfs-component.html[HDFS component], URI syntax: `hdfs:hostName:port/path`
+* xref:latest@components:ROOT:hdfs-component.adoc[HDFS component], URI syntax: `hdfs:hostName:port/path`
 
 Please refer to the above link for usage and configuration details.
 

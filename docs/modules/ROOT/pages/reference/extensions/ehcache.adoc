@@ -16,7 +16,7 @@ Perform caching operations using Ehcache.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ehcache-component.html[Ehcache component], URI syntax: `ehcache:cacheName`
+* xref:latest@components:ROOT:ehcache-component.adoc[Ehcache component], URI syntax: `ehcache:cacheName`
 
 Please refer to the above link for usage and configuration details.
 

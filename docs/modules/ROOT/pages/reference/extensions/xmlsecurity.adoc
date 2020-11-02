@@ -16,9 +16,9 @@ Sign XML payloads using the XML signature specification.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/secureXML-dataformat.html[XML Security data format]
-* https://camel.apache.org/components/latest/xmlsecurity-sign-component.html[XML Security Sign component], URI syntax: `xmlsecurity-sign:name`
-* https://camel.apache.org/components/latest/xmlsecurity-verify-component.html[XML Security Verify component], URI syntax: `xmlsecurity-verify:name`
+* xref:latest@components:dataformats:secureXML-dataformat.adoc[XML Security data format]
+* xref:latest@components:ROOT:xmlsecurity-sign-component.adoc[XML Security Sign component], URI syntax: `xmlsecurity-sign:name`
+* xref:latest@components:ROOT:xmlsecurity-verify-component.adoc[XML Security Verify component], URI syntax: `xmlsecurity-verify:name`
 
 Please refer to the above links for usage and configuration details.
 

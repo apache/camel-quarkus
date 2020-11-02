@@ -16,7 +16,7 @@ Interact with jBPM workflow engine over REST.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jbpm-component.html[JBPM component], URI syntax: `jbpm:connectionURL`
+* xref:latest@components:ROOT:jbpm-component.adoc[JBPM component], URI syntax: `jbpm:connectionURL`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Find geocodes (latitude and longitude) for a given address or the other way roun
 
 == What's inside
 
-* https://camel.apache.org/components/latest/geocoder-component.html[Geocoder component], URI syntax: `geocoder:address:latlng`
+* xref:latest@components:ROOT:geocoder-component.adoc[Geocoder component], URI syntax: `geocoder:address:latlng`
 
 Please refer to the above link for usage and configuration details.
 

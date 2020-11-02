@@ -16,7 +16,7 @@ Transform JSON and XML message using a XSLT.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/xj-component.html[XJ component], URI syntax: `xj:resourceUri`
+* xref:latest@components:ROOT:xj-component.adoc[XJ component], URI syntax: `xj:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

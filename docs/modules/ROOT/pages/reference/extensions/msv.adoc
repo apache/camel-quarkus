@@ -16,7 +16,7 @@ Validate XML payloads using Multi-Schema Validator (MSV).
 
 == What's inside
 
-* https://camel.apache.org/components/latest/msv-component.html[MSV component], URI syntax: `msv:resourceUri`
+* xref:latest@components:ROOT:msv-component.adoc[MSV component], URI syntax: `msv:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

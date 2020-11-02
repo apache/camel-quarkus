@@ -17,13 +17,13 @@ Send and receive emails using imap, pop3 and smtp protocols. Marshal Camel messa
 
 == What's inside
 
-* https://camel.apache.org/components/latest/mail-component.html[IMAP component], URI syntax: `imap:host:port`
-* https://camel.apache.org/components/latest/mail-component.html[IMAPS (Secure) component], URI syntax: `imaps:host:port`
-* https://camel.apache.org/components/latest/dataformats/mime-multipart-dataformat.html[MIME Multipart data format]
-* https://camel.apache.org/components/latest/mail-component.html[POP3 component], URI syntax: `pop3:host:port`
-* https://camel.apache.org/components/latest/mail-component.html[POP3S component], URI syntax: `pop3s:host:port`
-* https://camel.apache.org/components/latest/mail-component.html[SMTP component], URI syntax: `smtp:host:port`
-* https://camel.apache.org/components/latest/mail-component.html[SMTPS component], URI syntax: `smtps:host:port`
+* xref:latest@components:ROOT:mail-component.adoc[IMAP component], URI syntax: `imap:host:port`
+* xref:latest@components:ROOT:mail-component.adoc[IMAPS (Secure) component], URI syntax: `imaps:host:port`
+* xref:latest@components:dataformats:mime-multipart-dataformat.adoc[MIME Multipart data format]
+* xref:latest@components:ROOT:mail-component.adoc[POP3 component], URI syntax: `pop3:host:port`
+* xref:latest@components:ROOT:mail-component.adoc[POP3S component], URI syntax: `pop3s:host:port`
+* xref:latest@components:ROOT:mail-component.adoc[SMTP component], URI syntax: `smtp:host:port`
+* xref:latest@components:ROOT:mail-component.adoc[SMTPS component], URI syntax: `smtps:host:port`
 
 Please refer to the above links for usage and configuration details.
 

@@ -16,7 +16,7 @@ Send notifications to Apple iOS devices.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/apns-component.html[APNS component], URI syntax: `apns:name`
+* xref:latest@components:ROOT:apns-component.adoc[APNS component], URI syntax: `apns:name`
 
 Please refer to the above link for usage and configuration details.
 

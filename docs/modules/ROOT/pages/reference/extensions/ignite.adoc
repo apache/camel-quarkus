@@ -16,13 +16,13 @@ Perform cache operations on an Ignite cache or consume changes from a continuous
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ignite-cache-component.html[Ignite Cache component], URI syntax: `ignite-cache:cacheName`
-* https://camel.apache.org/components/latest/ignite-compute-component.html[Ignite Compute component], URI syntax: `ignite-compute:endpointId`
-* https://camel.apache.org/components/latest/ignite-events-component.html[Ignite Events component], URI syntax: `ignite-events:endpointId`
-* https://camel.apache.org/components/latest/ignite-idgen-component.html[Ignite ID Generator component], URI syntax: `ignite-idgen:name`
-* https://camel.apache.org/components/latest/ignite-messaging-component.html[Ignite Messaging component], URI syntax: `ignite-messaging:topic`
-* https://camel.apache.org/components/latest/ignite-queue-component.html[Ignite Queues component], URI syntax: `ignite-queue:name`
-* https://camel.apache.org/components/latest/ignite-set-component.html[Ignite Sets component], URI syntax: `ignite-set:name`
+* xref:latest@components:ROOT:ignite-cache-component.adoc[Ignite Cache component], URI syntax: `ignite-cache:cacheName`
+* xref:latest@components:ROOT:ignite-compute-component.adoc[Ignite Compute component], URI syntax: `ignite-compute:endpointId`
+* xref:latest@components:ROOT:ignite-events-component.adoc[Ignite Events component], URI syntax: `ignite-events:endpointId`
+* xref:latest@components:ROOT:ignite-idgen-component.adoc[Ignite ID Generator component], URI syntax: `ignite-idgen:name`
+* xref:latest@components:ROOT:ignite-messaging-component.adoc[Ignite Messaging component], URI syntax: `ignite-messaging:topic`
+* xref:latest@components:ROOT:ignite-queue-component.adoc[Ignite Queues component], URI syntax: `ignite-queue:name`
+* xref:latest@components:ROOT:ignite-set-component.adoc[Ignite Sets component], URI syntax: `ignite-set:name`
 
 Please refer to the above links for usage and configuration details.
 
