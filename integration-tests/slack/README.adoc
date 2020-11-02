@@ -1,0 +1,24 @@
+== Camel Quarkus Slack Integration Tests
+
+By default the Slack integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-Slack` integration tests against the real API, you must first create a Slack account and workspace https://slack.com/get-started#/create.
+
+Then configure Slack custom configurations for 'Incoming Webhooks' & the 'Slack API Tester' on your workspace.
+
+Next set the following environment variables:
+
+[source,shell]
+----
+export SLACK_TOKEN=your-slack-token
+export SLACK_SERVER_URL=https://slack.com
+export SLACK_WEBHOOK_URL=https://hooks.slack.com/services/some/webhook/path
+----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

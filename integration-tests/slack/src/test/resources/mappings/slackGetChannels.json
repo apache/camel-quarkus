@@ -1,0 +1,37 @@
+{
+  "id" : "2a011f82-a594-4f21-91f6-7be02c035fa5",
+  "name" : "api_conversationslist",
+  "request" : {
+    "url" : "/api/conversations.list",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "token=test-token",
+      "caseInsensitive" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"channels\":[{\"id\":\"CPT2U8YSK\",\"name\":\"random\",\"is_channel\":true,\"is_group\":false,\"is_im\":false,\"created\":1571904169,\"is_archived\":false,\"is_general\":false,\"unlinked\":0,\"name_normalized\":\"random\",\"is_shared\":false,\"parent_conversation\":null,\"creator\":\"UPJPHCRUH\",\"is_ext_shared\":false,\"is_org_shared\":false,\"shared_team_ids\":[\"TPR71CS7J\"],\"pending_shared\":[],\"pending_connected_team_ids\":[],\"is_pending_ext_shared\":false,\"is_member\":true,\"is_private\":false,\"is_mpim\":false,\"topic\":{\"value\":\"Non-work banter and water cooler conversation\",\"creator\":\"UPJPHCRUH\",\"last_set\":1571904169},\"purpose\":{\"value\":\"A place for non-work-related flimflam, faffing, hodge-podge or jibber-jabber you'd prefer to keep out of more focused work-related channels.\",\"creator\":\"UPJPHCRUH\",\"last_set\":1571904169},\"previous_names\":[],\"num_members\":1},{\"id\":\"CPTD6F086\",\"name\":\"general\",\"is_channel\":true,\"is_group\":false,\"is_im\":false,\"created\":1571904169,\"is_archived\":false,\"is_general\":true,\"unlinked\":0,\"name_normalized\":\"general\",\"is_shared\":false,\"parent_conversation\":null,\"creator\":\"UPJPHCRUH\",\"is_ext_shared\":false,\"is_org_shared\":false,\"shared_team_ids\":[\"TPR71CS7J\"],\"pending_shared\":[],\"pending_connected_team_ids\":[],\"is_pending_ext_shared\":false,\"is_member\":true,\"is_private\":false,\"is_mpim\":false,\"topic\":{\"value\":\"Company-wide announcements and work-based matters\",\"creator\":\"UPJPHCRUH\",\"last_set\":1571904169},\"purpose\":{\"value\":\"This channel is for workspace-wide communication and announcements. All members are in this channel.\",\"creator\":\"UPJPHCRUH\",\"last_set\":1571904169},\"previous_names\":[],\"num_members\":1}],\"response_metadata\":{\"next_cursor\":\"\"}}",
+    "headers" : {
+      "date" : "Mon, 02 Nov 2020 09:53:19 GMT",
+      "server" : "Apache",
+      "x-xss-protection" : "0",
+      "pragma" : "no-cache",
+      "cache-control" : "private, no-cache, no-store, must-revalidate",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "x-slack-req-id" : "8500fbbc3969104df3a1a00fcf57ca3c",
+      "x-content-type-options" : "nosniff",
+      "referrer-policy" : "no-referrer",
+      "x-slack-backend" : "r",
+      "x-oauth-scopes" : "read,client,admin,identify,post,apps",
+      "x-accepted-oauth-scopes" : "channels:read,groups:read,mpim:read,im:read,read",
+      "expires" : "Mon, 26 Jul 1997 05:00:00 GMT",
+      "vary" : "Accept-Encoding",
+      "content-type" : "application/json; charset=utf-8",
+      "x-via" : "haproxy-www-0tj6,haproxy-edge-lhr-fchm"
+    }
+  },
+  "uuid" : "2a011f82-a594-4f21-91f6-7be02c035fa5",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

@@ -1,0 +1,37 @@
+{
+  "id" : "6e638406-ee78-4a8d-baff-bf20096039ca",
+  "name" : "api_conversationshistory",
+  "request" : {
+    "url" : "/api/conversations.history",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalTo" : "channel=CPTD6F086&count=1&token=test-token",
+      "caseInsensitive" : false
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"messages\":[{\"type\":\"message\",\"subtype\":\"bot_message\",\"text\":\"Hello Camel Quarkus Slack\",\"ts\":\"1604310723.000600\",\"bot_id\":\"BTWSZ6PGX\"}],\"has_more\":true,\"pin_count\":0,\"channel_actions_ts\":null,\"channel_actions_count\":0,\"response_metadata\":{\"next_cursor\":\"bmV4dF90czoxNjA0MzEwNDg4MDAwNTAw\"}}",
+    "headers" : {
+      "date" : "Mon, 02 Nov 2020 09:53:20 GMT",
+      "server" : "Apache",
+      "x-xss-protection" : "0",
+      "pragma" : "no-cache",
+      "cache-control" : "private, no-cache, no-store, must-revalidate",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "x-slack-req-id" : "4c02fef93a98415344290ac4dbc10bde",
+      "x-content-type-options" : "nosniff",
+      "referrer-policy" : "no-referrer",
+      "x-slack-backend" : "r",
+      "x-oauth-scopes" : "read,client,admin,identify,post,apps",
+      "x-accepted-oauth-scopes" : "channels:history,groups:history,mpim:history,im:history,read",
+      "expires" : "Mon, 26 Jul 1997 05:00:00 GMT",
+      "vary" : "Accept-Encoding",
+      "content-type" : "application/json; charset=utf-8",
+      "x-via" : "haproxy-www-6ya7,haproxy-edge-lhr-fchm"
+    }
+  },
+  "uuid" : "6e638406-ee78-4a8d-baff-bf20096039ca",
+  "persistent" : true,
+  "insertionIndex" : 3
+}

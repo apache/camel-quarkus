@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.slack.it;
 
 import java.util.UUID;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -28,9 +29,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 /**
  * Camel Slack component tests.
  *
- * By default tests configure the Slack component to use stubbed Slack API responses
- * that are configured in {@link SlackRoutes}
- *
  * To test against a real Slack instance. Set up environment variables like the following:
  *
  * SLACK_WEBHOOK_URL=https://hooks.slack.com/services/unique/hook/path
@@ -38,6 +36,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
  * SLACK_TOKEN=your-slack-api-access-token
  */
 @QuarkusTest
+@QuarkusTestResource(SlackTestResource.class)
 class SlackTest {
 
     @Test
@@ -57,6 +56,6 @@ class SlackTest {
     }
 
     boolean externalSlackEnabled() {
-        return System.getenv("SLACK_WEBHOOK_URL") != null;
+        return System.getProperty("wiremock.url") == null;
     }
 }
