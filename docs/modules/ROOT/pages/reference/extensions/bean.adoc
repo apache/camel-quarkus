@@ -17,9 +17,9 @@ Invoke methods of Java beans
 
 == What's inside
 
-* https://camel.apache.org/components/latest/bean-component.html[Bean component], URI syntax: `bean:beanName`
-* https://camel.apache.org/components/latest/languages/bean-language.html[Bean method language]
-* https://camel.apache.org/components/latest/class-component.html[Class component], URI syntax: `class:beanName`
+* xref:latest@components::bean-component.adoc[Bean component], URI syntax: `bean:beanName`
+* xref:latest@components:languages:bean-language.adoc[Bean method language]
+* xref:latest@components::class-component.adoc[Class component], URI syntax: `class:beanName`
 
 Please refer to the above links for usage and configuration details.
 

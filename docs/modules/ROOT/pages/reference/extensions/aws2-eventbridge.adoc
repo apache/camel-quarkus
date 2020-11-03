@@ -16,7 +16,7 @@ Manage AWS Eventbridge cluster instances using AWS SDK version 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws2-eventbridge-component.html[AWS 2 Eventbridge component], URI syntax: `aws2-eventbridge://eventbusNameOrArn`
+* xref:latest@components::aws2-eventbridge-component.adoc[AWS 2 Eventbridge component], URI syntax: `aws2-eventbridge://eventbusNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

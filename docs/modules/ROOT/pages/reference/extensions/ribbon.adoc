@@ -16,7 +16,7 @@ Using Netflix Ribbon for client side load balancing
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/ribbon.html[Ribbon]
+* xref:latest@components:others:ribbon.adoc[Ribbon]
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Execute commands on remote hosts using SSH.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ssh-component.html[SSH component], URI syntax: `ssh:host:port`
+* xref:latest@components::ssh-component.adoc[SSH component], URI syntax: `ssh:host:port`
 
 Please refer to the above link for usage and configuration details.
 

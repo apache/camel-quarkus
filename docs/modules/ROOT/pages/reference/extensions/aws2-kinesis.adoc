@@ -16,8 +16,8 @@ Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws2-kinesis-component.html[AWS 2 Kinesis component], URI syntax: `aws2-kinesis:streamName`
-* https://camel.apache.org/components/latest/aws2-kinesis-firehose-component.html[AWS 2 Kinesis Firehose component], URI syntax: `aws2-kinesis-firehose:streamName`
+* xref:latest@components::aws2-kinesis-component.adoc[AWS 2 Kinesis component], URI syntax: `aws2-kinesis:streamName`
+* xref:latest@components::aws2-kinesis-firehose-component.adoc[AWS 2 Kinesis Firehose component], URI syntax: `aws2-kinesis-firehose:streamName`
 
 Please refer to the above links for usage and configuration details.
 

@@ -16,8 +16,8 @@ Transform messages using an MVEL template.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/mvel-component.html[MVEL component], URI syntax: `mvel:resourceUri`
-* https://camel.apache.org/components/latest/languages/mvel-language.html[MVEL language]
+* xref:latest@components::mvel-component.adoc[MVEL component], URI syntax: `mvel:resourceUri`
+* xref:latest@components:languages:mvel-language.adoc[MVEL language]
 
 Please refer to the above links for usage and configuration details.
 

@@ -24,10 +24,20 @@ content:
   - url: ./../
     branches: HEAD
     start_path: docs
+  - url: git@github.com:apache/camel.git
+    branches:
+      - master
+    start_paths:
+      - docs/user-manual
+      - docs/components
+      - core/camel-core-engine/src/main/docs
 
 asciidoc:
   extensions:
     - "@djencks/asciidoctor-antora-indexer"
+  attributes:
+    eip-vc: latest@components
+
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable

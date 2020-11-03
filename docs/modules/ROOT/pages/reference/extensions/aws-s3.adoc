@@ -17,7 +17,7 @@ Store and retrieve objects from AWS S3 Storage Service.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-s3-component.html[AWS S3 Storage Service component], URI syntax: `aws-s3://bucketNameOrArn`
+* xref:latest@components::aws-s3-component.adoc[AWS S3 Storage Service component], URI syntax: `aws-s3://bucketNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

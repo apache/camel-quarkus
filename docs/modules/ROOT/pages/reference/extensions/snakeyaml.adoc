@@ -17,7 +17,7 @@ Marshal and unmarshal Java objects to and from YAML using SnakeYAML
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/yaml-snakeyaml-dataformat.html[YAML SnakeYAML data format]
+* xref:latest@components:dataformats:yaml-snakeyaml-dataformat.adoc[YAML SnakeYAML data format]
 
 Please refer to the above link for usage and configuration details.
 

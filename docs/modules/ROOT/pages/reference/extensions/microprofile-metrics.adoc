@@ -17,7 +17,7 @@ Expose metrics from Camel routes.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/microprofile-metrics-component.html[MicroProfile Metrics component], URI syntax: `microprofile-metrics:metricType:metricName`
+* xref:latest@components::microprofile-metrics-component.adoc[MicroProfile Metrics component], URI syntax: `microprofile-metrics:metricType:metricName`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Solve planning problems with OptaPlanner.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/optaplanner-component.html[OptaPlanner component], URI syntax: `optaplanner:configFile`
+* xref:latest@components::optaplanner-component.adoc[OptaPlanner component], URI syntax: `optaplanner:configFile`
 
 Please refer to the above link for usage and configuration details.
 

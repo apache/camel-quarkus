@@ -16,7 +16,7 @@ Store and retrieve Java objects from an SQL database using JOOQ.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jooq-component.html[JOOQ component], URI syntax: `jooq:entityType`
+* xref:latest@components::jooq-component.adoc[JOOQ component], URI syntax: `jooq:entityType`
 
 Please refer to the above link for usage and configuration details.
 

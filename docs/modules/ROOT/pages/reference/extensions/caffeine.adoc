@@ -16,8 +16,8 @@ Perform caching operations using Caffeine Cache.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/caffeine-cache-component.html[Caffeine Cache component], URI syntax: `caffeine-cache:cacheName`
-* https://camel.apache.org/components/latest/caffeine-loadcache-component.html[Caffeine LoadCache component], URI syntax: `caffeine-loadcache:cacheName`
+* xref:latest@components::caffeine-cache-component.adoc[Caffeine Cache component], URI syntax: `caffeine-cache:cacheName`
+* xref:latest@components::caffeine-loadcache-component.adoc[Caffeine LoadCache component], URI syntax: `caffeine-loadcache:cacheName`
 
 Please refer to the above links for usage and configuration details.
 

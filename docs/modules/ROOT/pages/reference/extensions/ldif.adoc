@@ -16,7 +16,7 @@ Perform updates on an LDAP server from an LDIF body content.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ldif-component.html[LDIF component], URI syntax: `ldif:ldapConnectionName`
+* xref:latest@components::ldif-component.adoc[LDIF component], URI syntax: `ldif:ldapConnectionName`
 
 Please refer to the above link for usage and configuration details.
 

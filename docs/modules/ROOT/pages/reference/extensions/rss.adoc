@@ -16,8 +16,8 @@ Poll RSS feeds.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/rss-component.html[RSS component], URI syntax: `rss:feedUri`
-* https://camel.apache.org/components/latest/dataformats/rss-dataformat.html[RSS data format]
+* xref:latest@components::rss-component.adoc[RSS component], URI syntax: `rss:feedUri`
+* xref:latest@components:dataformats:rss-dataformat.adoc[RSS data format]
 
 Please refer to the above links for usage and configuration details.
 

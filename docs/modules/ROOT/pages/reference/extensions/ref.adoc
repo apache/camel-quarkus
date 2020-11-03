@@ -17,7 +17,7 @@ Route messages to an endpoint looked up dynamically by name in the Camel Registr
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ref-component.html[Ref component], URI syntax: `ref:name`
+* xref:latest@components::ref-component.adoc[Ref component], URI syntax: `ref:name`
 
 Please refer to the above link for usage and configuration details.
 

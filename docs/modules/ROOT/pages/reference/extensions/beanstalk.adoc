@@ -16,7 +16,7 @@ Retrieve and post-process Beanstalk jobs.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/beanstalk-component.html[Beanstalk component], URI syntax: `beanstalk:connectionSettings`
+* xref:latest@components::beanstalk-component.adoc[Beanstalk component], URI syntax: `beanstalk:connectionSettings`
 
 Please refer to the above link for usage and configuration details.
 

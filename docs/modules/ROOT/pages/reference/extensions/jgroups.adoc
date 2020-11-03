@@ -16,7 +16,7 @@ Exchange messages with JGroups clusters.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jgroups-component.html[JGroups component], URI syntax: `jgroups:clusterName`
+* xref:latest@components::jgroups-component.adoc[JGroups component], URI syntax: `jgroups:clusterName`
 
 Please refer to the above link for usage and configuration details.
 

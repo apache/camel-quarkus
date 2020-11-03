@@ -17,7 +17,7 @@ Bridging Eclipse MicroProfile Health with Camel health checks
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/microprofile-health.html[Microprofile Health]
+* xref:latest@components:others:microprofile-health.adoc[Microprofile Health]
 
 Please refer to the above link for usage and configuration details.
 

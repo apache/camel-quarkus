@@ -16,7 +16,7 @@ Transform messages using StringTemplate engine.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/string-template-component.html[String Template component], URI syntax: `string-template:resourceUri`
+* xref:latest@components::string-template-component.adoc[String Template component], URI syntax: `string-template:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 
