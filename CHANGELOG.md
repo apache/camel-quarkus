@@ -12,6 +12,7 @@
 
 **Closed issues:**
 
+- Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
 - json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
 - LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
@@ -21,6 +22,7 @@
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
 - Unreleased Resource: Streams [\#1913](https://github.com/apache/camel-quarkus/issues/1913)
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
+- PostgresSQL Event : add usage of Quarkus AgroalDatasource  [\#1909](https://github.com/apache/camel-quarkus/issues/1909)
 - \[Camel Quarkus 1.2\] Remove quarkus.camel.native.resources.include-patterns = routes/\*.xml in examples [\#1901](https://github.com/apache/camel-quarkus/issues/1901)
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1881](https://github.com/apache/camel-quarkus/issues/1881)
 - Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
@@ -35,6 +37,8 @@
 
 **Merged pull requests:**
 
+- PostgresSQL Event : add usage of Quarkus AgroalDatasource fixes \#1909 [\#1982](https://github.com/apache/camel-quarkus/pull/1982) ([zbendhiba](https://github.com/zbendhiba))
+- Reenable Olingo4 integration test [\#1980](https://github.com/apache/camel-quarkus/pull/1980) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configuration option \(not\) to start the runtime \#1969 [\#1977](https://github.com/apache/camel-quarkus/pull/1977) ([ppalaga](https://github.com/ppalaga))
 - Add JVM only extensions for aws2-eventbridge [\#1975](https://github.com/apache/camel-quarkus/pull/1975) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Automate the process of creating jvm only extensions [\#1974](https://github.com/apache/camel-quarkus/pull/1974) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -658,7 +662,6 @@
 - Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
-- Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -718,6 +721,7 @@
 
 **Merged pull requests:**
 
+- Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add Peter Palaga's PGP key [\#1268](https://github.com/apache/camel-quarkus/pull/1268) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.5.0.Final [\#1267](https://github.com/apache/camel-quarkus/pull/1267) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove camel-rest workaround as the fic for the issue is included in Apache Camel 3.3.0 [\#1265](https://github.com/apache/camel-quarkus/pull/1265) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1401,7 +1405,6 @@
 - ftp: implement ftp/sft server test support with QuarkusTestResourceLifecycleManager [\#512](https://github.com/apache/camel-quarkus/pull/512) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
-- Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1447,6 +1450,7 @@
 
 **Merged pull requests:**
 
+- Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 - Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
