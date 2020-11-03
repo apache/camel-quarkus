@@ -1,0 +1,24 @@
+{
+  "id" : "009be0d0-2a9f-42d9-8e59-e10e4c21e658",
+  "name" : "botfake-token_sendphoto",
+  "request" : {
+    "url" : "/botfake-token/sendPhoto",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "anything" : "anything"
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"result\":{\"message_id\":41,\"from\":{\"id\":1459045600,\"is_bot\":true,\"first_name\":\"camel-quarkus-test\",\"username\":\"CamelQuarkusTestBot\"},\"chat\":{\"id\":1426416050,\"first_name\":\"Apache\",\"last_name\":\"Camel\",\"type\":\"private\"},\"date\":1604406366,\"photo\":[{\"file_id\":\"AgACAgQAAxkDAAMpX6FMXuAp6zF9JdQ0RT2yUzp3Kc4AAgWzMRtd1glRWa9enePW3hnwkAYnXQADAQADAgADbQADhucBAAEeBA\",\"file_unique_id\":\"AQAD8JAGJ10AA4bnAQAB\",\"file_size\":1005,\"width\":108,\"height\":10}]}}",
+    "headers" : {
+      "Server" : "nginx/1.16.1",
+      "Date" : "Tue, 03 Nov 2020 12:26:06 GMT",
+      "Content-Type" : "application/json",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload"
+    }
+  },
+  "uuid" : "009be0d0-2a9f-42d9-8e59-e10e4c21e658",
+  "persistent" : true,
+  "insertionIndex" : 5
+}

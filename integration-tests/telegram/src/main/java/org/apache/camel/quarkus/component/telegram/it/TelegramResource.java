@@ -59,7 +59,7 @@ public class TelegramResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getMessages() {
-        final String messages = consumerTemplate.receiveBodyNoWait("telegram://bots", String.class);
+        final String messages = consumerTemplate.receiveBody("telegram://bots", 5000L, String.class);
         log.infof("Received telegram messages: %s", messages);
         return messages;
     }

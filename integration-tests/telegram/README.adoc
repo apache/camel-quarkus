@@ -1,5 +1,7 @@
 == Camel Quarkus Telegram Integration Tests
 
+By default the Telegram integration tests use WireMock to stub the API interactions.
+
 To run `camel-quarkus-telegram` integration tests against the real remote Telegram API, you must first create
 a Telegram bot following this guide:
 https://www.nicolaferraro.me/2016/05/27/creating-a-telegram-bot-in-5-minutes-with-apache-camel/
@@ -8,12 +10,14 @@ Then set the following environment variables:
 
 [source,shell]
 ----
-$ export TELEGRAM_AUTHORIZATION_TOKEN=my-authorization-token
-$ export TELEGRAM_CHAT_ID=my-chatId
+export TELEGRAM_AUTHORIZATION_TOKEN=my-authorization-token
+export TELEGRAM_CHAT_ID=my-chatId
 ----
 
-If you do not set `TELEGRAM_AUTHORIZATION_TOKEN` environment variable, the test will be run against a mock
-Telegram API started on `localhost`.
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
 
-You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting he the mock Telegram API
-to make sure that you test against the real remote Telegram API.
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
