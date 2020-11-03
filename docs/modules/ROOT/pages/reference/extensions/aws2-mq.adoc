@@ -17,7 +17,7 @@ Manage AWS MQ instances using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:latest@components:ROOT:aws2-mq-component.adoc[AWS 2 MQ component], URI syntax: `aws2-mq:label`
+* https://camel.apache.org/components/latest/aws2-mq-component.html[AWS 2 MQ component], URI syntax: `aws2-mq:label`
 
 Please refer to the above link for usage and configuration details.
 

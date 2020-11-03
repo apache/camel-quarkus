@@ -17,7 +17,7 @@ Support for attachments on Camel messages
 
 == What's inside
 
-* xref:latest@components:others:attachments.adoc[Attachments]
+* https://camel.apache.org/components/latest/others/attachments.html[Attachments]
 
 Please refer to the above link for usage and configuration details.
 

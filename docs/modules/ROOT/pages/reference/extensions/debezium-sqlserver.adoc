@@ -17,7 +17,7 @@ Capture changes from an SQL Server database.
 
 == What's inside
 
-* xref:latest@components:ROOT:debezium-sqlserver-component.adoc[Debezium SQL Server Connector component], URI syntax: `debezium-sqlserver:name`
+* https://camel.apache.org/components/latest/debezium-sqlserver-component.html[Debezium SQL Server Connector component], URI syntax: `debezium-sqlserver:name`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Handle CSV (Comma Separated Values) payloads.
 
 == What's inside
 
-* xref:latest@components:dataformats:csv-dataformat.adoc[CSV data format]
+* https://camel.apache.org/components/latest/dataformats/csv-dataformat.html[CSV data format]
 
 Please refer to the above link for usage and configuration details.
 

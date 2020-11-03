@@ -17,7 +17,7 @@ Marshal Java objects to SOAP messages and back.
 
 == What's inside
 
-* xref:latest@components:dataformats:soapjaxb-dataformat.adoc[SOAP data format]
+* https://camel.apache.org/components/latest/dataformats/soapjaxb-dataformat.html[SOAP data format]
 
 Please refer to the above link for usage and configuration details.
 

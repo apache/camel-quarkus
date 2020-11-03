@@ -16,7 +16,7 @@ Using LevelDB as persistent EIP store
 
 == What's inside
 
-* xref:latest@components:others:leveldb.adoc[LevelDB]
+* https://camel.apache.org/components/latest/others/leveldb.html[LevelDB]
 
 Please refer to the above link for usage and configuration details.
 

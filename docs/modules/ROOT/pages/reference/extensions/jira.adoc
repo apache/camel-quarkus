@@ -17,7 +17,7 @@ Interact with JIRA issue tracker.
 
 == What's inside
 
-* xref:latest@components:ROOT:jira-component.adoc[Jira component], URI syntax: `jira:type`
+* https://camel.apache.org/components/latest/jira-component.html[Jira component], URI syntax: `jira:type`
 
 Please refer to the above link for usage and configuration details.
 

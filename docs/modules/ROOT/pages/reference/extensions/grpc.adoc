@@ -17,7 +17,7 @@ Expose gRPC endpoints and access external gRPC endpoints.
 
 == What's inside
 
-* xref:latest@components:ROOT:grpc-component.adoc[gRPC component], URI syntax: `grpc:host:port/service`
+* https://camel.apache.org/components/latest/grpc-component.html[gRPC component], URI syntax: `grpc:host:port/service`
 
 Please refer to the above link for usage and configuration details.
 

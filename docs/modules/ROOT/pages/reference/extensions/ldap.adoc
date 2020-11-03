@@ -16,7 +16,7 @@ Perform searches on LDAP servers.
 
 == What's inside
 
-* xref:latest@components:ROOT:ldap-component.adoc[LDAP component], URI syntax: `ldap:dirContextName`
+* https://camel.apache.org/components/latest/ldap-component.html[LDAP component], URI syntax: `ldap:dirContextName`
 
 Please refer to the above link for usage and configuration details.
 

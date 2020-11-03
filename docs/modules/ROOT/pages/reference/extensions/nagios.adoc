@@ -16,7 +16,7 @@ Send passive checks to Nagios using JSendNSCA.
 
 == What's inside
 
-* xref:latest@components:ROOT:nagios-component.adoc[Nagios component], URI syntax: `nagios:host:port`
+* https://camel.apache.org/components/latest/nagios-component.html[Nagios component], URI syntax: `nagios:host:port`
 
 Please refer to the above link for usage and configuration details.
 

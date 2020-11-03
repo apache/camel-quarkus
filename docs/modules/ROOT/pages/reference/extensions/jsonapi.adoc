@@ -16,7 +16,7 @@ Marshal and unmarshal JSON:API resources using JSONAPI-Converter library.
 
 == What's inside
 
-* xref:latest@components:dataformats:jsonApi-dataformat.adoc[JSonApi data format]
+* https://camel.apache.org/components/latest/dataformats/jsonApi-dataformat.html[JSonApi data format]
 
 Please refer to the above link for usage and configuration details.
 

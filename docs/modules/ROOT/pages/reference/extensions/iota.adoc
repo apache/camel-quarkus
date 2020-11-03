@@ -16,7 +16,7 @@ Manage financial transactions using IOTA distributed ledger.
 
 == What's inside
 
-* xref:latest@components:ROOT:iota-component.adoc[IOTA component], URI syntax: `iota:name`
+* https://camel.apache.org/components/latest/iota-component.html[IOTA component], URI syntax: `iota:name`
 
 Please refer to the above link for usage and configuration details.
 

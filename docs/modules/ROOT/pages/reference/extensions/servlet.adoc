@@ -17,7 +17,7 @@ Serve HTTP requests by a Servlet.
 
 == What's inside
 
-* xref:latest@components:ROOT:servlet-component.adoc[Servlet component], URI syntax: `servlet:contextPath`
+* https://camel.apache.org/components/latest/servlet-component.html[Servlet component], URI syntax: `servlet:contextPath`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Produce or consume Apache Avro RPC services.
 
 == What's inside
 
-* xref:latest@components:ROOT:avro-component.adoc[Avro RPC component], URI syntax: `avro:transport:host:port/messageName`
+* https://camel.apache.org/components/latest/avro-component.html[Avro RPC component], URI syntax: `avro:transport:host:port/messageName`
 
 Please refer to the above link for usage and configuration details.
 

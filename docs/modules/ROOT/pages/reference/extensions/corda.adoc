@@ -16,7 +16,7 @@ Perform operations against Corda blockchain platform using corda-rpc library.
 
 == What's inside
 
-* xref:latest@components:ROOT:corda-component.adoc[Corda component], URI syntax: `corda:node`
+* https://camel.apache.org/components/latest/corda-component.html[Corda component], URI syntax: `corda:node`
 
 Please refer to the above link for usage and configuration details.
 

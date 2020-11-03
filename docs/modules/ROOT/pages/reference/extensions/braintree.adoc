@@ -17,7 +17,7 @@ Process payments using Braintree Payments.
 
 == What's inside
 
-* xref:latest@components:ROOT:braintree-component.adoc[Braintree component], URI syntax: `braintree:apiName/methodName`
+* https://camel.apache.org/components/latest/braintree-component.html[Braintree component], URI syntax: `braintree:apiName/methodName`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Reactive Executor for camel-core using Vert.x
 
 == What's inside
 
-* xref:latest@components:others:reactive-executor-vertx.adoc[Reactive Executor Vert.x]
+* https://camel.apache.org/components/latest/others/reactive-executor-vertx.html[Reactive Executor Vert.x]
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Transform messages using Chunk templating engine.
 
 == What's inside
 
-* xref:latest@components:ROOT:chunk-component.adoc[Chunk component], URI syntax: `chunk:resourceUri`
+* https://camel.apache.org/components/latest/chunk-component.html[Chunk component], URI syntax: `chunk:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

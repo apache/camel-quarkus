@@ -17,7 +17,7 @@ Capture changes from a PostgresSQL database.
 
 == What's inside
 
-* xref:latest@components:ROOT:debezium-postgres-component.adoc[Debezium PostgresSQL Connector component], URI syntax: `debezium-postgres:name`
+* https://camel.apache.org/components/latest/debezium-postgres-component.html[Debezium PostgresSQL Connector component], URI syntax: `debezium-postgres:name`
 
 Please refer to the above link for usage and configuration details.
 

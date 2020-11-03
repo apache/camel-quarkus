@@ -16,7 +16,7 @@ Read and write nodes to/from a JCR compliant content repository.
 
 == What's inside
 
-* xref:latest@components:ROOT:jcr-component.adoc[JCR component], URI syntax: `jcr:host/base`
+* https://camel.apache.org/components/latest/jcr-component.html[JCR component], URI syntax: `jcr:host/base`
 
 Please refer to the above link for usage and configuration details.
 

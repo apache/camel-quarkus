@@ -16,7 +16,7 @@ Camel HTTP client support with Vert.x
 
 == What's inside
 
-* xref:latest@components:ROOT:vertx-http-component.adoc[Vert.x HTTP Client component], URI syntax: `vertx-http:httpUri`
+* https://camel.apache.org/components/latest/vertx-http-component.html[Vert.x HTTP Client component], URI syntax: `vertx-http:httpUri`
 
 Please refer to the above link for usage and configuration details.
 

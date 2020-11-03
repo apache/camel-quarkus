@@ -17,7 +17,7 @@ Marshal POJOs to JSON and back using Johnzon
 
 == What's inside
 
-* xref:latest@components:dataformats:json-johnzon-dataformat.adoc[JSON Johnzon data format]
+* https://camel.apache.org/components/latest/dataformats/json-johnzon-dataformat.html[JSON Johnzon data format]
 
 Please refer to the above link for usage and configuration details.
 

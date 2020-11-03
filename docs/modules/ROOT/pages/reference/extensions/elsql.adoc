@@ -16,7 +16,7 @@ Use ElSql to define SQL queries. Extends the SQL Component.
 
 == What's inside
 
-* xref:latest@components:ROOT:elsql-component.adoc[ElSQL component], URI syntax: `elsql:elsqlName:resourceUri`
+* https://camel.apache.org/components/latest/elsql-component.html[ElSQL component], URI syntax: `elsql:elsqlName:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

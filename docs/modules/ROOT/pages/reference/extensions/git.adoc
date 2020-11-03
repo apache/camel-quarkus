@@ -16,7 +16,7 @@ Perform operations on git repositories.
 
 == What's inside
 
-* xref:latest@components:ROOT:git-component.adoc[Git component], URI syntax: `git:localPath`
+* https://camel.apache.org/components/latest/git-component.html[Git component], URI syntax: `git:localPath`
 
 Please refer to the above link for usage and configuration details.
 

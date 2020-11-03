@@ -16,7 +16,7 @@ Perform machine learning tasks using Weka.
 
 == What's inside
 
-* xref:latest@components:ROOT:weka-component.adoc[Weka component], URI syntax: `weka:command`
+* https://camel.apache.org/components/latest/weka-component.html[Weka component], URI syntax: `weka:command`
 
 Please refer to the above link for usage and configuration details.
 

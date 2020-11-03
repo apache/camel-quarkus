@@ -17,7 +17,7 @@ Manage AWS EC2 instances using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:latest@components:ROOT:aws2-ec2-component.adoc[AWS 2 Elastic Compute Cloud (EC2) component], URI syntax: `aws2-ec2:label`
+* https://camel.apache.org/components/latest/aws2-ec2-component.html[AWS 2 Elastic Compute Cloud (EC2) component], URI syntax: `aws2-ec2:label`
 
 Please refer to the above link for usage and configuration details.
 

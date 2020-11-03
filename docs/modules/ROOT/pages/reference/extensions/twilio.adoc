@@ -16,7 +16,7 @@ Interact with Twilio REST APIs using Twilio Java SDK.
 
 == What's inside
 
-* xref:latest@components:ROOT:twilio-component.adoc[Twilio component], URI syntax: `twilio:apiName/methodName`
+* https://camel.apache.org/components/latest/twilio-component.html[Twilio component], URI syntax: `twilio:apiName/methodName`
 
 Please refer to the above link for usage and configuration details.
 

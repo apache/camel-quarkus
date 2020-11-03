@@ -16,7 +16,7 @@ Perform queries against an Apache Drill cluster.
 
 == What's inside
 
-* xref:latest@components:ROOT:drill-component.adoc[Drill component], URI syntax: `drill:host`
+* https://camel.apache.org/components/latest/drill-component.html[Drill component], URI syntax: `drill:host`
 
 Please refer to the above link for usage and configuration details.
 

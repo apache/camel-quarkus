@@ -16,7 +16,7 @@ Poll Atom RSS feeds.
 
 == What's inside
 
-* xref:latest@components:ROOT:atom-component.adoc[Atom component], URI syntax: `atom:feedUri`
+* https://camel.apache.org/components/latest/atom-component.html[Atom component], URI syntax: `atom:feedUri`
 
 Please refer to the above link for usage and configuration details.
 

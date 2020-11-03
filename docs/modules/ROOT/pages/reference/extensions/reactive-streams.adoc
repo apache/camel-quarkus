@@ -17,7 +17,7 @@ Exchange messages with reactive stream processing libraries compatible with the 
 
 == What's inside
 
-* xref:latest@components:ROOT:reactive-streams-component.adoc[Reactive Streams component], URI syntax: `reactive-streams:stream`
+* https://camel.apache.org/components/latest/reactive-streams-component.html[Reactive Streams component], URI syntax: `reactive-streams:stream`
 
 Please refer to the above link for usage and configuration details.
 

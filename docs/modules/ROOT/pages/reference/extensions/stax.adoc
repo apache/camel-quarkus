@@ -16,7 +16,7 @@ Process XML payloads by a SAX ContentHandler.
 
 == What's inside
 
-* xref:latest@components:ROOT:stax-component.adoc[StAX component], URI syntax: `stax:contentHandlerClass`
+* https://camel.apache.org/components/latest/stax-component.html[StAX component], URI syntax: `stax:contentHandlerClass`
 
 Please refer to the above link for usage and configuration details.
 

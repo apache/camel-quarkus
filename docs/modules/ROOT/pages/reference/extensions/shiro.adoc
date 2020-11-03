@@ -16,7 +16,7 @@ Security using Shiro
 
 == What's inside
 
-* xref:latest@components:others:shiro.adoc[Shiro]
+* https://camel.apache.org/components/latest/others/shiro.html[Shiro]
 
 Please refer to the above link for usage and configuration details.
 

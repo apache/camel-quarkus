@@ -17,7 +17,7 @@ Interact with InfluxDB, a time series database.
 
 == What's inside
 
-* xref:latest@components:ROOT:influxdb-component.adoc[InfluxDB component], URI syntax: `influxdb:connectionBean`
+* https://camel.apache.org/components/latest/influxdb-component.html[InfluxDB component], URI syntax: `influxdb:connectionBean`
 
 Please refer to the above link for usage and configuration details.
 

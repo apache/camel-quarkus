@@ -17,7 +17,7 @@ Distributed tracing using OpenTracing
 
 == What's inside
 
-* xref:latest@components:others:opentracing.adoc[OpenTracing]
+* https://camel.apache.org/components/latest/others/opentracing.html[OpenTracing]
 
 Please refer to the above link for usage and configuration details.
 

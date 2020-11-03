@@ -17,7 +17,7 @@ Circuit Breaker EIP using Netflix Hystrix
 
 == What's inside
 
-* xref:latest@components:others:hystrix.adoc[Hystrix]
+* https://camel.apache.org/components/latest/others/hystrix.html[Hystrix]
 
 Please refer to the above link for usage and configuration details.
 

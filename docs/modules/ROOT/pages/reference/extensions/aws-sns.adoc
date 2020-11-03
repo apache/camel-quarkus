@@ -17,7 +17,7 @@ Send messages to an AWS Simple Notification Topic.
 
 == What's inside
 
-* xref:latest@components:ROOT:aws-sns-component.adoc[AWS Simple Notification System (SNS) component], URI syntax: `aws-sns:topicNameOrArn`
+* https://camel.apache.org/components/latest/aws-sns-component.html[AWS Simple Notification System (SNS) component], URI syntax: `aws-sns:topicNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

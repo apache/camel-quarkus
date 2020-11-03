@@ -16,7 +16,7 @@ Send print jobs to printers.
 
 == What's inside
 
-* xref:latest@components:ROOT:lpr-component.adoc[Printer component], URI syntax: `lpr:hostname:port/printername`
+* https://camel.apache.org/components/latest/lpr-component.html[Printer component], URI syntax: `lpr:hostname:port/printername`
 
 Please refer to the above link for usage and configuration details.
 

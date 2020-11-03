@@ -16,8 +16,8 @@ IEC 60870 supervisory control and data acquisition (SCADA) client using NeoSCADA
 
 == What's inside
 
-* xref:latest@components:ROOT:iec60870-client-component.adoc[IEC 60870 Client component], URI syntax: `iec60870-client:uriPath`
-* xref:latest@components:ROOT:iec60870-server-component.adoc[IEC 60870 Server component], URI syntax: `iec60870-server:uriPath`
+* https://camel.apache.org/components/latest/iec60870-client-component.html[IEC 60870 Client component], URI syntax: `iec60870-client:uriPath`
+* https://camel.apache.org/components/latest/iec60870-server-component.html[IEC 60870 Server component], URI syntax: `iec60870-server:uriPath`
 
 Please refer to the above links for usage and configuration details.
 

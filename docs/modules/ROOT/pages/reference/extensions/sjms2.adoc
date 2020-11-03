@@ -17,7 +17,7 @@ Send and receive messages to/from a JMS Queue or Topic using plain JMS 2.x API.
 
 == What's inside
 
-* xref:latest@components:ROOT:sjms2-component.adoc[Simple JMS2 component], URI syntax: `sjms2:destinationType:destinationName`
+* https://camel.apache.org/components/latest/sjms2-component.html[Simple JMS2 component], URI syntax: `sjms2:destinationType:destinationName`
 
 Please refer to the above link for usage and configuration details.
 

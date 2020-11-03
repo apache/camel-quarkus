@@ -16,7 +16,7 @@ Communicate with external systems using the MLLP protocol.
 
 == What's inside
 
-* xref:latest@components:ROOT:mllp-component.adoc[MLLP component], URI syntax: `mllp:hostname:port`
+* https://camel.apache.org/components/latest/mllp-component.html[MLLP component], URI syntax: `mllp:hostname:port`
 
 Please refer to the above link for usage and configuration details.
 

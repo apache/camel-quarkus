@@ -17,7 +17,7 @@ Configure REST producers based on an OpenAPI specification document delegating t
 
 == What's inside
 
-* xref:latest@components:ROOT:rest-openapi-component.adoc[REST OpenApi component], URI syntax: `rest-openapi:specificationUri#operationId`
+* https://camel.apache.org/components/latest/rest-openapi-component.html[REST OpenApi component], URI syntax: `rest-openapi:specificationUri#operationId`
 
 Please refer to the above link for usage and configuration details.
 

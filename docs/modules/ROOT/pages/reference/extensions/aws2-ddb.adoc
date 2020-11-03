@@ -17,8 +17,8 @@ Store and retrieve data from AWS DynamoDB service or receive messages from AWS D
 
 == What's inside
 
-* xref:latest@components:ROOT:aws2-ddb-component.adoc[AWS 2 DynamoDB component], URI syntax: `aws2-ddb:tableName`
-* xref:latest@components:ROOT:aws2-ddbstream-component.adoc[AWS 2 DynamoDB Streams component], URI syntax: `aws2-ddbstream:tableName`
+* https://camel.apache.org/components/latest/aws2-ddb-component.html[AWS 2 DynamoDB component], URI syntax: `aws2-ddb:tableName`
+* https://camel.apache.org/components/latest/aws2-ddbstream-component.html[AWS 2 DynamoDB Streams component], URI syntax: `aws2-ddbstream:tableName`
 
 Please refer to the above links for usage and configuration details.
 

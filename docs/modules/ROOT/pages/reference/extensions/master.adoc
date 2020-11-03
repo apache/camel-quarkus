@@ -17,7 +17,7 @@ Have only a single consumer in a cluster consuming from a given endpoint; with a
 
 == What's inside
 
-* xref:latest@components:ROOT:master-component.adoc[Master component], URI syntax: `master:namespace:delegateUri`
+* https://camel.apache.org/components/latest/master-component.html[Master component], URI syntax: `master:namespace:delegateUri`
 
 Please refer to the above link for usage and configuration details.
 

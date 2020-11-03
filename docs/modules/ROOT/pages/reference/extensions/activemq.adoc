@@ -17,7 +17,7 @@ Send messages to (or consume from) Apache ActiveMQ. This component extends the C
 
 == What's inside
 
-* xref:latest@components:ROOT:activemq-component.adoc[ActiveMQ component], URI syntax: `activemq:destinationType:destinationName`
+* https://camel.apache.org/components/latest/activemq-component.html[ActiveMQ component], URI syntax: `activemq:destinationType:destinationName`
 
 Please refer to the above link for usage and configuration details.
 

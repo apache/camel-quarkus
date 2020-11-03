@@ -16,7 +16,7 @@ Validate XML payload using the Schematron Library.
 
 == What's inside
 
-* xref:latest@components:ROOT:schematron-component.adoc[Schematron component], URI syntax: `schematron:path`
+* https://camel.apache.org/components/latest/schematron-component.html[Schematron component], URI syntax: `schematron:path`
 
 Please refer to the above link for usage and configuration details.
 

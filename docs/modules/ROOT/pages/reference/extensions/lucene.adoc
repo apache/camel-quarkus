@@ -16,7 +16,7 @@ Perform inserts or queries against Apache Lucene databases.
 
 == What's inside
 
-* xref:latest@components:ROOT:lucene-component.adoc[Lucene component], URI syntax: `lucene:host:operation`
+* https://camel.apache.org/components/latest/lucene-component.html[Lucene component], URI syntax: `lucene:host:operation`
 
 Please refer to the above link for usage and configuration details.
 

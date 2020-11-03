@@ -17,7 +17,7 @@ Log messages to the underlying logging mechanism.
 
 == What's inside
 
-* xref:latest@components:ROOT:log-component.adoc[Log component], URI syntax: `log:loggerName`
+* https://camel.apache.org/components/latest/log-component.html[Log component], URI syntax: `log:loggerName`
 
 Please refer to the above link for usage and configuration details.
 

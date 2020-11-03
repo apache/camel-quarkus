@@ -17,7 +17,7 @@ Marshal POJOs to JSON and back using Gson
 
 == What's inside
 
-* xref:latest@components:dataformats:json-gson-dataformat.adoc[JSON Gson data format]
+* https://camel.apache.org/components/latest/dataformats/json-gson-dataformat.html[JSON Gson data format]
 
 Please refer to the above link for usage and configuration details.
 

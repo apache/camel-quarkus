@@ -17,7 +17,7 @@ Parse documents and extract metadata and text using Apache Tika.
 
 == What's inside
 
-* xref:latest@components:ROOT:tika-component.adoc[Tika component], URI syntax: `tika:operation`
+* https://camel.apache.org/components/latest/tika-component.html[Tika component], URI syntax: `tika:operation`
 
 Please refer to the above link for usage and configuration details.
 

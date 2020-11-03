@@ -17,7 +17,7 @@ Marshal POJOs to JSON and back using Jackson
 
 == What's inside
 
-* xref:latest@components:dataformats:json-jackson-dataformat.adoc[JSON Jackson data format]
+* https://camel.apache.org/components/latest/dataformats/json-jackson-dataformat.html[JSON Jackson data format]
 
 Please refer to the above link for usage and configuration details.
 

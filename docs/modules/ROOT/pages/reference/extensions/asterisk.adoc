@@ -16,7 +16,7 @@ Interact with Asterisk PBX Server.
 
 == What's inside
 
-* xref:latest@components:ROOT:asterisk-component.adoc[Asterisk component], URI syntax: `asterisk:name`
+* https://camel.apache.org/components/latest/asterisk-component.html[Asterisk component], URI syntax: `asterisk:name`
 
 Please refer to the above link for usage and configuration details.
 

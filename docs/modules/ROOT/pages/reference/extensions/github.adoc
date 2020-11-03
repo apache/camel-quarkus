@@ -17,7 +17,7 @@ Interact with the GitHub API.
 
 == What's inside
 
-* xref:latest@components:ROOT:github-component.adoc[GitHub component], URI syntax: `github:type/branchName`
+* https://camel.apache.org/components/latest/github-component.html[GitHub component], URI syntax: `github:type/branchName`
 
 Please refer to the above link for usage and configuration details.
 

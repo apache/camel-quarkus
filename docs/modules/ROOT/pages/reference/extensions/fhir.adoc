@@ -17,9 +17,9 @@ Exchange information in the healthcare domain using the FHIR (Fast Healthcare In
 
 == What's inside
 
-* xref:latest@components:ROOT:fhir-component.adoc[FHIR component], URI syntax: `fhir:apiName/methodName`
-* xref:latest@components:dataformats:fhirJson-dataformat.adoc[FHIR JSon data format]
-* xref:latest@components:dataformats:fhirXml-dataformat.adoc[FHIR XML data format]
+* https://camel.apache.org/components/latest/fhir-component.html[FHIR component], URI syntax: `fhir:apiName/methodName`
+* https://camel.apache.org/components/latest/dataformats/fhirJson-dataformat.html[FHIR JSon data format]
+* https://camel.apache.org/components/latest/dataformats/fhirXml-dataformat.html[FHIR XML data format]
 
 Please refer to the above links for usage and configuration details.
 

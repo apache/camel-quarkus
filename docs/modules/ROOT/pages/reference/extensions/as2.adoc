@@ -17,7 +17,7 @@ Transfer data securely and reliably using the AS2 protocol (RFC4130).
 
 == What's inside
 
-* xref:latest@components:ROOT:as2-component.adoc[AS2 component], URI syntax: `as2:apiName/methodName`
+* https://camel.apache.org/components/latest/as2-component.html[AS2 component], URI syntax: `as2:apiName/methodName`
 
 Please refer to the above link for usage and configuration details.
 

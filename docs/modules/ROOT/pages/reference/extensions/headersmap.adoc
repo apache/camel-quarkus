@@ -16,7 +16,7 @@ Fast case-insensitive headers map implementation
 
 == What's inside
 
-* xref:latest@components:others:headersmap.adoc[Headersmap]
+* https://camel.apache.org/components/latest/others/headersmap.html[Headersmap]
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Validate JSON payloads using NetworkNT JSON Schema.
 
 == What's inside
 
-* xref:latest@components:ROOT:json-validator-component.adoc[JSON Schema Validator component], URI syntax: `json-validator:resourceUri`
+* https://camel.apache.org/components/latest/json-validator-component.html[JSON Schema Validator component], URI syntax: `json-validator:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Access market data and trade on Bitcoin and Altcoin exchanges.
 
 == What's inside
 
-* xref:latest@components:ROOT:xchange-component.adoc[XChange component], URI syntax: `xchange:name`
+* https://camel.apache.org/components/latest/xchange-component.html[XChange component], URI syntax: `xchange:name`
 
 Please refer to the above link for usage and configuration details.
 

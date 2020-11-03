@@ -16,7 +16,7 @@ Transform messages using a Velocity template.
 
 == What's inside
 
-* xref:latest@components:ROOT:velocity-component.adoc[Velocity component], URI syntax: `velocity:resourceUri`
+* https://camel.apache.org/components/latest/velocity-component.html[Velocity component], URI syntax: `velocity:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 
