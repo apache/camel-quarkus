@@ -16,20 +16,43 @@
  */
 package org.apache.camel.quarkus.component.geocoder.it;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.junit.jupiter.api.Test;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
+import static com.github.tomakehurst.wiremock.client.WireMock.matching;
+import static com.github.tomakehurst.wiremock.client.WireMock.request;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.hamcrest.Matchers.hasKey;
 
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderGoogleResource.class)
+@QuarkusTestResource(GeocoderTestResource.class)
 class GeocoderGoogleTest {
+
+    @MockServer
+    WireMockServer server;
 
     @Test
     public void loadCurrentLocation() {
-        // disable test if no API KEY
+        // We need to manually stub this API call because it invokes multiple API targets:
+        // - googleapis.com
+        // - maps.googleapis.com
+        if (server != null) {
+            server.stubFor(request("POST", urlPathEqualTo("/geolocation/v1/geolocate"))
+                    .withQueryParam("key", matching(".*"))
+                    .withRequestBody(equalToJson("{\"considerIp\": true}"))
+                    .willReturn(aResponse()
+                            .withHeader("Content-Type", "application/json")
+                            .withBody("{\"location\":{\"lat\":24.7768404,\"lng\":-76.2849047},\"accuracy\":8252}")));
+        }
+
         RestAssured.get()
                 .then()
                 .statusCode(200)

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.geocoder.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -25,6 +26,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderNominationResource.class)
+@QuarkusTestResource(GeocoderTestResource.class)
 public class GeocoderNominationTest {
 
     @Test

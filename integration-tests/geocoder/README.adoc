@@ -1,5 +1,7 @@
 == Camel Quarkus Geocoder Integration Tests
 
+By default the Geocoder integration tests use WireMock to stub the API interactions.
+
 To run `camel-quarkus-geocoder` integration tests using google maps service, you will need a google cloud https://developers.google.com/maps/documentation/javascript/get-api-key[API key].
 
 Then set the following environment variable:
@@ -8,3 +10,11 @@ Then set the following environment variable:
 ----
 GOOGLE_API_KEY=your-api-id
 ----
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

@@ -46,7 +46,7 @@ public class GeocoderGoogleResource {
         LOG.infof("Retrieve info from current location");
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:address:current?apiKey=%s", googleApiKey),
-                "Hello World", GeocodingResult[].class);
+                null, GeocodingResult[].class);
         LOG.infof("Response : %s", response);
         return response;
     }
@@ -57,7 +57,7 @@ public class GeocoderGoogleResource {
         LOG.infof("Retrieve info from address : %s", address);
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:address:%s?apiKey=%s", address, googleApiKey),
-                "Hello World", GeocodingResult[].class);
+                null, GeocodingResult[].class);
         LOG.infof("Response: %s", response);
         return response;
     }
@@ -68,7 +68,7 @@ public class GeocoderGoogleResource {
         LOG.infof("Retrieve  info from georgraphic coordinates latitude : %s, longitude %s", latitude, longitude);
         final GeocodingResult[] response = producerTemplate.requestBody(
                 String.format("geocoder:latlng:%s,%s?apiKey=%s", latitude, longitude, googleApiKey),
-                "Hello World", GeocodingResult[].class);
+                null, GeocodingResult[].class);
         LOG.infof("Response : %s", response);
         return response;
     }
