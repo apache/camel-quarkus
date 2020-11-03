@@ -16,19 +16,38 @@
  */
 package org.apache.camel.quarkus.core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringJoiner;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.model.*;
+import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.FaultToleranceConfigurationDefinition;
+import org.apache.camel.model.HystrixConfigurationDefinition;
+import org.apache.camel.model.Model;
+import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.model.ModelLifecycleStrategy;
+import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.ProcessorDefinitionHelper;
+import org.apache.camel.model.Resilience4jConfigurationDefinition;
+import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RouteFilters;
+import org.apache.camel.model.RouteTemplateDefinition;
+import org.apache.camel.model.RouteTemplateParameterDefinition;
 import org.apache.camel.model.cloud.ServiceCallConfigurationDefinition;
 import org.apache.camel.model.rest.RestDefinition;
 import org.apache.camel.model.transformer.TransformerDefinition;
 import org.apache.camel.model.validator.ValidatorDefinition;
 import org.apache.camel.spi.NodeIdFactory;
-import org.apache.camel.util.CollectionStringBuffer;
+import org.apache.camel.util.AntPathMatcher;
 
 public abstract class BaseModel implements Model {
 
@@ -38,6 +57,7 @@ public abstract class BaseModel implements Model {
     private final List<RouteTemplateDefinition> routeTemplateDefinitions = new ArrayList<>();
     private final List<RestDefinition> restDefinitions = new ArrayList<>();
     private final Map<String, RouteTemplateDefinition.Converter> routeTemplateConverters = new ConcurrentHashMap<>();
+    private final List<ModelLifecycleStrategy> modelLifecycleStrategies = new ArrayList<>();
     private Map<String, DataFormatDefinition> dataFormats = new HashMap<>();
     private List<TransformerDefinition> transformers = new ArrayList<>();
     private List<ValidatorDefinition> validators = new ArrayList<>();
@@ -46,10 +66,18 @@ public abstract class BaseModel implements Model {
     private Map<String, Resilience4jConfigurationDefinition> resilience4jConfigurations = new ConcurrentHashMap<>();
     private Map<String, FaultToleranceConfigurationDefinition> faultToleranceConfigurations = new ConcurrentHashMap<>();
     private Function<RouteDefinition, Boolean> routeFilter;
-    private final List<ModelLifecycleStrategy> modelLifecycleStrategies = new ArrayList<>();
 
     public BaseModel(CamelContext camelContext) {
         this.camelContext = camelContext;
+    }
+
+    protected static <T> T lookup(CamelContext context, String ref, Class<T> type) {
+        try {
+            return context.getRegistry().lookupByNameAndType(ref, type);
+        } catch (Exception e) {
+            // need to ignore not same type and return it as null
+            return null;
+        }
     }
 
     public CamelContext getCamelContext() {
@@ -160,7 +188,7 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public String addRouteFromTemplate(String routeId, String routeTemplateId, Map<String, Object> parameters)
+    public String addRouteFromTemplate(final String routeId, final String routeTemplateId, final Map<String, Object> parameters)
             throws Exception {
         RouteTemplateDefinition target = null;
         for (RouteTemplateDefinition def : routeTemplateDefinitions) {
@@ -173,8 +201,8 @@ public abstract class BaseModel implements Model {
             throw new IllegalArgumentException("Cannot find RouteTemplate with id " + routeTemplateId);
         }
 
-        CollectionStringBuffer cbs = new CollectionStringBuffer();
-        final Map<String, Object> prop = new HashMap();
+        StringJoiner templatesBuilder = new StringJoiner(", ");
+        final Map<String, Object> prop = new HashMap<>();
         // include default values first from the template (and validate that we have inputs for all required parameters)
         if (target.getTemplateParameters() != null) {
             for (RouteTemplateParameterDefinition temp : target.getTemplateParameters()) {
@@ -183,21 +211,40 @@ public abstract class BaseModel implements Model {
                 } else {
                     // this is a required parameter do we have that as input
                     if (!parameters.containsKey(temp.getName())) {
-                        cbs.append(temp.getName());
+                        templatesBuilder.add(temp.getName());
                     }
                 }
             }
         }
-        if (!cbs.isEmpty()) {
-            throw new IllegalArgumentException("Route template " + routeTemplateId
-                    + " the following mandatory parameters must be provided: " + cbs.toString());
+        if (templatesBuilder.length() > 0) {
+            throw new IllegalArgumentException(
+                    "Route template " + routeTemplateId + " the following mandatory parameters must be provided: "
+                            + templatesBuilder.toString());
         }
         // then override with user parameters
         if (parameters != null) {
             prop.putAll(parameters);
         }
 
-        RouteDefinition def = target.asRouteDefinition();
+        RouteTemplateDefinition.Converter converter = RouteTemplateDefinition::asRouteDefinition;
+
+        for (Map.Entry<String, RouteTemplateDefinition.Converter> entry : routeTemplateConverters.entrySet()) {
+            final String key = entry.getKey();
+            final String templateId = target.getId();
+
+            if ("*".equals(key) || templateId.equals(key)) {
+                converter = entry.getValue();
+                break;
+            } else if (AntPathMatcher.INSTANCE.match(key, templateId)) {
+                converter = entry.getValue();
+                break;
+            } else if (templateId.matches(key)) {
+                converter = entry.getValue();
+                break;
+            }
+        }
+
+        RouteDefinition def = converter.apply(target);
         if (routeId != null) {
             def.setId(routeId);
         }
@@ -375,18 +422,13 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public void setDataFormats(Map<String, DataFormatDefinition> dataFormats) {
-        this.dataFormats = dataFormats;
-    }
-
-    @Override
     public Map<String, DataFormatDefinition> getDataFormats() {
         return dataFormats;
     }
 
     @Override
-    public void setTransformers(List<TransformerDefinition> transformers) {
-        this.transformers = transformers;
+    public void setDataFormats(Map<String, DataFormatDefinition> dataFormats) {
+        this.dataFormats = dataFormats;
     }
 
     @Override
@@ -395,13 +437,18 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public void setValidators(List<ValidatorDefinition> validators) {
-        this.validators = validators;
+    public void setTransformers(List<TransformerDefinition> transformers) {
+        this.transformers = transformers;
     }
 
     @Override
     public List<ValidatorDefinition> getValidators() {
         return validators;
+    }
+
+    @Override
+    public void setValidators(List<ValidatorDefinition> validators) {
+        this.validators = validators;
     }
 
     @Override
@@ -434,15 +481,6 @@ public abstract class BaseModel implements Model {
      */
     protected boolean shouldStartRoutes() {
         return camelContext.isStarted() && !camelContext.isStarting();
-    }
-
-    protected static <T> T lookup(CamelContext context, String ref, Class<T> type) {
-        try {
-            return context.getRegistry().lookupByNameAndType(ref, type);
-        } catch (Exception e) {
-            // need to ignore not same type and return it as null
-            return null;
-        }
     }
 
 }
