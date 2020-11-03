@@ -18,6 +18,7 @@ Perform operations against Kubernetes API
 == What's inside
 
 * https://camel.apache.org/components/latest/kubernetes-config-maps-component.html[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
+* https://camel.apache.org/components/latest/kubernetes-custom-resources-component.html[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
 * https://camel.apache.org/components/latest/kubernetes-deployments-component.html[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
 * https://camel.apache.org/components/latest/kubernetes-hpa-component.html[Kubernetes HPA component], URI syntax: `kubernetes-hpa:masterUrl`
 * https://camel.apache.org/components/latest/kubernetes-job-component.html[Kubernetes Job component], URI syntax: `kubernetes-job:masterUrl`

@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.microprofile.fault.tolerance.deployme
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 
 class MicroprofileFaultToleranceProcessor {
 
@@ -27,4 +28,11 @@ class MicroprofileFaultToleranceProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
+    @BuildStep
+    NativeImageResourceBuildItem initResources() {
+        return new NativeImageResourceBuildItem(
+                "META-INF/services/org/apache/camel/model/CircuitBreakerDefinition");
+    }
+
 }

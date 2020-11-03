@@ -159,7 +159,7 @@ import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 
 public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
-    private final Model model;
+    private Model model;
     private final String version;
     private final XMLRoutesDefinitionLoader xmlLoader;
     private final ModelToXMLDumper modelDumper;
@@ -344,10 +344,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected BeanProxyFactory createBeanProxyFactory() {
-        return new BaseServiceResolver<>(BeanProxyFactory.FACTORY, BeanProxyFactory.class)
-                .resolve(getCamelContextReference())
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProxyFactory on classpath. "
-                        + "Add camel-bean to classpath."));
+        return new BaseServiceResolver<>(BeanProxyFactory.FACTORY, BeanProxyFactory.class,
+                getBootstrapFactoryFinder())
+                        .resolve(getCamelContextReference())
+                        .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProxyFactory on classpath. "
+                                + "Add camel-bean to classpath."));
     }
 
     @Override
@@ -362,10 +363,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected BeanProcessorFactory createBeanProcessorFactory() {
-        return new BaseServiceResolver<>(BeanProcessorFactory.FACTORY, BeanProcessorFactory.class)
-                .resolve(getCamelContextReference())
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProcessorFactory on classpath. "
-                        + "Add camel-bean to classpath."));
+        return new BaseServiceResolver<>(BeanProcessorFactory.FACTORY, BeanProcessorFactory.class,
+                getBootstrapFactoryFinder())
+                        .resolve(getCamelContextReference())
+                        .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProcessorFactory on classpath. "
+                                + "Add camel-bean to classpath."));
     }
 
     @Override
@@ -427,10 +429,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RestRegistryFactory createRestRegistryFactory() {
-        return new BaseServiceResolver<>(RestRegistryFactory.FACTORY, RestRegistryFactory.class)
-                .resolve(getCamelContextReference())
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find RestRegistryFactory on classpath. "
-                        + "Add camel-rest to classpath."));
+        return new BaseServiceResolver<>(RestRegistryFactory.FACTORY, RestRegistryFactory.class,
+                getBootstrapFactoryFinder())
+                        .resolve(getCamelContextReference())
+                        .orElseThrow(() -> new IllegalArgumentException("Cannot find RestRegistryFactory on classpath. "
+                                + "Add camel-rest to classpath."));
     }
 
     @Override
@@ -470,8 +473,9 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HealthCheckRegistry createHealthCheckRegistry() {
-        return new BaseServiceResolver<>(HealthCheckRegistry.FACTORY, HealthCheckRegistry.class)
-                .resolve(getCamelContextReference()).orElse(null);
+        return new BaseServiceResolver<>(HealthCheckRegistry.FACTORY, HealthCheckRegistry.class,
+                getBootstrapFactoryFinder())
+                        .resolve(getCamelContextReference()).orElse(null);
     }
 
     @Override
@@ -481,10 +485,12 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RestBindingJaxbDataFormatFactory createRestBindingJaxbDataFormatFactory() {
-        return new BaseServiceResolver<>(RestBindingJaxbDataFormatFactory.FACTORY, RestBindingJaxbDataFormatFactory.class)
-                .resolve(getCamelContextReference())
-                .orElseThrow(() -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
-                        + "Add camel-jaxb to classpath."));
+        return new BaseServiceResolver<>(RestBindingJaxbDataFormatFactory.FACTORY, RestBindingJaxbDataFormatFactory.class,
+                getBootstrapFactoryFinder())
+                        .resolve(getCamelContextReference())
+                        .orElseThrow(
+                                () -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
+                                        + "Add camel-jaxb to classpath."));
     }
 
     @Override
@@ -600,6 +606,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     public Processor createErrorHandler(Route route, Processor processor) throws Exception {
         return ErrorHandlerReifier.reifier(route, route.getErrorHandlerFactory())
                 .createErrorHandler(processor);
+    }
+
+    @Override
+    public void disposeModel() {
+        this.model = null;
     }
 
     //
