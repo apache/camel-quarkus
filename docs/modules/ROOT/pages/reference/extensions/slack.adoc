@@ -17,7 +17,7 @@ Send and receive messages to/from Slack.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/slack-component.html[Slack component], URI syntax: `slack:channel`
+* xref:latest@components::slack-component.adoc[Slack component], URI syntax: `slack:channel`
 
 Please refer to the above link for usage and configuration details.
 

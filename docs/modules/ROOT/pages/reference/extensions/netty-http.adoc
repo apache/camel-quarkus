@@ -18,7 +18,7 @@ The Netty HTTP extension provides HTTP transport on top of the xref:reference/ex
 
 == What's inside
 
-* https://camel.apache.org/components/latest/netty-http-component.html[Netty HTTP component], URI syntax: `netty-http:protocol:host:port/path`
+* xref:latest@components::netty-http-component.adoc[Netty HTTP component], URI syntax: `netty-http:protocol:host:port/path`
 
 Please refer to the above link for usage and configuration details.
 

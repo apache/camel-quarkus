@@ -16,8 +16,8 @@ Query and/or transform XML payloads using XQuery and Saxon.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/xquery-component.html[XQuery component], URI syntax: `xquery:resourceUri`
-* https://camel.apache.org/components/latest/languages/xquery-language.html[XQuery language]
+* xref:latest@components::xquery-component.adoc[XQuery component], URI syntax: `xquery:resourceUri`
+* xref:latest@components:languages:xquery-language.adoc[XQuery language]
 
 Please refer to the above links for usage and configuration details.
 

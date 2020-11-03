@@ -17,7 +17,7 @@ Evaluate an XPath expression against an XML payload.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/languages/xpath-language.html[XPath language]
+* xref:latest@components:languages:xpath-language.adoc[XPath language]
 
 Please refer to the above link for usage and configuration details.
 

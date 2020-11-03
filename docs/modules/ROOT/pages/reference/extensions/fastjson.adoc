@@ -16,7 +16,7 @@ Marshal POJOs to JSON and back using Fastjson
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/json-fastjson-dataformat.html[JSON Fastjson data format]
+* xref:latest@components:dataformats:json-fastjson-dataformat.adoc[JSON Fastjson data format]
 
 Please refer to the above link for usage and configuration details.
 

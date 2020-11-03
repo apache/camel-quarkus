@@ -17,7 +17,7 @@ Validate the message body using the Java Bean Validation API.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/bean-validator-component.html[Bean Validator component], URI syntax: `bean-validator:label`
+* xref:latest@components::bean-validator-component.adoc[Bean Validator component], URI syntax: `bean-validator:label`
 
 Please refer to the above link for usage and configuration details.
 

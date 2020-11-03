@@ -154,8 +154,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             private String camelBitLink(ArtifactModel<?> model) {
                 model = CqCatalog.toCamelDocsModel(model);
                 final String kind = model.getKind();
-                return "https://camel.apache.org/components/latest/" + (!"component".equals(kind) ? kind + "s/" : "")
-                        + model.getName() + (!"other".equals(kind) ? "-" + kind : "") + ".html";
+                return "xref:latest@components:" + (!"component".equals(kind) ? kind + "s:" : ":")
+                        + model.getName() + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
         model.put("toAnchor", new TemplateMethodModelEx() {

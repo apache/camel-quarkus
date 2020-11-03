@@ -16,7 +16,7 @@ Poll for PostgreSQL Write-Ahead Log (WAL) records using Streaming Replication Sl
 
 == What's inside
 
-* https://camel.apache.org/components/latest/pg-replication-slot-component.html[PostgresSQL Replication Slot component], URI syntax: `pg-replication-slot:host:port/database/slot:outputPlugin`
+* xref:latest@components::pg-replication-slot-component.adoc[PostgresSQL Replication Slot component], URI syntax: `pg-replication-slot:host:port/database/slot:outputPlugin`
 
 Please refer to the above link for usage and configuration details.
 

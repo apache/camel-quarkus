@@ -17,7 +17,7 @@ Evaluate a Groovy script.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/languages/groovy-language.html[Groovy language]
+* xref:latest@components:languages:groovy-language.adoc[Groovy language]
 
 Please refer to the above link for usage and configuration details.
 

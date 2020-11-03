@@ -16,7 +16,7 @@ Chat with a ChatScript Server.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/chatscript-component.html[ChatScript component], URI syntax: `chatscript:host:port/botName`
+* xref:latest@components::chatscript-component.adoc[ChatScript component], URI syntax: `chatscript:host:port/botName`
 
 Please refer to the above link for usage and configuration details.
 

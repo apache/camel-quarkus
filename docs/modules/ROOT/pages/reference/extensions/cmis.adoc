@@ -16,7 +16,7 @@ Read and write data from to/from a CMIS compliant content repositories.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/cmis-component.html[CMIS component], URI syntax: `cmis:cmsUrl`
+* xref:latest@components::cmis-component.adoc[CMIS component], URI syntax: `cmis:cmsUrl`
 
 Please refer to the above link for usage and configuration details.
 

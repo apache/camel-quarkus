@@ -17,7 +17,7 @@ Store and Retrieve data from/to AWS SDB service.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-sdb-component.html[AWS SimpleDB component], URI syntax: `aws-sdb:domainName`
+* xref:latest@components::aws-sdb-component.adoc[AWS SimpleDB component], URI syntax: `aws-sdb:domainName`
 
 Please refer to the above link for usage and configuration details.
 

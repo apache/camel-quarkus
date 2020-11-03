@@ -16,7 +16,7 @@ Exchanges messages with an IBM i system using data queues, message queues, or pr
 
 == What's inside
 
-* https://camel.apache.org/components/latest/jt400-component.html[JT400 component], URI syntax: `jt400:userID:password/systemName/objectPath.type`
+* xref:latest@components::jt400-component.adoc[JT400 component], URI syntax: `jt400:userID:password/systemName/objectPath.type`
 
 Please refer to the above link for usage and configuration details.
 

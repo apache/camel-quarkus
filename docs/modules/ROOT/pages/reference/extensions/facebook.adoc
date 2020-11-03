@@ -16,7 +16,7 @@ Send requests to Facebook APIs supported by Facebook4J.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/facebook-component.html[Facebook component], URI syntax: `facebook:methodName`
+* xref:latest@components::facebook-component.adoc[Facebook component], URI syntax: `facebook:methodName`
 
 Please refer to the above link for usage and configuration details.
 

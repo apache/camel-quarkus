@@ -17,7 +17,7 @@ Test routes and mediation rules using mocks.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/mock-component.html[Mock component], URI syntax: `mock:name`
+* xref:latest@components::mock-component.adoc[Mock component], URI syntax: `mock:name`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Manage and invoke AWS Lambda functions.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-lambda-component.html[AWS Lambda component], URI syntax: `aws-lambda:function`
+* xref:latest@components::aws-lambda-component.adoc[AWS Lambda component], URI syntax: `aws-lambda:function`
 
 Please refer to the above link for usage and configuration details.
 

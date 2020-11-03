@@ -17,9 +17,9 @@ Upload and download files to/from FTP or SFTP servers.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ftp-component.html[FTP component], URI syntax: `ftp:host:port/directoryName`
-* https://camel.apache.org/components/latest/ftps-component.html[FTPS component], URI syntax: `ftps:host:port/directoryName`
-* https://camel.apache.org/components/latest/sftp-component.html[SFTP component], URI syntax: `sftp:host:port/directoryName`
+* xref:latest@components::ftp-component.adoc[FTP component], URI syntax: `ftp:host:port/directoryName`
+* xref:latest@components::ftps-component.adoc[FTPS component], URI syntax: `ftps:host:port/directoryName`
+* xref:latest@components::sftp-component.adoc[SFTP component], URI syntax: `sftp:host:port/directoryName`
 
 Please refer to the above links for usage and configuration details.
 

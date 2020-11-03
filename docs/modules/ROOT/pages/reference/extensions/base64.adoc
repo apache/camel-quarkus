@@ -17,7 +17,7 @@ Encode and decode data using Base64.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/base64-dataformat.html[Base64 data format]
+* xref:latest@components:dataformats:base64-dataformat.adoc[Base64 data format]
 
 Please refer to the above link for usage and configuration details.
 

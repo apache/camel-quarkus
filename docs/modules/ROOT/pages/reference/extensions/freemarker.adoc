@@ -16,7 +16,7 @@ Transform messages using FreeMarker templates.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/freemarker-component.html[Freemarker component], URI syntax: `freemarker:resourceUri`
+* xref:latest@components::freemarker-component.adoc[Freemarker component], URI syntax: `freemarker:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

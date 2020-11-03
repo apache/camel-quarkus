@@ -17,7 +17,7 @@ Schedule sending of messages using the Quartz 2.x scheduler.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/quartz-component.html[Quartz component], URI syntax: `quartz:groupName/triggerName`
+* xref:latest@components::quartz-component.adoc[Quartz component], URI syntax: `quartz:groupName/triggerName`
 
 Please refer to the above link for usage and configuration details.
 

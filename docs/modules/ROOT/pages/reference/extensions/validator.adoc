@@ -17,7 +17,7 @@ Validate the payload using XML Schema and JAXP Validation.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/validator-component.html[Validator component], URI syntax: `validator:resourceUri`
+* xref:latest@components::validator-component.adoc[Validator component], URI syntax: `validator:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

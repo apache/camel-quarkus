@@ -17,8 +17,8 @@ Exchange data with external Websocket servers using Async Http Client.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/ahc-ws-component.html[Async HTTP Client (AHC) Secure Websocket (Secure) component], URI syntax: `ahc-wss:httpUri`
-* https://camel.apache.org/components/latest/ahc-ws-component.html[Async HTTP Client (AHC) Websocket component], URI syntax: `ahc-ws:httpUri`
+* xref:latest@components::ahc-ws-component.adoc[Async HTTP Client (AHC) Secure Websocket (Secure) component], URI syntax: `ahc-wss:httpUri`
+* xref:latest@components::ahc-ws-component.adoc[Async HTTP Client (AHC) Websocket component], URI syntax: `ahc-ws:httpUri`
 
 Please refer to the above links for usage and configuration details.
 

@@ -17,7 +17,7 @@ Send requests to SAP NetWeaver Gateway using HTTP.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/sap-netweaver-component.html[SAP NetWeaver component], URI syntax: `sap-netweaver:url`
+* xref:latest@components::sap-netweaver-component.adoc[SAP NetWeaver component], URI syntax: `sap-netweaver:url`
 
 Please refer to the above link for usage and configuration details.
 

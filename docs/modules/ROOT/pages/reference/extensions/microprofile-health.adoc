@@ -17,7 +17,7 @@ Bridging Eclipse MicroProfile Health with Camel health checks
 
 == What's inside
 
-* https://camel.apache.org/components/latest/others/microprofile-health.html[Microprofile Health]
+* xref:latest@components:others:microprofile-health.adoc[Microprofile Health]
 
 Please refer to the above link for usage and configuration details.
 
@@ -35,7 +35,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Usage
 
-You can register health checks for your applications with the https://camel.apache.org/manual/latest/health-check.html[Camel health check API].
+You can register health checks for your applications with the xref:latest@manual::health-check.adoc[Camel health check API].
 
 By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. For finer control over whether
 a check is registered as a liveness or readiness check, you can extend either `AbstractCamelMicroProfileLivenessCheck` or `AbstractCamelMicroProfileReadinessCheck`.
@@ -76,4 +76,3 @@ Set whether to enable Camel health checks
 
 [.configuration-legend]
 icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
-

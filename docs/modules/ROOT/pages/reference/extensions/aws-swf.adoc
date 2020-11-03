@@ -17,7 +17,7 @@ Manage workflows in the AWS Simple Workflow service.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-swf-component.html[AWS Simple Workflow (SWF) component], URI syntax: `aws-swf:type`
+* xref:latest@components::aws-swf-component.adoc[AWS Simple Workflow (SWF) component], URI syntax: `aws-swf:type`
 
 Please refer to the above link for usage and configuration details.
 

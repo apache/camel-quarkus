@@ -17,7 +17,7 @@ Use a Camel Data Format as a regular Camel Component.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformat-component.html[Data Format component], URI syntax: `dataformat:name:operation`
+* xref:latest@components::dataformat-component.adoc[Data Format component], URI syntax: `dataformat:name:operation`
 
 Please refer to the above link for usage and configuration details.
 

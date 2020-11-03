@@ -17,7 +17,7 @@ Manage AWS EKS cluster instances.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-eks-component.html[AWS Elastic Kubernetes Service (EKS) component], URI syntax: `aws-eks:label`
+* xref:latest@components::aws-eks-component.adoc[AWS Elastic Kubernetes Service (EKS) component], URI syntax: `aws-eks:label`
 
 Please refer to the above link for usage and configuration details.
 

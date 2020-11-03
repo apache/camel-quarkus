@@ -17,7 +17,7 @@ Translate texts using AWS Translate.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/aws-translate-component.html[AWS Translate component], URI syntax: `aws-translate:label`
+* xref:latest@components::aws-translate-component.adoc[AWS Translate component], URI syntax: `aws-translate:label`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Send DataSet jobs to an Apache Flink cluster.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/flink-component.html[Flink component], URI syntax: `flink:endpointType`
+* xref:latest@components::flink-component.adoc[Flink component], URI syntax: `flink:endpointType`
 
 Please refer to the above link for usage and configuration details.
 

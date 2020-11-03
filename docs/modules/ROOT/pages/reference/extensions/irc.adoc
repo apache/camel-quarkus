@@ -16,7 +16,7 @@ Send and receive messages to/from and IRC chat.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/irc-component.html[IRC component], URI syntax: `irc:hostname:port`
+* xref:latest@components::irc-component.adoc[IRC component], URI syntax: `irc:hostname:port`
 
 Please refer to the above link for usage and configuration details.
 

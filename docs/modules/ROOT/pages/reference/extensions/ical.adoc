@@ -17,7 +17,7 @@ Marshal and unmarshal iCal (.ics) documents to/from model objects provided by th
 
 == What's inside
 
-* https://camel.apache.org/components/latest/dataformats/ical-dataformat.html[iCal data format]
+* xref:latest@components:dataformats:ical-dataformat.adoc[iCal data format]
 
 Please refer to the above link for usage and configuration details.
 

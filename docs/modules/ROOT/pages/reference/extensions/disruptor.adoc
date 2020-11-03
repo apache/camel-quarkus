@@ -16,8 +16,8 @@ Provides asynchronous SEDA behavior using LMAX Disruptor.
 
 == What's inside
 
-* https://camel.apache.org/components/latest/disruptor-component.html[Disruptor component], URI syntax: `disruptor:name`
-* https://camel.apache.org/components/latest/disruptor-component.html[Disruptor VM component], URI syntax: `disruptor-vm:name`
+* xref:latest@components::disruptor-component.adoc[Disruptor component], URI syntax: `disruptor:name`
+* xref:latest@components::disruptor-component.adoc[Disruptor VM component], URI syntax: `disruptor-vm:name`
 
 Please refer to the above links for usage and configuration details.
 
