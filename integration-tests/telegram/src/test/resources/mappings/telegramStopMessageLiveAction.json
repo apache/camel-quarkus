@@ -1,0 +1,26 @@
+{
+  "id" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
+  "name" : "botfake-token_stopmessagelivelocation",
+  "request" : {
+    "url" : "/botfake-token/stopMessageLiveLocation",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"chat_id\":\"1426416050\",\"message_id\":44}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"result\":{\"message_id\":44,\"from\":{\"id\":1459045600,\"is_bot\":true,\"first_name\":\"camel-quarkus-test\",\"username\":\"CamelQuarkusTestBot\"},\"chat\":{\"id\":1426416050,\"first_name\":\"Apache\",\"last_name\":\"Camel\",\"type\":\"private\"},\"date\":1604406366,\"edit_date\":1604406367,\"location\":{\"latitude\":29.974934,\"longitude\":31.131109}}}",
+    "headers" : {
+      "Server" : "nginx/1.16.1",
+      "Date" : "Tue, 03 Nov 2020 12:26:07 GMT",
+      "Content-Type" : "application/json",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload"
+    }
+  },
+  "uuid" : "70c0a770-2a98-4f46-ba01-8ba3a71d8e3d",
+  "persistent" : true,
+  "insertionIndex" : 11
+}

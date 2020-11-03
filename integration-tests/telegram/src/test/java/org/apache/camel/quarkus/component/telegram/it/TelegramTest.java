@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -31,10 +32,15 @@ import org.apache.camel.component.telegram.model.SendLocationMessage;
 import org.apache.camel.component.telegram.model.SendVenueMessage;
 import org.apache.camel.component.telegram.model.StopMessageLiveLocationMessage;
 import org.apache.camel.quarkus.test.TrustStoreResource;
+import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.request;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.is;
@@ -42,14 +48,19 @@ import static org.hamcrest.Matchers.lessThan;
 
 @QuarkusTest
 @QuarkusTestResource(TrustStoreResource.class)
+@QuarkusTestResource(TelegramTestResource.class)
 public class TelegramTest {
 
     private static final Logger LOG = Logger.getLogger(TelegramTest.class);
 
+    @MockServer
+    WireMockServer server;
+
     @Test
     public void postText() {
         final String uuid = UUID.randomUUID().toString().replace("-", "");
-        final String msg = String.format("A message from camel-quarkus-telegram %s", uuid);
+        final String msg = "A message from camel-quarkus-telegram"
+                + (System.getenv("TELEGRAM_AUTHORIZATION_TOKEN") != null ? " " + uuid : "");
 
         /* Send a message */
         RestAssured.given()
@@ -63,6 +74,17 @@ public class TelegramTest {
 
     @Test
     public void getText() {
+        // Manually stub the getUpdates response as the addition of the offset query param seems to confuse WireMock
+        if (server != null) {
+            server.stubFor(request("GET", urlPathMatching("/.*/getUpdates"))
+                    .withQueryParam("limit", equalTo("100"))
+                    .withQueryParam("timeout", equalTo("30"))
+                    .willReturn(aResponse()
+                            .withHeader("Content-Type", "application/json")
+                            .withBody(
+                                    "{\"ok\":true,\"result\":[{\"update_id\":123488937,\n\"message\":{\"message_id\":37,\"from\":{\"id\":1426416050,\"is_bot\":false,\"first_name\":\"Apache\",\"last_name\":\"Camel\",\"language_code\":\"en\"},\"chat\":{\"id\":1426416050,\"first_name\":\"Apache\",\"last_name\":\"Camel\",\"type\":\"private\"},\"date\":1604406332,\"text\":\"test\"}}]}")));
+        }
+
         /* Telegram bots by design see neither their own messages nor other bots' messages.
          * So receiving messages is currently possible only if you ping the bot manually.
          * If you do so, you should see your messages in the test log. */
@@ -155,7 +177,7 @@ public class TelegramTest {
                             .post("/telegram/edit-location")
                             .then()
                             .extract().statusCode();
-                    return code != 201;
+                    return code == 201;
                 });
 
         /* Stop updating */

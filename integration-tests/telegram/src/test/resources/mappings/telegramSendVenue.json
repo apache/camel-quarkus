@@ -1,0 +1,26 @@
+{
+  "id" : "ddf71eec-1f76-4467-8611-d8ec74edc885",
+  "name" : "botfake-token_sendvenue",
+  "request" : {
+    "url" : "/botfake-token/sendVenue",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"chat_id\":\"1426416050\",\"longitude\":31.136329,\"latitude\":29.977818,\"title\":\"Pyramid of Queen Henutsen\",\"address\":\"El-Hussein Ibn Ali Ln, Nazlet El-Semman, Al Haram, Giza Governorate, Egypt\"}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"result\":{\"message_id\":42,\"from\":{\"id\":1459045600,\"is_bot\":true,\"first_name\":\"camel-quarkus-test\",\"username\":\"CamelQuarkusTestBot\"},\"chat\":{\"id\":1426416050,\"first_name\":\"Apache\",\"last_name\":\"Camel\",\"type\":\"private\"},\"date\":1604406366,\"location\":{\"latitude\":29.977826,\"longitude\":31.136330},\"venue\":{\"location\":{\"latitude\":29.977826,\"longitude\":31.136330},\"title\":\"Pyramid of Queen Henutsen\",\"address\":\"El-Hussein Ibn Ali Ln, Nazlet El-Semman, Al Haram, Giza Governorate, Egypt\"}}}",
+    "headers" : {
+      "Server" : "nginx/1.16.1",
+      "Date" : "Tue, 03 Nov 2020 12:26:06 GMT",
+      "Content-Type" : "application/json",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubDomains; preload"
+    }
+  },
+  "uuid" : "ddf71eec-1f76-4467-8611-d8ec74edc885",
+  "persistent" : true,
+  "insertionIndex" : 6
+}
