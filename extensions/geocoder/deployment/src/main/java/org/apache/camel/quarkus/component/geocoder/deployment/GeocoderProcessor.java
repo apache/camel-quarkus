@@ -50,6 +50,7 @@ class GeocoderProcessor {
         items.add(new ReflectiveClassBuildItem(false, true, "com.google.maps.model.Bounds"));
         items.add(new ReflectiveClassBuildItem(false, true, "com.google.maps.model.LatLng"));
         items.add(new ReflectiveClassBuildItem(false, true, "com.google.maps.model.LocationType"));
+        items.add(new ReflectiveClassBuildItem(false, true, "com.google.maps.model.GeolocationPayload"));
         return items;
     }
 }
