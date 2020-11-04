@@ -1,4 +1,4 @@
-The https://camel.apache.org/components/latest/microprofile-metrics-component.html[microprofile-metrics] component automatically exposes a set of Camel application metrics. Some of these include:
+The xref:3.6.x@components:microprofile-metrics-component.adoc[microprofile-metrics] component automatically exposes a set of Camel application metrics. Some of these include:
 
 === Camel Context metrics
 
@@ -113,6 +113,6 @@ The total number of all failures handled for the route
 
 All metrics are tagged with the name of the Camel Context and the id of the route where applicable.
 
-You can also produce your own customized metrics in your Camel routes. For more information, refer to the https://camel.apache.org/components/latest/microprofile-metrics-component.html[microprofile-metrics] component documentation.
+You can also produce your own customized metrics in your Camel routes. For more information, refer to the xref:3.6.x@components:microprofile-metrics-component.adoc[microprofile-metrics] component documentation.
 
 Metrics are exposed to Quarkus as application metrics and they can be browsed at http://localhost:8080/metrics/application.
