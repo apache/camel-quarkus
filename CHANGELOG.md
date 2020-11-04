@@ -12,6 +12,7 @@
 
 **Closed issues:**
 
+- Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
 - Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
 - json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
@@ -662,6 +663,7 @@
 - Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
+- Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -721,7 +723,6 @@
 
 **Merged pull requests:**
 
-- Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add Peter Palaga's PGP key [\#1268](https://github.com/apache/camel-quarkus/pull/1268) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 1.5.0.Final [\#1267](https://github.com/apache/camel-quarkus/pull/1267) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove camel-rest workaround as the fic for the issue is included in Apache Camel 3.3.0 [\#1265](https://github.com/apache/camel-quarkus/pull/1265) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1405,6 +1406,7 @@
 - ftp: implement ftp/sft server test support with QuarkusTestResourceLifecycleManager [\#512](https://github.com/apache/camel-quarkus/pull/512) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
+- Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1450,7 +1452,6 @@
 
 **Merged pull requests:**
 
-- Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
 - Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1569,7 +1570,6 @@
 - Use capabilities instead of feature names [\#369](https://github.com/apache/camel-quarkus/pull/369) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add description to extension matedata [\#367](https://github.com/apache/camel-quarkus/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
 - Set camel-quarkus-last-release: 0.3.1 in site.yml [\#366](https://github.com/apache/camel-quarkus/pull/366) ([ppalaga](https://github.com/ppalaga))
-- Fix \#357 Make netty-http dependent on netty and remove the duplications [\#365](https://github.com/apache/camel-quarkus/pull/365) ([ppalaga](https://github.com/ppalaga))
 - Make -Pnative equivalent with -Dnative, prefer -Pnative in the docs [\#363](https://github.com/apache/camel-quarkus/pull/363) ([ppalaga](https://github.com/ppalaga))
 - chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
@@ -1590,6 +1590,7 @@
 
 **Merged pull requests:**
 
+- Fix \#357 Make netty-http dependent on netty and remove the duplications [\#365](https://github.com/apache/camel-quarkus/pull/365) ([ppalaga](https://github.com/ppalaga))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
