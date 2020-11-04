@@ -44,7 +44,7 @@ At the end of the day, resources matching `include-patterns` are marked for incl
 [[using-onexception-clause-in-native-mode]]
 == Using onException clause in native mode
 
-When using xref:latest@manual:exception-clause.adoc[camel onException handling] in native mode, it is the application developer's responsibility to register exception classes for reflection.
+When using xref:latest@manual::exception-clause.adoc[camel onException handling] in native mode, it is the application developer's responsibility to register exception classes for reflection.
 
 For instance, having a camel context with onException handling as below:
 

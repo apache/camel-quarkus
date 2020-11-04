@@ -63,7 +63,7 @@ public static class EventHandler {
 == Camel Main
 
 To configure components and other aspects of Apache Camel through properties, you can add the `camel-quarkus-main`
-extension which brings functionalities from xref:latest@components:others/main.adoc[Apache Camel
+extension which brings functionalities from xref:latest@components:others:main.adoc[Apache Camel
 Main] to Camel Quarkus.
 
 In the example below, we apply the same configuration as the one from the Java example above by using properties:
@@ -142,7 +142,7 @@ Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not s
 
 ==== REST DSL
 
-The Camel xref:latest@manual:rest-dsl.adoc[REST DSL] can be defined in XML and configured with Camel Main via a property:
+The Camel xref:latest@manual::rest-dsl.adoc[REST DSL] can be defined in XML and configured with Camel Main via a property:
 
 [source,properties]
 ----
@@ -166,7 +166,7 @@ The XML for the REST configuration looks like:
 
 ==== Route Templates
 
-xref:latest@manual:route-template.adoc[Route templates] can be defined in XML and configured with Camel Main via a property:
+xref:latest@manual::route-template.adoc[Route templates] can be defined in XML and configured with Camel Main via a property:
 
 [source,properties]
 ----
