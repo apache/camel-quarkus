@@ -24,6 +24,7 @@ import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.recording.RecordingStatus;
@@ -39,7 +40,7 @@ import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options
 public abstract class WireMockTestResourceLifecycleManager implements QuarkusTestResourceLifecycleManager {
 
     protected static final Logger LOG = Logger.getLogger(WireMockTestResourceLifecycleManager.class);
-    protected WireMockServer server;
+    protected static final Map<String, WireMockServer> servers = new ConcurrentHashMap<>();
 
     /**
      * Starts the {@link WireMockServer} and configures request / response recording if it has been enabled
@@ -49,8 +50,11 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
         Map<String, String> properties = new HashMap<>();
 
         if (isMockingEnabled() || isRecordingEnabled()) {
-            server = createServer();
-            server.start();
+            WireMockServer server = createServer();
+            if (!server.isRunning()) {
+                LOG.info("Starting WireMockServer");
+                server.start();
+            }
 
             if (isRecordingEnabled()) {
                 String recordTargetBaseUrl = getRecordTargetBaseUrl();
@@ -78,30 +82,35 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
      */
     @Override
     public void stop() {
-        if (server != null) {
-            LOG.info("Stopping WireMockServer");
-            if (server.getRecordingStatus().getStatus().equals(RecordingStatus.Recording)) {
-                LOG.info("Stopping recording");
-                SnapshotRecordResult recordResult = server.stopRecording();
+        WireMockServer server = getServer();
+        try {
+            if (server != null) {
+                LOG.info("Stopping WireMockServer");
+                if (server.getRecordingStatus().getStatus().equals(RecordingStatus.Recording)) {
+                    LOG.info("Stopping recording");
+                    SnapshotRecordResult recordResult = server.stopRecording();
 
-                List<StubMapping> stubMappings = recordResult.getStubMappings();
-                if (isDeleteRecordedMappingsOnError()) {
-                    for (StubMapping mapping : stubMappings) {
-                        int status = mapping.getResponse().getStatus();
-                        if (status >= 300 && mapping.shouldBePersisted()) {
-                            try {
-                                String fileName = mapping.getName() + "-" + mapping.getId() + ".json";
-                                Path mappingFilePath = Paths.get("./src/test/resources/mappings/", fileName);
-                                Files.deleteIfExists(mappingFilePath);
-                                LOG.infof("Deleted mapping file %s as status code was %d", fileName, status);
-                            } catch (IOException e) {
-                                LOG.errorf("Failed to delete mapping file %s", e, mapping.getName());
+                    List<StubMapping> stubMappings = recordResult.getStubMappings();
+                    if (isDeleteRecordedMappingsOnError()) {
+                        for (StubMapping mapping : stubMappings) {
+                            int status = mapping.getResponse().getStatus();
+                            if (status >= 300 && mapping.shouldBePersisted()) {
+                                try {
+                                    String fileName = mapping.getName() + "-" + mapping.getId() + ".json";
+                                    Path mappingFilePath = Paths.get("./src/test/resources/mappings/", fileName);
+                                    Files.deleteIfExists(mappingFilePath);
+                                    LOG.infof("Deleted mapping file %s as status code was %d", fileName, status);
+                                } catch (IOException e) {
+                                    LOG.errorf("Failed to delete mapping file %s", e, mapping.getName());
+                                }
                             }
                         }
                     }
                 }
+                server.stop();
             }
-            server.stop();
+        } finally {
+            servers.remove(getServerKey());
         }
     }
 
@@ -125,6 +134,7 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
 
                     field.setAccessible(true);
                     try {
+                        WireMockServer server = getServer();
                         if (server == null) {
                             server = createServer();
                             server.start();
@@ -177,6 +187,13 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     }
 
     /**
+     * Returns the {@link WireMockServer} associated with the record target URL.
+     */
+    protected WireMockServer getServer() {
+        return servers.get(getServerKey());
+    }
+
+    /**
      * The target base URL that WireMock should watch for when recording requests.
      *
      * For example, if a test triggers an HTTP call on an external endpoint like https://api.foo.com/some/resource.
@@ -190,13 +207,11 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     protected abstract boolean isMockingEnabled();
 
     /**
-     * Creates and starts a {@link WireMockServer} on a random port. {@link MockBackendUtils} triggers the log
+     * Creates a {@link WireMockServer} configured to start on a random port. {@link MockBackendUtils} triggers the log
      * message that signifies mocking is in use.
      */
     private WireMockServer createServer() {
-        LOG.info("Starting WireMockServer");
-        MockBackendUtils.startMockBackend(true);
-        return new WireMockServer(options().dynamicPort());
+        return servers.computeIfAbsent(getServerKey(), k -> new WireMockServer(options().dynamicPort()));
     }
 
     /**
@@ -207,5 +222,13 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     private boolean isRecordingEnabled() {
         String recordEnabled = System.getProperty("wiremock.record", System.getenv("WIREMOCK_RECORD"));
         return recordEnabled != null && recordEnabled.equals("true");
+    }
+
+    private String getServerKey() {
+        String key = getRecordTargetBaseUrl();
+        if (key == null || key.isEmpty()) {
+            key = "http://localhost";
+        }
+        return key;
     }
 }
