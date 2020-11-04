@@ -116,26 +116,30 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     @Override
     public void inject(Object testInstance) {
         if (isMockingEnabled() || isRecordingEnabled()) {
-            Class<?> c = testInstance.getClass();
-            for (Field field : c.getDeclaredFields()) {
-                if (field.getAnnotation(MockServer.class) != null) {
-                    if (!WireMockServer.class.isAssignableFrom(field.getType())) {
-                        throw new RuntimeException("@MockServer can only be used on fields of type WireMockServer");
-                    }
-
-                    field.setAccessible(true);
-                    try {
-                        if (server == null) {
-                            server = createServer();
-                            server.start();
+            Class<?> testClass = testInstance.getClass();
+            while (testClass != Object.class) {
+                for (Field field : testClass.getDeclaredFields()) {
+                    if (field.getAnnotation(MockServer.class) != null) {
+                        if (!WireMockServer.class.isAssignableFrom(field.getType())) {
+                            throw new RuntimeException("@MockServer can only be used on fields of type WireMockServer");
                         }
-                        LOG.infof("Injecting WireMockServer for field %s", field.getName());
-                        field.set(testInstance, server);
-                        return;
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
+
+                        field.setAccessible(true);
+                        try {
+                            if (server == null) {
+                                LOG.info("Starting WireMockServer");
+                                server = createServer();
+                                server.start();
+                            }
+                            LOG.infof("Injecting WireMockServer for field %s", field.getName());
+                            field.set(testInstance, server);
+                            return;
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }
+                testClass = testClass.getSuperclass();
             }
         }
     }
