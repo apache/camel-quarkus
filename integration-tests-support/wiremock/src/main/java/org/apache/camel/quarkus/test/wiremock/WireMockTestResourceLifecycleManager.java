@@ -26,6 +26,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
+import com.github.tomakehurst.wiremock.common.ClasspathFileSource;
+import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.recording.RecordingStatus;
 import com.github.tomakehurst.wiremock.recording.SnapshotRecordResult;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
@@ -200,7 +202,9 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     private WireMockServer createServer() {
         LOG.info("Starting WireMockServer");
         MockBackendUtils.startMockBackend(true);
-        return new WireMockServer(options().dynamicPort());
+        return new WireMockServer(options()
+                .dynamicPort()
+                .fileSource(new CamelQuarkusFileSource()));
     }
 
     /**
@@ -211,5 +215,19 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     private boolean isRecordingEnabled() {
         String recordEnabled = System.getProperty("wiremock.record", System.getenv("WIREMOCK_RECORD"));
         return recordEnabled != null && recordEnabled.equals("true");
+    }
+
+    /**
+     * A custom ClasspathFileSource so that WireMock mapping files can be resolved in the quarkus-platform build
+     */
+    private static class CamelQuarkusFileSource extends ClasspathFileSource {
+        private CamelQuarkusFileSource() {
+            super("");
+        }
+
+        @Override
+        public FileSource child(String subDirectoryName) {
+            return new ClasspathFileSource(subDirectoryName);
+        }
     }
 }
