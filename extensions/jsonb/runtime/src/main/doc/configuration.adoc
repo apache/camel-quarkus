@@ -1,0 +1,1 @@
+Extension contains `io.quarkus:quarkus-jsonb` dependency. No jsonb implementation has to be provided.
