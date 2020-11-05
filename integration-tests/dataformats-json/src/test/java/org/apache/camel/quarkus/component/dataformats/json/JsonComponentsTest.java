@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.is;
 public class JsonComponentsTest {
 
     private static Stream<String> listJsonDataFormatsToBeTested() {
-        return Stream.of("Jackson", "Johnzon", "Gson");
+        return Stream.of("Jackson", "Johnzon", "Gson", "Jsonb");
     }
 
     @ParameterizedTest

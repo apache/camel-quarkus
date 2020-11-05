@@ -30,7 +30,13 @@ public class PojoB {
         return value;
     }
 
-    public void setString(Double string) {
+    public void setValue(Double string) {
         this.value = string;
     }
+
+    @Override
+    public String toString() {
+        return "PojoB [value=" + value + "]";
+    }
+
 }

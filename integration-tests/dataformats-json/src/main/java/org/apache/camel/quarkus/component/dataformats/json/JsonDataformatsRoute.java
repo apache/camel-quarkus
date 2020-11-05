@@ -30,6 +30,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.gson.GsonDataFormat;
 import org.apache.camel.component.jackson.JacksonDataFormat;
 import org.apache.camel.component.johnzon.JohnzonDataFormat;
+import org.apache.camel.component.jsonb.JsonbDataFormat;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.ExcludeField;
@@ -51,7 +52,8 @@ public class JsonDataformatsRoute extends RouteBuilder {
                 new JacksonDataFormat(PojoB.class));
 
         JohnzonDataFormat johnzonDummyObjectDataFormat = new JohnzonDataFormat();
-        johnzonDummyObjectDataFormat.setParameterizedType(new JohnzonParameterizedType(List.class, DummyObject.class));
+        johnzonDummyObjectDataFormat.setParameterizedType(new JohnzonParameterizedType(List.class,
+                DummyObject.class));
         configureJsonRoutes(JsonLibrary.Johnzon, johnzonDummyObjectDataFormat, new JohnzonDataFormat(PojoA.class),
                 new JohnzonDataFormat(PojoB.class));
 
@@ -73,6 +75,10 @@ public class JsonDataformatsRoute extends RouteBuilder {
         }));
         configureJsonRoutes(JsonLibrary.Gson, gsonDummyObjectDataFormat, new GsonDataFormat(PojoA.class),
                 new GsonDataFormat(PojoB.class));
+
+        JsonbDataFormat jsonBDummyObjectDataFormat = new JsonbDataFormat(new ParamType(List.class, DummyObject.class));
+        configureJsonRoutes(JsonLibrary.Jsonb, jsonBDummyObjectDataFormat, new JsonbDataFormat(PojoA.class),
+                new JsonbDataFormat(PojoB.class));
 
         from("direct:jacksonxml-marshal")
                 .marshal()
