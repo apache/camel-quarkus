@@ -13,6 +13,8 @@
 **Closed issues:**
 
 - Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
+- Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
+- PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
 - Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
 - json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
@@ -29,6 +31,7 @@
 - Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
+- Nagios native support [\#1726](https://github.com/apache/camel-quarkus/issues/1726)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
 - Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
@@ -38,6 +41,8 @@
 
 **Merged pull requests:**
 
+- Migrate ServiceNow, Slack, Geocoder & Telegram tests to WireMock [\#1993](https://github.com/apache/camel-quarkus/pull/1993) ([jamesnetherton](https://github.com/jamesnetherton))
+- Added nagios native support \#1726 [\#1991](https://github.com/apache/camel-quarkus/pull/1991) ([aldettinger](https://github.com/aldettinger))
 - PostgresSQL Event : add usage of Quarkus AgroalDatasource fixes \#1909 [\#1982](https://github.com/apache/camel-quarkus/pull/1982) ([zbendhiba](https://github.com/zbendhiba))
 - Reenable Olingo4 integration test [\#1980](https://github.com/apache/camel-quarkus/pull/1980) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configuration option \(not\) to start the runtime \#1969 [\#1977](https://github.com/apache/camel-quarkus/pull/1977) ([ppalaga](https://github.com/ppalaga))
@@ -507,6 +512,7 @@
 
 **Fixed bugs:**
 
+- NoDefaultServletTest cannot find property quarkus.camel.servlet.url-patterns [\#853](https://github.com/apache/camel-quarkus/issues/853)
 - CamelBeanPostProcessor is invoked after routes are already configured [\#1368](https://github.com/apache/camel-quarkus/issues/1368)
 - \[Quarkus 1.6\]\[iCal\] TimeZone-less DTSTART and DTEND changed to GMT in native mode [\#838](https://github.com/apache/camel-quarkus/issues/838)
 
@@ -896,7 +902,6 @@
 - XML integration tests fail in native mode on JDK 11 [\#1000](https://github.com/apache/camel-quarkus/issues/1000)
 - RestBindingReifier.setupJaxb fails in native mode with JDK 11 [\#999](https://github.com/apache/camel-quarkus/issues/999)
 - CustomDefaultServletClassTest Failed to index: org.apache.camel.quarkus.component.servlet.test.CustomServlet [\#854](https://github.com/apache/camel-quarkus/issues/854)
-- NoDefaultServletTest cannot find property quarkus.camel.servlet.url-patterns [\#853](https://github.com/apache/camel-quarkus/issues/853)
 - TrustStoreResource does not work on Java 11 [\#852](https://github.com/apache/camel-quarkus/issues/852)
 
 **Closed issues:**
@@ -1173,7 +1178,6 @@
 - Add JniBuildItem to extensions that need JNI [\#627](https://github.com/apache/camel-quarkus/issues/627)
 - Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
 - Use quarkus.package.type=native instead of the native-image mojo [\#598](https://github.com/apache/camel-quarkus/issues/598)
-- Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
 - Native SSL support does not work on ASF Jenkins CI  [\#468](https://github.com/apache/camel-quarkus/issues/468)
 - support camel-box [\#162](https://github.com/apache/camel-quarkus/issues/162)
 
@@ -1381,6 +1385,7 @@
 - Create AWS-IAM Extension [\#514](https://github.com/apache/camel-quarkus/issues/514)
 - Do not use hard coded ports in integration-tests [\#508](https://github.com/apache/camel-quarkus/issues/508)
 - camel-sql extension [\#505](https://github.com/apache/camel-quarkus/issues/505)
+- Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
 
 **Merged pull requests:**
 
@@ -1570,6 +1575,7 @@
 - Use capabilities instead of feature names [\#369](https://github.com/apache/camel-quarkus/pull/369) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add description to extension matedata [\#367](https://github.com/apache/camel-quarkus/pull/367) ([lburgazzoli](https://github.com/lburgazzoli))
 - Set camel-quarkus-last-release: 0.3.1 in site.yml [\#366](https://github.com/apache/camel-quarkus/pull/366) ([ppalaga](https://github.com/ppalaga))
+- Fix \#357 Make netty-http dependent on netty and remove the duplications [\#365](https://github.com/apache/camel-quarkus/pull/365) ([ppalaga](https://github.com/ppalaga))
 - Make -Pnative equivalent with -Dnative, prefer -Pnative in the docs [\#363](https://github.com/apache/camel-quarkus/pull/363) ([ppalaga](https://github.com/ppalaga))
 - chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
@@ -1590,7 +1596,6 @@
 
 **Merged pull requests:**
 
-- Fix \#357 Make netty-http dependent on netty and remove the duplications [\#365](https://github.com/apache/camel-quarkus/pull/365) ([ppalaga](https://github.com/ppalaga))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
@@ -1723,6 +1728,7 @@
 - cleanup aws and paho extensions [\#212](https://github.com/apache/camel-quarkus/pull/212) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
+- Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
@@ -1768,7 +1774,6 @@
 **Merged pull requests:**
 
 - Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
-- Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
 - improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
