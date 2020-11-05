@@ -113,6 +113,7 @@
         <module>jolt</module>
         <module>jpa</module>
         <module>json-validator</module>
+        <module>jsonb</module>
         <module>jsonpath</module>
         <module>jta</module>
         <module>kafka</module>

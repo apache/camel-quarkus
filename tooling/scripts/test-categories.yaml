@@ -61,6 +61,7 @@ dataformats:
   - csv
   - dataformat
   - jaxb
+  - jsonb
   - soap
   - xstream
 foundation:
