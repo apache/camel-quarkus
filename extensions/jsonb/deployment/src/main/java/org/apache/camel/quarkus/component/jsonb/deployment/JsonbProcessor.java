@@ -14,33 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.dataformats.json.model;
+package org.apache.camel.quarkus.component.jsonb.deployment;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 
-@RegisterForReflection
-public class PojoA {
+class JsonbProcessor {
 
-    private String name;
+    private static final String FEATURE = "camel-jsonb";
 
-    public PojoA() {
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
     }
-
-    public PojoA(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "PojoA [name=" + name + "]";
-    }
-
 }
