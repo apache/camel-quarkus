@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.dataformats.json.model;
 
+import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.johnzon.mapper.JohnzonIgnore;
@@ -25,11 +28,13 @@ import org.apache.johnzon.mapper.JohnzonProperty;
 public class DummyObject {
 
     @JohnzonProperty("dummy_string")
+    @JsonbProperty("dummy_string")
     private String dummyString;
 
     @JohnzonIgnore
     @JsonIgnore
     @ExcludeField
+    @JsonbTransient
     private int ignored;
 
     public DummyObject() {
@@ -50,4 +55,10 @@ public class DummyObject {
     public void setIgnored(int ignored) {
         this.ignored = ignored;
     }
+
+    @Override
+    public String toString() {
+        return "DummyObject [dummyString=" + dummyString + ", ignored=" + ignored + "]";
+    }
+
 }
