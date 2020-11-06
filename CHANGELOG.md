@@ -41,8 +41,10 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
 - Migrate ServiceNow, Slack, Geocoder & Telegram tests to WireMock [\#1993](https://github.com/apache/camel-quarkus/pull/1993) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added nagios native support \#1726 [\#1991](https://github.com/apache/camel-quarkus/pull/1991) ([aldettinger](https://github.com/aldettinger))
+- core: allign BaseModel with org.apache.camel.impl.DefaultModel [\#1985](https://github.com/apache/camel-quarkus/pull/1985) ([lburgazzoli](https://github.com/lburgazzoli))
 - PostgresSQL Event : add usage of Quarkus AgroalDatasource fixes \#1909 [\#1982](https://github.com/apache/camel-quarkus/pull/1982) ([zbendhiba](https://github.com/zbendhiba))
 - Reenable Olingo4 integration test [\#1980](https://github.com/apache/camel-quarkus/pull/1980) ([jamesnetherton](https://github.com/jamesnetherton))
 - Configuration option \(not\) to start the runtime \#1969 [\#1977](https://github.com/apache/camel-quarkus/pull/1977) ([ppalaga](https://github.com/ppalaga))
@@ -512,7 +514,6 @@
 
 **Fixed bugs:**
 
-- NoDefaultServletTest cannot find property quarkus.camel.servlet.url-patterns [\#853](https://github.com/apache/camel-quarkus/issues/853)
 - CamelBeanPostProcessor is invoked after routes are already configured [\#1368](https://github.com/apache/camel-quarkus/issues/1368)
 - \[Quarkus 1.6\]\[iCal\] TimeZone-less DTSTART and DTEND changed to GMT in native mode [\#838](https://github.com/apache/camel-quarkus/issues/838)
 
@@ -902,6 +903,7 @@
 - XML integration tests fail in native mode on JDK 11 [\#1000](https://github.com/apache/camel-quarkus/issues/1000)
 - RestBindingReifier.setupJaxb fails in native mode with JDK 11 [\#999](https://github.com/apache/camel-quarkus/issues/999)
 - CustomDefaultServletClassTest Failed to index: org.apache.camel.quarkus.component.servlet.test.CustomServlet [\#854](https://github.com/apache/camel-quarkus/issues/854)
+- NoDefaultServletTest cannot find property quarkus.camel.servlet.url-patterns [\#853](https://github.com/apache/camel-quarkus/issues/853)
 - TrustStoreResource does not work on Java 11 [\#852](https://github.com/apache/camel-quarkus/issues/852)
 
 **Closed issues:**
@@ -1178,6 +1180,7 @@
 - Add JniBuildItem to extensions that need JNI [\#627](https://github.com/apache/camel-quarkus/issues/627)
 - Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
 - Use quarkus.package.type=native instead of the native-image mojo [\#598](https://github.com/apache/camel-quarkus/issues/598)
+- Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
 - Native SSL support does not work on ASF Jenkins CI  [\#468](https://github.com/apache/camel-quarkus/issues/468)
 - support camel-box [\#162](https://github.com/apache/camel-quarkus/issues/162)
 
@@ -1385,7 +1388,6 @@
 - Create AWS-IAM Extension [\#514](https://github.com/apache/camel-quarkus/issues/514)
 - Do not use hard coded ports in integration-tests [\#508](https://github.com/apache/camel-quarkus/issues/508)
 - camel-sql extension [\#505](https://github.com/apache/camel-quarkus/issues/505)
-- Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
 
 **Merged pull requests:**
 
@@ -1728,7 +1730,6 @@
 - cleanup aws and paho extensions [\#212](https://github.com/apache/camel-quarkus/pull/212) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
-- Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
@@ -1774,6 +1775,7 @@
 **Merged pull requests:**
 
 - Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
+- Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
 - improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
@@ -1851,6 +1853,7 @@
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
+- chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
 
@@ -1891,7 +1894,6 @@
 - Added failIfNoTest option in surefire configuration [\#93](https://github.com/apache/camel-quarkus/pull/93) ([oscerd](https://github.com/oscerd))
 - chore\(build\): move release profile to camel-quarkus-parent [\#92](https://github.com/apache/camel-quarkus/pull/92) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove unused imports from CamelRoute in netty4-http integration test [\#91](https://github.com/apache/camel-quarkus/pull/91) ([ppalaga](https://github.com/ppalaga))
-- chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - AWS Extension configuration classes need to be registered for reflection [\#89](https://github.com/apache/camel-quarkus/pull/89) ([oscerd](https://github.com/oscerd))
 - Changed the integration test module name and folder name for AWS [\#88](https://github.com/apache/camel-quarkus/pull/88) ([oscerd](https://github.com/oscerd))
 - chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
