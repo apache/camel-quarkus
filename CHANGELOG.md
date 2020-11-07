@@ -1853,7 +1853,6 @@
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
-- chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
 
@@ -1894,6 +1893,7 @@
 - Added failIfNoTest option in surefire configuration [\#93](https://github.com/apache/camel-quarkus/pull/93) ([oscerd](https://github.com/oscerd))
 - chore\(build\): move release profile to camel-quarkus-parent [\#92](https://github.com/apache/camel-quarkus/pull/92) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove unused imports from CamelRoute in netty4-http integration test [\#91](https://github.com/apache/camel-quarkus/pull/91) ([ppalaga](https://github.com/ppalaga))
+- chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - AWS Extension configuration classes need to be registered for reflection [\#89](https://github.com/apache/camel-quarkus/pull/89) ([oscerd](https://github.com/oscerd))
 - Changed the integration test module name and folder name for AWS [\#88](https://github.com/apache/camel-quarkus/pull/88) ([oscerd](https://github.com/oscerd))
 - chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
