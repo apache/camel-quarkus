@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.debezium.DebeziumConstants;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
  * Parent for debezium based resources.
@@ -28,7 +29,8 @@ import org.apache.camel.component.debezium.DebeziumConstants;
  * To change parameters in endpoint url, please override getEndpoinUrl method and change parameters there.
  */
 public abstract class AbstractDebeziumResource {
-    private static final long TIMEOUT = 10000;
+    @ConfigProperty(name = "test.debezium.timeout", defaultValue = "10000")
+    private long TIMEOUT;
 
     private final Type type;
 
