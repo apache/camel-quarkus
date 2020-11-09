@@ -126,6 +126,7 @@
         <module>messaging</module>
         <module>microprofile</module>
         <module>mongodb</module>
+        <module>msv</module>
         <module>mustache</module>
         <module>nagios</module>
         <module>nats</module>
