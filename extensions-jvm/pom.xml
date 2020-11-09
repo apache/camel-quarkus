@@ -105,7 +105,6 @@
         <module>management</module>
         <module>milo</module>
         <module>mllp</module>
-        <module>msv</module>
         <module>mvel</module>
         <module>mybatis</module>
         <module>nitrite</module>
