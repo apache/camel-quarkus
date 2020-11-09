@@ -55,6 +55,7 @@ public class CamelMainAutoConfigurationTest {
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
         props.setProperty("quarkus.arc.remove-unused-beans", "false");
+        props.setProperty("camel.component.log.exchange-formatter", "#autowired");
 
         try {
             props.store(writer, "");
