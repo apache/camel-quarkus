@@ -12,6 +12,7 @@
 
 **Closed issues:**
 
+- Antora xref check fails on camel-master branch [\#1996](https://github.com/apache/camel-quarkus/issues/1996)
 - Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
 - PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
@@ -31,6 +32,7 @@
 - Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
+- MSV native support [\#1728](https://github.com/apache/camel-quarkus/issues/1728)
 - Nagios native support [\#1726](https://github.com/apache/camel-quarkus/issues/1726)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
@@ -41,6 +43,8 @@
 
 **Merged pull requests:**
 
+- Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
+- Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
 - Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
 - Migrate ServiceNow, Slack, Geocoder & Telegram tests to WireMock [\#1993](https://github.com/apache/camel-quarkus/pull/1993) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added nagios native support \#1726 [\#1991](https://github.com/apache/camel-quarkus/pull/1991) ([aldettinger](https://github.com/aldettinger))
@@ -1422,7 +1426,6 @@
 **Implemented enhancements:**
 
 - Cerate a Camel MongoDB extension [\#302](https://github.com/apache/camel-quarkus/issues/302)
-- Add Camel-AWS-ECS extension [\#17](https://github.com/apache/camel-quarkus/issues/17)
 - Add Camel-AWS-KMS extension [\#16](https://github.com/apache/camel-quarkus/issues/16)
 
 **Fixed bugs:**
@@ -1863,6 +1866,10 @@
 ## [camel-quarkus-parent-0.0.1](https://github.com/apache/camel-quarkus/tree/camel-quarkus-parent-0.0.1) (2019-07-25)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/0e8177815305790d7e79004a9e9f81a48d2b7c41...camel-quarkus-parent-0.0.1)
+
+**Implemented enhancements:**
+
+- Add Camel-AWS-ECS extension [\#17](https://github.com/apache/camel-quarkus/issues/17)
 
 **Closed issues:**
 
