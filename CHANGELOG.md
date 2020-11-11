@@ -376,6 +376,7 @@
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
+- Add ArangoDB component extension fixes \#1533 [\#1540](https://github.com/apache/camel-quarkus/pull/1540) ([zbendhiba](https://github.com/zbendhiba))
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1426,6 +1427,7 @@
 **Implemented enhancements:**
 
 - Cerate a Camel MongoDB extension [\#302](https://github.com/apache/camel-quarkus/issues/302)
+- Add Camel-AWS-ECS extension [\#17](https://github.com/apache/camel-quarkus/issues/17)
 - Add Camel-AWS-KMS extension [\#16](https://github.com/apache/camel-quarkus/issues/16)
 
 **Fixed bugs:**
@@ -1866,10 +1868,6 @@
 ## [camel-quarkus-parent-0.0.1](https://github.com/apache/camel-quarkus/tree/camel-quarkus-parent-0.0.1) (2019-07-25)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/0e8177815305790d7e79004a9e9f81a48d2b7c41...camel-quarkus-parent-0.0.1)
-
-**Implemented enhancements:**
-
-- Add Camel-AWS-ECS extension [\#17](https://github.com/apache/camel-quarkus/issues/17)
 
 **Closed issues:**
 
