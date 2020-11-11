@@ -58,6 +58,7 @@ class ShiroProcessor {
                 .collect(Collectors.toList());
 
         dtos.add(CamelAuthorizationException.class.getName());
+        dtos.add(Boolean[].class.getName());
         dtos.add(Float[].class.getName());
         dtos.add(java.util.Date[].class.getName());
         dtos.add(Calendar[].class.getName());

@@ -134,6 +134,10 @@
                         <artifactId>guice</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.glassfish.web</groupId>
                         <artifactId>*</artifactId>
                     </exclusion>
