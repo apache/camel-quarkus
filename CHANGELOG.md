@@ -17,6 +17,7 @@
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
 - PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
 - Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
+- Configuration option \(not\) to start the runtime [\#1969](https://github.com/apache/camel-quarkus/issues/1969)
 - json-validator native build fails with Camel 3.7.0-SNAPSHOT [\#1961](https://github.com/apache/camel-quarkus/issues/1961)
 - lumberjack : move client payload sending to test [\#1949](https://github.com/apache/camel-quarkus/issues/1949)
 - LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
@@ -43,6 +44,7 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
 - Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
 - Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -376,7 +378,6 @@
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
-- Add ArangoDB component extension fixes \#1533 [\#1540](https://github.com/apache/camel-quarkus/pull/1540) ([zbendhiba](https://github.com/zbendhiba))
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
