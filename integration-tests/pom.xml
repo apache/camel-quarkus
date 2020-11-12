@@ -162,6 +162,7 @@
         <module>slack</module>
         <module>smallrye-reactive-messaging</module>
         <module>soap</module>
+        <module>solr</module>
         <module>sql</module>
         <module>ssh</module>
         <module>stringtemplate</module>

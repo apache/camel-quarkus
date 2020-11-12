@@ -33,6 +33,7 @@ cloud:
   - grpc
   - protobuf
   - smallrye-reactive-messaging
+  - solr
 core-main-validation:
   - core
   - core-discovery-disabled
