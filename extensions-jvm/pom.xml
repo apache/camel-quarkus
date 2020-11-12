@@ -119,7 +119,6 @@
         <module>sip</module>
         <module>smpp</module>
         <module>snmp</module>
-        <module>solr</module>
         <module>soroush</module>
         <module>spark</module>
         <module>splunk</module>

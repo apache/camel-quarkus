@@ -194,6 +194,7 @@
         <module>smallrye-reactive-messaging</module>
         <module>snakeyaml</module>
         <module>soap</module>
+        <module>solr</module>
         <module>sql</module>
         <module>ssh</module>
         <module>stream</module>
