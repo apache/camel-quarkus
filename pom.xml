@@ -416,6 +416,7 @@
                             <exclude>**/*.avsc</exclude>
                             <exclude>**/*.bin</exclude>
                             <exclude>**/*.cnf</exclude>
+                            <exclude>**/*.conf</exclude>
                             <exclude>**/*.csv</exclude>
                             <exclude>**/*.ftl</exclude>
                             <exclude>**/*.graphql</exclude>

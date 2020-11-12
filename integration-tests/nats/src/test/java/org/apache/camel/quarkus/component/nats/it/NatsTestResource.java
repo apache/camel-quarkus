@@ -38,7 +38,7 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(NatsTestResource.class);
     private static final String BASIC_AUTH_USERNAME = "admin";
     private static final String BASIC_AUTH_PASSWORD = "password";
-    private static final String NATS_IMAGE = "nats:2.1.4";
+    private static final String NATS_IMAGE = "nats:2.1.9";
     private static final int NATS_SERVER_PORT = 4222;
     private static final String TOKEN_AUTH_TOKEN = "!admin23456";
 
@@ -71,7 +71,10 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
         // Start the container needed for the TLS authentication test
         tlsAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
                 .withClasspathResourceMapping("certs", "/certs", BindMode.READ_ONLY)
-                .withCommand("--tls",
+                .withClasspathResourceMapping("conf", "/conf", BindMode.READ_ONLY)
+                .withCommand(
+                        "--config", "/conf/tls.conf",
+                        "--tls",
                         "--tlscert=/certs/server.pem",
                         "--tlskey=/certs/key.pem",
                         "--tlsverify",
