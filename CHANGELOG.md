@@ -1380,7 +1380,6 @@
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
 - Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
-- chore: Clarify supported URI schemes in SQL script-files config property [\#535](https://github.com/apache/camel-quarkus/pull/535) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
 
@@ -1404,6 +1403,7 @@
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix commons-logging setup [\#545](https://github.com/apache/camel-quarkus/pull/545) ([lburgazzoli](https://github.com/lburgazzoli))
 - examples: add timer-log kotlin example [\#542](https://github.com/apache/camel-quarkus/pull/542) ([lburgazzoli](https://github.com/lburgazzoli))
+- chore: Clarify supported URI schemes in SQL script-files config property [\#535](https://github.com/apache/camel-quarkus/pull/535) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add SQL component extension [\#533](https://github.com/apache/camel-quarkus/pull/533) ([jamesnetherton](https://github.com/jamesnetherton))
 - chore: Remove redundant banned dependency [\#530](https://github.com/apache/camel-quarkus/pull/530) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace \<firstVersion\> 0.5.0 with 1.0.0-M1 [\#529](https://github.com/apache/camel-quarkus/pull/529) ([ppalaga](https://github.com/ppalaga))
