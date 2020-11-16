@@ -28,7 +28,7 @@ import org.eclipse.egit.github.core.CommitFile;
 @Path("/github")
 public class GithubResource {
 
-    private static final String GITHUB_AUTH_PARAMS = "username={{env:GITHUB_USERNAME:}}&password={{env:GITHUB_PASSWORD:}}";
+    private static final String GITHUB_AUTH_PARAMS = "oauthToken={{env:GITHUB_TOKEN:}}";
 
     @Inject
     ProducerTemplate producerTemplate;
