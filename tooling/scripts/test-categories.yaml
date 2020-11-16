@@ -80,6 +80,7 @@ xml-json-olingo4:
   - dataformats-json
   - dropbox
   - jing
+  - jslt
   - msv
   - olingo4
   - weather
