@@ -1508,7 +1508,6 @@
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
 
@@ -1556,6 +1555,7 @@
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 - Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
 - Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
 - core: avoid referencing application classes in bean build items and loading them in core build processors [\#405](https://github.com/apache/camel-quarkus/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
