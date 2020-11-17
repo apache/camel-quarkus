@@ -33,17 +33,22 @@
 - Fix usage of deprecated GitHub actions commands [\#1876](https://github.com/apache/camel-quarkus/issues/1876)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - \[Quarkus 1.9\] leverage Quarkus JAXP extension where applicable [\#1806](https://github.com/apache/camel-quarkus/issues/1806)
+- JSLT native support [\#1740](https://github.com/apache/camel-quarkus/issues/1740)
 - MSV native support [\#1728](https://github.com/apache/camel-quarkus/issues/1728)
 - Nagios native support [\#1726](https://github.com/apache/camel-quarkus/issues/1726)
+- Revert PR \#1667 once kudu-client stops shading Netty [\#1669](https://github.com/apache/camel-quarkus/issues/1669)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Twilio native support [\#1633](https://github.com/apache/camel-quarkus/issues/1633)
 - Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
 - Automate the process of creating jvm only extensions  [\#1561](https://github.com/apache/camel-quarkus/issues/1561)
+- Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
 
 **Merged pull requests:**
 
+- Added JSLT native support \#1740 [\#2010](https://github.com/apache/camel-quarkus/pull/2010) ([aldettinger](https://github.com/aldettinger))
+- Kudu: unshade and remove embedded netty and use quarkus-netty instead [\#2008](https://github.com/apache/camel-quarkus/pull/2008) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
 - Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
@@ -1508,6 +1513,7 @@
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
 
@@ -1555,7 +1561,6 @@
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 - Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
 - Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
 - core: avoid referencing application classes in bean build items and loading them in core build processors [\#405](https://github.com/apache/camel-quarkus/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
