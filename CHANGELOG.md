@@ -42,6 +42,7 @@
 - Zendesk native support [\#1613](https://github.com/apache/camel-quarkus/issues/1613)
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
 - Automate the process of creating jvm only extensions  [\#1561](https://github.com/apache/camel-quarkus/issues/1561)
+- Cron component not initialized when used with Endpoint DSL \(since Quarkus 1.7.0.Final\) [\#1553](https://github.com/apache/camel-quarkus/issues/1553)
 - Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
 - Leverage camel-platform-http-vertx in platform-http extension [\#1144](https://github.com/apache/camel-quarkus/issues/1144)
 
@@ -127,6 +128,7 @@
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Lumberjack native support [\#1732](https://github.com/apache/camel-quarkus/issues/1732)
 - Saga native support [\#819](https://github.com/apache/camel-quarkus/issues/819)
+- GitHub support [\#811](https://github.com/apache/camel-quarkus/issues/811)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
@@ -680,7 +682,6 @@
 - Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
-- chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -715,6 +716,7 @@
 
 **Merged pull requests:**
 
+- chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - extension dependencies issue [\#1276](https://github.com/apache/camel-quarkus/pull/1276) ([lburgazzoli](https://github.com/lburgazzoli))
 - Stub Jira endpoints for integration testing [\#1270](https://github.com/apache/camel-quarkus/pull/1270) ([jamesnetherton](https://github.com/jamesnetherton))
 
@@ -982,7 +984,6 @@
 - Cron support [\#822](https://github.com/apache/camel-quarkus/issues/822)
 - Webhook component support [\#820](https://github.com/apache/camel-quarkus/issues/820)
 - Openshift support [\#812](https://github.com/apache/camel-quarkus/issues/812)
-- GitHub support [\#811](https://github.com/apache/camel-quarkus/issues/811)
 - Google Sheets support [\#809](https://github.com/apache/camel-quarkus/issues/809)
 - Google Pubsub support [\#808](https://github.com/apache/camel-quarkus/issues/808)
 - Google Mail support [\#807](https://github.com/apache/camel-quarkus/issues/807)
