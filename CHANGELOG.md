@@ -48,7 +48,9 @@
 
 **Merged pull requests:**
 
+- Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
 - Added JSLT native support \#1740 [\#2010](https://github.com/apache/camel-quarkus/pull/2010) ([aldettinger](https://github.com/aldettinger))
+- Fix github itest to use oauth token instead username/password [\#2009](https://github.com/apache/camel-quarkus/pull/2009) ([llowinge](https://github.com/llowinge))
 - Kudu: unshade and remove embedded netty and use quarkus-netty instead [\#2008](https://github.com/apache/camel-quarkus/pull/2008) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
@@ -128,7 +130,6 @@
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
 - Lumberjack native support [\#1732](https://github.com/apache/camel-quarkus/issues/1732)
 - Saga native support [\#819](https://github.com/apache/camel-quarkus/issues/819)
-- GitHub support [\#811](https://github.com/apache/camel-quarkus/issues/811)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
@@ -682,6 +683,7 @@
 - Drop the Jaxb based XMLRoutesDefinitionLoader [\#1292](https://github.com/apache/camel-quarkus/pull/1292) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add rest and restapi to the list of discoverable factories [\#1290](https://github.com/apache/camel-quarkus/pull/1290) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
+- chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -716,7 +718,6 @@
 
 **Merged pull requests:**
 
-- chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - extension dependencies issue [\#1276](https://github.com/apache/camel-quarkus/pull/1276) ([lburgazzoli](https://github.com/lburgazzoli))
 - Stub Jira endpoints for integration testing [\#1270](https://github.com/apache/camel-quarkus/pull/1270) ([jamesnetherton](https://github.com/jamesnetherton))
 
@@ -984,6 +985,7 @@
 - Cron support [\#822](https://github.com/apache/camel-quarkus/issues/822)
 - Webhook component support [\#820](https://github.com/apache/camel-quarkus/issues/820)
 - Openshift support [\#812](https://github.com/apache/camel-quarkus/issues/812)
+- GitHub support [\#811](https://github.com/apache/camel-quarkus/issues/811)
 - Google Sheets support [\#809](https://github.com/apache/camel-quarkus/issues/809)
 - Google Pubsub support [\#808](https://github.com/apache/camel-quarkus/issues/808)
 - Google Mail support [\#807](https://github.com/apache/camel-quarkus/issues/807)
@@ -1245,6 +1247,7 @@
 - Use camel-quarkus-support-httpclient in slack extension [\#703](https://github.com/apache/camel-quarkus/pull/703) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add olingo4 itest to project list [\#702](https://github.com/apache/camel-quarkus/pull/702) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove enableJni from integration tests as JNI si always enabled on GraalVM 19.3.1 [\#701](https://github.com/apache/camel-quarkus/pull/701) ([lburgazzoli](https://github.com/lburgazzoli))
+- Camel master update [\#698](https://github.com/apache/camel-quarkus/pull/698) ([ppalaga](https://github.com/ppalaga))
 - Fix \#696 Test HTTPS with the HTTP clients [\#697](https://github.com/apache/camel-quarkus/pull/697) ([ppalaga](https://github.com/ppalaga))
 - Add olingo4 extension [\#693](https://github.com/apache/camel-quarkus/pull/693) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact [\#691](https://github.com/apache/camel-quarkus/pull/691) ([ppalaga](https://github.com/ppalaga))
