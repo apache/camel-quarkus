@@ -42,3 +42,30 @@ endpoint configuration host / port mirror the Quarkus gRPC host / port property 
 
 The full list of Quarkus gRPC configuration options can be found at the https://quarkus.io/guides/grpc-service-implementation#server-configuration[Quarkus gRPC guide].
 
+Use the `generate-code` goal of `quarkus-maven-plugin` to generate Java classes from your `*.proto`
+service and message definitions stored in the `src/main/proto` directory:
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate-code</goal>
+                        <goal>build</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/grpc[integration test]
+in our source tree as an example.
+
+

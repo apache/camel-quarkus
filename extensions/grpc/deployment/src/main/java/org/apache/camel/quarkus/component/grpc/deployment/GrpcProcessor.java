@@ -125,6 +125,13 @@ class GrpcProcessor {
             if (!Modifier.isAbstract(service.flags())) {
                 continue;
             }
+            if (service.name().withoutPackagePrefix().startsWith("Mutiny")) {
+                /* The generate-code goal of quarkus-maven-plugin generates also Mutiny service that we do not use
+                 * Not skipping it here results in randomly registering the Mutiny one or the right one.
+                 * In case the Mutiny service one is registered, the client throws something like
+                 * io.grpc.StatusRuntimeException: UNIMPLEMENTED */
+                continue;
+            }
 
             String superClassName = service.name().toString();
             String generatedClassName = superClassName + "QuarkusMethodHandler";
