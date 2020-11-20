@@ -38,6 +38,15 @@ The Maven command to release is as follows:
 $ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -DdevelopmentVersion=$NEXT_VERSION -B release:perform
 ----
 
+In case `release:prepare` is successful but an issue occurs during `release:perform`, it could be worth trying to resume from the failing artifact.
+For instance, would an issue occurs while performing the release of `camel-quarkus-openapi-java`, a resume attempt could be triggered as below:
+
+
+[source,shell]
+----
+$ mvn -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip deploy -Papache-release -rf :camel-quarkus-openapi-java
+----
+
 == Further steps
 
 In addition to the above, the following is needed:
