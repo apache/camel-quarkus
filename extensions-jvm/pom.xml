@@ -111,7 +111,6 @@
         <module>openstack</module>
         <module>optaplanner</module>
         <module>printer</module>
-        <module>protobuf</module>
         <module>pubnub</module>
         <module>pulsar</module>
         <module>quickfix</module>

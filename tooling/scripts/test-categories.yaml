@@ -26,6 +26,7 @@ cloud:
   - consul
   - elasticsearch-rest
   - grpc
+  - protobuf
   - smallrye-reactive-messaging
 core-main-validation:
   - core
