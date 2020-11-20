@@ -3,15 +3,15 @@
 = Protobuf
 :page-aliases: extensions/protobuf.adoc
 :cq-artifact-id: camel-quarkus-protobuf
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Serialize and deserialize Java objects using Google's Protocol buffers.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Serialize and deserialize Java objects using Google's Protocol buffers.
 
@@ -32,3 +32,32 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+Use the `generate-code` goal of `quarkus-maven-plugin` to generate Java classes from your `*.proto`
+service and message definitions stored in the `src/main/proto` directory:
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate-code</goal>
+                        <goal>build</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/protobuf[integration test]
+in our source tree as an example.
+

@@ -1,0 +1,25 @@
+Use the `generate-code` goal of `quarkus-maven-plugin` to generate Java classes from your `*.proto`
+service and message definitions stored in the `src/main/proto` directory:
+
+[source,xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-maven-plugin</artifactId>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>generate-code</goal>
+                        <goal>build</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+----
+
+You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/protobuf[integration test]
+in our source tree as an example.

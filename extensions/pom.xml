@@ -167,6 +167,7 @@
         <module>pg-replication-slot</module>
         <module>pgevent</module>
         <module>platform-http</module>
+        <module>protobuf</module>
         <module>quartz</module>
         <module>qute</module>
         <module>rabbitmq</module>

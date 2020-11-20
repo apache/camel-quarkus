@@ -141,6 +141,7 @@
         <module>pgevent</module>
         <module>platform-http</module>
         <module>platform-http-engine</module>
+        <module>protobuf</module>
         <module>quartz</module>
         <module>qute</module>
         <module>rabbitmq</module>
