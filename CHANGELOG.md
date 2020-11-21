@@ -1,5 +1,18 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.4.0...HEAD)
+
+**Closed issues:**
+
+- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
+
+**Merged pull requests:**
+
+- Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
+- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
+
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.3.0...1.4.0)
@@ -516,7 +529,6 @@
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
-- Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
 
 ## [1.0.0-CR3](https://github.com/apache/camel-quarkus/tree/1.0.0-CR3) (2020-07-03)
@@ -901,6 +913,7 @@
 - Automatic sync branch master to quarkus-master [\#1062](https://github.com/apache/camel-quarkus/pull/1062) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Use test resources instead of system properties for easy testing within the quarkus platform [\#1060](https://github.com/apache/camel-quarkus/pull/1060) ([lburgazzoli](https://github.com/lburgazzoli))
 - CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
+- InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
 ## [1.0.0-M6](https://github.com/apache/camel-quarkus/tree/1.0.0-M6) (2020-04-09)
 
@@ -1010,7 +1023,6 @@
 - Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - Moved the guide to promote a JVM Only extension to native to a dedica… [\#1052](https://github.com/apache/camel-quarkus/pull/1052) ([aldettinger](https://github.com/aldettinger))
 - Completed the contributor guide with a section to promote JVM Only ex… [\#1051](https://github.com/apache/camel-quarkus/pull/1051) ([aldettinger](https://github.com/aldettinger))
-- InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - CI build improvements [\#1049](https://github.com/apache/camel-quarkus/pull/1049) ([jamesnetherton](https://github.com/jamesnetherton))
 - Webhook component support [\#1048](https://github.com/apache/camel-quarkus/pull/1048) ([jamesnetherton](https://github.com/jamesnetherton))
 - Servlet tests \#853 \#854 [\#1046](https://github.com/apache/camel-quarkus/pull/1046) ([ppalaga](https://github.com/ppalaga))
@@ -1151,6 +1163,7 @@
 - Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
 - Fix \#784 iCal support [\#839](https://github.com/apache/camel-quarkus/pull/839) ([ppalaga](https://github.com/ppalaga))
+- Automatic sync branch master to camel-master [\#830](https://github.com/apache/camel-quarkus/pull/830) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Automatic sync branch master to quarkus-master [\#829](https://github.com/apache/camel-quarkus/pull/829) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [1.0.0-M4](https://github.com/apache/camel-quarkus/tree/1.0.0-M4) (2020-03-03)
@@ -1205,7 +1218,6 @@
 - Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to camel-master [\#830](https://github.com/apache/camel-quarkus/pull/830) ([github-actions[bot]](https://github.com/apps/github-actions))
 - \#791 \#783 \#788 Compression dataformats [\#827](https://github.com/apache/camel-quarkus/pull/827) ([ppalaga](https://github.com/ppalaga))
 - Add Braintree extension [\#826](https://github.com/apache/camel-quarkus/pull/826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add xpath language extension [\#779](https://github.com/apache/camel-quarkus/pull/779) ([jamesnetherton](https://github.com/jamesnetherton))
