@@ -529,6 +529,7 @@
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
+- Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix README link [\#161](https://github.com/apache/camel-quarkus/pull/161) ([fviolette](https://github.com/fviolette))
 
 ## [1.0.0-CR3](https://github.com/apache/camel-quarkus/tree/1.0.0-CR3) (2020-07-03)
@@ -1163,7 +1164,6 @@
 - Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
 - Fix \#784 iCal support [\#839](https://github.com/apache/camel-quarkus/pull/839) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to camel-master [\#830](https://github.com/apache/camel-quarkus/pull/830) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Automatic sync branch master to quarkus-master [\#829](https://github.com/apache/camel-quarkus/pull/829) ([github-actions[bot]](https://github.com/apps/github-actions))
 
 ## [1.0.0-M4](https://github.com/apache/camel-quarkus/tree/1.0.0-M4) (2020-03-03)
@@ -1218,6 +1218,7 @@
 - Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
+- Automatic sync branch master to camel-master [\#830](https://github.com/apache/camel-quarkus/pull/830) ([github-actions[bot]](https://github.com/apps/github-actions))
 - \#791 \#783 \#788 Compression dataformats [\#827](https://github.com/apache/camel-quarkus/pull/827) ([ppalaga](https://github.com/ppalaga))
 - Add Braintree extension [\#826](https://github.com/apache/camel-quarkus/pull/826) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add xpath language extension [\#779](https://github.com/apache/camel-quarkus/pull/779) ([jamesnetherton](https://github.com/jamesnetherton))
