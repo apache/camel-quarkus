@@ -122,6 +122,7 @@ misc:
   - kotlin
   - disruptor
 networking2-dataformats:
+  - avro-rpc
   - git
   - mail
   - netty

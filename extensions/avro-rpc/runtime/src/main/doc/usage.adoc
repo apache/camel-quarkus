@@ -1,0 +1,1 @@
+Classes used as the protocol (either specific or reflective) in native mode, have to be registered for reflection (see https://quarkus.io/guides/writing-native-applications-tips#register-reflection[documentation]).

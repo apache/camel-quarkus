@@ -41,6 +41,7 @@
         <ahc.version>2.12.1</ahc.version>
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
+	    <avro-ipc-version>1.10.0</avro-ipc-version>
         <awssdk1.version>1.11.714</awssdk1.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <awssdk2.version>2.14.3</awssdk2.version>
@@ -413,6 +414,7 @@
                         <excludes>
                             <exclude>**/*.adoc</exclude>
                             <exclude>**/*.avsc</exclude>
+                            <exclude>**/*.avpr</exclude>
                             <exclude>**/*.bin</exclude>
                             <exclude>**/*.cnf</exclude>
                             <exclude>**/*.conf</exclude>
