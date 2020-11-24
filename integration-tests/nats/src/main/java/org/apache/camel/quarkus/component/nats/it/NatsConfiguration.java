@@ -44,7 +44,6 @@ public class NatsConfiguration {
     NatsComponent natsBasicAuth() {
         NatsComponent component = new NatsComponent();
         component.setServers(natsBasicAuthBrokerUrl);
-        component.setVerbose(true);
         return component;
     }
 
@@ -52,7 +51,6 @@ public class NatsConfiguration {
     NatsComponent natsNoAuth() {
         NatsComponent component = new NatsComponent();
         component.setServers(natsNoAuthBrokerUrl);
-        component.setVerbose(true);
         return component;
     }
 
@@ -60,7 +58,6 @@ public class NatsConfiguration {
     NatsComponent natsTlsAuth() {
         NatsComponent component = new NatsComponent();
         component.setServers(natsTlsAuthBrokerUrl);
-        component.setVerbose(true);
         return component;
     }
 
@@ -68,7 +65,6 @@ public class NatsConfiguration {
     NatsComponent natsTokenAuth() {
         NatsComponent component = new NatsComponent();
         component.setServers(natsTokenAuthBrokerUrl);
-        component.setVerbose(true);
         return component;
     }
 

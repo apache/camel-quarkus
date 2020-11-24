@@ -23,7 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
@@ -51,7 +50,6 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
         // Start the container needed for the basic authentication test
         basicAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
                 .withCommand("-DV", "--user", BASIC_AUTH_USERNAME, "--pass", BASIC_AUTH_PASSWORD)
-                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         basicAuthContainer.start();
         String basicAuthIp = basicAuthContainer.getContainerIpAddress();
@@ -61,7 +59,6 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
 
         // Start the container needed for tests without authentication
         noAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
-                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .waitingFor(Wait.forLogMessage(".*Listening for route connections.*", 1));
         noAuthContainer.start();
         String noAuthIp = noAuthContainer.getContainerIpAddress();
@@ -79,7 +76,6 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
                         "--tlskey=/certs/key.pem",
                         "--tlsverify",
                         "--tlscacert=/certs/ca.pem")
-                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         tlsAuthContainer.start();
         String tlsAuthIp = tlsAuthContainer.getContainerIpAddress();
@@ -89,7 +85,6 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
         // Start the container needed for the token authentication test
         tokenAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
                 .withCommand("-DV", "-auth", TOKEN_AUTH_TOKEN)
-                .withLogConsumer(new Slf4jLogConsumer(LOG))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         tokenAuthContainer.start();
         String tokenAuthIp = tokenAuthContainer.getContainerIpAddress();
