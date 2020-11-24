@@ -2187,6 +2187,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-avro-rpc-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-aws-commons</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -5495,6 +5500,16 @@
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr-runtime</artifactId>
                 <version>${antlr3.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-ipc-jetty</artifactId>
+                <version>${avro-ipc-version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-ipc-netty</artifactId>
+                <version>${avro-ipc-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>

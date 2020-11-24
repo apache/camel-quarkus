@@ -3,15 +3,15 @@
 = Avro RPC
 :page-aliases: extensions/avro-rpc.adoc
 :cq-artifact-id: camel-quarkus-avro-rpc
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Produce or consume Apache Avro RPC services.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Produce or consume Apache Avro RPC services.
 
@@ -32,3 +32,8 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+Classes used as the protocol (either specific or reflective) in native mode, have to be registered for reflection (see https://quarkus.io/guides/writing-native-applications-tips#register-reflection[documentation]).
+
