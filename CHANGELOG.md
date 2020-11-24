@@ -10,6 +10,7 @@
 
 **Merged pull requests:**
 
+- Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
 - Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 
@@ -409,6 +410,7 @@
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed the VerifyError in the health example fixes \#1517 [\#1525](https://github.com/apache/camel-quarkus/pull/1525) ([aldettinger](https://github.com/aldettinger))
 - 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
+- Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
 - Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -500,7 +502,6 @@
 **Merged pull requests:**
 
 - Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1162,7 +1163,6 @@
 - Fix \#785 JacksonXML support [\#848](https://github.com/apache/camel-quarkus/pull/848) ([ppalaga](https://github.com/ppalaga))
 - Fix since versions on various places [\#845](https://github.com/apache/camel-quarkus/pull/845) ([ppalaga](https://github.com/ppalaga))
 - Add JMS extension [\#841](https://github.com/apache/camel-quarkus/pull/841) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
 - Fix \#784 iCal support [\#839](https://github.com/apache/camel-quarkus/pull/839) ([ppalaga](https://github.com/ppalaga))
 - Automatic sync branch master to quarkus-master [\#829](https://github.com/apache/camel-quarkus/pull/829) ([github-actions[bot]](https://github.com/apps/github-actions))
 
@@ -1215,6 +1215,7 @@
 
 **Merged pull requests:**
 
+- Added Johnzon extension \#775 [\#840](https://github.com/apache/camel-quarkus/pull/840) ([aldettinger](https://github.com/aldettinger))
 - Remove MongoDB dependency overrides [\#834](https://github.com/apache/camel-quarkus/pull/834) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add websocket-jsr356 extension [\#833](https://github.com/apache/camel-quarkus/pull/833) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#831 Move Groovy executions under the enforce profile [\#832](https://github.com/apache/camel-quarkus/pull/832) ([ppalaga](https://github.com/ppalaga))
