@@ -88,7 +88,7 @@
         <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
         <opencensus-api.version>0.26.0</opencensus-api.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <quarkus.version>1.10.1.Final</quarkus.version>
-        <quarkus-qpid-jms.version>0.20.0</quarkus-qpid-jms.version>
+        <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
         <protobuf.version>3.11.1</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
