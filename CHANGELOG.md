@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 
 **Merged pull requests:**
 
+- Camel Avro RPC component native support \#1941 [\#2025](https://github.com/apache/camel-quarkus/pull/2025) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
 - Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
@@ -1132,6 +1134,7 @@
 - iCal support [\#784](https://github.com/apache/camel-quarkus/issues/784)
 - GZip Deflater support [\#783](https://github.com/apache/camel-quarkus/issues/783)
 - Add support for camel-johnzon extension [\#775](https://github.com/apache/camel-quarkus/issues/775)
+- Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Upgarde Camel to v3.1.0 [\#759](https://github.com/apache/camel-quarkus/issues/759)
 - Automate tests against camel and quarkus master [\#652](https://github.com/apache/camel-quarkus/issues/652)
 - MongoDB itest fails on Camel 3.1.0-SNAPSHOT [\#649](https://github.com/apache/camel-quarkus/issues/649)
@@ -1187,7 +1190,6 @@
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
-- Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
 - Create a XPath language extension [\#739](https://github.com/apache/camel-quarkus/issues/739)
 - Create dataformats-json itests from jackson itests [\#729](https://github.com/apache/camel-quarkus/issues/729)
@@ -1532,6 +1534,7 @@
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
+- build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
@@ -1574,7 +1577,6 @@
 **Merged pull requests:**
 
 - Fix \#356 Issues in the List of extensions [\#425](https://github.com/apache/camel-quarkus/pull/425) ([ppalaga](https://github.com/ppalaga))
-- build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
 - xslt extension not building in native mode [\#422](https://github.com/apache/camel-quarkus/pull/422) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: Remove unused itest dependencies [\#421](https://github.com/apache/camel-quarkus/pull/421) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1762,7 +1764,6 @@
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
-- Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
 
@@ -1843,6 +1844,7 @@
 - Add tests to the twitter itest project [\#138](https://github.com/apache/camel-quarkus/pull/138) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.21.1 [\#137](https://github.com/apache/camel-quarkus/pull/137) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.21.0 [\#135](https://github.com/apache/camel-quarkus/pull/135) ([ppalaga](https://github.com/ppalaga))
+- Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
 - Fix \#129 Properies evaluation broken after the introduction of Proper… [\#130](https://github.com/apache/camel-quarkus/pull/130) ([ppalaga](https://github.com/ppalaga))
 - Order the dependencies managed in the BOM [\#127](https://github.com/apache/camel-quarkus/pull/127) ([ppalaga](https://github.com/ppalaga))
 - Fix \#114 Move create-extension-templates to i.e. tooling [\#126](https://github.com/apache/camel-quarkus/pull/126) ([ppalaga](https://github.com/ppalaga))
