@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -27,6 +28,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderNominationResource.class)
 @QuarkusTestResource(GeocoderTestResource.class)
+@Disabled("https://github.com/apache/camel-quarkus/issues/2033")
 public class GeocoderNominationTest {
 
     @Test
