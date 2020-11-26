@@ -16,12 +16,16 @@
  */
 package org.apache.camel.quarkus.component.nitrite.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.quarkus.core.JvmOnlyRecorder;
+import org.h2.store.fs.FilePathNio;
 import org.jboss.logging.Logger;
 
 class NitriteProcessor {
@@ -42,6 +46,17 @@ class NitriteProcessor {
     void warnJvmInNative(JvmOnlyRecorder recorder) {
         JvmOnlyRecorder.warnJvmInNative(LOG, FEATURE); // warn at build time
         recorder.warnJvmInNative(FEATURE); // warn at runtime
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        // this class uses a SecureRandom which needs to be initialised at run time
+        runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem("org.dizitart.no2.Security"));
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, FilePathNio.class));
     }
 
 }
