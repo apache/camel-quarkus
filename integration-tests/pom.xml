@@ -113,6 +113,7 @@
         <module>jira</module>
         <module>jolt</module>
         <module>jpa</module>
+        <module>jsch</module>
         <module>jslt</module>
         <module>json-validator</module>
         <module>jsonpath</module>
