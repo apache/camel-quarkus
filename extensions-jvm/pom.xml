@@ -92,7 +92,6 @@
         <module>jgroups</module>
         <module>jgroups-raft</module>
         <module>jooq</module>
-        <module>jsch</module>
         <module>jsonapi</module>
         <module>jt400</module>
         <module>language</module>

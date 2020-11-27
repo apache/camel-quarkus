@@ -16,9 +16,14 @@
 #
 
 # Association of test categories and integration test modules. Used by GitHub workflows.
-cache:
+cache-networking3:
+  - avro-rpc
+  - git
   - infinispan
   - caffeine
+  - http
+  - jsch
+  - ssh
 cloud:
   - aws
   - aws2
@@ -103,7 +108,6 @@ messaging-networking1:
   - nats
   - rabbitmq
   - ftp
-  - http
   - graphql
   - vertx-websocket
 misc:
@@ -122,8 +126,6 @@ misc:
   - kotlin
   - disruptor
 networking2-dataformats:
-  - avro-rpc
-  - git
   - mail
   - netty
   - nsq
@@ -136,7 +138,6 @@ networking2-dataformats:
   - flatpack
   - grok
   - tarfile
-  - ssh
 platform:
   - microprofile
   - openapi-java
