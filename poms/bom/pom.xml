@@ -1398,6 +1398,11 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-minio</artifactId>
+                <version>${camel.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-mllp</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -3943,6 +3948,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-milo-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-minio</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-minio-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
