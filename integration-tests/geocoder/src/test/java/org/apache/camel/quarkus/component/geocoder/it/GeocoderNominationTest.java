@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -28,8 +27,14 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 @TestHTTPEndpoint(GeocoderNominationResource.class)
 @QuarkusTestResource(GeocoderTestResource.class)
-@Disabled("https://github.com/apache/camel-quarkus/issues/2033")
 public class GeocoderNominationTest {
+
+    /**
+     * Note: The geocoder:nominatim endpoints call out to an API that is currently not covered by WireMock.
+     *
+     * https://issues.apache.org/jira/browse/CAMEL-15900
+     * https://github.com/apache/camel-quarkus/issues/2033
+     */
 
     @Test
     public void loadAddress() {
@@ -37,8 +42,8 @@ public class GeocoderNominationTest {
                 .then()
                 .statusCode(200)
                 .body("status", equalTo("OK"))
-                .body("postalCode", equalTo("41092"))
-                .body("city", equalTo("Sevilla"))
+                .body("postalCode", equalTo("41940"))
+                .body("region.name", equalTo("Andalucía"))
                 .body("country.shortCode", equalTo("ES"));
     }
 
