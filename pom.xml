@@ -21,9 +21,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.apache</groupId>
-        <artifactId>apache</artifactId>
-        <version>21</version>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-dependencies</artifactId>
+        <version>3.6.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -38,16 +38,14 @@
 
     <properties>
         <!-- Compile dependency versions (keep sorted alphabetically) -->
-        <ahc.version>2.12.1</ahc.version>
+        <ahc.version>${ahc-version}</ahc.version>
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
-	    <avro-ipc-version>1.10.0</avro-ipc-version>
-        <awssdk1.version>1.11.714</awssdk1.version>
+        <avro-ipc-version>1.10.0</avro-ipc-version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
-        <awssdk2.version>2.14.3</awssdk2.version>
-        <bouncycastle.version>1.66</bouncycastle.version>
+        <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
         <camel.version>3.6.0</camel.version>
-        <commons-beanutils.version>1.9.4</commons-beanutils.version><!-- keep in sync with Camel -->
+        <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
@@ -55,7 +53,6 @@
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <debezium.version>1.3.0.Final</debezium.version>
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
-        <elasticsearch.version>7.8.0</elasticsearch.version>
         <freemarker.version>2.3.30</freemarker.version>
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
@@ -64,12 +61,11 @@
         <google-api-common.version>1.9.0</google-api-common.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <guava.version>29.0-jre</guava.version>
         <gson.version>2.8.5</gson.version>
-        <hadoop2.version>2.10.0</hadoop2.version><!-- Spark -->
-        <hapi.version>4.1.0</hapi.version>
-        <hbase.version>2.3.1</hbase.version><!-- Keep in sync with Camel -->
+        <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
+        <hapi.version>${hapi-fhir-version}</hapi.version>
+        <hbase.version>${hbase-version}</hbase.version><!-- Keep in sync with Camel -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
-        <influxdb.version>2.20</influxdb.version>
-        <jackson.version>2.11.3</jackson.version> <!-- keep in sync with Quarkus -->
+        <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
@@ -79,46 +75,45 @@
         <jetty.version>9.4.18.v20190429</jetty.version>
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <kafka.version>2.5.0</kafka.version>
-        <kudu.version>1.12.0</kudu.version><!-- keep in sync with Camel -->
-        <kubernetes-client.version>4.10.3</kubernetes-client.version>
+        <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
+        <kubernetes-client.version>${kubernetes-client-version}</kubernetes-client.version>
         <kotlin.version>1.3.72</kotlin.version>
-        <netty3.version>3.10.6.Final</netty3.version><!-- Spark -->
-        <mvel2.version>2.4.10.Final</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
+        <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
+        <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
-        <okhttp.version>3.14.6</okhttp.version><!-- keep in sync with okio -->
-        <okio.version>1.17.2</okio.version><!-- keep in sync with okhttp -->
+        <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
+        <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
         <opencensus-api.version>0.26.0</opencensus-api.version><!-- Mess in pubsub transitive deps vs google cloud deps -->
         <optaplanner.version>7.46.0.Final</optaplanner.version>
         <quarkus.version>1.10.2.Final</quarkus.version>
         <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
-        <protobuf.version>3.11.1</protobuf.version>
+        <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>2.5.0</smallrye.reactive.messaging.camel.version>
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
-        <spring.version>5.2.9.RELEASE</spring.version>
-        <snakeyaml.version>1.26</snakeyaml.version>
+        <spring.version>${spring5-version}</spring.version>
+        <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
         <threetenbp.version>1.4.0</threetenbp.version>
-        <xalan.version>2.7.2</xalan.version>
-        <xerces.version>2.12.0</xerces.version>
+        <xalan.version>${xalan-version}</xalan.version>
+        <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version><!-- mess in FOP transitive deps -->
-        <xstream.version>1.4.11</xstream.version>
-        <web3j.version>3.6.0</web3j.version><!-- keep in sync with Camel -->
-        <web3j.quorum.version>0.8.0</web3j.quorum.version><!-- keep in sync with Camel -->
-        <woodstox-core.version>6.1.1</woodstox-core.version><!-- keep in sync with Camel -->
+        <xstream.version>${xstream-version}</xstream.version>
+        <web3j.version>${web3j-version}</web3j.version><!-- keep in sync with Camel -->
+        <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version><!-- keep in sync with Camel -->
+        <woodstox-core.version>${woodstox-core-version}</woodstox-core.version><!-- keep in sync with Camel -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
-        <activemq-version>5.15.12</activemq-version>
         <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>1.3.3</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
-        <jakarta.mail.version>1.6.5</jakarta.mail.version>
-        <mock-javamail.version>1.9</mock-javamail.version>
-        <pdfbox.version>2.0.21</pdfbox.version>
+        <jakarta.mail.version>${jakarta-mail-version}</jakarta.mail.version>
+        <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
+        <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
@@ -153,7 +148,6 @@
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <protobuf-java.version>3.11.0</protobuf-java.version>
         <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
         <rpkgtests-maven-plugin.version>0.9.0</rpkgtests-maven-plugin.version>
 

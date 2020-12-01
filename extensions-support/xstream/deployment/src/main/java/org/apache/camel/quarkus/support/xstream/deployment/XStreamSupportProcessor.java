@@ -127,6 +127,7 @@ public class XStreamSupportProcessor {
                 "java.lang.Byte",
                 "java.lang.Character",
                 "java.lang.Double",
+                "java.lang.Exception",
                 "java.lang.Float",
                 "java.lang.Integer",
                 "java.lang.Long",
