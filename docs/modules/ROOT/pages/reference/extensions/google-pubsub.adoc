@@ -3,15 +3,15 @@
 = Google Pubsub
 :page-aliases: extensions/google-pubsub.adoc
 :cq-artifact-id: camel-quarkus-google-pubsub
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Send and receive messages to/from Google Cloud Platform PubSub Service.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Send and receive messages to/from Google Cloud Platform PubSub Service.
 
@@ -32,3 +32,12 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Camel Quarkus limitations
+
+By default, the Camel PubSub component uses JDK object serialization via `ObjectOutputStream` whenever the message body is anything other than `String` or `byte[]`.
+
+Since such serialization is not yet supported by GraalVM, this extension provides a custom Jackson based serializer to serialize complex message payloads as JSON.
+
+If your payload contains binary data, then you will need to handle that by creating a custom Jackson Serializer / Deserializer.
+

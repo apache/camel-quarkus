@@ -112,6 +112,7 @@
         <module>google-calendar</module>
         <module>google-drive</module>
         <module>google-mail</module>
+        <module>google-pubsub</module>
         <module>google-sheets</module>
         <module>graphql</module>
         <module>grok</module>
