@@ -41,10 +41,49 @@ $ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -Ddevelopmen
 In case `release:prepare` is successful but an issue occurs during `release:perform`, it could be worth trying to resume from the failing artifact.
 For instance, would an issue occurs while performing the release of `camel-quarkus-openapi-java`, a resume attempt could be triggered as below:
 
-
 [source,shell]
 ----
 $ mvn -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip deploy -Papache-release -rf :camel-quarkus-openapi-java
+----
+
+== Update the Apache Camel Quarkus distribution subversion repository
+
+Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated as sketched below.
+
+First, checkout the Apache Camel Quarkus distribution subversion repository:
+[source,shell]
+----
+$ svn co 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
+----
+Add your public key to the file named `KEYS` if not already done.
+
+Assemble the Apache Camel Quarkus distribution:
+[source,shell]
+----
+$ mkdir -p "camel-quarkus/$VERSION"
+$ cd "camel-quarkus/$VERSION"
+$ export URL='https://repository.apache.org/content/repositories/releases/org/apache/camel/quarkus/camel-quarkus'
+$ wget -O "apache-camel-quarkus-$VERSION-src.zip" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip"
+$ wget -O "apache-camel-quarkus-$VERSION-src.zip.asc" "$URL/$VERSION/camel-quarkus-$VERSION-src.zip.asc"
+$ sha512sum "apache-camel-quarkus-$VERSION-src.zip" > "apache-camel-quarkus-$VERSION-src.zip.sha512"
+----
+Ensure that only the latest release from each maintained branches is present.
+Typically, when releasing e.g. 1.4.0, you may need to delete e.g. 1.3.0:
+
+[source,shell]
+----
+$ cd .. && ls
+$ rm -fr 1.3.0
+----
+Review the changes:
+[source,shell]
+----
+$ svn diff
+----
+Commit the changes:
+[source,shell]
+----
+$ svn commit -m "Apache Camel Quarkus $VERSION released artifacts."
 ----
 
 == Further steps
