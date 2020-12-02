@@ -17,11 +17,12 @@ There's an example project which demonstrates health checks: https://github.com/
 
 == Metrics
 
-We provide the xref:reference/extensions/microprofile-metrics.adoc[MicroProfile Metrics] extension which integrates with
-https://quarkus.io/guides/microprofile-metrics[Quarkus MicroProfile Metrics] under the hood. Some basic Camel metrics
-are provided for you out of the box, and these can be supplemented by configuring additional metrics in your routes.
+We provide two choices for exposing metrics. The xref:reference/extensions/micrometer.adoc[Micrometer] extension (preferred) which integrates with https://quarkus.io/guides/micrometer[Quarkus Micrometer] and the xref:reference/extensions/microprofile-metrics.adoc[MicroProfile Metrics] extension which integrates with
+https://quarkus.io/guides/microprofile-metrics[Quarkus MicroProfile Metrics]. 
 
-Metrics are available on the standard MicroProfile metrics endpoint:
+Some basic Camel metrics are provided for you out of the box, and these can be supplemented by configuring additional metrics in your routes.
+
+Metrics are available on the standard Quarkus metrics endpoint:
 
 * http://localhost:8080/metrics
 

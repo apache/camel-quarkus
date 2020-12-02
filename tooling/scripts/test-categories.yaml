@@ -78,6 +78,7 @@ foundation:
   - hystrix
   - jta
   - jsonpath
+  - micrometer
   - quartz
   - saga
 xml-json-olingo4:

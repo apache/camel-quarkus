@@ -1,0 +1,37 @@
+This extension leverages https://quarkus.io/guides/micrometer[Quarkus Micrometer]. Quarkus supports a variety of Micrometer metric registry implementations.
+
+Your application should declare one of the following dependencies, depending on the monitoring solution you want to work with.
+
+[cols="50,.^50]
+|===
+|Monitoring System | Dependency
+
+| Azure
+
+| `io.micrometer:micrometer-registry-azure-monitor`
+
+| Datadog
+
+| `io.micrometer:micrometer-registry-datadog`
+
+| JMX (JVM mode only)
+
+| `io.micrometer:micrometer-registry-jmx`
+
+| Prometheus
+
+| `io.micrometer:micrometer-registry-prometheus`
+
+| SignalFx
+
+| `io.micrometer:micrometer-registry-signalfx`
+
+| Stackdriver
+
+| `io.micrometer:micrometer-registry-stackdriver`
+
+| StatsD
+
+| `io.micrometer:micrometer-registry-statsd`
+
+|===
