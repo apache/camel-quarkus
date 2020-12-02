@@ -1,0 +1,6 @@
+By default, the Camel PubSub component uses JDK object serialization via `ObjectOutputStream` whenever the message body is anything other than `String` or `byte[]`.
+
+Since such serialization is not yet supported by GraalVM, this extension provides a custom Jackson based serializer to serialize complex message payloads as JSON.
+
+If your payload contains binary data, then you will need to handle that by creating a custom Jackson Serializer / Deserializer. Refer to the https://quarkus.io/guides/writing-extensions#customizing-jackson[Quarkus Jackson guide] for 
+information on how to do this.
