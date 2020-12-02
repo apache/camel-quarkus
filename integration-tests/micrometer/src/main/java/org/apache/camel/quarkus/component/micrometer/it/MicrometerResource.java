@@ -1,0 +1,109 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.apache.camel.quarkus.component.micrometer.it;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tag;
+import io.micrometer.core.instrument.search.Search;
+import org.apache.camel.ProducerTemplate;
+
+@Path("/micrometer")
+public class MicrometerResource {
+
+    @Inject
+    ProducerTemplate producerTemplate;
+
+    @Inject
+    MeterRegistry meterRegistry;
+
+    @Path("/metric/{type}/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public Response getMetricValue(@PathParam("type") String type, @PathParam("name") String name,
+            @QueryParam("tags") String tagValues) {
+        List<Tag> tags = new ArrayList<>();
+
+        if (tagValues.length() > 0) {
+            String[] tagElements = tagValues.split(",");
+            for (String element : tagElements) {
+                String[] tagParts = element.split("=");
+                tags.add(Tag.of(tagParts[0], tagParts[1]));
+            }
+        }
+
+        Search search = meterRegistry.find(name).tags(tags);
+        if (search == null) {
+            return Response.status(404).build();
+        }
+
+        Response.ResponseBuilder response = Response.ok();
+        if (type.equals("counter")) {
+            response.entity(search.counter().count());
+        } else if (type.equals("gauge")) {
+            response.entity(search.gauge().value());
+        } else if (type.equals("summary")) {
+            response.entity(search.summary().max());
+        } else if (type.equals("timer")) {
+            response.entity(search.timer().totalTime(TimeUnit.MILLISECONDS));
+        } else {
+            throw new IllegalArgumentException("Unknown metric type: " + type);
+        }
+
+        return response.build();
+    }
+
+    @Path("/counter")
+    @GET
+    public Response counter() {
+        producerTemplate.sendBody("direct:counter", null);
+        return Response.ok().build();
+    }
+
+    @Path("/summary")
+    @GET
+    public Response summarySetValue(@QueryParam("value") int value) {
+        producerTemplate.sendBody("direct:summary", value);
+        return Response.ok().build();
+    }
+
+    @Path("/timer")
+    @GET
+    public Response timerStartStop() {
+        producerTemplate.sendBody("direct:timer", null);
+        return Response.ok().build();
+    }
+
+    @Path("/log")
+    @GET
+    public Response logMessage() {
+        producerTemplate.requestBody("direct:log", (Object) null);
+        return Response.ok().build();
+    }
+}

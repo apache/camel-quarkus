@@ -127,6 +127,7 @@
         <module>mail</module>
         <module>master</module>
         <module>messaging</module>
+        <module>micrometer</module>
         <module>microprofile</module>
         <module>mongodb</module>
         <module>msv</module>
