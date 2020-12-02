@@ -72,7 +72,6 @@
         <module>freemarker</module>
         <module>ganglia</module>
         <module>google-bigquery</module>
-        <module>google-pubsub</module>
         <module>groovy</module>
         <module>guava-eventbus</module>
         <module>hazelcast</module>
