@@ -30,6 +30,7 @@ cloud:
   - azure
   - consul
   - elasticsearch-rest
+  - google-pubsub
   - grpc
   - protobuf
   - smallrye-reactive-messaging

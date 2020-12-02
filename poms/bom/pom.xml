@@ -906,6 +906,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-pubsub</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.cloud</groupId>
+                        <artifactId>google-cloud-pubsub</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5366,11 +5376,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.google.api</groupId>
-                <artifactId>api-common</artifactId>
-                <version>${google-api-common.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.google.api.grpc</groupId>
                 <artifactId>proto-google-common-protos</artifactId>
                 <version>${proto-google-common-protos.version}</version>
@@ -5378,7 +5383,7 @@
             <dependency>
                 <groupId>com.google.auth</groupId>
                 <artifactId>google-auth-library-credentials</artifactId>
-                <version>${google-auth-library-credentials.version}</version>
+                <version>${google-auth-library-oauth2-http.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.auth</groupId>
@@ -5523,9 +5528,14 @@
                 <version>${debezium.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.opencensus</groupId>
-                <artifactId>opencensus-api</artifactId>
-                <version>${opencensus-api.version}</version>
+                <groupId>io.quarkiverse.googlecloudservices</groupId>
+                <artifactId>quarkus-google-cloud-pubsub</artifactId>
+                <version>${quarkus-google-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.googlecloudservices</groupId>
+                <artifactId>quarkus-google-cloud-pubsub-deployment</artifactId>
+                <version>${quarkus-google-cloud.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.smallrye.reactive</groupId>
