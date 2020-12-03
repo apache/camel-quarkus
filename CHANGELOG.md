@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
 - \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
 - Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
@@ -15,6 +16,9 @@
 
 **Merged pull requests:**
 
+- Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
+- Use camel-dependencies as parent pom to inherit camel version properties [\#2051](https://github.com/apache/camel-quarkus/pull/2051) ([jamesnetherton](https://github.com/jamesnetherton))
+- Micrometer component support [\#2050](https://github.com/apache/camel-quarkus/pull/2050) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.2.Final [\#2047](https://github.com/apache/camel-quarkus/pull/2047) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix GeocoderNominationTest postalCode field assertion failure [\#2043](https://github.com/apache/camel-quarkus/pull/2043) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup 94ef785 Next is 1.5.0-SNAPSHOT [\#2041](https://github.com/apache/camel-quarkus/pull/2041) ([ppalaga](https://github.com/ppalaga))
@@ -1641,6 +1645,7 @@
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
+- Add a daily job that test master agains quarkus snapshots [\#232](https://github.com/apache/camel-quarkus/issues/232)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
 **Merged pull requests:**
@@ -1701,7 +1706,6 @@
 - Auto configure MicroProfile metrics Camel context event notifier [\#240](https://github.com/apache/camel-quarkus/issues/240)
 - ActiveMQTestResource should not eat the exception [\#234](https://github.com/apache/camel-quarkus/issues/234)
 - Help with the creation of the Component Camel-Quarkus-JMS [\#233](https://github.com/apache/camel-quarkus/issues/233)
-- Add a daily job that test master agains quarkus snapshots [\#232](https://github.com/apache/camel-quarkus/issues/232)
 - Upgrade to Quarkus 0.23.0 [\#209](https://github.com/apache/camel-quarkus/issues/209)
 - Release 0.2.0 [\#203](https://github.com/apache/camel-quarkus/issues/203)
 - Remove scaffold-integration-test.groovy [\#173](https://github.com/apache/camel-quarkus/issues/173)
@@ -1780,7 +1784,6 @@
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
-- rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
 
@@ -1869,6 +1872,7 @@
 - create extension for camel's core cloud impl [\#121](https://github.com/apache/camel-quarkus/pull/121) ([lburgazzoli](https://github.com/lburgazzoli))
 - Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
+- rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
