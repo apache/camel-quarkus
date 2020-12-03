@@ -26,6 +26,10 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 
 @ConfigRoot(name = "camel", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelConfig {
+    public enum FailureRemedy {
+        fail, warn, ignore
+    }
+
     /**
      * Build time configuration options for {@link CamelRuntime} bootstrap.
      */
@@ -55,6 +59,12 @@ public class CamelConfig {
      */
     @ConfigItem(name = "native")
     public NativeConfig native_;
+
+    /**
+     * Build time configuration options for the Camel CSimple language.
+     */
+    @ConfigItem
+    public CSimpleConfig csimple;
 
     @ConfigGroup
     public static class BootstrapConfig {
@@ -328,5 +338,13 @@ public class CamelConfig {
          */
         @ConfigItem(defaultValue = "true")
         public boolean models;
+    }
+
+    @ConfigGroup
+    public static class CSimpleConfig {
+
+        /** What to do if it is not possible to extract CSimple expressions from a route definition at build time. */
+        @ConfigItem(defaultValue = "warn")
+        public FailureRemedy onBuildTimeAnalysisFailure;
     }
 }

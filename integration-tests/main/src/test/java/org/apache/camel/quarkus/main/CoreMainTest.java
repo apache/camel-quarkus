@@ -104,7 +104,8 @@ public class CoreMainTest {
                 "file", "org.apache.camel.language.simple.FileLanguage",
                 "header", "org.apache.camel.language.header.HeaderLanguage",
                 "simple", "org.apache.camel.language.simple.SimpleLanguage",
-                "ref", "org.apache.camel.language.ref.RefLanguage"));
+                "ref", "org.apache.camel.language.ref.RefLanguage",
+                "csimple", "org.apache.camel.language.csimple.CSimpleLanguage"));
 
         Map<String, String> factoryFinderMap = p.getMap("factory-finder.class-map", String.class, String.class);
 
