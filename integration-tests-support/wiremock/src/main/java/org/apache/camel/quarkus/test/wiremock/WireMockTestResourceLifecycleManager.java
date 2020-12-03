@@ -28,6 +28,7 @@ import java.util.Map;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.ClasspathFileSource;
 import com.github.tomakehurst.wiremock.common.FileSource;
+import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.recording.RecordingStatus;
 import com.github.tomakehurst.wiremock.recording.SnapshotRecordResult;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
@@ -202,9 +203,12 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     private WireMockServer createServer() {
         LOG.info("Starting WireMockServer");
         MockBackendUtils.startMockBackend(true);
-        return new WireMockServer(options()
-                .dynamicPort()
-                .fileSource(new CamelQuarkusFileSource()));
+        WireMockConfiguration configuration = options().dynamicPort();
+        if (!isRecordingEnabled()) {
+            // Read mapping resources from the classpath in playback mode
+            configuration.fileSource(new CamelQuarkusFileSource());
+        }
+        return new WireMockServer(configuration);
     }
 
     /**
