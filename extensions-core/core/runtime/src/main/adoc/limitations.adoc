@@ -1,0 +1,17 @@
+=== CSimple language
+
+CSimple language is supported only in
+
+* XML DSL
+* Java DSL when implemented in a class extending `org.apache.camel.builder.RouteBuilder`
+
+The compilation of CSimple scripts happens at build time. To extract the scripts from the route definitions, these need
+to be assembled at build time. This may fail if the given route requires some data that is only available at runtime.
+You can use the `quarkus.camel.csimple.on-build-time-analysis-failure` configuration parameter to decide
+what should happen in such cases. The possible values are `warn` (default), `fail` or `ignore`.
+
+[WARNING]
+====
+CSimple language will not work on Camel Quarkus if used in a `org.apache.camel.builder.LambdaRouteBuilder`
+====
+
