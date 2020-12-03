@@ -16,20 +16,25 @@
  */
 package org.apache.camel.quarkus.core;
 
-import org.apache.camel.builder.RouteBuilder;
+import io.quarkus.runtime.RuntimeValue;
+import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.language.csimple.CSimpleExpression;
+import org.apache.camel.language.csimple.CSimpleLanguage;
+import org.apache.camel.language.csimple.CSimpleLanguage.Builder;
 
-public class CoreRoutes extends RouteBuilder {
+@Recorder
+public class CSimpleLanguageRecorder {
 
-    @Override
-    public void configure() {
-        from("timer:keep-alive")
-                .routeId("timer")
-                .setBody().constant("I'm alive !")
-                .to("log:keep-alive");
+    public RuntimeValue<CSimpleLanguage.Builder> csimpleLanguageBuilder() {
+        return new RuntimeValue<>(CSimpleLanguage.builder());
+    }
 
-        from("direct:csimple-hello")
-                .setBody().csimple("Hello ${body}");
+    public void addExpression(RuntimeValue<Builder> builder, RuntimeValue<CSimpleExpression> expression) {
+        builder.getValue().expression(expression.getValue());
+    }
 
+    public RuntimeValue<?> buildCSimpleLanguage(RuntimeValue<Builder> builder) {
+        return new RuntimeValue<>(builder.getValue().build());
     }
 
 }
