@@ -41,4 +41,11 @@
         </setBody>
     </route>
 
+    <route id="csimple-xml-dsl">
+        <from uri="direct:csimple-xml-dsl"/>
+        <setBody>
+            <csimple>Hi ${body}</csimple>
+        </setBody>
+    </route>
+
 </routes>

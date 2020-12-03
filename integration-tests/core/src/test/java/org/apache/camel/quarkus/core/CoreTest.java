@@ -21,6 +21,7 @@ import java.net.HttpURLConnection;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
@@ -123,4 +124,15 @@ public class CoreTest {
     void testDefaultHeadersMapFactoryConfigured() {
         RestAssured.when().get("/test/headersmap-factory").then().body(is("true"));
     }
+
+    @Test
+    public void csimpleHello() {
+        RestAssured.given()
+                .body("Joe")
+                .contentType(ContentType.TEXT)
+                .post("/test/csimple-hello")
+                .then()
+                .body(is("Hello Joe"));
+    }
+
 }

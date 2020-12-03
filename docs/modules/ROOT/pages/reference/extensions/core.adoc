@@ -160,6 +160,12 @@ A comma separated list of Ant-path style patterns to match class names that shou
  For this option to work properly, the artifacts containing the selected classes must either contain a Jandex index (`META-INF/jandex.idx`) or they must be registered for indexing using the `quarkus.index-dependency.++*++` family of options in `application.properties` - e.g. quarkus.index-dependency.my-dep.group-id = org.my-group quarkus.index-dependency.my-dep.artifact-id = my-artifact  where `my-dep` is a label of your choice to tell Quarkus that `org.my-group` and with `my-artifact` belong together.
 | `string`
 | 
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.csimple.on-build-time-analysis-failure]]`link:#quarkus.camel.csimple.on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
+
+What to do if it is not possible to extract CSimple expressions from a route definition at build time.
+| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
+| `warn`
 |===
 
 [.configuration-legend]

@@ -28,7 +28,9 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,6 +41,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.Route;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.TemplatedRouteBuilder;
@@ -58,6 +61,9 @@ public class CoreResource {
     Registry registry;
     @Inject
     CamelContext context;
+
+    @Inject
+    ProducerTemplate producerTemplate;
 
     @Path("/registry/log/exchange-formatter")
     @GET
@@ -260,5 +266,13 @@ public class CoreResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean headersMapFactory() {
         return context.adapt(ExtendedCamelContext.class).getHeadersMapFactory() instanceof DefaultHeadersMapFactory;
+    }
+
+    @Path("/csimple-hello")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String csimpleHello(String body) {
+        return producerTemplate.requestBody("direct:csimple-hello", body, String.class);
     }
 }
