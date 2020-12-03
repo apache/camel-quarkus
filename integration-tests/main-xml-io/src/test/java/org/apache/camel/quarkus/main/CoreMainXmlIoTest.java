@@ -30,7 +30,7 @@ import org.apache.camel.xml.in.ModelParserXMLRoutesDefinitionLoader;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 public class CoreMainXmlIoTest {
@@ -75,4 +75,15 @@ public class CoreMainXmlIoTest {
                 .body(is("bar"));
 
     }
+
+    @Test
+    public void csimpleXml() {
+        RestAssured.given()
+                .body("Joe")
+                .contentType(ContentType.TEXT)
+                .post("/test/csimple-xml-dsl")
+                .then()
+                .body(is("Hi Joe"));
+    }
+
 }
