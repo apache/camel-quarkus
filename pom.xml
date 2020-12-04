@@ -86,7 +86,7 @@
         <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
         <optaplanner.version>7.46.0.Final</optaplanner.version>
         <quarkus.version>1.10.2.Final</quarkus.version>
-        <quarkus-google-cloud.version>0.2.0</quarkus-google-cloud.version>
+        <quarkus-google-cloud.version>0.3.0</quarkus-google-cloud.version>
         <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>

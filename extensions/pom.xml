@@ -109,6 +109,7 @@
         <module>geocoder</module>
         <module>git</module>
         <module>github</module>
+        <module>google-bigquery</module>
         <module>google-calendar</module>
         <module>google-drive</module>
         <module>google-mail</module>

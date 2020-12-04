@@ -99,6 +99,7 @@
         <module>git</module>
         <module>github</module>
         <module>google</module>
+        <module>google-bigquery</module>
         <module>google-pubsub</module>
         <module>graphql</module>
         <module>grok</module>

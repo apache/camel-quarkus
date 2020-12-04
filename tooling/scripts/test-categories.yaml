@@ -30,6 +30,7 @@ cloud:
   - azure
   - consul
   - elasticsearch-rest
+  - google-bigquery
   - google-pubsub
   - grpc
   - protobuf
