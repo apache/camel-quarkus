@@ -35,10 +35,13 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
+        return Collections.singletonMap("javax.net.ssl.trustStore", getDefaultTrustStorePath().toString());
+    }
+
+    public static Path getDefaultTrustStorePath() {
+        Path trustStorePath;
         final String graalVmHome = System.getenv("GRAALVM_HOME");
         final String javaHome = System.getProperty("java.home", System.getenv("JAVA_HOME"));
-
-        Path trustStorePath;
 
         if (graalVmHome != null && !graalVmHome.isEmpty()
                 && Files.exists(trustStorePath = Paths.get(graalVmHome).resolve(CACERTS_REL_PATH))) {
@@ -56,8 +59,7 @@ public class TrustStoreResource implements QuarkusTestResourceLifecycleManager {
                             + ". You may need to set GRAALVM_HOME or JAVA_HOME properly. Found $GRAALVM_HOME = " + graalVmHome
                             + " and $JAVA_HOME = " + graalVmHome);
         }
-
-        return Collections.singletonMap("javax.net.ssl.trustStore", trustStorePath.toString());
+        return trustStorePath;
     }
 
     @Override

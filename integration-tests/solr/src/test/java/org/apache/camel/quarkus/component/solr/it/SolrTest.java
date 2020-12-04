@@ -39,7 +39,7 @@ import static org.hamcrest.Matchers.equalTo;
 public class SolrTest {
     /**
      * Quarkus resources to test
-     * 
+     *
      * @return
      */
     private static Stream<String> resources() {
