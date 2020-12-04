@@ -886,6 +886,16 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-bigquery</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.cloud</groupId>
+                        <artifactId>google-cloud-bigquery</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>com.google.guava</groupId>
+                        <artifactId>guava</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5526,6 +5536,16 @@
                 <groupId>io.debezium</groupId>
                 <artifactId>debezium-embedded</artifactId>
                 <version>${debezium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.googlecloudservices</groupId>
+                <artifactId>quarkus-google-cloud-bigquery</artifactId>
+                <version>${quarkus-google-cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.googlecloudservices</groupId>
+                <artifactId>quarkus-google-cloud-bigquery-deployment</artifactId>
+                <version>${quarkus-google-cloud.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.googlecloudservices</groupId>

@@ -3,15 +3,15 @@
 = Google BigQuery
 :page-aliases: extensions/google-bigquery.adoc
 :cq-artifact-id: camel-quarkus-google-bigquery
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Access Google Cloud BigQuery service using SQL queries or Google Client Services API
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Access Google Cloud BigQuery service using SQL queries or Google Client Services API
 
@@ -33,3 +33,14 @@ Please refer to the above links for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+This extension leverages the Quarkiverse Google Cloud Services extension. The https://github.com/quarkiverse/quarkiverse-google-cloud-services[documentation] describes
+how to configure authentication for Google cloud services.
+
+For convenience, a `GoogleBigQueryConnectionFactory` for use by the `google-bigquery` & `google-bigquery-sql` component is automatically configured.
+
+If you want to read SQL scripts from the classpath with `google-bigquery-sql` in native mode, then you will need to ensure that they are added to the native image via
+the `quarkus.camel.native.resources.include-patterns` configuration property.
+
