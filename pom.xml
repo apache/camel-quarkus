@@ -415,6 +415,7 @@
                             <exclude>**/*.cnf</exclude>
                             <exclude>**/*.conf</exclude>
                             <exclude>**/*.csv</exclude>
+                            <exclude>**/*.der</exclude>
                             <exclude>**/*.ftl</exclude>
                             <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>

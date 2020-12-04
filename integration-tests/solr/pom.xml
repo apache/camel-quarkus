@@ -17,7 +17,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
@@ -30,8 +31,7 @@
     <description>Integration tests for Camel Quarkus Solr extension</description>
 
     <properties>
-        <solr.trust-store>${project.basedir}/src/test/resources/ssl/solr-ssl.keystore.jks</solr.trust-store>
-        <solr.trust-store-password>secret</solr.trust-store-password>
+        <solr.trust-store>${project.basedir}/target/ssl/trust-store.jks</solr.trust-store>
     </properties>
 
     <dependencyManagement>
@@ -42,16 +42,6 @@
                 <version>${project.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-jackson-deployment</artifactId>
-                <version>${quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-resteasy-jackson-deployment</artifactId>
-                <version>${quarkus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -91,15 +81,6 @@
             <artifactId>solr</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- this dependency is added so that all artifacts quarkus-resteasy-jackson-deployment and quarkus-jackson-deployment are downloaded before tests, otherwise it will fail after setting the javax.net.ssl.trustStore and javax.net.ssl.trustStorePassword properties -->
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jackson-deployment</artifactId>
-        </dependency>
-       <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson-deployment</artifactId>
-        </dependency>
 
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
@@ -118,20 +99,65 @@
     </dependencies>
 
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <systemPropertyVariables>
-                        <javax.net.ssl.trustStore>${solr.trust-store}</javax.net.ssl.trustStore>
-                        <javax.net.ssl.trustStorePassword>${solr.trust-store-password}</javax.net.ssl.trustStorePassword>
-                    </systemPropertyVariables>
-                </configuration>
-            </plugin>
-        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
     </build>
+
     <profiles>
+        <profile>
+            <id>full</id>
+            <activation>
+                <property>
+                    <name>!quickly</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>extend-default-trust-store-extension</id>
+                                <phase>test-compile</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <additionalClasspathElements>${basedir}/target/test-classes</additionalClasspathElements>
+                                    <mainClass>org.apache.camel.quarkus.test.ExtendDefaultTrustStore</mainClass>
+                                    <arguments>
+                                        <argument>${solr.trust-store}</argument>
+                                        <argument>ssl/solr-ssl.der</argument>
+                                    </arguments>
+                                    <includePluginDependencies>true</includePluginDependencies>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <dependencies>
+                            <dependency>
+                                <groupId>org.apache.camel.quarkus</groupId>
+                                <artifactId>camel-quarkus-integration-test-support</artifactId>
+                                <version>${project.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <systemPropertyVariables>
+                                <javax.net.ssl.trustStore>${solr.trust-store}</javax.net.ssl.trustStore>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>native</id>
             <activation>
@@ -141,8 +167,6 @@
             </activation>
             <properties>
                 <quarkus.package.type>native</quarkus.package.type>
-                <quarkus.native.additional-build-args>-H:IncludeResources=.*ssl/.*,-J-Djavax.net.ssl.trustStore=${solr.trust-store},
-                    -J-Djavax.net.ssl.trustStorePassword=${solr.trust-store-password}</quarkus.native.additional-build-args>
             </properties>
             <build>
                 <plugins>

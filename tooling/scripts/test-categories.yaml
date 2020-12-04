@@ -25,6 +25,7 @@ cache-networking3:
   - jsch
   - ssh
 cloud:
+  - solr
   - aws
   - aws2
   - azure
@@ -33,7 +34,6 @@ cloud:
   - grpc
   - protobuf
   - smallrye-reactive-messaging
-  - solr
 core-main-validation:
   - core
   - core-discovery-disabled
