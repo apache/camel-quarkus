@@ -1,0 +1,16 @@
+== Camel Quarkus Google BigQuery Integration Tests
+
+To run Camel Google BigQuery integration tests, you need a valid https://cloud.google.com/[Google Cloud Platform] (GCP) account. Note that the GCP free tier & sandbox
+mode does not provide the required capabilities (streaming inserts & queries) that enable the tests to run successfully.
+
+The simplest means of setting up authentication is via a https://cloud.google.com/docs/authentication/getting-started[service account]. Use the GCP UI to export
+a JSON representation of your credentials.
+
+You should now set the following environment variable:
+
+[source,shell]
+----
+export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
+----
+
+You should also modify `application.properties` so that `quarkus.google.cloud.project-id` is correct for your GCP project.
