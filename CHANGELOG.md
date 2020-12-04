@@ -10,6 +10,7 @@
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
 - \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
 - Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
+- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
@@ -28,10 +29,10 @@
 - Upgrade Quarkus to 1.10.1.Final [\#2032](https://github.com/apache/camel-quarkus/pull/2032) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus Qpid JMS to 0.21.0 [\#2030](https://github.com/apache/camel-quarkus/pull/2030) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test the Freemarker extension properly, although only in JVM mode for [\#2028](https://github.com/apache/camel-quarkus/pull/2028) ([ppalaga](https://github.com/ppalaga))
+- Solr native support fixes \#1703 [\#2026](https://github.com/apache/camel-quarkus/pull/2026) ([zbendhiba](https://github.com/zbendhiba))
 - Camel Avro RPC component native support \#1941 [\#2025](https://github.com/apache/camel-quarkus/pull/2025) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
-- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
@@ -84,6 +85,7 @@
 
 **Merged pull requests:**
 
+- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
@@ -91,6 +93,7 @@
 - Fix github itest to use oauth token instead username/password [\#2009](https://github.com/apache/camel-quarkus/pull/2009) ([llowinge](https://github.com/llowinge))
 - Kudu: unshade and remove embedded netty and use quarkus-netty instead [\#2008](https://github.com/apache/camel-quarkus/pull/2008) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
+- \[Camel 3.7\] JSON-B data format support [\#2001](https://github.com/apache/camel-quarkus/pull/2001) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
 - Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
 - Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1645,7 +1648,6 @@
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
-- Add a daily job that test master agains quarkus snapshots [\#232](https://github.com/apache/camel-quarkus/issues/232)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
 **Merged pull requests:**
@@ -1706,6 +1708,7 @@
 - Auto configure MicroProfile metrics Camel context event notifier [\#240](https://github.com/apache/camel-quarkus/issues/240)
 - ActiveMQTestResource should not eat the exception [\#234](https://github.com/apache/camel-quarkus/issues/234)
 - Help with the creation of the Component Camel-Quarkus-JMS [\#233](https://github.com/apache/camel-quarkus/issues/233)
+- Add a daily job that test master agains quarkus snapshots [\#232](https://github.com/apache/camel-quarkus/issues/232)
 - Upgrade to Quarkus 0.23.0 [\#209](https://github.com/apache/camel-quarkus/issues/209)
 - Release 0.2.0 [\#203](https://github.com/apache/camel-quarkus/issues/203)
 - Remove scaffold-integration-test.groovy [\#173](https://github.com/apache/camel-quarkus/issues/173)
