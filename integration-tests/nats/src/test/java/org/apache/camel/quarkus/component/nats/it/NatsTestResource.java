@@ -77,7 +77,11 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
                         "--tlsverify",
                         "--tlscacert=/certs/ca.pem")
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
-        tlsAuthContainer.start();
+        try {
+            tlsAuthContainer.start();
+        } catch (Exception ex) {
+            throw new RuntimeException("An issue occurred while starting tlsAuthContainer: " + tlsAuthContainer.getLogs(), ex);
+        }
         String tlsAuthIp = tlsAuthContainer.getContainerIpAddress();
         Integer tlsAuthPort = tlsAuthContainer.getMappedPort(NATS_SERVER_PORT);
         String tlsAuthBrokerUrl = String.format("%s:%d", tlsAuthIp, tlsAuthPort);
