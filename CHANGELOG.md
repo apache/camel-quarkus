@@ -10,13 +10,13 @@
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
 - \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
 - Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
-- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 
 **Merged pull requests:**
 
+- Fix persistence of WireMock mappings [\#2054](https://github.com/apache/camel-quarkus/pull/2054) ([jamesnetherton](https://github.com/jamesnetherton))
 - Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
 - Use camel-dependencies as parent pom to inherit camel version properties [\#2051](https://github.com/apache/camel-quarkus/pull/2051) ([jamesnetherton](https://github.com/jamesnetherton))
 - Micrometer component support [\#2050](https://github.com/apache/camel-quarkus/pull/2050) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -33,6 +33,7 @@
 - Camel Avro RPC component native support \#1941 [\#2025](https://github.com/apache/camel-quarkus/pull/2025) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
+- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
@@ -58,6 +59,7 @@
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
 - PostgresSQL Event : add usage of Quarkus AgroalDatasource  [\#1909](https://github.com/apache/camel-quarkus/issues/1909)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
+- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
 - Revert PR \#1667 once kudu-client stops shading Netty [\#1669](https://github.com/apache/camel-quarkus/issues/1669)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Provide a quick profile [\#1607](https://github.com/apache/camel-quarkus/issues/1607)
@@ -85,7 +87,6 @@
 
 **Merged pull requests:**
 
-- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
@@ -93,7 +94,6 @@
 - Fix github itest to use oauth token instead username/password [\#2009](https://github.com/apache/camel-quarkus/pull/2009) ([llowinge](https://github.com/llowinge))
 - Kudu: unshade and remove embedded netty and use quarkus-netty instead [\#2008](https://github.com/apache/camel-quarkus/pull/2008) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.10.0.CR1 [\#2004](https://github.com/apache/camel-quarkus/pull/2004) ([jamesnetherton](https://github.com/jamesnetherton))
-- \[Camel 3.7\] JSON-B data format support [\#2001](https://github.com/apache/camel-quarkus/pull/2001) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Added MSV native support [\#2000](https://github.com/apache/camel-quarkus/pull/2000) ([aldettinger](https://github.com/aldettinger))
 - Configurable Debezium itest timeout [\#1999](https://github.com/apache/camel-quarkus/pull/1999) ([llowinge](https://github.com/llowinge))
 - Upgrade Quarkus to 1.9.2.Final [\#1994](https://github.com/apache/camel-quarkus/pull/1994) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1251,7 +1251,6 @@
 - Fix \#498 Improve the XSLT test coverage [\#777](https://github.com/apache/camel-quarkus/pull/777) ([ppalaga](https://github.com/ppalaga))
 - Add Azure extension [\#774](https://github.com/apache/camel-quarkus/pull/774) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add telegram extension to CI build [\#773](https://github.com/apache/camel-quarkus/pull/773) ([jamesnetherton](https://github.com/jamesnetherton))
-- Upgrade to camel 3.1.0 [\#768](https://github.com/apache/camel-quarkus/pull/768) ([jamesnetherton](https://github.com/jamesnetherton))
 - Jira integration test fails in native mode [\#758](https://github.com/apache/camel-quarkus/pull/758) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant mvnd.builder.rules from the top level pom.xml [\#755](https://github.com/apache/camel-quarkus/pull/755) ([ppalaga](https://github.com/ppalaga))
 - Fix \#960 Do not expose mutable collections from FHIR BuildItems [\#754](https://github.com/apache/camel-quarkus/pull/754) ([ppalaga](https://github.com/ppalaga))
