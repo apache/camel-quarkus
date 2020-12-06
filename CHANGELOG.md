@@ -1251,6 +1251,7 @@
 - Fix \#498 Improve the XSLT test coverage [\#777](https://github.com/apache/camel-quarkus/pull/777) ([ppalaga](https://github.com/ppalaga))
 - Add Azure extension [\#774](https://github.com/apache/camel-quarkus/pull/774) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add telegram extension to CI build [\#773](https://github.com/apache/camel-quarkus/pull/773) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to camel 3.1.0 [\#768](https://github.com/apache/camel-quarkus/pull/768) ([jamesnetherton](https://github.com/jamesnetherton))
 - Jira integration test fails in native mode [\#758](https://github.com/apache/camel-quarkus/pull/758) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant mvnd.builder.rules from the top level pom.xml [\#755](https://github.com/apache/camel-quarkus/pull/755) ([ppalaga](https://github.com/ppalaga))
 - Fix \#960 Do not expose mutable collections from FHIR BuildItems [\#754](https://github.com/apache/camel-quarkus/pull/754) ([ppalaga](https://github.com/ppalaga))
