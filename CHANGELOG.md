@@ -1785,7 +1785,6 @@
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
@@ -1832,6 +1831,7 @@
 - Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
 - Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
+- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
 - Add the camel-paho extension to support the MQTT [\#197](https://github.com/apache/camel-quarkus/pull/197) ([zhfeng](https://github.com/zhfeng))
 - chore\(deps\): update quarkus to v0.21.2 [\#196](https://github.com/apache/camel-quarkus/pull/196) ([lburgazzoli](https://github.com/lburgazzoli))
