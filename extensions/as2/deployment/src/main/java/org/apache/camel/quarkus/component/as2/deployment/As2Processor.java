@@ -26,8 +26,6 @@ import io.quarkus.deployment.builditem.LogConsoleFormatBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
-import org.apache.camel.component.as2.AS2ClientManagerEndpointConfiguration;
-import org.apache.camel.component.as2.AS2ServerManagerEndpointConfiguration;
 import org.apache.camel.component.as2.api.util.AS2Utils;
 import org.apache.camel.quarkus.component.as2.As2Recorder;
 import org.jboss.jandex.IndexView;
@@ -49,8 +47,6 @@ class As2Processor {
     @BuildStep
     ReflectiveClassBuildItem registerAs2ConfigurationForReflection() {
         return new ReflectiveClassBuildItem(true, true,
-                AS2ServerManagerEndpointConfiguration.class.getCanonicalName(),
-                AS2ClientManagerEndpointConfiguration.class.getCanonicalName(),
                 java.security.AlgorithmParameterGeneratorSpi.class.getCanonicalName());
     }
 
