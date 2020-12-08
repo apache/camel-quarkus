@@ -67,8 +67,10 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
 
         // Start the container needed for the TLS authentication test
         tlsAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
-                .withClasspathResourceMapping("certs", "/certs", BindMode.READ_ONLY)
-                .withClasspathResourceMapping("conf", "/conf", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("certs/ca.pem", "/certs/ca.pem", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("certs/key.pem", "/certs/key.pem", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("certs/server.pem", "/certs/server.pem", BindMode.READ_ONLY)
+                .withClasspathResourceMapping("conf/tls.conf", "/conf/tls.conf", BindMode.READ_ONLY)
                 .withCommand(
                         "--config", "/conf/tls.conf",
                         "--tls",

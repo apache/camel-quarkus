@@ -50,7 +50,7 @@ public class NatsRoutes extends RouteBuilder {
     }
 
     @Named("ssl")
-    private SSLContextParameters createSSLContextParameters() {
+    SSLContextParameters createSSLContextParameters() {
         SSLContextParameters sslContextParameters = new SSLContextParameters();
 
         KeyManagersParameters keyManagersParameters = new KeyManagersParameters();
