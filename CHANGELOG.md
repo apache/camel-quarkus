@@ -18,6 +18,7 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 1.10.3.Final [\#2062](https://github.com/apache/camel-quarkus/pull/2062) ([ppalaga](https://github.com/ppalaga))
 - Polish how we pass -Djavax.net.ssl.trustStore to the Solr test \#2029 [\#2056](https://github.com/apache/camel-quarkus/pull/2056) ([ppalaga](https://github.com/ppalaga))
 - Fix persistence of WireMock mappings [\#2054](https://github.com/apache/camel-quarkus/pull/2054) ([jamesnetherton](https://github.com/jamesnetherton))
 - Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
@@ -1153,6 +1154,7 @@
 - Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
 - GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
 - File Watch support [\#795](https://github.com/apache/camel-quarkus/issues/795)
+- JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
 - JAXB dataformat support [\#786](https://github.com/apache/camel-quarkus/issues/786)
 - JacksonXML support [\#785](https://github.com/apache/camel-quarkus/issues/785)
 - iCal support [\#784](https://github.com/apache/camel-quarkus/issues/784)
@@ -1212,7 +1214,6 @@
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
-- JSon XStream dataformat support [\#787](https://github.com/apache/camel-quarkus/issues/787)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
@@ -1430,6 +1431,7 @@
 - Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
@@ -1448,7 +1450,6 @@
 
 **Merged pull requests:**
 
-- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
