@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -33,4 +34,24 @@ class RestTest {
                 .statusCode(200)
                 .body("component", is(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME));
     }
+
+    @Test
+    public void rest() throws Throwable {
+        RestAssured.get("/rest/get")
+                .then().body(equalTo("GET: /rest/get"));
+        RestAssured.given()
+                .contentType("text/plain")
+                .post("/rest/post")
+                .then().body(equalTo("POST: /rest/post"));
+    }
+
+    @Test
+    public void lightweight() throws Throwable {
+        RestAssured.when()
+                .get("/rest/inspect/camel-context/lightweight")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
+
 }
