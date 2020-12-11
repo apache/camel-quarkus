@@ -37,6 +37,7 @@
         <module>apns</module>
         <module>asn1</module>
         <module>asterisk</module>
+        <module>atlasmap</module>
         <module>atmos</module>
         <module>atomix</module>
         <module>aws-xray</module>
