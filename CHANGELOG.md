@@ -1431,7 +1431,6 @@
 - Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
-- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
@@ -1450,6 +1449,7 @@
 
 **Merged pull requests:**
 
+- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
