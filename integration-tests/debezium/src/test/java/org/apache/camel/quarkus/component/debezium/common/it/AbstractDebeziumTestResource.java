@@ -61,15 +61,18 @@ public abstract class AbstractDebeziumTestResource<T extends GenericContainer> i
 
             container = createContainer();
 
-            container.start();
+            startContainer();
 
             Map<String, String> map = CollectionHelper.mapOf(
                     type.getPropertyHostname(), container.getContainerIpAddress(),
                     type.getPropertyPort(), container.getMappedPort(getPort()) + "",
-                    type.getPropertyUsername(), getUsername(),
-                    type.getPropertyPassword(), getPassword(),
                     type.getPropertyOffsetFileName(), storeFile.toString(),
                     type.getPropertyJdbc(), getJdbcUrl());
+
+            if (getUsername() != null) {
+                map.put(type.getPropertyUsername(), getUsername());
+                map.put(type.getPropertyPassword(), getPassword());
+            }
 
             return map;
 
@@ -77,6 +80,10 @@ public abstract class AbstractDebeziumTestResource<T extends GenericContainer> i
             LOGGER.error("Container does not start", e);
             throw new RuntimeException(e);
         }
+    }
+
+    protected void startContainer() throws Exception {
+        container.start();
     }
 
     @Override

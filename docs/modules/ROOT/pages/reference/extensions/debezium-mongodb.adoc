@@ -3,15 +3,15 @@
 = Debezium MongoDB Connector
 :page-aliases: extensions/debezium-mongodb.adoc
 :cq-artifact-id: camel-quarkus-debezium-mongodb
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Capture changes from a MongoDB database.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: 1.5.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
 
 Capture changes from a MongoDB database.
 

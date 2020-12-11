@@ -1,0 +1,36 @@
+rs.initiate( {
+    '_id' : 'my-mongo-set',
+    'members' : [{
+        '_id' : 0,
+        'host' : 'mongodb_private:27017',
+        'priority': 2}]
+    });
+
+db.getSiblingDB('admin').runCommand( {
+    createRole: 'listDatabases',
+    privileges: [ {
+        resource: { cluster : true },
+        actions: [ 'listDatabases']
+    } ] ,
+    roles: []
+});
+
+db.getSiblingDB('admin').createUser({
+    user: "debezium",
+    pwd:"dbz",
+    roles: [  {
+        role: "userAdminAnyDatabase",
+        db: "admin"
+    }, {
+        role: "dbAdminAnyDatabase",
+        db: "admin"
+    },  {
+        role: "readWriteAnyDatabase",
+        db:"admin"
+    },  {
+        role: "clusterAdmin",
+        db: "admin"
+    }]
+});
+
+db.test.insert({'name':'init'})
