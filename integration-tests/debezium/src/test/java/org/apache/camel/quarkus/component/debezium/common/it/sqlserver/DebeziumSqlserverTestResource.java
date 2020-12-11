@@ -29,6 +29,7 @@ import org.apache.camel.quarkus.component.debezium.common.it.DebeziumSqlserverRe
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.MSSQLServerContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<MSSQLServerContainer> {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTestResource.class);
@@ -44,7 +45,9 @@ public class DebeziumSqlserverTestResource extends AbstractDebeziumTestResource<
     @Override
     protected MSSQLServerContainer createContainer() {
         return new MSSQLServerContainer<>().withEnv(Collections.singletonMap("MSSQL_AGENT_ENABLED", "True"))
-                .withInitScript("initSqlserver.sql");
+                .withInitScript("initSqlserver.sql")
+                .waitingFor(
+                        Wait.forLogMessage(".*xp_sqlagent_notify.*", 1));
     }
 
     @Override
