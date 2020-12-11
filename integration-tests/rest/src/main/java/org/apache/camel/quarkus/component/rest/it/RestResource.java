@@ -26,6 +26,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 
 @Path("/rest")
 @ApplicationScoped
@@ -40,5 +41,12 @@ public class RestResource {
         return Json.createObjectBuilder()
                 .add("component", camelContext.getRestConfiguration().getComponent())
                 .build();
+    }
+
+    @Path("/inspect/camel-context/lightweight")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean lightweight() {
+        return camelContext.adapt(ExtendedCamelContext.class).isLightweight();
     }
 }
