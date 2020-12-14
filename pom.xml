@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus</artifactId>
-    <version>1.5.0-SNAPSHOT</version>
+    <version>1.5.0</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -220,7 +220,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary</url>
-        <tag>HEAD</tag>
+        <tag>1.5.0</tag>
     </scm>
 
     <issueManagement>
@@ -538,7 +538,7 @@
                 <executions>
                     <execution>
                         <id>default-test</id>
-                        <phase/><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
+                        <phase /><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
                     </execution>
                 </executions>
             </plugin>
