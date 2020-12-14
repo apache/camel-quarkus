@@ -44,7 +44,7 @@ jobs:
     - name: Setup apache-snapshots profile
       if: github.base_ref == 'camel-master'
       run: |
-        echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
+        echo "BRANCH_OPTIONS='-s '$(pwd)'/settings-camel-3.7.0.xml'" >> $GITHUB_ENV
     - name: Setup oss-snapshots profile
       if: github.base_ref == 'quarkus-master'
       run: |
