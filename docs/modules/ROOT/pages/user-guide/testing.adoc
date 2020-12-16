@@ -1,0 +1,78 @@
+= Testing
+:page-aliases: testing.adoc
+
+Testing offers a good way to ensure camel routes behave as expected over time.
+Before going deeper in the subject, it is strongly advised to read xref:user-guide/first-steps.adoc[First Steps] and https://quarkus.io/guides/getting-started-testing[Quarkus testing].
+
+When it comes to testing a route in the context of Quarkus, the paved road is to write local integration tests. This way of doing offers the advantage of running both in JVM and native mode. The flip side is that the standard Camel testing approach with `camel-test` and `CamelTestSupport` is not supported.
+
+Let's enumerate below some points of interest.
+
+== A test running in JVM mode
+
+The key point is to use the `@QuarkusTest` annotation that will bootstrap Quarkus and start Camel routes before the `@Test` logic is executed, like in the example beneath:
+----
+@QuarkusTest
+class MyTest {
+    @Test
+    public void test() {
+        // Use any suitable code that send test data to the route and then assert outcomes
+        ...
+    }
+}
+----
+
+A complete implementation can be found https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordTest.java[here].
+
+== A test running in native mode
+
+Depending on the Quarkus testing features in use, running in native mode is often possible.
+The test logic defined in JVM mode can then be reused in native mode thanks to `@NativeImageTest` and inheritance as shown below:
+
+[source,shell]
+----
+@NativeImageTest
+class MyIT extends MyTest {
+   ...
+}
+----
+
+An implementation of a native test could help to capture more details https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
+
+== A test involving containers
+
+Involving containers could be very helpful in order to write local integration tests.
+For instance, one may test a route consuming from a messaging container like nats and producing to a database container like couchdb.
+This common pattern leverages https://www.testcontainers.org/[Testcontainers] and `ContainerResourceLifecycleManager` as shown below:
+
+----
+public class MyTestResource implements ContainerResourceLifecycleManager {
+
+    private GenericContainer myContainer;
+
+    @Override
+    public Map<String, String> start() {
+        // Start the needed container(s)
+        myContainer = new GenericContainer(...);
+        myContainer.start();
+        ...
+    }
+
+    @Override
+    public void stop() {
+        // Stop the needed container(s)
+        myContainer.stop();
+        ...
+    }
+----
+
+The defined test resource needs then to be referenced from the test classes with `@QuarkusTestResource` as shown below:
+----
+@QuarkusTest
+@QuarkusTestResource(MyTestResource.class)
+class MyTest {
+   ...
+}
+----
+
+A more concrete implementation could help to understand the subtleties https://github.com/apache/camel-quarkus/blob/master/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[here].
