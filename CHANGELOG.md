@@ -1,26 +1,32 @@
 # Changelog
 
-## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
+## [1.5.0](https://github.com/apache/camel-quarkus/tree/1.5.0) (2020-12-14)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.4.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.4.0...1.5.0)
 
 **Closed issues:**
 
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
+- FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
+- JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
+- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - \[Camel 3.7\] Test with camel.main.lightweight=true [\#2063](https://github.com/apache/camel-quarkus/issues/2063)
 - Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
 - Polish how we pass -Djavax.net.ssl.trustStore to the Solr test [\#2029](https://github.com/apache/camel-quarkus/issues/2029)
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
 - \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
+- Antora xref check fails on camel-master branch [\#1996](https://github.com/apache/camel-quarkus/issues/1996)
 - \[Camel 3.7\] Investigate reason of the explicit registration of some resources in CamelProcessor [\#1995](https://github.com/apache/camel-quarkus/issues/1995)
+- Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
 - NATS integration test failure - Unable to connect to NATS servers [\#1978](https://github.com/apache/camel-quarkus/issues/1978)
 - \[Camel 3.7\] JSON-B data format support [\#1973](https://github.com/apache/camel-quarkus/issues/1973)
+- Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
+- LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
 - Camel Avro RPC component native support [\#1941](https://github.com/apache/camel-quarkus/issues/1941)
 - Remove Camel AS2 configuration class reflection registration [\#1874](https://github.com/apache/camel-quarkus/issues/1874)
-- FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
+- OptaPlanner native support [\#1721](https://github.com/apache/camel-quarkus/issues/1721)
+- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
 - Google pubsub extension native support [\#1041](https://github.com/apache/camel-quarkus/issues/1041)
-- JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
-- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 
 **Merged pull requests:**
 
@@ -58,15 +64,10 @@
 
 **Closed issues:**
 
-- Antora xref check fails on camel-master branch [\#1996](https://github.com/apache/camel-quarkus/issues/1996)
-- Make UpdateExtensionDocPageMojo generate cross reference URLs [\#1986](https://github.com/apache/camel-quarkus/issues/1986)
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
-- Olingo integration test is throwing SSLPeerUnverifiedException [\#1972](https://github.com/apache/camel-quarkus/issues/1972)
-- LevelDB extension does not compile with Camel 3.7.0-SNAPSHOT [\#1948](https://github.com/apache/camel-quarkus/issues/1948)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
-- Solr native support [\#1703](https://github.com/apache/camel-quarkus/issues/1703)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
 - PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
@@ -178,7 +179,6 @@
 
 - IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
-- OptaPlanner native support [\#1721](https://github.com/apache/camel-quarkus/issues/1721)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
