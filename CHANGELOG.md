@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.5.0...HEAD)
+
+**Closed issues:**
+
+- Require Java 11 [\#1299](https://github.com/apache/camel-quarkus/issues/1299)
+
+**Merged pull requests:**
+
+- Require Java 11 [\#2073](https://github.com/apache/camel-quarkus/pull/2073) ([ppalaga](https://github.com/ppalaga))
+
 ## [1.5.0](https://github.com/apache/camel-quarkus/tree/1.5.0) (2020-12-14)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.4.0...1.5.0)
