@@ -46,6 +46,32 @@ For instance, would an issue occurs while performing the release of `camel-quark
 $ mvn -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip deploy -Papache-release -rf :camel-quarkus-openapi-java
 ----
 
+== Next version in Camel Quarkus master branch
+
+If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `master`, you can
+perform this step right after creating the release branch. Otherwise, e.g. if there is a Camel upgrade in the release
+branch which is not available on Maven Central yet, it is better to perform this step after the new Camel release is
+available on the Central and after all relevant commits were merged/cherry-picked to `master`.
+
+While in the release branch we set the `$NEXT_VERSION` to the next micro SNAPSHOT (e.g. when releasing `0.1.0`,
+`$NEXT_VERSION` would be `0.1.1-SNAPSHOT`), in `master`, we typically set the next version to the next minor
+SNAPSHOT (the next minor SNAPSHOT of `0.1.0` is `0.2.0-SNAPSHOT`).
+
+[source,shell]
+----
+$ NEXT_RELEASE=... # e.g. 0.2.0
+$ NEXT_SNAPSHOT="${NEXT_RELEASE}-SNAPSHOT"
+$ git checkout "master"
+$ git reset upstream/master
+$ mvn versions:set -DnewVersion=$NEXT_SNAPSHOT
+$ sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEXT_SNAPSHOT</camel-quarkus.version>|" poms/bom/pom.xml poms/bom-test/pom.xml
+$ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
+$ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
+$ git add -A
+$ git commit -m "Next is $NEXT_RELEASE"
+# Send a pull request
+----
+
 == Update the Apache Camel Quarkus distribution subversion repository
 
 Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated as sketched below.
@@ -91,8 +117,9 @@ $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts."
 In addition to the above, the following is needed:
 
 * After releasing the staging repository on https://repository.apache.org[https://repository.apache.org], update the
-value of `camel-quarkus-last-release` attribute in the camel-quarkus
+value of `camel-quarkus-last-release` attribute in https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[docs/antora.yml]
 https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
+* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
 * Check the state of `camel-quarkus-master` branch in the
   https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
   new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-master` to `master`.
