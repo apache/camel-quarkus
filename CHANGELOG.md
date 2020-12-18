@@ -10,6 +10,8 @@
 
 **Merged pull requests:**
 
+- Next is 1.6.0 [\#2076](https://github.com/apache/camel-quarkus/pull/2076) ([ppalaga](https://github.com/ppalaga))
+- Documented the Camel Quarkus testing approach \#1981 [\#2075](https://github.com/apache/camel-quarkus/pull/2075) ([aldettinger](https://github.com/aldettinger))
 - Require Java 11 [\#2073](https://github.com/apache/camel-quarkus/pull/2073) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.5.0](https://github.com/apache/camel-quarkus/tree/1.5.0) (2020-12-14)
@@ -19,6 +21,7 @@
 **Closed issues:**
 
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
+- BigQuery native support [\#2014](https://github.com/apache/camel-quarkus/issues/2014)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
@@ -1313,7 +1316,6 @@
 - Add olingo4 extension [\#693](https://github.com/apache/camel-quarkus/pull/693) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact [\#691](https://github.com/apache/camel-quarkus/pull/691) ([ppalaga](https://github.com/ppalaga))
 - Automatic sync branch master to camel-master [\#689](https://github.com/apache/camel-quarkus/pull/689) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Snapshots and Actions [\#687](https://github.com/apache/camel-quarkus/pull/687) ([lburgazzoli](https://github.com/lburgazzoli))
 -  Upgrade to quarkus 1.3.0.Alpha1 [\#685](https://github.com/apache/camel-quarkus/pull/685) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add stream extension [\#682](https://github.com/apache/camel-quarkus/pull/682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Create enforce profile that disables dependency checks [\#679](https://github.com/apache/camel-quarkus/pull/679) ([johnpoth](https://github.com/johnpoth))
