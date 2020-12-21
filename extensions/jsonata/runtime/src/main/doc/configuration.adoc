@@ -1,0 +1,16 @@
+=== Using specifications from classpath resource in native mode
+A trick is needed when using specifications from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+
+For instance, the route below would load the specification from a classpath resource named _spec/expressions.spec_:
+[source,java]
+----
+from("direct:start").to("jsonata:spec/expressions.spec");
+----
+
+In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+[source,properties]
+----
+quarkus.camel.native.resources.include-patterns = spec/*.spec
+----
+
+More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
