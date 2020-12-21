@@ -427,6 +427,7 @@
                             <exclude>**/*.pem</exclude>
                             <exclude>**/*.pgp</exclude>
                             <exclude>**/*.proto</exclude>
+                            <exclude>**/*.spec</exclude>
                             <exclude>**/*.txt</exclude>
                             <exclude>**/.factorypath</exclude>
                             <exclude>**/LICENSE.txt</exclude>
