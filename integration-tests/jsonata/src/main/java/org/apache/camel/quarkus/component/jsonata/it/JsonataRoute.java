@@ -26,7 +26,7 @@ public class JsonataRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:start").setHeader(JSONATA_CONTEXT, () -> mapOf("contextB", "bb"))
-                .to("jsonata:spec/expressions.json?inputType=JsonString&outputType=JsonString");
+                .to("jsonata:spec/expressions.spec?inputType=JsonString&outputType=JsonString");
     }
 
 }
