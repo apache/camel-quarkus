@@ -138,6 +138,7 @@
         <module>jsch</module>
         <module>jslt</module>
         <module>json-validator</module>
+        <module>jsonata</module>
         <module>jsonb</module>
         <module>jsonpath</module>
         <module>jta</module>

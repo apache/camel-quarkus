@@ -118,6 +118,7 @@ messaging-networking1:
 misc:
   - braintree
   - fop
+  - jsonata
   - jolt
   - mustache
   - nagios
