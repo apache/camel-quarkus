@@ -23,7 +23,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.jackson.ObjectMapperProducer;
+import io.quarkus.jackson.runtime.ObjectMapperProducer;
 import org.apache.camel.component.google.pubsub.serializer.GooglePubsubSerializer;
 import org.apache.camel.quarkus.component.google.pubsub.GooglePubsubRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
