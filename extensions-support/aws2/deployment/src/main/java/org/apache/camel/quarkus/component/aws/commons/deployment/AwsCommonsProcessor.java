@@ -49,7 +49,7 @@ class AwsCommonsProcessor {
                 "org.apache.http.pool.ConnPoolControl", "software.amazon.awssdk.http.apache.internal.conn.Wrapped");
     }
 
-    @BuildStep(loadsApplicationClasses = true)
+    @BuildStep
     void client(BeanRegistrationPhaseBuildItem beanRegistrationPhase,
             BuildProducer<ServiceProviderBuildItem> serviceProvider,
             BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinition) {

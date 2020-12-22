@@ -78,7 +78,7 @@ class XsltProcessor {
                 recorder.createXsltComponent(config, builder));
     }
 
-    @BuildStep(loadsApplicationClasses = true)
+    @BuildStep
     void xsltResources(
             CamelXsltConfig config,
             BuildProducer<XsltGeneratedClassBuildItem> generatedNames,
