@@ -17,11 +17,17 @@
 package org.apache.camel.quarkus.component.jta.it;
 
 import java.net.URI;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -29,17 +35,42 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.agroal.api.AgroalDataSource;
+import io.quarkus.agroal.DataSource;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.logging.Logger;
 
 @Path("/jta")
 @ApplicationScoped
 public class JtaResource {
-
     private static final Logger LOG = Logger.getLogger(JtaResource.class);
 
     @Inject
+    @DataSource("camel-ds")
+    AgroalDataSource dataSource;
+
+    @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext context;
+
+    @PostConstruct
+    void postConstruct() throws SQLException {
+        try (Connection conn = dataSource.getConnection()) {
+            try (Statement statement = conn.createStatement()) {
+                try {
+                    statement.execute("drop table example");
+                } catch (Exception ignored) {
+                }
+                statement.execute("create table example (id serial primary key, message varchar(255) not null)");
+            }
+        }
+    }
 
     @Path("/{policy}")
     @POST
@@ -64,4 +95,42 @@ public class JtaResource {
         return post(policy, message);
     }
 
+    @Path("/jdbc")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response jdbc(String message) throws Exception {
+        LOG.infof("message is %s", message);
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:txResult", MockEndpoint.class);
+        mockEndpoint.reset();
+        if (!message.equals("fail")) {
+            mockEndpoint.expectedMessageCount(1);
+            mockEndpoint.message(0).body().isEqualTo(message);
+        }
+        final String response = producerTemplate.requestBody("direct:transaction", message, String.class);
+        mockEndpoint.assertIsSatisfied(15000);
+
+        LOG.infof("Got response from jta: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/mock")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response mock() throws Exception {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:txResult", MockEndpoint.class);
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        if (exchanges.isEmpty()) {
+            return Response.ok().entity("empty").build();
+        } else {
+            Message message = exchanges.get(0).getMessage();
+
+            LOG.infof("mock message is " + message.getBody());
+            return Response.ok().entity(message.getBody()).build();
+        }
+    }
 }
