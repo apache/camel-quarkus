@@ -6,10 +6,14 @@
 
 **Closed issues:**
 
+- JSONata support [\#2080](https://github.com/apache/camel-quarkus/issues/2080)
 - Require Java 11 [\#1299](https://github.com/apache/camel-quarkus/issues/1299)
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 1.11.0.Beta1 [\#2089](https://github.com/apache/camel-quarkus/pull/2089) ([ppalaga](https://github.com/ppalaga))
+- Added JSONata extension [\#2088](https://github.com/apache/camel-quarkus/pull/2088) ([aldettinger](https://github.com/aldettinger))
+- CAMEL-15948: examples.json instead of .adoc files [\#2087](https://github.com/apache/camel-quarkus/pull/2087) ([zregvart](https://github.com/zregvart))
 - Last release is 1.5.0 [\#2086](https://github.com/apache/camel-quarkus/pull/2086) ([ppalaga](https://github.com/ppalaga))
 - Next is 1.6.0 [\#2076](https://github.com/apache/camel-quarkus/pull/2076) ([ppalaga](https://github.com/ppalaga))
 - Documented the Camel Quarkus testing approach \#1981 [\#2075](https://github.com/apache/camel-quarkus/pull/2075) ([aldettinger](https://github.com/aldettinger))
@@ -455,6 +459,7 @@
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
+- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 - Let the list of extensions page show extensions, move list of supported [\#1534](https://github.com/apache/camel-quarkus/pull/1534) ([ppalaga](https://github.com/ppalaga))
 - Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -479,7 +484,6 @@
 **Merged pull requests:**
 
 - Cherry pick fixes to 1.0.x [\#1637](https://github.com/apache/camel-quarkus/pull/1637) ([ppalaga](https://github.com/ppalaga))
-- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0](https://github.com/apache/camel-quarkus/tree/1.0.0) (2020-08-10)
 
