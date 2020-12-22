@@ -66,7 +66,7 @@ class DozerProcessor {
         return new AdditionalApplicationArchiveMarkerBuildItem("com/github/dozermapper/core");
     }
 
-    @BuildStep(loadsApplicationClasses = true)
+    @BuildStep
     void configureCamelDozer(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             BuildProducer<NativeImageResourceBuildItem> nativeImage,
             CamelDozerConfig camelDozerConfig) {
