@@ -11,6 +11,7 @@
 
 **Merged pull requests:**
 
+- Removed loadsApplicationClasses = true as it has no more effect [\#2092](https://github.com/apache/camel-quarkus/pull/2092) ([aldettinger](https://github.com/aldettinger))
 - Upgrade to Quarkus 1.11.0.Beta1 [\#2089](https://github.com/apache/camel-quarkus/pull/2089) ([ppalaga](https://github.com/ppalaga))
 - Added JSONata extension [\#2088](https://github.com/apache/camel-quarkus/pull/2088) ([aldettinger](https://github.com/aldettinger))
 - CAMEL-15948: examples.json instead of .adoc files [\#2087](https://github.com/apache/camel-quarkus/pull/2087) ([zregvart](https://github.com/zregvart))
@@ -459,7 +460,6 @@
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
-- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 - Let the list of extensions page show extensions, move list of supported [\#1534](https://github.com/apache/camel-quarkus/pull/1534) ([ppalaga](https://github.com/ppalaga))
 - Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -484,6 +484,7 @@
 **Merged pull requests:**
 
 - Cherry pick fixes to 1.0.x [\#1637](https://github.com/apache/camel-quarkus/pull/1637) ([ppalaga](https://github.com/ppalaga))
+- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0](https://github.com/apache/camel-quarkus/tree/1.0.0) (2020-08-10)
 
@@ -1907,6 +1908,7 @@
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
 - rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
+- Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
@@ -1931,7 +1933,6 @@
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
 - Remove the TravisCI badge from the README [\#104](https://github.com/apache/camel-quarkus/pull/104) ([ppalaga](https://github.com/ppalaga))
 - Rename the rest of java packages in itests [\#103](https://github.com/apache/camel-quarkus/pull/103) ([ppalaga](https://github.com/ppalaga))
-- Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
 - chore\(cleanup\): remove ide-config [\#101](https://github.com/apache/camel-quarkus/pull/101) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.20.0  plsu some cleanup [\#100](https://github.com/apache/camel-quarkus/pull/100) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
