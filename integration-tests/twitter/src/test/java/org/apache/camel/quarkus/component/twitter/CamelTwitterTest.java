@@ -23,7 +23,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
-import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.core.StringContains;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
@@ -32,8 +32,8 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @EnabledIfEnvironmentVariable(named = "TWITTER_CONSUMER_KEY", matches = "[a-zA-Z0-9]+")
 public class CamelTwitterTest {
 
-    @ConfigProperty(name = "test.twitter.delay.initial", defaultValue = "60")
-    int testTwitterDelayInitial;
+    final int testTwitterDelayInitial = ConfigProvider.getConfig().getOptionalValue("test.twitter.delay.initial", Integer.class)
+            .orElse(60);
 
     @Test
     public void direct() {
