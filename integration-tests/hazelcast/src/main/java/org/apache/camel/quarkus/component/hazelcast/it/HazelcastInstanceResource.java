@@ -16,52 +16,44 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
-import com.hazelcast.topic.impl.DataAwareMessage;
 import org.apache.camel.CamelContext;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.hazelcast.HazelcastConstants;
-import org.apache.camel.component.hazelcast.HazelcastOperation;
 import org.apache.camel.component.mock.MockEndpoint;
 
-import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_TOPIC_RECEIVED;
+import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_INSTANCE_ADDED;
+import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_INSTANCE_REMOVED;
 
-@Path("/hazelcast/topic")
+@Path("/hazelcast/instance")
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class HazelcastTopicResource {
-
-    @Inject
-    ProducerTemplate producerTemplate;
+public class HazelcastInstanceResource {
 
     @Inject
     CamelContext context;
 
-    @POST
-    public Response publish(String message) {
-        producerTemplate.sendBodyAndHeader("hazelcast-topic:foo-topic", message, HazelcastConstants.OPERATION,
-                HazelcastOperation.PUBLISH);
-        return Response.accepted().build();
+    @GET
+    @Path("added")
+    public Integer added() {
+        return getValues(MOCK_INSTANCE_ADDED);
     }
 
     @GET
-    public List<String> getValues() {
-        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_TOPIC_RECEIVED, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> (String) exchange.getMessage().getBody(DataAwareMessage.class).getMessageObject())
-                .collect(Collectors.toList());
+    @Path("deleted")
+    public Integer deleted() {
+        return getValues(MOCK_INSTANCE_REMOVED);
     }
+
+    public Integer getValues(String endpointName) {
+        MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().size();
+    }
+
 }

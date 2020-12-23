@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
-import java.util.Arrays;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -25,17 +23,23 @@ import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastSetResource.class)
+@TestHTTPEndpoint(HazelcastRingbufferResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastSetTest {
-
+public class HazelcastRingbufferTest {
     @Test
-    public void testSet() {
-        // add one value
+    public void testRingBuffer() {
+        // get capacity -- should be default capacity 10K
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/capacity")
+                .then()
+                .body(equalTo("10000"));
+
+        // add values
         given()
                 .contentType(ContentType.JSON)
                 .body("foo1")
@@ -44,85 +48,44 @@ public class HazelcastSetTest {
                 .then()
                 .statusCode(202);
 
-        // trying to add same value:: shouldn't be added twice : verify with consumer
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo1")
-                .when()
-                .put()
-                .then()
-                .statusCode(202);
-
-        // remove value
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo1")
-                .when()
-                .delete("/value")
-                .then()
-                .statusCode(202);
-
-        // add multiple values
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo2", "foo3"))
-                .when()
-                .put("/all")
-                .then()
-                .statusCode(202);
-
-        // remove value foo2
         given()
                 .contentType(ContentType.JSON)
                 .body("foo2")
                 .when()
-                .delete("/value")
+                .put()
                 .then()
                 .statusCode(202);
 
-        // delete all
         given()
                 .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo3"))
+                .body("foo3")
                 .when()
-                .delete("/all")
+                .put()
                 .then()
                 .statusCode(202);
 
-        // add multiple values
+        // gets HEAD
         given()
                 .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo5", "foo6", "foo7"))
                 .when()
-                .put("/all")
+                .get("/head")
                 .then()
-                .statusCode(202);
+                .body(equalTo("foo1"));
 
-        // retain only 2 : should delete foo5 and foo6
+        // gets TAIL
         given()
                 .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo7"))
                 .when()
-                .post("/retain")
+                .get("/tail")
                 .then()
-                .statusCode(202);
+                .body(equalTo("foo3"));
 
-        // verify that the consumer has received all added values
+        // it returns capacity instead because there is no expiration policy set for the RingBuffer
         given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/added")
+                .get("/capacity/remaining")
                 .then()
-                .body("$", hasSize(7))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo4", "foo5", "foo6", "foo7"));
-
-        // verify that the consumer has received all removed values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/deleted")
-                .then()
-                .body("$", hasSize(5))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo5", "foo6"));
+                .body(equalTo("10000"));
     }
 }

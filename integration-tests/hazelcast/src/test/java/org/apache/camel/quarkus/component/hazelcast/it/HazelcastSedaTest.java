@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
-import java.util.Arrays;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
@@ -29,100 +27,88 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastSetResource.class)
+@TestHTTPEndpoint(HazelcastSedaResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastSetTest {
+public class HazelcastSedaTest {
+    @Test
+    public void testSedaFifo() {
+        // add one value First In First Out
+        given()
+                .contentType(ContentType.JSON)
+                .body("foo1")
+                .when()
+                .put("/fifo")
+                .then()
+                .statusCode(202);
+
+        // verify that the consumer received the message
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/fifo")
+                .then()
+                .body("$", hasSize(1))
+                .body("$", hasItems("foo1"));
+    }
 
     @Test
-    public void testSet() {
-        // add one value
+    public void testSedaInOnly() {
+        // add one value In Only
         given()
                 .contentType(ContentType.JSON)
                 .body("foo1")
                 .when()
-                .put()
+                .put("/in")
                 .then()
                 .statusCode(202);
 
-        // trying to add same value:: shouldn't be added twice : verify with consumer
+        // verify that the consumer received the message
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/in")
+                .then()
+                .body("$", hasSize(1))
+                .body("$", hasItems("foo1"));
+    }
+
+    @Test
+    public void testSedaInOut() {
         given()
                 .contentType(ContentType.JSON)
                 .body("foo1")
                 .when()
-                .put()
+                .put("/out")
                 .then()
                 .statusCode(202);
 
-        // remove value
+        // verify that the consumer received the message
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/out")
+                .then()
+                .body("$", hasSize(1))
+                .body("$", hasItems("foo1"));
+    }
+
+    @Test
+    public void testSedaInOutTransacted() {
         given()
                 .contentType(ContentType.JSON)
                 .body("foo1")
                 .when()
-                .delete("/value")
+                .put("/out/transacted")
                 .then()
                 .statusCode(202);
 
-        // add multiple values
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo2", "foo3"))
-                .when()
-                .put("/all")
-                .then()
-                .statusCode(202);
-
-        // remove value foo2
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo2")
-                .when()
-                .delete("/value")
-                .then()
-                .statusCode(202);
-
-        // delete all
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo3"))
-                .when()
-                .delete("/all")
-                .then()
-                .statusCode(202);
-
-        // add multiple values
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo5", "foo6", "foo7"))
-                .when()
-                .put("/all")
-                .then()
-                .statusCode(202);
-
-        // retain only 2 : should delete foo5 and foo6
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo7"))
-                .when()
-                .post("/retain")
-                .then()
-                .statusCode(202);
-
-        // verify that the consumer has received all added values
+        // verify that the consumer received the message
         given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/added")
+                .get("/out/transacted")
                 .then()
-                .body("$", hasSize(7))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo4", "foo5", "foo6", "foo7"));
-
-        // verify that the consumer has received all removed values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/deleted")
-                .then()
-                .body("$", hasSize(5))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo5", "foo6"));
+                .body("$", hasSize(1))
+                .body("$", hasItems("foo1"));
     }
 }

@@ -51,30 +51,27 @@ public class HazelcastAtomicResource {
     @GET()
     public Long get() {
         LOG.infof("getting one atomic value");
-        Long value = producerTemplate.requestBodyAndHeader(
+        return producerTemplate.requestBodyAndHeader(
                 "hazelcast-atomicvalue:foo-atomic",
                 null, HazelcastConstants.OPERATION, HazelcastOperation.GET, Long.class);
-        return value;
     }
 
     @GET
     @Path("increment")
     public Long incrementAndGet() {
         LOG.infof("increment and get new value");
-        Long value = producerTemplate.requestBodyAndHeader(
+        return producerTemplate.requestBodyAndHeader(
                 "hazelcast-atomicvalue:foo-atomic",
                 null, HazelcastConstants.OPERATION, HazelcastOperation.INCREMENT, Long.class);
-        return value;
     }
 
     @GET
     @Path("decrement")
     public Long decrementAndGet() {
         LOG.infof("decrement and get new value");
-        Long value = producerTemplate.requestBodyAndHeader(
+        return producerTemplate.requestBodyAndHeader(
                 "hazelcast-atomicvalue:foo-atomic",
                 null, HazelcastConstants.OPERATION, HazelcastOperation.DECREMENT, Long.class);
-        return value;
     }
 
     @DELETE

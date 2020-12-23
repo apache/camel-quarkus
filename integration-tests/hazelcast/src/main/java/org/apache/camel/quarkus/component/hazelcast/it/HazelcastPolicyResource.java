@@ -29,39 +29,35 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.hazelcast.topic.impl.DataAwareMessage;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.hazelcast.HazelcastConstants;
-import org.apache.camel.component.hazelcast.HazelcastOperation;
 import org.apache.camel.component.mock.MockEndpoint;
 
-import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_TOPIC_RECEIVED;
+import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_POLICY;
 
-@Path("/hazelcast/topic")
+@Path("/hazelcast/policy")
 @ApplicationScoped
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class HazelcastTopicResource {
-
-    @Inject
-    ProducerTemplate producerTemplate;
+public class HazelcastPolicyResource {
 
     @Inject
     CamelContext context;
 
+    @Inject
+    ProducerTemplate producerTemplate;
+
     @POST
-    public Response publish(String message) {
-        producerTemplate.sendBodyAndHeader("hazelcast-topic:foo-topic", message, HazelcastConstants.OPERATION,
-                HazelcastOperation.PUBLISH);
+    public Response post(String message) {
+        producerTemplate.sendBody("direct:in-policy", message);
         return Response.accepted().build();
     }
 
     @GET
-    public List<String> getValues() {
-        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_TOPIC_RECEIVED, MockEndpoint.class);
+    public List<String> get() {
+        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_POLICY, MockEndpoint.class);
         return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> (String) exchange.getMessage().getBody(DataAwareMessage.class).getMessageObject())
+                exchange -> exchange.getIn().getBody(String.class))
                 .collect(Collectors.toList());
     }
 }

@@ -20,34 +20,70 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastTopicResource.class)
+@TestHTTPEndpoint(HazelcastIdempotentResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastTopicTest {
+public class HazelcastIdempotentTest {
+
     @Test
-    public void testTopic() {
-        // publish topic
+    public void testIdempotentRepository() {
+        // add value with key 1
+        HazelcastMapRequest request = new HazelcastMapRequest().withVaLue("val1").withId("1");
         given()
                 .contentType(ContentType.JSON)
-                .body("test1")
+                .body(request)
                 .when()
                 .post()
                 .then()
                 .statusCode(202);
 
-        // verify that the consumer has received the topic
+        // add value with key 2
+        request = request.withVaLue("val2").withId("2");
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post()
+                .then()
+                .statusCode(202);
+
+        // add same value with key 3
+        request = request.withVaLue("val2").withId("3");
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post()
+                .then()
+                .statusCode(202);
+
+        // add another value with key 1 -- this one is supposed to be skipped
+        request = request.withVaLue("val4").withId("1");
+        given()
+                .contentType(ContentType.JSON)
+                .body(request)
+                .when()
+                .post()
+                .then()
+                .statusCode(202);
+
+        // get all values added to the map
         given()
                 .contentType(ContentType.JSON)
                 .when()
                 .get()
                 .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("test1"));
+                .body("$", hasSize(3))
+                .body("$", hasItems("val1", "val2"))
+                .body("$", not(hasItems("val4")));
+
     }
 }

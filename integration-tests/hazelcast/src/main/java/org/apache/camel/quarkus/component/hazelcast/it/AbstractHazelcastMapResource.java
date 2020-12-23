@@ -120,22 +120,21 @@ public abstract class AbstractHazelcastMapResource {
 
     @GET
     @Path("added")
-    public List getAddedValues() {
+    public List<String> getAddedValues() {
         return getValues(mockAddedEndpoint);
     }
 
     @GET
     @Path("deleted")
-    public List getDeletedValues() {
+    public List<String> getDeletedValues() {
         return getValues(mockDeletedEndpoint);
     }
 
-    protected List getValues(String endpointName) {
+    protected List<String> getValues(String endpointName) {
         LOG.infof("getting response from mock endpoint %s", endpointName);
         MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
-        List<String> values = mockEndpoint.getReceivedExchanges().stream().map(
+        return mockEndpoint.getReceivedExchanges().stream().map(
                 exchange -> exchange.getIn().getHeader(HazelcastConstants.OBJECT_ID, String.class))
                 .collect(Collectors.toList());
-        return values;
     }
 }

@@ -19,35 +19,24 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastTopicResource.class)
+@TestHTTPEndpoint(HazelcastInstanceResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastTopicTest {
-    @Test
-    public void testTopic() {
-        // publish topic
-        given()
-                .contentType(ContentType.JSON)
-                .body("test1")
-                .when()
-                .post()
-                .then()
-                .statusCode(202);
+public class HazelcastInstanceTest {
 
-        // verify that the consumer has received the topic
+    @Test
+    public void testInstance() {
+        HazelcastTestResource.addMemberToCluster();
         given()
-                .contentType(ContentType.JSON)
                 .when()
-                .get()
+                .get("/added")
                 .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("test1"));
+                .body(equalTo("1"));
+
     }
 }

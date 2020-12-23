@@ -16,10 +16,7 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -68,7 +65,7 @@ public abstract class AbstractHazelcastCollectionResource {
 
     @PUT
     @Path("all")
-    public Response addAll(Collection values) {
+    public Response addAll(List<String> values) {
         producerTemplate.sendBodyAndHeader(endpointUri, values, HazelcastConstants.OPERATION, HazelcastOperation.ADD_ALL);
         return Response.accepted().build();
     }
@@ -76,24 +73,20 @@ public abstract class AbstractHazelcastCollectionResource {
     @DELETE
     @Path("value")
     public Response delete(String value) {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put(HazelcastConstants.OPERATION, HazelcastOperation.REMOVE_VALUE);
-        producerTemplate.sendBodyAndHeaders(endpointUri, value, headers);
+        producerTemplate.sendBodyAndHeader(endpointUri, value, HazelcastConstants.OPERATION, HazelcastOperation.REMOVE_VALUE);
         return Response.accepted().build();
     }
 
     @DELETE
     @Path("all")
-    public Response delete(Collection values) {
-        Map<String, Object> headers = new HashMap<>();
-        headers.put(HazelcastConstants.OPERATION, HazelcastOperation.REMOVE_ALL);
-        producerTemplate.sendBodyAndHeaders(endpointUri, values, headers);
+    public Response delete(List<String> values) {
+        producerTemplate.sendBodyAndHeader(endpointUri, values, HazelcastConstants.OPERATION, HazelcastOperation.REMOVE_ALL);
         return Response.accepted().build();
     }
 
     @POST
     @Path("retain")
-    public Response retainAll(Collection values) {
+    public Response retainAll(List<String> values) {
         producerTemplate.sendBodyAndHeader(endpointUri, values, HazelcastConstants.OPERATION, HazelcastOperation.RETAIN_ALL);
         return Response.accepted().build();
     }
@@ -110,15 +103,11 @@ public abstract class AbstractHazelcastCollectionResource {
         return getValues(mockDeletedEndpoint);
     }
 
-    private List<String> getValues(String endpointName) {
+    public List<String> getValues(String endpointName) {
         LOG.infof("getting response from mock endpoint %s", endpointName);
         MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
-        List<String> values = mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> {
-                    ItemEvent itemEvent = exchange.getIn().getBody(ItemEvent.class);
-                    return (String) itemEvent.getItem();
-                })
+        return mockEndpoint.getReceivedExchanges().stream().map(
+                exchange -> (String) exchange.getIn().getBody(ItemEvent.class).getItem())
                 .collect(Collectors.toList());
-        return values;
     }
 }
