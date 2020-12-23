@@ -18,111 +18,141 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.Arrays;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastSetResource.class)
-@QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastSetTest {
+@TestHTTPEndpoint(HazelcastQueueResource.class)
+public class HazelcastQueueTest {
+    @Test
+    public void testQueue() {
+        // add a value using the add method :: non blocking
+        given()
+                .contentType(ContentType.JSON)
+                .body("q1")
+                .when()
+                .put()
+                .then()
+                .statusCode(202);
+
+        // retrieves head
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("peek")
+                .then()
+                .body(equalTo("q1"));
+
+        // add a value :: blocking method put
+        given()
+                .contentType(ContentType.JSON)
+                .body("q2")
+                .when()
+                .put("put")
+                .then()
+                .statusCode(202);
+
+        // take
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("take")
+                .then()
+                .body(equalTo("q1"));
+
+        // offer
+        given()
+                .contentType(ContentType.JSON)
+                .body("q3")
+                .when()
+                .put("offer")
+                .then()
+                .statusCode(202);
+
+        // poll
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("poll")
+                .then()
+                .body(equalTo("q2"));
+
+        // poll after q2 is deleted by precedent poll
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("poll")
+                .then()
+                .body(equalTo("q3"));
+
+        // add multiple values
+        given()
+                .contentType(ContentType.JSON)
+                .body("q4")
+                .when()
+                .put()
+                .then()
+                .statusCode(202);
+        given()
+                .contentType(ContentType.JSON)
+                .body("q5")
+                .when()
+                .put()
+                .then()
+                .statusCode(202);
+        given()
+                .contentType(ContentType.JSON)
+                .body("alpha1")
+                .when()
+                .put()
+                .then()
+                .statusCode(202);
+
+        // remaining capacity :: no max capacity so max capacity of the queue is Integer.MAX_VALUE
+        Integer remainingCapacity = Integer.MAX_VALUE - 3;
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("/remainingCapacity")
+                .then()
+                .body(equalTo(remainingCapacity.toString()));
+
+        // drainTo : delete all values and return to list
+        given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("drain")
+                .then()
+                .body("$", hasSize(3))
+                .body("$", hasItems("q4", "q5", "alpha1"));
+
+    }
 
     @Test
-    public void testSet() {
-        // add one value
+    public void testPollConsumer() {
+        // add all values
         given()
                 .contentType(ContentType.JSON)
-                .body("foo1")
+                .body(Arrays.asList("v1", "v2", "v3"))
                 .when()
-                .put()
+                .put("poll/list")
                 .then()
                 .statusCode(202);
 
-        // trying to add same value:: shouldn't be added twice : verify with consumer
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo1")
-                .when()
-                .put()
-                .then()
-                .statusCode(202);
-
-        // remove value
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo1")
-                .when()
-                .delete("/value")
-                .then()
-                .statusCode(202);
-
-        // add multiple values
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo2", "foo3"))
-                .when()
-                .put("/all")
-                .then()
-                .statusCode(202);
-
-        // remove value foo2
-        given()
-                .contentType(ContentType.JSON)
-                .body("foo2")
-                .when()
-                .delete("/value")
-                .then()
-                .statusCode(202);
-
-        // delete all
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo3"))
-                .when()
-                .delete("/all")
-                .then()
-                .statusCode(202);
-
-        // add multiple values
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo5", "foo6", "foo7"))
-                .when()
-                .put("/all")
-                .then()
-                .statusCode(202);
-
-        // retain only 2 : should delete foo5 and foo6
-        given()
-                .contentType(ContentType.JSON)
-                .body(Arrays.asList("foo4", "foo7"))
-                .when()
-                .post("/retain")
-                .then()
-                .statusCode(202);
-
-        // verify that the consumer has received all added values
+        // retrieve values from consumer
         given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get("/added")
+                .get("/polled")
                 .then()
-                .body("$", hasSize(7))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo4", "foo5", "foo6", "foo7"));
-
-        // verify that the consumer has received all removed values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/deleted")
-                .then()
-                .body("$", hasSize(5))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo5", "foo6"));
+                .body("$", hasSize(3))
+                .body("$", hasItems("v1", "v2", "v3"));
     }
 }

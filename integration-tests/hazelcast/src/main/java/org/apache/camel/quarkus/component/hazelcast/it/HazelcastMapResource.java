@@ -59,7 +59,7 @@ public class HazelcastMapResource extends AbstractHazelcastMapResource {
 
     @POST
     @Path("get")
-    public Map getAll(Set oids) {
+    public Map getAll(Set<String> oids) {
         Map<String, Object> headers = new HashMap<>();
         headers.put(HazelcastConstants.OPERATION, HazelcastOperation.GET_ALL);
         headers.put(HazelcastConstants.OBJECT_ID, oids);
@@ -68,7 +68,7 @@ public class HazelcastMapResource extends AbstractHazelcastMapResource {
 
     @GET
     @Path("updated")
-    public List getUpdatedValues() {
+    public List<String> getUpdatedValues() {
         return getValues(mockUpdatedEndpoint);
     }
 
@@ -93,7 +93,7 @@ public class HazelcastMapResource extends AbstractHazelcastMapResource {
 
     @GET
     @Path("evicted")
-    public List getEvictedValues() {
+    public List<String> getEvictedValues() {
         return getValues(mockEvictedEndpoint);
     }
 

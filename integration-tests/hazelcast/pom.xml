@@ -26,8 +26,8 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-hazelcast</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Hazelcast Atomic Number</name>
-    <description>Integration tests for Camel Quarkus Hazelcast Atomic Number extension</description>
+    <name>Camel Quarkus :: Integration Tests :: Hazelcast</name>
+    <description>Integration tests for Camel Quarkus Hazelcast extension</description>
 
     <dependencyManagement>
         <dependencies>
@@ -54,6 +54,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -75,9 +79,20 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
-            <groupId>com.hazelcast</groupId>
-            <artifactId>quarkus-test-hazelcast</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-direct-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->

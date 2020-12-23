@@ -27,27 +27,46 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastTopicResource.class)
+@TestHTTPEndpoint(HazelcastPolicyResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
-public class HazelcastTopicTest {
+public class HazelcastPolicyTest {
+
     @Test
-    public void testTopic() {
-        // publish topic
+    public void testPolicy() {
+
+        // send exchanges
         given()
                 .contentType(ContentType.JSON)
-                .body("test1")
+                .body("foo1")
                 .when()
                 .post()
                 .then()
                 .statusCode(202);
 
-        // verify that the consumer has received the topic
+        given()
+                .contentType(ContentType.JSON)
+                .body("foo2")
+                .when()
+                .post()
+                .then()
+                .statusCode(202);
+
+        given()
+                .contentType(ContentType.JSON)
+                .body("foo3")
+                .when()
+                .post()
+                .then()
+                .statusCode(202);
+
+        // should receive the 3 exchanges
         given()
                 .contentType(ContentType.JSON)
                 .when()
                 .get()
                 .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("test1"));
+                .body("$", hasSize(3))
+                .body("$", hasItems("foo1", "foo2", "foo3"));
+
     }
 }
