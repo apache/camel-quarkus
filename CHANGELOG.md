@@ -6,11 +6,15 @@
 
 **Closed issues:**
 
+- Twitter itest doesn't work in native mode [\#2090](https://github.com/apache/camel-quarkus/issues/2090)
 - JSONata support [\#2080](https://github.com/apache/camel-quarkus/issues/2080)
+- camel-quarkus-kafka: Reconnection issues when working with schema registry [\#1960](https://github.com/apache/camel-quarkus/issues/1960)
 - Require Java 11 [\#1299](https://github.com/apache/camel-quarkus/issues/1299)
 
 **Merged pull requests:**
 
+- Fix twitter itest in native mode using ConfigProvider insted of Confi… [\#2096](https://github.com/apache/camel-quarkus/pull/2096) ([llowinge](https://github.com/llowinge))
+- Hazelcast native support fixes \#1647 [\#2093](https://github.com/apache/camel-quarkus/pull/2093) ([zbendhiba](https://github.com/zbendhiba))
 - Removed loadsApplicationClasses = true as it has no more effect [\#2092](https://github.com/apache/camel-quarkus/pull/2092) ([aldettinger](https://github.com/aldettinger))
 - Upgrade to Quarkus 1.11.0.Beta1 [\#2089](https://github.com/apache/camel-quarkus/pull/2089) ([ppalaga](https://github.com/ppalaga))
 - Added JSONata extension [\#2088](https://github.com/apache/camel-quarkus/pull/2088) ([aldettinger](https://github.com/aldettinger))
@@ -90,6 +94,7 @@
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
+- Hazelcast native support [\#1647](https://github.com/apache/camel-quarkus/issues/1647)
 - Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
 - PDF integration tests failing with Camel 3.7.0-SNAPSHOT [\#1979](https://github.com/apache/camel-quarkus/issues/1979)
 - Configuration option \(not\) to start the runtime [\#1969](https://github.com/apache/camel-quarkus/issues/1969)
@@ -1158,7 +1163,6 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -1198,6 +1202,7 @@
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
+- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1908,7 +1913,6 @@
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
 - rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
-- Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
@@ -1933,6 +1937,7 @@
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
 - Remove the TravisCI badge from the README [\#104](https://github.com/apache/camel-quarkus/pull/104) ([ppalaga](https://github.com/ppalaga))
 - Rename the rest of java packages in itests [\#103](https://github.com/apache/camel-quarkus/pull/103) ([ppalaga](https://github.com/ppalaga))
+- Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
 - chore\(cleanup\): remove ide-config [\#101](https://github.com/apache/camel-quarkus/pull/101) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.20.0  plsu some cleanup [\#100](https://github.com/apache/camel-quarkus/pull/100) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
