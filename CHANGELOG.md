@@ -8,6 +8,7 @@
 
 - Twitter itest doesn't work in native mode [\#2090](https://github.com/apache/camel-quarkus/issues/2090)
 - JSONata support [\#2080](https://github.com/apache/camel-quarkus/issues/2080)
+- BigQuery native support [\#2014](https://github.com/apache/camel-quarkus/issues/2014)
 - camel-quarkus-kafka: Reconnection issues when working with schema registry [\#1960](https://github.com/apache/camel-quarkus/issues/1960)
 - Require Java 11 [\#1299](https://github.com/apache/camel-quarkus/issues/1299)
 
@@ -31,7 +32,6 @@
 **Closed issues:**
 
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
-- BigQuery native support [\#2014](https://github.com/apache/camel-quarkus/issues/2014)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
@@ -470,6 +470,7 @@
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed the VerifyError in the health example fixes \#1517 [\#1525](https://github.com/apache/camel-quarkus/pull/1525) ([aldettinger](https://github.com/aldettinger))
 - 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
+- Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
 - Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -563,7 +564,6 @@
 - Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
-- Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR2 [\#1513](https://github.com/apache/camel-quarkus/pull/1513) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR1 [\#1508](https://github.com/apache/camel-quarkus/pull/1508) ([ppalaga](https://github.com/ppalaga))
@@ -1163,6 +1163,7 @@
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
+- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -1202,7 +1203,6 @@
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
-- Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
 - Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
