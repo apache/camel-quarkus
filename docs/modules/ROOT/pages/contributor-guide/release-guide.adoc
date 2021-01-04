@@ -120,7 +120,8 @@ In addition to the above, the following is needed:
 value of `camel-quarkus-last-release` attribute in https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[docs/antora.yml]
 https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
 * When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
-* The Apache Report Helper needs to be updated. https://github.com/apache/camel-quarkus/issues/new?title=Apache%20Committee%20Report%20Helper%3A%20camel-quarkus-X.Y.Z%20has%20been%20released%20on%20YYYY-MM-DD&body=The%20release%20should%20be%20declared%20%5Bhere%5D%28https%3A%2F%2Freporter.apache.org%2Faddrelease.html%3Fcamel%29%20by%20a%20%5Bmember%20of%20the%20PMC%5D%28https%3A%2F%2Fprojects.apache.org%2Fcommittee.html%3Fcamel%29.[Click here] to opened a pre-filled issue, then replace version (X.Y.Z) and date (YYYY-MM-DD).
+* https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
+  Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
 * Check the state of `camel-quarkus-master` branch in the
   https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
   new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-master` to `master`.
