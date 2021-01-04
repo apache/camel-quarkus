@@ -134,6 +134,7 @@
         <module>messaging</module>
         <module>micrometer</module>
         <module>microprofile</module>
+        <module>minio</module>
         <module>mongodb</module>
         <module>msv</module>
         <module>mustache</module>

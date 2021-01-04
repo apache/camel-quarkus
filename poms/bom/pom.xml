@@ -5644,6 +5644,16 @@
                 <version>${quarkus-google-cloud.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.minio</groupId>
+                <artifactId>minio-client</artifactId>
+                <version>${quarkiverse-minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.minio</groupId>
+                <artifactId>minio-client-deployment</artifactId>
+                <version>${quarkiverse-minio.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>

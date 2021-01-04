@@ -60,6 +60,7 @@ database:
   - jpa
   - kudu
   - leveldb
+  - minio
   - mongodb
   - pgevent
   - pg-replication-slot
