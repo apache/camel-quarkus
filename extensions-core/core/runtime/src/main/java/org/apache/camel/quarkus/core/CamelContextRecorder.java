@@ -96,6 +96,13 @@ public class CamelContextRecorder {
             throw new RuntimeException(e);
         }
     }
+    public void addRoutesFromDefinitions(RuntimeValue<CamelContext> context, RuntimeValue<CamelDefinitionsBuilder> definitionsBuilder) {
+        try {
+            context.getValue().addRoutes(definitionsBuilder.getValue().asRoutesBuilder());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public void addRoutesFromContainer(RuntimeValue<CamelContext> context) {
         try {
@@ -114,4 +121,5 @@ public class CamelContextRecorder {
             throw new RuntimeException(e);
         }
     }
+
 }

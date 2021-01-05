@@ -16,21 +16,22 @@
  */
 package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.builder.item.MultiBuildItem;
-import org.apache.camel.RoutesBuilder;
+import org.apache.camel.quarkus.core.CamelDefinitionsBuilder;
 import org.jboss.jandex.DotName;
 
+import io.quarkus.builder.item.MultiBuildItem;
+
 /**
- * A {@link MultiBuildItem} holding class names of all {@link RoutesBuilder} implementations.
+ * A {@link MultiBuildItem} holding class names of all {@link CamelDefinitionsBuilder} implementations.
  * <p>
  * The class names are gathered from Jandex by {@code camel-quarkus-core}. Extensions are free to add
- * {@link CamelRoutesBuilderClassBuildItem}s programmatically.
+ * {@link CamelDefinitionsBuilderClassBuildItem}s programmatically.
  */
-public final class CamelRoutesBuilderClassBuildItem extends MultiBuildItem {
+public final class CamelDefinitionsBuilderClassBuildItem extends MultiBuildItem {
 
     private final DotName dotName;
 
-    public CamelRoutesBuilderClassBuildItem(DotName dotName) {
+    public CamelDefinitionsBuilderClassBuildItem(DotName dotName) {
         this.dotName = dotName;
     }
 

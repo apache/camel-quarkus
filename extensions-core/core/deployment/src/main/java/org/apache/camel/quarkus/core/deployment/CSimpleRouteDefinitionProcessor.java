@@ -26,6 +26,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -45,6 +46,29 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Marshaller.Listener;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.NamedNode;
+import org.apache.camel.language.csimple.CSimpleCodeGenerator;
+import org.apache.camel.language.csimple.CSimpleGeneratedCode;
+import org.apache.camel.language.csimple.CSimpleHelper;
+import org.apache.camel.language.csimple.CSimpleLanguage;
+import org.apache.camel.language.csimple.CSimpleLanguage.Builder;
+import org.apache.camel.model.Constants;
+import org.apache.camel.model.ExpressionNode;
+import org.apache.camel.quarkus.core.CSimpleLanguageRecorder;
+import org.apache.camel.quarkus.core.CamelConfig;
+import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
+import org.apache.camel.quarkus.core.CamelDefinitions;
+import org.apache.camel.quarkus.core.CamelDefinitionsBuilder;
+import org.apache.camel.quarkus.core.CamelDefinitionsBuilder.DefinitionsBuilderContext;
+import org.apache.camel.quarkus.core.deployment.spi.CSimpleExpressionSourceBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelDefinitionsBuilderClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
+import org.apache.camel.util.PropertiesHelper;
+import org.jboss.logging.Logger;
+
 import io.quarkus.bootstrap.classloading.ClassPathElement;
 import io.quarkus.bootstrap.classloading.QuarkusClassLoader;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -57,28 +81,6 @@ import io.quarkus.deployment.dev.CompilationProvider.Context;
 import io.quarkus.deployment.dev.JavaCompilationProvider;
 import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.NamedNode;
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.language.csimple.CSimpleCodeGenerator;
-import org.apache.camel.language.csimple.CSimpleGeneratedCode;
-import org.apache.camel.language.csimple.CSimpleHelper;
-import org.apache.camel.language.csimple.CSimpleLanguage;
-import org.apache.camel.language.csimple.CSimpleLanguage.Builder;
-import org.apache.camel.model.Constants;
-import org.apache.camel.model.ExpressionNode;
-import org.apache.camel.quarkus.core.CSimpleLanguageRecorder;
-import org.apache.camel.quarkus.core.CamelConfig;
-import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
-import org.apache.camel.quarkus.core.deployment.spi.CSimpleExpressionSourceBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
-import org.apache.camel.util.PropertiesHelper;
-import org.jboss.logging.Logger;
 
 class CSimpleRouteDefinitionProcessor {
     private static final Logger LOG = Logger.getLogger(CSimpleRouteDefinitionProcessor.class);
@@ -87,11 +89,11 @@ class CSimpleRouteDefinitionProcessor {
     @BuildStep
     void collectCSimpleExpresions(
             CamelConfig config,
-            List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
+            List<CamelDefinitionsBuilderClassBuildItem> definitionsBuilderClasses,
             BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions)
             throws IOException, ClassNotFoundException, URISyntaxException, JAXBException {
 
-        if (!routesBuilderClasses.isEmpty()) {
+        if (!definitionsBuilderClasses.isEmpty()) {
             final ClassLoader loader = Thread.currentThread().getContextClassLoader();
             if (!(loader instanceof QuarkusClassLoader)) {
                 throw new IllegalStateException(
@@ -100,19 +102,17 @@ class CSimpleRouteDefinitionProcessor {
 
             final ExpressionCollector collector = new ExpressionCollector(loader);
 
-            final CamelContext ctx = new DefaultCamelContext();
-            for (CamelRoutesBuilderClassBuildItem routesBuilderClass : routesBuilderClasses) {
+            for (CamelDefinitionsBuilderClassBuildItem routesBuilderClass : definitionsBuilderClasses) {
                 final String className = routesBuilderClass.getDotName().toString();
                 final Class<?> cl = loader.loadClass(className);
-
-                if (!RouteBuilder.class.isAssignableFrom(cl)) {
+                final DefinitionsBuilderContext builderCtx = DefinitionsBuilderContext.buildTime();
+                if (!CamelDefinitionsBuilder.class.isAssignableFrom(cl)) {
                     LOG.warnf("CSimple language expressions ocurring in %s won't be compiled at build time", cl);
                 } else {
                     try {
-                        final RouteBuilder rb = (RouteBuilder) cl.newInstance();
-                        rb.setContext(ctx);
+                        final CamelDefinitionsBuilder rb = (CamelDefinitionsBuilder) cl.newInstance();
                         try {
-                            rb.configure();
+                            CamelDefinitions defs = rb.build(builderCtx);
                             collector.collect(
                                     "csimple",
                                     (script, isPredicate) -> csimpleExpressions.produce(
@@ -120,8 +120,7 @@ class CSimpleRouteDefinitionProcessor {
                                                     script,
                                                     isPredicate,
                                                     className)),
-                                    rb.getRouteCollection(),
-                                    rb.getRestCollection());
+                                    defs.getAllNamedNodes());
 
                         } catch (Exception e) {
                             switch (config.csimple.onBuildTimeAnalysisFailure) {
@@ -326,7 +325,7 @@ class CSimpleRouteDefinitionProcessor {
             }
         }
 
-        public void collect(String languageName, BiConsumer<String, Boolean> expressionConsumer, NamedNode... nodes) {
+        public void collect(String languageName, BiConsumer<String, Boolean> expressionConsumer, Collection<NamedNode> nodes) {
             final LanguageExpressionContentHandler handler = new LanguageExpressionContentHandler(languageName,
                     expressionConsumer);
             for (NamedNode node : nodes) {

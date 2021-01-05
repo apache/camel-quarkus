@@ -25,6 +25,7 @@ import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -32,6 +33,7 @@ import org.apache.camel.quarkus.core.CamelContextRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelDefinitionsBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
@@ -130,12 +132,14 @@ public class CamelContextProcessor {
      * container thus we need it to be fully initialized to avoid unexpected behaviors. */
     @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     public CamelRuntimeBuildItem runtime(
+            RecorderContext recorderContext,
             BeanContainerBuildItem beanContainer,
             ContainerBeansBuildItem containerBeans,
             CamelContextRecorder recorder,
             CamelContextBuildItem context,
             List<RuntimeCamelContextCustomizerBuildItem> customizers,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
+            List<CamelDefinitionsBuilderClassBuildItem> definitionsBuilderClasses,
             List<CamelRuntimeTaskBuildItem> runtimeTasks,
             CamelConfig config) {
 
@@ -146,6 +150,13 @@ public class CamelContextProcessor {
             }
 
             recorder.addRoutes(context.getCamelContext(), item.getDotName().toString());
+        }
+        for (CamelDefinitionsBuilderClassBuildItem item : definitionsBuilderClasses) {
+            // don't add routes builders that are known by the container
+            if (containerBeans.getClasses().contains(item.getDotName())) {
+                continue;
+            }
+            recorder.addRoutesFromDefinitions(context.getCamelContext(), recorderContext.newInstance(item.getDotName().toString()));
         }
 
         if (config.routesDiscovery.enabled) {

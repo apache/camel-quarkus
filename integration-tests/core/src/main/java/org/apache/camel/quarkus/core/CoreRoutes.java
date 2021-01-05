@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.core;
 
-import org.apache.camel.builder.RouteBuilder;
-
-public class CoreRoutes extends RouteBuilder {
+public class CoreRoutes extends CamelDefinitionsBuilder {
 
     @Override
-    public void configure() {
+    protected void configure(DefinitionsBuilderContext builderContext) {
         from("timer:keep-alive")
                 .routeId("timer")
                 .setBody().constant("I'm alive !")
@@ -29,7 +27,6 @@ public class CoreRoutes extends RouteBuilder {
 
         from("direct:csimple-hello")
                 .setBody().csimple("Hello ${body}");
-
     }
 
 }

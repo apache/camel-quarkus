@@ -46,9 +46,12 @@ import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
+import org.apache.camel.quarkus.core.CamelDefinitionsBuilder;
+import org.apache.camel.quarkus.core.CamelDefinitionsBuilder.CamelDefinitionsRouteBuilder;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelDefinitionsBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
@@ -84,6 +87,8 @@ class CamelProcessor {
             "org.apache.camel.builder.RouteBuilder");
     private static final DotName LAMBDA_ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.LambdaRouteBuilder");
+    private static final DotName CAMEL_DEFINITIONS_BUILDER_TYPE = DotName.createSimple(CamelDefinitionsBuilder.class.getName());
+    private static final DotName CAMEL_DEFINITIONS_ROUTE_BUILDER_TYPE = DotName.createSimple(CamelDefinitionsRouteBuilder.class.getName());
     private static final DotName ADVICE_WITH_ROUTE_BUILDER_TYPE = DotName.createSimple(
             "org.apache.camel.builder.AdviceWithRouteBuilder");
     private static final DotName DATA_FORMAT_TYPE = DotName.createSimple(
@@ -342,9 +347,40 @@ class CamelProcessor {
                 .stream()
                 // public and non-abstract
                 .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
+                .filter(ci -> !ci.name().equals(CAMEL_DEFINITIONS_ROUTE_BUILDER_TYPE))
                 .map(ClassInfo::name)
                 .filter(pathFilter)
                 .map(CamelRoutesBuilderClassBuildItem::new)
+                .collect(Collectors.toList());
+    }
+
+    @BuildStep(onlyIf = { CamelConfigFlags.RoutesDiscoveryEnabled.class })
+    public List<CamelDefinitionsBuilderClassBuildItem> discoverCamelDefinitionsBuilderClassNames(
+            CombinedIndexBuildItem combinedIndex,
+            CamelConfig config,
+            List<RoutesBuilderClassExcludeBuildItem> routesBuilderClassExcludes) {
+
+        final IndexView index = combinedIndex.getIndex();
+
+        Set<ClassInfo> allKnownImplementors = new HashSet<>();
+        allKnownImplementors.addAll(index.getAllKnownSubclasses(CAMEL_DEFINITIONS_BUILDER_TYPE));
+
+        final Predicate<DotName> pathFilter = new PathFilter.Builder()
+                .exclude(
+                        routesBuilderClassExcludes.stream()
+                                .map(RoutesBuilderClassExcludeBuildItem::getPattern)
+                                .collect(Collectors.toList()))
+                .exclude(config.routesDiscovery.excludePatterns)
+                .include(config.routesDiscovery.includePatterns)
+                .build().asDotNamePredicate();
+
+        return allKnownImplementors
+                .stream()
+                // public and non-abstract
+                .filter(ci -> ((ci.flags() & (Modifier.ABSTRACT | Modifier.PUBLIC)) == Modifier.PUBLIC))
+                .map(ClassInfo::name)
+                .filter(pathFilter)
+                .map(CamelDefinitionsBuilderClassBuildItem::new)
                 .collect(Collectors.toList());
     }
 
