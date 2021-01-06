@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,6 +31,8 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.TemplatedRouteBuilder;
+import org.apache.camel.spi.RoutesBuilderLoader;
+import org.apache.camel.xml.in.XmlRoutesBuilderLoader;
 
 @Path("/test")
 @ApplicationScoped
@@ -63,23 +64,15 @@ public class CoreMainXmlIoResource {
         JsonArrayBuilder routes = Json.createArrayBuilder();
         main.getCamelContext().getRoutes().forEach(route -> routes.add(route.getId()));
 
-        JsonObjectBuilder collector = Json.createObjectBuilder();
-        collector.add("type", main.getRoutesCollector().getClass().getName());
-        if (main.getRoutesCollector() instanceof CamelMainRoutesCollector) {
-            CamelMainRoutesCollector crc = (CamelMainRoutesCollector) main.getRoutesCollector();
-            collector.add("type-registry", crc.getRegistryRoutesLoader().getClass().getName());
-            collector.add("type-xml", camelContext.getXMLRoutesDefinitionLoader().getClass().getName());
-        }
-
         return Json.createObjectBuilder()
-                .add("xml-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-routes-definitions-loader", camelContext.getXMLRoutesDefinitionLoader().getClass().getName())
+                .add("xml-routes-builder-loader",
+                        camelContext.getBootstrapFactoryFinder(RoutesBuilderLoader.FACTORY_PATH)
+                                .findClass(XmlRoutesBuilderLoader.EXTENSION).get().getName())
                 .add("xml-model-dumper", camelContext.getModelToXMLDumper().getClass().getName())
                 .add("xml-model-factory", camelContext.getModelJAXBContextFactory().getClass().getName())
-                .add("routes-collector", collector)
-                .add("listeners", listeners)
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
-                .add("autoConfigurationLogSummary", main.getMainConfigurationProperties().isAutoConfigurationLogSummary())
                 .build();
     }
 

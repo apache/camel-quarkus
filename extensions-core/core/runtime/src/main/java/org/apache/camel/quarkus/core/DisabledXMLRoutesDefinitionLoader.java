@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.core;
 import java.io.InputStream;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.NamedNode;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoader {
@@ -35,11 +34,6 @@ public class DisabledXMLRoutesDefinitionLoader implements XMLRoutesDefinitionLoa
 
     @Override
     public Object loadRestsDefinition(CamelContext context, InputStream inputStream) throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-io");
-    }
-
-    @Override
-    public <T extends NamedNode> T createModelFromXml(CamelContext context, String xml, Class<T> type) throws Exception {
         throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-io");
     }
 }

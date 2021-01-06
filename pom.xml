@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.7.0</version>
+        <version>3.8.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -45,7 +45,7 @@
         <aws-java-sdk.version>${aws-java-sdk-version}</aws-java-sdk.version>
         <awssdk1-swf-libs.version>${aws-java-sdk-swf-libs}</awssdk1-swf-libs.version>
         <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
-        <azure-core.version>1.8.1</azure-core.version><!-- keep compatible with the azure artifacts below -->
+        <azure-core.version>1.12.0</azure-core.version><!-- keep compatible with the azure artifacts below -->
         <azure-sdk-bom.version>1.0.1</azure-sdk-bom.version>
         <azure-storage-blob-java-sdk12.version>${azure-storage-blob-java-sdk12-version}</azure-storage-blob-java-sdk12.version>
         <azure-storage-queue-java-sdk12.version>${azure-storage-queue-java-sdk12-version}</azure-storage-queue-java-sdk12.version>
@@ -54,8 +54,8 @@
 
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
 
-        <camel.major.minor>3.7</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
-        <camel.version>${camel.major.minor}.1</camel.version>
+        <camel.major.minor>3.8</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
+        <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
 
@@ -67,6 +67,7 @@
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <debezium.version>1.4.0.Final</debezium.version>
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
+        <eddsa.version>0.3.0</eddsa.version>
         <freemarker.version>2.3.30</freemarker.version>
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
@@ -89,7 +90,7 @@
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
-        <jetty.version>9.4.18.v20190429</jetty.version>
+        <jetty.version>${jetty9-version}</jetty.version>
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
@@ -136,7 +137,7 @@
         <mock-javamail.version>${mock-javamail-version}</mock-javamail.version>
         <pdfbox.version>${pdfbox-version}</pdfbox.version>
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
-        <sshd.version>2.3.0</sshd.version>
+        <sshd.version>${sshd-version}</sshd.version>
         <stax2.version>4.2</stax2.version>
         <testcontainers.version>1.15.1</testcontainers.version>
         <wiremock.version>2.27.2</wiremock.version>
