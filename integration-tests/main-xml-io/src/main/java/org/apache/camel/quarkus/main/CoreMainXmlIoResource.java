@@ -91,11 +91,4 @@ public class CoreMainXmlIoResource {
         return template.requestBody("direct:namespace-aware", body, String.class);
     }
 
-    @Path("/csimple-xml-dsl")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String csimpleXmlDsl(String body) {
-        return template.requestBody("direct:csimple-xml-dsl", body, String.class);
-    }
 }

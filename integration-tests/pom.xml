@@ -80,6 +80,7 @@
         <module>consul</module>
         <module>couchdb</module>
         <module>crypto</module>
+        <module>csimple</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>dataformats-json</module>

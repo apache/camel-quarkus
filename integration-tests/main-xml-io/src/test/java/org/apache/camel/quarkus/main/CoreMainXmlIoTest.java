@@ -76,14 +76,4 @@ public class CoreMainXmlIoTest {
 
     }
 
-    @Test
-    public void csimpleXml() {
-        RestAssured.given()
-                .body("Joe")
-                .contentType(ContentType.TEXT)
-                .post("/test/csimple-xml-dsl")
-                .then()
-                .body(is("Hi Joe"));
-    }
-
 }

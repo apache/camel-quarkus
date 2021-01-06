@@ -27,9 +27,6 @@ public class CoreRoutes extends RouteBuilder {
                 .setBody().constant("I'm alive !")
                 .to("log:keep-alive");
 
-        from("direct:csimple-hello")
-                .setBody().csimple("Hello ${body}");
-
     }
 
 }

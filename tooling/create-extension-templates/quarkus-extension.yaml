@@ -38,5 +38,5 @@ metadata:
 [/#list]
 [/#if]
   status:
-  - "[=nativeSupported?then('stable', 'preview')]"
+  - "[=status]"
 [#if deprecated ]  - "deprecated"[/#if]

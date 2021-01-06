@@ -88,6 +88,7 @@
         <module>couchdb</module>
         <module>cron</module>
         <module>crypto</module>
+        <module>csimple</module>
         <module>csv</module>
         <module>dataformat</module>
         <module>debezium-mysql</module>
