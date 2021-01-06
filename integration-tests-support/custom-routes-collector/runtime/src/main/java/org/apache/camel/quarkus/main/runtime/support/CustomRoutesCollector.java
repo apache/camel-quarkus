@@ -16,15 +16,13 @@
  */
 package org.apache.camel.quarkus.main.runtime.support;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.RoutesCollector;
-import org.apache.camel.model.RouteTemplatesDefinition;
-import org.apache.camel.model.RoutesDefinition;
-import org.apache.camel.model.rest.RestsDefinition;
 
 public class CustomRoutesCollector implements RoutesCollector {
     @Override
@@ -36,18 +34,10 @@ public class CustomRoutesCollector implements RoutesCollector {
     }
 
     @Override
-    public List<RoutesDefinition> collectXmlRoutesFromDirectory(CamelContext camelContext, String directory) throws Exception {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<RouteTemplatesDefinition> collectXmlRouteTemplatesFromDirectory(CamelContext camelContext, String directory)
-            throws Exception {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public List<RestsDefinition> collectXmlRestsFromDirectory(CamelContext camelContext, String directory) throws Exception {
+    public Collection<RoutesBuilder> collectRoutesFromDirectory(
+            CamelContext camelContext,
+            String excludePattern,
+            String includePattern) {
         return Collections.emptyList();
     }
 }

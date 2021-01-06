@@ -63,6 +63,11 @@ public class FastFactoryFinderResolver extends DefaultFactoryFinderResolver {
         return new FastFactoryFinder(resourcePath);
     }
 
+    @Override
+    public FactoryFinder resolveBootstrapFactoryFinder(ClassResolver classResolver, String resourcePath) {
+        return new FastFactoryFinder(resourcePath);
+    }
+
     // exposed for testing purpose
     public Map<String, Class<?>> getClassMap() {
         return Collections.unmodifiableMap(this.classMap);

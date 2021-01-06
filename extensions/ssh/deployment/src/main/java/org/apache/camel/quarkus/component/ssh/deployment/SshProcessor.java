@@ -30,12 +30,10 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.sshd.common.channel.ChannelListener;
 import org.apache.sshd.common.forward.PortForwardingEventListener;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
 import org.apache.sshd.common.session.SessionListener;
-import org.apache.sshd.common.util.security.eddsa.EdDSASecurityProviderUtils;
 
 class SshProcessor {
 
@@ -44,11 +42,6 @@ class SshProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    RuntimeInitializedClassBuildItem delayEdDSAConfiguration() {
-        return new RuntimeInitializedClassBuildItem(EdDSASecurityProviderUtils.class.getName());
     }
 
     @BuildStep

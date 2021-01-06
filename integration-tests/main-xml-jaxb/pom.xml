@@ -36,11 +36,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-io</artifactId>
+            <artifactId>camel-quarkus-xml-jaxb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-jaxb</artifactId>
+            <artifactId>camel-quarkus-xml-io</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

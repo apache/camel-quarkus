@@ -22,4 +22,4 @@ nav:
 - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
-    cq-camel-components: 3.7.x@components # replace ${camel.docs.components.xref}
+    cq-camel-components: 3.8.x@components # replace ${camel.docs.components.xref}

@@ -6,7 +6,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-description: Manage AWS EKS cluster instances.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 0.0.1
 :cq-native-since: 0.0.1
 

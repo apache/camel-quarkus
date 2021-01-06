@@ -16,19 +16,19 @@
  */
 package org.apache.camel.quarkus.main.deployment;
 
+import java.util.stream.Collectors;
+
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.AntPathMatcher;
 import org.jboss.logging.Logger;
 
 public class CamelMainNativeImageProcessor {
-
     private static final Logger LOG = Logger.getLogger(CamelMainNativeImageProcessor.class);
 
     @BuildStep
@@ -46,27 +46,25 @@ public class CamelMainNativeImageProcessor {
     }
 
     @BuildStep
-    void camelNativeImageResources(Capabilities capabilities, BuildProducer<NativeImageResourceBuildItem> nativeResource) {
-        if (capabilities.isCapabilityPresent(CamelCapabilities.XML)) {
-            String prefix = "camel.main.";
-            String[] properties = new String[] { "xml-rests", "xml-routes", "xml-route-templates" };
-            for (String property : properties) {
-                embedCamelResource(prefix + property, nativeResource);
-            }
-        }
-    }
+    private void camelNativeImageResources(
+            Capabilities capabilities,
+            BuildProducer<NativeImageResourceBuildItem> nativeResource) {
 
-    private void embedCamelResource(String propertyName, BuildProducer<NativeImageResourceBuildItem> nativeResource) {
-        for (String path : CamelSupport.getOptionalConfigValue(propertyName, String[].class, new String[0])) {
+        if (!capabilities.isCapabilityPresent(CamelCapabilities.XML)) {
+            return;
+        }
+
+        for (String path : CamelMainHelper.routesIncludePatter().collect(Collectors.toList())) {
             String scheme = ResourceHelper.getScheme(path);
 
             // Null scheme is equivalent to classpath scheme
             if (scheme == null || scheme.equals("classpath:")) {
                 if (AntPathMatcher.INSTANCE.isPattern(path)) {
-                    // Classpath directory traversal via wildcard paths does not work on GraalVM. The exact path to the resource has to be looked up
+                    // Classpath directory traversal via wildcard paths does not work on GraalVM.
+                    // The exact path to the resource has to be looked up
                     // https://github.com/oracle/graal/issues/1108
-                    LOG.warnf("%s classpath wildcards does not work in native mode. Resources matching %s will not be loaded.",
-                            propertyName, path);
+                    LOG.warnf("Classpath wildcards does not work in native mode. Resources matching %s will not be loaded.",
+                            path);
                 } else {
                     nativeResource.produce(new NativeImageResourceBuildItem(path.replace("classpath:", "")));
                 }

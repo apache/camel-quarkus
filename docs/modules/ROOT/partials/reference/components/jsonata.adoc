@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.6.0
 :cq-native-since: 1.6.0
 :cq-camel-part-name: jsonata
-:cq-camel-part-title: JSONATA
-:cq-camel-part-description: JSON to JSON transformation using JSONATA.
+:cq-camel-part-title: JSONata
+:cq-camel-part-description: Transforms JSON payload using JSONata transformation.
 :cq-extension-page-title: JSONATA

@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Service;
 import org.apache.camel.spi.RouteStartupOrder;
@@ -127,6 +128,15 @@ public class NoShutdownStrategy implements ShutdownStrategy {
     @Override
     public boolean hasTimeoutOccurred() {
         return false;
+    }
+
+    @Override
+    public LoggingLevel getLoggingLevel() {
+        return LoggingLevel.OFF;
+    }
+
+    public void setLoggingLevel(LoggingLevel LoggingLevel) {
+        // noop
     }
 
     @Override

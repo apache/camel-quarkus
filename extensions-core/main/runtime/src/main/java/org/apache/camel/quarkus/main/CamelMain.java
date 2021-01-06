@@ -24,13 +24,12 @@ import io.quarkus.runtime.Quarkus;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.RoutesBuilder;
 import org.apache.camel.main.MainCommandLineSupport;
 import org.apache.camel.main.MainConfigurationProperties;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
+import org.apache.camel.main.RoutesConfigurer;
 import org.apache.camel.main.SimpleMainShutdownStrategy;
-import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
@@ -46,14 +45,21 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         this.engineStarted = new AtomicBoolean();
     }
 
-    @Override
-    protected void loadRouteBuilders(CamelContext camelContext) throws Exception {
-        // routes are discovered and pre-instantiated which allow to post process them to support Camel's DI
-        CamelBeanPostProcessor postProcessor = camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor();
-        for (RoutesBuilder builder : mainConfigurationProperties.getRoutesBuilders()) {
-            postProcessor.postProcessBeforeInitialization(builder, builder.getClass().getName());
-            postProcessor.postProcessAfterInitialization(builder, builder.getClass().getName());
+    protected void configureRoutes(CamelContext camelContext) throws Exception {
+        // then configure and add the routes
+        RoutesConfigurer configurer = new RoutesConfigurer();
+
+        if (mainConfigurationProperties.isRoutesCollectorEnabled()) {
+            configurer.setRoutesCollector(routesCollector);
         }
+
+        configurer.setBeanPostProcessor(camelContext.adapt(ExtendedCamelContext.class).getBeanPostProcessor());
+        configurer.setRoutesBuilders(mainConfigurationProperties.getRoutesBuilders());
+        configurer.setRoutesExcludePattern(mainConfigurationProperties.getRoutesExcludePattern());
+        configurer.setRoutesIncludePattern(mainConfigurationProperties.getRoutesIncludePattern());
+        configurer.setJavaRoutesExcludePattern(mainConfigurationProperties.getJavaRoutesExcludePattern());
+        configurer.setJavaRoutesIncludePattern(mainConfigurationProperties.getJavaRoutesIncludePattern());
+        configurer.configureRoutes(camelContext);
     }
 
     @Override
@@ -146,8 +152,9 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     }
 
     @Override
-    public void run(String[] args) throws Exception {
+    public int run(String[] args) throws Exception {
         parseArguments(args);
         runEngine();
+        return getExitCode();
     }
 }

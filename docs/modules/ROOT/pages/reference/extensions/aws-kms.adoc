@@ -6,7 +6,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-description: Manage keys stored in AWS KMS instances.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 

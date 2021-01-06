@@ -6,7 +6,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-description: Sending and receive messages to/from AWS SQS service.
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 0.0.1
 :cq-native-since: 0.0.1
 

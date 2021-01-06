@@ -33,7 +33,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 
 public class AzureStorageTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStorageTestResource.class);
-    private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.9.0";
+    private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.10.0";
     private static final int BLOB_SERVICE_PORT = 10000;
     private static final int QUEUE_SERVICE_PORT = 10001;
 

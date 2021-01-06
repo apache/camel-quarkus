@@ -150,6 +150,8 @@ class CamelProcessor {
                 CamelServiceDestination.DISCOVERY,
                 true,
                 "META-INF/services/org/apache/camel/*",
+                "META-INF/services/org/apache/camel/routes-loader/*",
+                "META-INF/services/org/apache/camel/invoke-on-header/*",
                 "META-INF/services/org/apache/camel/management/*",
                 "META-INF/services/org/apache/camel/model/*",
                 "META-INF/services/org/apache/camel/configurer/*",
