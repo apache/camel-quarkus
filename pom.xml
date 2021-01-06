@@ -93,7 +93,7 @@
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
-        <smallrye.reactive.messaging.camel.version>2.5.0</smallrye.reactive.messaging.camel.version>
+        <smallrye.reactive.messaging.camel.version>2.7.0</smallrye.reactive.messaging.camel.version>
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>${spring5-version}</spring.version>
