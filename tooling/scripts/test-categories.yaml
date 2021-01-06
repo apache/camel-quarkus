@@ -63,6 +63,7 @@ database:
   - mongodb
   - pgevent
   - pg-replication-slot
+  - redis
   - sql
 dataformats:
   - avro
