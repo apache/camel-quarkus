@@ -6,7 +6,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-description: An LRUCacheFactory implementation based on Caffeine
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 
@@ -14,6 +14,12 @@
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
 An LRUCacheFactory implementation based on Caffeine
+
+== What's inside
+
+* xref:{cq-camel-components}:others:caffeine-lrucache.adoc[Caffeine Lrucache]
+
+Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 

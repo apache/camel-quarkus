@@ -146,8 +146,9 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     }
 
     @Override
-    public void run(String[] args) throws Exception {
+    public int run(String[] args) throws Exception {
         parseArguments(args);
         runEngine();
+        return getExitCode();
     }
 }

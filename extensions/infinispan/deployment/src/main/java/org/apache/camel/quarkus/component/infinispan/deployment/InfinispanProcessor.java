@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.infinispan.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.component.infinispan.InfinispanProducer;
+import org.apache.camel.component.infinispan.remote.InfinispanRemoteProducer;
 
 class InfinispanProcessor {
 
@@ -26,5 +29,14 @@ class InfinispanProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    // TOOD: This can be removed after this is implemented:
+    // https://github.com/apache/camel-quarkus/issues/2176
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        return new ReflectiveClassBuildItem(true, false,
+                InfinispanProducer.class.getName(),
+                InfinispanRemoteProducer.class.getName());
     }
 }
