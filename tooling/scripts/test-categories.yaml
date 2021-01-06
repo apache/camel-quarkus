@@ -106,6 +106,7 @@ dozer-social:
   - master
   - syndication
   - zendesk
+  - csimple
 messaging-networking1:
   - activemq
   - amqp

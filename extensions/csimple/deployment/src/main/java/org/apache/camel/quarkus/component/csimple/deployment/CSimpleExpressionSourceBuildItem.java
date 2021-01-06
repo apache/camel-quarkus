@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment.spi;
+package org.apache.camel.quarkus.component.csimple.deployment;
 
 import io.quarkus.builder.item.MultiBuildItem;
 

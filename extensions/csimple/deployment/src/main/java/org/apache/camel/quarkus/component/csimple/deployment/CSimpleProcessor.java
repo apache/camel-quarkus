@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.deployment;
+package org.apache.camel.quarkus.component.csimple.deployment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -51,6 +51,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.GeneratedClassBuildItem;
 import io.quarkus.deployment.dev.CompilationProvider;
 import io.quarkus.deployment.dev.CompilationProvider.Context;
@@ -69,10 +70,10 @@ import org.apache.camel.language.csimple.CSimpleLanguage;
 import org.apache.camel.language.csimple.CSimpleLanguage.Builder;
 import org.apache.camel.model.Constants;
 import org.apache.camel.model.ExpressionNode;
-import org.apache.camel.quarkus.core.CSimpleLanguageRecorder;
+import org.apache.camel.quarkus.component.csimple.CSimpleLanguageRecorder;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
-import org.apache.camel.quarkus.core.deployment.spi.CSimpleExpressionSourceBuildItem;
+import org.apache.camel.quarkus.core.deployment.LanguageExpressionContentHandler;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
@@ -80,9 +81,16 @@ import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBui
 import org.apache.camel.util.PropertiesHelper;
 import org.jboss.logging.Logger;
 
-class CSimpleRouteDefinitionProcessor {
-    private static final Logger LOG = Logger.getLogger(CSimpleRouteDefinitionProcessor.class);
+class CSimpleProcessor {
+
+    private static final Logger LOG = Logger.getLogger(CSimpleProcessor.class);
     static final String CLASS_EXT = ".class";
+    private static final String FEATURE = "camel-csimple";
+
+    @BuildStep
+    FeatureBuildItem feature() {
+        return new FeatureBuildItem(FEATURE);
+    }
 
     @BuildStep
     void collectCSimpleExpresions(

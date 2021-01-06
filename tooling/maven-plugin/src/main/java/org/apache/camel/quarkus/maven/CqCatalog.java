@@ -23,9 +23,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -106,20 +105,19 @@ public class CqCatalog {
         }
     }
 
-    public static List<String> toCamelArtifactIdBase(String cqArtifactIdBase) {
+    public Stream<ArtifactModel<?>> filterModels(String cqArtifactIdBase) {
+        final Predicate<ArtifactModel<?>> filter;
         if ("core".equals(cqArtifactIdBase)) {
-            return Arrays.asList("camel-base", "camel-core-languages");
+            filter = model -> ("camel-base".equals(model.getArtifactId())
+                    || "camel-core-languages".equals(model.getArtifactId())) && !"csimple".equals(model.getName());
+        } else if ("csimple".equals(cqArtifactIdBase)) {
+            filter = model -> "camel-core-languages".equals(model.getArtifactId()) && "csimple".equals(model.getName());
         } else if ("reactive-executor".equals(cqArtifactIdBase)) {
-            return Collections.singletonList("camel-reactive-executor-vertx");
+            filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
         } else {
-            return Collections.singletonList("camel-" + cqArtifactIdBase);
+            filter = model -> ("camel-" + cqArtifactIdBase).equals(model.getArtifactId());
         }
-    }
-
-    public Stream<ArtifactModel<?>> filterModels(String artifactIdBase) {
-        List<String> camelArtifactIds = toCamelArtifactIdBase(artifactIdBase);
-        return models()
-                .filter(model -> camelArtifactIds.contains(model.getArtifactId()));
+        return models().filter(filter);
     }
 
     public Stream<ArtifactModel<?>> models() {

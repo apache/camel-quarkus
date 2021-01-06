@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.component.csimple.deployment;
 
 import java.io.Closeable;
 import java.io.FileNotFoundException;
@@ -33,15 +33,16 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.SAXException;
 
+import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import org.apache.camel.impl.DefaultCamelContext;
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.deployment.LanguageExpressionContentHandler;
-import org.apache.camel.quarkus.core.deployment.spi.CSimpleExpressionSourceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.jboss.logging.Logger;
 
 public class CSimpleXmlProcessor {
@@ -52,49 +53,53 @@ public class CSimpleXmlProcessor {
     void collectCSimpleExpresions(
             CamelConfig config,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions)
+            BuildProducer<CSimpleExpressionSourceBuildItem> csimpleExpressions,
+            Capabilities capabilities)
             throws ParserConfigurationException, SAXException, IOException {
 
-        final List<String> locations = Stream.of("camel.main.xml-routes", "camel.main.xml-rests")
-                .map(prop -> CamelSupport.getOptionalConfigValue(prop, String[].class, new String[0]))
-                .flatMap(Stream::of)
-                .collect(Collectors.toList());
+        if (capabilities.isCapabilityPresent(CamelCapabilities.MAIN)) {
+            final List<String> locations = Stream.of("camel.main.xml-routes", "camel.main.xml-rests")
+                    .map(prop -> CamelSupport.getOptionalConfigValue(prop, String[].class, new String[0]))
+                    .flatMap(Stream::of)
+                    .collect(Collectors.toList());
 
-        try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
-            resolver.setCamelContext(new DefaultCamelContext());
-            final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-            saxParserFactory.setNamespaceAware(true);
-            SAXParser saxParser = saxParserFactory.newSAXParser();
-            for (String part : locations) {
-                try {
-                    try (CloseableCollection<InputStream> set = new CloseableCollection<InputStream>(
-                            resolver.findResources(part))) {
-                        for (InputStream is : set) {
-                            LOG.debugf("Found XML routes from location: %s", part);
-                            try {
-                                saxParser.parse(
-                                        is,
-                                        new LanguageExpressionContentHandler(
-                                                "csimple",
-                                                (script, isPredicate) -> csimpleExpressions.produce(
-                                                        new CSimpleExpressionSourceBuildItem(
-                                                                script,
-                                                                isPredicate,
-                                                                "org.apache.camel.language.csimple.XmlRouteBuilder"))));
-                            } finally {
-                                if (is != null) {
-                                    is.close();
+            try (DefaultPackageScanResourceResolver resolver = new DefaultPackageScanResourceResolver()) {
+                resolver.setCamelContext(new DefaultCamelContext());
+                final SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+                saxParserFactory.setNamespaceAware(true);
+                SAXParser saxParser = saxParserFactory.newSAXParser();
+                for (String part : locations) {
+                    try {
+                        try (CloseableCollection<InputStream> set = new CloseableCollection<InputStream>(
+                                resolver.findResources(part))) {
+                            for (InputStream is : set) {
+                                LOG.debugf("Found XML routes from location: %s", part);
+                                try {
+                                    saxParser.parse(
+                                            is,
+                                            new LanguageExpressionContentHandler(
+                                                    "csimple",
+                                                    (script, isPredicate) -> csimpleExpressions.produce(
+                                                            new CSimpleExpressionSourceBuildItem(
+                                                                    script,
+                                                                    isPredicate,
+                                                                    "org.apache.camel.language.csimple.XmlRouteBuilder"))));
+                                } finally {
+                                    if (is != null) {
+                                        is.close();
+                                    }
                                 }
                             }
                         }
+                    } catch (FileNotFoundException e) {
+                        LOG.debugf("No XML routes found in %s. Skipping XML routes detection.", part);
+                    } catch (Exception e) {
+                        throw new RuntimeException("Could not analyze CSimple expressions in " + part, e);
                     }
-                } catch (FileNotFoundException e) {
-                    LOG.debugf("No XML routes found in %s. Skipping XML routes detection.", part);
-                } catch (Exception e) {
-                    throw new RuntimeException("Could not analyze CSimple expressions in " + part, e);
                 }
             }
         }
+
     }
 
     static class CloseableCollection<E extends Closeable> implements Closeable, Iterable<E> {
