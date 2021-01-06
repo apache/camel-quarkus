@@ -110,6 +110,7 @@
         <module>pubnub</module>
         <module>pulsar</module>
         <module>quickfix</module>
+        <module>redis</module>
         <module>ribbon</module>
         <module>robotframework</module>
         <module>saxon</module>
