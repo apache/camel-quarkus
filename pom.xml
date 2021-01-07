@@ -91,7 +91,7 @@
         <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
         <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
         <optaplanner.version>7.46.0.Final</optaplanner.version>
-        <quarkus.version>1.11.0.Beta1</quarkus.version>
+        <quarkus.version>1.11.0.CR1</quarkus.version>
         <quarkus-google-cloud.version>0.3.0</quarkus-google-cloud.version>
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
