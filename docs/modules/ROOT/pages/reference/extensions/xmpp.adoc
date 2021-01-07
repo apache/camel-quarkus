@@ -16,7 +16,7 @@ Send and receive messages to/from an XMPP chat server.
 
 == What's inside
 
-* xref:latest@components::xmpp-component.adoc[XMPP component], URI syntax: `xmpp:host:port/participant`
+* xref:{cq-camel-components}::xmpp-component.adoc[XMPP component], URI syntax: `xmpp:host:port/participant`
 
 Please refer to the above link for usage and configuration details.
 

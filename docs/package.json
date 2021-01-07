@@ -17,7 +17,7 @@
   },
   "scripts": {
     "preview": "cd target/site && lite-server",
-    "build": "node_modules/.bin/antora antora-playbook-dev.yml --stacktrace",
+    "build": "node_modules/.bin/antora --fetch antora-playbook.yml --stacktrace",
     "dev": "yarn build && yarn preview",
     "checks": "yarn antora --generator @antora/xref-validator antora-playbook.yml"
   }

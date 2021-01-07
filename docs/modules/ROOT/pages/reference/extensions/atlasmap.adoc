@@ -16,7 +16,7 @@ Transforms the message using an AtlasMap transformation.
 
 == What's inside
 
-* xref:latest@components::atlasmap-component.adoc[AtlasMap component], URI syntax: `atlasmap:resourceUri`
+* xref:{cq-camel-components}::atlasmap-component.adoc[AtlasMap component], URI syntax: `atlasmap:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

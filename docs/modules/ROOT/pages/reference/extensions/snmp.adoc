@@ -16,7 +16,7 @@ Receive traps and poll SNMP (Simple Network Management Protocol) capable devices
 
 == What's inside
 
-* xref:latest@components::snmp-component.adoc[SNMP component], URI syntax: `snmp:host:port`
+* xref:{cq-camel-components}::snmp-component.adoc[SNMP component], URI syntax: `snmp:host:port`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Perform operations on ArangoDb documents, collections and graphs.
 
 == What's inside
 
-* xref:latest@components::arangodb-component.adoc[ArangoDb component], URI syntax: `arangodb:database`
+* xref:{cq-camel-components}::arangodb-component.adoc[ArangoDb component], URI syntax: `arangodb:database`
 
 Please refer to the above link for usage and configuration details.
 

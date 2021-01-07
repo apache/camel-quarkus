@@ -17,7 +17,7 @@ Execute commands on the underlying operating system.
 
 == What's inside
 
-* xref:latest@components::exec-component.adoc[Exec component], URI syntax: `exec:executable`
+* xref:{cq-camel-components}::exec-component.adoc[Exec component], URI syntax: `exec:executable`
 
 Please refer to the above link for usage and configuration details.
 

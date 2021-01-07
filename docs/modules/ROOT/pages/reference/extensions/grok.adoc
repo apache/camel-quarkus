@@ -17,7 +17,7 @@ Unmarshal unstructured data to objects using Logstash based Grok patterns.
 
 == What's inside
 
-* xref:latest@components:dataformats:grok-dataformat.adoc[Grok data format]
+* xref:{cq-camel-components}:dataformats:grok-dataformat.adoc[Grok data format]
 
 Please refer to the above link for usage and configuration details.
 

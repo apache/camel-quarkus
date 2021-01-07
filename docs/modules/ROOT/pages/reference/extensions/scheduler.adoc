@@ -17,7 +17,7 @@ Generate messages in specified intervals using java.util.concurrent.ScheduledExe
 
 == What's inside
 
-* xref:latest@components::scheduler-component.adoc[Scheduler component], URI syntax: `scheduler:name`
+* xref:{cq-camel-components}::scheduler-component.adoc[Scheduler component], URI syntax: `scheduler:name`
 
 Please refer to the above link for usage and configuration details.
 

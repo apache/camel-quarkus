@@ -16,7 +16,7 @@ Perform DNS queries using DNSJava.
 
 == What's inside
 
-* xref:latest@components::dns-component.adoc[DNS component], URI syntax: `dns:dnsType`
+* xref:{cq-camel-components}::dns-component.adoc[DNS component], URI syntax: `dns:dnsType`
 
 Please refer to the above link for usage and configuration details.
 

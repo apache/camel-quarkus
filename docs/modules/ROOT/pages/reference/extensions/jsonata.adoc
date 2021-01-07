@@ -16,7 +16,7 @@ JSON to JSON transformation using JSONATA.
 
 == What's inside
 
-* xref:latest@components::jsonata-component.adoc[JSONATA component], URI syntax: `jsonata:resourceUri`
+* xref:{cq-camel-components}::jsonata-component.adoc[JSONATA component], URI syntax: `jsonata:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

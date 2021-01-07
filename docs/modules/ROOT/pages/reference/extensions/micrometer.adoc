@@ -16,7 +16,7 @@ Collect various metrics directly from Camel routes using the Micrometer library.
 
 == What's inside
 
-* xref:latest@components::micrometer-component.adoc[Micrometer component], URI syntax: `micrometer:metricsType:metricsName`
+* xref:{cq-camel-components}::micrometer-component.adoc[Micrometer component], URI syntax: `micrometer:metricsType:metricsName`
 
 Please refer to the above link for usage and configuration details.
 

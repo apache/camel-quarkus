@@ -17,7 +17,7 @@ Map between Java beans using the Dozer mapping library.
 
 == What's inside
 
-* xref:latest@components::dozer-component.adoc[Dozer component], URI syntax: `dozer:name`
+* xref:{cq-camel-components}::dozer-component.adoc[Dozer component], URI syntax: `dozer:name`
 
 Please refer to the above link for usage and configuration details.
 

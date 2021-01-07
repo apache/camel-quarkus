@@ -16,7 +16,7 @@ Camel saga binding for Long-Running-Action framework
 
 == What's inside
 
-* xref:latest@components:others:lra.adoc[LRA]
+* xref:{cq-camel-components}:others:lra.adoc[LRA]
 
 Please refer to the above link for usage and configuration details.
 

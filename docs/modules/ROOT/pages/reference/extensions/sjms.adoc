@@ -17,8 +17,8 @@ Send and receive messages to/from a JMS Queue or Topic using plain JMS 1.x API.
 
 == What's inside
 
-* xref:latest@components::sjms-component.adoc[Simple JMS component], URI syntax: `sjms:destinationType:destinationName`
-* xref:latest@components::sjms-batch-component.adoc[Simple JMS Batch component], URI syntax: `sjms-batch:destinationName`
+* xref:{cq-camel-components}::sjms-component.adoc[Simple JMS component], URI syntax: `sjms:destinationType:destinationName`
+* xref:{cq-camel-components}::sjms-batch-component.adoc[Simple JMS Batch component], URI syntax: `sjms-batch:destinationName`
 
 Please refer to the above links for usage and configuration details.
 

@@ -17,7 +17,7 @@ A generic interface for triggering events at times specified through the Unix cr
 
 == What's inside
 
-* xref:latest@components::cron-component.adoc[Cron component], URI syntax: `cron:name`
+* xref:{cq-camel-components}::cron-component.adoc[Cron component], URI syntax: `cron:name`
 
 Please refer to the above link for usage and configuration details.
 

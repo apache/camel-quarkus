@@ -17,7 +17,7 @@ Circuit Breaker EIP using Microprofile Fault Tolerance
 
 == What's inside
 
-* xref:latest@components:others:microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]
+* xref:{cq-camel-components}:others:microprofile-fault-tolerance.adoc[Microprofile Fault Tolerance]
 
 Please refer to the above link for usage and configuration details.
 

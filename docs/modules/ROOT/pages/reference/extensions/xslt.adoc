@@ -17,7 +17,7 @@ Transforms XML payload using an XSLT template.
 
 == What's inside
 
-* xref:latest@components::xslt-component.adoc[XSLT component], URI syntax: `xslt:resourceUri`
+* xref:{cq-camel-components}::xslt-component.adoc[XSLT component], URI syntax: `xslt:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

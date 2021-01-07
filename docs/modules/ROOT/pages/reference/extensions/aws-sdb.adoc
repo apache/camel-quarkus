@@ -17,7 +17,7 @@ Store and Retrieve data from/to AWS SDB service.
 
 == What's inside
 
-* xref:latest@components::aws-sdb-component.adoc[AWS SimpleDB component], URI syntax: `aws-sdb:domainName`
+* xref:{cq-camel-components}::aws-sdb-component.adoc[AWS SimpleDB component], URI syntax: `aws-sdb:domainName`
 
 Please refer to the above link for usage and configuration details.
 

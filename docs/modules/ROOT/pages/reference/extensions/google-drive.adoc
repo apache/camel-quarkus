@@ -17,7 +17,7 @@ Manage files in Google Drive.
 
 == What's inside
 
-* xref:latest@components::google-drive-component.adoc[Google Drive component], URI syntax: `google-drive:apiName/methodName`
+* xref:{cq-camel-components}::google-drive-component.adoc[Google Drive component], URI syntax: `google-drive:apiName/methodName`
 
 Please refer to the above link for usage and configuration details.
 

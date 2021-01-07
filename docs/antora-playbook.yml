@@ -26,6 +26,11 @@ content:
     start_path: docs
   - url: git@github.com:apache/camel.git
     branches:
+      - camel-3.7.x # replace ${camel.docs.branch}
+    start_paths:
+      - docs/components
+  - url: git@github.com:apache/camel.git
+    branches:
       - master
     start_paths:
       - docs/user-manual

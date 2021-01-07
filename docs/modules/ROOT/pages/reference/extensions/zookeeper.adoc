@@ -16,7 +16,7 @@ Manage ZooKeeper clusters.
 
 == What's inside
 
-* xref:latest@components::zookeeper-component.adoc[ZooKeeper component], URI syntax: `zookeeper:serverUrls/path`
+* xref:{cq-camel-components}::zookeeper-component.adoc[ZooKeeper component], URI syntax: `zookeeper:serverUrls/path`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Access the Interplanetary File System (IPFS).
 
 == What's inside
 
-* xref:latest@components::ipfs-component.adoc[IPFS component], URI syntax: `ipfs:ipfsCmd`
+* xref:{cq-camel-components}::ipfs-component.adoc[IPFS component], URI syntax: `ipfs:ipfsCmd`
 
 Please refer to the above link for usage and configuration details.
 

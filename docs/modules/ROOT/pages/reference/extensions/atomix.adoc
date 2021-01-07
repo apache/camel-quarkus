@@ -16,12 +16,12 @@ Access Atomix's distributed map.
 
 == What's inside
 
-* xref:latest@components::atomix-map-component.adoc[Atomix Map component], URI syntax: `atomix-map:resourceName`
-* xref:latest@components::atomix-messaging-component.adoc[Atomix Messaging component], URI syntax: `atomix-messaging:resourceName`
-* xref:latest@components::atomix-multimap-component.adoc[Atomix MultiMap component], URI syntax: `atomix-multimap:resourceName`
-* xref:latest@components::atomix-queue-component.adoc[Atomix Queue component], URI syntax: `atomix-queue:resourceName`
-* xref:latest@components::atomix-set-component.adoc[Atomix Set component], URI syntax: `atomix-set:resourceName`
-* xref:latest@components::atomix-value-component.adoc[Atomix Value component], URI syntax: `atomix-value:resourceName`
+* xref:{cq-camel-components}::atomix-map-component.adoc[Atomix Map component], URI syntax: `atomix-map:resourceName`
+* xref:{cq-camel-components}::atomix-messaging-component.adoc[Atomix Messaging component], URI syntax: `atomix-messaging:resourceName`
+* xref:{cq-camel-components}::atomix-multimap-component.adoc[Atomix MultiMap component], URI syntax: `atomix-multimap:resourceName`
+* xref:{cq-camel-components}::atomix-queue-component.adoc[Atomix Queue component], URI syntax: `atomix-queue:resourceName`
+* xref:{cq-camel-components}::atomix-set-component.adoc[Atomix Set component], URI syntax: `atomix-set:resourceName`
+* xref:{cq-camel-components}::atomix-value-component.adoc[Atomix Value component], URI syntax: `atomix-value:resourceName`
 
 Please refer to the above links for usage and configuration details.
 

@@ -17,7 +17,7 @@ Expose websocket endpoints using JSR356.
 
 == What's inside
 
-* xref:latest@components::websocket-jsr356-component.adoc[Javax Websocket component], URI syntax: `websocket-jsr356:uri`
+* xref:{cq-camel-components}::websocket-jsr356-component.adoc[Javax Websocket component], URI syntax: `websocket-jsr356:uri`
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,8 +17,8 @@ Store and retrieve blobs from Azure Storage Blob Service or store and retrieve m
 
 == What's inside
 
-* xref:latest@components::azure-blob-component.adoc[Azure Storage Blob Service (Deprecated) component], URI syntax: `azure-blob:containerOrBlobUri`
-* xref:latest@components::azure-queue-component.adoc[Azure Storage Queue Service (Deprecated) component], URI syntax: `azure-queue:containerAndQueueUri`
+* xref:{cq-camel-components}::azure-blob-component.adoc[Azure Storage Blob Service (Deprecated) component], URI syntax: `azure-blob:containerOrBlobUri`
+* xref:{cq-camel-components}::azure-queue-component.adoc[Azure Storage Queue Service (Deprecated) component], URI syntax: `azure-queue:containerAndQueueUri`
 
 Please refer to the above links for usage and configuration details.
 

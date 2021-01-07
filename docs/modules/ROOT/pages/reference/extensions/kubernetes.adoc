@@ -17,23 +17,23 @@ Perform operations against Kubernetes API
 
 == What's inside
 
-* xref:latest@components::kubernetes-config-maps-component.adoc[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
-* xref:latest@components::kubernetes-custom-resources-component.adoc[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
-* xref:latest@components::kubernetes-deployments-component.adoc[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
-* xref:latest@components::kubernetes-hpa-component.adoc[Kubernetes HPA component], URI syntax: `kubernetes-hpa:masterUrl`
-* xref:latest@components::kubernetes-job-component.adoc[Kubernetes Job component], URI syntax: `kubernetes-job:masterUrl`
-* xref:latest@components::kubernetes-namespaces-component.adoc[Kubernetes Namespaces component], URI syntax: `kubernetes-namespaces:masterUrl`
-* xref:latest@components::kubernetes-nodes-component.adoc[Kubernetes Nodes component], URI syntax: `kubernetes-nodes:masterUrl`
-* xref:latest@components::kubernetes-persistent-volumes-component.adoc[Kubernetes Persistent Volume component], URI syntax: `kubernetes-persistent-volumes:masterUrl`
-* xref:latest@components::kubernetes-persistent-volumes-claims-component.adoc[Kubernetes Persistent Volume Claim component], URI syntax: `kubernetes-persistent-volumes-claims:masterUrl`
-* xref:latest@components::kubernetes-pods-component.adoc[Kubernetes Pods component], URI syntax: `kubernetes-pods:masterUrl`
-* xref:latest@components::kubernetes-replication-controllers-component.adoc[Kubernetes Replication Controller component], URI syntax: `kubernetes-replication-controllers:masterUrl`
-* xref:latest@components::kubernetes-resources-quota-component.adoc[Kubernetes Resources Quota component], URI syntax: `kubernetes-resources-quota:masterUrl`
-* xref:latest@components::kubernetes-secrets-component.adoc[Kubernetes Secrets component], URI syntax: `kubernetes-secrets:masterUrl`
-* xref:latest@components::kubernetes-service-accounts-component.adoc[Kubernetes Service Account component], URI syntax: `kubernetes-service-accounts:masterUrl`
-* xref:latest@components::kubernetes-services-component.adoc[Kubernetes Services component], URI syntax: `kubernetes-services:masterUrl`
-* xref:latest@components::openshift-build-configs-component.adoc[Openshift Build Config component], URI syntax: `openshift-build-configs:masterUrl`
-* xref:latest@components::openshift-builds-component.adoc[Openshift Builds component], URI syntax: `openshift-builds:masterUrl`
+* xref:{cq-camel-components}::kubernetes-config-maps-component.adoc[Kubernetes ConfigMap component], URI syntax: `kubernetes-config-maps:masterUrl`
+* xref:{cq-camel-components}::kubernetes-custom-resources-component.adoc[Kubernetes Custom Resources component], URI syntax: `kubernetes-custom-resources:masterUrl`
+* xref:{cq-camel-components}::kubernetes-deployments-component.adoc[Kubernetes Deployments component], URI syntax: `kubernetes-deployments:masterUrl`
+* xref:{cq-camel-components}::kubernetes-hpa-component.adoc[Kubernetes HPA component], URI syntax: `kubernetes-hpa:masterUrl`
+* xref:{cq-camel-components}::kubernetes-job-component.adoc[Kubernetes Job component], URI syntax: `kubernetes-job:masterUrl`
+* xref:{cq-camel-components}::kubernetes-namespaces-component.adoc[Kubernetes Namespaces component], URI syntax: `kubernetes-namespaces:masterUrl`
+* xref:{cq-camel-components}::kubernetes-nodes-component.adoc[Kubernetes Nodes component], URI syntax: `kubernetes-nodes:masterUrl`
+* xref:{cq-camel-components}::kubernetes-persistent-volumes-component.adoc[Kubernetes Persistent Volume component], URI syntax: `kubernetes-persistent-volumes:masterUrl`
+* xref:{cq-camel-components}::kubernetes-persistent-volumes-claims-component.adoc[Kubernetes Persistent Volume Claim component], URI syntax: `kubernetes-persistent-volumes-claims:masterUrl`
+* xref:{cq-camel-components}::kubernetes-pods-component.adoc[Kubernetes Pods component], URI syntax: `kubernetes-pods:masterUrl`
+* xref:{cq-camel-components}::kubernetes-replication-controllers-component.adoc[Kubernetes Replication Controller component], URI syntax: `kubernetes-replication-controllers:masterUrl`
+* xref:{cq-camel-components}::kubernetes-resources-quota-component.adoc[Kubernetes Resources Quota component], URI syntax: `kubernetes-resources-quota:masterUrl`
+* xref:{cq-camel-components}::kubernetes-secrets-component.adoc[Kubernetes Secrets component], URI syntax: `kubernetes-secrets:masterUrl`
+* xref:{cq-camel-components}::kubernetes-service-accounts-component.adoc[Kubernetes Service Account component], URI syntax: `kubernetes-service-accounts:masterUrl`
+* xref:{cq-camel-components}::kubernetes-services-component.adoc[Kubernetes Services component], URI syntax: `kubernetes-services:masterUrl`
+* xref:{cq-camel-components}::openshift-build-configs-component.adoc[Openshift Build Config component], URI syntax: `openshift-build-configs:masterUrl`
+* xref:{cq-camel-components}::openshift-builds-component.adoc[Openshift Builds component], URI syntax: `openshift-builds:masterUrl`
 
 Please refer to the above links for usage and configuration details.
 

@@ -17,7 +17,7 @@ Read and write files.
 
 == What's inside
 
-* xref:latest@components::file-component.adoc[File component], URI syntax: `file:directoryName`
+* xref:{cq-camel-components}::file-component.adoc[File component], URI syntax: `file:directoryName`
 
 Please refer to the above link for usage and configuration details.
 

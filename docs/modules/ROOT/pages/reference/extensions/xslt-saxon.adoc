@@ -16,7 +16,7 @@ Transform XML payloads using an XSLT template using Saxon.
 
 == What's inside
 
-* xref:latest@components::xslt-saxon-component.adoc[XSLT Saxon component], URI syntax: `xslt-saxon:resourceUri`
+* xref:{cq-camel-components}::xslt-saxon-component.adoc[XSLT Saxon component], URI syntax: `xslt-saxon:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

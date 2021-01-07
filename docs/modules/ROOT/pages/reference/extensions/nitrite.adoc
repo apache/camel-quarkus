@@ -17,7 +17,7 @@ Access Nitrite databases.
 
 == What's inside
 
-* xref:latest@components::nitrite-component.adoc[Nitrite component], URI syntax: `nitrite:database`
+* xref:{cq-camel-components}::nitrite-component.adoc[Nitrite component], URI syntax: `nitrite:database`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Poll the weather information from Open Weather Map.
 
 == What's inside
 
-* xref:latest@components::weather-component.adoc[Weather component], URI syntax: `weather:name`
+* xref:{cq-camel-components}::weather-component.adoc[Weather component], URI syntax: `weather:name`
 
 Please refer to the above link for usage and configuration details.
 

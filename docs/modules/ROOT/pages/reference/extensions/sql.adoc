@@ -17,8 +17,8 @@ Perform SQL queries using Spring JDBC.
 
 == What's inside
 
-* xref:latest@components::sql-component.adoc[SQL component], URI syntax: `sql:query`
-* xref:latest@components::sql-stored-component.adoc[SQL Stored Procedure component], URI syntax: `sql-stored:template`
+* xref:{cq-camel-components}::sql-component.adoc[SQL component], URI syntax: `sql:query`
+* xref:{cq-camel-components}::sql-stored-component.adoc[SQL Stored Procedure component], URI syntax: `sql-stored:template`
 
 Please refer to the above links for usage and configuration details.
 

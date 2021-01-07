@@ -17,7 +17,7 @@ Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
 == What's inside
 
-* xref:latest@components:dataformats:jacksonxml-dataformat.adoc[JacksonXML data format]
+* xref:{cq-camel-components}:dataformats:jacksonxml-dataformat.adoc[JacksonXML data format]
 
 Please refer to the above link for usage and configuration details.
 

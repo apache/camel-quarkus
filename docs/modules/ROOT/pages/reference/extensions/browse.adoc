@@ -16,7 +16,7 @@ Inspect the messages received on endpoints supporting BrowsableEndpoint.
 
 == What's inside
 
-* xref:latest@components::browse-component.adoc[Browse component], URI syntax: `browse:name`
+* xref:{cq-camel-components}::browse-component.adoc[Browse component], URI syntax: `browse:name`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Manage Droplets and resources within the DigitalOcean cloud.
 
 == What's inside
 
-* xref:latest@components::digitalocean-component.adoc[DigitalOcean component], URI syntax: `digitalocean:operation`
+* xref:{cq-camel-components}::digitalocean-component.adoc[DigitalOcean component], URI syntax: `digitalocean:operation`
 
 Please refer to the above link for usage and configuration details.
 

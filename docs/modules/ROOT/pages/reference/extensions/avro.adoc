@@ -17,7 +17,7 @@ Serialize and deserialize messages using Apache Avro binary data format.
 
 == What's inside
 
-* xref:latest@components:dataformats:avro-dataformat.adoc[Avro data format]
+* xref:{cq-camel-components}:dataformats:avro-dataformat.adoc[Avro data format]
 
 Please refer to the above link for usage and configuration details.
 

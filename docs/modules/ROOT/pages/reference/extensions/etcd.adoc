@@ -16,9 +16,9 @@ Get, set or delete keys in etcd key-value store.
 
 == What's inside
 
-* xref:latest@components::etcd-keys-component.adoc[Etcd Keys component], URI syntax: `etcd-keys:path`
-* xref:latest@components::etcd-stats-component.adoc[Etcd Stats component], URI syntax: `etcd-stats:path`
-* xref:latest@components::etcd-watch-component.adoc[Etcd Watch component], URI syntax: `etcd-watch:path`
+* xref:{cq-camel-components}::etcd-keys-component.adoc[Etcd Keys component], URI syntax: `etcd-keys:path`
+* xref:{cq-camel-components}::etcd-stats-component.adoc[Etcd Stats component], URI syntax: `etcd-stats:path`
+* xref:{cq-camel-components}::etcd-watch-component.adoc[Etcd Watch component], URI syntax: `etcd-watch:path`
 
 Please refer to the above links for usage and configuration details.
 

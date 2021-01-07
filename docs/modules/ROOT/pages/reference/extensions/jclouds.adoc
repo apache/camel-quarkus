@@ -16,7 +16,7 @@ Interact with jclouds compute & blobstore service.
 
 == What's inside
 
-* xref:latest@components::jclouds-component.adoc[JClouds component], URI syntax: `jclouds:command:providerId`
+* xref:{cq-camel-components}::jclouds-component.adoc[JClouds component], URI syntax: `jclouds:command:providerId`
 
 Please refer to the above link for usage and configuration details.
 

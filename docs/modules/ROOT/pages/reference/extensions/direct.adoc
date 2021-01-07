@@ -17,7 +17,7 @@ Call another endpoint from the same Camel Context synchronously.
 
 == What's inside
 
-* xref:latest@components::direct-component.adoc[Direct component], URI syntax: `direct:name`
+* xref:{cq-camel-components}::direct-component.adoc[Direct component], URI syntax: `direct:name`
 
 Please refer to the above link for usage and configuration details.
 

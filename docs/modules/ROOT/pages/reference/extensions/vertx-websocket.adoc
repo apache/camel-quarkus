@@ -16,7 +16,7 @@ Camel WebSocket support with Vert.x
 
 == What's inside
 
-* xref:latest@components::vertx-websocket-component.adoc[Vert.x WebSocket component], URI syntax: `vertx-websocket:host:port/path`
+* xref:{cq-camel-components}::vertx-websocket-component.adoc[Vert.x WebSocket component], URI syntax: `vertx-websocket:host:port/path`
 
 Please refer to the above link for usage and configuration details.
 

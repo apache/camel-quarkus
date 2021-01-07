@@ -16,7 +16,7 @@ Send and receive messages as a Soroush chat bot.
 
 == What's inside
 
-* xref:latest@components::soroush-component.adoc[Soroush component], URI syntax: `soroush:action`
+* xref:{cq-camel-components}::soroush-component.adoc[Soroush component], URI syntax: `soroush:action`
 
 Please refer to the above link for usage and configuration details.
 

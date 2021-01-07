@@ -17,7 +17,7 @@ Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression aga
 
 == What's inside
 
-* xref:latest@components:languages:ognl-language.adoc[OGNL language]
+* xref:{cq-camel-components}:languages:ognl-language.adoc[OGNL language]
 
 Please refer to the above link for usage and configuration details.
 

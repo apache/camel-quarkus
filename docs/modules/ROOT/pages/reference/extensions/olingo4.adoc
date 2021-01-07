@@ -17,7 +17,7 @@ Communicate with OData 4.0 services using Apache Olingo OData API.
 
 == What's inside
 
-* xref:latest@components::olingo4-component.adoc[Olingo4 component], URI syntax: `olingo4:apiName/methodName`
+* xref:{cq-camel-components}::olingo4-component.adoc[Olingo4 component], URI syntax: `olingo4:apiName/methodName`
 
 Please refer to the above link for usage and configuration details.
 
