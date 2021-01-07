@@ -66,6 +66,7 @@
             </activation>
             <build>
                 <plugins>
+                    <!-- Temporary workaround for https://github.com/apache/camel-quarkus/issues/2109
                     <plugin>
                         <groupId>com.github.eirslett</groupId>
                         <artifactId>frontend-maven-plugin</artifactId>
@@ -82,12 +83,12 @@
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin> -->
                     <!--
                       executing yarn via frontend-maven yielded Process exited with an error: 134 (Exit value: 134)
                       using exec-maven plugin instead.
                     -->
-                    <plugin>
+                    <!-- <plugin> Temporary workaround for https://github.com/apache/camel-quarkus/issues/2109
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>exec-maven-plugin</artifactId>
                         <executions>
@@ -99,7 +100,7 @@
                                 <phase>generate-resources</phase>
                                 <configuration>
                                     <executable>${project.basedir}/node/node</executable>
-                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js install --no-progress --force --non-interactive --frozen-lockfile</commandlineArgs>
+                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js install - - no-progress - - force - - non-interactive - - frozen-lockfile</commandlineArgs>
                                 </configuration>
                             </execution>
                             <execution>
@@ -110,11 +111,11 @@
                                 <phase>verify</phase>
                                 <configuration>
                                     <executable>${project.basedir}/node/node</executable>
-                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator antora-playbook.yml</commandlineArgs>
+                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js - - non-interactive antora - - generator @antora/xref-validator antora-playbook.yml</commandlineArgs>
                                 </configuration>
                             </execution>
                         </executions>
-                    </plugin>
+                    </plugin> -->
                 </plugins>
             </build>
         </profile>
