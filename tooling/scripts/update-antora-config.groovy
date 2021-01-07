@@ -16,17 +16,20 @@
  */
 
 /**
- * Makes sure that each itest is executed by the CI
+ * Replace property values (defined in pom.xml files) in Antora yaml config
  */
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.Files
 import java.util.stream.Stream
+import java.util.stream.Collectors
 import java.util.regex.Pattern
+import java.util.regex.Matcher
 
 
 final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
 
-final final List<Path> replaceInFiles = [
+final List<Path> replaceInFiles = [
     treeRootDir.resolve('docs/antora-playbook.yml'),
     treeRootDir.resolve('docs/antora-playbook-dev.yml'),
     treeRootDir.resolve('docs/antora.yml')
@@ -39,21 +42,26 @@ if (!missingFiles.isEmpty()) {
     throw new IllegalStateException("Files expected to exist: " + missingFiles)
 }
 
-final Pattern replacementPattern = Pattern.compile("([\\-\\:]) *([^ ]+) *# * replace ${([^}]+)}")
 
-replaceInFiles.stream()
-    .forEach { path ->
+final Pattern replacementPattern = ~'([\\-\\:]) *([^ ]+) *# * replace \\$\\{([^}]+)\\}'
+
+replaceInFiles.each { path ->
+        println 'Updating ' + path
         final String content = path.getText('UTF-8')
         final Matcher m = replacementPattern.matcher(content)
         final StringBuffer newContent = new StringBuffer(content.length())
         while (m.find()) {
             final String property = m.group(3)
-            final String newValue = properties.get(property)
-            m.appendReplacement(newContent, '$1 ' + Matcher.quoteReplacement(newValue) + ' # replace '" + Matcher.quoteReplacement('${' + property + '}'))
+            final String newValue = project.properties.get(property)
+            println " - replacing ${property} '" + m.group(2) +"' -> '${newValue}'"
+            m.appendReplacement(newContent, '$1 ' + Matcher.quoteReplacement(newValue) + ' # replace ' + Matcher.quoteReplacement('${' + property + '}'))
         }
         m.appendTail(newContent)
         final String newContentString = newContent.toString()
         if (!newContentString.equals(content)) {
+            println 'Updated ' + path
             Files.write(path, newContentString.getBytes('UTF-8'))
+        } else {
+            println 'No change in ' + path
         }
-    }
+}

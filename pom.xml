@@ -44,10 +44,12 @@
         <avro-ipc-version>1.10.0</avro-ipc-version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
-        <camel.major.minor>3.7</camel.major.minor>
+
+        <camel.major.minor>3.7</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
+
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
