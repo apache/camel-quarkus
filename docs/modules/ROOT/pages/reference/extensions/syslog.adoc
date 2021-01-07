@@ -16,7 +16,7 @@ Marshall SyslogMessages to RFC3164 and RFC5424 messages and back.
 
 == What's inside
 
-* xref:latest@components:dataformats:syslog-dataformat.adoc[Syslog data format]
+* xref:{cq-camel-components}:dataformats:syslog-dataformat.adoc[Syslog data format]
 
 Please refer to the above link for usage and configuration details.
 

@@ -20,7 +20,7 @@ It is built on top of Eclipse Vert.x Web service provided by the `quarkus-vertx-
 
 == What's inside
 
-* xref:latest@components::platform-http-component.adoc[Platform HTTP component], URI syntax: `platform-http:path`
+* xref:{cq-camel-components}::platform-http-component.adoc[Platform HTTP component], URI syntax: `platform-http:path`
 
 Please refer to the above link for usage and configuration details.
 

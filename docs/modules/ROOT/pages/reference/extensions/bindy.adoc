@@ -17,9 +17,9 @@ Marshal and unmarshal between POJOs and Comma separated values (CSV) format usin
 
 == What's inside
 
-* xref:latest@components:dataformats:bindy-dataformat.adoc[Bindy CSV data format]
-* xref:latest@components:dataformats:bindy-dataformat.adoc[Bindy Fixed Length data format]
-* xref:latest@components:dataformats:bindy-dataformat.adoc[Bindy Key Value Pair data format]
+* xref:{cq-camel-components}:dataformats:bindy-dataformat.adoc[Bindy CSV data format]
+* xref:{cq-camel-components}:dataformats:bindy-dataformat.adoc[Bindy Fixed Length data format]
+* xref:{cq-camel-components}:dataformats:bindy-dataformat.adoc[Bindy Key Value Pair data format]
 
 Please refer to the above links for usage and configuration details.
 

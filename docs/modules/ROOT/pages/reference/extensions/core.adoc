@@ -17,14 +17,14 @@ Camel core functionality and basic Camel languages: Constant, ExchangeProperty, 
 
 == What's inside
 
-* xref:latest@components:languages:constant-language.adoc[Constant language]
-* xref:latest@components:languages:csimple-language.adoc[CSimple language]
-* xref:latest@components:languages:exchangeProperty-language.adoc[ExchangeProperty language]
-* xref:latest@components:languages:file-language.adoc[File language]
-* xref:latest@components:languages:header-language.adoc[Header language]
-* xref:latest@components:languages:ref-language.adoc[Ref language]
-* xref:latest@components:languages:simple-language.adoc[Simple language]
-* xref:latest@components:languages:tokenize-language.adoc[Tokenize language]
+* xref:{cq-camel-components}:languages:constant-language.adoc[Constant language]
+* xref:{cq-camel-components}:languages:csimple-language.adoc[CSimple language]
+* xref:{cq-camel-components}:languages:exchangeProperty-language.adoc[ExchangeProperty language]
+* xref:{cq-camel-components}:languages:file-language.adoc[File language]
+* xref:{cq-camel-components}:languages:header-language.adoc[Header language]
+* xref:{cq-camel-components}:languages:ref-language.adoc[Ref language]
+* xref:{cq-camel-components}:languages:simple-language.adoc[Simple language]
+* xref:{cq-camel-components}:languages:tokenize-language.adoc[Tokenize language]
 
 Please refer to the above links for usage and configuration details.
 

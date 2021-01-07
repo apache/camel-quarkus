@@ -16,7 +16,7 @@ Stub out any physical endpoints while in development or testing.
 
 == What's inside
 
-* xref:latest@components::stub-component.adoc[Stub component], URI syntax: `stub:name`
+* xref:{cq-camel-components}::stub-component.adoc[Stub component], URI syntax: `stub:name`
 
 Please refer to the above link for usage and configuration details.
 

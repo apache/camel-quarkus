@@ -17,8 +17,8 @@ Perform various operations on a Google Calendar. Poll for changes in a Google Ca
 
 == What's inside
 
-* xref:latest@components::google-calendar-component.adoc[Google Calendar component], URI syntax: `google-calendar:apiName/methodName`
-* xref:latest@components::google-calendar-stream-component.adoc[Google Calendar Stream component], URI syntax: `google-calendar-stream:index`
+* xref:{cq-camel-components}::google-calendar-component.adoc[Google Calendar component], URI syntax: `google-calendar:apiName/methodName`
+* xref:{cq-camel-components}::google-calendar-stream-component.adoc[Google Calendar Stream component], URI syntax: `google-calendar-stream:index`
 
 Please refer to the above links for usage and configuration details.
 

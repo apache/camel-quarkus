@@ -17,7 +17,7 @@ Perform operations on MongoDB documents and collections.
 
 == What's inside
 
-* xref:latest@components::mongodb-component.adoc[MongoDB component], URI syntax: `mongodb:connectionBean`
+* xref:{cq-camel-components}::mongodb-component.adoc[MongoDB component], URI syntax: `mongodb:connectionBean`
 
 Please refer to the above link for usage and configuration details.
 

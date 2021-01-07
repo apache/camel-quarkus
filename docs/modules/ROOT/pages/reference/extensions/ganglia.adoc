@@ -16,7 +16,7 @@ Send metrics to Ganglia monitoring system.
 
 == What's inside
 
-* xref:latest@components::ganglia-component.adoc[Ganglia component], URI syntax: `ganglia:host:port`
+* xref:{cq-camel-components}::ganglia-component.adoc[Ganglia component], URI syntax: `ganglia:host:port`
 
 Please refer to the above link for usage and configuration details.
 

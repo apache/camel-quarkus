@@ -16,9 +16,9 @@ Sign and verify exchanges using the Signature Service of the Java Cryptographic 
 
 == What's inside
 
-* xref:latest@components:dataformats:crypto-dataformat.adoc[Crypto (Java Cryptographic Extension) data format]
-* xref:latest@components::crypto-component.adoc[Crypto (JCE) component], URI syntax: `crypto:cryptoOperation:name`
-* xref:latest@components:dataformats:pgp-dataformat.adoc[PGP data format]
+* xref:{cq-camel-components}:dataformats:crypto-dataformat.adoc[Crypto (Java Cryptographic Extension) data format]
+* xref:{cq-camel-components}::crypto-component.adoc[Crypto (JCE) component], URI syntax: `crypto:cryptoOperation:name`
+* xref:{cq-camel-components}:dataformats:pgp-dataformat.adoc[PGP data format]
 
 Please refer to the above links for usage and configuration details.
 

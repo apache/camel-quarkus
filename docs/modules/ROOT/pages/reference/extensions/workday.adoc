@@ -16,7 +16,7 @@ Detect and parse documents using Workday.
 
 == What's inside
 
-* xref:latest@components::workday-component.adoc[Workday component], URI syntax: `workday:entity:path`
+* xref:{cq-camel-components}::workday-component.adoc[Workday component], URI syntax: `workday:entity:path`
 
 Please refer to the above link for usage and configuration details.
 

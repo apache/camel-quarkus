@@ -17,12 +17,12 @@ Interact with OpenStack APIs
 
 == What's inside
 
-* xref:latest@components::openstack-cinder-component.adoc[OpenStack Cinder component], URI syntax: `openstack-cinder:host`
-* xref:latest@components::openstack-glance-component.adoc[OpenStack Glance component], URI syntax: `openstack-glance:host`
-* xref:latest@components::openstack-keystone-component.adoc[OpenStack Keystone component], URI syntax: `openstack-keystone:host`
-* xref:latest@components::openstack-neutron-component.adoc[OpenStack Neutron component], URI syntax: `openstack-neutron:host`
-* xref:latest@components::openstack-nova-component.adoc[OpenStack Nova component], URI syntax: `openstack-nova:host`
-* xref:latest@components::openstack-swift-component.adoc[OpenStack Swift component], URI syntax: `openstack-swift:host`
+* xref:{cq-camel-components}::openstack-cinder-component.adoc[OpenStack Cinder component], URI syntax: `openstack-cinder:host`
+* xref:{cq-camel-components}::openstack-glance-component.adoc[OpenStack Glance component], URI syntax: `openstack-glance:host`
+* xref:{cq-camel-components}::openstack-keystone-component.adoc[OpenStack Keystone component], URI syntax: `openstack-keystone:host`
+* xref:{cq-camel-components}::openstack-neutron-component.adoc[OpenStack Neutron component], URI syntax: `openstack-neutron:host`
+* xref:{cq-camel-components}::openstack-nova-component.adoc[OpenStack Nova component], URI syntax: `openstack-nova:host`
+* xref:{cq-camel-components}::openstack-swift-component.adoc[OpenStack Swift component], URI syntax: `openstack-swift:host`
 
 Please refer to the above links for usage and configuration details.
 

@@ -16,7 +16,7 @@ Validate XML against a RelaxNG schema (XML Syntax or Compact Syntax) using Jing 
 
 == What's inside
 
-* xref:latest@components::jing-component.adoc[Jing component], URI syntax: `jing:resourceUri`
+* xref:{cq-camel-components}::jing-component.adoc[Jing component], URI syntax: `jing:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

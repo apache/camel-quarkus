@@ -17,7 +17,7 @@ Socket level networking using TCP or UDP with the Netty 4.x.
 
 == What's inside
 
-* xref:latest@components::netty-component.adoc[Netty component], URI syntax: `netty:protocol:host:port`
+* xref:{cq-camel-components}::netty-component.adoc[Netty component], URI syntax: `netty:protocol:host:port`
 
 Please refer to the above link for usage and configuration details.
 

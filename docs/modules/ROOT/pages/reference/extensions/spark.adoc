@@ -16,7 +16,7 @@ Send RDD or DataFrame jobs to Apache Spark clusters.
 
 == What's inside
 
-* xref:latest@components::spark-component.adoc[Spark component], URI syntax: `spark:endpointType`
+* xref:{cq-camel-components}::spark-component.adoc[Spark component], URI syntax: `spark:endpointType`
 
 Please refer to the above link for usage and configuration details.
 

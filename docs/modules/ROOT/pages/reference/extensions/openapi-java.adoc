@@ -17,7 +17,7 @@ Rest-dsl support for using OpenAPI doc
 
 == What's inside
 
-* xref:latest@components:others:openapi-java.adoc[Openapi Java]
+* xref:{cq-camel-components}:others:openapi-java.adoc[Openapi Java]
 
 Please refer to the above link for usage and configuration details.
 

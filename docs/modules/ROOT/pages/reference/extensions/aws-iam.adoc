@@ -17,7 +17,7 @@ Manage AWS IAM instances.
 
 == What's inside
 
-* xref:latest@components::aws-iam-component.adoc[AWS Identity and Access Management (IAM) component], URI syntax: `aws-iam:label`
+* xref:{cq-camel-components}::aws-iam-component.adoc[AWS Identity and Access Management (IAM) component], URI syntax: `aws-iam:label`
 
 Please refer to the above link for usage and configuration details.
 

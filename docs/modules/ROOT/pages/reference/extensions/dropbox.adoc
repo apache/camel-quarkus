@@ -16,7 +16,7 @@ Upload, download and manage files, folders, groups, collaborations, etc on Dropb
 
 == What's inside
 
-* xref:latest@components::dropbox-component.adoc[Dropbox component], URI syntax: `dropbox:operation`
+* xref:{cq-camel-components}::dropbox-component.adoc[Dropbox component], URI syntax: `dropbox:operation`
 
 Please refer to the above link for usage and configuration details.
 

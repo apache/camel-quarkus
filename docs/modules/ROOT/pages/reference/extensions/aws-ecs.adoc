@@ -17,7 +17,7 @@ Manage AWS ECS cluster instances.
 
 == What's inside
 
-* xref:latest@components::aws-ecs-component.adoc[AWS Elastic Container Service (ECS) component], URI syntax: `aws-ecs:label`
+* xref:{cq-camel-components}::aws-ecs-component.adoc[AWS Elastic Container Service (ECS) component], URI syntax: `aws-ecs:label`
 
 Please refer to the above link for usage and configuration details.
 

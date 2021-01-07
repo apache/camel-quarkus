@@ -17,7 +17,7 @@ Create, modify or extract content from PDF documents.
 
 == What's inside
 
-* xref:latest@components::pdf-component.adoc[PDF component], URI syntax: `pdf:operation`
+* xref:{cq-camel-components}::pdf-component.adoc[PDF component], URI syntax: `pdf:operation`
 
 Please refer to the above link for usage and configuration details.
 

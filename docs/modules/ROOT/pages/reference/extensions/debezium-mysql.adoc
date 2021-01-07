@@ -17,7 +17,7 @@ Capture changes from a MySQL database.
 
 == What's inside
 
-* xref:latest@components::debezium-mysql-component.adoc[Debezium MySQL Connector component], URI syntax: `debezium-mysql:name`
+* xref:{cq-camel-components}::debezium-mysql-component.adoc[Debezium MySQL Connector component], URI syntax: `debezium-mysql:name`
 
 Please refer to the above link for usage and configuration details.
 

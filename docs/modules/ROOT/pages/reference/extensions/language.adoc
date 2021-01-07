@@ -16,7 +16,7 @@ Execute scripts in any of the languages supported by Camel.
 
 == What's inside
 
-* xref:latest@components::language-component.adoc[Language component], URI syntax: `language:languageName:resourceUri`
+* xref:{cq-camel-components}::language-component.adoc[Language component], URI syntax: `language:languageName:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

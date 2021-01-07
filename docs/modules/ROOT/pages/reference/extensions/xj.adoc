@@ -16,7 +16,7 @@ Transform JSON and XML message using a XSLT.
 
 == What's inside
 
-* xref:latest@components::xj-component.adoc[XJ component], URI syntax: `xj:resourceUri`
+* xref:{cq-camel-components}::xj-component.adoc[XJ component], URI syntax: `xj:resourceUri`
 
 Please refer to the above link for usage and configuration details.
 

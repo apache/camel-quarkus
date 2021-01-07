@@ -17,7 +17,7 @@ Sent and receive messages to/from a JMS Queue or Topic.
 
 == What's inside
 
-* xref:latest@components::jms-component.adoc[JMS component], URI syntax: `jms:destinationType:destinationName`
+* xref:{cq-camel-components}::jms-component.adoc[JMS component], URI syntax: `jms:destinationType:destinationName`
 
 Please refer to the above link for usage and configuration details.
 

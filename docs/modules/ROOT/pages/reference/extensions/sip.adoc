@@ -16,8 +16,8 @@ Send and receive messages using the SIP protocol (used in telecommunications).
 
 == What's inside
 
-* xref:latest@components::sip-component.adoc[SIP component], URI syntax: `sip:uri`
-* xref:latest@components::sip-component.adoc[SIP (Secure) component], URI syntax: `sips:uri`
+* xref:{cq-camel-components}::sip-component.adoc[SIP component], URI syntax: `sip:uri`
+* xref:{cq-camel-components}::sip-component.adoc[SIP (Secure) component], URI syntax: `sips:uri`
 
 Please refer to the above links for usage and configuration details.
 

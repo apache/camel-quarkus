@@ -17,7 +17,7 @@ Tokenize XML payloads using the specified path expression.
 
 == What's inside
 
-* xref:latest@components:languages:xtokenize-language.adoc[XML Tokenize language]
+* xref:{cq-camel-components}:languages:xtokenize-language.adoc[XML Tokenize language]
 
 Please refer to the above link for usage and configuration details.
 

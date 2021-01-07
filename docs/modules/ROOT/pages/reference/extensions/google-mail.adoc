@@ -17,8 +17,8 @@ Manage messages in Google Mail. Poll for incoming messages in Google Mail.
 
 == What's inside
 
-* xref:latest@components::google-mail-component.adoc[Google Mail component], URI syntax: `google-mail:apiName/methodName`
-* xref:latest@components::google-mail-stream-component.adoc[Google Mail Stream component], URI syntax: `google-mail-stream:index`
+* xref:{cq-camel-components}::google-mail-component.adoc[Google Mail component], URI syntax: `google-mail:apiName/methodName`
+* xref:{cq-camel-components}::google-mail-stream-component.adoc[Google Mail Stream component], URI syntax: `google-mail-stream:index`
 
 Please refer to the above links for usage and configuration details.
 

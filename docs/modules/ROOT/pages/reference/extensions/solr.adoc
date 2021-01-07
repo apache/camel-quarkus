@@ -16,9 +16,9 @@ Perform operations against Apache Lucene Solr.
 
 == What's inside
 
-* xref:latest@components::solr-component.adoc[Solr component], URI syntax: `solr:url`
-* xref:latest@components::solr-component.adoc[Solr component], URI syntax: `solrCloud:url`
-* xref:latest@components::solr-component.adoc[Solr (Secure) component], URI syntax: `solrs:url`
+* xref:{cq-camel-components}::solr-component.adoc[Solr component], URI syntax: `solr:url`
+* xref:{cq-camel-components}::solr-component.adoc[Solr component], URI syntax: `solrCloud:url`
+* xref:{cq-camel-components}::solr-component.adoc[Solr (Secure) component], URI syntax: `solrs:url`
 
 Please refer to the above links for usage and configuration details.
 

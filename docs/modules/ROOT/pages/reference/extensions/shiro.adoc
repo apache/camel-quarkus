@@ -16,7 +16,7 @@ Security using Shiro
 
 == What's inside
 
-* xref:latest@components:others:shiro.adoc[Shiro]
+* xref:{cq-camel-components}:others:shiro.adoc[Shiro]
 
 Please refer to the above link for usage and configuration details.
 

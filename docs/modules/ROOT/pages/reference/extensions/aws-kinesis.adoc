@@ -17,8 +17,8 @@ Consume and produce records from AWS Kinesis Streams and AWS Kinesis Firehose st
 
 == What's inside
 
-* xref:latest@components::aws-kinesis-component.adoc[AWS Kinesis component], URI syntax: `aws-kinesis:streamName`
-* xref:latest@components::aws-kinesis-firehose-component.adoc[AWS Kinesis Firehose component], URI syntax: `aws-kinesis-firehose:streamName`
+* xref:{cq-camel-components}::aws-kinesis-component.adoc[AWS Kinesis component], URI syntax: `aws-kinesis:streamName`
+* xref:{cq-camel-components}::aws-kinesis-firehose-component.adoc[AWS Kinesis Firehose component], URI syntax: `aws-kinesis-firehose:streamName`
 
 Please refer to the above links for usage and configuration details.
 

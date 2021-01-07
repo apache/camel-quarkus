@@ -17,7 +17,7 @@ Send and receive messages to/from PubNub data stream network for connected devic
 
 == What's inside
 
-* xref:latest@components::pubnub-component.adoc[PubNub component], URI syntax: `pubnub:channel`
+* xref:{cq-camel-components}::pubnub-component.adoc[PubNub component], URI syntax: `pubnub:channel`
 
 Please refer to the above link for usage and configuration details.
 

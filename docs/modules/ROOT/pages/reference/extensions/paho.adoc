@@ -17,7 +17,7 @@ Communicate with MQTT message brokers using Eclipse Paho MQTT Client.
 
 == What's inside
 
-* xref:latest@components::paho-component.adoc[Paho component], URI syntax: `paho:topic`
+* xref:{cq-camel-components}::paho-component.adoc[Paho component], URI syntax: `paho:topic`
 
 Please refer to the above link for usage and configuration details.
 

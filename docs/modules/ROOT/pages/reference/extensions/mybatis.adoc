@@ -16,8 +16,8 @@ Performs a query, poll, insert, update or delete in a relational database using 
 
 == What's inside
 
-* xref:latest@components::mybatis-component.adoc[MyBatis component], URI syntax: `mybatis:statement`
-* xref:latest@components::mybatis-bean-component.adoc[MyBatis Bean component], URI syntax: `mybatis-bean:beanName:methodName`
+* xref:{cq-camel-components}::mybatis-component.adoc[MyBatis component], URI syntax: `mybatis:statement`
+* xref:{cq-camel-components}::mybatis-bean-component.adoc[MyBatis Bean component], URI syntax: `mybatis-bean:beanName:methodName`
 
 Please refer to the above links for usage and configuration details.
 

@@ -17,7 +17,7 @@ Read from system-in and write to system-out and system-err streams.
 
 == What's inside
 
-* xref:latest@components::stream-component.adoc[Stream component], URI syntax: `stream:kind`
+* xref:{cq-camel-components}::stream-component.adoc[Stream component], URI syntax: `stream:kind`
 
 Please refer to the above link for usage and configuration details.
 

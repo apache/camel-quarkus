@@ -17,7 +17,7 @@ Evaluate a JsonPath expression against a JSON message body.
 
 == What's inside
 
-* xref:latest@components:languages:jsonpath-language.adoc[JsonPath language]
+* xref:{cq-camel-components}:languages:jsonpath-language.adoc[JsonPath language]
 
 Please refer to the above link for usage and configuration details.
 

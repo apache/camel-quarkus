@@ -17,7 +17,7 @@ Access databases through SQL and JDBC.
 
 == What's inside
 
-* xref:latest@components::jdbc-component.adoc[JDBC component], URI syntax: `jdbc:dataSourceName`
+* xref:{cq-camel-components}::jdbc-component.adoc[JDBC component], URI syntax: `jdbc:dataSourceName`
 
 Please refer to the above link for usage and configuration details.
 

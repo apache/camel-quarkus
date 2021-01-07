@@ -17,7 +17,7 @@ Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on C
 
 == What's inside
 
-* xref:latest@components::cql-component.adoc[Cassandra CQL component], URI syntax: `cql:beanRef:hosts:port/keyspace`
+* xref:{cq-camel-components}::cql-component.adoc[Cassandra CQL component], URI syntax: `cql:beanRef:hosts:port/keyspace`
 
 Please refer to the above link for usage and configuration details.
 

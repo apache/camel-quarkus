@@ -17,7 +17,7 @@ Interact with ServiceNow via its REST API.
 
 == What's inside
 
-* xref:latest@components::servicenow-component.adoc[ServiceNow component], URI syntax: `servicenow:instanceName`
+* xref:{cq-camel-components}::servicenow-component.adoc[ServiceNow component], URI syntax: `servicenow:instanceName`
 
 Please refer to the above link for usage and configuration details.
 

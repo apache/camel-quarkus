@@ -16,7 +16,7 @@ Manage Zendesk tickets, users, organizations, etc.
 
 == What's inside
 
-* xref:latest@components::zendesk-component.adoc[Zendesk component], URI syntax: `zendesk:methodName`
+* xref:{cq-camel-components}::zendesk-component.adoc[Zendesk component], URI syntax: `zendesk:methodName`
 
 Please refer to the above link for usage and configuration details.
 

@@ -16,7 +16,7 @@ Send and rececive messages to/from STOMP (Simple Text Oriented Messaging Protoco
 
 == What's inside
 
-* xref:latest@components::stomp-component.adoc[Stomp component], URI syntax: `stomp:destination`
+* xref:{cq-camel-components}::stomp-component.adoc[Stomp component], URI syntax: `stomp:destination`
 
 Please refer to the above link for usage and configuration details.
 

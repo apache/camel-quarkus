@@ -16,7 +16,7 @@ Integract with EMC's ViPR object data services using the Atmos Client.
 
 == What's inside
 
-* xref:latest@components::atmos-component.adoc[Atmos component], URI syntax: `atmos:name/operation`
+* xref:{cq-camel-components}::atmos-component.adoc[Atmos component], URI syntax: `atmos:name/operation`
 
 Please refer to the above link for usage and configuration details.
 

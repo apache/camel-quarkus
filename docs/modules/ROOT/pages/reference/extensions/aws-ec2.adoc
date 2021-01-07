@@ -17,7 +17,7 @@ Manage AWS EC2 instances.
 
 == What's inside
 
-* xref:latest@components::aws-ec2-component.adoc[AWS Elastic Compute Cloud (EC2) component], URI syntax: `aws-ec2:label`
+* xref:{cq-camel-components}::aws-ec2-component.adoc[AWS Elastic Compute Cloud (EC2) component], URI syntax: `aws-ec2:label`
 
 Please refer to the above link for usage and configuration details.
 

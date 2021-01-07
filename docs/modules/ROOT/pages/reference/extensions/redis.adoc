@@ -16,7 +16,7 @@ Aggregation repository using Redis as datastore
 
 == What's inside
 
-* xref:latest@components:others:redis.adoc[Redis]
+* xref:{cq-camel-components}:others:redis.adoc[Redis]
 
 Please refer to the above link for usage and configuration details.
 

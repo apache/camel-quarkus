@@ -17,7 +17,7 @@ Interact with MongoDB GridFS.
 
 == What's inside
 
-* xref:latest@components::mongodb-gridfs-component.adoc[MongoDB GridFS component], URI syntax: `mongodb-gridfs:connectionBean`
+* xref:{cq-camel-components}::mongodb-gridfs-component.adoc[MongoDB GridFS component], URI syntax: `mongodb-gridfs:connectionBean`
 
 Please refer to the above link for usage and configuration details.
 

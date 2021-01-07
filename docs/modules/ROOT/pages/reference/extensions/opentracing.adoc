@@ -17,7 +17,7 @@ Distributed tracing using OpenTracing
 
 == What's inside
 
-* xref:latest@components:others:opentracing.adoc[OpenTracing]
+* xref:{cq-camel-components}:others:opentracing.adoc[OpenTracing]
 
 Please refer to the above link for usage and configuration details.
 

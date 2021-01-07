@@ -16,7 +16,7 @@ Interact with the Yammer enterprise social network.
 
 == What's inside
 
-* xref:latest@components::yammer-component.adoc[Yammer component], URI syntax: `yammer:function`
+* xref:{cq-camel-components}::yammer-component.adoc[Yammer component], URI syntax: `yammer:function`
 
 Please refer to the above link for usage and configuration details.
 

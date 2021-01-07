@@ -17,7 +17,7 @@ ThreadPoolFactory for camel-core using Vert.x
 
 == What's inside
 
-* xref:latest@components:others:threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]
+* xref:{cq-camel-components}:others:threadpoolfactory-vertx.adoc[ThreadPoolFactory Vert.x]
 
 Please refer to the above link for usage and configuration details.
 

@@ -17,7 +17,7 @@ Communicate with Salesforce using Java DTOs.
 
 == What's inside
 
-* xref:latest@components::salesforce-component.adoc[Salesforce component], URI syntax: `salesforce:operationName:topicName`
+* xref:{cq-camel-components}::salesforce-component.adoc[Salesforce component], URI syntax: `salesforce:operationName:topicName`
 
 Please refer to the above link for usage and configuration details.
 
