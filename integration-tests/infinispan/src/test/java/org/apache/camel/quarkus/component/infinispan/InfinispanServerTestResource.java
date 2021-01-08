@@ -30,7 +30,7 @@ import static org.apache.camel.quarkus.testcontainers.ContainerSupport.getHostAn
 
 public class InfinispanServerTestResource implements ContainerResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanServerTestResource.class);
-    private static final String CONTAINER_IMAGE = "docker.io/infinispan/server:10.1.5.Final";
+    private static final String CONTAINER_IMAGE = "infinispan/server:10.1.5.Final";
     private static final int HOTROD_PORT = 11222;
     private static final String USER = "camel";
     private static final String PASS = "camel";

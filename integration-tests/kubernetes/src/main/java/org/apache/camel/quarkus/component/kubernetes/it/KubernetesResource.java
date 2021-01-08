@@ -92,7 +92,7 @@ public class KubernetesResource {
         PodSpec podSpec = new PodSpec();
 
         Container container = new Container();
-        container.setImage("docker.io/busybox:latest");
+        container.setImage("busybox:latest");
         container.setName(containerName);
 
         List<Container> containers = new ArrayList<>();
