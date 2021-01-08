@@ -79,7 +79,6 @@ foundation:
   - file
   - foundation
   - headersmap
-  - hystrix
   - jta
   - jsonpath
   - micrometer
