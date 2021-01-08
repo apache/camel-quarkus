@@ -39,7 +39,7 @@ public class KubernetesTest {
     @Test
     public void testKubernetesComponent() {
         Container container = new Container();
-        container.setImage("docker.io/busybox:latest");
+        container.setImage("busybox:latest");
         container.setName("camel-pod");
 
         Pod pod = new PodBuilder()
