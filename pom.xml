@@ -41,7 +41,7 @@
         <ahc.version>${ahc-version}</ahc.version>
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
-        <avro-ipc-version>1.10.0</avro-ipc-version>
+        <avro.version>${avro-version}</avro.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
         <camel.version>3.7.0</camel.version>
