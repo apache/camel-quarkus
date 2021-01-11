@@ -23,6 +23,7 @@ on:
 
 jobs:
   cancel-runs:
+    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     steps:
       - uses: potiuk/cancel-workflow-runs@v4_7
