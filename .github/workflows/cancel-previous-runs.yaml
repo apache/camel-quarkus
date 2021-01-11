@@ -17,17 +17,16 @@
 
 name: Cancel Stale Workflow Runs
 on:
-  schedule:
-    # Run every 30 minutes
-    - cron:  '*/30 * * * *'
+  workflow_run:
+    workflows: ['Camel Quarkus CI', 'Validate PR Style']
+    types: ['requested']
 
 jobs:
   cancel-runs:
-    if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     steps:
-      - name: Cancel Previous Runs
-        uses: n1hility/cancel-previous-runs@v2
+      - uses: potiuk/cancel-workflow-runs@v4_7
+        name: "Cancel Previous Runs"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: ci-build.yaml
+          sourceRunId: ${{ github.event.workflow_run.id }}
