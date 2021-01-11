@@ -115,6 +115,7 @@ messaging-networking1:
   - rabbitmq
   - ftp
   - graphql
+  - vertx-kafka
   - vertx-websocket
 misc:
   - braintree
