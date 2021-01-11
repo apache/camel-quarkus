@@ -17,11 +17,11 @@
 
 package org.apache.camel.quarkus.component.debezium.common.it.mongodb;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTestResource;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.apache.commons.io.IOUtils;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.Container;
 import org.testcontainers.containers.GenericContainer;
@@ -62,7 +62,7 @@ public class DebeziumMongodbTestResource extends AbstractDebeziumTestResource<Ge
     }
 
     private void execScriptInContainer(String script) throws Exception {
-        String cmd = new String(Files.readAllBytes(Paths.get(getClass().getResource("/" + script).toURI())));
+        String cmd = IOUtils.toString(getClass().getResource("/" + script), StandardCharsets.UTF_8);
         String[] cmds = cmd.split("\\n\\n");
 
         for (int i = 0; i < cmds.length; i++) {
