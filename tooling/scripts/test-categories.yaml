@@ -20,6 +20,7 @@ cache-networking3:
   - avro-rpc
   - git
   - infinispan
+  - infinispan-properties
   - caffeine
   - http
   - jsch

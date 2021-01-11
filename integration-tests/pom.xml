@@ -114,6 +114,7 @@
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
+        <module>infinispan-properties</module>
         <module>influxdb</module>
         <module>ipfs</module>
         <module>jaxb</module>
