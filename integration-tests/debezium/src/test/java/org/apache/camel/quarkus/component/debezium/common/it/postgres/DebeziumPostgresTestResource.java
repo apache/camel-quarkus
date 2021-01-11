@@ -36,7 +36,7 @@ public class DebeziumPostgresTestResource extends AbstractDebeziumTestResource<P
 
     @Override
     protected PostgreSQLContainer createContainer() {
-        DockerImageName imageName = DockerImageName.parse(POSTGRES_IMAGE)
+        DockerImageName imageName = new DockerImageName(POSTGRES_IMAGE)
                 .asCompatibleSubstituteFor("postgres");
         return new PostgreSQLContainer<>(imageName)
                 .withUsername(DB_USERNAME)
