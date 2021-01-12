@@ -28,7 +28,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class CamelKafkaTestResource implements ContainerResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelKafkaTestResource.class);
-    private static final String CONFLUENT_PLATFORM_VERSION = "5.3.1";
+    private static final String CONFLUENT_PLATFORM_VERSION = "5.4.3";
 
     private KafkaContainer container;
 
