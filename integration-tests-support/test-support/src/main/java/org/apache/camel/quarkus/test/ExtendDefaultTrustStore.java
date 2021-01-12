@@ -58,8 +58,9 @@ public class ExtendDefaultTrustStore {
                 final int colonPos = cert.indexOf(':');
                 final String alias = colonPos >= 0 ? cert.substring(0, colonPos) : "localhost";
                 final String certPath = colonPos >= 0 ? cert.substring(colonPos + 1) : cert;
-                try (InputStream in = ExtendDefaultTrustStore.class.getClassLoader().getResourceAsStream(certPath)) {
-                    final X509Certificate ca = (X509Certificate) cf.generateCertificate(new BufferedInputStream(in));
+                try (InputStream in = new BufferedInputStream(
+                        ExtendDefaultTrustStore.class.getClassLoader().getResourceAsStream(certPath))) {
+                    final X509Certificate ca = (X509Certificate) cf.generateCertificate(in);
                     keystore.setCertificateEntry(alias, ca);
                 }
             }
@@ -81,7 +82,7 @@ public class ExtendDefaultTrustStore {
             System.arraycopy(args, 1, certs, 0, args.length - 1);
             extendTrustStoreIfNeeded(baseDir, certs);
         } catch (Exception e) {
-            new Exception("Could not extend the default trust store with args " + String.join(", ", args), e).printStackTrace();
+            throw new RuntimeException("Could not extend the default trust store with args " + String.join(", ", args), e);
         }
     }
 }
