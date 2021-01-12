@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.Arrays;
 
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
@@ -30,6 +31,7 @@ import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastQueueResource.class)
+@QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastQueueTest {
     @Test
     public void testQueue() {
