@@ -32,24 +32,37 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.microsoft.azure.storage.StorageCredentials;
+import com.microsoft.azure.storage.StorageCredentialsAccountAndKey;
 import com.microsoft.azure.storage.queue.CloudQueue;
 import com.microsoft.azure.storage.queue.CloudQueueMessage;
+import io.quarkus.arc.Unremovable;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/azure")
 @ApplicationScoped
 public class AzureQueueResource {
 
-    private static final String QUEUE_NAME = UUID.randomUUID().toString();
+    private static final String QUEUE_NAME = "camel-quarkus-" + UUID.randomUUID().toString();
 
     @Inject
     ProducerTemplate producerTemplate;
 
+    @ConfigProperty(name = "camel.component.azure-blob.credentials-account-name")
+    String azureStorageAccountName;
+
+    @ConfigProperty(name = "camel.component.azure-blob.credentials-account-key")
+    String azureStorageAccountKey;
+
+    @ConfigProperty(name = "azure.queue.service.url")
+    String azureQueueServiceUrl;
+
     @javax.enterprise.inject.Produces
     @Named("azureQueueClient")
+    @Unremovable
     public CloudQueue createQueueClient() throws Exception {
-        StorageCredentials credentials = StorageCredentials.tryParseCredentials(System.getProperty("azurite.credentials"));
-        URI uri = new URI(System.getProperty("azurite.queue.service.url") + QUEUE_NAME);
+        URI uri = new URI(azureQueueServiceUrl + "/" + QUEUE_NAME);
+        StorageCredentials credentials = new StorageCredentialsAccountAndKey(azureStorageAccountName, azureStorageAccountKey);
         return new CloudQueue(uri, credentials);
     }
 
@@ -57,7 +70,7 @@ public class AzureQueueResource {
     @POST
     public Response createQueue() throws Exception {
         producerTemplate.sendBody(
-                "azure-queue://devstoreaccount1/" + QUEUE_NAME
+                "azure-queue://" + azureStorageAccountName + "/" + QUEUE_NAME
                         + "?operation=createQueue&azureQueueClient=#azureQueueClient&validateClientURI=false",
                 null);
         return Response.created(new URI("https://camel.apache.org/")).build();
@@ -68,7 +81,7 @@ public class AzureQueueResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String retrieveMessage() throws Exception {
         CloudQueueMessage message = producerTemplate.requestBody(
-                "azure-queue://devstoreaccount1/" + QUEUE_NAME
+                "azure-queue://" + azureStorageAccountName + "/" + QUEUE_NAME
                         + "?operation=retrieveMessage&azureQueueClient=#azureQueueClient&validateClientURI=false",
                 null, CloudQueueMessage.class);
         return message.getMessageContentAsString();
@@ -79,7 +92,7 @@ public class AzureQueueResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response addMessage(String message) throws Exception {
         producerTemplate.sendBody(
-                "azure-queue://devstoreaccount1/" + QUEUE_NAME
+                "azure-queue://" + azureStorageAccountName + "/" + QUEUE_NAME
                         + "?operation=addMessage&azureQueueClient=#azureQueueClient&validateClientURI=false",
                 message);
         return Response.created(new URI("https://camel.apache.org/")).build();
@@ -89,7 +102,7 @@ public class AzureQueueResource {
     @DELETE
     public Response deleteQueue() throws Exception {
         producerTemplate.sendBody(
-                "azure-queue://devstoreaccount1/" + QUEUE_NAME
+                "azure-queue://" + azureStorageAccountName + "/" + QUEUE_NAME
                         + "?operation=deleteQueue&azureQueueClient=#azureQueueClient&validateClientURI=false",
                 null);
         return Response.noContent().build();

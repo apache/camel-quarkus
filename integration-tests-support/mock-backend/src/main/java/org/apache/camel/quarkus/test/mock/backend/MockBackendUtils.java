@@ -28,10 +28,18 @@ public class MockBackendUtils {
 
     public static void logBackendUsed() {
         if (startMockBackend) {
-            LOG.infof("Mock backend will be used");
+            logMockBackendUsed();
         } else {
-            LOG.infof("Real backend will be used");
+            logRealBackendUsed();
         }
+    }
+
+    public static void logRealBackendUsed() {
+        LOG.infof("Real backend will be used");
+    }
+
+    public static void logMockBackendUsed() {
+        LOG.infof("Mock backend will be used");
     }
 
     public static boolean startMockBackend() {

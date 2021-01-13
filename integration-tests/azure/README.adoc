@@ -1,0 +1,16 @@
+== Camel Quarkus Azure (deprecated client v8) integration tests
+
+By default the integration tests run against a local https://github.com/Azure/Azurite[Azurite] container.
+
+To run the tests against the real remote Azure API, you need the following:
+
+* A https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal[general-purpose v2 Azure storage account]
+* View the https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal#view-account-access-keys[account keys] and set the following environment variables:
++
+[source,shell]
+----
+export AZURE_STORAGE_ACCOUNT_NAME=my-account-name
+export AZURE_STORAGE_ACCOUNT_KEY=my-account-key
+----
+
+You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting he the local Azurite container and make sure that you test against the real remote Azure API.
