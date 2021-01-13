@@ -182,6 +182,10 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin master
           git rebase $(cat ~/build-data/master-sha.txt)
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
       - name: Report build status
         id: report
         run: |
