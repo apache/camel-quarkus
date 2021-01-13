@@ -2,7 +2,10 @@
 
 By default the Geocoder integration tests use WireMock to stub the API interactions.
 
-To run `camel-quarkus-geocoder` integration tests using google maps service, you will need a google cloud https://developers.google.com/maps/documentation/javascript/get-api-key[API key].
+To run `camel-quarkus-geocoder` integration tests using google maps service, you will need a Google Cloud https://developers.google.com/maps/documentation/javascript/get-api-key[API key].
+
+You must also ensure that the Geolocation API & Geocoding API services are enabled. You can do this from the developer console by navigating to `Google Maps -> APIs`. Since these are not free services, 
+your Google Cloud project must have an associated billing account.
 
 Then set the following environment variable:
 
