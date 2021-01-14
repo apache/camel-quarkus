@@ -98,7 +98,7 @@ xml-json-olingo4:
   - geocoder
   - lumberjack
   - optaplanner
-dozer-social:
+dozer-social-azure:
   - crypto
   - dozer
   - telegram
@@ -107,6 +107,7 @@ dozer-social:
   - syndication
   - zendesk
   - csimple
+  - azure-storage-blob
 messaging-networking1:
   - activemq
   - amqp

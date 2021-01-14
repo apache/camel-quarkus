@@ -43,7 +43,6 @@
         <module>aws-xray</module>
         <module>aws2-eventbridge</module>
         <module>aws2-kinesis</module>
-        <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
         <module>barcode</module>
         <module>beanio</module>

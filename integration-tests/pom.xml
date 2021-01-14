@@ -69,6 +69,7 @@
         <module>aws</module>
         <module>aws2</module>
         <module>azure</module>
+        <module>azure-storage-blob</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
