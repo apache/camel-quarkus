@@ -95,7 +95,7 @@
         <quarkus.version>1.11.0.Final</quarkus.version>
         <quarkus-google-cloud.version>0.3.0</quarkus-google-cloud.version>
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
-        <quarkus-qpid-jms.version>0.21.0</quarkus-qpid-jms.version>
+        <quarkus-qpid-jms.version>0.22.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
