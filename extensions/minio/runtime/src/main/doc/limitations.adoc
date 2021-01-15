@@ -1,7 +1,0 @@
-This extension leverages the Quarkiverse Minio. Standard application.properties mechanism is used to define connection (see http://github.com/quarkiverse/quarkiverse-minio#configuration-reference[documentation]).
-
-It is mandatory to configure the Minio client in properties and Camel will autowire client into the Minio component.
-Configuration via application.properties allows definition of only one minio client, therefore it isn't possible to define several different minio endpoints, which run together.
-
-Please upvote https://github.com/quarkiverse/quarkiverse-minio/issues/22[this issue]
-if you do not like the present state.

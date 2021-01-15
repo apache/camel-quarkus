@@ -16,10 +16,19 @@
  */
 package org.apache.camel.quarkus.component.minio.it;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
+import io.minio.MinioClient;
+import io.minio.PutObjectArgs;
+import io.minio.errors.MinioException;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -39,8 +48,11 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 @QuarkusTestResource(MinioTestResource.class)
 class MinioTest {
+    private static final long PART_SIZE = 50 * 1024 * 1024;
 
     private final String BUCKET_NAME = "mycamel";
+
+    private MinioClient minioClient;
 
     @Test
     public void testConsumer() throws Exception {
@@ -154,22 +166,25 @@ class MinioTest {
     }
 
     private void initClient(String bucketName) throws Exception {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(bucketName)
-                .post("/minio/initBucket")
-                .then()
-                .statusCode(204);
+        if (minioClient == null) {
+            minioClient = new MinioClientProducer().produceMinioClient();
+        }
+        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
+        }
     }
 
     private void sendViaClient(String content, String objectName) {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .queryParam(MinioConstants.OBJECT_NAME, objectName)
-                .queryParam(MinioConstants.BUCKET_NAME, BUCKET_NAME)
-                .body(content)
-                .post("/minio/putObject")
-                .then()
-                .statusCode(204);
+        try (InputStream is = new ByteArrayInputStream((content.getBytes()))) {
+            minioClient.putObject(
+                    PutObjectArgs.builder()
+                            .bucket(BUCKET_NAME)
+                            .object(objectName)
+                            .contentType("text/xml")
+                            .stream(is, -1, PART_SIZE)
+                            .build());
+        } catch (MinioException | GeneralSecurityException | IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }
