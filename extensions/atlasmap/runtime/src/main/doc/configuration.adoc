@@ -1,0 +1,15 @@
+Note that you can perform mapping for these types of data:
+
+* Java
+* XML
+* Json
+* CSV
+
+The _ADM archive file_ or _mapping definition JSON file_ used in the _AtlasMap route_ should be located in the _resources_ repository.
+In native mode, include this file for native build. Example:
+[source,properties]
+----
+quarkus.native.resources.includes = mapping/atlas-mapping.json
+----
+
+You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/atlasmap[integration test] in our source tree as an example.

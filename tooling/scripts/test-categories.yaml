@@ -146,6 +146,7 @@ misc:
   - kotlin
   - disruptor
 networking2-dataformats:
+  - atlasmap
   - mail
   - netty
   - nsq

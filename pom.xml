@@ -475,6 +475,7 @@
                         <header>header.txt</header>
                         <excludes>
                             <exclude>**/*.adoc</exclude>
+                            <exclude>**/*.adm</exclude>
                             <exclude>**/*.avsc</exclude>
                             <exclude>**/*.avpr</exclude>
                             <exclude>**/*.bin</exclude>

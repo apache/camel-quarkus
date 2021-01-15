@@ -1,0 +1,93 @@
+{
+  "AtlasMapping": {
+    "jsonType": "io.atlasmap.v2.AtlasMapping",
+    "dataSource": [
+      {
+        "jsonType": "io.atlasmap.v2.DataSource",
+        "id": "org.apache.camel.quarkus.component.atlasmap.it.model.Person",
+        "uri": "atlas:java?className=org.apache.camel.quarkus.component.atlasmap.it.model.Person",
+        "dataSourceType": "SOURCE"
+      },
+      {
+        "jsonType": "io.atlasmap.json.v2.JsonDataSource",
+        "id": "Contact",
+        "uri": "atlas:json:Contact",
+        "dataSourceType": "TARGET",
+        "template": null
+      }
+    ],
+    "mappings": {
+      "mapping": [
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "firstName",
+              "path": "/firstName",
+              "fieldType": "STRING",
+              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "name1",
+              "path": "/name1",
+              "fieldType": "STRING",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "lastName",
+              "path": "/lastName",
+              "fieldType": "STRING",
+              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "name2",
+              "path": "/name2",
+              "fieldType": "STRING",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "INTEGER",
+              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
+            }
+          ], "outputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "INTEGER",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ]
+        }
+      ]
+    },
+    "name": "java2json"
+  }
+}

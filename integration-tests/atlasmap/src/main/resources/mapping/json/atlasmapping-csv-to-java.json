@@ -1,0 +1,90 @@
+{
+  "AtlasMapping": {
+    "jsonType": "io.atlasmap.v2.AtlasMapping",
+    "dataSource": [
+      {
+        "jsonType": "io.atlasmap.csv.v2.CsvDataSource",
+        "id": "target-csv",
+        "uri": "atlas:csv:target-csv?firstRecordAsHeader=true",
+        "dataSourceType": "SOURCE"
+      },
+      {
+        "jsonType": "io.atlasmap.v2.DataSource",
+        "id": "Person",
+        "uri": "atlas:java?className=org.apache.camel.quarkus.component.atlasmap.it.model.Person",
+        "dataSourceType": "TARGET"
+      }
+    ],
+    "mappings": {
+      "mapping": [
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "firstName",
+              "path": "/<>/firstName",
+              "fieldType": "STRING",
+              "docId": "target-csv"
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "firstName",
+              "path": "/firstName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "lastName",
+              "path": "/<>/lastName",
+              "fieldType": "STRING",
+              "docId": "target-csv"
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "lastName",
+              "path": "/lastName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "age",
+              "path": "/<>/age",
+              "fieldType": "STRING",
+              "docId": "target-csv"
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "INTEGER",
+              "docId": "Person"
+            }
+          ]
+        }
+      ]
+    },
+    "name": "csv2java"
+  }
+}

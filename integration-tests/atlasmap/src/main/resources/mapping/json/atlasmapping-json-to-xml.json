@@ -1,0 +1,59 @@
+{
+  "AtlasMapping": {
+    "dataSource": [
+      {
+        "jsonType": "io.atlasmap.json.v2.JsonDataSource",
+        "id": "Contact",
+        "uri": "atlas:json:Json",
+        "dataSourceType": "SOURCE",
+        "template": null
+      },
+      {
+        "dataSourceType": "TARGET",
+        "id": "-LO2lU-dzmk816-JEluS",
+        "jsonType": "io.atlasmap.xml.v2.XmlDataSource",
+        "uri": "atlas:xml:-LO2lU-dzmk816-JEluS",
+        "xmlNamespaces": {
+          "xmlNamespace": [
+            {
+              "alias": "tns",
+              "targetNamespace": true,
+              "uri": "http://hl7.org/fhir"
+            }
+          ]
+        }
+      }
+    ],
+    "jsonType": "io.atlasmap.v2.AtlasMapping",
+    "mappings": {
+      "mapping": [
+        {
+          "id": "mapping.431884",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "id",
+              "path": "/id",
+              "fieldType": "STRING",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ],
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "outputField": [
+            {
+              "docId": "-LO2lU-dzmk816-JEluS",
+              "fieldType": "STRING",
+              "jsonType": "io.atlasmap.xml.v2.XmlField",
+              "name": "value",
+              "path": "/tns:Person/tns:id/@value",
+              "userCreated": false
+            }
+          ]
+        }
+      ]
+    },
+    "name": "json2xml"
+  }
+}
