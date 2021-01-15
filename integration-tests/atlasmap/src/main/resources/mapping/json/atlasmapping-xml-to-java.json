@@ -1,0 +1,101 @@
+{
+  "AtlasMapping": {
+    "jsonType": "io.atlasmap.v2.AtlasMapping",
+    "dataSource": [
+      {
+        "dataSourceType": "SOURCE",
+        "id": "-LO2lWtkzmk816-JEluS",
+        "jsonType": "io.atlasmap.xml.v2.XmlDataSource",
+        "uri": "atlas:xml:-LO2lWtkzmk816-JEluS",
+        "xmlNamespaces": {
+          "xmlNamespace": [
+            {
+              "alias": "tns",
+              "uri": "http://hl7.org/fhir"
+            }
+          ]
+        }
+      },
+      {
+        "jsonType": "io.atlasmap.v2.DataSource",
+        "id": "Person",
+        "uri": "atlas:java?className=org.apache.camel.quarkus.component.atlasmap.it.model.Person",
+        "dataSourceType": "TARGET"
+      }
+    ],
+    "mappings": {
+      "mapping": [
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "docId": "-LO2lWtkzmk816-JEluS",
+              "fieldType": "STRING",
+              "jsonType": "io.atlasmap.xml.v2.XmlField",
+              "name": "value",
+              "path": "/tns:Person/tns:firstName/@value",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "firstName",
+              "path": "/firstName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "docId": "-LO2lWtkzmk816-JEluS",
+              "fieldType": "STRING",
+              "jsonType": "io.atlasmap.xml.v2.XmlField",
+              "name": "value",
+              "path": "/tns:Person/tns:lastName/@value",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "lastName",
+              "path": "/lastName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "docId": "-LO2lWtkzmk816-JEluS",
+              "fieldType": "STRING",
+              "jsonType": "io.atlasmap.xml.v2.XmlField",
+              "name": "value",
+              "path": "/tns:Person/tns:age/@value",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.java.v2.JavaField",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "INTEGER",
+              "docId": "Person"
+            }
+          ]
+        }
+      ]
+    },
+    "name": "xml2java"
+  }
+}

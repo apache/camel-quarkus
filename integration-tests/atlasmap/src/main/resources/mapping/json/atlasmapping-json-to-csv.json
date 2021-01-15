@@ -1,0 +1,94 @@
+{
+  "AtlasMapping": {
+    "jsonType": "io.atlasmap.v2.AtlasMapping",
+    "dataSource": [
+      {
+        "jsonType": "io.atlasmap.json.v2.JsonDataSource",
+        "id": "Contact",
+        "uri": "atlas:json:Json",
+        "dataSourceType": "SOURCE",
+        "template": null
+      },
+      {
+        "jsonType": "io.atlasmap.csv.v2.CsvDataSource",
+        "id": "Person",
+        "uri": "atlas:csv:Person",
+        "dataSourceType": "TARGET"
+      }
+    ],
+    "mappings": {
+      "mapping": [
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "name1",
+              "path": "/name1",
+              "fieldType": "STRING",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "firstName",
+              "path": "/firstName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "name2",
+              "path": "/name2",
+              "fieldType": "STRING",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "lastName",
+              "path": "/lastName",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        },
+        {
+          "jsonType": "io.atlasmap.v2.Mapping",
+          "mappingType": "MAP",
+          "inputField": [
+            {
+              "jsonType": "io.atlasmap.json.v2.JsonComplexType",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "INTEGER",
+              "docId": "Contact",
+              "userCreated": false
+            }
+          ],
+          "outputField": [
+            {
+              "jsonType": "io.atlasmap.csv.v2.CsvField",
+              "name": "age",
+              "path": "/age",
+              "fieldType": "STRING",
+              "docId": "Person"
+            }
+          ]
+        }
+      ]
+    },
+    "name": "json2csv"
+  }
+}
