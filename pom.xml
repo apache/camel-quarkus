@@ -131,7 +131,7 @@
         <zt-exec.version>1.11</zt-exec.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>0.26.0</cq-plugin.version>
+        <cq-plugin.version>0.27.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -729,10 +729,23 @@
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
                                     </sortDependencyManagementPaths>
-                                    <updateVirtualDependenciesDirs>
-                                        <updateVirtualDependenciesDir>examples</updateVirtualDependenciesDir>
-                                        <updateVirtualDependenciesDir>integration-tests</updateVirtualDependenciesDir>
-                                    </updateVirtualDependenciesDirs>
+                                    <updateVirtualDependencies>
+                                        <updateVirtualDependency>
+                                            <basedir>${project.basedir}</basedir>
+                                            <includes>
+                                                <include>extensions-jvm/*/integration-test/pom.xml</include>
+                                                <include>integration-tests/*/pom.xml</include>
+                                            </includes>
+                                        </updateVirtualDependency>
+                                    </updateVirtualDependencies>
+                                    <updateVirtualDependenciesAllExtensions>
+                                        <updateVirtualDependenciesAllExtension>
+                                            <basedir>${project.basedir}</basedir>
+                                            <includes>
+                                                <include>catalog/pom.xml</include>
+                                            </includes>
+                                        </updateVirtualDependenciesAllExtension>
+                                    </updateVirtualDependenciesAllExtensions>
                                     <extensionDirs>
                                         <extensionDir>
                                             <path>extensions</path>
