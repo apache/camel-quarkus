@@ -21,18 +21,17 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-azure-storage-blob-parent</artifactId>
+        <artifactId>camel-quarkus-support-reactor-netty-parent</artifactId>
         <version>1.7.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-azure-storage-blob</artifactId>
-    <name>Camel Quarkus :: Azure Storage Blob Service :: Runtime</name>
-    <description>Store and retrieve blobs from Azure Storage Blob Service using SDK v12.</description>
+    <artifactId>camel-quarkus-support-reactor-netty</artifactId>
+    <name>Camel Quarkus :: Support :: Reactor Netty :: Runtime</name>
 
     <properties>
-        <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>1.6.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.7.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>
@@ -49,16 +48,25 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-reactor-netty</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty</artifactId>
         </dependency>
+        <!-- As lazy as we are, we prefer not to manage reactor-netty.
+             We can afford that because our build items do not actually
+             require reactor-netty as a dependency.
+             We assume that modules that will depend on this one will have reactor-netty as a dependency
+             as a transitive dependency via azure-storage-blob or similar
         <dependency>
-            <groupId>org.apache.camel</groupId>
-            <artifactId>camel-azure-storage-blob</artifactId>
+            <groupId>io.projectreactor.netty</groupId>
+            <artifactId>reactor-netty</artifactId>
+        </dependency> -->
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer</artifactId>
         </dependency>
     </dependencies>
 
@@ -83,32 +91,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>full</id>
-            <activation>
-                <property>
-                    <name>!quickly</name>
-                </property>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.camel.quarkus</groupId>
-                        <artifactId>camel-quarkus-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>update-extension-doc-page</id>
-                                <goals>
-                                    <goal>update-extension-doc-page</goal>
-                                </goals>
-                                <phase>process-classes</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 </project>
