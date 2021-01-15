@@ -18,9 +18,10 @@ package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.NativeImageTest;
+import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 
 @NativeImageTest
-@QuarkusTestResource(AzureStorageBlobTestResource.class)
+@QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageBlobIT extends AzureStorageBlobTest {
 
 }

@@ -16,17 +16,57 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.it;
 
+import com.azure.core.http.policy.HttpLogDetailLevel;
+import com.azure.core.http.policy.HttpLogOptions;
+import com.azure.storage.blob.BlobContainerClient;
+import com.azure.storage.blob.BlobServiceClient;
+import com.azure.storage.blob.BlobServiceClientBuilder;
+import com.azure.storage.common.StorageSharedKeyCredential;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(AzureStorageBlobTestResource.class)
+@QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageBlobTest {
+
+    @BeforeAll
+    static void beforeAll() {
+        blobContainer().create();
+    }
+
+    @AfterAll
+    static void afterAll() {
+        blobContainer().delete();
+    }
+
+    private static BlobContainerClient blobContainer() {
+        final Config config = ConfigProvider.getConfig();
+        final String azureStorageAccountName = config.getValue("azure.storage.account-name",
+                String.class);
+        final String azureStorageAccountKey = config
+                .getValue("azure.storage.account-key", String.class);
+
+        StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureStorageAccountName,
+                azureStorageAccountKey);
+        BlobServiceClient client = new BlobServiceClientBuilder()
+                .endpoint(config.getValue("azure.blob.service.url", String.class))
+                .credential(credentials)
+                .httpLogOptions(new HttpLogOptions().setLogLevel(HttpLogDetailLevel.BODY_AND_HEADERS).setPrettyPrintBody(true))
+                .buildClient();
+        BlobContainerClient blobContainer = client
+                .getBlobContainerClient(config.getValue("azure.blob.container.name", String.class));
+        return blobContainer;
+    }
 
     @Test
     public void crud() {

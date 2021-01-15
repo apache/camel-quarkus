@@ -64,12 +64,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-test-support-mock-backend</artifactId>
+            <artifactId>camel-quarkus-integration-tests-support-azure</artifactId>
             <scope>test</scope>
         </dependency>
 
