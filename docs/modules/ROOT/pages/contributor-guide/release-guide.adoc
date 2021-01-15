@@ -63,10 +63,10 @@ $ NEXT_RELEASE=... # e.g. 0.2.0
 $ NEXT_SNAPSHOT="${NEXT_RELEASE}-SNAPSHOT"
 $ git checkout "master"
 $ git reset upstream/master
-$ mvn versions:set -DnewVersion=$NEXT_SNAPSHOT
-$ sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEXT_SNAPSHOT</camel-quarkus.version>|" poms/bom/pom.xml poms/bom-test/pom.xml
+$ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
+$ (cd extensions/qute && mvn clean install -Dquickly) # to regen the Qute Camel component metadata
 $ git add -A
 $ git commit -m "Next is $NEXT_RELEASE"
 # Send a pull request
