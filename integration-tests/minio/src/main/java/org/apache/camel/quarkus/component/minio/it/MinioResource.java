@@ -16,10 +16,6 @@
  */
 package org.apache.camel.quarkus.component.minio.it;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,13 +30,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import io.minio.BucketExistsArgs;
 import io.minio.GetObjectArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
 import io.minio.Result;
-import io.minio.errors.MinioException;
 import io.minio.messages.Bucket;
 import io.minio.messages.Item;
 import org.apache.camel.ConsumerTemplate;
@@ -51,7 +42,6 @@ import org.apache.camel.component.minio.MinioOperations;
 @Path("/minio")
 @ApplicationScoped
 public class MinioResource {
-    private static final long PART_SIZE = 50 * 1024 * 1024;
 
     public static final String SERVER_ACCESS_KEY = "testAccessKey";
     public static final String SERVER_SECRET_KEY = "testSecretKey";
@@ -64,22 +54,16 @@ public class MinioResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Inject
-    MinioClient minioClient;
-
     @Path("/consumer")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String consumer() {
 
-        String serverUrl = "http://" + System.getProperty(PARAM_SERVER_HOST) + ":" + System.getProperty(PARAM_SERVER_PORT);
-
         final String message = consumerTemplate.receiveBody(
                 "minio://mycamel?moveAfterRead=true&destinationBucketName=camel-kafka-connector&autoCreateBucket=true"
                         + "&accessKey=" + SERVER_ACCESS_KEY
                         + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                        + "&endpoint=" + serverUrl
-                        + "&secure=true",
+                        + "&minioClient=#minioClient",
                 5000, String.class);
         return message;
     }
@@ -94,10 +78,9 @@ public class MinioResource {
             @QueryParam(MinioConstants.DESTINATION_OBJECT_NAME) String destinationObjectName,
             @QueryParam(MinioConstants.DESTINATION_BUCKET_NAME) String destinationBucketName) {
 
-        String serverUrl = "http://" + System.getProperty(PARAM_SERVER_HOST) + ":" + System.getProperty(PARAM_SERVER_PORT);
         String endpoint = "minio:mycamel?accessKey=" + SERVER_ACCESS_KEY
                 + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                + "&endpoint=" + serverUrl;
+                + "&minioClient=#minioClient";
 
         MinioOperations op = (operation != "" && !"".equals(operation) ? MinioOperations.valueOf(operation) : null);
 
@@ -152,10 +135,9 @@ public class MinioResource {
     public String getUsingPojo(String bucket,
             @QueryParam(MinioConstants.OBJECT_NAME) String objectName) {
 
-        String serverUrl = "http://" + System.getProperty(PARAM_SERVER_HOST) + ":" + System.getProperty(PARAM_SERVER_PORT);
         String endpoint = "minio:mycamel?accessKey=" + SERVER_ACCESS_KEY
                 + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                + "&endpoint=" + serverUrl
+                + "&minioClient=#minioClient"
                 + "&pojoRequest=true";
 
         GetObjectArgs.Builder body = GetObjectArgs.builder()
@@ -166,33 +148,5 @@ public class MinioResource {
 
         return producerTemplate.requestBodyAndHeaders(endpoint, body, headers, String.class);
 
-    }
-
-    @Path("/initBucket")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public void initBucket(String bucketName) throws Exception {
-        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build())) {
-            minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucketName).build());
-        }
-    }
-
-    @Path("/putObject")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public void putObject(String content,
-            @QueryParam(MinioConstants.OBJECT_NAME) String objectName,
-            @QueryParam(MinioConstants.BUCKET_NAME) String bucketName) throws Exception {
-        try (InputStream is = new ByteArrayInputStream((content.getBytes()))) {
-            minioClient.putObject(
-                    PutObjectArgs.builder()
-                            .bucket(bucketName)
-                            .object(objectName)
-                            .contentType("text/xml")
-                            .stream(is, -1, PART_SIZE)
-                            .build());
-        } catch (MinioException | GeneralSecurityException | IOException e) {
-            throw new IllegalStateException(e);
-        }
     }
 }

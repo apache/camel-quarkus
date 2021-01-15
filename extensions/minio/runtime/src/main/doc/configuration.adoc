@@ -1,0 +1,16 @@
+Depending on Minio configuration, this extension may require SSL encryption on its connections. In such cases, you will need
+to add `quarkus.ssl.native=true` to your `application.properties`.
+See also https://quarkus.io/guides/native-and-ssl[Quarkus native SSL guide] and xref:user-guide/native-mode.adoc[Native mode]
+section of Camel Quarkus user guide.
+
+There are two different configuration approaches:
+
+* Minio client can be defined via quarkus properties leveraging the Quarkiverse Minio (see http://github.com/quarkiverse/quarkiverse-minio#configuration-reference[documentation]).
+Camel will autowire client into the Minio component.
+This configuration allows definition of only one minio client, therefore it isn't possible to define several different minio endpoints, which run together.
+
+* Provide client/clients for camel registry (e.g. CDI producer/bean) and reference them from endpoint.
+[source,properties]
+----
+minio:foo?minioClient=#minioClient
+----
