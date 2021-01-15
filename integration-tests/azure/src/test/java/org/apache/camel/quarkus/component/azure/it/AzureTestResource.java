@@ -58,9 +58,9 @@ public class AzureTestResource implements QuarkusTestResourceLifecycleManager {
         final String azureBlobContainername = "camel-quarkus-" + UUID.randomUUID().toString();
 
         final String azureStorageAccountName = config
-                .getValue("camel.component.azure-blob.credentials-account-name", String.class);
+                .getValue("azure.storage.account-name", String.class);
         final String azureStorageAccountKey = config
-                .getValue("camel.component.azure-blob.credentials-account-key", String.class);
+                .getValue("azure.storage.account-key", String.class);
         final Map<String, String> result;
         final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
         if (startMockBackend && !realCredentialsProvided) {

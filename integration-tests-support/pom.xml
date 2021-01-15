@@ -36,6 +36,7 @@
     </description>
 
     <modules>
+        <module>azure</module>
         <module>custom-dataformat</module>
         <module>custom-log-component</module>
         <module>custom-routes-collector</module>

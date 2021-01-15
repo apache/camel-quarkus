@@ -50,10 +50,10 @@ public class AzureBlobResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @ConfigProperty(name = "camel.component.azure-blob.credentials-account-name")
+    @ConfigProperty(name = "azure.storage.account-name")
     String azureStorageAccountName;
 
-    @ConfigProperty(name = "camel.component.azure-blob.credentials-account-key")
+    @ConfigProperty(name = "azure.storage.account-key")
     String azureStorageAccountKey;
 
     @ConfigProperty(name = "azure.blob.service.url")

@@ -108,6 +108,7 @@ dozer-social-azure:
   - zendesk
   - csimple
   - azure-storage-blob
+  - azure-storage-queue
 messaging-networking1:
   - activemq
   - amqp
