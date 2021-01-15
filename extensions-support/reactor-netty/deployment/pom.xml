@@ -21,26 +21,30 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-azure-storage-blob-parent</artifactId>
+        <artifactId>camel-quarkus-support-reactor-netty-parent</artifactId>
         <version>1.7.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-azure-storage-blob-deployment</artifactId>
-    <name>Camel Quarkus :: Azure Storage Blob Service :: Deployment</name>
+    <artifactId>camel-quarkus-support-reactor-netty-deployment</artifactId>
+    <name>Camel Quarkus :: Support :: Reactor Netty :: Deployment</name>
 
     <dependencies>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-core-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-core-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-micrometer-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-reactor-netty-deployment</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-azure-storage-blob</artifactId>
+            <artifactId>camel-quarkus-support-reactor-netty</artifactId>
         </dependency>
     </dependencies>
 

@@ -26,7 +26,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 
@@ -42,23 +41,6 @@ class AzureStorageBlobProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-        Stream.of(
-                "io.netty.handler.ssl.OpenSsl",
-                "io.netty.internal.tcnative.SSL",
-                "io.netty.util.NetUtil",
-                "reactor.netty.http.client.HttpClient",
-                "reactor.netty.tcp.TcpClient",
-                "reactor.netty.resources.DefaultLoopNativeDetector",
-                "reactor.netty.resources.DefaultLoopEpoll",
-                "reactor.netty.resources.DefaultLoopKQueue",
-                "reactor.netty.resources.MicrometerPooledConnectionProviderMeterRegistrar",
-                "reactor.netty.Metrics")
-                .map(RuntimeInitializedClassBuildItem::new)
-                .forEach(runtimeInitializedClasses::produce);
     }
 
     @BuildStep
