@@ -55,7 +55,7 @@ public class HazelcastIdempotentResource {
     }
 
     @GET
-    public List get() {
+    public List<String> get() {
         MockEndpoint mockEndpoint = context.getEndpoint(MOCK_IDEMPOTENT_ADDED, MockEndpoint.class);
         return mockEndpoint.getReceivedExchanges().stream().map(
                 exchange -> exchange.getIn().getBody(String.class))

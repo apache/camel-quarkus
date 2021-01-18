@@ -16,16 +16,20 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
@@ -35,6 +39,7 @@ import static org.hamcrest.Matchers.hasSize;
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastMultimapTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testMultimap() {
         // add one value
@@ -120,7 +125,7 @@ public class HazelcastMultimapTest {
         // add value with TTL
         request = request.withId("2")
                 .withVaLue("val2.1")
-                .withTtl(Long.valueOf(5), TimeUnit.MINUTES);
+                .withTtl(5L, TimeUnit.MINUTES);
         given()
                 .contentType(ContentType.JSON)
                 .body(request)
@@ -161,21 +166,15 @@ public class HazelcastMultimapTest {
                 .statusCode(202);
 
         // verify that the consumer has received all the added values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/added")
-                .then()
-                .body("$", hasSize(3))
-                .body("$", hasItems("1", "2"));
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            List<String> body = RestAssured.get("/added").then().extract().body().as(List.class);
+            return body.size() == 3 && body.containsAll(Arrays.asList("1", "2"));
+        });
 
         // verify that the consumer has received one removed value with key = 1
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/deleted")
-                .then()
-                .body("$", hasSize(2))
-                .body("$", hasItems("1"));
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            List<String> body = RestAssured.get("/deleted").then().extract().body().as(List.class);
+            return body.size() == 2 && body.contains("1");
+        });
     }
 }

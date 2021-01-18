@@ -16,15 +16,18 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastSedaResource.class)
@@ -42,13 +45,8 @@ public class HazelcastSedaTest {
                 .statusCode(202);
 
         // verify that the consumer received the message
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/fifo")
-                .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("foo1"));
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get("/fifo").then().extract().body().as(List.class).contains("foo1"));
     }
 
     @Test
@@ -63,13 +61,8 @@ public class HazelcastSedaTest {
                 .statusCode(202);
 
         // verify that the consumer received the message
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/in")
-                .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("foo1"));
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get("/in").then().extract().body().as(List.class).contains("foo1"));
     }
 
     @Test
@@ -83,13 +76,8 @@ public class HazelcastSedaTest {
                 .statusCode(202);
 
         // verify that the consumer received the message
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/out")
-                .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("foo1"));
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get("/out").then().extract().body().as(List.class).contains("foo1"));
     }
 
     @Test
@@ -103,12 +91,7 @@ public class HazelcastSedaTest {
                 .statusCode(202);
 
         // verify that the consumer received the message
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/out/transacted")
-                .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("foo1"));
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get("/out/transacted").then().extract().body().as(List.class).contains("foo1"));
     }
 }

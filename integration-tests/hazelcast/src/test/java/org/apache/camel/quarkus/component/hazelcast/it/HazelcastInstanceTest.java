@@ -16,13 +16,15 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastInstanceResource.class)
@@ -32,11 +34,7 @@ public class HazelcastInstanceTest {
     @Test
     public void testInstance() {
         HazelcastTestResource.addMemberToCluster();
-        given()
-                .when()
-                .get("/added")
-                .then()
-                .body(equalTo("1"));
-
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get("/added").then().extract().body().asString().equals("1"));
     }
 }

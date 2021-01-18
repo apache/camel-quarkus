@@ -52,8 +52,6 @@ public abstract class AbstractHazelcastCollectionResource {
 
     /**
      * init endpoints
-     *
-     * @param startupEvent
      */
     public abstract void init(StartupEvent startupEvent);
 

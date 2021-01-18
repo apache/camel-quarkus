@@ -16,15 +16,18 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastTopicResource.class)
@@ -42,12 +45,7 @@ public class HazelcastTopicTest {
                 .statusCode(202);
 
         // verify that the consumer has received the topic
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("$", hasSize(1))
-                .body("$", hasItems("test1"));
+        await().atMost(10L, TimeUnit.SECONDS)
+                .until(() -> RestAssured.get().then().extract().body().as(List.class).contains("test1"));
     }
 }
