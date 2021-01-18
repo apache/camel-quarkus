@@ -23,7 +23,7 @@ on:
     - cron:  '0 0 * * *'
 
 env:
-  LANG: en_US
+  LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
   MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
 
