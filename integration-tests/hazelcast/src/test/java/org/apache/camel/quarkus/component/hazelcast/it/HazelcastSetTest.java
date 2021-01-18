@@ -17,22 +17,25 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastSetResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastSetTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testSet() {
         // add one value
@@ -108,21 +111,15 @@ public class HazelcastSetTest {
                 .statusCode(202);
 
         // verify that the consumer has received all added values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/added")
-                .then()
-                .body("$", hasSize(7))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo4", "foo5", "foo6", "foo7"));
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            List<String> body = RestAssured.get("/added").then().extract().body().as(List.class);
+            return body.size() == 7 && body.containsAll(Arrays.asList("foo1", "foo2", "foo3", "foo4", "foo5", "foo6", "foo7"));
+        });
 
         // verify that the consumer has received all removed values
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/deleted")
-                .then()
-                .body("$", hasSize(5))
-                .body("$", hasItems("foo1", "foo2", "foo3", "foo5", "foo6"));
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            List<String> body = RestAssured.get("/deleted").then().extract().body().as(List.class);
+            return body.size() == 5 && body.containsAll(Arrays.asList("foo1", "foo2", "foo3", "foo5", "foo6"));
+        });
     }
 }

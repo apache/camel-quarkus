@@ -16,24 +16,28 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.hasItems;
-import static org.hamcrest.Matchers.hasSize;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 @TestHTTPEndpoint(HazelcastPolicyResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastPolicyTest {
 
+    @SuppressWarnings("unchecked")
     @Test
     public void testPolicy() {
-
         // send exchanges
         given()
                 .contentType(ContentType.JSON)
@@ -60,13 +64,9 @@ public class HazelcastPolicyTest {
                 .statusCode(202);
 
         // should receive the 3 exchanges
-        given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get()
-                .then()
-                .body("$", hasSize(3))
-                .body("$", hasItems("foo1", "foo2", "foo3"));
-
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            List<String> body = RestAssured.get().then().extract().body().as(List.class);
+            return body.size() == 3 && body.containsAll(Arrays.asList("foo1", "foo2", "foo3"));
+        });
     }
 }

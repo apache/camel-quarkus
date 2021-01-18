@@ -56,7 +56,7 @@ public class HazelcastReplicatedmapTest {
         // add one value with TTL
         request = request.withId("2")
                 .withVaLue("val2")
-                .withTtl(Long.valueOf(5), TimeUnit.MINUTES);
+                .withTtl(5L, TimeUnit.MINUTES);
         given()
                 .contentType(ContentType.JSON)
                 .body(request)

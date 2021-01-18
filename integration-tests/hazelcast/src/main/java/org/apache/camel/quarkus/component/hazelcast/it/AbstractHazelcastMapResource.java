@@ -55,8 +55,6 @@ public abstract class AbstractHazelcastMapResource {
 
     /**
      * init endpoints
-     *
-     * @param startupEvent
      */
     public abstract void init(StartupEvent startupEvent);
 

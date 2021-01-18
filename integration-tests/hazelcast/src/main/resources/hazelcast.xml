@@ -22,7 +22,7 @@
            http://www.hazelcast.com/schema/config/hazelcast-config-4.0.xsd">
     <cluster-name>dev</cluster-name>
     <network>
-        <port auto-increment="true" port-count="100">5701</port>
+        <port>5701</port>
         <join>
             <multicast enabled="false"/>
             <tcp-ip enabled="true">

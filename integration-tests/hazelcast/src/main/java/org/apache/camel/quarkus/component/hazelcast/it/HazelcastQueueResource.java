@@ -106,7 +106,7 @@ public class HazelcastQueueResource extends AbstractHazelcastCollectionResource 
     @DELETE
     @Path("drain")
     public List<String> drainTo() {
-        List<String> result = new ArrayList();
+        List<String> result = new ArrayList<>();
         Map<String, Object> headers = new HashMap<>();
         headers.put(HazelcastConstants.OPERATION, HazelcastOperation.DRAIN_TO);
         headers.put(HazelcastConstants.DRAIN_TO_COLLECTION, result);
@@ -117,8 +117,6 @@ public class HazelcastQueueResource extends AbstractHazelcastCollectionResource 
     /**
      * add list of values to queue with poll consumer
      *
-     * @param  values
-     * @return
      */
     @PUT
     @Path("poll/list")

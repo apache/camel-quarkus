@@ -57,9 +57,10 @@ public class HazelcastMapResource extends AbstractHazelcastMapResource {
         mockUpdatedEndpoint = MOCK_MAP_UPDATED;
     }
 
+    @SuppressWarnings("unchecked")
     @POST
     @Path("get")
-    public Map getAll(Set<String> oids) {
+    public Map<String, Object> getAll(Set<String> oids) {
         Map<String, Object> headers = new HashMap<>();
         headers.put(HazelcastConstants.OPERATION, HazelcastOperation.GET_ALL);
         headers.put(HazelcastConstants.OBJECT_ID, oids);
@@ -97,9 +98,10 @@ public class HazelcastMapResource extends AbstractHazelcastMapResource {
         return getValues(mockEvictedEndpoint);
     }
 
+    @SuppressWarnings("unchecked")
     @POST
     @Path("get/query")
-    public Collection query(String sqlQuery) {
+    public Collection<String> query(String sqlQuery) {
         Map<String, Object> headers = new HashMap<>();
         headers.put(HazelcastConstants.OPERATION, HazelcastOperation.QUERY);
         headers.put(HazelcastConstants.QUERY, sqlQuery);
