@@ -76,12 +76,20 @@ $ git commit -m "Next is $NEXT_RELEASE"
 
 Once the staging repository has been released, the Apache Camel Quarkus distribution subversion repository should be updated as sketched below.
 
-First, checkout the Apache Camel Quarkus distribution subversion repository:
+If you are doing this for the first time you need to checkout the Apache Camel Quarkus distribution subversion repository:
 [source,shell]
 ----
-$ svn co 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
+$ svn checkout 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
 ----
-Add your public key to the file named `KEYS` if not already done.
+
+In case you have performed the above step during some release in the past, you need to update your working copy:
+
+[source,shell]
+----
+$ svn update 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
+----
+
+Make sure your public key is present in the `KEYS` file. Add it, if it is not there yet.
 
 Assemble the Apache Camel Quarkus distribution:
 [source,shell]
@@ -109,16 +117,15 @@ $ svn diff
 Commit the changes:
 [source,shell]
 ----
-$ svn commit -m "Apache Camel Quarkus $VERSION released artifacts."
+$ cd camel-releases-dist
+$ svn add --force .
+$ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 ----
 
 == Further steps
 
 In addition to the above, the following is needed:
 
-* After releasing the staging repository on https://repository.apache.org[https://repository.apache.org], update the
-value of `camel-quarkus-last-release` attribute in https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[docs/antora.yml]
-https://github.com/apache/camel-quarkus/blob/master/docs/antora.yml#L25[antora.yml component descriptor].
 * When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
