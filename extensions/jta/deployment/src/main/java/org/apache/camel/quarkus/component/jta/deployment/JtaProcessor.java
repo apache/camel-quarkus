@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.jta.deployment;
 import com.arjuna.ats.internal.arjuna.utils.SocketProcessId;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -44,7 +45,7 @@ class JtaProcessor {
             BuildProducer<AdditionalBeanBuildItem> additionalBeans,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
             Capabilities capabilities) {
-        if (capabilities.isCapabilityPresent(Capabilities.TRANSACTIONS)) {
+        if (capabilities.isPresent(Capability.TRANSACTIONS)) {
             AdditionalBeanBuildItem.Builder builder = AdditionalBeanBuildItem.builder();
             builder.addBeanClass(RequiredJtaTransactionPolicy.class);
             builder.addBeanClass(RequiresNewJtaTransactionPolicy.class);
