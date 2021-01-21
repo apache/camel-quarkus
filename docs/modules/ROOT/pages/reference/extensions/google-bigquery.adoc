@@ -8,10 +8,10 @@
 :cq-description: Access Google Cloud BigQuery service using SQL queries or Google Client Services API
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.5.0
+:cq-native-since: 1.6.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.5.0##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.6.0##
 
 Access Google Cloud BigQuery service using SQL queries or Google Client Services API
 

@@ -6,7 +6,7 @@
 :cq-status: Stable
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.5.0
+:cq-native-since: 1.6.0
 :cq-camel-part-name: google-bigquery
 :cq-camel-part-title: Google BigQuery
 :cq-camel-part-description: Google BigQuery data warehouse for analytics.
