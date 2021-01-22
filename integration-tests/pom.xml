@@ -113,6 +113,7 @@
         <module>hystrix</module>
         <module>infinispan</module>
         <module>influxdb</module>
+        <module>ipfs</module>
         <module>jaxb</module>
         <module>jdbc</module>
         <module>jing</module>
