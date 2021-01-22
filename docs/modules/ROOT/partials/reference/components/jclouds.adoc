@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: jclouds
 :cq-camel-part-title: JClouds
-:cq-camel-part-description: Interact with jclouds compute & blobstore service.
+:cq-camel-part-description: Interact with jclouds compute and blobstore service.
 :cq-extension-page-title: JClouds
