@@ -29,7 +29,7 @@ Quarkus provides a Maven plugin that enables you to quickly bootstrap projects. 
 
 [source,shell]
 ----
-$ mvn io.quarkus:quarkus-maven-plugin:1.8.3.Final:create \
+$ mvn io.quarkus:quarkus-maven-plugin:1.11.0.Final:create \
     -DprojectGroupId=org.acme \
     -DprojectArtifactId=getting-started \
     -Dextensions=camel-quarkus-log,camel-quarkus-timer
@@ -101,7 +101,7 @@ The application has three compile dependencies:
 
 They are managed within the `camel-quarkus-bom` that is imported in `<dependencyManagement>`.
 
-There are only three classes in the application/ `Routes` defining the Camel routes and a couple of entity classes. `Fruit` and `Legume`.
+There are only three classes in the application: `Routes` defines the Camel routes, whereas `Fruit` and `Legume` are entities.
 
 The application is configured by properties defined within `src/main/resources/application.properties`. E.g. the `camel.context.name` is set there.
 
