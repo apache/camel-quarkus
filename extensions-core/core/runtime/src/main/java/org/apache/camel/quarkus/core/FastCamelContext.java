@@ -177,7 +177,13 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         setTracing(Boolean.FALSE);
         setDebugging(Boolean.FALSE);
         setMessageHistory(Boolean.FALSE);
+    }
 
+    @Override
+    public void build() {
+        super.build();
+        // we are fast build so the time should be reset to 0
+        resetBuildTime();
     }
 
     @Override
