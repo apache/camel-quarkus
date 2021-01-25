@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.jta.deployment;
 
-import com.arjuna.ats.internal.arjuna.utils.SocketProcessId;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.Capability;
@@ -59,11 +58,5 @@ class JtaProcessor {
             reflectiveClass.produce(new ReflectiveClassBuildItem(false, false,
                     IllegalStateException.class.getName()));
         }
-    }
-
-    @BuildStep //TODO workaround for https://github.com/apache/camel-quarkus/issues/1895
-    void registerNarayanaReflectiveClass(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(
-                new ReflectiveClassBuildItem(false, false, SocketProcessId.class.getName()));
     }
 }
