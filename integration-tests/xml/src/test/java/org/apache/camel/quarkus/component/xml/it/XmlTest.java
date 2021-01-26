@@ -116,4 +116,25 @@ class XmlTest {
                 .statusCode(200)
                 .body(is("Invalid country code"));
     }
+
+    @Test
+    public void xtokenizeLanguage() {
+        String expectedResult = "<c:child some_attr='a' anotherAttr='a' xmlns:c=\"urn:c\"></c:child>,<c:child some_attr='b' anotherAttr='b' xmlns:c=\"urn:c\"></c:child>";
+        String xml = "<?xml version='1.0' encoding='UTF-8'?>"
+                + "<c:parent xmlns:c='urn:c'>"
+                + "<c:child some_attr='a' anotherAttr='a'>"
+                + "</c:child>"
+                + "<c:child some_attr='b' anotherAttr='b'>"
+                + "</c:child>"
+                + "</c:parent>";
+
+        // Tests a simple xpath driven content based router
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(xml)
+                .post("/xml/xtokenize")
+                .then()
+                .statusCode(200)
+                .body(is(expectedResult));
+    }
 }

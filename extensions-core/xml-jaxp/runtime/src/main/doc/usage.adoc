@@ -1,0 +1,11 @@
+To use the XML Tokenize language, a StAX Reader implementation must be present on the classpath.
+
+For convenience, Camel Quarkus provides a StAX extension with native mode support.
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-support-stax</artifactId>
+</dependency>
+----
