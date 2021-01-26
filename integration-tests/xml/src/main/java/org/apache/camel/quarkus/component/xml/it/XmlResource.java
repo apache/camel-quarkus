@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.xml.it;
 
+import java.util.StringJoiner;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -24,6 +26,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.jboss.logging.Logger;
 
@@ -35,6 +38,9 @@ public class XmlResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/html-parse")
     @POST
@@ -86,4 +92,20 @@ public class XmlResource {
     public String xpath(String message) {
         return producerTemplate.requestBody(XmlRouteBuilder.DIRECT_XML_CBR, message, String.class);
     }
+
+    @Path("/xtokenize")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String tokenize(String message) {
+        producerTemplate.sendBody(XmlRouteBuilder.DIRECT_XTOKENIZE, message);
+
+        StringJoiner joiner = new StringJoiner(",");
+        String tokenizedXML;
+        while ((tokenizedXML = consumerTemplate.receiveBody("seda:xtokenize-result", 500, String.class)) != null) {
+            joiner.add(tokenizedXML);
+        }
+        return joiner.toString();
+    }
+
 }

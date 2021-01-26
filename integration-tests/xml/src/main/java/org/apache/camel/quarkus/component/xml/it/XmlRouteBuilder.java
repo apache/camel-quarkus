@@ -20,12 +20,14 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.support.builder.Namespaces;
 
 public class XmlRouteBuilder extends RouteBuilder {
     public static final String DIRECT_HTML_TO_DOM = "direct:html-to-dom";
     public static final String DIRECT_HTML_TRANSFORM = "direct:html-transfrom";
     public static final String DIRECT_HTML_TO_TEXT = "direct:html-to-text";
     public static final String DIRECT_XML_CBR = "direct:xml-cbr";
+    public static final String DIRECT_XTOKENIZE = "direct:xtokenize";
 
     @Override
     public void configure() {
@@ -70,5 +72,10 @@ public class XmlRouteBuilder extends RouteBuilder {
                 .setBody(constant("Country UK"))
                 .otherwise()
                 .setBody(constant("Invalid country code"));
+
+        from(DIRECT_XTOKENIZE)
+                .split()
+                .xtokenize("//C:child", new Namespaces("C", "urn:c"))
+                .to("seda:xtokenize-result");
     }
 }
