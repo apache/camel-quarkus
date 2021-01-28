@@ -130,6 +130,7 @@ misc:
   - jolt
   - mustache
   - nagios
+  - oaipmh
   - pdf
   - qute
   - shiro
