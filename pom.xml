@@ -84,6 +84,7 @@
         <java.xml.ws.version>2.3.1</java.xml.ws.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
+        <jsoup.version>1.12.1</jsoup.version><!-- used by oaipmh -->
         <jaxen.version>1.2.0</jaxen.version>
         <javassist.version>3.22.0-CR2</javassist.version><!-- debezium -->
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
