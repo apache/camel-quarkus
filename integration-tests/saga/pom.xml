@@ -26,7 +26,7 @@
     </parent>
 
     <artifactId>camel-quarkus-integration-test-saga</artifactId>
-    <name>Camel Quarkus :: Integration Test :: Saga</name>
+    <name>Camel Quarkus :: Integration Tests :: Saga</name>
     <description>Integration tests for Camel Quarkus Saga extension</description>
 
     <dependencyManagement>
