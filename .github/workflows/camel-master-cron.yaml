@@ -34,6 +34,10 @@ jobs:
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
       - name: Clean VM
         run: |
           echo "Removing unwanted SDKs"
@@ -61,10 +65,6 @@ jobs:
           git fetch origin master
           git rebase origin/master
           git rev-parse origin/master > ~/build-data/master-sha.txt
-      - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
-        with:
-          version: '11'
       - name: Build Camel Quarkus
         run: |
           ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs'
@@ -102,6 +102,10 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJson(needs.build.outputs.matrix) }}
     steps:
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
@@ -125,10 +129,6 @@ jobs:
         run: |
           sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
           sudo chmod +x /usr/local/bin/yq
-      - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
-        with:
-          version: '11'
       - name: Integration Tests
         run: |
           TEST_MODULES=""
@@ -163,6 +163,10 @@ jobs:
     needs: native-tests
     runs-on: ubuntu-latest
     steps:
+      - name: Set up JDK 11
+        uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
@@ -182,10 +186,6 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin master
           git rebase $(cat ~/build-data/master-sha.txt)
-      - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
-        with:
-          version: '11'
       - name: Report build status
         id: report
         run: |
