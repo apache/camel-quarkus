@@ -8,7 +8,7 @@
 :cq-description: Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: n/a
 
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
