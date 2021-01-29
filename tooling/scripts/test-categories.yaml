@@ -53,6 +53,7 @@ core-main-validation:
   - bean-validator
   - json-validator
   - validator
+  - freemarker
 database:
   - arangodb
   - cassandraql

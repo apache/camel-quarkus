@@ -62,7 +62,6 @@
         <module>facebook</module>
         <module>fastjson</module>
         <module>flink</module>
-        <module>freemarker</module>
         <module>ganglia</module>
         <module>groovy</module>
         <module>guava-eventbus</module>

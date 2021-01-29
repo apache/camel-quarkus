@@ -5809,6 +5809,16 @@
                 <version>${reactor-netty.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.freemarker</groupId>
+                <artifactId>quarkus-freemarker</artifactId>
+                <version>${quarkiverse.freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.freemarker</groupId>
+                <artifactId>quarkus-freemarker-deployment</artifactId>
+                <version>${quarkiverse.freemarker.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.googlecloudservices</groupId>
                 <artifactId>quarkus-google-cloud-bigquery</artifactId>
                 <version>${quarkus-google-cloud.version}</version>
