@@ -29,24 +29,6 @@
     <artifactId>camel-quarkus-amqp-deployment</artifactId>
     <name>Camel Quarkus :: AMQP :: Deployment</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.amqphub.quarkus</groupId>
-                <artifactId>quarkus-qpid-jms-deployment</artifactId>
-                <version>${quarkus-qpid-jms.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- quarkus-qpid-jms-deployment is currently not part quarkus-qpid-jms-deployment-->
-            <dependency>
-                <groupId>org.amqphub.quarkus</groupId>
-                <artifactId>quarkus-qpid-jms-deployment</artifactId>
-                <version>${quarkus-qpid-jms.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.amqphub.quarkus</groupId>
