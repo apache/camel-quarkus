@@ -6,7 +6,7 @@
 :cq-status: Preview
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.0.0
+:cq-native-since: n/a
 :cq-camel-part-name: couchbase
 :cq-camel-part-title: Couchbase
 :cq-camel-part-description: Query Couchbase Views with a poll strategy and/or perform various operations against Couchbase databases.
