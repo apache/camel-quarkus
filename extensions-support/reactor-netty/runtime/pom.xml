@@ -55,18 +55,18 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-netty</artifactId>
         </dependency>
-        <!-- As lazy as we are, we prefer not to manage reactor-netty.
-             We can afford that because our build items do not actually
-             require reactor-netty as a dependency.
-             We assume that modules that will depend on this one will have reactor-netty as a dependency
-             as a transitive dependency via azure-storage-blob or similar
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty</artifactId>
-        </dependency> -->
+        </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-micrometer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.graalvm.nativeimage</groupId>
+            <artifactId>svm</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

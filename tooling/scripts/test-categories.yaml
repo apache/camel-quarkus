@@ -108,9 +108,9 @@ dozer-social-azure:
   - master
   - syndication
   - zendesk
-  - csimple
   - azure-storage-blob
   - azure-storage-queue
+  - azure-eventhubs
 messaging-networking1:
   - activemq
   - amqp
@@ -160,6 +160,7 @@ platform:
   - reactive-streams
   - rest
   - rest-openapi
+  - csimple
 saas:
   - box
   - github

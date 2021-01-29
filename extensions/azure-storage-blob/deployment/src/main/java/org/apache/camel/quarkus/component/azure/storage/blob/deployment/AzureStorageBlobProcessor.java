@@ -25,6 +25,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -70,15 +71,21 @@ class AzureStorageBlobProcessor {
                         || n.startsWith("com.azure.storage.blob.models."))
                 .sorted()
                 .toArray(String[]::new);
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, modelClasses));
-
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, "com.azure.core.util.DateTimeRfc1123"));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true, modelClasses));
 
     }
 
     @BuildStep
     IndexDependencyBuildItem indexDependency() {
         return new IndexDependencyBuildItem("com.azure", "azure-storage-blob");
+    }
+
+    @BuildStep
+    void nativeResources(BuildProducer<NativeImageResourceBuildItem> nativeResources) {
+
+        nativeResources.produce(new NativeImageResourceBuildItem(
+                "azure-storage-blob.properties"));
+
     }
 
 }

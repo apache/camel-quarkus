@@ -62,8 +62,6 @@
                 <scope>import</scope>
             </dependency>
 
-
-
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
             <!--$ org.apache.camel $-->
@@ -481,13 +479,36 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
+                <artifactId>camel-azure-eventhubs</artifactId>
+                <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-tcnative-boringssl-static</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-azure-storage-blob</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-tcnative-boringssl-static</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-azure-storage-queue</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-tcnative-boringssl-static</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -2615,6 +2636,16 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-azure-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-azure-eventhubs</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-azure-eventhubs-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>
@@ -4834,6 +4865,16 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-azure-core</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
+                <artifactId>camel-quarkus-support-azure-core-deployment</artifactId>
+                <version>${camel-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-support-bouncycastle</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
@@ -5451,6 +5492,37 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-core</artifactId>
+                <version>${azure-core.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-tcnative-boringssl-static</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-messaging-eventhubs</artifactId>
+                <version>${azure-eventhubs-java.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-messaging-eventhubs-checkpointstore-blob</artifactId>
+                <version>${azure-eventhubs-checkpointstore-blob.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-storage-blob</artifactId>
+                <version>${azure-storage-blob-java-sdk12.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-storage-queue</artifactId>
+                <version>${azure-storage-queue-java-sdk12-version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.woodstox</groupId>
                 <artifactId>woodstox-core</artifactId>
                 <version>${woodstox-core.version}</version>
@@ -5642,6 +5714,16 @@
                 <groupId>io.debezium</groupId>
                 <artifactId>debezium-embedded</artifactId>
                 <version>${debezium.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-core</artifactId>
+                <version>${reactor-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.projectreactor.netty</groupId>
+                <artifactId>reactor-netty</artifactId>
+                <version>${reactor-netty.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.googlecloudservices</groupId>

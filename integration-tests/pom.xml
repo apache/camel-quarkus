@@ -69,6 +69,7 @@
         <module>aws</module>
         <module>aws2</module>
         <module>azure</module>
+        <module>azure-eventhubs</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>
         <module>base64</module>

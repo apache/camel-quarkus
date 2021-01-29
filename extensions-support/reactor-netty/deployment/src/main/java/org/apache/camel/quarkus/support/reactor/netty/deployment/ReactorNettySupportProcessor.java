@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 public class ReactorNettySupportProcessor {
@@ -34,10 +35,7 @@ public class ReactorNettySupportProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
         Stream.of(
-                // TODO: move these io.netty.* items to Quarkus https://github.com/apache/camel-quarkus/issues/2142
-                "io.netty.handler.ssl.OpenSsl",
-                "io.netty.internal.tcnative.SSL",
-                "io.netty.util.NetUtil",
+                "io.netty.util.NetUtil", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
 
                 "reactor.netty.http.client.HttpClient",
                 "reactor.netty.tcp.TcpClient",
@@ -48,6 +46,17 @@ public class ReactorNettySupportProcessor {
                 "reactor.netty.Metrics")
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClasses::produce);
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
+                "reactor.netty.channel.BootstrapHandlers$BootstrapInitializerHandler",
+                "reactor.netty.channel.ChannelOperationsHandler",
+                "reactor.netty.resources.PooledConnectionProvider$PooledConnectionAllocator$PooledConnectionInitializer",
+                "reactor.netty.tcp.SslProvider$SslReadHandler"));
+
     }
 
 }

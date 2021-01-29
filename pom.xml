@@ -43,6 +43,14 @@
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>${avro-version}</avro.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
+        <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
+        <azure-core.version>1.8.1</azure-core.version><!-- keep compatible with the azure artifacts below -->
+        <azure-sdk-bom.version>1.0.1</azure-sdk-bom.version>
+        <azure-storage-blob-java-sdk12.version>${azure-storage-blob-java-sdk12-version}</azure-storage-blob-java-sdk12.version>
+        <azure-storage-queue-java-sdk12.version>${azure-storage-queue-java-sdk12-version}</azure-storage-queue-java-sdk12.version>
+        <azure-eventhubs-java.version>${azure-eventhubs-java-version}</azure-eventhubs-java.version>
+        <azure-eventhubs-checkpointstore-blob.version>${azure-eventhubs-checkpointstore-blob-version}</azure-eventhubs-checkpointstore-blob.version>
+
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
 
         <camel.major.minor>3.7</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
@@ -97,6 +105,8 @@
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.22.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
+        <reactor-core.version>3.3.13.RELEASE</reactor-core.version>
+        <reactor-netty.version>0.9.16.RELEASE</reactor-netty.version><!-- A newer micro than the one in azure-sdk-bom required by camel-quarkus-azure-eventhubs -->
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>2.7.1</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->

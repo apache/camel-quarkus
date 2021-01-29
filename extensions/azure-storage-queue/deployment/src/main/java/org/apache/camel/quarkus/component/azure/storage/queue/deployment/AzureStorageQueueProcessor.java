@@ -69,9 +69,7 @@ class AzureStorageQueueProcessor {
                         || n.startsWith("com.azure.storage.queue.models."))
                 .sorted()
                 .toArray(String[]::new);
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, modelClasses));
-
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, "com.azure.core.util.DateTimeRfc1123"));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, true, modelClasses));
 
     }
 
