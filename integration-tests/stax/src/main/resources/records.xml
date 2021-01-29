@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<records>
+    <record key="0" value="#0"/>
+    <record key="1" value="#1"/>
+    <record key="2" value="#2"/>
+    <record key="3" value="#3"/>
+    <record key="4" value="#4"/>
+    <record key="5" value="#5"/>
+    <record key="6" value="#6"/>
+    <record key="7" value="#7"/>
+    <record key="8" value="#8"/>
+    <record key="9" value="#9"/>
+</records>
