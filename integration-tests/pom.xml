@@ -102,6 +102,7 @@
         <module>flatpack</module>
         <module>fop</module>
         <module>foundation</module>
+        <module>freemarker</module>
         <module>ftp</module>
         <module>geocoder</module>
         <module>git</module>
