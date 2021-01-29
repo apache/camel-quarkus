@@ -55,6 +55,13 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.amqphub.quarkus</groupId>
+                <artifactId>quarkus-qpid-jms-bom</artifactId>
+                <version>${quarkus-qpid-jms.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-bom</artifactId>
                 <version>${jetty.version}</version>
