@@ -208,6 +208,7 @@
         <module>solr</module>
         <module>sql</module>
         <module>ssh</module>
+        <module>stax</module>
         <module>stream</module>
         <module>stringtemplate</module>
         <module>tagsoup</module>

@@ -175,6 +175,7 @@
         <module>solr</module>
         <module>sql</module>
         <module>ssh</module>
+        <module>stax</module>
         <module>stringtemplate</module>
         <module>syndication</module>
         <module>tarfile</module>

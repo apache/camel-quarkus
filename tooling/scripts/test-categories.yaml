@@ -99,6 +99,7 @@ xml-json-olingo4:
   - geocoder
   - lumberjack
   - optaplanner
+  - stax
 dozer-social-azure:
   - crypto
   - dozer

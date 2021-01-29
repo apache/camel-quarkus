@@ -117,7 +117,6 @@
         <module>spark</module>
         <module>splunk</module>
         <module>splunk-hec</module>
-        <module>stax</module>
         <module>stomp</module>
         <module>stub</module>
         <module>syslog</module>
