@@ -193,6 +193,7 @@
         <module>weather</module>
         <module>websocket-jsr356</module>
         <module>xml</module>
+        <module>xmlsecurity</module>
         <module>xstream</module>
         <module>zendesk</module>
     </modules>

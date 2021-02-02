@@ -229,6 +229,7 @@
         <module>vm</module>
         <module>weather</module>
         <module>websocket-jsr356</module>
+        <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt</module>
         <module>xstream</module>

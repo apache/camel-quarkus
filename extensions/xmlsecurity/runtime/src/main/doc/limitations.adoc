@@ -1,0 +1,1 @@
+There is currently no native mode support for XSLT based transform methods on the `xmlsecurity` producer via the `transformMethods` URI option.
