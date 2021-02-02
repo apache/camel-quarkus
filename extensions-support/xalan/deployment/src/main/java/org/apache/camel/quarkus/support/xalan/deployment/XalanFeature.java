@@ -20,7 +20,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 
 class XalanFeature {
-    public static final String FEATURE = "camel-suport-xalan";
+    public static final String FEATURE = "camel-support-xalan";
 
     @BuildStep
     FeatureBuildItem feature() {
