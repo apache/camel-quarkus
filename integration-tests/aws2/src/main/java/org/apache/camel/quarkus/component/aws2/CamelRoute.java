@@ -97,6 +97,11 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-sts?repeatCount=1")
                 .to("aws2-sts://myaccount?operation=getSessionToken")
                 .to("log:sf?showAll=true");
+
+        from("timer:quarkus-eventbridge?repeatCount=1")
+                .to("aws2-eventbridge://default?operation=listRules")
+                .to("log:sf?showAll=true");
+
     }
 
 }
