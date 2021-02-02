@@ -52,6 +52,8 @@ class XalanNativeImageProcessor {
                 "org.apache.xalan.xsltc.dom.XSLTCDTMManager",
                 "org.apache.xalan.xsltc.trax.ObjectFactory",
                 "org.apache.xalan.xsltc.trax.TransformerFactoryImpl",
+                "org.apache.xml.dtm.ObjectFactory",
+                "org.apache.xml.dtm.ref.DTMManagerDefault",
                 "org.apache.xml.serializer.OutputPropertiesFactory",
                 "org.apache.xml.serializer.CharInfo",
                 "org.apache.xml.serializer.XMLEntities");
