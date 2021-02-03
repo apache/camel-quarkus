@@ -118,7 +118,6 @@
         <module>splunk-hec</module>
         <module>stomp</module>
         <module>stub</module>
-        <module>syslog</module>
         <module>thrift</module>
         <module>web3j</module>
         <module>weka</module>
