@@ -14,27 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty.deployment;
+package org.apache.camel.quarkus.component.syslog.deployment;
 
-import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.netty.NettyConfiguration;
 
-class NettyProcessor {
+class SyslogProcessor {
 
-    private static final String FEATURE = "camel-netty";
+    private static final String FEATURE = "camel-syslog";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, NioDatagramChannel.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, NettyConfiguration.class));
     }
 }

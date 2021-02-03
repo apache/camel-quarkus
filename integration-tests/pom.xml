@@ -180,6 +180,7 @@
         <module>stax</module>
         <module>stringtemplate</module>
         <module>syndication</module>
+        <module>syslog</module>
         <module>tarfile</module>
         <module>telegram</module>
         <module>tika</module>
