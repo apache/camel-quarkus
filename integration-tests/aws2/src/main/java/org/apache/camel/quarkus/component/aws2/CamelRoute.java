@@ -31,12 +31,6 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws2-sqs://camel-1?delaySeconds=5")
                 .to("log:sf?showAll=true");
 
-        from("timer:quarkus-s3?repeatCount=1")
-                .setHeader("CamelAwsS3Key", constant("testquarkus"))
-                .setBody(constant("Quarkus is great!"))
-                .to("aws2-s3://camel-kafka-connector")
-                .to("log:sf?showAll=true");
-
         from("timer:quarkus-sns?repeatCount=1")
                 .setBody(constant("Quarkus is great!"))
                 .to("aws2-sns://topic1")
