@@ -42,7 +42,8 @@
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>${avro-version}</avro.version>
-        <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
+        <aws-java-sdk.version>${aws-java-sdk-version}</aws-java-sdk.version>
+        <awssdk1-swf-libs.version>${aws-java-sdk-swf-libs}</awssdk1-swf-libs.version>
         <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
         <azure-core.version>1.8.1</azure-core.version><!-- keep compatible with the azure artifacts below -->
         <azure-sdk-bom.version>1.0.1</azure-sdk-bom.version>

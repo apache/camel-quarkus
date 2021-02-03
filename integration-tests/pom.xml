@@ -68,6 +68,7 @@
         <module>avro-rpc</module>
         <module>aws</module>
         <module>aws2</module>
+        <module>aws2-s3</module>
         <module>azure</module>
         <module>azure-eventhubs</module>
         <module>azure-storage-blob</module>

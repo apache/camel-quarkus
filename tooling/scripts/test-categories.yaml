@@ -164,6 +164,7 @@ platform:
   - rest
   - rest-openapi
   - csimple
+  - aws2-s3
 saas:
   - box
   - github
