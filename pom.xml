@@ -138,7 +138,7 @@
         <slf4j-log4j12.version>1.7.30</slf4j-log4j12.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <sshd.version>2.3.0</sshd.version>
         <stax2.version>4.2</stax2.version>
-        <testcontainers.version>1.15.0</testcontainers.version>
+        <testcontainers.version>1.15.1</testcontainers.version>
         <wiremock.version>2.27.2</wiremock.version>
         <zt-exec.version>1.11</zt-exec.version>
 
