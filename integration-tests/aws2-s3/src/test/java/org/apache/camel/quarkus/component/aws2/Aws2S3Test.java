@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(AwsTestResource.class)
+@QuarkusTestResource(Aws2S3TestResource.class)
 class Aws2S3Test {
 
     @Test
