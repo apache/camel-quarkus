@@ -110,7 +110,7 @@
         <reactor-netty.version>0.9.16.RELEASE</reactor-netty.version><!-- A newer micro than the one in azure-sdk-bom required by camel-quarkus-azure-eventhubs -->
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
-        <smallrye.reactive.messaging.camel.version>2.7.1</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->
+        <smallrye.reactive.messaging.camel.version>2.8.0</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->
         <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>${spring5-version}</spring.version>
