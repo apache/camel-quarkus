@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
 
@@ -41,7 +42,6 @@ import org.apache.camel.catalog.impl.DefaultRuntimeCamelCatalog;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.engine.AbstractCamelContext;
-import org.apache.camel.impl.engine.BaseServiceResolver;
 import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
 import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
@@ -65,6 +65,7 @@ import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.impl.engine.DefaultRouteController;
 import org.apache.camel.impl.engine.DefaultRouteFactory;
+import org.apache.camel.impl.engine.DefaultRoutesLoader;
 import org.apache.camel.impl.engine.DefaultStreamCachingStrategy;
 import org.apache.camel.impl.engine.DefaultTracer;
 import org.apache.camel.impl.engine.DefaultTransformerRegistry;
@@ -141,6 +142,7 @@ import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
 import org.apache.camel.spi.RouteFactory;
+import org.apache.camel.spi.RoutesLoader;
 import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.spi.Tracer;
@@ -154,6 +156,7 @@ import org.apache.camel.spi.Validator;
 import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
+import org.apache.camel.support.ResolverHelper;
 import org.apache.camel.support.VanillaUuidGenerator;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -350,11 +353,13 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected BeanProxyFactory createBeanProxyFactory() {
-        return new BaseServiceResolver<>(BeanProxyFactory.FACTORY, BeanProxyFactory.class,
-                getBootstrapFactoryFinder())
-                        .resolve(getCamelContextReference())
-                        .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProxyFactory on classpath. "
-                                + "Add camel-bean to classpath."));
+        Optional<BeanProxyFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                BeanProxyFactory.FACTORY,
+                BeanProxyFactory.class);
+
+        return result.orElse(null);
     }
 
     @Override
@@ -369,11 +374,14 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected BeanProcessorFactory createBeanProcessorFactory() {
-        return new BaseServiceResolver<>(BeanProcessorFactory.FACTORY, BeanProcessorFactory.class,
-                getBootstrapFactoryFinder())
-                        .resolve(getCamelContextReference())
-                        .orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProcessorFactory on classpath. "
-                                + "Add camel-bean to classpath."));
+        Optional<BeanProcessorFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                BeanProcessorFactory.FACTORY,
+                BeanProcessorFactory.class);
+
+        return result.orElseThrow(() -> new IllegalArgumentException("Cannot find BeanProcessorFactory on classpath. "
+                + "Add camel-bean to classpath."));
     }
 
     @Override
@@ -394,6 +402,17 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     protected PackageScanResourceResolver createPackageScanResourceResolver() {
         return new DefaultPackageScanResourceResolver();
+    }
+
+    @Override
+    protected RoutesLoader createRoutesLoader() {
+        Optional<RoutesLoader> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                RoutesLoader.FACTORY,
+                RoutesLoader.class);
+
+        return result.orElseGet(DefaultRoutesLoader::new);
     }
 
     @Override
@@ -435,11 +454,14 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RestRegistryFactory createRestRegistryFactory() {
-        return new BaseServiceResolver<>(RestRegistryFactory.FACTORY, RestRegistryFactory.class,
-                getBootstrapFactoryFinder())
-                        .resolve(getCamelContextReference())
-                        .orElseThrow(() -> new IllegalArgumentException("Cannot find RestRegistryFactory on classpath. "
-                                + "Add camel-rest to classpath."));
+        Optional<RestRegistryFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                RestRegistryFactory.FACTORY,
+                RestRegistryFactory.class);
+
+        return result.orElseThrow(() -> new IllegalArgumentException("Cannot find RestRegistryFactory on classpath. "
+                + "Add camel-rest to classpath."));
     }
 
     @Override
@@ -479,9 +501,13 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected HealthCheckRegistry createHealthCheckRegistry() {
-        return new BaseServiceResolver<>(HealthCheckRegistry.FACTORY, HealthCheckRegistry.class,
-                getBootstrapFactoryFinder())
-                        .resolve(getCamelContextReference()).orElse(null);
+        Optional<HealthCheckRegistry> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                HealthCheckRegistry.FACTORY,
+                HealthCheckRegistry.class);
+
+        return result.orElse(null);
     }
 
     @Override
@@ -491,12 +517,15 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected RestBindingJaxbDataFormatFactory createRestBindingJaxbDataFormatFactory() {
-        return new BaseServiceResolver<>(RestBindingJaxbDataFormatFactory.FACTORY, RestBindingJaxbDataFormatFactory.class,
-                getBootstrapFactoryFinder())
-                        .resolve(getCamelContextReference())
-                        .orElseThrow(
-                                () -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
-                                        + "Add camel-jaxb to classpath."));
+        Optional<RestBindingJaxbDataFormatFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                RestBindingJaxbDataFormatFactory.FACTORY,
+                RestBindingJaxbDataFormatFactory.class);
+
+        return result.orElseThrow(
+                () -> new IllegalArgumentException("Cannot find RestBindingJaxbDataFormatFactory on classpath. "
+                        + "Add camel-jaxb to classpath."));
     }
 
     @Override
