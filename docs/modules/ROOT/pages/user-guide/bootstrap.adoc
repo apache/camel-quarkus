@@ -37,7 +37,7 @@ public class Configurations {
     }
 }
 ----
-<1> Camel uses the component URI scheme to look-up components from its registry, this requires you to add the `@Named` annotation to the method, otherwise the CDI container would create an anonymous bean and Camel would not be able to look it up.  
+<1> Camel uses the component URI scheme to look-up components from its registry, this requires you to add the `@Named` annotation to the method, otherwise the CDI container would create an anonymous bean and Camel would not be able to look it up.
 
 In Camel Quarkus the Camel components are discovered during the augmentation phase, producing a new component as shown in the example above would invalidate any optimization that may have been made.
 
@@ -96,7 +96,7 @@ public class Main {
     }
 }
 ----
-<1> Start Quarkus and the Camel Quarkus runtime 
+<1> Start Quarkus and the Camel Quarkus runtime
 
 [NOTE]
 ====
@@ -105,25 +105,23 @@ It is recommended to perform very little logic in the Java Main.
 
 === XML Configuration
 
-In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath. E.g either `camel-quarkus-xml-io` or 
+In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath. E.g either `camel-quarkus-xml-io` or
 `camel-quarkus-xml-jaxb`. `camel-quarkus-xml-io` is preferred due to its lightweight implementation.
 
-==== Routes
-
-With Camel Main, you can set a property that points to the location of route XML files:
+With Camel Main, you can set a property that points to the location of resources XML files such as routes, xref:latest@manual::rest-dsl.adoc[REST DSL] and xref:latest@manual::route-template.adoc[Route templates]:
 
 [source,properties]
 ----
-camel.main.xml-routes = routes/routes.xml, file:src/main/routes/other-routes.xml
+camel.main.routes-include-pattern = routes/routes.xml, file:src/main/routes/rests.xml, file:src/main/rests/route-template.xml
 ----
 
 [NOTE]
 ====
-Path globbing like `camel.main.xml-routes = *./routes.xml` currently does not work in native mode.
+Path globbing like `camel.main.routes-include-pattern = *./routes.xml` currently does not work in native mode.
 ====
 
-Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not supported. The route XML should be in the simplified version like:
 
+.Route
 [source,xml]
 ----
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -139,18 +137,12 @@ Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not s
 
 </routes>
 ----
+[NOTE]
+====
+Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not supported. The route XML should be in the simplified version like:
+====
 
-==== REST DSL
-
-The Camel xref:latest@manual::rest-dsl.adoc[REST DSL] can be defined in XML and configured with Camel Main via a property:
-
-[source,properties]
-----
-camel.main.xml-rests = rests/rests.xml, file:src/main/rests/other-rests.xml
-----
-
-The XML for the REST configuration looks like:
-
+.Rest DSL
 [source,xml]
 ----
 <rests xmlns="http://camel.apache.org/schema/spring">
@@ -164,17 +156,7 @@ The XML for the REST configuration looks like:
 </rests>
 ----
 
-==== Route Templates
-
-xref:latest@manual::route-template.adoc[Route templates] can be defined in XML and configured with Camel Main via a property:
-
-[source,properties]
-----
-camel.main.xml-route-templates = templates/route-template.xml, file:src/main/rests/other-route-template.xml
-----
-
-The XML for the route template configuration looks like:
-
+.Route Templates
 [source,xml]
 ----
 <routeTemplates xmlns="http://camel.apache.org/schema/spring">

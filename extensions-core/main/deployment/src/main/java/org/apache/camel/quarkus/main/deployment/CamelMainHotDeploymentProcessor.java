@@ -21,40 +21,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/*
- * camel-main does not yet support filtering with pattern/glob so
- * each entry of camel.main.xml-[routes|rests] is a path thus can
- * be safely added to the list of files to watch to trigger hot
- * deployment.
- *
- * See https://issues.apache.org/jira/browse/CAMEL-14100
- */
 class CamelMainHotDeploymentProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainHotDeploymentProcessor.class);
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
     private static final String FILE_PREFIX = "file:";
 
     @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> xmlRoutes() {
-        return locations("camel.main.xml-routes");
-    }
-
-    @BuildStep
-    List<HotDeploymentWatchedFileBuildItem> xmlRests() {
-        return locations("camel.main.xml-rests");
-    }
-
-    private static List<HotDeploymentWatchedFileBuildItem> locations(String property) {
-        String[] locations = CamelSupport.getOptionalConfigValue(property, String[].class, EMPTY_STRING_ARRAY);
-        List<HotDeploymentWatchedFileBuildItem> items = Stream.of(locations)
+    List<HotDeploymentWatchedFileBuildItem> locations() {
+        List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePatter()
                 .filter(location -> location.startsWith(FILE_PREFIX))
                 .map(location -> location.substring(FILE_PREFIX.length()))
                 .distinct()
@@ -66,7 +45,7 @@ class CamelMainHotDeploymentProcessor {
                 .collect(Collectors.toList());
 
         if (!items.isEmpty()) {
-            LOGGER.info("HotDeployment files ({}):", property);
+            LOGGER.info("HotDeployment files:");
             for (HotDeploymentWatchedFileBuildItem item : items) {
                 LOGGER.info("- {}", item.getLocation());
             }

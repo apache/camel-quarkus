@@ -46,12 +46,6 @@ public class CamelMainRecorder {
         // no need to look for sources.
         main.setDefaultPropertyPlaceholderLocation("false");
 
-        // xml rest/routes/templates should be explicitly configured as an
-        // additional dependency is required thus, disable auto discovery
-        main.configure().setXmlRoutes("false");
-        main.configure().setXmlRests("false");
-        main.configure().setXmlRouteTemplates("false");
-
         // register to the container
         container.instance(CamelMainProducers.class).setMain(main);
 

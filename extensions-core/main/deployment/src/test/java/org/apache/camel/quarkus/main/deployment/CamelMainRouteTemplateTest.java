@@ -76,7 +76,6 @@ public class CamelMainRouteTemplateTest {
         main.getCamelContext().addRouteFromTemplate("second", "myTemplate", parameters);
 
         assertThat(main.getCamelContext().getRoutes()).isNotEmpty();
-        assertThat(main.configure().getRoutesBuilders()).isNotEmpty();
 
         FluentProducerTemplate p = main.getCamelContext().createFluentProducerTemplate();
         String out1 = p.withBody("body1").to("direct:one").request(String.class);
