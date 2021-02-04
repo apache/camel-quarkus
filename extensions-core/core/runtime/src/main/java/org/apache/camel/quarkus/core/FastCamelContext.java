@@ -154,7 +154,7 @@ import org.apache.camel.spi.Validator;
 import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
-import org.apache.camel.support.VanillaUuidGenerator;
+import org.apache.camel.support.DefaultUuidGenerator;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
 
@@ -216,7 +216,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected UuidGenerator createUuidGenerator() {
-        return new VanillaUuidGenerator();
+        return new DefaultUuidGenerator();
     }
 
     @Override
