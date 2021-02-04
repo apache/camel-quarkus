@@ -74,7 +74,7 @@ public class CamelDevModeTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("camel.main.xml-routes", "file:" + BASE.toAbsolutePath().toString() + "/routes.xml");
+        props.setProperty("camel.main.routes-include-pattern", "file:" + BASE.toAbsolutePath().toString() + "/routes.xml");
 
         try {
             props.store(writer, "");

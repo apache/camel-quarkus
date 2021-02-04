@@ -63,12 +63,10 @@ public class CamelMainLambdaRouteBuilderDiscoveryTest {
     @Test
     public void testRoutesDiscovery() {
         assertThat(main.getCamelContext().getRoutes()).isNotEmpty();
-        assertThat(main.configure().getRoutesBuilders()).isNotEmpty();
     }
 
     @Produces
     public LambdaRouteBuilder myRoute() {
         return rb -> rb.from("direct:in").routeId("my-route").to("log:out");
     }
-
 }
