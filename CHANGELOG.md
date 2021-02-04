@@ -15,6 +15,8 @@
 - ReplicatedMap : The Hazelcast consumer is not notified on its listener [\#2095](https://github.com/apache/camel-quarkus/issues/2095)
 - OAI-PMH support [\#2081](https://github.com/apache/camel-quarkus/issues/2081)
 - Azure Event Hubs support [\#2079](https://github.com/apache/camel-quarkus/issues/2079)
+- Create ASF distribution [\#2045](https://github.com/apache/camel-quarkus/issues/2045)
+- CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
 - Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
@@ -161,6 +163,7 @@
 - Camel Avro RPC component native support \#1941 [\#2025](https://github.com/apache/camel-quarkus/pull/2025) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
+- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
@@ -208,7 +211,6 @@
 
 **Merged pull requests:**
 
-- Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
@@ -237,6 +239,7 @@
 - Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
 - Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace ${camel.quarkus.project.root} set by directory-maven-plugin w… [\#1953](https://github.com/apache/camel-quarkus/pull/1953) ([ppalaga](https://github.com/ppalaga))
+- lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
 - ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
 - Camel 3.6.0 upgrade leftovers [\#1940](https://github.com/apache/camel-quarkus/pull/1940) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1005,7 +1008,6 @@
 - InfluxDB native support [\#1036](https://github.com/apache/camel-quarkus/issues/1036)
 - Remove platform-http workaround when upgrading camel to 3.2.0 [\#1013](https://github.com/apache/camel-quarkus/issues/1013)
 - Camel-Avro: In 3.2.0 it will be splitted in camel-avro and camel-avro-rpc [\#995](https://github.com/apache/camel-quarkus/issues/995)
-- Introduce the CamelContextCustomizerBuildItem to do further customization of the camel context [\#984](https://github.com/apache/camel-quarkus/issues/984)
 - Platform HTTP consumer does not support matchOnUriPrefix [\#880](https://github.com/apache/camel-quarkus/issues/880)
 
 **Merged pull requests:**
@@ -1097,6 +1099,7 @@
 - Rename the top module from camel-quarkus-parent to camel-quarkus [\#1001](https://github.com/apache/camel-quarkus/issues/1001)
 - Unresolved type JAXBContext [\#996](https://github.com/apache/camel-quarkus/issues/996)
 - Couchdb native support for Producer Mode [\#989](https://github.com/apache/camel-quarkus/issues/989)
+- Introduce the CamelContextCustomizerBuildItem to do further customization of the camel context [\#984](https://github.com/apache/camel-quarkus/issues/984)
 - REST OpenApi support \(JVM only\) [\#976](https://github.com/apache/camel-quarkus/issues/976)
 - gRPC support \(JVM only\) [\#965](https://github.com/apache/camel-quarkus/issues/965)
 - Protobuf dataformat support \(JVM only\) [\#964](https://github.com/apache/camel-quarkus/issues/964)
@@ -1548,6 +1551,7 @@
 - Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
 
@@ -1568,7 +1572,6 @@
 - Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
-- Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix commons-logging setup [\#545](https://github.com/apache/camel-quarkus/pull/545) ([lburgazzoli](https://github.com/lburgazzoli))
 - examples: add timer-log kotlin example [\#542](https://github.com/apache/camel-quarkus/pull/542) ([lburgazzoli](https://github.com/lburgazzoli))
