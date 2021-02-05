@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
 - Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
@@ -19,15 +20,19 @@
 - CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
-- Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
 - StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
 - XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
 - XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - IPFS native support [\#770](https://github.com/apache/camel-quarkus/issues/770)
+- Syslog data format native support [\#595](https://github.com/apache/camel-quarkus/issues/595)
 
 **Merged pull requests:**
 
+- Replace the deprecated VanillaUuidGenerator with DefaultUuidGenerator [\#2203](https://github.com/apache/camel-quarkus/pull/2203) ([lburgazzoli](https://github.com/lburgazzoli))
+- Upgrade SmallRye Reactive Messaging Camel to 2.8.0 [\#2199](https://github.com/apache/camel-quarkus/pull/2199) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test AWS 2 S3 properly [\#2198](https://github.com/apache/camel-quarkus/pull/2198) ([ppalaga](https://github.com/ppalaga))
+- Syslog native support [\#2197](https://github.com/apache/camel-quarkus/pull/2197) ([jamesnetherton](https://github.com/jamesnetherton))
 - Changelog is back [\#2195](https://github.com/apache/camel-quarkus/pull/2195) ([oscerd](https://github.com/oscerd))
 - AWS2 EventBridge native support [\#2193](https://github.com/apache/camel-quarkus/pull/2193) ([oscerd](https://github.com/oscerd))
 - Added OAI-PMH support [\#2190](https://github.com/apache/camel-quarkus/pull/2190) ([aldettinger](https://github.com/aldettinger))
@@ -181,6 +186,7 @@
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
+- Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
@@ -1008,6 +1014,7 @@
 - InfluxDB native support [\#1036](https://github.com/apache/camel-quarkus/issues/1036)
 - Remove platform-http workaround when upgrading camel to 3.2.0 [\#1013](https://github.com/apache/camel-quarkus/issues/1013)
 - Camel-Avro: In 3.2.0 it will be splitted in camel-avro and camel-avro-rpc [\#995](https://github.com/apache/camel-quarkus/issues/995)
+- Introduce the CamelContextCustomizerBuildItem to do further customization of the camel context [\#984](https://github.com/apache/camel-quarkus/issues/984)
 - Platform HTTP consumer does not support matchOnUriPrefix [\#880](https://github.com/apache/camel-quarkus/issues/880)
 
 **Merged pull requests:**
@@ -1099,7 +1106,6 @@
 - Rename the top module from camel-quarkus-parent to camel-quarkus [\#1001](https://github.com/apache/camel-quarkus/issues/1001)
 - Unresolved type JAXBContext [\#996](https://github.com/apache/camel-quarkus/issues/996)
 - Couchdb native support for Producer Mode [\#989](https://github.com/apache/camel-quarkus/issues/989)
-- Introduce the CamelContextCustomizerBuildItem to do further customization of the camel context [\#984](https://github.com/apache/camel-quarkus/issues/984)
 - REST OpenApi support \(JVM only\) [\#976](https://github.com/apache/camel-quarkus/issues/976)
 - gRPC support \(JVM only\) [\#965](https://github.com/apache/camel-quarkus/issues/965)
 - Protobuf dataformat support \(JVM only\) [\#964](https://github.com/apache/camel-quarkus/issues/964)
@@ -1252,6 +1258,7 @@
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
 - Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
+- Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -1292,7 +1299,6 @@
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
-- Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(build\): update maven to v3.6.3 [\#871](https://github.com/apache/camel-quarkus/pull/871) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#865 Re-org the source tree [\#869](https://github.com/apache/camel-quarkus/pull/869) ([ppalaga](https://github.com/ppalaga))
