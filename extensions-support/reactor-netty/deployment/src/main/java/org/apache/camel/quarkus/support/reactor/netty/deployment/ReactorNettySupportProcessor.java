@@ -35,7 +35,10 @@ public class ReactorNettySupportProcessor {
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
         Stream.of(
+
                 "io.netty.util.NetUtil", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
+                "io.netty.channel.socket.InternetProtocolFamily", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
+                "io.netty.channel.socket.nio.ProtocolFamilyConverter$1", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
 
                 "reactor.netty.http.client.HttpClient",
                 "reactor.netty.tcp.TcpClient",
