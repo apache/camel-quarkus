@@ -197,7 +197,9 @@
         <module>catalog</module>
         <module>integration-tests-support</module>
         <module>integration-tests</module>
+        <!-- fails on camel-master
         <module>docs</module>
+        -->
     </modules>
 
     <developers>
