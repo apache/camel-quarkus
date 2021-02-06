@@ -20,6 +20,7 @@
 - CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
+- Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
 - StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
 - XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
@@ -186,7 +187,6 @@
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
-- Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
 - Need an archetype for Camel Quarkus [\#1173](https://github.com/apache/camel-quarkus/issues/1173)
@@ -1258,7 +1258,6 @@
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
 - Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
-- Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
 
@@ -1299,6 +1298,7 @@
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
+- Ref component support [\#874](https://github.com/apache/camel-quarkus/pull/874) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(doc\): fix contributor guide example [\#873](https://github.com/apache/camel-quarkus/pull/873) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore\(build\): update maven to v3.6.3 [\#871](https://github.com/apache/camel-quarkus/pull/871) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#865 Re-org the source tree [\#869](https://github.com/apache/camel-quarkus/pull/869) ([ppalaga](https://github.com/ppalaga))
