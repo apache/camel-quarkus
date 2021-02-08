@@ -35,7 +35,7 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
 
     protected final ArrayList<AutoCloseable> closeables = new ArrayList<>();
 
-    private final Service[] services;
+    protected final Service[] services;
 
     protected LocalStackContainer localstack;
 
@@ -64,7 +64,7 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
         usingMockBackend = startMockBackend && !realCredentialsProvided;
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
-            this.localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.11.3"))
+            this.localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.6"))
                     .withServices(services);
             closeables.add(localstack);
             localstack.start();
@@ -73,15 +73,7 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
             this.secretKey = localstack.getSecretKey();
             this.region = localstack.getRegion();
 
-            for (Service service : services) {
-                String s = serviceKey(service);
-                result.put("camel.component.aws2-" + s + ".access-key", accessKey);
-                result.put("camel.component.aws2-" + s + ".secret-key", secretKey);
-                result.put("camel.component.aws2-" + s + ".override-endpoint", "true");
-                result.put("camel.component.aws2-" + s + ".uri-endpoint-override",
-                        localstack.getEndpointOverride(service).toString());
-                result.put("camel.component.aws2-" + s + ".region", region);
-            }
+            setMockProperties(result);
 
         } else {
             if (!startMockBackend && !realCredentialsProvided) {
@@ -95,6 +87,26 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
         }
 
         return result;
+    }
+
+    protected void setMockProperties(final Map<String, String> result) {
+        for (Service service : services) {
+            String s = serviceKey(service);
+            result.put("camel.component.aws2-" + s + ".access-key", accessKey);
+            result.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+            result.put("camel.component.aws2-" + s + ".region", region);
+
+            switch (service) {
+            case SQS:
+                // TODO https://github.com/apache/camel-quarkus/issues/2216
+                break;
+            default:
+                result.put("camel.component.aws2-" + s + ".override-endpoint", "true");
+                result.put("camel.component.aws2-" + s + ".uri-endpoint-override",
+                        localstack.getEndpointOverride(service).toString());
+                break;
+            }
+        }
     }
 
     protected String serviceKey(Service service) {
