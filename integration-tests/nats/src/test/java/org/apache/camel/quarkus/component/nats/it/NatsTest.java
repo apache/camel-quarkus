@@ -21,6 +21,7 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -59,6 +60,7 @@ class NatsTest {
         assertEquals("no-auth-msg", messages[0]);
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2211")
     @Test
     void tlsAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsTlsAuth:test?sslContextParameters=#ssl&secure=true");

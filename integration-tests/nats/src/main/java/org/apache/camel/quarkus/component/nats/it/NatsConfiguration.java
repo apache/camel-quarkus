@@ -34,8 +34,9 @@ public class NatsConfiguration {
     @ConfigProperty(name = NATS_BROKER_URL_NO_AUTH_CONFIG_KEY)
     String natsNoAuthBrokerUrl;
 
-    @ConfigProperty(name = NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY)
-    String natsTlsAuthBrokerUrl;
+    // TODO: https://github.com/apache/camel-quarkus/issues/2211
+    // @ConfigProperty(name = NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY)
+    // String natsTlsAuthBrokerUrl;
 
     @ConfigProperty(name = NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY)
     String natsTokenAuthBrokerUrl;
@@ -54,12 +55,13 @@ public class NatsConfiguration {
         return component;
     }
 
-    @Named
-    NatsComponent natsTlsAuth() {
-        NatsComponent component = new NatsComponent();
-        component.setServers(natsTlsAuthBrokerUrl);
-        return component;
-    }
+    // TODO: https://github.com/apache/camel-quarkus/issues/2211
+    // @Named
+    // NatsComponent natsTlsAuth() {
+    //     NatsComponent component = new NatsComponent();
+    //     component.setServers(natsTlsAuthBrokerUrl);
+    //     return component;
+    // }
 
     @Named
     NatsComponent natsTokenAuth() {
