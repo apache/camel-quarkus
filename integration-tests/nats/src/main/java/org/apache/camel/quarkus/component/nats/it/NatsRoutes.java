@@ -37,7 +37,7 @@ public class NatsRoutes extends RouteBuilder {
         from("natsBasicAuth:test").routeId("basic-auth").bean(natsResource, "storeMessage");
         from("natsNoAuth:test").routeId("no-auth").bean(natsResource, "storeMessage");
         from("natsTokenAuth:test").routeId("token-auth").bean(natsResource, "storeMessage");
-        from("natsTlsAuth:test?sslContextParameters=#ssl&secure=true").routeId("tls-auth").bean(natsResource, "storeMessage");
+        //from("natsTlsAuth:test?sslContextParameters=#ssl&secure=true").routeId("tls-auth").bean(natsResource, "storeMessage");
 
         from("natsNoAuth:max?maxMessages=2").routeId("2-msg-max").bean(natsResource, "storeMessage");
 
