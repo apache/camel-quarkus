@@ -222,6 +222,7 @@ jobs:
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd docs && mvn verify
+        if: github.ref != 'refs/heads/camel-master' || github.base_ref != 'camel-master'
         run: |
           cd docs
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
