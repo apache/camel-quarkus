@@ -44,7 +44,7 @@
         <avro.version>${avro-version}</avro.version>
         <awssdk1-swf-libs.version>1.11.22</awssdk1-swf-libs.version>
         <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
-        <azure-core.version>1.8.1</azure-core.version><!-- keep compatible with the azure artifacts below -->
+        <azure-core.version>1.12.0</azure-core.version><!-- keep compatible with the azure artifacts below -->
         <azure-sdk-bom.version>1.0.1</azure-sdk-bom.version>
         <azure-storage-blob-java-sdk12.version>${azure-storage-blob-java-sdk12-version}</azure-storage-blob-java-sdk12.version>
         <azure-storage-queue-java-sdk12.version>${azure-storage-queue-java-sdk12-version}</azure-storage-queue-java-sdk12.version>
