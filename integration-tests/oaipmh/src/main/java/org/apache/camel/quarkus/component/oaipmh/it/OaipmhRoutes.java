@@ -25,14 +25,10 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 @ApplicationScoped
 public class OaipmhRoutes extends RouteBuilder {
 
-    @ConfigProperty(name = "cq-oaipmh-its.test1.server.authority")
-    String test1ServerAuthority;
-    @ConfigProperty(name = "cq-oaipmh-its.test2.server.authority")
-    String test2ServerAuthority;
-    @ConfigProperty(name = "cq-oaipmh-its.test3.server.authority")
-    String test3ServerAuthority;
-    @ConfigProperty(name = "cq-oaipmh-its.test4.server.authority")
-    String test4ServerAuthority;
+    @ConfigProperty(name = "camel.oaipmh.its.http.server.authority")
+    String httpServerAuthority;
+    @ConfigProperty(name = "camel.oaipmh.its.https.server.authority")
+    String httpsServerAuthority;
 
     public void configure() {
 
@@ -44,28 +40,28 @@ public class OaipmhRoutes extends RouteBuilder {
         final String listRecordsXpath = "/default:OAI-PMH/default:ListRecords/default:record/default:metadata/oai_dc:dc/dc:title/text()";
         final String getRecordXpath = "/default:OAI-PMH/default:GetRecord/default:record/default:metadata/oai_dc:dc/dc:title/text()";
 
-        fromF("oaipmh://%s/oai/request?delay=1000&from=2020-06-01T00:00:00Z&initialDelay=1000", test1ServerAuthority)
+        fromF("oaipmh://%s/oai/request?delay=1000&from=2020-06-01T00:00:00Z&initialDelay=1000", httpServerAuthority)
                 .split(xpath(listRecordsXpath, ns))
                 .to("mock:consumerListRecords");
 
-        fromF("oaipmh://%s/index.php?page=oai&delay=1000&from=2020-02-01T00:00:00Z&initialDelay=1000", test3ServerAuthority)
+        fromF("oaipmh://%s/index.php?page=oai&delay=1000&from=2020-02-01T00:00:00Z&initialDelay=1000", httpServerAuthority)
                 .split(xpath(listRecordsXpath, ns))
                 .to("mock:consumerListRecordsParticularCase");
 
         final String uriFormat = "oaipmh://%s/oai/request?ssl=true&ignoreSSLWarnings=true&delay=1000&verb=Identify&initialDelay=1000";
-        fromF(uriFormat, test4ServerAuthority)
+        fromF(uriFormat, httpsServerAuthority)
                 .to("mock:consumerIdentifyHttps");
 
         from("direct:producerListRecords")
                 .setHeader("CamelOaimphFrom", constant("2020-06-01T00:00:00Z"))
-                .toF("oaipmh://%s/oai/request", test1ServerAuthority)
+                .toF("oaipmh://%s/oai/request", httpServerAuthority)
                 .split(body())
                 .split(xpath(listRecordsXpath, ns))
                 .to("mock:producerListRecords");
 
         from("direct:producerGetRecord")
                 .setHeader("CamelOaimphVerb", constant("GetRecord"))
-                .toF("oaipmh://%s/oai/request", test2ServerAuthority)
+                .toF("oaipmh://%s/oai/request", httpServerAuthority)
                 .split(body())
                 .split(xpath(getRecordXpath, ns))
                 .to("mock:producerGetRecord");
