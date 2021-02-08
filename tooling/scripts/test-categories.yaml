@@ -23,7 +23,7 @@ cache-networking3:
   - caffeine
   - http
   - jsch
-  - ssh
+  #- ssh https://github.com/apache/camel-quarkus/issues/2212
   - hazelcast
   - ipfs
 cloud:
