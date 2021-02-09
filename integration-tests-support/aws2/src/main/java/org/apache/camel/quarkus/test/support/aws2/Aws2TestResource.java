@@ -98,6 +98,7 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
 
             switch (service) {
             case SQS:
+            case SNS:
                 // TODO https://github.com/apache/camel-quarkus/issues/2216
                 break;
             default:

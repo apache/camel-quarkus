@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws2.sqs.it;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
@@ -31,6 +32,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+import static org.hamcrest.core.Is.is;
+
 @QuarkusTest
 @QuarkusTestResource(Aws2SqsTestResource.class)
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+") // TODO
@@ -38,28 +41,46 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 class Aws2SqsTest {
 
     @Test
-    public void sendReceive() {
+    public void sqs() {
         final Config config = ConfigProvider.getConfig();
         final String queueName = config.getValue("aws-sqs.queue-name", String.class);
 
-        String[] queues = RestAssured.get("/aws2-sqs/queues")
+        String[] queues = RestAssured.get("/aws2-sqs-sns/sqs/queues")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body().as(String[].class);
         Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
 
-        final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
-        RestAssured.given() //
+        final String msg = "sqs" + UUID.randomUUID().toString().replace("-", "");
+        RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post("/aws2-sqs/send") //
+                .post("/aws2-sqs-sns/sqs/send")
                 .then()
                 .statusCode(201);
 
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
-                () -> RestAssured.get("/aws2-sqs/receive").then().statusCode(200).extract().body().asString(),
+                () -> RestAssured.get("/aws2-sqs-sns/sqs/receive").then().statusCode(200).extract().body().asString(),
                 Matchers.is(msg));
+
+    }
+
+    @Test
+    void sns() {
+        final String snsMsg = "sns" + UUID.randomUUID().toString().replace("-", "");
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(snsMsg)
+                .post("/aws2-sqs-sns/sns/send")
+                .then()
+                .statusCode(201);
+
+        RestAssured
+                .get("/aws2-sqs-sns/sns/receiveViaSqs")
+                .then()
+                .statusCode(200)
+                .body("Message", is(snsMsg));
 
     }
 

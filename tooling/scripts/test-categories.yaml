@@ -166,7 +166,7 @@ platform:
   - rest-openapi
   - csimple
   - aws2-s3
-  - aws2-sqs
+  - aws2-sqs-sns
 saas:
   - box
   - github
