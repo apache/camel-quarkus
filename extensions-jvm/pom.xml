@@ -47,7 +47,6 @@
         <module>beanio</module>
         <module>beanstalk</module>
         <module>bonita</module>
-        <module>cassandraql</module>
         <module>cbor</module>
         <module>chatscript</module>
         <module>chunk</module>

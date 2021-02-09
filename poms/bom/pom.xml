@@ -5530,6 +5530,16 @@
                 <version>${azure-storage-queue-java-sdk12-version}</version>
             </dependency>
             <dependency>
+                <groupId>com.datastax.oss.quarkus</groupId>
+                <artifactId>cassandra-quarkus-client</artifactId>
+                <version>${cassandra-quarkus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datastax.oss.quarkus</groupId>
+                <artifactId>cassandra-quarkus-client-deployment</artifactId>
+                <version>${cassandra-quarkus.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.woodstox</groupId>
                 <artifactId>woodstox-core</artifactId>
                 <version>${woodstox-core.version}</version>
