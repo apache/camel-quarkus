@@ -36,6 +36,7 @@ cloud:
   - google-bigquery
   - google-pubsub
   - grpc
+  - pubnub
   - protobuf
   - smallrye-reactive-messaging
 core-main-validation:

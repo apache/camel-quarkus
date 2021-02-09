@@ -1,0 +1,22 @@
+== Camel Quarkus PubNub Integration Tests
+
+By default the PubNub integration tests use WireMock to stub the API interactions.
+
+To run the `camel-quarkus-pubnub` integration tests against the real API, you must first create a PubNub account https://dashboard.pubnub.com/signup.
+
+Then find your [test credentials] and set the following environment variables:
+
+[source,shell]
+----
+export PUBNUB_PUBLISH_KEY=your-publish-key
+export PUBNUB_SUBSCRIBE_KEY=your-subscribe-key
+export PUBNUB_SECRET_KEY=your-secret-key
+----
+
+If the WireMock stub recordings need updating, edit the `stubFor` blocks within the test case. You can capture recordings and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`

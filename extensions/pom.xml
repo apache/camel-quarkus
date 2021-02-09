@@ -186,6 +186,7 @@
         <module>pgevent</module>
         <module>platform-http</module>
         <module>protobuf</module>
+        <module>pubnub</module>
         <module>quartz</module>
         <module>qute</module>
         <module>rabbitmq</module>
