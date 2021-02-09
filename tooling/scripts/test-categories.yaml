@@ -55,6 +55,7 @@ core-main-validation:
   - validator
 database:
   - arangodb
+  - cassandraql
   - couchdb
   - debezium
   - influxdb

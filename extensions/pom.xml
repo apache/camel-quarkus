@@ -86,6 +86,7 @@
         <module>braintree</module>
         <module>browse</module>
         <module>caffeine</module>
+        <module>cassandraql</module>
         <module>componentdsl</module>
         <module>consul</module>
         <module>controlbus</module>

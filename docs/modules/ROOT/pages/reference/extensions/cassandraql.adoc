@@ -3,15 +3,15 @@
 = Cassandra CQL
 :page-aliases: extensions/cassandraql.adoc
 :cq-artifact-id: camel-quarkus-cassandraql
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: n/a
+:cq-native-since: 1.7.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.7.0##
 
 Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 
