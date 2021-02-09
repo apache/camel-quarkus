@@ -59,6 +59,7 @@
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
 
+        <cassandra-quarkus.version>1.0.0</cassandra-quarkus.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
