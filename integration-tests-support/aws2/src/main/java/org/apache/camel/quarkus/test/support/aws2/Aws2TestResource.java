@@ -17,10 +17,11 @@
 package org.apache.camel.quarkus.test.support.aws2;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.ListIterator;
-import java.util.Locale;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.ServiceLoader;
+import java.util.stream.Stream;
 
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
@@ -29,28 +30,10 @@ import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.utility.DockerImageName;
 
-public abstract class Aws2TestResource implements ContainerResourceLifecycleManager {
-
+public final class Aws2TestResource implements ContainerResourceLifecycleManager {
     private static final Logger LOG = Logger.getLogger(Aws2TestResource.class);
 
-    protected final ArrayList<AutoCloseable> closeables = new ArrayList<>();
-
-    protected final Service[] services;
-
-    protected LocalStackContainer localstack;
-
-    protected boolean usingMockBackend;
-
-    protected String accessKey;
-    protected String secretKey;
-    protected String region;
-
-    public Aws2TestResource(Service first, Service... other) {
-        final Service[] s = new Service[other.length + 1];
-        s[0] = first;
-        System.arraycopy(other, 0, s, 1, other.length);
-        this.services = s;
-    }
+    private Aws2TestEnvContext envContext;
 
     @SuppressWarnings("resource")
     @Override
@@ -60,20 +43,28 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
         final String realRegion = System.getenv("AWS_REGION");
         final boolean realCredentialsProvided = realKey != null && realSecret != null && realRegion != null;
         final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
-        final Map<String, String> result = new LinkedHashMap<>();
-        usingMockBackend = startMockBackend && !realCredentialsProvided;
+        final boolean usingMockBackend = startMockBackend && !realCredentialsProvided;
+
+        ServiceLoader<Aws2TestEnvCustomizer> loader = ServiceLoader.load(Aws2TestEnvCustomizer.class);
+        List<Aws2TestEnvCustomizer> customizers = new ArrayList<>();
+        for (Aws2TestEnvCustomizer customizer : loader) {
+            LOG.info("Loaded Aws2TestEnvCustomizer " + customizer.getClass().getName());
+            customizers.add(customizer);
+        }
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
-            this.localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.6"))
+
+            final Service[] services = customizers.stream()
+                    .map(Aws2TestEnvCustomizer::localstackServices)
+                    .flatMap((Service[] ss) -> Stream.of(ss))
+                    .toArray(Service[]::new);
+
+            LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.6"))
                     .withServices(services);
-            closeables.add(localstack);
             localstack.start();
 
-            this.accessKey = localstack.getAccessKey();
-            this.secretKey = localstack.getSecretKey();
-            this.region = localstack.getRegion();
-
-            setMockProperties(result);
+            envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
+                    Optional.of(localstack), services);
 
         } else {
             if (!startMockBackend && !realCredentialsProvided) {
@@ -81,49 +72,17 @@ public abstract class Aws2TestResource implements ContainerResourceLifecycleMana
                         "Set AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
             }
             MockBackendUtils.logRealBackendUsed();
-            this.accessKey = realKey;
-            this.secretKey = realSecret;
-            this.region = realRegion;
+            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, Optional.empty());
         }
 
-        return result;
-    }
+        customizers.forEach(customizer -> customizer.customize(envContext));
 
-    protected void setMockProperties(final Map<String, String> result) {
-        for (Service service : services) {
-            String s = serviceKey(service);
-            result.put("camel.component.aws2-" + s + ".access-key", accessKey);
-            result.put("camel.component.aws2-" + s + ".secret-key", secretKey);
-            result.put("camel.component.aws2-" + s + ".region", region);
-
-            switch (service) {
-            case SQS:
-            case SNS:
-                // TODO https://github.com/apache/camel-quarkus/issues/2216
-                break;
-            default:
-                result.put("camel.component.aws2-" + s + ".override-endpoint", "true");
-                result.put("camel.component.aws2-" + s + ".uri-endpoint-override",
-                        localstack.getEndpointOverride(service).toString());
-                break;
-            }
-        }
-    }
-
-    protected String serviceKey(Service service) {
-        return service.name().toLowerCase(Locale.ROOT);
+        return envContext.getProperies();
     }
 
     @Override
     public void stop() {
-        ListIterator<AutoCloseable> it = closeables.listIterator(closeables.size());
-        while (it.hasPrevious()) {
-            AutoCloseable c = it.previous();
-            try {
-                c.close();
-            } catch (Exception e) {
-                LOG.warnf(e, "Could not close %s", c);
-            }
-        }
+        envContext.close();
     }
+
 }
