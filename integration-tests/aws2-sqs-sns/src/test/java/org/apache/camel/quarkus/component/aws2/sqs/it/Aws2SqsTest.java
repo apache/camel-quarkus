@@ -24,6 +24,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -35,7 +36,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2SqsTestResource.class)
+@QuarkusTestResource(Aws2TestResource.class)
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+") // TODO
                                                                                   // https://github.com/apache/camel-quarkus/issues/2216
 class Aws2SqsTest {
