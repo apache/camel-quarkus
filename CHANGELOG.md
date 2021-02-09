@@ -6,7 +6,10 @@
 
 **Closed issues:**
 
+- \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
+- \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
+- OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
 - Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
@@ -30,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Replaced the JettyTestServer class with MockOaipmhServer based on wir… [\#2214](https://github.com/apache/camel-quarkus/pull/2214) ([aldettinger](https://github.com/aldettinger))
 - Replace the deprecated VanillaUuidGenerator with DefaultUuidGenerator [\#2203](https://github.com/apache/camel-quarkus/pull/2203) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade SmallRye Reactive Messaging Camel to 2.8.0 [\#2199](https://github.com/apache/camel-quarkus/pull/2199) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 S3 properly [\#2198](https://github.com/apache/camel-quarkus/pull/2198) ([ppalaga](https://github.com/ppalaga))
@@ -245,6 +249,7 @@
 - Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
 - Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace ${camel.quarkus.project.root} set by directory-maven-plugin w… [\#1953](https://github.com/apache/camel-quarkus/pull/1953) ([ppalaga](https://github.com/ppalaga))
+- 1948 leveldb update in master [\#1952](https://github.com/apache/camel-quarkus/pull/1952) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
 - ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1777,6 +1782,7 @@
 
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
+- Un-negate the names [\#285](https://github.com/apache/camel-quarkus/issues/285)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
@@ -1821,7 +1827,6 @@
 - Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
 - Bind discovered routes to registry to leverage RoutesCollector [\#290](https://github.com/apache/camel-quarkus/issues/290)
 - master failing  [\#288](https://github.com/apache/camel-quarkus/issues/288)
-- Un-negate the names [\#285](https://github.com/apache/camel-quarkus/issues/285)
 - Missing versions/dependancies in rest json example [\#281](https://github.com/apache/camel-quarkus/issues/281)
 - Add minimal extension metadata [\#278](https://github.com/apache/camel-quarkus/issues/278)
 - camel-quarkus-integration-test-core -Dnative outofmemory or 137 error [\#275](https://github.com/apache/camel-quarkus/issues/275)
