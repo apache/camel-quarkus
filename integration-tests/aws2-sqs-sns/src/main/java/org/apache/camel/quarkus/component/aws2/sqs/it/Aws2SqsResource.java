@@ -26,6 +26,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -34,12 +35,21 @@ import org.apache.camel.ProducerTemplate;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.services.sqs.model.ListQueuesResponse;
 
-@Path("/aws2-sqs")
+@Path("/aws2-sqs-sns")
 @ApplicationScoped
 public class Aws2SqsResource {
 
     @ConfigProperty(name = "aws-sqs.queue-name")
     String queueName;
+
+    @ConfigProperty(name = "aws-sqs.sns-receiver-queue-name")
+    String snsReceiverQueueName;
+
+    @ConfigProperty(name = "aws2-sqs.sns-receiver-queue-arn")
+    String snsReceiverQueueArn;
+
+    @ConfigProperty(name = "aws-sns.topic-name")
+    String topicName;
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -47,11 +57,11 @@ public class Aws2SqsResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/send")
+    @Path("/sqs/send")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response send(String message) throws Exception {
+    public Response sqsSend(String message) throws Exception {
         final String response = producerTemplate.requestBody(componentUri(), message, String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -59,14 +69,14 @@ public class Aws2SqsResource {
                 .build();
     }
 
-    @Path("/receive")
+    @Path("/sqs/receive")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String receive() throws Exception {
+    @Produces(MediaType.TEXT_PLAIN)
+    public String sqsReceive() throws Exception {
         return consumerTemplate.receiveBody(componentUri(), 10000, String.class);
     }
 
-    @Path("/queues")
+    @Path("/sqs/queues")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> listQueues() throws Exception {
@@ -76,6 +86,28 @@ public class Aws2SqsResource {
 
     private String componentUri() {
         return "aws2-sqs://" + queueName;
+    }
+
+    @Path("/sns/send")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response snsSend(String message, @QueryParam("queueUrl") String queueUrl) throws Exception {
+
+        final String response = producerTemplate.requestBody(
+                "aws2-sns://" + topicName + "?subscribeSNStoSQS=true&queueUrl=RAW(" + snsReceiverQueueArn + ")", message,
+                String.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/sns/receiveViaSqs")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String sqsReceiveViaSqs() throws Exception {
+        return consumerTemplate.receiveBody("aws2-sqs://" + snsReceiverQueueName, 10000, String.class);
     }
 
 }

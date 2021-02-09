@@ -26,11 +26,6 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("timer:quarkus-sns?repeatCount=1")
-                .setBody(constant("Quarkus is great!"))
-                .to("aws2-sns://topic1")
-                .to("log:sf?showAll=true");
-
         from("timer:quarkus-ec2?repeatCount=1")
                 .to("aws2-ec2://instance?operation=describeInstances")
                 .to("log:sf?showAll=true");
