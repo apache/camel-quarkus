@@ -101,7 +101,6 @@
         <module>ognl</module>
         <module>openstack</module>
         <module>printer</module>
-        <module>pubnub</module>
         <module>pulsar</module>
         <module>quickfix</module>
         <module>redis</module>
