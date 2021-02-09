@@ -18,7 +18,9 @@ package org.apache.camel.quarkus.component.nats.it;
 
 import javax.inject.Named;
 
+import io.quarkus.arc.properties.IfBuildProperty;
 import org.apache.camel.component.nats.NatsComponent;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class NatsConfiguration {
@@ -27,15 +29,13 @@ public class NatsConfiguration {
     public static final String NATS_BROKER_URL_NO_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-no-auth";
     public static final String NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-tls-auth";
     public static final String NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY = "camel.nats.test.broker-url-token-auth";
+    public static final String NATS_ENABLE_TLS_TESTS_CONFIG_KEY = "camel.nats.test.enable-tls";
 
     @ConfigProperty(name = NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY)
     String natsBasicAuthBrokerUrl;
 
     @ConfigProperty(name = NATS_BROKER_URL_NO_AUTH_CONFIG_KEY)
     String natsNoAuthBrokerUrl;
-
-    @ConfigProperty(name = NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY)
-    String natsTlsAuthBrokerUrl;
 
     @ConfigProperty(name = NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY)
     String natsTokenAuthBrokerUrl;
@@ -55,8 +55,10 @@ public class NatsConfiguration {
     }
 
     @Named
+    @IfBuildProperty(name = NATS_ENABLE_TLS_TESTS_CONFIG_KEY, stringValue = "true")
     NatsComponent natsTlsAuth() {
         NatsComponent component = new NatsComponent();
+        String natsTlsAuthBrokerUrl = ConfigProvider.getConfig().getValue(NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY, String.class);
         component.setServers(natsTlsAuthBrokerUrl);
         return component;
     }
