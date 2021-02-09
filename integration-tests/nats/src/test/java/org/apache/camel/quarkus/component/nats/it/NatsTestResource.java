@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.nats.it;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
@@ -23,6 +24,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.SelinuxContext;
+import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
@@ -30,7 +33,6 @@ import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_NO_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY;
-import static org.apache.camel.util.CollectionHelper.mapOf;
 
 public class NatsTestResource implements ContainerResourceLifecycleManager {
 
@@ -41,36 +43,101 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
     private static final int NATS_SERVER_PORT = 4222;
     private static final String TOKEN_AUTH_TOKEN = "!admin23456";
 
-    private GenericContainer basicAuthContainer, noAuthContainer, tlsAuthContainer, tokenAuthContainer;
+    private GenericContainer<?> basicAuthContainer, noAuthContainer, tlsAuthContainer, tokenAuthContainer;
 
     @Override
     public Map<String, String> start() {
         LOG.info(TestcontainersConfiguration.getInstance().toString());
 
-        // Start the container needed for the basic authentication test
-        basicAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
+        Map<String, String> properties = new HashMap<>();
+
+        basicAuthContainer = basicAuthContainer(properties);
+        noAuthContainer = noAuthContainer(properties);
+        tokenAuthContainer = tokenAuthContainer(properties);
+
+        if ("true".equals(System.getenv("ENABLE_TLS_TESTS"))) {
+            LOG.info("TLS tests enabled so starting the TLS auth container");
+            tlsAuthContainer = tlsAuthContainer(properties);
+        } else {
+            LOG.info("TLS tests NOT enabled, so NOT starting the TLS auth container");
+        }
+
+        LOG.info("Properties: {}", properties);
+
+        return properties;
+    }
+
+    @Override
+    public void stop() {
+        stop(basicAuthContainer);
+        stop(noAuthContainer);
+        stop(tlsAuthContainer);
+        stop(tokenAuthContainer);
+    }
+
+    private void stop(GenericContainer<?> container) {
+        try {
+            if (container != null) {
+                container.stop();
+            }
+        } catch (Exception ex) {
+            LOG.error("An issue occurred while stopping " + container.getNetworkAliases(), ex);
+        }
+    }
+
+    private static GenericContainer<?> basicAuthContainer(Map<String, String> properties) {
+        LOG.info("Starting basicAuthContainer");
+        // container needed for the basic authentication test
+        GenericContainer<?> container = new GenericContainer<>(NATS_IMAGE)
+                .withExposedPorts(NATS_SERVER_PORT)
+                .withNetworkAliases("basicAuthContainer")
                 .withCommand("-DV", "--user", BASIC_AUTH_USERNAME, "--pass", BASIC_AUTH_PASSWORD)
+                .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("basicAuthContainer"))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
-        basicAuthContainer.start();
-        String basicAuthIp = basicAuthContainer.getContainerIpAddress();
-        Integer basicAuthPort = basicAuthContainer.getMappedPort(NATS_SERVER_PORT);
+
+        container.start();
+
+        String basicAuthIp = container.getContainerIpAddress();
+        Integer basicAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String basicAuthAuthority = BASIC_AUTH_USERNAME + ":" + BASIC_AUTH_PASSWORD;
         String basicAuthBrokerUrl = String.format("%s@%s:%d", basicAuthAuthority, basicAuthIp, basicAuthPort);
 
-        // Start the container needed for tests without authentication
-        noAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
+        properties.put(NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY, basicAuthBrokerUrl);
+
+        return container;
+    }
+
+    private static GenericContainer<?> noAuthContainer(Map<String, String> properties) {
+        LOG.info("Starting noAuthContainer");
+        // container needed for the basic authentication test
+        GenericContainer<?> container = new GenericContainer<>(NATS_IMAGE)
+                .withExposedPorts(NATS_SERVER_PORT)
+                .withNetworkAliases("noAuthContainer")
+                .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("noAuthContainer"))
                 .waitingFor(Wait.forLogMessage(".*Listening for route connections.*", 1));
-        noAuthContainer.start();
-        String noAuthIp = noAuthContainer.getContainerIpAddress();
-        Integer noAuthPort = noAuthContainer.getMappedPort(NATS_SERVER_PORT);
+
+        container.start();
+
+        String noAuthIp = container.getContainerIpAddress();
+        Integer noAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String noAuthBrokerUrl = String.format("%s:%s", noAuthIp, noAuthPort);
 
+        properties.put(NATS_BROKER_URL_NO_AUTH_CONFIG_KEY, noAuthBrokerUrl);
+
+        return container;
+    }
+
+    private static GenericContainer<?> tlsAuthContainer(Map<String, String> properties) {
+        LOG.info("Starting tlsAuthContainer");
         // Start the container needed for the TLS authentication test
-        tlsAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
-                .withClasspathResourceMapping("certs/ca.pem", "/certs/ca.pem", BindMode.READ_ONLY)
-                .withClasspathResourceMapping("certs/key.pem", "/certs/key.pem", BindMode.READ_ONLY)
-                .withClasspathResourceMapping("certs/server.pem", "/certs/server.pem", BindMode.READ_ONLY)
-                .withClasspathResourceMapping("conf/tls.conf", "/conf/tls.conf", BindMode.READ_ONLY)
+        GenericContainer<?> container = new GenericContainer<>(NATS_IMAGE)
+                .withExposedPorts(NATS_SERVER_PORT)
+                .withNetworkAliases("tlsAuthContainer")
+                .withClasspathResourceMapping("certs/ca.pem", "/certs/ca.pem", BindMode.READ_ONLY, SelinuxContext.SHARED)
+                .withClasspathResourceMapping("certs/key.pem", "/certs/key.pem", BindMode.READ_ONLY, SelinuxContext.SHARED)
+                .withClasspathResourceMapping("certs/server.pem", "/certs/server.pem", BindMode.READ_ONLY,
+                        SelinuxContext.SHARED)
+                .withClasspathResourceMapping("conf/tls.conf", "/conf/tls.conf", BindMode.READ_ONLY, SelinuxContext.SHARED)
                 .withCommand(
                         "--config", "/conf/tls.conf",
                         "--tls",
@@ -78,47 +145,43 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
                         "--tlskey=/certs/key.pem",
                         "--tlsverify",
                         "--tlscacert=/certs/ca.pem")
+                .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("tlsAuthContainer"))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         try {
-            tlsAuthContainer.start();
+            container.start();
         } catch (Exception ex) {
-            throw new RuntimeException("An issue occurred while starting tlsAuthContainer: " + tlsAuthContainer.getLogs(), ex);
+            throw new RuntimeException("An issue occurred while starting tlsAuthContainer: " + container.getLogs(), ex);
         }
-        String tlsAuthIp = tlsAuthContainer.getContainerIpAddress();
-        Integer tlsAuthPort = tlsAuthContainer.getMappedPort(NATS_SERVER_PORT);
+
+        container.start();
+
+        String tlsAuthIp = container.getContainerIpAddress();
+        Integer tlsAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String tlsAuthBrokerUrl = String.format("%s:%d", tlsAuthIp, tlsAuthPort);
 
+        properties.put(NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY, tlsAuthBrokerUrl);
+
+        return container;
+    }
+
+    private static GenericContainer<?> tokenAuthContainer(Map<String, String> properties) {
+        LOG.info("Starting tokenAuthContainer");
         // Start the container needed for the token authentication test
-        tokenAuthContainer = new GenericContainer(NATS_IMAGE).withExposedPorts(NATS_SERVER_PORT)
+        GenericContainer<?> container = new GenericContainer<>(NATS_IMAGE)
+                .withExposedPorts(NATS_SERVER_PORT)
+                .withNetworkAliases("tokenAuthContainer")
                 .withCommand("-DV", "-auth", TOKEN_AUTH_TOKEN)
+                .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("tokenAuthContainer"))
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
-        tokenAuthContainer.start();
-        String tokenAuthIp = tokenAuthContainer.getContainerIpAddress();
-        Integer tokenAuthPort = tokenAuthContainer.getMappedPort(NATS_SERVER_PORT);
+
+        container.start();
+
+        String tokenAuthIp = container.getContainerIpAddress();
+        Integer tokenAuthPort = container.getMappedPort(NATS_SERVER_PORT);
         String tokenAuthBrokerUrl = String.format("%s@%s:%d", TOKEN_AUTH_TOKEN, tokenAuthIp, tokenAuthPort);
 
-        Map<String, String> properties = mapOf(NATS_BROKER_URL_BASIC_AUTH_CONFIG_KEY, basicAuthBrokerUrl);
-        properties.put(NATS_BROKER_URL_NO_AUTH_CONFIG_KEY, noAuthBrokerUrl);
-        properties.put(NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY, tlsAuthBrokerUrl);
         properties.put(NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY, tokenAuthBrokerUrl);
-        return properties;
-    }
 
-    @Override
-    public void stop() {
-        stop(basicAuthContainer, "natsBasicAuthContainer");
-        stop(noAuthContainer, "natsNoAuthContainer");
-        stop(tlsAuthContainer, "natsTlsAuthContainer");
-        stop(tokenAuthContainer, "natsTokenAuthContainer");
-    }
-
-    private void stop(GenericContainer<?> container, String id) {
-        try {
-            if (container != null) {
-                container.stop();
-            }
-        } catch (Exception ex) {
-            LOG.error("An issue occured while stopping " + id, ex);
-        }
+        return container;
     }
 }
