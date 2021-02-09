@@ -53,8 +53,14 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
 
         basicAuthContainer = basicAuthContainer(properties);
         noAuthContainer = noAuthContainer(properties);
-        //tlsAuthContainer = tlsAuthContainer(properties);
         tokenAuthContainer = tokenAuthContainer(properties);
+
+        if ("true".equals(System.getenv("ENABLE_TLS_TESTS"))) {
+            LOG.info("TLS tests enabled so starting the TLS auth container");
+            tlsAuthContainer = tlsAuthContainer(properties);
+        } else {
+            LOG.info("TLS tests NOT enabled, so NOT starting the TLS auth container");
+        }
 
         LOG.info("Properties: {}", properties);
 
@@ -140,7 +146,6 @@ public class NatsTestResource implements ContainerResourceLifecycleManager {
                         "--tlsverify",
                         "--tlscacert=/certs/ca.pem")
                 .withLogConsumer(new Slf4jLogConsumer(LOG).withPrefix("tlsAuthContainer"))
-                .waitingFor(Wait.forListeningPort())
                 .waitingFor(Wait.forLogMessage(".*Server is ready.*", 1));
         try {
             container.start();

@@ -25,19 +25,36 @@ import org.apache.camel.support.jsse.KeyManagersParameters;
 import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_ENABLE_TLS_TESTS_CONFIG_KEY;
 
 @ApplicationScoped
 public class NatsRoutes extends RouteBuilder {
 
+    private static final Logger LOG = LoggerFactory.getLogger(NatsRoutes.class);
+
     @Inject
     NatsResource natsResource;
+
+    @ConfigProperty(name = NATS_ENABLE_TLS_TESTS_CONFIG_KEY)
+    boolean tlsTestsEnabled;
 
     @Override
     public void configure() {
         from("natsBasicAuth:test").routeId("basic-auth").bean(natsResource, "storeMessage");
         from("natsNoAuth:test").routeId("no-auth").bean(natsResource, "storeMessage");
         from("natsTokenAuth:test").routeId("token-auth").bean(natsResource, "storeMessage");
-        //from("natsTlsAuth:test?sslContextParameters=#ssl&secure=true").routeId("tls-auth").bean(natsResource, "storeMessage");
+
+        if (tlsTestsEnabled) {
+            LOG.info("TLS tests enabled so starting the TLS auth route");
+            final String uri = "natsTlsAuth:test?sslContextParameters=#ssl&secure=true";
+            from(uri).routeId("tls-auth").bean(natsResource, "storeMessage");
+        } else {
+            LOG.info("TLS tests NOT enabled, so NOT starting the TLS auth route");
+        }
 
         from("natsNoAuth:max?maxMessages=2").routeId("2-msg-max").bean(natsResource, "storeMessage");
 
