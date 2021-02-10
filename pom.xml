@@ -145,7 +145,7 @@
         <zt-exec.version>1.11</zt-exec.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>0.28.0</cq-plugin.version>
+        <cq-plugin.version>0.29.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -836,6 +836,17 @@
                                             <include>integration-tests-aws2/*/src/main/resources/application.properties</include>
                                         </includes>
                                     </removeEmptyApplicationProperties>
+                                    <mergePoms>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-tests-aws2</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/aws2-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                    </mergePoms>
                                 </configuration>
                             </execution>
                         </executions>
