@@ -34,6 +34,13 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency><!-- Workaround for https://github.com/apache/camel-quarkus/issues/2207 -->
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>2.11.3</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bom-test</artifactId>
@@ -104,9 +111,6 @@
         </dependency>
     </dependencies>
 
-    <!-- TODO: Enable when the following issues are resolved:
-        - https://github.com/apache/camel-quarkus/issues/2204
-        - https://github.com/apache/camel-quarkus/issues/2207
     <profiles>
         <profile>
             <id>native</id>
@@ -136,6 +140,5 @@
             </build>
         </profile>
     </profiles>
-    -->
 
 </project>
