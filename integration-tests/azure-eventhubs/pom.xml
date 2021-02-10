@@ -104,6 +104,9 @@
         </dependency>
     </dependencies>
 
+    <!-- TODO: Enable when the following issues are resolved:
+        - https://github.com/apache/camel-quarkus/issues/2204
+        - https://github.com/apache/camel-quarkus/issues/2207
     <profiles>
         <profile>
             <id>native</id>
@@ -133,5 +136,6 @@
             </build>
         </profile>
     </profiles>
+    -->
 
 </project>
