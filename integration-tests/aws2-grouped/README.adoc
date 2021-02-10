@@ -10,9 +10,10 @@ if, in the given situation, the speed matters more than isolation.
 
 === How the grouping works
 
-The grouped module dynamically pulls all sources from the individual AWS test modules to its
-`target/[test-]classes` directories.
-`application.properties` files and service descriptors are concatenated using a Groovy script.
+* The grouped module dynamically pulls all sources from the individual AWS test modules to its
+* `target/[test-]classes` directories.
+* `application.properties` files and service descriptors are concatenated using a Groovy script.
+* The dependencies in the grouped `pom.xml` can be updated via `mvn process-resources -Pformat -N`.
 
 === Mock backend vs. real service
 

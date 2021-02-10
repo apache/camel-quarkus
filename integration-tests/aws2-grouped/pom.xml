@@ -41,7 +41,16 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
     <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-s3</artifactId>
@@ -54,21 +63,10 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-sqs</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson</artifactId>
-        </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-main</artifactId>
         </dependency>
-
-        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -157,21 +155,11 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>add-source</goal>
-                            <goal>add-resource</goal>
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-s3/src/main/java</source>
-                                <source>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-sqs-sns/src/main/java</source>
+                                <source>${basedir}/target/src/main/java</source>
                             </sources>
-                            <resources>
-                                <resource>
-                                    <directory>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-s3/src/main/resources</directory>
-                                </resource>
-                                <resource>
-                                    <directory>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-sqs-sns/src/main/resources</directory>
-                                </resource>
-                            </resources>
                         </configuration>
                     </execution>
                     <execution>
@@ -179,21 +167,11 @@
                         <phase>generate-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
-                            <goal>add-test-resource</goal>
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-s3/src/test/java</source>
-                                <source>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-sqs-sns/src/test/java</source>
+                                <source>${basedir}/target/src/test/java</source>
                             </sources>
-                            <resources>
-                                <resource>
-                                    <directory>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-s3/src/test/resources</directory>
-                                </resource>
-                                <resource>
-                                    <directory>${maven.multiModuleProjectDirectory}/integration-tests-aws2/aws2-sqs-sns/src/test/resources</directory>
-                                </resource>
-                            </resources>
                         </configuration>
                     </execution>
                 </executions>

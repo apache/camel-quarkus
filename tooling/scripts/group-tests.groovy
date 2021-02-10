@@ -25,7 +25,11 @@ import java.util.stream.Stream
 import java.util.stream.Collectors
 import java.util.regex.Pattern
 import java.util.regex.Matcher
+import groovy.ant.AntBuilder
 
+/* Copies source files from multiple source test modules (subdirs of `group-tests.source.dir`) into
+ * one destination module (`group-tests.dest.module.dir`) so that the tests can be executed all at once
+ */
 
 final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
@@ -39,6 +43,18 @@ Files.list(sourceDir)
     .sorted()
     .forEach {p ->
         mergedFiles.each { relPath, sb -> sb.append(p.resolve(relPath).getText('UTF-8') + '\n') }
+        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/src/main/java')) {
+            fileset(dir: p.resolve('src/main/java'), includes: "**")
+        }
+        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/src/test/java')) {
+            fileset(dir: p.resolve('src/test/java'), includes: "**")
+        }
+        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/classes')) {
+            fileset(dir: p.resolve('src/main/resources'), includes: "**")
+        }
+        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/test-classes')) {
+            fileset(dir: p.resolve('src/test/resources'), includes: "**")
+        }
     }
 
 mergedFiles.each { relPath, sb ->
