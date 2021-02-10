@@ -1,0 +1,9 @@
+== Nats integration tests
+
+By default the TLS integration test is disabled as it flakes on quarkus-platform continuous integration, busy operating systems and maybe more.
+
+This test could be manually enabled by setting the environment variable as below:
+[source,shell]
+----
+export ENABLE_TLS_TESTS=true
+----

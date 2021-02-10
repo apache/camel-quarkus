@@ -60,10 +60,6 @@ class NatsTest {
         assertEquals("no-auth-msg", messages[0]);
     }
 
-    /*
-     * The tests with TLS authentication fail in some environments (quarkus-platform, loaded systems and maybe more).
-     * They can be enabled locally with "export ENABLE_TLS_TESTS=true".
-     */
     @Test
     @EnabledIfEnvironmentVariable(named = "ENABLE_TLS_TESTS", matches = "true")
     void tlsAuthProduceConsumeRoundTripShouldSucceed() {
