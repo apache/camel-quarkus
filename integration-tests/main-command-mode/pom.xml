@@ -29,8 +29,7 @@
     <name>Camel Quarkus :: Integration Tests :: Main Command Mode</name>
 
     <properties>
-
-        <quarkus.runner.jar>${project.build.directory}/${project.artifactId}-${project.version}-runner.jar</quarkus.runner.jar>
+        <quarkus.runner.jar>${project.build.directory}/quarkus-app/quarkus-run.jar</quarkus.runner.jar>
     </properties>
 
     <dependencies>

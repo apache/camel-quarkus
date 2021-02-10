@@ -31,8 +31,7 @@
     <description>Integration tests for Camel Quarkus Master extension</description>
 
     <properties>
-
-        <quarkus.runner>${project.build.directory}/${project.artifactId}-${project.version}-runner.jar</quarkus.runner>
+        <quarkus.runner>${project.build.directory}/quarkus-app/quarkus-run.jar</quarkus.runner>
     </properties>
 
     <dependencyManagement>
