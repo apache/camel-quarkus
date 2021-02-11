@@ -55,7 +55,7 @@ public class Aws2TestEnvContext {
 
         localstack.ifPresent(ls -> {
             for (Service service : services) {
-                String s = serviceKey(service);
+                String s = camelServiceAcronym(service);
                 properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
                 properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
                 properties.put("camel.component.aws2-" + s + ".region", region);
@@ -63,6 +63,7 @@ public class Aws2TestEnvContext {
                 switch (service) {
                 case SQS:
                 case SNS:
+                case DYNAMODB:
                     // TODO https://github.com/apache/camel-quarkus/issues/2216
                     break;
                 default:
@@ -77,7 +78,7 @@ public class Aws2TestEnvContext {
 
     /**
      * Add a key-value pair to the system properties seen by AWS 2 tests
-     * 
+     *
      * @param  key
      * @param  value
      * @return       this {@link Aws2TestEnvContext}
@@ -89,7 +90,7 @@ public class Aws2TestEnvContext {
 
     /**
      * Add an {@link AutoCloseable} to be closed after running AWS 2 tests
-     * 
+     *
      * @param  closeable the {@link AutoCloseable} to add
      * @return           this {@link Aws2TestEnvContext}
      */
@@ -144,7 +145,12 @@ public class Aws2TestEnvContext {
         return client;
     }
 
-    private static String serviceKey(Service service) {
-        return service.name().toLowerCase(Locale.ROOT);
+    private static String camelServiceAcronym(Service service) {
+        switch (service) {
+        case DYNAMODB:
+            return "ddb";
+        default:
+            return service.name().toLowerCase(Locale.ROOT);
+        }
     }
 }
