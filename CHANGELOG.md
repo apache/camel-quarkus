@@ -8,6 +8,8 @@
 
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
+- \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
+- Azure EventHubs native build fails with Quarkus 1.12 [\#2204](https://github.com/apache/camel-quarkus/issues/2204)
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
 - OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
@@ -28,16 +30,24 @@
 - StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
 - XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
+- CassandraQL native support [\#1355](https://github.com/apache/camel-quarkus/issues/1355)
 - XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - IPFS native support [\#770](https://github.com/apache/camel-quarkus/issues/770)
 - Syslog data format native support [\#595](https://github.com/apache/camel-quarkus/issues/595)
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 1.12.0.CR1 [\#2231](https://github.com/apache/camel-quarkus/pull/2231) ([jamesnetherton](https://github.com/jamesnetherton))
+- Allow running AWS 2 tests both grouped and isolated [\#2230](https://github.com/apache/camel-quarkus/pull/2230) ([ppalaga](https://github.com/ppalaga))
+- Use Java 15 as 14 is EOL [\#2229](https://github.com/apache/camel-quarkus/pull/2229) ([jamesnetherton](https://github.com/jamesnetherton))
+- Ensure integration tests have enough free disk space [\#2228](https://github.com/apache/camel-quarkus/pull/2228) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Camel 3.8.0 [\#2227](https://github.com/apache/camel-quarkus/pull/2227) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix camel-master CI branch build [\#2224](https://github.com/apache/camel-quarkus/pull/2224) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 SNS properly [\#2222](https://github.com/apache/camel-quarkus/pull/2222) ([ppalaga](https://github.com/ppalaga))
 - PubNub native support [\#2218](https://github.com/apache/camel-quarkus/pull/2218) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 SQS properly [\#2217](https://github.com/apache/camel-quarkus/pull/2217) ([ppalaga](https://github.com/ppalaga))
 - Replaced the JettyTestServer class with MockOaipmhServer based on wir… [\#2214](https://github.com/apache/camel-quarkus/pull/2214) ([aldettinger](https://github.com/aldettinger))
+- Azure EventHubs native build fails with Quarkus 1.12  [\#2208](https://github.com/apache/camel-quarkus/pull/2208) ([ppalaga](https://github.com/ppalaga))
 - Replace the deprecated VanillaUuidGenerator with DefaultUuidGenerator [\#2203](https://github.com/apache/camel-quarkus/pull/2203) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade SmallRye Reactive Messaging Camel to 2.8.0 [\#2199](https://github.com/apache/camel-quarkus/pull/2199) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 S3 properly [\#2198](https://github.com/apache/camel-quarkus/pull/2198) ([ppalaga](https://github.com/ppalaga))
