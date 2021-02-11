@@ -16,12 +16,8 @@
  */
 package org.apache.camel.quarkus.component.netty.deployment;
 
-import io.netty.channel.socket.nio.NioDatagramChannel;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.netty.NettyConfiguration;
 
 class NettyProcessor {
 
@@ -30,11 +26,5 @@ class NettyProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, NioDatagramChannel.class));
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, NettyConfiguration.class));
     }
 }
