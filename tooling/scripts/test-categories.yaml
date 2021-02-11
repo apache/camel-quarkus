@@ -87,6 +87,7 @@ foundation:
   - headersmap
   - jta
   - jsonpath
+  - kamelet
   - micrometer
   - quartz
   - saga
