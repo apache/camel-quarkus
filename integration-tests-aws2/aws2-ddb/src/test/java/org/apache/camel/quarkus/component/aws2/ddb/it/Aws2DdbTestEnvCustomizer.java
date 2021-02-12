@@ -25,20 +25,21 @@ import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeDefinition;
 import software.amazon.awssdk.services.dynamodb.model.CreateTableRequest;
-import software.amazon.awssdk.services.dynamodb.model.CreateTableResponse;
 import software.amazon.awssdk.services.dynamodb.model.DeleteTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.DescribeTableRequest;
 import software.amazon.awssdk.services.dynamodb.model.KeySchemaElement;
 import software.amazon.awssdk.services.dynamodb.model.KeyType;
 import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughput;
 import software.amazon.awssdk.services.dynamodb.model.ScalarAttributeType;
+import software.amazon.awssdk.services.dynamodb.model.StreamSpecification;
+import software.amazon.awssdk.services.dynamodb.model.StreamViewType;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
 public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
-        return new Service[] { Service.DYNAMODB };
+        return new Service[] { Service.DYNAMODB, Service.DYNAMODB_STREAMS };
     }
 
     @Override
@@ -50,7 +51,7 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
         final DynamoDbClient client = envContext.client(Service.DYNAMODB, DynamoDbClient::builder);
         {
             final String keyColumn = "key";
-            CreateTableResponse tbl = client.createTable(
+            client.createTable(
                     CreateTableRequest.builder()
                             .attributeDefinitions(AttributeDefinition.builder()
                                     .attributeName(keyColumn)
@@ -63,6 +64,10 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
                             .provisionedThroughput(ProvisionedThroughput.builder()
                                     .readCapacityUnits(new Long(10))
                                     .writeCapacityUnits(new Long(10))
+                                    .build())
+                            .streamSpecification(StreamSpecification.builder()
+                                    .streamEnabled(true)
+                                    .streamViewType(StreamViewType.NEW_AND_OLD_IMAGES)
                                     .build())
                             .tableName(tableName)
                             .build());

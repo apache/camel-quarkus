@@ -64,6 +64,7 @@ public class Aws2TestEnvContext {
                 case SQS:
                 case SNS:
                 case DYNAMODB:
+                case DYNAMODB_STREAMS:
                     // TODO https://github.com/apache/camel-quarkus/issues/2216
                     break;
                 default:
@@ -149,6 +150,8 @@ public class Aws2TestEnvContext {
         switch (service) {
         case DYNAMODB:
             return "ddb";
+        case DYNAMODB_STREAMS:
+            return "ddbstream";
         default:
             return service.name().toLowerCase(Locale.ROOT);
         }
