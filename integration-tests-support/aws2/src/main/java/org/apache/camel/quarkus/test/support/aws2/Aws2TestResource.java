@@ -51,6 +51,7 @@ public final class Aws2TestResource implements ContainerResourceLifecycleManager
             LOG.info("Loaded Aws2TestEnvCustomizer " + customizer.getClass().getName());
             customizers.add(customizer);
         }
+        LOG.info("Loaded " + customizers.size() + " Aws2TestEnvCustomizers");
         if (usingMockBackend) {
             MockBackendUtils.logMockBackendUsed();
 
