@@ -104,6 +104,24 @@ class Aws2DdbTest {
                 },
                 Matchers.is(204));
 
+        /* The above actions should trigger the following three change events */
+        RestAssured.get("/aws2-ddbstream/change")
+                .then()
+                .statusCode(200)
+                .body("key", Matchers.is(key))
+                .body("new", Matchers.is(msg));
+        RestAssured.get("/aws2-ddbstream/change")
+                .then()
+                .statusCode(200)
+                .body("key", Matchers.is(key))
+                .body("old", Matchers.is(msg))
+                .body("new", Matchers.is(newMsg));
+        RestAssured.get("/aws2-ddbstream/change")
+                .then()
+                .statusCode(200)
+                .body("key", Matchers.is(key))
+                .body("old", Matchers.is(newMsg));
+
     }
 
 }
