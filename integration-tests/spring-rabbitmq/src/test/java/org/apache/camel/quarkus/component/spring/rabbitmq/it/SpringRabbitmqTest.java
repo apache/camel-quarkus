@@ -40,18 +40,12 @@ class SpringRabbitmqTest {
 
     @Test
     public void testInOut() {
-        //direct has to be empty
-        getFromDirect(SpringRabbitmqResource.DIRECT_IN_OUT)
-                .then()
-                .statusCode(204);
-
         sendToExchange(SpringRabbitmqResource.EXCHANGE_IN_OUT, SpringRabbitmqResource.ROUTING_KEY_IN_OUT, "Sheldon");
 
         getFromDirect(SpringRabbitmqResource.DIRECT_IN_OUT)
                 .then()
                 .statusCode(200)
                 .body(is("Hello Sheldon"));
-
     }
 
     @Test
@@ -71,7 +65,7 @@ class SpringRabbitmqTest {
         sendToExchange(EXCHANGE_POLLING, ROUTING_KEY_POLLING, "Sheldon");
 
         //get result from direct (for pooling) with timeout
-        getFromDirect(SpringRabbitmqResource.DIRECT_POLLING, 1000)
+        getFromDirect(SpringRabbitmqResource.DIRECT_POLLING)
                 .then()
                 .statusCode(200)
                 .body(is("Polling Hello Sheldon"));
@@ -87,13 +81,8 @@ class SpringRabbitmqTest {
     }
 
     private Response getFromDirect(String direct) {
-        return getFromDirect(direct, 0);
-    }
-
-    private Response getFromDirect(String direct, int timeout) {
         return RestAssured.given()
                 .queryParam(SpringRabbitmqResource.QUERY_DIRECT, direct)
-                .queryParam(SpringRabbitmqResource.QUERY_TIMEOUT, timeout)
                 .post("/spring-rabbitmq/getFromDirect");
     }
 
