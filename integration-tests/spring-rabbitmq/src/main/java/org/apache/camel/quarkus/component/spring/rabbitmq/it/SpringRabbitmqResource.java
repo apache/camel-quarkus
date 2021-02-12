@@ -63,10 +63,8 @@ public class SpringRabbitmqResource {
     @Path("/getFromDirect")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFromDirect(@QueryParam(QUERY_DIRECT) String directName, @QueryParam(QUERY_TIMEOUT) int timeout) {
-        final String message = timeout > 0 ? consumerTemplate.receiveBody(directName, timeout, String.class)
-                : consumerTemplate.receiveBodyNoWait(directName, String.class);
-        return message;
+    public String getFromDirect(@QueryParam(QUERY_DIRECT) String directName) {
+        return consumerTemplate.receiveBody(directName, 5000, String.class);
     }
 
     @Path("/send")
