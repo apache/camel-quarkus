@@ -128,8 +128,6 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <!-- TODO: https://github.com/apache/camel-quarkus/issues/2226 -->
-                                    <skip>true</skip>
                                     <executable>${project.basedir}/node/node</executable>
                                     <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator --fetch antora-playbook.yml --stacktrace</commandlineArgs>
                                 </configuration>
