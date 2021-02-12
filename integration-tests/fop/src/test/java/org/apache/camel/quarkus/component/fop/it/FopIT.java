@@ -17,10 +17,8 @@
 package org.apache.camel.quarkus.component.fop.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.Disabled;
 
 @NativeImageTest
-@Disabled("https://github.com/apache/camel-quarkus/issues/2113")
 class FopIT extends FopTest {
 
 }
