@@ -9,13 +9,16 @@
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
+- camel 3.8 - Removed reflection in 9 components [\#2209](https://github.com/apache/camel-quarkus/issues/2209)
 - Azure EventHubs native build fails with Quarkus 1.12 [\#2204](https://github.com/apache/camel-quarkus/issues/2204)
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
 - OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
+- \[camel 3.8\] create an extension for the kamelet component [\#2174](https://github.com/apache/camel-quarkus/issues/2174)
 - Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
 - Reimplement creation of minio client to avoid minio extension limitations [\#2134](https://github.com/apache/camel-quarkus/issues/2134)
+- camel-spring-rabbitmq - new component [\#2128](https://github.com/apache/camel-quarkus/issues/2128)
 - Hazelcast integration tests : random failing tests on CI  [\#2127](https://github.com/apache/camel-quarkus/issues/2127)
 - Align Kubernetes client version with Quarkus [\#2126](https://github.com/apache/camel-quarkus/issues/2126)
 - ReplicatedMap : The Hazelcast consumer is not notified on its listener [\#2095](https://github.com/apache/camel-quarkus/issues/2095)
@@ -37,6 +40,10 @@
 
 **Merged pull requests:**
 
+- \[update\] Upgrade testcontainers version [\#2236](https://github.com/apache/camel-quarkus/pull/2236) ([llowinge](https://github.com/llowinge))
+- Add Kamelet component extension  [\#2235](https://github.com/apache/camel-quarkus/pull/2235) ([jamesnetherton](https://github.com/jamesnetherton))
+- camel-spring-rabbitmq - new component \#2128 [\#2233](https://github.com/apache/camel-quarkus/pull/2233) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Remove redundant Netty reflective class configuration [\#2232](https://github.com/apache/camel-quarkus/pull/2232) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.12.0.CR1 [\#2231](https://github.com/apache/camel-quarkus/pull/2231) ([jamesnetherton](https://github.com/jamesnetherton))
 - Allow running AWS 2 tests both grouped and isolated [\#2230](https://github.com/apache/camel-quarkus/pull/2230) ([ppalaga](https://github.com/ppalaga))
 - Use Java 15 as 14 is EOL [\#2229](https://github.com/apache/camel-quarkus/pull/2229) ([jamesnetherton](https://github.com/jamesnetherton))
