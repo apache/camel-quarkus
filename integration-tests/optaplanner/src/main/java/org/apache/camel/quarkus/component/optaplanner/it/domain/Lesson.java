@@ -27,7 +27,7 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 /**
  * adapted from optaplanner quarkus quickstart :
- * https://github.com/quarkusio/quarkus-quickstarts/blob/master/optaplanner-quickstart/src/main/java/org/acme/optaplanner/domain/Lesson.java
+ * https://github.com/kiegroup/optaplanner-quickstarts/blob/stable/quarkus-school-timetabling/src/main/java/org/acme/schooltimetabling/domain/Lesson.java
  */
 @PlanningEntity
 public class Lesson {

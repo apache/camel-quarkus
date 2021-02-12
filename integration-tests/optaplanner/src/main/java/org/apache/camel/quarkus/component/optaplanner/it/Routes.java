@@ -17,15 +17,11 @@
 package org.apache.camel.quarkus.component.optaplanner.it;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
 public class Routes extends RouteBuilder {
-    @Inject
-    MyBean bean;
-
     @Override
     public void configure() throws Exception {
 
@@ -35,7 +31,7 @@ public class Routes extends RouteBuilder {
 
         // async consumer
         from("optaplanner:anything?useSolverManager=true&problemId=" + OptaplannerResource.SINGLETON_TIME_TABLE_ID)
-                .bean(bean, "updateBestSolution");
+                .to("mock:best-solution");
 
         // sync producer
         from("direct:solveSync")

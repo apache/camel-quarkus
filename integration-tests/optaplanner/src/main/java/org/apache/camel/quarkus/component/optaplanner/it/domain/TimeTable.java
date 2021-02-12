@@ -21,13 +21,13 @@ import java.util.List;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
+import org.optaplanner.core.api.domain.solution.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 /**
  * adapted from optaplanner quarkus quickstart :
- * https://github.com/quarkusio/quarkus-quickstarts/blob/master/optaplanner-quickstart/src/main/java/org/acme/optaplanner/domain/Timeslot.java
+ * https://github.com/kiegroup/optaplanner-quickstarts/blob/stable/quarkus-school-timetabling/src/main/java/org/acme/schooltimetabling/domain/TimeTable.java
  */
 @PlanningSolution
 public class TimeTable {
@@ -64,9 +64,4 @@ public class TimeTable {
     public List<Lesson> getLessonList() {
         return lessonList;
     }
-
-    public HardSoftScore getScore() {
-        return score;
-    }
-
 }

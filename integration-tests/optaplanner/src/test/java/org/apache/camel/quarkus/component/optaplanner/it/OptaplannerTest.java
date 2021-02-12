@@ -16,10 +16,14 @@
  */
 package org.apache.camel.quarkus.component.optaplanner.it;
 
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.apache.camel.quarkus.component.optaplanner.it.domain.TimeTable;
 import org.junit.jupiter.api.Test;
 
+import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
@@ -45,13 +49,11 @@ class OptaplannerTest {
                 .body("lessonList[0].timeslot", notNullValue(null))
                 .body("lessonList[0].room", notNullValue(null));
 
-        // test consumer data
-        RestAssured.given()
-                .get("/optaplanner/newBestSolution")
-                .then()
-                .statusCode(200)
-                .body("lessonList[0].timeslot", notNullValue(null))
-                .body("lessonList[0].room", notNullValue(null));
+        await().atMost(10L, TimeUnit.SECONDS).until(() -> {
+            TimeTable result = RestAssured.get("/optaplanner/newBestSolution").then().extract().body().as(TimeTable.class);
+            return result != null && result.getLessonList().get(0).getTimeslot() != null
+                    && result.getLessonList().get(0).getRoom() != null;
+        });
     }
 
 }

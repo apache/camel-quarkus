@@ -26,7 +26,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.component.optaplanner.OptaPlannerConstants;
 import org.apache.camel.quarkus.component.optaplanner.it.bootstrap.DataGenerator;
 import org.apache.camel.quarkus.component.optaplanner.it.domain.TimeTable;
@@ -50,7 +52,7 @@ public class OptaplannerResource {
     ProducerTemplate producerTemplate;
 
     @Inject
-    MyBean bean;
+    CamelContext context;
 
     @GET
     @Path("solveSync")
@@ -67,8 +69,6 @@ public class OptaplannerResource {
     @GET
     @Path("solveAsync")
     public TimeTable solveAsync() throws ExecutionException, InterruptedException {
-        // reset best Solution
-        bean.setBestSolution(null);
         if (SolverStatus.NOT_SOLVING == solverManager.getSolverStatus(SINGLETON_TIME_TABLE_ID)) {
             CompletableFuture<TimeTable> response = producerTemplate.asyncRequestBodyAndHeader(
                     "direct:solveAsync", DataGenerator.timeTable, OptaPlannerConstants.SOLVER_MANAGER,
@@ -83,7 +83,9 @@ public class OptaplannerResource {
     @GET
     @Path("newBestSolution")
     public TimeTable getNewBestSolution() {
-        return bean.getBestSolution();
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:best-solution", MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().stream().map(
+                exchange -> exchange.getMessage().getHeader(OptaPlannerConstants.BEST_SOLUTION, TimeTable.class))
+                .findFirst().orElse(null);
     }
-
 }
