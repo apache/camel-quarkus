@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
@@ -21,12 +22,14 @@
 - camel-spring-rabbitmq - new component [\#2128](https://github.com/apache/camel-quarkus/issues/2128)
 - Hazelcast integration tests : random failing tests on CI  [\#2127](https://github.com/apache/camel-quarkus/issues/2127)
 - Align Kubernetes client version with Quarkus [\#2126](https://github.com/apache/camel-quarkus/issues/2126)
+- FOP integration tests fail in native mode with GraalVM 20.3.0 [\#2113](https://github.com/apache/camel-quarkus/issues/2113)
 - ReplicatedMap : The Hazelcast consumer is not notified on its listener [\#2095](https://github.com/apache/camel-quarkus/issues/2095)
 - OAI-PMH support [\#2081](https://github.com/apache/camel-quarkus/issues/2081)
 - Azure Event Hubs support [\#2079](https://github.com/apache/camel-quarkus/issues/2079)
 - Create ASF distribution [\#2045](https://github.com/apache/camel-quarkus/issues/2045)
 - CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
+- AtlasMap native support [\#1989](https://github.com/apache/camel-quarkus/issues/1989)
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
 - PubNub native support [\#1944](https://github.com/apache/camel-quarkus/issues/1944)
 - Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
@@ -40,8 +43,17 @@
 
 **Merged pull requests:**
 
+- Enable FOP native integration tests [\#2247](https://github.com/apache/camel-quarkus/pull/2247) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix intermittent failure of SpringRabbitmqTest [\#2246](https://github.com/apache/camel-quarkus/pull/2246) ([jamesnetherton](https://github.com/jamesnetherton))
+- await for consumer fixes \#2205 [\#2245](https://github.com/apache/camel-quarkus/pull/2245) ([zbendhiba](https://github.com/zbendhiba))
+- Remove outdated extensions README [\#2244](https://github.com/apache/camel-quarkus/pull/2244) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test AWS 2 DynamoDB Streams [\#2242](https://github.com/apache/camel-quarkus/pull/2242) ([ppalaga](https://github.com/ppalaga))
+- Docs xref checks failure with Camel 3.8.0 [\#2240](https://github.com/apache/camel-quarkus/pull/2240) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test AWS 2 DynamoDB properly [\#2238](https://github.com/apache/camel-quarkus/pull/2238) ([ppalaga](https://github.com/ppalaga))
+- AtlasMap native support \#1989 [\#2237](https://github.com/apache/camel-quarkus/pull/2237) ([zbendhiba](https://github.com/zbendhiba))
 - \[update\] Upgrade testcontainers version [\#2236](https://github.com/apache/camel-quarkus/pull/2236) ([llowinge](https://github.com/llowinge))
 - Add Kamelet component extension  [\#2235](https://github.com/apache/camel-quarkus/pull/2235) ([jamesnetherton](https://github.com/jamesnetherton))
+- Removing unnecessary exclusions in test for CassandaQL [\#2234](https://github.com/apache/camel-quarkus/pull/2234) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - camel-spring-rabbitmq - new component \#2128 [\#2233](https://github.com/apache/camel-quarkus/pull/2233) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove redundant Netty reflective class configuration [\#2232](https://github.com/apache/camel-quarkus/pull/2232) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.12.0.CR1 [\#2231](https://github.com/apache/camel-quarkus/pull/2231) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -584,6 +596,7 @@
 - Switch from restcountries.eu to estcountries.com as the .eu service is not reliable anymore [\#1539](https://github.com/apache/camel-quarkus/pull/1539) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixup c11d8da9 Let the list of extensions page show extensions [\#1537](https://github.com/apache/camel-quarkus/pull/1537) ([ppalaga](https://github.com/ppalaga))
 - chore\(build\): configure ci to run on release rbanches [\#1536](https://github.com/apache/camel-quarkus/pull/1536) ([lburgazzoli](https://github.com/lburgazzoli))
+- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 - Let the list of extensions page show extensions, move list of supported [\#1534](https://github.com/apache/camel-quarkus/pull/1534) ([ppalaga](https://github.com/ppalaga))
 - Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -608,7 +621,6 @@
 **Merged pull requests:**
 
 - Cherry pick fixes to 1.0.x [\#1637](https://github.com/apache/camel-quarkus/pull/1637) ([ppalaga](https://github.com/ppalaga))
-- Upgrade camel to v3.4.3 \(1.0.x\) [\#1535](https://github.com/apache/camel-quarkus/pull/1535) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0](https://github.com/apache/camel-quarkus/tree/1.0.0) (2020-08-10)
 
@@ -881,6 +893,7 @@
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -1085,7 +1098,6 @@
 - http-log example [\#1079](https://github.com/apache/camel-quarkus/pull/1079) ([davsclaus](https://github.com/davsclaus))
 - Fix \#984 introduce the CamelContextCustomizerBuildItem [\#1076](https://github.com/apache/camel-quarkus/pull/1076) ([zhfeng](https://github.com/zhfeng))
 - Automatic sync branch master to camel-master [\#1074](https://github.com/apache/camel-quarkus/pull/1074) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Bump to Camel Quarkus 1.0.0-M6 [\#1073](https://github.com/apache/camel-quarkus/pull/1073) ([oscerd](https://github.com/oscerd))
 - Add a native extension for AWS2-SQS [\#1070](https://github.com/apache/camel-quarkus/pull/1070) ([oscerd](https://github.com/oscerd))
 - Sidebar menu tidy up names-14567 [\#1068](https://github.com/apache/camel-quarkus/pull/1068) ([rimshach](https://github.com/rimshach))
 - Post 3.2 cleanup [\#1067](https://github.com/apache/camel-quarkus/pull/1067) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1093,7 +1105,6 @@
 - Post Camel 3.2.0 upgrade fixes [\#1063](https://github.com/apache/camel-quarkus/pull/1063) ([jamesnetherton](https://github.com/jamesnetherton))
 - Automatic sync branch master to quarkus-master [\#1062](https://github.com/apache/camel-quarkus/pull/1062) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Use test resources instead of system properties for easy testing within the quarkus platform [\#1060](https://github.com/apache/camel-quarkus/pull/1060) ([lburgazzoli](https://github.com/lburgazzoli))
-- CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
 - InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
 ## [1.0.0-M6](https://github.com/apache/camel-quarkus/tree/1.0.0-M6) (2020-04-09)
@@ -1201,6 +1212,7 @@
 
 **Merged pull requests:**
 
+- CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - Moved the guide to promote a JVM Only extension to native to a dedica… [\#1052](https://github.com/apache/camel-quarkus/pull/1052) ([aldettinger](https://github.com/aldettinger))
 - Completed the contributor guide with a section to promote JVM Only ex… [\#1051](https://github.com/apache/camel-quarkus/pull/1051) ([aldettinger](https://github.com/aldettinger))
@@ -1235,7 +1247,6 @@
 - Make a tabular list of examples for the examples page [\#991](https://github.com/apache/camel-quarkus/pull/991) ([AemieJ](https://github.com/AemieJ))
 - \[CAMEL-13704\] - Added PR template file with instructions on what to include [\#990](https://github.com/apache/camel-quarkus/pull/990) ([Xxyumi-hub](https://github.com/Xxyumi-hub))
 - Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
-- Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Move quarkus.camel.resources.\* config options to quarkus.camel.native… [\#983](https://github.com/apache/camel-quarkus/pull/983) ([ppalaga](https://github.com/ppalaga))
 - Add GitHub extension [\#982](https://github.com/apache/camel-quarkus/pull/982) ([jamesnetherton](https://github.com/jamesnetherton))
 - Separate some misc extensions into their own categories [\#981](https://github.com/apache/camel-quarkus/pull/981) ([jamesnetherton](https://github.com/jamesnetherton))
