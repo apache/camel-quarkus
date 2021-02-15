@@ -70,7 +70,7 @@ jobs:
           ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs'
       - name: Tar Maven Repo
         shell: bash
-        run: tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
+        run: tar -czf maven-repo.tgz -C ~ build-data .m2/repository
       - name: Persist Maven Repo
         uses: actions/upload-artifact@v2
         with:
@@ -113,7 +113,7 @@ jobs:
           path: .
       - name: Extract Maven Repo
         shell: bash
-        run: tar -xzvf maven-repo.tgz -C ~
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -174,7 +174,7 @@ jobs:
           path: .
       - name: Extract Maven Repo
         shell: bash
-        run: tar -xzvf maven-repo.tgz -C ~
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Checkout
         uses: actions/checkout@v2
         with:

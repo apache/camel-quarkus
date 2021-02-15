@@ -77,7 +77,7 @@ jobs:
       - name: Tar Maven Repo
         shell: bash
         run: |
-          tar -czvf maven-repo.tgz -C ~ build-data .m2/repository
+          tar -czf maven-repo.tgz -C ~ build-data .m2/repository
           ls -lh maven-repo.tgz
           df -h
       - name: Persist Maven Repo
@@ -122,7 +122,7 @@ jobs:
           path: .
       - name: Extract Maven Repo
         shell: bash
-        run: tar -xzvf maven-repo.tgz -C ~
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -183,7 +183,7 @@ jobs:
           path: .
       - name: Extract Maven Repo
         shell: bash
-        run: tar -xzvf maven-repo.tgz -C ~
+        run: tar -xzf maven-repo.tgz -C ~
       - name: Checkout
         uses: actions/checkout@v2
         with:
