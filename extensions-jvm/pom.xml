@@ -40,7 +40,6 @@
         <module>atmos</module>
         <module>atomix</module>
         <module>aws-xray</module>
-        <module>aws2-kinesis</module>
         <module>barcode</module>
         <module>beanio</module>
         <module>beanstalk</module>
