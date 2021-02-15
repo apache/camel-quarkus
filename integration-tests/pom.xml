@@ -152,6 +152,7 @@
         <module>nagios</module>
         <module>nats</module>
         <module>netty</module>
+        <module>nitrite</module>
         <module>nsq</module>
         <module>oaipmh</module>
         <module>olingo4</module>

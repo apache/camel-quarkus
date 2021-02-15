@@ -3,15 +3,15 @@
 = Nitrite
 :page-aliases: extensions/nitrite.adoc
 :cq-artifact-id: camel-quarkus-nitrite
-:cq-native-supported: false
-:cq-status: Preview
+:cq-native-supported: true
+:cq-status: Stable
 :cq-description: Access Nitrite databases.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: n/a
+:cq-native-since: 1.8.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.8.0##
 
 Access Nitrite databases.
 
@@ -32,3 +32,16 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+If your persistence objects implement `java.io.Serializable`, you have to add configuration of all serializable classes.
+There is a new serialization support in GraalVM 21.0. Developers can configure classes
+for serialization via the serialization configuration file
+`-H:SerializationConfigurationResources=/path/to-serialization-config.json` option. For more
+information see https://github.com/oracle/graal/pull/2730[PR with feature].
+
+If your persistence objects implement `org.dizitart.no2.mapper.Mappable`. All classes have to
+implement also `java.io.Serializable` and have to be registered for serialization (see previous option),
+even though the Java serialization won't be used.
+
