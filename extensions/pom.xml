@@ -65,6 +65,7 @@
         <module>aws2-eks</module>
         <module>aws2-eventbridge</module>
         <module>aws2-iam</module>
+        <module>aws2-kinesis</module>
         <module>aws2-kms</module>
         <module>aws2-lambda</module>
         <module>aws2-mq</module>
