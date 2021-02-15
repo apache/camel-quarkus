@@ -587,6 +587,7 @@
 - Fix telegram itest component property resolution [\#1554](https://github.com/apache/camel-quarkus/pull/1554) ([llowinge](https://github.com/llowinge))
 - Compute the component counts using JavaScript to avoid merge conflicts [\#1552](https://github.com/apache/camel-quarkus/pull/1552) ([ppalaga](https://github.com/ppalaga))
 - Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add Camel AS2 Modules as Quarkus Extension \#1471 [\#1549](https://github.com/apache/camel-quarkus/pull/1549) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
@@ -1804,6 +1805,7 @@
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
+- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -1813,12 +1815,12 @@
 
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
+- Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
 **Merged pull requests:**
 
-- Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
@@ -1855,7 +1857,6 @@
 - Support multipart/form-data in platform-http extension [\#308](https://github.com/apache/camel-quarkus/issues/308)
 - Add observability example [\#297](https://github.com/apache/camel-quarkus/issues/297)
 - Add a support/xml artifact for common substrate support [\#294](https://github.com/apache/camel-quarkus/issues/294)
-- Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
 - Bind discovered routes to registry to leverage RoutesCollector [\#290](https://github.com/apache/camel-quarkus/issues/290)
 - master failing  [\#288](https://github.com/apache/camel-quarkus/issues/288)
 - Un-negate the names [\#285](https://github.com/apache/camel-quarkus/issues/285)
@@ -1990,7 +1991,6 @@
 - Enforce dependency rules [\#58](https://github.com/apache/camel-quarkus/issues/58)
 - Re-introduce test scope in integration test projects [\#41](https://github.com/apache/camel-quarkus/issues/41)
 - Website [\#38](https://github.com/apache/camel-quarkus/issues/38)
-- Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
 - quarkus-camel - Migrate option prefixes [\#8](https://github.com/apache/camel-quarkus/issues/8)
 - Upgrade to Camel SNAPSHOT [\#7](https://github.com/apache/camel-quarkus/issues/7)
 
@@ -2058,6 +2058,7 @@
 
 - Figure out whether the Reifier substitutions can be added conditionally [\#98](https://github.com/apache/camel-quarkus/issues/98)
 - AWS Extensions integration test are not built as native [\#81](https://github.com/apache/camel-quarkus/issues/81)
+- Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
 - Release first version of camel-quarkus [\#36](https://github.com/apache/camel-quarkus/issues/36)
 - "Multiple consumers for the same endpoint" after renaming packages in extensions/servlet/deployment/src/test/java [\#24](https://github.com/apache/camel-quarkus/issues/24)
 
