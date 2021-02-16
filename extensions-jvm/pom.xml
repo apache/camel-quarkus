@@ -44,7 +44,6 @@
         <module>beanio</module>
         <module>beanstalk</module>
         <module>bonita</module>
-        <module>cbor</module>
         <module>chatscript</module>
         <module>chunk</module>
         <module>cm-sms</module>

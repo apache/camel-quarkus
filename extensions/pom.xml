@@ -89,6 +89,7 @@
         <module>browse</module>
         <module>caffeine</module>
         <module>cassandraql</module>
+        <module>cbor</module>
         <module>componentdsl</module>
         <module>consul</module>
         <module>controlbus</module>
