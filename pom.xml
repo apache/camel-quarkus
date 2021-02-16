@@ -97,7 +97,7 @@
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
         <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
-        <optaplanner.version>7.46.0.Final</optaplanner.version>
+        <optaplanner.version>8.2.0.Final</optaplanner.version>
         <quarkiverse.freemarker.version>0.2.2</quarkiverse.freemarker.version>
         <quarkiverse-minio.version>0.2.0</quarkiverse-minio.version>
         <quarkus.version>1.12.0.Final</quarkus.version>

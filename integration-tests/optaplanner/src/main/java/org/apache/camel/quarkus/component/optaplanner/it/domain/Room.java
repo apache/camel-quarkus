@@ -18,9 +18,6 @@ package org.apache.camel.quarkus.component.optaplanner.it.domain;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 /**
@@ -30,10 +27,7 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 public class Room {
 
     @PlanningId
-    @NotNull
     private Long id;
-
-    @NotBlank
     private String name;
     private static AtomicLong increment = new AtomicLong(1);
 
