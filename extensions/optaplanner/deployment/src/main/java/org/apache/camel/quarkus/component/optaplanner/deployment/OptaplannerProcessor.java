@@ -18,11 +18,9 @@ package org.apache.camel.quarkus.component.optaplanner.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.logging.Logger;
 
 class OptaplannerProcessor {
 
-    private static final Logger LOG = Logger.getLogger(OptaplannerProcessor.class);
     private static final String FEATURE = "camel-optaplanner";
 
     @BuildStep
