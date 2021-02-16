@@ -18,9 +18,6 @@ package org.apache.camel.quarkus.component.optaplanner.it.domain;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
@@ -33,14 +30,10 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 public class Lesson {
 
     @PlanningId
-    @NotNull
     private Long id;
 
-    @NotBlank
     private String subject;
-    @NotBlank
     private String teacher;
-    @NotBlank
     private String studentGroup;
 
     @PlanningVariable(valueRangeProviderRefs = "timeslotRange")
