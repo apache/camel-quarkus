@@ -60,6 +60,10 @@
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-quarkus-jackson</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

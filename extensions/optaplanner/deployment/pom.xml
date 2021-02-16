@@ -29,18 +29,6 @@
     <artifactId>camel-quarkus-optaplanner-deployment</artifactId>
     <name>Camel Quarkus :: OptaPlanner :: Deployment</name>
 
-    <dependencyManagement>
-        <dependencies>
-          <dependency>
-                <groupId>org.optaplanner</groupId>
-                <artifactId>optaplanner-quarkus-deployment</artifactId>
-                <version>${optaplanner.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -53,6 +41,10 @@
         <dependency>
             <groupId>org.optaplanner</groupId>
             <artifactId>optaplanner-quarkus-deployment</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
         </dependency>
     </dependencies>
 

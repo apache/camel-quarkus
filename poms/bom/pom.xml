@@ -17,7 +17,8 @@
     limitations under the License.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
     <parent>
@@ -33,7 +34,8 @@
     <name>Camel Quarkus :: BOM</name>
 
     <properties>
-        <camel-quarkus.version>1.7.0-SNAPSHOT</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
+        <camel-quarkus.version>1.7.0-SNAPSHOT
+        </camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
     </properties>
 
     <dependencyManagement>
@@ -5999,16 +6001,6 @@
                 <version>${jsoup.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.kie.soup</groupId>
-                <artifactId>kie-soup-commons</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kie.soup</groupId>
-                <artifactId>kie-soup-project-datamodel-commons</artifactId>
-                <version>${optaplanner.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.mvel</groupId>
                 <artifactId>mvel2</artifactId>
                 <version>${mvel2.version}</version>
@@ -6021,6 +6013,16 @@
             <dependency>
                 <groupId>org.optaplanner</groupId>
                 <artifactId>optaplanner-quarkus-deployment</artifactId>
+                <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-quarkus-jackson</artifactId>
+                <version>${optaplanner.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.optaplanner</groupId>
+                <artifactId>optaplanner-quarkus-jackson-deployment</artifactId>
                 <version>${optaplanner.version}</version>
             </dependency>
             <dependency>
