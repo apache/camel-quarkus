@@ -36,6 +36,7 @@
 - StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
 - XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
+- AWS 2 Kinesis native support [\#1571](https://github.com/apache/camel-quarkus/issues/1571)
 - CassandraQL native support [\#1355](https://github.com/apache/camel-quarkus/issues/1355)
 - XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - IPFS native support [\#770](https://github.com/apache/camel-quarkus/issues/770)
@@ -43,6 +44,8 @@
 
 **Merged pull requests:**
 
+- AWS 2 Kinesis native support  [\#2252](https://github.com/apache/camel-quarkus/pull/2252) ([ppalaga](https://github.com/ppalaga))
+- Remove Camel 3.8.0 staging repository [\#2251](https://github.com/apache/camel-quarkus/pull/2251) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable FOP native integration tests [\#2247](https://github.com/apache/camel-quarkus/pull/2247) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix intermittent failure of SpringRabbitmqTest [\#2246](https://github.com/apache/camel-quarkus/pull/2246) ([jamesnetherton](https://github.com/jamesnetherton))
 - await for consumer fixes \#2205 [\#2245](https://github.com/apache/camel-quarkus/pull/2245) ([zbendhiba](https://github.com/zbendhiba))
@@ -587,7 +590,6 @@
 - Fix telegram itest component property resolution [\#1554](https://github.com/apache/camel-quarkus/pull/1554) ([llowinge](https://github.com/llowinge))
 - Compute the component counts using JavaScript to avoid merge conflicts [\#1552](https://github.com/apache/camel-quarkus/pull/1552) ([ppalaga](https://github.com/ppalaga))
 - Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
-- Add Camel AS2 Modules as Quarkus Extension \#1471 [\#1549](https://github.com/apache/camel-quarkus/pull/1549) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
@@ -1815,7 +1817,6 @@
 
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
-- Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
@@ -1857,6 +1858,7 @@
 - Support multipart/form-data in platform-http extension [\#308](https://github.com/apache/camel-quarkus/issues/308)
 - Add observability example [\#297](https://github.com/apache/camel-quarkus/issues/297)
 - Add a support/xml artifact for common substrate support [\#294](https://github.com/apache/camel-quarkus/issues/294)
+- Rename xml-common extension to core-xml [\#292](https://github.com/apache/camel-quarkus/issues/292)
 - Bind discovered routes to registry to leverage RoutesCollector [\#290](https://github.com/apache/camel-quarkus/issues/290)
 - master failing  [\#288](https://github.com/apache/camel-quarkus/issues/288)
 - Un-negate the names [\#285](https://github.com/apache/camel-quarkus/issues/285)
@@ -2075,6 +2077,8 @@
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
+- chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
+- Dedicated extension for jetty and xstream [\#78](https://github.com/apache/camel-quarkus/pull/78) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
 
@@ -2118,13 +2122,11 @@
 - chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - AWS Extension configuration classes need to be registered for reflection [\#89](https://github.com/apache/camel-quarkus/pull/89) ([oscerd](https://github.com/oscerd))
 - Changed the integration test module name and folder name for AWS [\#88](https://github.com/apache/camel-quarkus/pull/88) ([oscerd](https://github.com/oscerd))
-- chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix typo s/nett4/netty4/ [\#86](https://github.com/apache/camel-quarkus/pull/86) ([ppalaga](https://github.com/ppalaga))
 - Add a single integration test module for the AWS extensions [\#85](https://github.com/apache/camel-quarkus/pull/85) ([oscerd](https://github.com/oscerd))
 - chore\(it\): cleanup application.properties and poms [\#84](https://github.com/apache/camel-quarkus/pull/84) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixes \#18 Add a Camel AWS-EKS Extension [\#83](https://github.com/apache/camel-quarkus/pull/83) ([oscerd](https://github.com/oscerd))
 - Move netty integration-tests out of core [\#79](https://github.com/apache/camel-quarkus/pull/79) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dedicated extension for jetty and xstream [\#78](https://github.com/apache/camel-quarkus/pull/78) ([lburgazzoli](https://github.com/lburgazzoli))
 - Prepare for Camel 3.0.0-M3/4 [\#67](https://github.com/apache/camel-quarkus/pull/67) ([ppalaga](https://github.com/ppalaga))
 - Upgrade quarkus to v0.19.1 [\#66](https://github.com/apache/camel-quarkus/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.19.0 [\#64](https://github.com/apache/camel-quarkus/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
