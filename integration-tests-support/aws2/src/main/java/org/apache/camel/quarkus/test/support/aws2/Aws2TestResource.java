@@ -58,6 +58,13 @@ public final class Aws2TestResource implements ContainerResourceLifecycleManager
             final Service[] services = customizers.stream()
                     .map(Aws2TestEnvCustomizer::localstackServices)
                     .flatMap((Service[] ss) -> Stream.of(ss))
+                    .distinct()
+                    .toArray(Service[]::new);
+
+            final Service[] exportCredentialsServices = customizers.stream()
+                    .map(Aws2TestEnvCustomizer::exportCredentialsForLocalstackServices)
+                    .flatMap((Service[] ss) -> Stream.of(ss))
+                    .distinct()
                     .toArray(Service[]::new);
 
             LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.6"))
@@ -65,7 +72,7 @@ public final class Aws2TestResource implements ContainerResourceLifecycleManager
             localstack.start();
 
             envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
-                    Optional.of(localstack), services);
+                    Optional.of(localstack), exportCredentialsServices);
 
         } else {
             if (!startMockBackend && !realCredentialsProvided) {
@@ -73,7 +80,7 @@ public final class Aws2TestResource implements ContainerResourceLifecycleManager
                         "Set AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
             }
             MockBackendUtils.logRealBackendUsed();
-            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, Optional.empty());
+            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, Optional.empty(), new Service[0]);
         }
 
         customizers.forEach(customizer -> customizer.customize(envContext));
