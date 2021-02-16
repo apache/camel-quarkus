@@ -20,6 +20,7 @@ import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -28,6 +29,7 @@ import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
@@ -40,6 +42,7 @@ public class CamelContextRecorder {
             RuntimeValue<XMLRoutesDefinitionLoader> xmlLoader,
             RuntimeValue<ModelToXMLDumper> xmlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
+            RuntimeValue<StartupStepRecorder> startupStepRecorder,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
@@ -55,6 +58,7 @@ public class CamelContextRecorder {
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
+        context.adapt(ExtendedCamelContext.class).setStartupStepRecorder(startupStepRecorder.getValue());
         context.build();
         context.addLifecycleStrategy(new CamelLifecycleEventBridge());
         context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());

@@ -63,6 +63,11 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     }
 
     @Override
+    protected void configureStartupRecorder(CamelContext camelContext) {
+        super.configureStartupRecorder(camelContext);
+    }
+
+    @Override
     protected void doInit() throws Exception {
         MainShutdownStrategy shutdownStrategy = new SimpleMainShutdownStrategy();
         shutdownStrategy.addShutdownListener(() -> Quarkus.asyncExit(getExitCode()));
