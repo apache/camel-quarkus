@@ -30,6 +30,13 @@ public interface Aws2TestEnvCustomizer {
     Service[] localstackServices();
 
     /**
+     * @return an array of Localstack services for which {@link Aws2TestEnvContext} should export credentials properties
+     */
+    default Service[] exportCredentialsForLocalstackServices() {
+        return localstackServices();
+    }
+
+    /**
      * Customize the given {@link Aws2TestEnvContext}
      *
      * @param envContext the {@link Aws2TestEnvContext} to customize

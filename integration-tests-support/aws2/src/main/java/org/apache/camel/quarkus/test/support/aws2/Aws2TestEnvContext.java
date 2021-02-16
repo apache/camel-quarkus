@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.test.support.aws2;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -47,31 +48,33 @@ public class Aws2TestEnvContext {
     private final Optional<LocalStackContainer> localstack;
 
     public Aws2TestEnvContext(String accessKey, String secretKey, String region, Optional<LocalStackContainer> localstack,
-            Service... services) {
+            Service[] exportCredentialsServices) {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
         this.region = region;
         this.localstack = localstack;
 
         localstack.ifPresent(ls -> {
-            for (Service service : services) {
+            for (Service service : exportCredentialsServices) {
                 String s = camelServiceAcronym(service);
-                properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
-                properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
-                properties.put("camel.component.aws2-" + s + ".region", region);
+                if (s != null) {
+                    properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
+                    properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+                    properties.put("camel.component.aws2-" + s + ".region", region);
 
-                switch (service) {
-                case SQS:
-                case SNS:
-                case DYNAMODB:
-                case DYNAMODB_STREAMS:
-                    // TODO https://github.com/apache/camel-quarkus/issues/2216
-                    break;
-                default:
-                    properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
-                    properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
-                            ls.getEndpointOverride(service).toString());
-                    break;
+                    switch (service) {
+                    case SQS:
+                    case SNS:
+                    case DYNAMODB:
+                    case DYNAMODB_STREAMS:
+                        // TODO https://github.com/apache/camel-quarkus/issues/2216
+                        break;
+                    default:
+                        properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
+                        properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
+                                ls.getEndpointOverride(service).toString());
+                        break;
+                    }
                 }
             }
         });
@@ -136,11 +139,19 @@ public class Aws2TestEnvContext {
             Supplier<B> builderSupplier) {
         B builder = builderSupplier.get()
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(
-                        accessKey, secretKey)))
-                .region(Region.of(region));
+                        accessKey, secretKey)));
+        builder.region(Region.of(region));
+
         if (localstack.isPresent()) {
-            builder.endpointOverride(localstack.get().getEndpointOverride(service));
+            builder
+                    .endpointOverride(localstack.get().getEndpointOverride(service))
+                    .region(Region.of(region));
+        } else if (service == Service.IAM) {
+            /* Avoid UnknownHostException: iam.eu-central-1.amazonaws.com */
+            builder.endpointOverride(URI.create("https://iam.amazonaws.com"));
+            builder.region(Region.of("us-east-1"));
         }
+
         final C client = builder.build();
         closeables.add(client);
         return client;
@@ -152,8 +163,14 @@ public class Aws2TestEnvContext {
             return "ddb";
         case DYNAMODB_STREAMS:
             return "ddbstream";
+        case FIREHOSE:
+            return "kinesis-firehose";
         default:
             return service.name().toLowerCase(Locale.ROOT);
         }
+    }
+
+    public String getRegion() {
+        return region;
     }
 }
