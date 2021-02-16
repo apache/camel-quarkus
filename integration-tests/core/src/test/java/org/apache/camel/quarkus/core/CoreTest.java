@@ -124,4 +124,9 @@ public class CoreTest {
         RestAssured.when().get("/test/headersmap-factory").then().body(is("true"));
     }
 
+    @Test
+    void testStartupStepRecorder() {
+        RestAssured.when().get("/test/startup-step-recorder").then().body(is("true"));
+    }
+
 }

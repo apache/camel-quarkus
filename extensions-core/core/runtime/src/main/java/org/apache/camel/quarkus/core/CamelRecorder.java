@@ -29,9 +29,11 @@ import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
+import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 
 @Recorder
 public class CamelRecorder {
@@ -125,5 +127,9 @@ public class CamelRecorder {
 
     public RuntimeValue<ReactiveExecutor> createReactiveExecutor() {
         return new RuntimeValue<>(new DefaultReactiveExecutor());
+    }
+
+    public RuntimeValue<StartupStepRecorder> newDefaultStartupStepRecorder() {
+        return new RuntimeValue<>(new DefaultStartupStepRecorder());
     }
 }

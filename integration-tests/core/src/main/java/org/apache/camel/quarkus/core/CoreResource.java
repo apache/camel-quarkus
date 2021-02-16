@@ -50,6 +50,7 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
+import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 import org.apache.commons.io.IOUtils;
 
 @Path("/test")
@@ -264,6 +265,13 @@ public class CoreResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean headersMapFactory() {
         return context.adapt(ExtendedCamelContext.class).getHeadersMapFactory() instanceof DefaultHeadersMapFactory;
+    }
+
+    @Path("/startup-step-recorder")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean startupStepRecorder() {
+        return context.adapt(ExtendedCamelContext.class).getStartupStepRecorder() instanceof DefaultStartupStepRecorder;
     }
 
 }
