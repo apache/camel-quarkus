@@ -72,6 +72,7 @@ dataformats:
   - avro
   - base64
   - bindy
+  - cbor
   - csv
   - dataformat
   - jaxb
