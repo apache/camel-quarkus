@@ -20,8 +20,6 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javax.validation.constraints.NotNull;
-
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 /**
@@ -31,14 +29,9 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 public class Timeslot {
 
     @PlanningId
-    @NotNull
     private Long id;
-
-    @NotNull
     private DayOfWeek dayOfWeek;
-    @NotNull
     private LocalTime startTime;
-    @NotNull
     private LocalTime endTime;
 
     private static AtomicLong increment = new AtomicLong(1);
