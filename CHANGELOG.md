@@ -33,6 +33,7 @@
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
 - PubNub native support [\#1944](https://github.com/apache/camel-quarkus/issues/1944)
 - Remove JtaProcessor.registerNarayanaReflectiveClass when quarkusio/quarkus\#10180 gets fixed [\#1895](https://github.com/apache/camel-quarkus/issues/1895)
+- CBOR data format native support [\#1754](https://github.com/apache/camel-quarkus/issues/1754)
 - StAX native support [\#1696](https://github.com/apache/camel-quarkus/issues/1696)
 - XML Security native support [\#1617](https://github.com/apache/camel-quarkus/issues/1617)
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
@@ -44,6 +45,8 @@
 
 **Merged pull requests:**
 
+- Added CBOR data format native support \#1754 [\#2257](https://github.com/apache/camel-quarkus/pull/2257) ([aldettinger](https://github.com/aldettinger))
+- Test AWS 2 Firehose [\#2256](https://github.com/apache/camel-quarkus/pull/2256) ([ppalaga](https://github.com/ppalaga))
 - AWS 2 Kinesis native support  [\#2252](https://github.com/apache/camel-quarkus/pull/2252) ([ppalaga](https://github.com/ppalaga))
 - Remove Camel 3.8.0 staging repository [\#2251](https://github.com/apache/camel-quarkus/pull/2251) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable FOP native integration tests [\#2247](https://github.com/apache/camel-quarkus/pull/2247) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -465,7 +468,6 @@
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
@@ -544,6 +546,7 @@
 - Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
 - Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
+- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 - Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
 - Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1109,6 +1112,7 @@
 - Automatic sync branch master to quarkus-master [\#1062](https://github.com/apache/camel-quarkus/pull/1062) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Use test resources instead of system properties for easy testing within the quarkus platform [\#1060](https://github.com/apache/camel-quarkus/pull/1060) ([lburgazzoli](https://github.com/lburgazzoli))
 - CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
 ## [1.0.0-M6](https://github.com/apache/camel-quarkus/tree/1.0.0-M6) (2020-04-09)
@@ -1216,7 +1220,6 @@
 
 **Merged pull requests:**
 
-- Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - Moved the guide to promote a JVM Only extension to native to a dedica… [\#1052](https://github.com/apache/camel-quarkus/pull/1052) ([aldettinger](https://github.com/aldettinger))
 - Completed the contributor guide with a section to promote JVM Only ex… [\#1051](https://github.com/apache/camel-quarkus/pull/1051) ([aldettinger](https://github.com/aldettinger))
 - CI build improvements [\#1049](https://github.com/apache/camel-quarkus/pull/1049) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -2077,8 +2080,6 @@
 - Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
-- chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
-- Dedicated extension for jetty and xstream [\#78](https://github.com/apache/camel-quarkus/pull/78) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to Camel 3.0.0-M4 [\#72](https://github.com/apache/camel-quarkus/pull/72) ([ppalaga](https://github.com/ppalaga))
 
@@ -2122,11 +2123,13 @@
 - chore\(it\): cleanup it poms [\#90](https://github.com/apache/camel-quarkus/pull/90) ([lburgazzoli](https://github.com/lburgazzoli))
 - AWS Extension configuration classes need to be registered for reflection [\#89](https://github.com/apache/camel-quarkus/pull/89) ([oscerd](https://github.com/oscerd))
 - Changed the integration test module name and folder name for AWS [\#88](https://github.com/apache/camel-quarkus/pull/88) ([oscerd](https://github.com/oscerd))
+- chore\(test\): add camel core cdi test [\#87](https://github.com/apache/camel-quarkus/pull/87) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix typo s/nett4/netty4/ [\#86](https://github.com/apache/camel-quarkus/pull/86) ([ppalaga](https://github.com/ppalaga))
 - Add a single integration test module for the AWS extensions [\#85](https://github.com/apache/camel-quarkus/pull/85) ([oscerd](https://github.com/oscerd))
 - chore\(it\): cleanup application.properties and poms [\#84](https://github.com/apache/camel-quarkus/pull/84) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixes \#18 Add a Camel AWS-EKS Extension [\#83](https://github.com/apache/camel-quarkus/pull/83) ([oscerd](https://github.com/oscerd))
 - Move netty integration-tests out of core [\#79](https://github.com/apache/camel-quarkus/pull/79) ([lburgazzoli](https://github.com/lburgazzoli))
+- Dedicated extension for jetty and xstream [\#78](https://github.com/apache/camel-quarkus/pull/78) ([lburgazzoli](https://github.com/lburgazzoli))
 - Prepare for Camel 3.0.0-M3/4 [\#67](https://github.com/apache/camel-quarkus/pull/67) ([ppalaga](https://github.com/ppalaga))
 - Upgrade quarkus to v0.19.1 [\#66](https://github.com/apache/camel-quarkus/pull/66) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.19.0 [\#64](https://github.com/apache/camel-quarkus/pull/64) ([lburgazzoli](https://github.com/lburgazzoli))
