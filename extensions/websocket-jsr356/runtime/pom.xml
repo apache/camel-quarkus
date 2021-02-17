@@ -30,6 +30,7 @@
     <name>Camel Quarkus :: Javax Websocket (JSR 356) :: Runtime</name>
 
     <properties>
+        <quarkus.metadata.deprecated>true</quarkus.metadata.deprecated>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
     </properties>
