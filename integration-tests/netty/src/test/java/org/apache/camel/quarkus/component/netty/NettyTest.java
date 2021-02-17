@@ -16,35 +16,60 @@
  */
 package org.apache.camel.quarkus.component.netty;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Assertions;
+import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(NettyTestResource.class)
 class NettyTest {
-    private static final String POEM = "Epitaph in Kohima, India marking the WWII Battle of Kohima and Imphal, Burma Campaign - Attributed to John Maxwell Edmonds";
-    private static final String EXPECTED_RESPONSE = "When You Go Home, Tell Them Of Us And Say, For Your Tomorrow, We Gave Our Today.";
 
     @Test
-    public void testPoem() throws IOException {
+    public void testNettyTcpProduceConsume() throws IOException {
+        RestAssured.given()
+                .body("Camel Quarkus Netty")
+                .post("/netty/tcp")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Netty TCP"));
 
-        try (
-                final Socket socket = new Socket("localhost", Integer.getInteger("camel.netty.test-port"));
-                final PrintWriter outputWriter = new PrintWriter(socket.getOutputStream(), true);
-                final BufferedReader inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));) {
-            outputWriter.println(POEM);
-            String response = inputReader.readLine();
-            Assertions.assertTrue(response.equalsIgnoreCase(EXPECTED_RESPONSE), "Response did not match expected response");
-        }
+    }
 
+    @Test
+    public void testNettyTcpProduceConsumeWithCodec() throws IOException {
+        String message = "Camel Quarkus Netty Custom Codec";
+        RestAssured.given()
+                .body(message)
+                .post("/netty/tcp/codec")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Netty Custom Codec TCP"));
+    }
+
+    @Test
+    public void testNettyUdpProduceConsumeWithCodec() throws IOException {
+        String message = "Camel Quarkus Netty Custom Codec";
+        RestAssured.given()
+                .body(message)
+                .post("/netty/udp/codec")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Netty Custom Codec UDP"));
+    }
+
+    @Test
+    public void testNettyUdpProduceConsume() throws IOException {
+        RestAssured.given()
+                .body("Camel Quarkus Netty")
+                .post("/netty/udp")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus Netty UDP"));
     }
 
 }
