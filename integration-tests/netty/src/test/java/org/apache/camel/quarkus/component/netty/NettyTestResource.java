@@ -25,7 +25,12 @@ import org.apache.camel.quarkus.test.AvailablePortFinder;
 public class NettyTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
-        return AvailablePortFinder.reserveNetworkPorts(Objects::toString, "camel.netty.test-port");
+        return AvailablePortFinder.reserveNetworkPorts(
+                Objects::toString,
+                "camel.netty.test-tcp-port",
+                "camel.netty.test-codec-tcp-port",
+                "camel.netty.test-udp-port",
+                "camel.netty.test-codec-udp-port");
     }
 
     @Override
