@@ -4,10 +4,23 @@ By default the integration tests run only against the real remote Azure API.
 
 Prerequisites:
 
-* A https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal[general-purpose v2 Azure storage account] and [create a container]
+* A https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal[general-purpose v2 Azure storage account] and
+https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal[create a container]
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create[Azure Event Hub]
-* An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string[Event Hubs connection string] and set the following environment variables:
-+
+* An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string[Event Hubs connection string]
+
+To create all of the above, you can use `azure-resources.sh` script as follows:
+
+[source,shell]
+----
+$ ./azure-resources.sh create
+----
+
+The script outputs a set of export commands that you may want to paste to your shell,
+or to your `.bashrc`.
+
+Here are the environment variables you need to set:
+
 [source,shell]
 ----
 export AZURE_STORAGE_ACCOUNT_NAME=<your-azure-storage-account-name>
@@ -16,3 +29,11 @@ export AZURE_STORAGE_ACCOUNT_KEY=<your-azure-storage-account-key>
 export AZURE_BLOB_CONTAINER_NAME=<your-container-name>
 export AZURE_EVENT_HUBS_CONNECTION_STRING="Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<your-key>;EntityPath=<your-hub-name>"
 ----
+
+To clean up, run
+
+[source,shell]
+----
+$ ./azure-resources.sh delete
+----
+
