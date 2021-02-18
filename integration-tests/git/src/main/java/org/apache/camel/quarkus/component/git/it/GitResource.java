@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.git.it;
 
+import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -33,10 +35,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.camel.ConsumerTemplate;
+import io.quarkus.runtime.StartupEvent;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.git.GitConstants;
+import org.eclipse.jgit.errors.ConfigInvalidException;
 import org.eclipse.jgit.revwalk.RevCommit;
+import org.eclipse.jgit.util.SystemReader;
 
 @Path("/git")
 @ApplicationScoped
@@ -45,8 +49,10 @@ public class GitResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
+    public void init(@Observes StartupEvent startupEvent) throws IOException, ConfigInvalidException {
+        // Avoid consuming any local git config that may affect the tests
+        SystemReader.getInstance().getUserConfig().clear();
+    }
 
     @Path("/init/{repoName}")
     @POST
