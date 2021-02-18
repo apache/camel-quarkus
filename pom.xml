@@ -107,7 +107,7 @@
         <quarkus.version>1.12.0.Final</quarkus.version>
         <quarkus-google-cloud.version>0.3.0</quarkus-google-cloud.version>
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
-        <quarkus-qpid-jms.version>0.22.0</quarkus-qpid-jms.version>
+        <quarkus-qpid-jms.version>0.23.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
         <reactor-core.version>3.3.13.RELEASE</reactor-core.version>
         <reactor-netty.version>0.9.16.RELEASE</reactor-netty.version><!-- A newer micro than the one in azure-sdk-bom required by camel-quarkus-azure-eventhubs -->
