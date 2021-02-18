@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.azure.eventhubs.it;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -28,8 +30,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import io.quarkus.scheduler.Scheduled;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/azure-eventhubs")
@@ -41,6 +47,9 @@ public class AzureEventhubsResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    CamelContext context;
 
     @ConfigProperty(name = "azure.storage.account-name")
     String azureStorageAccountName;
@@ -54,18 +63,30 @@ public class AzureEventhubsResource {
     @ConfigProperty(name = "azure.blob.container.name")
     String azureBlobContainerName;
 
+    private volatile String message;
+    private int counter = 0;
+
+    /**
+     * For some reason if we send just a single message, it is not always received by the consumer.
+     * Sending multiple messages seems to be more reliable.
+     */
+    @Scheduled(every = "1s")
+    void schedule() {
+        if (message != null) {
+            final String endpointUri = "azure-eventhubs:?connectionString=RAW(" + connectionString + ")";
+            producerTemplate.sendBody(endpointUri, message + (counter++));
+        }
+    }
+
     @Path("/receive-events")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String receiveEvents() throws Exception {
-
-        final String endpointUri = "azure-eventhubs:?connectionString=RAW(" + connectionString
-                + ")&blobAccountName=RAW(" + azureStorageAccountName
-                + ")&blobAccessKey=RAW(" + azureStorageAccountKey
-                + ")&blobContainerName=RAW(" + azureBlobContainerName + ")";
-        return consumerTemplate.receiveBody(endpointUri,
-                10000L,
-                String.class);
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> receiveEvents() throws Exception {
+        final MockEndpoint mockEndpoint = context.getEndpoint("mock:azure-consumed", MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().stream()
+                .map(Exchange::getMessage)
+                .map(m -> m.getBody(String.class))
+                .collect(Collectors.toList());
     }
 
     @Path("/send-events")
@@ -73,10 +94,7 @@ public class AzureEventhubsResource {
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes(MediaType.TEXT_PLAIN)
     public Response sendEvents(String body) throws Exception {
-
-        final String endpointUri = "azure-eventhubs:?connectionString=RAW(" + connectionString + ")";
-
-        producerTemplate.sendBody(endpointUri, body);
+        this.message = body; // start sending the messages via schedule()
         return Response.created(new URI("https://camel.apache.org/")).build();
     }
 
