@@ -16,6 +16,7 @@
 - OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
+- Netty UDP does not work in native mode [\#2187](https://github.com/apache/camel-quarkus/issues/2187)
 - \[camel 3.8\] create an extension for the kamelet component [\#2174](https://github.com/apache/camel-quarkus/issues/2174)
 - Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
 - Reimplement creation of minio client to avoid minio extension limitations [\#2134](https://github.com/apache/camel-quarkus/issues/2134)
@@ -45,6 +46,10 @@
 
 **Merged pull requests:**
 
+- Deprecate Webocket JSR 356 \#2262 [\#2265](https://github.com/apache/camel-quarkus/pull/2265) ([ppalaga](https://github.com/ppalaga))
+- Add basic Netty UDP tests [\#2264](https://github.com/apache/camel-quarkus/pull/2264) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 1.12.0.Final [\#2263](https://github.com/apache/camel-quarkus/pull/2263) ([jamesnetherton](https://github.com/jamesnetherton))
+- JFR JVM only support [\#2259](https://github.com/apache/camel-quarkus/pull/2259) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added CBOR data format native support \#1754 [\#2257](https://github.com/apache/camel-quarkus/pull/2257) ([aldettinger](https://github.com/aldettinger))
 - Test AWS 2 Firehose [\#2256](https://github.com/apache/camel-quarkus/pull/2256) ([ppalaga](https://github.com/ppalaga))
 - AWS 2 Kinesis native support  [\#2252](https://github.com/apache/camel-quarkus/pull/2252) ([ppalaga](https://github.com/ppalaga))
@@ -281,6 +286,7 @@
 - Fixup Provide a quick profile \#1607 [\#1968](https://github.com/apache/camel-quarkus/pull/1968) ([ppalaga](https://github.com/ppalaga))
 - Zendesk native support [\#1967](https://github.com/apache/camel-quarkus/pull/1967) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.1.Final [\#1966](https://github.com/apache/camel-quarkus/pull/1966) ([jamesnetherton](https://github.com/jamesnetherton))
+- Added the joni optional dependency in order fix the native build \#1961 [\#1965](https://github.com/apache/camel-quarkus/pull/1965) ([aldettinger](https://github.com/aldettinger))
 - Twilio native support [\#1964](https://github.com/apache/camel-quarkus/pull/1964) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#819 saga native support [\#1963](https://github.com/apache/camel-quarkus/pull/1963) ([zhfeng](https://github.com/zhfeng))
 - Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
@@ -468,6 +474,7 @@
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
+- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
@@ -546,7 +553,6 @@
 - Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
 - Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 - Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
 - Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1112,7 +1118,6 @@
 - Automatic sync branch master to quarkus-master [\#1062](https://github.com/apache/camel-quarkus/pull/1062) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Use test resources instead of system properties for easy testing within the quarkus platform [\#1060](https://github.com/apache/camel-quarkus/pull/1060) ([lburgazzoli](https://github.com/lburgazzoli))
 - CI build improvements [\#1059](https://github.com/apache/camel-quarkus/pull/1059) ([jamesnetherton](https://github.com/jamesnetherton))
-- Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - InfluxDB native support \#1036 [\#1050](https://github.com/apache/camel-quarkus/pull/1050) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
 ## [1.0.0-M6](https://github.com/apache/camel-quarkus/tree/1.0.0-M6) (2020-04-09)
@@ -1220,6 +1225,7 @@
 
 **Merged pull requests:**
 
+- Bump Quarkus to version 1.3.2.Final [\#1056](https://github.com/apache/camel-quarkus/pull/1056) ([oscerd](https://github.com/oscerd))
 - Moved the guide to promote a JVM Only extension to native to a dedica… [\#1052](https://github.com/apache/camel-quarkus/pull/1052) ([aldettinger](https://github.com/aldettinger))
 - Completed the contributor guide with a section to promote JVM Only ex… [\#1051](https://github.com/apache/camel-quarkus/pull/1051) ([aldettinger](https://github.com/aldettinger))
 - CI build improvements [\#1049](https://github.com/apache/camel-quarkus/pull/1049) ([jamesnetherton](https://github.com/jamesnetherton))
