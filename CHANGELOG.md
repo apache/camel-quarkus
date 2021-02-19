@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- Building native fails for Quarkus 1.11.3.Final [\#2250](https://github.com/apache/camel-quarkus/issues/2250)
 - Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
+- camel-quarkus-git: integration test fail if gpg signing is enabled [\#2210](https://github.com/apache/camel-quarkus/issues/2210)
 - camel 3.8 - Removed reflection in 9 components [\#2209](https://github.com/apache/camel-quarkus/issues/2209)
 - Azure EventHubs native build fails with Quarkus 1.12 [\#2204](https://github.com/apache/camel-quarkus/issues/2204)
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
@@ -46,6 +48,9 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.23.0 [\#2270](https://github.com/apache/camel-quarkus/pull/2270) ([jamesnetherton](https://github.com/jamesnetherton))
+- Make git tests ignore local configuration [\#2269](https://github.com/apache/camel-quarkus/pull/2269) ([jamesnetherton](https://github.com/jamesnetherton))
+- Disable ryuk on CI builds [\#2267](https://github.com/apache/camel-quarkus/pull/2267) ([jamesnetherton](https://github.com/jamesnetherton))
 - Deprecate Webocket JSR 356 \#2262 [\#2265](https://github.com/apache/camel-quarkus/pull/2265) ([ppalaga](https://github.com/ppalaga))
 - Add basic Netty UDP tests [\#2264](https://github.com/apache/camel-quarkus/pull/2264) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.12.0.Final [\#2263](https://github.com/apache/camel-quarkus/pull/2263) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -286,7 +291,6 @@
 - Fixup Provide a quick profile \#1607 [\#1968](https://github.com/apache/camel-quarkus/pull/1968) ([ppalaga](https://github.com/ppalaga))
 - Zendesk native support [\#1967](https://github.com/apache/camel-quarkus/pull/1967) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.9.1.Final [\#1966](https://github.com/apache/camel-quarkus/pull/1966) ([jamesnetherton](https://github.com/jamesnetherton))
-- Added the joni optional dependency in order fix the native build \#1961 [\#1965](https://github.com/apache/camel-quarkus/pull/1965) ([aldettinger](https://github.com/aldettinger))
 - Twilio native support [\#1964](https://github.com/apache/camel-quarkus/pull/1964) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#819 saga native support [\#1963](https://github.com/apache/camel-quarkus/pull/1963) ([zhfeng](https://github.com/zhfeng))
 - Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
