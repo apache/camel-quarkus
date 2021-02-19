@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.avro;
 
 import java.lang.reflect.Field;
+import java.util.Collections;
 
 import javax.enterprise.inject.spi.InjectionPoint;
 
@@ -40,7 +41,7 @@ public class AvroDataFormatProducerTest {
 
     @BeforeEach
     public void setup() throws NoSuchFieldException, SecurityException {
-        instance = new AvroDataFormatProducer();
+        instance = new AvroDataFormatProducer(new AvroSchemaRegistry(Collections.emptyMap()));
         injectedFieldMember = AvroDataFormatProducerTest.class.getDeclaredField("injectedField");
         mockInjectionPoint = mock(InjectionPoint.class);
         when(mockInjectionPoint.getMember()).thenReturn(injectedFieldMember);

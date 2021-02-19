@@ -18,19 +18,18 @@ package org.apache.camel.quarkus.component.avro;
 
 import java.util.Map;
 
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
 import org.apache.avro.Schema;
 
-@Recorder
-public class AvroRecorder {
+public class AvroSchemaRegistry {
 
-    public void addSchema(RuntimeValue<Map<String, Schema>> schemas, String injectedFieldId, Schema schema) {
-        schemas.getValue().put(injectedFieldId, schema);
+    private final Map<String, Schema> schemaRegistry;
+
+    public AvroSchemaRegistry(Map<String, Schema> schemaRegistry) {
+        this.schemaRegistry = schemaRegistry;
     }
 
-    public RuntimeValue<AvroSchemaRegistry> avroSchemaRegistry(RuntimeValue<Map<String, Schema>> schemas) {
-        return new RuntimeValue<>(new AvroSchemaRegistry(schemas.getValue()));
+    public Schema getSchema(String injectedFieldId) {
+        return schemaRegistry.get(injectedFieldId);
     }
 
 }
