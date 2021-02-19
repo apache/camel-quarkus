@@ -19,8 +19,6 @@ package org.apache.camel.quarkus.component.avro;
 import java.lang.reflect.Field;
 import java.lang.reflect.Member;
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.enterprise.inject.Produces;
 import javax.enterprise.inject.spi.InjectionPoint;
@@ -32,10 +30,10 @@ import org.apache.camel.dataformat.avro.AvroDataFormat;
 @Singleton
 public class AvroDataFormatProducer {
 
-    private final Map<String, Schema> schemaRegistry = new HashMap<>();
+    private final AvroSchemaRegistry schemaRegistry;
 
-    public void registerAvroSchema(String injectedFieldId, Schema schema) {
-        schemaRegistry.put(injectedFieldId, schema);
+    public AvroDataFormatProducer(AvroSchemaRegistry schemaRegistry) {
+        this.schemaRegistry = schemaRegistry;
     }
 
     @Produces
@@ -45,7 +43,7 @@ public class AvroDataFormatProducer {
             Field field = (Field) member;
             if (!Modifier.isStatic(member.getModifiers()) && field.getAnnotation(BuildTimeAvroDataFormat.class) != null) {
                 String injectedFieldId = member.getDeclaringClass().getName() + "." + member.getName();
-                Schema schema = schemaRegistry.get(injectedFieldId);
+                Schema schema = schemaRegistry.getSchema(injectedFieldId);
                 return new AvroDataFormat(schema);
             }
         }
