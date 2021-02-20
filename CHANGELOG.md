@@ -2,22 +2,32 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.6.0...HEAD)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.7.0...HEAD)
+
+**Merged pull requests:**
+
+- Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
+
+## [1.7.0](https://github.com/apache/camel-quarkus/tree/1.7.0) (2021-02-19)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/1.6.0...1.7.0)
 
 **Closed issues:**
 
 - Building native fails for Quarkus 1.11.3.Final [\#2250](https://github.com/apache/camel-quarkus/issues/2250)
-- Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
+- FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
+- Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
+- Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
+- XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
+- Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
 - camel-quarkus-git: integration test fail if gpg signing is enabled [\#2210](https://github.com/apache/camel-quarkus/issues/2210)
 - camel 3.8 - Removed reflection in 9 components [\#2209](https://github.com/apache/camel-quarkus/issues/2209)
 - Azure EventHubs native build fails with Quarkus 1.12 [\#2204](https://github.com/apache/camel-quarkus/issues/2204)
-- FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
 - OAI-PMH: Get rid of the JettyTestServer class for tests [\#2192](https://github.com/apache/camel-quarkus/issues/2192)
 - Re-introduce Changelog GH Action [\#2189](https://github.com/apache/camel-quarkus/issues/2189)
-- Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
 - Netty UDP does not work in native mode [\#2187](https://github.com/apache/camel-quarkus/issues/2187)
 - \[camel 3.8\] create an extension for the kamelet component [\#2174](https://github.com/apache/camel-quarkus/issues/2174)
 - Require Java 11 in examples [\#2152](https://github.com/apache/camel-quarkus/issues/2152)
@@ -29,9 +39,6 @@
 - ReplicatedMap : The Hazelcast consumer is not notified on its listener [\#2095](https://github.com/apache/camel-quarkus/issues/2095)
 - OAI-PMH support [\#2081](https://github.com/apache/camel-quarkus/issues/2081)
 - Azure Event Hubs support [\#2079](https://github.com/apache/camel-quarkus/issues/2079)
-- Create ASF distribution [\#2045](https://github.com/apache/camel-quarkus/issues/2045)
-- CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
-- Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
 - AtlasMap native support [\#1989](https://github.com/apache/camel-quarkus/issues/1989)
 - AWS2 EventBridge native support [\#1976](https://github.com/apache/camel-quarkus/issues/1976)
 - PubNub native support [\#1944](https://github.com/apache/camel-quarkus/issues/1944)
@@ -42,12 +49,12 @@
 - Azure Storage Queue Service native support [\#1574](https://github.com/apache/camel-quarkus/issues/1574)
 - AWS 2 Kinesis native support [\#1571](https://github.com/apache/camel-quarkus/issues/1571)
 - CassandraQL native support [\#1355](https://github.com/apache/camel-quarkus/issues/1355)
-- XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - IPFS native support [\#770](https://github.com/apache/camel-quarkus/issues/770)
 - Syslog data format native support [\#595](https://github.com/apache/camel-quarkus/issues/595)
 
 **Merged pull requests:**
 
+- Azure EventHubs test fixup [\#2271](https://github.com/apache/camel-quarkus/pull/2271) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.23.0 [\#2270](https://github.com/apache/camel-quarkus/pull/2270) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make git tests ignore local configuration [\#2269](https://github.com/apache/camel-quarkus/pull/2269) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable ryuk on CI builds [\#2267](https://github.com/apache/camel-quarkus/pull/2267) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -129,6 +136,7 @@
 - Redis support [\#2085](https://github.com/apache/camel-quarkus/issues/2085)
 - Vert.x Kafka support [\#2082](https://github.com/apache/camel-quarkus/issues/2082)
 - JSONata support [\#2080](https://github.com/apache/camel-quarkus/issues/2080)
+- Create ASF distribution [\#2045](https://github.com/apache/camel-quarkus/issues/2045)
 - Minio native support [\#2040](https://github.com/apache/camel-quarkus/issues/2040)
 - BigQuery native support [\#2014](https://github.com/apache/camel-quarkus/issues/2014)
 - camel-quarkus-kafka: Reconnection issues when working with schema registry [\#1960](https://github.com/apache/camel-quarkus/issues/1960)
@@ -184,6 +192,7 @@
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - \[Camel 3.7\] Test with camel.main.lightweight=true [\#2063](https://github.com/apache/camel-quarkus/issues/2063)
+- CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
 - Polish how we pass -Djavax.net.ssl.trustStore to the Solr test [\#2029](https://github.com/apache/camel-quarkus/issues/2029)
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
