@@ -336,7 +336,6 @@
 
 **Merged pull requests:**
 
-- typo corrected [\#1926](https://github.com/apache/camel-quarkus/pull/1926) ([talhacevik](https://github.com/talhacevik))
 - Align jackson-dataformat-xml version with Quarkus jackson [\#1925](https://github.com/apache/camel-quarkus/pull/1925) ([jamesnetherton](https://github.com/jamesnetherton))
 - Spark JVM support [\#1916](https://github.com/apache/camel-quarkus/pull/1916) ([ppalaga](https://github.com/ppalaga))
 
@@ -1660,6 +1659,7 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
+- fix dependencies management in package-maven-plugin [\#497](https://github.com/apache/camel-quarkus/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1710,7 +1710,6 @@
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
 - Filter out beans from CDI from build time discovery [\#501](https://github.com/apache/camel-quarkus/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
-- fix dependencies management in package-maven-plugin [\#497](https://github.com/apache/camel-quarkus/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
 - mp-config: enable testing profiles in native mode [\#496](https://github.com/apache/camel-quarkus/pull/496) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#494 Group catalog re-generation and formatting mojos under a sin… [\#495](https://github.com/apache/camel-quarkus/pull/495) ([ppalaga](https://github.com/ppalaga))
 - Issue 490: Add tagsoup support [\#493](https://github.com/apache/camel-quarkus/pull/493) ([jsight](https://github.com/jsight))
