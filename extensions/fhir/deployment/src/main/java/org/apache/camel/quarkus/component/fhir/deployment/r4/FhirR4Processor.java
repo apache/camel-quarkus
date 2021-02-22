@@ -19,7 +19,10 @@ package org.apache.camel.quarkus.component.fhir.deployment.r4;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import javax.inject.Singleton;
+
+import ca.uhn.fhir.context.FhirContext;
+import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -44,10 +47,14 @@ public class FhirR4Processor {
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)
     @Record(ExecutionTime.STATIC_INIT)
-    void recordContext(FhirContextRecorder fhirContextRecorder, BeanContainerBuildItem beanContainer,
+    SyntheticBeanBuildItem recordContext(FhirContextRecorder fhirContextRecorder,
             R4PropertiesBuildItem propertiesBuildItem) {
-        fhirContextRecorder.createR4FhirContext(beanContainer.getValue(),
-                getResourceDefinitions(propertiesBuildItem.getProperties()));
+        return SyntheticBeanBuildItem.configure(FhirContext.class)
+                .scope(Singleton.class)
+                .named("R4")
+                .runtimeValue(fhirContextRecorder.createR4FhirContext(
+                        getResourceDefinitions(propertiesBuildItem.getProperties())))
+                .done();
     }
 
     @BuildStep(onlyIf = FhirFlags.R4Enabled.class)

@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.fhir.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -34,11 +35,12 @@ public class FhirR4RouteBuilder extends RouteBuilder {
 
     @Inject
     @Named("R4")
-    FhirContext fhirContext;
+    Instance<FhirContext> fhirContextInstance;
 
     @Override
     public void configure() {
         if (ENABLED) {
+            FhirContext fhirContext = fhirContextInstance.get();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
 
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();
