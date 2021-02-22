@@ -101,7 +101,7 @@
         <optaplanner.version>7.46.0.Final</optaplanner.version>
         <quarkiverse.freemarker.version>0.2.2</quarkiverse.freemarker.version>
         <quarkiverse-minio.version>0.2.0</quarkiverse-minio.version>
-        <quarkus.version>1.12.2.Final</quarkus.version>
+        <quarkus.version>1.13.0.CR1</quarkus.version>
         <quarkus-google-cloud.version>0.3.0</quarkus-google-cloud.version>
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.23.0</quarkus-qpid-jms.version>
