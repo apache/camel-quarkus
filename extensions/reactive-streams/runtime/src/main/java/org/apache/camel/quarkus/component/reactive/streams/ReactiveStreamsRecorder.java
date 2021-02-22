@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.reactive.streams;
 
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.reactive.streams.ReactiveStreamsComponent;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
@@ -37,18 +35,6 @@ public class ReactiveStreamsRecorder {
     public RuntimeValue<ReactiveStreamsComponent> createReactiveStreamsComponent(
             RuntimeValue<CamelReactiveStreamsServiceFactory> serviceFactory) {
         return new RuntimeValue<>(new QuarkusReactiveStreamsComponent(serviceFactory.getValue()));
-    }
-
-    @SuppressWarnings("unchecked")
-    public void publishCamelReactiveStreamsService(
-            BeanContainer beanContainer,
-            RuntimeValue<CamelContext> camelContext,
-            RuntimeValue<CamelReactiveStreamsServiceFactory> serviceFactory) {
-
-        // register to the container
-        beanContainer.instance(ReactiveStreamsProducers.class).init(
-                camelContext.getValue(),
-                serviceFactory.getValue());
     }
 
     private static class QuarkusReactiveStreamsComponent extends ReactiveStreamsComponent {

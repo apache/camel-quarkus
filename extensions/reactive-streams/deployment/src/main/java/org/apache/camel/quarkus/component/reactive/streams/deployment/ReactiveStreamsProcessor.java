@@ -16,18 +16,20 @@
  */
 package org.apache.camel.quarkus.component.reactive.streams.deployment;
 
+import javax.inject.Singleton;
+
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsServiceFactory;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsProducers;
 import org.apache.camel.quarkus.component.reactive.streams.ReactiveStreamsRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 
@@ -75,17 +77,11 @@ class ReactiveStreamsProcessor {
                 recorder.createReactiveStreamsComponent(reactiveStreamsServiceFactory.getValue()));
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    void publishCamelReactiveStreamsService(
-            BeanContainerBuildItem beanContainer,
-            ReactiveStreamsRecorder recorder,
-            CamelContextBuildItem camelContext,
-            ReactiveStreamsServiceFactoryBuildItem reactiveStreamsServiceFactory) {
-
-        recorder.publishCamelReactiveStreamsService(
-                beanContainer.getValue(),
-                camelContext.getCamelContext(),
-                reactiveStreamsServiceFactory.getValue());
+    SyntheticBeanBuildItem beans(ReactiveStreamsServiceFactoryBuildItem reactiveStreamsServiceFactory) {
+        return SyntheticBeanBuildItem.configure(CamelReactiveStreamsServiceFactory.class)
+                .scope(Singleton.class)
+                .runtimeValue(reactiveStreamsServiceFactory.getValue())
+                .done();
     }
 }

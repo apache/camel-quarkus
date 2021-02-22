@@ -22,25 +22,16 @@ import javax.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreams;
 import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsService;
-import org.apache.camel.component.reactive.streams.api.CamelReactiveStreamsServiceFactory;
 
 /**
  * Producers of CamelReactiveStreams related beans that are injectable via CDI.
  */
 @Singleton
 public class ReactiveStreamsProducers {
-    private volatile CamelContext camelContext;
-    private volatile CamelReactiveStreamsServiceFactory reactiveStreamsServiceFactory;
+    private final CamelContext camelContext;
 
-    public void init(CamelContext camelContext, CamelReactiveStreamsServiceFactory reactiveStreamsServiceFactory) {
+    public ReactiveStreamsProducers(CamelContext camelContext) {
         this.camelContext = camelContext;
-        this.reactiveStreamsServiceFactory = reactiveStreamsServiceFactory;
-    }
-
-    @Singleton
-    @Produces
-    CamelReactiveStreamsServiceFactory camelReactiveStreamsServiceFactory() {
-        return reactiveStreamsServiceFactory;
     }
 
     @Singleton
