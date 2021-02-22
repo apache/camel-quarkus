@@ -60,7 +60,7 @@ public class QuarkusRuntimeProviderTest {
         assertNotNull(names);
         assertFalse(names.isEmpty());
 
-        assertTrue(names.contains("aws-eks"));
+        assertTrue(names.contains("aws2-eks"));
         assertTrue(names.contains("bean"));
         assertTrue(names.contains("direct"));
         assertTrue(names.contains("imap"));
