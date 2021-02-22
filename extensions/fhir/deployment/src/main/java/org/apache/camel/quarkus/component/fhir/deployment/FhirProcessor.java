@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.fhir.deployment;
 import ca.uhn.fhir.rest.client.apache.ApacheRestfulClientFactory;
 import ca.uhn.fhir.util.jar.DependencyLogImpl;
 import ca.uhn.fhir.validation.schematron.SchematronBaseValidator;
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
@@ -27,7 +26,6 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.component.fhir.FhirContextProducers;
 
 final class FhirProcessor {
     private static final String FEATURE = "camel-fhir";
@@ -64,8 +62,4 @@ final class FhirProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, true, ApacheRestfulClientFactory.class));
     }
 
-    @BuildStep
-    void beans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
-        beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(FhirContextProducers.class));
-    }
 }

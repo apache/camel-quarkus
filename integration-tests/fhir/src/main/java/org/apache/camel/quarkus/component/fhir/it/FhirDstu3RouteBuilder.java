@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.fhir.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Instance;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -33,11 +34,12 @@ public class FhirDstu3RouteBuilder extends RouteBuilder {
     private static final Boolean ENABLED = new FhirFlags.Dstu3Enabled().getAsBoolean();
     @Inject
     @Named("DSTU3")
-    FhirContext fhirContext;
+    Instance<FhirContext> fhirContextInstance;
 
     @Override
     public void configure() {
         if (ENABLED) {
+            FhirContext fhirContext = fhirContextInstance.get();
             fhirContext.setParserErrorHandler(new StrictErrorHandler());
 
             FhirJsonDataFormat fhirJsonDataFormat = new FhirJsonDataFormat();

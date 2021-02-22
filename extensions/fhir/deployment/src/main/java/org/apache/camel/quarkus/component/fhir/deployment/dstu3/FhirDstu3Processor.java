@@ -19,7 +19,10 @@ package org.apache.camel.quarkus.component.fhir.deployment.dstu3;
 import java.util.HashSet;
 import java.util.Set;
 
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import javax.inject.Singleton;
+
+import ca.uhn.fhir.context.FhirContext;
+import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -50,10 +53,14 @@ public class FhirDstu3Processor {
 
     @BuildStep(onlyIf = FhirFlags.Dstu3Enabled.class)
     @Record(ExecutionTime.STATIC_INIT)
-    void recordContext(FhirContextRecorder fhirContextRecorder, BeanContainerBuildItem beanContainer,
+    SyntheticBeanBuildItem recordContext(FhirContextRecorder fhirContextRecorder,
             Dstu3PropertiesBuildItem propertiesBuildItem) {
-        fhirContextRecorder.createDstu3FhirContext(beanContainer.getValue(),
-                getResourceDefinitions(propertiesBuildItem.getProperties()));
+        return SyntheticBeanBuildItem.configure(FhirContext.class)
+                .scope(Singleton.class)
+                .named("DSTU3")
+                .runtimeValue(fhirContextRecorder.createDstu3FhirContext(
+                        getResourceDefinitions(propertiesBuildItem.getProperties())))
+                .done();
     }
 
     @BuildStep(onlyIf = FhirFlags.Dstu3Enabled.class)

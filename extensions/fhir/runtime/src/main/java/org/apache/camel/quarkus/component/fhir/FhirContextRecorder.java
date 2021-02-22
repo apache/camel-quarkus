@@ -19,38 +19,33 @@ package org.apache.camel.quarkus.component.fhir;
 import java.util.Collection;
 
 import ca.uhn.fhir.context.FhirContext;
-import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 
 @Recorder
 public class FhirContextRecorder {
 
-    public RuntimeValue<FhirContext> createDstu2FhirContext(BeanContainer container, Collection<String> resourceDefinitions) {
+    public RuntimeValue<FhirContext> createDstu2FhirContext(Collection<String> resourceDefinitions) {
         FhirContext fhirContext = FhirContext.forDstu2();
         initContext(resourceDefinitions, fhirContext);
-        container.instance(FhirContextProducers.class).setDstu2(fhirContext);
         return new RuntimeValue<>(fhirContext);
     }
 
-    public RuntimeValue<FhirContext> createDstu3FhirContext(BeanContainer container, Collection<String> resourceDefinitions) {
+    public RuntimeValue<FhirContext> createDstu3FhirContext(Collection<String> resourceDefinitions) {
         FhirContext fhirContext = FhirContext.forDstu3();
         initContext(resourceDefinitions, fhirContext);
-        container.instance(FhirContextProducers.class).setDstu3(fhirContext);
         return new RuntimeValue<>(fhirContext);
     }
 
-    public RuntimeValue<FhirContext> createR4FhirContext(BeanContainer container, Collection<String> resourceDefinitions) {
+    public RuntimeValue<FhirContext> createR4FhirContext(Collection<String> resourceDefinitions) {
         FhirContext fhirContext = FhirContext.forR4();
         initContext(resourceDefinitions, fhirContext);
-        container.instance(FhirContextProducers.class).setR4(fhirContext);
         return new RuntimeValue<>(fhirContext);
     }
 
-    public RuntimeValue<FhirContext> createR5FhirContext(BeanContainer container, Collection<String> resourceDefinitions) {
+    public RuntimeValue<FhirContext> createR5FhirContext(Collection<String> resourceDefinitions) {
         FhirContext fhirContext = FhirContext.forR5();
         initContext(resourceDefinitions, fhirContext);
-        container.instance(FhirContextProducers.class).setR5(fhirContext);
         return new RuntimeValue<>(fhirContext);
     }
 
