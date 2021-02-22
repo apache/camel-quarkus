@@ -110,7 +110,6 @@
 - Upgrade Camel to 3.7.1 [\#2158](https://github.com/apache/camel-quarkus/pull/2158) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid usage of deprecated capabilities string constants [\#2154](https://github.com/apache/camel-quarkus/pull/2154) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve the release docs [\#2150](https://github.com/apache/camel-quarkus/pull/2150) ([ppalaga](https://github.com/ppalaga))
-- Upgrade to cq-maven-plugin 0.27, stop using mvnd.rules altogether [\#2148](https://github.com/apache/camel-quarkus/pull/2148) ([ppalaga](https://github.com/ppalaga))
 - add Awaitility + suppress warnings \#2127 [\#2146](https://github.com/apache/camel-quarkus/pull/2146) ([zbendhiba](https://github.com/zbendhiba))
 - Azure Storage Queue Service native support [\#2143](https://github.com/apache/camel-quarkus/pull/2143) ([ppalaga](https://github.com/ppalaga))
 - Improve the release docs [\#2141](https://github.com/apache/camel-quarkus/pull/2141) ([ppalaga](https://github.com/ppalaga))
@@ -147,6 +146,7 @@
 
 **Merged pull requests:**
 
+- Upgrade to cq-maven-plugin 0.27, stop using mvnd.rules altogether [\#2148](https://github.com/apache/camel-quarkus/pull/2148) ([ppalaga](https://github.com/ppalaga))
 - Azure Storage Blob native support  [\#2139](https://github.com/apache/camel-quarkus/pull/2139) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.22.0 [\#2138](https://github.com/apache/camel-quarkus/pull/2138) ([jamesnetherton](https://github.com/jamesnetherton))
 - Hazelcast integration tests : switch to testcontainers \#2127 [\#2137](https://github.com/apache/camel-quarkus/pull/2137) ([zbendhiba](https://github.com/zbendhiba))
@@ -1036,7 +1036,6 @@
 - Fix \#1153 Import camel-quarkus-bom-test into camel-quarkus-build-pare… [\#1168](https://github.com/apache/camel-quarkus/pull/1168) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.14.1 [\#1165](https://github.com/apache/camel-quarkus/pull/1165) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add native support for Elasticsearch REST [\#1164](https://github.com/apache/camel-quarkus/pull/1164) ([jamesnetherton](https://github.com/jamesnetherton))
-- Release process improvements [\#1162](https://github.com/apache/camel-quarkus/pull/1162) ([ppalaga](https://github.com/ppalaga))
 - deps: update kotlin to v1.3.72 [\#1159](https://github.com/apache/camel-quarkus/pull/1159) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve master -\> camel-master sync workflow [\#1158](https://github.com/apache/camel-quarkus/pull/1158) ([jamesnetherton](https://github.com/jamesnetherton))
 - build: create build-parent-it pom to collect common integration tests set-up [\#1151](https://github.com/apache/camel-quarkus/pull/1151) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1080,6 +1079,7 @@
 
 **Merged pull requests:**
 
+- Release process improvements [\#1162](https://github.com/apache/camel-quarkus/pull/1162) ([ppalaga](https://github.com/ppalaga))
 - Update quarkus to v1.4.1.Final [\#1147](https://github.com/apache/camel-quarkus/pull/1147) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Quarkus Qpid JMS to 0.14.0 [\#1143](https://github.com/apache/camel-quarkus/pull/1143) ([jamesnetherton](https://github.com/jamesnetherton))
 - Exclude docs module from quarkus-master sync build [\#1139](https://github.com/apache/camel-quarkus/pull/1139) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1317,7 +1317,6 @@
 - telegram extension cannot construct IncomingMessageEntity for commands [\#893](https://github.com/apache/camel-quarkus/pull/893) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatic sync branch master to quarkus-master [\#890](https://github.com/apache/camel-quarkus/pull/890) ([github-actions[bot]](https://github.com/apps/github-actions))
 - camel-quarkus-core: make caffeine cache optional [\#887](https://github.com/apache/camel-quarkus/pull/887) ([lburgazzoli](https://github.com/lburgazzoli))
-- Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
 - Update to introduce the quarkus qute extension [\#878](https://github.com/apache/camel-quarkus/pull/878) ([zhfeng](https://github.com/zhfeng))
 
 ## [1.0.0-M5](https://github.com/apache/camel-quarkus/tree/1.0.0-M5) (2020-03-13)
@@ -1356,6 +1355,7 @@
 **Merged pull requests:**
 
 - Upgrade Quarkus to 1.3.0.Final [\#884](https://github.com/apache/camel-quarkus/pull/884) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add soap dataformat quarkus extension [\#883](https://github.com/apache/camel-quarkus/pull/883) ([mmelko](https://github.com/mmelko))
 - Remove default or redundant config of the failsafe plugin [\#882](https://github.com/apache/camel-quarkus/pull/882) ([ppalaga](https://github.com/ppalaga))
 - FastCamelContext to implement ModelCamelContext [\#881](https://github.com/apache/camel-quarkus/pull/881) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed kafka itests as @Inject is not supported in native tests [\#876](https://github.com/apache/camel-quarkus/pull/876) ([aldettinger](https://github.com/aldettinger))
@@ -1426,6 +1426,7 @@
 - Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
 - Use quarkus.package.type=native instead of the native-image mojo [\#598](https://github.com/apache/camel-quarkus/issues/598)
 - Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
+- Flatten the integration-tests hierarchy and remove camel-quarkus-test-list.xml from git [\#483](https://github.com/apache/camel-quarkus/issues/483)
 - Native SSL support does not work on ASF Jenkins CI  [\#468](https://github.com/apache/camel-quarkus/issues/468)
 - support camel-box [\#162](https://github.com/apache/camel-quarkus/issues/162)
 
@@ -1659,7 +1660,6 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
-- fix dependencies management in package-maven-plugin [\#497](https://github.com/apache/camel-quarkus/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1682,7 +1682,6 @@
 - Group catalog re-generation and formatting mojos under a single profile [\#494](https://github.com/apache/camel-quarkus/issues/494)
 - Add support for tidymarkup and tagsoup [\#490](https://github.com/apache/camel-quarkus/issues/490)
 - The validator test should use a classpath URI for the XSD [\#484](https://github.com/apache/camel-quarkus/issues/484)
-- Flatten the integration-tests hierarchy and remove camel-quarkus-test-list.xml from git [\#483](https://github.com/apache/camel-quarkus/issues/483)
 - Native compile fails in some aggregation strategy which I am not using [\#477](https://github.com/apache/camel-quarkus/issues/477)
 - List itests in an XML file for the Quarkus platform [\#476](https://github.com/apache/camel-quarkus/issues/476)
 - Support dependency injection of FluentProducerTemplate/FluentConsumerTemplate  [\#474](https://github.com/apache/camel-quarkus/issues/474)
@@ -1710,6 +1709,7 @@
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
 - Filter out beans from CDI from build time discovery [\#501](https://github.com/apache/camel-quarkus/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
+- fix dependencies management in package-maven-plugin [\#497](https://github.com/apache/camel-quarkus/pull/497) ([lburgazzoli](https://github.com/lburgazzoli))
 - mp-config: enable testing profiles in native mode [\#496](https://github.com/apache/camel-quarkus/pull/496) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#494 Group catalog re-generation and formatting mojos under a sin… [\#495](https://github.com/apache/camel-quarkus/pull/495) ([ppalaga](https://github.com/ppalaga))
 - Issue 490: Add tagsoup support [\#493](https://github.com/apache/camel-quarkus/pull/493) ([jsight](https://github.com/jsight))
