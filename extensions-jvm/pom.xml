@@ -39,7 +39,6 @@
         <module>asterisk</module>
         <module>atmos</module>
         <module>atomix</module>
-        <module>aws-xray</module>
         <module>azure-storage-datalake</module>
         <module>barcode</module>
         <module>beanio</module>

@@ -1,0 +1,37 @@
+{
+  "id" : "7dacd03f-aef6-43c6-8496-2e21b22eac15",
+  "name" : "authtest",
+  "request" : {
+    "url" : "/api/auth.test",
+    "method" : "POST"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"ok\":true,\"url\":\"https:\\/\\/camel-testing-6y19658.slack.com\\/\",\"team\":\"camel testing\",\"user\":\"api_test\",\"team_id\":\"test\",\"user_id\":\"test\",\"bot_id\":\"test\",\"is_enterprise_install\":false}",
+    "headers" : {
+      "date" : "Wed, 10 Mar 2021 12:02:58 GMT",
+      "server" : "Apache",
+      "x-xss-protection" : "0",
+      "pragma" : "no-cache",
+      "x-oauth-scopes" : "incoming-webhook,chat:write,channels:read,groups:read,mpim:read,im:read,channels:history,groups:history,mpim:history,im:history",
+      "cache-control" : "private, no-cache, no-store, must-revalidate",
+      "x-slack-backend" : "r",
+      "x-slack-req-id" : "d4bee45f319100a5614104963576aff2",
+      "strict-transport-security" : "max-age=31536000; includeSubDomains; preload",
+      "referrer-policy" : "no-referrer",
+      "x-content-type-options" : "nosniff",
+      "expires" : "Mon, 26 Jul 1997 05:00:00 GMT",
+      "vary" : "Accept-Encoding",
+      "content-type" : "application/json; charset=utf-8",
+      "x-envoy-upstream-service-time" : "8",
+      "x-backend" : "main_normal main_canary_with_overflow main_control_with_overflow",
+      "x-server" : "slack-www-hhvm-main-iad-wti4",
+      "x-via" : "envoy-www-iad-vpez, haproxy-edge-lhr-ubwz",
+      "x-slack-shared-secret-outcome" : "shared-secret",
+      "via" : "envoy-www-iad-vpez"
+    }
+  },
+  "uuid" : "7dacd03f-aef6-43c6-8496-2e21b22eac15",
+  "persistent" : true,
+  "insertionIndex" : 1
+}
