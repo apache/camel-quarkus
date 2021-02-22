@@ -23,7 +23,7 @@ import org.apache.camel.util.CollectionHelper;
 
 public class SlackTestResource extends WireMockTestResourceLifecycleManager {
 
-    private static final String SLACK_API_BASE_URL = "https://api.slack.com/";
+    private static final String SLACK_API_BASE_URL = "https://slack.com";
     private static final String SLACK_ENV_WEBHOOK_URL = "SLACK_WEBHOOK_URL";
     private static final String SLACK_ENV_SERVER_URL = "SLACK_SERVER_URL";
     private static final String SLACK_ENV_TOKEN = "SLACK_TOKEN";

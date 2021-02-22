@@ -28,9 +28,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.slack.api.model.Message;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.slack.helper.SlackMessage;
 
 @Path("/slack")
 @ApplicationScoped
@@ -48,8 +48,8 @@ public class SlackResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSlackMessages() throws Exception {
-        SlackMessage message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + SLACK_AUTH_PARAMS,
-                SlackMessage.class);
+        Message message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + SLACK_AUTH_PARAMS,
+                5000L, Message.class);
         return message.getText();
     }
 
