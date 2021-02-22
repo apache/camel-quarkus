@@ -71,7 +71,6 @@
         <module>avro-rpc</module>
         <module>aws2</module>
         <module>aws2-grouped</module>
-        <module>azure</module>
         <module>azure-eventhubs</module>
         <module>azure-storage-blob</module>
         <module>azure-storage-queue</module>

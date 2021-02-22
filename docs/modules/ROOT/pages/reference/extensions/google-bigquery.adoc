@@ -18,7 +18,7 @@ Access Google Cloud BigQuery service using SQL queries or Google Client Services
 == What's inside
 
 * xref:{cq-camel-components}::google-bigquery-component.adoc[Google BigQuery component], URI syntax: `google-bigquery:projectId:datasetId:tableId`
-* xref:{cq-camel-components}::google-bigquery-sql-component.adoc[Google BigQuery Standard SQL component], URI syntax: `google-bigquery-sql:projectId:query`
+* xref:{cq-camel-components}::google-bigquery-sql-component.adoc[Google BigQuery Standard SQL component], URI syntax: `google-bigquery-sql:projectId:queryString`
 
 Please refer to the above links for usage and configuration details.
 

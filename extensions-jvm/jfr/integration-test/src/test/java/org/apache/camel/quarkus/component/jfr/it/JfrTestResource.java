@@ -19,10 +19,10 @@ package org.apache.camel.quarkus.component.jfr.it;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.util.CollectionHelper;
 
 public class JfrTestResource implements QuarkusTestResourceLifecycleManager {
 
@@ -38,7 +38,9 @@ public class JfrTestResource implements QuarkusTestResourceLifecycleManager {
 
     @Override
     public Map<String, String> start() {
-        return Collections.singletonMap("quarkus.camel.jfr.startup-recorder-dir", JFR_RECORDINGS_DIR.toString());
+        return CollectionHelper.mapOf(
+                "quarkus.camel.jfr.startup-recorder-dir", JFR_RECORDINGS_DIR.toString(),
+                "quarkus.camel.jfr.startup-recorder-recording", "true");
     }
 
     @Override
