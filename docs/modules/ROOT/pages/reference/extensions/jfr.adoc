@@ -41,7 +41,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-dir]]`link:#quarkus.camel.jfr.startup-recorder-dir[quarkus.camel.jfr.startup-recorder-dir]`
 
-Directory to store the recording. By default the user home directory will be used. Use false to turn off saving the recording to disk.
+Directory to store the recording. By default the current directory will be used. Use false to turn off saving the recording to disk.
 | `string`
 | 
 
@@ -65,7 +65,7 @@ To use a specific Java Flight Recorder profile configuration, such as default or
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-recording]]`link:#quarkus.camel.jfr.startup-recorder-recording[quarkus.camel.jfr.startup-recorder-recording]`
 
-To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is complete. This requires that camel-jfr is on the classpath. The default is true.
+To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is complete. This requires that camel-jfr is on the classpath. The default is false.
 | `java.lang.Boolean`
 | 
 |===

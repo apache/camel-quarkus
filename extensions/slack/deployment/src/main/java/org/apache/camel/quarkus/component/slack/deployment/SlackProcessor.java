@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.component.slack.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.IndexView;
 
 class SlackProcessor {
 
@@ -32,5 +37,23 @@ class SlackProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependencies) {
+        indexedDependencies.produce(new IndexDependencyBuildItem("com.slack.api", "slack-api-client"));
+        indexedDependencies.produce(new IndexDependencyBuildItem("com.slack.api", "slack-api-model"));
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
+        IndexView index = combinedIndex.getIndex();
+        String[] slackApiClasses = index.getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(className -> className.startsWith("com.slack.api.model")
+                        || className.startsWith("com.slack.api.methods.response"))
+                .toArray(String[]::new);
+        return new ReflectiveClassBuildItem(false, true, slackApiClasses);
     }
 }

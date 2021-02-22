@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
 
@@ -51,6 +52,7 @@ import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultConfigurerResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultEndpointRegistry;
+import org.apache.camel.impl.engine.DefaultExchangeFactoryManager;
 import org.apache.camel.impl.engine.DefaultExecutorServiceManager;
 import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.impl.engine.DefaultInflightRepository;
@@ -72,6 +74,7 @@ import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
 import org.apache.camel.impl.engine.DefaultUriFactoryResolver;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
 import org.apache.camel.impl.engine.EndpointKey;
+import org.apache.camel.impl.engine.PrototypeExchangeFactory;
 import org.apache.camel.impl.engine.RouteService;
 import org.apache.camel.impl.engine.TransformerKey;
 import org.apache.camel.impl.engine.ValidatorKey;
@@ -116,6 +119,8 @@ import org.apache.camel.spi.DataFormatResolver;
 import org.apache.camel.spi.DataType;
 import org.apache.camel.spi.DeferServiceFactory;
 import org.apache.camel.spi.EndpointRegistry;
+import org.apache.camel.spi.ExchangeFactory;
+import org.apache.camel.spi.ExchangeFactoryManager;
 import org.apache.camel.spi.ExecutorServiceManager;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.HeadersMapFactory;
@@ -650,11 +655,32 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    public String getTestExcludeRoutes() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void startRouteDefinitions() throws Exception {
         List<RouteDefinition> routeDefinitions = model.getRouteDefinitions();
         if (routeDefinitions != null) {
             startRouteDefinitions(routeDefinitions);
         }
+    }
+
+    @Override
+    protected ExchangeFactory createExchangeFactory() {
+        Optional<ExchangeFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                ExchangeFactory.FACTORY,
+                ExchangeFactory.class);
+
+        return result.orElseGet(PrototypeExchangeFactory::new);
+    }
+
+    @Override
+    protected ExchangeFactoryManager createExchangeFactoryManager() {
+        return new DefaultExchangeFactoryManager();
     }
 
     @Override

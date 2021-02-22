@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.Service;
 import org.apache.camel.spi.RouteStartupOrder;
 import org.apache.camel.spi.ShutdownStrategy;
 
@@ -121,7 +120,7 @@ public class NoShutdownStrategy implements ShutdownStrategy {
     }
 
     @Override
-    public boolean forceShutdown(Service service) {
+    public boolean isForceShutdown() {
         return false;
     }
 

@@ -26,7 +26,7 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 public class CamelJfrConfig {
 
     /**
-     * Directory to store the recording. By default the user home directory will be used. Use false to turn off saving the
+     * Directory to store the recording. By default the current directory will be used. Use false to turn off saving the
      * recording to disk.
      */
     @ConfigItem
@@ -59,7 +59,7 @@ public class CamelJfrConfig {
 
     /**
      * To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is
-     * complete. This requires that camel-jfr is on the classpath. The default is true.
+     * complete. This requires that camel-jfr is on the classpath. The default is false.
      */
     @ConfigItem
     Optional<Boolean> startupRecorderRecording;
