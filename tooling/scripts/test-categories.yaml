@@ -157,7 +157,6 @@ networking2-dataformats:
   - nsq
   - servlet
   - univocity-parsers
-  - websocket-jsr356
   - vertx
   - compression
   - flatpack
