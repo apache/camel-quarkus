@@ -155,7 +155,6 @@
 *** xref:reference/extensions/ipfs.adoc[IPFS]
 *** xref:reference/extensions/irc.adoc[IRC]
 *** xref:reference/extensions/jacksonxml.adoc[JacksonXML]
-*** xref:reference/extensions/websocket-jsr356.adoc[Javax Websocket]
 *** xref:reference/extensions/jaxb.adoc[JAXB]
 *** xref:reference/extensions/jbpm.adoc[JBPM]
 *** xref:reference/extensions/jclouds.adoc[JClouds]
