@@ -14,34 +14,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.bindy.it.model;
+package org.apache.camel.quarkus.component.bindy.it;
 
-import org.apache.camel.dataformat.bindy.annotation.DataField;
-import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.Test;
 
-@FixedLengthRecord(length = 6, countGrapheme = true)
-public class FixedLengthOrder {
+@QuarkusTest
+class MessageTest {
 
-    @DataField(pos = 1, length = 3)
-    private String name;
-
-    @DataField(pos = 4, length = 3)
-    private String country;
-
-    public String getName() {
-        return name;
+    @Test
+    public void marshalMessageShouldSucceed() {
+        RestAssured.get("/bindy/marshalMessageShouldSucceed").then().statusCode(204);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Test
+    public void unMarshalMessageShouldSucceed() {
+        RestAssured.get("/bindy/unMarshalMessageShouldSucceed").then().statusCode(204);
     }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
 }

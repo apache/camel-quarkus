@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.bindy.it.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.dataformat.bindy.Format;
 import org.apache.camel.dataformat.bindy.FormattingOptions;
 import org.apache.camel.dataformat.bindy.format.factories.AbstractFormatFactory;
 
-@RegisterForReflection
 public class NameWithLengthSuffixFormatFactory extends AbstractFormatFactory {
 
     {

@@ -18,40 +18,19 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthOrder;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 class FixedLengthRecordTest {
 
-    private static final String FIXED_LENGTH_ORDER = "BobSpa\r\n";
-
     @Test
-    public void jsonToFixedLengthShouldSucceed() {
-        FixedLengthOrder order = new FixedLengthOrder();
-        order.setName("Bob");
-        order.setCountry("Spa");
-
-        String fixedLengthOrder = RestAssured.given() //
-                .contentType(ContentType.JSON).body(order).get("/bindy/jsonToFixedLength").then().statusCode(200).extract()
-                .asString();
-
-        assertEquals(FIXED_LENGTH_ORDER, fixedLengthOrder);
+    public void marshalFixedLengthShouldSucceed() {
+        RestAssured.get("/bindy/marshalFixedLengthRecordShouldSucceed").then().statusCode(204);
     }
 
     @Test
-    public void fixedLengthToJsonShouldSucceed() {
-        FixedLengthOrder order = RestAssured.given() //
-                .contentType(ContentType.TEXT).body(FIXED_LENGTH_ORDER).get("/bindy/fixedLengthToJson").then().statusCode(200)
-                .extract().as(FixedLengthOrder.class);
-
-        assertNotNull(order);
-        assertEquals("Bob", order.getName());
-        assertEquals("Spa", order.getCountry());
+    public void unMarshalFixedLengthRecordShouldSucceed() {
+        RestAssured.get("/bindy/unMarshalFixedLengthRecordShouldSucceed").then().statusCode(204);
     }
 
 }

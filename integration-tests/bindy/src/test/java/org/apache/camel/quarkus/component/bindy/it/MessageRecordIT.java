@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.bindy.it;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class MessageRecordIT extends MessageRecordTest {
+class MessageRecordIT extends MessageTest {
 
 }

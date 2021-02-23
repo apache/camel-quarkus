@@ -18,41 +18,19 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.component.bindy.it.model.CsvOrder;
-import org.apache.camel.quarkus.component.bindy.it.model.NameWithLengthSuffix;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 class CsvRecordTest {
 
-    private static final String CSV = "bindy-order-name-16,BINDY-COUNTRY";
-
     @Test
-    public void jsonToCsvShouldSucceed() {
-        CsvOrder order = new CsvOrder();
-        order.setNameWithLengthSuffix(NameWithLengthSuffix.ofString("bindy-order-name"));
-        order.setCountry("bindy-country");
-
-        String csvOrder = RestAssured.given() //
-                .contentType(ContentType.JSON).body(order).get("/bindy/jsonToCsv").then().statusCode(200).extract().asString();
-
-        assertEquals(CSV, csvOrder);
+    public void marshalCsvRecordShouldSucceed() {
+        RestAssured.get("/bindy/marshalCsvRecordShouldSucceed").then().statusCode(204);
     }
 
     @Test
-    public void csvToJsonShouldSucceed() {
-        CsvOrder order = RestAssured.given() //
-                .contentType(ContentType.TEXT).body(CSV).get("/bindy/csvToJson").then().statusCode(200).extract()
-                .as(CsvOrder.class);
-
-        assertNotNull(order);
-        assertNotNull(order.getNameWithLengthSuffix());
-        assertEquals("bindy-order-name-16-19", order.getNameWithLengthSuffix().toString());
-        assertEquals("B_ND_-C__NTR_", order.getCountry());
+    public void unMarshalCsvRecordShouldSucceed() {
+        RestAssured.get("/bindy/unMarshalCsvRecordShouldSucceed").then().statusCode(204);
     }
 
 }

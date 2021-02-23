@@ -31,17 +31,17 @@ public class BindyTestRoute extends RouteBuilder {
         BindyDataFormat bindyCsvDataFormat = new BindyDataFormat();
         bindyCsvDataFormat.setClassType(CsvOrder.class);
         bindyCsvDataFormat.setType(BindyType.Csv.name());
-        from("direct:jsonToCsv").marshal(bindyCsvDataFormat);
-        from("direct:csvToJson").unmarshal(bindyCsvDataFormat);
+        from("direct:marshal-csv-record").marshal(bindyCsvDataFormat);
+        from("direct:unmarshal-csv-record").unmarshal(bindyCsvDataFormat);
 
         BindyDataFormat bindyFixedLengthDataFormat = new BindyDataFormat();
         bindyFixedLengthDataFormat.setClassType(FixedLengthOrder.class);
         bindyFixedLengthDataFormat.setType(BindyType.Fixed.name());
-        from("direct:jsonToFixedLength").marshal(bindyFixedLengthDataFormat);
-        from("direct:fixedLengthToJson").unmarshal(bindyFixedLengthDataFormat);
+        from("direct:marshal-fixed-length-record").marshal(bindyFixedLengthDataFormat);
+        from("direct:unmarshal-fixed-length-record").unmarshal(bindyFixedLengthDataFormat);
 
         BindyKeyValuePairDataFormat bindyMessageDataFormat = new BindyKeyValuePairDataFormat(MessageOrder.class);
-        from("direct:jsonToMessage").marshal(bindyMessageDataFormat);
-        from("direct:messageToJson").unmarshal(bindyMessageDataFormat);
+        from("direct:marshal-message").marshal(bindyMessageDataFormat);
+        from("direct:unmarshal-message").unmarshal(bindyMessageDataFormat);
     }
 }
