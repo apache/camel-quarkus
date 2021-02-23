@@ -23,14 +23,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>[#if nativeSupported][=itestParentArtifactId][#else]camel-quarkus-build-parent-it[/#if]</artifactId>
-        <version>[=version]</version>
-        <relativePath>[#if nativeSupported]../pom.xml[#else]../../../poms/build-parent-it/pom.xml[/#if]</relativePath>
+        <artifactId>camel-quarkus-integration-tests-aws2</artifactId>
+        <version>1.8.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-[#if nativeSupported]integration-test-[=artifactIdBase][#else][=artifactIdBase]-integration-test[/#if]</artifactId>
-    <name>Camel Quarkus :: [#if nativeSupported]Integration Tests :: [=nameBase][#else][=nameBase] :: Integration Test[/#if]</name>
-    <description>Integration tests for Camel Quarkus [=nameBase] extension</description>
+    <artifactId>camel-quarkus-integration-test-aws2-lambda</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS 2 Lambda</name>
+    <description>Integration tests for Camel Quarkus AWS 2 Lambda extension</description>
 
     <dependencyManagement>
         <dependencies>
@@ -47,11 +47,19 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-[=artifactIdBase]</artifactId>
+            <artifactId>camel-quarkus-main</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-lambda</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -65,8 +73,50 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>software.amazon.awssdk</groupId>
+            <artifactId>iam</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-lambda-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-main-deployment</artifactId>
+            <version>${project.version}</version>
+            <type>pom</type>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
-[#if nativeSupported ]
 
     <profiles>
         <profile>
@@ -98,5 +148,4 @@
         </profile>
     </profiles>
 
-[/#if]
 </project>

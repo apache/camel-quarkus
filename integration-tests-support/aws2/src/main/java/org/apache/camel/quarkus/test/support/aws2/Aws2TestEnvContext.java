@@ -72,6 +72,7 @@ public class Aws2TestEnvContext {
                     case DYNAMODB:
                     case DYNAMODB_STREAMS:
                     case CLOUDWATCH:
+                    case LAMBDA:
                         // TODO https://github.com/apache/camel-quarkus/issues/2216
                         break;
                     default:
