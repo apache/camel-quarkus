@@ -16,13 +16,16 @@
  */
 package org.apache.camel.quarkus.test.support.aws2;
 
+import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.function.Supplier;
 
@@ -41,6 +44,7 @@ import software.amazon.awssdk.regions.Region;
 public class Aws2TestEnvContext {
     private static final Logger LOG = Logger.getLogger(Aws2TestEnvContext.class);
     private final ArrayList<AutoCloseable> closeables = new ArrayList<>();
+    private final Map<Service, ? extends SdkClient> clients = new EnumMap<>(Service.class);
     private final Map<String, String> properties = new LinkedHashMap<>();
     private final String accessKey;
     private final String secretKey;
@@ -67,6 +71,7 @@ public class Aws2TestEnvContext {
                     case SNS:
                     case DYNAMODB:
                     case DYNAMODB_STREAMS:
+                    case CLOUDWATCH:
                         // TODO https://github.com/apache/camel-quarkus/issues/2216
                         break;
                     default:
@@ -117,6 +122,10 @@ public class Aws2TestEnvContext {
         ListIterator<AutoCloseable> it = closeables.listIterator(closeables.size());
         while (it.hasPrevious()) {
             AutoCloseable c = it.previous();
+            if (c instanceof SdkClient) {
+                clients.entrySet().stream().filter(en -> c == en.getValue()).map(Entry::getKey).findFirst()
+                        .map(clients::remove);
+            }
             try {
                 c.close();
             } catch (Exception e) {
@@ -157,6 +166,22 @@ public class Aws2TestEnvContext {
         return client;
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    SdkClient client(Service service, Class<?> clientType) {
+        SdkClient result = clients.get(service);
+        if (result != null) {
+            return result;
+        }
+        return client(service, () -> {
+            try {
+                return (AwsClientBuilder) clientType.getDeclaredMethod("builder").invoke(null);
+            } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException
+                    | SecurityException e) {
+                throw new RuntimeException("Could not call " + clientType.getName() + ".builder()", e);
+            }
+        });
+    }
+
     private static String camelServiceAcronym(Service service) {
         switch (service) {
         case DYNAMODB:
@@ -165,6 +190,8 @@ public class Aws2TestEnvContext {
             return "ddbstream";
         case FIREHOSE:
             return "kinesis-firehose";
+        case CLOUDWATCH:
+            return "cw";
         default:
             return service.name().toLowerCase(Locale.ROOT);
         }
