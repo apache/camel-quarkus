@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.bindy.it.model;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.dataformat.bindy.Format;
 
-@RegisterForReflection(fields = false)
 public class TestConverter implements Format<String> {
     @Override
     public String format(String object) {

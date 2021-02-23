@@ -16,26 +16,28 @@
  */
 package org.apache.camel.quarkus.component.bindy.it;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.bindy.it.model.CsvOrder;
 import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthOrder;
 import org.apache.camel.quarkus.component.bindy.it.model.Header;
 import org.apache.camel.quarkus.component.bindy.it.model.MessageOrder;
+import org.apache.camel.quarkus.component.bindy.it.model.NameWithLengthSuffix;
 import org.apache.camel.quarkus.component.bindy.it.model.Security;
 import org.apache.camel.quarkus.component.bindy.it.model.Trailer;
 import org.jboss.logging.Logger;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @Path("/bindy")
 @ApplicationScoped
@@ -43,65 +45,111 @@ public class BindyResource {
 
     private static final Logger LOG = Logger.getLogger(BindyResource.class);
 
+    private static final String CSV = "bindy-order-name-16,BINDY-COUNTRY";
+    private static final String FIXED_LENGTH_ORDER = "BobSpa\r\n";
+    private static final String MESSAGE_ORDER = "1=BE.CHM.0018=BEGIN9=2010=22022=458=camel - quarkus - bindy test\r\n";
+
     @Inject
-    ProducerTemplate producerTemplate;
+    ProducerTemplate template;
 
-    @Path("/jsonToCsv")
+    @Path("/marshalCsvRecordShouldSucceed")
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String jsonToCsv(final CsvOrder order) {
-        LOG.infof("Invoking  jsonToCsv: %s", order);
-        return producerTemplate.requestBody("direct:jsonToCsv", order, String.class);
+    public void marshalCsvRecordShouldSucceed() {
+        LOG.debugf("Invoking marshalCsvRecordShouldSucceed()");
+
+        CsvOrder order = new CsvOrder();
+        order.setNameWithLengthSuffix(NameWithLengthSuffix.ofString("bindy-order-name"));
+        order.setCountry("bindy-country");
+
+        String marshalled = template.requestBody("direct:marshal-csv-record", order, String.class);
+
+        assertEquals(CSV, marshalled);
     }
 
-    @Path("/csvToJson")
+    @Path("/unMarshalCsvRecordShouldSucceed")
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public CsvOrder csvToJson(final String csvOrder) {
-        LOG.infof("Invoking  csvToJson: %s", csvOrder);
-        return producerTemplate.requestBody("direct:csvToJson", csvOrder, CsvOrder.class);
+    public void unMarshalCsvRecordShouldSucceed() {
+        LOG.debugf("Invoking unMarshalCsvRecordShouldSucceed()");
+
+        CsvOrder order = template.requestBody("direct:unmarshal-csv-record", CSV, CsvOrder.class);
+
+        assertNotNull(order);
+        assertNotNull(order.getNameWithLengthSuffix());
+        assertEquals("bindy-order-name-16-19", order.getNameWithLengthSuffix().toString());
+        assertEquals("B_ND_-C__NTR_", order.getCountry());
     }
 
-    @Path("/jsonToFixedLength")
+    @Path("/marshalFixedLengthRecordShouldSucceed")
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String jsonToFixedLength(final FixedLengthOrder order) {
-        LOG.infof("Invoking  jsonToFixedLength: %s", order);
-        return producerTemplate.requestBody("direct:jsonToFixedLength", order, String.class);
+    public void marshalFixedLengthRecordShouldSucceed() {
+        LOG.debugf("Invoking marshalFixedLengthRecordShouldSucceed()");
+
+        FixedLengthOrder order = new FixedLengthOrder();
+        order.setName("Bob");
+        order.setCountry("Spa");
+
+        String marshalled = template.requestBody("direct:marshal-fixed-length-record", order, String.class);
+
+        assertEquals(FIXED_LENGTH_ORDER, marshalled);
     }
 
-    @Path("/fixedLengthToJson")
+    @Path("/unMarshalFixedLengthRecordShouldSucceed")
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public FixedLengthOrder fixedLengthToJson(final String fixedLengthOrder) {
-        LOG.infof("Invoking  fixedLengthToJson: %s", fixedLengthOrder);
-        return producerTemplate.requestBody("direct:fixedLengthToJson", fixedLengthOrder, FixedLengthOrder.class);
+    public void unMarshalFixedLengthRecordShouldSucceed() {
+        LOG.debugf("Invoking unMarshalFixedLengthRecordShouldSucceed()");
+
+        String uri = "direct:unmarshal-fixed-length-record";
+        FixedLengthOrder order = template.requestBody(uri, FIXED_LENGTH_ORDER, FixedLengthOrder.class);
+
+        assertNotNull(order);
+        assertEquals("Bob", order.getName());
+        assertEquals("Spa", order.getCountry());
     }
 
-    @Path("/jsonToMessage")
+    @Path("/marshalMessageShouldSucceed")
     @GET
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String jsonToMessage(final MessageOrder order) {
-        LOG.infof("Invoking  jsonToMessage: %s", order);
+    public void marshalMessageShouldSucceed() {
+        LOG.debugf("Invoking marshalMessageShouldSucceed()");
+
+        MessageOrder order = new MessageOrder();
+        order.setAccount("BE.CHM.001");
+        order.setHeader(new Header());
+        order.getHeader().setBeginString("BEGIN");
+        order.getHeader().setBodyLength(20);
+        order.setSecurities(new ArrayList<>());
+        order.getSecurities().add(new Security());
+        order.getSecurities().get(0).setIdSource("4");
+        order.setText("camel - quarkus - bindy test");
+        order.setTrailer(new Trailer());
+        order.getTrailer().setCheckSum(220);
         Map<String, Object> model = new HashMap<>();
         model.put(MessageOrder.class.getName(), order);
         model.put(Header.class.getName(), order.getHeader());
         model.put(Trailer.class.getName(), order.getTrailer());
         model.put(Security.class.getName(), order.getSecurities().get(0));
-        return producerTemplate.requestBody("direct:jsonToMessage", Arrays.asList(model), String.class);
+
+        String marshalled = template.requestBody("direct:marshal-message", Arrays.asList(model), String.class);
+
+        assertEquals(MESSAGE_ORDER, marshalled);
     }
 
-    @Path("/messageToJson")
+    @Path("/unMarshalMessageShouldSucceed")
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.APPLICATION_JSON)
-    public MessageOrder messageToJson(final String messageOrder) {
-        LOG.infof("Invoking  messageToJson: %s", messageOrder);
-        return producerTemplate.requestBody("direct:messageToJson", messageOrder, MessageOrder.class);
+    public void unMarshalMessageShouldSucceed() {
+        LOG.debugf("Invoking unMarshalMessageShouldSucceed()");
+
+        MessageOrder order = template.requestBody("direct:unmarshal-message", MESSAGE_ORDER, MessageOrder.class);
+
+        assertNotNull(order);
+        assertEquals("BE.CHM.001", order.getAccount());
+        assertNotNull(order.getHeader());
+        assertEquals("BEGIN", order.getHeader().getBeginString());
+        assertEquals(20, order.getHeader().getBodyLength());
+        assertNotNull(order.getSecurities());
+        assertEquals(1, order.getSecurities().size());
+        assertEquals("4", order.getSecurities().get(0).getIdSource());
+        assertEquals("camel - quarkus - bindy test", order.getText());
+        assertNotNull(order.getTrailer());
+        assertEquals(220, order.getTrailer().getCheckSum());
     }
 }
