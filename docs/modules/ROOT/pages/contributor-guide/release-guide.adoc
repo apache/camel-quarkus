@@ -86,10 +86,18 @@ In case you have performed the above step during some release in the past, you n
 
 [source,shell]
 ----
-$ svn update 'https://dist.apache.org/repos/dist/release/camel' camel-releases-dist
+$ cd camel-releases-dist
+$ svn update .
 ----
 
-Make sure your public key is present in the `KEYS` file. Add it, if it is not there yet.
+Make sure your public key is present in the `KEYS` file. Add it, if it is not there yet using `gpg` command:
+
+[source,shell]
+----
+$ export EMAIL= # the e-mail address in your key
+$ gpg -k $EMAIL >> KEYS
+$ gpg --armor --export $EMAIL >> KEYS
+----
 
 Assemble the Apache Camel Quarkus distribution:
 [source,shell]
@@ -126,9 +134,9 @@ $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 
 In addition to the above, the following is needed:
 
-* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
-* https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
-  Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
 * Check the state of `camel-quarkus-master` branch in the
   https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
   new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-master` to `master`.
+* https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
+  Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
+* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
