@@ -41,6 +41,7 @@
         <module>aws2-cw</module>
         <module>aws2-ddb</module>
         <module>aws2-kinesis</module>
+        <module>aws2-lambda</module>
         <module>aws2-s3</module>
         <module>aws2-sqs-sns</module>
     </modules>
