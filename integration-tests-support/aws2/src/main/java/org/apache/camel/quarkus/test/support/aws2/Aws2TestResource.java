@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.test.support.aws2;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,7 @@ import org.jboss.logging.Logger;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.utility.DockerImageName;
+import software.amazon.awssdk.core.SdkClient;
 
 public final class Aws2TestResource implements ContainerResourceLifecycleManager {
     private static final Logger LOG = Logger.getLogger(Aws2TestResource.class);
@@ -91,6 +93,28 @@ public final class Aws2TestResource implements ContainerResourceLifecycleManager
     @Override
     public void stop() {
         envContext.close();
+    }
+
+    @Override
+    public void inject(Object testInstance) {
+        Class<?> c = testInstance.getClass();
+        while (c != Object.class) {
+            for (Field f : c.getDeclaredFields()) {
+                Aws2Client clientAnnot = f.getAnnotation(Aws2Client.class);
+                if (clientAnnot != null) {
+                    Service service = clientAnnot.value();
+                    f.setAccessible(true);
+                    SdkClient client = envContext.client(service, f.getType());
+                    try {
+                        f.set(testInstance, client);
+                    } catch (IllegalArgumentException | IllegalAccessException e) {
+                        throw new RuntimeException("Could not set " + c.getName() + "." + f.getName(), e);
+                    }
+                }
+            }
+            c = c.getSuperclass();
+        }
+
     }
 
 }
