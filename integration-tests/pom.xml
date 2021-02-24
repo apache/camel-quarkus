@@ -138,6 +138,7 @@
         <module>kubernetes</module>
         <module>kudu</module>
         <module>leveldb</module>
+        <module>lra</module>
         <module>lumberjack</module>
         <module>mail</module>
         <module>master</module>
