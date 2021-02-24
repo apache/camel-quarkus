@@ -162,6 +162,7 @@
         <module>kudu</module>
         <module>leveldb</module>
         <module>log</module>
+        <module>lra</module>
         <module>lumberjack</module>
         <module>lzf</module>
         <module>mail</module>

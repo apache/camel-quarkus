@@ -90,6 +90,7 @@ foundation:
   - jta
   - jsonpath
   - kamelet
+  - lra
   - micrometer
   - quartz
   - saga
