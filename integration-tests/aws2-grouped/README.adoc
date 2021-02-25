@@ -17,4 +17,4 @@ if, in the given situation, the speed matters more than isolation.
 
 === Mock backend vs. real service
 
-Please refer to the README files in `integration-tests-aws2` for more details.
+Please refer to link:../../integration-tests-aws2/README.adoc[integration-tests-aws2/README.adoc] for more details.
