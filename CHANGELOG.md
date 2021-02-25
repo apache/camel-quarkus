@@ -8,10 +8,15 @@
 
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
+- Bindy - Do not rely on quarkus-resteasy-jackson to register reflective classes [\#2268](https://github.com/apache/camel-quarkus/issues/2268)
+- LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
 - Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
 
 **Merged pull requests:**
 
+- LRA native support [\#2286](https://github.com/apache/camel-quarkus/pull/2286) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test AWS 2 Lambda [\#2283](https://github.com/apache/camel-quarkus/pull/2283) ([ppalaga](https://github.com/ppalaga))
+- bindy: fixed reflective classes registration, fixes \#2268 [\#2281](https://github.com/apache/camel-quarkus/pull/2281) ([aldettinger](https://github.com/aldettinger))
 - Test AWS 2 CloudWatch [\#2280](https://github.com/apache/camel-quarkus/pull/2280) ([ppalaga](https://github.com/ppalaga))
 - Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
@@ -2183,6 +2188,7 @@
 - Use vanilla Maven Compiler Plugin version \(from maven central\) [\#21](https://github.com/apache/camel-quarkus/pull/21) ([davsclaus](https://github.com/davsclaus))
 - chore\(build\): use project.version [\#15](https://github.com/apache/camel-quarkus/pull/15) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add keys [\#13](https://github.com/apache/camel-quarkus/pull/13) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#11 Test the native mode on TravisCI [\#12](https://github.com/apache/camel-quarkus/pull/12) ([ppalaga](https://github.com/ppalaga))
 - Migrate Camel extensions from Quarkus [\#3](https://github.com/apache/camel-quarkus/pull/3) ([ppalaga](https://github.com/ppalaga))
 
 
