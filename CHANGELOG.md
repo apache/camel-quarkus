@@ -9,11 +9,13 @@
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
 - Bindy - Do not rely on quarkus-resteasy-jackson to register reflective classes [\#2268](https://github.com/apache/camel-quarkus/issues/2268)
+- Nitrite native support [\#1298](https://github.com/apache/camel-quarkus/issues/1298)
 - LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
 - Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
 
 **Merged pull requests:**
 
+- Test AWS 2 SES [\#2288](https://github.com/apache/camel-quarkus/pull/2288) ([ppalaga](https://github.com/ppalaga))
 - LRA native support [\#2286](https://github.com/apache/camel-quarkus/pull/2286) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 Lambda [\#2283](https://github.com/apache/camel-quarkus/pull/2283) ([ppalaga](https://github.com/ppalaga))
 - bindy: fixed reflective classes registration, fixes \#2268 [\#2281](https://github.com/apache/camel-quarkus/pull/2281) ([aldettinger](https://github.com/aldettinger))
@@ -21,6 +23,7 @@
 - Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
 - Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
+- Nitrite native support \#1298 [\#2254](https://github.com/apache/camel-quarkus/pull/2254) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Freemarker native support  [\#2184](https://github.com/apache/camel-quarkus/pull/2184) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.7.0](https://github.com/apache/camel-quarkus/tree/1.7.0) (2021-02-19)
@@ -445,6 +448,7 @@
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Debezium 1.3.0.Final [\#1882](https://github.com/apache/camel-quarkus/pull/1882) ([ppalaga](https://github.com/ppalaga))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
+- Shiro native support \#1844 [\#1879](https://github.com/apache/camel-quarkus/pull/1879) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix twitter itest so it initially waits when start polling tweets [\#1877](https://github.com/apache/camel-quarkus/pull/1877) ([llowinge](https://github.com/llowinge))
 - Add an Examples step to the release guide [\#1875](https://github.com/apache/camel-quarkus/pull/1875) ([ppalaga](https://github.com/ppalaga))
@@ -641,7 +645,6 @@
 - Fixed the VerifyError in the health example fixes \#1517 [\#1525](https://github.com/apache/camel-quarkus/pull/1525) ([aldettinger](https://github.com/aldettinger))
 - 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
-- Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.0.1](https://github.com/apache/camel-quarkus/tree/1.0.1) (2020-08-26)
@@ -735,6 +738,7 @@
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify component configuration for box and fhir itests [\#1518](https://github.com/apache/camel-quarkus/pull/1518) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing camel-quarkus-main dependency to braintree & twitter itests [\#1516](https://github.com/apache/camel-quarkus/pull/1516) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR2 [\#1513](https://github.com/apache/camel-quarkus/pull/1513) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.CR1 [\#1508](https://github.com/apache/camel-quarkus/pull/1508) ([ppalaga](https://github.com/ppalaga))
 - Added grok support \#1466 [\#1504](https://github.com/apache/camel-quarkus/pull/1504) ([aldettinger](https://github.com/aldettinger))
