@@ -45,12 +45,7 @@
         <aws-java-sdk.version>${aws-java-sdk-version}</aws-java-sdk.version>
         <awssdk1-swf-libs.version>${aws-java-sdk-swf-libs}</awssdk1-swf-libs.version>
         <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
-        <azure-core.version>1.12.0</azure-core.version><!-- keep compatible with the azure artifacts below -->
-        <azure-sdk-bom.version>1.0.1</azure-sdk-bom.version>
-        <azure-storage-blob-java-sdk12.version>${azure-storage-blob-java-sdk12-version}</azure-storage-blob-java-sdk12.version>
-        <azure-storage-queue-java-sdk12.version>${azure-storage-queue-java-sdk12-version}</azure-storage-queue-java-sdk12.version>
-        <azure-eventhubs-java.version>${azure-eventhubs-java-version}</azure-eventhubs-java.version>
-        <azure-eventhubs-checkpointstore-blob.version>${azure-eventhubs-checkpointstore-blob-version}</azure-eventhubs-checkpointstore-blob.version>
+        <azure-sdk-bom.version>1.0.2</azure-sdk-bom.version><!-- TODO inherit from Camel https://issues.apache.org/jira/browse/CAMEL-16278 -->
 
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
 

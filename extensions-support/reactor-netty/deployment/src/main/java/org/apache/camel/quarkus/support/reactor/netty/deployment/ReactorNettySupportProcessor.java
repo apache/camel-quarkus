@@ -36,9 +36,14 @@ public class ReactorNettySupportProcessor {
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
         Stream.of(
 
-                "io.netty.util.NetUtil", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
-                "io.netty.channel.socket.InternetProtocolFamily", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
-                "io.netty.channel.socket.nio.ProtocolFamilyConverter$1", // TODO: move this to quarkus-netty https://github.com/apache/camel-quarkus/issues/2142
+                /* The following io.netty.util.* items were not accepted
+                 * to quarkus via https://github.com/quarkusio/quarkus/pull/14994
+                 * Keeping them here for now */
+                "io.netty.util.NetUtil",
+                "io.netty.channel.socket.InternetProtocolFamily",
+                "io.netty.handler.ssl.OpenSsl",
+                "io.netty.channel.socket.nio.ProtocolFamilyConverter$1",
+                "io.netty.internal.tcnative.SSL",
 
                 "reactor.netty.http.client.HttpClient",
                 "reactor.netty.tcp.TcpClient",
