@@ -45,7 +45,7 @@ public class BindyResource {
 
     private static final Logger LOG = Logger.getLogger(BindyResource.class);
 
-    private static final String CSV = "bindy-order-name-16,BINDY-COUNTRY";
+    private static final String CSV = "bindy-order-name-16,BINDY-COUNTRY,fr,A1B2C3";
     private static final String FIXED_LENGTH_ORDER = "BobSpa\r\n";
     private static final String MESSAGE_ORDER = "1=BE.CHM.0018=BEGIN9=2010=22022=458=camel - quarkus - bindy test\r\n";
 
@@ -60,6 +60,8 @@ public class BindyResource {
         CsvOrder order = new CsvOrder();
         order.setNameWithLengthSuffix(NameWithLengthSuffix.ofString("bindy-order-name"));
         order.setCountry("bindy-country");
+        order.setLanguage("fr");
+        order.setClientReference("A1B2C3");
 
         String marshalled = template.requestBody("direct:marshal-csv-record", order, String.class);
 
@@ -77,6 +79,8 @@ public class BindyResource {
         assertNotNull(order.getNameWithLengthSuffix());
         assertEquals("bindy-order-name-16-19", order.getNameWithLengthSuffix().toString());
         assertEquals("B_ND_-C__NTR_", order.getCountry());
+        assertEquals("FR", order.getLanguage());
+        assertEquals("A_B_C_", order.getClientReference());
     }
 
     @Path("/marshalFixedLengthRecordShouldSucceed")

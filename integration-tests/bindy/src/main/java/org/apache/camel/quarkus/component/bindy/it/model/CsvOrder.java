@@ -32,6 +32,12 @@ public class CsvOrder {
     @BindyConverter(TestConverter.class)
     private String country;
 
+    @DataField(pos = 3, method = "toUpperCase")
+    private String language;
+
+    @DataField(pos = 4, method = "org.apache.camel.quarkus.component.bindy.it.model.CharReplacer.replaceDigitsWithUnderScore")
+    private String clientReference;
+
     public NameWithLengthSuffix getNameWithLengthSuffix() {
         return nameWithLengthSuffix;
     }
@@ -47,4 +53,21 @@ public class CsvOrder {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getClientReference() {
+        return clientReference;
+    }
+
+    public void setClientReference(String clientReference) {
+        this.clientReference = clientReference;
+    }
+
 }
