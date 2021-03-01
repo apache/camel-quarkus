@@ -26,6 +26,7 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceDirectoryB
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.dataformat.bindy.annotation.BindyConverter;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
+import org.apache.camel.dataformat.bindy.annotation.DataField;
 import org.apache.camel.dataformat.bindy.annotation.FixedLengthRecord;
 import org.apache.camel.dataformat.bindy.annotation.FormatFactories;
 import org.apache.camel.dataformat.bindy.annotation.Link;
@@ -117,6 +118,24 @@ class BindyProcessor {
                         LOG.debugf("Registering @FormatFactories class as reflective: %s", t.name().toString());
                         producer.produce(new ReflectiveClassBuildItem(false, false, t.name().toString()));
                     }
+                });
+
+        // Registering @DataField.method() classes for fields annotated with @DataField and using the method parameter
+        Stream.of(DataField.class)
+                .map(clazz -> DotName.createSimple(clazz.getName()))
+                .flatMap(dotName -> idx.getAnnotations(dotName).stream())
+                .filter(anno -> anno.value("method") != null && !anno.value("method").asString().isEmpty())
+                .filter(anno -> anno.target() != null && anno.target().kind() == Kind.FIELD)
+                .forEach(anno -> {
+                    String method = anno.value("method").asString();
+                    String methodClazz;
+                    if (method.contains(".")) {
+                        methodClazz = method.substring(0, method.lastIndexOf('.'));
+                    } else {
+                        methodClazz = anno.target().asField().type().toString();
+                    }
+                    LOG.debugf("Registering @DataField.method() class as reflective: %s", methodClazz);
+                    producer.produce(new ReflectiveClassBuildItem(true, false, methodClazz));
                 });
     }
 }
