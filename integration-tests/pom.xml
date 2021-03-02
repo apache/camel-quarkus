@@ -176,7 +176,6 @@
         <module>saga</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
-        <module>send-dynamic-http</module>
         <module>servicenow</module>
         <module>servlet</module>
         <module>shiro</module>

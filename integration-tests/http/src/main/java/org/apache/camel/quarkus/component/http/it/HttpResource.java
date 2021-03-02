@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -32,6 +34,10 @@ import javax.ws.rs.core.MediaType;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.EndpointConsumerBuilder;
+import org.apache.camel.builder.EndpointProducerBuilder;
+import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
 
 @Path("/test/client")
 @ApplicationScoped
@@ -226,5 +232,49 @@ public class HttpResource {
                 .withHeader(Exchange.CONTENT_TYPE, MediaType.TEXT_PLAIN)
                 .withHeader(Exchange.HTTP_METHOD, "POST")
                 .request(String.class);
+    }
+
+    // *****************************
+    //
+    // Send dynamic tests
+    //
+    // *****************************
+
+    @Path("/send-dynamic")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSendDynamic(@QueryParam("test-port") int port) {
+        return producerTemplate
+                .withHeader("SendDynamicHttpEndpointPort", port)
+                .to("direct:send-dynamic")
+                .request(String.class);
+    }
+
+    @Path("/send-dynamic/service")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject get(@QueryParam("q") String q, @QueryParam("fq") String fq) {
+        return Json.createObjectBuilder()
+                .add("q", q)
+                .add("fq", fq)
+                .build();
+    }
+
+    @ApplicationScoped
+    RoutesBuilder sendDynamicRoutes() {
+        return new EndpointRouteBuilder() {
+            @Override
+            public void configure() throws Exception {
+                final EndpointConsumerBuilder trigger = direct(
+                        "send-dynamic");
+                final EndpointProducerBuilder service = http(
+                        "localhost:${header.SendDynamicHttpEndpointPort}/test/send-dynamic/service?q=*&fq=publication_date:%5B${date:now-72h:yyyy-MM-dd}T00:00:00Z%20TO%20${date:now-24h:yyyy-MM-dd}T23:59:59Z%5D&wt=xml&indent=false&start=0&rows=100");
+
+                from(trigger)
+                        .setHeader(Exchange.HTTP_METHOD).constant("GET")
+                        .toD(service)
+                        .convertBodyTo(String.class);
+            }
+        };
     }
 }
