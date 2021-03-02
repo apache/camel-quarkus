@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Use azure-sdk-bom instead of individual azure artifact versions [\#2297](https://github.com/apache/camel-quarkus/pull/2297) ([ppalaga](https://github.com/ppalaga))
 - Test AWS 2 SES [\#2288](https://github.com/apache/camel-quarkus/pull/2288) ([ppalaga](https://github.com/ppalaga))
 - LRA native support [\#2286](https://github.com/apache/camel-quarkus/pull/2286) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 Lambda [\#2283](https://github.com/apache/camel-quarkus/pull/2283) ([ppalaga](https://github.com/ppalaga))
@@ -2101,6 +2102,7 @@
 - AWS Extensions integration test are not built as native [\#81](https://github.com/apache/camel-quarkus/issues/81)
 - Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
 - Release first version of camel-quarkus [\#36](https://github.com/apache/camel-quarkus/issues/36)
+- Move jetty processor from salesforce to a dedicated extension [\#33](https://github.com/apache/camel-quarkus/issues/33)
 - "Multiple consumers for the same endpoint" after renaming packages in extensions/servlet/deployment/src/test/java [\#24](https://github.com/apache/camel-quarkus/issues/24)
 
 **Merged pull requests:**
@@ -2136,7 +2138,6 @@
 - Use RestAssured in JDBC test [\#42](https://github.com/apache/camel-quarkus/issues/42)
 - Move Bean test out of Core integration test [\#39](https://github.com/apache/camel-quarkus/issues/39)
 - Move XStream processor from salesforce to a dedicated extension [\#34](https://github.com/apache/camel-quarkus/issues/34)
-- Move jetty processor from salesforce to a dedicated extension [\#33](https://github.com/apache/camel-quarkus/issues/33)
 - Move netty integration-tests out of core [\#32](https://github.com/apache/camel-quarkus/issues/32)
 - Move infinispan integration-tests out of core [\#31](https://github.com/apache/camel-quarkus/issues/31)
 - Use docker-build in travis [\#29](https://github.com/apache/camel-quarkus/issues/29)
