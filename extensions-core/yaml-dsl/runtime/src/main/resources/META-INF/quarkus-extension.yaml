@@ -21,10 +21,10 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel XML IO DSL"
-description: "An XML stack for parsing XML route definitions"
+name: "Camel YAML DSL"
+description: "An YAML stack for parsing YAML route definitions"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xml-io-dsl.html"
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/yaml-dsl.html"
   categories:
   - "integration"
   status:
