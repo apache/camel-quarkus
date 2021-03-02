@@ -18,32 +18,20 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>1.8.0-SNAPSHOT</version>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-extensions-core</artifactId>
+    <artifactId>camel-quarkus-yaml-dsl-parent</artifactId>
+    <name>Camel Quarkus :: YAML DSL</name>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Extensions :: Core</name>
-
     <modules>
-        <module>core</module>
-        <module>core-cloud</module>
-        <module>http-common</module>
-        <module>reactive-executor</module>
-        <module>threadpoolfactory-vertx</module>
-        <module>xml-io</module>
-        <module>xml-io-dsl</module>
-        <module>xml-jaxb</module>
-        <module>xml-jaxp</module>
-        <module>caffeine-lrucache</module>
-        <module>main</module>
-        <module>yaml-dsl</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
-
 </project>
