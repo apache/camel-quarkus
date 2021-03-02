@@ -69,6 +69,7 @@
         <module>hbase</module>
         <module>hdfs</module>
         <module>hl7</module>
+        <module>huaweicloud-smn</module>
         <module>iec60870</module>
         <module>ignite</module>
         <module>iota</module>
