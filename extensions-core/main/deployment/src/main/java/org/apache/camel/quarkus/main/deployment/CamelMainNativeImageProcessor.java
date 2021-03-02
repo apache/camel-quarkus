@@ -23,7 +23,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.AntPathMatcher;
 import org.jboss.logging.Logger;
@@ -49,10 +48,6 @@ public class CamelMainNativeImageProcessor {
     private void camelNativeImageResources(
             Capabilities capabilities,
             BuildProducer<NativeImageResourceBuildItem> nativeResource) {
-
-        if (!capabilities.isCapabilityPresent(CamelCapabilities.XML)) {
-            return;
-        }
 
         for (String path : CamelMainHelper.routesIncludePatter().collect(Collectors.toList())) {
             String scheme = ResourceHelper.getScheme(path);
