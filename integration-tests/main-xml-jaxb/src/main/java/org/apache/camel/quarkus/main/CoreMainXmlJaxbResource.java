@@ -28,8 +28,8 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.builder.TemplatedRouteBuilder;
+import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.spi.RoutesBuilderLoader;
-import org.apache.camel.xml.in.XmlRoutesBuilderLoader;
 
 @Path("/test")
 @ApplicationScoped
