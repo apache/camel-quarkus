@@ -34,7 +34,7 @@ class PahoProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerReflectiveClasses() {
-        return new ReflectiveClassBuildItem(true, true, JSR47Logger.class);
+        return new ReflectiveClassBuildItem(false, false, JSR47Logger.class);
     }
 
     @BuildStep
