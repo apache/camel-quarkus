@@ -61,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xml-io</artifactId>
+            <artifactId>camel-quarkus-xml-io-dsl</artifactId>
         </dependency>
 
         <!-- test dependencies -->
