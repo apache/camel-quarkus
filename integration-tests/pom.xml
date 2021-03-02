@@ -60,6 +60,7 @@
         <module>main-command-mode</module>
         <module>main-unknown-args-fail</module>
         <module>main-unknown-args-ignore</module>
+        <module>main-yaml</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
