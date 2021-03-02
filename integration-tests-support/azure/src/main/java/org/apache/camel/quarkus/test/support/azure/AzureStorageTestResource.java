@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.test.support.azure;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -34,8 +35,41 @@ import org.testcontainers.containers.wait.strategy.Wait;
 public class AzureStorageTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AzureStorageTestResource.class);
     private static final String AZURITE_IMAGE = "mcr.microsoft.com/azure-storage/azurite:3.10.0";
-    private static final int BLOB_SERVICE_PORT = 10000;
-    private static final int QUEUE_SERVICE_PORT = 10001;
+
+    public enum Service {
+        blob(10000),
+        queue(10001),
+        datalake(-1, "dfs") // Datalake not supported by Azurite https://github.com/Azure/Azurite/issues/553
+        ;
+
+        private final int azuritePort;
+        private final String azureServiceCode;
+
+        Service(int port) {
+            this(port, null);
+        }
+
+        Service(int port, String azureServiceCode) {
+            this.azuritePort = port;
+            this.azureServiceCode = azureServiceCode;
+        }
+
+        public static Integer[] getAzuritePorts() {
+            return Stream.of(values())
+                    .mapToInt(Service::getAzuritePort)
+                    .filter(p -> p >= 0)
+                    .mapToObj(p -> Integer.valueOf(p))
+                    .toArray(Integer[]::new);
+        }
+
+        public int getAzuritePort() {
+            return azuritePort;
+        }
+
+        public String getAzureServiceCode() {
+            return azureServiceCode == null ? name() : azureServiceCode;
+        }
+    }
 
     private GenericContainer<?> container;
 
@@ -58,20 +92,21 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
             MockBackendUtils.logMockBackendUsed();
             try {
                 container = new GenericContainer<>(AZURITE_IMAGE)
-                        .withExposedPorts(BLOB_SERVICE_PORT, QUEUE_SERVICE_PORT)
+                        .withExposedPorts(Service.getAzuritePorts())
                         .withLogConsumer(new Slf4jLogConsumer(LOGGER))
                         .waitingFor(Wait.forListeningPort());
                 container.start();
 
-                final String blobServiceUrl = "http://" + container.getContainerIpAddress() + ":"
-                        + container.getMappedPort(BLOB_SERVICE_PORT) + "/" + azureStorageAccountName + "/"
-                        + azureBlobContainername;
-                final String queueServiceUrl = "http://" + container.getContainerIpAddress() + ":"
-                        + container.getMappedPort(QUEUE_SERVICE_PORT) + "/" + azureStorageAccountName;
-
                 result.put("azure.blob.container.name", azureBlobContainername);
-                result.put("azure.blob.service.url", blobServiceUrl);
-                result.put("azure.queue.service.url", queueServiceUrl);
+                Stream.of(Service.values())
+                        .forEach(s -> {
+                            result.put(
+                                    "azure." + s.name() + ".service.url",
+                                    "http://" + container.getContainerIpAddress() + ":"
+                                            + (s.azuritePort >= 0 ? container.getMappedPort(s.azuritePort) : s.azuritePort)
+                                            + "/"
+                                            + azureStorageAccountName);
+                        });
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -82,8 +117,12 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
             }
             MockBackendUtils.logRealBackendUsed();
             result.put("azure.blob.container.name", azureBlobContainername);
-            result.put("azure.blob.service.url", "https://" + realAzureStorageAccountName + ".blob.core.windows.net");
-            result.put("azure.queue.service.url", "https://" + realAzureStorageAccountName + ".queue.core.windows.net");
+            Stream.of(Service.values())
+                    .forEach(s -> {
+                        result.put(
+                                "azure." + s.name() + ".service.url",
+                                "https://" + realAzureStorageAccountName + "." + s.getAzureServiceCode() + ".core.windows.net");
+                    });
         }
         return result;
     }
