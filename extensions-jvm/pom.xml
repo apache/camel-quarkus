@@ -110,6 +110,7 @@
         <module>spark</module>
         <module>splunk</module>
         <module>splunk-hec</module>
+        <module>stitch</module>
         <module>stomp</module>
         <module>stub</module>
         <module>thrift</module>
