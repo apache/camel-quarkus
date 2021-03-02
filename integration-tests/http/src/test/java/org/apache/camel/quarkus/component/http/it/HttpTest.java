@@ -19,12 +19,15 @@ package org.apache.camel.quarkus.component.http.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
@@ -87,5 +90,19 @@ class HttpTest {
                 .post("/test/client/ahc-ws/post")
                 .then()
                 .body(is("Hello " + body));
+    }
+
+    @Test
+    public void sendDynamic() {
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/test/send-dynamic")
+                .then()
+                .body(
+                        "q", is(not(empty())),
+                        "fq", is(not(empty())));
     }
 }

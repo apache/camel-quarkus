@@ -154,7 +154,6 @@ networking2-dataformats:
   - mail
   - netty
   - nsq
-  - send-dynamic-http
   - servlet
   - univocity-parsers
   - websocket-jsr356
