@@ -48,6 +48,7 @@ core-main-validation:
   - main-discovery-disabled
   - main-xml-io
   - main-xml-jaxb
+  - main-yaml
   - bean-validator
   - json-validator
   - validator

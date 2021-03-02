@@ -58,6 +58,7 @@
         <module>main-collector</module>
         <module>main-caffeine-lrucache</module>
         <module>main-command-mode</module>
+        <module>main-yaml</module>
 
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>activemq</module>
