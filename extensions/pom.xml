@@ -189,6 +189,7 @@
         <module>opentracing</module>
         <module>optaplanner</module>
         <module>paho</module>
+        <module>paho-mqtt5</module>
         <module>pdf</module>
         <module>pg-replication-slot</module>
         <module>pgevent</module>

@@ -173,6 +173,7 @@ platform:
   - rest-openapi
   - csimple
   - aws2-grouped
+  - paho-mqtt5
 saas:
   - box
   - github
