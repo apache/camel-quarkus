@@ -24,10 +24,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.xml.in.ModelParserXMLRoutesDefinitionLoader;
-import org.apache.camel.xml.in.XmlRoutesBuilderLoader;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
