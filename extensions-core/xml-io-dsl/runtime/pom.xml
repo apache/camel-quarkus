@@ -31,8 +31,8 @@
     <description>An XML stack for parsing XML route definitions</description>
 
     <properties>
-        <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
-        <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
+        <camel.quarkus.jvmSince>1.8.0</camel.quarkus.jvmSince>
+        <camel.quarkus.nativeSince>1.8.0</camel.quarkus.nativeSince>
     </properties>
 
     <dependencyManagement>
