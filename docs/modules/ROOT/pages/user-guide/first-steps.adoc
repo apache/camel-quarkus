@@ -155,9 +155,9 @@ This takes about 2.5 minutes (once you have all dependencies cached).
 [source,shell]
 ----
 $ mvn clean package
-$ ls -lh target
+$ ls -lh target/quarkus-app
 ...
--rw-r--r--. 1 ppalaga ppalaga 238K Oct 11 18:55  my-app-0.0.1-SNAPSHOT-runner.jar
+-rw-r--r--. 1 ppalaga ppalaga 238K Oct 11 18:55  quarkus-run.jar
 ...
 ----
 
@@ -165,14 +165,14 @@ You can run it as follows:
 
 [source,shell]
 ----
-$ java -jar target/*-runner.jar
+$ java -jar target/quarkus-app/quarkus-run.jar
 ...
 [io.quarkus] (main) Quarkus started in 1.163s. Listening on: http://[::]:8080
 ----
 
 Notice the boot time around a second.
 
-The thin `jar` contains just the application code. To run it, the dependencies in `target/lib` are required too.
+The thin `jar` contains just the application code. To run it, the dependencies in `target/quarkus-app/lib` are required too.
 
 ===== Native mode
 
