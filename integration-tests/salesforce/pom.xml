@@ -39,6 +39,10 @@
             <artifactId>camel-quarkus-salesforce</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-seda-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jsonb</artifactId>
         </dependency>
@@ -54,6 +58,7 @@
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
         </dependency>
+
 
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
@@ -107,6 +112,36 @@
                                     <goal>integration-test</goal>
                                     <goal>verify</goal>
                                 </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>generate-salesforce-dtos</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.camel.maven</groupId>
+                        <artifactId>camel-salesforce-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <clientId>${env.SALESFORCE_CLIENTID}</clientId>
+                                    <clientSecret>${env.SALESFORCE_CLIENTSECRET}</clientSecret>
+                                    <userName>${env.SALESFORCE_USERNAME}</userName>
+                                    <password>${env.SALESFORCE_PASSWORD}</password>
+                                    <loginUrl>https://login.salesforce.com</loginUrl>
+                                    <packageName>org.apache.camel.quarkus.component.salesforce.generated</packageName>
+                                    <outputDirectory>src/main/java</outputDirectory>
+                                    <includes>
+                                        <include>Account</include>
+                                    </includes>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
