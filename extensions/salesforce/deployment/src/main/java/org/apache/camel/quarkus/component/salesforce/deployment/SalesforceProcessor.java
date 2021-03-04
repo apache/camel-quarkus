@@ -16,37 +16,17 @@
  */
 package org.apache.camel.quarkus.component.salesforce.deployment;
 
-import java.util.Arrays;
-import java.util.List;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.component.salesforce.internal.dto.LoginError;
-import org.apache.camel.component.salesforce.internal.dto.LoginToken;
-import org.apache.camel.component.salesforce.internal.dto.NotifyForFieldsEnum;
-import org.apache.camel.component.salesforce.internal.dto.NotifyForOperationsEnum;
-import org.apache.camel.component.salesforce.internal.dto.PushTopic;
-import org.apache.camel.component.salesforce.internal.dto.QueryRecordsPushTopic;
-import org.apache.camel.component.salesforce.internal.dto.RestChoices;
-import org.apache.camel.component.salesforce.internal.dto.RestErrors;
-import org.eclipse.jetty.client.HttpClient;
-import org.eclipse.jetty.client.ProtocolHandlers;
+import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
 
 class SalesforceProcessor {
-    private static final List<Class<?>> SALESFORCE_REFLECTIVE_CLASSES = Arrays.asList(
-            HttpClient.class,
-            LoginToken.class,
-            LoginError.class,
-            NotifyForFieldsEnum.class,
-            NotifyForOperationsEnum.class,
-            PushTopic.class,
-            QueryRecordsPushTopic.class,
-            RestChoices.class,
-            RestErrors.class,
-            ProtocolHandlers.class);
 
     private static final String FEATURE = "camel-salesforce";
 
@@ -61,10 +41,25 @@ class SalesforceProcessor {
     }
 
     @BuildStep
-    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        for (Class<?> type : SALESFORCE_REFLECTIVE_CLASSES) {
-            reflectiveClass.produce(
-                    new ReflectiveClassBuildItem(true, true, type));
-        }
+    void registerForReflection(CombinedIndexBuildItem combinedIndex, BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+        IndexView index = combinedIndex.getIndex();
+
+        // Register everything extending AbstractDTOBase for reflection
+        DotName dtoBaseName = DotName.createSimple(AbstractDTOBase.class.getName());
+        String[] dtoClasses = index.getAllKnownSubclasses(dtoBaseName)
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .toArray(String[]::new);
+
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, dtoClasses));
+
+        // Register internal DTO classes for reflection
+        String[] internalDtoClasses = index.getKnownClasses()
+                .stream()
+                .map(classInfo -> classInfo.name().toString())
+                .filter(className -> className.startsWith("org.apache.camel.component.salesforce.internal.dto"))
+                .toArray(String[]::new);
+
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, internalDtoClasses));
     }
 }
