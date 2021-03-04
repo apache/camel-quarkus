@@ -12,12 +12,16 @@
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
 - Bindy - Do not rely on quarkus-resteasy-jackson to register reflective classes [\#2268](https://github.com/apache/camel-quarkus/issues/2268)
+- Paho MQTT 5 support [\#2145](https://github.com/apache/camel-quarkus/issues/2145)
 - Nitrite native support [\#1298](https://github.com/apache/camel-quarkus/issues/1298)
 - LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
 - Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 1.12.1.Final [\#2313](https://github.com/apache/camel-quarkus/pull/2313) ([jamesnetherton](https://github.com/jamesnetherton))
+- Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
+- Paho MQTT 5 support  [\#2310](https://github.com/apache/camel-quarkus/pull/2310) ([ppalaga](https://github.com/ppalaga))
 - Stitch and Huawei SMN JVM support [\#2309](https://github.com/apache/camel-quarkus/pull/2309) ([ppalaga](https://github.com/ppalaga))
 - Review usage of quarkus.ssl.native in integration tests [\#2307](https://github.com/apache/camel-quarkus/pull/2307) ([jamesnetherton](https://github.com/jamesnetherton))
 - Azure Storage Data Lake JVM support \#2289 [\#2305](https://github.com/apache/camel-quarkus/pull/2305) ([ppalaga](https://github.com/ppalaga))
@@ -207,7 +211,6 @@
 - Next is 1.6.0 [\#2076](https://github.com/apache/camel-quarkus/pull/2076) ([ppalaga](https://github.com/ppalaga))
 - Documented the Camel Quarkus testing approach \#1981 [\#2075](https://github.com/apache/camel-quarkus/pull/2075) ([aldettinger](https://github.com/aldettinger))
 - Require Java 11 [\#2073](https://github.com/apache/camel-quarkus/pull/2073) ([ppalaga](https://github.com/ppalaga))
-- Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
 
 ## [1.5.0](https://github.com/apache/camel-quarkus/tree/1.5.0) (2020-12-14)
 
@@ -243,6 +246,7 @@
 - Upgrade to Quarkus 1.10.3.Final [\#2062](https://github.com/apache/camel-quarkus/pull/2062) ([ppalaga](https://github.com/ppalaga))
 - Polish how we pass -Djavax.net.ssl.trustStore to the Solr test \#2029 [\#2056](https://github.com/apache/camel-quarkus/pull/2056) ([ppalaga](https://github.com/ppalaga))
 - Fix persistence of WireMock mappings [\#2054](https://github.com/apache/camel-quarkus/pull/2054) ([jamesnetherton](https://github.com/jamesnetherton))
+- Updated the release guide in order to publish sources [\#2053](https://github.com/apache/camel-quarkus/pull/2053) ([aldettinger](https://github.com/aldettinger))
 - Use camel-dependencies as parent pom to inherit camel version properties [\#2051](https://github.com/apache/camel-quarkus/pull/2051) ([jamesnetherton](https://github.com/jamesnetherton))
 - Micrometer component support [\#2050](https://github.com/apache/camel-quarkus/pull/2050) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.2.Final [\#2047](https://github.com/apache/camel-quarkus/pull/2047) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -699,6 +703,7 @@
 - Running a Camel-main batch application [\#1474](https://github.com/apache/camel-quarkus/issues/1474)
 - Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
 - \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
+- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - vertx-websocket extension [\#1507](https://github.com/apache/camel-quarkus/issues/1507)
 - Health example fails to start [\#1500](https://github.com/apache/camel-quarkus/issues/1500)
 - Debezium test fails on branch camel-master [\#1490](https://github.com/apache/camel-quarkus/issues/1490)
@@ -1374,7 +1379,6 @@
 - GZip Deflater support [\#783](https://github.com/apache/camel-quarkus/issues/783)
 - Add support for camel-johnzon extension [\#775](https://github.com/apache/camel-quarkus/issues/775)
 - Upgarde Camel to v3.1.0 [\#759](https://github.com/apache/camel-quarkus/issues/759)
-- Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
 - Automate tests against camel and quarkus master [\#652](https://github.com/apache/camel-quarkus/issues/652)
 - MongoDB itest fails on Camel 3.1.0-SNAPSHOT [\#649](https://github.com/apache/camel-quarkus/issues/649)
 - java.lang.NoClassDefFoundError with JDK 11+ [\#642](https://github.com/apache/camel-quarkus/issues/642)
@@ -2094,6 +2098,7 @@
 - Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
 - rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
@@ -2113,7 +2118,6 @@
 
 **Merged pull requests:**
 
-- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 - Figure out whether the Reifier substitutions can be added conditionally [\#110](https://github.com/apache/camel-quarkus/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use source block instead of code [\#106](https://github.com/apache/camel-quarkus/pull/106) ([zregvart](https://github.com/zregvart))
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
