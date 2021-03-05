@@ -22,6 +22,7 @@ import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hamcrest.Matchers;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
@@ -32,18 +33,18 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageDatalakeTest {
 
+    private static final Logger LOG = Logger.getLogger(AzureStorageDatalakeTest.class);
+
     @Test
     public void crud() {
         final String filesystem = "cqfs" + RandomStringUtils.randomNumeric(16);
         final String filename = "file" + RandomStringUtils.randomNumeric(16);
 
         /* The filesystem does not exist initially */
-        // TODO this causes an infinite loop of requests see
-        // https://github.com/apache/camel-quarkus/issues/2304
-        // RestAssured.get("/azure-storage-datalake/filesystems")
-        // .then()
-        // .statusCode(200)
-        // .body(Matchers.not(Matchers.hasItem(filesystem)));
+        RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem)
+                .then()
+                .statusCode(200)
+                .body("", Matchers.not(Matchers.hasItem(filesystem)));
 
         try {
             /* Create the filesystem */
@@ -53,12 +54,10 @@ class AzureStorageDatalakeTest {
                     .statusCode(201);
 
             /* Now it should exist */
-            // TODO this causes an infinite loop of requests see
-            // https://github.com/apache/camel-quarkus/issues/2304
-            //            RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem)
-            //                    .then()
-            //                    .statusCode(200)
-            //                    .body(Matchers.hasItem(filesystem));
+            RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem)
+                    .then()
+                    .statusCode(200)
+                    .body("", Matchers.hasItem(filesystem));
 
             /* No paths yet */
             RestAssured.get("/azure-storage-datalake/filesystem/" + filesystem + "/paths")
@@ -99,10 +98,14 @@ class AzureStorageDatalakeTest {
         } finally {
             /* Clean up */
 
-            RestAssured.given()
-                    .delete("/azure-storage-datalake/filesystem/" + filesystem + "/path/" + filename)
-                    .then()
-                    .statusCode(204);
+            try {
+                RestAssured.given()
+                        .delete("/azure-storage-datalake/filesystem/" + filesystem + "/path/" + filename)
+                        .then()
+                        .statusCode(204);
+            } catch (Exception e) {
+                LOG.warnf(e, "Could not delete file '%s' in file system %s", filename, filesystem);
+            }
 
             RestAssured.given()
                     .delete("/azure-storage-datalake/filesystem/" + filesystem)
