@@ -106,8 +106,6 @@
         <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.23.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
-        <reactor-core.version>3.3.13.RELEASE</reactor-core.version>
-        <reactor-netty.version>0.9.16.RELEASE</reactor-netty.version><!-- A newer micro than the one in azure-sdk-bom required by camel-quarkus-azure-eventhubs -->
         <retrofit.version>2.5.0</retrofit.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>2.9.0</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->
