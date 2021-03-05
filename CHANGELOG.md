@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.7.0...HEAD)
 
+**Fixed bugs:**
+
+- Unable to use Salesforce DTOs in native mode [\#2312](https://github.com/apache/camel-quarkus/issues/2312)
+
 **Closed issues:**
 
 - Investigate integration test usage of quarkus.ssl.native [\#2306](https://github.com/apache/camel-quarkus/issues/2306)
@@ -19,6 +23,7 @@
 
 **Merged pull requests:**
 
+- Unable to use Salesforce DTOs in native mode [\#2315](https://github.com/apache/camel-quarkus/pull/2315) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.12.1.Final [\#2313](https://github.com/apache/camel-quarkus/pull/2313) ([jamesnetherton](https://github.com/jamesnetherton))
 - Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
 - Paho MQTT 5 support  [\#2310](https://github.com/apache/camel-quarkus/pull/2310) ([ppalaga](https://github.com/ppalaga))
