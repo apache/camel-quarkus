@@ -36,7 +36,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.servicenow.ServiceNowConstants;
 import org.apache.camel.component.servicenow.ServiceNowParams;
-import org.apache.camel.quarkus.component.servicenow.it.model.Incident;
+import org.apache.camel.quarkus.component.servicenow.it.generated.Incident;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
