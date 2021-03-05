@@ -92,6 +92,32 @@
 
     <profiles>
         <profile>
+            <id>generate-servicenow-model</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.camel.maven</groupId>
+                        <artifactId>camel-servicenow-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>generate</goal>
+                                </goals>
+                                <configuration>
+                                    <instanceName>${env.SERVICENOW_INSTANCE}</instanceName>
+                                    <userName>${env.SERVICENOW_USERNAME}</userName>
+                                    <userPassword>${env.SERVICENOW_PASSWORD}</userPassword>
+                                    <objects>incident</objects>
+                                    <packageName>org.apache.camel.quarkus.component.servicenow.it.generated</packageName>
+                                    <outputDirectory>src/main/java</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>native</id>
             <activation>
                 <property>

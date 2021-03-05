@@ -72,6 +72,11 @@
                     <artifactId>camel-salesforce-maven-plugin</artifactId>
                     <version>${camel.version}</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.camel.maven</groupId>
+                    <artifactId>camel-servicenow-maven-plugin</artifactId>
+                    <version>${camel.version}</version>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>

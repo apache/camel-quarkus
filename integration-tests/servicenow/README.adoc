@@ -20,3 +20,5 @@ System property `-Dwiremock.record=true`
 Or
 
 Set environment variable `WIREMOCK_RECORD=true`
+
+To regenerate the ServiceNow DTO model classes, run `mvn clean generate-sources -Pgenerate-servicenow-model`.
