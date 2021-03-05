@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.sftp.it;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,6 +33,7 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/sftp")
 @ApplicationScoped
@@ -42,6 +44,13 @@ public class SftpResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @ConfigProperty(name = "azure.storage.account-name")
+    String azureStorageAccountName;
+    @ConfigProperty(name = "azure.storage.account-key")
+    String azureAccessKey;
+    @ConfigProperty(name = "azure.storage.container-name")
+    String azureBlobContainerName;
 
     @Path("/get/{fileName}")
     @GET
@@ -64,4 +73,17 @@ public class SftpResource {
                 .created(new URI("https://camel.apache.org/"))
                 .build();
     }
+
+    @Path("/azure-blob/read/{blobName}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String readBlob(@PathParam("blobName") String blobName) throws Exception {
+        return producerTemplate.requestBodyAndHeader(
+                String.format(
+                        "azure-storage-blob://%s/%s?blobServiceClient=#azureBlobServiceClient&operation=getBlob&blobName=%s",
+                        azureStorageAccountName, azureBlobContainerName,
+                        blobName),
+                null, Exchange.CHARSET_NAME, StandardCharsets.UTF_8.name(), String.class);
+    }
+
 }
