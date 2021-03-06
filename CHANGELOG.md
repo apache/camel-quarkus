@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Camel DSL Azure - Storage Blob Service doesn't work as native build. [\#2318](https://github.com/apache/camel-quarkus/issues/2318)
 - Investigate integration test usage of quarkus.ssl.native [\#2306](https://github.com/apache/camel-quarkus/issues/2306)
 - CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
 - bindy: @DataField\(method=\*\) is not supported [\#2282](https://github.com/apache/camel-quarkus/issues/2282)
@@ -23,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Use camel-servicenow-maven-plugin to generate model classes [\#2321](https://github.com/apache/camel-quarkus/pull/2321) ([jamesnetherton](https://github.com/jamesnetherton))
 - Unable to use Salesforce DTOs in native mode [\#2315](https://github.com/apache/camel-quarkus/pull/2315) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.12.1.Final [\#2313](https://github.com/apache/camel-quarkus/pull/2313) ([jamesnetherton](https://github.com/jamesnetherton))
 - Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1781,7 +1783,6 @@
 - Update latest version released to 0.4.0 [\#436](https://github.com/apache/camel-quarkus/pull/436) ([oscerd](https://github.com/oscerd))
 - Consolidate microprofile integration tests [\#434](https://github.com/apache/camel-quarkus/pull/434) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
-- Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
@@ -1824,6 +1825,7 @@
 
 **Merged pull requests:**
 
+- Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#356 Issues in the List of extensions [\#425](https://github.com/apache/camel-quarkus/pull/425) ([ppalaga](https://github.com/ppalaga))
 - build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
 - xslt extension not building in native mode [\#422](https://github.com/apache/camel-quarkus/pull/422) ([lburgazzoli](https://github.com/lburgazzoli))
