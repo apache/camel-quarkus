@@ -629,7 +629,6 @@
 - ZooKeeper, ZooKeeper Master, Zendesk, Yammer, XSLT Saxon, XMPP, XML Security and XJ JVM support [\#1618](https://github.com/apache/camel-quarkus/pull/1618) ([ppalaga](https://github.com/ppalaga))
 - Fix JAXB dependency alignment issues [\#1609](https://github.com/apache/camel-quarkus/pull/1609) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#1602 Speed up the CI [\#1606](https://github.com/apache/camel-quarkus/pull/1606) ([ppalaga](https://github.com/ppalaga))
-- Send unique messages in Slack itest to avoid false positive tests [\#1604](https://github.com/apache/camel-quarkus/pull/1604) ([llowinge](https://github.com/llowinge))
 - Upgrade to cq-maven-plugin 0.17.0, sanitize model.name when using it as [\#1603](https://github.com/apache/camel-quarkus/pull/1603) ([ppalaga](https://github.com/ppalaga))
 - Crypto \(JCE\), DigitalOcean, Disruptor, Deep Java Library and Drill JVM support [\#1600](https://github.com/apache/camel-quarkus/pull/1600) ([ppalaga](https://github.com/ppalaga))
 - Fix servicenow itest to clean resources [\#1596](https://github.com/apache/camel-quarkus/pull/1596) ([llowinge](https://github.com/llowinge))
@@ -1783,7 +1782,9 @@
 - Update latest version released to 0.4.0 [\#436](https://github.com/apache/camel-quarkus/pull/436) ([oscerd](https://github.com/oscerd))
 - Consolidate microprofile integration tests [\#434](https://github.com/apache/camel-quarkus/pull/434) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
+- Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
@@ -1825,13 +1826,11 @@
 
 **Merged pull requests:**
 
-- Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#356 Issues in the List of extensions [\#425](https://github.com/apache/camel-quarkus/pull/425) ([ppalaga](https://github.com/ppalaga))
 - build\(actions\): enable build in jvm mode for all the supported java versions [\#423](https://github.com/apache/camel-quarkus/pull/423) ([lburgazzoli](https://github.com/lburgazzoli))
 - xslt extension not building in native mode [\#422](https://github.com/apache/camel-quarkus/pull/422) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: Remove unused itest dependencies [\#421](https://github.com/apache/camel-quarkus/pull/421) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
 - Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
 - Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
