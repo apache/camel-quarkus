@@ -426,6 +426,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
+    protected ResourceLoader createResourceLoader() {
+        return new DefaultResourceLoader();
+    }
+
+    @Override
     protected ModelToXMLDumper createModelToXMLDumper() {
         return modelDumper;
     }
