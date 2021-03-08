@@ -56,7 +56,6 @@ public class CamelContextProcessor {
      * @param  registry                a reference to a {@link org.apache.camel.spi.Registry}.
      * @param  typeConverterRegistry   a reference to a {@link TypeConverterRegistry}.
      * @param  modelJAXBContextFactory a list of known {@link ModelJAXBContextFactory}.
-     * @param  xmlLoader               a list of known {@link org.apache.camel.spi.XMLRoutesDefinitionLoader}.
      * @param  modelDumper             a list of known {@link CamelModelToXMLDumperBuildItem}.
      * @param  factoryFinderResolver   a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
      * @param  customizers             a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} used to
