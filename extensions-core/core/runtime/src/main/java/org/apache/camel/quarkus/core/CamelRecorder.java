@@ -32,7 +32,6 @@ import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 
 @Recorder
@@ -95,10 +94,6 @@ public class CamelRecorder {
 
     public RuntimeValue<ModelJAXBContextFactory> newDisabledModelJAXBContextFactory() {
         return new RuntimeValue<>(new DisabledModelJAXBContextFactory());
-    }
-
-    public RuntimeValue<XMLRoutesDefinitionLoader> newDisabledXMLRoutesDefinitionLoader() {
-        return new RuntimeValue<>(new DisabledXMLRoutesDefinitionLoader());
     }
 
     public RuntimeValue<ModelToXMLDumper> newDisabledModelToXMLDumper() {
