@@ -64,6 +64,7 @@ import org.apache.camel.impl.engine.DefaultNodeIdFactory;
 import org.apache.camel.impl.engine.DefaultPackageScanClassResolver;
 import org.apache.camel.impl.engine.DefaultPackageScanResourceResolver;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
+import org.apache.camel.impl.engine.DefaultResourceLoader;
 import org.apache.camel.impl.engine.DefaultRouteController;
 import org.apache.camel.impl.engine.DefaultRouteFactory;
 import org.apache.camel.impl.engine.DefaultRoutesLoader;
@@ -142,6 +143,7 @@ import org.apache.camel.spi.ProcessorFactory;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ReactiveExecutor;
 import org.apache.camel.spi.Registry;
+import org.apache.camel.spi.ResourceLoader;
 import org.apache.camel.spi.RestBindingJaxbDataFormatFactory;
 import org.apache.camel.spi.RestRegistryFactory;
 import org.apache.camel.spi.RouteController;
@@ -167,16 +169,13 @@ import org.apache.camel.util.ObjectHelper;
 
 public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
     private final String version;
-    private final XMLRoutesDefinitionLoader xmlLoader;
     private final ModelToXMLDumper modelDumper;
     private Model model;
 
-    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, XMLRoutesDefinitionLoader xmlLoader,
-            ModelToXMLDumper modelDumper) {
+    public FastCamelContext(FactoryFinderResolver factoryFinderResolver, String version, ModelToXMLDumper modelDumper) {
         super(false);
 
         this.version = version;
-        this.xmlLoader = xmlLoader;
         this.modelDumper = modelDumper;
         this.model = new FastModel(this);
 
@@ -418,7 +417,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected XMLRoutesDefinitionLoader createXMLRoutesDefinitionLoader() {
-        return xmlLoader;
+        return new DisabledXMLRoutesDefinitionLoader();
     }
 
     @Override
