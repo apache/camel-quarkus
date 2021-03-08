@@ -53,7 +53,6 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBu
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
@@ -152,6 +151,7 @@ class CamelProcessor {
                 true,
                 "META-INF/services/org/apache/camel/*",
                 "META-INF/services/org/apache/camel/routes-loader/*",
+                "META-INF/services/org/apache/camel/resource-resolver/*",
                 "META-INF/services/org/apache/camel/invoke-on-header/*",
                 "META-INF/services/org/apache/camel/management/*",
                 "META-INF/services/org/apache/camel/model/*",
@@ -264,13 +264,6 @@ class CamelProcessor {
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelModelJAXBContextFactoryBuildItem createJaxbContextFactory(CamelRecorder recorder) {
         return new CamelModelJAXBContextFactoryBuildItem(recorder.newDisabledModelJAXBContextFactory());
-    }
-
-    @Overridable
-    @BuildStep
-    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    public CamelRoutesLoaderBuildItems.Xml createXMLRoutesLoader(CamelRecorder recorder) {
-        return new CamelRoutesLoaderBuildItems.Xml(recorder.newDisabledXMLRoutesDefinitionLoader());
     }
 
     @Overridable
