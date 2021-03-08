@@ -17,12 +17,8 @@
 package org.apache.camel.quarkus.component.xml.io.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.xml.io.XmlIoRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlIoProcessor {
@@ -36,11 +32,5 @@ class XmlIoProcessor {
     @BuildStep
     CapabilityBuildItem capability() {
         return new CapabilityBuildItem(CamelCapabilities.XML);
-    }
-
-    @BuildStep
-    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    CamelRoutesLoaderBuildItems.Xml xmlLoader(XmlIoRecorder recorder) {
-        return new CamelRoutesLoaderBuildItems.Xml(recorder.newIoXMLRoutesDefinitionLoader());
     }
 }

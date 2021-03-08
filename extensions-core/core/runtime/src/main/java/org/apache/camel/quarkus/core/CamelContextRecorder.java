@@ -31,7 +31,6 @@ import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.TypeConverterRegistry;
-import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 
 @Recorder
 public class CamelContextRecorder {
@@ -39,7 +38,6 @@ public class CamelContextRecorder {
             RuntimeValue<Registry> registry,
             RuntimeValue<TypeConverterRegistry> typeConverterRegistry,
             RuntimeValue<ModelJAXBContextFactory> contextFactory,
-            RuntimeValue<XMLRoutesDefinitionLoader> xmlLoader,
             RuntimeValue<ModelToXMLDumper> xmlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             RuntimeValue<StartupStepRecorder> startupStepRecorder,
@@ -50,7 +48,6 @@ public class CamelContextRecorder {
         FastCamelContext context = new FastCamelContext(
                 factoryFinderResolver.getValue(),
                 version,
-                xmlLoader.getValue(),
                 xmlModelDumper.getValue());
 
         context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
