@@ -1,0 +1,3 @@
+For MLLP with TCP, Netty is the only supported means of running an Hl7 MLLP listener. Mina is not supported since it has no GraalVM native support at present.
+
+Optional support for `HL7MLLPNettyEncoderFactory` & `HL7MLLPNettyDecoderFactory` codecs can be obtained by adding a dependency in your project `pom.xml` to `camel-quarkus-netty`.
