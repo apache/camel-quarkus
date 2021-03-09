@@ -22,7 +22,7 @@ class MyTest {
 }
 ----
 
-A complete implementation can be found https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordTest.java[here].
+An example implementation can be found https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageTest.java[here].
 
 == A test running in native mode
 
