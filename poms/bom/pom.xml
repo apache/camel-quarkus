@@ -5622,9 +5622,49 @@
 
             <!--$ Other third party dependencies $-->
             <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v21</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v22</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v23</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v231</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v24</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v25</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v251</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ca.uhn.hapi</groupId>
+                <artifactId>hapi-structures-v26</artifactId>
+                <version>${hapi.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>ca.uhn.hapi.fhir</groupId>
                 <artifactId>hapi-fhir-server</artifactId>
-                <version>${hapi.version}</version>
+                <version>${hapi-fhir.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.amazonaws</groupId>

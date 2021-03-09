@@ -115,6 +115,7 @@
         <module>grpc</module>
         <module>hazelcast</module>
         <module>headersmap</module>
+        <module>hl7</module>
         <module>http</module>
         <module>hystrix</module>
         <module>infinispan</module>
