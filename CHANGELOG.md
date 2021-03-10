@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- quarkus 1.7.0 DocumentBuilderFactoryImpl not found [\#2323](https://github.com/apache/camel-quarkus/issues/2323)
 - Camel DSL Azure - Storage Blob Service doesn't work as native build. [\#2318](https://github.com/apache/camel-quarkus/issues/2318)
 - Investigate integration test usage of quarkus.ssl.native [\#2306](https://github.com/apache/camel-quarkus/issues/2306)
 - CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
@@ -24,6 +25,7 @@
 
 **Merged pull requests:**
 
+- Updated link in testing doc [\#2324](https://github.com/apache/camel-quarkus/pull/2324) ([mmuzikar](https://github.com/mmuzikar))
 - Use camel-servicenow-maven-plugin to generate model classes [\#2321](https://github.com/apache/camel-quarkus/pull/2321) ([jamesnetherton](https://github.com/jamesnetherton))
 - Unable to use Salesforce DTOs in native mode [\#2315](https://github.com/apache/camel-quarkus/pull/2315) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.12.1.Final [\#2313](https://github.com/apache/camel-quarkus/pull/2313) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -779,6 +781,7 @@
 - Reproducer for \#1459 [\#1465](https://github.com/apache/camel-quarkus/pull/1465) ([lburgazzoli](https://github.com/lburgazzoli))
 - improve bootstrap and configuration documentation [\#1464](https://github.com/apache/camel-quarkus/pull/1464) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issues with building from the source release zip [\#1463](https://github.com/apache/camel-quarkus/pull/1463) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -864,7 +867,6 @@
 
 **Merged pull requests:**
 
-- Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade Quarkus Qpid JMS to 0.16.0 [\#1450](https://github.com/apache/camel-quarkus/pull/1450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Feature: Add camel-mock \#531 [\#1447](https://github.com/apache/camel-quarkus/pull/1447) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 1.6.0.Final [\#1446](https://github.com/apache/camel-quarkus/pull/1446) ([ppalaga](https://github.com/ppalaga))
@@ -2119,6 +2121,7 @@
 
 - Figure out whether the Reifier substitutions can be added conditionally [\#98](https://github.com/apache/camel-quarkus/issues/98)
 - AWS Extensions integration test are not built as native [\#81](https://github.com/apache/camel-quarkus/issues/81)
+- Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
 - Release first version of camel-quarkus [\#36](https://github.com/apache/camel-quarkus/issues/36)
 - "Multiple consumers for the same endpoint" after renaming packages in extensions/servlet/deployment/src/test/java [\#24](https://github.com/apache/camel-quarkus/issues/24)
 
@@ -2154,7 +2157,6 @@
 - Infinispan substrate test are disbaled [\#44](https://github.com/apache/camel-quarkus/issues/44)
 - Use RestAssured in JDBC test [\#42](https://github.com/apache/camel-quarkus/issues/42)
 - Move Bean test out of Core integration test [\#39](https://github.com/apache/camel-quarkus/issues/39)
-- Documentation [\#37](https://github.com/apache/camel-quarkus/issues/37)
 - Move XStream processor from salesforce to a dedicated extension [\#34](https://github.com/apache/camel-quarkus/issues/34)
 - Move jetty processor from salesforce to a dedicated extension [\#33](https://github.com/apache/camel-quarkus/issues/33)
 - Move netty integration-tests out of core [\#32](https://github.com/apache/camel-quarkus/issues/32)
