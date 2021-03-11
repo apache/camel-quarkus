@@ -12,4 +12,6 @@ In native mode, include this file for native build. Example:
 quarkus.native.resources.includes = mapping/atlas-mapping.json
 ----
 
+When mapping Java documents, you may need to register the corresponding Java classes for reflection.
+
 You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/atlasmap[integration test] in our source tree as an example.

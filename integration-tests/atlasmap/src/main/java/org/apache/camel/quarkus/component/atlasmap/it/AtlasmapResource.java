@@ -121,21 +121,9 @@ public class AtlasmapResource {
     }
 
     @GET
-    @Path("json/csv2java")
-    public Person convertCsv2JavaWithJson(String csv) {
-        return producerTemplate.requestBody("atlasmap:mapping/json/atlasmapping-csv-to-java.json", csv, Person.class);
-    }
-
-    @GET
     @Path("json/csv2xml")
     public String convertCsv2XmlWithJson(String csv) {
         return producerTemplate.requestBody("atlasmap:mapping/json/atlasmapping-csv-to-xml.json", csv, String.class);
-    }
-
-    @GET
-    @Path("json/java2csv")
-    public String convertJava2CsvWithJson(Person person) {
-        return producerTemplate.requestBody("atlasmap:mapping/json/atlasmapping-java-to-csv.json", person, String.class);
     }
 
     @GET

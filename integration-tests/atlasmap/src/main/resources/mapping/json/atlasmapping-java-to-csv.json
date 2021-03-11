@@ -4,14 +4,14 @@
     "dataSource": [
       {
         "jsonType": "io.atlasmap.v2.DataSource",
-        "id": "org.apache.camel.quarkus.component.atlasmap.it.model.Person",
-        "uri": "atlas:java?className=org.apache.camel.quarkus.component.atlasmap.it.model.Person",
+        "id": "org.apache.camel.quarkus.component.atlasmap.it.model.Account",
+        "uri": "atlas:java?className=org.apache.camel.quarkus.component.atlasmap.it.model.Account",
         "dataSourceType": "SOURCE"
       },
       {
         "jsonType": "io.atlasmap.csv.v2.CsvDataSource",
-        "id": "Person",
-        "uri": "atlas:csv:Person",
+        "id": "Account",
+        "uri": "atlas:csv:Account",
         "dataSourceType": "TARGET"
       }
     ],
@@ -23,19 +23,19 @@
           "inputField": [
             {
               "jsonType": "io.atlasmap.java.v2.JavaField",
-              "name": "firstName",
-              "path": "/firstName",
+              "name": "id",
+              "path": "/id",
               "fieldType": "STRING",
-              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
+              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Account"
             }
           ],
           "outputField": [
             {
               "jsonType": "io.atlasmap.csv.v2.CsvField",
-              "name": "firstName",
-              "path": "/firstName",
+              "name": "id",
+              "path": "/id",
               "fieldType": "STRING",
-              "docId": "Person"
+              "docId": "Account"
             }
           ]
         },
@@ -45,41 +45,19 @@
           "inputField": [
             {
               "jsonType": "io.atlasmap.java.v2.JavaField",
-              "name": "lastName",
-              "path": "/lastName",
+              "name": "userName",
+              "path": "/userName",
               "fieldType": "STRING",
-              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
+              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Account"
             }
           ],
           "outputField": [
             {
               "jsonType": "io.atlasmap.csv.v2.CsvField",
-              "name": "lastName",
-              "path": "/lastName",
+              "name": "userName",
+              "path": "/userName",
               "fieldType": "STRING",
-              "docId": "Person"
-            }
-          ]
-        },
-        {
-          "jsonType": "io.atlasmap.v2.Mapping",
-          "mappingType": "MAP",
-          "inputField": [
-            {
-              "jsonType": "io.atlasmap.java.v2.JavaField",
-              "name": "age",
-              "path": "/age",
-              "fieldType": "INTEGER",
-              "docId": "org.apache.camel.quarkus.component.atlasmap.it.model.Person"
-            }
-          ],
-          "outputField": [
-            {
-              "jsonType": "io.atlasmap.csv.v2.CsvField",
-              "name": "age",
-              "path": "/age",
-              "fieldType": "STRING",
-              "docId": "Person"
+              "docId": "Account"
             }
           ]
         }
