@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.atlasmap.it;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.atlasmap.it.model.Account;
 import org.apache.camel.quarkus.component.atlasmap.it.model.Person;
 import org.junit.jupiter.api.Test;
 
@@ -220,17 +221,16 @@ class AtlasmapTest {
 
     @Test
     void testCsv2JavaWithJson() {
-        String request = "firstName,lastName,age\r\n" +
-                "foo,bar,35\r\n";
+        String request = "id,userName\r\n" +
+                "1,user\r\n";
         given()
                 .contentType(ContentType.JSON)
                 .body(request)
                 .when()
-                .get("/json/csv2java")
+                .post("/json/csv2java")
                 .then()
-                .body("firstName", equalTo("foo"))
-                .body("lastName", equalTo("bar"))
-                .body("age", equalTo(35));
+                .body("id", equalTo("1"))
+                .body("userName", equalTo("user"));
     }
 
     @Test
@@ -263,14 +263,14 @@ class AtlasmapTest {
 
     @Test
     void testJava2CsvWithJson() {
-        String expectedResult = "firstName,lastName,age\r\n" +
-                "foo,bar,35\r\n";
-        Person person = new Person("foo", "bar", 35);
+        String expectedResult = "id,userName\r\n" +
+                "1,user\r\n";
+        Account person = new Account("1", "user");
         given()
                 .contentType(ContentType.JSON)
                 .body(person)
                 .when()
-                .get("/json/java2csv")
+                .post("/json/java2csv")
                 .then()
                 .body(equalTo(expectedResult));
     }
