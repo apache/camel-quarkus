@@ -197,13 +197,22 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
     protected abstract boolean isMockingEnabled();
 
     /**
+     * Customizes the {@link WiremockConfiguration} that will be used to create the next {@Link WireMockServer}.
+     */
+    protected void customizeWiremockConfiguration(WireMockConfiguration config) {
+    }
+
+    /**
      * Creates and starts a {@link WireMockServer} on a random port. {@link MockBackendUtils} triggers the log
      * message that signifies mocking is in use.
      */
     private WireMockServer createServer() {
         LOG.info("Starting WireMockServer");
+
         MockBackendUtils.startMockBackend(true);
         WireMockConfiguration configuration = options().dynamicPort();
+        customizeWiremockConfiguration(configuration);
+
         if (!isRecordingEnabled()) {
             // Read mapping resources from the classpath in playback mode
             configuration.fileSource(new CamelQuarkusFileSource());
