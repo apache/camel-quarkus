@@ -26,6 +26,7 @@
 
 **Merged pull requests:**
 
+- openstack: added cinder volume tests \#1943 [\#2330](https://github.com/apache/camel-quarkus/pull/2330) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 1.12.2.Final [\#2329](https://github.com/apache/camel-quarkus/pull/2329) ([jamesnetherton](https://github.com/jamesnetherton))
 - HL7 Native support [\#2325](https://github.com/apache/camel-quarkus/pull/2325) ([jamesnetherton](https://github.com/jamesnetherton))
 - Updated link in testing doc [\#2324](https://github.com/apache/camel-quarkus/pull/2324) ([mmuzikar](https://github.com/mmuzikar))
@@ -656,7 +657,6 @@
 - Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
-- Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
@@ -1790,6 +1790,7 @@
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
 
@@ -1837,7 +1838,6 @@
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 - Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
 - Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
 - core: avoid referencing application classes in bean build items and loading them in core build processors [\#405](https://github.com/apache/camel-quarkus/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -2110,7 +2110,6 @@
 - Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
 - rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
@@ -2130,6 +2129,7 @@
 
 **Merged pull requests:**
 
+- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 - Figure out whether the Reifier substitutions can be added conditionally [\#110](https://github.com/apache/camel-quarkus/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use source block instead of code [\#106](https://github.com/apache/camel-quarkus/pull/106) ([zregvart](https://github.com/zregvart))
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
