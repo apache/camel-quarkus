@@ -74,7 +74,7 @@ jobs:
       - name: Build Quarkus
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
-          git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git \
+          git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
             && echo "Current Quarkus commit:" $(git rev-parse HEAD) \
             && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
