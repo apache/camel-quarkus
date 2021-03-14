@@ -657,6 +657,7 @@
 - Document snapshot builds in CI docs [\#1551](https://github.com/apache/camel-quarkus/pull/1551) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#765 Git support [\#1548](https://github.com/apache/camel-quarkus/pull/1548) ([ppalaga](https://github.com/ppalaga))
 - Publish SNAPSHOT builds [\#1547](https://github.com/apache/camel-quarkus/pull/1547) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use proper extension page URLs in quarkus-extension.yaml [\#1546](https://github.com/apache/camel-quarkus/pull/1546) ([ppalaga](https://github.com/ppalaga))
 - update create new extension guide : add update of test-categories.yaml [\#1544](https://github.com/apache/camel-quarkus/pull/1544) ([zbendhiba](https://github.com/zbendhiba))
 - Add missing netty dependencies to olingo4 extension [\#1543](https://github.com/apache/camel-quarkus/pull/1543) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added support for flatpack dataformat fixes \#796 [\#1542](https://github.com/apache/camel-quarkus/pull/1542) ([aldettinger](https://github.com/aldettinger))
@@ -1379,7 +1380,6 @@
 - kafka itests fails [\#875](https://github.com/apache/camel-quarkus/issues/875)
 - Re-org the source tree [\#865](https://github.com/apache/camel-quarkus/issues/865)
 - Support for camel-xml-io [\#847](https://github.com/apache/camel-quarkus/issues/847)
-- Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
 - Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
 - GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
@@ -1440,6 +1440,7 @@
 
 **Closed issues:**
 
+- Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
 - Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
@@ -2110,6 +2111,7 @@
 - Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
 - rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
 
@@ -2129,7 +2131,6 @@
 
 **Merged pull requests:**
 
-- Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 - Figure out whether the Reifier substitutions can be added conditionally [\#110](https://github.com/apache/camel-quarkus/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use source block instead of code [\#106](https://github.com/apache/camel-quarkus/pull/106) ([zregvart](https://github.com/zregvart))
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
