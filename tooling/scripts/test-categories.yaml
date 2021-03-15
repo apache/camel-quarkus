@@ -145,6 +145,7 @@ misc:
   - as2
   - kotlin
   - atlasmap
+  - digitalocean
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore

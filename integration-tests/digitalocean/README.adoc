@@ -1,0 +1,13 @@
+== Camel Quarkus Digitalocean Integration Tests
+
+By default, the Digitalocean integration tests use WireMock to stub the API interactions.
+
+To run `camel-quarkus-digitalocean` integration tests using Digitalocean API interactions, you will need a Digitalocean Token. Create a Digitalocean https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/[Access Token].
+
+Then set the following environment variable:
+
+[source,shell]
+----
+DIGITALOCEAN_AUTH_TOKEN=your-api-token
+----
+

@@ -89,6 +89,7 @@
         <module>debezium-mysql</module>
         <module>debezium-postgres</module>
         <module>debezium-sqlserver</module>
+        <module>digitalocean</module>
         <module>direct</module>
         <module>disruptor</module>
         <module>dozer</module>
