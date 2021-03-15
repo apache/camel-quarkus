@@ -4,7 +4,7 @@
 CDI plays a central role in Quarkus and Camel Quarkus offers a first class support for it too.
 
 You may use `@Inject`, `@ConfigProperty` and similar annotations e.g. to inject beans and configuration values to
-your Camel `RouteBuilder`s. Here is the `RouteBuilder` from our `timer-log-cdi` xref:user-guide/examples.adoc[example]:
+your Camel `RouteBuilder`. Here is the `RouteBuilder` from our `timer-log-cdi` xref:user-guide/examples.adoc[example]:
 
 [source,java]
 ----
