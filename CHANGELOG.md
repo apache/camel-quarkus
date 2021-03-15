@@ -1380,6 +1380,7 @@
 - kafka itests fails [\#875](https://github.com/apache/camel-quarkus/issues/875)
 - Re-org the source tree [\#865](https://github.com/apache/camel-quarkus/issues/865)
 - Support for camel-xml-io [\#847](https://github.com/apache/camel-quarkus/issues/847)
+- Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
 - Ref component support [\#818](https://github.com/apache/camel-quarkus/issues/818)
 - Mustache support [\#803](https://github.com/apache/camel-quarkus/issues/803)
 - GraphQL support [\#801](https://github.com/apache/camel-quarkus/issues/801)
@@ -1440,7 +1441,6 @@
 
 **Closed issues:**
 
-- Optimize PR build GitHub action [\#836](https://github.com/apache/camel-quarkus/issues/836)
 - Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
