@@ -59,8 +59,8 @@ public class OpenstackCinderVolumeResource {
         String uri = String.format(URI_FORMAT, OpenstackConstants.CREATE);
         Volume out = template.requestBody(uri, in, Volume.class);
 
-        assertEquals(out.getSize(), 10);
-        assertEquals(out.multiattach(), Boolean.TRUE);
+        assertEquals(10, out.getSize());
+        assertEquals(Boolean.TRUE, out.multiattach());
     }
 
     @Path("/getShouldSucceed")
@@ -72,30 +72,30 @@ public class OpenstackCinderVolumeResource {
         String id = "8a9287b7-4f4d-4213-8d75-63470f19f27c";
         Volume out = template.requestBodyAndHeader(uri, null, CinderConstants.VOLUME_ID, id, Volume.class);
 
-        assertEquals(out.getId(), id);
-        assertEquals(out.getName(), "test-volume");
-        assertEquals(out.getDescription(), "a description");
+        assertEquals(id, out.getId());
+        assertEquals("test-volume", out.getName());
+        assertEquals("a description", out.getDescription());
         assertNotNull(out.getCreated());
-        assertEquals(out.getZone(), "nova");
-        assertEquals(out.getSize(), 100);
-        assertEquals(out.getStatus(), Volume.Status.IN_USE);
-        assertEquals(out.getSnapshotId(), "22222222-2222-2222-2222-222222222222");
-        assertEquals(out.getSourceVolid(), "11111111-1111-1111-1111-111111111111");
-        assertEquals(out.getVolumeType(), "Gold");
+        assertEquals("nova", out.getZone());
+        assertEquals(100, out.getSize());
+        assertEquals(Volume.Status.IN_USE, out.getStatus());
+        assertEquals("22222222-2222-2222-2222-222222222222", out.getSnapshotId());
+        assertEquals("11111111-1111-1111-1111-111111111111", out.getSourceVolid());
+        assertEquals("Gold", out.getVolumeType());
 
         assertNotNull(out.getMetaData());
         Map<String, String> metadata = out.getMetaData();
-        assertEquals(metadata.get("readonly"), "False");
-        assertEquals(metadata.get("attached_mode"), "rw");
+        assertEquals("False", metadata.get("readonly"));
+        assertEquals("rw", metadata.get("attached_mode"));
 
         assertNotNull(out.getAttachments());
         List<? extends VolumeAttachment> attachments = out.getAttachments();
         assertEquals(1, attachments.size());
-        assertEquals(attachments.get(0).getDevice(), "/dev/vdd");
-        assertEquals(attachments.get(0).getHostname(), "myhost");
-        assertEquals(attachments.get(0).getId(), "8a9287b7-4f4d-4213-8d75-63470f19f27c");
-        assertEquals(attachments.get(0).getServerId(), "eaa6a54d-35c1-40ce-831d-bb61f991e1a9");
-        assertEquals(attachments.get(0).getVolumeId(), "8a9287b7-4f4d-4213-8d75-63470f19f27c");
+        assertEquals("/dev/vdd", attachments.get(0).getDevice());
+        assertEquals("myhost", attachments.get(0).getHostname());
+        assertEquals("8a9287b7-4f4d-4213-8d75-63470f19f27c", attachments.get(0).getId());
+        assertEquals("eaa6a54d-35c1-40ce-831d-bb61f991e1a9", attachments.get(0).getServerId());
+        assertEquals("8a9287b7-4f4d-4213-8d75-63470f19f27c", attachments.get(0).getVolumeId());
     }
 
     @Path("/getAllShouldSucceed")
@@ -106,8 +106,8 @@ public class OpenstackCinderVolumeResource {
         String uri = String.format(URI_FORMAT, OpenstackConstants.GET_ALL);
         Volume[] volumes = template.requestBody(uri, null, Volume[].class);
 
-        assertEquals(volumes.length, 3);
-        assertEquals(volumes[0].getTenantId(), "b0b5ed7ae06049688349fe43737796d4");
+        assertEquals(3, volumes.length);
+        assertEquals("b0b5ed7ae06049688349fe43737796d4", volumes[0].getTenantId());
     }
 
     @Path("/getAllTypesShouldSucceed")
@@ -118,15 +118,15 @@ public class OpenstackCinderVolumeResource {
         String uri = String.format(URI_FORMAT, CinderConstants.GET_ALL_TYPES);
         VolumeType[] volumeTypes = template.requestBody(uri, null, VolumeType[].class);
 
-        assertEquals(volumeTypes.length, 2);
-        assertEquals(volumeTypes[0].getId(), "6a65bc1b-197b-45bf-8056-9695dc82191f");
-        assertEquals(volumeTypes[0].getName(), "testVolume1");
+        assertEquals(2, volumeTypes.length);
+        assertEquals("6a65bc1b-197b-45bf-8056-9695dc82191f", volumeTypes[0].getId());
+        assertEquals("testVolume1", volumeTypes[0].getName());
         assertNotNull(volumeTypes[0].getExtraSpecs());
-        assertEquals(volumeTypes[0].getExtraSpecs().get("capabilities"), "gpu");
-        assertEquals(volumeTypes[1].getId(), "10f00bb7-46d8-4f3f-b89b-702693a3dcdc");
-        assertEquals(volumeTypes[1].getName(), "testVolume2");
+        assertEquals("gpu", volumeTypes[0].getExtraSpecs().get("capabilities"));
+        assertEquals("10f00bb7-46d8-4f3f-b89b-702693a3dcdc", volumeTypes[1].getId());
+        assertEquals("testVolume2", volumeTypes[1].getName());
         assertNotNull(volumeTypes[1].getExtraSpecs());
-        assertEquals(volumeTypes[1].getExtraSpecs().get("capabilities"), "gpu");
+        assertEquals("gpu", volumeTypes[1].getExtraSpecs().get("capabilities"));
     }
 
     @Path("/updateShouldSucceed")
