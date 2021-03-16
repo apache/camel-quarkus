@@ -105,12 +105,14 @@ public class CamelMainProcessor {
             CamelContextBuildItem context,
             CamelRoutesCollectorBuildItem routesCollector,
             List<CamelRoutesBuilderClassBuildItem> routesBuilderClasses,
-            List<CamelMainListenerBuildItem> listeners) {
+            List<CamelMainListenerBuildItem> listeners,
+            CamelMainConfig config) {
 
         RuntimeValue<CamelMain> main = recorder.createCamelMain(
                 context.getCamelContext(),
                 routesCollector.getValue(),
-                beanContainer.getValue());
+                beanContainer.getValue(),
+                config.arguments.onUnknown);
 
         for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
             // don't add routes builders that are known by the container

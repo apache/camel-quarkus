@@ -22,6 +22,7 @@ import io.quarkus.runtime.annotations.ConfigGroup;
 import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 
 @ConfigRoot(name = "camel.main", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
 public class CamelMainConfig {
@@ -32,6 +33,12 @@ public class CamelMainConfig {
     @ConfigItem
     public ShutdownConfig shutdown;
 
+    /**
+     * Build time configuration options for {@link CamelMain} arguments
+     */
+    @ConfigItem
+    public ArgumentConfig arguments;
+
     @ConfigGroup
     public static class ShutdownConfig {
         /**
@@ -39,5 +46,19 @@ public class CamelMainConfig {
          */
         @ConfigItem(defaultValue = "PT3S")
         public Duration timeout;
+    }
+
+    @ConfigGroup
+    public static class ArgumentConfig {
+
+        /**
+         * The action to take when {@link CamelMain} encounters an unknown argument.
+         *
+         * fail - Prints the {@link CamelMain} usage statement and throws a {@link RuntimeException}
+         * ignore - Suppresses any warnings and the application startup proceeds as normal
+         * warn - Prints the {@link CamelMain} usage statement but allows the application startup to proceed as normal
+         */
+        @ConfigItem(defaultValue = "warn")
+        public FailureRemedy onUnknown;
     }
 }

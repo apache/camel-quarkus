@@ -16,8 +16,10 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.quarkus.runtime.Quarkus;
@@ -30,6 +32,7 @@ import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainShutdownStrategy;
 import org.apache.camel.main.RoutesConfigurer;
 import org.apache.camel.main.SimpleMainShutdownStrategy;
+import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
 import org.slf4j.Logger;
@@ -39,10 +42,12 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMain.class);
 
     private final AtomicBoolean engineStarted;
+    private final FailureRemedy failureRemedy;
 
-    public CamelMain(CamelContext camelContext) {
+    public CamelMain(CamelContext camelContext, FailureRemedy failureRemedy) {
         this.camelContext = camelContext;
         this.engineStarted = new AtomicBoolean();
+        this.failureRemedy = failureRemedy;
     }
 
     protected void configureRoutes(CamelContext camelContext) throws Exception {
@@ -161,5 +166,38 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         parseArguments(args);
         runEngine();
         return getExitCode();
+    }
+
+    @Override
+    public void parseArguments(String[] arguments) {
+        LinkedList<String> args = new LinkedList<>(Arrays.asList(arguments));
+
+        boolean valid = true;
+        while (!args.isEmpty()) {
+            initOptions();
+            String arg = args.removeFirst();
+
+            boolean handled = false;
+            for (Option option : options) {
+                if (option.processOption(arg, args)) {
+                    handled = true;
+                    break;
+                }
+            }
+            if (!handled && !failureRemedy.equals(FailureRemedy.ignore)) {
+                System.out.println("Unknown option: " + arg);
+                System.out.println();
+
+                valid = false;
+                break;
+            }
+        }
+        if (!valid) {
+            showOptions();
+            completed();
+            if (failureRemedy.equals(FailureRemedy.fail)) {
+                throw new RuntimeException("CamelMain encountered unknown arguments");
+            }
+        }
     }
 }

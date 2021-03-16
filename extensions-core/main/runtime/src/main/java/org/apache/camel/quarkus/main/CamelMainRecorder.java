@@ -27,6 +27,7 @@ import org.apache.camel.main.BaseMainSupport;
 import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.RoutesCollector;
+import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
@@ -34,11 +35,11 @@ import org.apache.camel.quarkus.core.RegistryRoutesLoader;
 
 @Recorder
 public class CamelMainRecorder {
-    public RuntimeValue<CamelMain> createCamelMain(
-            RuntimeValue<CamelContext> runtime,
+    public RuntimeValue<CamelMain> createCamelMain(RuntimeValue<CamelContext> runtime,
             RuntimeValue<RoutesCollector> routesCollector,
-            BeanContainer container) {
-        CamelMain main = new CamelMain(runtime.getValue());
+            BeanContainer container,
+            FailureRemedy failureRemedy) {
+        CamelMain main = new CamelMain(runtime.getValue(), failureRemedy);
         main.setRoutesCollector(routesCollector.getValue());
         main.addMainListener(new CamelMainEventBridge());
 

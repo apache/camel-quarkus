@@ -39,6 +39,12 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
 | `java.time.Duration`
 | `PT3S`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.main.arguments.on-unknown]]`link:#quarkus.camel.main.arguments.on-unknown[quarkus.camel.main.arguments.on-unknown]`
+
+The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn - Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
+| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
+| `warn`
 |===
 
 [.configuration-legend]
