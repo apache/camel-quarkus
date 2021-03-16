@@ -126,6 +126,7 @@ messaging-networking1:
   - kafka
   - messaging
   - nats
+  - splunk
   - spring-rabbitmq
   - rabbitmq
   - ftp
