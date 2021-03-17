@@ -11,9 +11,11 @@
 **Closed issues:**
 
 - quarkus 1.7.0 DocumentBuilderFactoryImpl not found [\#2323](https://github.com/apache/camel-quarkus/issues/2323)
+- Document that AtlasMap user classes may need to be registered for reflection [\#2319](https://github.com/apache/camel-quarkus/issues/2319)
 - Camel DSL Azure - Storage Blob Service doesn't work as native build. [\#2318](https://github.com/apache/camel-quarkus/issues/2318)
 - Investigate integration test usage of quarkus.ssl.native [\#2306](https://github.com/apache/camel-quarkus/issues/2306)
 - CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
+- main: add an option to ignore command line arguments [\#2293](https://github.com/apache/camel-quarkus/issues/2293)
 - bindy: @DataField\(method=\*\) is not supported [\#2282](https://github.com/apache/camel-quarkus/issues/2282)
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
@@ -26,8 +28,12 @@
 
 **Merged pull requests:**
 
+- Add configuration option to ignore unknown arguments [\#2338](https://github.com/apache/camel-quarkus/pull/2338) ([jamesnetherton](https://github.com/jamesnetherton))
+- Disable OptaplannerTest.solveSync on CI [\#2337](https://github.com/apache/camel-quarkus/pull/2337) ([jamesnetherton](https://github.com/jamesnetherton))
+- openstack: added cinder snapshots and glance tests \#1943 [\#2335](https://github.com/apache/camel-quarkus/pull/2335) ([aldettinger](https://github.com/aldettinger))
 - openstack: added cinder volume tests \#1943 [\#2330](https://github.com/apache/camel-quarkus/pull/2330) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 1.12.2.Final [\#2329](https://github.com/apache/camel-quarkus/pull/2329) ([jamesnetherton](https://github.com/jamesnetherton))
+- Document that AtlasMap user classes may need to be registered for ref… [\#2328](https://github.com/apache/camel-quarkus/pull/2328) ([zbendhiba](https://github.com/zbendhiba))
 - HL7 Native support [\#2325](https://github.com/apache/camel-quarkus/pull/2325) ([jamesnetherton](https://github.com/jamesnetherton))
 - Updated link in testing doc [\#2324](https://github.com/apache/camel-quarkus/pull/2324) ([mmuzikar](https://github.com/mmuzikar))
 - Use camel-servicenow-maven-plugin to generate model classes [\#2321](https://github.com/apache/camel-quarkus/pull/2321) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -2020,7 +2026,7 @@
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
+- Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
@@ -2065,8 +2071,8 @@
 
 - Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
 - Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
-- Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
+- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
 - Add the camel-paho extension to support the MQTT [\#197](https://github.com/apache/camel-quarkus/pull/197) ([zhfeng](https://github.com/zhfeng))
 - chore\(deps\): update quarkus to v0.21.2 [\#196](https://github.com/apache/camel-quarkus/pull/196) ([lburgazzoli](https://github.com/lburgazzoli))
