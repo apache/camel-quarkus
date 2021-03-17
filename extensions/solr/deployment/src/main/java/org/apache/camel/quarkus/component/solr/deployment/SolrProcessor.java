@@ -16,15 +16,20 @@
  */
 package org.apache.camel.quarkus.component.solr.deployment;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.logging.Logger;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.ClassInfo;
+import org.jboss.jandex.DotName;
 
 class SolrProcessor {
 
-    private static final Logger LOG = Logger.getLogger(SolrProcessor.class);
     private static final String FEATURE = "camel-solr";
+    private static final DotName FIELD_DOT_NAME = DotName.createSimple("org.apache.solr.client.solrj.beans.Field");
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -34,5 +39,28 @@ class SolrProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass, CombinedIndexBuildItem combinedIndex) {
+        // Register any classes within the application archive that contain the Solr Field annotation
+        combinedIndex.getIndex()
+                .getAnnotations(FIELD_DOT_NAME)
+                .stream()
+                .map(annotationInstance -> {
+                    AnnotationTarget target = annotationInstance.target();
+                    AnnotationTarget.Kind kind = target.kind();
+                    if (kind.equals(AnnotationTarget.Kind.FIELD)) {
+                        ClassInfo classInfo = target.asField().declaringClass();
+                        return new ReflectiveClassBuildItem(false, true, classInfo.name().toString());
+                    } else if (kind.equals(AnnotationTarget.Kind.METHOD)) {
+                        ClassInfo classInfo = target.asMethod().declaringClass();
+                        return new ReflectiveClassBuildItem(true, false, classInfo.name().toString());
+                    } else {
+                        throw new RuntimeException(
+                                FIELD_DOT_NAME.toString() + " cannot be applied to " + target.kind().toString());
+                    }
+                })
+                .forEach(reflectiveClass::produce);
     }
 }
