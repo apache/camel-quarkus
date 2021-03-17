@@ -16,9 +16,11 @@
  */
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
+@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2340")
 class SpringRabbitmqIT extends SpringRabbitmqTest {
 
 }
