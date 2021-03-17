@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.apache.camel.quarkus.component.solr.it.bean.Item;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -50,10 +49,9 @@ public class SolrTest {
     @MethodSource("resources")
     public void testSingleBean(String resource) {
         // create a bean item
-        Item item = createItem("test1");
         given()
                 .contentType(ContentType.JSON)
-                .body(item)
+                .body("test1")
                 .put(resource + "/bean")
                 .then()
                 .statusCode(202);
@@ -61,7 +59,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/test1")
                 .then()
-                .body("id", equalTo("test1"));
+                .body(equalTo("test1"));
 
         // delete bean by id
         given()
@@ -74,21 +72,21 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/test1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
     }
 
     @ParameterizedTest
     @MethodSource("resources")
     public void testMultipleBeans(String resource) {
         // create list of beans
-        List<Item> beans = new ArrayList<>();
-        beans.add(createItem("bean1"));
-        beans.add(createItem("bean2"));
+        List<String> beanNames = new ArrayList<>();
+        beanNames.add("bean1");
+        beanNames.add("bean2");
 
         // add beans with camel
         given()
                 .contentType(ContentType.JSON)
-                .body(beans)
+                .body(beanNames)
                 .put(resource + "/beans")
                 .then()
                 .statusCode(202);
@@ -97,11 +95,11 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/bean1")
                 .then()
-                .body("id", equalTo("bean1"));
+                .body(equalTo("bean1"));
         given()
                 .get(resource + "/bean/bean2")
                 .then()
-                .body("id", equalTo("bean2"));
+                .body(equalTo("bean2"));
 
         // delete all beans that has id begins with bean
         given()
@@ -115,11 +113,11 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/bean1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
         given()
                 .get(resource + "/bean/bean2")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
     }
 
     @ParameterizedTest
@@ -140,7 +138,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/id1")
                 .then()
-                .body("id", equalTo("id1"));
+                .body(equalTo("id1"));
 
     }
 
@@ -160,7 +158,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/opt1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
         // optimize
         given()
                 .get(resource + "/optimize")
@@ -170,7 +168,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/opt1")
                 .then()
-                .body("id", equalTo("opt1"));
+                .body(equalTo("opt1"));
 
     }
 
@@ -191,7 +189,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/roll1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
         // rollback
         given()
                 .get(resource + "/rollback")
@@ -206,7 +204,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/roll1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
     }
 
     @ParameterizedTest
@@ -225,7 +223,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/com1")
                 .then()
-                .body("id", emptyOrNullString());
+                .body(emptyOrNullString());
         // soft commit
         given()
                 .get(resource + "/softcommit")
@@ -235,7 +233,7 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/com1")
                 .then()
-                .body("id", equalTo("com1"));
+                .body(equalTo("com1"));
     }
 
     @ParameterizedTest
@@ -260,13 +258,6 @@ public class SolrTest {
         given()
                 .get(resource + "/bean/stream1")
                 .then()
-                .body("id", equalTo("stream1"));
-    }
-
-    private Item createItem(String id) {
-        Item item = new Item();
-        item.setId(id);
-        item.setCategories(new String[] { "aaa", "bbb", "ccc" });
-        return item;
+                .body(equalTo("stream1"));
     }
 }

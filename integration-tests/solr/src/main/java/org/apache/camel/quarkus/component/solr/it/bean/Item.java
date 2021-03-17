@@ -20,7 +20,6 @@ import org.apache.solr.client.solrj.beans.Field;
 
 public class Item {
 
-    @Field
     String id;
 
     @Field("cat")
@@ -33,6 +32,7 @@ public class Item {
         return id;
     }
 
+    @Field
     public void setId(String id) {
         this.id = id;
     }

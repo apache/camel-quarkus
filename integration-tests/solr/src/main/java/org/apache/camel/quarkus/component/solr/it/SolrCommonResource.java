@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.solr.it;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -64,7 +65,8 @@ public abstract class SolrCommonResource {
 
     @PUT
     @Path("bean")
-    public Response addBean(Item bean) {
+    public Response addBean(String name) {
+        Item bean = createItem(name);
         producerTemplate.sendBodyAndHeader(solrComponentURI, bean, SolrConstants.OPERATION, SolrConstants.OPERATION_ADD_BEAN);
         solrCommit();
         return Response.accepted().build();
@@ -72,7 +74,8 @@ public abstract class SolrCommonResource {
 
     @PUT
     @Path("beans")
-    public Response addBeans(List<Item> beans) {
+    public Response addBeans(List<String> names) {
+        List<Item> beans = names.stream().map(this::createItem).collect(Collectors.toList());
         producerTemplate.sendBodyAndHeader(solrComponentURI, beans, SolrConstants.OPERATION, SolrConstants.OPERATION_ADD_BEANS);
         solrCommit();
         return Response.accepted().build();
@@ -165,12 +168,19 @@ public abstract class SolrCommonResource {
 
     @GET
     @Path("bean/{id}")
-    public Item getBeanById(@PathParam("id") String id) throws IOException, SolrServerException {
+    public String getBeanById(@PathParam("id") String id) throws IOException, SolrServerException {
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.set("q", "id:" + id);
         QueryRequest queryRequest = new QueryRequest(solrQuery);
         QueryResponse response = queryRequest.process(solrClient);
         List<Item> responses = response.getBeans(Item.class);
-        return responses.size() != 0 ? responses.get(0) : new Item();
+        return responses.size() != 0 ? responses.get(0).getId() : "";
+    }
+
+    private Item createItem(String id) {
+        Item item = new Item();
+        item.setId(id);
+        item.setCategories(new String[] { "aaa", "bbb", "ccc" });
+        return item;
     }
 }
