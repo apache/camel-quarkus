@@ -38,7 +38,8 @@ class GrpcTest {
     public void consumer() {
         ManagedChannel syncRequestChannel = null;
         try {
-            syncRequestChannel = ManagedChannelBuilder.forAddress("localhost", 9000).usePlaintext().build();
+            syncRequestChannel = ManagedChannelBuilder.forAddress("localhost", GrpcRoute.getServerPort()).usePlaintext()
+                    .build();
             final PingPongBlockingStub blockingStub = PingPongGrpc.newBlockingStub(syncRequestChannel);
 
             final PingRequest pingRequest = PingRequest.newBuilder()

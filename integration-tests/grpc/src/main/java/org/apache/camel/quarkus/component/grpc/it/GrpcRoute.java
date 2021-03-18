@@ -16,22 +16,33 @@
  */
 package org.apache.camel.quarkus.component.grpc.it;
 
+import java.util.Optional;
+
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class GrpcRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("grpc://localhost:9000/org.apache.camel.quarkus.component.grpc.it.model.PingPong?synchronous=true")
-                .process(exchange -> {
-                    final Message message = exchange.getMessage();
-                    final PingRequest request = message.getBody(PingRequest.class);
-                    final PongResponse response = PongResponse.newBuilder().setPongName(request.getPingName() + " PONG")
-                            .setPongId(request.getPingId()).build();
-                    message.setBody(response);
-                });
+        fromF("grpc://localhost:%d/org.apache.camel.quarkus.component.grpc.it.model.PingPong?synchronous=true",
+                getServerPort())
+                        .process(exchange -> {
+                            final Message message = exchange.getMessage();
+                            final PingRequest request = message.getBody(PingRequest.class);
+                            final PongResponse response = PongResponse.newBuilder().setPongName(request.getPingName() + " PONG")
+                                    .setPongId(request.getPingId()).build();
+                            message.setBody(response);
+                        });
+    }
+
+    public static int getServerPort() {
+        Config config = ConfigProvider.getConfig();
+        Optional<Integer> testServerPort = config.getOptionalValue("quarkus.grpc.server.test-port", Integer.class);
+        return testServerPort.orElse(9000);
     }
 }
