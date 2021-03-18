@@ -24,8 +24,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -45,6 +49,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * <li>Creates dummy partials for Camel bits that Camel Quarkus does not support, so that there are no warnings when
  * they are included from the Camel component pages
  * <li>Deletes Camel bit partials that do not exist anymore.
+ * <li>Synchronizes nav.adoc with the reality
  * <ul>
  */
 @Mojo(name = "check-extension-pages", threadSafe = true)
@@ -84,6 +89,12 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     @Parameter(property = "camel.version")
     String camelVersion;
 
+    /**
+     * The path to the navigation document.
+     */
+    @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}/docs/modules/ROOT/nav.adoc")
+    File navFile;
+
     @Parameter(defaultValue = "${settings.localRepository}", readonly = true)
     String localRepository;
 
@@ -103,6 +114,7 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
 
         camelBits(docsBasePath);
         extensions(docsBasePath);
+
     }
 
     void camelBits(Path docsBasePath) {
@@ -171,10 +183,26 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     }
 
     void extensions(Path docsBasePath) {
-        final Set<String> artifactIdBases = extensionDirectories.stream()
+
+        final Set<String> artifactIdBases = new HashSet<>();
+        final Set<CamelQuarkusExtension> extensions = new TreeSet<>(Comparator.comparing(e -> e.getName().get()));
+        extensionDirectories.stream()
                 .map(File::toPath)
-                .flatMap(CqUtils::findExtensionArtifactIdBases)
-                .collect(Collectors.toSet());
+                .forEach(extDir -> {
+                    CqUtils.findExtensionArtifactIdBases(extDir)
+                            .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
+                            .forEach(artifactIdBase -> {
+                                artifactIdBases.add(artifactIdBase);
+                                final Path runtimePomXmlPath = extDir.resolve(artifactIdBase).resolve("runtime/pom.xml")
+                                        .toAbsolutePath().normalize();
+                                extensions.add(CamelQuarkusExtension.read(runtimePomXmlPath));
+                            });
+                });
+
+        final String extLinks = extensions.stream()
+                .map(m -> "*** xref:reference/extensions/" + m.getRuntimeArtifactIdBase() + ".adoc[" + m.getName().get() + "]")
+                .collect(Collectors.joining("\n"));
+        replace(navFile.toPath(), "extensions", extLinks);
 
         final Path docsExtensionsDir = docsBasePath.resolve("modules/ROOT/pages/reference/extensions");
         try (Stream<Path> docPages = Files.list(docsExtensionsDir)) {
@@ -193,4 +221,33 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
         }
     }
 
+    void replace(Path path, String replacementKey, String value) {
+        try {
+            String document = new String(Files.readAllBytes(path), encoding);
+            document = replace(document, path, replacementKey, value);
+            try {
+                Files.write(path, document.getBytes(encoding));
+            } catch (IOException e) {
+                throw new RuntimeException("Could not write to " + path, e);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Could not read from " + path, e);
+        }
+    }
+
+    static String replace(String document, Path documentPath, String replacementKey, String value) {
+        final Pattern pat = Pattern.compile("(" + Pattern.quote("// " + replacementKey + ": START\n") + ")(.*)("
+                + Pattern.quote("// " + replacementKey + ": END\n") + ")", Pattern.DOTALL);
+
+        final Matcher m = pat.matcher(document);
+
+        final StringBuffer sb = new StringBuffer(document.length());
+        if (m.find()) {
+            m.appendReplacement(sb, "$1" + Matcher.quoteReplacement(value) + "$3");
+        } else {
+            throw new IllegalStateException("Could not find " + pat.pattern() + " in " + documentPath + ":\n\n" + document);
+        }
+        m.appendTail(sb);
+        return sb.toString();
+    }
 }
