@@ -51,7 +51,6 @@
 - LRA native support [\#2286](https://github.com/apache/camel-quarkus/pull/2286) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 Lambda [\#2283](https://github.com/apache/camel-quarkus/pull/2283) ([ppalaga](https://github.com/ppalaga))
 - bindy: fixed reflective classes registration, fixes \#2268 [\#2281](https://github.com/apache/camel-quarkus/pull/2281) ([aldettinger](https://github.com/aldettinger))
-- Test AWS 2 CloudWatch [\#2280](https://github.com/apache/camel-quarkus/pull/2280) ([ppalaga](https://github.com/ppalaga))
 - Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
 - Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
@@ -104,6 +103,7 @@
 
 **Merged pull requests:**
 
+- Test AWS 2 CloudWatch [\#2280](https://github.com/apache/camel-quarkus/pull/2280) ([ppalaga](https://github.com/ppalaga))
 - Azure EventHubs test fixup [\#2271](https://github.com/apache/camel-quarkus/pull/2271) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.23.0 [\#2270](https://github.com/apache/camel-quarkus/pull/2270) ([jamesnetherton](https://github.com/jamesnetherton))
 - Make git tests ignore local configuration [\#2269](https://github.com/apache/camel-quarkus/pull/2269) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1501,7 +1501,6 @@
 - Minor cleanup and a mvnd.builder.rule update [\#749](https://github.com/apache/camel-quarkus/pull/749) ([ppalaga](https://github.com/ppalaga))
 - Automatic sync branch master to quarkus-master [\#745](https://github.com/apache/camel-quarkus/pull/745) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Automatic sync branch master to camel-master [\#744](https://github.com/apache/camel-quarkus/pull/744) ([github-actions[bot]](https://github.com/apps/github-actions))
-- Add LoginToken to Salesforce reflective class list [\#742](https://github.com/apache/camel-quarkus/pull/742) ([jamesnetherton](https://github.com/jamesnetherton))
 - Created a camel gson extension \#681 [\#738](https://github.com/apache/camel-quarkus/pull/738) ([aldettinger](https://github.com/aldettinger))
 - chore\(test\): add test for bean\(class, method\) [\#737](https://github.com/apache/camel-quarkus/pull/737) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix XSLT extension NoSuchMethodError: TransformerFactory.newInstance\(String,ClassLoader\) [\#736](https://github.com/apache/camel-quarkus/pull/736) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -2026,7 +2025,7 @@
 - Upgarde to quarkus v0.23.1 [\#211](https://github.com/apache/camel-quarkus/pull/211) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade the docs to camel-quarkus-last-release: 0.2.0 [\#210](https://github.com/apache/camel-quarkus/pull/210) ([ppalaga](https://github.com/ppalaga))
 - Auto configuration of metrics management strategies [\#205](https://github.com/apache/camel-quarkus/pull/205) ([jamesnetherton](https://github.com/jamesnetherton))
-- Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
+- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - Fix \#133 Test netty4-http as a producer [\#134](https://github.com/apache/camel-quarkus/pull/134) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.2.0](https://github.com/apache/camel-quarkus/tree/0.2.0) (2019-09-23)
@@ -2071,8 +2070,8 @@
 
 - Disable deployment of synthetic test poms for now see \#207 [\#208](https://github.com/apache/camel-quarkus/pull/208) ([ppalaga](https://github.com/ppalaga))
 - Improve the maven deployment of the synthetic test jars [\#206](https://github.com/apache/camel-quarkus/pull/206) ([ppalaga](https://github.com/ppalaga))
+- Set the missing deploy plugin properties for the reusable-test-jar ex… [\#204](https://github.com/apache/camel-quarkus/pull/204) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 0.22.0 [\#202](https://github.com/apache/camel-quarkus/pull/202) ([ppalaga](https://github.com/ppalaga))
-- Fix \#184 Leverage platform http service [\#201](https://github.com/apache/camel-quarkus/pull/201) ([ppalaga](https://github.com/ppalaga))
 - improve the paho integration test [\#200](https://github.com/apache/camel-quarkus/pull/200) ([zhfeng](https://github.com/zhfeng))
 - Add the camel-paho extension to support the MQTT [\#197](https://github.com/apache/camel-quarkus/pull/197) ([zhfeng](https://github.com/zhfeng))
 - chore\(deps\): update quarkus to v0.21.2 [\#196](https://github.com/apache/camel-quarkus/pull/196) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -2116,7 +2115,6 @@
 - create extension for camel's core cloud impl [\#121](https://github.com/apache/camel-quarkus/pull/121) ([lburgazzoli](https://github.com/lburgazzoli))
 - Override DefaultStreamCachingStrategy::resolveSpoolDirectory to avoid NPE [\#120](https://github.com/apache/camel-quarkus/pull/120) ([lburgazzoli](https://github.com/lburgazzoli))
 - chore: replace custom properties binding implementation with PropertyBindingSupport from camel support [\#119](https://github.com/apache/camel-quarkus/pull/119) ([lburgazzoli](https://github.com/lburgazzoli))
-- rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#112 Make camel-quarkus-bom usable as a parent for user applications [\#115](https://github.com/apache/camel-quarkus/pull/115) ([ppalaga](https://github.com/ppalaga))
 
 ## [0.1.0](https://github.com/apache/camel-quarkus/tree/0.1.0) (2019-08-07)
@@ -2137,6 +2135,7 @@
 
 **Merged pull requests:**
 
+- rename xml extension to xml-common [\#117](https://github.com/apache/camel-quarkus/pull/117) ([lburgazzoli](https://github.com/lburgazzoli))
 - Figure out whether the Reifier substitutions can be added conditionally [\#110](https://github.com/apache/camel-quarkus/pull/110) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use source block instead of code [\#106](https://github.com/apache/camel-quarkus/pull/106) ([zregvart](https://github.com/zregvart))
 - Fix \#37 Setup the documentation [\#105](https://github.com/apache/camel-quarkus/pull/105) ([ppalaga](https://github.com/ppalaga))
