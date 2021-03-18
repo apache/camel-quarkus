@@ -28,7 +28,6 @@ cache-networking3:
   - ipfs
 cloud:
   - solr
-  - aws
   - aws2
   - azure
   - consul
