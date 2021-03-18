@@ -54,7 +54,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME == "quarkus-master") {
                         sh 'rm -rf /tmp/quarkus'
-                        sh "git clone --depth 1 --branch master https://github.com/quarkusio/quarkus.git /tmp/quarkus"
+                        sh "git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git /tmp/quarkus"
                         sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean install -f /tmp/quarkus/pom.xml"
                     }
 
