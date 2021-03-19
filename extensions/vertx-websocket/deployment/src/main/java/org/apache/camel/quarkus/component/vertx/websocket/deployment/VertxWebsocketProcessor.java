@@ -40,6 +40,6 @@ class VertxWebsocketProcessor {
     CamelRuntimeBeanBuildItem configureVertxWebsocketComponent(VertxBuildItem vertx, VertxWebRouterBuildItem router,
             VertxWebsocketRecorder recorder) {
         return new CamelRuntimeBeanBuildItem("vertx-websocket", VertxWebsocketComponent.class.getName(),
-                recorder.createVertxWebsocketComponent(vertx.getVertx(), router.getRouter()));
+                recorder.createVertxWebsocketComponent(vertx.getVertx(), router.getHttpRouter()));
     }
 }

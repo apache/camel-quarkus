@@ -41,7 +41,6 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
@@ -213,7 +212,6 @@ class CamelProcessor {
     @BuildStep
     CamelTypeConverterRegistryBuildItem typeConverterRegistry(
             CamelRecorder recorder,
-            RecorderContext recorderContext,
             ApplicationArchivesBuildItem applicationArchives,
             List<CamelTypeConverterLoaderBuildItem> additionalLoaders) {
 
@@ -228,6 +226,8 @@ class CamelProcessor {
         // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
         // any discovery at runtime; see https://github.com/apache/camel-quarkus/issues/1896
         //
+        final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
+
         for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
             for (Path root : archive.getRootDirs()) {
                 Path path = root.resolve(BaseTypeConverterRegistry.META_INF_SERVICES_TYPE_CONVERTER_LOADER);
@@ -240,7 +240,7 @@ class CamelProcessor {
                             .map(String::trim)
                             .filter(l -> !l.isEmpty())
                             .filter(l -> !l.startsWith("#"))
-                            .map(l -> (Class<? extends TypeConverterLoader>) recorderContext.classProxy(l))
+                            .map(l -> (Class<? extends TypeConverterLoader>) CamelSupport.loadClass(l, TCCL))
                             .forEach(loader -> recorder.addTypeConverterLoader(typeConverterRegistry, loader));
                 } catch (IOException e) {
                     throw new RuntimeException("Error discovering TypeConverterLoader", e);
@@ -292,9 +292,9 @@ class CamelProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
     CamelFactoryFinderResolverBuildItem factoryFinderResolver(
-            RecorderContext recorderContext,
             CamelRecorder recorder,
             List<CamelServiceBuildItem> camelServices) {
+        final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
 
         RuntimeValue<Builder> builder = recorder.factoryFinderResolverBuilder();
 
@@ -302,7 +302,7 @@ class CamelProcessor {
             recorder.factoryFinderResolverEntry(
                     builder,
                     service.path.toString(),
-                    recorderContext.classProxy(service.type));
+                    CamelSupport.loadClass(service.type, TCCL));
         });
 
         return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));

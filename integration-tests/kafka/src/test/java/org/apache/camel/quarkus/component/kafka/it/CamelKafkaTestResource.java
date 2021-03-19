@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class CamelKafkaTestResource implements ContainerResourceLifecycleManager {
@@ -37,7 +38,8 @@ public class CamelKafkaTestResource implements ContainerResourceLifecycleManager
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            container = new KafkaContainer(CONFLUENT_PLATFORM_VERSION)
+            DockerImageName imageName = DockerImageName.parse("confluentinc/cp-kafka").withTag(CONFLUENT_PLATFORM_VERSION);
+            container = new KafkaContainer(imageName)
                     .withEmbeddedZookeeper()
                     .waitingFor(Wait.forListeningPort());
 

@@ -21,7 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingPolicy;
@@ -46,7 +46,7 @@ public class JsonDataformatsRoute extends RouteBuilder {
         JacksonDataFormat jacksonDummyObjectDataFormat = new JacksonDataFormat(DummyObject.class);
         jacksonDummyObjectDataFormat.useList();
         ObjectMapper jacksonObjectMapper = new ObjectMapper();
-        jacksonObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategy.SNAKE_CASE);
+        jacksonObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         jacksonDummyObjectDataFormat.setObjectMapper(jacksonObjectMapper);
         configureJsonRoutes(JsonLibrary.Jackson, jacksonDummyObjectDataFormat, new JacksonDataFormat(PojoA.class),
                 new JacksonDataFormat(PojoB.class));
