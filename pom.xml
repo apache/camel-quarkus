@@ -92,7 +92,7 @@
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
         <kubernetes-client.version>${kubernetes-client-version}</kubernetes-client.version>
-        <kotlin.version>1.4.20</kotlin.version><!-- keep in sync with Quarkus -->
+        <kotlin.version>1.4.31</kotlin.version><!-- keep in sync with Quarkus -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
