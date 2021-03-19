@@ -125,4 +125,12 @@ public final class CamelSupport {
                 .getOptionalValue(property, type)
                 .orElse(defaultValue);
     }
+
+    public static Class<?> loadClass(String className, ClassLoader classLoader) {
+        try {
+            return classLoader.loadClass(className);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

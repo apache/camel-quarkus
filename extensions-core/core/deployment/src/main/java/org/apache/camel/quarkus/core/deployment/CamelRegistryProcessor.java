@@ -22,7 +22,6 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
@@ -52,7 +51,6 @@ public class CamelRegistryProcessor {
     @BuildStep
     public void bindBeansToRegistry(
             CamelRecorder recorder,
-            RecorderContext recorderContext,
             CamelConfig camelConfig,
             ApplicationArchivesBuildItem applicationArchives,
             ContainerBeansBuildItem containerBeans,
@@ -62,6 +60,8 @@ public class CamelRegistryProcessor {
             List<CamelBeanBuildItem> registryItems,
             List<CamelServiceFilterBuildItem> serviceFilters,
             List<CamelServicePatternBuildItem> servicePatterns) {
+
+        final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
 
         final PathFilter pathFilter = servicePatterns.stream()
                 .filter(patterns -> patterns.getDestination() == CamelServiceDestination.REGISTRY)
@@ -95,7 +95,7 @@ public class CamelRegistryProcessor {
                     recorder.bind(
                             registry.getRegistry(),
                             si.name,
-                            recorderContext.classProxy(si.type));
+                            CamelSupport.loadClass(si.type, TCCL));
                 });
 
         registryItems.stream()
@@ -106,7 +106,7 @@ public class CamelRegistryProcessor {
                         recorder.bind(
                                 registry.getRegistry(),
                                 item.getName(),
-                                recorderContext.classProxy(item.getType()),
+                                CamelSupport.loadClass(item.getType(), TCCL),
                                 item.getValue().get());
                     } else {
                         // the instance of the service will be instantiated by the recorder, this avoid
@@ -114,7 +114,7 @@ public class CamelRegistryProcessor {
                         recorder.bind(
                                 registry.getRegistry(),
                                 item.getName(),
-                                recorderContext.classProxy(item.getType()));
+                                CamelSupport.loadClass(item.getType(), TCCL));
                     }
                 });
 
@@ -124,12 +124,13 @@ public class CamelRegistryProcessor {
     @BuildStep
     CamelRuntimeTaskBuildItem bindRuntimeBeansToRegistry(
             CamelRecorder recorder,
-            RecorderContext recorderContext,
             ContainerBeansBuildItem containerBeans,
             CamelRegistryBuildItem registry,
             // CamelContextBuildItem placeholder ensures this build step runs after the CamelContext is created
             CamelContextBuildItem camelContextBuildItem,
             List<CamelRuntimeBeanBuildItem> registryItems) {
+
+        final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
 
         registryItems.stream()
                 .filter(item -> !containerBeans.getBeans().contains(item))
@@ -140,7 +141,7 @@ public class CamelRegistryProcessor {
                         recorder.bind(
                                 registry.getRegistry(),
                                 item.getName(),
-                                recorderContext.classProxy(item.getType()),
+                                CamelSupport.loadClass(item.getType(), TCCL),
                                 item.getValue().get());
                     } else {
                         // the instance of the service will be instantiated by the recorder, this avoid
@@ -148,7 +149,7 @@ public class CamelRegistryProcessor {
                         recorder.bind(
                                 registry.getRegistry(),
                                 item.getName(),
-                                recorderContext.classProxy(item.getType()));
+                                CamelSupport.loadClass(item.getType(), TCCL));
                     }
                 });
 

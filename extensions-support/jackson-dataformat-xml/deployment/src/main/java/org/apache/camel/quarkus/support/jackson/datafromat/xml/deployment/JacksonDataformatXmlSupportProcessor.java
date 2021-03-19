@@ -31,7 +31,6 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.ObjectCodec;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.DeploymentClassLoaderBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
@@ -48,8 +47,7 @@ public class JacksonDataformatXmlSupportProcessor {
     }
 
     @BuildStep
-    void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProviders,
-            final DeploymentClassLoaderBuildItem classLoader) {
+    void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProviders) {
         Stream.concat(
                 Stream.of(
                         JsonFactory.class,
@@ -68,7 +66,7 @@ public class JacksonDataformatXmlSupportProcessor {
                         .map(schemaId -> XMLValidationSchemaFactory.class.getName() + "." + schemaId))
                 .forEach(serviceName -> {
                     try {
-                        final Set<String> names = ServiceUtil.classNamesNamedIn(classLoader.getClassLoader(),
+                        final Set<String> names = ServiceUtil.classNamesNamedIn(Thread.currentThread().getContextClassLoader(),
                                 SERVICES_PREFIX + serviceName);
                         serviceProviders.produce(new ServiceProviderBuildItem(serviceName, new ArrayList<>(names)));
                     } catch (IOException e) {
