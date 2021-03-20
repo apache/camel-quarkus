@@ -27,12 +27,14 @@
 - Remove support for Webocket JSR 356 [\#2262](https://github.com/apache/camel-quarkus/issues/2262)
 - Paho MQTT 5 support [\#2145](https://github.com/apache/camel-quarkus/issues/2145)
 - HL7 Terser language native support [\#1747](https://github.com/apache/camel-quarkus/issues/1747)
+- Add tests to example projects [\#1501](https://github.com/apache/camel-quarkus/issues/1501)
 - Nitrite native support [\#1298](https://github.com/apache/camel-quarkus/issues/1298)
 - LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
 - Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
 
 **Merged pull requests:**
 
+- Upgrade Kotlin to 1.4.31 [\#2347](https://github.com/apache/camel-quarkus/pull/2347) ([jamesnetherton](https://github.com/jamesnetherton))
 - openstack: added keystone tests \#1943 [\#2346](https://github.com/apache/camel-quarkus/pull/2346) ([aldettinger](https://github.com/aldettinger))
 - Remove AWS SDK v1 extensions after they have been removed from Camel [\#2345](https://github.com/apache/camel-quarkus/pull/2345) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.13.0.CR1 [\#2343](https://github.com/apache/camel-quarkus/pull/2343) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -734,7 +736,6 @@
 - Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
 - \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
 - Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
-- Improve RuntimeCatalogConfig docs [\#706](https://github.com/apache/camel-quarkus/issues/706)
 - vertx-websocket extension [\#1507](https://github.com/apache/camel-quarkus/issues/1507)
 - Health example fails to start [\#1500](https://github.com/apache/camel-quarkus/issues/1500)
 - Debezium test fails on branch camel-master [\#1490](https://github.com/apache/camel-quarkus/issues/1490)
@@ -803,7 +804,6 @@
 - Reproducer for \#1459 [\#1465](https://github.com/apache/camel-quarkus/pull/1465) ([lburgazzoli](https://github.com/lburgazzoli))
 - improve bootstrap and configuration documentation [\#1464](https://github.com/apache/camel-quarkus/pull/1464) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issues with building from the source release zip [\#1463](https://github.com/apache/camel-quarkus/pull/1463) ([jamesnetherton](https://github.com/jamesnetherton))
-- Extension for camel-threadpoolfactory-vertx \#1430 [\#1462](https://github.com/apache/camel-quarkus/pull/1462) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
@@ -1291,6 +1291,7 @@
 - ServiceNow support [\#766](https://github.com/apache/camel-quarkus/issues/766)
 - SOAP dataformat support [\#763](https://github.com/apache/camel-quarkus/issues/763)
 - Upgarde Quarkus to v1.3.0.Final [\#760](https://github.com/apache/camel-quarkus/issues/760)
+- Improve RuntimeCatalogConfig docs [\#706](https://github.com/apache/camel-quarkus/issues/706)
 - Do not expose mutable collections from FHIR BuildItems [\#690](https://github.com/apache/camel-quarkus/issues/690)
 - RabbitMQ support [\#675](https://github.com/apache/camel-quarkus/issues/675)
 - Camel routes with xslt doesn't work in dev mode [\#671](https://github.com/apache/camel-quarkus/issues/671)
@@ -2157,6 +2158,7 @@
 - Add configuration for quarkus:create-extension mojo [\#102](https://github.com/apache/camel-quarkus/pull/102) ([ppalaga](https://github.com/ppalaga))
 - chore\(cleanup\): remove ide-config [\#101](https://github.com/apache/camel-quarkus/pull/101) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade quarkus to v0.20.0  plsu some cleanup [\#100](https://github.com/apache/camel-quarkus/pull/100) ([lburgazzoli](https://github.com/lburgazzoli))
+- Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Omit the artifactId in release tags [\#95](https://github.com/apache/camel-quarkus/pull/95) ([ppalaga](https://github.com/ppalaga))
 - Fix typo s/AWs\_REGION/AWS\_REGION/ [\#94](https://github.com/apache/camel-quarkus/pull/94) ([ppalaga](https://github.com/ppalaga))
 - Move test packages to org.apache.camel [\#77](https://github.com/apache/camel-quarkus/pull/77) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -2196,7 +2198,6 @@
 
 **Merged pull requests:**
 
-- Add twitter extension [\#99](https://github.com/apache/camel-quarkus/pull/99) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added failIfNoTest option in surefire configuration [\#93](https://github.com/apache/camel-quarkus/pull/93) ([oscerd](https://github.com/oscerd))
 - chore\(build\): move release profile to camel-quarkus-parent [\#92](https://github.com/apache/camel-quarkus/pull/92) ([lburgazzoli](https://github.com/lburgazzoli))
 - Remove unused imports from CamelRoute in netty4-http integration test [\#91](https://github.com/apache/camel-quarkus/pull/91) ([ppalaga](https://github.com/ppalaga))
