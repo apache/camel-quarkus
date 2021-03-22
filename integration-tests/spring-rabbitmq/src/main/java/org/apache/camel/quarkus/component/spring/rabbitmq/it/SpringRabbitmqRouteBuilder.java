@@ -20,18 +20,24 @@ package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.springrabbit.SpringRabbitMQConstants;
 
 @ApplicationScoped
 public class SpringRabbitmqRouteBuilder extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        createRoute(SpringRabbitMQConstants.DIRECT_MESSAGE_LISTENER_CONTAINER);
+        createRoute(SpringRabbitMQConstants.SIMPLE_MESSAGE_LISTENER_CONTAINER);
+    }
+
+    private void createRoute(String type) {
         String url = String.format(
-                "spring-rabbitmq:%s?queues=myqueue&routingKey=%s&connectionFactory=#connectionFactory&autoDeclare=true",
-                SpringRabbitmqResource.EXCHANGE_IN_OUT, SpringRabbitmqResource.ROUTING_KEY_IN_OUT);
+                "spring-rabbitmq:%s?queues=%s&routingKey=%s&connectionFactory=#connectionFactory&autoDeclare=true&messageListenerContainerType=DMLC",
+                SpringRabbitmqResource.EXCHANGE_IN_OUT + type, type, SpringRabbitmqResource.ROUTING_KEY_IN_OUT + type);
 
         from(url)
                 .transform(body().prepend("Hello "))
-                .to(SpringRabbitmqResource.DIRECT_IN_OUT);
+                .to(SpringRabbitmqResource.DIRECT_IN_OUT + type);
     }
 }

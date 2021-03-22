@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.camel.component.springrabbit.SpringRabbitMQConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
@@ -39,10 +40,20 @@ class SpringRabbitmqTest {
     private ConnectionFactory connectionFactory;
 
     @Test
-    public void testInOut() {
-        sendToExchange(SpringRabbitmqResource.EXCHANGE_IN_OUT, SpringRabbitmqResource.ROUTING_KEY_IN_OUT, "Sheldon");
+    public void testInOutDMLC() {
+        testInOut(SpringRabbitMQConstants.DIRECT_MESSAGE_LISTENER_CONTAINER);
+    }
 
-        getFromDirect(SpringRabbitmqResource.DIRECT_IN_OUT)
+    @Test
+    public void testInOutSMLC() {
+        testInOut(SpringRabbitMQConstants.SIMPLE_MESSAGE_LISTENER_CONTAINER);
+    }
+
+    public void testInOut(String type) {
+        sendToExchange(SpringRabbitmqResource.EXCHANGE_IN_OUT + type,
+                SpringRabbitmqResource.ROUTING_KEY_IN_OUT + type, "Sheldon");
+
+        getFromDirect(SpringRabbitmqResource.DIRECT_IN_OUT + type)
                 .then()
                 .statusCode(200)
                 .body(is("Hello Sheldon"));
