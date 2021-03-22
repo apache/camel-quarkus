@@ -44,9 +44,18 @@ import org.jboss.logging.Logger;
 public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = Logger.getLogger(FtpTestResource.class);
 
+    private final String componentName;
     private FtpServer ftpServer;
     private Path ftpRoot;
     private Path usrFile;
+
+    public FtpTestResource() {
+        this("ftp");
+    }
+
+    public FtpTestResource(String componentName) {
+        this.componentName = componentName;
+    }
 
     @Override
     public Map<String, String> start() {
@@ -78,8 +87,7 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
             user.setAuthorities(authorities);
             userMgr.save(user);
 
-            ListenerFactory factory = new ListenerFactory();
-            factory.setPort(port);
+            ListenerFactory factory = createListenerFactory(port);
 
             FtpServerFactory serverFactory = new FtpServerFactory();
             serverFactory.setUserManager(userMgr);
@@ -92,9 +100,9 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
             ftpServer.start();
 
             return CollectionHelper.mapOf(
-                    "camel.ftp.test-port", Integer.toString(port),
-                    "camel.ftp.test-root-dir", ftpRoot.toString(),
-                    "camel.ftp.test-user-file", usrFile.toString());
+                    "camel." + componentName + ".test-port", Integer.toString(port),
+                    "camel." + componentName + ".test-root-dir", ftpRoot.toString(),
+                    "camel." + componentName + ".test-user-file", usrFile.toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -128,5 +136,11 @@ public class FtpTestResource implements QuarkusTestResourceLifecycleManager {
         } catch (Exception e) {
             LOGGER.warn("Failed delete usr file: {}, {}", usrFile, e);
         }
+    }
+
+    protected ListenerFactory createListenerFactory(int port) {
+        ListenerFactory factory = new ListenerFactory();
+        factory.setPort(port);
+        return factory;
     }
 }

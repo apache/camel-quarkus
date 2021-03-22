@@ -14,7 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.sftp.it;
+package org.apache.camel.quarkus.component.ftps.it;
+
+import java.security.NoSuchAlgorithmException;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -22,27 +24,26 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(SftpTestResource.class)
-class SftpTest {
-
+@QuarkusTestResource(FtpsTestResource.class)
+class FtpsTest {
     @Test
-    public void testSftpComponent() throws InterruptedException {
-        // Create a new file on the SFTP server
+    public void testFtpsComponent() throws InterruptedException, NoSuchAlgorithmException {
+        // Create a new file on the FTPS server
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("Hello Camel Quarkus SFTP")
-                .post("/sftp/create/hello.txt")
+                .body("Hello Camel Quarkus FTPS")
+                .post("/ftps/create/hello.txt")
                 .then()
                 .statusCode(201);
 
-        // Read file back from the SFTP server
-        RestAssured.get("/sftp/get/hello.txt")
+        // Read file back from the FTPS server
+        RestAssured.get("/ftps/get/hello.txt")
                 .then()
                 .statusCode(200)
-                .body(is("Hello Camel Quarkus SFTP"));
+                .body(is("Hello Camel Quarkus FTPS"));
     }
 
 }
