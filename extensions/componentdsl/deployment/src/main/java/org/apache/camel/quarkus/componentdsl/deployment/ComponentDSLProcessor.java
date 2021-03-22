@@ -18,12 +18,18 @@ package org.apache.camel.quarkus.componentdsl.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.jboss.logging.Logger;
 
 class ComponentDSLProcessor {
+    private static final Logger LOG = Logger.getLogger(ComponentDSLProcessor.class);
+
     private static final String FEATURE = "camel-componentdsl";
 
     @BuildStep
     FeatureBuildItem feature() {
+        // see https://github.com/apache/camel-quarkus/issues/2354
+        LOG.warnf(
+                "camel-quarkus-componentdsl is deprecated and will be removed in the future; use camel-quarkus-core instead");
         return new FeatureBuildItem(FEATURE);
     }
 }

@@ -18,12 +18,17 @@ package org.apache.camel.quarkus.endpointdsl.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.jboss.logging.Logger;
 
 class EndpointDSLProcessor {
+    private static final Logger LOG = Logger.getLogger(EndpointDSLProcessor.class);
     private static final String FEATURE = "camel-endpointdsl";
 
     @BuildStep
     FeatureBuildItem feature() {
+        // see https://github.com/apache/camel-quarkus/issues/2354
+        LOG.warnf(
+                "camel-quarkus-endpointdsl is deprecated and will be removed in the future; use camel-quarkus-core instead");
         return new FeatureBuildItem(FEATURE);
     }
 }
