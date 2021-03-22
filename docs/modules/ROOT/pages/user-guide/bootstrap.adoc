@@ -103,6 +103,8 @@ public class Main {
 It is recommended to perform very little logic in the Java Main.
 ====
 
+Find more details about Camel Quarkus command line applications in this link:/blog/2020/07/command-line-utility-with-camel-quarkus/[blog post].
+
 === XML Configuration
 
 In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath. E.g either `camel-quarkus-xml-io` or
