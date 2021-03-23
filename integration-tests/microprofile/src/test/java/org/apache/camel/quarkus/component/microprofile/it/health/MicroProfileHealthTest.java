@@ -39,6 +39,7 @@ class MicroProfileHealthTest {
                         containsInAnyOrder("camel-readiness-checks", "camel-liveness-checks", "camel-context-check"),
                         "checks.data.contextStatus", containsInAnyOrder(null, null, "Started"),
                         "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "UP"),
+                        "checks.data.always-up", containsInAnyOrder(null, "UP", "UP"),
                         "checks.data.name", containsInAnyOrder(null, null, "quarkus-camel-example"));
     }
 
