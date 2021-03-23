@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.microprofile.it.health;
 import java.util.Map;
 
 import org.apache.camel.health.HealthCheckResultBuilder;
-import org.apache.camel.microprofile.health.AbstractCamelMicroProfileReadinessCheck;
+import org.apache.camel.impl.health.AbstractHealthCheck;
 
-public class ReadinessCheck extends AbstractCamelMicroProfileReadinessCheck {
+public class ReadinessCheck extends AbstractHealthCheck {
 
     public ReadinessCheck() {
         super("test-readiness");
@@ -30,5 +30,10 @@ public class ReadinessCheck extends AbstractCamelMicroProfileReadinessCheck {
     @Override
     protected void doCall(HealthCheckResultBuilder builder, Map<String, Object> options) {
         builder.up();
+    }
+
+    @Override
+    public boolean isLiveness() {
+        return false;
     }
 }

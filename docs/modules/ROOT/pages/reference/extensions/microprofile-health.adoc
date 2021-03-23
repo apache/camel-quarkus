@@ -37,8 +37,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 You can register health checks for your applications with the xref:latest@manual::health-check.adoc[Camel health check API].
 
-By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. For finer control over whether
-a check is registered as a liveness or readiness check, you can extend either `AbstractCamelMicroProfileLivenessCheck` or `AbstractCamelMicroProfileReadinessCheck`.
+By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. You can override the `isReadiness` method to control this behaviour.
 
 Any checks provided by your application are automatically discovered and bound to the Camel registry. They will be available via
 the Quarkus health endpoints `/health/live` and `/health/ready`.
