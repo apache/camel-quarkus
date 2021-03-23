@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.main.runtime.support.deployment;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import org.apache.camel.quarkus.main.deployment.spi.CamelRoutesCollectorBuildItem;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
 import org.apache.camel.quarkus.main.runtime.support.CustomRoutesCollectorRecorder;
 
 public class CustomRoutesCollectorProcessor {

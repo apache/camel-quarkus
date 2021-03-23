@@ -16,21 +16,9 @@
  */
 package org.apache.camel.quarkus.component.netty;
 
-import io.netty.channel.ChannelHandler;
-import org.apache.camel.BindToRegistry;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.netty.ChannelHandlerFactory;
 
 public class NettyRoutes extends RouteBuilder {
-
-    @BindToRegistry("tcpNullDelimitedHandler")
-    private ChannelHandlerFactory tcpNullDelimitedHandler = NettyCodecHelper.createNullDelimitedHandler("tcp");
-
-    @BindToRegistry("bytesDecoder")
-    private ChannelHandler bytesDecoder = NettyCodecHelper.createBytesDecoder();
-
-    @BindToRegistry("bytesEncoder")
-    private ChannelHandler bytesEncoder = NettyCodecHelper.createBytesEncoder();
 
     @Override
     public void configure() {

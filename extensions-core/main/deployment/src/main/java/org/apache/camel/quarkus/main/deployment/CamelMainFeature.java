@@ -17,20 +17,19 @@
 package org.apache.camel.quarkus.main.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
+import org.jboss.logging.Logger;
 
 class CamelMainFeature {
+    private static final Logger LOG = Logger.getLogger(CamelMainFeature.class);
     private static final String FEATURE = "camel-main";
 
     @BuildStep
     FeatureBuildItem feature() {
+        // see https://github.com/apache/camel-quarkus/issues/2358
+        LOG.warnf(
+                "camel-quarkus-main is deprecated and will be removed in the future; use camel-quarkus-core instead");
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    CapabilityBuildItem capability() {
-        return new CapabilityBuildItem(CamelCapabilities.MAIN);
-    }
 }

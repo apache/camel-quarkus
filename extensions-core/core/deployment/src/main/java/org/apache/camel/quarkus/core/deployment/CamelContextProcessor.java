@@ -23,13 +23,13 @@ import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelContextRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelFactoryFinderResolverBuildItem;
@@ -121,8 +121,7 @@ public class CamelContextProcessor {
      * @param  config               a reference to the Camel Quarkus configuration
      * @return                      a build item holding a {@link CamelRuntime} instance.
      */
-    @Overridable
-    @BuildStep
+    @BuildStep(onlyIfNot = CamelMainEnabled.class)
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     /* @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
      * fully initialized. This is required as under the hoods the camel registry may look-up beans form the

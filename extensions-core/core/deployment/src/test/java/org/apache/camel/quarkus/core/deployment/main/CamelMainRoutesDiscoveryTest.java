@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -24,19 +24,18 @@ import java.util.Properties;
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CamelMainUnknownArgumentFailTest {
-
+public class CamelMainRoutesDiscoveryTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -45,20 +44,12 @@ public class CamelMainUnknownArgumentFailTest {
     @Inject
     CamelMain main;
 
-    @Test
-    public void unknownArgumentThrowsException() {
-        Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
-            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });
-        });
-        assertEquals("CamelMain encountered unknown arguments", exception.getMessage());
-    }
-
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.main.arguments.on-unknown", "fail");
+        props.setProperty("quarkus.camel.routes-discovery.enabled", "false");
 
         try {
             props.store(writer, "");
@@ -67,5 +58,18 @@ public class CamelMainUnknownArgumentFailTest {
         }
 
         return new StringAsset(writer.toString());
+    }
+
+    @Test
+    public void testRoutesDiscovery() {
+        assertThat(main.getCamelContext().getRoutes()).isEmpty();
+        assertThat(main.configure().getRoutesBuilders()).isEmpty();
+    }
+
+    public static class MyRoute extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("direct:in").routeId("my-route").to("log:out");
+        }
     }
 }

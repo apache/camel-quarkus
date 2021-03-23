@@ -14,18 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.it.support.mainlistener.deployment;
+package org.apache.camel.quarkus.core.deployment.main.spi;
 
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
-import org.apache.camel.quarkus.it.support.mainlistener.CustomMainListenerRecorder;
+import io.quarkus.builder.item.SimpleBuildItem;
+import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.main.RoutesCollector;
 
-public class CustomMainListenerProcessor {
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelMainListenerBuildItem listener(CustomMainListenerRecorder recorder) {
-        return new CamelMainListenerBuildItem(recorder.createSupportListener());
+/**
+ * Holds the {@link RoutesCollector} {@link RuntimeValue}.
+ */
+public final class CamelRoutesCollectorBuildItem extends SimpleBuildItem {
+    private final RuntimeValue<RoutesCollector> value;
+
+    public CamelRoutesCollectorBuildItem(RuntimeValue<RoutesCollector> value) {
+        this.value = value;
+    }
+
+    public RuntimeValue<RoutesCollector> getValue() {
+        return value;
     }
 }

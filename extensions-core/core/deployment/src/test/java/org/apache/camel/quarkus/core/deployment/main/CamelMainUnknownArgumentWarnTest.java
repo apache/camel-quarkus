@@ -14,9 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
@@ -24,8 +26,8 @@ import java.util.Properties;
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
-import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.util.StringHelper;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -33,9 +35,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class CamelMainRoutesFilterTest {
+public class CamelMainUnknownArgumentWarnTest {
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -44,13 +47,38 @@ public class CamelMainRoutesFilterTest {
     @Inject
     CamelMain main;
 
+    @Test
+    public void unknownArgumentLogsWarning() {
+        PrintStream oldOut = System.out;
+
+        try (ByteArrayOutputStream sysout = new ByteArrayOutputStream()) {
+            System.setOut(new PrintStream(sysout));
+
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < 150; i++) {
+                builder.append("test");
+            }
+
+            String longArg = builder.toString();
+            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t", longArg });
+
+            String consoleContent = sysout.toString();
+            assertTrue(consoleContent
+                    .contains("Unknown option: -foo bar " + String.format("%s...", StringHelper.limitLength(longArg, 97))));
+            assertTrue(consoleContent.contains("Apache Camel Runner takes the following options"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.setOut(oldOut);
+        }
+    }
+
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.routes-discovery.enabled", "true");
-        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**/*Filtered");
+        props.setProperty("quarkus.camel.main.arguments.on-unknown", "warn");
 
         try {
             props.store(writer, "");
@@ -59,30 +87,5 @@ public class CamelMainRoutesFilterTest {
         }
 
         return new StringAsset(writer.toString());
-    }
-
-    @Test
-    public void testRoutesFilter() {
-        assertThat(main.configure().getRoutesBuilders())
-                .hasSize(1)
-                .first().isInstanceOf(MyRoute.class);
-
-        assertThat(main.getCamelContext().getRoutes())
-                .hasSize(1)
-                .first().hasFieldOrPropertyWithValue("id", "my-route");
-    }
-
-    public static class MyRoute extends RouteBuilder {
-        @Override
-        public void configure() throws Exception {
-            from("direct:in").routeId("my-route").to("log:out");
-        }
-    }
-
-    public static class MyRouteFiltered extends RouteBuilder {
-        @Override
-        public void configure() throws Exception {
-            from("direct:filtered").routeId("my-route-filtered").to("log:filtered");
-        }
     }
 }

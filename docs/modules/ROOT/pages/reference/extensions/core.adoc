@@ -165,6 +165,24 @@ A comma separated list of Ant-path style patterns to match class names that shou
 What to do if it is not possible to extract CSimple expressions from a route definition at build time.
 | `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
 | `warn`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.main.enabled]]`link:#quarkus.camel.main.enabled[quarkus.camel.main.enabled]`
+
+If `true` all `camel-main` features are enabled; otherwise no `camel-main` features are enabled. See described the link:https://camel.apache.org/camel-quarkus/latest/user-guide/bootstrap.html#_camel_main[Bootstrap] section of Camel Quarkus documentation for more details.
+| `boolean`
+| `true`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
+
+A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
+| `java.time.Duration`
+| `PT3S`
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.main.arguments.on-unknown]]`link:#quarkus.camel.main.arguments.on-unknown[quarkus.camel.main.arguments.on-unknown]`
+
+The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn - Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
+| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
+| `warn`
 |===
 
 [.configuration-legend]

@@ -26,27 +26,3 @@ Bootstrap Camel using Camel Main which brings advanced auto-configuration capabi
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
-
-== Additional Camel Quarkus configuration
-
-[width="100%",cols="80,5,15",options="header"]
-|===
-| Configuration property | Type | Default
-
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
-
-A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
-| `java.time.Duration`
-| `PT3S`
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.arguments.on-unknown]]`link:#quarkus.camel.main.arguments.on-unknown[quarkus.camel.main.arguments.on-unknown]`
-
-The action to take when `CamelMain` encounters an unknown argument. fail - Prints the `CamelMain` usage statement and throws a `RuntimeException` ignore - Suppresses any warnings and the application startup proceeds as normal warn - Prints the `CamelMain` usage statement but allows the application startup to proceed as normal
-| `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
-| `warn`
-|===
-
-[.configuration-legend]
-icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
-

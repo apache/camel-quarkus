@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -35,7 +35,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CamelMainRoutesDiscoveryTest {
+public class CamelMainRoutesFilterTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -49,7 +49,8 @@ public class CamelMainRoutesDiscoveryTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.routes-discovery.enabled", "false");
+        props.setProperty("quarkus.camel.routes-discovery.enabled", "true");
+        props.setProperty("quarkus.camel.routes-discovery.exclude-patterns", "**/*Filtered");
 
         try {
             props.store(writer, "");
@@ -61,15 +62,27 @@ public class CamelMainRoutesDiscoveryTest {
     }
 
     @Test
-    public void testRoutesDiscovery() {
-        assertThat(main.getCamelContext().getRoutes()).isEmpty();
-        assertThat(main.configure().getRoutesBuilders()).isEmpty();
+    public void testRoutesFilter() {
+        assertThat(main.configure().getRoutesBuilders())
+                .hasSize(1)
+                .first().isInstanceOf(MyRoute.class);
+
+        assertThat(main.getCamelContext().getRoutes())
+                .hasSize(1)
+                .first().hasFieldOrPropertyWithValue("id", "my-route");
     }
 
     public static class MyRoute extends RouteBuilder {
         @Override
         public void configure() throws Exception {
             from("direct:in").routeId("my-route").to("log:out");
+        }
+    }
+
+    public static class MyRouteFiltered extends RouteBuilder {
+        @Override
+        public void configure() throws Exception {
+            from("direct:filtered").routeId("my-route-filtered").to("log:filtered");
         }
     }
 }

@@ -14,24 +14,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment.spi;
+package org.apache.camel.quarkus.core.deployment.main.spi;
 
-import io.quarkus.builder.item.MultiBuildItem;
+import java.util.function.BooleanSupplier;
+
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.main.MainListener;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.quarkus.main.CamelMainConfig;
 
 /**
- * A {@link MultiBuildItem} holding {@link MainListener}s to add to {@link CamelMain}.
+ * Holds the {@link CamelMain} {@link RuntimeValue}.
  */
-public final class CamelMainListenerBuildItem extends MultiBuildItem {
-    private final RuntimeValue<MainListener> listener;
+public class CamelMainEnabled implements BooleanSupplier {
 
-    public CamelMainListenerBuildItem(RuntimeValue<MainListener> listener) {
-        this.listener = listener;
+    private final CamelMainConfig mainConfig;
+
+    CamelMainEnabled(CamelMainConfig mainConfig) {
+        this.mainConfig = mainConfig;
     }
 
-    public RuntimeValue<MainListener> getListener() {
-        return listener;
+    @Override
+    public boolean getAsBoolean() {
+        return mainConfig.enabled;
     }
 }

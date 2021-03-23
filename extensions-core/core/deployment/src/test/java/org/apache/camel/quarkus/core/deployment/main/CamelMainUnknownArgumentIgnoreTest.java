@@ -14,18 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
-import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
-import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -34,9 +34,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static io.smallrye.common.constraint.Assert.assertFalse;
 
-public class CamelMainLambdaRouteBuilderDiscoveryTest {
+public class CamelMainUnknownArgumentIgnoreTest {
+
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
@@ -45,11 +46,31 @@ public class CamelMainLambdaRouteBuilderDiscoveryTest {
     @Inject
     CamelMain main;
 
+    @Test
+    public void unknownArgumentIgnored() {
+        PrintStream oldOut = System.out;
+
+        try (ByteArrayOutputStream sysout = new ByteArrayOutputStream()) {
+            System.setOut(new PrintStream(sysout));
+
+            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });
+
+            String consoleContent = sysout.toString();
+            assertFalse(consoleContent.contains("Unknown option: -foo bar"));
+            assertFalse(consoleContent.contains("Apache Camel Runner takes the following options"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            System.setOut(oldOut);
+        }
+    }
+
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
+        props.setProperty("quarkus.camel.main.arguments.on-unknown", "ignore");
 
         try {
             props.store(writer, "");
@@ -58,15 +79,5 @@ public class CamelMainLambdaRouteBuilderDiscoveryTest {
         }
 
         return new StringAsset(writer.toString());
-    }
-
-    @Test
-    public void testRoutesDiscovery() {
-        assertThat(main.getCamelContext().getRoutes()).isNotEmpty();
-    }
-
-    @Produces
-    public LambdaRouteBuilder myRoute() {
-        return rb -> rb.from("direct:in").routeId("my-route").to("log:out");
     }
 }
