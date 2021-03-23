@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +32,7 @@ class CamelMainHotDeploymentProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainHotDeploymentProcessor.class);
     private static final String FILE_PREFIX = "file:";
 
-    @BuildStep
+    @BuildStep(onlyIf = CamelMainEnabled.class)
     List<HotDeploymentWatchedFileBuildItem> locations() {
         List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePatter()
                 .filter(location -> location.startsWith(FILE_PREFIX))

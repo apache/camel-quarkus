@@ -14,18 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment;
+package org.apache.camel.quarkus.core.deployment.main;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.Properties;
 
 import javax.inject.Inject;
 
+import io.quarkus.arc.Arc;
 import io.quarkus.test.QuarkusUnitTest;
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.direct.DirectComponent;
 import org.apache.camel.quarkus.main.CamelMain;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -34,43 +35,26 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static io.smallrye.common.constraint.Assert.assertFalse;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class CamelMainUnknownArgumentIgnoreTest {
-
+public class CamelComponentConfigurationTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
+    private static final int TIMEOUT = 1234;
+
     @Inject
-    CamelMain main;
-
-    @Test
-    public void unknownArgumentIgnored() {
-        PrintStream oldOut = System.out;
-
-        try (ByteArrayOutputStream sysout = new ByteArrayOutputStream()) {
-            System.setOut(new PrintStream(sysout));
-
-            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });
-
-            String consoleContent = sysout.toString();
-            assertFalse(consoleContent.contains("Unknown option: -foo bar"));
-            assertFalse(consoleContent.contains("Apache Camel Runner takes the following options"));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            System.setOut(oldOut);
-        }
-    }
+    CamelContext camelContext;
 
     public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("quarkus.camel.main.arguments.on-unknown", "ignore");
+        props.setProperty("quarkus.arc.remove-unused-beans", "false");
+        props.setProperty("camel.component.direct.timeout", String.valueOf(TIMEOUT));
 
         try {
             props.store(writer, "");
@@ -80,4 +64,15 @@ public class CamelMainUnknownArgumentIgnoreTest {
 
         return new StringAsset(writer.toString());
     }
+
+    @Test
+    public void testComponentAutoConfiguration() {
+        assertThat(camelContext.getComponent("direct", DirectComponent.class).getTimeout()).isEqualTo(TIMEOUT);
+    }
+
+    @Test
+    public void mainAvailable() {
+        assertThat(Arc.container().instance(CamelMain.class).isAvailable()).isTrue();
+    }
+
 }

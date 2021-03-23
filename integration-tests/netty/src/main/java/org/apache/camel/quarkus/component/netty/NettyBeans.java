@@ -14,23 +14,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.main.deployment.spi;
+package org.apache.camel.quarkus.component.netty;
 
-import io.quarkus.builder.item.SimpleBuildItem;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.main.CamelMain;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
 
-/**
- * Holds the {@link CamelMain} {@link RuntimeValue}.
- */
-public final class CamelMainBuildItem extends SimpleBuildItem {
-    private final RuntimeValue<CamelMain> main;
+import io.netty.channel.ChannelHandler;
+import org.apache.camel.component.netty.ChannelHandlerFactory;
 
-    public CamelMainBuildItem(RuntimeValue<CamelMain> main) {
-        this.main = main;
+public class NettyBeans {
+    @Produces
+    @Named("tcpNullDelimitedHandler")
+    ChannelHandlerFactory tcpNullDelimitedHandler() {
+        return NettyCodecHelper.createNullDelimitedHandler("tcp");
     }
 
-    public RuntimeValue<CamelMain> getInstance() {
-        return main;
+    @Produces
+    @Named("bytesDecoder")
+    ChannelHandler bytesDecoder() {
+        return NettyCodecHelper.createBytesDecoder();
     }
+
+    @Produces
+    @Named("bytesEncoder")
+    private ChannelHandler bytesEncoder() {
+        return NettyCodecHelper.createBytesEncoder();
+    }
+
 }

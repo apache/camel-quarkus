@@ -23,7 +23,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.pkg.steps.NativeBuild;
 import org.apache.camel.quarkus.component.jfr.CamelJfrConfig;
 import org.apache.camel.quarkus.component.jfr.CamelJfrRecorder;
-import org.apache.camel.quarkus.core.deployment.CamelMainPresent;
+import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelStartupStepRecorderBuildItem;
@@ -37,7 +37,7 @@ class JfrProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(onlyIf = { CamelMainPresent.class })
+    @BuildStep(onlyIf = { CamelMainEnabled.class })
     CamelServicePatternBuildItem excludeCamelJfrServicePattern() {
         // Prevent camel main from overwriting the FlightRecorderStartupStepRecorder configured by this extension
         return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, false,
