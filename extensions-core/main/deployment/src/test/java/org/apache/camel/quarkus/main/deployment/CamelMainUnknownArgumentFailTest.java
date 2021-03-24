@@ -48,7 +48,7 @@ public class CamelMainUnknownArgumentFailTest {
     @Test
     public void unknownArgumentThrowsException() {
         Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
-            main.parseArguments(new String[] { "-d", "10", "-foo", "bar" });
+            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });
         });
         assertEquals("CamelMain encountered unknown arguments", exception.getMessage());
     }

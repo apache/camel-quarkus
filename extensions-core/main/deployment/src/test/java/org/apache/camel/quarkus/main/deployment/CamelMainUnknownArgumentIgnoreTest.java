@@ -53,10 +53,10 @@ public class CamelMainUnknownArgumentIgnoreTest {
         try (ByteArrayOutputStream sysout = new ByteArrayOutputStream()) {
             System.setOut(new PrintStream(sysout));
 
-            main.parseArguments(new String[] { "-d", "10", "-foo", "bar" });
+            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });
 
             String consoleContent = sysout.toString();
-            assertFalse(consoleContent.contains("Unknown option: -foo"));
+            assertFalse(consoleContent.contains("Unknown option: -foo bar"));
             assertFalse(consoleContent.contains("Apache Camel Runner takes the following options"));
         } catch (IOException e) {
             throw new RuntimeException(e);

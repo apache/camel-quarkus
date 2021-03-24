@@ -25,8 +25,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-main-command-mode</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Main Command Mode</name>
+    <artifactId>camel-quarkus-integration-test-main-unknown-args-fail</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Main Unknown Arguments Fail :: Tests</name>
 
     <properties>
         <quarkus.runner.jar>${project.build.directory}/quarkus-app/quarkus-run.jar</quarkus.runner.jar>

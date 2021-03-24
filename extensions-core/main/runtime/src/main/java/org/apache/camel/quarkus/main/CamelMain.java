@@ -16,10 +16,12 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import io.quarkus.runtime.Quarkus;
@@ -35,6 +37,7 @@ import org.apache.camel.main.SimpleMainShutdownStrategy;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
 import org.apache.camel.spi.HasCamelContext;
 import org.apache.camel.support.service.ServiceHelper;
+import org.apache.camel.util.StringHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -171,12 +174,12 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     @Override
     public void parseArguments(String[] arguments) {
         LinkedList<String> args = new LinkedList<>(Arrays.asList(arguments));
+        List<String> unknownArgs = new ArrayList<>();
 
         boolean valid = true;
         while (!args.isEmpty()) {
             initOptions();
             String arg = args.removeFirst();
-
             boolean handled = false;
             for (Option option : options) {
                 if (option.processOption(arg, args)) {
@@ -185,17 +188,22 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
                 }
             }
             if (!handled && !failureRemedy.equals(FailureRemedy.ignore)) {
-                System.out.println("Unknown option: " + arg);
-                System.out.println();
-
+                if (arg.length() >= 100) {
+                    // For long arguments, clean up formatting for console output
+                    String truncatedArg = String.format("%s...", StringHelper.limitLength(arg, 97));
+                    unknownArgs.add(truncatedArg);
+                } else {
+                    unknownArgs.add(arg);
+                }
                 valid = false;
-                break;
             }
         }
         if (!valid) {
+            System.out.println("Unknown option: " + String.join(" ", unknownArgs));
+            System.out.println();
             showOptions();
-            completed();
             if (failureRemedy.equals(FailureRemedy.fail)) {
+                completed();
                 throw new RuntimeException("CamelMain encountered unknown arguments");
             }
         }
