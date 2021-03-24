@@ -23,5 +23,11 @@ public class MicroProfileHealthRouteBuilder extends RouteBuilder {
     public void configure() {
         from("direct:start").routeId("healthyRoute")
                 .setBody(constant("Hello Camel Quarkus"));
+
+        from("direct:disabled").routeId("disabledHealthRoute")
+                .log("This route will not show up in health checks as it is disabled in application.properties");
+
+        from("direct:checkIntervalThreshold").routeId("checkIntervalThreshold")
+                .log("This route is used to check to test health check interval / threshold");
     }
 }

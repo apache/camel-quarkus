@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.component.microprofile.it.health;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -152,6 +157,39 @@ class MicroProfileHealthTest {
                             "checks.data.'route:healthyRoute'", containsInAnyOrder(null, null, "DOWN"));
         } finally {
             RestAssured.get("/microprofile-health/route/healthyRoute/start")
+                    .then()
+                    .statusCode(204);
+        }
+    }
+
+    @Test
+    public void testFailureThreshold() throws InterruptedException {
+        try {
+            RestAssured.get("/microprofile-health/route/checkIntervalThreshold/stop")
+                    .then()
+                    .statusCode(204);
+
+            // Configured failure threshold and interval should allow the initial health state be UP
+            RestAssured.when().get("/health").then()
+                    .contentType(ContentType.JSON)
+                    .header("Content-Type", containsString("charset=UTF-8"))
+                    .body("status", is("UP"),
+                            "checks.data.'route:checkIntervalThreshold'", containsInAnyOrder(null, null, "UP"));
+
+            // Poll the health endpoint until the threshold / interval is exceeded and the health state transitions to DOWN
+            Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
+                JsonPath result = RestAssured.when().get("/health").then()
+                        .contentType(ContentType.JSON)
+                        .header("Content-Type", containsString("charset=UTF-8"))
+                        .extract()
+                        .jsonPath();
+
+                String status = result.getString("status");
+                List<String> routeStatus = result.getList("checks.data.'route:checkIntervalThreshold'");
+                return status.equals("DOWN") && routeStatus.contains("DOWN");
+            });
+        } finally {
+            RestAssured.get("/microprofile-health/route/checkIntervalThreshold/start")
                     .then()
                     .statusCode(204);
         }
