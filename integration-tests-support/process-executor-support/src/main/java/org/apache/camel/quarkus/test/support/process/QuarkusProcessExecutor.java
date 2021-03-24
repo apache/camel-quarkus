@@ -39,10 +39,19 @@ public class QuarkusProcessExecutor {
     private final int httpPort = AvailablePortFinder.getNextAvailable();
     private final int httpsPort = AvailablePortFinder.getNextAvailable();
 
-    public QuarkusProcessExecutor(String... args) {
-        LOGGER.infof("Executing process: %s", String.join(" ", command(args)));
+    public QuarkusProcessExecutor(String... jvmArgs) {
+        this(jvmArgs, null);
+    }
+
+    public QuarkusProcessExecutor(String[] jvmArgs, String... applicationArgs) {
+        List<String> command = command(jvmArgs);
+        if (applicationArgs != null) {
+            command.addAll(Arrays.asList(applicationArgs));
+        }
+
+        LOGGER.infof("Executing process: %s", String.join(" ", command));
         executor = new ProcessExecutor()
-                .command(command(args))
+                .command(command)
                 .redirectOutput(System.out)
                 .readOutput(true);
     }

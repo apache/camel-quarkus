@@ -27,6 +27,7 @@ import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.quarkus.main.CamelMain;
+import org.apache.camel.util.StringHelper;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -53,10 +54,17 @@ public class CamelMainUnknownArgumentWarnTest {
         try (ByteArrayOutputStream sysout = new ByteArrayOutputStream()) {
             System.setOut(new PrintStream(sysout));
 
-            main.parseArguments(new String[] { "-d", "10", "-foo", "bar" });
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < 150; i++) {
+                builder.append("test");
+            }
+
+            String longArg = builder.toString();
+            main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t", longArg });
 
             String consoleContent = sysout.toString();
-            assertTrue(consoleContent.contains("Unknown option: -foo"));
+            assertTrue(consoleContent
+                    .contains("Unknown option: -foo bar " + String.format("%s...", StringHelper.limitLength(longArg, 97))));
             assertTrue(consoleContent.contains("Apache Camel Runner takes the following options"));
         } catch (IOException e) {
             throw new RuntimeException(e);
