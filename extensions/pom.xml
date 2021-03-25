@@ -135,6 +135,7 @@
         <module>johnzon</module>
         <module>jolt</module>
         <module>jpa</module>
+        <module>js-dsl</module>
         <module>jsch</module>
         <module>jslt</module>
         <module>json-validator</module>

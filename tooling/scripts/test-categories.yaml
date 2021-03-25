@@ -150,6 +150,7 @@ misc:
   - as2
   - kotlin
   - disruptor
+  - js-dsl
 networking2-dataformats-main:
   - atlasmap
   - mail

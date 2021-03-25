@@ -172,6 +172,7 @@
 *** xref:reference/extensions/jacksonxml.adoc[JacksonXML]
 *** xref:reference/extensions/jasypt.adoc[Jasypt]
 *** xref:reference/extensions/java-joor-dsl.adoc[Java jOOR DSL]
+*** xref:reference/extensions/js-dsl.adoc[JavaScript DSL]
 *** xref:reference/extensions/jfr.adoc[Jfr]
 *** xref:reference/extensions/jing.adoc[Jing]
 *** xref:reference/extensions/jira.adoc[Jira]

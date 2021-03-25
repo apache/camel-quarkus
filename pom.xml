@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.8.0</version>
+        <version>3.9.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -42,10 +42,8 @@
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>${avro-version}</avro.version>
-        <aws-java-sdk.version>${aws-java-sdk-version}</aws-java-sdk.version>
-        <awssdk1-swf-libs.version>${aws-java-sdk-swf-libs}</awssdk1-swf-libs.version>
-        <!-- TODO: Use azure-sdk-bom once they start maintaining it properly https://github.com/Azure/azure-sdk-for-java/issues/18759 -->
-        <azure-sdk-bom.version>1.0.2</azure-sdk-bom.version><!-- TODO inherit from Camel https://issues.apache.org/jira/browse/CAMEL-16278 -->
+        <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
+        <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
 
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
 
@@ -71,6 +69,7 @@
         <google-http-client.version>1.34.0</google-http-client.version>
         <google-auth-library-oauth2-http.version>0.21.1</google-auth-library-oauth2-http.version> <!-- Mess in google-cloud-bom -->
         <guava.version>29.0-jre</guava.version>
+        <graaljs.version>${graaljs-version}</graaljs.version> <!-- keep in sync with quarkus ? -->
         <gson.version>2.8.6</gson.version><!-- JSONata -->
         <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
