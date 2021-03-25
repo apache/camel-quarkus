@@ -28,14 +28,12 @@ import org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(HBaseTestResource.class)
-@Disabled("https://github.com/apache/camel-quarkus/issues/2295")
 class HbaseTest {
 
     @Test
