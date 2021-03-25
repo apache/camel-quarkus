@@ -131,6 +131,7 @@
 *** xref:reference/extensions/graphql.adoc[GraphQL]
 *** xref:reference/extensions/grok.adoc[Grok]
 *** xref:reference/extensions/groovy.adoc[Groovy]
+*** xref:reference/extensions/groovy-dsl.adoc[Groovy DSL]
 *** xref:reference/extensions/gson.adoc[Gson]
 *** xref:reference/extensions/guava-eventbus.adoc[Guava EventBus]
 *** xref:reference/extensions/hbase.adoc[HBase]
