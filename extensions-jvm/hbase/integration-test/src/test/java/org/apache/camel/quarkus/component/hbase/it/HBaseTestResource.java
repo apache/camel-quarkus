@@ -20,37 +20,45 @@ import java.util.Collections;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HBaseTestingUtility;
 import org.jboss.logging.Logger;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 
 public class HBaseTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = Logger.getLogger(HBaseTestResource.class);
     // must be the same as in the config of camel component
-    static final Integer CLIENT_PORT = 21818;
+    static final Integer CLIENT_PORT = 2181;
 
-    private HBaseTestingUtility hbaseUtil;
+    private GenericContainer container;
 
     @Override
     public Map<String, String> start() {
+
         try {
-            Configuration conf = HBaseConfiguration.create();
-            conf.set("test.hbase.zookeeper.property.clientPort", CLIENT_PORT.toString());
-            hbaseUtil = new HBaseTestingUtility(conf);
-            hbaseUtil.startMiniCluster(1);
+            //there is only one tag for this docker image -  latest. See https://hub.docker.com/r/dajobe/hbase/tags
+            //Hbase is using zookeeper. Hbase client gets location of hbase master from zookeeper, which means that
+            //location uses internal hostnames from the docker.  Network mode `host` is the only way how to avoid
+            //manipulation with the hosts configuration at the test server. 
+            container = new GenericContainer("dajobe/hbase:latest")
+                    .withNetworkMode("host")
+                    .waitingFor(
+                            Wait.forLogMessage(".*Finished refreshing block distribution cache for 2 regions\\n", 1));
+            container.start();
+
+            return Collections.emptyMap();
         } catch (Exception e) {
-            throw new RuntimeException("Could not start HBase cluster.", e);
+            throw new RuntimeException(e);
         }
-        return Collections.emptyMap();
     }
 
     @Override
     public void stop() {
         try {
-            hbaseUtil.shutdownMiniCluster();
+            if (container != null) {
+                container.stop();
+            }
         } catch (Exception e) {
-            LOG.warn("Error shutting down the HBase container", e);
+            // Ignored
         }
     }
 
