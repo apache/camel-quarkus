@@ -85,6 +85,7 @@
         <module>jooq</module>
         <module>jsonapi</module>
         <module>jt400</module>
+        <module>kotlin-dsl</module>
         <module>language</module>
         <module>ldap</module>
         <module>ldif</module>

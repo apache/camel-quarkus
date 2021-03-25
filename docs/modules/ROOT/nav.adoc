@@ -179,6 +179,7 @@
 *** xref:reference/extensions/kafka.adoc[Kafka]
 *** xref:reference/extensions/kamelet.adoc[Kamelet]
 *** xref:reference/extensions/kotlin.adoc[Kotlin]
+*** xref:reference/extensions/kotlin-dsl.adoc[Kotlin DSL]
 *** xref:reference/extensions/kubernetes.adoc[Kubernetes]
 *** xref:reference/extensions/kudu.adoc[Kudu]
 *** xref:reference/extensions/ldap.adoc[LDAP]
