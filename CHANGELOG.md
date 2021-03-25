@@ -11,6 +11,7 @@
 **Closed issues:**
 
 - Direct component example [\#2363](https://github.com/apache/camel-quarkus/issues/2363)
+- Test autowiring of beans available in the CDI container to CamelContext and components [\#2350](https://github.com/apache/camel-quarkus/issues/2350)
 - Make Solr extension automatically register classes with @Field annotations for reflection [\#2341](https://github.com/apache/camel-quarkus/issues/2341)
 - quarkus 1.7.0 DocumentBuilderFactoryImpl not found [\#2323](https://github.com/apache/camel-quarkus/issues/2323)
 - Document that AtlasMap user classes may need to be registered for reflection [\#2319](https://github.com/apache/camel-quarkus/issues/2319)
@@ -21,7 +22,7 @@
 - CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
 - Azure extension native build fails with Quarkus 1.13 [\#2299](https://github.com/apache/camel-quarkus/issues/2299)
 - SQL integration tests fail with Quarkus 1.13 - Multiple DataSources found in the registry [\#2296](https://github.com/apache/camel-quarkus/issues/2296)
-- main: add an option to ignore command line arguments [\#2293](https://github.com/apache/camel-quarkus/issues/2293)
+- \[camel-master\] Support for YAML DSL [\#2294](https://github.com/apache/camel-quarkus/issues/2294)
 - bindy: @DataField\(method=\*\) is not supported [\#2282](https://github.com/apache/camel-quarkus/issues/2282)
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields [\#2273](https://github.com/apache/camel-quarkus/issues/2273)
@@ -32,11 +33,15 @@
 - HL7 Terser language native support [\#1747](https://github.com/apache/camel-quarkus/issues/1747)
 - Add tests to example projects [\#1501](https://github.com/apache/camel-quarkus/issues/1501)
 - Nitrite native support [\#1298](https://github.com/apache/camel-quarkus/issues/1298)
+- Perform basic testing of aws extension through localstack [\#1071](https://github.com/apache/camel-quarkus/issues/1071)
 - LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
+- Think about consolidating enforcing rules [\#293](https://github.com/apache/camel-quarkus/issues/293)
 - Freemarker native support [\#223](https://github.com/apache/camel-quarkus/issues/223)
 
 **Merged pull requests:**
 
+- openstack: added neutron port, subnet and nova flavor tests \#1943 [\#2372](https://github.com/apache/camel-quarkus/pull/2372) ([aldettinger](https://github.com/aldettinger))
+- Upgrade to Quarkus 1.13.0.Final [\#2370](https://github.com/apache/camel-quarkus/pull/2370) ([ppalaga](https://github.com/ppalaga))
 - Use AbstractHealthCheck for custom health checks [\#2364](https://github.com/apache/camel-quarkus/pull/2364) ([jamesnetherton](https://github.com/jamesnetherton))
 - openstack: added neutron network tests \#1943 [\#2359](https://github.com/apache/camel-quarkus/pull/2359) ([aldettinger](https://github.com/aldettinger))
 - Add test coverage for FTPS [\#2357](https://github.com/apache/camel-quarkus/pull/2357) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -187,7 +192,6 @@
 - Azure Storage Queue Service native support [\#2143](https://github.com/apache/camel-quarkus/pull/2143) ([ppalaga](https://github.com/ppalaga))
 - Improve the release docs [\#2141](https://github.com/apache/camel-quarkus/pull/2141) ([ppalaga](https://github.com/ppalaga))
 - Avoid automatic minio client autowiring \#2134 [\#2140](https://github.com/apache/camel-quarkus/pull/2140) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Upgrade Quarkus to 1.11.0.Final [\#2133](https://github.com/apache/camel-quarkus/pull/2133) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.6.0](https://github.com/apache/camel-quarkus/tree/1.6.0) (2021-01-15)
 
@@ -224,6 +228,7 @@
 - Azure Storage Blob native support  [\#2139](https://github.com/apache/camel-quarkus/pull/2139) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.22.0 [\#2138](https://github.com/apache/camel-quarkus/pull/2138) ([jamesnetherton](https://github.com/jamesnetherton))
 - Hazelcast integration tests : switch to testcontainers \#2127 [\#2137](https://github.com/apache/camel-quarkus/pull/2137) ([zbendhiba](https://github.com/zbendhiba))
+- Upgrade Quarkus to 1.11.0.Final [\#2133](https://github.com/apache/camel-quarkus/pull/2133) ([jamesnetherton](https://github.com/jamesnetherton))
 - Allow running the Azure test against the real Azure API in addition to [\#2132](https://github.com/apache/camel-quarkus/pull/2132) ([ppalaga](https://github.com/ppalaga))
 - Add notes on enabling Geolocation APIs for geocoder extension integration tests [\#2130](https://github.com/apache/camel-quarkus/pull/2130) ([jamesnetherton](https://github.com/jamesnetherton))
 - add missing QuarkusTestResource [\#2129](https://github.com/apache/camel-quarkus/pull/2129) ([zbendhiba](https://github.com/zbendhiba))
@@ -555,6 +560,7 @@
 - Exclude daily branch build bot generated issues from the changelog [\#1786](https://github.com/apache/camel-quarkus/pull/1786) ([jamesnetherton](https://github.com/jamesnetherton))
 - Caffeine native support [\#1785](https://github.com/apache/camel-quarkus/pull/1785) ([lburgazzoli](https://github.com/lburgazzoli))
 - Added automatic changelog gh action [\#1784](https://github.com/apache/camel-quarkus/pull/1784) ([oscerd](https://github.com/oscerd))
+- Fix intermittent failures of SmallRyeReactiveMessagingIT [\#1780](https://github.com/apache/camel-quarkus/pull/1780) ([jamesnetherton](https://github.com/jamesnetherton))
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
@@ -611,7 +617,6 @@
 
 **Merged pull requests:**
 
-- Fix intermittent failures of SmallRyeReactiveMessagingIT [\#1780](https://github.com/apache/camel-quarkus/pull/1780) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add some pre-release tasks to the release guide [\#1771](https://github.com/apache/camel-quarkus/pull/1771) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel-quarkus-main - Uses reflection for setting its name [\#1768](https://github.com/apache/camel-quarkus/pull/1768) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document cq:create -Dcq.nativeSupported=false for creating JVM-only e… [\#1767](https://github.com/apache/camel-quarkus/pull/1767) ([ppalaga](https://github.com/ppalaga))
@@ -989,7 +994,6 @@
 - Fix \#1288: automatically set content-length or chunked on platform-ht… [\#1289](https://github.com/apache/camel-quarkus/pull/1289) ([nicolaferraro](https://github.com/nicolaferraro))
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Fix native images issues on Java 11 [\#1011](https://github.com/apache/camel-quarkus/pull/1011) ([lburgazzoli](https://github.com/lburgazzoli))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
@@ -1333,6 +1337,7 @@
 - Fix \#1017 Do not hardcode the TransformerFactory implementation irrev… [\#1018](https://github.com/apache/camel-quarkus/pull/1018) ([ppalaga](https://github.com/ppalaga))
 - Use testcontainer to test camel infinispan extension to reduce test dependencies on infinispan [\#1014](https://github.com/apache/camel-quarkus/pull/1014) ([lburgazzoli](https://github.com/lburgazzoli))
 - Workaround for the platform http not be able to handle matchOnUriPrefix [\#1012](https://github.com/apache/camel-quarkus/pull/1012) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fix native images issues on Java 11 [\#1011](https://github.com/apache/camel-quarkus/pull/1011) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#706 Improve RuntimeCatalogConfig docs [\#1009](https://github.com/apache/camel-quarkus/pull/1009) ([ppalaga](https://github.com/ppalaga))
 - Fix \#963 Build processor class template may create redundant LOG field [\#1008](https://github.com/apache/camel-quarkus/pull/1008) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.13.1 [\#1007](https://github.com/apache/camel-quarkus/pull/1007) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1820,6 +1825,7 @@
 - Create a Camel Kafka extension [\#432](https://github.com/apache/camel-quarkus/pull/432) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve bean validator extension [\#431](https://github.com/apache/camel-quarkus/pull/431) ([lburgazzoli](https://github.com/lburgazzoli))
 - Initial JMS support [\#430](https://github.com/apache/camel-quarkus/pull/430) ([lburgazzoli](https://github.com/lburgazzoli))
+- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 
 ## [0.4.0](https://github.com/apache/camel-quarkus/tree/0.4.0) (2019-11-15)
 
@@ -1867,7 +1873,6 @@
 - Add exec component extension [\#420](https://github.com/apache/camel-quarkus/pull/420) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#382 Support path parameters in platform-http [\#418](https://github.com/apache/camel-quarkus/pull/418) ([ppalaga](https://github.com/ppalaga))
 - chore: add timer-log-cdi example [\#414](https://github.com/apache/camel-quarkus/pull/414) ([lburgazzoli](https://github.com/lburgazzoli))
-- Fixes \#411 bean-validator extension [\#412](https://github.com/apache/camel-quarkus/pull/412) ([davsclaus](https://github.com/davsclaus))
 - Dataformat [\#409](https://github.com/apache/camel-quarkus/pull/409) ([davsclaus](https://github.com/davsclaus))
 - Xslt [\#407](https://github.com/apache/camel-quarkus/pull/407) ([davsclaus](https://github.com/davsclaus))
 - core: avoid referencing application classes in bean build items and loading them in core build processors [\#405](https://github.com/apache/camel-quarkus/pull/405) ([lburgazzoli](https://github.com/lburgazzoli))
