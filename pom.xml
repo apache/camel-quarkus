@@ -483,6 +483,7 @@
                             <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>
                             <exclude>**/*.jks</exclude>
+                            <exclude>**/*.kts</exclude>
                             <exclude>**/*.lock</exclude>
                             <exclude>**/*.mp3</exclude>
                             <exclude>**/*.mp4</exclude>
