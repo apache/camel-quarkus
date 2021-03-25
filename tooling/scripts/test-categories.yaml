@@ -150,7 +150,6 @@ misc:
   - as2
   - kotlin
   - disruptor
-networking2-dataformats-main:
   - atlasmap
   - mail
   - main-unknown-args-fail
@@ -186,3 +185,4 @@ saas:
   - servicenow
   - slack
   - twilio
+  - js-dsl
