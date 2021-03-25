@@ -21,22 +21,12 @@
 #   mvn -N cq:update-quarkus-metadata
 #
 ---
-name: "Camel [=nameBase]"
-description: "[=description]"
+name: "Camel JavaScript DSL"
+description: "An JavaScript stack for parsing JavaScript route definitions"
 metadata:
-[#if unlisted ]  unlisted: true
-[/#if]
-[#if keywords?size > 0 ]  keywords:
-[#list keywords as keyword]
-  - "[=keyword]"
-[/#list]
-[/#if]
-  guide: "[=guideUrl]"
-[#if categories?size > 0 ]  categories:
-[#list categories as category]
-  - "[=category]"
-[/#list]
-[/#if]
+  unlisted: true
+  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/js-dsl.html"
+  categories:
+  - "integration"
   status:
-  - "[=status]"
-[#if deprecated ]  - "deprecated"[/#if]
+  - "experimental"
