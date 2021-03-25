@@ -44,7 +44,6 @@
         <module>caffeine-lrucache</module>
         <module>main</module>
         <module>yaml-dsl</module>
-        <module>java-joor-dsl</module>
     </modules>
 
 </project>
