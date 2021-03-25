@@ -74,6 +74,7 @@
         <module>iota</module>
         <module>irc</module>
         <module>jasypt</module>
+        <module>java-joor-dsl</module>
         <module>jbpm</module>
         <module>jcache</module>
         <module>jclouds</module>

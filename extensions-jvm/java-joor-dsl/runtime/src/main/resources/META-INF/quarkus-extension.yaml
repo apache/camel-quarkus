@@ -24,8 +24,9 @@
 name: "Camel Java jOOR DSL"
 description: "Support for parsing Java route definitions at runtime"
 metadata:
+  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/java-joor-dsl.html"
   categories:
   - "integration"
   status:
-  - "stable"
+  - "preview"
