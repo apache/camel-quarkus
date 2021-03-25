@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main.deployment;
 
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import io.quarkus.deployment.Capabilities;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -65,5 +66,10 @@ public class CamelMainNativeImageProcessor {
                 }
             }
         }
+
+        String[] resources = Stream.of("components", "dataformats", "languages")
+                .map(k -> "org/apache/camel/main/" + k + ".properties")
+                .toArray(String[]::new);
+        nativeResource.produce(new NativeImageResourceBuildItem(resources));
     }
 }

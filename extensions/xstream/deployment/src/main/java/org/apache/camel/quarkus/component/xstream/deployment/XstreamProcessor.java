@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.xstream.deployment;
 
+import java.io.InputStream;
+
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class XstreamProcessor {
 
@@ -26,6 +30,11 @@ class XstreamProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, InputStream.class));
     }
 
 }
