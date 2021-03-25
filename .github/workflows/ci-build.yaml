@@ -236,7 +236,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '8' , '11', '15' ]
+        java: [ '11', '15' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -328,7 +328,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '8' , '11', '15' ]
+        java: [ '11', '15' ]
     steps:
       - name: Setup apache-snapshots profile
         if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
