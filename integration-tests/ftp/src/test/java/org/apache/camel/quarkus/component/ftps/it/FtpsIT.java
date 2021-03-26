@@ -16,9 +16,13 @@
  */
 package org.apache.camel.quarkus.component.ftps.it;
 
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
+
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
+// https://github.com/apache/camel-quarkus/issues/2317
+@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 class FtpsIT extends FtpsTest {
 
 }
