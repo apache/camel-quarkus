@@ -24,6 +24,7 @@
 name: "Camel Cloud"
 description: "The Camel Quarkus core cloud module"
 metadata:
+  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/core-cloud.html"
   categories:
   - "integration"
