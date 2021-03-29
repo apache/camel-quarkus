@@ -127,8 +127,7 @@
                                     <goal>exec</goal>
                                 </goals>
                                 <phase>verify</phase>
-				<configuration>
-                                    <skip>true</skip>
+                                <configuration>
                                     <executable>${project.basedir}/node/node</executable>
                                     <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator --fetch antora-playbook.yml --stacktrace</commandlineArgs>
                                 </configuration>
