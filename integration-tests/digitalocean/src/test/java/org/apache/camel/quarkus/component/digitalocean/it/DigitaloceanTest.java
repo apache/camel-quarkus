@@ -28,15 +28,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.Matchers.hasKey;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -47,114 +44,110 @@ class DigitaloceanTest {
     @MockServer
     WireMockServer server;
 
-    @Test
-    @DisabledIfEnvironmentVariable(named = "DIGITALOCEAN_AUTH_TOKEN", matches = ".+")
-    public void testIfMock() {
-        testDroplets(5, TimeUnit.SECONDS, false);
+    static long timeout = 5;
+    static TimeUnit timeoutUnit = TimeUnit.SECONDS;
+
+    @BeforeAll
+    public static void initTimeoutUnit() {
+        // add timeout if not using MockServer
+        // when using a Digitalocean Key, it takes at least 2 minutes to create a droplet or snapshot
+        String key = System.getenv("DIGITALOCEAN_AUTH_TOKEN");
+        if (key != null) {
+            timeoutUnit = TimeUnit.MINUTES;
+        }
     }
 
     @Test
-    @EnabledIfEnvironmentVariable(named = "DIGITALOCEAN_AUTH_TOKEN", matches = ".+")
-    public void testIfOAuth() {
-        testDroplets(10, TimeUnit.MINUTES, true);
-    }
-
-    public void testDroplets(long timeout, TimeUnit timeOutUnit, boolean waitPowerOff) {
+    void testDroplets() {
         // insert multiple droplets
-        List<String> names = Arrays.asList("droplet1");
-        List<Integer> otherIds = RestAssured.given().contentType(ContentType.JSON).body(names).put("/digitalocean/droplet")
-                .then().extract().body().as(List.class);
-        assertNotNull(otherIds);
-        assertEquals(1, otherIds.size());
-        Integer dropletId1 = otherIds.get(0);
+        Integer dropletId = RestAssured.given().contentType(ContentType.JSON).put("/digitalocean/droplet/droplet1")
+                .then().extract().body().as(Integer.class);
+        assertNotNull(dropletId);
 
         // get the droplet by dropletId1 until its status is active and ready
         // it takes time only if using a oAuthToken from Digitalocean
-        waitActiveDroplet(dropletId1, timeout, timeOutUnit);
+        waitActiveDroplet(dropletId);
 
         // action : enable backups
         given()
                 .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/backups/enable/" + dropletId1)
+                .get("/digitalocean/droplet/backups/enable/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1))
+                .body("resourceId", equalTo(dropletId))
                 .body("type", equalTo("ENABLE_BACKUPS"));
 
         // action : power off, before taking a snapshot
         given()
                 .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/off/" + dropletId1)
+                .get("/digitalocean/droplet/off/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
+                .body("resourceId", equalTo(dropletId));
 
         // take a snapshot
         given()
                 .contentType(ContentType.JSON)
                 .body("snapshot1")
-                .post("/digitalocean/droplet/snapshot/" + dropletId1)
+                .post("/digitalocean/droplet/snapshot/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
-
-        // action : get and wait for the snapshot
-        waitForSnapshot(dropletId1, timeout, timeOutUnit);
+                .body("resourceId", equalTo(dropletId));
 
         // action : disable backups
         given()
                 .when()
-                .get("/digitalocean/droplet/backups/disable/" + dropletId1)
+                .get("/digitalocean/droplet/backups/disable/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
+                .body("resourceId", equalTo(dropletId));
 
         // wait for Droplet to be active
-        waitActiveDroplet(dropletId1, timeout, timeOutUnit);
+        waitActiveDroplet(dropletId);
 
         // action : power on
         given()
                 .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/on/" + dropletId1)
+                .get("/digitalocean/droplet/on/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
+                .body("resourceId", equalTo(dropletId));
 
         // Reboot droplet
         given()
                 .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/reboot/" + dropletId1)
+                .get("/digitalocean/droplet/reboot/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
-
-        // wait for Droplet to be active
-        waitActiveDroplet(dropletId1, timeout, timeOutUnit);
+                .body("resourceId", equalTo(dropletId));
 
         // enable Ipv6
         given()
                 .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/ipv6/" + dropletId1)
+                .get("/digitalocean/droplet/ipv6/" + dropletId)
                 .then()
-                .body("resourceId", equalTo(dropletId1));
+                .body("resourceId", equalTo(dropletId));
 
         // getting the droplet actions
-        List<Map> actions = RestAssured.given().contentType(ContentType.JSON).body(names)
-                .get("/digitalocean/droplet/actions/" + dropletId1)
+        List<Map> actions = RestAssured.given().contentType(ContentType.JSON)
+                .get("/digitalocean/droplet/actions/" + dropletId)
                 .then().extract().body().as(List.class);
         assertActions(actions);
 
-        // delete the droplet
+        // test neigbors
+        testNeighbors(dropletId);
+
+        // delete the droplet with id droplet 1
         given()
                 .when()
-                .delete("/digitalocean/droplet/" + dropletId1)
+                .delete("/digitalocean/droplet/" + dropletId)
                 .then()
                 .statusCode(202);
+
     }
 
     /**
-     * Gets the snapshots and waits until the snapshot is created in Digitalocean. It may take 2 to 3 minutes. For tests
-     * with Wiremock, no need to wait
+     * Gets the snapshots and waits until the snapshot is created in Digitalocean.
      *
-     * @param dropletId1
+     * @param dropletId
      */
-    private void waitForSnapshot(Integer dropletId1, long timeout, TimeUnit timeOutUnit) {
-        await().atMost(timeout, timeOutUnit).until(() -> {
-            String path = "/digitalocean/droplet/snapshots/" + dropletId1;
+    private void waitForSnapshot(Integer dropletId) {
+        await().atMost(this.timeout, this.timeoutUnit).until(() -> {
+            String path = "/digitalocean/droplet/snapshots/" + dropletId;
             List<Map> result = given().when().get(path).then().extract().as(List.class);
             // Look for the snapshot
             Optional optional = result.stream()
@@ -165,23 +158,22 @@ class DigitaloceanTest {
     }
 
     /**
-     * Gets the droplet and waits until the droplet is Active in Digitalocean. It may take 2 to 3 minutes. For tests with
-     * Wiremock, the response is always Active
+     * Gets the droplet and waits until the droplet is Active in Digitalocean.
      *
-     * @param dropletId1
+     * @param dropletId
      */
-    private void waitActiveDroplet(Integer dropletId1, long timeout, TimeUnit timeOutUnit) {
-        await().atMost(timeout, timeOutUnit).until(() -> {
-            String path = "/digitalocean/droplet/" + dropletId1;
+    private void waitActiveDroplet(Integer dropletId) {
+        await().atMost(this.timeout, this.timeoutUnit).until(() -> {
+            String path = "/digitalocean/droplet/" + dropletId;
             Map droplet = given()
                     .contentType(ContentType.JSON).get(path).then().extract().as(Map.class);
-            return droplet != null && dropletId1.equals(droplet.get("id")) && "ACTIVE".equals(droplet.get("status"));
+            return droplet != null && dropletId.equals(droplet.get("id")) && "ACTIVE".equals(droplet.get("status"));
         });
     }
 
     /**
      * Assert all the actions
-     * 
+     *
      * @param actions
      */
     private void assertActions(List<Map> actions) {
@@ -196,7 +188,7 @@ class DigitaloceanTest {
 
     /**
      * assert a single action
-     * 
+     *
      * @param actions
      * @param actionType
      */
@@ -207,25 +199,11 @@ class DigitaloceanTest {
         assertTrue(optional.isPresent());
     }
 
-    @Test
-    @DisabledIfEnvironmentVariable(named = "DIGITALOCEAN_AUTH_TOKEN", matches = ".+")
-    void testGetKernels() {
-        // only for mock back-end server
+    void testNeighbors(int dropletId) {
         given()
                 .when()
-                .get("/digitalocean/droplet/kernels/3164494")
+                .get("/digitalocean/droplet/neighbors/" + dropletId)
                 .then()
-                .body("[0]", hasKey("id"));
-    }
-
-    @Test
-    @DisabledIfEnvironmentVariable(named = "DIGITALOCEAN_AUTH_TOKEN", matches = ".+")
-    void testNeighbors() {
-        // only for mock back-end server
-        given()
-                .when()
-                .get("/digitalocean/droplet/neighbors/3164494")
-                .then()
-                .body("[0].id", equalTo(3164495));
+                .statusCode(200);
     }
 }

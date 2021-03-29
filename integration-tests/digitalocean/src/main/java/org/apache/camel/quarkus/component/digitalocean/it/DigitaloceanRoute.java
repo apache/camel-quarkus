@@ -40,13 +40,10 @@ public class DigitaloceanRoute extends RouteBuilder {
     @ApplicationScoped
     @Unremovable
     @Named("digitalOceanClient")
-    DigitalOceanClient intiDigitalOceanClient(MockApiService mockApiService) {
+    DigitalOceanClient initDigitalOceanClient(MockApiService mockApiService) {
         final String wireMockUrl = System.getProperty("wiremock.url.ssl");
         if (wireMockUrl != null) {
-            DigitalOceanClient digitalOceanClient = mockApiService.createDigitalOceanClient(wireMockUrl, oAuthToken);
-            digitalOceanClient.setAuthToken(oAuthToken);
-            digitalOceanClient.setApiVersion("V2");
-            return digitalOceanClient;
+            return mockApiService.createDigitalOceanClient(wireMockUrl, oAuthToken);
         }
         return new DigitalOceanClient(oAuthToken);
     }
@@ -54,7 +51,7 @@ public class DigitaloceanRoute extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:droplet")
-                .to(String.format("digitalocean:droplets?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken));
+                .toF("digitalocean:droplets?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
 
     }
 }
