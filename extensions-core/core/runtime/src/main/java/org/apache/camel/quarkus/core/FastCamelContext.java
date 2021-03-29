@@ -74,8 +74,8 @@ import org.apache.camel.impl.engine.DefaultTransformerRegistry;
 import org.apache.camel.impl.engine.DefaultUnitOfWorkFactory;
 import org.apache.camel.impl.engine.DefaultUriFactoryResolver;
 import org.apache.camel.impl.engine.DefaultValidatorRegistry;
-import org.apache.camel.impl.engine.EndpointKey;
 import org.apache.camel.impl.engine.PrototypeExchangeFactory;
+import org.apache.camel.impl.engine.PrototypeProcessorExchangeFactory;
 import org.apache.camel.impl.engine.RouteService;
 import org.apache.camel.impl.engine.TransformerKey;
 import org.apache.camel.impl.engine.ValidatorKey;
@@ -139,6 +139,7 @@ import org.apache.camel.spi.ModelToXMLDumper;
 import org.apache.camel.spi.NodeIdFactory;
 import org.apache.camel.spi.PackageScanClassResolver;
 import org.apache.camel.spi.PackageScanResourceResolver;
+import org.apache.camel.spi.ProcessorExchangeFactory;
 import org.apache.camel.spi.ProcessorFactory;
 import org.apache.camel.spi.PropertiesComponent;
 import org.apache.camel.spi.ReactiveExecutor;
@@ -163,6 +164,7 @@ import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.support.DefaultUuidGenerator;
+import org.apache.camel.support.NormalizedUri;
 import org.apache.camel.support.ResolverHelper;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
@@ -474,7 +476,7 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     }
 
     @Override
-    protected EndpointRegistry<EndpointKey> createEndpointRegistry(Map<EndpointKey, Endpoint> endpoints) {
+    protected EndpointRegistry<NormalizedUri> createEndpointRegistry(Map<NormalizedUri, Endpoint> endpoints) {
         return new DefaultEndpointRegistry(this, endpoints);
     }
 
@@ -685,6 +687,17 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     @Override
     protected ExchangeFactoryManager createExchangeFactoryManager() {
         return new DefaultExchangeFactoryManager();
+    }
+
+    @Override
+    protected ProcessorExchangeFactory createProcessorExchangeFactory() {
+        Optional<ProcessorExchangeFactory> result = ResolverHelper.resolveService(
+                getCamelContextReference(),
+                getBootstrapFactoryFinder(),
+                ProcessorExchangeFactory.FACTORY,
+                ProcessorExchangeFactory.class);
+
+        return result.orElseGet(PrototypeProcessorExchangeFactory::new);
     }
 
     @Override

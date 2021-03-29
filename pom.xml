@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.9.0</version>
+        <version>3.10.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -47,7 +47,7 @@
 
         <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
 
-        <camel.major.minor>3.9</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
+        <camel.major.minor>3.10</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
@@ -91,6 +91,7 @@
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
         <jetty.version>${jetty9-version}</jetty.version>
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <json-smart.version>2.4.2</json-smart.version>
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
         <kotlin.version>1.4.31</kotlin.version><!-- keep in sync with Quarkus -->
