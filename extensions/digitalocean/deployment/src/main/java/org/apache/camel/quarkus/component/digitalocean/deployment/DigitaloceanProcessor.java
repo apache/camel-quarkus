@@ -46,7 +46,6 @@ class DigitaloceanProcessor {
         String[] dtos = index.getKnownClasses().stream().map(ci -> ci.name().toString())
                 .filter(n -> n.startsWith("com.myjeeva.digitalocean.pojo")
                         || n.startsWith("com.myjeeva.digitalocean.common"))
-                .sorted()
                 .toArray(String[]::new);
 
         return new ReflectiveClassBuildItem(true, true, dtos);

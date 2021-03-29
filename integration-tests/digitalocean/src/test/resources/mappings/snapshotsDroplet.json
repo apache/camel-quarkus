@@ -2,7 +2,7 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
   "name": "digitalocean_api_json",
   "request": {
-    "url": "/V2/droplets/3164494/snapshots?page=1&per_page=25",
+    "url": "/v2/droplets/3164494/snapshots?page=1&per_page=25",
     "method": "GET"
   },
   "response": {

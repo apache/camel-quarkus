@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -36,7 +34,6 @@ import javax.ws.rs.core.Response;
 import com.myjeeva.digitalocean.pojo.Action;
 import com.myjeeva.digitalocean.pojo.Backup;
 import com.myjeeva.digitalocean.pojo.Droplet;
-import com.myjeeva.digitalocean.pojo.Kernel;
 import com.myjeeva.digitalocean.pojo.Snapshot;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.digitalocean.constants.DigitalOceanHeaders;
@@ -51,6 +48,7 @@ public class DigitaloceanResource {
     private static final String REGION_FRANKFURT = "fra1";
     private static final String DROPLET_SIZE_1_GB = "s-1vcpu-1gb";
     private static final String DROPLET_IMAGE = "ubuntu-20-04-x64";
+    private static final List<String> DROPLET_TAGS = Arrays.asList("tag1", "tag2");
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -59,31 +57,25 @@ public class DigitaloceanResource {
     @Path("{name}")
     public int createDroplet(@PathParam("name") String name) {
         LOG.infof("creating a droplet with name %s", name);
-        Map<String, Object> headers = getCreateHeaders();
-        headers.put(DigitalOceanHeaders.NAME, name);
+        Map<String, Object> headers = createHeaders(name);
         Droplet droplet = producerTemplate.requestBodyAndHeaders("direct:droplet", null, headers, Droplet.class);
         return droplet.getId();
     }
 
-    @PUT
-    public List<Integer> createDroplet(List<String> names) {
-        LOG.infof("creating a droplet with names %s", names);
-        Map<String, Object> headers = getCreateHeaders();
-        headers.put(DigitalOceanHeaders.NAMES, names);
-        List<Droplet> droplets = producerTemplate.requestBodyAndHeaders("direct:droplet", null, headers, List.class);
-        return droplets.stream().map(droplet -> droplet.getId()).collect(Collectors.toList());
-    }
-
-    private Map<String, Object> getCreateHeaders() {
+    /**
+     * Creates the headers for operation `Create a Droplet`
+     * 
+     * @param  name
+     * @return
+     */
+    private Map<String, Object> createHeaders(String name) {
         Map<String, Object> headers = new HashMap<>();
         headers.put(DigitalOceanHeaders.OPERATION, DigitalOceanOperations.create);
         headers.put(DigitalOceanHeaders.REGION, REGION_FRANKFURT);
         headers.put(DigitalOceanHeaders.DROPLET_SIZE, DROPLET_SIZE_1_GB);
         headers.put(DigitalOceanHeaders.DROPLET_IMAGE, DROPLET_IMAGE);
-        Collection<String> tags = new ArrayList<>();
-        tags.add("tag1");
-        tags.add("tag2");
-        headers.put(DigitalOceanHeaders.DROPLET_TAGS, tags);
+        headers.put(DigitalOceanHeaders.DROPLET_TAGS, DROPLET_TAGS);
+        headers.put(DigitalOceanHeaders.NAME, name);
         return headers;
     }
 
@@ -118,17 +110,6 @@ public class DigitaloceanResource {
         headers.put(DigitalOceanHeaders.ID, id);
         List<Action> actions = producerTemplate.requestBodyAndHeaders("direct:droplet", null, headers, List.class);
         return actions;
-    }
-
-    @GET
-    @Path("kernels/{id}")
-    public List<Kernel> getKernels(@PathParam("id") int id) {
-        LOG.infof("getting kernels's droplet with id %s", id);
-        Map<String, Object> headers = new HashMap<>();
-        headers.put(DigitalOceanHeaders.OPERATION, DigitalOceanOperations.listKernels);
-        headers.put(DigitalOceanHeaders.ID, id);
-        List<Kernel> kernels = producerTemplate.requestBodyAndHeaders("direct:droplet", null, headers, List.class);
-        return kernels;
     }
 
     @POST

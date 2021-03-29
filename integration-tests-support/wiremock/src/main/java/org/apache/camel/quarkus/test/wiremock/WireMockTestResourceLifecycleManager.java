@@ -68,11 +68,14 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
                 }
             }
 
-            String wireMockUrl = "http://localhost:" + this.server.port();
+            String wireMockUrl = "http://localhost:" + server.port();
             LOG.infof("WireMock started on %s", wireMockUrl);
             properties.put("wiremock.url", wireMockUrl);
-            String httpsUrl = "https://localhost:" + this.server.httpsPort();
-            properties.put("wiremock.url.ssl", httpsUrl);
+
+            // if https enabled
+            if (server.getOptions().httpsSettings().enabled()) {
+                properties.put("wiremock.url.ssl", "https://localhost:" + server.httpsPort());
+            }
         }
 
         return properties;
@@ -219,9 +222,6 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
             // Read mapping resources from the classpath in playback mode
             configuration.fileSource(new CamelQuarkusFileSource());
         }
-
-        // add an SSL port
-        configuration.dynamicHttpsPort();
         return new WireMockServer(configuration);
     }
 

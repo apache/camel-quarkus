@@ -2,12 +2,12 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6eb",
   "name": "digitalocean_api_json",
   "request": {
-    "url": "/V2/droplets",
+    "url": "/v2/droplets",
     "method": "POST"
   },
   "response": {
     "status": 200,
-    "body" : "{\"droplets\":[{\"id\":3164494,\"name\":\"sub-01.example.com\",\"memory\":1024,\"vcpus\":1,\"disk\":25,\"locked\":false,\"status\":\"new\",\"kernel\":{\"id\":2233,\"name\":\"Ubuntu 14.04 x64 vmlinuz-3.13.0-37-generic\",\"version\":\"3.13.0-37-generic\"},\"created_at\":\"2014-11-14T16:36:31Z\",\"features\":[\"virtio\"],\"backup_ids\":[],\"snapshot_ids\":[],\"image\":{},\"volume_ids\":[],\"size\":{},\"size_slug\":\"s-1vcpu-1gb\",\"networks\":{},\"region\":{},\"tags\":[\"web\"]}],\"links\":{\"actions\":[{\"id\":24404896,\"rel\":\"create\",\"href\":\"https:\/\/api.digitalocean.com\/v2\/actions\/24404896\"},{\"id\":24404897,\"rel\":\"create\",\"href\":\"https:\/\/api.digitalocean.com\/v2\/actions\/24404897\"}]}}",
+    "body": "{\"droplet\":{\"id\":3164494,\"name\":\"example.com\",\"memory\":1024,\"vcpus\":1,\"disk\":25,\"locked\":true,\"status\":\"new\",\"kernel\":{\"id\":2233,\"name\":\"Ubuntu 14.04 x64 vmlinuz-3.13.0-37-generic\",\"version\":\"3.13.0-37-generic\"},\"created_at\":\"2014-11-14T16:36:31Z\",\"features\":[\"virtio\"],\"backup_ids\":[],\"snapshot_ids\":[],\"image\":{},\"volume_ids\":[],\"size\":{},\"size_slug\":\"s-1vcpu-1gb\",\"networks\":{},\"region\":{},\"tags\":[\"web\"]},\"links\":{\"actions\":[{\"id\":36805096,\"rel\":\"create\",\"href\":\"https:\/\/api.digitalocean.com\/v2\/actions\/36805096\"}]}}",
     "headers": {
       "Content-Type": "application/json; charset=UTF-8",
       "Date": "Tue, 03 Nov 2020 09:39:11 GMT",
