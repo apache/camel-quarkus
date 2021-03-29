@@ -117,7 +117,6 @@
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
-- XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
 - \[camel-master\] azure-eventhubs: discovered unresolved type during parsing [\#2213](https://github.com/apache/camel-quarkus/issues/2213)
 - \[camel-master\] nats: failure running integration tests [\#2211](https://github.com/apache/camel-quarkus/issues/2211)
@@ -184,6 +183,7 @@
 - Upgrade to Camel 3.8.0 [\#2227](https://github.com/apache/camel-quarkus/pull/2227) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix camel-master CI branch build [\#2224](https://github.com/apache/camel-quarkus/pull/2224) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 SNS properly [\#2222](https://github.com/apache/camel-quarkus/pull/2222) ([ppalaga](https://github.com/ppalaga))
+- CassandraQL native support \#1355 [\#2219](https://github.com/apache/camel-quarkus/pull/2219) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - PubNub native support [\#2218](https://github.com/apache/camel-quarkus/pull/2218) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 SQS properly [\#2217](https://github.com/apache/camel-quarkus/pull/2217) ([ppalaga](https://github.com/ppalaga))
 - Replaced the JettyTestServer class with MockOaipmhServer based on wir… [\#2214](https://github.com/apache/camel-quarkus/pull/2214) ([aldettinger](https://github.com/aldettinger))
@@ -1499,6 +1499,7 @@
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
+- XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
 - Camel-Jira extension: Enforcer rules are failing on the module [\#753](https://github.com/apache/camel-quarkus/issues/753)
@@ -1521,7 +1522,6 @@
 - Incredible use of RAM even on small example/rest-json [\#673](https://github.com/apache/camel-quarkus/issues/673)
 - Create a camel-bindy extension [\#653](https://github.com/apache/camel-quarkus/issues/653)
 - Add JniBuildItem to extensions that need JNI [\#627](https://github.com/apache/camel-quarkus/issues/627)
-- Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
 - Use quarkus.package.type=native instead of the native-image mojo [\#598](https://github.com/apache/camel-quarkus/issues/598)
 - Improve the XSLT test coverage [\#498](https://github.com/apache/camel-quarkus/issues/498)
 - Native SSL support does not work on ASF Jenkins CI  [\#468](https://github.com/apache/camel-quarkus/issues/468)
@@ -1617,6 +1617,7 @@
 - Introduce CamelServiceInfo transformers [\#620](https://github.com/apache/camel-quarkus/issues/620)
 - Create a camel-ahc-ws extension  [\#619](https://github.com/apache/camel-quarkus/issues/619)
 - Registerable and discoverable Camel services [\#617](https://github.com/apache/camel-quarkus/issues/617)
+- Create a camel-websocket-jsr356 extension [\#613](https://github.com/apache/camel-quarkus/issues/613)
 - Extension for endpoint DSL [\#612](https://github.com/apache/camel-quarkus/issues/612)
 - Improve the camel-jsonpath extension by not using an alias for DefaultAnnotationExpressionFactory [\#611](https://github.com/apache/camel-quarkus/issues/611)
 - Fix the defineClass exception in camel-quarkus-jsonpath while running in native mode [\#610](https://github.com/apache/camel-quarkus/issues/610)
@@ -1924,7 +1925,6 @@
 - Make -Pnative equivalent with -Dnative, prefer -Pnative in the docs [\#363](https://github.com/apache/camel-quarkus/pull/363) ([ppalaga](https://github.com/ppalaga))
 - chore: fix cs [\#362](https://github.com/apache/camel-quarkus/pull/362) ([lburgazzoli](https://github.com/lburgazzoli))
 - Use uppercase FHIR where appropriate [\#359](https://github.com/apache/camel-quarkus/pull/359) ([ppalaga](https://github.com/ppalaga))
-- Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
 
@@ -1941,6 +1941,7 @@
 
 **Merged pull requests:**
 
+- Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Improve service filter and related methods [\#351](https://github.com/apache/camel-quarkus/pull/351) ([lburgazzoli](https://github.com/lburgazzoli))
 - Upgrade to quarkus 0.27.0 [\#350](https://github.com/apache/camel-quarkus/pull/350) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#270 TarfileTest can fail on exotic platforms [\#349](https://github.com/apache/camel-quarkus/pull/349) ([ppalaga](https://github.com/ppalaga))
