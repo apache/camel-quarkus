@@ -168,7 +168,7 @@ What to do if it is not possible to extract CSimple expressions from a route def
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.enabled]]`link:#quarkus.camel.main.enabled[quarkus.camel.main.enabled]`
 
-If `true` all `camel-main` features are enabled; otherwise no `camel-main` features are enabled. See described the link:bootstrap.html#_camel_main[Bootstrap] section of Camel Quarkus documentation for more details.
+If `true` all `camel-main` features are enabled; otherwise no `camel-main` features are enabled. See described the xref:user-guide/bootstrap.adoc[Bootstrap] camel-main section of the documentation for more details.
 | `boolean`
 | `true`
 
