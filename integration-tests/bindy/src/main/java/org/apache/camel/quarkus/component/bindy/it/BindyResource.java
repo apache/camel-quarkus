@@ -29,6 +29,7 @@ import javax.ws.rs.Path;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.bindy.it.model.CsvOrder;
 import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthOrder;
+import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthWithLocale;
 import org.apache.camel.quarkus.component.bindy.it.model.Header;
 import org.apache.camel.quarkus.component.bindy.it.model.MessageOrder;
 import org.apache.camel.quarkus.component.bindy.it.model.NameWithLengthSuffix;
@@ -108,6 +109,19 @@ public class BindyResource {
         assertNotNull(order);
         assertEquals("Bob", order.getName());
         assertEquals("Spa", order.getCountry());
+    }
+
+    @Path("/marshalFixedLengthWithLocaleShouldSucceed")
+    @GET
+    public void marshalFixedLengthWithLocaleShouldSucceed() {
+        LOG.debugf("Invoking marshalFixedLengthWithLocaleShouldSucceed()");
+
+        FixedLengthWithLocale object = new FixedLengthWithLocale();
+        object.setNumber(3.2);
+
+        String marshalled = template.requestBody("direct:marshal-fixed-length-with-locale", object, String.class);
+
+        assertEquals("٣٫٢٠٠\r\n", marshalled);
     }
 
     @Path("/marshalMessageShouldSucceed")

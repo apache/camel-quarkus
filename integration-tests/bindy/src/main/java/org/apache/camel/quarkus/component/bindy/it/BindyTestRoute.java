@@ -22,6 +22,7 @@ import org.apache.camel.model.dataformat.BindyDataFormat;
 import org.apache.camel.model.dataformat.BindyType;
 import org.apache.camel.quarkus.component.bindy.it.model.CsvOrder;
 import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthOrder;
+import org.apache.camel.quarkus.component.bindy.it.model.FixedLengthWithLocale;
 import org.apache.camel.quarkus.component.bindy.it.model.MessageOrder;
 
 public class BindyTestRoute extends RouteBuilder {
@@ -39,6 +40,12 @@ public class BindyTestRoute extends RouteBuilder {
         bindyFixedLengthDataFormat.setType(BindyType.Fixed.name());
         from("direct:marshal-fixed-length-record").marshal(bindyFixedLengthDataFormat);
         from("direct:unmarshal-fixed-length-record").unmarshal(bindyFixedLengthDataFormat);
+
+        BindyDataFormat bindyFixedLengthWithLocaleDataFormat = new BindyDataFormat();
+        bindyFixedLengthWithLocaleDataFormat.setClassType(FixedLengthWithLocale.class);
+        bindyFixedLengthWithLocaleDataFormat.setType(BindyType.Fixed.name());
+        bindyFixedLengthWithLocaleDataFormat.setLocale("ar");
+        from("direct:marshal-fixed-length-with-locale").marshal(bindyFixedLengthWithLocaleDataFormat);
 
         BindyKeyValuePairDataFormat bindyMessageDataFormat = new BindyKeyValuePairDataFormat(MessageOrder.class);
         from("direct:marshal-message").marshal(bindyMessageDataFormat);
