@@ -9,5 +9,5 @@
 :cq-native-since: 1.7.0
 :cq-camel-part-name: kamelet
 :cq-camel-part-title: Kamelet
-:cq-camel-part-description: The Kamelet Component provides support for interacting with the Camel Route Template engine
+:cq-camel-part-description: To call Kamelets
 :cq-extension-page-title: Kamelet
