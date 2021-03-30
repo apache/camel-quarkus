@@ -1,0 +1,8 @@
+You can use this extension without any special configuration in JVM mode.
+
+In native mode you need to add
+[source,shell]
+----
+quarkus.native.additional-build-args = -H:+InlineBeforeAnalysis
+----
+to your `application.properties`. This is to allow inlining of some static methods that would otherwise cause build failures (see this https://github.com/oracle/graal/issues/2594[GraalVM issue]).
