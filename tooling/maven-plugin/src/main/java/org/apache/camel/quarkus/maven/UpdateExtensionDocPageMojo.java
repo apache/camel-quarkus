@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -41,6 +42,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.utility.DeepUnwrap;
 import io.quarkus.annotation.processor.Constants;
 import io.quarkus.annotation.processor.generate_doc.ConfigDocItem;
+import io.quarkus.annotation.processor.generate_doc.ConfigDocKey;
 import io.quarkus.annotation.processor.generate_doc.DocGeneratorUtil;
 import io.quarkus.annotation.processor.generate_doc.FsMap;
 import org.apache.camel.catalog.Kind;
@@ -358,7 +360,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         }
     }
 
-    static List<ConfigDocItem> listConfigOptions(Path basePath, Path multiModuleProjectDirectory) {
+    static List<ConfigItem> listConfigOptions(Path basePath, Path multiModuleProjectDirectory) {
         final List<String> configRootClasses = loadConfigRoots(basePath);
         if (configRootClasses.isEmpty()) {
             return Collections.emptyList();
@@ -389,7 +391,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         }
         DocGeneratorUtil.sort(configDocItems);
-        return configDocItems;
+        return configDocItems.stream().map(ConfigItem::of).collect(Collectors.toList());
     }
 
     static List<String> loadConfigRoots(Path basePath) {
@@ -405,6 +407,64 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException("Could not read from " + configRootsListPath, e);
+        }
+    }
+
+    public static class ConfigItem {
+        private static final Pattern LINK_PATTERN = Pattern
+                .compile("\\Qlink:http\\Es?\\Q://camel.apache.org/camel-quarkus/latest/\\E([^\\[]+).html");
+
+        private final String key;
+        private final String illustration;
+        private final String configDoc;
+        private final String type;
+        private final String defaultValue;
+        private final boolean optional;
+
+        public static ConfigItem of(ConfigDocItem configDocItem) {
+            final ConfigDocKey configDocKey = configDocItem.getConfigDocKey();
+            final String adocSource = LINK_PATTERN.matcher(configDocKey.getConfigDoc()).replaceAll("xref:$1.adoc");
+            return new ConfigItem(
+                    configDocKey.getKey(),
+                    configDocKey.getConfigPhase().getIllustration(),
+                    adocSource,
+                    configDocKey.getType(),
+                    configDocKey.getDefaultValue(),
+                    configDocKey.isOptional());
+        }
+
+        public ConfigItem(String key, String illustration, String configDoc, String type, String defaultValue,
+                boolean optional) {
+            this.key = key;
+            this.illustration = illustration;
+            this.configDoc = configDoc;
+            this.type = type;
+            this.defaultValue = defaultValue;
+            this.optional = optional;
+        }
+
+        public String getKey() {
+            return key;
+        }
+
+        public String getIllustration() {
+            return illustration;
+        }
+
+        public String getConfigDoc() {
+            return configDoc;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getDefaultValue() {
+            return defaultValue;
+        }
+
+        public boolean isOptional() {
+            return optional;
         }
     }
 

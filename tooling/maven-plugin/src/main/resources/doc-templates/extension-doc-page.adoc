@@ -75,13 +75,13 @@ The `allowContextMapAll` option is not supported in native mode as it requires r
 |===
 | Configuration property | Type | Default
 
-[#list configOptions as configDocItem][#assign anchor = toAnchor(configDocItem.configDocKey.key)]
+[#list configOptions as configDocItem][#assign anchor = toAnchor(configDocItem.key)]
 
-|[=configDocItem.configDocKey.configPhase.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.configDocKey.key]]`
+|[=configDocItem.illustration] [[[=anchor]]]`link:#[=anchor][[=configDocItem.key]]`
 
-[=configDocItem.configDocKey.configDoc]
-| `[=configDocItem.configDocKey.type]`
-| [#if configDocItem.configDocKey.defaultValue?has_content]`[=configDocItem.configDocKey.defaultValue]`[#elseif ! configDocItem.configDocKey.optional]required icon:exclamation-circle[title=Configuration property is required][/#if]
+[=configDocItem.configDoc]
+| `[=configDocItem.type]`
+| [#if configDocItem.defaultValue?has_content]`[=configDocItem.defaultValue]`[#elseif ! configDocItem.optional]required icon:exclamation-circle[title=Configuration property is required][/#if]
 [/#list]
 |===
 
