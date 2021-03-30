@@ -26,11 +26,11 @@ import org.apache.camel.CamelContext;
 public class MasterResource {
 
     @Inject
-    private CamelContext camelContext;
+    CamelContext camelContext;
 
-    @Path("/camel/stop")
+    @Path("/camel/stop/leader")
     @GET
-    public void stopCamelContext() {
-        camelContext.stop();
+    public void stopLeaderRoute() throws Exception {
+        camelContext.getRouteController().stopRoute("leader");
     }
 }

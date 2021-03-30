@@ -50,7 +50,7 @@ class MasterTest {
 
             // Stop camel to trigger failover
             RestAssured.given()
-                    .get("/master/camel/stop")
+                    .get("/master/camel/stop/leader")
                     .then()
                     .statusCode(204);
 

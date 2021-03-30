@@ -40,7 +40,7 @@ public class MasterRoutes extends RouteBuilder {
         getContext().addService(service);
 
         // Output the id of the application into a file
-        from("master:ns:timer:test?period=100")
+        from("master:ns:timer:test?period=100").id("leader")
                 .setBody(constant(applicationId))
                 .setHeader(Exchange.FILE_NAME, constant("leader.txt"))
                 .to("file:target/cluster/");
