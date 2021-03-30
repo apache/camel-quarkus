@@ -51,7 +51,7 @@ class BindyProcessor {
 
     @BuildStep
     NativeImageResourceDirectoryBuildItem resourceBundles() {
-        return new NativeImageResourceDirectoryBuildItem("com/ibm/icu/impl/data");
+        return new NativeImageResourceDirectoryBuildItem("com/ibm/icu/impl/data/icudt68b/brkitr");
     }
 
     @BuildStep
