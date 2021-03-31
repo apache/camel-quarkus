@@ -40,13 +40,6 @@
         <dependencies>
 
             <!-- External BOMs -->
-            <dependency><!-- this needs to occur before quarkus-bom to get a higher prio -->
-                <groupId>io.fabric8</groupId>
-                <artifactId>kubernetes-client-bom</artifactId>
-                <version>${kubernetes-client.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom</artifactId>
