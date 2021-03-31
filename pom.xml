@@ -90,7 +90,6 @@
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
-        <kubernetes-client.version>${kubernetes-client-version}</kubernetes-client.version>
         <kotlin.version>1.4.31</kotlin.version><!-- keep in sync with Quarkus -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
