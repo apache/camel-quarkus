@@ -4,13 +4,26 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.8.0...HEAD)
 
+**Fixed bugs:**
+
+- Spring RabbitMQ integration test fails in native mode with Camel 3.9.0 [\#2340](https://github.com/apache/camel-quarkus/issues/2340)
+
 **Closed issues:**
 
+- bindy: do not embed useless resources [\#2413](https://github.com/apache/camel-quarkus/issues/2413)
+- Document the process for maintaining \(quarkus | camel\)-master branches [\#2406](https://github.com/apache/camel-quarkus/issues/2406)
+- Intermittent failure in camel-quarkus-master-integration-test [\#2384](https://github.com/apache/camel-quarkus/issues/2384)
 - Use camel-servicenow-maven-plugin to generate model classes [\#2316](https://github.com/apache/camel-quarkus/issues/2316)
 - Stop CI testing on Java 8 [\#2287](https://github.com/apache/camel-quarkus/issues/2287)
 
 **Merged pull requests:**
 
+- Fix intermittent failure in camel-quarkus-master-integration-test [\#2419](https://github.com/apache/camel-quarkus/pull/2419) ([jamesnetherton](https://github.com/jamesnetherton))
+- core: Removed the href in core javadoc as it does not generate a corr… [\#2418](https://github.com/apache/camel-quarkus/pull/2418) ([aldettinger](https://github.com/aldettinger))
+- Fix of Spring RabbitMQ integration test failures after spring update [\#2415](https://github.com/apache/camel-quarkus/pull/2415) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- bindy: do not embed useless resources \#2413 [\#2414](https://github.com/apache/camel-quarkus/pull/2414) ([aldettinger](https://github.com/aldettinger))
+- Document the process for maintaining \(quarkus | camel\)-master branches [\#2412](https://github.com/apache/camel-quarkus/pull/2412) ([jamesnetherton](https://github.com/jamesnetherton))
+- bindy: created a test to show the locale issue in native and document… [\#2408](https://github.com/apache/camel-quarkus/pull/2408) ([aldettinger](https://github.com/aldettinger))
 - Remove Camel 3.9.0 staging repository [\#2404](https://github.com/apache/camel-quarkus/pull/2404) ([jamesnetherton](https://github.com/jamesnetherton))
 - Revert Disable doc xref checks as there is no camel-3.9.x branch yet [\#2394](https://github.com/apache/camel-quarkus/pull/2394) ([jamesnetherton](https://github.com/jamesnetherton))
 - Quarkiverse dependency upgrades [\#2390](https://github.com/apache/camel-quarkus/pull/2390) ([ppalaga](https://github.com/ppalaga))
@@ -76,6 +89,7 @@
 - Add a link to a blog post about Camel Quarkus command line applications [\#2352](https://github.com/apache/camel-quarkus/pull/2352) ([ppalaga](https://github.com/ppalaga))
 - Fix some deprecation warnings [\#2348](https://github.com/apache/camel-quarkus/pull/2348) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Kotlin to 1.4.31 [\#2347](https://github.com/apache/camel-quarkus/pull/2347) ([jamesnetherton](https://github.com/jamesnetherton))
+- openstack: added keystone tests \#1943 [\#2346](https://github.com/apache/camel-quarkus/pull/2346) ([aldettinger](https://github.com/aldettinger))
 - Remove AWS SDK v1 extensions after they have been removed from Camel [\#2345](https://github.com/apache/camel-quarkus/pull/2345) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.13.0.CR1 [\#2343](https://github.com/apache/camel-quarkus/pull/2343) ([jamesnetherton](https://github.com/jamesnetherton))
 - Register classes with Solr Field annotations for reflection [\#2342](https://github.com/apache/camel-quarkus/pull/2342) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -727,6 +741,7 @@
 - Avoid purging artifacts for builds that may be in progress [\#1529](https://github.com/apache/camel-quarkus/pull/1529) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgarde to camel v3.4.3 [\#1527](https://github.com/apache/camel-quarkus/pull/1527) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fixed the VerifyError in the health example fixes \#1517 [\#1525](https://github.com/apache/camel-quarkus/pull/1525) ([aldettinger](https://github.com/aldettinger))
+- 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
 - Completed bean itests with an @InjectMock test [\#1515](https://github.com/apache/camel-quarkus/pull/1515) ([aldettinger](https://github.com/aldettinger))
 - Add extension for smallrye-reactive-messaging-camel [\#1514](https://github.com/apache/camel-quarkus/pull/1514) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add master extension [\#1511](https://github.com/apache/camel-quarkus/pull/1511) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -817,7 +832,6 @@
 
 **Merged pull requests:**
 
-- 1.0.0 post release cleanup [\#1524](https://github.com/apache/camel-quarkus/pull/1524) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1597,7 +1611,6 @@
 - Bump To Quarkus 1.0.0-M3 [\#664](https://github.com/apache/camel-quarkus/pull/664) ([oscerd](https://github.com/oscerd))
 - Add integration test for Jackson unmarshalling with different POJOs [\#663](https://github.com/apache/camel-quarkus/pull/663) ([philschaller](https://github.com/philschaller))
 - Upgrade TestContainers to version 1.12.5 [\#662](https://github.com/apache/camel-quarkus/pull/662) ([oscerd](https://github.com/oscerd))
-- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M3](https://github.com/apache/camel-quarkus/tree/1.0.0-M3) (2020-01-24)
 
@@ -1657,6 +1670,7 @@
 **Merged pull requests:**
 
 - Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
+- The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel ReactiveStreams extension \(initial implementation\) [\#659](https://github.com/apache/camel-quarkus/pull/659) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update Quarkus to v1.2.0.Final [\#658](https://github.com/apache/camel-quarkus/pull/658) ([lburgazzoli](https://github.com/lburgazzoli))
 - factory-finder: move reactive-executor filter to core processor as the related service is always programmatically configured [\#657](https://github.com/apache/camel-quarkus/pull/657) ([lburgazzoli](https://github.com/lburgazzoli))
@@ -1721,6 +1735,7 @@
 - Randomize http test port [\#555](https://github.com/apache/camel-quarkus/pull/555) ([lburgazzoli](https://github.com/lburgazzoli))
 - Modular RoutesCollector [\#554](https://github.com/apache/camel-quarkus/pull/554) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add camel-endpointdsl extension [\#552](https://github.com/apache/camel-quarkus/pull/552) ([lburgazzoli](https://github.com/lburgazzoli))
+- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Enable local native sftp tests [\#547](https://github.com/apache/camel-quarkus/pull/547) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M2](https://github.com/apache/camel-quarkus/tree/1.0.0-M2) (2019-12-17)
@@ -1739,7 +1754,6 @@
 
 **Merged pull requests:**
 
-- Quarkus 1.1 upgrade [\#550](https://github.com/apache/camel-quarkus/pull/550) ([gsmet](https://github.com/gsmet))
 - Add initial support for kotlin [\#549](https://github.com/apache/camel-quarkus/pull/549) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure custom services such as deataformats, languages and component are not removed from container [\#548](https://github.com/apache/camel-quarkus/pull/548) ([lburgazzoli](https://github.com/lburgazzoli))
 - Ensure RoutesBuilder instances created by a CDI Producder are  not removed [\#546](https://github.com/apache/camel-quarkus/pull/546) ([lburgazzoli](https://github.com/lburgazzoli))
