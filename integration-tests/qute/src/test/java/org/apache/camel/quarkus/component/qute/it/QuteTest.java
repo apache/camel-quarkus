@@ -26,7 +26,25 @@ import static org.hamcrest.Matchers.is;
 class QuteTest {
 
     @Test
-    public void test() {
-        RestAssured.when().get("/qute/get/World").then().body(is("Hello World"));
+    public void testTemplate() {
+        RestAssured.get("/qute/template/World")
+                .then()
+                .body(is("Hello World"));
+    }
+
+    @Test
+    public void testInvalidTemplatePath() {
+        RestAssured.get("/qute/template/invalid/path")
+                .then()
+                .body(is("Unable to parse Qute template from path: invalid-path"));
+    }
+
+    @Test
+    public void tesTemplateContentFromHeader() {
+        RestAssured.given()
+                .body("Hello {body}")
+                .post("/qute/template")
+                .then()
+                .body(is("Hello World"));
     }
 }
