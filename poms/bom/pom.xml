@@ -5562,6 +5562,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.google.api</groupId>
+                <artifactId>api-common</artifactId>
+                <version>${google-api-common.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.google.api.grpc</groupId>
                 <artifactId>proto-google-common-protos</artifactId>
                 <version>${proto-google-common-protos.version}</version>
@@ -5596,6 +5601,11 @@
                         <artifactId>jsr305</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>com.google.http-client</groupId>
+                <artifactId>google-http-client-jackson2</artifactId>
+                <version>${google-http-client-jackson2.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
