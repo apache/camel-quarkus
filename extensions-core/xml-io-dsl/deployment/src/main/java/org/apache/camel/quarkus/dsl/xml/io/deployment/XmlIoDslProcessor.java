@@ -18,7 +18,9 @@
 package org.apache.camel.quarkus.dsl.xml.io.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 public class XmlIoDslProcessor {
     private static final String FEATURE = "camel-xml-io-dsl";
@@ -27,4 +29,10 @@ public class XmlIoDslProcessor {
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
+
+    @BuildStep
+    CapabilityBuildItem capability() {
+        return new CapabilityBuildItem(CamelCapabilities.XML);
+    }
+
 }
