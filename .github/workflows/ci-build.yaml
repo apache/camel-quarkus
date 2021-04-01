@@ -325,10 +325,6 @@ jobs:
     needs: initial-mvn-install
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
-    strategy:
-      fail-fast: false
-      matrix:
-        java: [ '11', '15' ]
     steps:
       - name: Setup apache-snapshots profile
         if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
@@ -338,20 +334,12 @@ jobs:
         if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
-      - name: Activate native tests on Java 11
-        if: matrix.java == '11'
-        run: |
-          echo "MVN_TARGETS=-Pnative,docker clean verify" >> $GITHUB_ENV
-      - name: Do not activate native tests on Java non-11
-        if: matrix.java != '11'
-        run: |
-          echo "MVN_TARGETS=clean test" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
       - name: Set up JDK 11
         uses: AdoptOpenJDK/install-jdk@v1
         with:
-          version: ${{ matrix.java }}
+          version: 11
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
@@ -368,35 +356,4 @@ jobs:
           git clone --depth 1 --branch camel-quarkus-master https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
-            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} ${MVN_TARGETS}
-
-  # memoryhogs:
-  #   runs-on: ubuntu-latest
-  #   needs: initial-mvn-install
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v2
-  #     - name: Set Up Java
-  #       uses: actions/setup-java@v1
-  #       with:
-  #         java-version: 11
-  #      - name: Download Maven Repo
-  #        uses: actions/download-artifact@v1
-  #        with:
-  #          name: maven-repo
-  #          path: ..
-  #      - name: Extract Maven Repo
-  #        shell: bash
-  #        run: tar -xzf ../maven-repo.tgz -C ~
-  #     # run the :camel-quarkus-integration-test-fhir as standalone process
-  #     # as it building the native image including camel-fhir requires lot
-  #     # of memory this we nee to limit it to avoid the process fail for OOM.
-  #     - name: Integration Tests
-  #       run: |
-  #         ./mvnw ${MAVEN_ARGS} \
-  #           -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn clean verify \
-  #           -Dnative \
-  #           -Ddocker \
-  #           -DskipTests \
-  #           -Dnative-image.xmx=5g \
-  #           -pl :camel-quarkus-integration-test-fhir
+            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify

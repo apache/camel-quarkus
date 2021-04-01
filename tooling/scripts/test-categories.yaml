@@ -136,33 +136,34 @@ messaging-networking1:
 misc:
   - braintree
   - fop
-  - jsonata
-  - jolt
-  - mustache
   - nagios
   - oaipmh
   - pdf
-  - qute
   - shiro
-  - stringtemplate
   - tika
-  - velocity
   - as2
   - kotlin
-  - disruptor
   - atlasmap
   - mail
   - main-unknown-args-fail
   - main-unknown-args-ignore
-  - netty
   - nsq
-  - servlet
-  - univocity-parsers
   - vertx
+networking-dataformats:
   - compression
+  - disruptor
   - flatpack
   - grok
+  - jolt
+  - jsonata
+  - mustache
+  - netty
+  - qute
+  - servlet
+  - stringtemplate
   - tarfile
+  - univocity-parsers
+  - velocity
 platform:
   - microprofile
   - openapi-java
