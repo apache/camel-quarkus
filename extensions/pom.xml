@@ -160,6 +160,7 @@
         <module>microprofile-health</module>
         <module>microprofile-metrics</module>
         <module>minio</module>
+        <module>mllp</module>
         <module>mock</module>
         <module>mongodb</module>
         <module>mongodb-gridfs</module>
