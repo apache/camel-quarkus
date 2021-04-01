@@ -84,16 +84,14 @@ class AzureStorageDatalakeTest {
                     .get("/azure-storage-datalake/filesystem/" + filesystem + "/path/" + filename)
                     .then()
                     .statusCode(200)
-                    // TODO should be Matches.is(content) https://github.com/apache/camel-quarkus/issues/2302
-                    .body(Matchers.startsWith(content));
+                    .body(Matchers.is(content));
 
             /* Consumer */
             RestAssured.given()
                     .get("/azure-storage-datalake/consumer/" + filesystem + "/path/" + filename)
                     .then()
                     .statusCode(200)
-                    // TODO should be Matches.is(content) https://github.com/apache/camel-quarkus/issues/2302
-                    .body(Matchers.startsWith(content));
+                    .body(Matchers.is(content));
 
         } finally {
             /* Clean up */
