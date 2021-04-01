@@ -19,27 +19,47 @@ package org.apache.camel.quarkus.component.qute.it;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
-import org.jboss.logging.Logger;
+import org.apache.camel.component.qute.QuteConstants;
 
 @Path("/qute")
 @ApplicationScoped
 public class QuteResource {
 
-    private static final Logger LOG = Logger.getLogger(QuteResource.class);
-
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/get/{name}")
+    @Path("/template")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getTemplateFromHeader(String content) throws Exception {
+        return producerTemplate.requestBodyAndHeader("qute:hello?allowTemplateFromHeader=true", "World",
+                QuteConstants.QUTE_TEMPLATE, content, String.class);
+    }
+
+    @Path("/template/{name}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String get(@PathParam("name") String name) throws Exception {
+    public String getTemplateFromPath(@PathParam("name") String name) throws Exception {
         return producerTemplate.requestBody("direct:test", name, String.class);
+    }
+
+    @Path("/template/invalid/path")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getInvalidTemplatePath() throws Exception {
+        try {
+            producerTemplate.requestBody("qute:invalid-path", "test", String.class);
+            return null;
+        } catch (CamelExecutionException e) {
+            return e.getCause().getMessage();
+        }
     }
 }

@@ -27,6 +27,7 @@ import io.quarkus.qute.Engine;
 import io.quarkus.qute.EngineBuilder;
 import io.quarkus.qute.ReflectionValueResolver;
 import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateException;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.qute.TemplateLocator.TemplateLocation;
 import io.quarkus.qute.Variant;
@@ -187,9 +188,15 @@ public class QuteEndpoint extends ResourceEndpoint {
             Engine engine = getQuteEngine();
             if (content == null) {
                 template = engine.getTemplate(path);
+                if (template == null) {
+                    throw new TemplateException("Unable to parse Qute template from path: " + path);
+                }
             } else {
                 // This is the first time to parse the content
                 template = engine.parse(content);
+                if (template == null) {
+                    throw new TemplateException("Unable to parse Qute template");
+                }
             }
             instance = template.instance();
         }
