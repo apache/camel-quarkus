@@ -24,8 +24,10 @@
 name: "Camel XML IO"
 description: "An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp"
 metadata:
+  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xml-io.html"
   categories:
   - "integration"
   status:
   - "stable"
+  - "deprecated"
