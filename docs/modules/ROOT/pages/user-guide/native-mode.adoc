@@ -1,12 +1,12 @@
 = Native mode
 :page-aliases: native-mode.adoc
 
-Things to consider before you run your application in the native mode.
+Things to consider before you run your application in native mode.
 
 [[charsets]]
 == Character encodings
 
-By default only the following `Charsets` are available in the native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
+By default only the following `Charsets` are available in native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
 
 [source,text]
 ----
@@ -26,7 +26,7 @@ See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-al
 in Quarkus documentation.
 
 [[embedding-resource-in-native-executable]]
-== Embedding resource in native executable
+== Embedding resources in the native executable
 
 Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
 
@@ -42,9 +42,9 @@ In the example above, resources named _docs/included.adoc_ and _images/included.
 At the end of the day, resources matching `include-patterns` are marked for inclusion at the exception of resources matching `exclude-patterns`.
 
 [[using-onexception-clause-in-native-mode]]
-== Using onException clause in native mode
+== Using the onException clause in native mode
 
-When using xref:latest@manual::exception-clause.adoc[camel onException handling] in native mode, it is the application developer's responsibility to register exception classes for reflection.
+When using xref:latest@manual::exception-clause.adoc[camel onException handling] in native mode, it is the application developers responsibility to register exception classes for reflection.
 
 For instance, having a camel context with onException handling as below:
 
@@ -59,7 +59,7 @@ The class `mypackage.MyException` should be registered for reflection, see more 
 [[reflection]]
 == Registering classes for reflection
 
-By default, dynamic reflection is not available in native mode. Classes for which reflective access is needed have to be
+By default, dynamic reflection is not available in native mode. Classes for which reflective access is needed, have to be
 registered for reflection at compile time.
 
 In many cases, application developers do not need to care because Quarkus extensions are able to detect the classes that
