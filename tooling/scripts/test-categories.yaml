@@ -26,6 +26,7 @@ cache-networking3:
   - ssh
   - hazelcast
   - ipfs
+  - mllp
 cloud:
   - solr
   - aws2

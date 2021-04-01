@@ -149,6 +149,7 @@
         <module>micrometer</module>
         <module>microprofile</module>
         <module>minio</module>
+        <module>mllp</module>
         <module>mongodb</module>
         <module>msv</module>
         <module>mustache</module>
