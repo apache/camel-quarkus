@@ -49,11 +49,11 @@ public class OpenstackNovaServerResource {
     private static final String URI_FORMAT = "openstack-nova://{{camel.openstack.test.host-url}}?username=user&password=secret&project=project&operation=%s&subsystem="
             + NovaConstants.NOVA_SUBSYSTEM_SERVERS;
 
-    private final String SERVER_NAME = "server-test-1";
-    private final String SERVER_ID = "e565cbdb-8e74-4044-ba6e-0155500b2c46";
-    private final String SERVER_WRONG_ID = "05184ba3-00ba-4fbc-b7a2-03b62b884931";
-    private final String SERVER_SNAPSHOT_NAME = "server-snapshot";
-    private final String SERVER_SNAPSHOT_ID = "72f759b3-2576-4bf0-9ac9-7cb4a5b9d541";
+    private static final String SERVER_NAME = "server-test-1";
+    private static final String SERVER_ID = "e565cbdb-8e74-4044-ba6e-0155500b2c46";
+    private static final String SERVER_WRONG_ID = "05184ba3-00ba-4fbc-b7a2-03b62b884931";
+    private static final String SERVER_SNAPSHOT_NAME = "server-snapshot";
+    private static final String SERVER_SNAPSHOT_ID = "72f759b3-2576-4bf0-9ac9-7cb4a5b9d541";
 
     @Inject
     ProducerTemplate template;
