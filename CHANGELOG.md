@@ -149,7 +149,6 @@
 - Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
 - Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
-- Add basic Netty UDP tests [\#2264](https://github.com/apache/camel-quarkus/pull/2264) ([jamesnetherton](https://github.com/jamesnetherton))
 - Nitrite native support \#1298 [\#2254](https://github.com/apache/camel-quarkus/pull/2254) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Freemarker native support  [\#2184](https://github.com/apache/camel-quarkus/pull/2184) ([ppalaga](https://github.com/ppalaga))
 
@@ -204,6 +203,7 @@
 - Make git tests ignore local configuration [\#2269](https://github.com/apache/camel-quarkus/pull/2269) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable ryuk on CI builds [\#2267](https://github.com/apache/camel-quarkus/pull/2267) ([jamesnetherton](https://github.com/jamesnetherton))
 - Deprecate Webocket JSR 356 \#2262 [\#2265](https://github.com/apache/camel-quarkus/pull/2265) ([ppalaga](https://github.com/ppalaga))
+- Add basic Netty UDP tests [\#2264](https://github.com/apache/camel-quarkus/pull/2264) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.12.0.Final [\#2263](https://github.com/apache/camel-quarkus/pull/2263) ([jamesnetherton](https://github.com/jamesnetherton))
 - JFR JVM only support [\#2259](https://github.com/apache/camel-quarkus/pull/2259) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added CBOR data format native support \#1754 [\#2257](https://github.com/apache/camel-quarkus/pull/2257) ([aldettinger](https://github.com/aldettinger))
@@ -450,7 +450,9 @@
 - Provide a quickly profile [\#1962](https://github.com/apache/camel-quarkus/pull/1962) ([ppalaga](https://github.com/ppalaga))
 - Leverage Quarkus JAXP extension where applicable \#1806 [\#1958](https://github.com/apache/camel-quarkus/pull/1958) ([ppalaga](https://github.com/ppalaga))
 - Document Spark peculiarities \#1928 [\#1957](https://github.com/apache/camel-quarkus/pull/1957) ([ppalaga](https://github.com/ppalaga))
+- Leverage camel-platform-http-vertx in platform-http extension [\#1954](https://github.com/apache/camel-quarkus/pull/1954) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace ${camel.quarkus.project.root} set by directory-maven-plugin w… [\#1953](https://github.com/apache/camel-quarkus/pull/1953) ([ppalaga](https://github.com/ppalaga))
+- lumberjack : move client payload sending to test fixes \#1949 [\#1950](https://github.com/apache/camel-quarkus/pull/1950) ([zbendhiba](https://github.com/zbendhiba))
 - ActiveMQ Default XPath evaluator could not be loaded [\#1947](https://github.com/apache/camel-quarkus/pull/1947) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix usage of deprecated GitHub actions commands [\#1946](https://github.com/apache/camel-quarkus/pull/1946) ([jamesnetherton](https://github.com/jamesnetherton))
 - Camel 3.6.0 upgrade leftovers [\#1940](https://github.com/apache/camel-quarkus/pull/1940) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1981,7 +1983,6 @@
 
 - Update to quarkus 0.27.0 when available [\#346](https://github.com/apache/camel-quarkus/issues/346)
 - platform-http should return 415 for an unaccepted content type [\#326](https://github.com/apache/camel-quarkus/issues/326)
-- Document the platform-http extension [\#324](https://github.com/apache/camel-quarkus/issues/324)
 - TarfileTest can fail on exotic platforms [\#270](https://github.com/apache/camel-quarkus/issues/270)
 - platform-http component should return 204 for success and no body [\#220](https://github.com/apache/camel-quarkus/issues/220)
 
@@ -2015,6 +2016,7 @@
 
 - Create a Camel pdf component extension [\#341](https://github.com/apache/camel-quarkus/issues/341)
 - Do not use docker to run native tests [\#332](https://github.com/apache/camel-quarkus/issues/332)
+- Document the platform-http extension [\#324](https://github.com/apache/camel-quarkus/issues/324)
 - Make camel-attachments an optional dependency of platform-http [\#322](https://github.com/apache/camel-quarkus/issues/322)
 - Upgarde to camel 3.0.0-RC3 [\#316](https://github.com/apache/camel-quarkus/issues/316)
 - Upgrade to quarkus 0.26.0 [\#315](https://github.com/apache/camel-quarkus/issues/315)
