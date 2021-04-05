@@ -1062,7 +1062,6 @@
 - chore\(deps\): update testcontainers to v1.14.3 [\#1279](https://github.com/apache/camel-quarkus/pull/1279) ([lburgazzoli](https://github.com/lburgazzoli))
 - Debezium SQL Server Connector native support \#1193 [\#1278](https://github.com/apache/camel-quarkus/pull/1278) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Tika support [\#998](https://github.com/apache/camel-quarkus/pull/998) ([JiriOndrusek](https://github.com/JiriOndrusek))
-- Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Revisit camel-quarkus bootstrap [\#1344](https://github.com/apache/camel-quarkus/pull/1344) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-CR2](https://github.com/apache/camel-quarkus/tree/1.0.0-CR2) (2020-05-29)
@@ -1417,6 +1416,7 @@
 - Make a tabular list of examples for the examples page [\#991](https://github.com/apache/camel-quarkus/pull/991) ([AemieJ](https://github.com/AemieJ))
 - \[CAMEL-13704\] - Added PR template file with instructions on what to include [\#990](https://github.com/apache/camel-quarkus/pull/990) ([Xxyumi-hub](https://github.com/Xxyumi-hub))
 - Fix \#253 Build time property to register classes for reflection [\#987](https://github.com/apache/camel-quarkus/pull/987) ([ppalaga](https://github.com/ppalaga))
+- Update Quarkus extension description for zip-deflater and lzf [\#986](https://github.com/apache/camel-quarkus/pull/986) ([rsvoboda](https://github.com/rsvoboda))
 - Move quarkus.camel.resources.\* config options to quarkus.camel.native… [\#983](https://github.com/apache/camel-quarkus/pull/983) ([ppalaga](https://github.com/ppalaga))
 - Add GitHub extension [\#982](https://github.com/apache/camel-quarkus/pull/982) ([jamesnetherton](https://github.com/jamesnetherton))
 - Separate some misc extensions into their own categories [\#981](https://github.com/apache/camel-quarkus/pull/981) ([jamesnetherton](https://github.com/jamesnetherton))
