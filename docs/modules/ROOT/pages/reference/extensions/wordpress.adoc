@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-wordpress
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Manage posts and users using Wordpress API.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

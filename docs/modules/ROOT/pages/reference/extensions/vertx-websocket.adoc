@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-vertx-websocket
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Camel WebSocket support with Vert.x
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

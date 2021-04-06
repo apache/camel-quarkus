@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-rss
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Poll RSS feeds.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

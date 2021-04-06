@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-leveldb
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Using LevelDB as persistent EIP store
 :cq-deprecated: false
 :cq-jvm-since: 1.2.0

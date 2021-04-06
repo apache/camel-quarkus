@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-timer
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Generate messages in specified intervals using java.util.Timer.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

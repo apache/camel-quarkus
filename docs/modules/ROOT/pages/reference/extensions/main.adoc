@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-main
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Bootstrap Camel using Camel Main which brings advanced auto-configuration capabilities and integration with Quarkus Command Mode
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

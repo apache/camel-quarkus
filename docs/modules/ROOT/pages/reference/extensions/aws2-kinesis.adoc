@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-aws2-kinesis
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Consume and produce records from AWS Kinesis Streams using AWS SDK version 2.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

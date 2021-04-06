@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-tarfile
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Archive files into tarballs or extract files from tarballs.
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

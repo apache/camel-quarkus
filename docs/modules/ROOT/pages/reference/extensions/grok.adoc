@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-grok
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Unmarshal unstructured data to objects using Logstash based Grok patterns.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

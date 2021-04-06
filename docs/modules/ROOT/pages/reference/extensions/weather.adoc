@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-weather
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Poll the weather information from Open Weather Map.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

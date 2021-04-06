@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-ahc-ws
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Exchange data with external Websocket servers using Async Http Client.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

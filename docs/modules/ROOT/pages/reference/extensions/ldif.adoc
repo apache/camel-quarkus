@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-ldif
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform updates on an LDAP server from an LDIF body content.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

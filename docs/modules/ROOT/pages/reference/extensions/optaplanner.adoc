@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-optaplanner
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Solve planning problems with OptaPlanner.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

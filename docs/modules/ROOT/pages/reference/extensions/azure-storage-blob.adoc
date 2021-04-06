@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-azure-storage-blob
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

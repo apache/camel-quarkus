@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-aws2-translate
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Translate texts using AWS Translate and AWS SDK version 2.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -66,6 +66,11 @@ public class CamelQuarkusExtension {
             }
 
             final String version = CqUtils.getVersion(runtimePom);
+            final boolean nativeSupported = !runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString()
+                    .endsWith("-jvm");
+            final String extensionStatus = props.getProperty("quarkus.metadata.status");
+            final ExtensionStatus status = extensionStatus == null ? ExtensionStatus.of(nativeSupported)
+                    : ExtensionStatus.valueOf(extensionStatus);
 
             return new CamelQuarkusExtension(
                     runtimePomXmlPath,
@@ -77,7 +82,8 @@ public class CamelQuarkusExtension {
                     runtimePom.getDescription(),
                     props.getProperty("label"),
                     version,
-                    !runtimePomXmlPath.getParent().getParent().getParent().getFileName().toString().endsWith("-jvm"),
+                    nativeSupported,
+                    status,
                     deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps));
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("Could not read " + runtimePomXmlPath, e);
@@ -95,6 +101,7 @@ public class CamelQuarkusExtension {
     private final boolean nativeSupported;
     private final String nativeSince;
     private final List<Dependency> dependencies;
+    private final ExtensionStatus status;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
@@ -107,6 +114,7 @@ public class CamelQuarkusExtension {
             String label,
             String version,
             boolean nativeSupported,
+            ExtensionStatus status,
             List<Dependency> dependencies) {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
@@ -119,6 +127,7 @@ public class CamelQuarkusExtension {
         this.label = label;
         this.version = version;
         this.nativeSupported = nativeSupported;
+        this.status = status;
         this.dependencies = dependencies;
     }
 
@@ -168,6 +177,10 @@ public class CamelQuarkusExtension {
 
     public Optional<String> getNativeSince() {
         return Optional.ofNullable(nativeSince);
+    }
+
+    public ExtensionStatus getStatus() {
+        return status;
     }
 
 }

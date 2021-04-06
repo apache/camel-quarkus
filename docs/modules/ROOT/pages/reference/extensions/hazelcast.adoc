@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-hazelcast
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Increment, decrement, set, etc. Hazelcast atomic number (a grid wide number).
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

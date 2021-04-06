@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-olingo4
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Communicate with OData 4.0 services using Apache Olingo OData API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

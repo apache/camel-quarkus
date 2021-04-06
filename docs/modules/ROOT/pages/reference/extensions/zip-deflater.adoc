@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-zip-deflater
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Compress and decompress streams using java.util.zip.Deflater, java.util.zip.Inflater or java.util.zip.GZIPStream.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

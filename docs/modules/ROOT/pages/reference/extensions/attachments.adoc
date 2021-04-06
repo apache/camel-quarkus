@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-attachments
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Support for attachments on Camel messages
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

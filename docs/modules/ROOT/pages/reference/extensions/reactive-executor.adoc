@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-reactive-executor
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Reactive Executor for camel-core using Vert.x
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-validator
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Validate the payload using XML Schema and JAXP Validation.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

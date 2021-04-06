@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-saxon
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Query and/or transform XML payloads using XQuery and Saxon.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-google-bigquery
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Access Google Cloud BigQuery service using SQL queries or Google Client Services API
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

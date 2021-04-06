@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-lucene
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform inserts or queries against Apache Lucene databases.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-slack
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages to/from Slack.
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

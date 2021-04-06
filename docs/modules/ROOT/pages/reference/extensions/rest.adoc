@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-rest
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Expose REST services and their OpenAPI Specification or call external REST services.
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1

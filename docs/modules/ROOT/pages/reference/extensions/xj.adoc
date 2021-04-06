@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-xj
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Transform JSON and XML message using a XSLT.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

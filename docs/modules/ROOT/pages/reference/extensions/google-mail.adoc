@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-google-mail
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Manage messages in Google Mail. Poll for incoming messages in Google Mail.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

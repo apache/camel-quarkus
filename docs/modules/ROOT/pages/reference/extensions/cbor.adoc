@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-cbor
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Unmarshal a CBOR payload to POJO and back.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

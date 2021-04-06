@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-pubnub
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages to/from PubNub data stream network for connected devices.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

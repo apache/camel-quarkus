@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-jt400
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Exchanges messages with an IBM i system using data queues, message queues, or program call. IBM i is the replacement for AS/400 and iSeries servers.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

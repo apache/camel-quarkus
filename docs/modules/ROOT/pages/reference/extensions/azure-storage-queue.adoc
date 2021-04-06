@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-azure-storage-queue
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

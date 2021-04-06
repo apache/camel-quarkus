@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-nagios
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send passive checks to Nagios using JSendNSCA.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

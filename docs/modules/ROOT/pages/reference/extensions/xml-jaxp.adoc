@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-xml-jaxp
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Tokenize XML payloads using the specified path expression.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-infinispan
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Read and write from/to Infinispan distributed key/value store and data grid.
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-saga
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Execute custom actions within a route using the Saga EIP.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

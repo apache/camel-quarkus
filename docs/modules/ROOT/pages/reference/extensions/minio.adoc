@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-minio
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Store and retrieve objects from Minio Storage Service using Minio SDK.
 :cq-deprecated: false
 :cq-jvm-since: 1.5.0

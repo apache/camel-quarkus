@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-microprofile-health
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Bridging Eclipse MicroProfile Health with Camel health checks
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

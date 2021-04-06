@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-milo
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Connect to OPC UA servers using the binary protocol for acquiring telemetry data.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

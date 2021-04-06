@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jacksonxml
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

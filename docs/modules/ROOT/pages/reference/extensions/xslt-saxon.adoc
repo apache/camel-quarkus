@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-xslt-saxon
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Transform XML payloads using an XSLT template using Saxon.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-ref
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Route messages to an endpoint looked up dynamically by name in the Camel Registry.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

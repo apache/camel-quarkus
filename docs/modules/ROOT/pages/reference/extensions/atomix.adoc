@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-atomix
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Access Atomix's distributed map.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

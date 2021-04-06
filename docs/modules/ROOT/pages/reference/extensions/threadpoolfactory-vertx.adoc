@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-threadpoolfactory-vertx
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: ThreadPoolFactory for camel-core using Vert.x
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

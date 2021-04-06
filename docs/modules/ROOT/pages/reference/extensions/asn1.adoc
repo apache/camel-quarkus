@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-asn1
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Encode and decode data structures using Abstract Syntax Notation One (ASN.1).
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-redis
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Aggregation repository using Redis as datastore
 :cq-deprecated: false
 :cq-jvm-since: 1.6.0

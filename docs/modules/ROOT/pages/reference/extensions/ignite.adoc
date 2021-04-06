@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-ignite
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform cache operations on an Ignite cache or consume changes from a continuous query.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

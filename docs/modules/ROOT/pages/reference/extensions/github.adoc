@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-github
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with the GitHub API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-google-sheets
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Manage spreadsheets in Google Sheets. Poll for changes in Google Sheets.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

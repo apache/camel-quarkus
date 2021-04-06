@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-activemq
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-reactive-streams
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Exchange messages with reactive stream processing libraries compatible with the reactive streams standard.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

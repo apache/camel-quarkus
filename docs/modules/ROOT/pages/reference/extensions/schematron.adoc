@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-schematron
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Validate XML payload using the Schematron Library.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

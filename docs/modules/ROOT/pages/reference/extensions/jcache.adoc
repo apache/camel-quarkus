@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-jcache
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform caching operations against JSR107/JCache.
 :cq-deprecated: false
 :cq-jvm-since: 1.2.0

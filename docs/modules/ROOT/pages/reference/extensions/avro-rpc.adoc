@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-avro-rpc
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Produce or consume Apache Avro RPC services.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

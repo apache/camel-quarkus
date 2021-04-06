@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-aws2-ddb
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Store and retrieve data from AWS DynamoDB service or receive messages from AWS DynamoDB Stream using AWS SDK version 2.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

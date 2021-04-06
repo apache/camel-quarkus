@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-kudu
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

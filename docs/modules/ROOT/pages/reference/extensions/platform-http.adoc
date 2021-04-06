@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-platform-http
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Expose HTTP endpoints using the HTTP server available in the current platform.
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-log
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Log messages to the underlying logging mechanism.
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1

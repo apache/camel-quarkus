@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-file-watch
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Get notified about file events in a directory using java.nio.file.WatchService.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

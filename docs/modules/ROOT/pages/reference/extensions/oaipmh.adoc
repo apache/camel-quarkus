@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-oaipmh
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Harvest metadata using OAI-PMH protocol
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0

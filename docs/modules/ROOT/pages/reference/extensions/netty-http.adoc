@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-netty-http
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Netty HTTP server and client using the Netty 4.x.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-corda
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Perform operations against Corda blockchain platform using corda-rpc library.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

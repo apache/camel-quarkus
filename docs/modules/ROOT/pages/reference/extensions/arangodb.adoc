@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-arangodb
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Perform operations on ArangoDb documents, collections and graphs.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

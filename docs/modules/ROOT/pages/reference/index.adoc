@@ -24,4 +24,4 @@ since | Support +
 level | Description
 |===
 
-indexTable::[relative='reference/extensions/*.adoc',cells="$xref,cq-artifact-id,cq-jvm-since,cq-native-since,cq-status,cq-description"]
+indexTable::[relative='reference/extensions/*.adoc',cells="$xref,cq-artifact-id,cq-jvm-since,cq-native-since,cq-status-deprecation,cq-description"]

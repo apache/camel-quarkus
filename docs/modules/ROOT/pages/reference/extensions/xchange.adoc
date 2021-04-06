@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-xchange
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Access market data and trade on Bitcoin and Altcoin exchanges.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-grpc
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Expose gRPC endpoints and access external gRPC endpoints.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-stringtemplate
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Transform messages using StringTemplate engine.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-debezium-mysql
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Capture changes from a MySQL database.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jira
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with JIRA issue tracker.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

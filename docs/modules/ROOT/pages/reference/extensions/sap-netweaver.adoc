@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-sap-netweaver
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send requests to SAP NetWeaver Gateway using HTTP.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

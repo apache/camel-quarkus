@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-bean
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Invoke methods of Java beans
 :cq-deprecated: false
 :cq-jvm-since: 0.1.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-amqp
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Messaging with AMQP protocol using Apache QPid Client.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

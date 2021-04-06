@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-elsql
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Use ElSql to define SQL queries. Extends the SQL Component.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

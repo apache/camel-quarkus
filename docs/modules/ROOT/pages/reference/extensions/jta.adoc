@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jta
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

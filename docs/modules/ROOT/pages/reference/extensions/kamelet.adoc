@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-kamelet
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: The Kamelet Component provides support for interacting with the Camel Route Template engine
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0

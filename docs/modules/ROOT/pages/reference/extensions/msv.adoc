@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-msv
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Validate XML payloads using Multi-Schema Validator (MSV).
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-hbase
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Reading and write from/to an HBase store (Hadoop database).
 :cq-deprecated: false
 :cq-jvm-since: 1.2.0

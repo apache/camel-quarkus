@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-as2
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Transfer data securely and reliably using the AS2 protocol (RFC4130).
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

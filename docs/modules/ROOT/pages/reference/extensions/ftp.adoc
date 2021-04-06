@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-ftp
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Upload and download files to/from FTP or SFTP servers.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

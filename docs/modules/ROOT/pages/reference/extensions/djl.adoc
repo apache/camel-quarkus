@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-djl
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Infer Deep Learning models from message exchanges data using Deep Java Library (DJL).
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
