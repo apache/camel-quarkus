@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-telegram
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages acting as a Telegram Bot Telegram Bot API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

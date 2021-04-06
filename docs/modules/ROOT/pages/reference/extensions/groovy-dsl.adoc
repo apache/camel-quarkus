@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-groovy-dsl
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Support for parsing Groovy route definitions at runtime
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0

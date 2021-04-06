@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-xml-io
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: An XML stack for parsing XML route definitions. A fast an light weight alternative to camel-quarkus-xml-jaxp
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

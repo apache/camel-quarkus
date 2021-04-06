@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-google-calendar
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Perform various operations on a Google Calendar. Poll for changes in a Google Calendar.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

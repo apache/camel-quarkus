@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-snakeyaml
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal and unmarshal Java objects to and from YAML using SnakeYAML
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

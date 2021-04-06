@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-mybatis
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Performs a query, poll, insert, update or delete in a relational database using MyBatis.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

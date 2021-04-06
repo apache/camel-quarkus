@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-rest-openapi
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Configure REST producers based on an OpenAPI specification document delegating to a component implementing the RestProducerFactory interface.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-mongodb-gridfs
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with MongoDB GridFS.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

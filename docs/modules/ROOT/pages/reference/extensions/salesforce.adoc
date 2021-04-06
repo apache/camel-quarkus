@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-salesforce
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Communicate with Salesforce using Java DTOs.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

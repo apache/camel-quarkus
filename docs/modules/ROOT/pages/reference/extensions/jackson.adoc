@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jackson
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal POJOs to JSON and back using Jackson
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

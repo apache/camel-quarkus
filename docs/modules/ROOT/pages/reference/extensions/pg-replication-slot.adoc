@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-pg-replication-slot
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Poll for PostgreSQL Write-Ahead Log (WAL) records using Streaming Replication Slots.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-zendesk
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Manage Zendesk tickets, users, organizations, etc.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

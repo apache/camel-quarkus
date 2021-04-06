@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-aws2-cw
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

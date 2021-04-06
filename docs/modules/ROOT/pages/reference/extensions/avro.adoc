@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-avro
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Serialize and deserialize messages using Apache Avro binary data format.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

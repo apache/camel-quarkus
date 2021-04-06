@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-smallrye-reactive-messaging
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Camel integration with SmallRye Reactive Messaging
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

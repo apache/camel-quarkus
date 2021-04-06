@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-master
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Have only a single consumer in a cluster consuming from a given endpoint; with automatic failover if the JVM dies.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

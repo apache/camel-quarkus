@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-azure-eventhubs
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: The azure-eventhubs component that integrates Azure Event Hubs using AMQP protocol. Azure EventHubs is a highly scalable publish-subscribe service that can ingest millions of events per second and stream them to multiple consumers.
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0

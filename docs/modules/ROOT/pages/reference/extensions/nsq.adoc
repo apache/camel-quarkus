@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-nsq
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages from NSQ realtime distributed messaging platform.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

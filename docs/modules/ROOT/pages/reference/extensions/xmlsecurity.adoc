@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-xmlsecurity
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Sign XML payloads using the XML signature specification.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

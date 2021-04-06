@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-language
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Execute scripts in any of the languages supported by Camel.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

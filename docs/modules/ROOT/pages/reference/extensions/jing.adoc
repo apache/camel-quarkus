@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-jing
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Validate XML against a RelaxNG schema (XML Syntax or Compact Syntax) using Jing library.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

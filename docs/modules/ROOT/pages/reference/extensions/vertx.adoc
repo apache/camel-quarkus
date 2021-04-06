@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-vertx
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages to/from Vert.x Event Bus.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

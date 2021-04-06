@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jpa
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Store and retrieve Java objects from databases using Java Persistence API (JPA).
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

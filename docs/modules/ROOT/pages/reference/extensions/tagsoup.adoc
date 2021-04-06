@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-tagsoup
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Parse (potentially invalid) HTML into valid HTML or DOM.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

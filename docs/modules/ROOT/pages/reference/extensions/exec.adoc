@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-exec
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Execute commands on the underlying operating system.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-lra
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Camel saga binding for Long-Running-Action framework
 :cq-deprecated: false
 :cq-jvm-since: 1.2.0

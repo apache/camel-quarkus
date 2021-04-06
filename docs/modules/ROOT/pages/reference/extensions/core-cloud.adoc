@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-core-cloud
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: The Camel Quarkus core cloud module
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

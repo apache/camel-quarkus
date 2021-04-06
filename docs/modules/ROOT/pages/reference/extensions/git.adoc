@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-git
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Perform operations on git repositories.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

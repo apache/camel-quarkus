@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jms
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Sent and receive messages to/from a JMS Queue or Topic.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

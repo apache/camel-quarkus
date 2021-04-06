@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-asterisk
 :cq-native-supported: false
 :cq-status: Preview
+:cq-status-deprecation: Preview
 :cq-description: Interact with Asterisk PBX Server.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

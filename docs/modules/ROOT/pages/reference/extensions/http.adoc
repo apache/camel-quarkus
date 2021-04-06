@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-http
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send requests to external HTTP servers using Apache HTTP Client 4.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

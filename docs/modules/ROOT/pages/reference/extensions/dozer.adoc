@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-dozer
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Map between Java beans using the Dozer mapping library.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

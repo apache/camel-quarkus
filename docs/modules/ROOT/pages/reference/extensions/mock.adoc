@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-mock
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Test routes and mediation rules using mocks.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

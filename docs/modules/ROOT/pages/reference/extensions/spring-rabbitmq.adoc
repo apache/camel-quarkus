@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-spring-rabbitmq
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive messages from RabbitMQ using Spring RabbitMQ client.
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0

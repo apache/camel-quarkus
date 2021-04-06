@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jdbc
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Access databases through SQL and JDBC.
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1

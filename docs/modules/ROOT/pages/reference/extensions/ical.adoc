@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-ical
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal and unmarshal iCal (.ics) documents to/from model objects provided by the iCal4j library.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-gson
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal POJOs to JSON and back using Gson
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-mail
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send and receive emails using imap, pop3 and smtp protocols. Marshal Camel messages with attachments into MIME-Multipart messages and back.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

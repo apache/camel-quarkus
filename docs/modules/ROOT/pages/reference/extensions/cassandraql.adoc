@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-cassandraql
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Integrate with Cassandra 2.0 using the CQL3 API (not the Thrift API). Based on Cassandra Java Driver provided by DataStax.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

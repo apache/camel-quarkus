@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-microprofile-fault-tolerance
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Circuit Breaker EIP using Microprofile Fault Tolerance
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

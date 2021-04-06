@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-dataformat
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Use a Camel Data Format as a regular Camel Component.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

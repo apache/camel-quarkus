@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-mustache
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Transform messages using a Mustache template.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

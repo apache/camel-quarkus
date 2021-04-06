@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-openapi-java
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Rest-dsl support for using OpenAPI doc
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

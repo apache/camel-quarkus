@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-bean-validator
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Validate the message body using the Java Bean Validation API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

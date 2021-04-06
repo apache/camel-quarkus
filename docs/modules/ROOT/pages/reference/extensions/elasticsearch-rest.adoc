@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-elasticsearch-rest
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send requests to with an ElasticSearch via REST API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

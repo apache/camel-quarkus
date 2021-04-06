@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-bindy
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal and unmarshal between POJOs and Comma separated values (CSV) format using Camel Bindy Marshal and unmarshal between POJOs and fixed field length format using Camel Bindy Marshal and unmarshal between POJOs and key-value pair (KVP) format using Camel Bindy
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

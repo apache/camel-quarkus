@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-aws2-sqs
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

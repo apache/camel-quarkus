@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-johnzon
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal POJOs to JSON and back using Johnzon
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

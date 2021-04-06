@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-lumberjack
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Receive logs messages using the Lumberjack protocol.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

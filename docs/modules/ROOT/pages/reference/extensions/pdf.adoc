@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-pdf
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Create, modify or extract content from PDF documents.
 :cq-deprecated: false
 :cq-jvm-since: 0.3.1

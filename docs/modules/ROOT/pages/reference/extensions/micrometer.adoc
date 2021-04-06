@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-micrometer
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Collect various metrics directly from Camel routes using the Micrometer library.
 :cq-deprecated: false
 :cq-jvm-since: 1.5.0

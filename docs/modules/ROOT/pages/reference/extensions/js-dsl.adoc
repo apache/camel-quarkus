@@ -3,7 +3,8 @@
 = JavaScript DSL
 :cq-artifact-id: camel-quarkus-js-dsl
 :cq-native-supported: true
-:cq-status: Stable
+:cq-status: Experimental
+:cq-status-deprecation: Experimental
 :cq-description: An JavaScript stack for parsing JavaScript route definitions
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0

@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-twitter
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Send tweets and receive tweets, direct messages and access Twitter Search
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

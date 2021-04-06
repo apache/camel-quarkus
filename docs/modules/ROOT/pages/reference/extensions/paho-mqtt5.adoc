@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-paho-mqtt5
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Communicate with MQTT message brokers using Eclipse Paho MQTT v5 Client.
 :cq-deprecated: false
 :cq-jvm-since: 1.8.0

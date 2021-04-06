@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-controlbus
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Manage and monitor Camel routes.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

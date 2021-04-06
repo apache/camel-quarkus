@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-seda
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Asynchronously call another endpoint from any Camel Context in the same JVM.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

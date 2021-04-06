@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-csv
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Handle CSV (Comma Separated Values) payloads.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

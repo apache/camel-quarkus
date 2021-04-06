@@ -3,14 +3,15 @@
 [/#if]
 :cq-artifact-id: camel-quarkus-[=artifactIdBase]
 :cq-native-supported: [=nativeSupported?then('true', 'false')]
-:cq-status: [=nativeSupported?then('Stable', 'Preview')]
+:cq-status: [=status]
+:cq-status-deprecation: [=statusDeprecation]
 :cq-description: [=description]
 :cq-deprecated: [=deprecated?then('true', 'false')]
 :cq-jvm-since: [=jvmSince]
 :cq-native-since: [=nativeSince]
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##
+[.badge-key]##JVM since##[.badge-supported]##[=jvmSince]## [.badge-key]##Native[=nativeSupported?then(' since', '')]##[.badge-[=nativeSupported?then('', 'un')]supported]##[=nativeSupported?then(nativeSince, 'unsupported')]##[#if deprecated ] [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##[/#if]
 
 [=intro]
 [#if models?size > 0]

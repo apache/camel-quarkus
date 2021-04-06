@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-core
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze
 :cq-deprecated: false
 :cq-jvm-since: 0.0.1

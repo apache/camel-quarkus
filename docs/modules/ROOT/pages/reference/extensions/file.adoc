@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-file
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Read and write files.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0

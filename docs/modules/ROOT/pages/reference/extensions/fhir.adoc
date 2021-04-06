@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-fhir
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Exchange information in the healthcare domain using the FHIR (Fast Healthcare Interoperability Resources) standard. Marshall and unmarshall FHIR objects to/from JSON. Marshall and unmarshall FHIR objects to/from XML.
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0

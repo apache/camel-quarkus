@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-servicenow
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with ServiceNow via its REST API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

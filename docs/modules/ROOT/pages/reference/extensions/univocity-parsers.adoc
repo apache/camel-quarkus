@@ -4,6 +4,7 @@
 :cq-artifact-id: camel-quarkus-univocity-parsers
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal and unmarshal Java objects from and to CSV (Comma Separated Values) using UniVocity Parsers.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0

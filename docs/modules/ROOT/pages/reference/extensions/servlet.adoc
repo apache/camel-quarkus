@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-servlet
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Serve HTTP requests by a Servlet.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0

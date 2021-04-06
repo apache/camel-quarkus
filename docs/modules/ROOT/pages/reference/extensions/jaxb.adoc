@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-jaxb
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Unmarshal XML payloads to POJOs and back using JAXB2 XML marshalling standard.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0

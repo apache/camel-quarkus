@@ -5,6 +5,7 @@
 :cq-artifact-id: camel-quarkus-zipfile
 :cq-native-supported: true
 :cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Compression and decompress streams using java.util.zip.ZipStream.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0
