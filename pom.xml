@@ -181,7 +181,7 @@
         <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
 
         <!-- maven-enforcer-plugin -->
-        <supported-maven-versions>[3.5.3,)</supported-maven-versions>
+        <supported-maven-versions>[3.6.2,)</supported-maven-versions>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
@@ -601,9 +601,6 @@
                                     <goal>enforce</goal>
                                 </goals>
                                 <configuration>
-                                    <requireMavenVersion>
-                                        <version>3.6.2</version>
-                                    </requireMavenVersion>
                                     <rules>
                                         <requireJavaVersion>
                                             <version>11</version>
