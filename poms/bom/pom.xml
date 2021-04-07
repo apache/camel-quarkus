@@ -5531,6 +5531,16 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.datastax.oss</groupId>
+                <artifactId>java-driver-core</artifactId>
+                <version>${cassandra-java-driver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.datastax.oss</groupId>
+                <artifactId>java-driver-query-builder</artifactId>
+                <version>${cassandra-java-driver.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.datastax.oss.quarkus</groupId>
                 <artifactId>cassandra-quarkus-client</artifactId>
                 <version>${cassandra-quarkus.version}</version>
