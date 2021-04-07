@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.json.path.it;
 
 import java.util.Arrays;
-import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -26,7 +25,7 @@ import org.apache.camel.quarkus.component.json.path.it.CarsRequest.Car;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertIterableEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class JsonPathTransformTest {
@@ -45,11 +44,11 @@ class JsonPathTransformTest {
 
     @Test
     public void getAllCarColorsShouldSucceed() {
-        List<String> colors = RestAssured.given() //
+        String colors = RestAssured.given() //
                 .contentType(ContentType.JSON).body(carsRequest).get("/jsonpath/getAllCarColors").then().statusCode(200)
-                .extract().body().jsonPath().getList(".", String.class);
+                .extract().body().asString();
 
-        assertIterableEquals(Arrays.asList("red", "green"), colors);
+        assertEquals("[red, green]", colors);
     }
 
 }
