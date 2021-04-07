@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.8.1...HEAD)
 
+**Closed issues:**
+
+- Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
+- Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
+
 **Merged pull requests:**
 
+- Show deprecation info in Extensions reference  [\#2444](https://github.com/apache/camel-quarkus/pull/2444) ([ppalaga](https://github.com/ppalaga))
 - openstack: added nova server and swift tests \#1943 [\#2438](https://github.com/apache/camel-quarkus/pull/2438) ([aldettinger](https://github.com/aldettinger))
 - DigitalOcean native support \#1594 [\#2387](https://github.com/apache/camel-quarkus/pull/2387) ([zbendhiba](https://github.com/zbendhiba))
 
@@ -631,7 +637,6 @@
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
@@ -710,6 +715,7 @@
 - Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
 - Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
+- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 - Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
 - Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1845,6 +1851,7 @@
 - XSLT extension does not work with file: URIs [\#428](https://github.com/apache/camel-quarkus/issues/428)
 - Use @Inject in the timer-log-cdi example [\#416](https://github.com/apache/camel-quarkus/issues/416)
 - Document that beans managed by Arc are not instantiated from a static initializer [\#415](https://github.com/apache/camel-quarkus/issues/415)
+- xslt extension [\#406](https://github.com/apache/camel-quarkus/issues/406)
 - Using custom camel componet into quarkus-camel [\#379](https://github.com/apache/camel-quarkus/issues/379)
 
 **Merged pull requests:**
@@ -1912,7 +1919,6 @@
 - Create a Camel exec extension [\#417](https://github.com/apache/camel-quarkus/issues/417)
 - bean-validator extension [\#411](https://github.com/apache/camel-quarkus/issues/411)
 - dataformat extension [\#408](https://github.com/apache/camel-quarkus/issues/408)
-- xslt extension [\#406](https://github.com/apache/camel-quarkus/issues/406)
 - Add scheduler extension [\#403](https://github.com/apache/camel-quarkus/issues/403)
 - camel-validator component [\#391](https://github.com/apache/camel-quarkus/issues/391)
 - \[code formatter\] multi line TODOs are not supported [\#389](https://github.com/apache/camel-quarkus/issues/389)
