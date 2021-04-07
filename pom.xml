@@ -92,6 +92,7 @@
         <jersey-sun.version>1.19.4</jersey-sun.version><!-- Spark -->
         <jetty.version>${jetty9-version}</jetty.version>
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
+        <json-smart.version>2.4.2</json-smart.version>
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
         <kotlin.version>1.4.31</kotlin.version><!-- keep in sync with Quarkus -->
