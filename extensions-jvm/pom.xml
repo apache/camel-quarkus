@@ -95,7 +95,6 @@
         <module>mvel</module>
         <module>mybatis</module>
         <module>ognl</module>
-        <module>openstack</module>
         <module>printer</module>
         <module>pulsar</module>
         <module>quickfix</module>

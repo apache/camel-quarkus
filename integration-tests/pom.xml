@@ -162,6 +162,7 @@
         <module>oaipmh</module>
         <module>olingo4</module>
         <module>openapi-java</module>
+        <module>openstack</module>
         <module>opentracing</module>
         <module>optaplanner</module>
         <module>paho-mqtt5</module>

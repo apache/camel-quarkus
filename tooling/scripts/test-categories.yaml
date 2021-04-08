@@ -94,6 +94,7 @@ foundation:
   - kamelet
   - lra
   - micrometer
+  - openstack
   - quartz
   - saga
 xml-json-olingo4:
