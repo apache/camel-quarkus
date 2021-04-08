@@ -4,16 +4,16 @@
 :page-aliases: extensions/openstack.adoc
 :linkattrs:
 :cq-artifact-id: camel-quarkus-openstack
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Interact with OpenStack APIs
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: n/a
+:cq-native-since: 1.9.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.9.0##
 
 Interact with OpenStack APIs
 
@@ -30,6 +30,10 @@ Please refer to the above links for usage and configuration details.
 
 == Maven coordinates
 
+Create a new project image:https://img.shields.io/badge/code.quarkus.io-camel%E2%80%92quarkus%E2%80%92openstack-blue.svg?logo=quarkus&logoColor=white&labelColor=3678db&color=e97826[link="https://code.quarkus.io/?extension-search=camel-quarkus-openstack", window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -39,3 +43,9 @@ Please refer to the above links for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== SSL in native mode
+
+This extension auto-enables SSL support in native mode. Hence you do not need to add
+`quarkus.ssl.native=true` to your `application.properties` yourself. See also
+https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
