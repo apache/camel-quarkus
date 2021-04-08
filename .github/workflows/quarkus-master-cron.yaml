@@ -15,7 +15,7 @@
 # limitations under the License.
 #
 
-name: Daily Build Quarkus Master
+name: Daily Build Quarkus main
 
 on:
   schedule:
@@ -57,15 +57,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: quarkus-main
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch main onto quarkus-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git fetch origin master
-          git rebase origin/master
-          git rev-parse origin/master > ~/build-data/master-sha.txt
+          git fetch origin main
+          git rebase origin/main
+          git rev-parse origin/main > ~/build-data/main-sha.txt
       - name: Build Quarkus
         run: |
           git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
@@ -102,7 +102,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -127,14 +127,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: quarkus-main
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch main onto quarkus-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git fetch origin master
-          git rebase $(cat ~/build-data/master-sha.txt)
+          git fetch origin main
+          git rebase $(cat ~/build-data/main-sha.txt)
       - name: Install yq
         run: |
           sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
@@ -167,7 +167,7 @@ jobs:
       - name: Report Build Failure
         if: failure()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -188,19 +188,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: quarkus-master
+          ref: quarkus-main
           fetch-depth: 0
-      - name: Rebase branch master onto quarkus-master
+      - name: Rebase branch main onto quarkus-main
         run: |
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git fetch origin master
-          git rebase $(cat ~/build-data/master-sha.txt)
+          git fetch origin main
+          git rebase $(cat ~/build-data/main-sha.txt)
       - name: Report build status
         id: report
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-master -Dbranch-commit=$(cat ~/build-data/master-sha.txt)
-      - name: Sync branch Master to Quarkus Master
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=quarkus-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+      - name: Sync branch main to quarkus-main
         if: steps.report.outputs.overall_build_status == 'success'
         run: |
-          git push --force-with-lease origin quarkus-master
+          git push --force-with-lease origin quarkus-main

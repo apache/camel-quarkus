@@ -20,9 +20,9 @@ name: Camel Quarkus CI
 on:
   push:
     branches:
-      - master
-      - camel-master
-      - quarkus-master
+      - main
+      - camel-main
+      - quarkus-main
       - "[0-9]+.[0-9]+.x"
     paths-ignore:
       - '**.adoc'
@@ -32,9 +32,9 @@ on:
       - 'NOTICE.txt'
   pull_request:
     branches:
-      - master
-      - camel-master
-      - quarkus-master
+      - main
+      - camel-main
+      - quarkus-main
       - "[0-9]+.[0-9]+.x"
     paths-ignore:
       - '**.adoc'
@@ -60,11 +60,11 @@ jobs:
         run: |
           df -h /
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots -pl '!docs'" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - name: Set up JDK 11
@@ -72,7 +72,7 @@ jobs:
         with:
           version: '11'
       - name: Build Quarkus
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git \
             && cd quarkus \
@@ -117,11 +117,11 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - name: Checkout
@@ -187,11 +187,11 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - uses: actions/checkout@v2
@@ -223,7 +223,7 @@ jobs:
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip -Dcamel-quarkus.update-extension-doc-page.skip \
             test
       - name: cd docs && mvn verify
-        if: github.ref != 'refs/heads/camel-master' && github.base_ref != 'camel-master'
+        if: github.ref != 'refs/heads/camel-main' && github.base_ref != 'camel-main'
         run: |
           cd docs
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
@@ -241,11 +241,11 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - uses: actions/checkout@v2
@@ -283,11 +283,11 @@ jobs:
       MAVEN_OPTS: -Xmx3000m
     steps:
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - uses: actions/checkout@v2
@@ -327,11 +327,11 @@ jobs:
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
     steps:
       - name: Setup apache-snapshots profile
-        if: github.ref == 'refs/heads/camel-master' || github.base_ref == 'camel-master'
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
           echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
       - name: Setup oss-snapshots profile
-        if: github.ref == 'refs/heads/quarkus-master' || github.base_ref == 'quarkus-master'
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
         run: |
           echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
       - name: Checkout
@@ -353,7 +353,7 @@ jobs:
           df -h /
       - name: clone and verify examples
         run: |
-          git clone --depth 1 --branch camel-quarkus-master https://github.com/apache/camel-quarkus-examples.git \
+          git clone --depth 1 --branch camel-quarkus-main https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
             && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify
