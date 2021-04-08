@@ -110,6 +110,9 @@ class DozerProcessor {
                 Time[].class,
                 Timestamp[].class,
                 URL[].class,
+                Date.class,
+                File.class,
+                URL.class,
                 DozerThreadContextClassLoader.class,
                 ExpressionFactoryImpl.class));
 

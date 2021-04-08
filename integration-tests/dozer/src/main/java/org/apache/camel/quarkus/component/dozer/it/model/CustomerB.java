@@ -16,11 +16,22 @@
  */
 package org.apache.camel.quarkus.component.dozer.it.model;
 
+import java.io.File;
+import java.net.URL;
+import java.util.Date;
+
 public class CustomerB {
 
     private String firstName;
     private String lastName;
     private Address address;
+    private Date created;
+    private URL internalUrl;
+    private File internalFile;
+    private String internalFileAsString;
+    private Class internalClass;
+    private String internalClassAsString;
+    private Custom internal;
 
     public CustomerB() {
     }
@@ -29,6 +40,15 @@ public class CustomerB {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+    }
+
+    public void setInternalsAsString() {
+        if (internalClass != null) {
+            internalClassAsString = internalClass.getCanonicalName();
+        }
+        if (internalFile != null) {
+            internalFileAsString = internalFile.toString();
+        }
     }
 
     public String getFirstName() {
@@ -53,6 +73,46 @@ public class CustomerB {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public URL getInternalUrl() {
+        return internalUrl;
+    }
+
+    public void setInternalUrl(URL internalUrl) {
+        this.internalUrl = internalUrl;
+    }
+
+    public void setInternalFile(File internalFile) {
+        this.internalFile = internalFile;
+    }
+
+    public void setInternalClass(Class internalClass) {
+        this.internalClass = internalClass;
+    }
+
+    public String getInternalFileAsString() {
+        return internalFileAsString;
+    }
+
+    public String getInternalClassAsString() {
+        return internalClassAsString;
+    }
+
+    public Custom getInternal() {
+        return internal;
+    }
+
+    public void setInternal(Custom internal) {
+        this.internal = internal;
     }
 
     public static class Address {
@@ -84,4 +144,23 @@ public class CustomerB {
             this.zip = zip;
         }
     }
+
+    public static class Custom {
+
+        private String text;
+
+        public Custom(String text) {
+            this.text = "hello " + text;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public void setText(String text) {
+            this.text = text;
+        }
+
+    }
+
 }

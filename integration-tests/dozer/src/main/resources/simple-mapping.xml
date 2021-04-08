@@ -30,6 +30,11 @@
             <a>zip</a>
             <b>address.zip</b>
         </field>
+        <field>
+            <a>joined</a>
+            <b>created</b>
+        </field>
+
     </mapping>
 
 </mappings>

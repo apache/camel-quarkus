@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.dozer.it;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,7 +43,9 @@ public class DozerResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public CustomerB dozerMap() {
-        return producerTemplate.requestBody("direct:mapWithEndpoint", createCustomerA(), CustomerB.class);
+        CustomerB cb = producerTemplate.requestBody("direct:mapWithEndpoint", createCustomerA(), CustomerB.class);
+        cb.setInternalsAsString();
+        return cb;
     }
 
     @Path("/map/using/converter")
@@ -69,6 +73,7 @@ public class DozerResource {
     }
 
     private CustomerA createCustomerA() {
-        return new CustomerA("Peter", "Post", "Camel Street", "12345");
+        return new CustomerA("Peter", "Post", "Camel Street", "12345",
+                new GregorianCalendar(1990, Calendar.DECEMBER, 15).getTime());
     }
 }
