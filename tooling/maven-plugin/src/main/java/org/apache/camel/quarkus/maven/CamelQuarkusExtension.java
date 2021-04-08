@@ -71,6 +71,8 @@ public class CamelQuarkusExtension {
             final String extensionStatus = props.getProperty("quarkus.metadata.status");
             final ExtensionStatus status = extensionStatus == null ? ExtensionStatus.of(nativeSupported)
                     : ExtensionStatus.valueOf(extensionStatus);
+            final boolean unlisted = !nativeSupported
+                    || Boolean.parseBoolean(props.getProperty("quarkus.metadata.unlisted", "false"));
 
             return new CamelQuarkusExtension(
                     runtimePomXmlPath,
@@ -84,6 +86,7 @@ public class CamelQuarkusExtension {
                     version,
                     nativeSupported,
                     status,
+                    unlisted,
                     deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps));
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("Could not read " + runtimePomXmlPath, e);
@@ -102,6 +105,7 @@ public class CamelQuarkusExtension {
     private final String nativeSince;
     private final List<Dependency> dependencies;
     private final ExtensionStatus status;
+    private final boolean unlisted;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
@@ -115,6 +119,7 @@ public class CamelQuarkusExtension {
             String version,
             boolean nativeSupported,
             ExtensionStatus status,
+            boolean unlisted,
             List<Dependency> dependencies) {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
@@ -128,6 +133,7 @@ public class CamelQuarkusExtension {
         this.version = version;
         this.nativeSupported = nativeSupported;
         this.status = status;
+        this.unlisted = unlisted;
         this.dependencies = dependencies;
     }
 
@@ -181,6 +187,10 @@ public class CamelQuarkusExtension {
 
     public ExtensionStatus getStatus() {
         return status;
+    }
+
+    public boolean isUnlisted() {
+        return unlisted;
     }
 
 }

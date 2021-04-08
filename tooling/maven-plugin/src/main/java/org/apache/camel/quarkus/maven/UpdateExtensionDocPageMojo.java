@@ -115,6 +115,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("statusDeprecation",
                 deprecated ? ext.getStatus().getCapitalized() + " Deprecated" : ext.getStatus().getCapitalized());
         model.put("deprecated", deprecated);
+        model.put("unlisted", ext.isUnlisted());
         model.put("jvmSince", jvmSince);
         model.put("nativeSince", ext.getNativeSince().orElse("n/a"));
         if (lowerEqual_1_0_0(jvmSince)) {
