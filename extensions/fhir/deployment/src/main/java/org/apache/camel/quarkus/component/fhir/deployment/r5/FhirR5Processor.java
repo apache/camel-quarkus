@@ -22,7 +22,6 @@ import java.util.Set;
 import javax.inject.Singleton;
 
 import ca.uhn.fhir.context.FhirContext;
-import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -48,8 +47,7 @@ public class FhirR5Processor {
 
     @BuildStep(onlyIf = FhirFlags.R5Enabled.class)
     @Record(ExecutionTime.STATIC_INIT)
-    SyntheticBeanBuildItem recordContext(FhirContextRecorder fhirContextRecorder, BeanContainerBuildItem beanContainer,
-            R5PropertiesBuildItem propertiesBuildItem) {
+    SyntheticBeanBuildItem recordContext(FhirContextRecorder fhirContextRecorder, R5PropertiesBuildItem propertiesBuildItem) {
         return SyntheticBeanBuildItem.configure(FhirContext.class)
                 .scope(Singleton.class)
                 .named("R5")
