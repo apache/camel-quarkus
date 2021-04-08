@@ -21,8 +21,8 @@ xref:latest@manual::release-guide.adoc[Camel Release guide].
 $ export VERSION=... # the version you are releasing, e.g. 0.1.0
 $ export NEXT_VERSION=... # the next development iteration, e.g. 0.1.1-SNAPSHOT
 $ git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
-$ git checkout master # master is the branch from which you want to release
-$ git reset --hard upstream/master # make sure you are in sync with upstream
+$ git checkout main # main is the branch from which you want to release
+$ git reset --hard upstream/main # make sure you are in sync with upstream
 $ git checkout -b release/$VERSION
 ----
 
@@ -46,23 +46,23 @@ For instance, would an issue occurs while performing the release of `camel-quark
 $ mvn -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip deploy -Papache-release -rf :camel-quarkus-openapi-java
 ----
 
-== Next version in Camel Quarkus master branch
+== Next version in Camel Quarkus main branch
 
-If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `master`, you can
+If there are no substantial commits in the release branch, which need to get merged/cherry-picked to `main`, you can
 perform this step right after creating the release branch. Otherwise, e.g. if there is a Camel upgrade in the release
 branch which is not available on Maven Central yet, it is better to perform this step after the new Camel release is
-available on the Central and after all relevant commits were merged/cherry-picked to `master`.
+available on the Central and after all relevant commits were merged/cherry-picked to `main`.
 
 While in the release branch we set the `$NEXT_VERSION` to the next micro SNAPSHOT (e.g. when releasing `0.1.0`,
-`$NEXT_VERSION` would be `0.1.1-SNAPSHOT`), in `master`, we typically set the next version to the next minor
+`$NEXT_VERSION` would be `0.1.1-SNAPSHOT`), in `main`, we typically set the next version to the next minor
 SNAPSHOT (the next minor SNAPSHOT of `0.1.0` is `0.2.0-SNAPSHOT`).
 
 [source,shell]
 ----
 $ NEXT_RELEASE=... # e.g. 0.2.0
 $ NEXT_SNAPSHOT="${NEXT_RELEASE}-SNAPSHOT"
-$ git checkout "master"
-$ git reset upstream/master
+$ git checkout "main"
+$ git reset upstream/main
 $ mvn release:update-versions -DautoVersionSubmodules=true -DdevelopmentVersion=$NEXT_SNAPSHOT -B
 $ sed -i "s|<camel.quarkus.jvmSince>[^<]*</camel.quarkus.jvmSince>|<camel.quarkus.jvmSince>$NEXT_RELEASE</camel.quarkus.jvmSince>|" tooling/create-extension-templates/runtime-pom.xml
 $ sed -i "s|<camel.quarkus.nativeSince>[^<]*</camel.quarkus.nativeSince>|<camel.quarkus.nativeSince>$NEXT_RELEASE</camel.quarkus.nativeSince>|" tooling/create-extension-templates/runtime-pom.xml
@@ -134,9 +134,9 @@ $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 
 In addition to the above, the following is needed:
 
-* Check the state of `camel-quarkus-master` branch in the
+* Check the state of `camel-quarkus-main` branch in the
   https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
-  new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-master` to `master`.
+  new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-main` to `main`.
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
-* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/master/content/releases/q
+* When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q

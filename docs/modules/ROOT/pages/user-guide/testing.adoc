@@ -22,7 +22,7 @@ class MyTest {
 }
 ----
 
-An example implementation can be found https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageTest.java[here].
+An example implementation can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageTest.java[here].
 
 == A test running in native mode
 
@@ -37,7 +37,7 @@ class MyIT extends MyTest {
 }
 ----
 
-An implementation of a native test could help to capture more details https://github.com/apache/camel-quarkus/blob/master/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
+An implementation of a native test could help to capture more details https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
 == A test involving containers
 
@@ -75,4 +75,4 @@ class MyTest {
 }
 ----
 
-A more concrete implementation could help to understand the subtleties https://github.com/apache/camel-quarkus/blob/master/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[here].
+A more concrete implementation could help to understand the subtleties https://github.com/apache/camel-quarkus/blob/main/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[here].

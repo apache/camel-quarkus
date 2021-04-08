@@ -1,7 +1,7 @@
 = First steps
 :page-aliases: first-steps.adoc
 
-The following guide outlines various ways to create a Camel Quarkus project. 
+The following guide outlines various ways to create a Camel Quarkus project.
 
 == Prerequisites
 
@@ -46,7 +46,7 @@ https://gradle.org/[Gradle] support is also available. See the https://quarkus.i
 
 Quarkus has plugins for most of the popular development IDEs. They provide Quarkus language support, code / config completion, project creation wizards and much more. The plugins are available at each respective IDE marketplace.
 
-* https://marketplace.eclipse.org/content/quarkus-tools[Eclipse plugin] 
+* https://marketplace.eclipse.org/content/quarkus-tools[Eclipse plugin]
 * https://plugins.jetbrains.com/plugin/13234-quarkus-tools[IntelliJ plugin]
 * https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus[VSCode plugin]
 
@@ -58,7 +58,7 @@ Camel Quarkus provides a GitHub repository containing a set of xref:user-guide/e
 
 https://github.com/apache/camel-quarkus-examples
 
-The master branch is always aligned with the latest Camel Quarkus release.
+The main branch is always aligned with the latest Camel Quarkus release.
 
 === Step by step with the `rest-json` example
 

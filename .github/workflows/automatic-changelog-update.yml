@@ -27,7 +27,7 @@ jobs:
   generate_changelog:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
-    name: Generate changelog for master branch
+    name: Generate changelog for main branch
     steps:
       - name: "Checkout"
         uses: actions/checkout@v2
@@ -39,7 +39,7 @@ jobs:
         uses: ./.github/actions/changelog
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          exclude_labels: "duplicate,question,invalid,wontfix,build/camel-master,build/quarkus-master"
+          exclude_labels: "duplicate,question,invalid,wontfix,build/camel-master,build/camel-main,build/quarkus-master,build/quarkus-main"
 
       - name: Commit files
         env:
@@ -57,4 +57,4 @@ jobs:
           CI_EMAIL: "41898282+github-actions[bot]@users.noreply.github.com"
           CI_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:master
+          git push "https://$CI_USER:$CI_TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:main

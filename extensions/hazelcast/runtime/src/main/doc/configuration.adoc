@@ -26,5 +26,5 @@ Example of configuration for HazelcastMap component:
     }
 ----
 
-You may want to check the https://github.com/apache/camel-quarkus/tree/master/integration-tests/hazelcast[integration test]
+You may want to check the https://github.com/apache/camel-quarkus/tree/main/integration-tests/hazelcast[integration test]
 in our source tree as an example.
