@@ -20,6 +20,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -43,7 +44,12 @@ class DozerTest {
                 .statusCode(200)
                 .body("address", notNullValue(),
                         "address.zip", is("12345"),
-                        "address.street", is("Camel Street"));
+                        "address.street", is("Camel Street"),
+                        "created", containsString("1990"),
+                        "internalFileAsString", is("/test"),
+                        "internalClassAsString", is("java.lang.String"),
+                        "internalUrl", is("http://customer"),
+                        "internal.text", is("hello internal"));
     }
 
     @Test

@@ -16,21 +16,29 @@
  */
 package org.apache.camel.quarkus.component.dozer.it.model;
 
+import java.util.Date;
+
 public class CustomerA {
 
     private String firstName;
     private String lastName;
     private String street;
     private String zip;
+    private Date joined;
+    private String internalUrl = "http://customer";
+    private String internalFile = "/test";
+    private String internalClass = "java.lang.String";
+    private String internal = "internal";
 
     public CustomerA() {
     }
 
-    public CustomerA(String firstName, String lastName, String street, String zip) {
+    public CustomerA(String firstName, String lastName, String street, String zip, Date joined) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
         this.zip = zip;
+        this.joined = joined;
     }
 
     public String getFirstName() {
@@ -65,4 +73,43 @@ public class CustomerA {
         this.zip = zip;
     }
 
+    public Date getJoined() {
+        return joined;
+    }
+
+    public void setJoined(Date joined) {
+        this.joined = joined;
+    }
+
+    public String getInternalUrl() {
+        return internalUrl;
+    }
+
+    public void setInternalUrl(String internalUrl) {
+        this.internalUrl = internalUrl;
+    }
+
+    public String getInternalFile() {
+        return internalFile;
+    }
+
+    public void setInternalFile(String internalFile) {
+        this.internalFile = internalFile;
+    }
+
+    public String getInternalClass() {
+        return internalClass;
+    }
+
+    public void setInternalClass(String internalClass) {
+        this.internalClass = internalClass;
+    }
+
+    public String getInternal() {
+        return internal;
+    }
+
+    public void setInternal(String internal) {
+        this.internal = internal;
+    }
 }
