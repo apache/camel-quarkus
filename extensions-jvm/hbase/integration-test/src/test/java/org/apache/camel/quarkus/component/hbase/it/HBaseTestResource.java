@@ -29,7 +29,7 @@ public class HBaseTestResource implements QuarkusTestResourceLifecycleManager {
     // must be the same as in the config of camel component
     static final Integer CLIENT_PORT = 2181;
 
-    private GenericContainer container;
+    private GenericContainer<?> container;
 
     @Override
     public Map<String, String> start() {
@@ -38,9 +38,10 @@ public class HBaseTestResource implements QuarkusTestResourceLifecycleManager {
             //there is only one tag for this docker image -  latest. See https://hub.docker.com/r/dajobe/hbase/tags
             //Hbase is using zookeeper. Hbase client gets location of hbase master from zookeeper, which means that
             //location uses internal hostnames from the docker.  Network mode `host` is the only way how to avoid
-            //manipulation with the hosts configuration at the test server. 
-            container = new GenericContainer("dajobe/hbase:latest")
+            //manipulation with the hosts configuration at the test server.
+            container = new GenericContainer<>("dajobe/hbase:latest")
                     .withNetworkMode("host")
+                    .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                     .waitingFor(
                             Wait.forLogMessage(".*Finished refreshing block distribution cache for 2 regions\\n", 1));
             container.start();
