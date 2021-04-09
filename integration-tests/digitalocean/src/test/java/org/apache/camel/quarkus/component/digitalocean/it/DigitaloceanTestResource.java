@@ -22,6 +22,7 @@ import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManag
 public class DigitaloceanTestResource extends WireMockTestResourceLifecycleManager {
     private static final String DIGITALOCEAN_BASE_URL = "api.digitalocean.com";
     private static final String DIGITALOCEAN_AUTH_TOKEN = "DIGITALOCEAN_AUTH_TOKEN";
+    private static final String DIGITALOCEAN_PUBLIC_KEY = "DIGITALOCEAN_PUBLIC_KEY";
 
     @Override
     protected String getRecordTargetBaseUrl() {
@@ -30,7 +31,7 @@ public class DigitaloceanTestResource extends WireMockTestResourceLifecycleManag
 
     @Override
     protected boolean isMockingEnabled() {
-        return !envVarsPresent(DIGITALOCEAN_AUTH_TOKEN);
+        return !envVarsPresent(DIGITALOCEAN_AUTH_TOKEN, DIGITALOCEAN_PUBLIC_KEY);
     }
 
     @Override
