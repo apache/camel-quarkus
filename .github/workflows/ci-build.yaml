@@ -264,6 +264,10 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
+          hostname
+          hostname -f
+          hostname -A
+          cat /etc/hosts
       - name: cd extensions-jvm && mvn clean test
         run: |
           cd extensions-jvm
