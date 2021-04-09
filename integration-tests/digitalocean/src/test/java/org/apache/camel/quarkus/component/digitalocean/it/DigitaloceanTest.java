@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
@@ -28,182 +26,144 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.awaitility.Awaitility.await;
-import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SuppressWarnings("unchecked")
 @QuarkusTest
 @QuarkusTestResource(DigitaloceanTestResource.class)
 class DigitaloceanTest {
-
+    static String publicKey;
     @MockServer
     WireMockServer server;
 
-    static long timeout = 5;
-    static TimeUnit timeoutUnit = TimeUnit.SECONDS;
-
     @BeforeAll
-    public static void initTimeoutUnit() {
-        // add timeout if not using MockServer
-        // when using a Digitalocean Key, it takes at least 2 minutes to create a droplet or snapshot
-        String key = System.getenv("DIGITALOCEAN_AUTH_TOKEN");
+    public static void initPublicKey() {
+        String key = System.getenv("DIGITALOCEAN_PUBLIC_KEY");
         if (key != null) {
-            timeoutUnit = TimeUnit.MINUTES;
+            publicKey = key;
+        } else {
+            publicKey = "ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example";
         }
     }
 
     @Test
-    void testDroplets() {
-        // insert multiple droplets
-        Integer dropletId = RestAssured.given().contentType(ContentType.JSON).put("/digitalocean/droplet/droplet1")
-                .then().extract().body().as(Integer.class);
-        assertNotNull(dropletId);
-
-        // get the droplet by dropletId1 until its status is active and ready
-        // it takes time only if using a oAuthToken from Digitalocean
-        waitActiveDroplet(dropletId);
-
-        // action : enable backups
-        given()
-                .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/backups/enable/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId))
-                .body("type", equalTo("ENABLE_BACKUPS"));
-
-        // action : power off, before taking a snapshot
-        given()
-                .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/off/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId));
-
-        // take a snapshot
-        given()
-                .contentType(ContentType.JSON)
-                .body("snapshot1")
-                .post("/digitalocean/droplet/snapshot/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId));
-
-        // action : disable backups
+    void testAccount() {
         given()
                 .when()
-                .get("/digitalocean/droplet/backups/disable/" + dropletId)
+                .get("/digitalocean/account/")
                 .then()
-                .body("resourceId", equalTo(dropletId));
+                .body("uuid", notNullValue());
+    }
 
-        // wait for Droplet to be active
-        waitActiveDroplet(dropletId);
-
-        // action : power on
-        given()
-                .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/on/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId));
-
-        // Reboot droplet
-        given()
-                .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/reboot/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId));
-
-        // enable Ipv6
-        given()
-                .contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/ipv6/" + dropletId)
-                .then()
-                .body("resourceId", equalTo(dropletId));
-
-        // getting the droplet actions
-        List<Map> actions = RestAssured.given().contentType(ContentType.JSON)
-                .get("/digitalocean/droplet/actions/" + dropletId)
+    @Test
+    void testSizes() {
+        List<Map<String, Object>> sizes = RestAssured.given().contentType(ContentType.JSON)
+                .get("/digitalocean/sizes")
                 .then().extract().body().as(List.class);
-        assertActions(actions);
+        assertNotNull(sizes);
+        Optional<Map<String, Object>> size_1Gb = sizes.stream()
+                .filter(s -> "s-1vcpu-1gb".equals(s.get("slug")))
+                .findFirst();
+        assertTrue(size_1Gb.isPresent());
+    }
 
-        // test neigbors
-        testNeighbors(dropletId);
+    @Test
+    void testRegions() {
+        List<Map<String, Object>> regions = RestAssured.given().contentType(ContentType.JSON)
+                .get("/digitalocean/regions")
+                .then().extract().body().as(List.class);
+        assertNotNull(regions);
+        Optional<Map<String, Object>> nyc1Region = regions.stream()
+                .filter(r -> "nyc1".equals(r.get("slug")))
+                .findFirst();
+        assertTrue(nyc1Region.isPresent());
+    }
 
-        // delete the droplet with id droplet 1
+    @Test
+    void testKeys() {
+        // create a key
+        String name = "TestKey1";
+
+        Integer publicKeyId = given()
+                .contentType(ContentType.JSON)
+                .body(publicKey)
+                .put("/digitalocean/keys/" + name)
+                .then().extract().body().as(Integer.class);
+
+        // get the key
         given()
-                .when()
-                .delete("/digitalocean/droplet/" + dropletId)
+                .contentType(ContentType.JSON)
+                .get("/digitalocean/keys/" + publicKeyId)
                 .then()
-                .statusCode(202);
+                .body("id", equalTo(publicKeyId))
+                .body("name", equalTo(name));
 
-    }
+        // update key
+        name = "updated_TestKey1";
+        given()
+                .contentType(ContentType.JSON)
+                .body(name)
+                .post("/digitalocean/keys/" + publicKeyId)
+                .then()
+                .body("id", equalTo(publicKeyId))
+                .body("name", equalTo(name));
 
-    /**
-     * Gets the snapshots and waits until the snapshot is created in Digitalocean.
-     *
-     * @param dropletId
-     */
-    private void waitForSnapshot(Integer dropletId) {
-        await().atMost(this.timeout, this.timeoutUnit).until(() -> {
-            String path = "/digitalocean/droplet/snapshots/" + dropletId;
-            List<Map> result = given().when().get(path).then().extract().as(List.class);
-            // Look for the snapshot
-            Optional optional = result.stream()
-                    .filter(s -> "snapshot1".equals(s.get("name")))
-                    .findAny();
-            return optional.isPresent();
-        });
-    }
-
-    /**
-     * Gets the droplet and waits until the droplet is Active in Digitalocean.
-     *
-     * @param dropletId
-     */
-    private void waitActiveDroplet(Integer dropletId) {
-        await().atMost(this.timeout, this.timeoutUnit).until(() -> {
-            String path = "/digitalocean/droplet/" + dropletId;
-            Map droplet = given()
-                    .contentType(ContentType.JSON).get(path).then().extract().as(Map.class);
-            return droplet != null && dropletId.equals(droplet.get("id")) && "ACTIVE".equals(droplet.get("status"));
-        });
-    }
-
-    /**
-     * Assert all the actions
-     *
-     * @param actions
-     */
-    private void assertActions(List<Map> actions) {
-        // verify there are actions
-        assertNotNull(actions);
-        // verify there are at least the 7 created actions in the test
-        assertTrue(actions.size() >= 7);
-        List<String> types = Arrays.asList("ENABLE_BACKUPS", "DISABLE_BACKUPS", "SNAPSHOT", "POWER_ON", "POWER_OFF", "REBOOT",
-                "ENABLE_IPV6");
-        types.forEach(type -> assertAction(actions, type));
-    }
-
-    /**
-     * assert a single action
-     *
-     * @param actions
-     * @param actionType
-     */
-    private void assertAction(List<Map> actions, String actionType) {
-        Optional<Map> optional = actions.stream()
-                .filter(a -> actionType.equals(a.get("type")))
+        // List keys
+        List<Map<String, Object>> keys = given()
+                .get("/digitalocean/keys")
+                .then().extract().body().as(List.class);
+        Optional<Map<String, Object>> resultKey = keys.stream()
+                .filter(m -> publicKeyId.equals(m.get("id")))
                 .findAny();
-        assertTrue(optional.isPresent());
+        assertTrue(resultKey.isPresent());
+
+        // delete the key
+        given()
+                .delete("/digitalocean/keys/" + publicKeyId)
+                .then()
+                .body("isRequestSuccess", CoreMatchers.equalTo(true));
+
     }
 
-    void testNeighbors(int dropletId) {
+    @Test
+    void testTags() {
+        // create a tag
+        String name = "awesome";
         given()
-                .when()
-                .get("/digitalocean/droplet/neighbors/" + dropletId)
+                .contentType(ContentType.JSON)
+                .post("/digitalocean/tags/" + name)
                 .then()
-                .statusCode(200);
+                .body("name", equalTo(name));
+
+        // get a tag
+        given()
+                .get("/digitalocean/tags/" + name)
+                .then()
+                .body("name", equalTo(name));
+
+        // get all tags
+        List<Map<String, Object>> tags = given()
+                .contentType(ContentType.JSON)
+                .get("/digitalocean/tags/")
+                .then().extract().body().as(List.class);
+        Optional<Map<String, Object>> resultKey = tags.stream()
+                .filter(t -> name.equals(t.get("name")))
+                .findAny();
+        assertTrue(resultKey.isPresent());
+
+        // delete the tag
+        given()
+                .delete("/digitalocean/tags/" + name)
+                .then()
+                .body("isRequestSuccess", CoreMatchers.equalTo(true));
+
     }
 }

@@ -1,0 +1,28 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ec",
+  "name": "digitalocean_api_json",
+  "request": {
+    "url": "/v2/account/keys/512190?per_page=25",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"ssh_key\":{\"id\":512190,\"fingerprint\":\"3b:16:bf:e4:8b:00:8b:b8:59:8c:a9:d3:f0:19:45:fa\",\"public_key\":\"ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr\/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example\",\"name\":\"TestKey1\"}}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Date": "Tue, 03 Nov 2020 09:39:11 GMT",
+      "Pragma": "no-cache",
+      "Expires": "Fri, 01 Jan 1990 00:00:00 GMT",
+      "Cache-Control": "no-cache, must-revalidate",
+      "Vary": "Accept-Language",
+      "Server": "mafe",
+      "X-XSS-Protection": "0",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Server-Timing": "gfet4t7; dur=263",
+      "Alt-Svc": "h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ec",
+  "persistent": true,
+  "insertionIndex": 2
+}

@@ -53,5 +53,34 @@ public class DigitaloceanRoute extends RouteBuilder {
         from("direct:droplet")
                 .toF("digitalocean:droplets?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
 
+        from("direct:account")
+                .toF("digitalocean:account?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:actions")
+                .toF("digitalocean:actions?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:images")
+                .toF("digitalocean:images?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:snapshots")
+                .toF("digitalocean:snapshots?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:sizes")
+                .toF("digitalocean:sizes?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:regions")
+                .toF("digitalocean:regions?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:floatingIPs")
+                .toF("digitalocean:floatingIPs?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:blockStorages")
+                .toF("digitalocean:blockStorages?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:keys")
+                .toF("digitalocean:keys?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
+
+        from("direct:tags")
+                .toF("digitalocean:tags?oAuthToken=%s&digitalOceanClient=#digitalOceanClient", oAuthToken);
     }
 }

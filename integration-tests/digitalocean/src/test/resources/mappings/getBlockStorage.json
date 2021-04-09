@@ -1,0 +1,28 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ec",
+  "name": "digitalocean_api_json",
+  "request": {
+    "url": "/v2/volumes/506f78a4-e098-11e5-ad9f-000f53306ae1?per_page=25",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"volume\":{\"id\":\"506f78a4-e098-11e5-ad9f-000f53306ae1\",\"region\":{\"name\":\"Frankfurt 1\",\"slug\":\"fra1\",\"sizes\":[\"s-1vcpu-1gb\",\"s-1vcpu-2gb\",\"s-1vcpu-3gb\",\"s-2vcpu-2gb\",\"s-3vcpu-1gb\",\"s-2vcpu-4gb\",\"s-4vcpu-8gb\",\"s-6vcpu-16gb\",\"s-8vcpu-32gb\",\"s-12vcpu-48gb\",\"s-16vcpu-64gb\",\"s-20vcpu-96gb\",\"s-24vcpu-128gb\",\"s-32vcpu-192gb\"],\"features\":[\"private_networking\",\"backups\",\"ipv6\",\"metadata\"],\"available\":true},\"droplet_ids\":[],\"name\":\"volume1\",\"description\":\"Block store for examples\",\"size_gigabytes\":10,\"created_at\":\"2016-03-02T17:00:49Z\",\"filesystem_type\":\"ext4\",\"filesystem_label\":\"example\",\"tags\":[\"aninterestingtag\"]}}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Date": "Tue, 03 Nov 2020 09:39:11 GMT",
+      "Pragma": "no-cache",
+      "Expires": "Fri, 01 Jan 1990 00:00:00 GMT",
+      "Cache-Control": "no-cache, must-revalidate",
+      "Vary": "Accept-Language",
+      "Server": "mafe",
+      "X-XSS-Protection": "0",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Server-Timing": "gfet4t7; dur=263",
+      "Alt-Svc": "h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ec",
+  "persistent": true,
+  "insertionIndex": 2
+}

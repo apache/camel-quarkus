@@ -1,0 +1,28 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "digitalocean_api_json",
+  "request": {
+    "url": "/v2/images?page=1&per_page=25",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body" : "{\"images\":[{\"id\":7555620,\"name\":\"Nifty New Snapshot\",\"distribution\":\"Ubuntu\",\"slug\":null,\"public\":false,\"regions\":[\"nyc2\",\"nyc2\"],\"created_at\":\"2014-11-04T22:23:02Z\",\"type\":\"snapshot\",\"min_disk_size\":20,\"size_gigabytes\":2.34,\"description\":\"\",\"tags\":[],\"status\":\"available\",\"error_message\":\"\"}],\"links\":{\"pages\":{\"last\":\"https:\/\/api.digitalocean.com\/v2\/images?page=56&per_page=1\",\"next\":\"https:\/\/api.digitalocean.com\/v2\/images?page=2&per_page=1\"}},\"meta\":{\"total\":56}}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Date": "Tue, 03 Nov 2020 09:39:11 GMT",
+      "Pragma": "no-cache",
+      "Expires": "Fri, 01 Jan 1990 00:00:00 GMT",
+      "Cache-Control": "no-cache, must-revalidate",
+      "Vary": "Accept-Language",
+      "Server": "mafe",
+      "X-XSS-Protection": "0",
+      "X-Frame-Options": "SAMEORIGIN",
+      "Server-Timing": "gfet4t7; dur=263",
+      "Alt-Svc": "h3-Q050=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-T051=\":443\"; ma=2592000,h3-T050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\""
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}
