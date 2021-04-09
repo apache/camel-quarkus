@@ -267,6 +267,9 @@ jobs:
           hostname
           hostname -f
           hostname -A
+          HOSTS_LINE="127.0.0.1 $(hostname -f) $(hostname -A)"
+          echo "HOSTS_LINE=$HOSTS_LINE"
+          echo "${HOSTS_LINE}" | sudo tee -a /etc/hosts
           cat /etc/hosts
       - name: cd extensions-jvm && mvn clean test
         run: |
