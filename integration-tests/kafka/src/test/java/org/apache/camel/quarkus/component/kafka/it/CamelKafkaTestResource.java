@@ -40,6 +40,8 @@ public class CamelKafkaTestResource implements ContainerResourceLifecycleManager
         try {
             DockerImageName imageName = DockerImageName.parse("confluentinc/cp-kafka").withTag(CONFLUENT_PLATFORM_VERSION);
             container = new KafkaContainer(imageName)
+                    /* Added container startup logging because of https://github.com/apache/camel-quarkus/issues/2461 */
+                    .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                     .withEmbeddedZookeeper()
                     .waitingFor(Wait.forListeningPort());
 
