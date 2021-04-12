@@ -163,7 +163,7 @@ class MicroProfileHealthTest {
     }
 
     @Test
-    public void testFailureThreshold() throws InterruptedException {
+    public void testFailureThreshold() {
         try {
             RestAssured.get("/microprofile-health/route/checkIntervalThreshold/stop")
                     .then()
@@ -192,6 +192,19 @@ class MicroProfileHealthTest {
             RestAssured.get("/microprofile-health/route/checkIntervalThreshold/start")
                     .then()
                     .statusCode(204);
+
+            // Wait for the threshold check to report status UP
+            Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
+                JsonPath result = RestAssured.when().get("/health").then()
+                        .contentType(ContentType.JSON)
+                        .header("Content-Type", containsString("charset=UTF-8"))
+                        .extract()
+                        .jsonPath();
+
+                String status = result.getString("status");
+                List<String> routeStatus = result.getList("checks.data.'route:checkIntervalThreshold'");
+                return status.equals("UP") && routeStatus.contains("UP");
+            });
         }
     }
 }
