@@ -182,7 +182,8 @@
         <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
 
         <!-- maven-enforcer-plugin -->
-        <supported-maven-versions>[3.6.2,)</supported-maven-versions>
+        <min-maven-version>3.6.2</min-maven-version>
+        <supported-maven-versions>[${min-maven-version},)</supported-maven-versions>
 
         <!-- maven-release-plugin -->
         <tagNameFormat>@{project.version}</tagNameFormat>
