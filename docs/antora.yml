@@ -23,3 +23,4 @@ nav:
 asciidoc:
   attributes:
     cq-camel-components: 3.9.x@components # replace ${camel.docs.components.xref}
+    min-maven-version: 3.6.2 # replace ${min-maven-version}
