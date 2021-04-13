@@ -40,6 +40,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           exclude_labels: "duplicate,question,invalid,wontfix,build/camel-master,build/camel-main,build/quarkus-master,build/quarkus-main"
+          release_branch: "main"
 
       - name: Commit files
         env:
