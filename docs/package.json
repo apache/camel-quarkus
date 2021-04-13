@@ -4,7 +4,7 @@
   "description": "Apache Camel extensions for Quarkus Documentation",
   "license": "Apache-2.0",
   "scripts": {
-    "preview": "yarn unplug opn -AR && cd target/site && lite-server",
+    "preview": "yarn unplug opn -AR && cd target/site && lite-server -c ../../bs-config.json",
     "build": "yarn antora --fetch antora-playbook.yml --stacktrace",
     "dev": "yarn build && yarn preview",
     "checks": "yarn antora --generator @antora/xref-validator antora-playbook.yml"

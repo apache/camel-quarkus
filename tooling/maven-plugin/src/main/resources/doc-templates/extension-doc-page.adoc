@@ -28,7 +28,7 @@ Please refer to the above link[#if models?size != 1]s[/#if] for usage and config
 
 == Maven coordinates
 
-[#if !unlisted]Create a new project image:https://img.shields.io/badge/code.quarkus.io-camel%E2%80%92quarkus%E2%80%92[=artifactIdBase?replace("-", "%E2%80%92")]-blue.svg?logo=quarkus&logoColor=white&labelColor=3678db&color=e97826[link="https://code.quarkus.io/?extension-search=camel-quarkus-[=artifactIdBase]", window="_blank"]
+[#if !unlisted]https://code.quarkus.io/?extension-search=camel-quarkus-[=artifactIdBase][Create a new project with this extension on code.quarkus.io, window="_blank"]
 
 Or add the coordinates to your existing project:
 

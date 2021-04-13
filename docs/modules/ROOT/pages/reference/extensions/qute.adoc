@@ -19,7 +19,7 @@ Transform messages using Quarkus Qute templating engine
 
 == Maven coordinates
 
-Create a new project image:https://img.shields.io/badge/code.quarkus.io-camel%E2%80%92quarkus%E2%80%92qute-blue.svg?logo=quarkus&logoColor=white&labelColor=3678db&color=e97826[link="https://code.quarkus.io/?extension-search=camel-quarkus-qute", window="_blank"]
+https://code.quarkus.io/?extension-search=camel-quarkus-qute[Create a new project with this extension on code.quarkus.io, window="_blank"]
 
 Or add the coordinates to your existing project:
 
