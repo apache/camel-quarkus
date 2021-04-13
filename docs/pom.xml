@@ -96,40 +96,28 @@
                                     <goal>install-node-and-yarn</goal>
                                 </goals>
                                 <configuration>
-                                    <nodeVersion>v12.19.0</nodeVersion>
-                                    <yarnVersion>v1.12.3</yarnVersion>
+                                    <nodeVersion>v14.16.0</nodeVersion>
+                                    <yarnVersion>v1.22.5</yarnVersion>
                                 </configuration>
                             </execution>
-                        </executions>
-                    </plugin>
-                    <!--
-                      executing yarn via frontend-maven yielded Process exited with an error: 134 (Exit value: 134)
-                      using exec-maven plugin instead.
-                    -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>exec-maven-plugin</artifactId>
-                        <executions>
                             <execution>
-                                <id>yarn-install</id>
+                                <id>yarn install</id>
                                 <goals>
-                                    <goal>exec</goal>
+                                    <goal>yarn</goal>
                                 </goals>
-                                <phase>generate-resources</phase>
+                                <phase>verify</phase>
                                 <configuration>
-                                    <executable>${project.basedir}/node/node</executable>
-                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js install --no-progress --force --non-interactive --frozen-lockfile</commandlineArgs>
+                                    <arguments>install --immutable</arguments>
                                 </configuration>
                             </execution>
                             <execution>
                                 <id>antora-xref-check</id>
                                 <goals>
-                                    <goal>exec</goal>
+                                    <goal>yarn</goal>
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <executable>${project.basedir}/node/node</executable>
-                                    <commandlineArgs>${project.basedir}/node/yarn/dist/bin/yarn.js --non-interactive antora --generator @antora/xref-validator --fetch antora-playbook.yml --stacktrace</commandlineArgs>
+                                    <arguments>run antora --generator @antora/xref-validator --fetch antora-playbook.yml --stacktrace</arguments>
                                 </configuration>
                             </execution>
                         </executions>

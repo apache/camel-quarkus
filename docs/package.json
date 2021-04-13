@@ -4,8 +4,8 @@
   "description": "Apache Camel extensions for Quarkus Documentation",
   "license": "Apache-2.0",
   "scripts": {
-    "preview": "cd target/site && lite-server",
-    "build": "node_modules/.bin/antora --fetch antora-playbook.yml --stacktrace",
+    "preview": "yarn unplug opn -AR && cd target/site && lite-server",
+    "build": "yarn antora --fetch antora-playbook.yml --stacktrace",
     "dev": "yarn build && yarn preview",
     "checks": "yarn antora --generator @antora/xref-validator antora-playbook.yml"
   },
@@ -20,5 +20,10 @@
     "@antora/xref-validator": "https://gitlab.com/antora/xref-validator.git#v1.0.0-alpha.13",
     "@djencks/asciidoctor-antora-indexer": "^0.0.6",
     "lite-server": "^2.4.0"
+  },
+  "dependenciesMeta": {
+    "opn@5.3.0": {
+      "unplugged": true
+    }
   }
 }
