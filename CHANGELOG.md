@@ -6,17 +6,33 @@
 
 **Closed issues:**
 
+- \[camel 3.10\] kotlin-dsl Enforcer rules have failed [\#2451](https://github.com/apache/camel-quarkus/issues/2451)
+- Issue with Camel FHIR extension when upgrading to 1.13.0.Final [\#2450](https://github.com/apache/camel-quarkus/issues/2450)
+- camel-quarkus-dozer Error when running native executable [\#2449](https://github.com/apache/camel-quarkus/issues/2449)
+- \[Camel 3.10\] Missing EndpointKey [\#2447](https://github.com/apache/camel-quarkus/issues/2447)
+- Unable to add camel-quarkus-microprofile-metrics when using camel-quarkus-azure-eventhubs components [\#2442](https://github.com/apache/camel-quarkus/issues/2442)
+- Unable to start Quarkus with Camel FHIR  [\#2441](https://github.com/apache/camel-quarkus/issues/2441)
+- Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
+- Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
+- couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
 
 **Merged pull requests:**
 
+- Added native support for camel-openstack \* components \#1943 [\#2463](https://github.com/apache/camel-quarkus/pull/2463) ([aldettinger](https://github.com/aldettinger))
+- Make Quarkus Micrometer optional for Reactor Netty extension [\#2462](https://github.com/apache/camel-quarkus/pull/2462) ([jamesnetherton](https://github.com/jamesnetherton))
+- Forward HBase testcontainer's log to stdout to see whether \#2458 is o… [\#2459](https://github.com/apache/camel-quarkus/pull/2459) ([ppalaga](https://github.com/ppalaga))
+- Fix \#2441 to remove the unused beanContainer in FhirR5Processor [\#2455](https://github.com/apache/camel-quarkus/pull/2455) ([zhfeng](https://github.com/zhfeng))
+- Add code.quarkus.io badges on extension pages  [\#2454](https://github.com/apache/camel-quarkus/pull/2454) ([ppalaga](https://github.com/ppalaga))
+- camel-quarkus-dozer Error when running native executable \#2449 [\#2453](https://github.com/apache/camel-quarkus/pull/2453) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix xref-validator download failure [\#2446](https://github.com/apache/camel-quarkus/pull/2446) ([ppalaga](https://github.com/ppalaga))
 - Show deprecation info in Extensions reference  [\#2444](https://github.com/apache/camel-quarkus/pull/2444) ([ppalaga](https://github.com/ppalaga))
 - \[fix\] Enforce correct maven version [\#2443](https://github.com/apache/camel-quarkus/pull/2443) ([llowinge](https://github.com/llowinge))
 - Upgrade CassandraQL quarkus extension to 1.0.1 \#2423 [\#2440](https://github.com/apache/camel-quarkus/pull/2440) ([zbendhiba](https://github.com/zbendhiba))
 - openstack: added nova server and swift tests \#1943 [\#2438](https://github.com/apache/camel-quarkus/pull/2438) ([aldettinger](https://github.com/aldettinger))
 - DigitalOcean native support \#1594 [\#2387](https://github.com/apache/camel-quarkus/pull/2387) ([zbendhiba](https://github.com/zbendhiba))
+- couchbase JVM : add integration tests fixes \#2326 [\#2327](https://github.com/apache/camel-quarkus/pull/2327) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.8.1](https://github.com/apache/camel-quarkus/tree/1.8.1) (2021-04-01)
 
@@ -1540,6 +1556,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
 
+**Implemented enhancements:**
+
+- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
+
 **Fixed bugs:**
 
 - Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
@@ -1656,7 +1676,6 @@
 **Implemented enhancements:**
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
