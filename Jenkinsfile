@@ -19,11 +19,11 @@ def JDK_NAME = env.JDK_NAME ?: 'jdk_11_latest'
 def MAVEN_PARAMS = '-B -e -ntp'
 def VERSION_SUFFIX = "-${env.BRANCH_NAME.toUpperCase().replace('_','-')}-SNAPSHOT"
 
-if (env.BRANCH_NAME == 'camel-master') {
+if (env.BRANCH_NAME == 'camel-main') {
     MAVEN_PARAMS += ' -Papache-snapshots'
 }
 
-if (env.BRANCH_NAME == 'quarkus-master') {
+if (env.BRANCH_NAME == 'quarkus-main') {
     MAVEN_PARAMS += ' -Poss-snapshots -Dquarkus.version=999-SNAPSHOT'
 }
 
@@ -47,12 +47,12 @@ pipeline {
     stages {
         stage('Set version') {
             when {
-                expression { env.BRANCH_NAME ==~ /(.*-master)/ }
+                expression { env.BRANCH_NAME ==~ /(.*-main)/ }
             }
 
             steps {
                 script {
-                    if (env.BRANCH_NAME == "quarkus-master") {
+                    if (env.BRANCH_NAME == "quarkus-main") {
                         sh 'rm -rf /tmp/quarkus'
                         sh "git clone --depth 1 --branch main https://github.com/quarkusio/quarkus.git /tmp/quarkus"
                         sh "./mvnw ${MAVEN_PARAMS} -Dquickly clean install -f /tmp/quarkus/pom.xml"

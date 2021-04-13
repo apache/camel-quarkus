@@ -18,16 +18,16 @@
 import org.kohsuke.github.*
 
 /**
- * A script to report on the build status of synchronization for branches camel-master and quarkus-master.
+ * A script to report on the build status of synchronization for branches camel-main and quarkus-main.
  *
- * If failures were encountered in the build, a new GitHub issue is opened labeled with build/quarkus-master or build/camel-master, with the body containing
+ * If failures were encountered in the build, a new GitHub issue is opened labeled with build/quarkus-main or build/camel-main, with the body containing
  * information about the commit SHA and a link to the build. If an existing open issue with the appropriate label exists, then
  * a new comment about the build failure is added.
  *
  * If the build was successful, any open GitHub issue relating to the branch build will be closed.
  *
  * The script also outputs a GitHub action step variable named 'overall_build_status', this is used by the build to determine whether it
- * should automatically merge the latest changes from the master branch, to the target branch.
+ * should automatically merge the latest changes from the main branch, to the target branch.
  */
 
 final String TOKEN = properties['token']
