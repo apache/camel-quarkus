@@ -58,7 +58,7 @@ Check the documentation of the given plugin to discover how to create projects i
 
 === Camel content assist
 
-The follwing plugins provide support for content assist when editing Camel routes and `application.properties`:
+The following plugins provide support for content assist when editing Camel routes and `application.properties`:
 
 * https://marketplace.visualstudio.com/items?itemName=redhat.vscode-apache-camel[VS Code Language support for Camel] - a part of the https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack[Camel extension pack]
 * https://marketplace.eclipse.org/content/language-support-apache-camel[Eclipse Desktop Language Support for Camel] - a part of https://tools.jboss.org/[Jboss Tools] and https://developers.redhat.com/products/codeready-studio[CodeReady Studio]

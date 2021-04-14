@@ -46,13 +46,6 @@ $ cd integration-tests/foo
 $ mvn clean verify -Pnative
 ----
 +
-[TIP]
-====
-If your test application is going to be configured via `camel.component.*` properties, you need to add the
-`camel-quarkus-main` dependency to the test project. See the xref:user-guide/configuration.adoc[Bootstrap] section of
-the User guide for more details.
-====
-+
 Consider shifting some tasks from runtime to build time.
 The https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide] may be a good ally for this.
 

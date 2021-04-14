@@ -103,35 +103,6 @@ Since 1.8.0, all its functionality moved to `camel-quarkus-core`.
 In addition to support configuring Camel through properties, `camel-quarkus-core` allows you to use conventions to configure the Camel behavior.
 For example, if there is a single `ExchangeFormatter` instance in the CDI container, then it will automatically wire that bean to the `LogComponent`.
 
-
-`camel-quarkus-core` also brings the option to write https://quarkus.io/guides/command-mode-reference[Quarkus Command Mode Applications] with control about when the Camel runtime should start:
-
-[source,java]
-----
-import io.quarkus.runtime.Quarkus;
-import io.quarkus.runtime.annotations.QuarkusMain;
-import org.apache.camel.quarkus.main.CamelMainApplication;
-
-@QuarkusMain
-public class Main {
-    public static void main(String... args) {
-        //
-        // your logic here
-        //
-
-        Quarkus.run(CamelMainApplication.class, args); // <1>
-    }
-}
-----
-<1> Start Quarkus and the Camel Quarkus runtime
-
-[NOTE]
-====
-It is recommended to perform very little logic in the Java Main.
-====
-
-Find more details about Camel Quarkus command line applications in this link:/blog/2020/07/command-line-utility-with-camel-quarkus/[blog post].
-
 == What's next?
 
 We recommend to continue with xref:user-guide/cdi.adoc[CDI].
