@@ -41,6 +41,29 @@ you really need it.
 
 TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Quarkus Dependency Injection guide] for more details.
 
+=== Accessing `CamelContext`
+
+To access `CamelContext` just inject it into your bean:
+
+[source,java]
+----
+import javax.inject.Inject;
+import javax.enterprise.context.ApplicationScoped;
+import java.util.stream.Collectors;
+import java.util.List;
+import org.apache.camel.CamelContext;
+
+@ApplicationScoped
+public static class MyBean {
+
+    @Inject
+    CamelContext context;
+
+    public List<String> listRouteIds() {
+        return context.getRoutes().stream().map(Route::getId).sorted().collect(Collectors.toList());
+    }
+}
+----
 
 == CDI and the Camel Bean component
 

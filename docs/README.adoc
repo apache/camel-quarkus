@@ -20,8 +20,11 @@ To setup the environment you need to execute the following command once (and eve
 
 [code,shell]
 ----
-yarn install
+yarn install --immutable
 ----
+
+`--immutable` makes the install command respect the content of `yarn.lock` file.
+You may want to omit it if you want upgrade the versions in `yarn.lock` file.
 
 == Build the Documentation Website
 

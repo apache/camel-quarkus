@@ -4,7 +4,7 @@
 
 This guide is for developers writing Camel applications on top of Quarkus.
 
-WARNING: Camel extensions for Quarkus is a new project and this guide is a work in progress.
+WARNING: Camel Quarkus is a new project and this guide is a work in progress.
 https://github.com/apache/camel-quarkus/issues[Issue reports] and fixes are welcome.
 
 == Which Camel components are supported on Quarkus?

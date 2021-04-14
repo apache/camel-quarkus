@@ -11,7 +11,7 @@ Camel Quarkus provides xref:reference/index.adoc[Quarkus extensions] for many of
 
 Camel Quarkus also takes advantage of the many performance improvements made in Camel 3, which results in a lower memory footprint, less reliance on reflection (which is good for native application support) and faster startup times.
 
-You can define Camel routes using the Java DSL, XML & Kotlin (see the xref:user-guide/examples.adoc[examples]).
+You can xref:user-guide/defining-camel-routes.adoc[define Camel routes] using the Java DSL, XML, Kotlin, Groovy, YAML or JavaScript.
 
 === Where to go next?
 
