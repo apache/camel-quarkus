@@ -49,7 +49,7 @@ $ mvn clean verify -Pnative
 [TIP]
 ====
 If your test application is going to be configured via `camel.component.*` properties, you need to add the
-`camel-quarkus-main` dependency to the test project. See the xref:user-guide/bootstrap.adoc[Bootstrap] section of
+`camel-quarkus-main` dependency to the test project. See the xref:user-guide/configuration.adoc[Bootstrap] section of
 the User guide for more details.
 ====
 +

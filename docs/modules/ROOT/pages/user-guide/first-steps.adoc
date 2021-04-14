@@ -1,7 +1,7 @@
 = First steps
 :page-aliases: first-steps.adoc
 
-This guide outlines various ways to create a Camel Quarkus project.
+This guide outlines various ways to create a new Camel Quarkus application.
 
 == Prerequisites
 
@@ -17,9 +17,13 @@ This guide outlines various ways to create a Camel Quarkus project.
 
 == code.quarkus.io
 
-Projects can be bootstrapped and generated at https://code.quarkus.io. All of the Camel Quarkus extensions can be found under the 'Integration' heading. Use the 'search' field to help with finding extensions that you are interested in.
+Projects can be generated at https://code.quarkus.io[code.quarkus.io].
+All of the Camel Quarkus extensions can be found under the 'Integration' heading.
+Use the 'search' field to help with finding extensions that you are interested in.
 
-Simply select the component extensions that you want to work with and click the 'Generate your application' button to download a basic skeleton project. There is also the option to push the project directly to GitHub.
+Simply select the component extensions that you want to work with
+and click the 'Generate your application' button to download a basic skeleton project.
+There is also the option to push the project directly to GitHub.
 
 When the project archive download has completed successfully, unzip and import into your favorite IDE.
 
@@ -50,7 +54,17 @@ Quarkus has plugins for most of the popular development IDEs. They provide Quark
 * https://plugins.jetbrains.com/plugin/13234-quarkus-tools[IntelliJ plugin]
 * https://marketplace.visualstudio.com/items?itemName=redhat.vscode-quarkus[VSCode plugin]
 
-Check the plugin documentation to discover how to create projects for your preferred IDE.
+Check the documentation of the given plugin to discover how to create projects in your preferred IDE.
+
+=== Camel content assist
+
+The follwing plugins provide support for content assist when editing Camel routes and `application.properties`:
+
+* https://marketplace.visualstudio.com/items?itemName=redhat.vscode-apache-camel[VS Code Language support for Camel] - a part of the https://marketplace.visualstudio.com/items?itemName=redhat.apache-camel-extension-pack[Camel extension pack]
+* https://marketplace.eclipse.org/content/language-support-apache-camel[Eclipse Desktop Language Support for Camel] - a part of https://tools.jboss.org/[Jboss Tools] and https://developers.redhat.com/products/codeready-studio[CodeReady Studio]
+* https://plugins.jetbrains.com/plugin/9371-apache-camel-idea-plugin[Apache Camel IDEA plugin] (not always up to date)
+* Users of other https://microsoft.github.io/language-server-protocol/implementors/tools/[IDEs supporting Language Server Protocol]
+may choose to install and configure https://github.com/camel-tooling/camel-language-server[Camel Language Server] manually
 
 == Example projects
 
@@ -100,6 +114,11 @@ The application has three compile dependencies:
 ----
 
 They are managed within the `camel-quarkus-bom` that is imported in `<dependencyManagement>`.
+
+[INFO]
+====
+More about xref:user-guide/dependency-management.adoc[BOMs].
+====
 
 There are only three classes in the application: `Routes` defines the Camel routes, whereas `Fruit` and `Legume` are entities.
 
@@ -212,3 +231,8 @@ That's under 35 MB of RAM!
 TIP: https://quarkus.io/guides/building-native-image-guide.html[Quarkus Native executable guide] contains more details
 including
 https://quarkus.io/guides/building-native-image-guide.html#creating-a-container[steps for creating a container image].
+
+== What's next?
+
+We recommend to continue with xref:user-guide/dependency-management.adoc[Dependency management].
+
