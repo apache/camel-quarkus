@@ -1,11 +1,11 @@
 == AWS 2 grouped integration tests
 
-This module allows executing all tests from `integration-tests-aws2/*` grouped together.
+This module allows executing all tests from `integration-test-groups/aws2/*` grouped together.
 
 While grouping brings the benefit of faster native compilation
-(compared to the sum of compilation times of all modules under `integration-tests-aws2/*`)
+(compared to the sum of compilation times of all modules under `integration-test-groups/aws2/*`)
 it is methodologically not as clean as running those tests in isolation.
-Hence, this module is intended to be run instead of the tests under `integration-tests-aws2/*`
+Hence, this module is intended to be run instead of the tests under `integration-test-groups/aws2/*`
 if, in the given situation, the speed matters more than isolation.
 
 === How the grouping works
@@ -17,4 +17,4 @@ if, in the given situation, the speed matters more than isolation.
 
 === Mock backend vs. real service
 
-Please refer to link:../../integration-tests-aws2/README.adoc[integration-tests-aws2/README.adoc] for more details.
+Please refer to link:../../integration-test-groups/aws2/README.adoc[integration-test-groups/aws2/README.adoc] for more details.
