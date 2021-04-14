@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.azure.eventhubs.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import com.azure.core.amqp.AmqpTransportType;
@@ -32,20 +34,27 @@ public class AzureEventhubsRoutes extends RouteBuilder {
     String azureStorageAccountKey;
 
     @ConfigProperty(name = "azure.event.hubs.connection.string")
-    String connectionString;
+    Optional<String> connectionString;
 
-    @ConfigProperty(name = "azure.blob.container.name")
-    String azureBlobContainerName;
+    @ConfigProperty(name = "azure.event.hubs.blob.container.name")
+    Optional<String> azureBlobContainerName;
+
+    @ConfigProperty(name = "camel.quarkus.start.mock.backend", defaultValue = "true")
+    boolean startMockBackend;
 
     @Override
     public void configure() throws Exception {
-        from("azure-eventhubs:?connectionString=RAW(" + connectionString
-                + ")&blobAccountName=RAW(" + azureStorageAccountName
-                + ")&blobAccessKey=RAW(" + azureStorageAccountKey
-                + ")&blobContainerName=RAW(" + azureBlobContainerName + ")&amqpTransportType="
-                + AmqpTransportType.AMQP)
-                        .to("mock:azure-consumed");
-
+        if (connectionString.isPresent() && azureBlobContainerName.isPresent()) {
+            from("azure-eventhubs:?connectionString=RAW(" + connectionString.get()
+                    + ")&blobAccountName=RAW(" + azureStorageAccountName
+                    + ")&blobAccessKey=RAW(" + azureStorageAccountKey
+                    + ")&blobContainerName=RAW(" + azureBlobContainerName.get() + ")&amqpTransportType="
+                    + AmqpTransportType.AMQP)
+                            .to("mock:azure-consumed");
+        } else if (!startMockBackend) {
+            throw new IllegalStateException(
+                    "azure.event.hubs.connection.string and azure.event.hubs.blob.container.name must be set when camel.quarkus.start.mock.backend == false");
+        }
     }
 
 }

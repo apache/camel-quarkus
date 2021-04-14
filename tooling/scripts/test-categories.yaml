@@ -119,9 +119,7 @@ dozer-social-azure:
   - master
   - syndication
   - zendesk
-  - azure-storage-blob
-  - azure-storage-queue
-  - azure-eventhubs
+  - azure-grouped
 messaging-networking1:
   - activemq
   - amqp

@@ -21,14 +21,14 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <artifactId>camel-quarkus-integration-tests-azure</artifactId>
         <version>1.9.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-azure-eventhubs</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Azure Event Hubs</name>
-    <description>Integration tests for Camel Quarkus Azure Event Hubs extension</description>
+    <artifactId>camel-quarkus-integration-test-azure-storage-blob</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Azure Storage Blob Service</name>
+    <description>Integration tests for Camel Quarkus Azure Storage Blob Service extension</description>
 
     <dependencyManagement>
         <dependencies>
@@ -52,23 +52,11 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-azure-eventhubs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-mock</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-quartz</artifactId>
+            <artifactId>camel-quarkus-azure-storage-blob</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -83,28 +71,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.awaitility</groupId>
-            <artifactId>awaitility</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-tests-support-azure</artifactId>
             <scope>test</scope>
         </dependency>
 
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-azure-eventhubs-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-mock-deployment</artifactId>
+            <artifactId>camel-quarkus-azure-storage-blob-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>

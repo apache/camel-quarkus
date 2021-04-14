@@ -18,7 +18,7 @@
 
 
 suffix="$(az ad signed-in-user show --query displayName -o tsv | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]' | cut -c-12)"
-suffix="${suffix}1"
+suffix="${suffix}4"
 export AZURE_STORAGE_ACCOUNT_NAME=cqacc${suffix}
 export AZURE_BLOB_CONTAINER_NAME=cq-container-${suffix}
 
@@ -54,7 +54,7 @@ function createResources() {
 
     echo 'export AZURE_STORAGE_ACCOUNT_NAME="'${AZURE_STORAGE_ACCOUNT_NAME}'"'
     echo 'export AZURE_STORAGE_ACCOUNT_KEY="'${AZURE_STORAGE_ACCOUNT_KEY}'"'
-    echo 'export AZURE_BLOB_CONTAINER_NAME="'${AZURE_BLOB_CONTAINER_NAME}'"'
+    echo 'export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME="'${AZURE_BLOB_CONTAINER_NAME}'"'
     echo 'export AZURE_EVENT_HUBS_CONNECTION_STRING="'$AZURE_EVENT_HUBS_CONNECTION_STRING';EntityPath='${EH_NAME}'"'
 }
 

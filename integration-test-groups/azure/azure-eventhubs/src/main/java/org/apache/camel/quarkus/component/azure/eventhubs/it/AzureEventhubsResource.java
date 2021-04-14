@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.azure.eventhubs.it;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -51,17 +52,8 @@ public class AzureEventhubsResource {
     @Inject
     CamelContext context;
 
-    @ConfigProperty(name = "azure.storage.account-name")
-    String azureStorageAccountName;
-
-    @ConfigProperty(name = "azure.storage.account-key")
-    String azureStorageAccountKey;
-
     @ConfigProperty(name = "azure.event.hubs.connection.string")
-    String connectionString;
-
-    @ConfigProperty(name = "azure.blob.container.name")
-    String azureBlobContainerName;
+    Optional<String> connectionString;
 
     private volatile String message;
     private int counter = 0;
@@ -73,7 +65,7 @@ public class AzureEventhubsResource {
     @Scheduled(every = "1s")
     void schedule() {
         if (message != null) {
-            final String endpointUri = "azure-eventhubs:?connectionString=RAW(" + connectionString + ")";
+            final String endpointUri = "azure-eventhubs:?connectionString=RAW(" + connectionString.get() + ")";
             producerTemplate.sendBody(endpointUri, message + (counter++));
         }
     }

@@ -1,11 +1,21 @@
-== Azure Event Hubs Service integration tests
+== Azure isolated integration tests
 
-By default the integration tests run only against the real remote Azure API.
+=== Azurite
+
+By default the integration tests are run against the Azurite test container,
+or skipped, if the given service is not supported by Azurite.
+
+Unsupported by Azurite:
+
+* `azure-eventhubs`
+
+=== Real Azure API
 
 Prerequisites:
 
 * A https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?toc=%2Fazure%2Fstorage%2Fblobs%2Ftoc.json&tabs=azure-portal[general-purpose v2 Azure storage account] and
 https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-portal[create a container]
+* View the https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal#view-account-access-keys[account keys] and set the following environment variables:
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-create[Azure Event Hub]
 * An https://docs.microsoft.com/en-us/azure/event-hubs/event-hubs-get-connection-string[Event Hubs connection string]
 
@@ -26,7 +36,7 @@ Here are the environment variables you need to set:
 export AZURE_STORAGE_ACCOUNT_NAME=<your-azure-storage-account-name>
 export AZURE_STORAGE_ACCOUNT_KEY=<your-azure-storage-account-key>
 # the container has to exist before you run the test
-export AZURE_BLOB_CONTAINER_NAME=<your-container-name>
+export AZURE_EVENT_HUBS_BLOB_CONTAINER_NAME=<your-container-name>
 export AZURE_EVENT_HUBS_CONNECTION_STRING="Endpoint=sb://<your-namespace>.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=<your-key>;EntityPath=<your-hub-name>"
 ----
 
@@ -36,4 +46,7 @@ To clean up, run
 ----
 $ ./azure-resources.sh delete
 ----
+
+You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to avoid starting the local Azurite container and make sure that you test against the real remote Azure API.
+
 

@@ -72,9 +72,7 @@
         <module>avro-rpc</module>
         <module>aws2</module>
         <module>aws2-grouped</module>
-        <module>azure-eventhubs</module>
-        <module>azure-storage-blob</module>
-        <module>azure-storage-queue</module>
+        <module>azure-grouped</module>
         <module>base64</module>
         <module>bean</module>
         <module>bean-validator</module>
