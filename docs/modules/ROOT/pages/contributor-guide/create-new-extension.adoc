@@ -66,13 +66,6 @@ Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] pag
 9. Complete the integration test module under `integration-tests/foo-abc`. Make sure you test both the consumer and the
    producer of the component (if the component supports both). Make sure the tests are passing both in the JVM mode
    (`mvn test`) and in the native mode (`mvn verify -Pnative`).
-+
-[TIP]
-====
-If your test application is going to be configured via `camel.component.*` properties, you need to add the
-`camel-quarkus-main` dependency to the test project. See the xref:user-guide/configuration.adoc[Bootstrap] section of
-the User guide for more details.
-====
 
 10. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
    ask for help in the given GitHub issue or via https://camel.zulipchat.com[Camel Quarkus chat].
