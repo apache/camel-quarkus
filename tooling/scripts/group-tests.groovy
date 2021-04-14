@@ -42,19 +42,11 @@ Files.list(sourceDir)
     .filter {p -> Files.exists(p.resolve('pom.xml'))}
     .sorted()
     .forEach {p ->
-        mergedFiles.each { relPath, sb -> sb.append(p.resolve(relPath).getText('UTF-8') + '\n') }
-        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/src/main/java')) {
-            fileset(dir: p.resolve('src/main/java'), includes: "**")
-        }
-        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/src/test/java')) {
-            fileset(dir: p.resolve('src/test/java'), includes: "**")
-        }
-        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/classes')) {
-            fileset(dir: p.resolve('src/main/resources'), includes: "**")
-        }
-        new AntBuilder().copy(todir: destinationModuleDir.resolve('target/test-classes')) {
-            fileset(dir: p.resolve('src/test/resources'), includes: "**")
-        }
+        mergedFiles.each { relPath, sb -> (Files.exists(p.resolve(relPath))) ? (sb.append(p.resolve(relPath).getText('UTF-8') + '\n')) : sb }
+        copyResources(p.resolve('src/main/java'), destinationModuleDir.resolve('target/src/main/java'))
+        copyResources(p.resolve('src/test/java'), destinationModuleDir.resolve('target/src/test/java'))
+        copyResources(p.resolve('src/main/resources'), destinationModuleDir.resolve('target/classes'))
+        copyResources(p.resolve('src/test/resources'), destinationModuleDir.resolve('target/test-classes'))
     }
 
 mergedFiles.each { relPath, sb ->
@@ -64,3 +56,10 @@ mergedFiles.each { relPath, sb ->
     Files.write(destPath, sb.toString().getBytes('UTF-8'))
 }
 
+static void copyResources(Path source, Path dest) {
+    if (Files.exists(source)) {
+        new AntBuilder().copy(todir: dest) {
+            fileset(dir: source, includes: "**")
+        }
+    }
+}

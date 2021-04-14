@@ -742,6 +742,7 @@
                                         <sortModulesPath>integration-tests/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
@@ -790,18 +791,27 @@
                                         <directory>${basedir}</directory>
                                         <includes>
                                             <include>integration-tests/*/src/main/resources/application.properties</include>
-                                            <include>integration-tests-aws2/*/src/main/resources/application.properties</include>
+                                            <include>integration-test-groups/*/*/src/main/resources/application.properties</include>
                                         </includes>
                                     </removeEmptyApplicationProperties>
                                     <mergePoms>
                                         <mergePom>
                                             <sourcePoms>
-                                                <directory>${basedir}/integration-tests-aws2</directory>
+                                                <directory>${basedir}/integration-test-groups/aws2</directory>
                                                 <includes>
                                                     <include>*/pom.xml</include>
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/aws2-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/azure</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/azure-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                     </mergePoms>
                                 </configuration>
