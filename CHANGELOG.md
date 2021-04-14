@@ -6,6 +6,9 @@
 
 **Closed issues:**
 
+- Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
+- Improve MongoDB extension documentation of named clients   [\#2466](https://github.com/apache/camel-quarkus/issues/2466)
+- Intermittent failure in native MicroprofileMetricsIT [\#2460](https://github.com/apache/camel-quarkus/issues/2460)
 - \[camel 3.10\] kotlin-dsl Enforcer rules have failed [\#2451](https://github.com/apache/camel-quarkus/issues/2451)
 - Issue with Camel FHIR extension when upgrading to 1.13.0.Final [\#2450](https://github.com/apache/camel-quarkus/issues/2450)
 - camel-quarkus-dozer Error when running native executable [\#2449](https://github.com/apache/camel-quarkus/issues/2449)
@@ -16,10 +19,16 @@
 - Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
+- \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
+- Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
+- Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
 
 **Merged pull requests:**
 
+- Docs improvements [\#2469](https://github.com/apache/camel-quarkus/pull/2469) ([ppalaga](https://github.com/ppalaga))
+- Improve MongoDB extension documentation of named clients [\#2467](https://github.com/apache/camel-quarkus/pull/2467) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix intermittent failure in native MicroprofileMetricsIT [\#2464](https://github.com/apache/camel-quarkus/pull/2464) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added native support for camel-openstack \* components \#1943 [\#2463](https://github.com/apache/camel-quarkus/pull/2463) ([aldettinger](https://github.com/aldettinger))
 - Make Quarkus Micrometer optional for Reactor Netty extension [\#2462](https://github.com/apache/camel-quarkus/pull/2462) ([jamesnetherton](https://github.com/jamesnetherton))
 - Forward HBase testcontainer's log to stdout to see whether \#2458 is o… [\#2459](https://github.com/apache/camel-quarkus/pull/2459) ([ppalaga](https://github.com/ppalaga))
@@ -1556,10 +1565,6 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
 
-**Implemented enhancements:**
-
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
-
 **Fixed bugs:**
 
 - Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
@@ -1676,6 +1681,7 @@
 **Implemented enhancements:**
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
+- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
