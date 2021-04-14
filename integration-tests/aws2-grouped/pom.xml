@@ -27,7 +27,7 @@
 
     <artifactId>camel-quarkus-integration-test-aws2-grouped</artifactId>
     <name>Camel Quarkus :: Integration Tests :: AWS2 Grouped</name>
-    <description>AWS 2 tests from ../integration-tests-aws2 merged together</description>
+    <description>AWS 2 tests from ../integration-test-groups/aws2 merged together</description>
 
     <dependencyManagement>
         <dependencies>
@@ -270,7 +270,7 @@
                         <configuration>
                             <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
                             <properties>
-                                <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-tests-aws2</group-tests.source.dir>
+                                <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
                                 <group-tests.concat.rel.paths>src/main/resources/application.properties,src/test/resources/META-INF/services/org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer</group-tests.concat.rel.paths>
                             </properties>

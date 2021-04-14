@@ -199,7 +199,7 @@
         <module>catalog</module>
         <module>integration-tests-support</module>
         <module>integration-tests</module>
-        <module>integration-tests-aws2</module>
+        <module>integration-test-groups</module>
         <module>docs</module>
     </modules>
 
@@ -740,7 +740,8 @@
                                         <sortModulesPath>extensions/pom.xml</sortModulesPath>
                                         <sortModulesPath>extensions-jvm/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-tests/pom.xml</sortModulesPath>
-                                        <sortModulesPath>integration-tests-aws2/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
@@ -751,7 +752,7 @@
                                             <includes>
                                                 <include>extensions-jvm/*/integration-test/pom.xml</include>
                                                 <include>integration-tests/*/pom.xml</include>
-                                                <include>integration-tests-aws2/*/pom.xml</include>
+                                                <include>integration-test-groups/*/*/pom.xml</include>
                                             </includes>
                                         </updateVirtualDependency>
                                     </updateVirtualDependencies>
