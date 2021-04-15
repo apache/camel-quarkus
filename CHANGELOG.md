@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
+- Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
 - Improve MongoDB extension documentation of named clients   [\#2466](https://github.com/apache/camel-quarkus/issues/2466)
 - Intermittent failure in native MicroprofileMetricsIT [\#2460](https://github.com/apache/camel-quarkus/issues/2460)
 - \[camel 3.10\] kotlin-dsl Enforcer rules have failed [\#2451](https://github.com/apache/camel-quarkus/issues/2451)
@@ -18,14 +19,20 @@
 - Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
 - Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
+- Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
 - couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
 - \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
+- Startup log of bootstrap runtime [\#2164](https://github.com/apache/camel-quarkus/issues/2164)
 - Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
+- Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
 - Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
 
 **Merged pull requests:**
 
+- documentation fixes [\#2475](https://github.com/apache/camel-quarkus/pull/2475) ([aldettinger](https://github.com/aldettinger))
+- Revisit the documentation \#2136 \#2470 \#2374 [\#2474](https://github.com/apache/camel-quarkus/pull/2474) ([ppalaga](https://github.com/ppalaga))
+- Upper case Bootstrap, Fix \#2164 [\#2472](https://github.com/apache/camel-quarkus/pull/2472) ([cunningt](https://github.com/cunningt))
 - Docs improvements [\#2469](https://github.com/apache/camel-quarkus/pull/2469) ([ppalaga](https://github.com/ppalaga))
 - Improve MongoDB extension documentation of named clients [\#2467](https://github.com/apache/camel-quarkus/pull/2467) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix intermittent failure in native MicroprofileMetricsIT [\#2464](https://github.com/apache/camel-quarkus/pull/2464) ([jamesnetherton](https://github.com/jamesnetherton))
