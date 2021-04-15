@@ -16,8 +16,16 @@
  */
 package org.apache.camel.quarkus.component.kafka.deployment;
 
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
+import org.apache.camel.component.kafka.KafkaComponent;
+import org.apache.camel.quarkus.component.kafka.CamelKafkaRecorder;
+import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
@@ -25,5 +33,17 @@ class KafkaProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    @Record(ExecutionTime.RUNTIME_INIT)
+    CamelRuntimeBeanBuildItem createCamelKafkaComponent(
+            CamelKafkaRecorder recorder,
+            // We want Quarkus to configure the ServiceBindingConverter bits before this step
+            List<ServiceProviderBuildItem> serviceProviders) {
+        return new CamelRuntimeBeanBuildItem(
+                "kafka",
+                KafkaComponent.class.getName(),
+                recorder.createKafkaComponent());
     }
 }
