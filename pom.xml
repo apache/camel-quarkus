@@ -477,6 +477,7 @@
                             <exclude>**/generated/**</exclude>
                             <exclude>.envrc</exclude>
                             <exclude>**/.idea/**</exclude>
+                            <exclude>**/k8s-sb/**</exclude>
                         </excludes>
                         <mapping>
                             <groovy>SLASHSTAR_STYLE</groovy>
