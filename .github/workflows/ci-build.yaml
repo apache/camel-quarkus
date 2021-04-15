@@ -146,30 +146,38 @@ jobs:
           sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
           sudo chmod +x /usr/local/bin/yq
       - name: Integration Tests
-        env:
-          TEST_MODULES: ${{matrix.test-modules}}
         run: |
-          TEST_MODULES=""
+          set -x
           for MODULE in $(cat tooling/scripts/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
             if [ "${MODULE}" == "-" ]; then
               continue
             fi
-            TEST_MODULES="${TEST_MODULES} ${MODULE}"
+            MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
+            if [ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]; then
+              JVM_MODULES+=("${MODULE}")
+            else
+              NATIVE_MODULES+=("${MODULE}")
+            fi
           done
-          TEST_MODULES=$(echo ${TEST_MODULES} | sed 's/^[ \t]*//;s/[ \t]*$//')
-
-          if [ -z "${TEST_MODULES}" ]; then
+          if [ ${#JVM_MODULES[@]} -eq 0 && ${#NATIVE_MODULES[@]} -eq 0 ]; then
             echo "No test modules were found for category ${{ matrix.category }}"
             exit 1
           fi
 
-          for i in $TEST_MODULES
-          do modules+=("integration-tests/$i"); done
           IFS=,
-          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
-            -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
-            -Pnative,docker,ci \
-            -pl "${modules[*]}"
+          if [[ ${JVM_MODULES[@]} ]]; then
+            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
+              -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+              -Pdocker,ci \
+              -pl "${JVM_MODULES[*]}"
+          fi
+
+          if [[ ${NATIVE_MODULES[@]} ]]; then
+            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
+              -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+              -Pnative,docker,ci \
+              -pl "${NATIVE_MODULES[*]}"
+          fi
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |

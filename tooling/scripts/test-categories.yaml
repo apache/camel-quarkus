@@ -178,6 +178,8 @@ platform:
   - aws2-grouped
   - paho-mqtt5
 saas:
+  - fhir
+  - kubernetes
   - box
   - github
   - google
