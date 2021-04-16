@@ -23,14 +23,12 @@ cache-networking3:
   - caffeine
   - http
   - jsch
-  - ssh
   - hazelcast
   - ipfs
   - mllp
 cloud:
   - solr
   - aws2
-  - consul
   - elasticsearch-rest
   - google-bigquery
   - google-pubsub
@@ -56,6 +54,7 @@ core-main-validation:
   - json-validator
   - validator
   - freemarker
+  - shiro
 database:
   - arangodb
   - cassandraql
@@ -95,6 +94,7 @@ foundation:
   - openstack
   - quartz
   - saga
+  - rabbitmq
 xml-json-olingo4:
   - rest-binding-mode-xml
   - dataformats-json
@@ -108,6 +108,7 @@ xml-json-olingo4:
   - lumberjack
   - optaplanner
   - stax
+  - pg-replication-slot
 dozer-social-azure:
   - crypto
   - dozer
@@ -119,7 +120,6 @@ dozer-social-azure:
   - azure-grouped
   - vertx
   - tika
-  - shiro
   - pdf
 messaging-networking1:
   - activemq
@@ -130,11 +130,8 @@ messaging-networking1:
   - nats
   - splunk
   - spring-rabbitmq
-  - rabbitmq
   - ftp
   - graphql
-  - vertx-kafka
-  - vertx-websocket
 misc:
   - braintree
   - fop
@@ -162,7 +159,6 @@ networking-dataformats:
   - tarfile
   - univocity-parsers
   - velocity
-  - pg-replication-slot
   - xml
 platform:
   - microprofile
@@ -176,6 +172,8 @@ platform:
   - csimple
   - aws2-grouped
   - paho-mqtt5
+  - vertx-kafka
+  - vertx-websocket
 saas:
   - fhir
   - kubernetes
