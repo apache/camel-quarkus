@@ -16,7 +16,7 @@
 #
 
 # Association of test categories and integration test modules. Used by GitHub workflows.
-cache-networking3:
+group-01:
   - avro-rpc
   - git
   - infinispan
@@ -26,7 +26,7 @@ cache-networking3:
   - hazelcast
   - ipfs
   - mllp
-cloud:
+group-02:
   - solr
   - aws2
   - elasticsearch-rest
@@ -38,7 +38,7 @@ cloud:
   - smallrye-reactive-messaging
   - oaipmh
   - sql
-core-main-validation:
+group-03:
   - core
   - core-discovery-disabled
   - main
@@ -55,7 +55,7 @@ core-main-validation:
   - validator
   - freemarker
   - shiro
-database:
+group-04:
   - arangodb
   - cassandraql
   - couchdb
@@ -67,7 +67,7 @@ database:
   - leveldb
   - minio
   - mongodb
-dataformats:
+group-05:
   - avro
   - base64
   - bindy
@@ -80,7 +80,8 @@ dataformats:
   - syslog
   - xmlsecurity
   - xstream
-foundation:
+  - ssh
+group-06:
   - bean
   - exec
   - file
@@ -95,7 +96,7 @@ foundation:
   - quartz
   - saga
   - rabbitmq
-xml-json-olingo4:
+group-07:
   - rest-binding-mode-xml
   - dataformats-json
   - dropbox
@@ -109,7 +110,7 @@ xml-json-olingo4:
   - optaplanner
   - stax
   - pg-replication-slot
-dozer-social-azure:
+group-08:
   - crypto
   - dozer
   - telegram
@@ -121,7 +122,7 @@ dozer-social-azure:
   - vertx
   - tika
   - pdf
-messaging-networking1:
+group-09:
   - activemq
   - amqp
   - kafka
@@ -132,7 +133,7 @@ messaging-networking1:
   - spring-rabbitmq
   - ftp
   - graphql
-misc:
+group-10:
   - braintree
   - fop
   - nagios
@@ -144,7 +145,8 @@ misc:
   - main-unknown-args-fail
   - main-unknown-args-ignore
   - nsq
-networking-dataformats:
+  - consul
+group-11:
   - compression
   - disruptor
   - flatpack
@@ -160,7 +162,7 @@ networking-dataformats:
   - univocity-parsers
   - velocity
   - xml
-platform:
+group-12:
   - microprofile
   - openapi-java
   - opentracing
@@ -174,7 +176,7 @@ platform:
   - paho-mqtt5
   - vertx-kafka
   - vertx-websocket
-saas:
+group-13:
   - fhir
   - kubernetes
   - box
