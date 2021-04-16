@@ -29,7 +29,7 @@ env:
   TESTCONTAINERS_RYUK_DISABLED: true
 
 jobs:
-  build:
+  initial-mvn-install:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
     outputs:
@@ -97,7 +97,7 @@ jobs:
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
-    needs: build
+    needs: initial-mvn-install
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -132,29 +132,37 @@ jobs:
           sudo chmod +x /usr/local/bin/yq
       - name: Integration Tests
         run: |
-          TEST_MODULES=""
+          set -x
           for MODULE in $(cat tooling/scripts/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
             if [ "${MODULE}" == "-" ]; then
               continue
             fi
-            TEST_MODULES="${TEST_MODULES} ${MODULE}"
+            MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
+            if [ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]; then
+              JVM_MODULES+=("${MODULE}")
+            else
+              NATIVE_MODULES+=("${MODULE}")
+            fi
           done
-          TEST_MODULES=$(echo ${TEST_MODULES} | sed 's/^[ \t]*//;s/[ \t]*$//')
-
-          if [ -z "${TEST_MODULES}" ]; then
+          if [ ${#JVM_MODULES[@]} -eq 0 && ${#NATIVE_MODULES[@]} -eq 0 ]; then
             echo "No test modules were found for category ${{ matrix.category }}"
             exit 1
           fi
 
-          for i in ${TEST_MODULES}
-            do modules+=("integration-tests/$i");
-          done
           IFS=,
-          eval ./mvnw clean verify \
-            -Papache-snapshots \
-            -Dnative \
-            -Ddocker \
-            -pl "${modules[*]}"
+          if [[ ${JVM_MODULES[@]} ]]; then
+            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
+              -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+              -Pdocker,ci \
+              -pl "${JVM_MODULES[*]}"
+          fi
+
+          if [[ ${NATIVE_MODULES[@]} ]]; then
+            eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
+              -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+              -Pnative,docker,ci \
+              -pl "${NATIVE_MODULES[*]}"
+          fi
       - name: Report Build Failure
         if: failure()
         run: |
