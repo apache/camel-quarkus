@@ -82,7 +82,7 @@ jobs:
         uses: actions/checkout@v2
       - name: mvn clean install -DskipTests
         run: |
-          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip
+          eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip -Dskip.installyarn -Dskip.yarn
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
