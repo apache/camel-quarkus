@@ -30,6 +30,8 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 1.13.2.Final [\#2478](https://github.com/apache/camel-quarkus/pull/2478) ([ppalaga](https://github.com/ppalaga))
+- Run Azure tests grouped on the CI thus saving some time [\#2477](https://github.com/apache/camel-quarkus/pull/2477) ([ppalaga](https://github.com/ppalaga))
 - documentation fixes [\#2475](https://github.com/apache/camel-quarkus/pull/2475) ([aldettinger](https://github.com/aldettinger))
 - Revisit the documentation \#2136 \#2470 \#2374 [\#2474](https://github.com/apache/camel-quarkus/pull/2474) ([ppalaga](https://github.com/ppalaga))
 - Upper case Bootstrap, Fix \#2164 [\#2472](https://github.com/apache/camel-quarkus/pull/2472) ([cunningt](https://github.com/cunningt))
