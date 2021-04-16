@@ -38,6 +38,8 @@ cloud:
   - pubnub
   - protobuf
   - smallrye-reactive-messaging
+  - oaipmh
+  - sql
 core-main-validation:
   - core
   - core-discovery-disabled
@@ -66,10 +68,6 @@ database:
   - leveldb
   - minio
   - mongodb
-  - nitrite
-  - pgevent
-  - pg-replication-slot
-  - sql
 dataformats:
   - avro
   - base64
@@ -99,7 +97,6 @@ foundation:
   - saga
 xml-json-olingo4:
   - rest-binding-mode-xml
-  - xml
   - dataformats-json
   - dropbox
   - jing
@@ -120,6 +117,10 @@ dozer-social-azure:
   - syndication
   - zendesk
   - azure-grouped
+  - vertx
+  - tika
+  - shiro
+  - pdf
 messaging-networking1:
   - activemq
   - amqp
@@ -138,10 +139,6 @@ misc:
   - braintree
   - fop
   - nagios
-  - oaipmh
-  - pdf
-  - shiro
-  - tika
   - as2
   - kotlin
   - atlasmap
@@ -150,7 +147,6 @@ misc:
   - main-unknown-args-fail
   - main-unknown-args-ignore
   - nsq
-  - vertx
 networking-dataformats:
   - compression
   - disruptor
@@ -166,6 +162,8 @@ networking-dataformats:
   - tarfile
   - univocity-parsers
   - velocity
+  - pg-replication-slot
+  - xml
 platform:
   - microprofile
   - openapi-java
@@ -191,3 +189,5 @@ saas:
   - slack
   - twilio
   - js-dsl
+  - nitrite
+  - pgevent
