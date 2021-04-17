@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
 - Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
 - Improve MongoDB extension documentation of named clients   [\#2466](https://github.com/apache/camel-quarkus/issues/2466)
@@ -18,8 +19,10 @@
 - Unable to start Quarkus with Camel FHIR  [\#2441](https://github.com/apache/camel-quarkus/issues/2441)
 - Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
 - Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
+- Tests skipped in native mode should be executed on default Java version at least [\#2389](https://github.com/apache/camel-quarkus/issues/2389)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
+- kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
 - couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
 - \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
@@ -27,9 +30,14 @@
 - Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
 - Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
 - Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
+- Add integration tests for camel-quarkus-kafka + sasl  [\#1783](https://github.com/apache/camel-quarkus/issues/1783)
 
 **Merged pull requests:**
 
+- Reballance CI test categories even more [\#2488](https://github.com/apache/camel-quarkus/pull/2488) ([ppalaga](https://github.com/ppalaga))
+- Reballance CI test categories, do not validate docs links in inital-mvn-install CI phase [\#2485](https://github.com/apache/camel-quarkus/pull/2485) ([ppalaga](https://github.com/ppalaga))
+- Test skipped in native mode should be executed on default Java version at least  [\#2482](https://github.com/apache/camel-quarkus/pull/2482) ([ppalaga](https://github.com/ppalaga))
+- Add Quarkus service binding support to Kafka extension [\#2480](https://github.com/apache/camel-quarkus/pull/2480) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.13.2.Final [\#2478](https://github.com/apache/camel-quarkus/pull/2478) ([ppalaga](https://github.com/ppalaga))
 - Run Azure tests grouped on the CI thus saving some time [\#2477](https://github.com/apache/camel-quarkus/pull/2477) ([ppalaga](https://github.com/ppalaga))
 - documentation fixes [\#2475](https://github.com/apache/camel-quarkus/pull/2475) ([aldettinger](https://github.com/aldettinger))
@@ -674,7 +682,6 @@
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
@@ -753,6 +760,7 @@
 - Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
 - Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
+- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 - Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
 - Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
