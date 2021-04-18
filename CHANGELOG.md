@@ -682,6 +682,7 @@
 - Wrong jira component version definition in camel-quarkus-bom \#1775 [\#1778](https://github.com/apache/camel-quarkus/pull/1778) ([ppalaga](https://github.com/ppalaga))
 - Use asciidoctor-antora-indexer to produce lists of extensions [\#1777](https://github.com/apache/camel-quarkus/pull/1777) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.19.0, Make mvn -N cq:format remove empty… [\#1774](https://github.com/apache/camel-quarkus/pull/1774) ([ppalaga](https://github.com/ppalaga))
+- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 
 ## [1.1.0](https://github.com/apache/camel-quarkus/tree/1.1.0) (2020-09-09)
 
@@ -760,7 +761,6 @@
 - Speedup the initial CI mvn install by adding -T1C [\#1692](https://github.com/apache/camel-quarkus/pull/1692) ([ppalaga](https://github.com/ppalaga))
 - Remove camel 3.5.0 staging repositories [\#1690](https://github.com/apache/camel-quarkus/pull/1690) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace mvnd.builder.rules with virtual dependencies [\#1689](https://github.com/apache/camel-quarkus/pull/1689) ([ppalaga](https://github.com/ppalaga))
-- Feat\(mongodb\): add support for named client [\#1688](https://github.com/apache/camel-quarkus/pull/1688) ([squakez](https://github.com/squakez))
 - Move FastUuidGenerator to Camel [\#1683](https://github.com/apache/camel-quarkus/pull/1683) ([lburgazzoli](https://github.com/lburgazzoli))
 - Align dependencies with latest camel & quarkus releases [\#1682](https://github.com/apache/camel-quarkus/pull/1682) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add vertx-websocket component extension [\#1681](https://github.com/apache/camel-quarkus/pull/1681) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1690,6 +1690,7 @@
 - Bump To Quarkus 1.0.0-M3 [\#664](https://github.com/apache/camel-quarkus/pull/664) ([oscerd](https://github.com/oscerd))
 - Add integration test for Jackson unmarshalling with different POJOs [\#663](https://github.com/apache/camel-quarkus/pull/663) ([philschaller](https://github.com/philschaller))
 - Upgrade TestContainers to version 1.12.5 [\#662](https://github.com/apache/camel-quarkus/pull/662) ([oscerd](https://github.com/oscerd))
+- Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.0.0-M3](https://github.com/apache/camel-quarkus/tree/1.0.0-M3) (2020-01-24)
 
@@ -1748,7 +1749,6 @@
 
 **Merged pull requests:**
 
-- Set firstVersion to 1.0.0 to match the reality [\#661](https://github.com/apache/camel-quarkus/pull/661) ([ppalaga](https://github.com/ppalaga))
 - The MicroProfile test fails if message history is turned off [\#660](https://github.com/apache/camel-quarkus/pull/660) ([lburgazzoli](https://github.com/lburgazzoli))
 - Create a Camel ReactiveStreams extension \(initial implementation\) [\#659](https://github.com/apache/camel-quarkus/pull/659) ([lburgazzoli](https://github.com/lburgazzoli))
 - Update Quarkus to v1.2.0.Final [\#658](https://github.com/apache/camel-quarkus/pull/658) ([lburgazzoli](https://github.com/lburgazzoli))
