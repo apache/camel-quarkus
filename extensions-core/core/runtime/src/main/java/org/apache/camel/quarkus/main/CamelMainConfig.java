@@ -29,7 +29,7 @@ public class CamelMainConfig {
     /**
      * If {@code true} all {@code camel-main} features are enabled; otherwise no {@code camel-main} features are
      * enabled. See described the
-     * <a href="https://camel.apache.org/camel-quarkus/latest/user-guide/configuration.html#_camel_main">Configuration</a>
+     * <a href="https://camel.apache.org/camel-quarkus/latest/user-guide/configuration.html">Configuration</a>
      * section of Camel Quarkus documentation for more details.
      */
     @ConfigItem(defaultValue = "true")
