@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.redis.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class RedisTestResource implements ContainerResourceLifecycleManager {
+public class RedisTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(RedisTestResource.class);
     private static final int REDIS_PORT = 6379;
     private static final String REDIS_IMAGE = "redis:6.0.9";

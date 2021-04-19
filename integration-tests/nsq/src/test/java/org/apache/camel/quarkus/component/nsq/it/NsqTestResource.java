@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.nsq.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
@@ -36,7 +36,7 @@ import static org.apache.camel.quarkus.component.nsq.it.NsqRoute.PRODUCER_HOST_C
 import static org.apache.camel.quarkus.component.nsq.it.NsqRoute.PRODUCER_PORT_CFG_KEY;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
-public class NsqTestResource implements ContainerResourceLifecycleManager {
+public class NsqTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(NsqTestResource.class);
 
     public static final String CONTAINER_NSQ_IMAGE = "nsqio/nsq:v1.2.0";

@@ -19,8 +19,7 @@ package org.apache.camel.quarkus.component.influxdb.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
-import org.apache.camel.quarkus.testcontainers.ContainerSupport;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class InfluxdbTestResource implements ContainerResourceLifecycleManager {
+public class InfluxdbTestResource implements QuarkusTestResourceLifecycleManager {
     public static final Logger LOGGER = LoggerFactory.getLogger(InfluxdbTestResource.class);
     public static final int INFLUXDB_PORT = 8086;
     public static final String INFLUXDB_VERSION = "1.7.10";
@@ -49,7 +48,8 @@ public class InfluxdbTestResource implements ContainerResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     InfluxdbResource.INFLUXDB_CONNECTION_PROPERTY,
-                    "http://" + ContainerSupport.getHostAndPort(container, INFLUXDB_PORT));
+                    "http://" + String.format("%s:%s", container.getContainerIpAddress(),
+                            container.getMappedPort(INFLUXDB_PORT)));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

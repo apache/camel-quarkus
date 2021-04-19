@@ -24,15 +24,15 @@ import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.Stream;
 
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.localstack.LocalStackContainer;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import org.testcontainers.utility.DockerImageName;
 import software.amazon.awssdk.core.SdkClient;
 
-public final class Aws2TestResource implements ContainerResourceLifecycleManager {
+public final class Aws2TestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = Logger.getLogger(Aws2TestResource.class);
 
     private Aws2TestEnvContext envContext;

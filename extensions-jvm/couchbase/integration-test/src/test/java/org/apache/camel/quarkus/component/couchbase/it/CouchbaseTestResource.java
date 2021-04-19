@@ -26,12 +26,12 @@ import com.couchbase.client.java.manager.bucket.BucketType;
 import com.couchbase.client.java.manager.view.DesignDocument;
 import com.couchbase.client.java.manager.view.View;
 import com.couchbase.client.java.view.DesignDocumentNamespace;
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.testcontainers.couchbase.CouchbaseContainer;
 import org.testcontainers.utility.DockerImageName;
 
-public class CouchbaseTestResource implements ContainerResourceLifecycleManager {
+public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManager {
     private final static DockerImageName COUCHBASE_IMAGE = DockerImageName.parse("couchbase/server:6.5.1");
     public static final int KV_PORT = 11210;
     public static final int MANAGEMENT_PORT = 8091;

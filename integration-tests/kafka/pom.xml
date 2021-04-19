@@ -63,8 +63,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-integration-testcontainers-support</artifactId>
-            <scope>test</scope>
+            <artifactId>camel-quarkus-integration-test-support</artifactId>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>

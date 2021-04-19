@@ -19,12 +19,12 @@ package org.apache.camel.quarkus.component.vertx.kafka.it;
 import java.util.Collections;
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
-public class VertxKafkaTestResource implements ContainerResourceLifecycleManager {
+public class VertxKafkaTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final String KAFKA_IMAGE_NAME = "confluentinc/cp-kafka:5.4.3";
     private KafkaContainer container;

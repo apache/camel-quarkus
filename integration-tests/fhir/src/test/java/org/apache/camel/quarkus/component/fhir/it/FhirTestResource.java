@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.fhir.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class FhirTestResource implements ContainerResourceLifecycleManager {
+public class FhirTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(FhirTestResource.class);
     private static final int CONTAINER_PORT = 8080;
     private static final String CONTAINER_IMAGE = "quay.io/lburgazzoli/hapi-fhir-jpaserver-starter:4.1.0";
