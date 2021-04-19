@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.pg.replication.slot.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -33,7 +33,7 @@ import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplic
 import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplicationSlotRoute.PG_USER_CFG_KEY;
 import static org.apache.camel.util.CollectionHelper.mapOf;
 
-public class PgReplicationSlotTestResource implements ContainerResourceLifecycleManager {
+public class PgReplicationSlotTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(PgReplicationSlotTestResource.class);
     private static final int POSTGRES_PORT = 5432;
     private static final String POSTGRES_IMAGE = "postgres:13.0";

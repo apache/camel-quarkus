@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.solr.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.SolrContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.utility.DockerImageName;
 
-public class SolrTestResource implements ContainerResourceLifecycleManager {
+public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SolrTestResource.class);
 

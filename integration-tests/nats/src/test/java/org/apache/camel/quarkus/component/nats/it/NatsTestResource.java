@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.nats.it;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -34,7 +34,7 @@ import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TLS_AUTH_CONFIG_KEY;
 import static org.apache.camel.quarkus.component.nats.it.NatsConfiguration.NATS_BROKER_URL_TOKEN_AUTH_CONFIG_KEY;
 
-public class NatsTestResource implements ContainerResourceLifecycleManager {
+public class NatsTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(NatsTestResource.class);
     private static final String BASIC_AUTH_USERNAME = "admin";

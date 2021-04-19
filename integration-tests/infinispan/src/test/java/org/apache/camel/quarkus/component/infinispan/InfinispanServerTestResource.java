@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.infinispan;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,9 +26,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-import static org.apache.camel.quarkus.testcontainers.ContainerSupport.getHostAndPort;
-
-public class InfinispanServerTestResource implements ContainerResourceLifecycleManager {
+public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanServerTestResource.class);
     private static final String CONTAINER_IMAGE = "infinispan/server:10.1.5.Final";
     private static final int HOTROD_PORT = 11222;
@@ -50,8 +48,11 @@ public class InfinispanServerTestResource implements ContainerResourceLifecycleM
 
             container.start();
 
+            String serverList = String.format("%s:%s", container.getContainerIpAddress(),
+                    container.getMappedPort(HOTROD_PORT));
+
             return CollectionHelper.mapOf(
-                    "quarkus.infinispan-client.server-list", getHostAndPort(container, HOTROD_PORT),
+                    "quarkus.infinispan-client.server-list", serverList,
                     "quarkus.infinispan-client.near-cache-max-entries", "3",
                     "quarkus.infinispan-client.auth-username", USER,
                     "quarkus.infinispan-client.auth-password", PASS,

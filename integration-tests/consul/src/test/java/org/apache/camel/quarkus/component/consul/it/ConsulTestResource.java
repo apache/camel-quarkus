@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.consul.it;
 import java.util.Map;
 
 import com.orbitz.consul.Consul;
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class ConsulTestResource implements ContainerResourceLifecycleManager {
+public class ConsulTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(ConsulTestResource.class);
     private static final int CONTAINER_PORT = Consul.DEFAULT_HTTP_PORT;
     private static final String CONTAINER_IMAGE = "consul:1.6";

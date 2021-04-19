@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.pgevent.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-public class PgEventTestResource implements ContainerResourceLifecycleManager {
+public class PgEventTestResource implements QuarkusTestResourceLifecycleManager {
 
     protected static final String CONTAINER_NAME = "pg-event";
     protected static final String POSTGRES_USER = "postgres";
@@ -71,13 +71,4 @@ public class PgEventTestResource implements ContainerResourceLifecycleManager {
                 .waitingFor(Wait.forListeningPort());
         return container;
     }
-
-    public Integer getMappedPort() {
-        return container.getMappedPort(POSTGRES_PORT);
-    }
-
-    public String getHost() {
-        return container.getHost();
-    }
-
 }

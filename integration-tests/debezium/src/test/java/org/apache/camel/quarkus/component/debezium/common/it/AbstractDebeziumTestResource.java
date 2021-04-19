@@ -21,7 +21,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
  * Abstract parent for debezium test resources.
  * Parent starts using abstract method.
  */
-public abstract class AbstractDebeziumTestResource<T extends GenericContainer> implements ContainerResourceLifecycleManager {
+public abstract class AbstractDebeziumTestResource<T extends GenericContainer> implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(AbstractDebeziumTestResource.class);
 
     protected T container;

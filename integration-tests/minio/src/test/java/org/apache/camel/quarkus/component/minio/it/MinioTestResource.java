@@ -19,12 +19,12 @@ package org.apache.camel.quarkus.component.minio.it;
 import java.time.Duration;
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.HttpWaitStrategy;
 
-public class MinioTestResource implements ContainerResourceLifecycleManager {
+public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
 
     public static final String CONTAINER_ACCESS_KEY = "MINIO_ACCESS_KEY";
     public static final String CONTAINER_SECRET_KEY = "MINIO_SECRET_KEY";

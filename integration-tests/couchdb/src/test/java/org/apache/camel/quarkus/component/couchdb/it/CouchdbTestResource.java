@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.couchdb.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class CouchdbTestResource implements ContainerResourceLifecycleManager {
+public class CouchdbTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CouchdbTestResource.class);
     private static final int COUCHDB_PORT = 5984;
     private static final String COUCHDB_IMAGE = "couchdb:2.3.1";

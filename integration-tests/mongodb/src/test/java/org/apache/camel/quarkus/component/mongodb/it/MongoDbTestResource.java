@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.mongodb.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class MongoDbTestResource implements ContainerResourceLifecycleManager {
+public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbTestResource.class);
     private static final int MONGODB_PORT = 27017;
     private static final String MONGO_IMAGE = "mongo:4.0";

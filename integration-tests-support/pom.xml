@@ -45,7 +45,6 @@
         <module>custom-main-listener</module>
         <module>process-executor-support</module>
         <module>test-support</module>
-        <module>testcontainers-support</module>
         <module>mock-backend</module>
         <module>wiremock</module>
     </modules>

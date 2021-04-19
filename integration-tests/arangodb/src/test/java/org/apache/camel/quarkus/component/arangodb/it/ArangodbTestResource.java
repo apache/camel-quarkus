@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.component.arangodb.it;
 
 import java.util.Map;
 
-import org.apache.camel.quarkus.testcontainers.ContainerResourceLifecycleManager;
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +26,7 @@ import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class ArangodbTestResource implements ContainerResourceLifecycleManager {
+public class ArangodbTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ArangodbTestResource.class);
     private GenericContainer container;
