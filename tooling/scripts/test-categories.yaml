@@ -75,6 +75,7 @@ group-04:
   - leveldb
   - minio
   - mongodb-grouped
+  - mybatis
   - sjms-artemis-client
 group-05:
   - avro

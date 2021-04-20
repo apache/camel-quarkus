@@ -97,7 +97,6 @@
         <module>management</module>
         <module>milo</module>
         <module>mvel</module>
-        <module>mybatis</module>
         <module>ognl</module>
         <module>printer</module>
         <module>pulsar</module>
