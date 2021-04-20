@@ -44,7 +44,7 @@ public class BindyTestRoute extends RouteBuilder {
         BindyDataFormat bindyFixedLengthWithLocaleDataFormat = new BindyDataFormat();
         bindyFixedLengthWithLocaleDataFormat.setClassType(FixedLengthWithLocale.class);
         bindyFixedLengthWithLocaleDataFormat.setType(BindyType.Fixed.name());
-        bindyFixedLengthWithLocaleDataFormat.setLocale("ar");
+        bindyFixedLengthWithLocaleDataFormat.setLocale("fr");
         from("direct:marshal-fixed-length-with-locale").marshal(bindyFixedLengthWithLocaleDataFormat);
 
         BindyKeyValuePairDataFormat bindyMessageDataFormat = new BindyKeyValuePairDataFormat(MessageOrder.class);

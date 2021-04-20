@@ -121,7 +121,7 @@ public class BindyResource {
 
         String marshalled = template.requestBody("direct:marshal-fixed-length-with-locale", object, String.class);
 
-        assertEquals("٣٫٢٠٠\r\n", marshalled);
+        assertEquals("3,200\r\n", marshalled);
     }
 
     @Path("/marshalMessageShouldSucceed")
