@@ -34,6 +34,8 @@
 
 **Merged pull requests:**
 
+- Fix invalid xref link to configuration.adoc [\#2494](https://github.com/apache/camel-quarkus/pull/2494) ([jamesnetherton](https://github.com/jamesnetherton))
+- Simplify testcontainers usage [\#2493](https://github.com/apache/camel-quarkus/pull/2493) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reballance CI test categories even more [\#2488](https://github.com/apache/camel-quarkus/pull/2488) ([ppalaga](https://github.com/ppalaga))
 - Reballance CI test categories, do not validate docs links in inital-mvn-install CI phase [\#2485](https://github.com/apache/camel-quarkus/pull/2485) ([ppalaga](https://github.com/ppalaga))
 - Test skipped in native mode should be executed on default Java version at least  [\#2482](https://github.com/apache/camel-quarkus/pull/2482) ([ppalaga](https://github.com/ppalaga))
@@ -1677,7 +1679,6 @@
 - Fix \#696 Test HTTPS with the HTTP clients [\#697](https://github.com/apache/camel-quarkus/pull/697) ([ppalaga](https://github.com/ppalaga))
 - Add olingo4 extension [\#693](https://github.com/apache/camel-quarkus/pull/693) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact [\#691](https://github.com/apache/camel-quarkus/pull/691) ([ppalaga](https://github.com/ppalaga))
-- Automatic sync branch master to camel-master [\#689](https://github.com/apache/camel-quarkus/pull/689) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Snapshots and Actions [\#687](https://github.com/apache/camel-quarkus/pull/687) ([lburgazzoli](https://github.com/lburgazzoli))
 -  Upgrade to quarkus 1.3.0.Alpha1 [\#685](https://github.com/apache/camel-quarkus/pull/685) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add stream extension [\#682](https://github.com/apache/camel-quarkus/pull/682) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1855,6 +1856,7 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1901,7 +1903,6 @@
 **Merged pull requests:**
 
 - feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
-- Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
 - Filter out beans from CDI from build time discovery [\#501](https://github.com/apache/camel-quarkus/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
