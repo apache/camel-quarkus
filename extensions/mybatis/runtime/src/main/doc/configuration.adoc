@@ -1,0 +1,9 @@
+Please refer to https://quarkiverse.github.io/quarkiverse-docs/quarkus-mybatis/dev/index.html[Quarkus MyBatis] for configuration. It must enable the following options
+
+[source, properties]
+----
+quarkus.mybatis.xmlconfig.enable=true
+quarkus.mybatis.xmlconfig.path=SqlMapConfig.xml
+----
+TIP: `quarkus.mybatis.xmlconfig.path` must be the same with `configurationUri` param in the mybatis endpoint.
+

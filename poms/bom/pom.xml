@@ -6315,6 +6315,16 @@
                 <version>${quarkiverse-minio.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.mybatis</groupId>
+                <artifactId>quarkus-mybatis</artifactId>
+                <version>${quarkiverse-mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.mybatis</groupId>
+                <artifactId>quarkus-mybatis-deployment</artifactId>
+                <version>${quarkiverse-mybatis.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.quarkiverse.tika</groupId>
                 <artifactId>quarkus-tika</artifactId>
                 <version>${quarkiverse-tika.version}</version>
