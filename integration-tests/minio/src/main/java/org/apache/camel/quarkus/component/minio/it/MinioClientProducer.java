@@ -17,8 +17,8 @@
 package org.apache.camel.quarkus.component.minio.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
 import io.minio.MinioClient;
 

@@ -121,11 +121,11 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
         throw new IllegalStateException("Should not be invoked");
     }
 
-    Collection<MainListener> getMainListeners() {
+    public Collection<MainListener> getMainListeners() {
         return Collections.unmodifiableCollection(listeners);
     }
 
-    MainConfigurationProperties getMainConfigurationProperties() {
+    public MainConfigurationProperties getMainConfigurationProperties() {
         return mainConfigurationProperties;
     }
 
