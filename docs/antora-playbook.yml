@@ -31,7 +31,7 @@ content:
       - docs/components
   - url: git@github.com:apache/camel.git
     branches:
-      - master
+      - main
     start_paths:
       - docs/user-manual
       - docs/components
