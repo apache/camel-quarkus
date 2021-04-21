@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
 - Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
 - Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
@@ -15,6 +16,7 @@
 - Issue with Camel FHIR extension when upgrading to 1.13.0.Final [\#2450](https://github.com/apache/camel-quarkus/issues/2450)
 - camel-quarkus-dozer Error when running native executable [\#2449](https://github.com/apache/camel-quarkus/issues/2449)
 - \[Camel 3.10\] Missing EndpointKey [\#2447](https://github.com/apache/camel-quarkus/issues/2447)
+- FixedLengthWithLocaleTest.marshalFixedLengthWithLocaleShouldSucceed fails on Java 8 [\#2445](https://github.com/apache/camel-quarkus/issues/2445)
 - Unable to add camel-quarkus-microprofile-metrics when using camel-quarkus-azure-eventhubs components [\#2442](https://github.com/apache/camel-quarkus/issues/2442)
 - Unable to start Quarkus with Camel FHIR  [\#2441](https://github.com/apache/camel-quarkus/issues/2441)
 - Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
@@ -25,6 +27,7 @@
 - kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
 - couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
 - \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
+- FileTest fails on the platform [\#2278](https://github.com/apache/camel-quarkus/issues/2278)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
 - Startup log of bootstrap runtime [\#2164](https://github.com/apache/camel-quarkus/issues/2164)
 - Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
@@ -34,6 +37,8 @@
 
 **Merged pull requests:**
 
+- bindy: fixed the locale test so that it detects issues on Java 8 too … [\#2496](https://github.com/apache/camel-quarkus/pull/2496) ([aldettinger](https://github.com/aldettinger))
+- Fix SlackConfig class for native builds [\#2495](https://github.com/apache/camel-quarkus/pull/2495) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix invalid xref link to configuration.adoc [\#2494](https://github.com/apache/camel-quarkus/pull/2494) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify testcontainers usage [\#2493](https://github.com/apache/camel-quarkus/pull/2493) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reballance CI test categories even more [\#2488](https://github.com/apache/camel-quarkus/pull/2488) ([ppalaga](https://github.com/ppalaga))
@@ -388,7 +393,6 @@
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
-- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - \[Camel 3.7\] Test with camel.main.lightweight=true [\#2063](https://github.com/apache/camel-quarkus/issues/2063)
 - CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
@@ -1598,6 +1602,7 @@
 - Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
+- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
@@ -1679,6 +1684,7 @@
 - Fix \#696 Test HTTPS with the HTTP clients [\#697](https://github.com/apache/camel-quarkus/pull/697) ([ppalaga](https://github.com/ppalaga))
 - Add olingo4 extension [\#693](https://github.com/apache/camel-quarkus/pull/693) ([jamesnetherton](https://github.com/jamesnetherton))
 - Cleanup: Declare quarkus-development-mode-spi as a nonExtensionArtifact [\#691](https://github.com/apache/camel-quarkus/pull/691) ([ppalaga](https://github.com/ppalaga))
+- Automatic sync branch master to camel-master [\#689](https://github.com/apache/camel-quarkus/pull/689) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Snapshots and Actions [\#687](https://github.com/apache/camel-quarkus/pull/687) ([lburgazzoli](https://github.com/lburgazzoli))
 -  Upgrade to quarkus 1.3.0.Alpha1 [\#685](https://github.com/apache/camel-quarkus/pull/685) ([lburgazzoli](https://github.com/lburgazzoli))
 - Add stream extension [\#682](https://github.com/apache/camel-quarkus/pull/682) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1856,7 +1862,6 @@
 - chore: Fix pom sorting script execution [\#510](https://github.com/apache/camel-quarkus/pull/510) ([jamesnetherton](https://github.com/jamesnetherton))
 - Do not use hard coded ports in integration-tests [\#509](https://github.com/apache/camel-quarkus/pull/509) ([lburgazzoli](https://github.com/lburgazzoli))
 - Automatically register dozer mapping classes for reflection [\#507](https://github.com/apache/camel-quarkus/pull/507) ([jamesnetherton](https://github.com/jamesnetherton))
-- Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 
 ## [1.0.0-M1](https://github.com/apache/camel-quarkus/tree/1.0.0-M1) (2019-12-04)
 
@@ -1903,6 +1908,7 @@
 **Merged pull requests:**
 
 - feat: base64 extension [\#506](https://github.com/apache/camel-quarkus/pull/506) ([davsclaus](https://github.com/davsclaus))
+- Improve bean discovery filtering [\#504](https://github.com/apache/camel-quarkus/pull/504) ([lburgazzoli](https://github.com/lburgazzoli))
 - Improve registration of DozerTypeConverter [\#503](https://github.com/apache/camel-quarkus/pull/503) ([jamesnetherton](https://github.com/jamesnetherton))
 - feat: seda extension. [\#502](https://github.com/apache/camel-quarkus/pull/502) ([davsclaus](https://github.com/davsclaus))
 - Filter out beans from CDI from build time discovery [\#501](https://github.com/apache/camel-quarkus/pull/501) ([lburgazzoli](https://github.com/lburgazzoli))
