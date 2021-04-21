@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.minio.it;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
@@ -56,6 +57,11 @@ public class MinioConfigProvider implements ConfigSourceProvider {
         @Override
         public String getName() {
             return MinioConfig.class.getName();
+        }
+
+        @Override
+        public Set<String> getPropertyNames() {
+            return values.keySet();
         }
     }
 }
