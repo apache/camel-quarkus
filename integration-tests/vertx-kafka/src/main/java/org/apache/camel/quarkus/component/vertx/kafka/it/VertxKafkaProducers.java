@@ -52,7 +52,8 @@ public class VertxKafkaProducers {
         config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
         KafkaConsumer<String, String> consumer = KafkaConsumer.create(vertx, config);
-        return consumer.subscribe(TOPIC_OUTBOUND);
+        consumer.subscribe(TOPIC_OUTBOUND);
+        return consumer;
     }
 
     @Produces

@@ -94,20 +94,22 @@
         <json-smart.version>2.4.2</json-smart.version>
         <kafka.version>2.5.0</kafka.version>
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
-        <kotlin.version>1.4.31</kotlin.version><!-- keep in sync with Quarkus -->
+        <kotlin.version>1.4.32</kotlin.version><!-- keep in sync with Quarkus -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
         <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
+        <opencensus.version>0.28.0</opencensus.version><!-- mess in google-pubsub deps -->
         <optaplanner.version>8.2.0.Final</optaplanner.version>
+        <perfmark.version>0.23.0</perfmark.version><!-- mess in google-pubsub deps -->
+        <protobuf.version>${protobuf-version}</protobuf.version>
         <quarkiverse.freemarker.version>0.2.2</quarkiverse.freemarker.version>
         <quarkiverse-minio.version>0.2.2</quarkiverse-minio.version>
-        <quarkus.version>1.13.2.Final</quarkus.version>
+        <quarkus.version>2.0.0.Alpha1</quarkus.version>
         <quarkus-google-cloud.version>0.5.0</quarkus-google-cloud.version>
         <quarkus-hazelcast-client.version>1.2.0</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.24.0</quarkus-qpid-jms.version>
-        <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->

@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.function.Function;
@@ -46,7 +47,6 @@ import org.apache.camel.impl.engine.DefaultAsyncProcessorAwaitManager;
 import org.apache.camel.impl.engine.DefaultBeanIntrospection;
 import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultCamelContextNameStrategy;
-import org.apache.camel.impl.engine.DefaultClassResolver;
 import org.apache.camel.impl.engine.DefaultComponentNameResolver;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultConfigurerResolver;
@@ -298,7 +298,8 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
 
     @Override
     protected ClassResolver createClassResolver() {
-        return new DefaultClassResolver(this);
+        return new CamelQuarkusClassResolver(Objects.requireNonNull(getApplicationContextClassLoader(),
+                "applicationContextClassLoader must be set before calling createClassResolver()"));
     }
 
     @Override

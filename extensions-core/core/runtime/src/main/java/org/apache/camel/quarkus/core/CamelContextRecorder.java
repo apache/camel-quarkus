@@ -56,6 +56,8 @@ public class CamelContextRecorder {
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
         context.adapt(ExtendedCamelContext.class).setStartupStepRecorder(startupStepRecorder.getValue());
+        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        context.setApplicationContextClassLoader(tccl);
         context.build();
         context.addLifecycleStrategy(new CamelLifecycleEventBridge());
         context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());
