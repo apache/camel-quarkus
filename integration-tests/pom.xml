@@ -136,6 +136,7 @@
         <module>jta</module>
         <module>kafka</module>
         <module>kafka-sasl</module>
+        <module>kafka-ssl</module>
         <module>kamelet</module>
         <module>kotlin</module>
         <module>kubernetes</module>

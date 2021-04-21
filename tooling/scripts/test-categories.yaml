@@ -127,6 +127,7 @@ group-09:
   - amqp
   - kafka
   - kafka-sasl
+  - kafka-ssl
   - messaging
   - nats
   - splunk
