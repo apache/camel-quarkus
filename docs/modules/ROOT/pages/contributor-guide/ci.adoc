@@ -23,7 +23,7 @@ Sometimes these jobs fail and it is necessary to fix any issues and manually reb
 
 3. Ensure your local repository is up-to-date with the remote. `git pull -r`.
 
-4. Synchronize the branch with the latest work from the main branch. The 'origin' remote is assumed here but you can substitute this for whatever reference you want to work with. `git fetch origin main && git rebase origin/camel-main`. You may need to fix up merge conflicts.
+4. Synchronize the branch with the latest work from the main branch. The 'origin' remote is assumed here but you can substitute this for whatever reference you want to work with. `git fetch origin main && git rebase origin/main`. You may need to fix up merge conflicts.
 
 5. Build the project quickly `mvn clean install -Dquickly -T1C`. Remember to activate any required SNAPSHOT profiles if required.
 
