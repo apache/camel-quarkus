@@ -16,9 +16,15 @@
  */
 package org.apache.camel.quarkus.component.hbase.it;
 
+import java.net.InetAddress;
 import java.util.Collections;
 import java.util.Map;
+import java.util.function.Consumer;
 
+import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.GenericContainer;
@@ -35,12 +41,21 @@ public class HBaseTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
 
         try {
-            //there is only one tag for this docker image -  latest. See https://hub.docker.com/r/dajobe/hbase/tags
-            //Hbase is using zookeeper. Hbase client gets location of hbase master from zookeeper, which means that
-            //location uses internal hostnames from the docker.  Network mode `host` is the only way how to avoid
-            //manipulation with the hosts configuration at the test server.
+            String hostname = InetAddress.getLocalHost().getHostName();
+            Consumer<CreateContainerCmd> cmd = e -> {
+                e
+                        .withPortBindings(new PortBinding(Ports.Binding.bindPort(2181),
+                                new ExposedPort(2181)),
+                                new PortBinding(Ports.Binding.bindPort(16000),
+                                        new ExposedPort(16000)),
+                                new PortBinding(Ports.Binding.bindPort(16020),
+                                        new ExposedPort(16020)));
+                e.withHostName(hostname);
+            };
+
             container = new GenericContainer<>("dajobe/hbase:latest")
-                    .withNetworkMode("host")
+                    .withExposedPorts(2181, 16000, 16020)
+                    .withCreateContainerCmdModifier(cmd)
                     .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                     .waitingFor(
                             Wait.forLogMessage(".*Finished refreshing block distribution cache for 2 regions\\n", 1));
