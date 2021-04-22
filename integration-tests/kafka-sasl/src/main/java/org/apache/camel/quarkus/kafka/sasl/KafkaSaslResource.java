@@ -17,8 +17,12 @@
 package org.apache.camel.quarkus.kafka.sasl;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Properties;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
@@ -28,21 +32,38 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.config.SaslConfigs;
 
-@Path("/test")
+@Path("/kafka-sasl")
 @ApplicationScoped
 public class KafkaSaslResource {
 
-    @Path("/kafka/{topicName}")
+    @Inject
+    @Named("kafka-consumer-properties")
+    Properties consumerProperties;
+
+    @Inject
+    @Named("kafka-producer-properties")
+    Properties producerProperties;
+
+    @Path("/{topicName}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject post(@PathParam("topicName") String topicName, String message) throws Exception {
-        try (Producer<Integer, String> producer = KafkaSupport.createProducer()) {
+        Properties props = (Properties) producerProperties.clone();
+        KafkaTestSupport.setKafkaConfigProperty(props, CommonClientConfigs.SECURITY_PROTOCOL_CONFIG);
+        KafkaTestSupport.setKafkaConfigProperty(props, SaslConfigs.SASL_MECHANISM);
+        KafkaTestSupport.setKafkaConfigProperty(props, SaslConfigs.SASL_JAAS_CONFIG);
+
+        try (Producer<Integer, String> producer = new KafkaProducer<>(props)) {
             RecordMetadata meta = producer.send(new ProducerRecord<>(topicName, 1, message)).get();
 
             return Json.createObjectBuilder()
@@ -53,11 +74,18 @@ public class KafkaSaslResource {
         }
     }
 
-    @Path("/kafka/{topicName}")
+    @Path("/{topicName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject get(@PathParam("topicName") String topicName) {
-        try (KafkaConsumer<Integer, String> consumer = KafkaSupport.createConsumer(topicName)) {
+        Properties props = (Properties) consumerProperties.clone();
+        KafkaTestSupport.setKafkaConfigProperty(props, CommonClientConfigs.SECURITY_PROTOCOL_CONFIG);
+        KafkaTestSupport.setKafkaConfigProperty(props, SaslConfigs.SASL_MECHANISM);
+        KafkaTestSupport.setKafkaConfigProperty(props, SaslConfigs.SASL_JAAS_CONFIG);
+
+        try (KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(props)) {
+            consumer.subscribe(Collections.singletonList(topicName));
+
             ConsumerRecord<Integer, String> record = consumer.poll(Duration.ofSeconds(60)).iterator().next();
             return Json.createObjectBuilder()
                     .add("topicName", record.topic())

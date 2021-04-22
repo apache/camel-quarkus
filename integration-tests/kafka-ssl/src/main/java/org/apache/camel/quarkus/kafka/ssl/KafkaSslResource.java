@@ -17,8 +17,12 @@
 package org.apache.camel.quarkus.kafka.ssl;
 
 import java.time.Duration;
+import java.util.Collections;
+import java.util.Properties;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
@@ -28,21 +32,36 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.config.SslConfigs;
 
-@Path("/test")
+@Path("/kafka-ssl")
 @ApplicationScoped
 public class KafkaSslResource {
 
-    @Path("/kafka/{topicName}")
+    @Inject
+    @Named("kafka-consumer-properties")
+    Properties consumerProperties;
+
+    @Inject
+    @Named("kafka-producer-properties")
+    Properties producerProperties;
+
+    @Path("/{topicName}")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject post(@PathParam("topicName") String topicName, String message) throws Exception {
-        try (Producer<Integer, String> producer = KafkaSupport.createProducer()) {
+        Properties props = (Properties) producerProperties.clone();
+        configureSSL(props);
+
+        try (Producer<Integer, String> producer = new KafkaProducer<>(props)) {
             RecordMetadata meta = producer.send(new ProducerRecord<>(topicName, 1, message)).get();
 
             return Json.createObjectBuilder()
@@ -53,11 +72,16 @@ public class KafkaSslResource {
         }
     }
 
-    @Path("/kafka/{topicName}")
+    @Path("/{topicName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject get(@PathParam("topicName") String topicName) {
-        try (KafkaConsumer<Integer, String> consumer = KafkaSupport.createConsumer(topicName)) {
+        Properties props = (Properties) consumerProperties.clone();
+        configureSSL(props);
+
+        try (KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(props)) {
+            consumer.subscribe(Collections.singletonList(topicName));
+
             ConsumerRecord<Integer, String> record = consumer.poll(Duration.ofSeconds(60)).iterator().next();
             return Json.createObjectBuilder()
                     .add("topicName", record.topic())
@@ -67,5 +91,24 @@ public class KafkaSslResource {
                     .add("body", record.value())
                     .build();
         }
+    }
+
+    private void configureSSL(Properties props) {
+        KafkaTestSupport.setKafkaConfigFromProperty(props, CommonClientConfigs.SECURITY_PROTOCOL_CONFIG,
+                "camel.component.kafka.security-protocol");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_KEY_PASSWORD_CONFIG,
+                "camel.component.kafka.ssl-key-password");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG,
+                "camel.component.kafka.ssl-keystore-location");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG,
+                "camel.component.kafka.ssl-keystore-password");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_KEYSTORE_TYPE_CONFIG,
+                "camel.component.kafka.ssl-keystore-type");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG,
+                "camel.component.kafka.ssl-truststore-location");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG,
+                "camel.component.kafka.ssl-truststore-password");
+        KafkaTestSupport.setKafkaConfigFromProperty(props, SslConfigs.SSL_TRUSTSTORE_TYPE_CONFIG,
+                "camel.component.kafka.ssl-truststore-type");
     }
 }

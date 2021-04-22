@@ -37,12 +37,12 @@ public class KafkaSslTest {
         RestAssured.given()
                 .contentType("text/plain")
                 .body(body)
-                .post("/test/kafka/inbound")
+                .post("/kafka-ssl/inbound")
                 .then()
                 .statusCode(200);
 
         JsonPath result = RestAssured.given()
-                .get("/test/kafka/outbound")
+                .get("/kafka-ssl/outbound")
                 .then()
                 .statusCode(200)
                 .extract()

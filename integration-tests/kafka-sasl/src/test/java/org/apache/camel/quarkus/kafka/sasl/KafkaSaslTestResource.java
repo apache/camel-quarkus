@@ -24,7 +24,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -32,7 +32,7 @@ import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
-public class KafkaSaslTestResource implements QuarkusTestResourceLifecycleManager {
+public class KafkaSaslTestResource extends KafkaTestResource {
 
     private static final File TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "k8s-sb", "kafka").toFile();
     private SaslKafkaContainer container;
@@ -56,8 +56,7 @@ public class KafkaSaslTestResource implements QuarkusTestResourceLifecycleManage
             throw new RuntimeException(e);
         }
 
-        DockerImageName imageName = DockerImageName.parse("confluentinc/cp-kafka").withTag("5.4.3");
-        container = new SaslKafkaContainer(imageName);
+        container = new SaslKafkaContainer(KAFKA_IMAGE_NAME);
         container.start();
         return Collections.singletonMap("kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,
                 container.getBootstrapServers());

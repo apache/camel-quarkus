@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.kafka.it;
+package org.apache.camel.quarkus.test.support.kafka;
 
 import java.util.Collections;
 import java.util.Map;
@@ -27,9 +27,10 @@ import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.TestcontainersConfiguration;
 
-public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManager {
-    private static final Logger LOGGER = LoggerFactory.getLogger(CamelKafkaTestResource.class);
-    private static final String CONFLUENT_PLATFORM_VERSION = "5.4.3";
+public class KafkaTestResource implements QuarkusTestResourceLifecycleManager {
+
+    protected static final DockerImageName KAFKA_IMAGE_NAME = DockerImageName.parse("confluentinc/cp-kafka").withTag("5.4.3");
+    private static final Logger LOGGER = LoggerFactory.getLogger(KafkaTestResource.class);
 
     private KafkaContainer container;
 
@@ -38,8 +39,7 @@ public class CamelKafkaTestResource implements QuarkusTestResourceLifecycleManag
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
 
         try {
-            DockerImageName imageName = DockerImageName.parse("confluentinc/cp-kafka").withTag(CONFLUENT_PLATFORM_VERSION);
-            container = new KafkaContainer(imageName)
+            container = new KafkaContainer(KAFKA_IMAGE_NAME)
                     /* Added container startup logging because of https://github.com/apache/camel-quarkus/issues/2461 */
                     .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
                     .withEmbeddedZookeeper()
