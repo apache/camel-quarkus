@@ -113,6 +113,7 @@
         <module>google-mail</module>
         <module>google-pubsub</module>
         <module>google-sheets</module>
+        <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
         <module>grpc</module>

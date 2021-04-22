@@ -110,6 +110,7 @@
         <module>google</module>
         <module>google-bigquery</module>
         <module>google-pubsub</module>
+        <module>google-storage</module>
         <module>graphql</module>
         <module>grok</module>
         <module>grpc</module>

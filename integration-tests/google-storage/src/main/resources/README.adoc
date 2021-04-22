@@ -1,0 +1,23 @@
+== Google Storage integration tests
+
+=== Local container
+
+Google storage container doesn't cover all the functionalities. (For example deleting of buckets is not implemented - see an
+https://github.com/fsouza/fake-gcs-server/issues/214[issue])
+
+Tests are executed with local container, unless `GOOGLE_APPLICATION_CREDENTIALS` property is set.
+
+=== Real Google Storage
+
+To run the Google Storage client library, you must first set up authentication by creating a service account key.
+You can find more info in the https://cloud.google.com/storage/docs/reference/libraries#setting_up_authentication[documentation].
+
+When you have the **service account key** you can provide authentication credentials to your application code by setting the environment variable:
+
+`export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/my-key.json"`
+`export GOOGLE_PROJECT_ID="#name of project"`
+
+or for windows:
+
+`$Env:GOOGLE_APPLICATION_CREDENTIALS = "/home/user/Downloads/my-key.json"`
+`$Env:GOOGLE_PROJECT_ID="#name of project"`
