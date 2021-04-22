@@ -25,7 +25,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
-import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.util.CollectionHelper;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
@@ -34,7 +34,7 @@ import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
-public class KafkaSslTestResource implements QuarkusTestResourceLifecycleManager {
+public class KafkaSslTestResource extends KafkaTestResource {
 
     private static final String KAFKA_KEYSTORE_FILE = "kafka-keystore.p12";
     private static final String KAFKA_KEYSTORE_PASSWORD = "kafkas3cret";
@@ -63,8 +63,7 @@ public class KafkaSslTestResource implements QuarkusTestResourceLifecycleManager
             throw new RuntimeException(e);
         }
 
-        DockerImageName imageName = DockerImageName.parse("confluentinc/cp-kafka").withTag("5.4.3");
-        container = new SSLKafkaContainer(imageName);
+        container = new SSLKafkaContainer(KAFKA_IMAGE_NAME);
         container.start();
 
         Path keystorePath = TMP_DIR.toPath();

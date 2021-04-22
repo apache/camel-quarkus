@@ -22,12 +22,13 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
+import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
-@QuarkusTestResource(CamelKafkaTestResource.class)
+@QuarkusTestResource(KafkaTestResource.class)
 public class CamelKafkaTest {
 
     @Test
@@ -37,12 +38,12 @@ public class CamelKafkaTest {
         RestAssured.given()
                 .contentType("text/plain")
                 .body(body)
-                .post("/test/kafka/inbound")
+                .post("/kafka/inbound")
                 .then()
                 .statusCode(200);
 
         JsonPath result = RestAssured.given()
-                .get("/test/kafka/outbound")
+                .get("/kafka/outbound")
                 .then()
                 .statusCode(200)
                 .extract()

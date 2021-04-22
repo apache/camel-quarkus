@@ -37,12 +37,12 @@ public class KafkaSaslBindingTest {
         RestAssured.given()
                 .contentType("text/plain")
                 .body(body)
-                .post("/test/kafka/inbound")
+                .post("/kafka-sasl/inbound")
                 .then()
                 .statusCode(200);
 
         JsonPath result = RestAssured.given()
-                .get("/test/kafka/outbound")
+                .get("/kafka-sasl/outbound")
                 .then()
                 .statusCode(200)
                 .extract()

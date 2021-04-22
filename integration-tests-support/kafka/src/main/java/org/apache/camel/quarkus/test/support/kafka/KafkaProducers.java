@@ -14,47 +14,48 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.kafka;
+package org.apache.camel.quarkus.test.support.kafka;
 
-import java.util.Collections;
 import java.util.Properties;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.IntegerDeserializer;
 import org.apache.kafka.common.serialization.IntegerSerializer;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-public final class CamelKafkaSupport {
-    private CamelKafkaSupport() {
-    }
+public class KafkaProducers {
 
-    public static KafkaConsumer<Integer, String> createConsumer(String topicName) {
-        Properties props = new Properties();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, System.getProperty("camel.component.kafka.brokers"));
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, "test");
+    @ApplicationScoped
+    @Named("kafka-consumer-properties")
+    public Properties kafkaConsumerProperties() {
+        Properties props = createBaseConfiguration();
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, IntegerDeserializer.class.getName());
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
-        KafkaConsumer<Integer, String> consumer = new KafkaConsumer<>(props);
-        consumer.subscribe(Collections.singletonList(topicName));
-
-        return consumer;
+        return props;
     }
 
-    public static Producer<Integer, String> createProducer() {
-        Properties props = new Properties();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, System.getProperty("camel.component.kafka.brokers"));
-        props.put(ProducerConfig.CLIENT_ID_CONFIG, "test-consumer");
+    @ApplicationScoped
+    @Named("kafka-producer-properties")
+    public Properties kafkaProducerProperties() {
+        Properties props = createBaseConfiguration();
+        props.put(ProducerConfig.CLIENT_ID_CONFIG, "camel-quarkus-kafka-client");
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
+        return props;
+    }
 
-        return new KafkaProducer<>(props);
+    private Properties createBaseConfiguration() {
+        Properties props = new Properties();
+        props.put(CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, KafkaTestSupport.getBootstrapServers());
+        props.put(CommonClientConfigs.GROUP_ID_CONFIG, "camel-quarkus-group");
+        return props;
     }
 }
