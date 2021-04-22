@@ -96,6 +96,7 @@
         <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
         <kotlin.version>1.4.32</kotlin.version><!-- keep in sync with Quarkus -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
+        <minio.version>8.1.0</minio.version><!-- Hardcoded as a workaround for https://github.com/apache/camel-quarkus/issues/2503 otherwise should be kept in sync with quarkiverse-minio and camel -->
         <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
