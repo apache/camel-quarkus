@@ -20,8 +20,10 @@
 - Unable to add camel-quarkus-microprofile-metrics when using camel-quarkus-azure-eventhubs components [\#2442](https://github.com/apache/camel-quarkus/issues/2442)
 - Unable to start Quarkus with Camel FHIR  [\#2441](https://github.com/apache/camel-quarkus/issues/2441)
 - Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
+- camel-quarkus-cassandraql : build failure in camel-master branch [\#2424](https://github.com/apache/camel-quarkus/issues/2424)
 - Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
 - Tests skipped in native mode should be executed on default Java version at least [\#2389](https://github.com/apache/camel-quarkus/issues/2389)
+- Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
 - kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
@@ -37,6 +39,9 @@
 
 **Merged pull requests:**
 
+- Replace references to camel master branch with main in antora playbooks [\#2501](https://github.com/apache/camel-quarkus/pull/2501) ([jamesnetherton](https://github.com/jamesnetherton))
+- update ci doc [\#2498](https://github.com/apache/camel-quarkus/pull/2498) ([zbendhiba](https://github.com/zbendhiba))
+- Add integration tests \#2388 [\#2497](https://github.com/apache/camel-quarkus/pull/2497) ([zbendhiba](https://github.com/zbendhiba))
 - bindy: fixed the locale test so that it detects issues on Java 8 too … [\#2496](https://github.com/apache/camel-quarkus/pull/2496) ([aldettinger](https://github.com/aldettinger))
 - Fix SlackConfig class for native builds [\#2495](https://github.com/apache/camel-quarkus/pull/2495) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix invalid xref link to configuration.adoc [\#2494](https://github.com/apache/camel-quarkus/pull/2494) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -393,6 +398,7 @@
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
+- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - \[Camel 3.7\] Test with camel.main.lightweight=true [\#2063](https://github.com/apache/camel-quarkus/issues/2063)
 - CSimple language support [\#2036](https://github.com/apache/camel-quarkus/issues/2036)
 - Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
@@ -1602,7 +1608,6 @@
 - Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
-- Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
 - Add support for camel-jms [\#767](https://github.com/apache/camel-quarkus/issues/767)
 - Create Azure component extension [\#761](https://github.com/apache/camel-quarkus/issues/761)
