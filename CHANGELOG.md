@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
+- Add test coverage for Kafka with SSL [\#2484](https://github.com/apache/camel-quarkus/issues/2484)
 - Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
 - Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
@@ -40,6 +41,7 @@
 **Merged pull requests:**
 
 - Replace references to camel master branch with main in antora playbooks [\#2501](https://github.com/apache/camel-quarkus/pull/2501) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add test coverage for Kafka with SSL [\#2500](https://github.com/apache/camel-quarkus/pull/2500) ([jamesnetherton](https://github.com/jamesnetherton))
 - update ci doc [\#2498](https://github.com/apache/camel-quarkus/pull/2498) ([zbendhiba](https://github.com/zbendhiba))
 - Add integration tests \#2388 [\#2497](https://github.com/apache/camel-quarkus/pull/2497) ([zbendhiba](https://github.com/zbendhiba))
 - bindy: fixed the locale test so that it detects issues on Java 8 too … [\#2496](https://github.com/apache/camel-quarkus/pull/2496) ([aldettinger](https://github.com/aldettinger))
