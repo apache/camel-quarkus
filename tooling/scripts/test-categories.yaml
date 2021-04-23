@@ -23,6 +23,8 @@ group-01:
   - caffeine
   - http
   - jsch
+  - kafka
+  - kafka-sasl
   - hazelcast
   - ipfs
   - mllp
@@ -125,8 +127,7 @@ group-08:
 group-09:
   - activemq
   - amqp
-  - kafka
-  - kafka-sasl
+  - kafka-sasl-ssl
   - kafka-ssl
   - messaging
   - nats
