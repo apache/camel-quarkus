@@ -94,7 +94,17 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
                                 final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimePomXmlPath);
                                 final boolean nativeSupported = ext.isNativeSupported();
                                 if (models.isEmpty()) {
-                                    final OtherModel model = new OtherModel();
+                                    final ArtifactModel<?> model;
+                                    final Kind extKind = ext.getKind();
+                                    if (extKind == Kind.component) {
+                                        model = new ComponentModel();
+                                    } else if (extKind == Kind.language) {
+                                        model = new LanguageModel();
+                                    } else if (extKind == Kind.dataformat) {
+                                        model = new DataFormatModel();
+                                    } else {
+                                        model = new OtherModel();
+                                    }
                                     final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
                                     model.setName(name);
                                     final String title = ext.getName().orElseThrow(() -> new RuntimeException(

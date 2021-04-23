@@ -33,6 +33,7 @@
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
+        <camel.quarkus.kind>component</camel.quarkus.kind>
     </properties>
 
     <dependencyManagement>
