@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
+import org.apache.camel.catalog.Kind;
 import org.apache.maven.model.Dependency;
 import org.apache.maven.model.Model;
 import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
@@ -38,6 +39,7 @@ public class CamelQuarkusExtension {
 
     public static final String CAMEL_QUARKUS_JVM_SINCE = "camel.quarkus.jvmSince";
     public static final String CAMEL_QUARKUS_NATIVE_SINCE = "camel.quarkus.nativeSince";
+    public static final String CAMEL_QUARKUS_KIND = "camel.quarkus.kind";
 
     public static CamelQuarkusExtension read(Path runtimePomXmlPath) {
         try (Reader runtimeReader = Files.newBufferedReader(runtimePomXmlPath, StandardCharsets.UTF_8)) {
@@ -74,6 +76,9 @@ public class CamelQuarkusExtension {
             final boolean unlisted = !nativeSupported
                     || Boolean.parseBoolean(props.getProperty("quarkus.metadata.unlisted", "false"));
 
+            final String rawKind = (String) props.get(CAMEL_QUARKUS_KIND);
+            final Kind kind = rawKind == null ? null : Kind.valueOf(rawKind);
+
             return new CamelQuarkusExtension(
                     runtimePomXmlPath,
                     camelComponentArtifactId,
@@ -87,7 +92,8 @@ public class CamelQuarkusExtension {
                     nativeSupported,
                     status,
                     unlisted,
-                    deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps));
+                    deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps),
+                    kind);
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("Could not read " + runtimePomXmlPath, e);
         }
@@ -106,6 +112,7 @@ public class CamelQuarkusExtension {
     private final List<Dependency> dependencies;
     private final ExtensionStatus status;
     private final boolean unlisted;
+    private final Kind kind;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
@@ -120,7 +127,8 @@ public class CamelQuarkusExtension {
             boolean nativeSupported,
             ExtensionStatus status,
             boolean unlisted,
-            List<Dependency> dependencies) {
+            List<Dependency> dependencies,
+            Kind kind) {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
         this.camelComponentArtifactId = camelComponentArtifactId;
@@ -135,6 +143,7 @@ public class CamelQuarkusExtension {
         this.status = status;
         this.unlisted = unlisted;
         this.dependencies = dependencies;
+        this.kind = kind;
     }
 
     public String getVersion() {
@@ -191,6 +200,10 @@ public class CamelQuarkusExtension {
 
     public boolean isUnlisted() {
         return unlisted;
+    }
+
+    public Kind getKind() {
+        return kind;
     }
 
 }
