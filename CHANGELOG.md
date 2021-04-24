@@ -23,6 +23,7 @@
 - Add code.quarkus.io badges on extension pages [\#2433](https://github.com/apache/camel-quarkus/issues/2433)
 - camel-quarkus-cassandraql : build failure in camel-master branch [\#2424](https://github.com/apache/camel-quarkus/issues/2424)
 - Upgrade CassandraQL quarkus extension to 1.0.1 [\#2423](https://github.com/apache/camel-quarkus/issues/2423)
+- Kafka with SASL\_SSL does not work in quarkus native mode [\#2409](https://github.com/apache/camel-quarkus/issues/2409)
 - Tests skipped in native mode should be executed on default Java version at least [\#2389](https://github.com/apache/camel-quarkus/issues/2389)
 - Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
@@ -40,6 +41,8 @@
 
 **Merged pull requests:**
 
+- Add test coverage for Kafka with SASL\_SSL [\#2507](https://github.com/apache/camel-quarkus/pull/2507) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add integration-tests-support-kafka module [\#2504](https://github.com/apache/camel-quarkus/pull/2504) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace references to camel master branch with main in antora playbooks [\#2501](https://github.com/apache/camel-quarkus/pull/2501) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for Kafka with SSL [\#2500](https://github.com/apache/camel-quarkus/pull/2500) ([jamesnetherton](https://github.com/jamesnetherton))
 - update ci doc [\#2498](https://github.com/apache/camel-quarkus/pull/2498) ([zbendhiba](https://github.com/zbendhiba))
@@ -294,6 +297,7 @@
 - Ensure integration tests have enough free disk space [\#2228](https://github.com/apache/camel-quarkus/pull/2228) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Camel 3.8.0 [\#2227](https://github.com/apache/camel-quarkus/pull/2227) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix camel-master CI branch build [\#2224](https://github.com/apache/camel-quarkus/pull/2224) ([jamesnetherton](https://github.com/jamesnetherton))
+- Made nats TLS auth tests optional fixes \#2211 [\#2223](https://github.com/apache/camel-quarkus/pull/2223) ([aldettinger](https://github.com/aldettinger))
 - Test AWS 2 SNS properly [\#2222](https://github.com/apache/camel-quarkus/pull/2222) ([ppalaga](https://github.com/ppalaga))
 - PubNub native support [\#2218](https://github.com/apache/camel-quarkus/pull/2218) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test AWS 2 SQS properly [\#2217](https://github.com/apache/camel-quarkus/pull/2217) ([ppalaga](https://github.com/ppalaga))
