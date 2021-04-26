@@ -31,17 +31,14 @@ import org.slf4j.LoggerFactory;
 class CamelMainHotDeploymentProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelMainHotDeploymentProcessor.class);
     private static final String FILE_PREFIX = "file:";
+    private static final String CLASSPATH_PREFIX = "classpath:";
 
     @BuildStep(onlyIf = CamelMainEnabled.class)
     List<HotDeploymentWatchedFileBuildItem> locations() {
-        List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePatter()
-                .filter(location -> location.startsWith(FILE_PREFIX))
-                .map(location -> location.substring(FILE_PREFIX.length()))
+        List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePattern()
+                .map(CamelMainHotDeploymentProcessor::routesIncludePatternToLocation)
+                .filter(location -> location != null)
                 .distinct()
-                .map(Paths::get)
-                .filter(Files::exists)
-                .map(Path::toAbsolutePath)
-                .map(Path::toString)
                 .map(HotDeploymentWatchedFileBuildItem::new)
                 .collect(Collectors.toList());
 
@@ -53,5 +50,20 @@ class CamelMainHotDeploymentProcessor {
         }
 
         return items;
+    }
+
+    private static String routesIncludePatternToLocation(String pattern) {
+        if (pattern.startsWith(CLASSPATH_PREFIX)) {
+            return pattern.substring(CLASSPATH_PREFIX.length());
+        } else if (pattern.startsWith(FILE_PREFIX)) {
+            String filePattern = pattern.substring(FILE_PREFIX.length());
+            Path filePatternPath = Paths.get(filePattern);
+            if (Files.exists(filePatternPath)) {
+                return filePatternPath.toAbsolutePath().toString();
+            }
+        } else if (pattern.length() > 0) {
+            return pattern;
+        }
+        return null;
     }
 }

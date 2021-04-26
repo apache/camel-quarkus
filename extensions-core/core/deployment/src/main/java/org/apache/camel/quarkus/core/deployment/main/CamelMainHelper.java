@@ -26,7 +26,7 @@ public final class CamelMainHelper {
     private CamelMainHelper() {
     }
 
-    public static Stream<String> routesIncludePatter() {
+    public static Stream<String> routesIncludePattern() {
         final String[] i1 = CamelSupport.getOptionalConfigValue(
                 "camel.main.routes-include-pattern", String[].class, EMPTY_STRING_ARRAY);
         final String[] i2 = CamelSupport.getOptionalConfigValue(
@@ -37,7 +37,7 @@ public final class CamelMainHelper {
                 : Stream.concat(Stream.of(i1), Stream.of(i2)).filter(location -> !"false".equals(location));
     }
 
-    public static Stream<String> routesExcludePatter() {
+    public static Stream<String> routesExcludePattern() {
         final String[] i1 = CamelSupport.getOptionalConfigValue(
                 "camel.main.routes-exclude-pattern", String[].class, EMPTY_STRING_ARRAY);
         final String[] i2 = CamelSupport.getOptionalConfigValue(
