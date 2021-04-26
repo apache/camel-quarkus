@@ -16,14 +16,9 @@
  */
 package org.apache.camel.quarkus.main;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -34,39 +29,29 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-public class CamelDevModeTest {
-    static Path BASE;
+public class CamelMainRoutesIncludePatternWithClasspathPrefixDevModeTest {
 
     @RegisterExtension
     static final QuarkusDevModeTest TEST = new QuarkusDevModeTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
                     .addClass(CamelSupportResource.class)
+                    .addAsResource(initialRoutesXml(), "routes.xml")
                     .addAsResource(applicationProperties(), "application.properties"));
 
-    @BeforeAll
-    public static void setUp() {
-        try {
-            BASE = Files.createTempDirectory("camel-devmode-");
-            copy("routes.1", "routes.xml");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public static Asset initialRoutesXml() {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><routes xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" "
+                + "xmlns=\"http://camel.apache.org/schema/spring\" xsi:schemaLocation=\"http://camel.apache.org/schema/spring "
+                + "http://camel.apache.org/schema/spring/camel-spring.xsd\"><route id=\"r1-classpath-prefix\">"
+                + "<from uri=\"direct:start\"/>"
+                + "<to uri=\"direct:end\"/></route></routes>";
 
-    @AfterAll
-    public static void cleanUp() throws IOException {
-        Files.walk(BASE)
-                .sorted(Comparator.reverseOrder())
-                .map(Path::toFile)
-                .forEach(File::delete);
+        return new StringAsset(xml);
     }
 
     public static Asset applicationProperties() {
@@ -74,7 +59,7 @@ public class CamelDevModeTest {
 
         Properties props = new Properties();
         props.setProperty("quarkus.banner.enabled", "false");
-        props.setProperty("camel.main.routes-include-pattern", "file:" + BASE.toAbsolutePath().toString() + "/routes.xml");
+        props.setProperty("camel.main.routes-include-pattern", "classpath:routes.xml");
 
         try {
             props.store(writer, "");
@@ -85,29 +70,22 @@ public class CamelDevModeTest {
         return new StringAsset(writer.toString());
     }
 
-    public static void copy(String source, String target) throws IOException {
-        Files.copy(
-                CamelDevModeTest.class.getResourceAsStream("/" + source),
-                BASE.resolve(target),
-                StandardCopyOption.REPLACE_EXISTING);
-    }
-
     @Test
-    public void testRoutesDiscovery() throws IOException {
+    public void testRoutesDiscovery() {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();
 
             assertThat(res.statusCode()).isEqualTo(200);
-            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r1");
+            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r1-classpath-prefix");
         });
 
-        copy("routes.2", "routes.xml");
+        TEST.modifyResourceFile("routes.xml", xml -> xml.replaceAll("r1", "r2"));
 
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();
 
             assertThat(res.statusCode()).isEqualTo(200);
-            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r2");
+            assertThat(res.body().jsonPath().getList("routes", String.class)).containsOnly("r2-classpath-prefix");
         });
     }
 }

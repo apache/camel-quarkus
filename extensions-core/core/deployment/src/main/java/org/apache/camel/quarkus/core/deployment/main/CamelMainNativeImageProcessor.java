@@ -51,7 +51,7 @@ public class CamelMainNativeImageProcessor {
             Capabilities capabilities,
             BuildProducer<NativeImageResourceBuildItem> nativeResource) {
 
-        for (String path : CamelMainHelper.routesIncludePatter().collect(Collectors.toList())) {
+        for (String path : CamelMainHelper.routesIncludePattern().collect(Collectors.toList())) {
             String scheme = ResourceHelper.getScheme(path);
 
             // Null scheme is equivalent to classpath scheme
