@@ -8,7 +8,7 @@ The easiest and most straightforward way to get the dependency versions right is
 It will produce a project with the `io.quarkus:quarkus-universe-bom` set up in the `<depependencyManagement>` section
 of your `pom.xml` file.
 
-[INFO]
+[NOTE]
 ====
 BOM stands for "Bill of Materials" - it is a `pom.xml` whose main purpose is to manage the versions of artifacts
 so that end users importing the BOM in their projects do not need to care which particular versions of the artifacts

@@ -115,7 +115,7 @@ The application has three compile dependencies:
 
 They are managed within the `camel-quarkus-bom` that is imported in `<dependencyManagement>`.
 
-[INFO]
+[NOTE]
 ====
 More about xref:user-guide/dependency-management.adoc[BOMs].
 ====
