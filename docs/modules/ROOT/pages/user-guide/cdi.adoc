@@ -41,7 +41,7 @@ you really need it.
 
 TIP: Please refer to the https://quarkus.io/blog/quarkus-dependency-injection[Quarkus Dependency Injection guide] for more details.
 
-=== Accessing `CamelContext`
+== Accessing `CamelContext`
 
 To access `CamelContext` just inject it into your bean:
 

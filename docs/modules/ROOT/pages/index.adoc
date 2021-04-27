@@ -13,7 +13,7 @@ Camel Quarkus also takes advantage of the many performance improvements made in 
 
 You can xref:user-guide/defining-camel-routes.adoc[define Camel routes] using the Java DSL, XML, Kotlin, Groovy, YAML or JavaScript.
 
-=== Where to go next?
+== Where to go next?
 
 * xref:user-guide/index.adoc[User guide]
 * xref:contributor-guide/index.adoc[Contributor guide]
