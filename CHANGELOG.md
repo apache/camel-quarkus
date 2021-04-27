@@ -1427,6 +1427,7 @@
 - Add templates config option to the Mustache extension [\#868](https://github.com/apache/camel-quarkus/issues/868)
 - Duplicate LICENSE\(.txt\) and NOTICE\(.txt\) files in the source distribution [\#844](https://github.com/apache/camel-quarkus/issues/844)
 - Qute support [\#825](https://github.com/apache/camel-quarkus/issues/825)
+- Quartz support [\#823](https://github.com/apache/camel-quarkus/issues/823)
 - Cron support [\#822](https://github.com/apache/camel-quarkus/issues/822)
 - Webhook component support [\#820](https://github.com/apache/camel-quarkus/issues/820)
 - Openshift support [\#812](https://github.com/apache/camel-quarkus/issues/812)
@@ -1612,7 +1613,6 @@
 **Closed issues:**
 
 - Move Groovy executions under the enforce profile [\#831](https://github.com/apache/camel-quarkus/issues/831)
-- Quartz support [\#823](https://github.com/apache/camel-quarkus/issues/823)
 - Braintree support [\#810](https://github.com/apache/camel-quarkus/issues/810)
 - Zip Deflate Compression dataformat support [\#791](https://github.com/apache/camel-quarkus/issues/791)
 - LZF Deflate Compression dataformat support [\#788](https://github.com/apache/camel-quarkus/issues/788)
