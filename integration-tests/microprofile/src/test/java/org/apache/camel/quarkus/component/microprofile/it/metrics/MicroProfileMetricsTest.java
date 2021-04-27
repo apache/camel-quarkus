@@ -174,7 +174,7 @@ class MicroProfileMetricsTest {
     private JsonPath getApplicationMetrics() {
         return RestAssured.given()
                 .accept("application/json")
-                .get("/metrics/application")
+                .get("/q/metrics/application")
                 .then()
                 .statusCode(200)
                 .extract()
