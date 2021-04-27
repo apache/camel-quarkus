@@ -128,6 +128,7 @@
         <web3j.version>${web3j-version}</web3j.version><!-- keep in sync with Camel -->
         <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version><!-- keep in sync with Camel -->
         <woodstox-core.version>${woodstox-core-version}</woodstox-core.version><!-- keep in sync with Camel -->
+        <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
         <!-- Test dependency versions (keep sorted alphabetically) -->
