@@ -6,7 +6,7 @@ the Quarkus Application lifecycle. The configuration step happens at build time 
 it is driven by the Camel Quarkus extensions which can be tuned using Camel Quarkus specific `quarkus.camel.*`
 properties.
 
-[INFO]
+[NOTE]
 ====
 `quarkus.camel.*` configuration properties are documented on the individual extension pages
 - see e.g. xref:reference/extensions/core.adoc[Camel Quarkus Core].
@@ -95,7 +95,8 @@ public static class EventHandler {
 
 == Camel Quarkus Core and Camel Main
 
-INFO: Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a separate artifact.
+NOTE: Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a separate artifact.
+
 Since 1.8.0, all its functionality moved to `camel-quarkus-core`.
 
 == Configuration by convention

@@ -84,7 +84,7 @@ Path globbing like `camel.main.routes-include-pattern = *./routes.xml` currently
 </routes>
 ----
 
-[WARN]
+[WARNING]
 ====
 Spring XML with `<beans>` or Blueprint XML with `<blueprint>` elements are not supported.
 ====
