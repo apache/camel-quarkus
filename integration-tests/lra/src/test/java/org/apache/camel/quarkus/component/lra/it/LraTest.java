@@ -68,7 +68,7 @@ class LraTest {
                     .statusCode(200)
                     .extract()
                     .body()
-                    .asString().equals("3");
+                    .asString().equals("4");
         });
 
         // Verify credit remaining

@@ -16,8 +16,14 @@
  */
 package org.apache.camel.quarkus.component.lra.it;
 
+import java.net.InetAddress;
 import java.util.Map;
+import java.util.function.Consumer;
 
+import com.github.dockerjava.api.command.CreateContainerCmd;
+import com.github.dockerjava.api.model.ExposedPort;
+import com.github.dockerjava.api.model.PortBinding;
+import com.github.dockerjava.api.model.Ports;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
@@ -36,8 +42,16 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         try {
+            String hostname = InetAddress.getLocalHost().getHostName();
+            Consumer<CreateContainerCmd> cmd = e -> {
+                e
+                        .withPortBindings(new PortBinding(Ports.Binding.bindPort(LRA_PORT),
+                                new ExposedPort(LRA_PORT)));
+            };
+
             container = new GenericContainer(LRA_IMAGE)
-                    .withNetworkMode("host")
+                    .withExposedPorts(LRA_PORT)
+                    .withCreateContainerCmdModifier(cmd)
                     .withCommand(
                             "java",
                             "-jar",
