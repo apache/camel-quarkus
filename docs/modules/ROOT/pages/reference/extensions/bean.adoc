@@ -40,3 +40,10 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+Except for invoking methods of beans available in Camel registry,
+Bean component and Bean method language can also invoke Quarkus CDI beans.
+For more details, please refer to the xref:user-guide/user-guide/cdi.adoc#_cdi_and_the_camel_bean_component[CDI and the Camel Bean component] section of the User guide.
+
