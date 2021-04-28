@@ -38,10 +38,10 @@ public class LraRoutes extends RouteBuilder {
     public void configure() throws Exception {
         from("direct:saga")
                 .saga().propagation(SagaPropagation.REQUIRES_NEW)
-                .log("Taking the credit")
-                .to("direct:reserveCredit")
                 .log("Creating a new order")
                 .to("direct:newOrder")
+                .log("Taking the credit")
+                .to("direct:reserveCredit")
                 .log("Finalizing")
                 .to("direct:finalize")
                 .log("Done!");

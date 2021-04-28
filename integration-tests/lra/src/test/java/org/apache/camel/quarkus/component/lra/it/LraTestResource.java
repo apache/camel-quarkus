@@ -21,6 +21,7 @@ import java.util.Map;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.lang3.SystemUtils;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
@@ -48,11 +49,18 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
             container.start();
 
+            String hostname = null;
+            if (SystemUtils.IS_OS_LINUX) {
+                hostname = "docker0";
+            } else {
+                hostname = "host.docker.internal";
+            }
             return CollectionHelper.mapOf(
                     "camel.lra.coordinator-url",
                     String.format("http://%s:%d", container.getContainerIpAddress(), container.getMappedPort(LRA_PORT)),
                     "camel.lra.local-participant-url",
-                    String.format("http://localhost:%s", System.getProperty("quarkus.http.test-port", "8081")));
+                    String.format("http://%s:%s", hostname,
+                            System.getProperty("quarkus.http.test-port", "8081")));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
