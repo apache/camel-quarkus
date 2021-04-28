@@ -10,6 +10,7 @@
 - Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
 - Add test coverage for Kafka with SSL [\#2484](https://github.com/apache/camel-quarkus/issues/2484)
 - Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
+- Dev Mode: rests xml resources seems ignored [\#2476](https://github.com/apache/camel-quarkus/issues/2476)
 - Investigate need of @ApplicationScoped annotation [\#2471](https://github.com/apache/camel-quarkus/issues/2471)
 - Add info about Camel IDE plugins to the documentation [\#2470](https://github.com/apache/camel-quarkus/issues/2470)
 - Improve MongoDB extension documentation of named clients   [\#2466](https://github.com/apache/camel-quarkus/issues/2466)
@@ -42,8 +43,12 @@
 
 **Merged pull requests:**
 
+- Fix asciidoctor warnings at camel-website build [\#2517](https://github.com/apache/camel-quarkus/pull/2517) ([tadayosi](https://github.com/tadayosi))
+- Fix admonitions in adocs [\#2516](https://github.com/apache/camel-quarkus/pull/2516) ([tadayosi](https://github.com/tadayosi))
+- Fixed classpath and no prefix resources that were ignored in dev mode… [\#2515](https://github.com/apache/camel-quarkus/pull/2515) ([aldettinger](https://github.com/aldettinger))
 - Qute component improperly classified as other in Camel Quarkus Catalog [\#2510](https://github.com/apache/camel-quarkus/pull/2510) ([ppalaga](https://github.com/ppalaga))
 - Add test coverage for Kafka with SASL\_SSL [\#2507](https://github.com/apache/camel-quarkus/pull/2507) ([jamesnetherton](https://github.com/jamesnetherton))
+- \#2490 fix camel-quarkus-hbase-integration-test [\#2506](https://github.com/apache/camel-quarkus/pull/2506) ([ffang](https://github.com/ffang))
 - Add integration-tests-support-kafka module [\#2504](https://github.com/apache/camel-quarkus/pull/2504) ([jamesnetherton](https://github.com/jamesnetherton))
 - Replace references to camel master branch with main in antora playbooks [\#2501](https://github.com/apache/camel-quarkus/pull/2501) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for Kafka with SSL [\#2500](https://github.com/apache/camel-quarkus/pull/2500) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -930,6 +935,7 @@
 
 **Merged pull requests:**
 
+- CAMEL-14297: Introduce RouteBuilderConfigurer [\#1526](https://github.com/apache/camel-quarkus/pull/1526) ([davsclaus](https://github.com/davsclaus))
 - Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
