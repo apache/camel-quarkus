@@ -23,7 +23,7 @@ public class ServiceProducers {
     @javax.enterprise.inject.Produces
     @Singleton
     public CreditService creditService() {
-        return new CreditService(120);
+        return new CreditService(100);
     }
 
     @javax.enterprise.inject.Produces

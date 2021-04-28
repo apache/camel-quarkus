@@ -16,14 +16,8 @@
  */
 package org.apache.camel.quarkus.component.lra.it;
 
-import java.net.InetAddress;
 import java.util.Map;
-import java.util.function.Consumer;
 
-import com.github.dockerjava.api.command.CreateContainerCmd;
-import com.github.dockerjava.api.model.ExposedPort;
-import com.github.dockerjava.api.model.PortBinding;
-import com.github.dockerjava.api.model.Ports;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
@@ -42,16 +36,8 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         try {
-            String hostname = InetAddress.getLocalHost().getHostName();
-            Consumer<CreateContainerCmd> cmd = e -> {
-                e
-                        .withPortBindings(new PortBinding(Ports.Binding.bindPort(LRA_PORT),
-                                new ExposedPort(LRA_PORT)));
-            };
-
             container = new GenericContainer(LRA_IMAGE)
                     .withExposedPorts(LRA_PORT)
-                    .withCreateContainerCmdModifier(cmd)
                     .withCommand(
                             "java",
                             "-jar",
@@ -64,7 +50,7 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
             return CollectionHelper.mapOf(
                     "camel.lra.coordinator-url",
-                    String.format("http://%s:%d", container.getContainerIpAddress(), LRA_PORT),
+                    String.format("http://%s:%d", container.getContainerIpAddress(), container.getMappedPort(LRA_PORT)),
                     "camel.lra.local-participant-url",
                     String.format("http://localhost:%s", System.getProperty("quarkus.http.test-port", "8081")));
         } catch (Exception e) {
