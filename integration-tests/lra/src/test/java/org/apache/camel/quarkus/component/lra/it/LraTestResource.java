@@ -33,31 +33,44 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
     private static final String LRA_IMAGE = "jbosstm/lra-coordinator:5.9.3.Final";
 
     private GenericContainer container;
+    private String hostname;
+    private int lraPort;
 
     @Override
     public Map<String, String> start() {
         try {
-            container = new GenericContainer(LRA_IMAGE)
-                    .withExposedPorts(LRA_PORT)
-                    .withCommand(
-                            "java",
-                            "-jar",
-                            "/deployments/lra-coordinator-swarm.jar",
-                            "-Djava.net.preferIPv4Stack=true",
-                            "-Dswarm.http.port=" + LRA_PORT)
-                    .waitingFor(Wait.forLogMessage(".*WFSWARM99999.*", 1));
-
-            container.start();
-
-            String hostname = null;
             if (SystemUtils.IS_OS_LINUX) {
-                hostname = "docker0";
+                hostname = "localhost";
+                container = new GenericContainer(LRA_IMAGE)
+                        .withNetworkMode("host")
+                        .withCommand(
+                                "java",
+                                "-jar",
+                                "/deployments/lra-coordinator-swarm.jar",
+                                "-Djava.net.preferIPv4Stack=true",
+                                "-Dswarm.http.port=" + LRA_PORT)
+                        .waitingFor(Wait.forLogMessage(".*WFSWARM99999.*", 1));
+                container.start();
+                lraPort = LRA_PORT;
             } else {
                 hostname = "host.docker.internal";
+                container = new GenericContainer(LRA_IMAGE)
+                        .withNetworkMode("bridge")
+                        .withExposedPorts(LRA_PORT)
+                        .withCommand(
+                                "java",
+                                "-jar",
+                                "/deployments/lra-coordinator-swarm.jar",
+                                "-Djava.net.preferIPv4Stack=true",
+                                "-Dswarm.http.port=" + LRA_PORT)
+                        .waitingFor(Wait.forLogMessage(".*WFSWARM99999.*", 1));
+                container.start();
+                lraPort = container.getMappedPort(LRA_PORT);
             }
+
             return CollectionHelper.mapOf(
                     "camel.lra.coordinator-url",
-                    String.format("http://%s:%d", container.getContainerIpAddress(), container.getMappedPort(LRA_PORT)),
+                    String.format("http://%s:%d", container.getContainerIpAddress(), lraPort),
                     "camel.lra.local-participant-url",
                     String.format("http://%s:%s", hostname,
                             System.getProperty("quarkus.http.test-port", "8081")));
