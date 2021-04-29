@@ -16,35 +16,31 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.camel.Exchange;
-import org.apache.camel.quarkus.component.bean.model.Employee;
 
 /**
  * A bean referenced from a route (and from nowhere else) by name.
  */
 @ApplicationScoped
-@Named("namedBean")
-@RegisterForReflection // Let Quarkus register this class for reflection during the native build
-public class NamedBean {
+@Named("completionStageBean")
+@RegisterForReflection
+public class CompletionStageBean {
 
-    public String hello(String name) {
-        return "Hello " + name + " from the NamedBean";
-    }
-
-    public String hello(Integer i) {
-        return "Hello number " + i + " from the NamedBean";
-    }
-
-    public String hi(String name) {
-        return "Hi " + name + " from the NamedBean";
-    }
-
-    public void methodWithExchangeArg(Exchange exchange) {
-        exchange.getMessage().setBody("Hello " + exchange.getMessage().getBody(Employee.class).getFirstName());
+    public CompletionStage<String> hello(final String name) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            return "Hello " + name + " from CompletionStageBean";
+        });
     }
 
 }

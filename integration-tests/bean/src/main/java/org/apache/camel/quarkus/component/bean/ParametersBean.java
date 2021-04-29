@@ -20,31 +20,41 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.Body;
 import org.apache.camel.Exchange;
+import org.apache.camel.Header;
 import org.apache.camel.quarkus.component.bean.model.Employee;
+import org.apache.camel.spi.Registry;
 
 /**
  * A bean referenced from a route (and from nowhere else) by name.
  */
 @ApplicationScoped
-@Named("namedBean")
+@Named("parametersBean")
 @RegisterForReflection // Let Quarkus register this class for reflection during the native build
-public class NamedBean {
+public class ParametersBean {
 
-    public String hello(String name) {
-        return "Hello " + name + " from the NamedBean";
+    public String parameterTypes(String employeeAsString) {
+        return "employeeAsString: " + employeeAsString;
     }
 
-    public String hello(Integer i) {
-        return "Hello number " + i + " from the NamedBean";
+    public String parameterTypes(Employee employee) {
+        return "Employee: " + employee.getFirstName();
     }
 
-    public String hi(String name) {
-        return "Hi " + name + " from the NamedBean";
+    public String parameterBindingAnnotations(
+            @Header("parameterBinding.greeting") String greeting,
+            @Body String body) {
+        return greeting + " " + body + " from parameterBindingAnnotations";
     }
 
-    public void methodWithExchangeArg(Exchange exchange) {
-        exchange.getMessage().setBody("Hello " + exchange.getMessage().getBody(Employee.class).getFirstName());
+    public String parameterLiterals(String body, boolean bool) {
+        return "Hello " + body + " from parameterLiterals(*, " + bool + ")";
+    }
+
+    public String multiArgMethod(String body, Exchange exchange, Registry registry) {
+        return "Hello " + body + " from multiArgMethod: " + (exchange != null ? "got exchange" : "") + " "
+                + (registry != null ? "got registry" : "");
     }
 
 }

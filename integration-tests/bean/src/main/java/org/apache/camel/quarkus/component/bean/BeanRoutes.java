@@ -84,6 +84,25 @@ public class BeanRoutes extends RouteBuilder {
                 .routeId("wlpb-route-31wp")
                 .to("bean:withLanguageParamBindingsBean")
                 .to("log:withLanguageParamBindings");
+
+        from("direct:methodWithExchangeArg")
+                .to("bean:namedBean");
+
+        from("direct:completionStageBean")
+                .to("bean:completionStageBean?method=hello");
+
+        from("direct:multiArgMethod")
+                .to("bean:parametersBean?method=multiArgMethod");
+
+        from("direct:parameterBindingAnnotations")
+                .to("bean:parametersBean?method=parameterBindingAnnotations");
+
+        from("direct:parameterLiterals")
+                .to("bean:parametersBean?method=parameterLiterals(*, true)");
+
+        from("direct:parameterTypes")
+                .to("bean:parametersBean?method=parameterTypes(String)");
+
     }
 
     @SuppressWarnings("unchecked")

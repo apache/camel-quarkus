@@ -22,10 +22,14 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.component.bean.model.Employee;
 
 @Path("/bean")
 @ApplicationScoped
@@ -39,51 +43,38 @@ public class BeanResource {
     @Inject
     EagerAppScopedRouteBuilder routeBuilder;
 
-    @Path("/process-order")
+    @Inject
+    EndpointInjectBean endpointInjectBean;
+
+    @Inject
+    ConsumerTemplate endpointInjectConsumer;
+
+    @Path("/route/{route}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String processOrder(String statement) {
-        return template.requestBody("direct:process-order", statement, String.class);
+    public String route(String statement, @PathParam("route") String route) {
+        return template.requestBody("direct:" + route, statement, String.class);
     }
 
-    @Path("/named")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String named(String statement) {
-        return template.requestBody("direct:named", statement, String.class);
-    }
-
-    @Path("/method")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String method(String statement) {
-        return template.requestBody("direct:method", statement, String.class);
-    }
-
-    @Path("/handler")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String handler(String statement) {
-        return template.requestBody("direct:handler", statement, String.class);
-    }
-
-    @Path("/handlerOnProxy")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String handlerOnProxy(String statement) {
-        return template.requestBody("direct:handlerOnProxy", statement, String.class);
-    }
-
-    @Path("/increment")
+    @Path("/route/{route}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String increment() {
-        return template.requestBody("direct:counter", null, String.class);
+    public String route(@PathParam("route") String route) {
+        return template.requestBody("direct:" + route, null, String.class);
+    }
+
+    @Path("/beanMethodInHeader")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String beanMethodInHeader(String statement) {
+        return template.requestBodyAndHeader(
+                "direct:named",
+                statement,
+                Exchange.BEAN_METHOD_NAME,
+                "hi",
+                String.class);
     }
 
     @Path("/counter")
@@ -91,13 +82,6 @@ public class BeanResource {
     @Produces(MediaType.TEXT_PLAIN)
     public int counter() {
         return counter.getValue();
-    }
-
-    @Path("/config-property")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String configProperty() {
-        return template.requestBody("direct:config-property", null, String.class);
     }
 
     @Path("/route-builder-instance-counter")
@@ -121,13 +105,6 @@ public class BeanResource {
         return routeBuilder.getCounter().getValue();
     }
 
-    @Path("/lazy")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String lazy() {
-        return template.requestBody("direct:lazy", null, String.class);
-    }
-
     @Path("/camel-configure-counter")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -135,18 +112,34 @@ public class BeanResource {
         return BeanRoutes.CONFIGURE_COUNTER.get();
     }
 
-    @Path("/with-producer")
-    @GET
+    @Path("/endpointInject")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String withProducer() {
-        return template.requestBody("direct:with-producer", null, String.class);
+    public String endpointInject(String payload) {
+        endpointInjectBean.forward(payload);
+        return endpointInjectConsumer.receiveBody("direct:endpointInject", 10000, String.class);
     }
 
-    @Path("/with-language-param-bindings")
-    @GET
+    @Path("/employee/{route}")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
-    public String withLanguageParamBindings() {
-        return template.requestBody("direct:with-language-param-bindings", null, String.class);
+    public String methodWithExchangeArg(Employee employee, @PathParam("route") String route) {
+        return template.requestBody("direct:" + route, employee, String.class);
+    }
+
+    @Path("/parameterBindingAnnotations/{greeting}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String parameterBindingAnnotations(String statement, @PathParam("greeting") String greeting) {
+        return template.requestBodyAndHeader(
+                "direct:parameterBindingAnnotations",
+                statement,
+                "parameterBinding.greeting",
+                greeting,
+                String.class);
     }
 
 }

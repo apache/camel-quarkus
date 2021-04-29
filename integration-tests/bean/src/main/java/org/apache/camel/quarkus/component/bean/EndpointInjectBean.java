@@ -17,34 +17,20 @@
 package org.apache.camel.quarkus.component.bean;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
 
 import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.camel.Exchange;
-import org.apache.camel.quarkus.component.bean.model.Employee;
+import org.apache.camel.EndpointInject;
+import org.apache.camel.ProducerTemplate;
 
-/**
- * A bean referenced from a route (and from nowhere else) by name.
- */
 @ApplicationScoped
-@Named("namedBean")
-@RegisterForReflection // Let Quarkus register this class for reflection during the native build
-public class NamedBean {
+@RegisterForReflection
+public class EndpointInjectBean {
 
-    public String hello(String name) {
-        return "Hello " + name + " from the NamedBean";
-    }
+    @EndpointInject("direct:endpointInject")
+    ProducerTemplate producer;
 
-    public String hello(Integer i) {
-        return "Hello number " + i + " from the NamedBean";
-    }
-
-    public String hi(String name) {
-        return "Hi " + name + " from the NamedBean";
-    }
-
-    public void methodWithExchangeArg(Exchange exchange) {
-        exchange.getMessage().setBody("Hello " + exchange.getMessage().getBody(Employee.class).getFirstName());
+    public void forward(String payload) {
+        producer.sendBody("Sent to an @EndpointInject: " + payload);
     }
 
 }

@@ -59,7 +59,7 @@ public class EagerAppScopedRouteBuilder extends RouteBuilder {
          * counter and config-property should actually work without the bean extension. Doing it here because we have
          * quarkus.camel.enable-main=true in the core itest
          */
-        from("direct:counter")
+        from("direct:increment")
                 .id("counter")
                 .setBody(exchange -> counter.increment())
                 .to("log:counter");
