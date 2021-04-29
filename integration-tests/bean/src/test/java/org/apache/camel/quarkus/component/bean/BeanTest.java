@@ -19,6 +19,8 @@ package org.apache.camel.quarkus.component.bean;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.component.bean.model.Employee;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -27,7 +29,10 @@ import static org.hamcrest.Matchers.equalTo;
 public class BeanTest {
     @Test
     public void testRoutes() {
-        RestAssured.given().contentType(ContentType.TEXT).body("nuts@bolts").post("/bean/process-order").then()
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("nuts@bolts")
+                .post("/bean/route/process-order").then()
                 .body(equalTo("{success=true, lines=[(id=1,item=nuts), (id=2,item=bolts)]}"));
 
         /* Ensure that the RoutesBuilder.configure() was not called multiple times on CamelRoute */
@@ -43,9 +48,19 @@ public class BeanTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kermit")
-                .post("/bean/named")
+                .post("/bean/route/named")
                 .then()
                 .body(equalTo("Hello Kermit from the NamedBean"));
+    }
+
+    @Test
+    public void beanMethodInHeader() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kermit")
+                .post("/bean/beanMethodInHeader")
+                .then()
+                .body(equalTo("Hi Kermit from the NamedBean"));
     }
 
     @Test
@@ -53,7 +68,7 @@ public class BeanTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kermit")
-                .post("/bean/method")
+                .post("/bean/route/method")
                 .then()
                 .body(equalTo("Hello Kermit from the MyBean"));
     }
@@ -63,7 +78,7 @@ public class BeanTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kermit")
-                .post("/bean/handler")
+                .post("/bean/route/handler")
                 .then()
                 .body(equalTo("Hello Kermit from the WithHandlerBean"));
     }
@@ -73,7 +88,7 @@ public class BeanTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kermit")
-                .post("/bean/handlerOnProxy")
+                .post("/bean/route/handlerOnProxy")
                 .then()
                 .body(equalTo("Hello Kermit from the WithHandlerBean"));
     }
@@ -84,16 +99,16 @@ public class BeanTest {
         /* Ensure that @Inject works */
         RestAssured.when().get("/bean/counter").then().body(equalTo("0"));
         RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("0"));
-        RestAssured.when().get("/bean/increment").then().body(equalTo("1"));
+        RestAssured.when().get("/bean/route/increment").then().body(equalTo("1"));
         RestAssured.when().get("/bean/counter").then().body(equalTo("1"));
         RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("1"));
-        RestAssured.when().get("/bean/increment").then().body(equalTo("2"));
+        RestAssured.when().get("/bean/route/increment").then().body(equalTo("2"));
         RestAssured.when().get("/bean/counter").then().body(equalTo("2"));
         RestAssured.when().get("/bean/route-builder-injected-count").then().body(equalTo("2"));
 
         /* Ensure that @ConfigProperty works */
         RestAssured.when()
-                .get("/bean/config-property")
+                .get("/bean/route/config-property")
                 .then()
                 .statusCode(200)
                 .body(equalTo("myFooValue = foo"));
@@ -115,18 +130,100 @@ public class BeanTest {
 
     @Test
     public void lazy() {
-        RestAssured.when().get("/bean/lazy").then().body(equalTo("lazy"));
+        RestAssured.when().get("/bean/route/lazy").then().body(equalTo("lazy"));
     }
 
     @Test
     public void withProducer() {
-        RestAssured.when().get("/bean/with-producer").then().body(equalTo("with-producer"));
+        RestAssured.when().get("/bean/route/with-producer").then().body(equalTo("with-producer"));
     }
 
     @Test
     public void withLanguageParamBindings() {
-        RestAssured.when().get("/bean/with-language-param-bindings").then()
+        RestAssured.when().get("/bean/route/with-language-param-bindings").then()
                 .body(equalTo("wlpb-hello(wlpb-route-31wp,cflap-bean-31wp)"));
+    }
+
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2539")
+    @Test
+    public void consumeAnnotation() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("foo")
+                .post("/bean/route/consumeAnnotation")
+                .then()
+                .body(equalTo("Consumed foo"));
+    }
+
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2539")
+    @Test
+    public void endpointInject() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("bar")
+                .post("/bean/endpointInject")
+                .then()
+                .body(equalTo("Sent to an @EndpointInject: bar"));
+    }
+
+    @Test
+    public void methodWithExchangeArg() {
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(new Employee("Joe", "Doe", "senior"))
+                .post("/bean/employee/methodWithExchangeArg")
+                .then()
+                .body(equalTo("Hello Joe"));
+    }
+
+    @Test
+    public void completionStageBean() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Franz")
+                .post("/bean/route/completionStageBean")
+                .then()
+                .body(equalTo("Hello Franz from CompletionStageBean"));
+    }
+
+    @Test
+    public void multiArgMethod() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Max")
+                .post("/bean/route/multiArgMethod")
+                .then()
+                .body(equalTo("Hello Max from multiArgMethod: got exchange got registry"));
+    }
+
+    @Test
+    public void parameterBindingAnnotations() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Umberto")
+                .post("/bean/parameterBindingAnnotations/Ciao")
+                .then()
+                .body(equalTo("Ciao Umberto from parameterBindingAnnotations"));
+    }
+
+    @Test
+    public void parameterLiterals() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Leon")
+                .post("/bean/route/parameterLiterals")
+                .then()
+                .body(equalTo("Hello Leon from parameterLiterals(*, true)"));
+    }
+
+    @Test
+    public void parameterTypes() {
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(new Employee("Joe", "Doe", "senior"))
+                .post("/bean/employee/parameterTypes")
+                .then()
+                .body(equalTo("employeeAsString: Employee [firstName=Joe, lastName=Doe, seniority=senior]"));
     }
 
 }

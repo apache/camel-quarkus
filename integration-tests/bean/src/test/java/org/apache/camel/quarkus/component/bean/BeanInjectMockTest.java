@@ -41,7 +41,7 @@ public class BeanInjectMockTest {
     public void namedBeanMockedForAllTests() {
         RestAssured.given()
                 .body("Kermit")
-                .post("/bean/named")
+                .post("/bean/route/named")
                 .then()
                 .body(is("Hello * from NamedBean mock (class level)"));
     }
@@ -51,7 +51,7 @@ public class BeanInjectMockTest {
         when(mockNamedBean.hello(anyString())).thenReturn("Hello * from NamedBean mock (test level)");
         RestAssured.given()
                 .body("Kermit")
-                .post("/bean/named")
+                .post("/bean/route/named")
                 .then()
                 .body(is("Hello * from NamedBean mock (test level)"));
     }
