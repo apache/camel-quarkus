@@ -18,14 +18,17 @@ package org.apache.camel.quarkus.component.rest.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesPattern;
 
 @QuarkusTest
 class RestTest {
+
     @Test
     public void inspectConfiguration() {
         RestAssured.when()
@@ -36,13 +39,100 @@ class RestTest {
     }
 
     @Test
-    public void rest() throws Throwable {
+    public void rest() {
         RestAssured.get("/rest/get")
-                .then().body(equalTo("GET: /rest/get"));
+                .then()
+                .header("Access-Control-Allow-Headers", matchesPattern(".*Access-Control.*"))
+                .header("Access-Control-Allow-Methods", matchesPattern("GET, POST"))
+                .header("Access-Control-Allow-Credentials", equalTo("true"))
+                .body(equalTo("GET: /rest/get"));
+
         RestAssured.given()
-                .contentType("text/plain")
+                .contentType(ContentType.TEXT)
                 .post("/rest/post")
-                .then().body(equalTo("POST: /rest/post"));
+                .then()
+                .statusCode(200)
+                .body(equalTo("POST: /rest/post"));
+    }
+
+    @Test
+    public void pathTemplate() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/rest/template/Hello/World")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello World"));
+    }
+
+    @Test
+    public void requestValidation() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .header("messageEnd", "World")
+                .post("/rest/validation")
+                .then()
+                .statusCode(400)
+                .body(equalTo("Some of the required query parameters are missing."));
+
+        // TODO: Enable this - https://issues.apache.org/jira/browse/CAMEL-16560
+        //        RestAssured.given()
+        //                .contentType(ContentType.TEXT)
+        //                .queryParam("messageStart", "Hello")
+        //                .post("/rest/validation")
+        //                .then()
+        //                .statusCode(400)
+        //                .body(equalTo("The request body is missing."));
+        //
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("messageStart", "Hello")
+                .post("/rest/validation")
+                .then()
+                .statusCode(400)
+                .body(equalTo("Some of the required HTTP headers are missing."));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("messageStart", "Hello")
+                .header("messageEnd", "World")
+                .post("/rest/validation")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello World"));
+    }
+
+    @Test
+    public void jsonBinding() {
+        Person person = new Person();
+        person.setFirstName("John");
+        person.setLastName("Doe");
+        person.setAge(64);
+
+        String result = String.format(
+                "Name: %s %s, Age: %d",
+                person.getFirstName(),
+                person.getLastName(),
+                person.getAge());
+
+        RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(person)
+                .post("/rest/pojo/binding")
+                .then()
+                .statusCode(200)
+                .body(equalTo(result));
+    }
+
+    @Test
+    public void testRestProducer() {
+        RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .get("/rest/invoke/route")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello Invoked"));
     }
 
     @Test

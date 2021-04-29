@@ -16,23 +16,57 @@
  */
 package org.apache.camel.quarkus.component.rest.it;
 
+import javax.ws.rs.core.MediaType;
+
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.rest.RestBindingMode;
+import org.apache.camel.model.rest.RestParamType;
 
 public class RestRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        rest()
+        restConfiguration()
+                .enableCORS(true)
+                .corsAllowCredentials(true)
+                .corsHeaderProperty("Access-Control-Allow-Methods", "GET, POST");
 
-                .get("/rest/get")
+        rest("/rest")
+                .get("/get")
                 .route()
                 .setBody(constant("GET: /rest/get"))
                 .endRest()
 
-                .post("/rest/post")
+                .post("/post")
                 .consumes("text/plain").produces("text/plain")
                 .route()
                 .setBody(constant("POST: /rest/post"))
+                .endRest()
+
+                .post("/validation")
+                .clientRequestValidation(true)
+                .param().name("messageStart").type(RestParamType.query).required(true).endParam()
+                // https://issues.apache.org/jira/browse/CAMEL-16560
+                // .param().name("messageEnd").type(RestParamType.body).required(true).endParam()
+                .param().name("messageEnd").type(RestParamType.header).required(true).endParam()
+                .param().name("unused").type(RestParamType.formData).required(false).endParam()
+                .route()
+                .setBody(simple("${header.messageStart} ${header.messageEnd}"))
+                .endRest()
+
+                .get("/template/{messageStart}/{messageEnd}")
+                .route()
+                .setBody(simple("${header.messageStart} ${header.messageEnd}"))
+                .endRest()
+
+                .post("/pojo/binding")
+                .bindingMode(RestBindingMode.json)
+                .type(Person.class)
+                .produces(MediaType.TEXT_PLAIN)
+                .route()
+                .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
+                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
                 .endRest();
     }
 }

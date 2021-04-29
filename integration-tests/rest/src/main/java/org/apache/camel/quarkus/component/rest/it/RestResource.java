@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.rest.it;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -23,16 +26,21 @@ import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.ProducerTemplate;
 
 @Path("/rest")
 @ApplicationScoped
 public class RestResource {
     @Inject
     CamelContext camelContext;
+
+    @Inject
+    ProducerTemplate producerTemplate;
 
     @Path("/inspect/configuration")
     @GET
@@ -48,5 +56,16 @@ public class RestResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean lightweight() {
         return camelContext.adapt(ExtendedCamelContext.class).isLightweight();
+    }
+
+    @Path("/invoke/route")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String restProducer(@QueryParam("port") int port) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("messageStart", "Hello");
+        headers.put("messageEnd", "Invoked");
+        return producerTemplate.requestBodyAndHeaders(
+                "rest:get:/rest/template/{messageStart}/{messageEnd}?host=localhost:" + port, null, headers, String.class);
     }
 }
