@@ -29,7 +29,7 @@ import org.apache.camel.ProducerTemplate;
 
 @Path("/bean")
 @ApplicationScoped
-public class CamelResource {
+public class BeanResource {
     @Inject
     ProducerTemplate template;
 
@@ -132,7 +132,7 @@ public class CamelResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public int lazyConfigureCounter() {
-        return CamelRoute.CONFIGURE_COUNTER.get();
+        return BeanRoutes.CONFIGURE_COUNTER.get();
     }
 
     @Path("/with-producer")

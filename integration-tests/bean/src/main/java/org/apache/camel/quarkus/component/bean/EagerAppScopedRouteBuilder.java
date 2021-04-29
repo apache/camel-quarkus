@@ -27,7 +27,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
- * A {@link RouteBuilder} injected into {@link CamelResource} and thus instantiated eagerly.
+ * A {@link RouteBuilder} injected into {@link BeanResource} and thus instantiated eagerly.
  */
 @ApplicationScoped
 public class EagerAppScopedRouteBuilder extends RouteBuilder {

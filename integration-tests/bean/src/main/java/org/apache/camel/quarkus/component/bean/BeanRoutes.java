@@ -37,7 +37,7 @@ import org.apache.camel.support.DefaultExchange;
 /**
  * A {@link RouteBuilder} instantiated by Camel (not by Arc).
  */
-public class CamelRoute extends RouteBuilder {
+public class BeanRoutes extends RouteBuilder {
 
     static final AtomicInteger CONFIGURE_COUNTER = new AtomicInteger(0);
 
@@ -51,7 +51,7 @@ public class CamelRoute extends RouteBuilder {
     public void configure() {
         from("direct:process-order")
                 .setHeader(MyOrderService.class.getName(), MyOrderService::new)
-                .split(body().tokenize("@"), CamelRoute.this::aggregate)
+                .split(body().tokenize("@"), BeanRoutes.this::aggregate)
                 // each splitted message is then send to this bean where we can process it
                 .process(stateless(MyOrderService.class.getName(), "handleOrder"))
                 // this is important to end the splitter route as we do not want to do more routing
