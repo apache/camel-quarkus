@@ -1,0 +1,42 @@
+=== Simple language
+
+==== Using the OGNL notation
+When using the OGNL notation from the simple language, the `camel-quarkus-bean` extension should be used.
+
+For instance, the expression below is accessing the `getAddress()` method on the message body of type `Client`.
+[source,java]
+---
+simple("${body.address}")
+---
+
+In such a situation, one should take an additional dependency on the camel-quarkus-bean extension xref:{cq-camel-components}::bean-component.adoc[as described here].
+Note that in native mode, some classes may need to be registered for reflection. In the example above, the `Client` class
+needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
+
+==== Using dynamic type resolution in native mode
+When dynamically resolving a type from simple expressions like `${mandatoryBodyAs(TYPE)}` or `${body} is TYPE`, it may be needed to register some classes for reflection manually.
+
+For instance, the simple expressions below is dynamically resolving the type `java.nio.ByteBuffer` at runtime:
+[source,java]
+---
+simple("${body} is 'java.nio.ByteBuffer'")
+---
+
+As such, the class `java.nio.ByteBuffer` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
+
+==== Using the simple language with classpath resources in native mode
+Beyond standard usages, a trick is needed when using the simple language with classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+
+For instance, the route below would load a simple script from a classpath resource named _mysimple.txt_:
+[source,java]
+----
+from("direct:start").transform().simple("resource:classpath:mysimple.txt");
+----
+
+In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+[source,properties]
+----
+quarkus.camel.native.resources.include-patterns = *.txt
+----
+
+More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
