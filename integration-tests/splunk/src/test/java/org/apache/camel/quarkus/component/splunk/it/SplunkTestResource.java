@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.splunk.it;
 
 import java.time.Duration;
 import java.util.Map;
+import java.util.TimeZone;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
@@ -42,6 +43,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     .withEnv("SPLUNK_START_ARGS", "--accept-license")
                     .withEnv("SPLUNK_PASSWORD", "changeit")
                     .withEnv("SPLUNK_LICENSE_URI", "Free")
+                    .withEnv("TZ", TimeZone.getDefault().getID())
                     .waitingFor(
                             Wait.forLogMessage(".*Ansible playbook complete.*\\n", 1)
                                     .withStartupTimeout(Duration.ofSeconds(120)));
@@ -52,6 +54,9 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     "/opt/splunk/etc/system/default/server.conf");
             container.execInContainer("sudo", "sed", "-i", "s/enableSplunkdSSL = true/enableSplunkdSSL = false/",
                     "/opt/splunk/etc/system/default/server.conf");
+
+            container.execInContainer("sudo", "microdnf", "--nodocs", "update", "tzdata");//install tzdata package so we can specify tz other than UTC
+
             container.execInContainer("sudo", "./bin/splunk", "restart");
             container.execInContainer("sudo", "./bin/splunk", "add", "index", TEST_INDEX);
             container.execInContainer("sudo", "./bin/splunk", "add", "tcp", String.valueOf(SplunkResource.LOCAL_TCP_PORT),
