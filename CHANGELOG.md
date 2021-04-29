@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
+- Document the possibility to use CDI beans with camel bean component [\#2491](https://github.com/apache/camel-quarkus/issues/2491)
 - Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
 - Add test coverage for Kafka with SSL [\#2484](https://github.com/apache/camel-quarkus/issues/2484)
 - Stop testing JavaScript DSL in native mode [\#2481](https://github.com/apache/camel-quarkus/issues/2481)
@@ -43,6 +44,7 @@
 
 **Merged pull requests:**
 
+- Document the possibility to use CDI beans with camel bean component [\#2531](https://github.com/apache/camel-quarkus/pull/2531) ([ppalaga](https://github.com/ppalaga))
 - Fix asciidoctor warnings at camel-website build [\#2517](https://github.com/apache/camel-quarkus/pull/2517) ([tadayosi](https://github.com/tadayosi))
 - Fix admonitions in adocs [\#2516](https://github.com/apache/camel-quarkus/pull/2516) ([tadayosi](https://github.com/tadayosi))
 - Fixed classpath and no prefix resources that were ignored in dev mode… [\#2515](https://github.com/apache/camel-quarkus/pull/2515) ([aldettinger](https://github.com/aldettinger))
@@ -452,6 +454,7 @@
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
 - Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
+- Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
@@ -499,7 +502,6 @@
 
 **Merged pull requests:**
 
-- Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
 - Added JSLT native support \#1740 [\#2010](https://github.com/apache/camel-quarkus/pull/2010) ([aldettinger](https://github.com/aldettinger))
@@ -935,7 +937,6 @@
 
 **Merged pull requests:**
 
-- CAMEL-14297: Introduce RouteBuilderConfigurer [\#1526](https://github.com/apache/camel-quarkus/pull/1526) ([davsclaus](https://github.com/davsclaus))
 - Upgrade Quarkus Qpid JMS to 0.17.0 [\#1521](https://github.com/apache/camel-quarkus/pull/1521) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 1.7.0.Final [\#1520](https://github.com/apache/camel-quarkus/pull/1520) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable merge commits on pull requests [\#1519](https://github.com/apache/camel-quarkus/pull/1519) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1344,7 +1345,6 @@
 - Automatic sync branch master to camel-master [\#1074](https://github.com/apache/camel-quarkus/pull/1074) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump to Camel Quarkus 1.0.0-M6 [\#1073](https://github.com/apache/camel-quarkus/pull/1073) ([oscerd](https://github.com/oscerd))
 - Add a native extension for AWS2-SQS [\#1070](https://github.com/apache/camel-quarkus/pull/1070) ([oscerd](https://github.com/oscerd))
-- Sidebar menu tidy up names-14567 [\#1068](https://github.com/apache/camel-quarkus/pull/1068) ([rimshach](https://github.com/rimshach))
 - Post 3.2 cleanup [\#1067](https://github.com/apache/camel-quarkus/pull/1067) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move spring's kotlin processors and substitutions to a dedicated file [\#1065](https://github.com/apache/camel-quarkus/pull/1065) ([lburgazzoli](https://github.com/lburgazzoli))
 - Post Camel 3.2.0 upgrade fixes [\#1063](https://github.com/apache/camel-quarkus/pull/1063) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1607,6 +1607,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
 
+**Implemented enhancements:**
+
+- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
+
 **Fixed bugs:**
 
 - Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
@@ -1723,7 +1727,6 @@
 **Implemented enhancements:**
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
