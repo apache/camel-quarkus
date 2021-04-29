@@ -1,3 +1,3 @@
 Except for invoking methods of beans available in Camel registry,
 Bean component and Bean method language can also invoke Quarkus CDI beans.
-For more details, please refer to the xref:user-guide/user-guide/cdi.adoc#_cdi_and_the_camel_bean_component[CDI and the Camel Bean component] section of the User guide.
+For more details, please refer to the xref:user-guide/cdi.adoc#_cdi_and_the_camel_bean_component[CDI and the Camel Bean component] section of the User guide.
