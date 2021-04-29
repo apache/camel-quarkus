@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.hl7.it;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -25,6 +28,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -73,15 +77,24 @@ public class Hl7Resource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String marshalUnmarshal(String message) throws Exception {
-        return producerTemplate.requestBody("direct:marshalUnmarshal", message, String.class);
+    public Response marshalUnmarshal(@QueryParam("charset") String charset, String message) {
+        Response.ResponseBuilder builder = Response.ok();
+        Map<String, Object> headers = new HashMap<>();
+        if (charset != null) {
+            headers.put(Exchange.CHARSET_NAME, charset);
+            builder.header("Content-Type", MediaType.TEXT_PLAIN + ";" + charset);
+        }
+
+        String result = producerTemplate.requestBodyAndHeaders("direct:marshalUnmarshal", message, headers, String.class);
+
+        return builder.entity(result).build();
     }
 
     @Path("/validate")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response validate(String message) throws Exception {
+    public Response validate(String message) {
         Exchange exchange = producerTemplate.request("direct:validate", e -> e.getMessage().setBody(message));
         if (exchange.isFailed()) {
             Exception exception = exchange.getException();
@@ -94,7 +107,7 @@ public class Hl7Resource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response validateCustom(String message) throws Exception {
+    public Response validateCustom(String message) {
         Exchange exchange = producerTemplate.request("direct:validateCustom", e -> e.getMessage().setBody(message));
         if (exchange.isFailed()) {
             Exception exception = exchange.getException();
@@ -107,7 +120,7 @@ public class Hl7Resource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String hl7terser(String message) throws Exception {
+    public String hl7terser(String message) {
         Exchange exchange = producerTemplate.request("direct:hl7terser", e -> e.getMessage().setBody(message));
         return exchange.getMessage().getHeader("PATIENT_ID", String.class);
     }
@@ -116,7 +129,7 @@ public class Hl7Resource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String hl7terserBean(String message) throws Exception {
+    public String hl7terserBean(String message) {
         return producerTemplate.requestBody("direct:hl7terserBean", message, String.class);
     }
 
@@ -124,9 +137,17 @@ public class Hl7Resource {
     @POST
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject hl7Xml(String messageXml) throws Exception {
+    public JsonObject hl7Xml(String messageXml) {
         ADT_A01 result = producerTemplate.requestBody("direct:unmarshalXml", messageXml, ADT_A01.class);
         return adtToJsonObject(result);
+    }
+
+    @Path("/ack")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String validateWithAck(String message) {
+        return producerTemplate.requestBody("direct:ack", message, String.class);
     }
 
     private JsonObject adtToJsonObject(ADT_A01 result) {

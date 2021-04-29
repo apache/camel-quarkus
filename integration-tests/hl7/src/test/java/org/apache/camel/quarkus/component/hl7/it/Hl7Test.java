@@ -35,6 +35,7 @@ import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.is;
 
@@ -144,6 +145,67 @@ class Hl7Test {
                         "city", is("NEEDHAM"),
                         "zip", is("02494"),
                         "phone", is("(818)565-1551"));
+    }
+
+    @Test
+    public void testGetEncodingFromPid() {
+        String[] pidParts = PID_MESSAGE.split("\r");
+
+        // Set encoding
+        String header = pidParts[0] + "||||||ISO-8859-1";
+
+        // Add some characters to the patient name that the encoding cannot deal with
+        String pid = pidParts[1].replace("JOHN", "JÖHN").replace("SMITH", "SMÏTH");
+
+        // Verify the name field got messed up due to the encoding
+        String message = header + "\r" + pid;
+        RestAssured.given()
+                .body(message)
+                .post("/hl7/marshalUnmarshal")
+                .then()
+                .statusCode(200)
+                .body(containsString("SMÃ\u008FTH^JÃ\u0096HN^M"));
+
+        // Try again with UTF-8
+        message = pidParts[0] + "||||||UTF-8" + "\r" + pid;
+        RestAssured.given()
+                .body(message)
+                .post("/hl7/marshalUnmarshal")
+                .then()
+                .statusCode(200)
+                .body(containsString("SMÏTH^JÖHN^M"));
+    }
+
+    @Test
+    public void testGetEncodingFromHeader() {
+        // Verify the name field got messed up due to the encoding
+        String message = PID_MESSAGE.replace("JOHN", "JÖHN").replace("SMITH", "SMÏTH");
+        RestAssured.given()
+                .queryParam("charset", "US-ASCII")
+                .body(message)
+                .post("/hl7/marshalUnmarshal")
+                .then()
+                .statusCode(200)
+                .body(containsString("SM?TH^J?HN^M"));
+
+        // Try again with UTF-8
+        RestAssured.given()
+                .queryParam("charset", "UTF-8")
+                .body(message)
+                .post("/hl7/marshalUnmarshal")
+                .then()
+                .statusCode(200)
+                .body(containsString("SMÏTH^JÖHN^M"));
+    }
+
+    @Test
+    public void hl7CustomAck() {
+        RestAssured.given()
+                .body(PID_MESSAGE)
+                .post("/hl7/ack")
+                .then()
+                .statusCode(200)
+                .body(containsString("MSA|CA"));
     }
 
     private static final String readPidFile() {
