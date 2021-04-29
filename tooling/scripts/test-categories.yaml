@@ -37,6 +37,7 @@ group-02:
   - oaipmh
   - pubnub
   - protobuf
+  - simple
   - smallrye-reactive-messaging
   - solr
   - sql
