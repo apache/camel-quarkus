@@ -406,7 +406,7 @@ public abstract class BaseModel implements Model {
     public ProcessorDefinition getProcessorDefinition(String id) {
         for (RouteDefinition route : getRouteDefinitions()) {
             Iterator<ProcessorDefinition> it = ProcessorDefinitionHelper.filterTypeInOutputs(route.getOutputs(),
-                    ProcessorDefinition.class);
+                    ProcessorDefinition.class).iterator();
             while (it.hasNext()) {
                 ProcessorDefinition proc = it.next();
                 if (id.equals(proc.getId())) {
