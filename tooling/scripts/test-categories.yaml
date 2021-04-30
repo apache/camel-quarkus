@@ -136,6 +136,7 @@ group-09:
   - nats
   - splunk
   - spring-rabbitmq
+  - xchange
 group-10:
   - as2
   - atlasmap

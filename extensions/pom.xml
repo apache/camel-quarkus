@@ -234,6 +234,7 @@
         <module>vertx-websocket</module>
         <module>vm</module>
         <module>weather</module>
+        <module>xchange</module>
         <module>xmlsecurity</module>
         <module>xpath</module>
         <module>xslt</module>

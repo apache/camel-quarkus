@@ -163,6 +163,11 @@
                 <version>${sshd.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.knowm.xchange</groupId>
+                <artifactId>xchange-coinbase</artifactId>
+                <version>${xchange.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.jvnet.mock-javamail</groupId>
                 <artifactId>mock-javamail</artifactId>
                 <version>${mock-javamail.version}</version>
