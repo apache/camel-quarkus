@@ -43,6 +43,7 @@ import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.graphql.GraphQLHandler;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.graphql.it.model.Book;
@@ -85,6 +86,7 @@ public class GraphQLResource {
 
         GraphQL graphQL = GraphQL.newGraphQL(graphQLSchema).build();
 
+        router.post().handler(BodyHandler.create());
         router.route("/graphql/server").handler(GraphQLHandler.create(graphQL));
     }
 
