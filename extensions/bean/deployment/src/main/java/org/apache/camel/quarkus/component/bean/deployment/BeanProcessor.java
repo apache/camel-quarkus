@@ -18,9 +18,11 @@ package org.apache.camel.quarkus.component.bean.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.support.language.DefaultAnnotationExpressionFactory;
 import org.apache.camel.support.language.LanguageAnnotation;
 import org.jboss.jandex.AnnotationInstance;
@@ -40,6 +42,11 @@ class BeanProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CapabilityBuildItem capability() {
+        return new CapabilityBuildItem(CamelCapabilities.BEAN);
     }
 
     @BuildStep

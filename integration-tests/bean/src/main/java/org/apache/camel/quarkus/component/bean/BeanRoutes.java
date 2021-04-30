@@ -23,6 +23,10 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.AsyncCallback;
 import org.apache.camel.AsyncProcessor;
@@ -37,9 +41,14 @@ import org.apache.camel.support.DefaultExchange;
 /**
  * A {@link RouteBuilder} instantiated by Camel (not by Arc).
  */
+@ApplicationScoped
 public class BeanRoutes extends RouteBuilder {
 
     static final AtomicInteger CONFIGURE_COUNTER = new AtomicInteger(0);
+
+    @Inject
+    @Named("collected-names")
+    Map<String, List<String>> collectedNames;
 
     @Override
     public void addRoutesToCamelContext(CamelContext context) throws Exception {
@@ -102,6 +111,9 @@ public class BeanRoutes extends RouteBuilder {
 
         from("direct:parameterTypes")
                 .to("bean:parametersBean?method=parameterTypes(String)");
+
+        from("direct:produceInterface")
+                .process(e -> collectedNames.get("produceInterface").add(e.getMessage().getBody(String.class)));
 
     }
 

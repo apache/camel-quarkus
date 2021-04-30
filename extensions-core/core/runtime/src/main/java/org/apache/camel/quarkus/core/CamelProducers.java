@@ -23,10 +23,8 @@ import javax.inject.Singleton;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
-import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
-import org.apache.camel.util.ObjectHelper;
 
 /**
  * Producers of beans that are injectable via CDI.
@@ -64,26 +62,20 @@ public class CamelProducers {
 
     @Produces
     ProducerTemplate camelProducerTemplate(InjectionPoint injectionPoint) {
-        final ProducerTemplate template = this.context.createProducerTemplate();
-        final Produce produce = injectionPoint.getAnnotated().getAnnotation(Produce.class);
-
-        if (ObjectHelper.isNotEmpty(produce) && ObjectHelper.isNotEmpty(produce.value())) {
-            template.setDefaultEndpointUri(produce.value());
-        }
-
-        return template;
+        /*
+         * Note that ProducerTemplate injection points qualified with @EndpointInject and @Produce are handled in
+         * InjectionPointsProcessor.syntheticBeans()
+         */
+        return this.context.createProducerTemplate();
     }
 
     @Produces
     FluentProducerTemplate camelFluentProducerTemplate(InjectionPoint injectionPoint) {
-        final FluentProducerTemplate template = this.context.createFluentProducerTemplate();
-        final Produce produce = injectionPoint.getAnnotated().getAnnotation(Produce.class);
-
-        if (ObjectHelper.isNotEmpty(produce) && ObjectHelper.isNotEmpty(produce.value())) {
-            template.setDefaultEndpointUri(produce.value());
-        }
-
-        return template;
+        /*
+         * Note that FluentProducerTemplate injection points qualified with @EndpointInject and @Produce are handled in
+         * InjectionPointsProcessor.syntheticBeans()
+         */
+        return this.context.createFluentProducerTemplate();
     }
 
     @Produces

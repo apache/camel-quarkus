@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.bean;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -26,8 +30,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
+import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 
@@ -43,11 +47,16 @@ public class BeanResource {
     @Inject
     EagerAppScopedRouteBuilder routeBuilder;
 
-    @Inject
-    EndpointInjectBean endpointInjectBean;
+    public interface ProduceInterface {
+        String sayHello(String name);
+    }
+
+    @Produce("direct:produceInterface")
+    ProduceInterface produceInterface;
 
     @Inject
-    ConsumerTemplate endpointInjectConsumer;
+    @Named("collected-names")
+    Map<String, List<String>> collectedNames;
 
     @Path("/route/{route}")
     @POST
@@ -112,15 +121,6 @@ public class BeanResource {
         return BeanRoutes.CONFIGURE_COUNTER.get();
     }
 
-    @Path("/endpointInject")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String endpointInject(String payload) {
-        endpointInjectBean.forward(payload);
-        return endpointInjectConsumer.receiveBody("direct:endpointInject", 10000, String.class);
-    }
-
     @Path("/employee/{route}")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -140,6 +140,29 @@ public class BeanResource {
                 "parameterBinding.greeting",
                 greeting,
                 String.class);
+    }
+
+    @Path("/produceInterface")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String produceInterface(String payload) {
+        produceInterface.sayHello(payload);
+        return awaitFirst("produceInterface");
+    }
+
+    String awaitFirst(String key) {
+        final List<String> list = collectedNames.get(key);
+        final long timeout = System.currentTimeMillis() + 10000;
+        do {
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break;
+            }
+        } while (list.isEmpty() && System.currentTimeMillis() < timeout);
+        return list.get(0);
     }
 
 }
