@@ -5794,6 +5794,16 @@
                 <version>${quarkiverse-minio.version}</version>
             </dependency>
             <dependency>
+                <groupId>io.quarkiverse.mybatis</groupId>
+                <artifactId>quarkus-mybatis</artifactId>
+                <version>${quarkiverse-mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.mybatis</groupId>
+                <artifactId>quarkus-mybatis-deployment</artifactId>
+                <version>${quarkiverse-mybatis.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.smallrye.reactive</groupId>
                 <artifactId>smallrye-reactive-messaging-camel</artifactId>
                 <version>${smallrye.reactive.messaging.camel.version}</version>

@@ -1,0 +1,18 @@
+Please refer to https://quarkiverse.github.io/quarkiverse-docs/quarkus-mybatis/dev/index.html[Quarkus MyBatis] for configuration. It must enable the following options
+
+[source, properties]
+----
+quarkus.mybatis.xmlconfig.enable=true
+quarkus.mybatis.xmlconfig.path=SqlMapConfig.xml
+----
+TIP: `quarkus.mybatis.xmlconfig.path` must be the same with `configurationUri` param in the mybatis endpoint.
+
+If you want to run in the native mode, you have to set these properties in pom.xml currently.
+
+[source, xml]
+----
+<properties>
+    <quarkus.package.type>native</quarkus.package.type>
+    <quarkus.native.additional-build-args>--report-unsupported-elements-at-runtime</quarkus.native.additional-build-args>
+</properties>
+----
