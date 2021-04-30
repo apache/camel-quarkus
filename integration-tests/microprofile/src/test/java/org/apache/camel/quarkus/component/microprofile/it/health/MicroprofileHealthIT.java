@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.microprofile.it.health;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2521")
 @NativeImageTest
 class MicroprofileHealthIT extends MicroProfileHealthTest {
 
