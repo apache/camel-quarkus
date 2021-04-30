@@ -6,6 +6,11 @@
 
 **Closed issues:**
 
+- Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
+- CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
+- Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
+- org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
+- Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
 - Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
 - Document the possibility to use CDI beans with camel bean component [\#2491](https://github.com/apache/camel-quarkus/issues/2491)
 - Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
@@ -31,6 +36,7 @@
 - Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
+- Test class component, test bean language [\#2361](https://github.com/apache/camel-quarkus/issues/2361)
 - kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
 - couchbase JVM : add integration tests [\#2326](https://github.com/apache/camel-quarkus/issues/2326)
 - \[camel-master\] Support for new DSLs [\#2301](https://github.com/apache/camel-quarkus/issues/2301)
@@ -44,7 +50,12 @@
 
 **Merged pull requests:**
 
+- Added tests and docs for the simple language \#2533 [\#2541](https://github.com/apache/camel-quarkus/pull/2541) ([aldettinger](https://github.com/aldettinger))
+- Expand HL7 test coverage [\#2538](https://github.com/apache/camel-quarkus/pull/2538) ([jamesnetherton](https://github.com/jamesnetherton))
+- Expand REST test coverage [\#2535](https://github.com/apache/camel-quarkus/pull/2535) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document the possibility to use CDI beans with camel bean component [\#2531](https://github.com/apache/camel-quarkus/pull/2531) ([ppalaga](https://github.com/ppalaga))
+- Test class component, test bean language  [\#2530](https://github.com/apache/camel-quarkus/pull/2530) ([ppalaga](https://github.com/ppalaga))
+- fix org.apache.camel.quarkus.component.lra.it.LraTest failed \#2523 [\#2524](https://github.com/apache/camel-quarkus/pull/2524) ([ffang](https://github.com/ffang))
 - Fix asciidoctor warnings at camel-website build [\#2517](https://github.com/apache/camel-quarkus/pull/2517) ([tadayosi](https://github.com/tadayosi))
 - Fix admonitions in adocs [\#2516](https://github.com/apache/camel-quarkus/pull/2516) ([tadayosi](https://github.com/tadayosi))
 - Fixed classpath and no prefix resources that were ignored in dev mode… [\#2515](https://github.com/apache/camel-quarkus/pull/2515) ([aldettinger](https://github.com/aldettinger))
@@ -454,7 +465,6 @@
 - Fix protobuf itest dependency on deployment [\#2021](https://github.com/apache/camel-quarkus/pull/2021) ([llowinge](https://github.com/llowinge))
 - Fix debezium itest pom dependencies to deployments [\#2020](https://github.com/apache/camel-quarkus/pull/2020) ([llowinge](https://github.com/llowinge))
 - Leverage Quarkus plugin's generate-code mojo instead of protobuf-maven-plugin to generate protobuf stubs [\#2018](https://github.com/apache/camel-quarkus/pull/2018) ([ppalaga](https://github.com/ppalaga))
-- Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - OptaPlanner native support fixes \#1721 [\#1822](https://github.com/apache/camel-quarkus/pull/1822) ([zbendhiba](https://github.com/zbendhiba))
 
 ## [1.4.0](https://github.com/apache/camel-quarkus/tree/1.4.0) (2020-11-19)
@@ -502,6 +512,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.20.0 [\#2017](https://github.com/apache/camel-quarkus/pull/2017) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 1.10.0.Final [\#2016](https://github.com/apache/camel-quarkus/pull/2016) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added key [\#2015](https://github.com/apache/camel-quarkus/pull/2015) ([aldettinger](https://github.com/aldettinger))
 - Added JSLT native support \#1740 [\#2010](https://github.com/apache/camel-quarkus/pull/2010) ([aldettinger](https://github.com/aldettinger))
@@ -1345,6 +1356,7 @@
 - Automatic sync branch master to camel-master [\#1074](https://github.com/apache/camel-quarkus/pull/1074) ([github-actions[bot]](https://github.com/apps/github-actions))
 - Bump to Camel Quarkus 1.0.0-M6 [\#1073](https://github.com/apache/camel-quarkus/pull/1073) ([oscerd](https://github.com/oscerd))
 - Add a native extension for AWS2-SQS [\#1070](https://github.com/apache/camel-quarkus/pull/1070) ([oscerd](https://github.com/oscerd))
+- Sidebar menu tidy up names-14567 [\#1068](https://github.com/apache/camel-quarkus/pull/1068) ([rimshach](https://github.com/rimshach))
 - Post 3.2 cleanup [\#1067](https://github.com/apache/camel-quarkus/pull/1067) ([lburgazzoli](https://github.com/lburgazzoli))
 - Move spring's kotlin processors and substitutions to a dedicated file [\#1065](https://github.com/apache/camel-quarkus/pull/1065) ([lburgazzoli](https://github.com/lburgazzoli))
 - Post Camel 3.2.0 upgrade fixes [\#1063](https://github.com/apache/camel-quarkus/pull/1063) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1607,10 +1619,6 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.0.0-M3...1.0.0-M4)
 
-**Implemented enhancements:**
-
-- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
-
 **Fixed bugs:**
 
 - Jira integration test fails in native mode [\#757](https://github.com/apache/camel-quarkus/issues/757)
@@ -1727,6 +1735,7 @@
 **Implemented enhancements:**
 
 - Create a Camel ReactiveStreams extension [\#304](https://github.com/apache/camel-quarkus/issues/304)
+- Create a Camel Telegram extension [\#74](https://github.com/apache/camel-quarkus/issues/74)
 
 **Fixed bugs:**
 
