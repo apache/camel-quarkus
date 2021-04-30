@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.support.common;
 
 public final class CamelCapabilities {
+    public static final String BEAN = "org.apache.camel.bean";
     public static final String CORE = "org.apache.camel";
     public static final String MAIN = "org.apache.camel.main";
     public static final String XML = "org.apache.camel.xml";

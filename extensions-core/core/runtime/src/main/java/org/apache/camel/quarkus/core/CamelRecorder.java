@@ -17,15 +17,23 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.Set;
+import java.util.function.Supplier;
 
+import io.quarkus.arc.Arc;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Endpoint;
+import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.ProducerTemplate;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
 import org.apache.camel.model.ValidateDefinition;
 import org.apache.camel.model.validator.PredicateValidatorDefinition;
 import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
+import org.apache.camel.spi.BeanProxyFactory;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
@@ -133,4 +141,48 @@ public class CamelRecorder {
     public RuntimeValue<StartupStepRecorder> newDefaultStartupStepRecorder() {
         return new RuntimeValue<>(new DefaultStartupStepRecorder());
     }
+
+    public Supplier<Endpoint> createEndpoint(String uri, Class<? extends Endpoint> endpointClass) {
+        return () -> {
+            final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
+            return camelContext.getEndpoint(uri, endpointClass);
+        };
+    }
+
+    public Supplier<ProducerTemplate> createProducerTemplate(String uri) {
+        return () -> {
+            final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
+            final ProducerTemplate result = camelContext.createProducerTemplate();
+            if (uri != null) {
+                result.setDefaultEndpointUri(uri);
+            }
+            return result;
+        };
+    }
+
+    public Supplier<FluentProducerTemplate> createFluentProducerTemplate(String uri) {
+        return () -> {
+            final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
+            final FluentProducerTemplate result = camelContext.createFluentProducerTemplate();
+            if (uri != null) {
+                result.setDefaultEndpointUri(uri);
+            }
+            return result;
+        };
+    }
+
+    public Supplier<?> produceProxy(Class<?> clazz, String uri) {
+        return () -> {
+            final CamelContext camelContext = Arc.container().instance(CamelContext.class).get();
+            final BeanProxyFactory factory = camelContext.adapt(ExtendedCamelContext.class).getBeanProxyFactory();
+            final Endpoint endpoint = camelContext.getEndpoint(uri);
+            try {
+                return factory.createProxy(endpoint, true, clazz);
+            } catch (Exception e) {
+                throw new RuntimeException(
+                        "Could not instantiate proxy of type " + clazz.getName() + " on endpoint " + endpoint, e);
+            }
+        };
+    }
+
 }

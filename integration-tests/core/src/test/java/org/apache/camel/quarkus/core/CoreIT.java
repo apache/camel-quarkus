@@ -29,24 +29,24 @@ public class CoreIT extends CoreTest {
 
     @Test
     public void nonExistentResourceCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/test/resources/not-exist.txt").then().assertThat().statusCode(204);
+        RestAssured.when().get("/core/resources/not-exist.txt").then().assertThat().statusCode(204);
     }
 
     @Test
     public void resourceMatchingExcludedPatternOnlyCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/test/resources/exclude-pattern-folder/excluded.txt").then().assertThat()
+        RestAssured.when().get("/core/resources/exclude-pattern-folder/excluded.txt").then().assertThat()
                 .statusCode(204);
     }
 
     @Test
     public void resourceMatchingIncludeAndExcludedPatternCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/test/resources/include-pattern-folder/excluded.txt").then().assertThat()
+        RestAssured.when().get("/core/resources/include-pattern-folder/excluded.txt").then().assertThat()
                 .statusCode(204);
     }
 
     @Test
     public void resourceMatchingIncludePatternOnlyCouldBeLoadedFromNativeExecutable() {
-        String response = RestAssured.when().get("/test/resources/include-pattern-folder/included.txt").then()
+        String response = RestAssured.when().get("/core/resources/include-pattern-folder/included.txt").then()
                 .assertThat().statusCode(200).extract().asString();
         assertNotNull(response);
         assertTrue(response.endsWith("MATCH include-patterns BUT NOT exclude-patterns"), response);
@@ -54,7 +54,7 @@ public class CoreIT extends CoreTest {
 
     @Test
     public void resourceMatchingNoPatternCouldNotBeLoadedFromNativeExecutable() {
-        RestAssured.when().get("/test/resources/no-pattern-folder/excluded.properties.txt").then().assertThat()
+        RestAssured.when().get("/core/resources/no-pattern-folder/excluded.properties.txt").then().assertThat()
                 .statusCode(204);
     }
 
@@ -62,7 +62,7 @@ public class CoreIT extends CoreTest {
     void reflectiveMethod() {
         RestAssured.when()
                 .get(
-                        "/test/reflection/{className}/method/{methodName}/{value}",
+                        "/core/reflection/{className}/method/{methodName}/{value}",
                         "org.apache.commons.lang3.tuple.MutableTriple",
                         "setLeft",
                         "Kermit")
@@ -75,7 +75,7 @@ public class CoreIT extends CoreTest {
     void reflectiveField() {
         RestAssured.when()
                 .get(
-                        "/test/reflection/{className}/field/{fieldName}/{value}",
+                        "/core/reflection/{className}/field/{fieldName}/{value}",
                         "org.apache.commons.lang3.tuple.MutableTriple",
                         "left",
                         "Joe")

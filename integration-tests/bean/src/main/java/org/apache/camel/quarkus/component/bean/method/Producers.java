@@ -35,6 +35,7 @@ public class Producers {
         result.put("beanFromRegistryByName", new CopyOnWriteArrayList<>());
         result.put("beanByClassName", new CopyOnWriteArrayList<>());
         result.put("beanInstance", new CopyOnWriteArrayList<>());
+        result.put("produceInterface", new CopyOnWriteArrayList<>());
         return result;
     }
 }

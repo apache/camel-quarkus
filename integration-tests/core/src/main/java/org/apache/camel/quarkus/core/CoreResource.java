@@ -40,7 +40,6 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.CamelContextAware;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.NoSuchLanguageException;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.Route;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.TemplatedRouteBuilder;
@@ -55,16 +54,13 @@ import org.apache.camel.support.processor.DefaultExchangeFormatter;
 import org.apache.camel.support.startup.DefaultStartupStepRecorder;
 import org.apache.commons.io.IOUtils;
 
-@Path("/test")
+@Path("/core")
 @ApplicationScoped
 public class CoreResource {
     @Inject
     Registry registry;
     @Inject
     CamelContext context;
-
-    @Inject
-    ProducerTemplate producerTemplate;
 
     @Path("/registry/log/exchange-formatter")
     @GET
@@ -282,4 +278,5 @@ public class CoreResource {
     public AnnotatedMyPair fromStringToAnnotatedMyPair(String input) {
         return context.getTypeConverter().convertTo(AnnotatedMyPair.class, input);
     }
+
 }

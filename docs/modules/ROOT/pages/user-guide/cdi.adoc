@@ -65,7 +65,77 @@ public static class MyBean {
 }
 ----
 
+== `@EndpoinInject` and `@Produce`
+
+If you are used to `@org.apache.camel.EndpointInject` and `@org.apache.camel.Produce` from
+xref:latest@manual::pojo-producing.adoc[plain Camel] or from Camel on SpringBoot, you can continue using them on Quarkus too.
+
+The following use cases are supported by `org.apache.camel.quarkus:camel-quarkus-core`:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import org.apache.camel.EndpointInject;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+
+@ApplicationScoped
+class MyBean {
+
+    @EndpointInject("direct:myDirect1")
+    ProducerTemplate producerTemplate;
+
+    @EndpointInject("direct:myDirect2")
+    FluentProducerTemplate fluentProducerTemplate;
+
+    @EndpointInject("direct:myDirect3")
+    DirectEndpoint directEndpoint;
+
+    @Produce("direct:myDirect4")
+    ProducerTemplate produceProducer;
+
+    @Produce("direct:myDirect5")
+    FluentProducerTemplate produceProducerFluent;
+
+}
+----
+
+You can use any other Camel producer endpoint URI instead of `direct:myDirect*`.
+
+[WARNING]
+====
+`@EndpoinInject` and `@Produce` are not supported on setter methods
+- see https://github.com/apache/camel-quarkus/issues/2579[#2579]
+====
+
+The following use case is supported by `org.apache.camel.quarkus:camel-quarkus-bean`:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import org.apache.camel.Produce;
+
+@ApplicationScoped
+class MyProduceBean {
+
+    public interface ProduceInterface {
+        String sayHello(String name);
+    }
+
+    @Produce("direct:myDirect6")
+    ProduceInterface produceInterface;
+
+    void doSomething() {
+        produceInterface.sayHello("Kermit")
+    }
+
+}
+----
+
 == CDI and the Camel Bean component
+
+`org.apache.camel.quarkus:camel-quarkus-bean` artifact brings support for the following features:
 
 === Refer to a bean by name
 

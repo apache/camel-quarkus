@@ -14,23 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.bean;
+package org.apache.camel.quarkus.core;
 
-import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.test.junit.NativeImageTest;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
-import org.apache.camel.EndpointInject;
-import org.apache.camel.ProducerTemplate;
-
-@ApplicationScoped
-@RegisterForReflection
-public class EndpointInjectBean {
-
-    @EndpointInject("direct:endpointInject")
-    ProducerTemplate producer;
-
-    public void forward(String payload) {
-        producer.sendBody("Sent to an @EndpointInject: " + payload);
-    }
+@NativeImageTest
+public class CoreAnnotationsIT extends CoreAnnotationsTest {
 
 }

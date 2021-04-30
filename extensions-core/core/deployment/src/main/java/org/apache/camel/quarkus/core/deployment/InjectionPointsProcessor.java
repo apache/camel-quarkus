@@ -17,29 +17,48 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Supplier;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
 import io.quarkus.arc.deployment.BeanRegistrationPhaseBuildItem;
+import io.quarkus.arc.deployment.QualifierRegistrarBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeanBuildItem;
+import io.quarkus.arc.processor.AnnotationsTransformer;
 import io.quarkus.arc.processor.BuildExtension;
 import io.quarkus.arc.processor.InjectionPointInfo;
+import io.quarkus.arc.processor.QualifierRegistrar;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import org.apache.camel.Component;
+import org.apache.camel.Endpoint;
+import org.apache.camel.EndpointInject;
+import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.Produce;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.InjectionPointsRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
+import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
+import org.jboss.jandex.AnnotationTarget.Kind;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.FieldInfo;
@@ -54,6 +73,10 @@ public class InjectionPointsProcessor {
             Named.class.getName());
     private static final DotName INTERFACE_NAME_COMPONENT = DotName.createSimple(
             Component.class.getName());
+    private static final DotName ENDPOINT_INJECT_ANNOTATION = DotName
+            .createSimple(EndpointInject.class.getName());
+    private static final DotName PRODUCE_ANNOTATION = DotName
+            .createSimple(Produce.class.getName());
 
     private static SyntheticBeanBuildItem syntheticBean(DotName name, Supplier<?> creator) {
         return SyntheticBeanBuildItem.configure(name)
@@ -129,4 +152,227 @@ public class InjectionPointsProcessor {
         // See BeanRegistrationPhaseBuildItem javadoc
         beanConfigurator.produce(new BeanRegistrationPhaseBuildItem.BeanConfiguratorBuildItem());
     }
+
+    @BuildStep
+    void annotationsTransformers(
+            BuildProducer<AnnotationsTransformerBuildItem> annotationsTransformers) {
+
+        annotationsTransformers.produce(new AnnotationsTransformerBuildItem(new AnnotationsTransformer() {
+
+            public boolean appliesTo(org.jboss.jandex.AnnotationTarget.Kind kind) {
+                return kind == Kind.FIELD || kind == Kind.METHOD;
+            }
+
+            @Override
+            public void transform(TransformationContext ctx) {
+
+                final AnnotationTarget target = ctx.getTarget();
+                switch (target.kind()) {
+                case FIELD: {
+                    final FieldInfo fieldInfo = target.asField();
+                    if (fieldInfo.annotation(ENDPOINT_INJECT_ANNOTATION) != null
+                            || fieldInfo.annotation(PRODUCE_ANNOTATION) != null) {
+                        ctx.transform().add(Inject.class).done();
+                    }
+                    break;
+                }
+                case METHOD: {
+                    final MethodInfo methodInfo = target.asMethod();
+                    fail(methodInfo, ENDPOINT_INJECT_ANNOTATION);
+                    fail(methodInfo, PRODUCE_ANNOTATION);
+                    break;
+                }
+                default:
+                    throw new IllegalStateException("Expected only field or method, got " + target.kind());
+                }
+
+            }
+
+        }));
+
+    }
+
+    static void fail(final MethodInfo methodInfo, DotName annotType) {
+        if (methodInfo.annotation(annotType) != null) {
+            // See https://github.com/apache/camel-quarkus/issues/2579
+            throw new IllegalStateException(
+                    "@" + annotType + " is only supported on fields. Remove it from "
+                            + methodInfo + " in " + methodInfo.declaringClass().name());
+        }
+    }
+
+    @BuildStep
+    void qualifierRegistrars(
+            BuildProducer<QualifierRegistrarBuildItem> qualifierRegistrars) {
+        qualifierRegistrars.produce(new QualifierRegistrarBuildItem(new QualifierRegistrar() {
+
+            @Override
+            public Map<DotName, Set<String>> getAdditionalQualifiers() {
+                Map<DotName, Set<String>> result = new LinkedHashMap<DotName, Set<String>>();
+                result.put(ENDPOINT_INJECT_ANNOTATION, Collections.emptySet());
+                result.put(PRODUCE_ANNOTATION, Collections.emptySet());
+                return Collections.unmodifiableMap(result);
+            }
+        }));
+    }
+
+    @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+    @BuildStep
+    void syntheticBeans(
+            CamelRecorder recorder,
+            CombinedIndexBuildItem index,
+            List<CapabilityBuildItem> capabilities,
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions) {
+
+        for (AnnotationInstance annot : index.getIndex().getAnnotations(ENDPOINT_INJECT_ANNOTATION)) {
+            final AnnotationTarget target = annot.target();
+            switch (target.kind()) {
+            case FIELD: {
+                final FieldInfo field = target.asField();
+                endpointInjectBeans(recorder, syntheticBeans, annot, field.type().name());
+                break;
+            }
+            case METHOD: {
+                final MethodInfo methodInfo = target.asMethod();
+                fail(methodInfo, ENDPOINT_INJECT_ANNOTATION);
+                break;
+            }
+            default:
+                throw new IllegalStateException("Expected field, got " + target.kind());
+            }
+        }
+
+        AtomicReference<Boolean> beanCapabilityAvailable = new AtomicReference<>();
+
+        for (AnnotationInstance annot : index.getIndex().getAnnotations(PRODUCE_ANNOTATION)) {
+            final AnnotationTarget target = annot.target();
+            switch (target.kind()) {
+            case FIELD: {
+                final FieldInfo field = target.asField();
+                produceBeans(recorder, capabilities, syntheticBeans, proxyDefinitions, beanCapabilityAvailable, annot,
+                        field.type().name(), field.name(), field.declaringClass().name());
+                break;
+            }
+            case METHOD: {
+                final MethodInfo methodInfo = target.asMethod();
+                fail(methodInfo, PRODUCE_ANNOTATION);
+                break;
+            }
+            default:
+                throw new IllegalStateException("Expected field, got " + target.kind());
+            }
+        }
+    }
+
+    void produceBeans(CamelRecorder recorder, List<CapabilityBuildItem> capabilities,
+            BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions,
+            AtomicReference<Boolean> beanCapabilityAvailable,
+            AnnotationInstance annot, final DotName fieldType, String annotationTarget, DotName declaringClass) {
+        try {
+            Class<?> clazz = Class.forName(fieldType.toString(), false,
+                    Thread.currentThread().getContextClassLoader());
+            if (ProducerTemplate.class.isAssignableFrom(clazz)) {
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.createProducerTemplate(annot.value().asString()))
+                                .addQualifier(annot)
+                                .done());
+                /*
+                 * Note that ProducerTemplate injection points not having @EndpointInject are produced via
+                 * CamelProducers.camelProducerTemplate()
+                 */
+            } else if (FluentProducerTemplate.class.isAssignableFrom(clazz)) {
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.createFluentProducerTemplate(annot.value().asString()))
+                                .addQualifier(annot)
+                                .done());
+                /*
+                 * Note that FluentProducerTemplate injection points not having @EndpointInject are produced via
+                 * CamelProducers.camelFluentProducerTemplate()
+                 */
+            } else if (clazz.isInterface()) {
+                /* Requires camel-quarkus-bean */
+
+                if (beanCapabilityAvailable.get() == null) {
+                    beanCapabilityAvailable.set(capabilities.stream().map(CapabilityBuildItem::getName)
+                            .anyMatch(feature -> CamelCapabilities.BEAN.equals(feature)));
+                }
+                if (!beanCapabilityAvailable.get()) {
+                    throw new IllegalStateException(
+                            "Add camel-quarkus-bean dependency to be able to use @org.apache.camel.Produce on fields with interface type: "
+                                    + fieldType.toString()
+                                    + " " + annotationTarget + " in "
+                                    + declaringClass.toString());
+                }
+
+                proxyDefinitions.produce(new NativeImageProxyDefinitionBuildItem(fieldType.toString()));
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.produceProxy(clazz, annot.value().asString()))
+                                .addQualifier(annot)
+                                .done());
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void endpointInjectBeans(CamelRecorder recorder, BuildProducer<SyntheticBeanBuildItem> syntheticBeans,
+            AnnotationInstance annot, final DotName fieldType) {
+        try {
+            Class<?> clazz = Class.forName(fieldType.toString());
+            if (Endpoint.class.isAssignableFrom(clazz)) {
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.createEndpoint(annot.value().asString(),
+                                                (Class<? extends Endpoint>) clazz))
+                                .addQualifier(annot)
+                                .done());
+            } else if (ProducerTemplate.class.isAssignableFrom(clazz)) {
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.createProducerTemplate(annot.value().asString()))
+                                .addQualifier(annot)
+                                .done());
+                /*
+                 * Note that ProducerTemplate injection points not having @EndpointInject are produced via
+                 * CamelProducers.camelProducerTemplate()
+                 */
+            } else if (FluentProducerTemplate.class.isAssignableFrom(clazz)) {
+                syntheticBeans.produce(
+                        SyntheticBeanBuildItem
+                                .configure(fieldType)
+                                .setRuntimeInit().scope(Singleton.class)
+                                .supplier(
+                                        recorder.createFluentProducerTemplate(annot.value().asString()))
+                                .addQualifier(annot)
+                                .done());
+                /*
+                 * Note that FluentProducerTemplate injection points not having @EndpointInject are produced via
+                 * CamelProducers.camelFluentProducerTemplate()
+                 */
+            }
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

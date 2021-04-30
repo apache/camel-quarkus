@@ -144,7 +144,7 @@ public class BeanTest {
                 .body(equalTo("wlpb-hello(wlpb-route-31wp,cflap-bean-31wp)"));
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/2539")
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2580")
     @Test
     public void consumeAnnotation() {
         RestAssured.given()
@@ -153,17 +153,6 @@ public class BeanTest {
                 .post("/bean/route/consumeAnnotation")
                 .then()
                 .body(equalTo("Consumed foo"));
-    }
-
-    @Disabled("https://github.com/apache/camel-quarkus/issues/2539")
-    @Test
-    public void endpointInject() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("bar")
-                .post("/bean/endpointInject")
-                .then()
-                .body(equalTo("Sent to an @EndpointInject: bar"));
     }
 
     @Test
@@ -224,6 +213,16 @@ public class BeanTest {
                 .post("/bean/employee/parameterTypes")
                 .then()
                 .body(equalTo("employeeAsString: Employee [firstName=Joe, lastName=Doe, seniority=senior]"));
+    }
+
+    @Test
+    public void produceInterface() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("xyz1234")
+                .post("/bean/produceInterface")
+                .then()
+                .body(equalTo("xyz1234"));
     }
 
 }
