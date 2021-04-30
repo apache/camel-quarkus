@@ -212,6 +212,7 @@
         <module>vertx-kafka</module>
         <module>vertx-websocket</module>
         <module>weather</module>
+        <module>xchange</module>
         <module>xml</module>
         <module>xmlsecurity</module>
         <module>xstream</module>

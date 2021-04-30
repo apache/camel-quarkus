@@ -117,6 +117,7 @@
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
         <threetenbp.version>1.4.0</threetenbp.version>
         <xalan.version>${xalan-version}</xalan.version>
+        <xchange.version>${xchange-version}</xchange.version>
         <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version><!-- mess in FOP transitive deps -->
         <xstream.version>${xstream-version}</xstream.version>
