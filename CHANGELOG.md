@@ -6,12 +6,14 @@
 
 **Closed issues:**
 
+- org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC [\#2542](https://github.com/apache/camel-quarkus/issues/2542)
 - Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
 - CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
 - org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
 - Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
 - Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
+- Test bean binding [\#2492](https://github.com/apache/camel-quarkus/issues/2492)
 - Document the possibility to use CDI beans with camel bean component [\#2491](https://github.com/apache/camel-quarkus/issues/2491)
 - Unable to build mongo-to-slack in native with 1.13 quarkus [\#2489](https://github.com/apache/camel-quarkus/issues/2489)
 - Add test coverage for Kafka with SSL [\#2484](https://github.com/apache/camel-quarkus/issues/2484)
@@ -50,6 +52,8 @@
 
 **Merged pull requests:**
 
+- Test bean binding  [\#2544](https://github.com/apache/camel-quarkus/pull/2544) ([ppalaga](https://github.com/ppalaga))
+- fix org.apache.camel.quarkus.component.splunk.it.SplunkTest failure i… [\#2543](https://github.com/apache/camel-quarkus/pull/2543) ([ffang](https://github.com/ffang))
 - Added tests and docs for the simple language \#2533 [\#2541](https://github.com/apache/camel-quarkus/pull/2541) ([aldettinger](https://github.com/aldettinger))
 - Expand HL7 test coverage [\#2538](https://github.com/apache/camel-quarkus/pull/2538) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expand REST test coverage [\#2535](https://github.com/apache/camel-quarkus/pull/2535) ([jamesnetherton](https://github.com/jamesnetherton))
