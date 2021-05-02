@@ -2066,6 +2066,7 @@
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
+- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -2086,7 +2087,6 @@
 - Fix \#220 platform-http component should return 204 for success and no… [\#348](https://github.com/apache/camel-quarkus/pull/348) ([ppalaga](https://github.com/ppalaga))
 - Set camel-quarkus-last-release: 0.3.0 in site.yml [\#345](https://github.com/apache/camel-quarkus/pull/345) ([ppalaga](https://github.com/ppalaga))
 - Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
-- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 - Improve camel service discovery and filtering [\#340](https://github.com/apache/camel-quarkus/pull/340) ([lburgazzoli](https://github.com/lburgazzoli))
 - main: impove events and build phase [\#339](https://github.com/apache/camel-quarkus/pull/339) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#326 platform-http should return 415 for an unaccepted content type [\#335](https://github.com/apache/camel-quarkus/pull/335) ([ppalaga](https://github.com/ppalaga))
