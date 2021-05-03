@@ -19,6 +19,11 @@ package org.apache.camel.quarkus.component.file.it;
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.file.GenericFile;
+import org.apache.camel.component.file.GenericFileFilter;
+
+import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
+import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
 
 @ApplicationScoped
 public class FileRoutes extends RouteBuilder {
@@ -42,5 +47,44 @@ public class FileRoutes extends RouteBuilder {
 
         from("file://target/quartz?scheduler=quartz&scheduler.cron=0/1+*+*+*+*+?&repeatCount=0")
                 .to("file://target/quartz/out");
+
+        from("file://target/" + CONSUME_BATCH + "?"
+                + "initialDelay=0&delay=100")
+                        .id(CONSUME_BATCH)
+                        .noAutoStartup()
+                        .convertBodyTo(String.class)
+                        .to("mock:" + CONSUME_BATCH);
+
+        from("file://target/charsetUTF8?initialDelay=0&delay=10&delete=true&charset=UTF-8")
+                .convertBodyTo(String.class)
+                .to("mock:charsetUTF8");
+
+        from("file://target/charsetISO?initialDelay=0&delay=10&delete=true&charset=ISO-8859-1")
+                .convertBodyTo(String.class)
+                .to("mock:charsetISO");
+
+        from("file://target/idempotent?idempotent=true&move=done/${file:name}&initialDelay=0&delay=10")
+                .convertBodyTo(String.class).to("mock:idempotent");
+
+        bindToRegistry("myFilter", new MyFileFilter<>());
+        from(("file://target/filter?initialDelay=0&delay=10&filter=#myFilter"))
+                .convertBodyTo(String.class).to("mock:filter");
+
+        from(("file://target/sortBy?initialDelay=0&delay=10&sortBy=reverse:file:name"))
+                .id(SORT_BY)
+                .noAutoStartup()
+                .convertBodyTo(String.class).to("mock:" + SORT_BY);
+    }
+
+    public class MyFileFilter<T> implements GenericFileFilter<T> {
+        @Override
+        public boolean accept(GenericFile<T> file) {
+            // we want all directories
+            if (file.isDirectory()) {
+                return true;
+            }
+            // we dont accept any files starting with skip in the name
+            return !file.getFileName().startsWith("skip");
+        }
     }
 }
