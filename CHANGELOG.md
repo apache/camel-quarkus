@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC [\#2542](https://github.com/apache/camel-quarkus/issues/2542)
+- SetHeader does not create a Map when using \[\] [\#2540](https://github.com/apache/camel-quarkus/issues/2540)
 - Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
 - CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
@@ -241,7 +242,6 @@
 - Improve the release guide [\#2279](https://github.com/apache/camel-quarkus/pull/2279) ([ppalaga](https://github.com/ppalaga))
 - Prefer SyntheticBeanBuildItem to initializing bean producers via volatile fields  [\#2277](https://github.com/apache/camel-quarkus/pull/2277) ([ppalaga](https://github.com/ppalaga))
 - Next is 1.8.0 [\#2274](https://github.com/apache/camel-quarkus/pull/2274) ([ppalaga](https://github.com/ppalaga))
-- Nitrite native support \#1298 [\#2254](https://github.com/apache/camel-quarkus/pull/2254) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Freemarker native support  [\#2184](https://github.com/apache/camel-quarkus/pull/2184) ([ppalaga](https://github.com/ppalaga))
 
 ## [1.7.0](https://github.com/apache/camel-quarkus/tree/1.7.0) (2021-02-19)
@@ -300,6 +300,7 @@
 - JFR JVM only support [\#2259](https://github.com/apache/camel-quarkus/pull/2259) ([jamesnetherton](https://github.com/jamesnetherton))
 - Added CBOR data format native support \#1754 [\#2257](https://github.com/apache/camel-quarkus/pull/2257) ([aldettinger](https://github.com/aldettinger))
 - Test AWS 2 Firehose [\#2256](https://github.com/apache/camel-quarkus/pull/2256) ([ppalaga](https://github.com/ppalaga))
+- Nitrite native support \#1298 [\#2254](https://github.com/apache/camel-quarkus/pull/2254) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - AWS 2 Kinesis native support  [\#2252](https://github.com/apache/camel-quarkus/pull/2252) ([ppalaga](https://github.com/ppalaga))
 - Remove Camel 3.8.0 staging repository [\#2251](https://github.com/apache/camel-quarkus/pull/2251) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable FOP native integration tests [\#2247](https://github.com/apache/camel-quarkus/pull/2247) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -667,6 +668,7 @@
 - Crypto extension requires reflective access to DigitalSignatureConstants [\#1883](https://github.com/apache/camel-quarkus/pull/1883) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Debezium 1.3.0.Final [\#1882](https://github.com/apache/camel-quarkus/pull/1882) ([ppalaga](https://github.com/ppalaga))
 - CAMEL-QUARKUS-1720: Added Postgres replication slot native support [\#1880](https://github.com/apache/camel-quarkus/pull/1880) ([aldettinger](https://github.com/aldettinger))
+- Shiro native support \#1844 [\#1879](https://github.com/apache/camel-quarkus/pull/1879) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Crypto \(JCE\) native support [\#1878](https://github.com/apache/camel-quarkus/pull/1878) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix twitter itest so it initially waits when start polling tweets [\#1877](https://github.com/apache/camel-quarkus/pull/1877) ([llowinge](https://github.com/llowinge))
 - Add an Examples step to the release guide [\#1875](https://github.com/apache/camel-quarkus/pull/1875) ([ppalaga](https://github.com/ppalaga))
@@ -978,6 +980,7 @@
 - Reproducer for \#1459 [\#1465](https://github.com/apache/camel-quarkus/pull/1465) ([lburgazzoli](https://github.com/lburgazzoli))
 - improve bootstrap and configuration documentation [\#1464](https://github.com/apache/camel-quarkus/pull/1464) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix issues with building from the source release zip [\#1463](https://github.com/apache/camel-quarkus/pull/1463) ([jamesnetherton](https://github.com/jamesnetherton))
+- Extension for camel-threadpoolfactory-vertx \#1430 [\#1462](https://github.com/apache/camel-quarkus/pull/1462) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add example about how to use @Handler with beans registered to the Camel Context [\#1461](https://github.com/apache/camel-quarkus/pull/1461) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#1455 Exclude the node directory from src kit [\#1458](https://github.com/apache/camel-quarkus/pull/1458) ([WillemJiang](https://github.com/WillemJiang))
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
@@ -2066,7 +2069,6 @@
 - Publish discovered RoutesBuilders via CamelBeanBuildItem [\#358](https://github.com/apache/camel-quarkus/pull/358) ([ppalaga](https://github.com/ppalaga))
 - Fix \#354 Update contributor guide: s/json/yaml/, extension adoc page [\#355](https://github.com/apache/camel-quarkus/pull/355) ([ppalaga](https://github.com/ppalaga))
 - Camel quarkus netty [\#353](https://github.com/apache/camel-quarkus/pull/353) ([dhartford](https://github.com/dhartford))
-- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 
 ## [0.3.1](https://github.com/apache/camel-quarkus/tree/0.3.1) (2019-10-30)
 
@@ -2087,6 +2089,7 @@
 - Fix \#220 platform-http component should return 204 for success and no… [\#348](https://github.com/apache/camel-quarkus/pull/348) ([ppalaga](https://github.com/ppalaga))
 - Set camel-quarkus-last-release: 0.3.0 in site.yml [\#345](https://github.com/apache/camel-quarkus/pull/345) ([ppalaga](https://github.com/ppalaga))
 - Improve the contributor guide, esp. the create-extension examples [\#343](https://github.com/apache/camel-quarkus/pull/343) ([ppalaga](https://github.com/ppalaga))
+- Created a camel-pdf component extension fixes \#341 [\#342](https://github.com/apache/camel-quarkus/pull/342) ([aldettinger](https://github.com/aldettinger))
 - Improve camel service discovery and filtering [\#340](https://github.com/apache/camel-quarkus/pull/340) ([lburgazzoli](https://github.com/lburgazzoli))
 - main: impove events and build phase [\#339](https://github.com/apache/camel-quarkus/pull/339) ([lburgazzoli](https://github.com/lburgazzoli))
 - Fix \#326 platform-http should return 415 for an unaccepted content type [\#335](https://github.com/apache/camel-quarkus/pull/335) ([ppalaga](https://github.com/ppalaga))
