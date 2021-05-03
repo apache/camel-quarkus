@@ -37,22 +37,13 @@ import io.atlasmap.v2.DataSourceMetadata;
 import io.atlasmap.xml.module.XmlModule;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
-import io.quarkus.deployment.recording.RecorderContext;
 import io.quarkus.deployment.util.ServiceUtil;
-import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.component.atlasmap.AtlasMapComponent;
-import org.apache.camel.quarkus.component.atlasmap.AtlasmapRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
 import org.jboss.jandex.IndexView;
 
 class AtlasmapProcessor {
@@ -137,17 +128,5 @@ class AtlasmapProcessor {
                         throw new RuntimeException(e);
                     }
                 });
-    }
-
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelBeanBuildItem configureComponent(
-            RecorderContext recorderContext,
-            AtlasmapRecorder recorder,
-            CamelContextBuildItem camelContext,
-            List<CompiledCSimpleExpressionBuildItem> compiledCSimpleExpressions) {
-
-        final RuntimeValue<?> atlasmapComponent = recorder.createAtlasmapComponent();
-        return new CamelBeanBuildItem("atlasmap", AtlasMapComponent.class.getName(), atlasmapComponent);
     }
 }
