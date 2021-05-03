@@ -17,10 +17,15 @@
 package org.apache.camel.quarkus.component.file.it;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
@@ -28,8 +33,13 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
+import org.hamcrest.Matcher;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
+import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
+import static org.apache.camel.quarkus.component.file.it.FileResource.SORT_BY;
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.core.IsEqual.equalTo;
 
@@ -37,19 +47,30 @@ import static org.hamcrest.core.IsEqual.equalTo;
 class FileTest {
 
     private static final String FILE_BODY = "Hello Camel Quarkus";
+    private static final String FILE_CONTENT_01 = "Hello1";
+    private static final String FILE_CONTENT_02 = "Hello2";
+    private static final String FILE_CONTENT_03 = "Hello3";
+    private static final String FILE_BODY_UTF8 = "Hello World \u4f60\u597d";
+
+    private List<Path> pathsToDelete = new LinkedList<>();
+
+    @AfterEach
+    public void afterEach() {
+        pathsToDelete.stream().forEach(p -> {
+            try {
+                Files.delete(p);
+            } catch (IOException e) {
+                //ignore
+            }
+        });
+
+        pathsToDelete.clear();
+    }
 
     @Test
-    public void file() {
+    public void file() throws UnsupportedEncodingException {
         // Create a new file
-        String fileName = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(FILE_BODY)
-                .post("/file/create/in")
-                .then()
-                .statusCode(201)
-                .extract()
-                .body()
-                .asString();
+        String fileName = createFile(FILE_BODY, "/file/create/in");
 
         // Read the file
         RestAssured
@@ -57,6 +78,86 @@ class FileTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(FILE_BODY));
+    }
+
+    @Test
+    public void charset() throws UnsupportedEncodingException {
+        // Create a new file
+        createFile(FILE_BODY_UTF8, "/file/create/charsetUTF8", "UTF-8", null);
+        createFile(FILE_BODY_UTF8, "/file/create/charsetISO", "UTF-8", null);
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("charsetUTF8", equalTo(FILE_BODY_UTF8)));
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            // File content read as ISO-8859-1 has to have different content (because file contains some unknown characters)
+            return getFromMock("charsetISO", equalTo(new String(FILE_BODY_UTF8.getBytes(), "ISO-8859-1")));
+        });
+    }
+
+    @Test
+    public void batch() throws InterruptedException, UnsupportedEncodingException {
+        // Create 2 files
+        createFile(FILE_CONTENT_01, "/file/create/" + CONSUME_BATCH);
+        createFile(FILE_CONTENT_02, "/file/create/" + CONSUME_BATCH);
+
+        //start route
+        startRouteAndWait(CONSUME_BATCH);
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            Map<String, Object> records = RestAssured
+                    .get("/file/getBatch/")
+                    .then()
+                    .statusCode(200)
+                    .extract().as(Map.class);
+
+            return records.size() == 2 && records.keySet().contains(FILE_CONTENT_01)
+                    && records.keySet().contains(FILE_CONTENT_02)
+                    && records.values().contains(0) && records.values().contains(1);
+        });
+    }
+
+    @Test
+    public void idempotent() throws IOException {
+        // Create a new file
+        String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("idempotent", equalTo(FILE_CONTENT_01)));
+
+        // move file back
+        Path donePath = Paths.get(fileName01.replaceFirst("target/idempotent", "target/idempotent/done"));
+        Path targetPath = Paths.get(fileName01);
+        Files.move(donePath, targetPath);
+        //register file for deletion after tests
+        pathsToDelete.add(targetPath);
+
+        //create another file, to receive only this one in the next check
+        createFile(FILE_CONTENT_02, "/file/create/idempotent");
+
+        //there should be no file in mock
+        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("idempotent", equalTo(FILE_CONTENT_02)));
+    }
+
+    @Test
+    public void filter() throws IOException {
+        String fileName = createFile(FILE_CONTENT_01, "/file/create/filter", null, "skip_" + UUID.randomUUID().toString());
+        createFile(FILE_CONTENT_02, "/file/create/filter");
+
+        pathsToDelete.add(Paths.get(fileName));
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("filter", equalTo(FILE_CONTENT_02)));
+    }
+
+    @Test
+    public void sortBy() throws IOException, InterruptedException {
+        createFile(FILE_CONTENT_03, "/file/create/" + SORT_BY, null, "c_" + UUID.randomUUID().toString());
+        createFile(FILE_CONTENT_01, "/file/create/" + SORT_BY, null, "a_" + UUID.randomUUID().toString());
+        createFile(FILE_CONTENT_02, "/file/create/" + SORT_BY, null, "b_" + UUID.randomUUID().toString());
+
+        startRouteAndWait(SORT_BY);
+
+        await().atMost(10, TimeUnit.SECONDS).until(() -> {
+            return getFromMock(SORT_BY, equalTo(FILE_CONTENT_03 + SEPARATOR + FILE_CONTENT_02 + SEPARATOR + FILE_CONTENT_01));
+        });
     }
 
     @Test
@@ -80,15 +181,14 @@ class FileTest {
         Files.delete(file);
 
         awaitEvent(dir, file, "DELETE");
-
     }
 
     @Test
     public void fileReadLock_minLength() throws Exception {
         // Create a new file
         String fileName = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("")
+                .contentType(ContentType.BINARY)
+                .body(new byte[] {})
                 .post("/file/create/{name}", FileRoutes.READ_LOCK_IN)
                 .then()
                 .statusCode(201)
@@ -106,16 +206,8 @@ class FileTest {
     }
 
     @Test
-    public void quartzSchedulerFilePollingConsumer() throws InterruptedException {
-        String fileName = RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(FILE_BODY)
-                .post("/file/create/quartz")
-                .then()
-                .statusCode(201)
-                .extract()
-                .body()
-                .asString();
+    public void quartzSchedulerFilePollingConsumer() throws InterruptedException, UnsupportedEncodingException {
+        String fileName = createFile(FILE_BODY, "/file/create/quartz");
 
         String targetFileName = Paths.get(fileName).toFile().getName();
         await().atMost(10, TimeUnit.SECONDS).until(() -> {
@@ -127,6 +219,55 @@ class FileTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(FILE_BODY));
+    }
+
+    private static String createFile(String content, String path) throws UnsupportedEncodingException {
+        return createFile(content.getBytes("UTF-8"), path, null, null);
+    }
+
+    private static String createFile(String content, String path, String charset, String prefix)
+            throws UnsupportedEncodingException {
+        return createFile(content.getBytes(), path, charset, prefix);
+    }
+
+    private static String createFile(byte[] content, String path, String charset, String fileName) {
+        return RestAssured.given()
+                .urlEncodingEnabled(true)
+                .queryParam("charset", charset)
+                .contentType(ContentType.BINARY)
+                .body(content)
+                .queryParam("fileName", fileName)
+                .post(path)
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+    }
+
+    private static boolean getFromMock(String mockId, Matcher matcher) {
+        String records = RestAssured
+                .get("/file/getFromMock/" + mockId)
+                .then()
+                .statusCode(200)
+                .body(matcher)
+                .extract().asString();
+
+        //return true if content is not empty
+        return records != null && !records.isEmpty();
+    }
+
+    private static void startRouteAndWait(String routeId) throws InterruptedException {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(routeId)
+                .post("/file/startRoute")
+                .then()
+                .statusCode(204);
+
+        //wait for start
+        Thread.sleep(500);
+
     }
 
     private static void awaitEvent(final Path dir, final Path file, final String type) {
