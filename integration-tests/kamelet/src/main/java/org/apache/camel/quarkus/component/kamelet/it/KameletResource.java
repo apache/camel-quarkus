@@ -17,6 +17,9 @@
 package org.apache.camel.quarkus.component.kamelet.it;
 
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -25,11 +28,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.FluentProducerTemplate;
+import org.apache.camel.model.Model;
+import org.apache.camel.model.OptionalIdentifiedDefinition;
 
 @Path("/kamelet")
 public class KameletResource {
+
+    @Inject
+    CamelContext camelContext;
 
     @Inject
     FluentProducerTemplate fluentProducerTemplate;
@@ -78,5 +87,20 @@ public class KameletResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String autoDiscovery(String message) {
         return fluentProducerTemplate.toF("kamelet:auto-discovery?message=%s", message).request(String.class);
+    }
+
+    @Path("/list")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public JsonArray list() {
+        JsonArrayBuilder builder = Json.createArrayBuilder();
+
+        camelContext.getExtension(Model.class)
+                .getRouteTemplateDefinitions()
+                .stream()
+                .map(OptionalIdentifiedDefinition::getId)
+                .forEach(builder::add);
+
+        return builder.build();
     }
 }

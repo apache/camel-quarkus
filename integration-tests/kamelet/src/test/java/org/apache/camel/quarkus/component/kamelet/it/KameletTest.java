@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
@@ -94,5 +95,15 @@ class KameletTest {
                 .then()
                 .statusCode(200)
                 .body(is("Auto-discovered Kamelet"));
+    }
+
+    @Test
+    public void testDiscovered() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/kamelet/list")
+                .then()
+                .statusCode(200)
+                .body(hasItem("injector"), hasItem("logger"));
     }
 }

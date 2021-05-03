@@ -1,0 +1,20 @@
+=== Pre-load Kamelets at build-time
+
+This extension allow to pre-load a set of Kamelets at build time through the following two options. The kamelet to pre-load can be listed using the `quarkus.camel.kamelet.names` property.
+
+=== Using the Kamelet Catalog
+
+//TODO: does not yet exist
+
+A set of pre-made Kamelets can be found on the https://camel.apache.org/camel-kamelets/latest[Kamelet Catalog].
+To use the Kamelet from the catalog you either need to copy them on your project in the classpath location defined by the `quarkus.camel.kamelet.location` property, or you can add the `camel-quarkus-kamelets-catalog` artifact to your `pom.xml`:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-kamelets-catalog</artifactId>
+</dependency>
+----
+
+This artifact makes all the kamelets available in the catalog available to Camel Quarkus for build time processing, the artefact is not part of the runtime classpath.
