@@ -51,7 +51,7 @@
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
-
+        
         <cassandra-java-driver.version>4.11.0</cassandra-java-driver.version><!-- keep in sync with Cassandra quarkus client -->
         <cassandra-quarkus.version>1.0.1</cassandra-quarkus.version>
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
