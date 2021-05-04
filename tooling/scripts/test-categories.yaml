@@ -137,6 +137,7 @@ group-09:
   - splunk
   - spring-rabbitmq
   - xchange
+  - xpath
 group-10:
   - as2
   - atlasmap

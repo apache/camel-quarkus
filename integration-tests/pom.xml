@@ -215,6 +215,7 @@
         <module>xchange</module>
         <module>xml</module>
         <module>xmlsecurity</module>
+        <module>xpath</module>
         <module>xstream</module>
         <module>zendesk</module>
     </modules>
