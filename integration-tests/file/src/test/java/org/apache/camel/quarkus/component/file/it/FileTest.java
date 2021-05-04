@@ -273,7 +273,7 @@ class FileTest {
     private static void awaitEvent(final Path dir, final Path file, final String type) {
         await()
                 .pollInterval(10, TimeUnit.MILLISECONDS)
-                .atMost(10, TimeUnit.SECONDS)
+                .atMost(20, TimeUnit.SECONDS)
                 .until(() -> {
                     final ValidatableResponse response = RestAssured.given()
                             .queryParam("path", dir.toString())
