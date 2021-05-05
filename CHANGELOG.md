@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Test XPath [\#2547](https://github.com/apache/camel-quarkus/issues/2547)
 - Datasonnet language not supported? [\#2546](https://github.com/apache/camel-quarkus/issues/2546)
 - org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC [\#2542](https://github.com/apache/camel-quarkus/issues/2542)
 - SetHeader does not create a Map when using \[\] [\#2540](https://github.com/apache/camel-quarkus/issues/2540)
@@ -14,6 +15,7 @@
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
 - org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
 - Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
+- Test Batch Consumer, charset, filter and sortby options of the file component [\#2512](https://github.com/apache/camel-quarkus/issues/2512)
 - Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
 - Test bean binding [\#2492](https://github.com/apache/camel-quarkus/issues/2492)
 - Document the possibility to use CDI beans with camel bean component [\#2491](https://github.com/apache/camel-quarkus/issues/2491)
@@ -51,9 +53,14 @@
 - Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
 - Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
 - Add integration tests for camel-quarkus-kafka + sasl  [\#1783](https://github.com/apache/camel-quarkus/issues/1783)
+- XChange native support [\#769](https://github.com/apache/camel-quarkus/issues/769)
 
 **Merged pull requests:**
 
+- Wrap PR template content in comments by default [\#2552](https://github.com/apache/camel-quarkus/pull/2552) ([jamesnetherton](https://github.com/jamesnetherton))
+- xpath: Fixed native issue and completed tests/documentation \#2547 [\#2551](https://github.com/apache/camel-quarkus/pull/2551) ([aldettinger](https://github.com/aldettinger))
+- Test Batch Consumer, charset, filter, sortby, idempotent of the file component [\#2548](https://github.com/apache/camel-quarkus/pull/2548) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- XChange native support [\#2545](https://github.com/apache/camel-quarkus/pull/2545) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test bean binding  [\#2544](https://github.com/apache/camel-quarkus/pull/2544) ([ppalaga](https://github.com/ppalaga))
 - fix org.apache.camel.quarkus.component.splunk.it.SplunkTest failure i… [\#2543](https://github.com/apache/camel-quarkus/pull/2543) ([ffang](https://github.com/ffang))
 - Added tests and docs for the simple language \#2533 [\#2541](https://github.com/apache/camel-quarkus/pull/2541) ([aldettinger](https://github.com/aldettinger))
@@ -230,6 +237,7 @@
 - Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
 - Paho MQTT 5 support  [\#2310](https://github.com/apache/camel-quarkus/pull/2310) ([ppalaga](https://github.com/ppalaga))
 - Stitch and Huawei SMN JVM support [\#2309](https://github.com/apache/camel-quarkus/pull/2309) ([ppalaga](https://github.com/ppalaga))
+- Support for camel's new DSLs [\#2308](https://github.com/apache/camel-quarkus/pull/2308) ([lburgazzoli](https://github.com/lburgazzoli))
 - Review usage of quarkus.ssl.native in integration tests [\#2307](https://github.com/apache/camel-quarkus/pull/2307) ([jamesnetherton](https://github.com/jamesnetherton))
 - Azure Storage Data Lake JVM support \#2289 [\#2305](https://github.com/apache/camel-quarkus/pull/2305) ([ppalaga](https://github.com/ppalaga))
 - Move HTTP send-dynamic test to HTTP itest module [\#2303](https://github.com/apache/camel-quarkus/pull/2303) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -1995,6 +2003,7 @@
 **Implemented enhancements:**
 
 - Create a Camel File extension [\#398](https://github.com/apache/camel-quarkus/issues/398)
+- Create a Camel SnakeYAML extension [\#338](https://github.com/apache/camel-quarkus/issues/338)
 
 **Fixed bugs:**
 
@@ -2098,7 +2107,6 @@
 
 **Implemented enhancements:**
 
-- Create a Camel SnakeYAML extension [\#338](https://github.com/apache/camel-quarkus/issues/338)
 - Create a Camel VM extension [\#318](https://github.com/apache/camel-quarkus/issues/318)
 - Create a Camel Slack extension [\#305](https://github.com/apache/camel-quarkus/issues/305)
 
