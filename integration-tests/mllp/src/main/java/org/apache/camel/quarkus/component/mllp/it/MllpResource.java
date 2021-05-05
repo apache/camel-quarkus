@@ -18,13 +18,17 @@ package org.apache.camel.quarkus.component.mllp.it;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mllp.MllpComponent;
+import org.apache.camel.component.mllp.MllpConstants;
 import org.apache.camel.component.mock.MockEndpoint;
 
 @Path("/mllp")
@@ -54,5 +58,22 @@ public class MllpResource {
         producerTemplate.sendBody("direct:invalidMessage", message);
 
         mockEndpoint.assertIsSatisfied(5000);
+    }
+
+    @Path("/charset/default")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getDefaultCharset() {
+        return MllpComponent.getDefaultCharset().name();
+    }
+
+    @Path("/charset/msh18")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getWithCharsetFromMsh18(String message) {
+        String mllpHostPort = String.format("mllp:%s:%d", MllpRoutes.MLLP_HOST, MllpRoutes.MLLP_PORT);
+        Exchange exchange = producerTemplate.request(mllpHostPort, e -> e.getMessage().setBody(message));
+        String ack = exchange.getMessage().getHeader(MllpConstants.MLLP_ACKNOWLEDGEMENT_STRING, String.class);
+        return ack.split("\r")[0];
     }
 }

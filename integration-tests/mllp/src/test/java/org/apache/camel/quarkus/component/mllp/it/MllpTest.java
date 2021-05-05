@@ -16,16 +16,20 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
+@QuarkusTestResource(MllpTestResource.class)
 class MllpTest {
 
-    private static final String HL7_MESSAGE = "MSH|^~\\&|REQUESTING|ICE|INHOUSE|RTH00|20210331095020||ORM^O01|1|D|2.3|||AL|NE|||\n"
+    private static final String HL7_MESSAGE = "MSH|^~\\&|REQUESTING|ICE|INHOUSE|RTH00|20210331095020||ORM^O01|1|D|2.3|||AL|NE||\r"
             + "PID|1||ICE999999^^^ICE^ICE||Testpatient^Testy^^^Mr||19740401|M|||123 Barrel Drive^^^^SW18 4RT|||||2||||||||||||||\r"
             + "NTE|1||Free text for entering clinical details|\r"
             + "PV1|1||^^^^^^^^Admin Location|||||||||||||||NHS|\r"
@@ -51,5 +55,38 @@ class MllpTest {
                 .post("/mllp/send/invalid")
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2554")
+    public void testCharsetFromMsh18() {
+        // Set up the message with a charset and some characters that it cannot deal with
+        String messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||ISO-8859-1").replace("INHOUSE", "ÏNHOUSE");
+
+        // Expect garbled INHOUSE text because the chosen charset cannot support special characters
+        RestAssured.given()
+                .body(messageWithCharset)
+                .post("/mllp/charset/msh18")
+                .then()
+                .body(containsString("Ã\u008FNHOUSE"))
+                .statusCode(200);
+
+        // Try again with UTF-8
+        messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||UTF-8").replace("INHOUSE", "ÏNHOUSE");
+        RestAssured.given()
+                .body(messageWithCharset)
+                .post("/mllp/charset/msh18")
+                .then()
+                .body(containsString("ÏNHOUSE"))
+                .statusCode(200);
+    }
+
+    @Test
+    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2554")
+    public void testDefaultCharsetFromSystemProperty() {
+        RestAssured.get("/mllp/charset/default")
+                .then()
+                .body(is("UTF-8"))
+                .statusCode(200);
     }
 }
