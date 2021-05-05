@@ -25,8 +25,8 @@ import org.apache.camel.quarkus.test.AvailablePortFinder;
 @RegisterForReflection(targets = MllpInvalidMessageException.class, fields = false)
 public class MllpRoutes extends RouteBuilder {
 
-    private static final String MLLP_HOST = "localhost";
-    private static final int MLLP_PORT = AvailablePortFinder.getNextAvailable();
+    public static final String MLLP_HOST = "localhost";
+    public static final int MLLP_PORT = AvailablePortFinder.getNextAvailable();
 
     @Override
     public void configure() throws Exception {
