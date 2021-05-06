@@ -129,6 +129,55 @@ class FileTest {
                 .body(equalTo(FILE_BODY));
     }
 
+    private static String createFile(String content, String path) throws UnsupportedEncodingException {
+        return createFile(content.getBytes("UTF-8"), path, null, null);
+    }
+
+    static String createFile(String content, String path, String charset, String prefix)
+            throws UnsupportedEncodingException {
+        return createFile(content.getBytes(), path, charset, prefix);
+    }
+
+    static String createFile(byte[] content, String path, String charset, String fileName) {
+        return RestAssured.given()
+                .urlEncodingEnabled(true)
+                .queryParam("charset", charset)
+                .contentType(ContentType.BINARY)
+                .body(content)
+                .queryParam("fileName", fileName)
+                .post(path)
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString();
+    }
+
+    private static boolean getFromMock(String mockId, Matcher matcher) {
+        String records = RestAssured
+                .get("/file/getFromMock/" + mockId)
+                .then()
+                .statusCode(200)
+                .body(matcher)
+                .extract().asString();
+
+        //return true if content is not empty
+        return records != null && !records.isEmpty();
+    }
+
+    static void startRouteAndWait(String routeId) throws InterruptedException {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(routeId)
+                .post("/file/startRoute")
+                .then()
+                .statusCode(204);
+
+        //wait for start
+        Thread.sleep(500);
+
+    }
+
     private static void awaitEvent(final Path dir, final Path file, final String type) {
         await()
                 .pollInterval(10, TimeUnit.MILLISECONDS)
