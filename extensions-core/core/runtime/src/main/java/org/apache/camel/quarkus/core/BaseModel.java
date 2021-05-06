@@ -29,8 +29,11 @@ import java.util.function.Function;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
+import org.apache.camel.FailedToCreateRouteFromTemplateException;
+import org.apache.camel.RouteTemplateContext;
 import org.apache.camel.impl.DefaultModelReifierFactory;
 import org.apache.camel.model.DataFormatDefinition;
+import org.apache.camel.model.DefaultRouteTemplateContext;
 import org.apache.camel.model.FaultToleranceConfigurationDefinition;
 import org.apache.camel.model.HystrixConfigurationDefinition;
 import org.apache.camel.model.Model;
@@ -40,6 +43,7 @@ import org.apache.camel.model.ProcessorDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.RouteDefinitionHelper;
 import org.apache.camel.model.RouteFilters;
 import org.apache.camel.model.RouteTemplateDefinition;
 import org.apache.camel.model.RouteTemplateParameterDefinition;
@@ -191,8 +195,16 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public String addRouteFromTemplate(final String routeId, final String routeTemplateId, final Map<String, Object> parameters)
-            throws Exception {
+    public String addRouteFromTemplate(final String routeId, final String routeTemplateId, final Map<String, Object> parameters) throws Exception {
+        RouteTemplateContext rtc = new DefaultRouteTemplateContext(camelContext);
+        if (parameters != null) {
+            parameters.forEach(rtc::setParameter);
+        }
+        return addRouteFromTemplate(routeId, routeTemplateId, rtc);
+    }
+
+    @Override
+    public String addRouteFromTemplate(String routeId, String routeTemplateId, RouteTemplateContext routeTemplateContext) throws Exception {
         RouteTemplateDefinition target = null;
         for (RouteTemplateDefinition def : routeTemplateDefinitions) {
             if (routeTemplateId.equals(def.getId())) {
@@ -202,6 +214,11 @@ public abstract class BaseModel implements Model {
         }
         if (target == null) {
             throw new IllegalArgumentException("Cannot find RouteTemplate with id " + routeTemplateId);
+        }
+
+        // apply configurer if any present
+        if (target.getConfigurer() != null) {
+            target.getConfigurer().accept(routeTemplateContext);
         }
 
         final Map<String, Object> prop = new HashMap<>();
@@ -214,7 +231,7 @@ public abstract class BaseModel implements Model {
                     prop.put(temp.getName(), temp.getDefaultValue());
                 } else {
                     // this is a required parameter do we have that as input
-                    if (!parameters.containsKey(temp.getName())) {
+                    if (!routeTemplateContext.getParameters().containsKey(temp.getName())) {
                         templatesBuilder.add(temp.getName());
                     }
                 }
@@ -227,8 +244,8 @@ public abstract class BaseModel implements Model {
         }
 
         // then override with user parameters
-        if (parameters != null) {
-            prop.putAll(parameters);
+        if (routeTemplateContext.getParameters() != null) {
+            prop.putAll(routeTemplateContext.getParameters());
         }
 
         RouteTemplateDefinition.Converter converter = RouteTemplateDefinition.Converter.DEFAULT_CONVERTER;
@@ -254,6 +271,15 @@ public abstract class BaseModel implements Model {
             def.setId(routeId);
         }
         def.setTemplateParameters(prop);
+        def.setRouteTemplateContext(routeTemplateContext);
+
+        // assign ids to the routes and validate that the id's are all unique
+        String duplicate = RouteDefinitionHelper.validateUniqueIds(def, routeDefinitions);
+        if (duplicate != null) {
+            throw new FailedToCreateRouteFromTemplateException(
+                    routeId, routeTemplateId,
+                    "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
+        }
         addRouteDefinition(def);
         return def.getId();
     }
