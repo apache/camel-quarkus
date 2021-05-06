@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Set;
+
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.impl.engine.DefaultReactiveExecutor;
@@ -55,6 +57,10 @@ public class CamelRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void loadAnnotatedConverters(RuntimeValue<TypeConverterRegistry> registry, Set<Class> classes) {
+        StaticAnnotationTypeConverterLoader.getInstance().load(registry.getValue(), classes);
     }
 
     public void bind(
