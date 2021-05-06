@@ -15,6 +15,7 @@
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
 - org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
 - Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
+- Expand MLLP test coverage [\#2518](https://github.com/apache/camel-quarkus/issues/2518)
 - Test Batch Consumer, charset, filter and sortby options of the file component [\#2512](https://github.com/apache/camel-quarkus/issues/2512)
 - Qute component improperly classified as "other" in Camel Quarkus Catalog [\#2508](https://github.com/apache/camel-quarkus/issues/2508)
 - Test bean binding [\#2492](https://github.com/apache/camel-quarkus/issues/2492)
@@ -57,6 +58,7 @@
 
 **Merged pull requests:**
 
+- Add MLLP test coverage for setting charset [\#2555](https://github.com/apache/camel-quarkus/pull/2555) ([jamesnetherton](https://github.com/jamesnetherton))
 - Wrap PR template content in comments by default [\#2552](https://github.com/apache/camel-quarkus/pull/2552) ([jamesnetherton](https://github.com/jamesnetherton))
 - xpath: Fixed native issue and completed tests/documentation \#2547 [\#2551](https://github.com/apache/camel-quarkus/pull/2551) ([aldettinger](https://github.com/aldettinger))
 - Test Batch Consumer, charset, filter, sortby, idempotent of the file component [\#2548](https://github.com/apache/camel-quarkus/pull/2548) ([JiriOndrusek](https://github.com/JiriOndrusek))
@@ -155,7 +157,6 @@
 - Remove Camel 3.9.0 staging repository [\#2404](https://github.com/apache/camel-quarkus/pull/2404) ([jamesnetherton](https://github.com/jamesnetherton))
 - Revert Disable doc xref checks as there is no camel-3.9.x branch yet [\#2394](https://github.com/apache/camel-quarkus/pull/2394) ([jamesnetherton](https://github.com/jamesnetherton))
 - Quarkiverse dependency upgrades [\#2390](https://github.com/apache/camel-quarkus/pull/2390) ([ppalaga](https://github.com/ppalaga))
-- Increase MicroProfile health extension test coverage [\#2369](https://github.com/apache/camel-quarkus/pull/2369) ([jamesnetherton](https://github.com/jamesnetherton))
 
 ## [1.8.0](https://github.com/apache/camel-quarkus/tree/1.8.0) (2021-03-26)
 
@@ -210,6 +211,7 @@
 - openstack: added neutron port, subnet and nova flavor tests \#1943 [\#2372](https://github.com/apache/camel-quarkus/pull/2372) ([aldettinger](https://github.com/aldettinger))
 - Merge camel-quarkus-main into camel-quarkus-core \#2358 [\#2371](https://github.com/apache/camel-quarkus/pull/2371) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to Quarkus 1.13.0.Final [\#2370](https://github.com/apache/camel-quarkus/pull/2370) ([ppalaga](https://github.com/ppalaga))
+- Increase MicroProfile health extension test coverage [\#2369](https://github.com/apache/camel-quarkus/pull/2369) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use AbstractHealthCheck for custom health checks [\#2364](https://github.com/apache/camel-quarkus/pull/2364) ([jamesnetherton](https://github.com/jamesnetherton))
 - openstack: added neutron network tests \#1943 [\#2359](https://github.com/apache/camel-quarkus/pull/2359) ([aldettinger](https://github.com/aldettinger))
 - Add test coverage for FTPS [\#2357](https://github.com/apache/camel-quarkus/pull/2357) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -237,7 +239,6 @@
 - Adjust references to the runner JAR for the fast-jar format [\#2311](https://github.com/apache/camel-quarkus/pull/2311) ([jamesnetherton](https://github.com/jamesnetherton))
 - Paho MQTT 5 support  [\#2310](https://github.com/apache/camel-quarkus/pull/2310) ([ppalaga](https://github.com/ppalaga))
 - Stitch and Huawei SMN JVM support [\#2309](https://github.com/apache/camel-quarkus/pull/2309) ([ppalaga](https://github.com/ppalaga))
-- Support for camel's new DSLs [\#2308](https://github.com/apache/camel-quarkus/pull/2308) ([lburgazzoli](https://github.com/lburgazzoli))
 - Review usage of quarkus.ssl.native in integration tests [\#2307](https://github.com/apache/camel-quarkus/pull/2307) ([jamesnetherton](https://github.com/jamesnetherton))
 - Azure Storage Data Lake JVM support \#2289 [\#2305](https://github.com/apache/camel-quarkus/pull/2305) ([ppalaga](https://github.com/ppalaga))
 - Move HTTP send-dynamic test to HTTP itest module [\#2303](https://github.com/apache/camel-quarkus/pull/2303) ([jamesnetherton](https://github.com/jamesnetherton))
