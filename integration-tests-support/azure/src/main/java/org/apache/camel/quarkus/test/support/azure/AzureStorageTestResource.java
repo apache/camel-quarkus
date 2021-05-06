@@ -22,6 +22,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import io.quarkus.runtime.LaunchMode;
 import io.quarkus.runtime.configuration.ConfigUtils;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import io.smallrye.config.SmallRyeConfig;
@@ -76,7 +77,7 @@ public class AzureStorageTestResource implements QuarkusTestResourceLifecycleMan
     @Override
     public Map<String, String> start() {
 
-        final SmallRyeConfig config = ConfigUtils.configBuilder(true).build();
+        final SmallRyeConfig config = ConfigUtils.configBuilder(true, LaunchMode.NORMAL).build();
 
         final String realAzureStorageAccountName = System.getenv("AZURE_STORAGE_ACCOUNT_NAME");
         final boolean realCredentialsProvided = realAzureStorageAccountName != null
