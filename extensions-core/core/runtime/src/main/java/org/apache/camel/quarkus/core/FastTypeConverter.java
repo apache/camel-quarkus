@@ -41,4 +41,8 @@ public class FastTypeConverter extends DefaultTypeConverter {
         }
     }
 
+    @Override
+    public void scanTypeConverters() throws Exception {
+        //implemented in CamelProcessor without use of classpath discovery (uses StaticAnnotationTypeConverterLoader)
+    }
 }

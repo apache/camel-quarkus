@@ -41,7 +41,9 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.runtime.RuntimeValue;
+import org.apache.camel.Converter;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelConfigFlags;
@@ -67,6 +69,7 @@ import org.apache.camel.quarkus.core.deployment.util.PathFilter;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
+import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -213,7 +216,11 @@ class CamelProcessor {
     CamelTypeConverterRegistryBuildItem typeConverterRegistry(
             CamelRecorder recorder,
             ApplicationArchivesBuildItem applicationArchives,
-            List<CamelTypeConverterLoaderBuildItem> additionalLoaders) {
+            List<CamelTypeConverterLoaderBuildItem> additionalLoaders,
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+
+        IndexView index = combinedIndex.getIndex();
 
         RuntimeValue<TypeConverterRegistry> typeConverterRegistry = recorder.createTypeConverterRegistry();
 
@@ -221,10 +228,6 @@ class CamelProcessor {
         // This should be simplified by searching for classes implementing TypeConverterLoader but that
         // would lead to have org.apache.camel.impl.converter.AnnotationTypeConverterLoader taken into
         // account even if it should not.
-        //
-        // TODO: we could add a filter to discard AnnotationTypeConverterLoader but maybe we should introduce
-        // a marker interface like StaticTypeConverterLoader for loaders that do not require to perform
-        // any discovery at runtime; see https://github.com/apache/camel-quarkus/issues/1896
         //
         final ClassLoader TCCL = Thread.currentThread().getContextClassLoader();
 
@@ -247,6 +250,28 @@ class CamelProcessor {
                 }
             }
         }
+
+        Set<String> internalConverters = new HashSet<>();
+        //ignore all @converters from org.apache.camel:camel-* dependencies
+        for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
+            if (archive.getArtifactKey() != null && "org.apache.camel".equals(archive.getArtifactKey().getGroupId())
+                    && archive.getArtifactKey().getArtifactId().startsWith("camel-")) {
+                internalConverters.addAll(archive.getIndex().getAnnotations(DotName.createSimple(Converter.class.getName()))
+                        .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
+                        .map(a -> a.target().asClass().name().toString())
+                        .collect(Collectors.toSet()));
+            }
+        }
+
+        Set<Class> convertersClasses = index
+                .getAnnotations(DotName.createSimple(Converter.class.getName()))
+                .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
+                .map(a -> a.target().asClass().name().toString())
+                .filter(s -> !internalConverters.contains(s))
+                .map(s -> CamelSupport.loadClass(s, TCCL))
+                .collect(Collectors.toSet());
+
+        recorder.loadAnnotatedConverters(typeConverterRegistry, convertersClasses);
 
         //
         // User can register loaders by providing a CamelTypeConverterLoaderBuildItem that can be used to
