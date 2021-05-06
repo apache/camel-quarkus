@@ -195,7 +195,8 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public String addRouteFromTemplate(final String routeId, final String routeTemplateId, final Map<String, Object> parameters) throws Exception {
+    public String addRouteFromTemplate(final String routeId, final String routeTemplateId, final Map<String, Object> parameters)
+            throws Exception {
         RouteTemplateContext rtc = new DefaultRouteTemplateContext(camelContext);
         if (parameters != null) {
             parameters.forEach(rtc::setParameter);
@@ -204,7 +205,8 @@ public abstract class BaseModel implements Model {
     }
 
     @Override
-    public String addRouteFromTemplate(String routeId, String routeTemplateId, RouteTemplateContext routeTemplateContext) throws Exception {
+    public String addRouteFromTemplate(String routeId, String routeTemplateId, RouteTemplateContext routeTemplateContext)
+            throws Exception {
         RouteTemplateDefinition target = null;
         for (RouteTemplateDefinition def : routeTemplateDefinitions) {
             if (routeTemplateId.equals(def.getId())) {
