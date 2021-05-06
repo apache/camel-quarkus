@@ -1,8 +1,11 @@
-When using camel-quarkus-bindy in native mode, only the build machine's default locale is supported.
+When using camel-quarkus-bindy in native mode, only the build machine's locale is supported.
 
-For instance, on build machines with french default locale, the code below:
+For instance, on build machines with french locale, the code below:
 ```
 BindyDataFormat dataFormat = new BindyDataFormat();
 dataFormat.setLocale("ar");
 ```
 formats numbers the arabic way in JVM mode as expected. However, it formats numbers the french way in native mode.
+
+Without further tuning, the build machine's default locale would be used. Another locale could be specified with
+the https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.user-language[quarkus.native.user-language] and https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.user-country[quarkus.native.user-country] configuration properties.
