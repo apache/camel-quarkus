@@ -34,6 +34,7 @@ import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
+import org.apache.camel.RouteTemplateContext;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.ValueHolder;
 import org.apache.camel.builder.AdviceWith;
@@ -220,6 +221,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
     public String addRouteFromTemplate(String routeId, String routeTemplateId, Map<String, Object> parameters)
             throws Exception {
         return model.addRouteFromTemplate(routeId, routeTemplateId, parameters);
+    }
+
+    @Override
+    public String addRouteFromTemplate(String routeId, String routeTemplateId, RouteTemplateContext routeTemplateContext) throws Exception {
+        return model.addRouteFromTemplate(routeId, routeTemplateId, routeTemplateContext);
     }
 
     @Override
