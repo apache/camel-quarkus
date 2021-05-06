@@ -225,12 +225,12 @@ class FileTest {
         return createFile(content.getBytes("UTF-8"), path, null, null);
     }
 
-    private static String createFile(String content, String path, String charset, String prefix)
+    static String createFile(String content, String path, String charset, String prefix)
             throws UnsupportedEncodingException {
         return createFile(content.getBytes(), path, charset, prefix);
     }
 
-    private static String createFile(byte[] content, String path, String charset, String fileName) {
+    static String createFile(byte[] content, String path, String charset, String fileName) {
         return RestAssured.given()
                 .urlEncodingEnabled(true)
                 .queryParam("charset", charset)
@@ -257,7 +257,7 @@ class FileTest {
         return records != null && !records.isEmpty();
     }
 
-    private static void startRouteAndWait(String routeId) throws InterruptedException {
+    static void startRouteAndWait(String routeId) throws InterruptedException {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(routeId)
