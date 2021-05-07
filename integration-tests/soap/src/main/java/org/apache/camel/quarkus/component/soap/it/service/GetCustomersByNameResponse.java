@@ -14,42 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.soap.it.example;
+package org.apache.camel.quarkus.component.soap.it.service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "getCustomersByName", namespace = "http://example.it.soap.component.quarkus.camel.apache.org/", propOrder = {
-        "name"
+@XmlType(name = "getCustomersByNameResponse", propOrder = {
+        "_return"
 })
-public class GetCustomersByName {
+public class GetCustomersByNameResponse {
 
-    protected String name;
+    @XmlElement(name = "return")
+    protected List<Customer> _return;
 
-    /**
-     * Gets the value of the name property.
-     *
-     * @return
-     *         possible object is
-     *         {@link String }
-     *
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     *
-     * @param value
-     *              allowed object is
-     *              {@link String }
-     *
-     */
-    public void setName(String value) {
-        this.name = value;
+    public List<Customer> getReturn() {
+        if (_return == null) {
+            _return = new ArrayList<>();
+        }
+        return this._return;
     }
 
 }

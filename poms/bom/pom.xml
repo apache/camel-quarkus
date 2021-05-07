@@ -5709,6 +5709,11 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <groupId>com.sun.xml.messaging.saaj</groupId>
+                <artifactId>saaj-impl</artifactId>
+                <version>${saaj.impl.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
                 <artifactId>xstream</artifactId>
                 <version>${xstream.version}</version>
@@ -5824,14 +5829,9 @@
                 <version>${smallrye.reactive.messaging.camel.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.xml.soap</groupId>
-                <artifactId>javax.xml.soap-api</artifactId>
-                <version>${soap-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.xml.ws</groupId>
-                <artifactId>jaxws-api</artifactId>
-                <version>${java.xml.ws.version}</version>
+                <groupId>jakarta.xml.ws</groupId>
+                <artifactId>jakarta.xml.ws-api</artifactId>
+                <version>${jakarta.xml.ws.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>jaxen</groupId>
