@@ -60,8 +60,17 @@ public class RestRoutes extends RouteBuilder {
                 .setBody(simple("${header.messageStart} ${header.messageEnd}"))
                 .endRest()
 
-                .post("/pojo/binding")
+                .post("/pojo/binding/json")
                 .bindingMode(RestBindingMode.json)
+                .type(Person.class)
+                .produces(MediaType.TEXT_PLAIN)
+                .route()
+                .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
+                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
+                .endRest()
+
+                .post("/pojo/binding/xml")
+                .bindingMode(RestBindingMode.xml)
                 .type(Person.class)
                 .produces(MediaType.TEXT_PLAIN)
                 .route()

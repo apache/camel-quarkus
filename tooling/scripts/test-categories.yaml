@@ -110,7 +110,6 @@ group-07:
   - olingo4
   - optaplanner
   - pg-replication-slot
-  - rest-binding-mode-xml
   - stax
   - weather
 group-08:

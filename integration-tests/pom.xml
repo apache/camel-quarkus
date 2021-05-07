@@ -179,7 +179,6 @@
         <module>rabbitmq</module>
         <module>reactive-streams</module>
         <module>rest</module>
-        <module>rest-binding-mode-xml</module>
         <module>rest-openapi</module>
         <module>saga</module>
         <module>salesforce</module>

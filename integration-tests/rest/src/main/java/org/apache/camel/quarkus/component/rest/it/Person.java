@@ -18,13 +18,25 @@ package org.apache.camel.quarkus.component.rest.it;
 
 import java.util.Objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @RegisterForReflection(fields = false)
+@XmlRootElement(name = "person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person {
 
+    @XmlAttribute
     private String firstName;
+
+    @XmlAttribute
     private String lastName;
+
+    @XmlAttribute
     private int age;
 
     public String getFirstName() {
