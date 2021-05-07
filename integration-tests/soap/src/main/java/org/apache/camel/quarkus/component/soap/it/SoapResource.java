@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.soap.it;
 
-import java.awt.*;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -28,9 +27,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.ws.soap.SOAPFaultException;
 
+import org.apache.camel.CamelExecutionException;
+import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.quarkus.component.soap.it.example.GetCustomersByName;
+import org.apache.camel.quarkus.component.soap.it.service.GetCustomersByName;
+import org.apache.camel.quarkus.component.soap.it.service.NoSuchCustomerException;
 import org.jboss.logging.Logger;
 
 @Path("/soap")
@@ -42,17 +45,41 @@ public class SoapResource {
     @Inject
     ProducerTemplate producerTemplate;
 
+    @Inject
+    FluentProducerTemplate fluentProducerTemplate;
+
     @Path("/marshal/{soapVersion}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_XML)
-    public Response marshall(@PathParam("soapVersion") String soapVersion, String message) throws Exception {
+    public Response marshal(@PathParam("soapVersion") String soapVersion, String message) throws Exception {
+        LOG.infof("Sending to soap: %s", message);
+
+        GetCustomersByName request = new GetCustomersByName();
+        request.setName(message);
+
+        final String response = fluentProducerTemplate.toF("direct:marshal-%s", "soap" + soapVersion)
+                .withBody(request)
+                .request(String.class);
+
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/marshal/fault/{soapVersion}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_XML)
+    public Response marshalFault(@PathParam("soapVersion") String soapVersion, String message) throws Exception {
         LOG.infof("Sending to soap: %s", message);
         GetCustomersByName request = new GetCustomersByName();
         request.setName(message);
 
-        final String endpointUri = "direct:marshal" + (soapVersion.equals("1.2") ? "-soap12" : "");
-        final String response = producerTemplate.requestBody(endpointUri, request, String.class);
+        final String response = fluentProducerTemplate.toF("direct:marshal-fault-%s", "soap" + soapVersion)
+                .withBody(request)
+                .request(String.class);
 
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -65,8 +92,9 @@ public class SoapResource {
     @Consumes(MediaType.APPLICATION_XML)
     @Produces(MediaType.TEXT_PLAIN)
     public Response unmarshal(@PathParam("soapVersion") String soapVersion, String message) throws Exception {
-        final String endpointUri = "direct:unmarshal" + (soapVersion.equals("1.2") ? "-soap12" : "");
-        final GetCustomersByName response = producerTemplate.requestBody(endpointUri, message, GetCustomersByName.class);
+        final GetCustomersByName response = fluentProducerTemplate.toF("direct:unmarshal-%s", "soap" + soapVersion)
+                .withBody(message)
+                .request(GetCustomersByName.class);
 
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -74,19 +102,80 @@ public class SoapResource {
                 .build();
     }
 
-    @Path("/round")
+    @Path("/unmarshal/fault/{soapVersion}")
+    @POST
+    @Consumes(MediaType.APPLICATION_XML)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response unmarshalFault(@PathParam("soapVersion") String soapVersion, String message) throws Exception {
+        try {
+            final NoSuchCustomerException response = fluentProducerTemplate
+                    .toF("direct:unmarshal-fault-%s", "soap" + soapVersion)
+                    .withBody(message)
+                    .request(NoSuchCustomerException.class);
+        } catch (CamelExecutionException e) {
+            Throwable cause = e.getCause();
+            if (cause instanceof SOAPFaultException) {
+                SOAPFaultException sfe = (SOAPFaultException) cause;
+                return Response
+                        .created(new URI("https://camel.apache.org/"))
+                        .entity(sfe.getMessage())
+                        .build();
+            }
+        }
+        return Response.serverError().entity("Expected SOAPFaultException was not thrown").build();
+    }
+
+    @Path("/marshal/unmarshal")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response round(String message) throws Exception {
+    public Response marshalUnmarshal(String message) throws Exception {
         LOG.infof("Sending to soap: %s", message);
         GetCustomersByName request = new GetCustomersByName();
         request.setName(message);
-        final String xml = producerTemplate.requestBody("direct:marshal", request, String.class);
+        final String xml = producerTemplate.requestBody("direct:marshal-soap1.2", request, String.class);
         LOG.infof("Got response from marshal: %s", xml);
 
-        GetCustomersByName response = producerTemplate.requestBody("direct:unmarshal", xml, GetCustomersByName.class);
+        GetCustomersByName response = producerTemplate.requestBody("direct:unmarshal-soap1.2", xml, GetCustomersByName.class);
         LOG.infof("Got response from unmarshal: %s", response);
+
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response.getName())
+                .build();
+    }
+
+    @Path("/qname/strategy")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response qnameStrategy(String message) throws Exception {
+        GetCustomersByName request = new GetCustomersByName();
+        request.setName(message);
+
+        final String xml = producerTemplate.requestBody("direct:marshalQnameStrategy", request, String.class);
+
+        GetCustomersByName response = producerTemplate.requestBody("direct:unmarshalQnameStrategy", xml,
+                GetCustomersByName.class);
+
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response.getName())
+                .build();
+    }
+
+    @Path("/serviceinterface/strategy")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response serviceInterfaceStrategy(String message) throws Exception {
+        GetCustomersByName request = new GetCustomersByName();
+        request.setName(message);
+
+        final String xml = producerTemplate.requestBody("direct:marshalServiceInterfaceStrategy", request, String.class);
+
+        GetCustomersByName response = producerTemplate.requestBody("direct:unmarshalServiceInterfaceStrategy", xml,
+                GetCustomersByName.class);
 
         return Response
                 .created(new URI("https://camel.apache.org/"))

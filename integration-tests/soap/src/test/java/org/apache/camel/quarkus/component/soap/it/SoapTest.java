@@ -16,82 +16,133 @@
  */
 package org.apache.camel.quarkus.component.soap.it;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 class SoapTest {
 
-    @Test
-    public void testMarshal() {
-        final String msg = UUID.randomUUID().toString().replace("-", "");
-        String resp = RestAssured.given()
-                .contentType(ContentType.TEXT).body(msg).post("/soap/marshal/1.1") //
-                .then().statusCode(201)
-                .extract().body().asString();
-        assertThat(resp).contains("<ns3:getCustomersByName>");
-        assertThat(resp).contains("<name>" + msg + "</name>");
-        assertThat(resp).contains("<ns2:Envelope xmlns:ns2=\"http://schemas.xmlsoap.org/soap/envelope/\"");
+    @ParameterizedTest
+    @ValueSource(strings = { "1.1", "1.2" })
+    public void testMarshal(String soapVersion) throws IOException {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Mr Camel Quarkus SOAP V" + soapVersion)
+                .pathParam("soapVersion", soapVersion)
+                .post("/soap/marshal/{soapVersion}")
+                .then()
+                .statusCode(201)
+                .body("Envelope.Body.getCustomersByName.name", equalTo("Mr Camel Quarkus SOAP V" + soapVersion));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "1.1", "1.2" })
+    public void testMarshalFault(String soapVersion) {
+        String prefix = "Envelope.Body.Fault";
+        String xpath = prefix;
+        if (soapVersion.equals("1.1")) {
+            xpath += ".faultstring";
+        } else {
+            xpath += ".Reason.Text";
+        }
+
+        RestAssured.given()
+                .body("invalid customer")
+                .pathParam("soapVersion", soapVersion)
+                .post("/soap/marshal/fault/{soapVersion}")
+                .then()
+                .statusCode(201)
+                .body(xpath, equalTo("Specified customer was not found"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "1.1", "1.2" })
+    public void testUnmarshalSoap(String soapVersion) throws IOException {
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(readFile("/getCustomersByName" + soapVersion + ".xml"))
+                .pathParam("soapVersion", soapVersion)
+                .post("/soap/unmarshal/{soapVersion}")
+                .then()
+                .statusCode(201)
+                .body(equalTo("Mr Camel Quarkus SOAP V" + soapVersion));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "1.1", "1.2" })
+    public void testUnmarshalSoapFault(String soapVersion) throws IOException {
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(readFile("/soapFault" + soapVersion + ".xml"))
+                .pathParam("soapVersion", soapVersion)
+                .post("/soap/unmarshal/fault/{soapVersion}")
+                .then()
+                .statusCode(201)
+                .body(equalTo("Customer not found"));
     }
 
     @Test
-    public void testMarshalSoap12() {
+    public void marshalUnmarshal() {
         final String msg = UUID.randomUUID().toString().replace("-", "");
-        // GetCustomersS
-        String resp = RestAssured.given()
-                .contentType(ContentType.TEXT).body(msg).post("/soap/marshal/1.2") //
-                .then().statusCode(201).extract().body().asString();
-        assertThat(resp).contains("<ns3:getCustomersByName>");
-        assertThat(resp).contains("<name>" + msg + "</name>");
-        assertThat(resp).contains("<ns2:Envelope xmlns:ns2=\"http://www.w3.org/2003/05/soap-envelope\"");
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/soap/marshal/unmarshal")
+                .then()
+                .statusCode(201)
+                .body(equalTo(msg));
     }
 
     @Test
-    public void testUnmarshalSoap() {
+    public void qNameStrategy() {
         final String msg = UUID.randomUUID().toString().replace("-", "");
-        String resp = RestAssured.given()
-                .contentType(ContentType.XML).body(getSoapMessage("1.1", msg)).post("/soap/unmarshal/1.1") //
-                .then().statusCode(201)
-                .extract().body().asString();
-        assertThat(resp).isEqualTo(msg);
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/soap/qname/strategy")
+                .then()
+                .statusCode(201)
+                .body(equalTo(msg));
     }
 
     @Test
-    public void testUnmarshalSoap12() {
+    public void serviceInterfaceStrategy() {
         final String msg = UUID.randomUUID().toString().replace("-", "");
-        String resp = RestAssured.given()
-                .contentType(ContentType.XML).body(getSoapMessage("1.2", msg)).post("/soap/unmarshal/1.2") //
-                .then().statusCode(201)
-                .extract().body().asString();
-        assertThat(resp).isEqualTo(msg);
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/soap/serviceinterface/strategy")
+                .then()
+                .statusCode(201)
+                .body(equalTo(msg));
     }
 
     @Test
-    public void round() {
+    public void multipart() {
         final String msg = UUID.randomUUID().toString().replace("-", "");
-        String resp = RestAssured.given()
-                .contentType(ContentType.TEXT).body(msg).post("/soap/round") //
-                .then().statusCode(201)
-                .extract().body().asString();
-        assertThat(resp).isEqualTo(msg);
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(msg)
+                .post("/soap/multipart")
+                .then()
+                .statusCode(201)
+                .body(equalTo(msg));
     }
 
-    private String getSoapMessage(String namespace, String name) {
-        final String url = (namespace.equals("1.2") ? "http://www.w3.org/2003/05/soap-envelope"
-                : "http://schemas.xmlsoap.org/soap/envelope/");
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
-                "<soap:Envelope xmlns:soap=\"" + url + "\">" +
-                "<soap:Body>" +
-                "<ns2:getCustomersByName xmlns:ns2=\"http://example.it.soap.component.quarkus.camel.apache.org/\">" +
-                "<name>" + name + "</name>" +
-                "</ns2:getCustomersByName>" +
-                "</soap:Body>" +
-                "</soap:Envelope>";
+    private String readFile(String path) throws IOException {
+        InputStream resource = SoapTest.class.getResourceAsStream(path);
+        return IOUtils.toString(resource, StandardCharsets.UTF_8);
     }
 }

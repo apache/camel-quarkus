@@ -82,7 +82,8 @@
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
-        <java.xml.ws.version>2.3.1</java.xml.ws.version>
+        <jakarta.jws.ws.api.version>2.1.0</jakarta.jws.ws.api.version>
+        <jakarta.xml.ws.api.version>2.3.3</jakarta.xml.ws.api.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jsoup.version>1.12.1</jsoup.version><!-- used by oaipmh -->
@@ -108,9 +109,9 @@
         <quarkus-qpid-jms.version>0.24.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
+        <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>2.9.0</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->
-        <soap-api.version>1.4.0</soap-api.version><!-- keep in sync with Camel -->
         <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
@@ -492,6 +493,7 @@
                             <spring.provides>CAMEL_PROPERTIES_STYLE</spring.provides>
                             <tm>CAMEL_PROPERTIES_STYLE</tm>
                             <kt>SLASHSTAR_STYLE</kt>
+                            <wsdl>XML_STYLE</wsdl>
                         </mapping>
                         <headerDefinitions>
                             <headerDefinition>license-properties-headerdefinition.xml</headerDefinition>
