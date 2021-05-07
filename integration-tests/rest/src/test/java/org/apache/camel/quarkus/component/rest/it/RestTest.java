@@ -119,7 +119,29 @@ class RestTest {
         RestAssured.given()
                 .contentType(ContentType.JSON)
                 .body(person)
-                .post("/rest/pojo/binding")
+                .post("/rest/pojo/binding/json")
+                .then()
+                .statusCode(200)
+                .body(equalTo(result));
+    }
+
+    @Test
+    public void xmlBinding() {
+        Person person = new Person();
+        person.setFirstName("John");
+        person.setLastName("Doe");
+        person.setAge(64);
+
+        String result = String.format(
+                "Name: %s %s, Age: %d",
+                person.getFirstName(),
+                person.getLastName(),
+                person.getAge());
+
+        RestAssured.given()
+                .contentType(ContentType.XML)
+                .body(person)
+                .post("/rest/pojo/binding/xml")
                 .then()
                 .statusCode(200)
                 .body(equalTo(result));
