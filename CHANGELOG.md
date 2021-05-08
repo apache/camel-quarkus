@@ -14,6 +14,7 @@
 - Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
 - CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
+- REST JSON example should use the Camel REST DSL [\#2528](https://github.com/apache/camel-quarkus/issues/2528)
 - org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
 - Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
 - Expand MLLP test coverage [\#2518](https://github.com/apache/camel-quarkus/issues/2518)
@@ -59,6 +60,7 @@
 
 **Merged pull requests:**
 
+- \[fix\] \#2356 Test file language [\#2559](https://github.com/apache/camel-quarkus/pull/2559) ([KurtStam](https://github.com/KurtStam))
 - Explained how to override default build locale in bindy documentation… [\#2557](https://github.com/apache/camel-quarkus/pull/2557) ([aldettinger](https://github.com/aldettinger))
 - Update changelog action to v1.4 [\#2556](https://github.com/apache/camel-quarkus/pull/2556) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add MLLP test coverage for setting charset [\#2555](https://github.com/apache/camel-quarkus/pull/2555) ([jamesnetherton](https://github.com/jamesnetherton))
