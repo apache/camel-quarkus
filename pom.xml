@@ -453,6 +453,7 @@
                             <exclude>**/*.proto</exclude>
                             <exclude>**/*.spec</exclude>
                             <exclude>**/*.txt</exclude>
+                            <exclude>**/*.xquery</exclude>
                             <exclude>**/.factorypath</exclude>
                             <exclude>**/.pnp.js</exclude>
                             <exclude>**/.yarnrc.yml</exclude>

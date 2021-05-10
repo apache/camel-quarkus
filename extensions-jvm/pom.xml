@@ -101,7 +101,6 @@
         <module>redis</module>
         <module>ribbon</module>
         <module>robotframework</module>
-        <module>saxon</module>
         <module>schematron</module>
         <module>sip</module>
         <module>smpp</module>
