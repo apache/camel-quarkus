@@ -199,6 +199,7 @@
         <module>saga</module>
         <module>salesforce</module>
         <module>sap-netweaver</module>
+        <module>saxon</module>
         <module>scheduler</module>
         <module>seda</module>
         <module>servicenow</module>
