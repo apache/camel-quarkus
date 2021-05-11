@@ -276,7 +276,7 @@ class CamelProcessor {
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
     void disableXmlReifiers(CamelRecorder recorder, Capabilities capabilities) {
-        if (!capabilities.isCapabilityPresent(CamelCapabilities.XML)) {
+        if (!capabilities.isCapabilityWithPrefixPresent(CamelCapabilities.XML)) {
             LOGGER.debug("Camel XML capability not detected, disable XML reifiers");
             recorder.disableXmlReifiers();
         }

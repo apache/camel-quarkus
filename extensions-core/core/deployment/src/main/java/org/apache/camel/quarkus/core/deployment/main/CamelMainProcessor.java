@@ -29,7 +29,6 @@ import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Overridable;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.AdditionalIndexedClassesBuildItem;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.QuarkusMain;
@@ -55,7 +54,6 @@ import org.apache.camel.quarkus.main.CamelMainApplication;
 import org.apache.camel.quarkus.main.CamelMainConfig;
 import org.apache.camel.quarkus.main.CamelMainProducers;
 import org.apache.camel.quarkus.main.CamelMainRecorder;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -64,11 +62,6 @@ public class CamelMainProcessor {
     @BuildStep(onlyIf = CamelMainEnabled.class)
     void unremovableBeans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
         beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
-    }
-
-    @BuildStep(onlyIf = CamelMainEnabled.class)
-    CapabilityBuildItem capability() {
-        return new CapabilityBuildItem(CamelCapabilities.MAIN);
     }
 
     @BuildStep(onlyIf = CamelMainEnabled.class)

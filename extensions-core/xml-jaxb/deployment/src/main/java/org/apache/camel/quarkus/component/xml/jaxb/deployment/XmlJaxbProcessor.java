@@ -16,20 +16,15 @@
  */
 package org.apache.camel.quarkus.component.xml.jaxb.deployment;
 
-import java.util.Arrays;
-import java.util.List;
-
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.jaxb.deployment.JaxbFileRootBuildItem;
 import org.apache.camel.quarkus.component.xml.jaxb.XmlJaxbRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelJAXBContextFactoryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelModelToXMLDumperBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlJaxbProcessor {
 
@@ -43,13 +38,6 @@ class XmlJaxbProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    List<CapabilityBuildItem> capabilities() {
-        return Arrays.asList(
-                new CapabilityBuildItem(CamelCapabilities.XML),
-                new CapabilityBuildItem(CamelCapabilities.XML_JAXB));
     }
 
     @BuildStep
