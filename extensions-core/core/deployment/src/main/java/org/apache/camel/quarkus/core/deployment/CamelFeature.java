@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class CamelFeature {
     private static final String FEATURE = "camel-core";
@@ -27,10 +25,5 @@ class CamelFeature {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    CapabilityBuildItem capability() {
-        return new CapabilityBuildItem(CamelCapabilities.CORE);
     }
 }
