@@ -21,6 +21,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
 import io.minio.MinioClient;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class MinioClientProducer {
 
@@ -29,8 +30,8 @@ public class MinioClientProducer {
     @Named("minioClient")
     public MinioClient produceMinioClient() {
         return MinioClient.builder()
-                .endpoint("http://" + System.getProperty(MinioResource.PARAM_SERVER_HOST),
-                        Integer.parseInt(System.getProperty(MinioResource.PARAM_SERVER_PORT)), false)
+                .endpoint("http://" + ConfigProvider.getConfig().getValue("minio.server.host", String.class),
+                        ConfigProvider.getConfig().getValue("minio.server.port", Integer.class), false)
                 .credentials(MinioResource.SERVER_ACCESS_KEY, MinioResource.SERVER_SECRET_KEY)
                 .build();
     }

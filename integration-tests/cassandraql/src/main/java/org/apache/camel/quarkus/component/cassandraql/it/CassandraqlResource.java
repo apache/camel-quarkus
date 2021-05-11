@@ -32,11 +32,11 @@ import com.datastax.oss.driver.internal.core.cql.DefaultRow;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/cassandraql")
 @ApplicationScoped
 public class CassandraqlResource {
-    public static final String DB_URL_PARAMETER = CassandraqlResource.class.getSimpleName() + "_db_url";
     public static final String KEYSPACE = "test";
     public static final String EMPTY_LIST = "EMPTY";
 
@@ -45,6 +45,9 @@ public class CassandraqlResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @ConfigProperty(name = "db.cassandra.url")
+    String dbUrl;
 
     @Path("/insertEmployee")
     @POST
@@ -92,8 +95,7 @@ public class CassandraqlResource {
     }
 
     private String createUrl(String cql) {
-        String url = System.getProperty(DB_URL_PARAMETER);
-        return String.format("cql://%s/%s?cql=%s", url, KEYSPACE, cql);
+        return String.format("cql://%s/%s?cql=%s", dbUrl, KEYSPACE, cql);
     }
 
     private String convertBodyToString(Object body) {

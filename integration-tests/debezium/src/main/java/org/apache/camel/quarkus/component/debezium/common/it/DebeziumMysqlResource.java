@@ -17,10 +17,13 @@
 package org.apache.camel.quarkus.component.debezium.common.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.eclipse.microprofile.config.Config;
 
 @Path("/debezium-mysql")
 @ApplicationScoped
@@ -31,6 +34,9 @@ public class DebeziumMysqlResource extends AbstractDebeziumResource {
 
     //debezium on mysql needs more privileges, therefore it will use root user
     public static final String DB_ROOT_USERNAME = "root";
+
+    @Inject
+    Config config;
 
     public DebeziumMysqlResource() {
         super(Type.mysql);
@@ -58,6 +64,6 @@ public class DebeziumMysqlResource extends AbstractDebeziumResource {
         return super.getEndpoinUrl(hostname, port, DB_ROOT_USERNAME, password, databaseServerName, offsetStorageFileName)
                 //and add specific parameters
                 + "&databaseServerId=223344"
-                + "&databaseHistoryFileFilename=" + System.getProperty(PROPERTY_DB_HISTORY_FILE);
+                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);
     }
 }

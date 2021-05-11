@@ -35,6 +35,7 @@ import org.apache.camel.quarkus.component.avro.rpc.it.specific.generated.Key;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.generated.KeyValueProtocol;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.generated.Value;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.impl.KeyValueProtocolImpl;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -160,11 +161,13 @@ abstract class AvroRpcTestSupport {
             if (isHttp()) {
                 reflectTransceiver = new HttpTransceiver(
                         new URL("http://localhost:"
-                                + System.getProperty(AvroRpcResource.REFLECTIVE_HTTP_TRANSCEIVER_PORT_PARAM)));
+                                + ConfigProvider.getConfig().getValue(AvroRpcResource.REFLECTIVE_HTTP_TRANSCEIVER_PORT_PARAM,
+                                        String.class)));
             } else {
                 reflectTransceiver = new NettyTransceiver(
                         new InetSocketAddress("localhost",
-                                Integer.parseInt(System.getProperty(AvroRpcResource.REFLECTIVE_NETTY_TRANSCEIVER_PORT_PARAM))));
+                                ConfigProvider.getConfig().getValue(AvroRpcResource.REFLECTIVE_NETTY_TRANSCEIVER_PORT_PARAM,
+                                        Integer.class)));
             }
             reflectRequestor = new ReflectRequestor(TestReflection.class, reflectTransceiver);
         }
@@ -175,11 +178,13 @@ abstract class AvroRpcTestSupport {
             if (isHttp()) {
                 specificTransceiver = new HttpTransceiver(
                         new URL("http://localhost:"
-                                + System.getProperty(AvroRpcResource.SPECIFIC_HTTP_TRANSCEIVER_PORT_PARAM)));
+                                + ConfigProvider.getConfig().getValue(AvroRpcResource.SPECIFIC_HTTP_TRANSCEIVER_PORT_PARAM,
+                                        String.class)));
             } else {
                 specificTransceiver = new NettyTransceiver(
                         new InetSocketAddress("localhost",
-                                Integer.parseInt(System.getProperty(AvroRpcResource.SPECIFIC_NETTY_TRANSCEIVER_PORT_PARAM))));
+                                ConfigProvider.getConfig().getValue(AvroRpcResource.SPECIFIC_NETTY_TRANSCEIVER_PORT_PARAM,
+                                        Integer.class)));
             }
             specificRequestor = new SpecificRequestor(KeyValueProtocol.class, specificTransceiver);
         }

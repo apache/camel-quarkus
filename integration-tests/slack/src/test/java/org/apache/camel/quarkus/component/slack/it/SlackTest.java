@@ -18,10 +18,13 @@ package org.apache.camel.quarkus.component.slack.it;
 
 import java.util.UUID;
 
+import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -38,6 +41,9 @@ import static org.hamcrest.CoreMatchers.equalTo;
 @QuarkusTest
 @QuarkusTestResource(SlackTestResource.class)
 class SlackTest {
+
+    @MockServer
+    WireMockServer server;
 
     @Test
     public void testSlackProduceConsumeMessages() {
@@ -56,6 +62,6 @@ class SlackTest {
     }
 
     boolean externalSlackEnabled() {
-        return System.getProperty("wiremock.url") == null;
+        return !ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class).isPresent();
     }
 }

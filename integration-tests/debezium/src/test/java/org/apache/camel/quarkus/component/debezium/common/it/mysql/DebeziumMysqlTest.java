@@ -19,11 +19,14 @@ package org.apache.camel.quarkus.component.debezium.common.it.mysql;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -49,10 +52,11 @@ class DebeziumMysqlTest extends AbstractDebeziumTest {
 
     @BeforeAll
     public static void setUp() throws SQLException {
-        final String jdbcUrl = System.getProperty(PROPERTY_JDBC);
+        Config config = ConfigProvider.getConfig();
+        Optional<String> jdbcUrl = config.getOptionalValue(PROPERTY_JDBC, String.class);
 
-        if (jdbcUrl != null) {
-            connection = DriverManager.getConnection(jdbcUrl);
+        if (jdbcUrl.isPresent()) {
+            connection = DriverManager.getConnection(jdbcUrl.get());
         } else {
             LOG.warn("Container is not running. Connection is not created.");
         }

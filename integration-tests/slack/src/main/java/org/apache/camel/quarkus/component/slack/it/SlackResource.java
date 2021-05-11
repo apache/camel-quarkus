@@ -31,24 +31,28 @@ import javax.ws.rs.core.Response;
 import com.slack.api.model.Message;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/slack")
 @ApplicationScoped
 public class SlackResource {
-
-    private static final String SLACK_AUTH_PARAMS = "serverUrl={{sys:slack.server-url}}&token={{sys:slack.token}}";
-
     @Inject
     ProducerTemplate producerTemplate;
 
     @Inject
     ConsumerTemplate consumerTemplate;
 
+    @ConfigProperty(name = "slack.server-url")
+    String slackServerUrl;
+
+    @ConfigProperty(name = "slack.token")
+    String slackToken;
+
     @Path("/messages")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String getSlackMessages() throws Exception {
-        Message message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + SLACK_AUTH_PARAMS,
+        Message message = consumerTemplate.receiveBody("slack://general?maxResults=1&" + getSlackAuthParams(),
                 5000L, Message.class);
         return message.getText();
     }
@@ -57,9 +61,13 @@ public class SlackResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createSlackMessage(String message) throws Exception {
-        producerTemplate.requestBody("slack://general?" + SLACK_AUTH_PARAMS, message);
+        producerTemplate.requestBody("slack://general?" + getSlackAuthParams(), message);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
+    }
+
+    private String getSlackAuthParams() {
+        return String.format("serverUrl=%s&token=%s", slackServerUrl, slackToken);
     }
 }

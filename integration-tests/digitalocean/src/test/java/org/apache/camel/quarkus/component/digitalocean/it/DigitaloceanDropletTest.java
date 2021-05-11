@@ -29,6 +29,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -53,8 +54,8 @@ public class DigitaloceanDropletTest {
     public static void initTimeoutUnit() {
         // add timeout if not using MockServer
         // when using a Digitalocean Key, it takes at least 2 minutes to create a droplet or snapshot
-        String key = System.getenv("DIGITALOCEAN_AUTH_TOKEN");
-        if (key != null) {
+        Optional<String> key = ConfigProvider.getConfig().getOptionalValue("DIGITALOCEAN_AUTH_TOKEN", String.class);
+        if (key.isPresent()) {
             timeoutUnit = TimeUnit.MINUTES;
             waitBlockStorageAction = true;
         }
