@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 import javax.ws.rs.Produces;
@@ -23,6 +25,7 @@ import javax.ws.rs.Produces;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -41,9 +44,9 @@ public class DigitaloceanRoute extends RouteBuilder {
     @Unremovable
     @Named("digitalOceanClient")
     DigitalOceanClient initDigitalOceanClient(MockApiService mockApiService) {
-        final String wireMockUrl = System.getProperty("wiremock.url.ssl");
-        if (wireMockUrl != null) {
-            return mockApiService.createDigitalOceanClient(wireMockUrl, oAuthToken);
+        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url.ssl", String.class);
+        if (wireMockUrl.isPresent()) {
+            return mockApiService.createDigitalOceanClient(wireMockUrl.get(), oAuthToken);
         }
         return new DigitalOceanClient(oAuthToken);
     }

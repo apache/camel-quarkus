@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.geocoder.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
@@ -23,6 +25,7 @@ import javax.inject.Named;
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.geocoder.GeoCoderComponent;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
@@ -43,12 +46,12 @@ public class GeocoderProducers {
     @Named("geocoder")
     GeoCoderComponent geocoderComponent(CamelContext camelContext, MockApiService mockApiService)
             throws IllegalAccessException, NoSuchFieldException, InstantiationException {
-        final String wireMockUrl = System.getProperty("wiremock.url");
+        final Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
         final GeoCoderComponent result = new GeoCoderComponent();
         result.setCamelContext(camelContext);
 
-        if (wireMockUrl != null) {
-            result.setGeoApiContext(mockApiService.createGeoApiContext(wireMockUrl, googleApiKey));
+        if (wireMockUrl.isPresent()) {
+            result.setGeoApiContext(mockApiService.createGeoApiContext(wireMockUrl.get(), googleApiKey));
         }
         return result;
     }

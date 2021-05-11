@@ -26,6 +26,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -46,12 +47,8 @@ class DigitaloceanTest {
 
     @BeforeAll
     public static void initPublicKey() {
-        String key = System.getenv("DIGITALOCEAN_PUBLIC_KEY");
-        if (key != null) {
-            publicKey = key;
-        } else {
-            publicKey = "ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example";
-        }
+        publicKey = ConfigProvider.getConfig().getOptionalValue("DIGITALOCEAN_PUBLIC_KEY", String.class).orElse(
+                "ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example");
     }
 
     @Test

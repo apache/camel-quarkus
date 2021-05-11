@@ -34,6 +34,7 @@ import com.github.tomakehurst.wiremock.recording.SnapshotRecordResult;
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.recordSpec;
@@ -175,8 +176,7 @@ public abstract class WireMockTestResourceLifecycleManager implements QuarkusTes
      * Get the value of a given environment variable or a default value if it does not exist
      */
     protected String envOrDefault(String envVarName, String defaultValue) {
-        String value = System.getenv(envVarName);
-        return value != null ? value : defaultValue;
+        return ConfigProvider.getConfig().getOptionalValue(envVarName, String.class).orElse(defaultValue);
     }
 
     /**

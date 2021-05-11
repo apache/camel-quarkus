@@ -22,6 +22,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -94,7 +95,7 @@ class LumberjackTest {
     }
 
     private List<LumberjackAckResponse> sendPayload(String portName, boolean withSsl) throws InterruptedException {
-        final int port = Integer.getInteger(portName);
+        final int port = ConfigProvider.getConfig().getValue(portName, Integer.class);
         List<LumberjackAckResponse> ackResponseList = LumberjackClientUtil.sendMessages(port, withSsl);
         return ackResponseList;
     }
