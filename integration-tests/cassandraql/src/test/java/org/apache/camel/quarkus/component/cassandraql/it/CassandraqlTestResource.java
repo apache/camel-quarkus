@@ -48,7 +48,7 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
             initDB((CassandraContainer) container);
 
             return CollectionHelper.mapOf(
-                    CassandraqlResource.DB_URL_PARAMETER,
+                    "db.cassandra.url",
                     container.getContainerIpAddress() + ":" + container.getMappedPort(PORT));
 
         } catch (Exception e) {

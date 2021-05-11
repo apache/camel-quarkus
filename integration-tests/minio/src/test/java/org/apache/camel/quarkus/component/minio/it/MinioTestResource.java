@@ -45,9 +45,12 @@ public class MinioTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         minioServer.start();
 
+        String port = minioServer.getMappedPort(BROKER_PORT) + "";
+        String host = minioServer.getHost();
+
         return CollectionHelper.mapOf(
-                MinioResource.PARAM_SERVER_PORT, minioServer.getMappedPort(BROKER_PORT) + "",
-                MinioResource.PARAM_SERVER_HOST, minioServer.getHost());
+                "minio.server.host", host,
+                "minio.server.port", port);
     }
 
     @Override

@@ -29,6 +29,7 @@ import org.apache.camel.quarkus.component.as2.it.transport.ClientResult;
 import org.apache.camel.quarkus.component.as2.it.transport.Request;
 import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
 import org.apache.http.message.BasicHttpEntityEnclosingRequest;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class As2Test {
 
         //create client for sending message to server
         As2Sender.As2SenderClient client = As2Sender
-                .createClient(Integer.parseInt(System.getProperty(As2Resource.SERVER_PORT_PARAMETER)));
+                .createClient(ConfigProvider.getConfig().getValue(As2Resource.SERVER_PORT_PARAMETER, Integer.class));
 
         //send message to server
         client.sendMessage(As2Helper.EDI_MESSAGE);
@@ -101,7 +102,7 @@ public class As2Test {
 
         //start server (not component)
         As2Receiver.RequestHandler requestHandler = As2Receiver
-                .startReceiver(Integer.parseInt(System.getProperty(As2Resource.CLIENT_PORT_PARAMETER)));
+                .startReceiver(ConfigProvider.getConfig().getValue(As2Resource.CLIENT_PORT_PARAMETER, Integer.class));
 
         //send message by component (as client)
         ClientResult clientResult = RestAssured.given() //
