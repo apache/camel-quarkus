@@ -22,8 +22,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.inject.Singleton;
-
 import io.grpc.BindableService;
 import io.grpc.stub.AbstractAsyncStub;
 import io.grpc.stub.AbstractBlockingStub;
@@ -44,6 +42,7 @@ import io.quarkus.gizmo.FieldCreator;
 import io.quarkus.gizmo.MethodCreator;
 import io.quarkus.gizmo.MethodDescriptor;
 import io.quarkus.gizmo.ResultHandle;
+import io.quarkus.grpc.GrpcService;
 import io.quarkus.grpc.deployment.BindableServiceBuildItem;
 import org.apache.camel.component.grpc.GrpcComponent;
 import org.apache.camel.component.grpc.server.GrpcMethodHandler;
@@ -149,7 +148,7 @@ class GrpcProcessor {
                     .interfaces(CamelQuarkusBindableService.class)
                     .build()) {
 
-                classCreator.addAnnotation(Singleton.class);
+                classCreator.addAnnotation(GrpcService.class);
 
                 FieldCreator serverMethodHandler = classCreator
                         .getFieldCreator("methodHandler", GrpcMethodHandler.class.getName())
