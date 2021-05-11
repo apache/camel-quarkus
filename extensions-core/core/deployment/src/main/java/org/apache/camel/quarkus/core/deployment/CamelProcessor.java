@@ -265,7 +265,9 @@ class CamelProcessor {
 
         Set<Class> convertersClasses = index
                 .getAnnotations(DotName.createSimple(Converter.class.getName()))
-                .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
+                .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS &&
+                        (a.value("generateBulkLoader") == null || !a.value("generateBulkLoader").asBoolean()) &&
+                        (a.value("generateLoader") == null || !a.value("generateLoader").asBoolean()))
                 .map(a -> a.target().asClass().name().toString())
                 .filter(s -> !internalConverters.contains(s))
                 .map(s -> CamelSupport.loadClass(s, TCCL))
