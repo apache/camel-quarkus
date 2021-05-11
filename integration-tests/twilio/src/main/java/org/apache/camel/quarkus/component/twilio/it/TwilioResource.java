@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.twilio.it;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -38,6 +39,7 @@ import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
 import io.quarkus.arc.Unremovable;
 import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/twilio")
 public class TwilioResource {
@@ -80,15 +82,15 @@ public class TwilioResource {
     @Named("restClient")
     public TwilioRestClient restClient() {
         // If mocking is enabled, we need to ensure Twilio API calls are directed to the mock server
-        String wireMockUrl = System.getProperty("wiremock.url");
-        if (wireMockUrl != null) {
+        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
+        if (wireMockUrl.isPresent()) {
             HttpClient client = new NetworkHttpClient() {
                 @Override
                 public com.twilio.http.Response makeRequest(Request originalRequest) {
                     String url = originalRequest.getUrl();
 
                     Request modified = new Request(originalRequest.getMethod(),
-                            url.replace("https://api.twilio.com", wireMockUrl));
+                            url.replace("https://api.twilio.com", wireMockUrl.get()));
 
                     Map<String, List<String>> headerParams = originalRequest.getHeaderParams();
                     for (String key : headerParams.keySet()) {
@@ -118,9 +120,9 @@ public class TwilioResource {
             };
 
             return new TwilioRestClient.Builder(
-                    System.getProperty("camel.component.twilio.username"),
-                    System.getProperty("camel.component.twilio.password"))
-                            .accountSid(System.getProperty("camel.component.twilio.account-sid"))
+                    ConfigProvider.getConfig().getValue("camel.component.twilio.username", String.class),
+                    ConfigProvider.getConfig().getValue("camel.component.twilio.password", String.class))
+                            .accountSid(ConfigProvider.getConfig().getValue("camel.component.twilio.account-sid", String.class))
                             .httpClient(client)
                             .build();
         }

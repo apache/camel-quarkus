@@ -30,6 +30,7 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class VertxKafkaProducers {
 
@@ -44,7 +45,7 @@ public class VertxKafkaProducers {
         config.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, "1000");
         config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                System.getProperty("camel.component.vertx-kafka.bootstrap-servers"));
+                ConfigProvider.getConfig().getValue("camel.component.vertx-kafka.bootstrap-servers", String.class));
         config.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "true");
         config.put(ConsumerConfig.GROUP_ID_CONFIG, GROUP_ID);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -62,7 +63,7 @@ public class VertxKafkaProducers {
         Map<String, String> config = new HashMap<>();
         config.put(ProducerConfig.ACKS_CONFIG, "1");
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
-                System.getProperty("camel.component.vertx-kafka.bootstrap-servers"));
+                ConfigProvider.getConfig().getValue("camel.component.vertx-kafka.bootstrap-servers", String.class));
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
         config.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, DefaultPartitioner.class.getName());
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());

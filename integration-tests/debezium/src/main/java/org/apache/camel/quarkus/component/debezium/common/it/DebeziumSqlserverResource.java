@@ -17,10 +17,13 @@
 package org.apache.camel.quarkus.component.debezium.common.it;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import org.eclipse.microprofile.config.Config;
 
 @Path("/debezium-sqlserver")
 @ApplicationScoped
@@ -30,6 +33,9 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
             + "_databaseHistoryFileFilename";
 
     public static final String DB_NAME = "testDB";
+
+    @Inject
+    Config config;
 
     public DebeziumSqlserverResource() {
         super(Type.sqlserver);
@@ -59,6 +65,6 @@ public class DebeziumSqlserverResource extends AbstractDebeziumResource {
             String offsetStorageFileName) {
         return super.getEndpoinUrl(hostname, port, username, password, databaseServerName, offsetStorageFileName)
                 + "&databaseDbname=" + DB_NAME
-                + "&databaseHistoryFileFilename=" + System.getProperty(PROPERTY_DB_HISTORY_FILE);
+                + "&databaseHistoryFileFilename=" + config.getValue(PROPERTY_DB_HISTORY_FILE, String.class);
     }
 }

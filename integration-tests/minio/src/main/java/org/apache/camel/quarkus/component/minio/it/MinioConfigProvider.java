@@ -21,9 +21,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import javax.enterprise.context.ApplicationScoped;
+
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.eclipse.microprofile.config.spi.ConfigSourceProvider;
 
+@ApplicationScoped
 public class MinioConfigProvider implements ConfigSourceProvider {
 
     private final MinioConfig minioConfig = new MinioConfig();
@@ -35,10 +39,15 @@ public class MinioConfigProvider implements ConfigSourceProvider {
 
     private static final class MinioConfig implements ConfigSource {
 
+        @ConfigProperty(name = "minio.server.host")
+        String host;
+
+        @ConfigProperty(name = "minio.server.port")
+        String port;
+
         private final Map<String, String> values = new HashMap<String, String>() {
             {
-                put("quarkus.minio.url", String.format("http://%s:%s", System.getProperty(MinioResource.PARAM_SERVER_HOST),
-                        System.getProperty(MinioResource.PARAM_SERVER_PORT)));
+                put("quarkus.minio.url", String.format("http://%s:%s", host, port));
                 put("quarkus.minio.access-key", MinioResource.SERVER_ACCESS_KEY);
                 put("quarkus.minio.secret-key", MinioResource.SERVER_SECRET_KEY);
             }

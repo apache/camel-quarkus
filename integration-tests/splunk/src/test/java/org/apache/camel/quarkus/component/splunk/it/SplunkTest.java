@@ -27,6 +27,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
@@ -95,7 +96,7 @@ class SplunkTest {
         //create saved search
         RestAssured.given()
                 .baseUri("http://localhost")
-                .port(Integer.parseInt(System.getProperty(SplunkResource.PARAM_REMOTE_PORT)))
+                .port(ConfigProvider.getConfig().getValue(SplunkResource.PARAM_REMOTE_PORT, Integer.class))
                 .contentType(ContentType.JSON)
                 .param("name", SplunkTestResource.SAVED_SEARCH_NAME)
                 .param("disabled", "0")

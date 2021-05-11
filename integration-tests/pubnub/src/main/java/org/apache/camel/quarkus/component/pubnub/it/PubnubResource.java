@@ -20,6 +20,7 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -45,6 +46,7 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.pubnub.PubNubConstants;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @Path("/pubnub")
@@ -162,9 +164,9 @@ public class PubnubResource {
         configuration.setSubscribeKey(subscribeKey);
         configuration.setSecretKey(secretKey);
 
-        String url = System.getProperty("pubnub.url");
-        if (url != null) {
-            configuration.setOrigin(url);
+        Optional<String> url = ConfigProvider.getConfig().getOptionalValue("pubnub.url", String.class);
+        if (url.isPresent()) {
+            configuration.setOrigin(url.get());
             configuration.setSecure(false);
             configuration.setReconnectionPolicy(PNReconnectionPolicy.LINEAR);
         }

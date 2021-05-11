@@ -21,6 +21,7 @@ import javax.inject.Inject;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.component.debezium.DebeziumConstants;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 /**
@@ -36,6 +37,9 @@ public abstract class AbstractDebeziumResource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
+
+    @Inject
+    Config config;
 
     public AbstractDebeziumResource(Type type) {
         this.type = type;
@@ -87,12 +91,12 @@ public abstract class AbstractDebeziumResource {
 
     private Exchange receiveAsExchange() {
         String endpoint = getEndpoinUrl(
-                System.getProperty(type.getPropertyHostname()),
-                System.getProperty(type.getPropertyPort()),
-                System.getProperty(type.getPropertyUsername()),
-                System.getProperty(type.getPropertyPassword()),
+                config.getValue(type.getPropertyHostname(), String.class),
+                config.getValue(type.getPropertyPort(), String.class),
+                config.getValue(type.getPropertyUsername(), String.class),
+                config.getValue(type.getPropertyPassword(), String.class),
                 "qa",
-                System.getProperty(type.getPropertyOffsetFileName()));
+                config.getValue(type.getPropertyOffsetFileName(), String.class));
         return consumerTemplate.receive(endpoint, TIMEOUT);
     }
 }

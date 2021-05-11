@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.debezium.common.it.mongodb;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -29,6 +30,8 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.bson.Document;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -62,10 +65,12 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
     @BeforeAll
     public static void setUp() throws SQLException {
-        final String mongoUrl = System.getProperty(Type.mongodb.getPropertyJdbc());
+        Config config = ConfigProvider.getConfig();
 
-        if (mongoUrl != null) {
-            mongoClient = MongoClients.create(mongoUrl);
+        final Optional<String> mongoUrl = config.getOptionalValue(Type.mongodb.getPropertyJdbc(), String.class);
+
+        if (mongoUrl.isPresent()) {
+            mongoClient = MongoClients.create(mongoUrl.get());
         } else {
             LOG.warn("Container is not running. Connection is not created.");
         }

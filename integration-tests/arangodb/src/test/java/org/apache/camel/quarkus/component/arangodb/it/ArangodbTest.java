@@ -26,6 +26,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -135,8 +136,8 @@ class ArangodbTest {
 
     @BeforeAll
     public static void setup() {
-        String host = System.getProperty("camel.arangodb.host");
-        Integer port = Integer.valueOf(System.getProperty("camel.arangodb.port"));
+        String host = ConfigProvider.getConfig().getValue("camel.arangodb.host", String.class);
+        Integer port = ConfigProvider.getConfig().getValue("camel.arangodb.port", Integer.class);
         arangoDb = new ArangoDB.Builder().host(host, port).build();
         arangoDb.createDatabase(DATABASE_NAME);
         ArangoDatabase arangoDatabase = arangoDb.db(DATABASE_NAME);

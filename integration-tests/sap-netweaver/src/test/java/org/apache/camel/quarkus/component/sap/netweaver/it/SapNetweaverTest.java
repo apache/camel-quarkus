@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.sap.netweaver.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +31,7 @@ class SapNetweaverTest {
 
     @Test
     public void testSapNetweaverJson() {
-        final int port = Integer.getInteger("camel.netty.test-port");
+        final int port = ConfigProvider.getConfig().getValue("camel.netty.test-port", Integer.class);
         RestAssured.given()
                 .queryParam("test-port", port)
                 .get("/sap-netweaver/json")
@@ -41,7 +42,7 @@ class SapNetweaverTest {
 
     @Test
     public void testSapNetweaverXml() {
-        final int port = Integer.getInteger("camel.netty.test-port");
+        final int port = ConfigProvider.getConfig().getValue("camel.netty.test-port", Integer.class);
         String body = RestAssured.given()
                 .queryParam("test-port", port)
                 .get("/sap-netweaver/xml")

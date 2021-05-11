@@ -36,6 +36,7 @@ import org.apache.camel.quarkus.component.as2.it.transport.ClientResult;
 import org.apache.camel.quarkus.component.as2.it.transport.Request;
 import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
 import org.apache.http.protocol.HttpCoreContext;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 
 @Path("/as2")
@@ -117,14 +118,14 @@ public class As2Resource {
 
     private String getServerEndpoint() {
         String url = String.format("as2://server/listen?serverPortNumber=%s&clientFqdn=%s&requestUriPattern=/",
-                System.getProperty(SERVER_PORT_PARAMETER), "example.com");
+                ConfigProvider.getConfig().getValue(SERVER_PORT_PARAMETER, String.class), "example.com");
 
         return url;
     }
 
     private String getClientEndpoint() {
         String url = String.format("as2://client/send?inBody=ediMessage&targetPortNumber=%s&targetHostname=%s",
-                System.getProperty(CLIENT_PORT_PARAMETER), "localhost");
+                ConfigProvider.getConfig().getValue(CLIENT_PORT_PARAMETER, String.class), "localhost");
 
         return url;
     }

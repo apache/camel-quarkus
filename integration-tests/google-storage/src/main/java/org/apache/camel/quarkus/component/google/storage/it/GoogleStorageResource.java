@@ -48,6 +48,7 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.google.storage.GoogleCloudStorageComponent;
 import org.apache.camel.component.google.storage.GoogleCloudStorageConstants;
 import org.apache.camel.component.google.storage.GoogleCloudStorageOperations;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/google-storage")
 @ApplicationScoped
@@ -90,7 +91,7 @@ public class GoogleStorageResource {
     GoogleCloudStorageComponent produceComponent() throws IOException {
         GoogleCloudStorageComponent gsc = new GoogleCloudStorageComponent();
         if (GoogleStorageHelper.usingMockBackend()) {
-            String port = System.getProperty(GoogleStorageResource.PARAM_PORT);
+            String port = ConfigProvider.getConfig().getValue(GoogleStorageResource.PARAM_PORT, String.class);
             client = StorageOptions.newBuilder()
                     .setHost("http://localhost:" + port)
                     .setProjectId("dummy-project-for-testing")

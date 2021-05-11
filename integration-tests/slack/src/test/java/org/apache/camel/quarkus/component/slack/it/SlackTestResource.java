@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 public class SlackTestResource extends WireMockTestResourceLifecycleManager {
 
@@ -32,8 +33,10 @@ public class SlackTestResource extends WireMockTestResourceLifecycleManager {
     public Map<String, String> start() {
         Map<String, String> properties = super.start();
         String wiremockUrl = properties.get("wiremock.url");
-        String serverUrl = wiremockUrl != null ? wiremockUrl : System.getenv(SLACK_ENV_SERVER_URL);
-        String webhookUrl = wiremockUrl != null ? wiremockUrl + "/services/webhook" : System.getenv(SLACK_ENV_WEBHOOK_URL);
+        String serverUrl = wiremockUrl != null ? wiremockUrl
+                : ConfigProvider.getConfig().getValue(SLACK_ENV_SERVER_URL, String.class);
+        String webhookUrl = wiremockUrl != null ? wiremockUrl + "/services/webhook"
+                : ConfigProvider.getConfig().getValue(SLACK_ENV_WEBHOOK_URL, String.class);
         return CollectionHelper.mergeMaps(properties, CollectionHelper.mapOf(
                 "camel.component.slack.webhook-url", webhookUrl,
                 "slack.server-url", serverUrl,

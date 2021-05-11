@@ -45,8 +45,6 @@ public class MinioResource {
 
     public static final String SERVER_ACCESS_KEY = "testAccessKey";
     public static final String SERVER_SECRET_KEY = "testSecretKey";
-    public static final String PARAM_SERVER_HOST = MinioResource.class.getSimpleName() + "_serverHost";
-    public static final String PARAM_SERVER_PORT = MinioResource.class.getSimpleName() + "_serverPort";
 
     @Inject
     ProducerTemplate producerTemplate;

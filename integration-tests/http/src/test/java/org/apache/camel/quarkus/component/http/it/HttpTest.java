@@ -20,6 +20,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -56,7 +57,7 @@ class HttpTest {
     @ParameterizedTest
     @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
     public void httpsProducer(String component) {
-        final int port = Integer.getInteger("camel.netty-http.https-test-port");
+        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.https-test-port", Integer.class);
 
         RestAssured
                 .given()
@@ -69,7 +70,7 @@ class HttpTest {
 
     @Test
     public void basicNettyHttpServer() throws Exception {
-        final int port = Integer.getInteger("camel.netty-http.test-port");
+        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
 
         RestAssured
                 .given()
