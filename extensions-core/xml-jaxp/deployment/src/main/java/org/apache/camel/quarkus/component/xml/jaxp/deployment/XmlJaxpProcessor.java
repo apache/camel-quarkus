@@ -18,10 +18,8 @@ package org.apache.camel.quarkus.component.xml.jaxp.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CapabilityBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.support.common.CamelCapabilities;
 
 class XmlJaxpProcessor {
 
@@ -30,11 +28,6 @@ class XmlJaxpProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    CapabilityBuildItem capability() {
-        return new CapabilityBuildItem(CamelCapabilities.XML);
     }
 
     @BuildStep

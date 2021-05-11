@@ -113,6 +113,15 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+                <configuration>
+                    <capabilities>
+                        <provides>org.apache.camel</provides>
+                        <providesIf>
+                            <positive>org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled</positive>
+                            <name>org.apache.camel.main</name>
+                        </providesIf>
+                    </capabilities>
+                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
