@@ -18,11 +18,11 @@ package org.apache.camel.quarkus.core.converter;
 
 import org.apache.camel.Converter;
 
-@Converter
-public class AnnotatedMyPairConverter {
+@Converter(generateLoader = true)
+public class NotRegisteredConverters {
 
     @Converter
-    public static AnnotatedMyPair toMyPair(String s) {
-        return AnnotatedMyPair.fromString(s);
+    public static MyNotRegisteredPair toNotRegisteredPair(String s) {
+        return new MyNotRegisteredPair(s);
     }
 }

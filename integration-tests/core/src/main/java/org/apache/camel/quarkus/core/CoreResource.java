@@ -29,7 +29,6 @@ import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -47,7 +46,6 @@ import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.component.log.LogComponent;
 import org.apache.camel.impl.engine.DefaultHeadersMapFactory;
 import org.apache.camel.model.ModelCamelContext;
-import org.apache.camel.quarkus.core.converter.AnnotatedMyPair;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.processor.DefaultExchangeFormatter;
@@ -271,12 +269,4 @@ public class CoreResource {
     public boolean startupStepRecorder() {
         return context.adapt(ExtendedCamelContext.class).getStartupStepRecorder() instanceof DefaultStartupStepRecorder;
     }
-
-    @Path("/converter/annotatedMyPair")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    public AnnotatedMyPair fromStringToAnnotatedMyPair(String input) {
-        return context.getTypeConverter().convertTo(AnnotatedMyPair.class, input);
-    }
-
 }

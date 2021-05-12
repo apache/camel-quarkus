@@ -16,21 +16,18 @@
  */
 package org.apache.camel.quarkus.it.support.typeconverter;
 
-import org.apache.camel.quarkus.it.support.typeconverter.pairs.AbstractPair;
+import org.apache.camel.TypeConverterLoaderException;
+import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyRegistryPair;
+import org.apache.camel.spi.TypeConverterLoader;
+import org.apache.camel.spi.TypeConverterRegistry;
+import org.apache.camel.support.SimpleTypeConverter;
 
-public class MyPair extends AbstractPair {
-
-    public MyPair(String value) {
-        super(value);
-    }
-
+public class RegistryPairConverterLoader implements TypeConverterLoader {
     @Override
-    protected String keyPrefix() {
-        return "";
+    public void load(TypeConverterRegistry registry) throws TypeConverterLoaderException {
+        registry.addTypeConverter(
+                MyRegistryPair.class,
+                String.class,
+                new SimpleTypeConverter(false, (type, exchange, value) -> new MyRegistryPair((String) value)));
     }
-
-    public static MyPair fromString(String input) {
-        return new MyPair(input);
-    }
-
 }

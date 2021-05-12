@@ -14,23 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.it.support.typeconverter;
+package org.apache.camel.quarkus.it.support.typeconverter.pairs;
 
-import org.apache.camel.quarkus.it.support.typeconverter.pairs.AbstractPair;
+public class MyBulk2Pair extends AbstractPair {
 
-public class MyPair extends AbstractPair {
-
-    public MyPair(String value) {
+    public MyBulk2Pair(String value) {
         super(value);
     }
 
     @Override
     protected String keyPrefix() {
-        return "";
+        return "bulk2_";
     }
-
-    public static MyPair fromString(String input) {
-        return new MyPair(input);
-    }
-
 }
