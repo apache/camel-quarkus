@@ -147,8 +147,7 @@ public class BeanResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String produceInterface(String payload) {
-        produceInterface.sayHello(payload);
-        return awaitFirst("produceInterface");
+        return produceInterface.sayHello(payload);
     }
 
     String awaitFirst(String key) {

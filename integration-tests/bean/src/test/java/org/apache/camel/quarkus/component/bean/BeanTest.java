@@ -210,7 +210,7 @@ public class BeanTest {
                 .body("xyz1234")
                 .post("/bean/produceInterface")
                 .then()
-                .body(equalTo("xyz1234"));
+                .body(equalTo("produceInterface xyz1234"));
     }
 
 }
