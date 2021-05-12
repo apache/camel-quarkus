@@ -113,7 +113,7 @@ public class BeanRoutes extends RouteBuilder {
                 .to("bean:parametersBean?method=parameterTypes(String)");
 
         from("direct:produceInterface")
-                .process(e -> collectedNames.get("produceInterface").add(e.getMessage().getBody(String.class)));
+                .process(e -> e.getMessage().setBody("produceInterface " + e.getMessage().getBody(String.class)));
 
     }
 
