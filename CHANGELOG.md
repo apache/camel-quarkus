@@ -6,6 +6,10 @@
 
 **Closed issues:**
 
+- \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
+- With fix of \#2260 too many @Converters are registered [\#2570](https://github.com/apache/camel-quarkus/issues/2570)
+- \[Quarkus 2.0.0.Alpha2\] quarkus.test.profile not considered in TestResource [\#2566](https://github.com/apache/camel-quarkus/issues/2566)
+- Expand SOAP extension test coverage [\#2561](https://github.com/apache/camel-quarkus/issues/2561)
 - several integration-test failure in native mode [\#2550](https://github.com/apache/camel-quarkus/issues/2550)
 - Test XPath [\#2547](https://github.com/apache/camel-quarkus/issues/2547)
 - Datasonnet language not supported? [\#2546](https://github.com/apache/camel-quarkus/issues/2546)
@@ -55,6 +59,7 @@
 - FileTest fails on the platform [\#2278](https://github.com/apache/camel-quarkus/issues/2278)
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
 - Custom TypeConverter is not automatically registered [\#2260](https://github.com/apache/camel-quarkus/issues/2260)
+- AtlasMap: Use jandex to discover the types we need to register for reflection [\#2241](https://github.com/apache/camel-quarkus/issues/2241)
 - Startup log of bootstrap runtime [\#2164](https://github.com/apache/camel-quarkus/issues/2164)
 - Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
 - Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
@@ -65,7 +70,9 @@
 
 **Merged pull requests:**
 
+- With fix of \#2260 too many @Converters are registered \#2570 [\#2571](https://github.com/apache/camel-quarkus/pull/2571) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Move RestBindingMode XML tests to rest itest module [\#2563](https://github.com/apache/camel-quarkus/pull/2563) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add additional SOAP extension test coverage [\#2562](https://github.com/apache/camel-quarkus/pull/2562) ([jamesnetherton](https://github.com/jamesnetherton))
 - Custom TypeConverter is not automatically registered \#2260 [\#2560](https://github.com/apache/camel-quarkus/pull/2560) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - \[fix\] \#2356 Test file language [\#2559](https://github.com/apache/camel-quarkus/pull/2559) ([KurtStam](https://github.com/KurtStam))
 - Explained how to override default build locale in bindy documentation… [\#2557](https://github.com/apache/camel-quarkus/pull/2557) ([aldettinger](https://github.com/aldettinger))
