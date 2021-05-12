@@ -14,19 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core.converter;
+package org.apache.camel.quarkus.it.support.typeconverter.converters;
 
-public class AnnotatedMyPair {
-    public final String key;
-    public final String annotatedValue;
+import org.apache.camel.Converter;
+import org.apache.camel.quarkus.it.support.typeconverter.pairs.MyBulk2Pair;
 
-    public AnnotatedMyPair(String key, String annotatedValue) {
-        this.key = key;
-        this.annotatedValue = annotatedValue;
-    }
+@Converter(generateBulkLoader = true)
+public class MyBulk2Converter {
 
-    public static AnnotatedMyPair fromString(String input) {
-        String[] items = input.split(":");
-        return new AnnotatedMyPair(items[0], items[1]);
+    @Converter
+    public static MyBulk2Pair toMyPair(String s) {
+        return new MyBulk2Pair(s);
     }
 }

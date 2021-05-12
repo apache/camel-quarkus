@@ -14,23 +14,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.it.support.typeconverter;
+package org.apache.camel.quarkus.core.converter;
 
 import org.apache.camel.quarkus.it.support.typeconverter.pairs.AbstractPair;
 
-public class MyPair extends AbstractPair {
+public class MyNullablePair extends AbstractPair {
 
-    public MyPair(String value) {
+    public MyNullablePair(String value) {
         super(value);
     }
 
     @Override
     protected String keyPrefix() {
-        return "";
+        return "test_";
     }
-
-    public static MyPair fromString(String input) {
-        return new MyPair(input);
-    }
-
 }

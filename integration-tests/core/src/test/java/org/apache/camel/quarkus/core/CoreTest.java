@@ -19,11 +19,8 @@ package org.apache.camel.quarkus.core;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import javax.ws.rs.core.MediaType;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
@@ -130,16 +127,5 @@ public class CoreTest {
     @Test
     void testStartupStepRecorder() {
         RestAssured.when().get("/core/startup-step-recorder").then().body(is("true"));
-    }
-
-    @Test
-    void testConverterFromAnnotation() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT).body("a:b")
-                .accept(MediaType.APPLICATION_JSON)
-                .post("/core/converter/annotatedMyPair")
-                .then()
-                .statusCode(200)
-                .body("key", is("a"), "annotatedValue", is("b"));
     }
 }
