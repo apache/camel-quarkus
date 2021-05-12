@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
@@ -44,7 +45,7 @@ class Aws2TranslateProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep(applicationArchiveMarkers = { AWS_SDK_APPLICATION_ARCHIVE_MARKERS })
+    @BuildStep
     void process(CombinedIndexBuildItem combinedIndexBuildItem,
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses,
             BuildProducer<NativeImageResourceBuildItem> resource) {
@@ -61,5 +62,10 @@ class Aws2TranslateProcessor {
 
         reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false,
                 String.class.getCanonicalName()));
+    }
+
+    @BuildStep
+    void archiveMarkers(BuildProducer<AdditionalApplicationArchiveMarkerBuildItem> archiveMarkers) {
+        archiveMarkers.produce(new AdditionalApplicationArchiveMarkerBuildItem(AWS_SDK_APPLICATION_ARCHIVE_MARKERS));
     }
 }
