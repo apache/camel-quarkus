@@ -69,6 +69,7 @@ public static class MyBean {
 
 If you are used to `@org.apache.camel.EndpointInject` and `@org.apache.camel.Produce` from
 xref:latest@manual::pojo-producing.adoc[plain Camel] or from Camel on SpringBoot, you can continue using them on Quarkus too.
+This is supported since Camel Quarkus 1.9.0.
 
 The following use cases are supported by `org.apache.camel.quarkus:camel-quarkus-core`:
 
@@ -169,7 +170,47 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:named")
+                .bean("namedBean", "hello");
+        /* ... which is an equivalent of the following: */
+        from("direct:named")
                 .to("bean:namedBean?method=hello");
     }
 }
 ----
+
+[INFO]
+====
+We aim at supporting all use cases listed in xref:latest@manual::bean-binding.adoc[Bean binding] section of Camel documentation.
+Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue] if some bean binding scenario does not work for you.
+====
+
+=== `@Consume`
+
+Since Camel Quarkus 1.9.0, the `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
+- see the https://camel.apache.org/manual/latest/pojo-consuming.html[Pojo consuming] section of Camel documentation.
+
+Declaring a class like the following
+
+[source,java]
+----
+import org.apache.camel.Consume;
+public class Foo {
+
+  @Consume("activemq:cheese")
+  public void onCheese(String name) {
+    ...
+  }
+}
+----
+
+will automatically create the following Camel route
+
+[source,java]
+----
+from("activemq:cheese").bean("foo1234", "onCheese")
+----
+
+for you.
+Note that Camel Quarkus will implicitly add `@javax.inject.Singleton` and `javax.inject.Named("foo1234")` to the bean class, where `1234` is a hash code obtained from the fully qualified class name.
+If your bean has some CDI scope (such as `@ApplicationScoped`) or `@Named("someName")` set already,
+those will be honored in the auto-created route.
