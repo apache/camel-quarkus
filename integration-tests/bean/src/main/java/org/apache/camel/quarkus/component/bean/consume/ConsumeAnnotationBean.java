@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.bean;
+package org.apache.camel.quarkus.component.bean.consume;
 
 import org.apache.camel.Consume;
 
 /**
- * A bean annotated with {@code @Consume}
+ * A bean having a method annotated with {@code @Consume}
  */
 public class ConsumeAnnotationBean {
 

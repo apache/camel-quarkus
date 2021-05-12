@@ -20,7 +20,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.bean.model.Employee;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -142,17 +141,6 @@ public class BeanTest {
     public void withLanguageParamBindings() {
         RestAssured.when().get("/bean/route/with-language-param-bindings").then()
                 .body(equalTo("wlpb-hello(wlpb-route-31wp,cflap-bean-31wp)"));
-    }
-
-    @Disabled("https://github.com/apache/camel-quarkus/issues/2580")
-    @Test
-    public void consumeAnnotation() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("foo")
-                .post("/bean/route/consumeAnnotation")
-                .then()
-                .body(equalTo("Consumed foo"));
     }
 
     @Test
