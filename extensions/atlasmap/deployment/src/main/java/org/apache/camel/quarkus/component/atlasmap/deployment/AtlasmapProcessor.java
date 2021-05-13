@@ -105,7 +105,7 @@ class AtlasmapProcessor {
 
     @BuildStep
     void registerNativeImageResources(BuildProducer<ServiceProviderBuildItem> services,
-                                      BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
+            BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         Stream.of(
                 AtlasConverter.class.getName(),
                 AtlasFieldAction.class.getName(),
