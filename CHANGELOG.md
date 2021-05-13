@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/1.8.1...HEAD)
 
+**Implemented enhancements:**
+
+- Support @EndpointInject and @Produce [\#2539](https://github.com/apache/camel-quarkus/issues/2539)
+
 **Closed issues:**
 
 - \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
@@ -70,6 +74,8 @@
 
 **Merged pull requests:**
 
+- Do not use deprecated BuildStep.applicationArchiveMarkers\(\) [\#2583](https://github.com/apache/camel-quarkus/pull/2583) ([jamesnetherton](https://github.com/jamesnetherton))
+- Support @EndpointInject and @Produce  [\#2581](https://github.com/apache/camel-quarkus/pull/2581) ([ppalaga](https://github.com/ppalaga))
 - With fix of \#2260 too many @Converters are registered \#2570 [\#2571](https://github.com/apache/camel-quarkus/pull/2571) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Move RestBindingMode XML tests to rest itest module [\#2563](https://github.com/apache/camel-quarkus/pull/2563) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add additional SOAP extension test coverage [\#2562](https://github.com/apache/camel-quarkus/pull/2562) ([jamesnetherton](https://github.com/jamesnetherton))
