@@ -1,3 +1,20 @@
+=== Configuring a DataSource
+
+This extension leverages https://quarkus.io/guides/datasource[Quarkus Agroal] for `DataSource` support. Setting up a `DataSource` can be achieved via configuration properties.
+
+[source,properties]
+----
+quarkus.datasource.db-kind=postgresql
+quarkus.datasource.username=your-username
+quarkus.datasource.password=your-password
+quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/your-database
+quarkus.datasource.jdbc.max-size=16
+----
+
+The Camel SQL component will automatically resolve the `DataSource` bean from the registry. When configuring multiple datasources, you can specify which one is to be used on an SQL endpoint via
+the URI options `datasource` or `dataSource`. Refer to the SQL component documentation for more details.
+
+=== SQL scripts
 When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
 Note that URI schemes such as `file` or `http` do not need to be listed.
 
