@@ -56,7 +56,7 @@ quarkus.datasource.jdbc.max-size=16
 ----
 
 The Camel SQL component will automatically resolve the `DataSource` bean from the registry. When configuring multiple datasources, you can specify which one is to be used on an SQL endpoint via
-the URI options `datasource` or `dataSource`. Refer to the SQL component documentation for more details.
+the URI options `datasource` or `dataSourceRef`. Refer to the SQL component documentation for more details.
 
 === SQL scripts
 When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
