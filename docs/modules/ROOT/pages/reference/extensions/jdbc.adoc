@@ -38,3 +38,20 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+=== Configuring a DataSource
+
+This extension leverages https://quarkus.io/guides/datasource[Quarkus Agroal] for `DataSource` support. Setting up a `DataSource` can be achieved via configuration properties.
+It is recommended that you explicitly name the datasource so that it can be referenced in the JDBC endpoint URI. E.g like `to("jdbc:camel")`.
+
+[source,properties]
+----
+quarkus.datasource.camel.db-kind=postgresql
+quarkus.datasource.camel.username=your-username
+quarkus.datasource.camel.password=your-password
+quarkus.datasource.camel.jdbc.url=jdbc:postgresql://localhost:5432/your-database
+quarkus.datasource.camel.jdbc.max-size=16
+----
+
