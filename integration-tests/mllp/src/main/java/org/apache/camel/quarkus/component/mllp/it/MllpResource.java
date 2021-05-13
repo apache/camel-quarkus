@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -40,6 +42,16 @@ public class MllpResource {
 
     @Inject
     CamelContext context;
+
+    @PostConstruct
+    public void init() {
+        System.setProperty(MllpComponent.MLLP_DEFAULT_CHARSET_PROPERTY, "UTF-8");
+    }
+
+    @PreDestroy
+    public void preDestroy() {
+        System.clearProperty(MllpComponent.MLLP_DEFAULT_CHARSET_PROPERTY);
+    }
 
     @Path("/send")
     @POST

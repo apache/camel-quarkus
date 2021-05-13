@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -26,7 +25,6 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(MllpTestResource.class)
 class MllpTest {
 
     private static final String HL7_MESSAGE = "MSH|^~\\&|REQUESTING|ICE|INHOUSE|RTH00|20210331095020||ORM^O01|1|D|2.3|||AL|NE||\r"

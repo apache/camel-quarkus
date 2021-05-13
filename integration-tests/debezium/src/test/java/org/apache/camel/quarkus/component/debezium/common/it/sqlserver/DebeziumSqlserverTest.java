@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.debezium.common.it.sqlserver;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Optional;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -26,6 +27,8 @@ import io.restassured.response.Response;
 import org.apache.camel.quarkus.component.debezium.common.it.AbstractDebeziumTest;
 import org.apache.camel.quarkus.component.debezium.common.it.Record;
 import org.apache.camel.quarkus.component.debezium.common.it.Type;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.Assert;
 import org.junit.Before;
@@ -54,10 +57,11 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
 
     @BeforeAll
     public static void setUp() throws SQLException {
-        final String jdbcUrl = System.getProperty(Type.sqlserver.getPropertyJdbc());
+        Config config = ConfigProvider.getConfig();
+        final Optional<String> jdbcUrl = config.getOptionalValue(Type.sqlserver.getPropertyJdbc(), String.class);
 
-        if (jdbcUrl != null) {
-            connection = DriverManager.getConnection(jdbcUrl);
+        if (jdbcUrl.isPresent()) {
+            connection = DriverManager.getConnection(jdbcUrl.get());
         } else {
             LOG.warn("Container is not running. Connection is not created.");
         }
