@@ -20,8 +20,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-tests</artifactId>
+        <artifactId>camel-quarkus-integration-tests-foundation</artifactId>
         <version>1.9.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -120,51 +121,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
-
     </dependencies>
-
-    <build>
-        <plugins>
-<!--             <plugin>
-                <groupId>org.apache.camel</groupId>
-                <artifactId>camel-csimple-maven-plugin</artifactId>
-                <version>${camel.version}</version>
-                <executions>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <phase>generate-sources</phase>
-                        <goals>
-                            <goal>add-source</goal>
-                            <goal>add-resource</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/generated/java</source>
-                            </sources>
-                            <resources>
-                                <resource>
-                                    <directory>src/generated/resources</directory>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin> -->
-        </plugins>
-    </build>
-
 
     <profiles>
         <profile>
@@ -195,6 +152,5 @@
             </build>
         </profile>
     </profiles>
-
 
 </project>

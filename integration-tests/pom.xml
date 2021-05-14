@@ -48,7 +48,7 @@
 
     <modules>
         <!-- build those first -->
-        <module>core</module>
+        <module>foundation-grouped</module>
         <module>core-discovery-disabled</module>
         <module>main</module>
         <module>main-devmode</module>
