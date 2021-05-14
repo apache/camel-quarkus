@@ -74,7 +74,6 @@
         <module>aws2-grouped</module>
         <module>azure-grouped</module>
         <module>base64</module>
-        <module>bean</module>
         <module>bean-validator</module>
         <module>bindy</module>
         <module>box</module>
@@ -188,7 +187,6 @@
         <module>servicenow</module>
         <module>servlet</module>
         <module>shiro</module>
-        <module>simple</module>
         <module>slack</module>
         <module>smallrye-reactive-messaging</module>
         <module>soap</module>

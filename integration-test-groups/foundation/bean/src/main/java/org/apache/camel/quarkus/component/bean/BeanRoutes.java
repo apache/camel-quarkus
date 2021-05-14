@@ -69,30 +69,23 @@ public class BeanRoutes extends RouteBuilder {
                 // after we have splitted and handled each message we want to send a single combined
                 // response back to the original caller, so we let this bean build it for us
                 // this bean will receive the result of the aggregate strategy: MyOrderStrategy
-                .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"))
-                // log out
-                .to("log:out");
+                .process(stateless(MyOrderService.class.getName(), "buildCombinedResponse"));
 
         from("direct:named")
-                .to("bean:namedBean?method=hello")
-                .to("log:named");
+                .to("bean:namedBean?method=hello");
 
         from("direct:method")
-                .bean(MyBean.class, "sayHello")
-                .to("log:named");
+                .bean(MyBean.class, "sayHello");
 
         from("direct:handler")
-                .to("bean:withHandler")
-                .to("log:named");
+                .to("bean:withHandler");
 
         from("direct:handlerOnProxy")
-                .to("bean:withHandlerOnProxy")
-                .to("log:named");
+                .to("bean:withHandlerOnProxy");
 
         from("direct:with-language-param-bindings")
                 .routeId("wlpb-route-31wp")
-                .to("bean:withLanguageParamBindingsBean")
-                .to("log:withLanguageParamBindings");
+                .to("bean:withLanguageParamBindingsBean");
 
         from("direct:methodWithExchangeArg")
                 .to("bean:namedBean");
