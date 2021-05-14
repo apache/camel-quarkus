@@ -187,7 +187,7 @@ Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue]
 === `@Consume`
 
 Since Camel Quarkus 1.9.0, the `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
-- see the https://camel.apache.org/manual/latest/pojo-consuming.html[Pojo consuming] section of Camel documentation.
+- see the xref:latest@manual:ROOT:pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
 
 Declaring a class like the following
 
