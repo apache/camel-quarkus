@@ -44,7 +44,7 @@ group-02:
   - sql
 group-03:
   - bean-validator
-  - core
+  - foundation-grouped
   - core-discovery-disabled
   - freemarker
   - json-validator

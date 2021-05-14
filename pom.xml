@@ -747,6 +747,7 @@
                                         <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
@@ -816,6 +817,15 @@
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/azure-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/foundation</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/foundation-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                     </mergePoms>
                                 </configuration>

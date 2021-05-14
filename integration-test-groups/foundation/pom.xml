@@ -22,25 +22,18 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent-it</artifactId>
+        <artifactId>camel-quarkus-integration-test-groups</artifactId>
         <version>1.9.0-SNAPSHOT</version>
-        <relativePath>../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-groups</artifactId>
+    <artifactId>camel-quarkus-integration-tests-foundation</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration Test Groups</name>
-
-    <properties>
-        <quarkus.banner.enabled>false</quarkus.banner.enabled>
-    </properties>
+    <name>Camel Quarkus :: Foundation Integration Tests</name>
 
     <modules>
-        <!-- test groups a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>aws2</module>
-        <module>azure</module>
-        <module>foundation</module>
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>core</module>
     </modules>
 
 </project>
