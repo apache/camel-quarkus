@@ -87,7 +87,6 @@ group-05:
 group-06:
   - exec
   - file
-  - foundation
   - headersmap
   - jta
   - jsonpath

@@ -34,12 +34,19 @@
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>bean</module>
+        <module>browse</module>
+        <module>controlbus</module>
         <module>core</module>
         <module>core-annotations</module>
         <module>customized-log-component</module>
         <module>direct</module>
         <module>log</module>
+        <module>mock</module>
+        <module>ref</module>
+        <module>scheduler</module>
+        <module>seda</module>
         <module>simple</module>
+        <module>stream</module>
         <module>timer</module>
         <module>type-converter</module>
     </modules>
