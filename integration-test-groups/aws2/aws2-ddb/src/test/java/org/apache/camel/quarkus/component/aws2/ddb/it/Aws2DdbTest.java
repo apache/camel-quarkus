@@ -30,12 +30,9 @@ import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-@EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+") // TODO
-                                                                                  // https://github.com/apache/camel-quarkus/issues/2216
 class Aws2DdbTest {
 
     private static final Logger LOG = Logger.getLogger(Aws2DdbTest.class);

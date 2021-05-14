@@ -69,7 +69,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .distinct()
                     .toArray(Service[]::new);
 
-            LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.6"))
+            LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.11"))
                     .withServices(services);
             localstack.start();
 

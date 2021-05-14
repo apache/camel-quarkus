@@ -17,10 +17,8 @@
 package org.apache.camel.quarkus.component.aws2.sqs.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @NativeImageTest
-@EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+") // TODO https://github.com/apache/camel-quarkus/issues/2216
 class Aws2SqsSnsIT extends Aws2SqsSnsTest {
 
 }

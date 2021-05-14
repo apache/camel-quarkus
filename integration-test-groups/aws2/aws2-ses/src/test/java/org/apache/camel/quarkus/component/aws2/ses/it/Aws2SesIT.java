@@ -19,7 +19,8 @@ package org.apache.camel.quarkus.component.aws2.ses.it;
 import io.quarkus.test.junit.NativeImageTest;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-//TODO disabled because of https://github.com/apache/camel-quarkus/issues/2216
+/* Disabled on Localstack because Localstack does not send e-mails which we do assume in our tests
+ * See https://github.com/localstack/localstack/issues/339#issuecomment-341727758 */
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
 @EnabledIfEnvironmentVariable(named = "MAILSLURP_API_KEY", matches = "[a-zA-Z0-9]+")
 @NativeImageTest
