@@ -14,21 +14,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.component.log.it;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.jboss.logging.Logger;
+import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.hamcrest.Matchers;
+import org.junit.jupiter.api.Test;
 
-public class CoreRoutes extends RouteBuilder {
+@QuarkusTest
+public class CustomizedLogComponentTest {
 
-    private static final Logger LOG = Logger.getLogger(CoreRoutes.class);
+    @Test
+    public void customLogComponent() {
+        RestAssured
+                .get("/customized-log-component/exchange-formatter/show-all")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("true"));
+        RestAssured
+                .get("/customized-log-component/exchange-formatter/multi-line")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("true"));
 
-    @Override
-    public void configure() {
-        from("timer:keep-alive")
-                .routeId("timer")
-                .setBody().constant("I'm alive !")
-                .process(e -> LOG.infof("keep-alive: %s", e.getMessage().getBody(String.class)));
     }
 
 }

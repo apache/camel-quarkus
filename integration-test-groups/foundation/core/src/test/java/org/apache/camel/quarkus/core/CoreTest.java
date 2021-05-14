@@ -17,18 +17,14 @@
 package org.apache.camel.quarkus.core;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.response.Response;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNot.not;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 public class CoreTest {
@@ -53,15 +49,6 @@ public class CoreTest {
     @Test
     public void testCamelContextAwareRegistryBeansInitialized() {
         RestAssured.when().get("/core/registry/camel-context-aware/initialized").then().body(is("true"));
-    }
-
-    @Test
-    public void testCamelBeanBuildItem() {
-        Response response = RestAssured.get("/core/registry/log/exchange-formatter").andReturn();
-
-        assertEquals(HttpURLConnection.HTTP_OK, response.getStatusCode());
-        assertTrue(response.jsonPath().getBoolean("show-all"));
-        assertTrue(response.jsonPath().getBoolean("multi-line"));
     }
 
     @Test

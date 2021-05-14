@@ -14,21 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.component.log.it;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.jboss.logging.Logger;
+import io.quarkus.test.junit.NativeImageTest;
 
-public class CoreRoutes extends RouteBuilder {
-
-    private static final Logger LOG = Logger.getLogger(CoreRoutes.class);
-
-    @Override
-    public void configure() {
-        from("timer:keep-alive")
-                .routeId("timer")
-                .setBody().constant("I'm alive !")
-                .process(e -> LOG.infof("keep-alive: %s", e.getMessage().getBody(String.class)));
-    }
-
+@NativeImageTest
+public class LogIT extends LogTest {
 }
