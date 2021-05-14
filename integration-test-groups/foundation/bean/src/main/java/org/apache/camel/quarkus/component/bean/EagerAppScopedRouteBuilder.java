@@ -61,12 +61,10 @@ public class EagerAppScopedRouteBuilder extends RouteBuilder {
          */
         from("direct:increment")
                 .id("counter")
-                .setBody(exchange -> counter.increment())
-                .to("log:counter");
+                .setBody(exchange -> counter.increment());
         from("direct:config-property")
                 .id("config-property")
-                .setBody(exchange -> "myFooValue = " + myFooValue)
-                .to("log:config-property");
+                .setBody(exchange -> "myFooValue = " + myFooValue);
     }
 
     public Counter getCounter() {

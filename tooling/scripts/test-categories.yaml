@@ -38,7 +38,6 @@ group-02:
   - oaipmh
   - pubnub
   - protobuf
-  - simple
   - smallrye-reactive-messaging
   - solr
   - sql
@@ -86,7 +85,6 @@ group-05:
   - xmlsecurity
   - xstream
 group-06:
-  - bean
   - exec
   - file
   - foundation
