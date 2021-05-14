@@ -14,21 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.component.log.it;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.jboss.logging.Logger;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
-public class CoreRoutes extends RouteBuilder {
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.quarkus.main.events.AfterStart;
 
-    private static final Logger LOG = Logger.getLogger(CoreRoutes.class);
+@ApplicationScoped
+public class LogResource {
 
-    @Override
-    public void configure() {
-        from("timer:keep-alive")
-                .routeId("timer")
-                .setBody().constant("I'm alive !")
-                .process(e -> LOG.infof("keep-alive: %s", e.getMessage().getBody(String.class)));
+    @Inject
+    ProducerTemplate producerTemplate;
+
+    public void info(@Observes AfterStart event) {
+        producerTemplate.sendBody("log:foo-topic", "Hello foo!");
     }
 
 }
