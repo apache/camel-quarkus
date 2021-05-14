@@ -36,17 +36,6 @@ public class CoreTest {
     }
 
     @Test
-    public void testLookupRoutes() {
-        RestAssured.when().get("/core/routes/lookup-routes").then().body(containsString("bar"), containsString("timer"));
-    }
-
-    @Test
-    public void testRouteTemplate() {
-        RestAssured.when().get("/core/routes/template/myTemplate/World").then().body(is("Hello World"));
-        RestAssured.when().get("/core/routes/template/myTemplate/Earth").then().body(is("Hello Earth"));
-    }
-
-    @Test
     public void testCamelContextAwareRegistryBeansInitialized() {
         RestAssured.when().get("/core/registry/camel-context-aware/initialized").then().body(is("true"));
     }
@@ -64,7 +53,6 @@ public class CoreTest {
 
     @Test
     public void testCatalogComponent() throws IOException {
-        RestAssured.when().get("/core/catalog/component/timer").then().body(not(emptyOrNullString()));
         RestAssured.when().get("/core/catalog/language/simple").then().statusCode(500).body(is(
                 "RuntimeException: Accessing language JSON schemas was disabled via quarkus.camel.runtime-catalog.languages = false"));
     }
