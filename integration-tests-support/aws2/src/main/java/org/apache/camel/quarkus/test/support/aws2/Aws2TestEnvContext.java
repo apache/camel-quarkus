@@ -66,18 +66,9 @@ public class Aws2TestEnvContext {
                     properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
                     properties.put("camel.component.aws2-" + s + ".region", region);
 
-                    switch (service) {
-                    case S3:
-                    case KINESIS:
-                    case FIREHOSE:
-                        properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
-                        properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
-                                ls.getEndpointOverride(service).toString());
-                        break;
-                    default:
-                        // TODO https://github.com/apache/camel-quarkus/issues/2216
-                        break;
-                    }
+                    properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
+                    properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
+                            ls.getEndpointOverride(service).toString());
                 }
             }
         });

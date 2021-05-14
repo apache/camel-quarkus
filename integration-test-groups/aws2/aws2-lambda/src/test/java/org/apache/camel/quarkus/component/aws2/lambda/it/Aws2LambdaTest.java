@@ -35,7 +35,7 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-//TODO disabled because of https://github.com/apache/camel-quarkus/issues/2216
+//TODO disabled on Localstack, see https://github.com/apache/camel-quarkus/issues/2595
 @EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -83,13 +83,30 @@ class Aws2LambdaTest {
                 .statusCode(200)
                 .body("$", Matchers.hasItem(functionName));
 
-        RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body("{ \"firstName\": \"" + name + "\"}")
-                .post("/aws2-lambda/invoke/" + functionName)
-                .then()
-                .statusCode(200)
-                .body("greetings", Matchers.is("Hello " + name));
+        /* Sometimes this does not succeed immediately */
+        Awaitility.await()
+                .pollDelay(200, TimeUnit.MILLISECONDS)
+                .pollInterval(500, TimeUnit.MILLISECONDS)
+                .atMost(120, TimeUnit.SECONDS)
+                .until(
+                        () -> {
+                            ExtractableResponse<?> response = RestAssured.given()
+                                    .contentType(ContentType.JSON)
+                                    .body("{ \"firstName\": \"" + name + "\"}")
+                                    .post("/aws2-lambda/invoke/" + functionName)
+                                    .then()
+                                    .extract();
+                            System.out.println("Function " + functionName + " returned " + response.statusCode()
+                                    + "; will retry until timeout");
+                            switch (response.statusCode()) {
+                            case 200:
+                                final String greetings = response.jsonPath().getString("greetings");
+                                return greetings;
+                            default:
+                                return null;
+                            }
+                        },
+                        Matchers.is("Hello " + name));
 
         RestAssured.given()
                 .delete("/aws2-lambda/delete/" + functionName)

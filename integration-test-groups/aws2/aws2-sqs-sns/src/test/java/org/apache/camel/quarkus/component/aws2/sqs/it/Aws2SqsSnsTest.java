@@ -31,14 +31,11 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-@EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+") // TODO
-                                                                                  // https://github.com/apache/camel-quarkus/issues/2216
 class Aws2SqsSnsTest {
 
     @Test
