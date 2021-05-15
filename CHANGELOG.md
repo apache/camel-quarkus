@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- REST extension doc link is not processed correctly [\#2591](https://github.com/apache/camel-quarkus/issues/2591)
+- Support @Consume [\#2580](https://github.com/apache/camel-quarkus/issues/2580)
 - \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
 - With fix of \#2260 too many @Converters are registered [\#2570](https://github.com/apache/camel-quarkus/issues/2570)
 - \[Quarkus 2.0.0.Alpha2\] quarkus.test.profile not considered in TestResource [\#2566](https://github.com/apache/camel-quarkus/issues/2566)
@@ -19,6 +21,7 @@
 - Datasonnet language not supported? [\#2546](https://github.com/apache/camel-quarkus/issues/2546)
 - org.apache.camel.quarkus.component.splunk.it.SplunkTest failure if system timezone isn't UTC [\#2542](https://github.com/apache/camel-quarkus/issues/2542)
 - SetHeader does not create a Map when using \[\] [\#2540](https://github.com/apache/camel-quarkus/issues/2540)
+- Test TypeConverters [\#2537](https://github.com/apache/camel-quarkus/issues/2537)
 - Test simple language [\#2533](https://github.com/apache/camel-quarkus/issues/2533)
 - CDI: programmatic lookup problem detected io.quarkus.arc.impl.ArcContainerImpl getMatchingBeans [\#2532](https://github.com/apache/camel-quarkus/issues/2532)
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
@@ -64,6 +67,7 @@
 - Show deprecation info in Extensions reference [\#2266](https://github.com/apache/camel-quarkus/issues/2266)
 - Custom TypeConverter is not automatically registered [\#2260](https://github.com/apache/camel-quarkus/issues/2260)
 - AtlasMap: Use jandex to discover the types we need to register for reflection [\#2241](https://github.com/apache/camel-quarkus/issues/2241)
+- AWS2 components have to set client.endpointOverride\(\) to work on Localstack [\#2216](https://github.com/apache/camel-quarkus/issues/2216)
 - Startup log of bootstrap runtime [\#2164](https://github.com/apache/camel-quarkus/issues/2164)
 - Use AsciiDoc variable for Quarkus version in the documentation [\#2163](https://github.com/apache/camel-quarkus/issues/2163)
 - Document correct BoM usage [\#2136](https://github.com/apache/camel-quarkus/issues/2136)
@@ -74,6 +78,12 @@
 
 **Merged pull requests:**
 
+- AWS2 components have to set client.endpointOverride\(\) to work on Loca… [\#2596](https://github.com/apache/camel-quarkus/pull/2596) ([ppalaga](https://github.com/ppalaga))
+- REST extension doc link is not processed correctly  [\#2593](https://github.com/apache/camel-quarkus/pull/2593) ([ppalaga](https://github.com/ppalaga))
+- Support @Consume  [\#2588](https://github.com/apache/camel-quarkus/pull/2588) ([ppalaga](https://github.com/ppalaga))
+- Add DataSource configuration docs to JDBC & SQL extensions [\#2587](https://github.com/apache/camel-quarkus/pull/2587) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fixed native issue and completed test/documentation \#1710 [\#2585](https://github.com/apache/camel-quarkus/pull/2585) ([aldettinger](https://github.com/aldettinger))
+- Test TypeConverters \#2537 [\#2584](https://github.com/apache/camel-quarkus/pull/2584) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Do not use deprecated BuildStep.applicationArchiveMarkers\(\) [\#2583](https://github.com/apache/camel-quarkus/pull/2583) ([jamesnetherton](https://github.com/jamesnetherton))
 - Support @EndpointInject and @Produce  [\#2581](https://github.com/apache/camel-quarkus/pull/2581) ([ppalaga](https://github.com/ppalaga))
 - With fix of \#2260 too many @Converters are registered \#2570 [\#2571](https://github.com/apache/camel-quarkus/pull/2571) ([JiriOndrusek](https://github.com/JiriOndrusek))
