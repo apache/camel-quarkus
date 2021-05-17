@@ -25,6 +25,22 @@ quarkus.native.add-all-charsets = true
 See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets]
 in Quarkus documentation.
 
+[[locale]]
+== Locale
+
+Before GraalVM 21.1, only the building JVM's default locale was included in the native image.
+Quarkus offered a way to set that locale via `application.properties`, so that you did not need to rely on `LANG` and `LC_*` environement variables:
+
+[source,properties]
+----
+quarkus.native.user-country=US
+quarkus.native.user-language=en
+----
+
+Since https://medium.com/graalvm/graalvm-21-1-96e18f6806bf#7ce8[GraalVM 21.1], there is a support for embedding multiple locales into the native image
+and for selecting the default locale via GraalVM command line options `-H:IncludeLocales=fr,en`, `H:+IncludeAllLocales` and `-H:DefaultLocale=de`.
+You can set those via Quarkus `quarkus.native.additional-build-args` property.
+
 [[embedding-resource-in-native-executable]]
 == Embedding resources in the native executable
 
