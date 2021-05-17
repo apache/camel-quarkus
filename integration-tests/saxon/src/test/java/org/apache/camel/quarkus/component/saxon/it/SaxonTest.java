@@ -37,7 +37,7 @@ class SaxonTest {
 
     @Test
     public void xqueryTransformShouldConcatEmployeeIdAndSuffix() throws IOException {
-        String xml = resourceToString("/myinput.xml", StandardCharsets.UTF_8);
+        String xml = resourceToString("myinput.xml", StandardCharsets.UTF_8, Thread.currentThread().getContextClassLoader());
         given().body(xml).get("/xquery/transform").then().statusCode(200).body(is("123Suffix"));
     }
 
