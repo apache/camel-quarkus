@@ -77,7 +77,6 @@
         <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hazelcast.version>4.0.3</hazelcast.version><!-- keep in sync with quarkus-hazelcast-client -->
         <hbase.version>${hbase-version}</hbase.version><!-- Keep in sync with Camel -->
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
@@ -105,7 +104,7 @@
         <quarkiverse-minio.version>0.2.2</quarkiverse-minio.version>
         <quarkus.version>1.13.2.Final</quarkus.version>
         <quarkus-google-cloud.version>0.5.0</quarkus-google-cloud.version>
-        <quarkus-hazelcast-client.version>1.1.1</quarkus-hazelcast-client.version>
+        <quarkus-hazelcast-client.version>1.2.0</quarkus-hazelcast-client.version>
         <quarkus-qpid-jms.version>0.24.0</quarkus-qpid-jms.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
