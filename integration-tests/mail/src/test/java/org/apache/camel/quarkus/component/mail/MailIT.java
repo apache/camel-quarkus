@@ -19,5 +19,5 @@ package org.apache.camel.quarkus.component.mail;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-public class MailITCase extends MailTest {
+public class MailIT extends MailTest {
 }
