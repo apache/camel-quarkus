@@ -29,11 +29,9 @@ public class BindyTestRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        BindyDataFormat bindyCsvDataFormat = new BindyDataFormat();
-        bindyCsvDataFormat.setClassType(CsvOrder.class);
-        bindyCsvDataFormat.setType(BindyType.Csv.name());
-        from("direct:marshal-csv-record").marshal(bindyCsvDataFormat);
-        from("direct:unmarshal-csv-record").unmarshal(bindyCsvDataFormat);
+
+        from("direct:marshal-csv-record").marshal().bindy(BindyType.Csv, CsvOrder.class);
+        from("direct:unmarshal-csv-record").unmarshal().bindy(BindyType.Csv, CsvOrder.class);
 
         BindyDataFormat bindyFixedLengthDataFormat = new BindyDataFormat();
         bindyFixedLengthDataFormat.setClassType(FixedLengthOrder.class);
