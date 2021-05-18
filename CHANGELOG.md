@@ -58,6 +58,7 @@
 - Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
+- Revisit core, main and foundation integration tests [\#2362](https://github.com/apache/camel-quarkus/issues/2362)
 - Test class component, test bean language [\#2361](https://github.com/apache/camel-quarkus/issues/2361)
 - Test file language [\#2356](https://github.com/apache/camel-quarkus/issues/2356)
 - kafka: better integration with quarkus kafka extension [\#2333](https://github.com/apache/camel-quarkus/issues/2333)
@@ -74,10 +75,13 @@
 - Openstack native support [\#1943](https://github.com/apache/camel-quarkus/issues/1943)
 - Add a filter to discard AnnotationTypeConverterLoader [\#1896](https://github.com/apache/camel-quarkus/issues/1896)
 - Add integration tests for camel-quarkus-kafka + sasl  [\#1783](https://github.com/apache/camel-quarkus/issues/1783)
+- XQuery component and language native support [\#1710](https://github.com/apache/camel-quarkus/issues/1710)
 - XChange native support [\#769](https://github.com/apache/camel-quarkus/issues/769)
 
 **Merged pull requests:**
 
+- Leverage quarkus-hazelcast-client-bom, upgrade to quarkus-hazelcast-client 1.2.0 [\#2602](https://github.com/apache/camel-quarkus/pull/2602) ([ppalaga](https://github.com/ppalaga))
+- Revisit core, main and foundation integration tests \#2362 [\#2597](https://github.com/apache/camel-quarkus/pull/2597) ([ppalaga](https://github.com/ppalaga))
 - AWS2 components have to set client.endpointOverride\(\) to work on Loca… [\#2596](https://github.com/apache/camel-quarkus/pull/2596) ([ppalaga](https://github.com/ppalaga))
 - REST extension doc link is not processed correctly  [\#2593](https://github.com/apache/camel-quarkus/pull/2593) ([ppalaga](https://github.com/ppalaga))
 - Support @Consume  [\#2588](https://github.com/apache/camel-quarkus/pull/2588) ([ppalaga](https://github.com/ppalaga))
