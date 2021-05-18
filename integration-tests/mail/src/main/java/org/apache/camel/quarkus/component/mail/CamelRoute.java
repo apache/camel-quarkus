@@ -34,6 +34,13 @@ public class CamelRoute extends RouteBuilder {
                 .setHeader("To", constant("james@localhost"))
                 .setHeader("From", constant("claus@localhost"))
                 .to("smtp://localhost?initialDelay=100&delay=100");
+
+        from("direct:mimeMultipartMarshal")
+                .marshal().mimeMultipart();
+        from("direct:mimeMultipartUnmarshalMarshal")
+                .unmarshal().mimeMultipart()
+                .marshal().mimeMultipart();
+
     }
 
     @Produces

@@ -16,21 +16,41 @@
  */
 package org.apache.camel.quarkus.component.mail;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 public class MailTest {
+    private static final Pattern DELIMITER_PATTERN = Pattern.compile("\r\n[^\r\n]+");
+    private static final String EXPECTED_TEMPLATE = "${delimiter}\r\n"
+            + "Content-Type: text/plain; charset=UTF8; other-parameter=true\r\n"
+            + "Content-Transfer-Encoding: 8bit\r\n"
+            + "\r\n"
+            + "Hello multipart!"
+            + "${delimiter}\r\n"
+            + "Content-Type: text/plain\r\n"
+            + "Content-Transfer-Encoding: 7bit\r\n"
+            + "Content-Disposition: attachment; filename=file.txt\r\n"
+            + "Content-Description: Sample Attachment Data\r\n"
+            + "X-AdditionalData: additional data\r\n"
+            + "\r\n"
+            + "Hello attachment!"
+            + "${delimiter}--\r\n";
+
     @Test
-    public void testSendAsMail() throws Exception {
+    public void testSendAsMail() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Hi how are you")
-                .post("/mail/mailtext")
+                .post("/mail/route/mailtext")
                 .then()
                 .statusCode(200);
 
@@ -46,6 +66,39 @@ public class MailTest {
                 .get("/mock/{username}/{id}/subject", "james@localhost", 0)
                 .then()
                 .body(is("Hello World"));
+    }
+
+    @Test
+    public void mimeMultipartDataFormat() {
+        final String actual = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Hello multipart!")
+                .post("/mail/mimeMultipartMarshal/file.txt/Hello attachment!")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+        assertMultipart(EXPECTED_TEMPLATE, actual);
+
+        final String unmarshalMarshal = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(actual)
+                .post("/mail/route/mimeMultipartUnmarshalMarshal")
+                .then()
+                .statusCode(200)
+                .extract().body().asString();
+
+        assertMultipart(EXPECTED_TEMPLATE, unmarshalMarshal);
+
+    }
+
+    private void assertMultipart(final String expectedPattern, final String actual) {
+        final Matcher m = DELIMITER_PATTERN.matcher(actual);
+        if (!m.find()) {
+            Assertions.fail("Mime delimiter not found in body: " + actual);
+        }
+        final String delim = m.group();
+        final String expected = expectedPattern.replace("${delimiter}", delim);
+        Assertions.assertEquals(expected, actual);
     }
 
 }
