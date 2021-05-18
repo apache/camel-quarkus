@@ -37,8 +37,8 @@ public class CompressionRouteBuilder extends RouteBuilder {
                 .unmarshal().gzipDeflater();
 
         from("direct:lzf-compress")
-                .marshal().gzipDeflater();
+                .marshal().lzf();
         from("direct:lzf-uncompress")
-                .unmarshal().gzipDeflater();
+                .unmarshal().lzf();
     }
 }

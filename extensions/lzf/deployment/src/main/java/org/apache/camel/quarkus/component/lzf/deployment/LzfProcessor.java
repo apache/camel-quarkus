@@ -16,8 +16,11 @@
  */
 package org.apache.camel.quarkus.component.lzf.deployment;
 
+import com.ning.compress.lzf.impl.UnsafeChunkDecoder;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class LzfProcessor {
 
@@ -26,6 +29,11 @@ class LzfProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, UnsafeChunkDecoder.class));
     }
 
 }
