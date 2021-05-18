@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.language.simple;
+package org.apache.camel.quarkus.core.languages.it;
 
 import org.apache.camel.builder.RouteBuilder;
 
@@ -32,12 +32,6 @@ public class SimpleRoutes extends RouteBuilder {
                 .setBody(constant("PREMIUM"));
 
         from("direct:bodyIs-simple").filter().simple("${body} is 'java.nio.ByteBuffer'").setBody(constant("BYTE_BUFFER"));
-
-        from("direct:myExchangePropertyRoute")
-                .setBody().exchangeProperty("myExchangeProperty");
-
-        from("direct:myHeaderRoute")
-                .setBody().header("myHeader");
 
     }
 
