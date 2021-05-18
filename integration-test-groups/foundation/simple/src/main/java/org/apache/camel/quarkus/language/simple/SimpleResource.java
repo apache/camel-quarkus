@@ -22,8 +22,9 @@ import java.nio.charset.StandardCharsets;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -36,48 +37,31 @@ public class SimpleResource {
     @Inject
     ProducerTemplate template;
 
-    @Path("/filter")
-    @GET
+    @Path("/header/{route}/{key}/{value}")
+    @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String filter(boolean premium) {
-        return template.requestBodyAndHeader("direct:filter-simple", "NOT-PREMIUM", "premium", premium, String.class);
+    public String header(String body, @PathParam("route") String route, @PathParam("key") String key,
+            @PathParam("value") String value) {
+        return template.requestBodyAndHeader("direct:" + route, body, key, value, String.class);
     }
 
-    @Path("/transform")
-    @GET
+    @Path("/route/{route}/{bodyType}")
+    @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String transform(String user) {
-        return template.requestBodyAndHeader("direct:transform-simple", null, "user", user, String.class);
-    }
-
-    @Path("/resource")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String resource(String body) {
-        return template.requestBody("direct:resource-simple", body, String.class);
-    }
-
-    @Path("/mandatoryBodyAs")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String mandatoryBodyAs(byte[] body) {
-        return template.requestBody("direct:mandatoryBodyAs-simple", body, String.class);
-    }
-
-    @Path("/bodyIs")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public String mandatoryBodyAs(String body) {
-        if ("A body of type String".equals(body)) {
-            return template.requestBody("direct:bodyIs-simple", "STRING", String.class);
-        } else {
-            return template.requestBody("direct:bodyIs-simple", ByteBuffer.wrap(body.getBytes(StandardCharsets.UTF_8)),
+    public String resource(String body, @PathParam("route") String route, @PathParam("bodyType") String bodyType) {
+        switch (bodyType) {
+        case "String":
+            return template.requestBody("direct:" + route, body, String.class);
+        case "byte[]":
+            return template.requestBody("direct:" + route, body.getBytes(StandardCharsets.UTF_8), String.class);
+        case "ByteBuffer":
+            return template.requestBody("direct:" + route, ByteBuffer.wrap(body.getBytes(StandardCharsets.UTF_8)),
                     String.class);
+        default:
+            throw new IllegalStateException("Unexpected body type " + bodyType);
         }
     }
+
 }

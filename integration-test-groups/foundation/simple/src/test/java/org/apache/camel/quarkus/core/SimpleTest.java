@@ -27,37 +27,41 @@ public class SimpleTest {
 
     @Test
     public void premiumHeaderShouldPassThroughFilter() {
-        given().body(true).when().get("/simple/filter").then().statusCode(200).body(is("PREMIUM"));
+        given().body("foo").when().post("/simple/header/filter-simple/premium/true").then().statusCode(200).body(is("PREMIUM"));
     }
 
     @Test
     public void notPremiumHeaderShouldNotPassThroughFilter() {
-        given().body(false).when().get("/simple/filter").then().statusCode(200).body(is("NOT-PREMIUM"));
+        given().body("foo").when().post("/simple/header/filter-simple/premium/false").then().statusCode(200)
+                .body(is("foo"));
     }
 
     @Test
     public void aliceUserHeaderShouldBeTransformedToHelloAlice() {
-        given().body("Alice").when().get("/simple/transform").then().statusCode(200).body(is("Hello Alice !"));
+        given().body("Alice").when().post("/simple/header/transform-simple/user/Alice").then().statusCode(200)
+                .body(is("Hello Alice !"));
     }
 
     @Test
     public void aliceBodyShouldBeTransformedToTheNameIsAlice() {
-        given().body("Alice").when().get("/simple/resource").then().statusCode(200).body(is("The name is Alice"));
+        given().body("Alice").when().post("/simple/route/resource-simple/String").then().statusCode(200)
+                .body(is("The name is Alice"));
     }
 
     @Test
     public void goldBodyShouldPassThroughFilter() {
-        given().body("gold").when().get("/simple/mandatoryBodyAs").then().statusCode(200).body(is("PREMIUM"));
+        given().body("gold").when().post("/simple/route/mandatoryBodyAs-simple/byte[]").then().statusCode(200)
+                .body(is("PREMIUM"));
     }
 
     @Test
     public void stringBodyShouldNotPassThroughBodyIsFilter() {
-        given().body("A body of type String").when().get("/simple/bodyIs").then().statusCode(200).body(is("STRING"));
+        given().body("STRING").when().post("/simple/route/bodyIs-simple/String").then().statusCode(200).body(is("STRING"));
     }
 
     @Test
     public void byteBufferBodyShouldPassThroughBodyIsFilter() {
-        given().body("A body of type ByteBuffer").when().get("/simple/bodyIs").then().statusCode(200).body(is("BYTE_BUFFER"));
+        given().body("A body of type ByteBuffer").when().post("/simple/route/bodyIs-simple/ByteBuffer").then().statusCode(200)
+                .body(is("BYTE_BUFFER"));
     }
-
 }
