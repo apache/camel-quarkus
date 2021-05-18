@@ -17,12 +17,17 @@
 package org.apache.camel.quarkus.component.messaging.it;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.jms.BytesMessage;
 import javax.jms.MapMessage;
+import javax.jms.TextMessage;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,6 +36,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
@@ -74,14 +83,39 @@ public class JmsResource {
     }
 
     @Path("/jms/type/{type}")
-    @GET
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response jmsMessageType(@PathParam("type") String type) throws Exception {
+    public Response jmsMessageType(@PathParam("type") String type, String messageBody) throws Exception {
         MockEndpoint mockEndpoint = context.getEndpoint("mock:jmsType", MockEndpoint.class);
         mockEndpoint.reset();
         mockEndpoint.expectedMessageCount(1);
 
-        producerTemplate.sendBodyAndHeader("jms:queue:typeTest", "test message payload", "type", type);
+        Object payload;
+        switch (type) {
+        case "bytes":
+            payload = messageBody.getBytes(StandardCharsets.UTF_8);
+            break;
+        case "file":
+            java.nio.file.Path path = Files.createTempFile("jms", ".txt");
+            Files.write(path, messageBody.getBytes(StandardCharsets.UTF_8));
+            payload = path.toFile();
+            break;
+        case "node":
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            Document document = factory.newDocumentBuilder().newDocument();
+            Element element = document.createElement("test");
+            element.setTextContent(messageBody);
+            payload = element;
+            break;
+        case "string":
+            payload = messageBody;
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown type: " + type);
+        }
+
+        producerTemplate.sendBody("jms:queue:typeTest", payload);
 
         mockEndpoint.assertIsSatisfied(5000);
 
@@ -90,11 +124,19 @@ public class JmsResource {
                 .getMessage(JmsMessage.class)
                 .getJmsMessage();
 
-        boolean result;
-        if (type.equals("Text")) {
-            result = (message instanceof javax.jms.TextMessage);
+        Object result;
+        if (type.equals("string") || type.equals("node")) {
+            assert message instanceof javax.jms.TextMessage;
+            TextMessage textMessage = (TextMessage) message;
+            result = textMessage.getText();
         } else {
-            result = (message instanceof javax.jms.BytesMessage);
+            assert message instanceof javax.jms.BytesMessage;
+            BytesMessage byteMessage = (BytesMessage) message;
+            byteMessage.reset();
+            byte[] byteData;
+            byteData = new byte[(int) byteMessage.getBodyLength()];
+            byteMessage.readBytes(byteData);
+            result = new String(byteData);
         }
 
         return Response.ok().entity(result).build();
@@ -130,6 +172,7 @@ public class JmsResource {
 
     @Path("/jms/custom/message/listener/factory")
     @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String customMessageListenerContainerFactory(String message) {
         producerTemplate.sendBody("jms:queue:listener?messageListenerContainerFactory=#customMessageListener", message);
@@ -138,12 +181,22 @@ public class JmsResource {
 
     @Path("/jms/custom/destination/resolver")
     @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public String customDestinationResolver(String message) {
         producerTemplate.sendBody("jms:queue:ignored?destinationResolver=#customDestinationResolver", message);
 
         // The custom DestinationResolver should have overridden the original queue name to 'destinationOverride'
         return consumerTemplate.receiveBody("jms:queue:destinationOverride", 5000, String.class);
+    }
+
+    @Path("/jms/custom/message/converter")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String customMessageConverter(String message) {
+        producerTemplate.sendBody("jms:queue:converter?messageConverter=#customMessageConverter", message);
+        return consumerTemplate.receiveBody("jms:queue:converter?messageConverter=#customMessageConverter", 5000, String.class);
     }
 
     @Path("/jms/selector/{expression}")
@@ -169,7 +222,7 @@ public class JmsResource {
 
         producerTemplate.sendBody("jms:queue:txTest?transacted=true", "Test JMS Transaction");
 
-        mockEndpoint.assertIsSatisfied(15000);
+        mockEndpoint.assertIsSatisfied(5000);
 
         Exchange exchange = mockEndpoint.getExchanges().get(0);
         Message message = exchange.getMessage();
@@ -177,7 +230,46 @@ public class JmsResource {
         return Response.ok().entity(message.getBody()).build();
     }
 
+    @Path("/jms/object")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public Response testObjectMessage(String name) throws InterruptedException {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:objectTestResult", MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(1);
+
+        producerTemplate.sendBody("jms:queue:objectTest", new Person(name));
+
+        mockEndpoint.assertIsSatisfied();
+
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        Exchange exchange = exchanges.get(0);
+        Person body = exchange.getMessage().getBody(Person.class);
+
+        return Response.ok().entity(body.getName()).build();
+    }
+
+    @Path("/jms/transfer/exchange")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    @POST
+    public Response testTransferExchange(String message) throws InterruptedException {
+        MockEndpoint mockEndpoint = context.getEndpoint("mock:transferExchangeResult", MockEndpoint.class);
+        mockEndpoint.expectedMessageCount(1);
+
+        producerTemplate.sendBody("jms:queue:transferExchange?transferExchange=true", message);
+
+        mockEndpoint.assertIsSatisfied();
+
+        List<Exchange> exchanges = mockEndpoint.getExchanges();
+        Exchange exchange = exchanges.get(0);
+        String result = exchange.getMessage().getBody(String.class);
+
+        return Response.ok().entity(result).build();
+    }
+
     @Path("/jms/topic")
+    @Consumes(MediaType.TEXT_PLAIN)
     @POST
     public void topicPubSub(String message) throws Exception {
         MockEndpoint topicResultA = context.getEndpoint("mock:topicResultA", MockEndpoint.class);

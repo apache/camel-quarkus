@@ -20,14 +20,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @QuarkusTestResource(ActiveMQTestResource.class)
@@ -54,13 +57,20 @@ class JmsTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "Text", "Bytes" })
+    @ValueSource(strings = { "bytes", "file", "node", "string" })
     public void testJmsMessageType(String type) {
+        String message = "Message type " + type;
+        String expected = message;
+        if (type.equals("node")) {
+            expected = "<test>" + message + "</test>";
+        }
+
         RestAssured.given()
-                .get("/messaging/jms/type/" + type)
+                .body(message)
+                .post("/messaging/jms/type/" + type)
                 .then()
                 .statusCode(200)
-                .body(is("true"));
+                .body(is(expected));
     }
 
     @Test
@@ -101,13 +111,29 @@ class JmsTest {
     }
 
     @Test
+    public void testJmsMessageConverter() {
+        String result = RestAssured.given()
+                .body("a test message")
+                .post("/messaging/jms/custom/message/converter")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        assertTrue(result.startsWith("converter prefix"));
+        assertTrue(result.endsWith("converter suffix"));
+    }
+
+    @Test
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2608")
     public void testJmsTopic() {
         String message = "Camel JMS Topic Message";
         RestAssured.given()
                 .body(message)
                 .post("/messaging/jms/topic")
                 .then()
-                .statusCode(201);
+                .statusCode(204);
     }
 
     @Test
@@ -117,6 +143,30 @@ class JmsTest {
                 .then()
                 .statusCode(200)
                 .body(is("Camel JMS Selector Match"));
+    }
+
+    @Test
+    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2599")
+    public void testJmsObject() {
+        String message = "Mr Test Person";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/object")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
+
+    @Test
+    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2599")
+    public void testJmsTransferExchange() {
+        String message = "Test transfer message";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/transfer/exchange")
+                .then()
+                .statusCode(200)
+                .body(is(message));
     }
 
     @Test
