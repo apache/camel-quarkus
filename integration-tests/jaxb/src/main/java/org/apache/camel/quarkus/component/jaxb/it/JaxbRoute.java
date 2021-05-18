@@ -26,7 +26,6 @@ public class JaxbRoute extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        JaxbDataFormat jaxb = new JaxbDataFormat("org.apache.camel.quarkus.component.jaxb.it.model");
 
         JaxbDataFormat xml = new JaxbDataFormat();
         JAXBContext context = JAXBContext.newInstance(Person.class);
@@ -36,7 +35,7 @@ public class JaxbRoute extends RouteBuilder {
         jaxbFromScheme.setSchema("classpath:person.xsd");
 
         from("direct:unmarshal")
-                .unmarshal(jaxb);
+                .unmarshal().jaxb("org.apache.camel.quarkus.component.jaxb.it.model");
 
         from("direct:unmarshal-2")
                 .unmarshal(xml);
