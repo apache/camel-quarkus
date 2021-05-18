@@ -64,4 +64,13 @@ public class SimpleResource {
         }
     }
 
+    @Path("/exchangeProperty/{route}/{key}/{value}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String exchangeProperty(String body, @PathParam("route") String route, @PathParam("key") String key,
+            @PathParam("value") String value) {
+        return template.request("direct:" + route, e -> e.getProperties().put(key, value)).getMessage().getBody(String.class);
+    }
+
 }
