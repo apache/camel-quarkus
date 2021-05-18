@@ -18,10 +18,13 @@ package org.apache.camel.quarkus.core.languages.it;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -36,6 +39,14 @@ public class CoreLanguagesResource {
 
     @Inject
     ProducerTemplate template;
+
+    @Inject
+    @Named("tokenCounter")
+    AtomicInteger tokenCounter;
+
+    @Inject
+    @Named("xmlTokenCounter")
+    AtomicInteger xmlTokenCounter;
 
     @Path("/header/{route}/{key}/{value}")
     @POST
@@ -71,6 +82,20 @@ public class CoreLanguagesResource {
     public String exchangeProperty(String body, @PathParam("route") String route, @PathParam("key") String key,
             @PathParam("value") String value) {
         return template.request("direct:" + route, e -> e.getProperties().put(key, value)).getMessage().getBody(String.class);
+    }
+
+    @Path("/counter/{name}")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public int tokenCounter(@PathParam("name") String name) {
+        switch (name) {
+        case "tokenCounter":
+            return tokenCounter.get();
+        case "xmlTokenCounter":
+            return xmlTokenCounter.get();
+        default:
+            throw new IllegalStateException("Unexpected counter name: " + name);
+        }
     }
 
 }
