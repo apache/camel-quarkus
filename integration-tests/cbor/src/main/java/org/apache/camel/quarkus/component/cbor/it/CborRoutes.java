@@ -25,6 +25,10 @@ public class CborRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
+
+        from("direct:marshalCborMethod").marshal().cbor();
+        from("direct:unmarshalCborMethod").unmarshal().cbor(Author.class);
+
         CBORDataFormat useMapDf = new CBORDataFormat();
         useMapDf.useMap();
         from("direct:marshal-map").marshal(useMapDf);

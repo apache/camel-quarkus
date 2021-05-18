@@ -60,6 +60,18 @@ class CborTest {
     }
 
     @Test
+    void marshalUnmarshalCborMethod() {
+        Author in = new Author();
+        in.setName("Joe");
+        in.setSurname("Doe");
+
+        String uri = "/cbor/marshalUnmarshalCborMethod";
+        Author out = given().contentType(ContentType.JSON).body(in).get(uri).then().statusCode(200).extract().as(Author.class);
+        assertEquals("Joe", out.getName());
+        assertEquals("Doe", out.getSurname());
+    }
+
+    @Test
     void unmarshalAuthorViaJmsTypeHeaderShouldSucceed() throws JsonProcessingException {
         Author author = new Author();
         author.setName("David");

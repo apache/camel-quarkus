@@ -68,6 +68,16 @@ public class CborResource {
         return producerTemplate.requestBody("direct:unmarshal-author", marshalled, Author.class);
     }
 
+    @Path("/marshalUnmarshalCborMethod")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Author marshalUnmarshalCborMethod(Author author) {
+        LOG.debug("Calling marshalUnmarshalAuthor(...)");
+        Object marshalled = producerTemplate.requestBody("direct:marshalCborMethod", author);
+        return producerTemplate.requestBody("direct:unmarshalCborMethod", marshalled, Author.class);
+    }
+
     @Path("/unmarshalAuthorViaJmsTypeHeader")
     @GET
     @Consumes(MediaType.APPLICATION_OCTET_STREAM)
