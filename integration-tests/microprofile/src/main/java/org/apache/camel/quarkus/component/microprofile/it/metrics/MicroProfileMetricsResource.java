@@ -101,4 +101,11 @@ public class MicroProfileMetricsResource {
         });
         return Response.ok().build();
     }
+
+    @Path("/processor")
+    @GET
+    public Response countedProcessor() {
+        template.sendBody("direct:processorMetrics", "Hello World");
+        return Response.ok().build();
+    }
 }

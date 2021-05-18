@@ -16,13 +16,21 @@
  */
 package org.apache.camel.quarkus.component.microprofile.it.metrics;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.apache.camel.builder.RouteBuilder;
 
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_GAUGE_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_HISTOGRAM_VALUE;
 import static org.apache.camel.component.microprofile.metrics.MicroProfileMetricsConstants.HEADER_METER_MARK;
 
+@ApplicationScoped
 public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
+
+    @Inject
+    CountedProcessor processor;
+
     @Override
     public void configure() {
         from("direct:counter")
@@ -54,5 +62,8 @@ public class MicroProfileMetricsRouteBuilder extends RouteBuilder {
 
         from("direct:log").routeId("log")
                 .log("Camel Quarkus MicroProfile Metrics");
+
+        from("direct:processorMetrics")
+                .process(processor);
     }
 }
