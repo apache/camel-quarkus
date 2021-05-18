@@ -17,27 +17,30 @@
 package org.apache.camel.quarkus.component.messaging.it;
 
 import javax.inject.Named;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import javax.jms.TextMessage;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
-import javax.ws.rs.Produces;
 
 import org.apache.camel.component.jms.MessageListenerContainerFactory;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.support.converter.MessageConversionException;
+import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.destination.DestinationResolver;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 public class JmsProducers {
 
-    @Produces
-    @Named("customMessageListener")
-    public MessageListenerContainerFactory createCustomMessageListenerContainerFactory() {
+    @Named
+    public MessageListenerContainerFactory customMessageListener() {
         return jmsEndpoint -> new DefaultMessageListenerContainer();
     }
 
-    @Produces
-    @Named("customDestinationResolver")
-    public DestinationResolver createCustomDestinationResolver() {
+    @Named
+    public DestinationResolver customDestinationResolver() {
         return (session, destinationName, pubSubDomain) -> {
             if (destinationName.equals("ignored")) {
                 // Ignore and override the original queue name
@@ -47,9 +50,32 @@ public class JmsProducers {
         };
     }
 
-    @Produces
-    PlatformTransactionManager createTransactionManager(UserTransaction userTransaction,
+    @Named
+    public PlatformTransactionManager transactionManager(UserTransaction userTransaction,
             TransactionManager transactionManager) {
         return new JtaTransactionManager(userTransaction, transactionManager);
+    }
+
+    @Named
+    public MessageConverter customMessageConverter() {
+        return new MessageConverter() {
+            @Override
+            public Message toMessage(Object o, Session session) throws JMSException, MessageConversionException {
+                if (o instanceof String) {
+                    TextMessage message = session.createTextMessage("converter prefix " + o);
+                    return message;
+                }
+                return null;
+            }
+
+            @Override
+            public Object fromMessage(Message message) throws JMSException, MessageConversionException {
+                if (message instanceof TextMessage) {
+                    TextMessage textMessage = (TextMessage) message;
+                    return textMessage.getText() + " converter suffix";
+                }
+                return null;
+            }
+        };
     }
 }

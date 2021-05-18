@@ -27,11 +27,10 @@ public class JmsRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        // jmsMessageType text / binary routes
-        from("jms:queue:typeTest?jmsMessageType=Text")
-                .toD("jms:queue:typeTestResult?jmsMessageType=${header.type}");
+        from("jms:queue:typeTest?concurrentConsumers=5")
+                .toD("jms:queue:typeTestResult");
 
-        from("jms:queue:typeTestResult")
+        from("jms:queue:typeTestResult?artemisStreamingEnabled=false")
                 .to("mock:jmsType");
 
         // Map message type routes
@@ -58,6 +57,12 @@ public class JmsRoutes extends RouteBuilder {
                     }
                 })
                 .to("mock:txResult");
+
+        from("jms:queue:transferExchange?transferExchange=true")
+                .to("mock:transferExchangeResult");
+
+        from("jms:queue:objectTest")
+                .to("mock:objectTestResult");
 
         // Topic routes
         from("jms:topic:test?clientId=123&durableSubscriptionName=camel-quarkus")
