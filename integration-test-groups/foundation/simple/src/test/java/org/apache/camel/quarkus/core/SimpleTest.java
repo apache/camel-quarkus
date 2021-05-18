@@ -64,4 +64,18 @@ public class SimpleTest {
         given().body("A body of type ByteBuffer").when().post("/simple/route/bodyIs-simple/ByteBuffer").then().statusCode(200)
                 .body(is("BYTE_BUFFER"));
     }
+
+    @Test
+    public void exchangeProperty() {
+        given().body("foo").post("/simple/exchangeProperty/myExchangePropertyRoute/myExchangeProperty/1234").then()
+                .statusCode(200)
+                .body(is("1234"));
+    }
+
+    @Test
+    public void header() {
+        given().body("foo").post("/simple/header/myHeaderRoute/myHeader/barbaz").then().statusCode(200)
+                .body(is("barbaz"));
+    }
+
 }
