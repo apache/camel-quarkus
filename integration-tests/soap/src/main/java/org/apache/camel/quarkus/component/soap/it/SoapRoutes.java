@@ -62,10 +62,12 @@ public class SoapRoutes extends RouteBuilder {
                 .marshal("soapDataFormatWithServiceInterfaceStrategy");
 
         from("direct:marshalQnameStrategy")
-                .marshal("soapDataFormatWithQNameStrategy");
+                .marshal().soapjaxb(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
+                        new QName("http://service.it.soap.component.quarkus.camel.apache.org/", "getCustomersByName")));
 
         from("direct:unmarshalQnameStrategy")
-                .unmarshal("soapDataFormatWithQNameStrategy");
+                .unmarshal().soapjaxb(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
+                        new QName("http://service.it.soap.component.quarkus.camel.apache.org/", "getCustomersByName")));
 
         from("direct:marshal-soap1.2")
                 .marshal().soapjaxb12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
@@ -96,12 +98,6 @@ public class SoapRoutes extends RouteBuilder {
                 new TypeNameStrategy());
         soapJaxbDataFormat.setSchema("classpath:/schema/CustomerService.xsd,classpath:/soap.xsd");
         return soapJaxbDataFormat;
-    }
-
-    @Named("soapDataFormatWithQNameStrategy")
-    public SoapJaxbDataFormat soapJaxbDataFormatQnameStrategy() {
-        QName qName = new QName("http://service.it.soap.component.quarkus.camel.apache.org/", "getCustomersByName");
-        return new SoapJaxbDataFormat(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(qName));
     }
 
     @Named("soapDataFormatWithServiceInterfaceStrategy")
