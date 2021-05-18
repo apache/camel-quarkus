@@ -14,26 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.language.simple;
+package org.apache.camel.quarkus.core.languages.it;
 
-import java.nio.ByteBuffer;
+import org.apache.camel.builder.RouteBuilder;
 
-import io.quarkus.runtime.annotations.RegisterForReflection;
+public class ExchangePropertyLanguageRoutes extends RouteBuilder {
 
-/**
- * Manually register some third party classes for reflection.
- */
-public class ReflectionConfigurations {
-
-    // Needed as "${mandatoryBodyAs(String).OGNL}" reflectively invokes method 'String.toUpperCase()'
-    @RegisterForReflection(targets = String.class, fields = false)
-    public class StringReflectionConfiguration {
-    }
-
-    // Needed as "${body} is TYPE" reflectively resolves 'java.nio.ByteBuffer'
-    // at runtime
-    @RegisterForReflection(targets = ByteBuffer.class, fields = false, methods = false)
-    public class ByteBufferReflectionConfiguration {
+    @Override
+    public void configure() {
+        from("direct:myExchangePropertyRoute")
+                .setBody().exchangeProperty("myExchangeProperty");
     }
 
 }

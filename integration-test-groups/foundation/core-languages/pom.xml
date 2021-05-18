@@ -26,9 +26,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>camel-quarkus-integration-test-simple</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Simple :: Tests</name>
-    <description>The camel quarkus integration tests for the simple language</description>
+    <artifactId>camel-quarkus-integration-test-core-languages</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Core Languages :: Tests</name>
+    <description>The camel quarkus integration tests for Camel Core languages: Constant, ExchangeProperty, Header, Ref, Simple</description>
 
     <dependencies>
         <dependency>

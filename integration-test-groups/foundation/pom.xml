@@ -38,6 +38,7 @@
         <module>controlbus</module>
         <module>core</module>
         <module>core-annotations</module>
+        <module>core-languages</module>
         <module>customized-log-component</module>
         <module>direct</module>
         <module>log</module>
@@ -45,7 +46,6 @@
         <module>ref</module>
         <module>scheduler</module>
         <module>seda</module>
-        <module>simple</module>
         <module>stream</module>
         <module>timer</module>
         <module>type-converter</module>

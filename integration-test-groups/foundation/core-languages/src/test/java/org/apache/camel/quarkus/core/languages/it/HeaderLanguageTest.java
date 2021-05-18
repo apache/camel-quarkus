@@ -14,11 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.core;
+package org.apache.camel.quarkus.core.languages.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
 
-@NativeImageTest
-public class SimpleIT extends SimpleTest {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+
+@QuarkusTest
+public class HeaderLanguageTest {
+    @Test
+    public void header() {
+        given().body("foo").post("/core-languages/header/myHeaderRoute/myHeader/barbaz").then().statusCode(200)
+                .body(is("barbaz"));
+    }
 
 }

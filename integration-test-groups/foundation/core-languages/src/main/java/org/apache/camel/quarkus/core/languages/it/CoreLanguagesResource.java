@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.language.simple;
+package org.apache.camel.quarkus.core.languages.it;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -30,9 +30,9 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
 
-@Path("/simple")
+@Path("/core-languages")
 @ApplicationScoped
-public class SimpleResource {
+public class CoreLanguagesResource {
 
     @Inject
     ProducerTemplate template;
