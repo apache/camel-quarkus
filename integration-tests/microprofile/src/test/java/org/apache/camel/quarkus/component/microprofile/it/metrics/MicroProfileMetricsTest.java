@@ -140,6 +140,18 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricIntValue("camel.route.running.count") >= 7);
     }
 
+    @Test
+    public void testCountedProcessor() {
+        for (int i = 0; i < 5; i++) {
+            RestAssured.get("/microprofile-metrics/processor")
+                    .then()
+                    .statusCode(200);
+        }
+
+        int result = getApplicationMetrics().getInt("'" + CountedProcessor.class.getName() + ".custom.processor.count'");
+        assertEquals(5, result);
+    }
+
     private int getMetricIntValue(String metricName, String... tags) {
         return getApplicationMetrics().getInt(sanitizeMetricName(metricName, tags));
     }
