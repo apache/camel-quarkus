@@ -32,6 +32,10 @@ public class SimpleRoutes extends RouteBuilder {
                 .setBody(constant("PREMIUM"));
 
         from("direct:bodyIs-simple").filter().simple("${body} is 'java.nio.ByteBuffer'").setBody(constant("BYTE_BUFFER"));
+
+        from("direct:exchangeProperty")
+                .setBody().exchangeProperty("myExchangeProperty");
+
     }
 
 }
