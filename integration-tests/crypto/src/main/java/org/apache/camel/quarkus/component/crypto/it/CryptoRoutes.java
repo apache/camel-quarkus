@@ -22,7 +22,6 @@ import javax.crypto.KeyGenerator;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.converter.crypto.CryptoDataFormat;
-import org.apache.camel.converter.crypto.PGPDataFormat;
 
 public class CryptoRoutes extends RouteBuilder {
 
@@ -45,13 +44,11 @@ public class CryptoRoutes extends RouteBuilder {
                 .unmarshal(cryptoDataFormat);
 
         // PGP data format
-        PGPDataFormat encrypt = getPgpDataFormat("pubring.pgp");
-        PGPDataFormat decrypt = getPgpDataFormat("secring.pgp");
         from("direct:marshalPgp")
-                .marshal(encrypt);
+                .marshal().pgp("pubring.pgp", "sdude@nowhere.net", "sdude");
 
         from("direct:unmarshalPgp")
-                .unmarshal(decrypt);
+                .unmarshal().pgp("secring.pgp", "sdude@nowhere.net", "sdude");
     }
 
     private CryptoDataFormat getCryptoDataFormat() throws NoSuchAlgorithmException {
@@ -59,11 +56,4 @@ public class CryptoRoutes extends RouteBuilder {
         return new CryptoDataFormat("DES", generator.generateKey());
     }
 
-    private PGPDataFormat getPgpDataFormat(String keyFile) {
-        PGPDataFormat encrypt = new PGPDataFormat();
-        encrypt.setKeyFileName(keyFile);
-        encrypt.setKeyUserid("sdude@nowhere.net");
-        encrypt.setPassword("sdude");
-        return encrypt;
-    }
 }
