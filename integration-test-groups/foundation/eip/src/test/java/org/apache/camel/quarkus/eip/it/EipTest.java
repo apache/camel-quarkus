@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.eip.it;
 
+import java.util.Arrays;
+import java.util.List;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -39,6 +42,30 @@ class EipTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("Bye World,Secret,Hi World,Secret"));
+
+    }
+
+    @Test
+    public void customLoadBalancer() {
+        final List<String> messages = Arrays.asList("a", "b", "c", "d");
+        for (String msg : messages) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(msg)
+                    .post("/eip/route/customLoadBalancer")
+                    .then()
+                    .statusCode(200);
+        }
+
+        RestAssured.get("/eip/mock/customLoadBalancer1/2/10000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,c"));
+
+        RestAssured.get("/eip/mock/customLoadBalancer2/2/10000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("b,d"));
 
     }
 
