@@ -70,6 +70,14 @@ public class JmsRoutes extends RouteBuilder {
 
         from("jms:topic:test?clientId=456&durableSubscriptionName=camel-quarkus")
                 .to("mock:topicResultB");
+
+        from("jms:queue:resequence")
+                // sort by body by allowing duplicates (message can have same JMSPriority)
+                // and use reverse ordering so 9 is first output (most important), and 0 is last
+                // use batch mode and fire every 3rd second
+                .resequence(body()).batch().timeout(10000).allowDuplicates().reverse()
+                .to("mock:resequence");
+
     }
 
     private ErrorHandlerBuilder setUpJtaErrorHandler() {
