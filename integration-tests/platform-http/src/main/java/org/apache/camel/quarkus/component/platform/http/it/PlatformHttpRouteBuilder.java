@@ -93,7 +93,13 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
         from("platform-http:/platform-http/produces?httpMethodRestrict=POST&produces=text/plain")
                 .setBody(simple("Hello ${body}"));
 
-        /* 204 tests */
+        from("platform-http:/platform-http/allmethods")
+                .setBody(simple("Hello ${header.CamelHttpMethod}"));
+
+        from("platform-http:/platform-http/path/prefix?matchOnUriPrefix=true")
+                .setBody(simple("Hello ${header.CamelHttpPath}"));
+
+        // 204 tests
         from("platform-http:/platform-http/null-body")
                 .setBody(constant(null));
         from("platform-http:/platform-http/empty-string-body")
@@ -104,7 +110,7 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
                 .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200))
                 .setBody().constant("");
 
-        /* Path parameters */
+        // Path parameters
         rest()
                 .get("/platform-http/hello-by-name/{name}")
                 .produces("text/plain")

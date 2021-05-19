@@ -21,8 +21,11 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.Method;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -240,6 +243,42 @@ class PlatformHttpTest {
                 .body(equalTo("Hello Kermit"));
     }
 
+    @ParameterizedTest
+    @MethodSource("httpMethods")
+    public void methods(Method method) {
+        String expected = "";
+        if (!method.equals(Method.HEAD)) {
+            expected = "Hello " + method.name();
+        }
+
+        RestAssured.given()
+                .request(method, "/platform-http/allmethods")
+                .then()
+                .statusCode(200)
+                .body(equalTo(expected));
+    }
+
+    @Test
+    public void pathPrefix() {
+        // Base part of the path should return 404
+        final String basePath = "/platform-http/path";
+        RestAssured.given()
+                .get(basePath)
+                .then()
+                .statusCode(404);
+
+        // Anything with the expected path prefix should be valid
+        String path = basePath + "/prefix";
+        for (int i = 0; i < 5; i++) {
+            RestAssured.given()
+                    .get(path)
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo("Hello " + path));
+            path += "/" + i;
+        }
+    }
+
     @Test
     public void testWebhook() throws InterruptedException {
         String path = RestAssured
@@ -250,13 +289,15 @@ class PlatformHttpTest {
                 .body()
                 .asString();
 
-        System.out.println("path = " + path);
-
         RestAssured.given()
                 .urlEncodingEnabled(false)
                 .post("/my-context" + path)
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello Camel Quarkus Webhook"));
+    }
+
+    private static Method[] httpMethods() {
+        return Method.values();
     }
 }
