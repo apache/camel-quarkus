@@ -28,7 +28,7 @@ public class JmsRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("jms:queue:typeTest?concurrentConsumers=5")
-                .toD("jms:queue:typeTestResult");
+                .to("jms:queue:typeTestResult");
 
         from("jms:queue:typeTestResult?artemisStreamingEnabled=false")
                 .to("mock:jmsType");
