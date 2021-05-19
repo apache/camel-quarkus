@@ -22,6 +22,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class NatsProcessor {
 
@@ -40,5 +41,12 @@ class NatsProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void initializeSecureRandomRelatedClassesAtRuntime(
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem("io.nats.client.support.RandomUtils"));
+        runtimeInitializedClasses.produce(new RuntimeInitializedClassBuildItem("io.nats.client.NUID"));
     }
 }
