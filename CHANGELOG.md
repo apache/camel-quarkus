@@ -10,10 +10,14 @@
 
 **Closed issues:**
 
+- package org.apache.camel.builder does not exist when using fast-jar in application.properties [\#2612](https://github.com/apache/camel-quarkus/issues/2612)
 - REST extension doc link is not processed correctly [\#2591](https://github.com/apache/camel-quarkus/issues/2591)
 - Support @Consume [\#2580](https://github.com/apache/camel-quarkus/issues/2580)
 - \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
+- \[Quarkus 2.0.0.Alpha2\]  Capabilities error [\#2573](https://github.com/apache/camel-quarkus/issues/2573)
+- \[Quarkus 2.0.0.Alpha2\] System.properties not recognized if set in Test Resource [\#2572](https://github.com/apache/camel-quarkus/issues/2572)
 - With fix of \#2260 too many @Converters are registered [\#2570](https://github.com/apache/camel-quarkus/issues/2570)
+- \[Quarkus 2.0.0.Alpha2\] upgrade to  GrpcService annotation [\#2569](https://github.com/apache/camel-quarkus/issues/2569)
 - \[Quarkus 2.0.0.Alpha2\] quarkus.test.profile not considered in TestResource [\#2566](https://github.com/apache/camel-quarkus/issues/2566)
 - Expand SOAP extension test coverage [\#2561](https://github.com/apache/camel-quarkus/issues/2561)
 - several integration-test failure in native mode [\#2550](https://github.com/apache/camel-quarkus/issues/2550)
@@ -27,6 +31,7 @@
 - Expand REST test coverage [\#2529](https://github.com/apache/camel-quarkus/issues/2529)
 - REST JSON example should use the Camel REST DSL [\#2528](https://github.com/apache/camel-quarkus/issues/2528)
 - org.apache.camel.quarkus.component.lra.it.LraTest failed on non-linux machines [\#2523](https://github.com/apache/camel-quarkus/issues/2523)
+- Document locale limitations in native mode [\#2522](https://github.com/apache/camel-quarkus/issues/2522)
 - Expand HL7 test coverage [\#2520](https://github.com/apache/camel-quarkus/issues/2520)
 - Expand MLLP test coverage [\#2518](https://github.com/apache/camel-quarkus/issues/2518)
 - Test Batch Consumer, charset, filter and sortby options of the file component [\#2512](https://github.com/apache/camel-quarkus/issues/2512)
@@ -80,7 +85,9 @@
 
 **Merged pull requests:**
 
+- Update first-steps.adoc [\#2603](https://github.com/apache/camel-quarkus/pull/2603) ([yazidaqel](https://github.com/yazidaqel))
 - Leverage quarkus-hazelcast-client-bom, upgrade to quarkus-hazelcast-client 1.2.0 [\#2602](https://github.com/apache/camel-quarkus/pull/2602) ([ppalaga](https://github.com/ppalaga))
+- Document locale limitations in native mode  [\#2601](https://github.com/apache/camel-quarkus/pull/2601) ([ppalaga](https://github.com/ppalaga))
 - Revisit core, main and foundation integration tests \#2362 [\#2597](https://github.com/apache/camel-quarkus/pull/2597) ([ppalaga](https://github.com/ppalaga))
 - AWS2 components have to set client.endpointOverride\(\) to work on Loca… [\#2596](https://github.com/apache/camel-quarkus/pull/2596) ([ppalaga](https://github.com/ppalaga))
 - REST extension doc link is not processed correctly  [\#2593](https://github.com/apache/camel-quarkus/pull/2593) ([ppalaga](https://github.com/ppalaga))
