@@ -16,8 +16,13 @@
  */
 package org.apache.camel.quarkus.eip.it;
 
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ClaimCheckOperation;
+import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
 
 public class EipRoutes extends RouteBuilder {
 
@@ -33,5 +38,16 @@ public class EipRoutes extends RouteBuilder {
                 .to("mock:claimCheckByHeader")
                 .claimCheck(ClaimCheckOperation.Get, "${header.claimCheckId}")
                 .to("mock:claimCheckByHeader");
+
+        from("direct:customLoadBalancer")
+                .loadBalance().custom("roundRobin")
+                .to("mock:customLoadBalancer1", "mock:customLoadBalancer2");
+    }
+
+    @Produces
+    @Singleton
+    @Named("roundRobin")
+    RoundRobinLoadBalancer roundRobinLoadBalancer() {
+        return new RoundRobinLoadBalancer();
     }
 }
