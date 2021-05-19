@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.messaging.it;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
@@ -26,6 +29,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -179,4 +183,24 @@ class JmsTest {
                 .statusCode(200)
                 .body(is("JMS Transaction Success"));
     }
+
+    @Test
+    public void testResequence() {
+        final List<String> messages = Arrays.asList("a", "b", "c", "c", "d");
+        for (String msg : messages) {
+            RestAssured.given()
+                    .body(msg)
+                    .post("/messaging/jms/resequence")
+                    .then()
+                    .statusCode(201);
+        }
+        Collections.reverse(messages);
+        final List<String> actual = RestAssured.given()
+                .get("/messaging/jms/mock/resequence/5/10000")
+                .then()
+                .statusCode(200)
+                .extract().body().jsonPath().getList(".", String.class);
+        Assertions.assertEquals(messages, actual);
+    }
+
 }
