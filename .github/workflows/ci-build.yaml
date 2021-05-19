@@ -43,6 +43,10 @@ on:
       - 'LICENSE.txt'
       - 'NOTICE.txt'
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+
 env:
   LANG: en_US.UTF-8
   MAVEN_OPTS: -Xmx3000m
