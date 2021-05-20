@@ -1,0 +1,37 @@
+{
+  "id" : "b61eef33-a160-48e7-95e1-40349b7f5e1e",
+  "name" : "repos_apache_camel-quarkus_git_blobs_6195efafd0a8100795247e35942b5c61fea79267",
+  "request" : {
+    "url" : "/repos/apache/camel-quarkus/git/blobs/6195efafd0a8100795247e35942b5c61fea79267",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"sha\":\"6195efafd0a8100795247e35942b5c61fea79267\",\"node_id\":\"MDQ6QmxvYjE5MzA2NTM3Njo2MTk1ZWZhZmQwYTgxMDA3OTUyNDdlMzU5NDJiNWM2MWZlYTc5MjY3\",\"size\":1614,\"url\":\"https://api.github.com/repos/apache/camel-quarkus/git/blobs/6195efafd0a8100795247e35942b5c61fea79267\",\"content\":\"PSBBcGFjaGUgQ2FtZWwgZXh0ZW5zaW9ucyBmb3IgUXVhcmt1cwoKaW1hZ2U6\\naHR0cHM6Ly9pbWcuc2hpZWxkcy5pby9tYXZlbi1jZW50cmFsL3Yvb3JnLmFw\\nYWNoZS5jYW1lbC5xdWFya3VzL2NhbWVsLXF1YXJrdXMtYm9tLnN2Z1siTWF2\\nZW4gQ2VudHJhbCIsIGxpbms9Imh0dHA6Ly9zZWFyY2gubWF2ZW4ub3JnLyNz\\nZWFyY2glN0NnYSU3QzElN0NvcmcuYXBhY2hlLmNhbWVsLnF1YXJrdXMiXQpp\\nbWFnZTpodHRwczovL2ltZy5zaGllbGRzLmlvL2dpdGh1Yi9saWNlbnNlL29w\\nZW5zaGlmdC9vcmlnaW4uc3ZnP21heEFnZT0yNTkyMDAwWyJMaWNlbnNlZCB1\\nbmRlciBBcGFjaGUgTGljZW5zZSB2ZXJzaW9uIDIuMCIsIGxpbms9Imh0dHBz\\nOi8vd3d3LmFwYWNoZS5vcmcvbGljZW5zZXMvTElDRU5TRS0yLjAiXQppbWFn\\nZTpodHRwczovL2JhZGdlcy5naXR0ZXIuaW0vYXBhY2hlL2NhbWVsLXF1YXJr\\ndXMuc3ZnWyJDaGF0IG9uIEdpdHRlciIsIGxpbms9Imh0dHBzOi8vZ2l0dGVy\\nLmltL2FwYWNoZS9jYW1lbC1xdWFya3VzIl0KCgo9PSBXaGF0IGlzIHRoaXMK\\nClRoaXMgcHJvamVjdCBob3N0cyB0aGUgZWZmb3J0cyB0byBwb3J0IGFuZCBw\\nYWNrYWdlIHRoZSAyODArIENhbWVsIGNvbXBvbmVudHMgYXMgUXVhcmt1cyBl\\neHRlbnNpb25zLgoKaHR0cDovL2NhbWVsLmFwYWNoZS5vcmcvW0FwYWNoZSBD\\nYW1lbF0gaXMgdGhlIFN3aXNzIGtuaWZlIG9mIGludGVncmF0aW5nIGhldGVy\\nb2dlbmVvdXMgc3lzdGVtcyB3aXRoIG1vcmUgdGhhbiBhIGRlY2FkZQpvZiBo\\naXN0b3J5IGFuZCBhIGxpdmVseSBjb21tdW5pdHkgb2YgdXNlcnMgYW5kIGRl\\ndmVsb3BlcnMuCgpodHRwczovL3F1YXJrdXMuaW8vW1F1YXJrdXNdIGlzIGEg\\nSmF2YSBwbGF0Zm9ybSBvZmZlcmluZyBmYXN0IGJvb3QgdGltZXMgYW5kIGxv\\ndyBtZW1vcnkgZm9vdHByaW50LiBJdCB0YXJnZXRzIGJvdGggc3RvY2sKSlZN\\ncyAoT3BlbkpESyBpbiB0aGUgZmlyc3QgcGxhY2UpIGFuZCBodHRwczovL3d3\\ndy5ncmFhbHZtLm9yZy9bR3JhYWxWTV0uCgpodHRwczovL3F1YXJrdXMuaW8v\\nZXh0ZW5zaW9ucy9bUXVhcmt1cyBleHRlbnNpb25zXSBhcmUgdW5pdHMgb2Yg\\nUXVhcmt1cyBkaXN0cmlidXRpb24uIFRoZXkgY29uZmlndXJlLCBib290IGFu\\nZCBpbnRlZ3JhdGUKYSB0ZWNobm9sb2d5IChpbiBvdXIgY2FzZSBDYW1lbCBj\\nb21wb25lbnRzKSBpbnRvIHlvdXIgUXVhcmt1cyBhcHBsaWNhdGlvbi4gWW91\\nIHdpbGwgdHlwaWNhbGx5IHVzZSB0aGVtIGFzIGRlcGVuZGVuY2llcwppbiB5\\nb3VyIHByb2plY3QuCgoKPT0gSG93IHRvIGJ1aWxkCgpTZWUgdGhlIGNvbnRy\\naWJ1dG9yIGd1aWRlIHhyZWY6ZG9jcy9tb2R1bGVzL1JPT1QvcGFnZXMvY29u\\ndHJpYnV0b3ItZ3VpZGUuYWRvY1tpbiB0aGUgc291cmNlIHRyZWVdIG9yIG9u\\nIHRoZQpodHRwczovL2NhbWVsLmFwYWNoZS5vcmcvY2FtZWwtcXVhcmt1cy9s\\nYXRlc3QvY29udHJpYnV0b3ItZ3VpZGUuaHRtbFtBcGFjaGUgQ2FtZWwgd2Vi\\nc2l0ZV0uCgoKPT0gTGljZW5zaW5nCgpUaGlzIHNvZnR3YXJlIGlzIGxpY2Vu\\nc2VkIHVuZGVyIHRoZSB0ZXJtcyB5b3UgbWF5IGZpbmQgaW4gdGhlIGZpbGUg\\nbmFtZWQgYExJQ0VOU0UudHh0YCBpbiB0aGlzIGRpcmVjdG9yeS4K\\n\",\"encoding\":\"base64\"}",
+    "headers" : {
+      "Server" : "GitHub.com",
+      "Date" : "Thu, 20 May 2021 10:38:31 GMT",
+      "Content-Type" : "application/json; charset=utf-8",
+      "Cache-Control" : "public, max-age=60, s-maxage=60",
+      "Vary" : "Accept, Accept-Encoding, Accept, X-Requested-With",
+      "ETag" : "W/\"f7af62dc21539a2acbc6159b8869ab60dccd4da5e92eeead36caddd9281d0ae3\"",
+      "X-GitHub-Media-Type" : "github.beta; format=json",
+      "Strict-Transport-Security" : "max-age=31536000; includeSubdomains; preload",
+      "X-Frame-Options" : "deny",
+      "X-Content-Type-Options" : "nosniff",
+      "X-XSS-Protection" : "0",
+      "Referrer-Policy" : "origin-when-cross-origin, strict-origin-when-cross-origin",
+      "Content-Security-Policy" : "default-src 'none'",
+      "X-RateLimit-Limit" : "60",
+      "X-RateLimit-Remaining" : "57",
+      "X-RateLimit-Reset" : "1621510517",
+      "X-RateLimit-Resource" : "core",
+      "X-RateLimit-Used" : "3",
+      "Accept-Ranges" : "bytes",
+      "X-GitHub-Request-Id" : "A086:97B8:1BFAA5:1E9D8A:60A63C27"
+    }
+  },
+  "uuid" : "b61eef33-a160-48e7-95e1-40349b7f5e1e",
+  "persistent" : true,
+  "insertionIndex" : 2
+}

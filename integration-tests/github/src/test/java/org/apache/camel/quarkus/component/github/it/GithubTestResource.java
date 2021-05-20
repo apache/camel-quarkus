@@ -16,23 +16,19 @@
  */
 package org.apache.camel.quarkus.component.github.it;
 
-import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
+import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
-import static org.hamcrest.Matchers.containsString;
+public class GithubTestResource extends WireMockTestResourceLifecycleManager {
 
-@QuarkusTest
-@QuarkusTestResource(GithubTestResource.class)
-class GithubTest {
+    private static final String GITHUB_ENV_TOKEN = "GITHUB_TOKEN";
 
-    @Test
-    public void test() {
-        RestAssured.get("/github/get")
-                .then()
-                .statusCode(200)
-                .body(containsString("Apache Camel extensions for Quarkus"));
+    @Override
+    protected String getRecordTargetBaseUrl() {
+        return "https://api.github.com";
     }
 
+    @Override
+    protected boolean isMockingEnabled() {
+        return !envVarsPresent(GITHUB_ENV_TOKEN);
+    }
 }
