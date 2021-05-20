@@ -74,6 +74,10 @@ public class FileRoutes extends RouteBuilder {
                 .id(SORT_BY)
                 .noAutoStartup()
                 .convertBodyTo(String.class).to("mock:" + SORT_BY);
+
+        from("direct:pollEnrich")
+                .pollEnrich("file://target/pollEnrich?fileName=pollEnrich.txt");
+
     }
 
     public class MyFileFilter<T> implements GenericFileFilter<T> {
