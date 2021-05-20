@@ -33,6 +33,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -310,4 +311,20 @@ class FileTest {
                     }
                 });
     }
+
+    @Test
+    public void pollEnrich() throws IOException {
+        final Path file = Paths.get("target/pollEnrich/pollEnrich.txt");
+        Files.createDirectories(file.getParent());
+        final String body = "Hi from pollEnrich.txt";
+        Files.write(file, body.getBytes(StandardCharsets.UTF_8));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .post("/file/route/pollEnrich")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is(body));
+    }
+
 }
