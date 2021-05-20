@@ -25,6 +25,7 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
     public static final String FALLBACK_RESULT = "Fallback response";
     public static final String RESULT = "Hello Camel Quarkus MicroProfile Fault Tolerance";
     private static final AtomicInteger COUNTER = new AtomicInteger();
+    private static final AtomicInteger TIMEOUT_COUNTER = new AtomicInteger();
 
     @Override
     public void configure() throws Exception {
@@ -39,5 +40,19 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
                 .onFallback()
                 .setBody().constant(FALLBACK_RESULT)
                 .end();
+
+        from("direct:faultToleranceWithTimeout")
+                .circuitBreaker()
+                .faultToleranceConfiguration().timeoutEnabled(true).timeoutDuration(500).end()
+                .process(exchange -> {
+                    if (TIMEOUT_COUNTER.incrementAndGet() == 1) {
+                        Thread.sleep(1000);
+                    }
+                    exchange.getMessage().setBody("Regular hi " + exchange.getMessage().getBody(String.class));
+                })
+                .onFallback()
+                .setBody().simple("Sorry ${body}, had to fallback!")
+                .end();
+
     }
 }
