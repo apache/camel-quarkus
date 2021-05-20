@@ -108,4 +108,33 @@ class EipTest {
                 .body(Matchers.is("foo,foo,foo"));
 
     }
+
+    @Test
+    public void multicast() {
+        final List<String> messages = Arrays.asList("a", "b", "c", "d");
+        for (String msg : messages) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(msg)
+                    .post("/eip/route/multicast")
+                    .then()
+                    .statusCode(200);
+        }
+
+        RestAssured.get("/eip/mock/multicast1/4/5000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,b,c,d"));
+
+        RestAssured.get("/eip/mock/multicast2/4/5000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,b,c,d"));
+
+        RestAssured.get("/eip/mock/multicast3/4/5000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,b,c,d"));
+
+    }
 }
