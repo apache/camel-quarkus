@@ -80,4 +80,17 @@ class EipTest {
                 .body(Matchers.is("Hello Franz"));
 
     }
+
+    @Test
+    public void failover() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Arthur")
+                .post("/eip/route/failover")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Hello from failover2 Arthur"));
+
+    }
+
 }
