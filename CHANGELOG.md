@@ -10,7 +10,11 @@
 
 **Closed issues:**
 
+- Complete simple core doc concerning "type:\*\*\*" expressions [\#2631](https://github.com/apache/camel-quarkus/issues/2631)
+- Test data format EIPs [\#2616](https://github.com/apache/camel-quarkus/issues/2616)
+- Test core languages in isolation [\#2613](https://github.com/apache/camel-quarkus/issues/2613)
 - package org.apache.camel.builder does not exist when using fast-jar in application.properties [\#2612](https://github.com/apache/camel-quarkus/issues/2612)
+- Cancel Stale Workflow Runs job is cancelling workflows on all branches [\#2594](https://github.com/apache/camel-quarkus/issues/2594)
 - REST extension doc link is not processed correctly [\#2591](https://github.com/apache/camel-quarkus/issues/2591)
 - Support @Consume [\#2580](https://github.com/apache/camel-quarkus/issues/2580)
 - \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
@@ -85,6 +89,12 @@
 
 **Merged pull requests:**
 
+- add quarkus-jackson in the camel-quarkus-kafka extension [\#2629](https://github.com/apache/camel-quarkus/pull/2629) ([zbendhiba](https://github.com/zbendhiba))
+- Use concurrency key instead of cancel-workflow-runs action [\#2620](https://github.com/apache/camel-quarkus/pull/2620) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add tests for path prefixes and all HTTP methods [\#2619](https://github.com/apache/camel-quarkus/pull/2619) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test core languages in isolation [\#2614](https://github.com/apache/camel-quarkus/pull/2614) ([ppalaga](https://github.com/ppalaga))
+- Add tests for MicroProfile metrics configuration options [\#2611](https://github.com/apache/camel-quarkus/pull/2611) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add test coverage for additional JMS message types [\#2609](https://github.com/apache/camel-quarkus/pull/2609) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update first-steps.adoc [\#2603](https://github.com/apache/camel-quarkus/pull/2603) ([yazidaqel](https://github.com/yazidaqel))
 - Leverage quarkus-hazelcast-client-bom, upgrade to quarkus-hazelcast-client 1.2.0 [\#2602](https://github.com/apache/camel-quarkus/pull/2602) ([ppalaga](https://github.com/ppalaga))
 - Document locale limitations in native mode  [\#2601](https://github.com/apache/camel-quarkus/pull/2601) ([ppalaga](https://github.com/ppalaga))
