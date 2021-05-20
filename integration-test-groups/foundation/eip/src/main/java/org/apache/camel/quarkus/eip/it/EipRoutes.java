@@ -49,6 +49,14 @@ public class EipRoutes extends RouteBuilder {
         from("direct:prepend-hello")
                 .setBody(body().prepend("Hello "));
 
+        from("direct:failover")
+                .loadBalance()
+                .failover(MyException.class)
+                .to("direct:failover1", "direct:failover2");
+        from("direct:failover1").throwException(new MyException());
+        from("direct:failover2").setBody(body().prepend("Hello from failover2 "));
+
+
     }
 
     @Produces
@@ -56,5 +64,9 @@ public class EipRoutes extends RouteBuilder {
     @Named("roundRobin")
     RoundRobinLoadBalancer roundRobinLoadBalancer() {
         return new RoundRobinLoadBalancer();
+    }
+
+    public static class MyException extends RuntimeException {
+
     }
 }
