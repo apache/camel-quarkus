@@ -69,4 +69,15 @@ class EipTest {
 
     }
 
+    @Test
+    public void enrich() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Franz")
+                .post("/eip/route/enrich")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Hello Franz"));
+
+    }
 }
