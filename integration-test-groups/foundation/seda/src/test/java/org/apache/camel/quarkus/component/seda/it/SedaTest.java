@@ -27,12 +27,12 @@ import static org.hamcrest.Matchers.equalTo;
 class SedaTest {
 
     @Test
-    public void testSeda() {
+    public void seda() {
         RestAssured.given()
-                .contentType(ContentType.TEXT).body("Hello World").post("/seda/post")
+                .contentType(ContentType.TEXT).body("Hello World").post("/seda/foo")
                 .then().statusCode(201);
 
-        RestAssured.get("/seda/get").then().body(equalTo("Hello World")).statusCode(200);
+        RestAssured.get("/seda/foo").then().body(equalTo("Hello World")).statusCode(200);
     }
 
 }
