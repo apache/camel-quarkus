@@ -55,41 +55,41 @@
     </route>
 
     <route>
-      <from uri="direct:spring-in"/>
+      <from uri="direct:jacksonxml-xml-in"/>
       <marshal><jacksonxml/></marshal>
     </route>
 
     <route>
-      <from uri="direct:spring-inPretty"/>
+      <from uri="direct:jacksonxml-xml-inPretty"/>
       <marshal><jacksonxml prettyPrint="true"/></marshal>
     </route>
 
     <route>
-      <from uri="direct:spring-back"/>
+      <from uri="direct:jacksonxml-xml-back"/>
       <unmarshal><jacksonxml/></unmarshal>
-      <to uri="mock:spring-reverse"/>
+      <to uri="mock:jacksonxml-xml-reverse"/>
     </route>
 
     <route>
-      <from uri="direct:spring-inPojo"/>
+      <from uri="direct:jacksonxml-xml-inPojo"/>
       <marshal><jacksonxml unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojo"/></marshal>
     </route>
 
     <route>
-      <from uri="direct:spring-backPojo"/>
+      <from uri="direct:jacksonxml-xml-backPojo"/>
       <unmarshal><jacksonxml unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojo"/></unmarshal>
-      <to uri="mock:spring-reversePojo"/>
+      <to uri="mock:jacksonxml-xml-reversePojo"/>
     </route>
 
     <route>
-      <from uri="direct:spring-inAgeView"/>
+      <from uri="direct:jacksonxml-xml-inAgeView"/>
       <marshal><jacksonxml unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView" jsonViewTypeName="org.apache.camel.quarkus.component.dataformats.json.model.Views$Age"/></marshal>
     </route>
 
     <route>
-      <from uri="direct:spring-backAgeView"/>
+      <from uri="direct:jacksonxml-xml-backAgeView"/>
       <unmarshal><jacksonxml unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView" jsonViewTypeName="org.apache.camel.quarkus.component.dataformats.json.model.Views$Age"/></unmarshal>
-      <to uri="mock:spring-reverseAgeView"/>
+      <to uri="mock:jacksonxml-xml-reverseAgeView"/>
     </route>
 </routes>
 
