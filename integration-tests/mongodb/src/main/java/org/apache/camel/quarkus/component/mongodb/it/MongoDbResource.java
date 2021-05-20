@@ -18,9 +18,12 @@ package org.apache.camel.quarkus.component.mongodb.it;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -35,11 +38,13 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoIterable;
-import io.quarkus.mongodb.MongoClientName;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mongodb.MongoDbConstants;
+import org.apache.camel.util.CollectionHelper;
 import org.bson.Document;
 
 @Path("/mongodb")
@@ -50,11 +55,14 @@ public class MongoDbResource {
     static final String NAMED_MONGO_CLIENT_NAME = "myMongoClient";
 
     @Inject
-    @MongoClientName(value = NAMED_MONGO_CLIENT_NAME)
-    MongoClient namedMongoClient;
+    ProducerTemplate producerTemplate;
 
     @Inject
-    ProducerTemplate producerTemplate;
+    CamelContext camelContext;
+
+    @Inject
+    @Named("results")
+    Map<String, List<Document>> results;
 
     @POST
     @Path("/collection/{collectionName}")
@@ -97,4 +105,93 @@ public class MongoDbResource {
 
         return arrayBuilder.build();
     }
+
+    @POST
+    @Path("/collection/dynamic/{collectionName}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Object dynamic(@PathParam("collectionName") String collectionName, String content,
+            @HeaderParam("mongoClientName") String mongoClientName,
+            @HeaderParam("dynamicOperation") String operation)
+            throws URISyntaxException {
+
+        Object result = producerTemplate.requestBodyAndHeader(
+                String.format("mongodb:%s?database=test&collection=%s&operation=insert&dynamicity=true",
+                        mongoClientName, collectionName),
+                content, MongoDbConstants.OPERATION_HEADER, operation);
+
+        return result;
+    }
+
+    @GET
+    @Path("/route/{routeId}/{operation}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String restartRoute(@PathParam("routeId") String routeId, @PathParam("operation") String operation)
+            throws Exception {
+        switch (operation) {
+        case "stop":
+            camelContext.getRouteController().stopRoute(routeId);
+            break;
+        case "start":
+            camelContext.getRouteController().startRoute(routeId);
+            break;
+        case "status":
+            return camelContext.getRouteController().getRouteStatus(routeId).name();
+
+        }
+
+        return null;
+    }
+
+    @GET
+    @Path("/resultsReset/{resultId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map getResultsAndReset(@PathParam("resultId") String resultId) {
+        int size = results.get(resultId).size();
+        Document last = null;
+        if (!results.get(resultId).isEmpty()) {
+            last = results.get(resultId).get(size - 1);
+            results.get(resultId).clear();
+        }
+        return CollectionHelper.mapOf("size", size, "last", last);
+    }
+
+    @Path("/convertMapToDocument")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map convertMapToDocument(Map input) {
+        Document doc = camelContext.getTypeConverter().convertTo(Document.class, input);
+        doc.put("clazz", doc.getClass().getName());
+        return doc;
+    }
+
+    @Path("/convertAnyObjectToDocument")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map convertMapToDocument(String input) {
+
+        Document doc = camelContext.getTypeConverter().convertTo(Document.class, new SimplePojo(input));
+        doc.put("clazz", doc.getClass().getName());
+        return doc;
+    }
+
+    @RegisterForReflection
+    private static class SimplePojo {
+        private String value;
+
+        public SimplePojo(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
+
 }
