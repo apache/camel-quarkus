@@ -56,6 +56,9 @@ public class EipRoutes extends RouteBuilder {
         from("direct:failover1").throwException(new MyException());
         from("direct:failover2").setBody(body().prepend("Hello from failover2 "));
 
+        from("direct:loop")
+                .loop(3)
+                .to("mock:loop");
 
     }
 

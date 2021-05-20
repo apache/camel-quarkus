@@ -93,4 +93,19 @@ class EipTest {
 
     }
 
+    @Test
+    public void loop() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("foo")
+                .post("/eip/route/loop")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/loop/3/5000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("foo,foo,foo"));
+
+    }
 }
