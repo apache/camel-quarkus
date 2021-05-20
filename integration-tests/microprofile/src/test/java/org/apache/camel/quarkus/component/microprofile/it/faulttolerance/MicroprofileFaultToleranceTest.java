@@ -28,15 +28,36 @@ class MicroprofileFaultToleranceTest {
     public void testCamelMicroProfileFaultToleranceFallback() {
 
         // First request should trigger the fallback response
-        RestAssured.get("/microprofile-fault-tolerance")
+        RestAssured.post("/microprofile-fault-tolerance/route/faultTolerance")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(MicroProfileFaultToleranceRoutes.FALLBACK_RESULT));
 
         // Next request(s) should trigger the expected response
-        RestAssured.get("/microprofile-fault-tolerance")
+        RestAssured.post("/microprofile-fault-tolerance/route/faultTolerance")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is(MicroProfileFaultToleranceRoutes.RESULT));
     }
+
+    @Test
+    public void testCamelMicroProfileFaultToleranceFallbackWithTimeout() {
+
+        // First request should trigger the fallback response
+        RestAssured.given()
+                .body("Joe")
+                .post("/microprofile-fault-tolerance/route/faultToleranceWithTimeout")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Sorry Joe, had to fallback!"));
+
+        // Next request(s) should trigger the expected response
+        RestAssured.given()
+                .body("Mary")
+                .post("/microprofile-fault-tolerance/route/faultToleranceWithTimeout")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Regular hi Mary"));
+    }
+
 }

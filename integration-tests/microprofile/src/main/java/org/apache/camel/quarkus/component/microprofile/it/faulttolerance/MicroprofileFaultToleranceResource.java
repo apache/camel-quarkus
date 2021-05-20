@@ -17,8 +17,9 @@
 package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -30,9 +31,10 @@ public class MicroprofileFaultToleranceResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @GET
+    @Path("/route/{route}")
+    @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String triggerFaultToleranceRoute() {
-        return producerTemplate.requestBody("direct:faultTolerance", null, String.class);
+    public String triggerFaultToleranceRoute(String body, @PathParam("route") String route) {
+        return producerTemplate.requestBody("direct:" + route, body, String.class);
     }
 }
