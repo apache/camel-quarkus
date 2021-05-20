@@ -16,14 +16,27 @@
  */
 package org.apache.camel.quarkus.component.github.it;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.Optional;
+
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.github.GitHubConstants;
+import org.apache.camel.impl.event.CamelContextStartedEvent;
 import org.eclipse.egit.github.core.CommitFile;
+import org.eclipse.egit.github.core.client.GitHubClient;
+import org.eclipse.egit.github.core.service.DataService;
+import org.eclipse.egit.github.core.service.RepositoryService;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 
 @Path("/github")
 public class GithubResource {
@@ -32,6 +45,31 @@ public class GithubResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    public void onContextStart(@Observes CamelContextStartedEvent event) {
+        Config config = ConfigProvider.getConfig();
+        Optional<String> wireMockUrl = config.getOptionalValue("wiremock.url", String.class);
+        if (wireMockUrl.isPresent()) {
+            // Force the GH client to use the WireMock proxy
+            try {
+                CamelContext context = event.getContext();
+                URI wireMockUri = new URI(wireMockUrl.get());
+                GitHubClient client = new GitHubClient(wireMockUri.getHost(), wireMockUri.getPort(), wireMockUri.getScheme()) {
+                    @Override
+                    protected String configureUri(String uri) {
+                        // Prevent the original impl adding an unwanted /v3 path prefix
+                        return uri;
+                    }
+                };
+                DataService dataService = new DataService(client);
+                RepositoryService repositoryService = new RepositoryService(client);
+                context.getRegistry().bind(GitHubConstants.GITHUB_DATA_SERVICE, dataService);
+                context.getRegistry().bind(GitHubConstants.GITHUB_REPOSITORY_SERVICE, repositoryService);
+            } catch (URISyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 
     @Path("/get")
     @GET
