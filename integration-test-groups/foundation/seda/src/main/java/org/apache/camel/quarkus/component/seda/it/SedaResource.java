@@ -24,6 +24,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -44,22 +45,22 @@ public class SedaResource {
     @Inject
     ConsumerTemplate consumerTemplate;
 
-    @Path("/get")
+    @Path("/{name}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String get() throws Exception {
-        final String message = consumerTemplate.receiveBodyNoWait("seda:foo", String.class);
+    public String get(@PathParam("name") String name) throws Exception {
+        final String message = consumerTemplate.receiveBodyNoWait("seda:" + name, String.class);
         LOG.infof("Received from seda: %s", message);
         return message;
     }
 
-    @Path("/post")
+    @Path("/{name}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message) throws Exception {
+    public Response post(String message, @PathParam("name") String name) throws Exception {
         LOG.infof("Sending to seda: %s", message);
-        producerTemplate.sendBody("seda:foo", message);
+        producerTemplate.sendBody("seda:" + name, message);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
