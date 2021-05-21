@@ -89,6 +89,7 @@
 
 **Merged pull requests:**
 
+- Use WireMock for GitHub tests [\#2639](https://github.com/apache/camel-quarkus/pull/2639) ([jamesnetherton](https://github.com/jamesnetherton))
 - add quarkus-jackson in the camel-quarkus-kafka extension [\#2629](https://github.com/apache/camel-quarkus/pull/2629) ([zbendhiba](https://github.com/zbendhiba))
 - Use concurrency key instead of cancel-workflow-runs action [\#2620](https://github.com/apache/camel-quarkus/pull/2620) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add tests for path prefixes and all HTTP methods [\#2619](https://github.com/apache/camel-quarkus/pull/2619) ([jamesnetherton](https://github.com/jamesnetherton))
