@@ -121,5 +121,7 @@ public class JsonComponentsTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(json));
+
     }
+
 }
