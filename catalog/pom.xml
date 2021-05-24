@@ -4403,8 +4403,27 @@
                 <executions>
                     <execution>
                         <!-- prepare the catalog and update doc files, etc. -->
+                        <id>prepare-catalog</id>
                         <goals>
                             <goal>prepare-catalog-quarkus</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <extensionDirectories>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions-core</extensionDirectory>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions</extensionDirectory>
+                                <extensionDirectory>${maven.multiModuleProjectDirectory}/extensions-jvm</extensionDirectory>
+                            </extensionDirectories>
+                            <skipArtifactIdBases>
+                                <skipArtifactIdBase>http-common</skipArtifactIdBase>
+                                <skipArtifactIdBase>qute</skipArtifactIdBase>
+                            </skipArtifactIdBases>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- update doc files, etc. -->
+                        <id>update-doc-files</id>
+                        <goals>
                             <goal>check-extension-pages</goal>
                         </goals>
                         <phase>process-resources</phase>
