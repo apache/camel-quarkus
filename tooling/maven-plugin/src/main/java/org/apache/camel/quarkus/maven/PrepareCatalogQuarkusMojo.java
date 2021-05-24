@@ -52,6 +52,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class PrepareCatalogQuarkusMojo extends AbstractMojo {
 
     public static final String CQ_CATALOG_DIR = "org/apache/camel/catalog/quarkus";
+    public static final String CAMEL_ARTIFACT = "camelArtifact";
     /**
      * The output directory where the catalog files should be written.
      */
@@ -178,9 +179,11 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         final String firstVersion = ext.getJvmSince()
                 .orElseThrow(() -> new RuntimeException(
                         "firstVersion property is missing in " + ext.getRuntimePomXmlPath()));
+        if (model.getArtifactId() != null && model.getGroupId() != null) {
+            model.getMetadata().put(CAMEL_ARTIFACT, model.getGroupId() + ":" + model.getArtifactId());
+        }
         // lets use the camel-quarkus version as first version instead of Apache Camel
         // version
-
         model.setFirstVersion(firstVersion);
 
         // update json metadata to adapt to camel-quarkus-catalog
@@ -189,7 +192,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         model.setVersion(ext.getVersion());
         model.setNativeSupported(nativeSupported);
         model.setSupportLevel(nativeSupported ? SupportLevel.Stable : SupportLevel.Preview);
-
     }
 
 }
