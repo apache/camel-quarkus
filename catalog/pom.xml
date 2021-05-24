@@ -2979,7 +2979,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-qute</artifactId>
+            <artifactId>camel-quarkus-qute-component</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
@@ -4416,6 +4416,7 @@
                             </extensionDirectories>
                             <skipArtifactIdBases>
                                 <skipArtifactIdBase>http-common</skipArtifactIdBase>
+                                <skipArtifactIdBase>qute</skipArtifactIdBase>
                             </skipArtifactIdBases>
                         </configuration>
                     </execution>
