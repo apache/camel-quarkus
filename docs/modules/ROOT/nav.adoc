@@ -43,6 +43,7 @@
 *** xref:reference/extensions/aws2-sns.adoc[AWS 2 Simple Notification System (SNS)]
 *** xref:reference/extensions/aws2-sqs.adoc[AWS 2 Simple Queue Service (SQS)]
 *** xref:reference/extensions/aws2-translate.adoc[AWS 2 Translate]
+*** xref:reference/extensions/aws-secrets-manager.adoc[AWS Secrets Manager]
 *** xref:reference/extensions/aws-xray.adoc[AWS XRay]
 *** xref:reference/extensions/activemq.adoc[ActiveMQ]
 *** xref:reference/extensions/arangodb.adoc[ArangoDb]
