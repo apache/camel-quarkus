@@ -171,14 +171,14 @@ jobs:
           if [[ ${JVM_MODULES[@]} ]]; then
             eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean test \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
-              -Pdocker,ci \
+              -Pdocker,ci -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:21.0.0-java11 \
               -pl "${JVM_MODULES[*]}"
           fi
 
           if [[ ${NATIVE_MODULES[@]} ]]; then
             eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
-              -Pnative,docker,ci \
+              -Pnative,docker,ci -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:21.0.0-java11 \
               -pl "${NATIVE_MODULES[*]}"
           fi
       - name: Fail if there are uncommitted changes
@@ -374,4 +374,4 @@ jobs:
           git clone --depth 1 --branch camel-quarkus-main https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
-            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify
+            && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker -Dquarkus.native.builder-image=quay.io/quarkus/ubi-quarkus-native-image:21.0.0-java11 clean verify
