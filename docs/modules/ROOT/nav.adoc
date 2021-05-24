@@ -237,6 +237,7 @@
 *** xref:reference/extensions/pg-replication-slot.adoc[PostgresSQL Replication Slot]
 *** xref:reference/extensions/printer.adoc[Printer]
 *** xref:reference/extensions/protobuf.adoc[Protobuf]
+*** xref:reference/extensions/jackson-protobuf.adoc[Protobuf Jackson]
 *** xref:reference/extensions/pubnub.adoc[PubNub]
 *** xref:reference/extensions/pulsar.adoc[Pulsar]
 *** xref:reference/extensions/quartz.adoc[Quartz]
