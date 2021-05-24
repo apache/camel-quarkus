@@ -151,7 +151,6 @@ jobs:
           sudo chmod +x /usr/local/bin/yq
       - name: Integration Tests
         run: |
-          set -x
           for MODULE in $(cat tooling/scripts/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
             if [ "${MODULE}" == "-" ]; then
               continue
