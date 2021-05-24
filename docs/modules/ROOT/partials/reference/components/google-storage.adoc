@@ -5,8 +5,8 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-deprecated: false
-:cq-jvm-since: 1.9.0
-:cq-native-since: 1.9.0
+:cq-jvm-since: 2.0.0
+:cq-native-since: 2.0.0
 :cq-camel-part-name: google-storage
 :cq-camel-part-title: Google Storage
 :cq-camel-part-description: Store and retrieve objects from Google Cloud Storage Service using the google-cloud-storage library.

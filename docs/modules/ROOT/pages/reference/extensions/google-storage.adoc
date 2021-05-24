@@ -8,11 +8,11 @@
 :cq-status-deprecation: Stable
 :cq-description: Store and retrieve objects from Google Cloud Storage Service using the google-cloud-storage library.
 :cq-deprecated: false
-:cq-jvm-since: 1.9.0
-:cq-native-since: 1.9.0
+:cq-jvm-since: 2.0.0
+:cq-native-since: 2.0.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.9.0## [.badge-key]##Native since##[.badge-supported]##1.9.0##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native since##[.badge-supported]##2.0.0##
 
 Store and retrieve objects from Google Cloud Storage Service using the google-cloud-storage library.
 
