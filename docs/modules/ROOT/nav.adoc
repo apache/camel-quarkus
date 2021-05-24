@@ -335,6 +335,7 @@
 *** xref:reference/extensions/zookeeper-master.adoc[ZooKeeper Master]
 *** xref:reference/extensions/grpc.adoc[gRPC]
 *** xref:reference/extensions/ical.adoc[iCal]
+*** xref:reference/extensions/joor.adoc[jOOR]
 *** xref:reference/extensions/univocity-parsers.adoc[uniVocity CSV]// extensions: END
 ** xref:reference/components.adoc[Components]
 ** xref:reference/dataformats.adoc[Data formats]
