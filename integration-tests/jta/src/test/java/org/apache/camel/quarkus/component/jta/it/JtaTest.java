@@ -138,12 +138,21 @@ class JtaTest {
 
     @Test
     public void testJdbcInTx() {
+        testTx("/jta/jdbc");
+    }
+
+    @Test
+    public void testSqlInTx() {
+        testTx("/jta/sqltx");
+    }
+
+    private void testTx(String url) {
         final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post("/jta/jdbc")
+                .post(url)
                 .then()
                 .statusCode(201)
                 .body(is(msg + " added"));
@@ -151,7 +160,7 @@ class JtaTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("fail")
-                .post("/jta/jdbc")
+                .post(url)
                 .then()
                 .statusCode(500);
 

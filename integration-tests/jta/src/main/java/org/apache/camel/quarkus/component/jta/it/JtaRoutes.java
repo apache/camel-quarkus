@@ -48,12 +48,27 @@ public class JtaRoutes extends RouteBuilder {
         from("direct:not_supported")
                 .transacted("PROPAGATION_NOT_SUPPORTED").transform().constant("not_supported");
 
-        from("direct:transaction")
+        from("direct:jdbc")
                 .transacted()
                 .setHeader("message", body())
                 .to("jms:queue:txTest?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
                 .transform().simple("insert into example(message) values ('${body}')")
                 .to("jdbc:camel-ds?resetAutoCommit=false")
+                .choice()
+                .when(header("message").startsWith("fail"))
+                .log("Failing forever with exception")
+                .process(x -> {
+                    throw new RuntimeException("Fail");
+                })
+                .otherwise()
+                .transform().simple("${header.message} added")
+                .endChoice();
+
+        from("direct:sqltx")
+                .transacted()
+                .setHeader("message", body())
+                .to("jms:queue:txTest?connectionFactory=#xaConnectionFactory&disableReplyTo=true")
+                .to("sql:insert into example(message) values (:#message)")
                 .choice()
                 .when(header("message").startsWith("fail"))
                 .log("Failing forever with exception")
