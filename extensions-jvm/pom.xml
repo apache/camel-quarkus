@@ -63,6 +63,7 @@
         <module>fastjson</module>
         <module>flink</module>
         <module>ganglia</module>
+        <module>google-functions</module>
         <module>groovy</module>
         <module>groovy-dsl</module>
         <module>guava-eventbus</module>

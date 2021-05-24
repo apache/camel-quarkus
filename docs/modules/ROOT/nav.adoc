@@ -133,6 +133,7 @@
 *** xref:reference/extensions/google-pubsub.adoc[Google Pubsub]
 *** xref:reference/extensions/google-sheets.adoc[Google Sheets]
 *** xref:reference/extensions/google-storage.adoc[Google Storage]
+*** xref:reference/extensions/google-functions.adoc[GoogleCloudFunctions]
 *** xref:reference/extensions/graphql.adoc[GraphQL]
 *** xref:reference/extensions/grok.adoc[Grok]
 *** xref:reference/extensions/groovy.adoc[Groovy]
