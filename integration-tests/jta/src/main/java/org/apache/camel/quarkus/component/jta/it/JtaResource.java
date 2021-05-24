@@ -100,6 +100,28 @@ public class JtaResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
     public Response jdbc(String message) throws Exception {
+        String response = request("direct:jdbc", message);
+        LOG.infof("Got response from jdbc: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/sqltx")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response sqltx(String message) throws Exception {
+        String response = request("direct:sqltx", message);
+        LOG.infof("Got response from sqltx: %s", response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    private String request(String endpoint, String message) throws Exception {
         LOG.infof("message is %s", message);
         MockEndpoint mockEndpoint = context.getEndpoint("mock:txResult", MockEndpoint.class);
         mockEndpoint.reset();
@@ -107,14 +129,10 @@ public class JtaResource {
             mockEndpoint.expectedMessageCount(1);
             mockEndpoint.message(0).body().isEqualTo(message);
         }
-        final String response = producerTemplate.requestBody("direct:transaction", message, String.class);
+        final String response = producerTemplate.requestBody(endpoint, message, String.class);
         mockEndpoint.assertIsSatisfied(15000);
 
-        LOG.infof("Got response from jta: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
+        return response;
     }
 
     @Path("/mock")
