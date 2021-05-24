@@ -6,7 +6,7 @@
 :cq-status: Stable
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
-:cq-native-since: 1.9.0
+:cq-native-since: 2.0.0
 :cq-camel-part-name: openstack-cinder
 :cq-camel-part-title: OpenStack Cinder
 :cq-camel-part-description: Access data in OpenStack Cinder block storage.
