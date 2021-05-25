@@ -1,0 +1,36 @@
+{
+  "id" : "b86486cf-179d-4eff-ab59-fd2621cd2fe2",
+  "name" : "rest_api_latest_issuelink",
+  "request" : {
+    "url" : "/rest/api/latest/issueLink",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"type\":{\"name\":\"Relates\"},\"inwardIssue\":{\"key\":\"TEST-72\"},\"outwardIssue\":{\"key\":\"TEST-73\"}}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "headers" : {
+      "X-AREQUESTID" : "667x2751x1",
+      "X-ASESSIONID" : "1jfxsvw",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Location" : "http://localhost:8080/rest/api/2/issueLink/10304",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:54 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "b86486cf-179d-4eff-ab59-fd2621cd2fe2",
+  "persistent" : true,
+  "insertionIndex" : 53
+}

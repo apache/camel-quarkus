@@ -1,0 +1,34 @@
+{
+  "id" : "b577e1c5-cc4e-436b-9c57-50a8d0d605c1",
+  "name" : "rest_api_latest_issue_test-69",
+  "request" : {
+    "url" : "/rest/api/latest/issue/TEST-69?expand=schema%2Cnames%2Ctransitions",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "rest_api_latest_issue_test-69-b577e1c5-cc4e-436b-9c57-50a8d0d605c1.json",
+    "headers" : {
+      "X-AREQUESTID" : "667x2715x1",
+      "X-ASESSIONID" : "r44kdk",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:46 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "b577e1c5-cc4e-436b-9c57-50a8d0d605c1",
+  "persistent" : true,
+  "scenarioName" : "scenario-6-rest-api-latest-issue-TEST-69",
+  "requiredScenarioState" : "scenario-6-rest-api-latest-issue-TEST-69-2",
+  "newScenarioState" : "scenario-6-rest-api-latest-issue-TEST-69-3",
+  "insertionIndex" : 20
+}

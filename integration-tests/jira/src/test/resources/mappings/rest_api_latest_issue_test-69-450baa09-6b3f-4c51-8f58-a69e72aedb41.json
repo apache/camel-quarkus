@@ -1,0 +1,30 @@
+{
+  "id" : "450baa09-6b3f-4c51-8f58-a69e72aedb41",
+  "name" : "rest_api_latest_issue_test-69",
+  "request" : {
+    "url" : "/rest/api/latest/issue/TEST-69?deleteSubtasks=true",
+    "method" : "DELETE"
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "X-AREQUESTID" : "667x2721x1",
+      "X-ASESSIONID" : "kpb0b3",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:48 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "450baa09-6b3f-4c51-8f58-a69e72aedb41",
+  "persistent" : true,
+  "insertionIndex" : 25
+}

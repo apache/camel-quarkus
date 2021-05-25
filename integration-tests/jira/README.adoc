@@ -1,6 +1,6 @@
 == Camel Quarkus Jira Integration Tests
 
-By default integration tests are performed against a mock Jira JAX-RS endpoint which is defined in class `FakeJiraResource`.
+By default integration tests use WireMock to stub the Jira API interactions.
 
 To run `camel-quarkus-jira` integration tests against a real Jira instance, set the environment variables described below.
 
@@ -8,8 +8,31 @@ To run `camel-quarkus-jira` integration tests against a real Jira instance, set 
 ----
 export JIRA_ISSUES_PROJECT_KEY=TEST
 export JIRA_URL=http://localhost:8080/
+
+# If your Jira server requires basic authentication
 export JIRA_USERNAME=my-jira-username
 export JIRA_PASSWORD=my-jira-password
+
+# If your Jira server requires OAuth authentication
+export JIRA_OAUTH_ACCESS_TOKEN=your-access-token
+export JIRA_OAUTH_CONSUMER_KEY=your-consumer-key
+export JIRA_OAUTH_PRIVATE_KEY=your-private-key
+export JIRA_OAUTH_VERIFICATION_CODE=your-code
+----
+
+If you want to test the issue transition producer, you may need to override the default a workflow transition id for your Jira instance.
+
+[source,shell]
+----
+export JIRA_TRANSITION_ID=10
 ----
 
 A simple way of setting up a Jira server is to use the https://hub.docker.com/r/atlassian/jira-software[Jira Docker image].
+
+If the WireMock stub recordings need updating, then remove the existing files from `src/test/resources/mappings` and run tests with either:
+
+System property `-Dwiremock.record=true`
+
+Or
+
+Set environment variable `WIREMOCK_RECORD=true`
