@@ -16,15 +16,32 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
-import com.github.tomakehurst.wiremock.http.HttpClientFactory;
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
+import org.apache.http.HttpException;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.conn.routing.HttpRoute;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.DefaultRoutePlanner;
+import org.apache.http.impl.conn.DefaultSchemePortResolver;
+import org.apache.http.protocol.HttpContext;
 
 public class DigitalOceanClientMock extends DigitalOceanClient {
 
     public DigitalOceanClientMock(String authToken, String apiHost) {
         super(authToken);
         this.apiHost = apiHost;
-        this.httpClient = HttpClientFactory.createClient();
+        this.httpClient = HttpClients.custom()
+                .setRoutePlanner(new DefaultRoutePlanner(DefaultSchemePortResolver.INSTANCE) {
+                    @Override
+                    public HttpRoute determineRoute(HttpHost host, HttpRequest request, HttpContext context)
+                            throws HttpException {
+                        // Override DigitalOceanClient forcing HTTPS
+                        HttpHost httpSchemeHost = new HttpHost(host.getHostName(), host.getPort(), "http");
+                        return super.determineRoute(httpSchemeHost, request, context);
+                    }
+                })
+                .build();
     }
 
 }

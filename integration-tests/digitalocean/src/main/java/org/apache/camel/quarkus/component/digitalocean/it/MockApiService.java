@@ -24,11 +24,10 @@ import com.myjeeva.digitalocean.impl.DigitalOceanClient;
 public class MockApiService {
 
     public DigitalOceanClient createDigitalOceanClient(String wireMockUrl, String oAuthToken) {
-        DigitalOceanClientMock digitalOceanClient = new DigitalOceanClientMock(oAuthToken, getFormattedURI(wireMockUrl));
-        return digitalOceanClient;
+        return new DigitalOceanClientMock(oAuthToken, getFormattedURI(wireMockUrl));
     }
 
     String getFormattedURI(String wireMockUrl) {
-        return wireMockUrl.replaceAll("https://", "");
+        return wireMockUrl.replaceAll("http://", "");
     }
 }

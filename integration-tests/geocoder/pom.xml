@@ -58,11 +58,8 @@
         <!-- dependencies needed to mock Google maps API -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-platform-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+            <scope>test</scope>
         </dependency>
 
 
