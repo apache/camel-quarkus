@@ -44,18 +44,30 @@ public class MongoDbRoute extends RouteBuilder {
     public void configure() {
         from(String.format("mongodb:%s?database=test&collection=%s&tailTrackIncreasingField=increasing",
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_TAILING))
-                        .process(e -> results.get(COLLECTION_TAILING).add(e.getMessage().getBody(Document.class)));
+                        .process(e -> {
+                            synchronized (results) {
+                                results.get(COLLECTION_TAILING).add(e.getMessage().getBody(Document.class));
+                            }
+                        });
 
         from(String.format(
                 "mongodb:%s?database=test&collection=%s&tailTrackIncreasingField=increasing&persistentTailTracking=true&persistentId=darwin",
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_PERSISTENT_TAILING))
                         .id(COLLECTION_PERSISTENT_TAILING)
-                        .process(e -> results.get(COLLECTION_PERSISTENT_TAILING).add(e.getMessage().getBody(Document.class)));
+                        .process(e -> {
+                            synchronized (results) {
+                                results.get(COLLECTION_PERSISTENT_TAILING).add(e.getMessage().getBody(Document.class));
+                            }
+                        });
 
         from(String.format("mongodb:%s?database=test&collection=%s&consumerType=changeStreams",
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_STREAM_CHANGES))
                         .routeProperty("streamFilter", "{'$match':{'$or':[{'fullDocument.string': 'value2'}]}}")
-                        .process(e -> results.get(COLLECTION_STREAM_CHANGES).add(e.getMessage().getBody(Document.class)));
+                        .process(e -> {
+                            synchronized (results) {
+                                results.get(COLLECTION_STREAM_CHANGES).add(e.getMessage().getBody(Document.class));
+                            }
+                        });
     }
 
     @Produces

@@ -147,13 +147,16 @@ public class MongoDbResource {
     @Path("/resultsReset/{resultId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Map getResultsAndReset(@PathParam("resultId") String resultId) {
-        int size = results.get(resultId).size();
-        Document last = null;
-        if (!results.get(resultId).isEmpty()) {
-            last = results.get(resultId).get(size - 1);
-            results.get(resultId).clear();
+        synchronized (results) {
+            int size = results.get(resultId).size();
+            Document last = null;
+            if (!results.get(resultId).isEmpty()) {
+                last = results.get(resultId).get(size - 1);
+                results.get(resultId).clear();
+            }
+
+            return CollectionHelper.mapOf("size", size, "last", last);
         }
-        return CollectionHelper.mapOf("size", size, "last", last);
     }
 
     @Path("/convertMapToDocument")
