@@ -28,7 +28,9 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.xml.security.c14n.CanonicalizerSpi;
+import org.apache.xml.security.stax.ext.XMLSecurityConstants;
 import org.apache.xml.security.transforms.TransformSpi;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -67,5 +69,12 @@ class XmlsecurityProcessor {
         Stream.of(GCMParameterSpec.class.getName(), XPathType[].class.getName())
                 .map(className -> new ReflectiveClassBuildItem(false, false, className))
                 .forEach(reflectiveClass::produce);
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        Stream.of(XMLSecurityConstants.class.getName())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClasses::produce);
     }
 }

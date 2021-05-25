@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.support.ahc.deployment;
 
+import java.util.stream.Stream;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
@@ -26,12 +28,6 @@ import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildI
 class SupportAhcProcessor {
 
     private static final String FEATURE = "camel-support-ahc";
-    private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
-            "org.asynchttpclient.netty.channel.ChannelManager",
-            "org.asynchttpclient.netty.request.NettyRequestSender",
-            "org.asynchttpclient.RequestBuilderBase",
-            "org.asynchttpclient.resolver.RequestHostnameResolver"
-    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -52,9 +48,12 @@ class SupportAhcProcessor {
 
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        for (String className : RUNTIME_INITIALIZED_CLASSES) {
-            runtimeInitializedClass
-                    .produce(new RuntimeInitializedClassBuildItem(className));
-        }
+        Stream.of("org.asynchttpclient.netty.channel.ChannelManager",
+                "org.asynchttpclient.netty.request.NettyRequestSender",
+                "org.asynchttpclient.RequestBuilderBase",
+                "org.asynchttpclient.resolver.RequestHostnameResolver",
+                "org.asynchttpclient.ntlm.NtlmEngine")
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
     }
 }
