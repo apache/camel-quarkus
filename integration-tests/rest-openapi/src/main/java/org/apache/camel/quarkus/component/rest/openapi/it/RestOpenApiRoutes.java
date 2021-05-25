@@ -23,6 +23,6 @@ public class RestOpenApiRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("direct:start")
-                .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/openapi?format=JSON)");
+                .toD("rest-openapi:#list?specificationUri=RAW(http://localhost:${header.test-port}/q/openapi?format=JSON)");
     }
 }
