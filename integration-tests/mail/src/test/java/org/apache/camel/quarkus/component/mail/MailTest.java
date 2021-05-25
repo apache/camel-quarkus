@@ -37,7 +37,7 @@ public class MailTest {
             + "Hello multipart!"
             + "${delimiter}\r\n"
             + "Content-Type: text/plain\r\n"
-            + "Content-Transfer-Encoding: 7bit\r\n"
+            + "Content-Transfer-Encoding: 8bit\r\n"
             + "Content-Disposition: attachment; filename=file.txt\r\n"
             + "Content-Description: Sample Attachment Data\r\n"
             + "X-AdditionalData: additional data\r\n"
