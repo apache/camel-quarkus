@@ -44,7 +44,7 @@ public class DigitaloceanRoute extends RouteBuilder {
     @Unremovable
     @Named("digitalOceanClient")
     DigitalOceanClient initDigitalOceanClient(MockApiService mockApiService) {
-        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url.ssl", String.class);
+        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
         if (wireMockUrl.isPresent()) {
             return mockApiService.createDigitalOceanClient(wireMockUrl.get(), oAuthToken);
         }

@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.digitalocean.it;
 
-import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import org.apache.camel.quarkus.test.wiremock.WireMockTestResourceLifecycleManager;
 
 public class DigitaloceanTestResource extends WireMockTestResourceLifecycleManager {
@@ -32,11 +31,5 @@ public class DigitaloceanTestResource extends WireMockTestResourceLifecycleManag
     @Override
     protected boolean isMockingEnabled() {
         return !envVarsPresent(DIGITALOCEAN_AUTH_TOKEN, DIGITALOCEAN_PUBLIC_KEY);
-    }
-
-    @Override
-    protected void customizeWiremockConfiguration(WireMockConfiguration config) {
-        // add an SSL port
-        config.dynamicHttpsPort();
     }
 }
