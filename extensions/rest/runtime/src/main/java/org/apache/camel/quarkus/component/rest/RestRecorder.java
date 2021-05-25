@@ -20,7 +20,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 import org.jboss.logging.Logger;
 
 @Recorder
@@ -31,7 +31,7 @@ public class RestRecorder {
 
     private static class RestCamelContextCustomizer implements CamelContextCustomizer {
         @Override
-        public void customize(CamelContext context) {
+        public void configure(CamelContext context) {
             String component = context.getRestConfiguration().getComponent();
             if (component == null) {
                 Logger.getLogger(RestCamelContextCustomizer.class).debugf(

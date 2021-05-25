@@ -58,7 +58,7 @@ public class CamelContextProcessor {
      * @param  modelJAXBContextFactory a list of known {@link ModelJAXBContextFactory}.
      * @param  modelDumper             a list of known {@link CamelModelToXMLDumperBuildItem}.
      * @param  factoryFinderResolver   a list of known {@link org.apache.camel.spi.FactoryFinderResolver}.
-     * @param  customizers             a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} used to
+     * @param  customizers             a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to
      *                                 customize the {@link CamelContext} at {@link ExecutionTime#STATIC_INIT}.
      * @return                         a build item holding an instance of a {@link CamelContext}
      */
@@ -113,7 +113,7 @@ public class CamelContextProcessor {
      *                              those known by the CDI container.
      * @param  recorder             the recorder
      * @param  context              a build item providing an augmented {@link org.apache.camel.CamelContext} instance.
-     * @param  customizers          a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} used to customize
+     * @param  customizers          a list of {@link org.apache.camel.spi.CamelContextCustomizer} used to customize
      *                              the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
      * @param  routesBuilderClasses a list of known {@link org.apache.camel.RoutesBuilder} classes.
      * @param  runtimeTasks         a placeholder to ensure all the runtime task are properly are done.

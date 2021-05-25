@@ -28,10 +28,10 @@ import org.apache.camel.main.MainListener;
 import org.apache.camel.main.MainListenerSupport;
 import org.apache.camel.main.RoutesCollector;
 import org.apache.camel.quarkus.core.CamelConfig.FailureRemedy;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.quarkus.core.CamelProducers;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.RegistryRoutesLoader;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class CamelMainRecorder {
@@ -78,7 +78,7 @@ public class CamelMainRecorder {
             @Override
             public void afterConfigure(BaseMainSupport main) {
                 for (RuntimeValue<CamelContextCustomizer> customizer : contextCustomizers) {
-                    customizer.getValue().customize(main.getCamelContext());
+                    customizer.getValue().configure(main.getCamelContext());
                 }
             }
         });

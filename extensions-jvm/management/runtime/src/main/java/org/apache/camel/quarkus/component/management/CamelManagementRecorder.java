@@ -19,7 +19,7 @@ package org.apache.camel.quarkus.component.management;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class CamelManagementRecorder {
@@ -31,7 +31,7 @@ public class CamelManagementRecorder {
     private static final class CamelManagementCustomizer implements CamelContextCustomizer {
 
         @Override
-        public void customize(CamelContext context) {
+        public void configure(CamelContext context) {
             context.setManagementName(context.getName());
         }
     }

@@ -18,7 +18,7 @@ package org.apache.camel.quarkus.core.deployment.spi;
 
 import io.quarkus.builder.item.MultiBuildItem;
 import io.quarkus.runtime.RuntimeValue;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 /**
  * A {@link MultiBuildItem} holding the {@link CamelContextCustomizer} {@link RuntimeValue} and could be used

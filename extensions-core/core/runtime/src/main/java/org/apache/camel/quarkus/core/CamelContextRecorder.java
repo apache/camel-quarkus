@@ -25,6 +25,7 @@ import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
+import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
@@ -69,7 +70,7 @@ public class CamelContextRecorder {
     }
 
     public void customize(RuntimeValue<CamelContext> context, RuntimeValue<CamelContextCustomizer> contextCustomizer) {
-        contextCustomizer.getValue().customize(context.getValue());
+        contextCustomizer.getValue().configure(context.getValue());
     }
 
     public RuntimeValue<CamelRuntime> createRuntime(BeanContainer beanContainer, RuntimeValue<CamelContext> context) {

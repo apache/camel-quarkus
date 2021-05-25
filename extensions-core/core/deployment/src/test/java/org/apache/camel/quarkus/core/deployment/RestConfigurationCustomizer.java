@@ -17,13 +17,13 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.RestConfiguration;
 
 public class RestConfigurationCustomizer implements CamelContextCustomizer {
 
     @Override
-    public void customize(CamelContext context) {
+    public void configure(CamelContext context) {
         RestConfiguration restConfiguration = new RestConfiguration();
         restConfiguration.setApiContextPath("/example");
 
