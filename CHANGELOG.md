@@ -11,6 +11,7 @@
 **Closed issues:**
 
 - Complete simple core doc concerning "type:\*\*\*" expressions [\#2631](https://github.com/apache/camel-quarkus/issues/2631)
+- Expand MongoDb test coverage [\#2622](https://github.com/apache/camel-quarkus/issues/2622)
 - Test data format EIPs [\#2616](https://github.com/apache/camel-quarkus/issues/2616)
 - Test core languages in isolation [\#2613](https://github.com/apache/camel-quarkus/issues/2613)
 - package org.apache.camel.builder does not exist when using fast-jar in application.properties [\#2612](https://github.com/apache/camel-quarkus/issues/2612)
@@ -89,6 +90,7 @@
 
 **Merged pull requests:**
 
+- Expand MongoDb test coverage \#2622 [\#2642](https://github.com/apache/camel-quarkus/pull/2642) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Use WireMock for GitHub tests [\#2639](https://github.com/apache/camel-quarkus/pull/2639) ([jamesnetherton](https://github.com/jamesnetherton))
 - \#2633 jacksonxml: add test coverage [\#2635](https://github.com/apache/camel-quarkus/pull/2635) ([ffang](https://github.com/ffang))
 - add quarkus-jackson in the camel-quarkus-kafka extension [\#2629](https://github.com/apache/camel-quarkus/pull/2629) ([zbendhiba](https://github.com/zbendhiba))
