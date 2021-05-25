@@ -26,8 +26,8 @@ public class CamelRoute extends RouteBuilder {
     @Override
     public void configure() {
 
-        from("timer:quarkus-ec2?repeatCount=1")
-                .to("aws2-ec2://instance?operation=describeInstances")
+        from("timer:quarkus-athena?repeatCount=1")
+                .to("aws2-athena://cluster?operation=listQueryExecutions")
                 .to("log:sf?showAll=true");
 
         from("timer:quarkus-cw?repeatCount=1")
@@ -38,12 +38,9 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws2-cw://test")
                 .to("log:sf?showAll=true");
 
-        from("timer:quarkus-translate?repeatCount=1")
-                .setHeader(Translate2Constants.SOURCE_LANGUAGE, constant(Translate2LanguageEnum.ITALIAN))
-                .setHeader(Translate2Constants.TARGET_LANGUAGE, constant(Translate2LanguageEnum.GERMAN))
-                .setBody(constant("Ciao"))
-                .to("aws2-translate://cluster?operation=translateText")
-                .log("Translation: ${body}");
+        from("timer:quarkus-ec2?repeatCount=1")
+                .to("aws2-ec2://instance?operation=describeInstances")
+                .to("log:sf?showAll=true");
 
         from("timer:quarkus-ecs?repeatCount=1")
                 .to("aws2-ecs://cluster?operation=listClusters")
@@ -52,6 +49,10 @@ public class CamelRoute extends RouteBuilder {
         from("timer:quarkus-eks?repeatCount=1")
                 .setHeader("CamelAwsEKSOperation", constant("listClusters"))
                 .to("aws2-eks://cluster")
+                .to("log:sf?showAll=true");
+
+        from("timer:quarkus-eventbridge?repeatCount=1")
+                .to("aws2-eventbridge://default?operation=listRules")
                 .to("log:sf?showAll=true");
 
         from("timer:quarkus-iam?repeatCount=1")
@@ -70,21 +71,16 @@ public class CamelRoute extends RouteBuilder {
                 .to("aws2-msk://cluster?operation=listClusters")
                 .to("log:sf?showAll=true");
 
-        from("timer:quarkus-athena?repeatCount=1")
-                .to("aws2-athena://cluster?operation=listQueryExecutions")
-                .to("log:sf?showAll=true");
-
-        from("timer:quarkus-lambda?repeatCount=1")
-                .to("aws2-lambda://cluster?operation=listFunctions")
-                .to("log:sf?showAll=true");
-
         from("timer:quarkus-sts?repeatCount=1")
                 .to("aws2-sts://myaccount?operation=getSessionToken")
                 .to("log:sf?showAll=true");
 
-        from("timer:quarkus-eventbridge?repeatCount=1")
-                .to("aws2-eventbridge://default?operation=listRules")
-                .to("log:sf?showAll=true");
+        from("timer:quarkus-translate?repeatCount=1")
+                .setHeader(Translate2Constants.SOURCE_LANGUAGE, constant(Translate2LanguageEnum.ITALIAN))
+                .setHeader(Translate2Constants.TARGET_LANGUAGE, constant(Translate2LanguageEnum.GERMAN))
+                .setBody(constant("Ciao"))
+                .to("aws2-translate://cluster?operation=translateText")
+                .log("Translation: ${body}");
 
     }
 
