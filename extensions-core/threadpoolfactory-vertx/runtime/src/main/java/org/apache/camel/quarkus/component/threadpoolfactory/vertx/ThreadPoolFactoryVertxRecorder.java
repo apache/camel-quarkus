@@ -21,15 +21,15 @@ import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExtendedCamelContext;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class ThreadPoolFactoryVertxRecorder {
     public RuntimeValue<CamelContextCustomizer> createThreadPoolFactoryCustomizer(RuntimeValue<Vertx> vertx) {
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
-            public void customize(CamelContext context) {
+            public void configure(CamelContext context) {
                 VertXThreadPoolFactory threadPoolFactory = new VertXThreadPoolFactory();
                 threadPoolFactory.setVertx(vertx.getValue());
 

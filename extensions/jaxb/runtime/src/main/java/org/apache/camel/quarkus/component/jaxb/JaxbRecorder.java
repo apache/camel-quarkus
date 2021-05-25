@@ -20,7 +20,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.converter.jaxb.JaxbRestBindingJaxbDataFormatFactory;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class JaxbRecorder {

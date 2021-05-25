@@ -150,7 +150,7 @@ public class CamelMainProcessor {
      * @param  beanContainer   a reference to a fully initialized CDI bean container
      * @param  recorder        the recorder.
      * @param  main            a reference to a {@link CamelMain}.
-     * @param  customizers     a list of {@link org.apache.camel.quarkus.core.CamelContextCustomizer} that will be
+     * @param  customizers     a list of {@link org.apache.camel.spi.CamelContextCustomizer} that will be
      *                         executed before starting the {@link CamelContext} at {@link ExecutionTime#RUNTIME_INIT}.
      * @param  runtimeTasks    a placeholder to ensure all the runtime task are properly are done.
      * @param  camelMainConfig a {@link CamelMainConfig}

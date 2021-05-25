@@ -23,7 +23,7 @@ import org.apache.camel.component.micrometer.eventnotifier.MicrometerExchangeEve
 import org.apache.camel.component.micrometer.eventnotifier.MicrometerRouteEventNotifier;
 import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
 import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ManagementStrategy;
 
 @Recorder
@@ -45,7 +45,7 @@ public class CamelMicrometerRecorder {
         }
 
         @Override
-        public void customize(CamelContext camelContext) {
+        public void configure(CamelContext camelContext) {
             if (config.enableRoutePolicy) {
                 camelContext.addRoutePolicyFactory(new MicrometerRoutePolicyFactory());
             }
@@ -69,7 +69,7 @@ public class CamelMicrometerRecorder {
         }
 
         @Override
-        public void customize(CamelContext camelContext) {
+        public void configure(CamelContext camelContext) {
             if (!config.enableMessageHistory) {
                 return;
             }

@@ -25,7 +25,7 @@ import org.apache.camel.component.microprofile.metrics.event.notifier.exchange.M
 import org.apache.camel.component.microprofile.metrics.event.notifier.route.MicroProfileMetricsRouteEventNotifier;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
 import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 import org.apache.camel.spi.ManagementStrategy;
 import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.jboss.logging.Logger;
@@ -53,7 +53,7 @@ public class CamelMicroProfileMetricsRecorder {
         }
 
         @Override
-        public void customize(CamelContext camelContext) {
+        public void configure(CamelContext camelContext) {
             if (config.enableRoutePolicy) {
                 camelContext.addRoutePolicyFactory(new MicroProfileMetricsRoutePolicyFactory());
             }
@@ -82,7 +82,7 @@ public class CamelMicroProfileMetricsRecorder {
         }
 
         @Override
-        public void customize(CamelContext camelContext) {
+        public void configure(CamelContext camelContext) {
             if (!config.enableMessageHistory) {
                 return;
             }
