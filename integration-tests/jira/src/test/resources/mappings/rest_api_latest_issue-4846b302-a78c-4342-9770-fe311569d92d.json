@@ -1,0 +1,39 @@
+{
+  "id" : "4846b302-a78c-4342-9770-fe311569d92d",
+  "name" : "rest_api_latest_issue",
+  "request" : {
+    "url" : "/rest/api/latest/issue",
+    "method" : "POST",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"fields\":{\"summary\":\"Camel Quarkus Test Issue Summary\",\"issuetype\":{\"id\":\"10003\"},\"project\":{\"key\":\"TEST\"},\"description\":\"Camel Quarkus Test Issue Description\"},\"properties\":[]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 201,
+    "body" : "{\"id\":\"10351\",\"key\":\"TEST-70\",\"self\":\"http://localhost:8080/rest/api/latest/issue/10351\"}",
+    "headers" : {
+      "X-AREQUESTID" : "667x2724x1",
+      "X-ASESSIONID" : "2te3mh",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:48 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "4846b302-a78c-4342-9770-fe311569d92d",
+  "persistent" : true,
+  "scenarioName" : "scenario-2-rest-api-latest-issue",
+  "requiredScenarioState" : "scenario-2-rest-api-latest-issue-4",
+  "newScenarioState" : "scenario-2-rest-api-latest-issue-5",
+  "insertionIndex" : 28
+}

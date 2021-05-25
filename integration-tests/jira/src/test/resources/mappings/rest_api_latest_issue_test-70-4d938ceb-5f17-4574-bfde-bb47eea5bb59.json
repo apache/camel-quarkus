@@ -1,0 +1,36 @@
+{
+  "id" : "4d938ceb-5f17-4574-bfde-bb47eea5bb59",
+  "name" : "rest_api_latest_issue_test-70",
+  "request" : {
+    "url" : "/rest/api/latest/issue/TEST-70",
+    "method" : "PUT",
+    "bodyPatterns" : [ {
+      "equalToJson" : "{\"fields\":{\"summary\":\"Updated summary\"},\"properties\":[]}",
+      "ignoreArrayOrder" : true,
+      "ignoreExtraElements" : true
+    } ]
+  },
+  "response" : {
+    "status" : 204,
+    "headers" : {
+      "X-AREQUESTID" : "667x2728x1",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "Set-Cookie" : [ "JSESSIONID=CBDA5E31358010134C7571D26044A12E; Path=/; HttpOnly", "atlassian.xsrf.token=BXSA-CBM7-RWE1-JM9A_23f86beb2b668eca49fbe9e6bd307cf445552a6a_lin; Path=/" ],
+      "X-Seraph-LoginReason" : "OK",
+      "X-ASESSIONID" : "1ocfnpn",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:49 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "4d938ceb-5f17-4574-bfde-bb47eea5bb59",
+  "persistent" : true,
+  "insertionIndex" : 32
+}

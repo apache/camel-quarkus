@@ -1,0 +1,31 @@
+{
+  "id" : "ff621014-dbe1-499a-88cb-e659bec3ffa9",
+  "name" : "rest_auth_latest_session",
+  "request" : {
+    "url" : "/rest/auth/latest/session",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"self\":\"http://localhost:8080/rest/api/latest/user?username=jiratester\",\"name\":\"jiratester\",\"loginInfo\":{\"failedLoginCount\":12,\"loginCount\":5606,\"lastFailedLoginTime\":\"2021-05-25T12:25:02.949+0000\",\"previousLoginTime\":\"2021-05-26T11:07:51.808+0000\"}}",
+    "headers" : {
+      "X-AREQUESTID" : "667x2735x1",
+      "X-ASESSIONID" : "kpb0b3",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:51 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "ff621014-dbe1-499a-88cb-e659bec3ffa9",
+  "persistent" : true,
+  "insertionIndex" : 39
+}

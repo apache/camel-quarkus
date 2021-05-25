@@ -1,0 +1,31 @@
+{
+  "id" : "a8497662-b947-4b46-9815-9e04995588c8",
+  "name" : "rest_api_latest_search",
+  "request" : {
+    "url" : "/rest/api/latest/search?jql=id+%3E+10304+AND+project%3DTEST+ORDER+BY+key+desc&expand=schema%2Cnames&maxResults=1&startAt=0",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "bodyFileName" : "rest_api_latest_search-a8497662-b947-4b46-9815-9e04995588c8.json",
+    "headers" : {
+      "X-AREQUESTID" : "667x2726x1",
+      "X-ASESSIONID" : "13zh262",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:49 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "a8497662-b947-4b46-9815-9e04995588c8",
+  "persistent" : true,
+  "insertionIndex" : 30
+}

@@ -1,0 +1,33 @@
+{
+  "id" : "1a4dffb2-212a-4e5c-a6ed-b07e6c22df97",
+  "name" : "rest_api_latest_issuetype",
+  "request" : {
+    "url" : "/rest/api/latest/issuetype",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "[{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10003\",\"id\":\"10003\",\"description\":\"A task that needs to be done.\",\"iconUrl\":\"http://localhost:8080/secure/viewavatar?size=xsmall&avatarId=10318&avatarType=issuetype\",\"name\":\"Task\",\"subtask\":false,\"avatarId\":10318},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10000\",\"id\":\"10000\",\"description\":\"The sub-task of the issue\",\"iconUrl\":\"http://localhost:8080/images/icons/issuetypes/subtask_alternate.png\",\"name\":\"Sub-task\",\"subtask\":true},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10002\",\"id\":\"10002\",\"description\":\"Created by Jira Software - do not edit or delete. Issue type for a user story.\",\"iconUrl\":\"http://localhost:8080/images/icons/issuetypes/story.svg\",\"name\":\"Story\",\"subtask\":false},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10004\",\"id\":\"10004\",\"description\":\"A problem which impairs or prevents the functions of the product.\",\"iconUrl\":\"http://localhost:8080/secure/viewavatar?size=xsmall&avatarId=10303&avatarType=issuetype\",\"name\":\"Bug\",\"subtask\":false,\"avatarId\":10303},{\"self\":\"http://localhost:8080/rest/api/latest/issuetype/10001\",\"id\":\"10001\",\"description\":\"Created by Jira Software - do not edit or delete. Issue type for a big user story that needs to be broken down.\",\"iconUrl\":\"http://localhost:8080/images/icons/issuetypes/epic.svg\",\"name\":\"Epic\",\"subtask\":false}]",
+    "headers" : {
+      "X-AREQUESTID" : "667x2755x1",
+      "X-ASESSIONID" : "2te3mh",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:55 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "1a4dffb2-212a-4e5c-a6ed-b07e6c22df97",
+  "persistent" : true,
+  "scenarioName" : "scenario-1-rest-api-latest-issuetype",
+  "requiredScenarioState" : "scenario-1-rest-api-latest-issuetype-8",
+  "insertionIndex" : 57
+}

@@ -1,0 +1,34 @@
+{
+  "id" : "94c1f66d-8a68-4485-8669-fbd75b55c45a",
+  "name" : "rest_api_latest_serverinfo",
+  "request" : {
+    "url" : "/rest/api/latest/serverInfo",
+    "method" : "GET"
+  },
+  "response" : {
+    "status" : 200,
+    "body" : "{\"baseUrl\":\"http://localhost:8080\",\"version\":\"8.17.0\",\"versionNumbers\":[8,17,0],\"deploymentType\":\"Server\",\"buildNumber\":817000,\"buildDate\":\"2021-05-18T00:00:00.000+0000\",\"databaseBuildNumber\":817000,\"serverTime\":\"2021-05-26T11:07:47.349+0000\",\"scmInfo\":\"a507a62ee263f31d253569e578e747c4fedadad0\",\"serverTitle\":\"JIRA\"}",
+    "headers" : {
+      "X-AREQUESTID" : "667x2717x1",
+      "X-ASESSIONID" : "179pd4f",
+      "Referrer-Policy" : "strict-origin-when-cross-origin",
+      "X-XSS-Protection" : "1; mode=block",
+      "X-Content-Type-Options" : "nosniff",
+      "X-Frame-Options" : "SAMEORIGIN",
+      "Content-Security-Policy" : "sandbox",
+      "Strict-Transport-Security" : "max-age=31536000",
+      "X-Seraph-LoginReason" : "OK",
+      "X-AUSERNAME" : "jiratester",
+      "Cache-Control" : "no-cache, no-store, no-transform",
+      "Content-Type" : "application/json;charset=UTF-8",
+      "Date" : "Wed, 26 May 2021 11:07:46 GMT",
+      "Keep-Alive" : "timeout=20"
+    }
+  },
+  "uuid" : "94c1f66d-8a68-4485-8669-fbd75b55c45a",
+  "persistent" : true,
+  "scenarioName" : "scenario-4-rest-api-latest-serverInfo",
+  "requiredScenarioState" : "scenario-4-rest-api-latest-serverInfo-2",
+  "newScenarioState" : "scenario-4-rest-api-latest-serverInfo-3",
+  "insertionIndex" : 22
+}
