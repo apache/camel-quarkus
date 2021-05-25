@@ -95,7 +95,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-common</artifactId>
+            <artifactId>quarkus-rest-client</artifactId>
         </dependency>
     </dependencies>
 
