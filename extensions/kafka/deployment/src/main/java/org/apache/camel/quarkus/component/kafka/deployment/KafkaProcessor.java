@@ -18,14 +18,17 @@ package org.apache.camel.quarkus.component.kafka.deployment;
 
 import java.util.List;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import org.apache.camel.component.kafka.KafkaComponent;
 import org.apache.camel.quarkus.component.kafka.CamelKafkaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.kafka.common.security.scram.internals.ScramSaslClient.ScramSaslClientFactory;
 
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
@@ -46,4 +49,10 @@ class KafkaProcessor {
                 KafkaComponent.class.getName(),
                 recorder.createKafkaComponent());
     }
+
+    @BuildStep
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, ScramSaslClientFactory.class));
+    }
+
 }
