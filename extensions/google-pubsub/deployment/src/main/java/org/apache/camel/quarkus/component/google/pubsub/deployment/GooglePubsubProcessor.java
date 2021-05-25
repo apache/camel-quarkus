@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.google.pubsub.deployment;
 
+import java.util.stream.Stream;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -23,6 +25,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.jackson.runtime.ObjectMapperProducer;
 import org.apache.camel.component.google.pubsub.serializer.GooglePubsubSerializer;
 import org.apache.camel.quarkus.component.google.pubsub.GooglePubsubRecorder;
@@ -51,4 +54,14 @@ class GooglePubsubProcessor {
         return new CamelRuntimeBeanBuildItem("googlePubsubSerializer", GooglePubsubSerializer.class.getTypeName(),
                 recorder.createSerializer());
     }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        Stream.of(
+                "io.grpc.internal.RetriableStream" // Consider moving this to a separate support extension if we need this in multiple top level extensions
+        )
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
+    }
+
 }

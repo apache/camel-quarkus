@@ -16,12 +16,16 @@
  */
 package org.apache.camel.quarkus.component.twitter.deployment;
 
+import java.util.stream.Stream;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.component.twitter.AbstractTwitterComponent;
+import twitter4j.auth.OAuthAuthorization;
 
 class TwitterProcessor {
     private static final String FEATURE = "camel-twitter";
@@ -41,4 +45,12 @@ class TwitterProcessor {
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false,
                 AbstractTwitterComponent.class));
     }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        Stream.of(OAuthAuthorization.class.getName())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClasses::produce);
+    }
+
 }

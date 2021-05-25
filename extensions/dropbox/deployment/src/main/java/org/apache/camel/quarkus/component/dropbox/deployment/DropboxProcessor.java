@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.component.dropbox.deployment;
 
+import java.util.stream.Stream;
+
+import com.dropbox.core.DbxRequestUtil;
+import com.dropbox.core.v2.DbxRawClientV2;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
@@ -45,5 +50,14 @@ class DropboxProcessor {
     NativeImageResourceBuildItem nativeImageResources() {
         // Required by com.dropbox.core.http.SSLConfig
         return new NativeImageResourceBuildItem("com/dropbox/core/trusted-certs.raw", "com/dropbox/core/sdk-version.txt");
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        Stream.of(
+                DbxRequestUtil.class.getName(),
+                DbxRawClientV2.class.getName())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClasses::produce);
     }
 }

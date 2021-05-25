@@ -16,17 +16,29 @@
  */
 package org.apache.camel.quarkus.component.jslt.deployment;
 
+import java.util.stream.Stream;
+
+import com.schibsted.spt.data.jslt.impl.BuiltinFunctions;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.jboss.logging.Logger;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class JsltProcessor {
 
-    private static final Logger LOG = Logger.getLogger(JsltProcessor.class);
     private static final String FEATURE = "camel-jslt";
 
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
+        Stream.of(
+                BuiltinFunctions.class.getName(),
+                BuiltinFunctions.Random.class.getName())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
     }
 }

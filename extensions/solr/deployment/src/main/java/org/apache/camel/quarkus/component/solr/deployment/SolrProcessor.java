@@ -16,12 +16,15 @@
  */
 package org.apache.camel.quarkus.component.solr.deployment;
 
+import java.util.stream.Stream;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -63,4 +66,15 @@ class SolrProcessor {
                 })
                 .forEach(reflectiveClass::produce);
     }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        Stream.of(
+                "org.apache.solr.client.solrj.routing.RequestReplicaListTransformerGenerator",
+                "org.apache.zookeeper.Login" // Move this to a separate support extension if it turns out to be needed in multiple top level extensions
+        )
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClasses::produce);
+    }
+
 }

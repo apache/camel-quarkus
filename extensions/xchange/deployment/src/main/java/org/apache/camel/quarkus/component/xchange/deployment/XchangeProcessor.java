@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.xchange.deployment;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.stream.Stream;
 
 import io.quarkus.bootstrap.model.AppArtifact;
 import io.quarkus.bootstrap.model.AppDependency;
@@ -30,6 +31,7 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
@@ -37,6 +39,7 @@ import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 import org.knowm.xchange.BaseExchange;
+import org.knowm.xchange.dto.Order;
 
 class XchangeProcessor {
 
@@ -125,4 +128,12 @@ class XchangeProcessor {
                 .map(NativeImageProxyDefinitionBuildItem::new)
                 .forEach(nativeImageProxy::produce);
     }
+
+    @BuildStep
+    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
+        Stream.of(Order.class.getName())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClasses::produce);
+    }
+
 }

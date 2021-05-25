@@ -27,6 +27,7 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.DotName;
 import software.amazon.awssdk.core.interceptor.ExecutionInterceptor;
 
@@ -69,4 +70,13 @@ class Aws2DdbProcessor {
     void archiveMarkers(BuildProducer<AdditionalApplicationArchiveMarkerBuildItem> archiveMarkers) {
         archiveMarkers.produce(new AdditionalApplicationArchiveMarkerBuildItem(AWS_SDK_APPLICATION_ARCHIVE_MARKERS));
     }
+
+    @BuildStep
+    void runtimeInitialize(BuildProducer<RuntimeInitializedClassBuildItem> producer) {
+        // This class triggers initialization of FullJitterBackoffStragegy so needs to get runtime-initialized
+        // as well
+        producer.produce(
+                new RuntimeInitializedClassBuildItem("software.amazon.awssdk.services.dynamodb.DynamoDbRetryPolicy"));
+    }
+
 }
