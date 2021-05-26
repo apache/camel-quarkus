@@ -33,7 +33,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
-import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -60,7 +59,7 @@ class FileTest {
             try {
                 Files.delete(p);
             } catch (IOException e) {
-                //ignore
+                // ignore
             }
         });
 
@@ -86,12 +85,21 @@ class FileTest {
         createFile(FILE_BODY_UTF8, "/file/create/charsetUTF8", "UTF-8", null);
         createFile(FILE_BODY_UTF8, "/file/create/charsetISO", "UTF-8", null);
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("charsetUTF8", equalTo(FILE_BODY_UTF8)));
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/charsetUTF8")
+                        .then()
+                        .extract().asString(),
+                equalTo(FILE_BODY_UTF8));
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            // File content read as ISO-8859-1 has to have different content (because file contains some unknown characters)
-            return getFromMock("charsetISO", equalTo(new String(FILE_BODY_UTF8.getBytes(), "ISO-8859-1")));
-        });
+        // File content read as ISO-8859-1 has to have different content (because file contains some unknown
+        // characters)
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/charsetISO")
+                        .then()
+                        .extract().asString(),
+                equalTo(new String(FILE_BODY_UTF8.getBytes(), "ISO-8859-1")));
     }
 
     @Test
@@ -100,7 +108,7 @@ class FileTest {
         createFile(FILE_CONTENT_01, "/file/create/" + CONSUME_BATCH);
         createFile(FILE_CONTENT_02, "/file/create/" + CONSUME_BATCH);
 
-        //start route
+        // start route
         startRouteAndWait(CONSUME_BATCH);
 
         await().atMost(10, TimeUnit.SECONDS).until(() -> {
@@ -121,20 +129,30 @@ class FileTest {
         // Create a new file
         String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("idempotent", equalTo(FILE_CONTENT_01)));
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/idempotent")
+                        .then()
+                        .extract().asString(),
+                equalTo(FILE_CONTENT_01));
 
         // move file back
         Path donePath = Paths.get(fileName01.replaceFirst("target/idempotent", "target/idempotent/done"));
         Path targetPath = Paths.get(fileName01);
         Files.move(donePath, targetPath);
-        //register file for deletion after tests
+        // register file for deletion after tests
         pathsToDelete.add(targetPath);
 
-        //create another file, to receive only this one in the next check
+        // create another file, to receive only this one in the next check
         createFile(FILE_CONTENT_02, "/file/create/idempotent");
 
-        //there should be no file in mock
-        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("idempotent", equalTo(FILE_CONTENT_02)));
+        // there should be no file in mock
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/idempotent")
+                        .then()
+                        .extract().asString(),
+                equalTo(FILE_CONTENT_02));
     }
 
     @Test
@@ -144,7 +162,12 @@ class FileTest {
 
         pathsToDelete.add(Paths.get(fileName));
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> getFromMock("filter", equalTo(FILE_CONTENT_02)));
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/filter")
+                        .then()
+                        .extract().asString(),
+                equalTo(FILE_CONTENT_02));
     }
 
     @Test
@@ -155,9 +178,12 @@ class FileTest {
 
         startRouteAndWait(SORT_BY);
 
-        await().atMost(10, TimeUnit.SECONDS).until(() -> {
-            return getFromMock(SORT_BY, equalTo(FILE_CONTENT_03 + SEPARATOR + FILE_CONTENT_02 + SEPARATOR + FILE_CONTENT_01));
-        });
+        await().atMost(10, TimeUnit.SECONDS).until(
+                () -> RestAssured
+                        .get("/file/getFromMock/" + SORT_BY)
+                        .then()
+                        .extract().asString(),
+                equalTo(FILE_CONTENT_03 + SEPARATOR + FILE_CONTENT_02 + SEPARATOR + FILE_CONTENT_01));
     }
 
     @Test
@@ -245,18 +271,6 @@ class FileTest {
                 .asString();
     }
 
-    private static boolean getFromMock(String mockId, Matcher matcher) {
-        String records = RestAssured
-                .get("/file/getFromMock/" + mockId)
-                .then()
-                .statusCode(200)
-                .body(matcher)
-                .extract().asString();
-
-        //return true if content is not empty
-        return records != null && !records.isEmpty();
-    }
-
     static void startRouteAndWait(String routeId) throws InterruptedException {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -265,7 +279,7 @@ class FileTest {
                 .then()
                 .statusCode(204);
 
-        //wait for start
+        // wait for start
         Thread.sleep(500);
 
     }
