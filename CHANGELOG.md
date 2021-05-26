@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Use `CamelContextCustomizer` from camel-api [\#2637](https://github.com/apache/camel-quarkus/issues/2637)
 - Complete simple core doc concerning "type:\*\*\*" expressions [\#2631](https://github.com/apache/camel-quarkus/issues/2631)
 - Expand MongoDb test coverage [\#2622](https://github.com/apache/camel-quarkus/issues/2622)
 - Test data format EIPs [\#2616](https://github.com/apache/camel-quarkus/issues/2616)
@@ -17,12 +18,14 @@
 - package org.apache.camel.builder does not exist when using fast-jar in application.properties [\#2612](https://github.com/apache/camel-quarkus/issues/2612)
 - Cancel Stale Workflow Runs job is cancelling workflows on all branches [\#2594](https://github.com/apache/camel-quarkus/issues/2594)
 - REST extension doc link is not processed correctly [\#2591](https://github.com/apache/camel-quarkus/issues/2591)
+- \[camel 3.10\] NATS native image build failure [\#2589](https://github.com/apache/camel-quarkus/issues/2589)
 - Support @Consume [\#2580](https://github.com/apache/camel-quarkus/issues/2580)
 - \[Quarkus 2.0.0.Alpha2\]  vert.x failure [\#2577](https://github.com/apache/camel-quarkus/issues/2577)
 - \[Quarkus 2.0.0.Alpha2\]  Capabilities error [\#2573](https://github.com/apache/camel-quarkus/issues/2573)
 - \[Quarkus 2.0.0.Alpha2\] System.properties not recognized if set in Test Resource [\#2572](https://github.com/apache/camel-quarkus/issues/2572)
 - With fix of \#2260 too many @Converters are registered [\#2570](https://github.com/apache/camel-quarkus/issues/2570)
 - \[Quarkus 2.0.0.Alpha2\] upgrade to  GrpcService annotation [\#2569](https://github.com/apache/camel-quarkus/issues/2569)
+- \[Quarkus 2.0.0.Alpha2\] : quarkus-bootstrap-maven-plugin  [\#2568](https://github.com/apache/camel-quarkus/issues/2568)
 - \[Quarkus 2.0.0.Alpha2\] quarkus.test.profile not considered in TestResource [\#2566](https://github.com/apache/camel-quarkus/issues/2566)
 - Expand SOAP extension test coverage [\#2561](https://github.com/apache/camel-quarkus/issues/2561)
 - several integration-test failure in native mode [\#2550](https://github.com/apache/camel-quarkus/issues/2550)
@@ -68,6 +71,7 @@
 - Add integration tests for Digitalocean [\#2388](https://github.com/apache/camel-quarkus/issues/2388)
 - Adapt examples to the merger of main into core [\#2377](https://github.com/apache/camel-quarkus/issues/2377)
 - Adjust the documentation after the merger of main into core [\#2374](https://github.com/apache/camel-quarkus/issues/2374)
+- Store the association between Camel Quarkus Catalog items and Camel Catalog items [\#2368](https://github.com/apache/camel-quarkus/issues/2368)
 - Revisit core, main and foundation integration tests [\#2362](https://github.com/apache/camel-quarkus/issues/2362)
 - Test class component, test bean language [\#2361](https://github.com/apache/camel-quarkus/issues/2361)
 - Test file language [\#2356](https://github.com/apache/camel-quarkus/issues/2356)
@@ -90,7 +94,12 @@
 
 **Merged pull requests:**
 
+- quarkus-jackson is included quarkus-kafka-client since quarkus 2.0.0.… [\#2668](https://github.com/apache/camel-quarkus/pull/2668) ([zbendhiba](https://github.com/zbendhiba))
+- Quick fix - Intermittent failures in MongoDbTest.testTailingConsumer [\#2665](https://github.com/apache/camel-quarkus/pull/2665) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Ensure camel-quarkus-integration-wiremock-support is test scope [\#2644](https://github.com/apache/camel-quarkus/pull/2644) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2643](https://github.com/apache/camel-quarkus/pull/2643) ([ppalaga](https://github.com/ppalaga))
 - Expand MongoDb test coverage \#2622 [\#2642](https://github.com/apache/camel-quarkus/pull/2642) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Use CamelContextCustomizer from camel-api [\#2640](https://github.com/apache/camel-quarkus/pull/2640) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use WireMock for GitHub tests [\#2639](https://github.com/apache/camel-quarkus/pull/2639) ([jamesnetherton](https://github.com/jamesnetherton))
 - \#2633 jacksonxml: add test coverage [\#2635](https://github.com/apache/camel-quarkus/pull/2635) ([ffang](https://github.com/ffang))
 - add quarkus-jackson in the camel-quarkus-kafka extension [\#2629](https://github.com/apache/camel-quarkus/pull/2629) ([zbendhiba](https://github.com/zbendhiba))
