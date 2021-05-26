@@ -19,10 +19,12 @@ package org.apache.camel.quarkus.component.jira.deployment;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.atlassian.jira.rest.client.api.domain.Issue;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.joda.time.DateTimeZone;
 
 class JiraProcessor {
@@ -50,5 +52,11 @@ class JiraProcessor {
             }
         }
         return new NativeImageResourceBuildItem(timezones);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        // Required by org.apache.camel.component.jira.consumer.WatchUpdatesConsumer
+        return new ReflectiveClassBuildItem(true, false, Issue.class.getName());
     }
 }
