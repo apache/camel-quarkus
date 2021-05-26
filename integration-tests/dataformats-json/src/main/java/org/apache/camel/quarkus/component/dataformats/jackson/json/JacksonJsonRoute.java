@@ -43,7 +43,7 @@ public class JacksonJsonRoute extends RouteBuilder {
 
         JacksonDataFormat listFormat = new JacksonDataFormat(TestPojo.class);
         listFormat.useList();
-        from("direct:jackson-unmarshal-backPojo").unmarshal(listFormat).to("mock:jackson-unmarshal-reversePojo");
+        from("direct:jackson-unmarshal-backPojo").unmarshal(listFormat).to("mock:jackson-unmarshal-backPojo");
 
         JacksonDataFormat listSplitFormat = new JacksonDataFormat(DummyObject.class);
         listSplitFormat.useList();

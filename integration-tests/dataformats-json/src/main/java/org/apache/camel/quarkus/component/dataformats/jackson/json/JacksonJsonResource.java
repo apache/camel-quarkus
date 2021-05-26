@@ -93,7 +93,7 @@ public class JacksonJsonResource {
     @GET
     public void jacksonUnmarshalList(String body) throws Exception {
 
-        MockEndpoint mock = context.getEndpoint("mock:jackson-unmarshal-reversePojo", MockEndpoint.class);
+        MockEndpoint mock = context.getEndpoint("mock:jackson-unmarshal-backPojo", MockEndpoint.class);
         mock.expectedMessageCount(1);
         mock.message(0).body().isInstanceOf(List.class);
 
@@ -146,7 +146,7 @@ public class JacksonJsonResource {
     @Path("jackson/marshal-includedefault")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String jacksonMarshalIncludeDefalut() throws Exception {
+    public String jacksonMarshalIncludeDefault() throws Exception {
         TestOtherPojo pojo = new TestOtherPojo();
         pojo.setName("Camel");
         return producerTemplate.requestBody("direct:jackson-marshal-includedefault-marshal",
