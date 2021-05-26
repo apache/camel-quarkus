@@ -17,10 +17,11 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -29,12 +30,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.hazelcast.topic.impl.DataAwareMessage;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastOperation;
-import org.apache.camel.component.mock.MockEndpoint;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_TOPIC_RECEIVED;
 
@@ -50,6 +49,10 @@ public class HazelcastTopicResource {
     @Inject
     CamelContext context;
 
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
+
     @POST
     public Response publish(String message) {
         producerTemplate.sendBodyAndHeader("hazelcast-topic:foo-topic", message, HazelcastConstants.OPERATION,
@@ -59,9 +62,6 @@ public class HazelcastTopicResource {
 
     @GET
     public List<String> getValues() {
-        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_TOPIC_RECEIVED, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> (String) exchange.getMessage().getBody(DataAwareMessage.class).getMessageObject())
-                .collect(Collectors.toList());
+        return hazelcastResults.get(MOCK_TOPIC_RECEIVED);
     }
 }

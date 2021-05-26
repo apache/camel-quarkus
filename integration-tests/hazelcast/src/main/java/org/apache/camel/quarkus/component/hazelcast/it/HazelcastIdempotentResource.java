@@ -17,10 +17,11 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -31,7 +32,6 @@ import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_IDEMPOTENT_ADDED;
@@ -48,6 +48,10 @@ public class HazelcastIdempotentResource {
     @Inject
     CamelContext context;
 
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
+
     @POST
     public Response add(HazelcastMapRequest request) {
         producerTemplate.sendBodyAndHeader("direct:in-idempotent", request.getValue(), "messageId", request.getId());
@@ -56,9 +60,6 @@ public class HazelcastIdempotentResource {
 
     @GET
     public List<String> get() {
-        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_IDEMPOTENT_ADDED, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> exchange.getIn().getBody(String.class))
-                .collect(Collectors.toList());
+        return hazelcastResults.get(MOCK_IDEMPOTENT_ADDED);
     }
 }

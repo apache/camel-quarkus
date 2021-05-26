@@ -20,11 +20,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -39,7 +39,6 @@ import com.hazelcast.core.HazelcastInstance;
 import io.quarkus.runtime.StartupEvent;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastOperation;
-import org.apache.camel.component.mock.MockEndpoint;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_QUEUE_ADDED;
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_QUEUE_DELETED;
@@ -53,6 +52,10 @@ public class HazelcastQueueResource extends AbstractHazelcastCollectionResource 
 
     @Inject
     HazelcastInstance hazelcastInstance;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     @Override
     public void init(@Observes StartupEvent startupEvent) {
@@ -129,10 +132,7 @@ public class HazelcastQueueResource extends AbstractHazelcastCollectionResource 
     @GET
     @Path("polled")
     public List<String> getPolledValues() {
-        MockEndpoint mockEndpoint = context.getEndpoint(MOCK_QUEUE_POLL, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> exchange.getIn().getBody(String.class))
-                .collect(Collectors.toList());
+        return hazelcastResults.get(MOCK_QUEUE_POLL);
     }
 
 }

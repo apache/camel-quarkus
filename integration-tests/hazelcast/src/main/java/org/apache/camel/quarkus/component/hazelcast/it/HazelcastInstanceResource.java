@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,7 +29,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.mock.MockEndpoint;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_INSTANCE_ADDED;
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_INSTANCE_REMOVED;
@@ -38,6 +41,10 @@ public class HazelcastInstanceResource {
 
     @Inject
     CamelContext context;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     @GET
     @Path("added")
@@ -52,8 +59,7 @@ public class HazelcastInstanceResource {
     }
 
     public Integer getValues(String endpointName) {
-        MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().size();
+        return hazelcastResults.get(endpointName).size();
     }
 
 }
