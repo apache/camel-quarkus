@@ -91,6 +91,18 @@
       <unmarshal><jacksonxml unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView" jsonViewTypeName="org.apache.camel.quarkus.component.dataformats.json.model.Views$Age"/></unmarshal>
       <to uri="mock:jacksonxml-xml-reverseAgeView"/>
     </route>
+
+    <route>
+      <from uri="direct:jackson-xml-unmarshal-list-backPojo"/>
+      <unmarshal><json library="Jackson" useList="true" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojo"/></unmarshal>
+      <to uri="mock:jackson-xml-unmarshal-list-reversePojo"/>
+    </route>
+
+    <route>
+      <from uri="direct:jackson-enablefeature-in"/>
+      <marshal><json library="Jackson" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.TestPojo"
+            enableFeatures="WRAP_ROOT_VALUE"/></marshal>
+    </route>
 </routes>
 
 
