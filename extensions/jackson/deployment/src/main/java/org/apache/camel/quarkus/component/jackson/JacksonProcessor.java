@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.jackson;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 public class JacksonProcessor {
 
@@ -26,6 +30,13 @@ public class JacksonProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    List<ReflectiveClassBuildItem> registerReflectiveClasses() {
+        List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
+        items.add(new ReflectiveClassBuildItem(false, true, "com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule"));
+        return items;
     }
 
 }
