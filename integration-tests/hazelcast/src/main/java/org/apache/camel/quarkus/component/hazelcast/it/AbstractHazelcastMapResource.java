@@ -19,9 +19,9 @@ package org.apache.camel.quarkus.component.hazelcast.it;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -34,12 +34,9 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastOperation;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
-import org.jboss.logging.Logger;
 
 public abstract class AbstractHazelcastMapResource {
-    private static final Logger LOG = Logger.getLogger(AbstractHazelcastMapResource.class);
 
     protected String endpointUri;
     protected String mockAddedEndpoint;
@@ -52,6 +49,10 @@ public abstract class AbstractHazelcastMapResource {
 
     @Inject
     CamelContext context;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     /**
      * init endpoints
@@ -129,10 +130,6 @@ public abstract class AbstractHazelcastMapResource {
     }
 
     protected List<String> getValues(String endpointName) {
-        LOG.infof("getting response from mock endpoint %s", endpointName);
-        MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> exchange.getIn().getHeader(HazelcastConstants.OBJECT_ID, String.class))
-                .collect(Collectors.toList());
+        return hazelcastResults.get(endpointName);
     }
 }

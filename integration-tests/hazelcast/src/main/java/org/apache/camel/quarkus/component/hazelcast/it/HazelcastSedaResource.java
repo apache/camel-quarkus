@@ -17,10 +17,11 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -32,7 +33,6 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
 
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_SEDA_FIFO;
 import static org.apache.camel.quarkus.component.hazelcast.it.HazelcastRoutes.MOCK_SEDA_IN_ONLY;
@@ -50,6 +50,10 @@ public class HazelcastSedaResource {
 
     @Inject
     CamelContext context;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     @PUT
     @Path("fifo")
@@ -104,9 +108,6 @@ public class HazelcastSedaResource {
     }
 
     private List<String> getValues(String endpoint) {
-        MockEndpoint mockEndpoint = context.getEndpoint(endpoint, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> exchange.getMessage().getBody(String.class))
-                .collect(Collectors.toList());
+        return hazelcastResults.get(endpoint);
     }
 }

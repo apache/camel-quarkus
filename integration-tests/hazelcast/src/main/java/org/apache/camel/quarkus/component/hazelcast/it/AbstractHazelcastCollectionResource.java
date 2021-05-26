@@ -17,9 +17,10 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -27,13 +28,11 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-import com.hazelcast.collection.ItemEvent;
 import io.quarkus.runtime.StartupEvent;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastOperation;
-import org.apache.camel.component.mock.MockEndpoint;
 import org.jboss.logging.Logger;
 
 public abstract class AbstractHazelcastCollectionResource {
@@ -45,6 +44,10 @@ public abstract class AbstractHazelcastCollectionResource {
 
     @Inject
     CamelContext context;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     protected String endpointUri;
     protected String mockAddedEndpoint;
@@ -92,20 +95,13 @@ public abstract class AbstractHazelcastCollectionResource {
     @GET
     @Path("added")
     public List<String> getAddedValues() {
-        return getValues(mockAddedEndpoint);
+        return hazelcastResults.get(mockAddedEndpoint);
     }
 
     @GET
     @Path("deleted")
     public List<String> getDeletedValues() {
-        return getValues(mockDeletedEndpoint);
+        return hazelcastResults.get(mockDeletedEndpoint);
     }
 
-    public List<String> getValues(String endpointName) {
-        LOG.infof("getting response from mock endpoint %s", endpointName);
-        MockEndpoint mockEndpoint = context.getEndpoint(endpointName, MockEndpoint.class);
-        return mockEndpoint.getReceivedExchanges().stream().map(
-                exchange -> (String) exchange.getIn().getBody(ItemEvent.class).getItem())
-                .collect(Collectors.toList());
-    }
 }

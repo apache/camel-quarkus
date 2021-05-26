@@ -16,15 +16,24 @@
  */
 package org.apache.camel.quarkus.component.hazelcast.it;
 
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.inject.Singleton;
 import javax.ws.rs.Produces;
 
+import com.hazelcast.collection.ItemEvent;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.topic.impl.DataAwareMessage;
 import io.quarkus.arc.Unremovable;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.hazelcast.HazelcastConstants;
 import org.apache.camel.component.hazelcast.HazelcastDefaultComponent;
@@ -42,9 +51,12 @@ import org.apache.camel.component.hazelcast.set.HazelcastSetComponent;
 import org.apache.camel.component.hazelcast.topic.HazelcastTopicComponent;
 import org.apache.camel.processor.idempotent.hazelcast.HazelcastIdempotentRepository;
 import org.apache.camel.spi.RoutePolicy;
+import org.jboss.logging.Logger;
 
 @ApplicationScoped
 public class HazelcastRoutes extends RouteBuilder {
+    private static final Logger LOG = Logger.getLogger(HazelcastRoutes.class);
+
     public static final String MOCK_LIST_ADDED = "mock:list-added";
     public static final String MOCK_LIST_DELETED = "mock:list-removed";
     public static final String MOCK_SET_ADDED = "mock:set-added";
@@ -72,6 +84,10 @@ public class HazelcastRoutes extends RouteBuilder {
 
     @Inject
     HazelcastInstance hazelcastInstance;
+
+    @Inject
+    @Named("hazelcastResults")
+    Map<String, List<String>> hazelcastResults;
 
     @Produces
     @ApplicationScoped
@@ -183,105 +199,145 @@ public class HazelcastRoutes extends RouteBuilder {
     @Override
     public void configure() {
         // HazelcastListConsumer
-        from("hazelcast-list:foo-list").log("object...").choice()
+        from("hazelcast-list:foo-list")
+                .process(e -> LOG.info("object..."))
+                .choice()
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
-                .log("...added").to(MOCK_LIST_ADDED)
+                .process(e -> LOG.info("...added"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_LIST_ADDED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_LIST_DELETED).otherwise()
-                .log("fail!");
+                .process(e -> LOG.info("...removed"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_LIST_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
 
         // HazelcastMapConsumer
-        from("hazelcast-map:foo-map").log("object...").choice()
+        from("hazelcast-map:foo-map")
+                .process(e -> LOG.info("object..."))
+                .choice()
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
-                .log("...added").to(MOCK_MAP_ADDED)
+                .process(e -> LOG.info("...added"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MAP_ADDED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.EVICTED))
-                .log("...evicted").to(MOCK_MAP_EVICTED)
+                .process(e -> LOG.info("...evicted"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MAP_EVICTED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.UPDATED))
-                .log("...updated").to(MOCK_MAP_UPDATED)
+                .process(e -> LOG.info("...updated"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MAP_UPDATED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_MAP_DELETED)
-                .otherwise().log("fail!");
+                .process(e -> LOG.info("...removed"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MAP_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
 
-        //HazelcastMultimapConsumer
-        from("hazelcast-multimap:foo-multimap").log("object...").choice()
-                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED)).log("...added")
-                .to(MOCK_MULTIMAP_ADDED)
+        // HazelcastMultimapConsumer
+        from("hazelcast-multimap:foo-multimap")
+                .process(e -> LOG.info("object..."))
+                .choice()
+                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+                .process(e -> LOG.info("...added"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MULTIMAP_ADDED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_MULTIMAP_DELETED).otherwise().log("fail!");
+                .process(e -> LOG.info("...removed"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_MULTIMAP_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
 
-        //HazelcastReplicatedmapConsumer
-        from("hazelcast-replicatedmap:foo-replicate").log("object...").choice()
-                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED)).log("...added")
-                .to(MOCK_REPLICATED_ADDED)
+        // HazelcastReplicatedmapConsumer
+        from("hazelcast-replicatedmap:foo-replicate")
+                .process(e -> LOG.info("object..."))
+                .choice()
+                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+                .process(e -> LOG.info("...added"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_REPLICATED_ADDED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_REPLICATED_DELETED).otherwise().log("fail!");
+                .process(e -> LOG.info("...removed"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_REPLICATED_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
 
         // HazelcastSetConsumer
-        from("hazelcast-set:foo-set").log("object...").choice()
+        from("hazelcast-set:foo-set")
+                .process(e -> LOG.info("object..."))
+                .choice()
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
-                .log("...added").to(MOCK_SET_ADDED)
+                .process(e -> LOG.info("...added"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_SET_ADDED))
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_SET_DELETED).otherwise()
-                .log("fail!");
+                .process(e -> LOG.info("...removed"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_SET_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
 
-        //HazelcastTopicConsumer
-        from("hazelcast-topic:foo-topic").log("object...")
+        // HazelcastTopicConsumer
+        from("hazelcast-topic:foo-topic")
+                .process(e -> LOG.info("object..."))
                 .choice()
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.RECEIVED))
-                .log("...received").to(MOCK_TOPIC_RECEIVED)
+                .process(e -> LOG.info("...received"))
+                .process(new DataAwareCollector(hazelcastResults, MOCK_TOPIC_RECEIVED))
                 .otherwise()
-                .log("fail!");
+                .process(e -> LOG.info("fail!"));
 
         // 2 different consumers of type : HazelcastQueueConsumer
-        // consumer mode  : LISTEN
-        from("hazelcast-queue:foo-queue").log("object...").choice()
-                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
-                .log("...added").to(MOCK_QUEUE_ADDED)
-                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
-                .log("...removed").to(MOCK_QUEUE_DELETED).otherwise()
-                .log("fail!");
-        // consumer mode : poll
-        from("hazelcast-queue:foo-queue-poll?queueConsumerMode=Poll")
-                .to(MOCK_QUEUE_POLL);
-
-        //different HazelcastSedaConsumer
-        // FIFO consumer
-        from("hazelcast-seda:foo-fifo")
-                .to(MOCK_SEDA_FIFO);
-        // IN ONLY consumer
-        from("hazelcast-seda:foo-in-only")
-                .to(MOCK_SEDA_IN_ONLY);
-        // IN OUT consumer
-        from("hazelcast-seda:foo-in-out")
-                .to(MOCK_SEDA_IN_OUT);
-        // IN OUT transacted consumer
-        from("hazelcast-seda:foo-in-out-trans?transacted=true")
-                .to(MOCK_SEDA_IN_OUT_TRANSACTED);
-
-        // HazelcastInstanceConsumer
-        from("hazelcast-instance:foo-instance").log("instance...")
+        // consumer mode : LISTEN
+        from("hazelcast-queue:foo-queue")
+                .process(e -> LOG.info("object..."))
                 .choice()
                 .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
-                .log("...added").to(MOCK_INSTANCE_ADDED)
-                .otherwise().log("...removed").to(MOCK_INSTANCE_REMOVED);
+                .process(e -> LOG.info("...added"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_QUEUE_ADDED))
+                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.REMOVED))
+                .process(e -> LOG.info("...removed"))
+                .process(new ItemEventCollector(hazelcastResults, MOCK_QUEUE_DELETED))
+                .otherwise()
+                .process(e -> LOG.info("fail!"));
+        // consumer mode : poll
+        from("hazelcast-queue:foo-queue-poll?queueConsumerMode=Poll")
+                .process(new StringBodyCollector(hazelcastResults, MOCK_QUEUE_POLL));
+
+        // different HazelcastSedaConsumer
+        // FIFO consumer
+        from("hazelcast-seda:foo-fifo")
+                .process(new StringBodyCollector(hazelcastResults, MOCK_SEDA_FIFO));
+        // IN ONLY consumer
+        from("hazelcast-seda:foo-in-only")
+                .process(new StringBodyCollector(hazelcastResults, MOCK_SEDA_IN_ONLY));
+        // IN OUT consumer
+        from("hazelcast-seda:foo-in-out")
+                .process(new StringBodyCollector(hazelcastResults, MOCK_SEDA_IN_OUT));
+        // IN OUT transacted consumer
+        from("hazelcast-seda:foo-in-out-trans?transacted=true")
+                .process(new StringBodyCollector(hazelcastResults, MOCK_SEDA_IN_OUT_TRANSACTED));
+
+        // HazelcastInstanceConsumer
+        from("hazelcast-instance:foo-instance")
+                .process(e -> LOG.info("instance..."))
+                .choice()
+                .when(header(HazelcastConstants.LISTENER_ACTION).isEqualTo(HazelcastConstants.ADDED))
+                .process(e -> LOG.info("...added"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_INSTANCE_ADDED))
+                .otherwise()
+                .process(e -> LOG.info("...removed"))
+                .process(new ObjectIdCollector(hazelcastResults, MOCK_INSTANCE_REMOVED));
 
         // Idempotent Repository
         HazelcastIdempotentRepository repo = new HazelcastIdempotentRepository(hazelcastInstance, "myRepo");
         from("direct:in-idempotent")
                 .idempotentConsumer(header("messageId"), repo)
-                .to(MOCK_IDEMPOTENT_ADDED);
+                .process(new StringBodyCollector(hazelcastResults, MOCK_IDEMPOTENT_ADDED));
 
         // route policy
         from("direct:in-policy")
                 .routeId("id-value")
                 .routePolicy(createRoutePolicy())
-                .to(MOCK_POLICY);
+                .process(new StringBodyCollector(hazelcastResults, MOCK_POLICY));
 
     }
 
     /**
      * Creates a RoutePolicy
-     * 
+     *
      */
     private RoutePolicy createRoutePolicy() {
         HazelcastRoutePolicy policy = new HazelcastRoutePolicy(hazelcastInstance);
@@ -290,5 +346,78 @@ public class HazelcastRoutes extends RouteBuilder {
         policy.setLockValue("id-value");
         policy.setTryLockTimeout(5, TimeUnit.SECONDS);
         return policy;
+    }
+
+    static class Producers {
+        @javax.enterprise.inject.Produces
+        @Singleton
+        @Named("hazelcastResults")
+        Map<String, List<String>> hazelcastResults() {
+            return new ConcurrentHashMap<>();
+        }
+    }
+
+    static class ObjectIdCollector implements Processor {
+        private final List<String> results;
+
+        public ObjectIdCollector(Map<String, List<String>> hazelcastResults, String key) {
+            final List<String> r = new CopyOnWriteArrayList<>();
+            hazelcastResults.put(key, r);
+            this.results = r;
+        }
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            final String val = exchange.getMessage().getHeader(HazelcastConstants.OBJECT_ID, String.class);
+            results.add(val);
+        }
+    }
+
+    static class StringBodyCollector implements Processor {
+        private final List<String> results;
+
+        public StringBodyCollector(Map<String, List<String>> hazelcastResults, String key) {
+            final List<String> r = new CopyOnWriteArrayList<>();
+            hazelcastResults.put(key, r);
+            this.results = r;
+        }
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            final String val = exchange.getMessage().getBody(String.class);
+            results.add(val);
+        }
+    }
+
+    static class ItemEventCollector implements Processor {
+        private final List<String> results;
+
+        public ItemEventCollector(Map<String, List<String>> hazelcastResults, String key) {
+            final List<String> r = new CopyOnWriteArrayList<>();
+            hazelcastResults.put(key, r);
+            this.results = r;
+        }
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            final String val = (String) exchange.getMessage().getBody(ItemEvent.class).getItem();
+            results.add(val);
+        }
+    }
+
+    static class DataAwareCollector implements Processor {
+        private final List<String> results;
+
+        public DataAwareCollector(Map<String, List<String>> hazelcastResults, String key) {
+            final List<String> r = new CopyOnWriteArrayList<>();
+            hazelcastResults.put(key, r);
+            this.results = r;
+        }
+
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            final String val = (String) exchange.getMessage().getBody(DataAwareMessage.class).getMessageObject();
+            results.add(val);
+        }
     }
 }
