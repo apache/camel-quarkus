@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-ddbstream
-:cq-camel-part-title: AWS 2 DynamoDB Streams
+:cq-camel-part-title: AWS DynamoDB Streams
 :cq-camel-part-description: Receive messages from AWS DynamoDB Stream service using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 DynamoDB

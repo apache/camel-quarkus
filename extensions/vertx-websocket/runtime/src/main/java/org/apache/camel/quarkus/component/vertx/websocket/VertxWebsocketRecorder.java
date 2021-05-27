@@ -22,6 +22,7 @@ import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
+import org.apache.camel.CamelContext;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketComponent;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketHost;
 import org.apache.camel.component.vertx.websocket.VertxWebsocketHostConfiguration;
@@ -42,14 +43,14 @@ public class VertxWebsocketRecorder {
         @Override
         protected VertxWebsocketHost createVertxWebsocketHost(VertxWebsocketHostConfiguration hostConfiguration,
                 VertxWebsocketHostKey hostKey) {
-            return new QuarkusVertxWebsocketHost(hostConfiguration, hostKey);
+            return new QuarkusVertxWebsocketHost(getCamelContext(), hostConfiguration, hostKey);
         }
     }
 
     static final class QuarkusVertxWebsocketHost extends VertxWebsocketHost {
-        public QuarkusVertxWebsocketHost(VertxWebsocketHostConfiguration websocketHostConfiguration,
+        public QuarkusVertxWebsocketHost(CamelContext camelContext, VertxWebsocketHostConfiguration websocketHostConfiguration,
                 VertxWebsocketHostKey key) {
-            super(websocketHostConfiguration, key);
+            super(camelContext, websocketHostConfiguration, key);
         }
 
         @Override

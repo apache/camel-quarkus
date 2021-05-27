@@ -19,7 +19,7 @@ Sending metrics to AWS CloudWatch using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-cw-component.adoc[AWS 2 CloudWatch component], URI syntax: `aws2-cw:namespace`
+* xref:{cq-camel-components}::aws2-cw-component.adoc[AWS CloudWatch component], URI syntax: `aws2-cw:namespace`
 
 Please refer to the above link for usage and configuration details.
 

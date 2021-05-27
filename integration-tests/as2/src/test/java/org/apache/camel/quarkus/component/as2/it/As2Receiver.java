@@ -104,7 +104,7 @@ public class As2Receiver {
     private static RequestHandler receiveTestMessages(int port) throws IOException {
         serverConnection = new AS2ServerConnection(As2Helper.AS2_VERSION, ORIGIN_SERVER_NAME,
                 SERVER_FQDN, port, AS2SignatureAlgorithm.SHA256WITHRSA,
-                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate());
+                serverCertList.toArray(new Certificate[0]), serverSigningKP.getPrivate(), serverSigningKP.getPrivate(), null);
 
         RequestHandler handler = new RequestHandler();
         serverConnection.listen("/", handler);

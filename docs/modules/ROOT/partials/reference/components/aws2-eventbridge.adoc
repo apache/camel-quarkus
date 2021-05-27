@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.4.0
 :cq-native-since: 1.7.0
 :cq-camel-part-name: aws2-eventbridge
-:cq-camel-part-title: AWS 2 Eventbridge
+:cq-camel-part-title: AWS Eventbridge
 :cq-camel-part-description: Manage AWS Eventbridge cluster instances using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Eventbridge

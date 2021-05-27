@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: azure-cosmosdb
 :cq-camel-part-title: Azure CosmosDB
-:cq-camel-part-description: Azure Cosmos DB is Microsofts globally distributed, multi-model database service for operational and analytics workloads. It offers multi-mastering feature by automatically scaling throughput, compute, and storage. This component interacts with Azure CosmosDB through Azure SQL API
+:cq-camel-part-description: To read and write records to the CosmosDB database on Azure cloud platform.
 :cq-extension-page-title: Azure CosmosDB

@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-sns
-:cq-camel-part-title: AWS 2 Simple Notification System (SNS)
+:cq-camel-part-title: AWS Simple Notification System (SNS)
 :cq-camel-part-description: Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Simple Notification System (SNS)

@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.7.0
 :cq-camel-part-name: aws2-kinesis-firehose
-:cq-camel-part-title: AWS 2 Kinesis Firehose
+:cq-camel-part-title: AWS Kinesis Firehose
 :cq-camel-part-description: Produce data to AWS Kinesis Firehose streams using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Kinesis
