@@ -86,10 +86,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-timer</artifactId>
         </dependency>
-        <dependency><!-- Workaround for https://github.com/apache/camel-quarkus/issues/2670 -->
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
-        </dependency>
 
         <!-- test dependencies -->
         <dependency>

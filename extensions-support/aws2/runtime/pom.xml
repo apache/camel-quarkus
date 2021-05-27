@@ -52,7 +52,7 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-httpclient-deployment</artifactId>
+            <artifactId>camel-quarkus-support-httpclient</artifactId>
         </dependency>
         <dependency>
             <groupId>software.amazon.awssdk</groupId>
