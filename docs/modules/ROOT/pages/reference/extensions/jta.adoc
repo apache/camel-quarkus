@@ -43,7 +43,6 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 This extension should be added when you need to use the `transacted()` EIP in the router. It leverages the transaction capabilities provided by the narayana-jta extension in Quarkus. 
 
-
 Refer to the https://quarkus.io/guides/transaction[Quarkus Transaction guide] for the more details about transaction support. For a simple usage:
 
 [source,java]
@@ -54,4 +53,36 @@ from("direct:transaction")
     .to("sql:INSERT INTO A TABLE ...?dataSource=ds2")
     .log("all data are in the ds1 and ds2")
 ----
+
+Support is provided for various transaction policies.
+
+[cols="50,.^50]
+|===
+|Policy | Description
+
+| `PROPAGATION_MANDATORY`
+
+| Support a current transaction; throw an exception if no current transaction exists.
+
+| `PROPAGATION_NEVER`
+
+| Do not support a current transaction; throw an exception if a current transaction exists.
+
+| `PROPAGATION_NOT_SUPPORTED`
+
+| Do not support a current transaction; rather always execute non-transactionally.
+
+| `PROPAGATION_REQUIRED`
+
+| Support a current transaction; create a new one if none exists.
+
+| `PROPAGATION_REQUIRES_NEW`
+
+| Create a new transaction, suspending the current transaction if one exists.
+
+| `PROPAGATION_SUPPORTS`
+
+| Support a current transaction; execute non-transactionally if none exists.
+
+|===
 

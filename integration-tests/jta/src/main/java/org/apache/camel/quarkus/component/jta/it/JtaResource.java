@@ -67,7 +67,8 @@ public class JtaResource {
                     statement.execute("drop table example");
                 } catch (Exception ignored) {
                 }
-                statement.execute("create table example (id serial primary key, message varchar(255) not null)");
+                statement.execute(
+                        "create table example (id serial primary key, message varchar(255) not null, origin varchar(5) not null)");
             }
         }
     }
