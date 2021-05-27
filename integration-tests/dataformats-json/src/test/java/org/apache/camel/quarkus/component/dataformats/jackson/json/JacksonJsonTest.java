@@ -182,7 +182,7 @@ public class JacksonJsonTest {
 
     }
 
-    //@Test
+    @Test
     void jacksonJaxbAnnotation() {
         RestAssured.get("/dataformats-json/jackson/jaxb-annotation")
                 .then()

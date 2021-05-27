@@ -20,6 +20,7 @@ package org.apache.camel.quarkus.component.dataformats.jackson.json;
 import java.util.TimeZone;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonConstants;
 import org.apache.camel.component.jackson.JacksonDataFormat;
@@ -28,6 +29,7 @@ import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.MyModule;
 import org.apache.camel.quarkus.component.dataformats.json.model.Pojo;
+import org.apache.camel.quarkus.component.dataformats.json.model.TestJAXBPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView;
 import org.apache.camel.quarkus.component.dataformats.json.model.Views;
@@ -134,10 +136,7 @@ public class JacksonJsonRoute extends RouteBuilder {
 
         from("direct:jackson-conversion-test").convertBodyTo(TestPojo.class);
 
-        /*java.lang.ClassNotFoundException: com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule
-         * in native mode, need to investigate more
-         * 
-         * JacksonDataFormat jacksonJaxbAnnotationFormat = new JacksonDataFormat();
+        JacksonDataFormat jacksonJaxbAnnotationFormat = new JacksonDataFormat();
         from("direct:jackson-jaxb-annotation-in").marshal(jacksonJaxbAnnotationFormat);
         from("direct:jackson-jaxb-annotation-back").unmarshal(jacksonJaxbAnnotationFormat)
                 .to("mock:jackson-jaxb-annotation-reverse");
@@ -146,8 +145,6 @@ public class JacksonJsonRoute extends RouteBuilder {
         from("direct:jackson-jaxb-annotation-inPojo").marshal(jacksonJaxbAnnotationFormatPojo);
         from("direct:jackson-jaxb-annotation-backPojo").unmarshal(jacksonJaxbAnnotationFormatPojo)
                 .to("mock:jackson-jaxb-annotation-reversePojo");
-                
-        */
 
         from("direct:jackson-view-inPojoAgeView").marshal().json(TestPojoView.class, Views.Age.class);
         from("direct:jackson-view-backPojoAgeView").unmarshal().json(JsonLibrary.Jackson, TestPojoView.class)
