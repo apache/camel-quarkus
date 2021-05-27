@@ -106,7 +106,7 @@ You can use any other Camel producer endpoint URI instead of `direct:myDirect*`.
 
 [WARNING]
 ====
-`@EndpoinInject` and `@Produce` are not supported on setter methods
+`@EndpointInject` and `@Produce` are not supported on setter methods
 - see https://github.com/apache/camel-quarkus/issues/2579[#2579]
 ====
 
