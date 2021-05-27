@@ -75,6 +75,20 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>com.datastax.oss.quarkus</groupId>
+                <artifactId>cassandra-quarkus-bom</artifactId>
+                <version>${cassandra-quarkus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.googlecloudservices</groupId>
+                <artifactId>quarkus-google-cloud-services-bom</artifactId>
+                <version>${quarkus-google-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
@@ -5695,26 +5709,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.datastax.oss</groupId>
-                <artifactId>java-driver-core</artifactId>
-                <version>${cassandra-java-driver.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.datastax.oss</groupId>
-                <artifactId>java-driver-query-builder</artifactId>
-                <version>${cassandra-java-driver.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.datastax.oss.quarkus</groupId>
-                <artifactId>cassandra-quarkus-client</artifactId>
-                <version>${cassandra-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.datastax.oss.quarkus</groupId>
-                <artifactId>cassandra-quarkus-client-deployment</artifactId>
-                <version>${cassandra-quarkus.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.woodstox</groupId>
                 <artifactId>woodstox-core</artifactId>
                 <version>${woodstox-core.version}</version>
@@ -5933,36 +5927,6 @@
                 <version>${quarkiverse.freemarker.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-bigquery</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-bigquery-deployment</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-pubsub</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-pubsub-deployment</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-storage</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.googlecloudservices</groupId>
-                <artifactId>quarkus-google-cloud-storage-deployment</artifactId>
-                <version>${quarkus-google-cloud.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.minio</groupId>
                 <artifactId>quarkus-minio</artifactId>
                 <version>${quarkiverse-minio.version}</version>
@@ -6083,16 +6047,6 @@
                 <version>${ahc.version}</version>
             </dependency>
             <dependency>
-                <artifactId>bcpkix-jdk15on</artifactId>
-                <groupId>org.bouncycastle</groupId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <artifactId>bcprov-jdk15on</artifactId>
-                <groupId>org.bouncycastle</groupId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.codehaus.groovy</groupId>
                 <artifactId>groovy</artifactId>
                 <version>${groovy.version}</version>
@@ -6135,7 +6089,7 @@
             <dependency>
                 <groupId>org.graalvm.js</groupId>
                 <artifactId>js</artifactId>
-                <version>${graaljs.version}</version>
+                <version>${graalvm.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.influxdb</groupId>
@@ -6161,11 +6115,6 @@
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-scripting-jvm-host</artifactId>
                 <version>${kotlin.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.jetbrains.kotlinx</groupId>
-                <artifactId>kotlinx-coroutines-core</artifactId>
-                <version>${kotlin.coroutine.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.jruby.jcodings</groupId>

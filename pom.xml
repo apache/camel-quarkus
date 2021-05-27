@@ -37,24 +37,29 @@
     <inceptionYear>2019</inceptionYear>
 
     <properties>
-        <!-- Compile dependency versions (keep sorted alphabetically) -->
-        <ahc.version>${ahc-version}</ahc.version>
-        <animal-sniffer.version>1.18</animal-sniffer.version>
-        <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
-        <avro.version>${avro-version}</avro.version>
-        <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
-        <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
-
-        <bouncycastle.version>${bouncycastle-version}</bouncycastle.version><!-- keep in sync with Camel -->
-
+        <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>3.10</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
 
-        <cassandra-java-driver.version>4.11.0</cassandra-java-driver.version><!-- keep in sync with Cassandra quarkus client -->
-        <cassandra-quarkus.version>1.0.1</cassandra-quarkus.version>
-        <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version><!-- keep in sync with Camel -->
+        <cassandra-quarkus.version>1.0.1</cassandra-quarkus.version><!-- https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
+        <quarkiverse.freemarker.version>0.2.7</quarkiverse.freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
+        <quarkiverse-minio.version>0.2.2</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
+        <quarkus.version>2.0.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus-google-cloud.version>0.6.0</quarkus-google-cloud.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/googlecloudservices/quarkus-google-cloud-services-bom/ -->
+        <quarkus-hazelcast-client.version>1.2.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
+        <quarkus-qpid-jms.version>0.24.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
+
+        <!-- Compile dependency versions (keep sorted alphabetically) -->
+        <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
+        <ahc.version>${ahc-version}</ahc.version>
+        <animal-sniffer.version>1.18</animal-sniffer.version>
+        <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
+        <avro.version>1.10.2</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
+        <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
+        <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
+        <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
@@ -62,22 +67,22 @@
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <debezium.version>1.4.0.Final</debezium.version>
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
-        <eddsa.version>0.3.0</eddsa.version>
-        <freemarker.version>2.3.31</freemarker.version><!-- keep in sync with quarkiverse.freemarker.version -->
+        <eddsa.version>${eddsa-version}</eddsa.version>
+        <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
-        <github-api.version>1.111</github-api.version>
+        <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-api-common.version>1.10.1</google-api-common.version> <!-- Mess in google-cloud-bom -->
         <google-http-client.version>1.38.0</google-http-client.version>
         <google-http-client-jackson2.version>1.38.0</google-http-client-jackson2.version> <!-- Mess in google-cloud-bom -->
         <google-auth-library-oauth2-http.version>0.22.0</google-auth-library-oauth2-http.version> <!-- Mess in google-cloud-bom -->
         <guava.version>29.0-jre</guava.version>
-        <graaljs.version>${graaljs-version}</graaljs.version> <!-- keep in sync with quarkus ? -->
-        <gson.version>2.8.6</gson.version><!-- JSONata -->
+        <graalvm.version>21.1.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
+        <gson.version>2.8.6</gson.version><!-- @sync com.ibm.jsonata4java:JSONata4Java:${jsonata4java-version} dep:com.google.code.gson:gson -->
         <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
-        <hbase.version>${hbase-version}</hbase.version><!-- Keep in sync with Camel -->
+        <hbase.version>${hbase-version}</hbase.version>
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
@@ -92,31 +97,23 @@
         <jetty.version>${jetty9-version}</jetty.version>
         <jnr-ffi.version>2.1.2</jnr-ffi.version><!-- Mess in web3j transitive deps -->
         <json-smart.version>2.4.7</json-smart.version>
-        <kafka.version>2.5.0</kafka.version>
-        <kudu.version>${kudu-version}</kudu.version><!-- keep in sync with Camel -->
-        <kotlin.version>1.4.32</kotlin.version><!-- keep in sync with Quarkus -->
-        <kotlin.coroutine.version>1.4.3</kotlin.coroutine.version><!-- TODO remove when fixing https://github.com/apache/camel-quarkus/issues/2646  -->
+        <kafka.version>2.8.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
+        <kudu.version>${kudu-version}</kudu.version>
+        <kotlin.version>1.4.32</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <minio.version>8.1.0</minio.version><!-- Hardcoded as a workaround for https://github.com/apache/camel-quarkus/issues/2503 otherwise should be kept in sync with quarkiverse-minio and camel -->
-        <mvel2.version>${mvel-version}</mvel2.version><!-- keep in sync with Camel and Optaplanner -->
+        <mvel2.version>${mvel-version}</mvel2.version>
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
-        <okhttp.version>${squareup-okhttp-version}</okhttp.version><!-- keep in sync with okio -->
-        <okio.version>${squareup-okio-version}</okio.version><!-- keep in sync with okhttp -->
+        <okhttp.version>${squareup-okhttp-version}</okhttp.version>
+        <okio.version>${squareup-okio-version}</okio.version>
         <opencensus.version>0.28.0</opencensus.version><!-- mess in google-pubsub deps -->
-        <optaplanner.version>8.2.0.Final</optaplanner.version>
+        <optaplanner.version>${optaplanner-version}</optaplanner.version>
         <perfmark.version>0.23.0</perfmark.version><!-- mess in google-pubsub deps -->
         <protobuf.version>${protobuf-version}</protobuf.version>
-        <quarkiverse.freemarker.version>0.2.2</quarkiverse.freemarker.version>
-        <quarkiverse-minio.version>0.2.2</quarkiverse-minio.version>
-        <quarkus.version>2.0.0.Alpha3</quarkus.version>
-        <quarkus-google-cloud.version>0.5.0</quarkus-google-cloud.version>
-        <quarkus-hazelcast-client.version>1.2.0</quarkus-hazelcast-client.version>
-        <quarkus-qpid-jms.version>0.24.0</quarkus-qpid-jms.version>
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>2.9.0</smallrye.reactive.messaging.camel.version> <!-- keep in sync with Quarkus SmallRye Reactive Messaging -->
-        <!-- Keep spring.version aligned with the version used by Camel -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
@@ -126,9 +123,9 @@
         <xerces.version>${xerces-version}</xerces.version>
         <xmlgraphics-commons.version>2.3</xmlgraphics-commons.version><!-- mess in FOP transitive deps -->
         <xstream.version>${xstream-version}</xstream.version>
-        <web3j.version>${web3j-version}</web3j.version><!-- keep in sync with Camel -->
-        <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version><!-- keep in sync with Camel -->
-        <woodstox-core.version>${woodstox-core-version}</woodstox-core.version><!-- keep in sync with Camel -->
+        <web3j.version>${web3j-version}</web3j.version>
+        <web3j.quorum.version>${web3j-quorum-version}</web3j.quorum.version>
+        <woodstox-core.version>${woodstox-core-version}</woodstox-core.version>
         <zookeeper.version>${solr-zookeeper-version}</zookeeper.version><!-- ${solr-zookeeper-version} is newer than ${zookeeper-version} -->
         <zxing.version>3.3.3</zxing.version><!-- Mess in IOTA transitive deps -->
 
@@ -148,7 +145,7 @@
         <zt-exec.version>1.11</zt-exec.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>0.33.0</cq-plugin.version>
+        <cq-plugin.version>0.36.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -582,7 +579,7 @@
                 <executions>
                     <execution>
                         <id>default-test</id>
-                        <phase /><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
+                        <phase/><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
                     </execution>
                 </executions>
             </plugin>
@@ -593,7 +590,7 @@
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
-                        <phase /><!-- skip to save time -->
+                        <phase/><!-- skip to save time -->
                     </execution>
                 </executions>
             </plugin>
@@ -627,7 +624,7 @@
                                         <requireJavaVersion>
                                             <version>11</version>
                                         </requireJavaVersion>
-                                        <dependencyConvergence />
+                                        <dependencyConvergence/>
                                         <requireMavenVersion>
                                             <version>${supported-maven-versions}</version>
                                         </requireMavenVersion>
@@ -871,7 +868,7 @@
                         <executions>
                             <execution>
                                 <id>camel-quarkus-enforcer-rules</id>
-                                <phase /><!-- Speedup the check-format profile by skipping the enforcer  -->
+                                <phase/><!-- Speedup the check-format profile by skipping the enforcer  -->
                             </execution>
                         </executions>
                     </plugin>
@@ -894,7 +891,7 @@
                         <executions>
                             <execution>
                                 <id>source-release-assembly</id>
-                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
+                                <phase/><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
                             </execution>
                             <execution>
                                 <id>camel-quarkus-source-release-assembly</id>
