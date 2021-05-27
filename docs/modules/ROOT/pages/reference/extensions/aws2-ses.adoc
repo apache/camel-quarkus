@@ -19,7 +19,7 @@ Send e-mails through AWS SES service using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-ses-component.adoc[AWS 2 Simple Email Service (SES) component], URI syntax: `aws2-ses:from`
+* xref:{cq-camel-components}::aws2-ses-component.adoc[AWS Simple Email Service (SES) component], URI syntax: `aws2-ses:from`
 
 Please refer to the above link for usage and configuration details.
 

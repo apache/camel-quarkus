@@ -19,7 +19,7 @@ Store and retrieve objects from AWS S3 Storage Service using AWS SDK version 2.x
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-s3-component.adoc[AWS 2 S3 Storage Service component], URI syntax: `aws2-s3://bucketNameOrArn`
+* xref:{cq-camel-components}::aws2-s3-component.adoc[AWS S3 Storage Service component], URI syntax: `aws2-s3://bucketNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

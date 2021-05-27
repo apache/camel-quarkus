@@ -19,7 +19,7 @@ Manage AWS EKS cluster instances using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-eks-component.adoc[AWS 2 Elastic Kubernetes Service (EKS) component], URI syntax: `aws2-eks:label`
+* xref:{cq-camel-components}::aws2-eks-component.adoc[AWS Elastic Kubernetes Service (EKS) component], URI syntax: `aws2-eks:label`
 
 Please refer to the above link for usage and configuration details.
 

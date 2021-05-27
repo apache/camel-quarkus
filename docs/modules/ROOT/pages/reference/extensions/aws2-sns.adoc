@@ -19,7 +19,7 @@ Send messages to an AWS Simple Notification Topic using AWS SDK version 2.x.
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-sns-component.adoc[AWS 2 Simple Notification System (SNS) component], URI syntax: `aws2-sns:topicNameOrArn`
+* xref:{cq-camel-components}::aws2-sns-component.adoc[AWS Simple Notification System (SNS) component], URI syntax: `aws2-sns:topicNameOrArn`
 
 Please refer to the above link for usage and configuration details.
 

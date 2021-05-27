@@ -19,7 +19,7 @@ Translate texts using AWS Translate and AWS SDK version 2.x.
 
 == What's inside
 
-* xref:{cq-camel-components}::aws2-translate-component.adoc[AWS 2 Translate component], URI syntax: `aws2-translate:label`
+* xref:{cq-camel-components}::aws2-translate-component.adoc[AWS Translate component], URI syntax: `aws2-translate:label`
 
 Please refer to the above link for usage and configuration details.
 

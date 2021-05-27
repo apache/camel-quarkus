@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-ecs
-:cq-camel-part-title: AWS 2 Elastic Container Service (ECS)
+:cq-camel-part-title: AWS Elastic Container Service (ECS)
 :cq-camel-part-description: Manage AWS ECS cluster instances using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Elastic Container Service (ECS)

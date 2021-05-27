@@ -5,14 +5,14 @@
 :cq-artifact-id: camel-quarkus-kamelet-reify
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-status-deprecation: Preview Deprecated
 :cq-description: To call Kamelets (indirectly)
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
 
 To call Kamelets (indirectly)
 

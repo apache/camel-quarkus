@@ -18,7 +18,7 @@ Huawei Cloud component to integrate with SimpleNotification services
 
 == What's inside
 
-* xref:{cq-camel-components}::hwcloud-smn-component.adoc[SimpleNotification component], URI syntax: `hwcloud-smn:smnService`
+* xref:{cq-camel-components}::hwcloud-smn-component.adoc[Huawei Cloud Simple Message Notification (SMN) component], URI syntax: `hwcloud-smn:smnService`
 
 Please refer to the above link for usage and configuration details.
 

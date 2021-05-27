@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-translate
-:cq-camel-part-title: AWS 2 Translate
+:cq-camel-part-title: AWS Translate
 :cq-camel-part-description: Translate texts using AWS Translate and AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Translate

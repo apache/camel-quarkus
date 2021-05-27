@@ -4,7 +4,7 @@
 :cq-artifact-id-base: kamelet-reify
 :cq-native-supported: false
 :cq-status: Preview
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
 :cq-camel-part-name: kamelet-reify

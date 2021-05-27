@@ -5,22 +5,16 @@
 :cq-artifact-id: camel-quarkus-apns
 :cq-native-supported: false
 :cq-status: Preview
-:cq-status-deprecation: Preview Deprecated
+:cq-status-deprecation: Preview
 :cq-description: Send notifications to Apple iOS devices.
-:cq-deprecated: true
+:cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported## [.badge-key]##⚠️##[.badge-unsupported]##Deprecated##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
 Send notifications to Apple iOS devices.
-
-== What's inside
-
-* xref:{cq-camel-components}::apns-component.adoc[APNS component], URI syntax: `apns:name`
-
-Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 

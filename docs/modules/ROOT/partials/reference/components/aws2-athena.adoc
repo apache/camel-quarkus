@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-athena
-:cq-camel-part-title: AWS 2 Athena
+:cq-camel-part-title: AWS Athena
 :cq-camel-part-description: Access AWS Athena service using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Athena

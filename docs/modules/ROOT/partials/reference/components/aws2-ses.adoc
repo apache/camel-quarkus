@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-ses
-:cq-camel-part-title: AWS 2 Simple Email Service (SES)
+:cq-camel-part-title: AWS Simple Email Service (SES)
 :cq-camel-part-description: Send e-mails through AWS SES service using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Simple Email Service (SES)
