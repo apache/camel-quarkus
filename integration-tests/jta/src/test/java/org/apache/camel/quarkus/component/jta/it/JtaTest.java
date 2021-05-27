@@ -16,12 +16,21 @@
  */
 package org.apache.camel.quarkus.component.jta.it;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
@@ -136,33 +145,31 @@ class JtaTest {
                 .body(is("not_supported"));
     }
 
-    @Test
-    public void testJdbcInTx() {
-        testTx("/jta/jdbc");
-    }
-
-    @Test
-    public void testSqlInTx() {
-        testTx("/jta/sqltx");
-    }
-
-    private void testTx(String url) {
+    @ParameterizedTest
+    @ValueSource(strings = { "jdbc", "sqltx" })
+    public void testTx(String url) throws SQLException {
         final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post(url)
+                .post("/jta/" + url)
                 .then()
                 .statusCode(201)
                 .body(is(msg + " added"));
 
+        // One row inserted
+        assertDBRowCount(url, 1);
+
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("fail")
-                .post(url)
+                .post("/jta/" + url)
                 .then()
                 .statusCode(500);
+
+        // Should still have the original row as the other insert attempt was rolled back
+        assertDBRowCount(url, 1);
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -171,5 +178,18 @@ class JtaTest {
                 .statusCode(200)
                 .body(is("empty"))
                 .log();
+    }
+
+    private void assertDBRowCount(String source, int expectedRowCount) throws SQLException {
+        try (Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/mem:test")) {
+            try (Statement statement = connection.createStatement()) {
+                try (ResultSet resultSet = statement
+                        .executeQuery("SELECT count(*) FROM example WHERE origin = '" + source + "'")) {
+                    if (resultSet.next()) {
+                        Assertions.assertEquals(expectedRowCount, resultSet.getInt(1));
+                    }
+                }
+            }
+        }
     }
 }
