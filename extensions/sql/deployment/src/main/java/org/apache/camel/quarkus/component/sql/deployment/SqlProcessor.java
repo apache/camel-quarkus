@@ -24,6 +24,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
+import org.apache.camel.support.DefaultExchangeHolder;
 
 class SqlProcessor {
 
@@ -36,7 +37,7 @@ class SqlProcessor {
 
     @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
-        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, Types.class));
+        reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, Types.class, DefaultExchangeHolder.class));
     }
 
     @BuildStep
