@@ -22,6 +22,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Singleton;
+
 import io.grpc.BindableService;
 import io.grpc.stub.AbstractAsyncStub;
 import io.grpc.stub.AbstractBlockingStub;
@@ -149,6 +151,7 @@ class GrpcProcessor {
                     .build()) {
 
                 classCreator.addAnnotation(GrpcService.class);
+                classCreator.addAnnotation(Singleton.class);
 
                 FieldCreator serverMethodHandler = classCreator
                         .getFieldCreator("methodHandler", GrpcMethodHandler.class.getName())

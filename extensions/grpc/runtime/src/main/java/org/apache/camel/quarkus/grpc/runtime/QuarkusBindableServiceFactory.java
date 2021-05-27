@@ -22,6 +22,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import io.grpc.BindableService;
+import io.quarkus.grpc.GrpcService;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.grpc.GrpcConsumer;
 import org.apache.camel.component.grpc.GrpcEndpoint;
@@ -40,6 +41,7 @@ import static org.apache.camel.component.grpc.GrpcConstants.GRPC_BINDABLE_SERVIC
 public class QuarkusBindableServiceFactory implements BindableServiceFactory {
 
     @Inject
+    @GrpcService
     Instance<CamelQuarkusBindableService> bindableServices;
 
     @Override
