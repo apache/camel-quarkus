@@ -8,6 +8,6 @@
 :cq-jvm-since: 2.0.0
 :cq-native-since: n/a
 :cq-camel-part-name: google-functions
-:cq-camel-part-title: GoogleCloudFunctions
+:cq-camel-part-title: Google Cloud Functions
 :cq-camel-part-description: Manage and invoke Google Cloud Functions
 :cq-extension-page-title: GoogleCloudFunctions

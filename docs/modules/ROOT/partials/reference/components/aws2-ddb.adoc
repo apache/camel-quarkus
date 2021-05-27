@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-ddb
-:cq-camel-part-title: AWS 2 DynamoDB
+:cq-camel-part-title: AWS DynamoDB
 :cq-camel-part-description: Store and retrieve data from AWS DynamoDB service using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 DynamoDB

@@ -62,9 +62,9 @@ public class MongoDbRoute extends RouteBuilder {
                             }
                         });
 
-        from(String.format("mongodb:%s?database=test&collection=%s&consumerType=changeStreams",
-                MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_STREAM_CHANGES))
-                        .routeProperty("streamFilter", "{'$match':{'$or':[{'fullDocument.string': 'value2'}]}}")
+        from(String.format("mongodb:%s?database=test&collection=%s&consumerType=changeStreams&streamFilter=%s",
+                MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_STREAM_CHANGES,
+                "{'$match':{'$or':[{'fullDocument.string': 'value2'}]}}"))
                         .process(e -> {
                             final List<Document> list = results.get(COLLECTION_STREAM_CHANGES);
                             synchronized (list) {

@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.1.0
 :cq-native-since: 1.1.0
 :cq-camel-part-name: aws2-sts
-:cq-camel-part-title: AWS 2 Security Token Service (STS)
+:cq-camel-part-title: AWS Security Token Service (STS)
 :cq-camel-part-description: Manage AWS STS cluster instances using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Security Token Service (STS)
