@@ -7,6 +7,7 @@
 **Closed issues:**
 
 - GraalVM 21.1, KafkaSaslSslIT: ClassNotFoundException: org.apache.kafka.common.security.scram.internals.ScramSaslClient$ScramSaslClientFactory [\#2674](https://github.com/apache/camel-quarkus/issues/2674)
+- AWS2 test: org.apache.log4j.Priority required via netty, although netty should not be in the class path at all  [\#2670](https://github.com/apache/camel-quarkus/issues/2670)
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
 - Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
 - jackson: add test coverage [\#2634](https://github.com/apache/camel-quarkus/issues/2634)
@@ -14,8 +15,10 @@
 - Adapt MicroProfile Health to Camel 3.10 [\#2521](https://github.com/apache/camel-quarkus/issues/2521)
 - CamelKafkaTest fails intermittently on the CI [\#2461](https://github.com/apache/camel-quarkus/issues/2461)
 - \[Camel  3.10\] jsonpath : Missing property in path $\['room'\] [\#2395](https://github.com/apache/camel-quarkus/issues/2395)
+- Optaplanner native integration tests fail with Quarkus 1.12 [\#2205](https://github.com/apache/camel-quarkus/issues/2205)
 - Mocking ProducerTemplate [\#2067](https://github.com/apache/camel-quarkus/issues/2067)
 - Using Camel's @Produce injection [\#2066](https://github.com/apache/camel-quarkus/issues/2066)
+- Debezium-mongodb - observe issue DBZ-2831, which blocks integration tests. [\#2060](https://github.com/apache/camel-quarkus/issues/2060)
 - aws kinesis: De-aggregate producer side aggregated msgs [\#2023](https://github.com/apache/camel-quarkus/issues/2023)
 - AWS properties not picked up [\#1871](https://github.com/apache/camel-quarkus/issues/1871)
 - Investigate intermittent build failures due to port conflicts [\#1370](https://github.com/apache/camel-quarkus/issues/1370)
@@ -25,6 +28,11 @@
 
 **Merged pull requests:**
 
+- Fix another typo 'EndpointInject' [\#2687](https://github.com/apache/camel-quarkus/pull/2687) ([kdubois](https://github.com/kdubois))
+- Fix typo in EndpointInject title [\#2686](https://github.com/apache/camel-quarkus/pull/2686) ([kdubois](https://github.com/kdubois))
+- Add tests and documentation for transaction policies [\#2684](https://github.com/apache/camel-quarkus/pull/2684) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix aws2-support dependency on httpclient [\#2683](https://github.com/apache/camel-quarkus/pull/2683) ([aloubyansky](https://github.com/aloubyansky))
+- Fix Error when using camel-quarkus-jackson in native mode: java.lang.… [\#2680](https://github.com/apache/camel-quarkus/pull/2680) ([ffang](https://github.com/ffang))
 - jackson: add test coverage \#2634 [\#2672](https://github.com/apache/camel-quarkus/pull/2672) ([ffang](https://github.com/ffang))
 - upgrade json-smart [\#2669](https://github.com/apache/camel-quarkus/pull/2669) ([zbendhiba](https://github.com/zbendhiba))
 - quarkus-jackson is included quarkus-kafka-client since quarkus 2.0.0.… [\#2668](https://github.com/apache/camel-quarkus/pull/2668) ([zbendhiba](https://github.com/zbendhiba))
