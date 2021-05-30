@@ -78,7 +78,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             return;
         }
 
-        final CqCatalog catalog = CqCatalog.getThreadLocalCamelCatalog();
+        final CqCatalog catalog = new CqCatalog();
 
         final Path multiModuleProjectDirectoryPath = multiModuleProjectDirectory.toPath();
         final CamelQuarkusExtension ext = CamelQuarkusExtension.read(basePath.resolve("pom.xml"));
