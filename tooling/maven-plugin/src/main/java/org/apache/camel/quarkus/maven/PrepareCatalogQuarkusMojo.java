@@ -81,7 +81,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         final Map<String, Set<String>> schemesByKind = new LinkedHashMap<>();
         CqCatalog.kinds().forEach(kind -> schemesByKind.put(kind.name(), new TreeSet<>()));
 
-        final CqCatalog catalog = CqCatalog.getThreadLocalCamelCatalog();
+        final CqCatalog catalog = new CqCatalog();
         extensionDirectories.stream()
                 .map(File::toPath)
                 .forEach(extDir -> {
