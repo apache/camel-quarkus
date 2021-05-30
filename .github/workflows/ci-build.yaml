@@ -59,6 +59,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
+    env:
+      MAVEN_OPTS: -Xmx4000m
     steps:
       - name: Check free space on disk
         run: |
