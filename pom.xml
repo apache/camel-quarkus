@@ -38,7 +38,7 @@
 
     <properties>
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>3.10</camel.major.minor> <!-- run after each change: cd docs && mvndev validate -->
+        <camel.major.minor>3.10</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable branch on which our Antora docs depends -->
