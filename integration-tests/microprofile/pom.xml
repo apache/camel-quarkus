@@ -30,10 +30,11 @@
     <description>Integration tests for Camel Quarkus MicroProfile extensions</description>
 
     <dependencies>
+        <!-- https://github.com/apache/camel-quarkus/issues/2696
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-microprofile-fault-tolerance</artifactId>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-microprofile-health</artifactId>
