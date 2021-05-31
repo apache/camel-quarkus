@@ -28,16 +28,16 @@ public class MicroProfileFaultToleranceRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("direct:faultTolerance")
-                .circuitBreaker()
-                .process(exchange -> {
-                    if (COUNTER.incrementAndGet() == 1) {
-                        throw new IllegalStateException("Simulated Exception");
-                    }
-                    exchange.getMessage().setBody(RESULT);
-                })
-                .onFallback()
-                .setBody().constant(FALLBACK_RESULT)
-                .end();
+        //        from("direct:faultTolerance")
+        //                .circuitBreaker()
+        //                .process(exchange -> {
+        //                    if (COUNTER.incrementAndGet() == 1) {
+        //                        throw new IllegalStateException("Simulated Exception");
+        //                    }
+        //                    exchange.getMessage().setBody(RESULT);
+        //                })
+        //                .onFallback()
+        //                .setBody().constant(FALLBACK_RESULT)
+        //                .end();
     }
 }

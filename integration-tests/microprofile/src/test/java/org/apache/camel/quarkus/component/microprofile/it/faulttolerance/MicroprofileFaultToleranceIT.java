@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/2696")
 @NativeImageTest
 class MicroprofileFaultToleranceIT extends MicroprofileFaultToleranceTest {
 
