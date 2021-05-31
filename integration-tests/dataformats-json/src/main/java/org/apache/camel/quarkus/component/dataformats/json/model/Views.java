@@ -22,11 +22,9 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 //START SNIPPET: marker
 public class Views {
 
-    @RegisterForReflection
     public static class Age {
     }
 
-    @RegisterForReflection
     public static class Weight {
     }
 }

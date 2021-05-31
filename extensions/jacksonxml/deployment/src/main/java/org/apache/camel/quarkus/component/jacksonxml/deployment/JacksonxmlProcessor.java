@@ -16,8 +16,17 @@
  */
 package org.apache.camel.quarkus.component.jacksonxml.deployment;
 
+import java.util.function.Function;
+
+import com.fasterxml.jackson.annotation.JsonView;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.jboss.jandex.AnnotationValue;
+import org.jboss.jandex.DotName;
+import org.jboss.jandex.IndexView;
+import org.jboss.jandex.Type;
 
 class JacksonxmlProcessor {
 
@@ -26,6 +35,23 @@ class JacksonxmlProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem registerJsonView(CombinedIndexBuildItem combinedIndex) {
+
+        IndexView index = combinedIndex.getIndex();
+        DotName JSON_VIEW = DotName.createSimple(JsonView.class.getName());
+        String[] jsonViews = index.getAnnotations(JSON_VIEW).stream().map(ai -> ai.value())
+                .filter(p -> AnnotationValue.Kind.ARRAY.equals(p.kind()))
+                .map((Function<? super AnnotationValue, ? extends String>) ai -> {
+                    Type[] annotationType = ai.asClassArray();
+                    return annotationType[0].name().toString();
+                })
+                .sorted().toArray(String[]::new);
+
+        return new ReflectiveClassBuildItem(false, false, jsonViews);
+
     }
 
 }
