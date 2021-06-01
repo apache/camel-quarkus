@@ -1,6 +1,40 @@
 This extension depends on the xref:reference/extensions/platform-http.adoc[Platform HTTP] extension
 and configures it as the component that provides the REST transport.
 
+### Path parameters containing special characters with platform-http
+
+When using the `platform-http` REST transport, some characters are not allowed within path parameter names. This includes the '-' and '$' characters.
+
+In order to make the below example REST `/dashed/param` route work correctly, a system property is required `io.vertx.web.route.param.extended-pattern=true`.
+
+[source,java]
+----
+import org.apache.camel.builder.RouteBuilder;
+
+public class CamelRoute extends RouteBuilder {
+
+    @Override
+    public void configure() {
+        rest("/api")
+            // Dash '-' is not allowed by default
+            .get("/dashed/param/{my-param}")
+            .route()
+                .setBody(constant("Hello World"))
+            .endRest()
+
+            // The non-dashed path parameter works by default
+            .get("/undashed/param/{myParam}")
+            .route()
+                .setBody(constant("Hello World"))
+            .endRest();
+    }
+}
+----
+
+There is some more background to this in the https://vertx.io/docs/vertx-web/java/#_capturing_path_parameters[Vert.x Web documentation].
+
+### Configuring alternate REST transport providers
+
 To use another REST transport provider, such as `netty-http` or `servlet`, you need to add the respective
 extension as a dependency to your project and set the provider in your `RouteBuilder`. E.g. for `servlet`, you'd
 have to add the `org.apache.camel.quarkus:camel-quarkus-servlet` dependency and the set the provider as
