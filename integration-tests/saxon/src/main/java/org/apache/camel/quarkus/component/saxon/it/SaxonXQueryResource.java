@@ -28,7 +28,7 @@ import org.apache.camel.ProducerTemplate;
 
 @Path("/xquery")
 @ApplicationScoped
-public class SaxonResource {
+public class SaxonXQueryResource {
 
     @Inject
     ProducerTemplate template;

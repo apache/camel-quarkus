@@ -26,7 +26,9 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import net.sf.saxon.Configuration;
 import net.sf.saxon.functions.SystemFunction;
+import net.sf.saxon.xpath.XPathFactoryImpl;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.logging.Logger;
@@ -57,6 +59,10 @@ class SaxonProcessor {
             LOG.debugf("Registering saxon function '%s' as reflective", clazzName);
             reflectiveClasses.produce(clazz);
         });
+
+        // Needed for xpath expression with saxon
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, Configuration.class));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, XPathFactoryImpl.class));
     }
 
     @BuildStep
