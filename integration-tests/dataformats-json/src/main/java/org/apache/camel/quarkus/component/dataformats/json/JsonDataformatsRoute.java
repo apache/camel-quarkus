@@ -20,8 +20,10 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 import com.google.gson.FieldNamingPolicy;
@@ -39,14 +41,16 @@ import org.apache.camel.quarkus.component.dataformats.json.model.PojoB;
 import org.apache.camel.spi.DataFormat;
 import org.apache.johnzon.mapper.reflection.JohnzonParameterizedType;
 
+@ApplicationScoped
 public class JsonDataformatsRoute extends RouteBuilder {
+
+    @Inject
+    ObjectMapper jacksonObjectMapper;
 
     @Override
     public void configure() {
         JacksonDataFormat jacksonDummyObjectDataFormat = new JacksonDataFormat(DummyObject.class);
         jacksonDummyObjectDataFormat.useList();
-        ObjectMapper jacksonObjectMapper = new ObjectMapper();
-        jacksonObjectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         jacksonDummyObjectDataFormat.setObjectMapper(jacksonObjectMapper);
         configureJsonRoutes(JsonLibrary.Jackson, jacksonDummyObjectDataFormat, new JacksonDataFormat(PojoA.class),
                 new JacksonDataFormat(PojoB.class));
