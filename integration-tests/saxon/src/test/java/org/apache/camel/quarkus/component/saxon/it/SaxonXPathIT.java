@@ -19,6 +19,6 @@ package org.apache.camel.quarkus.component.saxon.it;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class SaxonIT extends SaxonTest {
+class SaxonXPathIT extends SaxonXPathTest {
 
 }

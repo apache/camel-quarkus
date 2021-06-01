@@ -27,7 +27,7 @@ import static org.apache.commons.io.IOUtils.resourceToString;
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
-class SaxonTest {
+class SaxonXQueryTest {
 
     @Test
     public void xqueyrFilterShouldMatchJames() {

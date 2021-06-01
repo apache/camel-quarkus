@@ -23,7 +23,7 @@ import net.sf.saxon.Configuration;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
-public class SaxonRoutes extends RouteBuilder {
+public class SaxonXQueryRoutes extends RouteBuilder {
 
     @Named("saxonConf")
     public Configuration loadConf() {
