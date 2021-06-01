@@ -216,7 +216,7 @@ public class HttpResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String vertxHttpHttps(@QueryParam("test-port") int port) {
         return producerTemplate
-                .toF("vertx-http:https://localhost:%d/countries/cz?sslContextParameters=#sslContextParameters", port)
+                .toF("vertx-http:https://localhost:%d/countries/cz?webClientOptions=#clientOptions", port)
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .request(String.class);
     }
