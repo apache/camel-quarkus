@@ -417,8 +417,8 @@ public class JacksonXmlResource {
 
         marshalled = producerTemplate.requestBody("direct:jacksonxml-xml-inAgeView", view);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        /*JsonView doesn't work correctly in native mode, need to investigate more*/
-        //assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
+
+        assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-xml-backAgeView", marshalled);
 
@@ -483,8 +483,7 @@ public class JacksonXmlResource {
 
         Object marshalled = producerTemplate.requestBody("direct:jacksonxml-jsonview-inPojoAgeView", in);
         String marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
-        /*JsonView doesn't work correctly in native mode, need to investigate more*/
-        //assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
+        assertEquals("<TestPojoView><age>30</age><height>190</height></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-jsonview-backPojoAgeView", marshalled);
 
@@ -498,8 +497,7 @@ public class JacksonXmlResource {
         marshalled = producerTemplate.requestBody("direct:jacksonxml-jsonview-inPojoWeightView", in);
         marshalledAsString = context.getTypeConverter().convertTo(String.class, marshalled);
 
-        /*JsonView doesn't work correctly in native mode, need to investigate more*/
-        //assertEquals("<TestPojoView><height>190</height><weight>70</weight></TestPojoView>", marshalledAsString);
+        assertEquals("<TestPojoView><height>190</height><weight>70</weight></TestPojoView>", marshalledAsString);
 
         producerTemplate.sendBody("direct:jacksonxml-jsonview-backPojoWeightView", marshalled);
 
