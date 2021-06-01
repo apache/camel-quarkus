@@ -55,9 +55,7 @@ class HttpTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "ahc", "http", "netty-http"
-            /* , "vertx-http" disabled because of https://github.com/apache/camel-quarkus/issues/2656 */
-    })
+    @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
     public void httpsProducer(String component) {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.https-test-port", Integer.class);
 

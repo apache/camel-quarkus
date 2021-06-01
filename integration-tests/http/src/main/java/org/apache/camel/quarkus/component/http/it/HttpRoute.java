@@ -16,10 +16,17 @@
  */
 package org.apache.camel.quarkus.component.http.it;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javax.inject.Named;
+import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.TrustManagerFactory;
 
+import io.vertx.core.buffer.Buffer;
+import io.vertx.core.net.KeyStoreOptions;
+import io.vertx.ext.web.client.WebClientOptions;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -68,4 +75,52 @@ public class HttpRoute extends RouteBuilder {
 
         return sslContextParameters;
     }
+
+    // TODO: Remove this when vertx-http SSL configuration is fixed:
+    // https://github.com/apache/camel-quarkus/issues/2704
+    @Named
+    public WebClientOptions clientOptions(SSLContextParameters sslContextParameters) throws IOException {
+        KeyManagersParameters keyManagers = sslContextParameters.getKeyManagers();
+        byte[] keyStoreBytes = readStore(keyManagers.getKeyStore().getResource());
+        KeyStoreOptions keyStoreOptions = new KeyStoreOptions();
+        keyStoreOptions.setPassword(keyManagers.getKeyPassword());
+        keyStoreOptions.setProvider(KeyManagerFactory.getDefaultAlgorithm());
+        keyStoreOptions.setType("PKCS12");
+        keyStoreOptions.setValue(Buffer.buffer(keyStoreBytes));
+
+        TrustManagersParameters trustManagers = sslContextParameters.getTrustManagers();
+        byte[] trustStoreBytes = readStore(trustManagers.getKeyStore().getResource());
+        KeyStoreOptions trustStoreOptions = new KeyStoreOptions();
+        trustStoreOptions.setPassword(trustManagers.getKeyStore().getPassword());
+        trustStoreOptions.setProvider(TrustManagerFactory.getDefaultAlgorithm());
+        trustStoreOptions.setType("JKS");
+        trustStoreOptions.setValue(Buffer.buffer(trustStoreBytes));
+
+        return new WebClientOptions()
+                .setSsl(true)
+                .setKeyCertOptions(keyStoreOptions)
+                .setTrustOptions(trustStoreOptions);
+    }
+
+    private static byte[] readStore(String path) throws IOException {
+        byte[] data = null;
+        final InputStream resource = HttpRoute.class.getResourceAsStream(path);
+        if (resource != null) {
+            try (InputStream is = resource) {
+                data = inputStreamToBytes(is);
+            }
+        }
+        return data;
+    }
+
+    private static byte[] inputStreamToBytes(InputStream is) throws IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        byte[] buf = new byte[1024];
+        int r;
+        while ((r = is.read(buf)) > 0) {
+            out.write(buf, 0, r);
+        }
+        return out.toByteArray();
+    }
+
 }
