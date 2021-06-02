@@ -6,13 +6,18 @@
 
 **Closed issues:**
 
+- Expand Saxon test coverage with xpath saxon tests [\#2702](https://github.com/apache/camel-quarkus/issues/2702)
 - Debezium: Unresolved type during parsing: org.eclipse.jetty.util.StringUtil  [\#2695](https://github.com/apache/camel-quarkus/issues/2695)
+- Problem with dashed queryParams [\#2685](https://github.com/apache/camel-quarkus/issues/2685)
+- Error when using camel-quarkus-jackson in native mode: java.lang.ClassNotFoundException: com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule [\#2677](https://github.com/apache/camel-quarkus/issues/2677)
 - AWS2 test: org.apache.log4j.Priority required via netty, although netty should not be in the class path at all  [\#2670](https://github.com/apache/camel-quarkus/issues/2670)
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
+- vert-x http client failing for HTTPS with Quarkus 2.0.0.Alpha3 [\#2656](https://github.com/apache/camel-quarkus/issues/2656)
 - Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
 - jackson: add test coverage [\#2634](https://github.com/apache/camel-quarkus/issues/2634)
 - jacksonxml: add test coverage [\#2633](https://github.com/apache/camel-quarkus/issues/2633)
 - CamelKafkaTest fails intermittently on the CI [\#2461](https://github.com/apache/camel-quarkus/issues/2461)
+- Quarkus Oracle Jdbc Issue NativeMode [\#2448](https://github.com/apache/camel-quarkus/issues/2448)
 - Optaplanner native integration tests fail with Quarkus 1.12 [\#2205](https://github.com/apache/camel-quarkus/issues/2205)
 - Mocking ProducerTemplate [\#2067](https://github.com/apache/camel-quarkus/issues/2067)
 - Debezium-mongodb - observe issue DBZ-2831, which blocks integration tests. [\#2060](https://github.com/apache/camel-quarkus/issues/2060)
@@ -25,12 +30,17 @@
 
 **Merged pull requests:**
 
+- Fix vertx-http SSL integration test [\#2705](https://github.com/apache/camel-quarkus/pull/2705) ([jamesnetherton](https://github.com/jamesnetherton))
+- Expanded Saxon test coverage with XPath saxon tests and fixed related… [\#2703](https://github.com/apache/camel-quarkus/pull/2703) ([aldettinger](https://github.com/aldettinger))
+- Document usage of dashed query params with platform-http [\#2699](https://github.com/apache/camel-quarkus/pull/2699) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade SmallRye Reactive Messaging Camel to 3.3.2 [\#2698](https://github.com/apache/camel-quarkus/pull/2698) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix typo [\#2697](https://github.com/apache/camel-quarkus/pull/2697) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade to Quarkus 2.0.0.CR2 [\#2688](https://github.com/apache/camel-quarkus/pull/2688) ([ppalaga](https://github.com/ppalaga))
 - Fix another typo 'EndpointInject' [\#2687](https://github.com/apache/camel-quarkus/pull/2687) ([kdubois](https://github.com/kdubois))
 - Fix typo in EndpointInject title [\#2686](https://github.com/apache/camel-quarkus/pull/2686) ([kdubois](https://github.com/kdubois))
 - Add tests and documentation for transaction policies [\#2684](https://github.com/apache/camel-quarkus/pull/2684) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix aws2-support dependency on httpclient [\#2683](https://github.com/apache/camel-quarkus/pull/2683) ([aloubyansky](https://github.com/aloubyansky))
+- fix camel-quarkus-jacksonxml:JsonView annotations take no effect in n… [\#2682](https://github.com/apache/camel-quarkus/pull/2682) ([ffang](https://github.com/ffang))
 - Fix Error when using camel-quarkus-jackson in native mode: java.lang.… [\#2680](https://github.com/apache/camel-quarkus/pull/2680) ([ffang](https://github.com/ffang))
 - jackson: add test coverage \#2634 [\#2672](https://github.com/apache/camel-quarkus/pull/2672) ([ffang](https://github.com/ffang))
 - upgrade json-smart [\#2669](https://github.com/apache/camel-quarkus/pull/2669) ([zbendhiba](https://github.com/zbendhiba))
