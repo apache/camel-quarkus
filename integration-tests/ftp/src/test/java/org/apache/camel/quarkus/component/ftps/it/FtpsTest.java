@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.ftps.it;
 
-import java.security.NoSuchAlgorithmException;
-
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -30,7 +28,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(FtpsTestResource.class)
 class FtpsTest {
     @Test
-    public void testFtpsComponent() throws InterruptedException, NoSuchAlgorithmException {
+    public void testFtpsComponent() {
         // Create a new file on the FTPS server
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -44,6 +42,32 @@ class FtpsTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus FTPS"));
+
+        // Rename the file to {file}.done
+        RestAssured.put("/ftps/moveToDoneFile/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file is no more present in its initial place
+        RestAssured.get("/ftps/get/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file has been renamed to {file}.done
+        RestAssured.get("/ftps/get/hello.txt.done")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus FTPS"));
+
+        // Delete the {file}.done file
+        RestAssured.delete("/ftps/delete/hello.txt.done")
+                .then()
+                .statusCode(204);
+
+        // Check that {file}.done file has been deleted from the FTPS server
+        RestAssured.get("/ftps/get/hello.txt.done")
+                .then()
+                .statusCode(204);
     }
 
 }

@@ -28,7 +28,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(FtpTestResource.class)
 class FtpTest {
     @Test
-    public void testFtpComponent() throws InterruptedException {
+    public void testFtpComponent() {
         // Create a new file on the FTP server
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -42,6 +42,32 @@ class FtpTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus FTP"));
+
+        // Rename the file to {file}.done
+        RestAssured.put("/ftp/moveToDoneFile/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file is no more present in its initial place
+        RestAssured.get("/ftp/get/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file has been renamed to {file}.done
+        RestAssured.get("/ftp/get/hello.txt.done")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus FTP"));
+
+        // Delete the {file}.done file
+        RestAssured.delete("/ftp/delete/hello.txt.done")
+                .then()
+                .statusCode(204);
+
+        // Check that {file}.done file has been deleted from the FTP server
+        RestAssured.get("/ftp/get/hello.txt.done")
+                .then()
+                .statusCode(204);
     }
 
 }
