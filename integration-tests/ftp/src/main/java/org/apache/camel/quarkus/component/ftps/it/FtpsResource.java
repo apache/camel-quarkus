@@ -21,8 +21,10 @@ import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,6 +39,8 @@ import org.apache.camel.ProducerTemplate;
 @ApplicationScoped
 public class FtpsResource {
 
+    private static final long TIMEOUT_MS = 1000;
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -46,9 +50,10 @@ public class FtpsResource {
     @Path("/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFile(@PathParam("fileName") String fileName) throws Exception {
-        return consumerTemplate.receiveBodyNoWait(
-                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftp?password=admin&fileName=" + fileName,
+    public String getFile(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
+                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&fileName=" + fileName,
+                TIMEOUT_MS,
                 String.class);
     }
 
@@ -57,10 +62,29 @@ public class FtpsResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public Response createFile(@PathParam("fileName") String fileName, String fileContent)
             throws Exception {
-        producerTemplate.sendBodyAndHeader("ftps://admin@localhost:{{camel.ftps.test-port}}/ftp?password=admin", fileContent,
+        producerTemplate.sendBodyAndHeader("ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin", fileContent,
                 Exchange.FILE_NAME, fileName);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
+    }
+
+    @Path("/delete/{fileName}")
+    @DELETE
+    public void deleteFile(@PathParam("fileName") String fileName) {
+        consumerTemplate.receiveBody(
+                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&delete=true&fileName=" + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/moveToDoneFile/{fileName}")
+    @PUT
+    public void moveToDoneFile(@PathParam("fileName") String fileName) {
+        consumerTemplate.receiveBody(
+                "ftps://admin@localhost:{{camel.ftps.test-port}}/ftps?password=admin&move=${headers.CamelFileName}.done&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
     }
 }

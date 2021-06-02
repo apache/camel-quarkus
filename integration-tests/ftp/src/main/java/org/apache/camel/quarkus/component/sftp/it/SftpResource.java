@@ -21,8 +21,10 @@ import java.net.URI;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,6 +39,8 @@ import org.apache.camel.ProducerTemplate;
 @ApplicationScoped
 public class SftpResource {
 
+    private static final long TIMEOUT_MS = 1000;
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -46,10 +50,11 @@ public class SftpResource {
     @Path("/get/{fileName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String getFile(@PathParam("fileName") String fileName) throws Exception {
-        return consumerTemplate.receiveBodyNoWait(
+    public String getFile(@PathParam("fileName") String fileName) {
+        return consumerTemplate.receiveBody(
                 "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&localWorkDirectory=target&fileName="
                         + fileName,
+                TIMEOUT_MS,
                 String.class);
     }
 
@@ -63,5 +68,24 @@ public class SftpResource {
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .build();
+    }
+
+    @Path("/delete/{fileName}")
+    @DELETE
+    public void deleteFile(@PathParam("fileName") String fileName) {
+        consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&delete=true&fileName=" + fileName,
+                TIMEOUT_MS,
+                String.class);
+    }
+
+    @Path("/moveToDoneFile/{fileName}")
+    @PUT
+    public void moveToDoneFile(@PathParam("fileName") String fileName) {
+        consumerTemplate.receiveBody(
+                "sftp://admin@localhost:{{camel.sftp.test-port}}/sftp?password=admin&move=${headers.CamelFileName}.done&fileName="
+                        + fileName,
+                TIMEOUT_MS,
+                String.class);
     }
 }

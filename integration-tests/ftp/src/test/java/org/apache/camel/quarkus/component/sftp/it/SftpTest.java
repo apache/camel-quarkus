@@ -22,14 +22,14 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
 
     @Test
-    public void testSftpComponent() throws InterruptedException {
+    public void testSftpComponent() {
         // Create a new file on the SFTP server
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -43,6 +43,32 @@ class SftpTest {
                 .then()
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus SFTP"));
+
+        // Rename the file to {file}.done
+        RestAssured.put("/sftp/moveToDoneFile/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file is no more present in its initial place
+        RestAssured.get("/sftp/get/hello.txt")
+                .then()
+                .statusCode(204);
+
+        // Check that the file has been renamed to {file}.done
+        RestAssured.get("/sftp/get/hello.txt.done")
+                .then()
+                .statusCode(200)
+                .body(is("Hello Camel Quarkus SFTP"));
+
+        // Delete the {file}.done file
+        RestAssured.delete("/sftp/delete/hello.txt.done")
+                .then()
+                .statusCode(204);
+
+        // Check that {file}.done file has been deleted from the SFTP server
+        RestAssured.get("/sftp/get/hello.txt.done")
+                .then()
+                .statusCode(204);
     }
 
 }
