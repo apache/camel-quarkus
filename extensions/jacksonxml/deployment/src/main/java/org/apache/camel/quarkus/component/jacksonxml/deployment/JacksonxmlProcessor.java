@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.jacksonxml.deployment;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -26,7 +27,6 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
-import org.jboss.jandex.Type;
 
 class JacksonxmlProcessor {
 
@@ -42,15 +42,16 @@ class JacksonxmlProcessor {
 
         IndexView index = combinedIndex.getIndex();
         DotName JSON_VIEW = DotName.createSimple(JsonView.class.getName());
-        String[] jsonViews = index.getAnnotations(JSON_VIEW).stream().map(ai -> ai.value())
+        String[][] jsonViews = index.getAnnotations(JSON_VIEW).stream().map(ai -> ai.value())
                 .filter(p -> AnnotationValue.Kind.ARRAY.equals(p.kind()))
-                .map((Function<? super AnnotationValue, ? extends String>) ai -> {
-                    Type[] annotationType = ai.asClassArray();
-                    return annotationType[0].name().toString();
+                .map((Function<? super AnnotationValue, ? extends String[]>) ai -> {
+                    return Arrays.stream(ai.asClassArray()).map(type -> type.name().toString()).toArray(String[]::new);
                 })
-                .sorted().toArray(String[]::new);
+                .toArray(String[][]::new);
+        String[] jsonViewArray = Arrays.stream(jsonViews).flatMap(x -> Arrays.stream(x)).distinct().sorted()
+                .toArray(String[]::new);
 
-        return new ReflectiveClassBuildItem(false, false, jsonViews);
+        return new ReflectiveClassBuildItem(false, false, jsonViewArray);
 
     }
 
