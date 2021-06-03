@@ -47,12 +47,11 @@ public class RestRoutes extends RouteBuilder {
                 .post("/validation")
                 .clientRequestValidation(true)
                 .param().name("messageStart").type(RestParamType.query).required(true).endParam()
-                // https://issues.apache.org/jira/browse/CAMEL-16560
-                // .param().name("messageEnd").type(RestParamType.body).required(true).endParam()
+                .param().name("messageMiddle").type(RestParamType.body).required(true).endParam()
                 .param().name("messageEnd").type(RestParamType.header).required(true).endParam()
                 .param().name("unused").type(RestParamType.formData).required(false).endParam()
                 .route()
-                .setBody(simple("${header.messageStart} ${header.messageEnd}"))
+                .setBody(simple("${header.messageStart} ${body} ${header.messageEnd}"))
                 .endRest()
 
                 .get("/template/{messageStart}/{messageEnd}")

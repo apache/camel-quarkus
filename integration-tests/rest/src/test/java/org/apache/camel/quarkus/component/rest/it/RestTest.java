@@ -69,25 +69,26 @@ class RestTest {
     public void requestValidation() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .header("messageEnd", "World")
+                .body("Camel Quarkus")
+                .header("messageEnd", "REST")
                 .post("/rest/validation")
                 .then()
                 .statusCode(400)
                 .body(equalTo("Some of the required query parameters are missing."));
 
-        // TODO: Enable this - https://issues.apache.org/jira/browse/CAMEL-16560
-        //        RestAssured.given()
-        //                .contentType(ContentType.TEXT)
-        //                .queryParam("messageStart", "Hello")
-        //                .post("/rest/validation")
-        //                .then()
-        //                .statusCode(400)
-        //                .body(equalTo("The request body is missing."));
-        //
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("messageStart", "Hello")
+                .header("messageEnd", "REST")
+                .post("/rest/validation")
+                .then()
+                .statusCode(400)
+                .body(equalTo("The request body is missing."));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .queryParam("messageStart", "Hello")
+                .body("Camel Quarkus")
                 .post("/rest/validation")
                 .then()
                 .statusCode(400)
@@ -96,11 +97,12 @@ class RestTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .queryParam("messageStart", "Hello")
-                .header("messageEnd", "World")
+                .body("Camel Quarkus")
+                .header("messageEnd", "REST")
                 .post("/rest/validation")
                 .then()
                 .statusCode(200)
-                .body(equalTo("Hello World"));
+                .body(equalTo("Hello Camel Quarkus REST"));
     }
 
     @Test
