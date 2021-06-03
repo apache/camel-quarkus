@@ -34,7 +34,7 @@ public class MongoDbRoute extends RouteBuilder {
 
     public static String COLLECTION_TAILING = "tailingCollection";
     public static String COLLECTION_PERSISTENT_TAILING = "persistentTailingCollection";
-    public static String COLLECTION_STREAM_CHANGES = "streamChangesgCollection";
+    public static String COLLECTION_STREAM_CHANGES = "streamChangesCollection";
 
     @Inject
     @Named("results")

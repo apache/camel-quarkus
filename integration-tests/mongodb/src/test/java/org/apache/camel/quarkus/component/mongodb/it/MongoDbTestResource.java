@@ -39,7 +39,7 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
     private static final Logger LOGGER = LoggerFactory.getLogger(MongoDbTestResource.class);
 
     private static final int MONGODB_PORT = 27017;
-    private static final String MONGO_IMAGE = "mongo:4.0";
+    private static final String MONGO_IMAGE = "mongo:4.4";
     private static final String PRIVATE_HOST = "mongodb_private";
 
     private GenericContainer container;
@@ -65,8 +65,8 @@ public class MongoDbTestResource implements QuarkusTestResourceLifecycleManager 
             return CollectionHelper.mapOf(
                     "quarkus.mongodb.hosts",
                     container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString(),
-                    "quarkus.mongodb." + MongoDbResource.NAMED_MONGO_CLIENT_NAME + ".hosts",
-                    container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString());
+                    "quarkus.mongodb." + MongoDbResource.NAMED_MONGO_CLIENT_NAME + ".connection-string",
+                    "mongodb://" + container.getContainerIpAddress() + ":" + container.getMappedPort(MONGODB_PORT).toString());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

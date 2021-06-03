@@ -20,6 +20,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -46,6 +47,9 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mongodb.MongoDbConstants;
 import org.apache.camel.util.CollectionHelper;
 import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import static com.mongodb.client.model.Filters.eq;
 
 @Path("/mongodb")
 @ApplicationScoped
@@ -104,6 +108,39 @@ public class MongoDbResource {
         }
 
         return arrayBuilder.build();
+    }
+
+    @GET
+    @Path("/collectionAsList/{collectionName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public List getCollectionAsList(@PathParam("collectionName") String collectionName,
+            @HeaderParam("mongoClientName") String mongoClientName) {
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+
+        List<Document> list = producerTemplate.requestBody(
+                String.format(
+                        "mongodb:%s?database=test&collection=%s&operation=findAll&dynamicity=true&outputType=DocumentList",
+                        mongoClientName, collectionName),
+                null, List.class);
+
+        return list.stream().map(d -> d.getString("name")).collect(Collectors.toList());
+    }
+
+    @GET
+    @Path("/searchByNameAsDocument/{collectionName}/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
+    public Document searchByNameAsDocument(@PathParam("collectionName") String collectionName,
+            @PathParam("name") String name,
+            @HeaderParam("mongoClientName") String mongoClientName) {
+        Bson query = eq("name", name);
+        return producerTemplate.requestBodyAndHeader(
+                String.format(
+                        "mongodb:%s?database=test&collection=%s&operation=findOneByQuery&dynamicity=true&outputType=Document",
+                        mongoClientName, collectionName),
+                query,
+                MongoDbConstants.DISTINCT_QUERY_FIELD, "name", Document.class);
     }
 
     @POST
