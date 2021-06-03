@@ -16,50 +16,53 @@
  */
 package org.apache.camel.quarkus.kafka.sasl;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Paths;
-import java.util.Collections;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
+import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.io.FileUtils;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
 public class KafkaSaslTestResource extends KafkaTestResource {
 
-    private static final File TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "k8s-sb", "kafka").toFile();
+    private Path serviceBindingDir;
     private SaslKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
         // Set up the service binding directory
         try {
-            TMP_DIR.mkdirs();
-
+            serviceBindingDir = Files.createTempDirectory("KafkaSaslTestResource-");
+            final Path kafkaDir = serviceBindingDir.resolve("kafka");
+            Files.createDirectories(kafkaDir);
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL resource = classLoader.getResource("k8s-sb/kafka");
-            File serviceBindings = new File(resource.getPath());
-
-            for (File serviceBinding : serviceBindings.listFiles()) {
-                URL serviceBindingResource = classLoader.getResource("k8s-sb/kafka/" + serviceBinding.getName());
-                FileUtils.copyInputStreamToFile(serviceBindingResource.openStream(),
-                        Paths.get(TMP_DIR.getPath(), serviceBinding.getName()).toFile());
-            }
+            Stream.of("password", "saslMechanism", "securityProtocol", "type", "user")
+                    .forEach(fileName -> {
+                        try (InputStream in = classLoader.getResourceAsStream("k8s-sb/kafka/" + fileName)) {
+                            Files.copy(in, kafkaDir.resolve(fileName));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         container = new SaslKafkaContainer(KAFKA_IMAGE_NAME);
         container.start();
-        return Collections.singletonMap("kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG,
-                container.getBootstrapServers());
+        return CollectionHelper.mapOf(
+                "kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, container.getBootstrapServers(),
+                "quarkus.kubernetes-service-binding.root", serviceBindingDir.toString());
     }
 
     @Override
@@ -67,7 +70,7 @@ public class KafkaSaslTestResource extends KafkaTestResource {
         if (this.container != null) {
             try {
                 this.container.stop();
-                FileUtils.deleteDirectory(TMP_DIR.getParentFile());
+                FileUtils.deleteDirectory(serviceBindingDir.toFile());
             } catch (Exception e) {
                 // Ignored
             }

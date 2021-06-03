@@ -16,21 +16,21 @@
  */
 package org.apache.camel.quarkus.kafka.ssl;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.io.FileUtils;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.Transferable;
-import org.testcontainers.shaded.org.apache.commons.io.FileUtils;
 import org.testcontainers.utility.DockerImageName;
 import org.testcontainers.utility.MountableFile;
 
@@ -41,24 +41,23 @@ public class KafkaSslTestResource extends KafkaTestResource {
     private static final String KAFKA_KEYSTORE_TYPE = "PKCS12";
     private static final String KAFKA_SSL_CREDS_FILE = "broker-creds";
     private static final String KAFKA_TRUSTSTORE_FILE = "kafka-truststore.p12";
-    private static final File TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"), "kafka").toFile();
+    private Path configDir;
     private SSLKafkaContainer container;
 
     @Override
     public Map<String, String> start() {
         // Set up the SSL key / trust store directory
         try {
-            TMP_DIR.mkdirs();
-
+            configDir = Files.createTempDirectory("KafkaSaslSslTestResource-");
             ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-            URL resource = classLoader.getResource("config");
-            File serviceBindings = new File(resource.getPath());
-
-            for (File keyStore : serviceBindings.listFiles()) {
-                URL serviceBindingResource = classLoader.getResource("config/" + keyStore.getName());
-                FileUtils.copyInputStreamToFile(serviceBindingResource.openStream(),
-                        Paths.get(TMP_DIR.getPath(), keyStore.getName()).toFile());
-            }
+            Stream.of(KAFKA_KEYSTORE_FILE, KAFKA_TRUSTSTORE_FILE)
+                    .forEach(fileName -> {
+                        try (InputStream in = classLoader.getResourceAsStream("config/" + fileName)) {
+                            Files.copy(in, configDir.resolve(fileName));
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -66,15 +65,14 @@ public class KafkaSslTestResource extends KafkaTestResource {
         container = new SSLKafkaContainer(KAFKA_IMAGE_NAME);
         container.start();
 
-        Path keystorePath = TMP_DIR.toPath();
         return CollectionHelper.mapOf(
                 "camel.component.kafka.brokers", container.getBootstrapServers(),
                 "camel.component.kafka.security-protocol", "SSL",
                 "camel.component.kafka.ssl-key-password", KAFKA_KEYSTORE_PASSWORD,
-                "camel.component.kafka.ssl-keystore-location", keystorePath.resolve(KAFKA_KEYSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-keystore-location", configDir.resolve(KAFKA_KEYSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-keystore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-keystore-type", KAFKA_KEYSTORE_TYPE,
-                "camel.component.kafka.ssl-truststore-location", keystorePath.resolve(KAFKA_TRUSTSTORE_FILE).toString(),
+                "camel.component.kafka.ssl-truststore-location", configDir.resolve(KAFKA_TRUSTSTORE_FILE).toString(),
                 "camel.component.kafka.ssl-truststore-password", KAFKA_KEYSTORE_PASSWORD,
                 "camel.component.kafka.ssl-truststore-type", KAFKA_KEYSTORE_TYPE);
     }
@@ -84,7 +82,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
         if (this.container != null) {
             try {
                 this.container.stop();
-                FileUtils.deleteDirectory(TMP_DIR);
+                FileUtils.deleteDirectory(configDir.toFile());
             } catch (Exception e) {
                 // Ignored
             }
