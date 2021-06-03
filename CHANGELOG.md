@@ -6,9 +6,12 @@
 
 **Closed issues:**
 
+- Register all @JsonView array elements for reflection [\#2708](https://github.com/apache/camel-quarkus/issues/2708)
+- demonstrate how to configure quarkus-jackson extension's own ObjectMapper instance and reuse it in our jackson test [\#2706](https://github.com/apache/camel-quarkus/issues/2706)
 - Expand Saxon test coverage with xpath saxon tests [\#2702](https://github.com/apache/camel-quarkus/issues/2702)
 - Debezium: Unresolved type during parsing: org.eclipse.jetty.util.StringUtil  [\#2695](https://github.com/apache/camel-quarkus/issues/2695)
 - Problem with dashed queryParams [\#2685](https://github.com/apache/camel-quarkus/issues/2685)
+- camel-quarkus-jacksonxml:JsonView annotations take no effect in native mode [\#2681](https://github.com/apache/camel-quarkus/issues/2681)
 - Error when using camel-quarkus-jackson in native mode: java.lang.ClassNotFoundException: com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule [\#2677](https://github.com/apache/camel-quarkus/issues/2677)
 - AWS2 test: org.apache.log4j.Priority required via netty, although netty should not be in the class path at all  [\#2670](https://github.com/apache/camel-quarkus/issues/2670)
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
