@@ -16,16 +16,19 @@
  */
 package org.apache.camel.quarkus.component.jslt.it;
 
+import java.lang.reflect.Method;
+
 import javax.inject.Named;
 
 import com.schibsted.spt.data.jslt.Expression;
+import com.schibsted.spt.data.jslt.Function;
+import com.schibsted.spt.data.jslt.JsltException;
 import com.schibsted.spt.data.jslt.Parser;
 import com.schibsted.spt.data.jslt.filters.JsltJsonFilter;
+import com.schibsted.spt.data.jslt.impl.FunctionWrapper;
 import org.apache.camel.component.jslt.JsltComponent;
 
 import static java.util.Collections.singleton;
-
-import static com.schibsted.spt.data.jslt.FunctionUtils.wrapStaticMethod;
 
 public class JsltConfiguration {
 
@@ -48,6 +51,30 @@ public class JsltConfiguration {
         component.setAllowTemplateFromHeader(true);
 
         return component;
+    }
+
+    /* A variant of com.schibsted.spt.data.jslt.FunctionUtils.wrapStaticMethod() using TCCL
+     * Otherwise the class is not found on Quarkus Platform where the class loading setup is a bit different.
+     * Workaround for https://github.com/schibsted/jslt/issues/197 */
+    static public Function wrapStaticMethod(String functionName,
+            String className,
+            String methodName)
+            throws LinkageError, ExceptionInInitializerError, ClassNotFoundException {
+        Class klass = Class.forName(className, true, Thread.currentThread().getContextClassLoader());
+        Method[] methods = klass.getMethods();
+        Method method = null;
+        for (int ix = 0; ix < methods.length; ix++) {
+            if (methods[ix].getName().equals(methodName)) {
+                if (method == null)
+                    method = methods[ix];
+                else
+                    throw new JsltException("More than one method named '" + methodName + "'");
+            }
+        }
+        if (method == null)
+            throw new JsltException("No such method: '" + methodName + "'");
+
+        return new FunctionWrapper(functionName, method);
     }
 
     public static Ping createInfiniteRecursionObject() {
