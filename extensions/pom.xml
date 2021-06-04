@@ -76,7 +76,6 @@
         <module>caffeine</module>
         <module>cassandraql</module>
         <module>cbor</module>
-        <module>componentdsl</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>couchdb</module>
@@ -95,7 +94,6 @@
         <module>dozer</module>
         <module>dropbox</module>
         <module>elasticsearch-rest</module>
-        <module>endpointdsl</module>
         <module>exec</module>
         <module>fhir</module>
         <module>file</module>
