@@ -89,6 +89,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>io.debezium</groupId>
+                <artifactId>debezium-bom</artifactId>
+                <version>${debezium.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
 
@@ -5835,41 +5842,6 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-api</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-mongodb</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-mysql</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-postgres</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-connector-sqlserver</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-core</artifactId>
-                <version>${debezium.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.debezium</groupId>
-                <artifactId>debezium-embedded</artifactId>
-                <version>${debezium.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.minio</groupId>
