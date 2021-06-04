@@ -65,7 +65,7 @@
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
-        <debezium.version>1.4.0.Final</debezium.version>
+        <debezium.version>${debezium-version}</debezium.version>
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
