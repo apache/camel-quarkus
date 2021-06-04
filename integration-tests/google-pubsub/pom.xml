@@ -74,10 +74,10 @@
 
     <profiles>
         <profile>
-            <id>native-off</id><!-- Disabled because of https://github.com/apache/camel-quarkus/issues/2692 -->
+            <id>native</id>
             <activation>
                 <property>
-                    <name>native-off</name>
+                    <name>native</name>
                 </property>
             </activation>
             <properties>
