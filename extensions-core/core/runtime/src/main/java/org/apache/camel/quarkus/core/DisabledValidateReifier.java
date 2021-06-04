@@ -30,6 +30,7 @@ public class DisabledValidateReifier extends ProcessorReifier<ValidateDefinition
 
     @Override
     public Processor createProcessor() throws Exception {
-        throw new UnsupportedOperationException("Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io");
+        throw new UnsupportedOperationException(
+                "Please add a dependency to camel-quarkus-xml-jaxb or camel-quarkus-xml-io-dsl");
     }
 }

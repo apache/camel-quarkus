@@ -316,7 +316,6 @@
 *** xref:reference/extensions/workday.adoc[Workday]
 *** xref:reference/extensions/xchange.adoc[XChange]
 *** xref:reference/extensions/xj.adoc[XJ]
-*** xref:reference/extensions/xml-io.adoc[XML IO]
 *** xref:reference/extensions/xml-io-dsl.adoc[XML IO DSL]
 *** xref:reference/extensions/xml-jaxb.adoc[XML JAXB]
 *** xref:reference/extensions/xml-jaxp.adoc[XML JAXP]
