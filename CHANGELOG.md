@@ -17,10 +17,12 @@
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
 - vert-x http client failing for HTTPS with Quarkus 2.0.0.Alpha3 [\#2656](https://github.com/apache/camel-quarkus/issues/2656)
 - Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
+- Test moving and deleting files on an FTP server [\#2645](https://github.com/apache/camel-quarkus/issues/2645)
 - jackson: add test coverage [\#2634](https://github.com/apache/camel-quarkus/issues/2634)
 - jacksonxml: add test coverage [\#2633](https://github.com/apache/camel-quarkus/issues/2633)
 - CamelKafkaTest fails intermittently on the CI [\#2461](https://github.com/apache/camel-quarkus/issues/2461)
 - Quarkus Oracle Jdbc Issue NativeMode [\#2448](https://github.com/apache/camel-quarkus/issues/2448)
+- \[Camel 3.10\] jsonpath: Getting rid of json-smart as explicit and transitive dependency [\#2435](https://github.com/apache/camel-quarkus/issues/2435)
 - Optaplanner native integration tests fail with Quarkus 1.12 [\#2205](https://github.com/apache/camel-quarkus/issues/2205)
 - Mocking ProducerTemplate [\#2067](https://github.com/apache/camel-quarkus/issues/2067)
 - Debezium-mongodb - observe issue DBZ-2831, which blocks integration tests. [\#2060](https://github.com/apache/camel-quarkus/issues/2060)
@@ -33,11 +35,13 @@
 
 **Merged pull requests:**
 
+- Added move and delete tests for FTP extension \#2645 [\#2710](https://github.com/apache/camel-quarkus/pull/2710) ([aldettinger](https://github.com/aldettinger))
 - Fix vertx-http SSL integration test [\#2705](https://github.com/apache/camel-quarkus/pull/2705) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expanded Saxon test coverage with XPath saxon tests and fixed related… [\#2703](https://github.com/apache/camel-quarkus/pull/2703) ([aldettinger](https://github.com/aldettinger))
 - Document usage of dashed query params with platform-http [\#2699](https://github.com/apache/camel-quarkus/pull/2699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade SmallRye Reactive Messaging Camel to 3.3.2 [\#2698](https://github.com/apache/camel-quarkus/pull/2698) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix typo [\#2697](https://github.com/apache/camel-quarkus/pull/2697) ([zbendhiba](https://github.com/zbendhiba))
+- Expand Sql test coverage \#2623 [\#2694](https://github.com/apache/camel-quarkus/pull/2694) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade to Quarkus 2.0.0.CR2 [\#2688](https://github.com/apache/camel-quarkus/pull/2688) ([ppalaga](https://github.com/ppalaga))
 - Fix another typo 'EndpointInject' [\#2687](https://github.com/apache/camel-quarkus/pull/2687) ([kdubois](https://github.com/kdubois))
 - Fix typo in EndpointInject title [\#2686](https://github.com/apache/camel-quarkus/pull/2686) ([kdubois](https://github.com/kdubois))
