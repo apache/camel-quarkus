@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-xml-jaxb</artifactId>
     <name>Camel Quarkus :: XML JAXB :: Runtime</name>
-    <description>An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io</description>
+    <description>An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io-dsl</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

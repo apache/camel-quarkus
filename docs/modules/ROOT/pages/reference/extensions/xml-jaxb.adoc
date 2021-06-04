@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
+:cq-description: An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io-dsl
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io
+An XML stack for parsing XML route definitions. A legacy alternative to the fast an light weight camel-quarkus-xml-io-dsl
 
 == Maven coordinates
 

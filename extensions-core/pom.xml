@@ -37,7 +37,6 @@
         <module>http-common</module>
         <module>reactive-executor</module>
         <module>threadpoolfactory-vertx</module>
-        <module>xml-io</module>
         <module>xml-io-dsl</module>
         <module>xml-jaxb</module>
         <module>xml-jaxp</module>
