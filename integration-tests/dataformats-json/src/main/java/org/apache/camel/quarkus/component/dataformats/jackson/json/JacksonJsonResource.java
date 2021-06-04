@@ -34,6 +34,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
@@ -513,7 +514,7 @@ public class JacksonJsonResource {
 
             json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo-test", order);
             /*
-             * somehow jaxb annotation @XmlAttribute(name = "customer_name") can't be taken into accout so the
+             * somehow jaxb annotation @XmlAttribute(name = "customer_name") can't be taken into account so the
              * following asserts failed, need to investigate more
              * assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}",
              * json);
@@ -664,6 +665,15 @@ public class JacksonJsonResource {
 
         mock.assertIsSatisfied();
 
+    }
+
+    @Path("jackson/json-node")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String testJacksonUnmarshalJsonNode() {
+        String json = "{\"name\":\"Camel\"}";
+        JsonNode result = producerTemplate.requestBody("direct:unmarshal-jackson-json-node", json, JsonNode.class);
+        return result.at("/name").asText();
     }
 
     private void doSendMessages(int files, int poolSize) throws Exception {

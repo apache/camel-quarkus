@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.dataformats.jackson.json;
 
 import java.util.TimeZone;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.camel.builder.RouteBuilder;
@@ -171,6 +172,9 @@ public class JacksonJsonRoute extends RouteBuilder {
         TimeZone timeZone = TimeZone.getTimeZone("Africa/Ouagadougou");
         jacksonTimeZone.setTimezone(timeZone);
         from("direct:jackson-timezone-in").marshal(jacksonTimeZone).to("mock:jackson-timezone-result");
+
+        from("direct:unmarshal-jackson-json-node")
+                .unmarshal().json(JsonLibrary.Jackson, JsonNode.class);
     }
 
 }

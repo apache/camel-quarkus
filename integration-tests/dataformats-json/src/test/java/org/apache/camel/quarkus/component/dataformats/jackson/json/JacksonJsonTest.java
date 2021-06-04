@@ -40,7 +40,6 @@ public class JacksonJsonTest {
 
     @Test
     void jacksonUnmarshalListSplit() {
-
         RestAssured.get("/dataformats-json/jackson/unmarshal-listsplit")
                 .then()
                 .statusCode(204);
@@ -56,7 +55,6 @@ public class JacksonJsonTest {
 
     @Test
     void jacksonUnmarshalArray() {
-
         RestAssured.get("/dataformats-json/jackson/unmarshal-array")
                 .then()
                 .statusCode(204);
@@ -67,7 +65,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/marshal-contenttype-header")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -75,7 +72,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/marshal-general")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -83,7 +79,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/object-mapper-noreg")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -91,7 +86,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/allowjmstype")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -99,7 +93,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/marshal-module")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -107,7 +100,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/not-use-default-mapper")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -115,7 +107,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/unmarshal-list-xml-configure")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -123,7 +114,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/object-mapper")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -131,7 +121,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/pojo-array")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -139,7 +128,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/enablefeature")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -147,7 +135,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/concurrent")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -155,7 +142,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/unmarshal-listjackson")
                 .then()
                 .statusCode(204);
-
     }
 
     //@Test
@@ -163,7 +149,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/conversion-pojo")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -171,7 +156,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/conversion")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -179,7 +163,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/conversion-simple")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -187,7 +170,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/jaxb-annotation")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -195,7 +177,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/view")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -203,7 +184,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/moduleref")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -211,7 +191,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/include-no-null")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -219,7 +198,6 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/typeheader-not-allowed")
                 .then()
                 .statusCode(204);
-
     }
 
     @Test
@@ -227,7 +205,14 @@ public class JacksonJsonTest {
         RestAssured.get("/dataformats-json/jackson/datetimezone")
                 .then()
                 .statusCode(204);
+    }
 
+    @Test
+    void jacksonUnmarshalJsonNode() {
+        RestAssured.get("/dataformats-json/jackson/json-node")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Camel"));
     }
 
 }
