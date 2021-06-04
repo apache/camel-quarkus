@@ -45,7 +45,7 @@
 
         <cassandra-quarkus.version>1.0.1</cassandra-quarkus.version><!-- https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
         <quarkiverse.freemarker.version>0.2.7</quarkiverse.freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
-        <quarkiverse-minio.version>0.2.2</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
+        <quarkiverse-minio.version>0.2.3</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkus.version>2.0.0.CR2</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-google-cloud.version>0.6.0</quarkus-google-cloud.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/googlecloudservices/quarkus-google-cloud-services-bom/ -->
         <quarkus-hazelcast-client.version>1.2.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
@@ -101,7 +101,7 @@
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.4.32</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
-        <minio.version>8.1.0</minio.version><!-- Hardcoded as a workaround for https://github.com/apache/camel-quarkus/issues/2503 otherwise should be kept in sync with quarkiverse-minio and camel -->
+        <minio.version>${minio-version}</minio.version><!-- Keep in sync with quarkiverse-minio and Camel, preferring Camel assuming that it is more likely to be up to date -->
         <mvel2.version>${mvel-version}</mvel2.version>
         <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>

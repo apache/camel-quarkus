@@ -16,9 +16,9 @@
  */
 package org.apache.camel.quarkus.component.minio.it;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
+import javax.inject.Singleton;
 
 import io.minio.MinioClient;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -26,12 +26,11 @@ import org.eclipse.microprofile.config.ConfigProvider;
 public class MinioClientProducer {
 
     @Produces
-    @ApplicationScoped
+    @Singleton
     @Named("minioClient")
     public MinioClient produceMinioClient() {
         return MinioClient.builder()
-                .endpoint("http://" + ConfigProvider.getConfig().getValue("minio.server.host", String.class),
-                        ConfigProvider.getConfig().getValue("minio.server.port", Integer.class), false)
+                .endpoint(ConfigProvider.getConfig().getValue("quarkus.minio.url", String.class))
                 .credentials(MinioResource.SERVER_ACCESS_KEY, MinioResource.SERVER_SECRET_KEY)
                 .build();
     }
