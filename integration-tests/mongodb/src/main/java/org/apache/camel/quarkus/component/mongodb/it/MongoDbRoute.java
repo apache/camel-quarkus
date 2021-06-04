@@ -45,8 +45,9 @@ public class MongoDbRoute extends RouteBuilder {
         from(String.format("mongodb:%s?database=test&collection=%s&tailTrackIncreasingField=increasing",
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_TAILING))
                         .process(e -> {
-                            synchronized (results) {
-                                results.get(COLLECTION_TAILING).add(e.getMessage().getBody(Document.class));
+                            final List<Document> list = results.get(COLLECTION_TAILING);
+                            synchronized (list) {
+                                list.add(e.getMessage().getBody(Document.class));
                             }
                         });
 
@@ -55,8 +56,9 @@ public class MongoDbRoute extends RouteBuilder {
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_PERSISTENT_TAILING))
                         .id(COLLECTION_PERSISTENT_TAILING)
                         .process(e -> {
-                            synchronized (results) {
-                                results.get(COLLECTION_PERSISTENT_TAILING).add(e.getMessage().getBody(Document.class));
+                            final List<Document> list = results.get(COLLECTION_PERSISTENT_TAILING);
+                            synchronized (list) {
+                                list.add(e.getMessage().getBody(Document.class));
                             }
                         });
 
@@ -64,8 +66,9 @@ public class MongoDbRoute extends RouteBuilder {
                 MongoDbResource.DEFAULT_MONGO_CLIENT_NAME, COLLECTION_STREAM_CHANGES))
                         .routeProperty("streamFilter", "{'$match':{'$or':[{'fullDocument.string': 'value2'}]}}")
                         .process(e -> {
-                            synchronized (results) {
-                                results.get(COLLECTION_STREAM_CHANGES).add(e.getMessage().getBody(Document.class));
+                            final List<Document> list = results.get(COLLECTION_STREAM_CHANGES);
+                            synchronized (list) {
+                                list.add(e.getMessage().getBody(Document.class));
                             }
                         });
     }
