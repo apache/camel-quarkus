@@ -46,7 +46,12 @@ public class JmsProducers {
                 // Ignore and override the original queue name
                 return session.createQueue("destinationOverride");
             }
-            return session.createQueue(destinationName);
+
+            if (pubSubDomain) {
+                return session.createTopic(destinationName);
+            } else {
+                return session.createQueue(destinationName);
+            }
         };
     }
 
