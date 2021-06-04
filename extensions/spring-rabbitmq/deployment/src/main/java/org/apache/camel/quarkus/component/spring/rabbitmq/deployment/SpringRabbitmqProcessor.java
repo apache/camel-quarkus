@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.spring.rabbitmq.deployment;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.InlineBeforeAnalysisBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import org.springframework.amqp.rabbit.connection.ChannelProxy;
 import org.springframework.aop.SpringProxy;
@@ -41,6 +42,11 @@ class SpringRabbitmqProcessor {
                 "org.springframework.amqp.rabbit.listener.AbstractMessageListenerContainer$ContainerDelegate",
                 SpringProxy.class.getCanonicalName(), Advised.class.getCanonicalName(),
                 DecoratingProxy.class.getCanonicalName()));
+    }
+
+    @BuildStep
+    InlineBeforeAnalysisBuildItem inlineBeforeAnalysis() {
+        return new InlineBeforeAnalysisBuildItem();
     }
 
 }
