@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.dataformats.jackson.json;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -144,7 +145,8 @@ public class JacksonJsonTest {
                 .statusCode(204);
     }
 
-    //@Test
+    @Test
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2726")
     void jacksonConversionPojo() {
         RestAssured.get("/dataformats-json/jackson/conversion-pojo")
                 .then()
