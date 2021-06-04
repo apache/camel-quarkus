@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.jackson;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
@@ -34,9 +35,9 @@ public class JacksonProcessor {
 
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
-        List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
+        List<ReflectiveClassBuildItem> items = new ArrayList<>();
         items.add(new ReflectiveClassBuildItem(false, true, "com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule"));
+        items.add(new ReflectiveClassBuildItem(false, false, JsonNode.class));
         return items;
     }
-
 }
