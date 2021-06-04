@@ -35,6 +35,7 @@ group-02:
   - google-bigquery
   - google-pubsub
   - grpc
+  - jackson-protobuf
   - oaipmh
   - pubnub
   - protobuf
