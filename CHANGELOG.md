@@ -6,6 +6,8 @@
 
 **Closed issues:**
 
+- Add missing use cases into MongoDb test coverage [\#2715](https://github.com/apache/camel-quarkus/issues/2715)
+- \[camel-quarkus-examples\] HealthTest/TimerLogMainTest/ObservabilityTest failure on camel-quarkus-main branch [\#2711](https://github.com/apache/camel-quarkus/issues/2711)
 - Register all @JsonView array elements for reflection [\#2708](https://github.com/apache/camel-quarkus/issues/2708)
 - demonstrate how to configure quarkus-jackson extension's own ObjectMapper instance and reuse it in our jackson test [\#2706](https://github.com/apache/camel-quarkus/issues/2706)
 - Expand Saxon test coverage with xpath saxon tests [\#2702](https://github.com/apache/camel-quarkus/issues/2702)
@@ -17,9 +19,12 @@
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
 - vert-x http client failing for HTTPS with Quarkus 2.0.0.Alpha3 [\#2656](https://github.com/apache/camel-quarkus/issues/2656)
 - Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
+- \[Quarkus 2.0.0.CR1\] Stop managing kotlinx-coroutines-core once we get it managed from Quarkus [\#2646](https://github.com/apache/camel-quarkus/issues/2646)
 - Test moving and deleting files on an FTP server [\#2645](https://github.com/apache/camel-quarkus/issues/2645)
 - jackson: add test coverage [\#2634](https://github.com/apache/camel-quarkus/issues/2634)
 - jacksonxml: add test coverage [\#2633](https://github.com/apache/camel-quarkus/issues/2633)
+- camel-jackson-protobuf data format native support [\#2615](https://github.com/apache/camel-quarkus/issues/2615)
+- Messaging integration test for JMS topics is not working [\#2608](https://github.com/apache/camel-quarkus/issues/2608)
 - CamelKafkaTest fails intermittently on the CI [\#2461](https://github.com/apache/camel-quarkus/issues/2461)
 - Quarkus Oracle Jdbc Issue NativeMode [\#2448](https://github.com/apache/camel-quarkus/issues/2448)
 - \[Camel 3.10\] jsonpath: Getting rid of json-smart as explicit and transitive dependency [\#2435](https://github.com/apache/camel-quarkus/issues/2435)
@@ -35,6 +40,11 @@
 
 **Merged pull requests:**
 
+- camel-jackson-protobuf data format native support [\#2728](https://github.com/apache/camel-quarkus/pull/2728) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#2608 to create destination correctly and re-enable the test case [\#2725](https://github.com/apache/camel-quarkus/pull/2725) ([zhfeng](https://github.com/zhfeng))
+- Fixes for Quarkus Platform 2.0.0 [\#2720](https://github.com/apache/camel-quarkus/pull/2720) ([ppalaga](https://github.com/ppalaga))
+- Enable test for REST body validation [\#2717](https://github.com/apache/camel-quarkus/pull/2717) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add missing use cases into MongoDb test coverage \#2715 [\#2716](https://github.com/apache/camel-quarkus/pull/2716) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Added move and delete tests for FTP extension \#2645 [\#2710](https://github.com/apache/camel-quarkus/pull/2710) ([aldettinger](https://github.com/aldettinger))
 - Fix vertx-http SSL integration test [\#2705](https://github.com/apache/camel-quarkus/pull/2705) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expanded Saxon test coverage with XPath saxon tests and fixed related… [\#2703](https://github.com/apache/camel-quarkus/pull/2703) ([aldettinger](https://github.com/aldettinger))
