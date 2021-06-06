@@ -39,7 +39,7 @@ import org.apache.camel.ProducerTemplate;
 @ApplicationScoped
 public class FtpResource {
 
-    private static final long TIMEOUT_MS = 1000;
+    private static final long TIMEOUT_MS = 10000;
 
     @Inject
     ProducerTemplate producerTemplate;
