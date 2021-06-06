@@ -181,6 +181,7 @@ jobs:
             eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pnative,docker,ci \
+              --fail-at-end \
               -pl "${NATIVE_MODULES[*]}"
           fi
       - name: Fail if there are uncommitted changes
@@ -289,6 +290,7 @@ jobs:
           cd extensions-jvm
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
             clean test
 
   integration-tests-alternative-jvm:
@@ -339,6 +341,7 @@ jobs:
           cd integration-tests
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
             clean verify
 
   examples-tests:
