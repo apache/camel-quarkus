@@ -16,21 +16,36 @@
  */
 package org.apache.camel.quarkus.component.log.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.quarkus.main.events.AfterStart;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 @ApplicationScoped
 public class LogResource {
 
+    public static final String LOG_MESSAGE = "Lets's fool io.quarkus.test.common.LauncherUtil.CaptureListeningDataReader: Listening on: http://0.0.0.0:";
     @Inject
     ProducerTemplate producerTemplate;
 
+    @ConfigProperty(name = "quarkus.http.test-port")
+    Optional<Integer> httpTestPort;
+    @ConfigProperty(name = "quarkus.http.port")
+    Optional<Integer> httpPort;
+
+    private int getEffectivePort() {
+        final boolean isNativeMode = "executable".equals(System.getProperty("org.graalvm.nativeimage.kind"));
+        Optional<Integer> portSource = isNativeMode ? httpPort : httpTestPort;
+        return portSource.isPresent() ? portSource.get().intValue() : 0;
+    }
+
     public void info(@Observes AfterStart event) {
-        producerTemplate.sendBody("log:foo-topic", "Hello foo!");
+        producerTemplate.sendBody("log:foo-topic", LOG_MESSAGE + getEffectivePort());
     }
 
 }
