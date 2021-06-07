@@ -176,14 +176,6 @@ public class JacksonXmlTest {
     }
 
     @Test
-    void jacksonXmlJacksonConversion() {
-        RestAssured.get("/dataformats-json/jacksonxml/jackson-conversion")
-                .then()
-                .statusCode(204);
-
-    }
-
-    @Test
     void jacksonXmlJaxbAnnotation() {
         RestAssured.get("/dataformats-json/jacksonxml/jaxb-annotation")
                 .then()

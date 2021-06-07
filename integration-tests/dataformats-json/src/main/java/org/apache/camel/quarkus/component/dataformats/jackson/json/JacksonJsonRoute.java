@@ -132,6 +132,9 @@ public class JacksonJsonRoute extends RouteBuilder {
                 .to("mock:jackson-list-unmarshal-reversePojo");
 
         this.getContext().getGlobalOptions().put(JacksonConstants.ENABLE_TYPE_CONVERTER, "true");
+        this.getContext().getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_TO_POJO, "true");
+        this.getContext().getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_MODULE_CLASS_NAMES,
+                JaxbAnnotationModule.class.getName());
 
         from("direct:jackson-conversion-pojo-test").convertBodyTo(String.class);
 
