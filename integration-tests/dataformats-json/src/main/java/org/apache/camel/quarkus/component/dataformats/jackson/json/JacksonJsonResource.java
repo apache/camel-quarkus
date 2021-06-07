@@ -37,12 +37,15 @@ import javax.ws.rs.core.MediaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelContextAware;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ExchangePattern;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.jackson.JacksonConstants;
+import org.apache.camel.component.jackson.converter.JacksonTypeConverters;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.impl.converter.DefaultTypeConverter;
 import org.apache.camel.quarkus.component.dataformats.json.model.DummyObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.Order;
 import org.apache.camel.quarkus.component.dataformats.json.model.Pojo;
@@ -51,6 +54,7 @@ import org.apache.camel.quarkus.component.dataformats.json.model.TestOtherPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView;
 import org.apache.camel.support.DefaultExchange;
+import org.apache.camel.support.SimpleTypeConverter;
 import org.jboss.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -493,6 +497,13 @@ public class JacksonJsonResource {
     @GET
     public void jacksonConversionPojo(String body) throws Exception {
         synchronized (context) {
+            DefaultTypeConverter registry = (DefaultTypeConverter) context.getTypeConverterRegistry();
+            //re-registry JacksonTypeConverters so we can get a clean test environment
+            //so the context global options we set here can take effect.
+            registry.addFallbackTypeConverter(
+                    new SimpleTypeConverter(false,
+                            (type, exchange, value) -> getJacksonTypeConverters().convertTo(type, exchange, value, registry)),
+                    false);
             context.getGlobalOptions().put(JacksonConstants.ENABLE_TYPE_CONVERTER, "true");
             context.getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_TO_POJO, "true");
 
@@ -504,6 +515,14 @@ public class JacksonJsonResource {
             String json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo-test", order);
             assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customerName\":\"Acme\"}", json);
 
+            //re-registry JacksonTypeConverters so we can get a clean test environment
+            //so the context global options we set here can take effect.
+            registry.addFallbackTypeConverter(
+                    new SimpleTypeConverter(false,
+                            (type, exchange, value) -> getJacksonTypeConverters().convertTo(type, exchange, value, registry)),
+                    false);
+            context.getGlobalOptions().put(JacksonConstants.ENABLE_TYPE_CONVERTER, "true");
+            context.getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_TO_POJO, "true");
             context.getGlobalOptions().put(JacksonConstants.TYPE_CONVERTER_MODULE_CLASS_NAMES,
                     JaxbAnnotationModule.class.getName());
 
@@ -513,14 +532,16 @@ public class JacksonJsonResource {
             order.setPartName("Camel");
 
             json = (String) producerTemplate.requestBody("direct:jackson-conversion-pojo-test", order);
-            /*
-             * somehow jaxb annotation @XmlAttribute(name = "customer_name") can't be taken into account so the
-             * following asserts failed, need to investigate more
-             * assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}",
-             * json);
-             */
+            assertEquals("{\"id\":0,\"partName\":\"Camel\",\"amount\":1,\"customer_name\":\"Acme\"}", json);
         }
 
+    }
+
+    private JacksonTypeConverters getJacksonTypeConverters() {
+        JacksonTypeConverters jacksonTypeConverters = new JacksonTypeConverters();
+        CamelContextAware.trySetCamelContext(jacksonTypeConverters, context);
+
+        return jacksonTypeConverters;
     }
 
     @Path("jackson/conversion")
