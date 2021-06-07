@@ -25,7 +25,7 @@ import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
-import org.apache.camel.component.kafka.KafkaComponent;
+import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.apache.camel.quarkus.component.kafka.CamelKafkaRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.kafka.common.security.scram.internals.ScramSaslClient.ScramSaslClientFactory;
@@ -40,14 +40,14 @@ class KafkaProcessor {
 
     @BuildStep
     @Record(ExecutionTime.RUNTIME_INIT)
-    CamelRuntimeBeanBuildItem createCamelKafkaComponent(
+    CamelRuntimeBeanBuildItem createKafkaClientFactory(
             CamelKafkaRecorder recorder,
             // We want Quarkus to configure the ServiceBindingConverter bits before this step
             List<ServiceProviderBuildItem> serviceProviders) {
         return new CamelRuntimeBeanBuildItem(
-                "kafka",
-                KafkaComponent.class.getName(),
-                recorder.createKafkaComponent());
+                "quarkusKafkaClientFactory",
+                KafkaClientFactory.class.getName(),
+                recorder.createKafkaClientFactory());
     }
 
     @BuildStep
