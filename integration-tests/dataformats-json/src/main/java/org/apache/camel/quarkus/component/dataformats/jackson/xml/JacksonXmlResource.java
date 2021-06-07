@@ -45,7 +45,6 @@ import org.apache.camel.quarkus.component.dataformats.json.model.TestJAXBPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestOtherPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojo;
 import org.apache.camel.quarkus.component.dataformats.json.model.TestPojoView;
-import org.apache.camel.support.DefaultExchange;
 import org.jboss.logging.Logger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -423,32 +422,6 @@ public class JacksonXmlResource {
         producerTemplate.sendBody("direct:jacksonxml-xml-backAgeView", marshalled);
 
         mock.assertIsSatisfied();
-    }
-
-    @Path("jacksonxml/jackson-conversion")
-    @GET
-    public void jacksonXmlJacksonConversion() throws Exception {
-        synchronized (context) {
-            String original = context.getGlobalOptions().get(JacksonXMLConstants.ENABLE_TYPE_CONVERTER);
-            try {
-                Exchange exchange = new DefaultExchange(context);
-                context.getGlobalOptions().put(JacksonXMLConstants.ENABLE_TYPE_CONVERTER, "true");
-                Map<String, String> body = new HashMap<>();
-                Object convertedObject = context.getTypeConverter().convertTo(String.class, exchange, body);
-                // will do a toString which is an empty map
-                assertEquals(body.toString(), convertedObject);
-
-                convertedObject = context.getTypeConverter().convertTo(Long.class, exchange,
-                        new HashMap<String, String>());
-                assertNull(convertedObject);
-
-                convertedObject = context.getTypeConverter().convertTo(long.class, exchange,
-                        new HashMap<String, String>());
-                assertNull(convertedObject);
-            } finally {
-                context.getGlobalOptions().put(JacksonXMLConstants.ENABLE_TYPE_CONVERTER, original);
-            }
-        }
     }
 
     @Path("jacksonxml/jaxb-annotation")
