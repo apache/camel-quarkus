@@ -32,9 +32,9 @@ import org.bson.Document;
 @ApplicationScoped
 public class MongoDbRoute extends RouteBuilder {
 
-    public static String COLLECTION_TAILING = "tailingCollection";
-    public static String COLLECTION_PERSISTENT_TAILING = "persistentTailingCollection";
-    public static String COLLECTION_STREAM_CHANGES = "streamChangesCollection";
+    public static final String COLLECTION_TAILING = "tailingCollection";
+    public static final String COLLECTION_PERSISTENT_TAILING = "persistentTailingCollection";
+    public static final String COLLECTION_STREAM_CHANGES = "streamChangesCollection";
 
     @Inject
     @Named("results")

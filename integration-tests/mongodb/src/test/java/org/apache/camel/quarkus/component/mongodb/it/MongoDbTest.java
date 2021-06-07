@@ -36,6 +36,7 @@ import org.bson.Document;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -142,6 +143,7 @@ class MongoDbTest {
 
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2658")
     @Test
     public void testTailingConsumer() throws Exception {
         MongoCollection collection = db.getCollection(COLLECTION_TAILING, Document.class);
@@ -156,6 +158,7 @@ class MongoDbTest {
         }
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/2658")
     @Test
     public void testPersistentTailingConsumer() throws Exception {
         MongoCollection collection = db.getCollection(COLLECTION_PERSISTENT_TAILING, Document.class);
