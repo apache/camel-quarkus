@@ -39,7 +39,14 @@ $ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -Ddevelopmen
 ----
 
 In case `release:prepare` is successful but an issue occurs during `release:perform`, it could be worth trying to resume from the failing artifact.
-For instance, would an issue occurs while performing the release of `camel-quarkus-openapi-java`, a resume attempt could be triggered as below:
+For instance, would an issue occurs while performing the release of `camel-quarkus-openapi-java`, first of all you need to identify which directori `release:perform` used for the release process, usually it is `<root_of_the_project>/target/checkout`:
+
+[source,shell]
+----
+$ cd target/checkout
+----
+
+then a resume attempt could be triggered as below:
 
 [source,shell]
 ----
