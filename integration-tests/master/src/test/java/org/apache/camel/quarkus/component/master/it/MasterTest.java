@@ -28,11 +28,8 @@ import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.awaitility.Awaitility;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.zeroturnaround.exec.StartedProcess;
 
-//https://github.com/apache/camel-quarkus/issues/2660
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 @QuarkusTest
 class MasterTest {
 
@@ -78,7 +75,7 @@ class MasterTest {
         try {
             int status = RestAssured.given()
                     .port(port)
-                    .get("/health")
+                    .get("/q/health")
                     .then()
                     .extract()
                     .statusCode();
