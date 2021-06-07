@@ -17,21 +17,42 @@
 package org.apache.camel.quarkus.support.bouncycastle;
 
 import java.security.Security;
+import java.util.List;
+
+import javax.crypto.Cipher;
 
 import io.quarkus.runtime.ShutdownContext;
 import io.quarkus.runtime.annotations.Recorder;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.jboss.logging.Logger;
 
 @Recorder
 public class BouncyCastleRecorder {
 
-    public void registerBouncyCastleProvider(ShutdownContext shutdownContext) {
+    private static final Logger LOG = Logger.getLogger(BouncyCastleRecorder.class);
+
+    public void registerBouncyCastleProvider(List<String> cipherTransformations, ShutdownContext shutdownContext) {
+        LOG.debug("Adding Bouncy Castle security provider");
         BouncyCastleProvider provider = new BouncyCastleProvider();
         Security.addProvider(provider);
+
+        // Make it explicit to the static analysis that below security services should be registered as they are reachable at runtime
+        for (String cipherTransformation : cipherTransformations) {
+            try {
+                LOG.debugf(
+                        "Making it explicit to the static ananlysis that a Cipher with transformation %s could be used at runtime",
+                        cipherTransformation);
+                Cipher.getInstance(cipherTransformation, provider);
+            } catch (Exception e) {
+                // The cipher algorithm or padding is not present at runtime, a runtime error will be reported as usual
+            }
+        }
+
         shutdownContext.addShutdownTask(new Runnable() {
             @Override
             public void run() {
                 Security.removeProvider(provider.getName());
+                LOG.debug("Removed Bouncy Castle security provider");
             }
         });
     }

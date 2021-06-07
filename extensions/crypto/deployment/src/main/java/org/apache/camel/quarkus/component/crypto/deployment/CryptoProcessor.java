@@ -16,11 +16,21 @@
  */
 package org.apache.camel.quarkus.component.crypto.deployment;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.support.bouncycastle.deployment.CipherTransformationBuildItem;
+import org.bouncycastle.bcpg.SymmetricKeyAlgorithmTags;
+import org.bouncycastle.openpgp.PGPUtil;
+import org.jboss.logging.Logger;
 
 class CryptoProcessor {
+
+    private static final Logger LOG = Logger.getLogger(CryptoProcessor.class);
 
     private static final String FEATURE = "camel-crypto";
 
@@ -32,5 +42,32 @@ class CryptoProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activeNativeSSLSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CipherTransformationBuildItem registerReachableCipherTransformations() {
+        List<String> cipherTransformations = new ArrayList<>();
+        for (Field field : SymmetricKeyAlgorithmTags.class.getDeclaredFields()) {
+            try {
+                String algorithmName = PGPUtil.getSymmetricCipherName(field.getInt(null));
+                if (algorithmName != null) {
+                    String format = "Adding transformation '%s' to the CipherTransformationBuildItem produced by camel-quarkus-crypto";
+
+                    // When using integrity packet, CFB mode is reachable
+                    String cfbTransformation = algorithmName + "/CFB/NoPadding";
+                    LOG.debugf(format, cfbTransformation);
+                    cipherTransformations.add(cfbTransformation);
+
+                    // When NOT using integrity packet, OpenPGPCFB mode is reachable
+                    String openPgpCfbTransformation = algorithmName + "/OpenPGPCFB/NoPadding";
+                    LOG.debugf(format, openPgpCfbTransformation);
+                    cipherTransformations.add(openPgpCfbTransformation);
+                }
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                // Ignoring inaccessible and non integer fields
+            }
+        }
+
+        return new CipherTransformationBuildItem(cipherTransformations);
     }
 }
