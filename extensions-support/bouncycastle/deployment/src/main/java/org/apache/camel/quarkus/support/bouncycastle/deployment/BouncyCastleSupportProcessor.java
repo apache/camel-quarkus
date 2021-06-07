@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.support.bouncycastle.deployment;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -72,7 +74,11 @@ public class BouncyCastleSupportProcessor {
 
     @BuildStep
     @Record(ExecutionTime.STATIC_INIT)
-    public void registerBouncyCastleProvider(BouncyCastleRecorder recorder, ShutdownContextBuildItem shutdownContextBuildItem) {
-        recorder.registerBouncyCastleProvider(shutdownContextBuildItem);
+    public void registerBouncyCastleProvider(List<CipherTransformationBuildItem> cipherTransformations,
+            BouncyCastleRecorder recorder,
+            ShutdownContextBuildItem shutdownContextBuildItem) {
+        List<String> allCipherTransformations = cipherTransformations.stream()
+                .flatMap(c -> c.getCipherTransformations().stream()).collect(Collectors.toList());
+        recorder.registerBouncyCastleProvider(allCipherTransformations, shutdownContextBuildItem);
     }
 }

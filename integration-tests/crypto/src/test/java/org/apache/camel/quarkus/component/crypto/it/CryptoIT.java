@@ -17,9 +17,7 @@
 package org.apache.camel.quarkus.component.crypto.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2673")
 @NativeImageTest
 class CryptoIT extends CryptoTest {
 
