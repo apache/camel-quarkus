@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws2.ddb.it;
 
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -101,23 +102,28 @@ class Aws2DdbTest {
                 },
                 Matchers.is(204));
 
-        /* The above actions should trigger the following three change events */
-        RestAssured.get("/aws2-ddbstream/change")
-                .then()
-                .statusCode(200)
-                .body("key", Matchers.is(key))
-                .body("new", Matchers.is(msg));
-        RestAssured.get("/aws2-ddbstream/change")
-                .then()
-                .statusCode(200)
-                .body("key", Matchers.is(key))
-                .body("old", Matchers.is(msg))
-                .body("new", Matchers.is(newMsg));
-        RestAssured.get("/aws2-ddbstream/change")
-                .then()
-                .statusCode(200)
-                .body("key", Matchers.is(key))
-                .body("old", Matchers.is(newMsg));
+        Awaitility.await().atMost(120, TimeUnit.SECONDS).until(
+                () -> {
+                    ExtractableResponse<Response> result = RestAssured.get("/aws2-ddbstream/change")
+                            .then()
+                            .statusCode(200)
+                            .extract();
+
+                    LOG.info("Expecting 3 events got " + result.statusCode() + ": " + result.body().asString());
+                    return result.jsonPath().getList("$", Map.class);
+                },
+                /* The above actions should trigger the following three change events */
+                list -> list.size() == 3
+
+                        && key.equals(list.get(0).get("key"))
+                        && msg.equals(list.get(0).get("new"))
+
+                        && key.equals(list.get(1).get("key"))
+                        && msg.equals(list.get(1).get("old"))
+                        && newMsg.equals(list.get(1).get("new"))
+
+                        && key.equals(list.get(2).get("key"))
+                        && newMsg.equals(list.get(2).get("old")));
 
     }
 
