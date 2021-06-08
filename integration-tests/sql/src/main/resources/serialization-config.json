@@ -1,0 +1,20 @@
+[
+  {
+    "name" : "java.lang.Integer"
+  },
+  {
+    "name" : "java.lang.Number"
+  },
+  {
+    "name" : "java.lang.String"
+  },
+  {
+    "name" : "java.util.HashMap"
+  },
+  {
+    "name" : "java.util.LinkedHashMap"
+  },
+  {
+    "name" : "org.apache.camel.support.DefaultExchangeHolder"
+  }
+]

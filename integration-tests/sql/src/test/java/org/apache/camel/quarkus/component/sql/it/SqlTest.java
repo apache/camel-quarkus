@@ -27,7 +27,6 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.apache.camel.component.sql.SqlConstants;
 import org.apache.camel.util.CollectionHelper;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -189,7 +188,6 @@ class SqlTest {
     }
 
     @Test
-    @Disabled //see https://github.com/apache/camel-quarkus/issues/2693
     public void testAggregationRepository() {
         postMapWithParam("/sql/toDirect/aggregation", "body", "A", CollectionHelper.mapOf("messageId", "123"))
                 .statusCode(200);
