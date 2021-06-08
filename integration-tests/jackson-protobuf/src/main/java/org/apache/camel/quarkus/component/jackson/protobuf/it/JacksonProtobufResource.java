@@ -29,6 +29,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.dataformat.protobuf.ProtobufMapper;
 import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchema;
 import com.fasterxml.jackson.dataformat.protobuf.schema.ProtobufSchemaLoader;
 import org.apache.camel.ProducerTemplate;
@@ -58,7 +60,7 @@ public class JacksonProtobufResource {
         Response.ResponseBuilder builder = Response.ok();
         String directUri = "direct:unmarshal-" + type;
 
-        if (type.equals("pojo") || type.equals("defined-dataformat")) {
+        if (type.equals("pojo") || type.equals("defined-dataformat") || type.equals("quarkus-objectmapper")) {
             Pojo result = producerTemplate.requestBody(directUri, message, Pojo.class);
             builder.entity(result.getText());
         } else if (type.equals("json-node")) {
@@ -85,5 +87,14 @@ public class JacksonProtobufResource {
         dataFormat.setAutoDiscoverSchemaResolver(true);
         dataFormat.setUnmarshalType(Pojo.class);
         return dataFormat;
+    }
+
+    @Named
+    public ProtobufMapper protobufMapper() {
+        ProtobufMapper protobufMapper = new ProtobufMapper();
+        SimpleModule module = new SimpleModule();
+        module.addDeserializer(Pojo.class, new UppercaseTextDeserializer());
+        protobufMapper.registerModule(module);
+        return protobufMapper;
     }
 }
