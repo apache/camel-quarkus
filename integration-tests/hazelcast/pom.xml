@@ -134,5 +134,20 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>mac</id>
+            <activation>
+                <os>
+                    <family>mac</family>
+                </os>
+            </activation>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources-mac</directory>
+                    </resource>
+                </resources>
+            </build>
+        </profile>
     </profiles>
 </project>
