@@ -281,6 +281,15 @@ public class CamelConfig {
         @ConfigItem
         public Optional<List<String>> includePatterns;
 
+        /**
+         * If {@code true}, basic classes are registered for serialization; otherwise Java serialization will not work in
+         * native mode.
+         * <p>
+         * Setting this to {@code false} helps to reduce the size of the native image. In JVM mode, there is no real
+         * benefit of setting this flag to {@code true} except for making the behavior consistent with native mode.
+         */
+        @ConfigItem(defaultValue = "false")
+        public boolean serializationEnabled;
     }
 
     @ConfigGroup

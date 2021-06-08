@@ -22,3 +22,12 @@ Note that URI schemes such as `file` or `http` do not need to be listed.
 ----
 quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
+
+=== SQL Aggregator ===
+
+If your exchanges in native mode contain objects, which are not automatically registered for serialization (see xref:extensions/core.adoc#serialization_in_native_mode[documentation]),
+you have to register them manually (see xref:extensions/core.adoc#serialization_in_native_mode[documentation])
+
+
+
+

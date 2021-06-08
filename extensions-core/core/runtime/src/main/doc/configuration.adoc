@@ -54,3 +54,24 @@ camel.beans.customBeanWithSetterInjection.counter = 123
 ---
 
 As such, the class `PropertiesCustomBeanWithSetterInjection` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection], note that field access could be omitted in this case.
+
+==== Serialization in native mode
+
+If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, following classes are registered for serialization:
+
+* `java.lang.Boolean`
+* `java.lang.Byte`
+* `java.lang.Character`
+* `java.lang.Float`
+* `java.lang.Double`
+* `java.lang.Integer`
+* `java.lang.Long`
+* `java.lang.Number`
+* `java.lang.String`
+* `java.math.BigInteger`
+* `java.util.Date`
+* `java.util.HashMap`
+* `java.util.LinkedHashMap`
+* `org.apache.camel.support.DefaultExchangeHolder`
+
+Developers can register other classes for serialization via the `ReflectiveClassBuildItem`.
