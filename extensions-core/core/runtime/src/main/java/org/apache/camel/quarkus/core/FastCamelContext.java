@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.core;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -30,11 +31,13 @@ import org.apache.camel.CatalogCamelContext;
 import org.apache.camel.Component;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Expression;
+import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.FailedToStartRouteException;
 import org.apache.camel.Predicate;
 import org.apache.camel.Processor;
 import org.apache.camel.Route;
 import org.apache.camel.RouteTemplateContext;
+import org.apache.camel.StartupStep;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.ValueHolder;
 import org.apache.camel.builder.AdviceWith;
@@ -87,6 +90,7 @@ import org.apache.camel.model.Model;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.ModelLifecycleStrategy;
 import org.apache.camel.model.ProcessorDefinition;
+import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.Resilience4jConfigurationDefinition;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.model.RouteDefinitionHelper;
@@ -100,7 +104,6 @@ import org.apache.camel.processor.DefaultAnnotationBasedProcessorFactory;
 import org.apache.camel.processor.DefaultDeferServiceFactory;
 import org.apache.camel.processor.DefaultInternalProcessorFactory;
 import org.apache.camel.processor.DefaultProcessorFactory;
-import org.apache.camel.reifier.RouteReifier;
 import org.apache.camel.reifier.errorhandler.ErrorHandlerReifier;
 import org.apache.camel.reifier.language.ExpressionReifier;
 import org.apache.camel.reifier.transformer.TransformerReifier;
@@ -132,6 +135,7 @@ import org.apache.camel.spi.InterceptEndpointFactory;
 import org.apache.camel.spi.InternalProcessorFactory;
 import org.apache.camel.spi.Language;
 import org.apache.camel.spi.LanguageResolver;
+import org.apache.camel.spi.LocalBeanRepositoryAware;
 import org.apache.camel.spi.ManagementNameStrategy;
 import org.apache.camel.spi.MessageHistoryFactory;
 import org.apache.camel.spi.ModelJAXBContextFactory;
@@ -152,6 +156,7 @@ import org.apache.camel.spi.RouteController;
 import org.apache.camel.spi.RouteFactory;
 import org.apache.camel.spi.RoutesLoader;
 import org.apache.camel.spi.ShutdownStrategy;
+import org.apache.camel.spi.StartupStepRecorder;
 import org.apache.camel.spi.StreamCachingStrategy;
 import org.apache.camel.spi.Tracer;
 import org.apache.camel.spi.Transformer;
@@ -165,12 +170,19 @@ import org.apache.camel.spi.ValidatorRegistry;
 import org.apache.camel.spi.XMLRoutesDefinitionLoader;
 import org.apache.camel.support.CamelContextHelper;
 import org.apache.camel.support.DefaultUuidGenerator;
+import org.apache.camel.support.LocalBeanRegistry;
 import org.apache.camel.support.NormalizedUri;
 import org.apache.camel.support.ResolverHelper;
+import org.apache.camel.support.SimpleUuidGenerator;
 import org.apache.camel.util.IOHelper;
 import org.apache.camel.util.ObjectHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FastCamelContext extends AbstractCamelContext implements CatalogCamelContext, ModelCamelContext {
+    private static final Logger LOG = LoggerFactory.getLogger(FastCamelContext.class);
+    private static final UuidGenerator UUID = new SimpleUuidGenerator();
+
     private final String version;
     private final ModelToXMLDumper modelDumper;
     private Model model;
@@ -933,8 +945,11 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         model.setModelReifierFactory(modelReifierFactory);
     }
 
-    @Override
     public void startRouteDefinitions(List<RouteDefinition> routeDefinitions) throws Exception {
+        if (model == null && isLightweight()) {
+            throw new IllegalStateException("Access to model not supported in lightweight mode");
+        }
+
         // indicate we are staring the route using this thread so
         // we are able to query this if needed
         boolean alreadyStartingRoutes = isStartingRoutes();
@@ -943,22 +958,88 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
         }
 
         PropertiesComponent pc = getCamelContextReference().getPropertiesComponent();
+        // route templates supports binding beans that are local for the template only
+        // in this local mode then we need to check for side-effects (see further)
+        LocalBeanRepositoryAware localBeans = null;
+        if (getCamelContextReference().getRegistry() instanceof LocalBeanRepositoryAware) {
+            localBeans = (LocalBeanRepositoryAware) getCamelContextReference().getRegistry();
+        }
         try {
             RouteDefinitionHelper.forceAssignIds(getCamelContextReference(), routeDefinitions);
             for (RouteDefinition routeDefinition : routeDefinitions) {
                 // assign ids to the routes and validate that the id's is all unique
                 String duplicate = RouteDefinitionHelper.validateUniqueIds(routeDefinition, routeDefinitions);
                 if (duplicate != null) {
-                    throw new FailedToStartRouteException(routeDefinition.getId(),
+                    throw new FailedToStartRouteException(
+                            routeDefinition.getId(),
                             "duplicate id detected: " + duplicate + ". Please correct ids to be unique among all your routes.");
                 }
 
                 // if the route definition was created via a route template then we need to prepare its parameters when the route is being created and started
                 if (routeDefinition.isTemplate() != null && routeDefinition.isTemplate()
                         && routeDefinition.getTemplateParameters() != null) {
+
+                    // apply configurer if any present
+                    if (routeDefinition.getRouteTemplateContext().getConfigurer() != null) {
+                        routeDefinition.getRouteTemplateContext().getConfigurer()
+                                .accept(routeDefinition.getRouteTemplateContext());
+                    }
+
+                    // copy parameters/bean repository to not cause side-effect
+                    Map<String, Object> params = new HashMap<>(routeDefinition.getTemplateParameters());
+                    LocalBeanRegistry bbr = (LocalBeanRegistry) routeDefinition.getRouteTemplateContext()
+                            .getLocalBeanRepository();
+                    LocalBeanRegistry bbrCopy = new LocalBeanRegistry();
+
+                    // make all bean in the bean repository use unique keys (need to add uuid counter)
+                    // so when the route template is used again to create another route, then there is
+                    // no side-effect from previously used values that Camel may use in its endpoint
+                    // registry and elsewhere
+                    if (bbr != null && !bbr.isEmpty()) {
+                        for (Map.Entry<String, Object> param : params.entrySet()) {
+                            Object value = param.getValue();
+                            if (value instanceof String) {
+                                String oldKey = (String) value;
+                                boolean clash = bbr.keys().stream().anyMatch(k -> k.equals(oldKey));
+                                if (clash) {
+                                    String newKey = oldKey + "-" + UUID.generateUuid();
+                                    LOG.debug(
+                                            "Route: {} re-assigning local-bean id: {} to: {} to ensure ids are globally unique",
+                                            routeDefinition.getId(), oldKey, newKey);
+                                    bbrCopy.put(newKey, bbr.remove(oldKey));
+                                    param.setValue(newKey);
+                                }
+                            }
+                        }
+                        // the remainder of the local beans must also have their ids made global unique
+                        for (String oldKey : bbr.keySet()) {
+                            String newKey = oldKey + "-" + UUID.generateUuid();
+                            LOG.debug(
+                                    "Route: {} re-assigning local-bean id: {} to: {} to ensure ids are globally unique",
+                                    routeDefinition.getId(), oldKey, newKey);
+                            bbrCopy.put(newKey, bbr.get(oldKey));
+                            if (!params.containsKey(oldKey)) {
+                                // if a bean was bound as local bean with a key and it was not defined as template parameter
+                                // then store it as if it was a template parameter with same key=value which allows us
+                                // to use this local bean in the route without any problem such as:
+                                //   to("bean:{{myBean}}")
+                                // and myBean is the local bean id.
+                                params.put(oldKey, newKey);
+                            }
+                        }
+                    }
+
                     Properties prop = new Properties();
-                    prop.putAll(routeDefinition.getTemplateParameters());
+                    prop.putAll(params);
                     pc.setLocalProperties(prop);
+
+                    // we need to shadow the bean registry on the CamelContext with the local beans from the route template context
+                    if (localBeans != null && bbrCopy != null) {
+                        localBeans.setLocalBeanRepository(bbrCopy);
+                    }
+
+                    // need to reset auto assigned ids, so there is no clash when creating routes
+                    ProcessorDefinitionHelper.resetAllAutoAssignedNodeIds(routeDefinition);
                 }
 
                 // must ensure route is prepared, before we can start it
@@ -967,13 +1048,28 @@ public class FastCamelContext extends AbstractCamelContext implements CatalogCam
                     routeDefinition.markPrepared();
                 }
 
-                Route route = new RouteReifier(getCamelContextReference(), routeDefinition).createRoute();
+                StartupStepRecorder recorder = getCamelContextReference().adapt(ExtendedCamelContext.class)
+                        .getStartupStepRecorder();
+                StartupStep step = recorder.beginStep(Route.class, routeDefinition.getRouteId(), "Create Route");
+                Route route = model.getModelReifierFactory().createRoute(this, routeDefinition);
+                recorder.endStep(step);
+
                 RouteService routeService = new RouteService(route);
                 startRouteService(routeService, true);
+
+                // clear local after the route is created via the reifier
+                pc.setLocalProperties(null);
+                if (localBeans != null) {
+                    localBeans.setLocalBeanRepository(null);
+                }
             }
         } finally {
             if (!alreadyStartingRoutes) {
                 setStartingRoutes(false);
+            }
+            pc.setLocalProperties(null);
+            if (localBeans != null) {
+                localBeans.setLocalBeanRepository(null);
             }
         }
     }
