@@ -41,11 +41,10 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Usage
 
-If your persistence objects implement `java.io.Serializable`, you have to add configuration of all serializable classes.
-There is a new serialization support in GraalVM 21.0. Developers can configure classes
-for serialization via the serialization configuration file
-`-H:SerializationConfigurationResources=/path/to-serialization-config.json` option. For more
-information see https://github.com/oracle/graal/pull/2730[PR with feature].
+If your persistence objects in native mode implement `java.io.Serializable` and are not automatically registered for serialization,
+you have to register them for serialization. Look into xref:extensions/core.adoc#serialization_in_native_mode[documentation]
+to see which classes are registered and how to register other ones.
+
 
 If your persistence objects implement `org.dizitart.no2.mapper.Mappable`. All classes have to
 implement also `java.io.Serializable` and have to be registered for serialization (see previous option),
