@@ -65,4 +65,23 @@ class KameletTest {
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus Kamelet Chained Route"));
     }
+
+    @Test
+    public void testInvoke() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet")
+                .post("/kamelet/invoke/toUpperWithBean")
+                .then()
+                .statusCode(200)
+                .body(is("KAMELET"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet2")
+                .post("/kamelet/invoke/toUpperWithClass")
+                .then()
+                .statusCode(200)
+                .body(is("KAMELET2"));
+    }
 }

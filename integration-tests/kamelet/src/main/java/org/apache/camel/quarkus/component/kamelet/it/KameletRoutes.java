@@ -16,7 +16,11 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
+import java.util.Locale;
+
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class KameletRoutes extends RouteBuilder {
@@ -44,8 +48,27 @@ public class KameletRoutes extends RouteBuilder {
                 .from("kamelet:source")
                 .setBody().simple("{{prefix}} ${body} {{suffix}}");
 
+        routeTemplate("toUpperWithBean")
+                .templateBean("to-upper", new ToUpperProcessor())
+                .from("kamelet:source")
+                .to("bean:{{to-upper}}");
+
+        routeTemplate("toUpperWithClass")
+                .templateBean("to-upper", ToUpperProcessor.class)
+                .from("kamelet:source")
+                .to("bean:{{to-upper}}");
+
         from("direct:chain")
                 .to("kamelet:echo/1?prefix=Camel Quarkus&suffix=Chained")
                 .to("kamelet:echo/2?prefix=Hello&suffix=Route");
+    }
+
+    @RegisterForReflection
+    public static class ToUpperProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) throws Exception {
+            exchange.getMessage().setBody(
+                    exchange.getMessage().getBody(String.class).toUpperCase(Locale.US));
+        }
     }
 }
