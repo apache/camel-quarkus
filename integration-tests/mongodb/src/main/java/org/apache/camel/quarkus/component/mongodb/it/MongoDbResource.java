@@ -181,18 +181,28 @@ public class MongoDbResource {
     }
 
     @GET
-    @Path("/resultsReset/{resultId}")
+    @Path("/results/{resultId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Map getResultsAndReset(@PathParam("resultId") String resultId) {
+    public Map getResults(@PathParam("resultId") String resultId) {
         final List<Document> list = results.get(resultId);
         synchronized (list) {
             int size = list.size();
             Document last = null;
             if (!list.isEmpty()) {
                 last = list.get(size - 1);
-                list.clear();
             }
             return CollectionHelper.mapOf("size", size, "last", last);
+        }
+    }
+
+    @GET
+    @Path("/resultsReset/{resultId}")
+    public void resetResults(@PathParam("resultId") String resultId) {
+        final List<Document> list = results.get(resultId);
+        synchronized (list) {
+            if (!list.isEmpty()) {
+                list.clear();
+            }
         }
     }
 

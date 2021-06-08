@@ -17,9 +17,9 @@
 package org.apache.camel.quarkus.component.mongodb.it;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
@@ -78,9 +78,9 @@ public class MongoDbRoute extends RouteBuilder {
     @Named("results")
     Map<String, List<Document>> results() {
         Map<String, List<Document>> result = new HashMap<>();
-        result.put(COLLECTION_TAILING, new CopyOnWriteArrayList<>());
-        result.put(COLLECTION_PERSISTENT_TAILING, new CopyOnWriteArrayList<>());
-        result.put(COLLECTION_STREAM_CHANGES, new CopyOnWriteArrayList<>());
+        result.put(COLLECTION_TAILING, new LinkedList<>());
+        result.put(COLLECTION_PERSISTENT_TAILING, new LinkedList<>());
+        result.put(COLLECTION_STREAM_CHANGES, new LinkedList<>());
         return result;
     }
 }
