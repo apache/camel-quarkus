@@ -16,42 +16,36 @@
  */
 package org.apache.camel.quarkus.component.messaging.it;
 
+import java.nio.file.Paths;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
 import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.output.Slf4jLogConsumer;
-import org.testcontainers.containers.wait.strategy.Wait;
-import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
-    private static final String ACTIVEMQ_IMAGE = "vromero/activemq-artemis:2.11.0-alpine";
     private static final String ACTIVEMQ_USERNAME = "artemis";
     private static final String ACTIVEMQ_PASSWORD = "simetraehcapa";
     private static final int ACTIVEMQ_PORT = 61616;
 
-    private GenericContainer<?> container;
+    private EmbeddedActiveMQ embedded;
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info(TestcontainersConfiguration.getInstance().toString());
+        LOGGER.info("start embedded ActiveMQ server");
 
         try {
-            container = new GenericContainer<>(ACTIVEMQ_IMAGE)
-                    .withExposedPorts(ACTIVEMQ_PORT)
-                    .withLogConsumer(new Slf4jLogConsumer(LOGGER))
-                    .withEnv("BROKER_CONFIG_MAX_DISK_USAGE", "100")
-                    .waitingFor(Wait.forListeningPort());
+            FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
+            embedded = new EmbeddedActiveMQ();
+            embedded.start();
 
-            container.start();
-
-            String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", container.getMappedPort(ACTIVEMQ_PORT));
-            String brokerUrlWs = String.format("ws://127.0.0.1:%d", container.getMappedPort(ACTIVEMQ_PORT));
+            String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", ACTIVEMQ_PORT);
+            String brokerUrlWs = String.format("ws://127.0.0.1:%d", ACTIVEMQ_PORT);
 
             return CollectionHelper.mapOf(
                     "quarkus.artemis.url", brokerUrlTcp,
@@ -63,18 +57,19 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
                     "broker-url.ws", brokerUrlWs);
 
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Could not start embedded ActiveMQ server", e);
         }
     }
 
     @Override
     public void stop() {
+        if (embedded == null) {
+            return;
+        }
         try {
-            if (container != null) {
-                container.stop();
-            }
+            embedded.stop();
         } catch (Exception e) {
-            // ignored
+            throw new RuntimeException("Could not stop embedded ActiveMQ server", e);
         }
     }
 }
