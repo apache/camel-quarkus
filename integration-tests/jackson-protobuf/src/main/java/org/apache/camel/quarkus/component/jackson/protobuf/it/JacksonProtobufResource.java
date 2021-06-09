@@ -47,7 +47,7 @@ public class JacksonProtobufResource {
 
     @Path("/marshal")
     @POST
-    public Response protobufJacksonMarshal(String message) throws Exception {
+    public Response protobufJacksonMarshal(String message) {
         Pojo pojo = new Pojo(message);
         byte[] result = producerTemplate.requestBody("direct:marshal-pojo", pojo, byte[].class);
         return Response.ok(result).build();
@@ -56,7 +56,7 @@ public class JacksonProtobufResource {
     @Path("/unmarshal/{type}")
     @POST
     @Consumes("application/octet-stream")
-    public Response protobufJacksonUnMarshal(@PathParam("type") String type, byte[] message) throws Exception {
+    public Response protobufJacksonUnMarshal(@PathParam("type") String type, byte[] message) {
         Response.ResponseBuilder builder = Response.ok();
         String directUri = "direct:unmarshal-" + type;
 
@@ -75,9 +75,10 @@ public class JacksonProtobufResource {
 
     @Named
     public SchemaResolver protobufSchemaResolver() throws IOException {
-        InputStream resource = JacksonProtobufResource.class.getResourceAsStream("/pojo.proto");
-        ProtobufSchema schema = ProtobufSchemaLoader.std.parse(IOHelper.loadText(resource));
-        return ex -> schema;
+        try (InputStream resource = JacksonProtobufResource.class.getResourceAsStream("/pojo.proto")) {
+            ProtobufSchema schema = ProtobufSchemaLoader.std.parse(IOHelper.loadText(resource));
+            return ex -> schema;
+        }
     }
 
     @Named
@@ -93,7 +94,7 @@ public class JacksonProtobufResource {
     public ProtobufMapper protobufMapper() {
         ProtobufMapper protobufMapper = new ProtobufMapper();
         SimpleModule module = new SimpleModule();
-        module.addDeserializer(Pojo.class, new UppercaseTextDeserializer());
+        module.addDeserializer(Pojo.class, new StringAppendingDeserializer());
         protobufMapper.registerModule(module);
         return protobufMapper;
     }

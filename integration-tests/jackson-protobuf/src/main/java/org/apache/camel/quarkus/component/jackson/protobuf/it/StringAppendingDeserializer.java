@@ -17,33 +17,33 @@
 package org.apache.camel.quarkus.component.jackson.protobuf.it;
 
 import java.io.IOException;
-import java.util.Locale;
 
 import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 /**
- * Simple deserializer to uppercase the text field on a {@link Pojo} instance
+ * Simple deserializer to append a String onto the text field on a {@link Pojo} instance
  */
-public class UppercaseTextDeserializer extends StdDeserializer<Pojo> {
+public class StringAppendingDeserializer extends StdDeserializer<Pojo> {
 
-    public UppercaseTextDeserializer() {
+    public static final String STRING_TO_APPEND = " Custom Deserialized";
+
+    public StringAppendingDeserializer() {
         this(null);
     }
 
-    public UppercaseTextDeserializer(Class<?> src) {
+    public StringAppendingDeserializer(Class<?> src) {
         super(src);
     }
 
     @Override
-    public Pojo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+    public Pojo deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         JsonNode jsonNode = p.getCodec().readTree(p);
         String text = jsonNode.get("text").asText();
         Pojo pojo = new Pojo();
-        pojo.setText(text.toUpperCase(Locale.US));
+        pojo.setText(text + STRING_TO_APPEND);
         return pojo;
     }
 }
