@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
+import org.apache.camel.dsl.yaml.common.YamlDeserializationMode;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -45,5 +46,7 @@ public class CoreMainYamlTest {
                 .isEmpty();
         assertThat(p.getList("routes", String.class))
                 .contains("my-yaml-route", "rest-route");
+        assertThat(p.getMap("global-options", String.class, String.class))
+                .containsEntry(YamlRoutesBuilderLoader.DESERIALIZATION_MODE, YamlDeserializationMode.FLOW.name());
     }
 }

@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.Map;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -39,6 +41,7 @@ public class CoreMainYamlResource {
     @Path("/main/describe")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @SuppressWarnings("unchecked")
     public JsonObject describeMain() {
         final ExtendedCamelContext camelContext = main.getCamelContext().adapt(ExtendedCamelContext.class);
 
@@ -57,6 +60,7 @@ public class CoreMainYamlResource {
                                 .findClass(YamlRoutesBuilderLoader.EXTENSION).get().getName())
                 .add("routeBuilders", routeBuilders)
                 .add("routes", routes)
+                .add("global-options", Json.createObjectBuilder((Map) main.getCamelContext().getGlobalOptions()).build())
                 .build();
     }
 }
