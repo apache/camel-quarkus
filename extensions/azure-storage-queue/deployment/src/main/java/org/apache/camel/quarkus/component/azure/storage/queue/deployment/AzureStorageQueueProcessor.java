@@ -16,15 +16,12 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.queue.deployment;
 
-import java.util.stream.Stream;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -43,17 +40,6 @@ class AzureStorageQueueProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void proxyDefinitions(BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions) {
-        Stream.of(
-                "com.azure.storage.queue.implementation.MessageIdsImpl$MessageIdsService",
-                "com.azure.storage.queue.implementation.MessagesImpl$MessagesService",
-                "com.azure.storage.queue.implementation.QueuesImpl$QueuesService",
-                "com.azure.storage.queue.implementation.ServicesImpl$ServicesService")
-                .map(NativeImageProxyDefinitionBuildItem::new)
-                .forEach(proxyDefinitions::produce);
     }
 
     @BuildStep

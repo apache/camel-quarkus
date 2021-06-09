@@ -20,17 +20,23 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.stream.Stream;
 
+import com.azure.core.annotation.ServiceInterface;
 import com.azure.core.http.HttpClientProvider;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
+import org.jboss.jandex.DotName;
 
 public class AzureCoreSupportProcessor {
     static final String FEATURE = "camel-support-azure-core";
+
+    private static final DotName SERVICE_INTERFACE_DOT_NAME = DotName.createSimple(ServiceInterface.class.getName());
 
     @BuildStep
     IndexDependencyBuildItem indexDependency() {
@@ -39,7 +45,9 @@ public class AzureCoreSupportProcessor {
 
     @BuildStep
     void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, com.azure.core.util.DateTimeRfc1123.class));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false,
+                com.azure.core.util.DateTimeRfc1123.class,
+                com.azure.core.http.rest.StreamResponse.class));
     }
 
     @BuildStep
@@ -67,4 +75,19 @@ public class AzureCoreSupportProcessor {
         nativeResources.produce(new NativeImageResourceBuildItem(
                 "azure-core.properties"));
     }
+
+    @BuildStep
+    void proxyDefinitions(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions) {
+
+        combinedIndex
+                .getIndex()
+                .getAnnotations(SERVICE_INTERFACE_DOT_NAME)
+                .stream()
+                .map(annotationInstance -> annotationInstance.target().asClass().name().toString())
+                .map(NativeImageProxyDefinitionBuildItem::new)
+                .forEach(proxyDefinitions::produce);
+    }
+
 }
