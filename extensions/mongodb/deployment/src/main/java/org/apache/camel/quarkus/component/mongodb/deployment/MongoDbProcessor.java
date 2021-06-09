@@ -17,10 +17,8 @@
  */
 package org.apache.camel.quarkus.component.mongodb.deployment;
 
-import com.mongodb.client.model.changestream.ChangeStreamDocument;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class MongoDbProcessor {
 
@@ -31,8 +29,4 @@ class MongoDbProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    ReflectiveClassBuildItem reflectiveClass() {
-        return new ReflectiveClassBuildItem(true, false, ChangeStreamDocument.class);
-    }
 }
