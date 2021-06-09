@@ -16,12 +16,11 @@
  */
 package org.apache.camel.quarkus.component.jackson.protobuf.it;
 
-import java.util.Locale;
-
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
+import static org.apache.camel.quarkus.component.jackson.protobuf.it.StringAppendingDeserializer.STRING_TO_APPEND;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
@@ -62,6 +61,6 @@ class JacksonProtobufTest {
                 .post("/jackson-protobuf/unmarshal/defined-dataformat")
                 .then()
                 .statusCode(200)
-                .body(equalTo(message.toUpperCase(Locale.US)));
+                .body(equalTo(message + STRING_TO_APPEND));
     }
 }
