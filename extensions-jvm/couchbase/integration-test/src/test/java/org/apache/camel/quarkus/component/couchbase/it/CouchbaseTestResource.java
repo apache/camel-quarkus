@@ -16,16 +16,8 @@
  */
 package org.apache.camel.quarkus.component.couchbase.it;
 
-import java.time.Duration;
-import java.util.Collections;
 import java.util.Map;
 
-import com.couchbase.client.java.Cluster;
-import com.couchbase.client.java.manager.bucket.BucketSettings;
-import com.couchbase.client.java.manager.bucket.BucketType;
-import com.couchbase.client.java.manager.view.DesignDocument;
-import com.couchbase.client.java.manager.view.View;
-import com.couchbase.client.java.view.DesignDocumentNamespace;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.testcontainers.couchbase.CouchbaseContainer;
@@ -41,7 +33,6 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
     protected String bucketName = "testBucket";
 
     private CustomCouchbaseContainer container;
-    protected Cluster cluster;
 
     private class CustomCouchbaseContainer extends CouchbaseContainer {
         public CustomCouchbaseContainer() {
@@ -58,20 +49,18 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
     @Override
     public Map<String, String> start() {
         container = new CustomCouchbaseContainer();
+
         container.start();
 
-        initBucket();
-
         return CollectionHelper.mapOf("couchbase.connection.uri", getConnectionUri(),
-                "couchbase.bucket.name", bucketName);
+                "couchbase.bucket.name", bucketName,
+                "couchbase.connection.string", container.getConnectionString(),
+                "username", this.getUsername(),
+                "password", this.getPassword());
     }
 
     @Override
     public void stop() {
-        if (cluster != null) {
-            cluster.buckets().dropBucket(bucketName);
-            cluster.disconnect();
-        }
         if (container != null) {
             container.stop();
         }
@@ -96,28 +85,5 @@ public class CouchbaseTestResource implements QuarkusTestResourceLifecycleManage
 
     public int getPort() {
         return container.getBootstrapHttpDirectPort();
-    }
-
-    private void initBucket() {
-        cluster = Cluster.connect(container.getConnectionString(), this.getUsername(), this.getPassword());
-
-        cluster.buckets().createBucket(
-                BucketSettings.create(bucketName).bucketType(BucketType.COUCHBASE).flushEnabled(true));
-
-        cluster.bucket(bucketName);
-        DesignDocument designDoc = new DesignDocument(
-                bucketName,
-                Collections.singletonMap(bucketName, new View("function (doc, meta) {  emit(meta.id, doc);}")));
-        cluster.bucket(bucketName).viewIndexes().upsertDesignDocument(designDoc, DesignDocumentNamespace.PRODUCTION);
-        // wait for cluster
-        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(30));
-
-        // insert some documents
-        for (int i = 0; i < 3; i++) {
-            cluster.bucket(bucketName).defaultCollection().upsert("DocumentID_" + i, "hello" + i);
-        }
-
-        // wait for cluster
-        cluster.bucket(bucketName).waitUntilReady(Duration.ofSeconds(30));
     }
 }
