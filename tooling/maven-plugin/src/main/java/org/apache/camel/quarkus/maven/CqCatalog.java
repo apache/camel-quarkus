@@ -114,6 +114,8 @@ public class CqCatalog {
             filter = model -> "camel-core-languages".equals(model.getArtifactId()) && "csimple".equals(model.getName());
         } else if ("reactive-executor".equals(cqArtifactIdBase)) {
             filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
+        } else if ("qute".equals(cqArtifactIdBase)) {
+            filter = model -> "camel-quarkus-qute-component".equals(model.getArtifactId());
         } else {
             filter = model -> ("camel-" + cqArtifactIdBase).equals(model.getArtifactId());
         }
@@ -127,6 +129,10 @@ public class CqCatalog {
 
     public Stream<ArtifactModel<?>> models(org.apache.camel.catalog.Kind kind) {
         return catalog.findNames(kind).stream().map(name -> (ArtifactModel<?>) catalog.model(kind, name));
+    }
+
+    public void addComponent(String name, String className, String jsonSchema) {
+        catalog.addComponent(name, className, jsonSchema);
     }
 
     public static Stream<Kind> kinds() {
