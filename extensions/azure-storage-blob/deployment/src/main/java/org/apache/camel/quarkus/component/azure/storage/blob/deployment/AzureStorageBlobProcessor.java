@@ -16,15 +16,12 @@
  */
 package org.apache.camel.quarkus.component.azure.storage.blob.deployment;
 
-import java.util.stream.Stream;
-
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.jboss.jandex.ClassInfo;
@@ -42,20 +39,6 @@ class AzureStorageBlobProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void proxyDefinitions(BuildProducer<NativeImageProxyDefinitionBuildItem> proxyDefinitions) {
-        Stream.of(
-                "com.azure.storage.blob.implementation.AppendBlobsImpl$AppendBlobsService",
-                "com.azure.storage.blob.implementation.BlobsImpl$BlobsService",
-                "com.azure.storage.blob.implementation.BlockBlobsImpl$BlockBlobsService",
-                "com.azure.storage.blob.implementation.ContainersImpl$ContainersService",
-                "com.azure.storage.blob.implementation.DirectorysImpl$DirectorysService",
-                "com.azure.storage.blob.implementation.PageBlobsImpl$PageBlobsService",
-                "com.azure.storage.blob.implementation.ServicesImpl$ServicesService")
-                .map(NativeImageProxyDefinitionBuildItem::new)
-                .forEach(proxyDefinitions::produce);
     }
 
     @BuildStep
