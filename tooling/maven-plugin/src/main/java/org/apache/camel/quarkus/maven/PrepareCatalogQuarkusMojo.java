@@ -85,6 +85,38 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
         extensionDirectories.stream()
                 .map(File::toPath)
                 .forEach(extDir -> {
+
+                    /* Discover local components, such as Qute and add them to the catalog */
+                    CqUtils.findExtensionArtifactIdBases(extDir)
+                            .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
+                            .forEach(artifactIdBase -> {
+                                final Path schemaFile = extDir
+                                        .resolve(artifactIdBase)
+                                        .resolve("component/src/generated/resources/org/apache/camel/component/"
+                                                + artifactIdBase + "/" + artifactIdBase + ".json")
+                                        .toAbsolutePath().normalize();
+                                if (Files.isRegularFile(schemaFile)) {
+                                    try {
+                                        final String schema = new String(Files.readAllBytes(schemaFile),
+                                                StandardCharsets.UTF_8);
+                                        final String capBase = artifactIdBase.substring(0, 1).toUpperCase()
+                                                + artifactIdBase.substring(1);
+                                        getLog().debug("Adding an extra component " + artifactIdBase + " " +
+                                                "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component " +
+                                                schema);
+                                        catalog.addComponent(artifactIdBase,
+                                                "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component",
+                                                schema);
+                                    } catch (IOException e) {
+                                        throw new RuntimeException("Could not read " + schemaFile, e);
+                                    }
+                                }
+                            });
+                });
+
+        extensionDirectories.stream()
+                .map(File::toPath)
+                .forEach(extDir -> {
                     CqUtils.findExtensionArtifactIdBases(extDir)
                             .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
                             .forEach(artifactIdBase -> {
