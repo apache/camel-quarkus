@@ -77,7 +77,6 @@
         <module>ignite</module>
         <module>iota</module>
         <module>irc</module>
-        <module>jackson-avro</module>
         <module>jasypt</module>
         <module>java-joor-dsl</module>
         <module>jbpm</module>

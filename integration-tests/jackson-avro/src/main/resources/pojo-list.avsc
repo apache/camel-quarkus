@@ -1,0 +1,13 @@
+ {
+    "type": "array",
+    "items": {
+        "name": "Pojo",
+        "type": "record",
+        "fields": [
+            {
+                "name": "text",
+                "type": "string"
+            }
+        ]
+    }
+}
