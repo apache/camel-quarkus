@@ -3,16 +3,16 @@
 = Avro Jackson
 :linkattrs:
 :cq-artifact-id: camel-quarkus-jackson-avro
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Marshal POJOs to Avro and back using Jackson.
 :cq-deprecated: false
 :cq-jvm-since: 2.0.0
-:cq-native-since: n/a
+:cq-native-since: 2.0.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##2.0.0## [.badge-key]##Native since##[.badge-supported]##2.0.0##
 
 Marshal POJOs to Avro and back using Jackson.
 
@@ -23,6 +23,10 @@ Marshal POJOs to Avro and back using Jackson.
 Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
+
+https://code.quarkus.io/?extension-search=camel-quarkus-jackson-avro[Create a new project with this extension on code.quarkus.io, window="_blank"]
+
+Or add the coordinates to your existing project:
 
 [source,xml]
 ----

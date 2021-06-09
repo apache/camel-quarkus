@@ -1,0 +1,10 @@
+{
+    "type": "record",
+    "name": "Pojo",
+    "fields": [
+        {
+            "name": "text",
+            "type": "string"
+        }
+    ]
+}
