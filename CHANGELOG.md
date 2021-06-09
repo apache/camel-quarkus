@@ -6,6 +6,8 @@
 
 **Closed issues:**
 
+- Intermittent failures in Aws2SqsSnsIT [\#2741](https://github.com/apache/camel-quarkus/issues/2741)
+- Unable to determine the status of the running process in LogIT without resteasy [\#2737](https://github.com/apache/camel-quarkus/issues/2737)
 - Resume release command needs to be performed from target/checkout directory [\#2736](https://github.com/apache/camel-quarkus/issues/2736)
 - Kafka SASL tests fail after the upgrade to Quarkus 2.0.0.CR3 [\#2729](https://github.com/apache/camel-quarkus/issues/2729)
 - camel-quarkus-example : dev mode issue [\#2723](https://github.com/apache/camel-quarkus/issues/2723)
@@ -19,9 +21,11 @@
 - Problem with dashed queryParams [\#2685](https://github.com/apache/camel-quarkus/issues/2685)
 - camel-quarkus-jacksonxml:JsonView annotations take no effect in native mode [\#2681](https://github.com/apache/camel-quarkus/issues/2681)
 - Error when using camel-quarkus-jackson in native mode: java.lang.ClassNotFoundException: com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule [\#2677](https://github.com/apache/camel-quarkus/issues/2677)
+- GraalVM 21.1 in CryptoIT: Trying to verify a provider that was not registered at build time: BC version 1.68 [\#2673](https://github.com/apache/camel-quarkus/issues/2673)
 - AWS2 test: org.apache.log4j.Priority required via netty, although netty should not be in the class path at all  [\#2670](https://github.com/apache/camel-quarkus/issues/2670)
 - Error when using Camel Kinesis component - java.lang.ClassNotFoundException: org.apache.commons.logging.LogFactory [\#2666](https://github.com/apache/camel-quarkus/issues/2666)
 - camel-quarkus-master-integration-test failing after the upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2660](https://github.com/apache/camel-quarkus/issues/2660)
+- Intermittent failures in MongoDbTest.testTailingConsumer\(\) and MongoDbTest.testPersistentTailingConsumer\(\) [\#2658](https://github.com/apache/camel-quarkus/issues/2658)
 - vert-x http client failing for HTTPS with Quarkus 2.0.0.Alpha3 [\#2656](https://github.com/apache/camel-quarkus/issues/2656)
 - Native compilation issues on GraalVM 21.1 [\#2653](https://github.com/apache/camel-quarkus/issues/2653)
 - \[Quarkus 2.0.0.CR1\] Stop managing kotlinx-coroutines-core once we get it managed from Quarkus [\#2646](https://github.com/apache/camel-quarkus/issues/2646)
@@ -51,6 +55,11 @@
 
 **Merged pull requests:**
 
+- Intermittent failures in MongoDbTest-testTailingConsumer and testPersistentTailingConsumer [\#2746](https://github.com/apache/camel-quarkus/pull/2746) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Intermittent failures in Aws2SqsSnsIT  [\#2743](https://github.com/apache/camel-quarkus/pull/2743) ([ppalaga](https://github.com/ppalaga))
+- Add integration test for discovering custom ProtobufMapper beans [\#2742](https://github.com/apache/camel-quarkus/pull/2742) ([jamesnetherton](https://github.com/jamesnetherton))
+- Unable to determine the status of the running process in LogIT without resteasy [\#2740](https://github.com/apache/camel-quarkus/pull/2740) ([ppalaga](https://github.com/ppalaga))
+- Fixed the CryptoIT test \#2673 [\#2738](https://github.com/apache/camel-quarkus/pull/2738) ([aldettinger](https://github.com/aldettinger))
 - Improve KafkaClientFactory integration [\#2735](https://github.com/apache/camel-quarkus/pull/2735) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable dev services for Kafka itests [\#2734](https://github.com/apache/camel-quarkus/pull/2734) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix MasterTest health check endpoint path [\#2732](https://github.com/apache/camel-quarkus/pull/2732) ([jamesnetherton](https://github.com/jamesnetherton))
