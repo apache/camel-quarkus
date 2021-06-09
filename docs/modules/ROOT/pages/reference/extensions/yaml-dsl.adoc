@@ -31,3 +31,30 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+[width="100%",cols="80,5,15",options="header"]
+|===
+| Configuration property | Type | Default
+
+
+|icon:lock[title=Fixed at build time] [[quarkus.camel.yaml.flow-mode]]`link:#quarkus.camel.yaml.flow-mode[quarkus.camel.yaml.flow-mode]`
+
+If `true` the YAML DSL support flow-mode which allow to write more concise routes as for EIPs that have their own output like filter, aggregate, split, etc. the `steps` element can be omitted an in that case, the next processing step is automatically wired to the EIP's outputs. 
+ As example, a YAML DSL to process only the timer events from 5 to 10 would look like: `- from:
+    uri: "timer:tick"
+    steps:
+      - filter:
+          simple: "$++{++exchangeProperty.CamelTimerCounter` range '5..10'" steps: - to: "direct:filtered" ++}++  With the flow mode enabled the same logic can be expressed in a more concise way: `- from:
+    uri: "kamelet:source"
+    steps:
+      - filter:
+          simple: "$++{++exchangeProperty.CamelTimerCounter` range '5..10'" - to: "kamelet:sink" ++}++
+| `boolean`
+| `true`
+|===
+
+[.configuration-legend]
+icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
+
