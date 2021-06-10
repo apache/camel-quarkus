@@ -84,4 +84,15 @@ class KameletTest {
                 .statusCode(200)
                 .body(is("KAMELET2"));
     }
+
+    @Test
+    public void testAutoDiscovery() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet")
+                .post("/kamelet/auto-discovery")
+                .then()
+                .statusCode(200)
+                .body(is("Auto-discovered Kamelet"));
+    }
 }

@@ -72,4 +72,11 @@ public class KameletResource {
     public String invoke(@PathParam("name") String name, String message) throws Exception {
         return fluentProducerTemplate.toF("kamelet:%s", name).withBody(message).request(String.class);
     }
+
+    @Path("/auto-discovery")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String autoDiscovery(String message) {
+        return fluentProducerTemplate.toF("kamelet:auto-discovery?message=%s", message).request(String.class);
+    }
 }
