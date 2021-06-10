@@ -28,7 +28,7 @@
 
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus</artifactId>
-    <version>2.0.0-SNAPSHOT</version>
+    <version>2.0.0-M2</version>
     <packaging>pom</packaging>
 
     <name>Camel Quarkus</name>
@@ -246,7 +246,7 @@
         <connection>scm:git:http://gitbox.apache.org/repos/asf/camel-quarkus.git</connection>
         <developerConnection>scm:git:https://gitbox.apache.org/repos/asf/camel-quarkus.git</developerConnection>
         <url>https://gitbox.apache.org/repos/asf?p=camel-quarkus.git;a=summary</url>
-        <tag>HEAD</tag>
+        <tag>2.0.0-M2</tag>
     </scm>
 
     <issueManagement>
@@ -580,7 +580,7 @@
                 <executions>
                     <execution>
                         <id>default-test</id>
-                        <phase/><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
+                        <phase /><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
                     </execution>
                 </executions>
             </plugin>
@@ -591,7 +591,7 @@
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
-                        <phase/><!-- skip to save time -->
+                        <phase /><!-- skip to save time -->
                     </execution>
                 </executions>
             </plugin>
@@ -625,7 +625,7 @@
                                         <requireJavaVersion>
                                             <version>11</version>
                                         </requireJavaVersion>
-                                        <dependencyConvergence/>
+                                        <dependencyConvergence />
                                         <requireMavenVersion>
                                             <version>${supported-maven-versions}</version>
                                         </requireMavenVersion>
@@ -869,7 +869,7 @@
                         <executions>
                             <execution>
                                 <id>camel-quarkus-enforcer-rules</id>
-                                <phase/><!-- Speedup the check-format profile by skipping the enforcer  -->
+                                <phase /><!-- Speedup the check-format profile by skipping the enforcer  -->
                             </execution>
                         </executions>
                     </plugin>
@@ -892,7 +892,7 @@
                         <executions>
                             <execution>
                                 <id>source-release-assembly</id>
-                                <phase/><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
+                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
                             </execution>
                             <execution>
                                 <id>camel-quarkus-source-release-assembly</id>
