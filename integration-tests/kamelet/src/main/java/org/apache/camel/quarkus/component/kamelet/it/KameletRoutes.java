@@ -16,8 +16,6 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
-import java.util.Locale;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
@@ -55,15 +53,15 @@ public class KameletRoutes extends RouteBuilder {
                 .from("kamelet:source")
                 .setBody().simple("{{prefix}} ${body} {{suffix}}");
 
-        routeTemplate("toUpperWithBean")
-                .templateBean("to-upper", new ToUpperProcessor())
+        routeTemplate("AppendWithBean")
+                .templateBean("appender", new AppenderProcessor())
                 .from("kamelet:source")
-                .to("bean:{{to-upper}}");
+                .to("bean:{{appender}}");
 
-        routeTemplate("toUpperWithClass")
-                .templateBean("to-upper", ToUpperProcessor.class)
+        routeTemplate("AppendWithClass")
+                .templateBean("appender", AppenderProcessor.class)
                 .from("kamelet:source")
-                .to("bean:{{to-upper}}");
+                .to("bean:{{appender}}");
 
         from("direct:chain")
                 .to("kamelet:echo/1?prefix=Camel Quarkus&suffix=Chained")
@@ -71,11 +69,10 @@ public class KameletRoutes extends RouteBuilder {
     }
 
     @RegisterForReflection
-    public static class ToUpperProcessor implements Processor {
+    public static class AppenderProcessor implements Processor {
         @Override
-        public void process(Exchange exchange) throws Exception {
-            exchange.getMessage().setBody(
-                    exchange.getMessage().getBody(String.class).toUpperCase(Locale.US));
+        public void process(Exchange exchange) {
+            exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "-suffix");
         }
     }
 
