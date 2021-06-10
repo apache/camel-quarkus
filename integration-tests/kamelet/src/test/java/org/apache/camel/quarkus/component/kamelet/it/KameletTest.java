@@ -71,18 +71,18 @@ class KameletTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kamelet")
-                .post("/kamelet/invoke/toUpperWithBean")
+                .post("/kamelet/invoke/AppendWithBean")
                 .then()
                 .statusCode(200)
-                .body(is("KAMELET"));
+                .body(is("Kamelet-suffix"));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body("Kamelet2")
-                .post("/kamelet/invoke/toUpperWithClass")
+                .post("/kamelet/invoke/AppendWithClass")
                 .then()
                 .statusCode(200)
-                .body(is("KAMELET2"));
+                .body(is("Kamelet2-suffix"));
     }
 
     @Test
