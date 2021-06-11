@@ -23,7 +23,7 @@ public class KafkaSaslRoutes extends RouteBuilder {
     public void configure() throws Exception {
         // Note: kafka component configuration is done via quarkus-kubernetes-service-binding.
         // See configuration in src/test/resources/k8s-sb/kafka
-        from("kafka:inbound")
+        from("kafka:inbound?autoOffsetReset=earliest")
                 .to("log:kafka")
                 .to("kafka:outbound");
     }

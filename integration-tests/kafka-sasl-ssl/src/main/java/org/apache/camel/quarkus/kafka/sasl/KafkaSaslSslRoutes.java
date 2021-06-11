@@ -21,7 +21,7 @@ import org.apache.camel.builder.RouteBuilder;
 public class KafkaSaslSslRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
-        from("kafka:inbound")
+        from("kafka:inbound?autoOffsetReset=earliest")
                 .to("log:kafka")
                 .to("kafka:outbound");
     }
