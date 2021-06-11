@@ -5,13 +5,6 @@
         <journal-directory>./target/artemis/journal</journal-directory>
         <large-messages-directory>./target/artemis/large-messages</large-messages-directory>
 
-        <connectors>
-            <connector name="activemq">tcp://localhost:61616</connector>
-        </connectors>
-        <acceptors>
-            <acceptor name="activemq">tcp://localhost:61616</acceptor>
-        </acceptors>
-
         <max-disk-usage>-1</max-disk-usage>
         <security-enabled>false</security-enabled>
 
