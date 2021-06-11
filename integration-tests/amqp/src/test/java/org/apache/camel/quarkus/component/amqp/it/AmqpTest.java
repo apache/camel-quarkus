@@ -17,15 +17,19 @@
 package org.apache.camel.quarkus.component.amqp.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
-@QuarkusTestResource(ActiveMQTestResource.class)
+@QuarkusTestResource(initArgs = {
+        @ResourceArg(name = "modules", value = "quarkus.qpid-jms")
+}, value = ActiveMQTestResource.class)
 class AmqpTest {
 
     @Test
