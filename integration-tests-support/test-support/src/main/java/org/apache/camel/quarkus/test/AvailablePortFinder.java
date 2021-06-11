@@ -22,8 +22,11 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,6 +35,10 @@ import org.slf4j.LoggerFactory;
  */
 public final class AvailablePortFinder {
     private static final Logger LOGGER = LoggerFactory.getLogger(AvailablePortFinder.class);
+    private static final String[] QUARKUS_PORT_PROPERTIES = new String[] {
+            "quarkus.http.test-port",
+            "quarkus.http.test-ssl-port",
+    };
 
     /**
      * Creates a new instance.
@@ -47,17 +54,19 @@ public final class AvailablePortFinder {
      * @return                       the available port
      */
     public static int getNextAvailable() {
-        try (ServerSocket ss = new ServerSocket()) {
-            ss.setReuseAddress(true);
-            ss.bind(new InetSocketAddress((InetAddress) null, 0), 1);
+        while (true) {
+            try (ServerSocket ss = new ServerSocket()) {
+                ss.setReuseAddress(true);
+                ss.bind(new InetSocketAddress((InetAddress) null, 0), 1);
 
-            int port = ss.getLocalPort();
-
-            LOGGER.info("getNextAvailable() -> {}", port);
-
-            return port;
-        } catch (IOException e) {
-            throw new IllegalStateException("Cannot find free port", e);
+                int port = ss.getLocalPort();
+                if (!isQuarkusReservedPort(port)) {
+                    LOGGER.info("getNextAvailable() -> {}", port);
+                    return port;
+                }
+            } catch (IOException e) {
+                throw new IllegalStateException("Cannot find free port", e);
+            }
         }
     }
 
@@ -79,5 +88,19 @@ public final class AvailablePortFinder {
         }
 
         return reservedPorts;
+    }
+
+    private static boolean isQuarkusReservedPort(int port) {
+        Config config = ConfigProvider.getConfig();
+        for (String property : QUARKUS_PORT_PROPERTIES) {
+            Optional<Integer> portProperty = config.getOptionalValue(property, Integer.class);
+            if (portProperty.isPresent()) {
+                if (port == portProperty.get()) {
+                    LOGGER.info("Port {} is already reserved for {}", port, property);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
