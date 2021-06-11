@@ -51,14 +51,15 @@ public class CamelContextRecorder {
                 version,
                 xmlModelDumper.getValue());
 
+        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        // Set ClassLoader first as some actions depend on it being available
+        context.setApplicationContextClassLoader(tccl);
         context.setDefaultExtension(RuntimeCamelCatalog.class, () -> new CamelRuntimeCatalog(config.runtimeCatalog));
         context.setRegistry(registry.getValue());
         context.setTypeConverterRegistry(typeConverterRegistry.getValue());
         context.setLoadTypeConverters(false);
         context.setModelJAXBContextFactory(contextFactory.getValue());
         context.adapt(ExtendedCamelContext.class).setStartupStepRecorder(startupStepRecorder.getValue());
-        final ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-        context.setApplicationContextClassLoader(tccl);
         context.build();
         context.addLifecycleStrategy(new CamelLifecycleEventBridge());
         context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());
