@@ -16,16 +16,20 @@
  */
 package org.apache.camel.quarkus.component.kafka.it;
 
+import java.util.List;
 import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.junit.jupiter.api.Test;
 
+import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaTestResource.class)
@@ -35,14 +39,14 @@ public class CamelKafkaTest {
     void testKafkaBridge() {
         String body = UUID.randomUUID().toString();
 
-        RestAssured.given()
+        given()
                 .contentType("text/plain")
                 .body(body)
                 .post("/kafka/inbound")
                 .then()
                 .statusCode(200);
 
-        JsonPath result = RestAssured.given()
+        JsonPath result = given()
                 .get("/kafka/outbound")
                 .then()
                 .statusCode(200)
@@ -52,5 +56,23 @@ public class CamelKafkaTest {
 
         assertThat(result.getString("topicName")).isEqualTo("outbound");
         assertThat(result.getString("body")).isEqualTo(body);
+    }
+
+    @Test
+    void testIndempotent() {
+
+        for (int i = 0; i < 10; i++) {
+            int id = i % 5;
+            given()
+                    .contentType(ContentType.JSON)
+                    .body("Test message")
+                    .put("/kafka/idempotent/" + id)
+                    .then()
+                    .statusCode(202);
+        }
+
+        List<String> body = RestAssured.get("/kafka/idempotent").then().extract().body().as(List.class);
+        assertEquals(5, body.size());
+
     }
 }
