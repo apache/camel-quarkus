@@ -20,10 +20,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -32,7 +34,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
-@QuarkusTestResource(ActiveMQTestResource.class)
+@QuarkusTestResource(initArgs = {
+        @ResourceArg(name = "modules", value = "quarkus.artemis,camel.component.paho,broker-url.ws")
+}, value = ActiveMQTestResource.class)
 class JmsTest {
 
     @ParameterizedTest
