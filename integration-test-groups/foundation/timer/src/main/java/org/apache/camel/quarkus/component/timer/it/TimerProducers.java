@@ -16,9 +16,12 @@
  */
 package org.apache.camel.quarkus.component.timer.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 
 import org.apache.camel.builder.LambdaRouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 @ApplicationScoped
@@ -26,10 +29,22 @@ public class TimerProducers {
 
     private static final Logger LOG = Logger.getLogger(TimerProducers.class);
 
+    public static final String LOG_MESSAGE = "Lets's fool io.quarkus.test.common.LauncherUtil.CaptureListeningDataReader: Listening on: http://0.0.0.0:";
+    @ConfigProperty(name = "quarkus.http.test-port")
+    Optional<Integer> httpTestPort;
+    @ConfigProperty(name = "quarkus.http.port")
+    Optional<Integer> httpPort;
+
+    private int getEffectivePort() {
+        final boolean isNativeMode = "executable".equals(System.getProperty("org.graalvm.nativeimage.kind"));
+        Optional<Integer> portSource = isNativeMode ? httpPort : httpTestPort;
+        return portSource.isPresent() ? portSource.get().intValue() : 0;
+    }
+
     @javax.enterprise.inject.Produces
     public LambdaRouteBuilder lambdaRoute() {
         return rb -> rb.from("timer:bar").routeId("bar")
-                .process(e -> LOG.info("Hello from timer:bar"));
+                .process(e -> LOG.info(LOG_MESSAGE + getEffectivePort()));
     }
 
 }

@@ -33,7 +33,7 @@ public class TimerTest {
     public void timer() {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);
-            return log.contains("keep-alive: I'm alive !") && log.contains("Hello from timer:bar");
+            return log.contains("keep-alive: I'm alive !") && log.contains(TimerProducers.LOG_MESSAGE);
         });
 
     }
