@@ -4,8 +4,18 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0-M2...HEAD)
 
+**Closed issues:**
+
+- camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
+- Avoid duplicating code in `org.apache.camel.quarkus.core.BaseModel` [\#2752](https://github.com/apache/camel-quarkus/issues/2752)
+- kamelet extension: add test for kamelet discovery mechanism [\#2652](https://github.com/apache/camel-quarkus/issues/2652)
+
 **Merged pull requests:**
 
+- Avoid port clashes where it may already be reserved via the build-helper-maven-plugin [\#2769](https://github.com/apache/camel-quarkus/pull/2769) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use autoOffsetReset earliest to avoid missing messages sent by the Kafka producer [\#2768](https://github.com/apache/camel-quarkus/pull/2768) ([jamesnetherton](https://github.com/jamesnetherton))
+- Avoid duplicating code in BaseModel & FastCamelContext [\#2765](https://github.com/apache/camel-quarkus/pull/2765) ([jamesnetherton](https://github.com/jamesnetherton))
+- Camel quarkus 2652 [\#2764](https://github.com/apache/camel-quarkus/pull/2764) ([aldettinger](https://github.com/aldettinger))
 - Fix Qute component metadata in Camel Quarkus catalog [\#2760](https://github.com/apache/camel-quarkus/pull/2760) ([ppalaga](https://github.com/ppalaga))
 - Unregister MongoDb's ChangeStreamDocument from reflection once it is … [\#2759](https://github.com/apache/camel-quarkus/pull/2759) ([ppalaga](https://github.com/ppalaga))
 - yaml-dsl: enable flow mode deserialization by default [\#2757](https://github.com/apache/camel-quarkus/pull/2757) ([lburgazzoli](https://github.com/lburgazzoli))
