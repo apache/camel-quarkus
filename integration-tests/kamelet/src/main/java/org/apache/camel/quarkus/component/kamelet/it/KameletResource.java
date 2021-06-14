@@ -21,6 +21,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -63,5 +64,19 @@ public class KameletResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String kameletChain(String message) throws Exception {
         return fluentProducerTemplate.to("direct:chain").withBody(message).request(String.class);
+    }
+
+    @Path("/invoke/{name}")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String invoke(@PathParam("name") String name, String message) throws Exception {
+        return fluentProducerTemplate.toF("kamelet:%s", name).withBody(message).request(String.class);
+    }
+
+    @Path("/auto-discovery")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String autoDiscovery(String message) {
+        return fluentProducerTemplate.toF("kamelet:auto-discovery?message=%s", message).request(String.class);
     }
 }

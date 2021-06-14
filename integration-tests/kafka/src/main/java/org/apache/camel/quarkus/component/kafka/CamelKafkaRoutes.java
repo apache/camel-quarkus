@@ -16,13 +16,37 @@
  */
 package org.apache.camel.quarkus.component.kafka;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.inject.Produces;
+import javax.inject.Named;
+
+import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.processor.idempotent.kafka.KafkaIdempotentRepository;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 public class CamelKafkaRoutes extends RouteBuilder {
+    @ConfigProperty(name = "camel.component.kafka.brokers")
+    String brokers;
+
+    @Produces
+    @ApplicationScoped
+    @Unremovable
+    @Named("kafkaIdempotentRepository")
+    KafkaIdempotentRepository kafkaIdempotentRepository() {
+        return new KafkaIdempotentRepository("idempotent-topic", brokers);
+    }
+
     @Override
     public void configure() throws Exception {
-        from("kafka:inbound")
+        from("kafka:inbound?autoOffsetReset=earliest")
                 .to("log:kafka")
                 .to("kafka:outbound");
+
+        from("direct:idempotent")
+                .idempotentConsumer(header("id"))
+                .messageIdRepositoryRef("kafkaIdempotentRepository")
+                .to("mock:idempotent-results")
+                .end();
     }
 }

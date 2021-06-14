@@ -33,7 +33,7 @@ public class LogTest {
     public void info() {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);
-            return log.contains("[foo-topic]") && log.contains("Body: Hello foo!");
+            return log.contains("[foo-topic]") && log.contains(LogResource.LOG_MESSAGE);
         });
 
     }

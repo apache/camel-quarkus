@@ -65,4 +65,34 @@ class KameletTest {
                 .statusCode(200)
                 .body(is("Hello Camel Quarkus Kamelet Chained Route"));
     }
+
+    @Test
+    public void testInvoke() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet")
+                .post("/kamelet/invoke/AppendWithBean")
+                .then()
+                .statusCode(200)
+                .body(is("Kamelet-suffix"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet2")
+                .post("/kamelet/invoke/AppendWithClass")
+                .then()
+                .statusCode(200)
+                .body(is("Kamelet2-suffix"));
+    }
+
+    @Test
+    public void testAutoDiscovery() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kamelet")
+                .post("/kamelet/auto-discovery")
+                .then()
+                .statusCode(200)
+                .body(is("Auto-discovered Kamelet"));
+    }
 }

@@ -23,14 +23,13 @@ import io.quarkus.arc.Arc;
 import io.quarkus.arc.InstanceHandle;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
-import org.apache.camel.component.kafka.KafkaComponent;
+import org.apache.camel.component.kafka.KafkaClientFactory;
 
 @Recorder
 public class CamelKafkaRecorder {
 
     @SuppressWarnings("unchecked")
-    public RuntimeValue<KafkaComponent> createKafkaComponent() {
-        final KafkaComponent component = new KafkaComponent();
+    public RuntimeValue<KafkaClientFactory> createKafkaClientFactory() {
         final InstanceHandle<Object> instance = Arc.container().instance("default-kafka-broker");
         Map<String, Object> kafkaConfig;
 
@@ -40,10 +39,7 @@ public class CamelKafkaRecorder {
             kafkaConfig = Collections.emptyMap();
         }
 
-        // TODO: Return new RuntimeValue<>(quarkusKafkaClientFactory) as the KafkaClientFactory option should be autowired
-        // https://issues.apache.org/jira/browse/CAMEL-16500
         QuarkusKafkaClientFactory quarkusKafkaClientFactory = new QuarkusKafkaClientFactory(kafkaConfig);
-        component.setKafkaClientFactory(quarkusKafkaClientFactory);
-        return new RuntimeValue<>(component);
+        return new RuntimeValue<>(quarkusKafkaClientFactory);
     }
 }

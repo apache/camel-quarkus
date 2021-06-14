@@ -18,20 +18,29 @@ package org.apache.camel.quarkus.component.kafka;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonObject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
@@ -50,6 +59,12 @@ public class CamelKafkaResource {
     @Inject
     @Named("kafka-producer-properties")
     Properties producerProperties;
+
+    @Inject
+    CamelContext context;
+
+    @Inject
+    ProducerTemplate producerTemplate;
 
     @Path("/{topicName}")
     @POST
@@ -82,5 +97,24 @@ public class CamelKafkaResource {
                     .add("body", record.value())
                     .build();
         }
+    }
+
+    @Path("idempotent/{id}")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addMessage(@PathParam("id") Integer id, String message) {
+        producerTemplate.sendBodyAndHeader("direct:idempotent", message, "id", id);
+        return Response.accepted().build();
+    }
+
+    @Path("idempotent")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> getIdempotentResults() {
+        final MockEndpoint mockEndpoint = context.getEndpoint("mock:idempotent-results", MockEndpoint.class);
+        return mockEndpoint.getReceivedExchanges().stream()
+                .map(Exchange::getMessage)
+                .map(m -> m.getBody(String.class))
+                .collect(Collectors.toList());
     }
 }

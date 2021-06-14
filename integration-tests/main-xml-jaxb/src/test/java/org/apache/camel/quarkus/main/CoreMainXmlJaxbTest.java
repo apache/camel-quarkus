@@ -16,7 +16,11 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.core.MediaType;
 
@@ -30,9 +34,11 @@ import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 public class CoreMainXmlJaxbTest {
+
     @Test
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
@@ -62,5 +68,20 @@ public class CoreMainXmlJaxbTest {
                 .contains("templated-route");
         assertThat(routes)
                 .contains("rest-route");
+    }
+
+    @Test
+    public void testDumpRoutes() {
+        await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
+            String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);
+            return logContainsDumpedRoutes(log);
+        });
+    }
+
+    private boolean logContainsDumpedRoutes(String log) {
+        return log.contains("<route customId=\"true\" id=\"my-xml-route\">") &&
+                log.contains("<route customId=\"true\" id=\"rest-route\" rest=\"true\">") &&
+                log.contains("<rest customId=\"true\" id=\"greet\" path=\"/greeting\">") &&
+                log.contains("<routeTemplate customId=\"true\" id=\"myTemplate\">");
     }
 }

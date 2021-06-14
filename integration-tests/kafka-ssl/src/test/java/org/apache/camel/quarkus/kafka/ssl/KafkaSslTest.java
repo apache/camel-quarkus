@@ -22,12 +22,10 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2729")
 @QuarkusTest
 @QuarkusTestResource(KafkaSslTestResource.class)
 public class KafkaSslTest {

@@ -16,9 +16,18 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
-import org.apache.camel.Exchange;
-import org.apache.camel.builder.RouteBuilder;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
+import org.apache.camel.RoutesBuilder;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.spi.Resource;
+import org.apache.camel.support.RoutesBuilderLoaderSupport;
+
+@ApplicationScoped
 public class KameletRoutes extends RouteBuilder {
 
     @Override
@@ -44,8 +53,47 @@ public class KameletRoutes extends RouteBuilder {
                 .from("kamelet:source")
                 .setBody().simple("{{prefix}} ${body} {{suffix}}");
 
+        routeTemplate("AppendWithBean")
+                .templateBean("appender", new AppenderProcessor())
+                .from("kamelet:source")
+                .to("bean:{{appender}}");
+
+        routeTemplate("AppendWithClass")
+                .templateBean("appender", AppenderProcessor.class)
+                .from("kamelet:source")
+                .to("bean:{{appender}}");
+
         from("direct:chain")
                 .to("kamelet:echo/1?prefix=Camel Quarkus&suffix=Chained")
                 .to("kamelet:echo/2?prefix=Hello&suffix=Route");
+    }
+
+    @RegisterForReflection
+    public static class AppenderProcessor implements Processor {
+        @Override
+        public void process(Exchange exchange) {
+            exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "-suffix");
+        }
+    }
+
+    @Named("routes-builder-loader-kamelet.yaml")
+    RoutesBuilderLoaderSupport routesBuilderLoaderKameletYaml() {
+        return new RoutesBuilderLoaderSupport() {
+            @Override
+            public String getSupportedExtension() {
+                return "kamelet.yaml";
+            }
+
+            @Override
+            public RoutesBuilder loadRoutesBuilder(Resource resource) {
+                return new RouteBuilder() {
+                    @Override
+                    public void configure() {
+                        routeTemplate("auto-discovery").templateParameter("message").from("kamelet:source").setBody()
+                                .constant("Auto-discovered {{message}}");
+                    }
+                };
+            }
+        };
     }
 }

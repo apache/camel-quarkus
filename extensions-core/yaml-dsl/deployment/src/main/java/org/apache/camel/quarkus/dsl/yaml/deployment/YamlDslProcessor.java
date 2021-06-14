@@ -18,7 +18,13 @@
 package org.apache.camel.quarkus.dsl.yaml.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.annotations.ExecutionTime;
+import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.dsl.yaml.common.YamlDeserializationMode;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
+import org.apache.camel.quarkus.dsl.yaml.YamlDslConfiguration;
+import org.apache.camel.quarkus.dsl.yaml.YamlDslRecorder;
 
 public class YamlDslProcessor {
     private static final String FEATURE = "camel-yaml-dsl";
@@ -26,5 +32,17 @@ public class YamlDslProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    @Record(value = ExecutionTime.STATIC_INIT)
+    CamelContextCustomizerBuildItem enableFlowMode(
+            YamlDslRecorder recorder,
+            YamlDslConfiguration configuration) {
+        return new CamelContextCustomizerBuildItem(
+                recorder.setYamlDeserializationMode(
+                        configuration.flowMode
+                                ? YamlDeserializationMode.FLOW.name()
+                                : YamlDeserializationMode.CLASSIC.name()));
     }
 }

@@ -36,7 +36,6 @@ import org.bson.Document;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -143,7 +142,6 @@ class MongoDbTest {
 
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/2658")
     @Test
     public void testTailingConsumer() throws Exception {
         MongoCollection collection = db.getCollection(COLLECTION_TAILING, Document.class);
@@ -153,12 +151,11 @@ class MongoDbTest {
 
             //verify continuously
             if (i % CAP_NUMBER == 0) {
-                waitForTailingResults(CAP_NUMBER, "value" + i, COLLECTION_TAILING);
+                waitAndResetTailingResults(CAP_NUMBER, "value" + i, COLLECTION_TAILING);
             }
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/2658")
     @Test
     public void testPersistentTailingConsumer() throws Exception {
         MongoCollection collection = db.getCollection(COLLECTION_PERSISTENT_TAILING, Document.class);
@@ -168,7 +165,7 @@ class MongoDbTest {
 
             //verify continuously
             if (i % CAP_NUMBER == 0) {
-                waitForTailingResults(CAP_NUMBER, "value" + i, COLLECTION_PERSISTENT_TAILING);
+                waitAndResetTailingResults(CAP_NUMBER, "value" + i, COLLECTION_PERSISTENT_TAILING);
             }
         }
 
@@ -183,7 +180,7 @@ class MongoDbTest {
 
             //verify continuously
             if (i % CAP_NUMBER == 0) {
-                waitForTailingResults(CAP_NUMBER, "value" + i, COLLECTION_PERSISTENT_TAILING);
+                waitAndResetTailingResults(CAP_NUMBER, "value" + i, COLLECTION_PERSISTENT_TAILING);
             }
         }
     }
@@ -214,7 +211,7 @@ class MongoDbTest {
             collection.insertOne(new Document("increasing", i).append("string", "value" + i));
         }
 
-        waitForTailingResults(1, "value2", COLLECTION_STREAM_CHANGES);
+        waitAndResetTailingResults(1, "value2", COLLECTION_STREAM_CHANGES);
     }
 
     @Test
@@ -279,14 +276,20 @@ class MongoDbTest {
 
     }
 
-    private void waitForTailingResults(int expectedSize, String laststring, String resultId) {
+    private void waitAndResetTailingResults(int expectedSize, String laststring, String resultId) {
         await().atMost(5, TimeUnit.SECONDS).until(
                 () -> RestAssured
                         .given().contentType(ContentType.JSON)
-                        .get("/mongodb/resultsReset/" + resultId)
+                        .get("/mongodb/results/" + resultId)
                         .then()
                         .statusCode(200)
                         .extract().as(Map.class),
                 m -> ((int) m.get("size") == expectedSize && laststring.equals(((Map) m.get("last")).get("string"))));
+
+        RestAssured
+                .given().contentType(ContentType.JSON)
+                .get("/mongodb/resultsReset/" + resultId)
+                .then()
+                .statusCode(204);
     }
 }

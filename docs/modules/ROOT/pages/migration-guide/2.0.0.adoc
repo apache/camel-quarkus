@@ -1,0 +1,11 @@
+# Camel Quarkus 2.0.0 Migration Guide
+
+The follow guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.0.0 & Quarkus 2.0.0.Final.
+
+## Changes to the observability HTTP endpoint paths
+
+In Quarkus 1.x, health and metrics endpoints were available at `/metrics` & `/health` context paths. In Quarkus 2.x this has changed with the addition of a mandatory `/q` path prefix. The endpoints are 
+now accessible at the following URLs.
+
+* http://localhost:8080/q/health
+* http://localhost:8080/q/metrics
