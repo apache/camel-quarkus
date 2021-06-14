@@ -115,4 +115,4 @@ All metrics are tagged with the name of the Camel Context and the id of the rout
 
 You can also produce your own customized metrics in your Camel routes. For more information, refer to the xref:{cq-camel-components}::microprofile-metrics-component.adoc[microprofile-metrics] component documentation.
 
-Metrics are exposed to Quarkus as application metrics and they can be browsed at http://localhost:8080/metrics/application.
+Metrics are exposed to Quarkus as application metrics and they can be browsed at http://localhost:8080/q/metrics/application.

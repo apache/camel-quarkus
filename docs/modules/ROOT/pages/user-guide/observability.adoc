@@ -9,11 +9,13 @@ https://quarkus.io/guides/microprofile-health[Quarkus MicroProfile Health].
 
 All configured checks are available on the standard MicroProfile Health endpoint URLs:
 
-* http://localhost:8080/health
-* http://localhost:8080/health/live
-* http://localhost:8080/health/ready
+* http://localhost:8080/q/health
+* http://localhost:8080/q/health/live
+* http://localhost:8080/q/health/ready
 
 There's an example project which demonstrates health checks: https://github.com/apache/camel-quarkus-examples/tree/main/health
+
+Note that the `/q` path prefix was added in Camel Quarkus 2.0.0. Refer to the xref:migration-guide/2.0.0.adoc[migration guide] for more information.
 
 == Metrics
 
@@ -24,7 +26,7 @@ Some basic Camel metrics are provided for you out of the box, and these can be s
 
 Metrics are available on the standard Quarkus metrics endpoint:
 
-* http://localhost:8080/metrics
+* http://localhost:8080/q/metrics
 
 == Tracing
 

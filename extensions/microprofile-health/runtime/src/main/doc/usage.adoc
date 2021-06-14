@@ -3,7 +3,7 @@ You can register health checks for your applications with the xref:latest@manual
 By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. You can override the `isReadiness` method to control this behaviour.
 
 Any checks provided by your application are automatically discovered and bound to the Camel registry. They will be available via
-the Quarkus health endpoints `/health/live` and `/health/ready`.
+the Quarkus health endpoints `/q/health/live` and `/q/health/ready`.
 
 You can also provide custom `HealthCheckRepository` implementations and these are also automatically discovered and bound to the Camel registry for you.
 
