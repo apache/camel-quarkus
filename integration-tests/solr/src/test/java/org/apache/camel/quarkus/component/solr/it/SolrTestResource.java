@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.solr.it;
 
 import java.util.Map;
 
+import com.github.dockerjava.api.command.InspectContainerResponse;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
@@ -99,7 +100,23 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
      * creates a cloud container with zookeeper
      */
     private void createCloudContainer() {
-        cloudContainer = new SolrContainer(SOLR_IMAGE)
+        cloudContainer = new SolrContainer(SOLR_IMAGE) {
+            @Override
+            protected void containerIsStarted(InspectContainerResponse containerInfo) {
+                // Retry container setup steps in case of failure
+                int maxRetries = 10;
+                int attempts = 1;
+                do {
+                    try {
+                        super.containerIsStarted(containerInfo);
+                        break;
+                    } catch (Exception e) {
+                        LOGGER.info("Retrying containerIsStarted due to exception: {}", e.getMessage());
+                        attempts++;
+                    }
+                } while (attempts <= maxRetries);
+            }
+        }
                 .withZookeeper(true)
                 .withCollection(COLLECTION_NAME)
                 .withLogConsumer(new Slf4jLogConsumer(LOGGER));
