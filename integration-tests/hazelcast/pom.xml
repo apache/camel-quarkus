@@ -134,5 +134,18 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>hazelcast-mac</id>
+            <activation>
+                <os><family>mac</family></os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>net.openhft</groupId>
+                    <artifactId>affinity</artifactId>
+                    <version>3.20.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 </project>

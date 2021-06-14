@@ -159,13 +159,6 @@ public class JacksonJsonTest {
     }
 
     @Test
-    void jacksonConversionSimple() {
-        RestAssured.get("/dataformats-json/jackson/conversion-simple")
-                .then()
-                .statusCode(204);
-    }
-
-    @Test
     void jacksonJaxbAnnotation() {
         RestAssured.get("/dataformats-json/jackson/jaxb-annotation")
                 .then()
