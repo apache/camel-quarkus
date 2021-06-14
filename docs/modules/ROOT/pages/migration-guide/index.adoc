@@ -1,0 +1,7 @@
+# Camel Quarkus Migration And Upgrade Guides
+
+We do frequent releases, a release almost every month, and even though we strive to maintain backward compatibility, we may on occasion include a breaking change in the interest of the long-term evolution of the project.
+
+Listed here are guides on how to migrate between major versions and anything of significance to watch for when upgrading from minor versions.
+
+* xref:migration-guide/2.0.0.adoc[Camel Quarkus 1.x to Camel Quarkus 2.0.0 migration guide]
