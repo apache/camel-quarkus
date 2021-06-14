@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -56,7 +55,6 @@ class MllpTest {
     }
 
     @Test
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2554")
     public void testCharsetFromMsh18() {
         // Set up the message with a charset and some characters that it cannot deal with
         String messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||ISO-8859-1").replace("INHOUSE", "ÏNHOUSE");
@@ -80,7 +78,6 @@ class MllpTest {
     }
 
     @Test
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2554")
     public void testDefaultCharsetFromSystemProperty() {
         RestAssured.get("/mllp/charset/default")
                 .then()
