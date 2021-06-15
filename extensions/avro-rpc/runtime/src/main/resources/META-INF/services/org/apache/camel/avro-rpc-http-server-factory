@@ -1,0 +1,1 @@
+class=org.apache.camel.quarkus.component.avro.rpc.spi.UndertowHttpServerFactory

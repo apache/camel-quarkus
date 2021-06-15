@@ -21,7 +21,6 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.avro.ipc.Server;
-import org.apache.avro.ipc.jetty.HttpServer;
 import org.apache.avro.ipc.netty.NettyServer;
 import org.apache.avro.ipc.reflect.ReflectResponder;
 import org.apache.avro.ipc.specific.SpecificResponder;
@@ -29,6 +28,7 @@ import org.apache.camel.quarkus.component.avro.rpc.it.reflection.TestReflection;
 import org.apache.camel.quarkus.component.avro.rpc.it.reflection.impl.TestReflectionImpl;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.generated.KeyValueProtocol;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.impl.KeyValueProtocolImpl;
+import org.apache.camel.quarkus.component.avro.rpc.spi.HttpAvroRpcServer;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 import org.apache.camel.util.CollectionHelper;
 
@@ -49,7 +49,7 @@ public class AvroRpcTestResource implements QuarkusTestResourceLifecycleManager 
 
             // ---------------- producers ---------------
             final int reflectiveHttpPort = AvailablePortFinder.getNextAvailable();
-            reflectHttpServer = new HttpServer(
+            reflectHttpServer = new HttpAvroRpcServer(
                     new ReflectResponder(TestReflection.class, httpTestReflection),
                     reflectiveHttpPort);
             reflectHttpServer.start();
@@ -61,7 +61,7 @@ public class AvroRpcTestResource implements QuarkusTestResourceLifecycleManager 
             reflectNettyServer.start();
 
             final int specificHttpPort = AvailablePortFinder.getNextAvailable();
-            specificHttpServer = new HttpServer(
+            specificHttpServer = new HttpAvroRpcServer(
                     new SpecificResponder(KeyValueProtocol.class, httpKeyValue),
                     specificHttpPort);
             specificHttpServer.start();
