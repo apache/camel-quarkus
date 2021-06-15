@@ -74,7 +74,7 @@ jobs:
             && ./mvnw ${MAVEN_ARGS} clean install -Dquickly
       - name: Build Camel Quarkus
         run: |
-          ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs'
+          ./mvnw ${MAVEN_ARGS} clean install -Dquarkus.version=999-SNAPSHOT -pl '!docs' --fail-at-end
       - name: Tar Maven Repo
         shell: bash
         run: |
