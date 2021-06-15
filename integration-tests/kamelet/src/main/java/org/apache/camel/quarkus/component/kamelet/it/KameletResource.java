@@ -82,16 +82,9 @@ public class KameletResource {
         return fluentProducerTemplate.toF("kamelet:%s", name).withBody(message).request(String.class);
     }
 
-    @Path("/auto-discovery")
-    @POST
-    @Produces(MediaType.TEXT_PLAIN)
-    public String autoDiscovery(String message) {
-        return fluentProducerTemplate.toF("kamelet:auto-discovery?message=%s", message).request(String.class);
-    }
-
     @Path("/list")
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
     public JsonArray list() {
         JsonArrayBuilder builder = Json.createArrayBuilder();
 

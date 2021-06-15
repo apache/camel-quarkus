@@ -18,6 +18,7 @@
 apiVersion: camel.apache.org/v1alpha1
 kind: Kamelet
 metadata:
+  name: logger
   labels:
     camel.apache.org/kamelet.type: "sink"
     camel.apache.org/kamelet.name: "log"
@@ -50,7 +51,7 @@ spec:
       steps:
         - to:
             uri: "log"
-            properties:
+            parameters:
               loggerName: "{{loggerName}}"
               showAll: "{{showAll}}"
               multiline: "{{multiLine}}"

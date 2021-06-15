@@ -26,12 +26,10 @@ import io.quarkus.runtime.annotations.ConfigRoot;
 @ConfigRoot(name = "camel.kamelet", phase = ConfigPhase.BUILD_TIME)
 public class KameletConfiguration {
     /**
-     * List of kamelets names to pre-load at build time.
-     *
-     * <p/>
-     * Each individual name is used to set the related {@link org.apache.camel.model.RouteTemplateDefinition} id.
-     * TODO: find a better name for this configuration option
+     * List of kamelets identifiers to pre-load at build time.
+     * <p>
+     * Each individual identifier is used to set the related {@link org.apache.camel.model.RouteTemplateDefinition} id.
      */
     @ConfigItem
-    public Optional<List<String>> names;
+    public Optional<List<String>> identifiers;
 }

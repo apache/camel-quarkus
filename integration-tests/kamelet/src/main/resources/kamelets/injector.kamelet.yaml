@@ -18,7 +18,7 @@
 apiVersion: camel.apache.org/v1alpha1
 kind: Kamelet
 metadata:
-  name: injector-source-v1alpha1
+  name: injector
   labels:
     camel.apache.org/kamelet.type: "source"
     camel.apache.org/kamelet.name: "injector"
@@ -42,7 +42,7 @@ spec:
   flow:
     from:
       uri: timer
-      properties:
+      parameters:
         timerName: "{{routeId}}"
         period: "{{delay}}"
       steps:

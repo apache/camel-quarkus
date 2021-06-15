@@ -20,17 +20,20 @@ import java.util.List;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.runtime.annotations.RelaxedValidation;
 import org.apache.camel.CamelContext;
 import org.apache.camel.model.Model;
 import org.apache.camel.model.RouteTemplateDefinition;
-import org.apache.camel.quarkus.core.CamelContextCustomizer;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class KameletRecorder {
-    public RuntimeValue<CamelContextCustomizer> createTemplateLoaderCustomizer(List<RouteTemplateDefinition> definitions) {
+    public RuntimeValue<CamelContextCustomizer> createTemplateLoaderCustomizer(
+            @RelaxedValidation List<RouteTemplateDefinition> definitions) {
+
         return new RuntimeValue<>(new CamelContextCustomizer() {
             @Override
-            public void customize(CamelContext context) {
+            public void configure(CamelContext context) {
                 try {
                     context.getExtension(Model.class).addRouteTemplateDefinitions(definitions);
                 } catch (Exception e) {
