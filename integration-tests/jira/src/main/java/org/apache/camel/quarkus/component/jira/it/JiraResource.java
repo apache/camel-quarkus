@@ -194,7 +194,7 @@ public class JiraResource {
         Map<String, Object> headers = new HashMap<>();
         headers.put(PARENT_ISSUE_KEY, parentKey);
         headers.put(CHILD_ISSUE_KEY, childKey);
-        headers.put(LINK_TYPE, "Relates");
+        headers.put(LINK_TYPE, "Related");
 
         producerTemplate.requestBodyAndHeaders("jira:addIssueLink", null, headers);
 
