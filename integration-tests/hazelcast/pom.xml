@@ -134,5 +134,21 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <!--this profile should be removed once https://github.com/apache/camel-quarkus/issues/2800
+                or https://github.com/hazelcast/quarkus-hazelcast-client/issues/189 get resolved
+            -->
+            <id>hazelcast-mac</id>
+            <activation>
+                <os><family>mac</family></os>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>net.openhft</groupId>
+                    <artifactId>affinity</artifactId>
+                    <version>3.20.0</version>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 </project>
