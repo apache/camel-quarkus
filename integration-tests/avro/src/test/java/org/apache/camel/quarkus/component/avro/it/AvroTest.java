@@ -32,6 +32,12 @@ class AvroTest {
     }
 
     @Test
+    void genericMarshalUnmarshalUsingBuildTimeGeneratedClassShouldSucceed() {
+        RestAssured.get("/avro/genericMarshalUnmarshalUsingBuildTimeGeneratedClass/bill").then().statusCode(200)
+                .body(is("bill"));
+    }
+
+    @Test
     void genericMarshalUnmarshalUsingConfigureTimeAvroDataFormatShouldSucceed() {
         RestAssured.get("/avro/genericMarshalUnmarshalUsingConfigureTimeAvroDataFormat/elizabeth").then().statusCode(200)
                 .body(is("elizabeth"));

@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.avro.it;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import example.avro.Admin;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.dataformat.avro.AvroDataFormat;
 import org.apache.camel.quarkus.component.avro.BuildTimeAvroDataFormat;
@@ -35,6 +36,9 @@ public class AvroRoute extends RouteBuilder {
 
         from("direct:marshalUsingBuildTimeAvroDataFormat").marshal(buildTimeAvroDataFormat);
         from("direct:unmarshalUsingBuildTimeAvroDataFormat").unmarshal(buildTimeAvroDataFormat);
+
+        from("direct:marshalUsingBuildTimeGeneratedClass").marshal().avro(Admin.class);
+        from("direct:unmarshalUsingBuildTimeGeneratedClass").unmarshal().avro(Admin.class);
 
         AvroDataFormat configureTimeAvroDataFormat = new AvroDataFormat(getSchema());
         from("direct:marshalUsingConfigureTimeAvroDataFormat").marshal(configureTimeAvroDataFormat);
