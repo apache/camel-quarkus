@@ -250,7 +250,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '11', '15' ]
+        java: [ '11', '16' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -300,7 +300,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '15' ]
+        java: [ '16' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
