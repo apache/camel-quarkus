@@ -1,6 +1,6 @@
 # Camel Quarkus 2.0.0 Migration Guide
 
-The follow guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.0.0 & Quarkus 2.0.0.Final.
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.0.0 & Quarkus 2.0.0.Final.
 
 ## Changes to the observability HTTP endpoint paths
 
