@@ -57,8 +57,12 @@
             <artifactId>camel-as2</artifactId>
             <exclusions>
                 <exclusion>
-                    <artifactId>log4j-slf4j-impl</artifactId>
                     <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-slf4j-impl</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-debug-jdk15on</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
