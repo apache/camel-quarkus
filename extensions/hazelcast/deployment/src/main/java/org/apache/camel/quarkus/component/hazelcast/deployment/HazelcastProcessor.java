@@ -43,7 +43,6 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveHierarchyIgnoreWarningBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.apache.camel.tooling.model.MainModel;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.Type;
@@ -51,10 +50,6 @@ import org.jboss.jandex.Type;
 class HazelcastProcessor {
 
     private static final String FEATURE = "camel-hazelcast";
-
-    private static final String[] RUNTIME_INITIALIZED_CLASSES = new String[] {
-            "com.hazelcast.internal.util.ICMPHelper"
-    };
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -64,13 +59,6 @@ class HazelcastProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    void configureRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        for (String className : RUNTIME_INITIALIZED_CLASSES) {
-            runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(className));
-        }
     }
 
     @BuildStep
