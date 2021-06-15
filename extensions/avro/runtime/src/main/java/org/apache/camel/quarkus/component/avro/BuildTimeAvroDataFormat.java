@@ -23,6 +23,14 @@ import java.lang.annotation.Target;
 
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
+@Deprecated
+/**
+ * @deprecated Prefer storing *.avsc files in a folder named 'avro' to have @AvroGenerated class created at build-time
+ *             by quarkus-avro.
+ * @see        <a href=
+ *             "https://github.com/quarkusio/quarkus/tree/main/integration-tests/avro-reload/src/test/avro">quarkus-avro/a>
+ *             test.
+ */
 public @interface BuildTimeAvroDataFormat {
     public String value();
 }

@@ -57,3 +57,8 @@ public void configure() {
 }
 ----
 
+Since Camel Quarkus 2.0.0, @BuildTimeAvroDataFormat is deprecated. The build time class generation approach from quarkus-avro is preferred. As such, it is advised to store *.avsc files in a folder named 'avro' to have @AvroGenerated class created at build-time by quarkus-avro.
+
+Please see a running configuration at work in the link:https://github.com/apache/camel-quarkus/tree/main/integration-tests/avro[Camel Quarkus Avro integration tests].
+There is also a quarkus-avro integration test link:https://github.com/quarkusio/quarkus/tree/main/integration-tests/avro-reload/src/test/avro[here].
+
