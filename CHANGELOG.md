@@ -15,9 +15,14 @@
 - kamelet extension: add test for kamelet discovery mechanism [\#2652](https://github.com/apache/camel-quarkus/issues/2652)
 - Kafka - add Kafka Idempotent repository test [\#2626](https://github.com/apache/camel-quarkus/issues/2626)
 - \[camel 3.10\] Test setting MLLP default charset from system property for native mode [\#2554](https://github.com/apache/camel-quarkus/issues/2554)
+- \[Quarkus 2.0\] Consider following the way how Quarkus handles Avro schemas [\#2513](https://github.com/apache/camel-quarkus/issues/2513)
 
 **Merged pull requests:**
 
+- Deprecated @BuildTimeAvroDataFormat in favor of quarkus-avro build ti… [\#2787](https://github.com/apache/camel-quarkus/pull/2787) ([aldettinger](https://github.com/aldettinger))
+- Exclude org.bouncycastle:bcprov-debug-jdk15on from camel-as2 because we [\#2785](https://github.com/apache/camel-quarkus/pull/2785) ([ppalaga](https://github.com/ppalaga))
+- Fix typo in JIRA relationship name [\#2784](https://github.com/apache/camel-quarkus/pull/2784) ([mmuzikar](https://github.com/mmuzikar))
+- Remove health configuration workaround [\#2779](https://github.com/apache/camel-quarkus/pull/2779) ([jamesnetherton](https://github.com/jamesnetherton))
 - Adapt Observability docs page to Quarkus 2.0.0 [\#2775](https://github.com/apache/camel-quarkus/pull/2775) ([jamesnetherton](https://github.com/jamesnetherton))
 - Test setting MLLP default charset from system property for native mode [\#2774](https://github.com/apache/camel-quarkus/pull/2774) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix Unable to determine the status of the running process in TimerIT … [\#2773](https://github.com/apache/camel-quarkus/pull/2773) ([ffang](https://github.com/ffang))
