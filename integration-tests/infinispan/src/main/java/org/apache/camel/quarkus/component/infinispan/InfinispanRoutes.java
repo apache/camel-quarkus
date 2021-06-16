@@ -18,9 +18,13 @@ package org.apache.camel.quarkus.component.infinispan;
 
 import java.nio.charset.StandardCharsets;
 
+import javax.inject.Named;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.infinispan.InfinispanConstants;
 import org.apache.camel.component.infinispan.InfinispanOperation;
+import org.apache.camel.component.infinispan.remote.InfinispanRemoteComponent;
+import org.apache.camel.component.infinispan.remote.InfinispanRemoteComponentConfigurer;
 
 public class InfinispanRoutes extends RouteBuilder {
     @Override
@@ -35,13 +39,24 @@ public class InfinispanRoutes extends RouteBuilder {
                 .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.PUT)
                 .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
                 .setHeader(InfinispanConstants.VALUE).body()
-                .toF("infinispan:%s", InfinispanResources.CACHE_NAME)
+                .toD("${header.component}:${header.cacheName}")
                 .to("log:put?showAll=true");
 
         from("direct:get")
                 .setHeader(InfinispanConstants.OPERATION).constant(InfinispanOperation.GET)
                 .setHeader(InfinispanConstants.KEY).constant("the-key".getBytes(StandardCharsets.UTF_8))
-                .toF("infinispan:%s", InfinispanResources.CACHE_NAME)
+                .toD("${header.component}:${header.cacheName}")
                 .to("log:get?showAll=true");
+    }
+
+    @Named("infinispan-quarkus")
+    public InfinispanRemoteComponent infinispanQuarkus() {
+        // This component will have its cacheContainer option autowired to use the one created by the Quarkus Infinispan extension
+        return new InfinispanRemoteComponent();
+    }
+
+    @Named("infinispan-quarkus-component")
+    public InfinispanRemoteComponentConfigurer quarkusInfinispanConfigurer() {
+        return new InfinispanRemoteComponentConfigurer();
     }
 }

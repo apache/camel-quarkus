@@ -20,21 +20,40 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 @QuarkusTestResource(InfinispanServerTestResource.class)
 public class InfinispanTest {
 
     @Test
-    public void testInfinispan() {
-        RestAssured.with()
-                .body("Hello Infinispan")
-                .post("/test/put").then();
-
+    public void inspect() {
         RestAssured.when()
+                .get("/test/inspect")
+                .then().body(
+                        "hosts", is(notNullValue()),
+                        "cache-manager", is("none"));
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = { "infinispan", "infinispan-quarkus" })
+    public void testInfinispan(String componentName) {
+        RestAssured.with()
+                .queryParam("component", componentName)
+                .body("Hello " + componentName)
+                .post("/test/put")
+                .then()
+                .statusCode(204);
+
+        RestAssured.with()
+                .queryParam("component", componentName)
                 .get("/test/get")
-                .then().body(is("Hello Infinispan"));
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + componentName));
     }
 }
