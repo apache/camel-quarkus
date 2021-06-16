@@ -34,6 +34,7 @@ import org.apache.camel.ServiceStatus;
 import org.apache.camel.util.CollectionHelper;
 import org.bson.Document;
 import org.eclipse.microprofile.config.ConfigProvider;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -53,6 +54,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 @QuarkusTestResource(MongoDbTestResource.class)
 class MongoDbTest {
+    private static final Logger LOG = Logger.getLogger(MongoDbTest.class);
+
     public static final String MSG = "Hello Camel Quarkus Mongo DB";
     public static final int CAP_NUMBER = 1000;
 
@@ -277,13 +280,19 @@ class MongoDbTest {
     }
 
     private void waitAndResetTailingResults(int expectedSize, String laststring, String resultId) {
-        await().atMost(5, TimeUnit.SECONDS).until(
-                () -> RestAssured
-                        .given().contentType(ContentType.JSON)
-                        .get("/mongodb/results/" + resultId)
-                        .then()
-                        .statusCode(200)
-                        .extract().as(Map.class),
+        LOG.info("Awaiting results with size " + expectedSize + " and last string " + laststring);
+        await().atMost(30, TimeUnit.SECONDS).until(
+                () -> {
+                    @SuppressWarnings("unchecked")
+                    Map<String, ?> result = (Map<String, ?>) RestAssured
+                            .given().contentType(ContentType.JSON)
+                            .get("/mongodb/results/" + resultId)
+                            .then()
+                            .statusCode(200)
+                            .extract().as(Map.class);
+                    LOG.info("Received results" + result);
+                    return result;
+                },
                 m -> ((int) m.get("size") == expectedSize && laststring.equals(((Map) m.get("last")).get("string"))));
 
         RestAssured
