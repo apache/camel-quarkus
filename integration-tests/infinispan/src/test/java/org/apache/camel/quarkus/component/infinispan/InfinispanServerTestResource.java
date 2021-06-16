@@ -28,7 +28,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanServerTestResource.class);
-    private static final String CONTAINER_IMAGE = "infinispan/server:10.1.5.Final";
+    private static final String CONTAINER_IMAGE = "infinispan/server:12.1";
     private static final int HOTROD_PORT = 11222;
     private static final String USER = "camel";
     private static final String PASS = "camel";
@@ -51,14 +51,27 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
             String serverList = String.format("%s:%s", container.getContainerIpAddress(),
                     container.getMappedPort(HOTROD_PORT));
 
+            // Create 2 sets of configuration to test scenarios:
+            // - Quarkus Infinispan client bean being autowired into the Camel Infinispan component
+            // - Component configuration where the Infinispan client is managed by Camel (E.g Infinispan client autowiring disabled)
             return CollectionHelper.mapOf(
+                    // quarkus
                     "quarkus.infinispan-client.server-list", serverList,
                     "quarkus.infinispan-client.near-cache-max-entries", "3",
                     "quarkus.infinispan-client.auth-username", USER,
                     "quarkus.infinispan-client.auth-password", PASS,
                     "quarkus.infinispan-client.auth-realm", "default",
                     "quarkus.infinispan-client.sasl-mechanism", "DIGEST-MD5",
-                    "quarkus.infinispan-client.auth-server-name", "infinispan");
+                    "quarkus.infinispan-client.auth-server-name", "infinispan",
+                    // camel
+                    "camel.component.infinispan.autowired-enabled", "false",
+                    "camel.component.infinispan.hosts", serverList,
+                    "camel.component.infinispan.username", USER,
+                    "camel.component.infinispan.password", PASS,
+                    "camel.component.infinispan.secure", "true",
+                    "camel.component.infinispan.security-realm", "default",
+                    "camel.component.infinispan.sasl-mechanism", "DIGEST-MD5",
+                    "camel.component.infinispan.security-server-name", "infinispan");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

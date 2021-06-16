@@ -16,16 +16,25 @@
  */
 package org.apache.camel.quarkus.component.infinispan;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.infinispan.remote.InfinispanRemoteComponent;
 import org.infinispan.client.hotrod.RemoteCacheManager;
 
 @Path("/test")
@@ -35,25 +44,50 @@ public class InfinispanResources {
 
     @Inject
     RemoteCacheManager cacheManager;
+
     @Inject
     ProducerTemplate template;
+
+    @Inject
+    CamelContext camelContext;
 
     @PostConstruct
     public void setUp() {
         cacheManager.administration().getOrCreateCache(CACHE_NAME, (String) null);
     }
 
+    @Path("/inspect")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public JsonObject inspectCamelInfinispanClientConfiguration() {
+        InfinispanRemoteComponent component = camelContext.getComponent("infinispan", InfinispanRemoteComponent.class);
+
+        return Json.createObjectBuilder()
+                .add("hosts", component.getConfiguration().getHosts())
+                .add("cache-manager", Objects.toString(component.getConfiguration().getCacheContainer(), "none"))
+                .build();
+    }
+
     @Path("/get")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String get() {
-        return template.requestBody("direct:get", "", String.class);
+    public String get(@QueryParam("component") String component) {
+        Map<String, Object> headers = getCommonHeaders(component);
+        return template.requestBodyAndHeaders("direct:get", "", headers, String.class);
     }
 
     @Path("/put")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String put(String content) {
-        return template.requestBody("direct:put", content, String.class);
+    public String put(@QueryParam("component") String component, String content) {
+        Map<String, Object> headers = getCommonHeaders(component);
+        return template.requestBodyAndHeaders("direct:put", content, headers, String.class);
+    }
+
+    private Map<String, Object> getCommonHeaders(String componentName) {
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("component", componentName);
+        headers.put("cacheName", CACHE_NAME);
+        return headers;
     }
 }
