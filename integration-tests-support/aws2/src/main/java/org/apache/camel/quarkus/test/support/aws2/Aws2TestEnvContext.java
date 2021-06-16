@@ -121,6 +121,10 @@ public class Aws2TestEnvContext {
                 LOG.warnf(e, "Could not close %s", c);
             }
         }
+
+        if (localstack.isPresent()) {
+            localstack.get().stop();
+        }
     }
 
     /**
