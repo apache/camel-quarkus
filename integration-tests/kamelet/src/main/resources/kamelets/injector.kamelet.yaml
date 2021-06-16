@@ -15,4 +15,37 @@
 # limitations under the License.
 #
 
-# Fake kamelet definition to be loaded by "routes-builder-loader-kamelet.yaml" bean from registry
+apiVersion: camel.apache.org/v1alpha1
+kind: Kamelet
+metadata:
+  name: injector
+  labels:
+    camel.apache.org/kamelet.type: "source"
+    camel.apache.org/kamelet.name: "injector"
+    camel.apache.org/kamelet.version: "v1alpha1"
+    camel.apache.org/kamelet.revision: "1"
+spec:
+  definition:
+    title: "Injector"
+    description: "Inject Data"
+    properties:
+      delay:
+        title: Delay
+        description: Delay
+        type: string
+        default: "1s"
+  types:
+    out:
+      mediaType: application/json
+  dependencies:
+    - "camel:timer"
+  flow:
+    from:
+      uri: timer
+      parameters:
+        timerName: "{{routeId}}"
+        period: "{{delay}}"
+      steps:
+        - set-body:
+            exchange-property: "CamelTimerCounter"
+        - to: "kamelet:sink"

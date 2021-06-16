@@ -16,12 +16,17 @@
  */
 package org.apache.camel.quarkus.component.kamelet.it;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class KameletTest {
@@ -86,13 +91,15 @@ class KameletTest {
     }
 
     @Test
-    public void testAutoDiscovery() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("Kamelet")
-                .post("/kamelet/auto-discovery")
-                .then()
-                .statusCode(200)
-                .body(is("Auto-discovered Kamelet"));
+    public void testDiscovered() {
+        Response resp = RestAssured.given()
+                .contentType(ContentType.JSON)
+                .when().get("/kamelet/list");
+        resp.then().statusCode(200);
+
+        ArrayList<Map<String, ?>> jsonAsArrayList = resp.body()
+                .jsonPath().get("");
+        assertTrue(jsonAsArrayList.contains("injector"));
+        assertTrue(jsonAsArrayList.contains("logger"));
     }
 }
