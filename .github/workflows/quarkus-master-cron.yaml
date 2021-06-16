@@ -32,6 +32,8 @@ jobs:
   initial-mvn-install:
     if: github.repository == 'apache/camel-quarkus'
     runs-on: ubuntu-latest
+    env:
+      MAVEN_OPTS: -Xmx4000m
     outputs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
