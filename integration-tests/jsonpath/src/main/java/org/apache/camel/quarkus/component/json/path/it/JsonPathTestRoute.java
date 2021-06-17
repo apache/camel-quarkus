@@ -39,6 +39,13 @@ public class JsonPathTestRoute extends RouteBuilder {
         from("direct:getFullName").bean(FullNameBean.class);
 
         from("direct:getAllCarColors").transform().jsonpath("$.cars[*].color");
+
+        from("direct:splitBooks").split().jsonpath("$.books[*]").to("mock:prices");
+
+        from("direct:setHeader").setHeader("price").jsonpath("$.book.price", false, int.class, "jsonBookHeader")
+                .to("mock:setHeader");
+
+        from("direct:getAuthorsFromJsonStream").transform().jsonpath("$.store.book[*].title");
     }
 
     @RegisterForReflection
