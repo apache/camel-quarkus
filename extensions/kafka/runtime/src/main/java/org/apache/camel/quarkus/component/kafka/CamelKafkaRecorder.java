@@ -19,25 +19,27 @@ package org.apache.camel.quarkus.component.kafka;
 import java.util.Collections;
 import java.util.Map;
 
+import javax.enterprise.util.TypeLiteral;
+
 import io.quarkus.arc.Arc;
 import io.quarkus.arc.InstanceHandle;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.component.kafka.KafkaClientFactory;
 
 @Recorder
 public class CamelKafkaRecorder {
 
-    @SuppressWarnings("unchecked")
     public RuntimeValue<KafkaClientFactory> createKafkaClientFactory() {
-        final InstanceHandle<Object> instance = Arc.container().instance("default-kafka-broker");
-        Map<String, Object> kafkaConfig;
+        @SuppressWarnings("serial")
+        final InstanceHandle<Map<String, Object>> instance = Arc.container()
+                .instance(
+                        new TypeLiteral<Map<String, Object>>() {
+                        },
+                        Identifier.Literal.of("default-kafka-broker"));
 
-        if (instance.isAvailable()) {
-            kafkaConfig = (Map<String, Object>) instance.get();
-        } else {
-            kafkaConfig = Collections.emptyMap();
-        }
+        final Map<String, Object> kafkaConfig = instance.isAvailable() ? instance.get() : Collections.emptyMap();
 
         QuarkusKafkaClientFactory quarkusKafkaClientFactory = new QuarkusKafkaClientFactory(kafkaConfig);
         return new RuntimeValue<>(quarkusKafkaClientFactory);
