@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.ahc.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.asynchttpclient.Realm;
 
 class AhcProcessor {
 
@@ -28,4 +30,9 @@ class AhcProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    ReflectiveClassBuildItem registerForReflection() {
+        // Needed when setting URI options with the clientConfig.realm prefix
+        return new ReflectiveClassBuildItem(true, false, Realm.Builder.class);
+    }
 }

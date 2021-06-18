@@ -41,6 +41,9 @@ public class HttpRoute extends RouteBuilder {
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
                 .transform().constant("Netty Hello World");
 
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.compression-test-port}}/compressed?compression=true")
+                .transform().constant("Netty Hello World Compressed");
+
         from("netty-http:http://0.0.0.0:{{camel.netty-http.https-test-port}}/countries/cz?ssl=true&sslContextParameters=#sslContextParameters")
                 .process(new Processor() {
                     @Override
