@@ -93,12 +93,6 @@ public static class EventHandler {
 }
 ----
 
-== Camel Quarkus Core and Camel Main
-
-NOTE: Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a separate artifact.
-
-Since 1.8.0, all its functionality moved to `camel-quarkus-core`.
-
 == Configuration by convention
 
 In addition to support configuring Camel through properties, `camel-quarkus-core` allows you to use conventions to configure the Camel behavior.

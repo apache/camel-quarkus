@@ -1,11 +1,21 @@
-# Camel Quarkus 2.0.0 Migration Guide
+= Camel Quarkus 2.0.0 Migration Guide
 
 The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.0.0 & Quarkus 2.0.0.Final.
 
-## Changes to the observability HTTP endpoint paths
+== Changes to the observability HTTP endpoint paths
 
-In Quarkus 1.x, health and metrics endpoints were available at `/metrics` & `/health` context paths. In Quarkus 2.x this has changed with the addition of a mandatory `/q` path prefix. The endpoints are 
+In Quarkus 1.x, health and metrics endpoints were available at `/metrics` & `/health` context paths. In Quarkus 2.x this has changed with the addition of a mandatory `/q` path prefix. The endpoints are
 now accessible at the following URLs.
 
 * http://localhost:8080/q/health
 * http://localhost:8080/q/metrics
+
+== `camel-quarkus-main` removed
+
+Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a full blown separate artifact.
+In 1.8.0, all functionality of `camel-quarkus-main` was moved to `camel-quarkus-core`,
+while it was still kept for backwards compatibility.
+The empty `camel-quarkus-main` artifact was removed completely in Camel Quarkus 2.0.0.
+
+As long as your application depends on any other Camel Quarkus extension, it is enough to remove the `camel-quarkus-main` dependency.
+This is because all Camel Quarkus extensions transitively depend on `camel-quarkus-core` where the the original `camel-quarkus-main` functionality is hosted now.
