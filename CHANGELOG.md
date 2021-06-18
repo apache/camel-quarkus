@@ -4,13 +4,19 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0-M2...HEAD)
 
+**Implemented enhancements:**
+
+- Native support for kamelet.yaml discovery [\#2733](https://github.com/apache/camel-quarkus/issues/2733)
+
 **Closed issues:**
 
+- Expand jsonpath test coverage [\#2783](https://github.com/apache/camel-quarkus/issues/2783)
 - Unable to determine the status of the running process in TimerIT without resteasy [\#2772](https://github.com/apache/camel-quarkus/issues/2772)
 - Solr test doesn't work on RHEL 8 [\#2766](https://github.com/apache/camel-quarkus/issues/2766)
 - camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
 - Avoid duplicating code in `org.apache.camel.quarkus.core.BaseModel` [\#2752](https://github.com/apache/camel-quarkus/issues/2752)
 - Fix JSON Jackson jacksonConversionPojo test [\#2726](https://github.com/apache/camel-quarkus/issues/2726)
+- hazelcast integration-test failed in native mode\(On Mac\) [\#2719](https://github.com/apache/camel-quarkus/issues/2719)
 - \[infinispan\] Test both camel and quarkus configuration of underlying component quarkus client [\#2713](https://github.com/apache/camel-quarkus/issues/2713)
 - Intermittent failures in MllpIT  [\#2671](https://github.com/apache/camel-quarkus/issues/2671)
 - Adapt Observability docs page to Quarkus 2.0.0 [\#2659](https://github.com/apache/camel-quarkus/issues/2659)
@@ -22,10 +28,14 @@
 
 **Merged pull requests:**
 
+- Website build fixed after commit of kamelet docs [\#2804](https://github.com/apache/camel-quarkus/pull/2804) ([oscerd](https://github.com/oscerd))
+- Expand jsonpath test coverage \#2783 [\#2803](https://github.com/apache/camel-quarkus/pull/2803) ([aldettinger](https://github.com/aldettinger))
+- fix Issue/2733 : Native support for kamelet.yaml discovery [\#2799](https://github.com/apache/camel-quarkus/pull/2799) ([valdar](https://github.com/valdar))
 - Test Quarkus and Camel Infinispan client configuration [\#2798](https://github.com/apache/camel-quarkus/pull/2798) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup \#2658 Intermittent failures in MongoDbTest.testTailingConsumer\(… [\#2795](https://github.com/apache/camel-quarkus/pull/2795) ([ppalaga](https://github.com/ppalaga))
 - Avoid leaking localstack containers when ryuk is disabled [\#2792](https://github.com/apache/camel-quarkus/pull/2792) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix JSON Jackson jacksonConversionPojo test-addressed feedback \#2726 [\#2790](https://github.com/apache/camel-quarkus/pull/2790) ([ffang](https://github.com/ffang))
+-  fix hazelcast integration-test failed in native mode\(On Mac\) \#2719 [\#2789](https://github.com/apache/camel-quarkus/pull/2789) ([ffang](https://github.com/ffang))
 - Deprecated @BuildTimeAvroDataFormat in favor of quarkus-avro build ti… [\#2787](https://github.com/apache/camel-quarkus/pull/2787) ([aldettinger](https://github.com/aldettinger))
 - Exclude org.bouncycastle:bcprov-debug-jdk15on from camel-as2 because we [\#2785](https://github.com/apache/camel-quarkus/pull/2785) ([ppalaga](https://github.com/ppalaga))
 - Fix typo in JIRA relationship name [\#2784](https://github.com/apache/camel-quarkus/pull/2784) ([mmuzikar](https://github.com/mmuzikar))
