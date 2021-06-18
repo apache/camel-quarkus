@@ -22,6 +22,7 @@ import io.quarkus.deployment.builditem.AdditionalApplicationArchiveMarkerBuildIt
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -51,5 +52,10 @@ class HttpClientProcessor {
     NativeImageResourceBuildItem suffixListResource() {
         // Required by org.apache.http.conn.util.PublicSuffixMatcher
         return new NativeImageResourceBuildItem("mozilla/public-suffix-list.txt");
+    }
+
+    @BuildStep
+    RuntimeInitializedClassBuildItem runtimeInitializedClasses() {
+        return new RuntimeInitializedClassBuildItem("org.apache.http.impl.auth.NTLMEngineImpl");
     }
 }
