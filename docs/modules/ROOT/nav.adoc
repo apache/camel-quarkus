@@ -207,7 +207,6 @@
 *** xref:reference/extensions/msv.adoc[MSV]
 *** xref:reference/extensions/mvel.adoc[MVEL]
 *** xref:reference/extensions/mail.adoc[Mail]
-*** xref:reference/extensions/main.adoc[Main]
 *** xref:reference/extensions/management.adoc[Management]
 *** xref:reference/extensions/master.adoc[Master]
 *** xref:reference/extensions/microprofile-health.adoc[MicroProfile Health]
