@@ -54,6 +54,8 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
                     "/opt/splunk/etc/system/default/server.conf");
             container.execInContainer("sudo", "sed", "-i", "s/enableSplunkdSSL = true/enableSplunkdSSL = false/",
                     "/opt/splunk/etc/system/default/server.conf");
+            container.execInContainer("sudo", "sed", "-i", "s/minFreeSpace = 5000/minFreeSpace = 100/",
+                    "/opt/splunk/etc/system/default/server.conf");
 
             container.execInContainer("sudo", "microdnf", "--nodocs", "update", "tzdata");//install tzdata package so we can specify tz other than UTC
 
