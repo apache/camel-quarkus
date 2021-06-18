@@ -23,8 +23,12 @@ import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
+import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_ADMIN;
+import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_ADMIN_PASSWORD;
+import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_NO_ADMIN;
+import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_NO_ADMIN_PASSWORD;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
@@ -33,8 +37,11 @@ import static org.hamcrest.Matchers.not;
 @QuarkusTest
 @QuarkusTestResource(HttpTestResource.class)
 class HttpTest {
+
+    private static final String[] HTTP_COMPONENTS = new String[] { "ahc", "http", "netty-http", "vertx-http" };
+
     @ParameterizedTest
-    @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
+    @MethodSource("getHttpComponentNames")
     public void basicProducer(String component) {
         RestAssured
                 .given()
@@ -42,6 +49,7 @@ class HttpTest {
                 .when()
                 .get("/test/client/{component}/get", component)
                 .then()
+                .statusCode(200)
                 .body(is("get"));
 
         RestAssured
@@ -51,11 +59,12 @@ class HttpTest {
                 .when()
                 .post("/test/client/{component}/post", component)
                 .then()
+                .statusCode(200)
                 .body(is("MESSAGE"));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "ahc", "http", "netty-http", "vertx-http" })
+    @MethodSource("getHttpComponentNames")
     public void httpsProducer(String component) {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.https-test-port", Integer.class);
 
@@ -65,19 +74,87 @@ class HttpTest {
                 .when()
                 .get("/test/client/{component}/get-https", component)
                 .then()
+                .statusCode(200)
                 .body(containsString("Czech Republic"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getHttpComponentNames")
+    public void basicAuth(String component) {
+        // No credentials expect 401 response
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .queryParam("component", component)
+                .when()
+                .get("/test/client/{component}/auth/basic", component)
+                .then()
+                .statusCode(401);
+
+        // Invalid credentials expect 403 response
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .queryParam("component", component)
+                .queryParam("username", USER_NO_ADMIN)
+                .queryParam("password", USER_NO_ADMIN_PASSWORD)
+                .when()
+                .get("/test/client/{component}/auth/basic", component)
+                .then()
+                .statusCode(403);
+
+        // Valid credentials expect 200 response
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .queryParam("component", component)
+                .queryParam("username", USER_ADMIN)
+                .queryParam("password", USER_ADMIN_PASSWORD)
+                .when()
+                .get("/test/client/{component}/auth/basic", component)
+                .then()
+                .statusCode(200)
+                .body(is("Component " + component + " is using basic auth"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getHttpComponentNames")
+    public void proxyServer(String component) {
+        RestAssured
+                .given()
+                .when()
+                .get("/test/client/{component}/proxy", component)
+                .then()
+                .statusCode(200)
+                .body(
+                        "metadata.groupId", is("org.apache.camel.quarkus"),
+                        "metadata.artifactId", is("camel-quarkus-" + component));
+    }
+
+    @ParameterizedTest
+    @MethodSource("getHttpComponentNames")
+    public void compression(String component) throws Exception {
+        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.compression-test-port", Integer.class);
+        RestAssured
+                .given()
+                .queryParam("test-port", port)
+                .when()
+                .get("/test/client/{component}/compression", component)
+                .then()
+                .statusCode(200)
+                .body(is("Netty Hello World Compressed"));
     }
 
     @Test
     public void basicNettyHttpServer() throws Exception {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
-
         RestAssured
                 .given()
                 .port(port)
                 .when()
                 .get("/test/server/hello")
                 .then()
+                .statusCode(200)
                 .body(is("Netty Hello World"));
     }
 
@@ -100,10 +177,15 @@ class HttpTest {
                 .queryParam("test-port", RestAssured.port)
                 .accept(ContentType.JSON)
                 .when()
-                .get("/test/send-dynamic")
+                .get("/test/client/send-dynamic")
                 .then()
+                .statusCode(200)
                 .body(
                         "q", is(not(empty())),
                         "fq", is(not(empty())));
+    }
+
+    private static String[] getHttpComponentNames() {
+        return HTTP_COMPONENTS;
     }
 }
