@@ -24,9 +24,8 @@
 name: "Camel Protobuf Jackson"
 description: "Marshal POJOs to Protobuf and back using Jackson"
 metadata:
-  unlisted: true
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jackson-protobuf.html"
   categories:
   - "integration"
   status:
-  - "preview"
+  - "stable"
