@@ -55,10 +55,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
-        <dependency><!-- Workaround for https://github.com/apache/camel-quarkus/issues/2801 -->
-            <groupId>com.datastax.oss</groupId>
-            <artifactId>java-driver-mapper-runtime</artifactId>
-        </dependency>
 
         <!-- test dependencies -->
         <dependency>
