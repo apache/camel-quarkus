@@ -27,6 +27,7 @@
 - Adapt Observability docs page to Quarkus 2.0.0 [\#2659](https://github.com/apache/camel-quarkus/issues/2659)
 - kamelet extension: add test for kamelet discovery mechanism [\#2652](https://github.com/apache/camel-quarkus/issues/2652)
 - Kafka - add Kafka Idempotent repository test [\#2626](https://github.com/apache/camel-quarkus/issues/2626)
+- \[camel 3.10\] load selected list of kamelets definitions at build time [\#2618](https://github.com/apache/camel-quarkus/issues/2618)
 - \[camel 3.10\] Test setting MLLP default charset from system property for native mode [\#2554](https://github.com/apache/camel-quarkus/issues/2554)
 - \[Quarkus 2.0\] Consider following the way how Quarkus handles Avro schemas [\#2513](https://github.com/apache/camel-quarkus/issues/2513)
 - Salesforce fails to start because loginUrl configuration is ignored [\#2499](https://github.com/apache/camel-quarkus/issues/2499)
