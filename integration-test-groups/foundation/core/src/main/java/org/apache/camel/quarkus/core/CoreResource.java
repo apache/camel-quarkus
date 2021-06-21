@@ -26,6 +26,7 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -223,5 +224,34 @@ public class CoreResource {
     @Produces(MediaType.TEXT_PLAIN)
     public boolean startupStepRecorder() {
         return context.adapt(ExtendedCamelContext.class).getStartupStepRecorder() instanceof DefaultStartupStepRecorder;
+    }
+
+    @Path("/custom-bean-with-constructor-parameter-injection")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String customBeanWithConstructorParameterInjection() {
+        PropertiesCustomBeanWithConstructorParameterInjection customBeanWithConstructorParameterInjection = context
+                .getRegistry().lookupByNameAndType("customBeanWithConstructorParameterInjection",
+                        PropertiesCustomBeanWithConstructorParameterInjection.class);
+        return customBeanWithConstructorParameterInjection.toString();
+    }
+
+    @Path("/custom-bean-with-setter-injection")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String customBeanWithSetterInjection() {
+        PropertiesCustomBeanWithSetterInjection customBeanWithSetterInjection = context.getRegistry()
+                .lookupByNameAndType("customBeanWithSetterInjection", PropertiesCustomBeanWithSetterInjection.class);
+        return customBeanWithSetterInjection.toString();
+    }
+
+    @Named("myPropertiesCustomBeanResolvedByType")
+    PropertiesCustomBeanResolvedByType myPropertiesCustomBeanResolvedByType;
+
+    @Path("/custom-bean-resolved-by-type")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String customBeanResolvedByType() {
+        return myPropertiesCustomBeanResolvedByType.toString();
     }
 }
