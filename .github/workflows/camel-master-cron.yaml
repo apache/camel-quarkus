@@ -68,7 +68,7 @@ jobs:
           git rev-parse origin/main > ~/build-data/main-sha.txt
       - name: Build Camel Quarkus
         run: |
-          ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs'
+          ./mvnw ${MAVEN_ARGS} clean install -Papache-snapshots -pl '!docs' --fail-at-end
       - name: Tar Maven Repo
         shell: bash
         run: tar -czf maven-repo.tgz -C ~ build-data .m2/repository
@@ -161,6 +161,7 @@ jobs:
             eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pnative,docker,ci \
+              --fail-at-end \
               -pl "${NATIVE_MODULES[*]}"
           fi
       - name: Report Build Failure

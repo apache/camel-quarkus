@@ -172,6 +172,7 @@ jobs:
             eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean verify \
               -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
               -Pnative,docker,ci \
+              --fail-at-end \
               -pl "${NATIVE_MODULES[*]}"
           fi
       - name: Report Build Failure
