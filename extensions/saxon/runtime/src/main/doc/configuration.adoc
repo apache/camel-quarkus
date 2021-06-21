@@ -1,16 +1,20 @@
-Beyond standard usages described above, a trick is needed when using the xquery language and component with classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+This component is able to load XQuery definitions from classpath.
+To make it work also in native mode, you need to explicitly embed the queries in the native executable
+by using the `quarkus.native.resources.includes` property.
 
-For instance, the 2 routes below would load a xquery script from 2 classpath resources respectively named _myxquery.txt_ and _another-xquery.txt_:
+For instance, the two routes below load an XQuery script from two classpath resources named `myxquery.txt` and `another-xquery.txt` respectively:
+
 [source,java]
 ----
 from("direct:start").transform().xquery("resource:classpath:myxquery.txt", String.class);
 from("direct:start").to("xquery:another-xquery.txt");
 ----
 
-In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+To include these (an possibly other queries stored in `.txt` files) in the native image, you would have to add something like the following to your `application.properties` file:
+
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = *.txt
+quarkus.native.resources.includes = *.txt
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].

@@ -21,8 +21,10 @@ import java.lang.reflect.Field;
 import javax.enterprise.context.ApplicationScoped;
 
 import com.google.maps.GeoApiContext;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
 @ApplicationScoped
+@RegisterForReflection(targets = GeoApiContext.Builder.class)
 public class MockApiService {
 
     public GeoApiContext createGeoApiContext(String baseUri, String apiKey)

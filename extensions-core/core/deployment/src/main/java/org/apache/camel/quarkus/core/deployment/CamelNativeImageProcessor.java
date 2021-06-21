@@ -217,31 +217,13 @@ public class CamelNativeImageProcessor {
             BuildProducer<NativeImageResourceBuildItem> resources) {
 
         final ResourcesConfig resourcesConfig = config.native_.resources;
-        if (!resourcesConfig.includePatterns.isPresent()) {
-            LOGGER.debug("Not scanning resources for native inclusion as include-patterns is not set");
-            return;
+        if (resourcesConfig.includePatterns.isPresent()) {
+            throw new IllegalStateException(
+                    "quarkus.camel.native.resources.include-patterns configuration property was removed in Camel Quarkus 2.0.0. Use quarkus.native.resources.includes instead.");
         }
-
-        LOGGER.debug("Scanning resources for native inclusion from include-patterns {}",
-                resourcesConfig.includePatterns.get());
-
-        PathFilter pathFilter = new PathFilter.Builder()
-                .include(resourcesConfig.includePatterns)
-                .exclude(resourcesConfig.excludePatterns)
-                .build();
-
-        for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-            LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths());
-
-            for (Path rootPath : archive.getRootDirs()) {
-                CamelSupport.safeWalk(rootPath).filter(path -> Files.isRegularFile(path))
-                        .map(rootPath::relativize)
-                        .filter(pathFilter.asPathPredicate())
-                        .forEach(filteredPath -> {
-                            resources.produce(new NativeImageResourceBuildItem(filteredPath.toString()));
-                            LOGGER.debug("Embedding resource in native executable: {}", filteredPath.toString());
-                        });
-            }
+        if (resourcesConfig.excludePatterns.isPresent()) {
+            throw new IllegalStateException(
+                    "quarkus.camel.native.resources.exclude-patterns configuration property was removed in Camel Quarkus 2.0.0. Use quarkus.native.resources.excludes instead.");
         }
     }
 

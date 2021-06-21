@@ -19,3 +19,8 @@ The empty `camel-quarkus-main` artifact was removed completely in Camel Quarkus 
 
 As long as your application depends on any other Camel Quarkus extension, it is enough to remove the `camel-quarkus-main` dependency.
 This is because all Camel Quarkus extensions transitively depend on `camel-quarkus-core` where the the original `camel-quarkus-main` functionality is hosted now.
+
+== `quarkus.camel.native.resources.*` replaced by `quarkus.native.resources.includes`
+
+The `quarkus.camel.native.resources.include-patterns` and `quarkus.camel.native.resources.exclude-patterns` configuration properties were removed in Camel Quarkus 2.0.0.
+Please use `quarkus.native.resources.includes` and `quarkus.native.resources.excludes` instead respectively.

@@ -46,19 +46,23 @@ The `allowContextMapAll` option is not supported in native mode as it requires r
 
 == Additional Camel Quarkus configuration
 
-Beyond standard usages described above, a trick is needed when using mustache templates from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+This component typically loads Mustache templates from classpath.
+To make it work also in native mode, you need to explicitly embed the templates in the native executable
+by using the `quarkus.native.resources.includes` property.
 
-For instance, the route below would load the mustache template from a classpath resource named _template/simple.mustache_:
+For instance, the route below would load the Mustache template from a classpath resource named `template/simple.mustache`:
+
 [source,java]
 ----
 from("direct:start").to("mustache://template/simple.mustache");
 ----
 
-In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+To include this (an possibly other templates stored in `.mustache` files) in the native image, you would have to add something like the following to your `application.properties` file:
+
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = template/*.mustache
+quarkus.native.resources.includes = template/*.mustache
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
 
