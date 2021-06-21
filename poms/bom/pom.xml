@@ -5822,16 +5822,6 @@
                 <version>${minio.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.opencensus</groupId>
-                <artifactId>opencensus-api</artifactId>
-                <version>${opencensus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.perfmark</groupId>
-                <artifactId>perfmark-api</artifactId>
-                <version>${perfmark.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
                 <version>${quarkiverse.freemarker.version}</version>
