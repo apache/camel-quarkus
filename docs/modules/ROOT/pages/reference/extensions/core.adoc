@@ -92,6 +92,18 @@ quarkus.native.resources.includes = mysimple.txt
 
 More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
 
+==== Configuring a custom bean via properties in native mode
+When specifying a custom bean via properties in native mode with configuration like `#class:*` or `#type:*`, it may be needed to register some classes for reflection manually.
+
+For instance, the custom bean definition below involves the use of reflection for bean instantiation and setter invocation:
+[source,properties]
+---
+camel.beans.customBeanWithSetterInjection = #class:org.example.PropertiesCustomBeanWithSetterInjection
+camel.beans.customBeanWithSetterInjection.counter = 123
+---
+
+As such, the class `PropertiesCustomBeanWithSetterInjection` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection], note that field access could be omitted in this case.
+
 
 [width="100%",cols="80,5,15",options="header"]
 |===

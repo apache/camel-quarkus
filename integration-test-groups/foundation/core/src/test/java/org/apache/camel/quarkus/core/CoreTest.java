@@ -103,4 +103,20 @@ public class CoreTest {
     void testStartupStepRecorder() {
         RestAssured.when().get("/core/startup-step-recorder").then().body(is("true"));
     }
+
+    @Test
+    void testCustomBeanWithConstructorParameterInjection() {
+        RestAssured.when().get("/core/custom-bean-with-constructor-parameter-injection").then()
+                .body(is("localhost:2121|scott|tiger"));
+    }
+
+    @Test
+    void testCustomBeanWithSetterInjection() {
+        RestAssured.when().get("/core/custom-bean-with-setter-injection").then().body(is("123"));
+    }
+
+    @Test
+    void testCustomBeanResolvedByType() {
+        RestAssured.when().get("/core/custom-bean-resolved-by-type").then().body(is("Donkey"));
+    }
 }
