@@ -74,21 +74,23 @@ simple("${body} is 'java.nio.ByteBuffer'")
 As such, the class `java.nio.ByteBuffer` needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
 
 ==== Using the simple language with classpath resources in native mode
-Beyond standard usages, a trick is needed when using the simple language with classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
 
-For instance, the route below would load a simple script from a classpath resource named _mysimple.txt_:
+If your route is supposed to load a Simple script from classpath, like in the following example
+
 [source,java]
 ----
 from("direct:start").transform().simple("resource:classpath:mysimple.txt");
 ----
 
-In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+then you need to use Quarkus `quarkus.native.resources.includes` property to include the resource in the native executable
+as demonstrated below:
+
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = *.txt
+quarkus.native.resources.includes = mysimple.txt
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
 
 
 [width="100%",cols="80,5,15",options="header"]
@@ -182,13 +184,13 @@ Used for inclusive filtering scanning of RouteBuilder classes. The exclusive fil
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.resources.exclude-patterns]]`link:#quarkus.camel.native.resources.exclude-patterns[quarkus.camel.native.resources.exclude-patterns]`
 
-A comma separated list of Ant-path style patterns to match resources that should be excluded from the native executable. By default, resources not selected by quarkus itself are ignored. Then, inclusion of additional resources could be triggered with `includePatterns`. When the inclusion patterns is too large, eviction of previously selected resources could be triggered with `excludePatterns`.
+Replaced by `quarkus.native.resources.excludes` in Camel Quarkus 2.0.0. Using this property throws an exception at build time.
 | `string`
 | 
 
 |icon:lock[title=Fixed at build time] [[quarkus.camel.native.resources.include-patterns]]`link:#quarkus.camel.native.resources.include-patterns[quarkus.camel.native.resources.include-patterns]`
 
-A comma separated list of Ant-path style patterns to match resources that should be included in the native executable. By default, resources not selected by quarkus itself are ignored. Then, inclusion of additional resources could be triggered with `includePatterns`. When the inclusion patterns is too large, eviction of previously selected resources could be triggered with `excludePatterns`.
+Replaced by `quarkus.native.resources.includes` in Camel Quarkus 2.0.0. Using this property throws an exception at build time.
 | `string`
 | 
 

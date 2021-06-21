@@ -40,19 +40,22 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Additional Camel Quarkus configuration
 
-Beyond standard usages described above, a trick is needed when using msv schemas from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+This component typically loads XML schemas from classpath.
+To make it work also in native mode, you need to explicitly embed the schema files in the native executable
+by using the `quarkus.native.resources.includes` property.
 
-For instance, the route below would load the msv schema from a classpath resource named _schema.rng_:
+For instance, the route below would load the schema from a classpath resource named `schema.rng`:
 [source,java]
 ----
 from("direct:start").to("msv:schema.rng");
 ----
 
-In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+To include this (an possibly other schemas stored in `.rng` files) in the native image, you would have to add something like the following to your `application.properties` file:
+
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = *.rng
+quarkus.native.resources.includes = *.rng
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
 

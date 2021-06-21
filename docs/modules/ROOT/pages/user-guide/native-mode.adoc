@@ -44,18 +44,23 @@ You can set those via Quarkus `quarkus.native.additional-build-args` property.
 [[embedding-resource-in-native-executable]]
 == Embedding resources in the native executable
 
-Resources needed at runtime need to be explicitly embedded in the built native executable. In such situations, the `include-patterns` and `exclude-patterns` configurations could be set in `application.properties` as demonstrated below:
+Resources accessed via `Class.getResource()`, `Class.getResourceAsStream()`, `ClassLoader.getResource()`,
+`ClassLoader.getResourceAsStream()`, etc. at runtime need to be explicitly listed for including in the native executable.
+
+This can be done using Quarkus `quarkus.native.resources.includes` and `quarkus.native.resources.excludes` properties
+in `application.properties` file as demonstrated below:
 
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = docs/*,images/*
-quarkus.camel.native.resources.exclude-patterns = docs/ignored.adoc,images/ignored.png
+quarkus.native.resources.includes = docs/*,images/*
+quarkus.native.resources.excludes = docs/ignored.adoc,images/ignored.png
 ----
 
-In the example above, resources named _docs/included.adoc_ and _images/included.png_ would be embedded in the native executable while _docs/ignored.adoc_ and _images/ignored.png_ would not.
+In the example above, resources named `docs/included.adoc` and `images/included.png` would be embedded in the native executable
+while `docs/ignored.adoc` and `images/ignored.png` would not.
 
-`include-patterns` and `exclude-patterns` are list of comma separated link:https://github.com/apache/camel/blob/main/core/camel-util/src/main/java/org/apache/camel/util/AntPathMatcher.java[Ant-path style patterns].
-At the end of the day, resources matching `include-patterns` are marked for inclusion at the exception of resources matching `exclude-patterns`.
+`resources.includes` and `resources.excludes` are both lists of comma separated Ant-path style glob patterns.
+Please refer to https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.resources.includes[Quarkus documentation] for more details.
 
 [[using-onexception-clause-in-native-mode]]
 == Using the onException clause in native mode

@@ -1,21 +1,27 @@
-=== Using JSLT templates from classpath resource in native mode
-A trick is needed when using JSLT templates from classpath resources in native mode. In such a situation, one needs to explicitly embed the resources in the native executable by specifying the `include-patterns` option.
+=== Loading JSLT templates from classpath in native mode
 
-For instance, the route below would load the JSLT schema from a classpath resource named _transformation.json_:
+This component typically loads the templates from classpath.
+To make it work also in native mode, you need to explicitly embed the templates files in the native executable
+by using the `quarkus.native.resources.includes` property.
+
+For instance, the route below would load the JSLT schema from a classpath resource named `transformation.json`:
+
 [source,java]
 ----
 from("direct:start").to("jslt:transformation.json");
 ----
 
-In order to work in native mode the `include-patterns` configuration should be set. For instance, in the `application.properties` file as below :
+To include this (an possibly other templates stored in `.json` files) in the native image, you would have to add something like the following to your `application.properties` file:
+
 [source,properties]
 ----
-quarkus.camel.native.resources.include-patterns = *.json
+quarkus.native.resources.includes = *.json
 ----
 
-More information about selecting resources for inclusion in the native executable could be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
+More information about selecting resources for inclusion in the native executable can be found at xref:user-guide/native-mode.adoc#embedding-resource-in-native-executable[Embedding resource in native executable].
 
 === Using JSLT functions in native mode
+
 When using JSLT functions from camel-quarkus in native mode, the classes hosting the functions would need to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection]. When registering the target function is not possible, one may end up writing a stub as below.
 ----
 @RegisterForReflection
