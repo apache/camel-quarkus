@@ -915,11 +915,23 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-calendar</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-drive</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -930,6 +942,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-mail</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -950,6 +968,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-google-sheets</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5692,26 +5716,6 @@
                 </exclusions>
             </dependency>
             <dependency>
-                <groupId>com.google.api</groupId>
-                <artifactId>api-common</artifactId>
-                <version>${google-api-common.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.api.grpc</groupId>
-                <artifactId>proto-google-common-protos</artifactId>
-                <version>${proto-google-common-protos.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.auth</groupId>
-                <artifactId>google-auth-library-credentials</artifactId>
-                <version>${google-auth-library-oauth2-http.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.auth</groupId>
-                <artifactId>google-auth-library-oauth2-http</artifactId>
-                <version>${google-auth-library-oauth2-http.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
@@ -5720,22 +5724,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.http-client</groupId>
-                <artifactId>google-http-client</artifactId>
-                <version>${google-http-client.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.google.http-client</groupId>
-                <artifactId>google-http-client-jackson2</artifactId>
-                <version>${google-http-client-jackson2.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
