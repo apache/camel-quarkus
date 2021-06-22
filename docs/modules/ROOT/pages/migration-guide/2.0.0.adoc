@@ -2,6 +2,10 @@
 
 The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.0.0 & Quarkus 2.0.0.Final.
 
+== Changes in Quarkus
+
+Please refer to https://github.com/quarkusio/quarkus/wiki/Migration-Guide-2.0[Quarkus 2.0.0 Migration Guide].
+
 == Changes to the observability HTTP endpoint paths
 
 In Quarkus 1.x, health and metrics endpoints were available at `/metrics` & `/health` context paths. In Quarkus 2.x this has changed with the addition of a mandatory `/q` path prefix. The endpoints are
@@ -10,7 +14,7 @@ now accessible at the following URLs.
 * http://localhost:8080/q/health
 * http://localhost:8080/q/metrics
 
-== `camel-quarkus-main` removed
+== `camel-quarkus-main` artifact removed
 
 Before Camel Quarkus 1.8.0, `camel-quarkus-main` used to be a full blown separate artifact.
 In 1.8.0, all functionality of `camel-quarkus-main` was moved to `camel-quarkus-core`,
@@ -19,6 +23,12 @@ The empty `camel-quarkus-main` artifact was removed completely in Camel Quarkus 
 
 As long as your application depends on any other Camel Quarkus extension, it is enough to remove the `camel-quarkus-main` dependency.
 This is because all Camel Quarkus extensions transitively depend on `camel-quarkus-core` where the the original `camel-quarkus-main` functionality is hosted now.
+
+== `camel-quarkus-xml-io` artifact replaced by `camel-quarkus-xml-io-dsl`
+
+The functionality available in `camel-quarkus-xml-io` was moved to `camel-quarkus-xml-io-dsl` in Camel Quarkus 1.8.0.
+Since that version `camel-quarkus-xml-io` was deprecated and was kept only for backwards compatibility reasons as an empty wrapper around `camel-quarkus-xml-io-dsl`.
+`camel-quarkus-xml-io` was removed fully in Camel Quarkus 2.0.0 and you'll have to use `camel-quarkus-xml-io-dsl` as a replacement.
 
 == `quarkus.camel.native.resources.*` replaced by `quarkus.native.resources.includes`
 
