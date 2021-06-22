@@ -1,30 +1,251 @@
 = Command Mode Applications
 
-`camel-quarkus-core` brings the option to write https://quarkus.io/guides/command-mode-reference[Quarkus Command Mode Applications] with control about when the Camel runtime should start:
+Camel Quarkus is typically used for creating integration applications that run as long living processes.
+In this chapter, we are going to have a look at a slightly different use case:
+utilizing Camel Quarkus for writing programs that exit by themselves after performing some desired tasks.
+
+== Where can this be useful?
+
+The enterprise is full of scheduled batch processing. Say, some system exports some sort of reports daily at 4 a.m.
+Those need to be transformed (e.g. XML -> Excel) and transferred somewhere else (e.g. via mail, FTP, etc.)
+
+Camel is a perfect match for doing the transformation and the transfer.
+However, having a service running 24/7 for doing something useful just once a day would probably be an overkill.
+Combining a https://en.wikipedia.org/wiki/Cron[Cron job] (or a similar scheduling technology)
+with a command line utility may suit much better in situations like this.
+
+== How to write a command line tool with Camel Quarkus
+
+There is just one thing where it would differ from a stock Camel Quarkus application:
+setting an exit condition in `application.properties`.
+
+The rest of the application - most notably the xref:latest@manual::routes.adoc[Route]
+that performs the actual data transformation and transfer - will look the same like with a traditional Camel service.
+
+== A minimal Hello World!
+
+Let's go through a minimal example that just prints `Hello World!` to
+the console and exits.
+
+The route definition could look like the following:
+
+[source,java]
+----
+import org.apache.camel.builder.RouteBuilder;
+
+@ApplicationScoped
+public class CamelRoute extends RouteBuilder {
+
+    @Override
+    public void configure() {
+        from("timer:hello?delay=-1&repeatCount=1")
+                .setBody().constant("Hello World!")
+                .to("log:hello");
+    }
+}
+----
+
+Note that we use the xref:reference/extensions/timer.adoc[timer] component to trigger the route execution.
+The URI parameter `delay=-1` causes the timer to be triggered with no initial delay
+and `repeatCount=1` ensures that the route is executed just once.
+
+But doing just the above would not make our application exit by itself.
+The `camel.main.durationMax*` family of configuration options (available via `camel-quarkus-core`) offers a way to solve that.
+E.g. we can set the following in `application.properties`
+
+[source,properties]
+----
+camel.main.durationMaxMessages = 1
+----
+
+to make the application exit after the route has processed a single
+message.
+
+We need to add the dependencies for `timer` and `log` components:
+
+[source,xml]
+----
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-core</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-log</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-timer</artifactId>
+</dependency>
+----
+
+When invoking the application on the command line, you should see
+something like the following:
+
+[source,shell]
+----
+]$ java -jar target/*-runner.jar
+2020-07-15 11:32:13,577 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
+2020-07-15 11:32:13,623 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
+2020-07-15 11:32:13,623 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
+2020-07-15 11:32:13,700 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
+2020-07-15 11:32:13,701 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 11:32:13,709 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
+2020-07-15 11:32:13,714 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
+2020-07-15 11:32:13,715 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.014 seconds
+2020-07-15 11:32:13,718 INFO  [org.apa.cam.mai.MainSupport] (camel-main) Waiting until: 1 messages has been processed
+2020-07-15 11:32:13,719 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode 1.1.0-SNAPSHOT on JVM (powered by Quarkus 1.6.0.Final) started in 0.592s.
+2020-07-15 11:32:13,720 INFO  [io.quarkus] (main) Profile prod activated.
+2020-07-15 11:32:13,721 INFO  [io.quarkus] (main) Installed features: [camel-core, camel-log, camel-main, camel-policy, camel-support-common, camel-timer, cdi]
+2020-07-15 11:32:13,725 INFO  [hello] (Camel (camel-1) thread #0 - timer://hello) Exchange[ExchangePattern: InOnly, BodyType: String, Body: Hello World!]
+2020-07-15 11:32:13,729 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #0 - timer://hello) Duration max messages triggering shutdown of the JVM.
+2020-07-15 11:32:13,730 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutting down
+2020-07-15 11:32:13,740 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) CamelContext: camel-1 has been shutdown, triggering shutdown of the JVM.
+2020-07-15 11:32:13,741 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) uptime 0.041 seconds
+2020-07-15 11:32:13,741 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutdown in 0.011 seconds
+2020-07-15 11:32:13,745 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode stopped in 0.005s
+----
+
+== Command line parameters
+
+That was really trivial. How about greeting a person whose name is passed via a command line parameter?
+We can use https://quarkus.io/guides/config[Quarkus MicroProfile Config] for that:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import org.apache.camel.builder.RouteBuilder;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@ApplicationScoped
+public class CamelRoute extends RouteBuilder {
+
+    @ConfigProperty(name = "greeted.subject", defaultValue = "World")
+    String greetedSubject;
+
+    @Override
+    public void configure() {
+        from("timer:hello?delay=-1")
+                .setBody().constant("Hello " + greetedSubject + "!")
+                .to("log:hello");
+    }
+}
+----
+
+For the `@ConfigProperty` annotation to work, the `CamelRoute` class needs to be annotated with `@ApplicationScoped`.
+
+Having the above in place, we can call the application with the `-Dgreeted.subject=Joe` parameter at the command line and voilà
+
+[source,shell]
+----
+$ java -Dgreeted.subject=Joe -jar target/*-runner.jar
+2020-07-15 11:42:18,770 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
+2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
+2020-07-15 11:42:18,816 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
+2020-07-15 11:42:18,892 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
+2020-07-15 11:42:18,893 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 11:42:18,902 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
+2020-07-15 11:42:18,907 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
+2020-07-15 11:42:18,908 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.015 seconds
+2020-07-15 11:42:18,911 INFO  [org.apa.cam.mai.MainSupport] (camel-main) Waiting until: 1 messages has been processed
+2020-07-15 11:42:18,914 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode 1.1.0-SNAPSHOT on JVM (powered by Quarkus 1.6.0.Final) started in 0.569s.
+2020-07-15 11:42:18,915 INFO  [io.quarkus] (main) Profile prod activated.
+2020-07-15 11:42:18,915 INFO  [io.quarkus] (main) Installed features: [camel-core, camel-log, camel-main, camel-policy, camel-support-common, camel-timer, cdi]
+2020-07-15 11:42:18,919 INFO  [hello] (Camel (camel-1) thread #0 - timer://hello) Exchange[ExchangePattern: InOnly, BodyType: String, Body: Hello Joe!]
+2020-07-15 11:42:18,921 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #0 - timer://hello) Duration max messages triggering shutdown of the JVM.
+2020-07-15 11:42:18,922 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutting down
+2020-07-15 11:42:18,931 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) CamelContext: camel-1 has been shutdown, triggering shutdown of the JVM.
+2020-07-15 11:42:18,933 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) uptime 0.040 seconds
+2020-07-15 11:42:18,933 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutdown in 0.011 seconds
+2020-07-15 11:42:18,937 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode stopped in 0.005s
+----
+
+== Compiling the command line utility to a native executable
+
+xref:first-steps.html#_native_mode[As usual with Camel Quarkus], the application can be compiled to native executable by activating the `native` profile.
+GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set is required for that, see https://quarkus.io/guides/building-native-image[Building a native executable] section of the Quarkus documentation.
+
+[source,shell]
+----
+$ export GRAALVM_HOME=...
+$ mvn clean package -Pnative
+...
+$ ls -lh target
+...
+-rwxr-xr-x. 1 ppalaga ppalaga  33M Jul 15 11:48 command-mode-runner
+...
+----
+
+The basic command line application compiled into a Linux native
+executable has about 33 Megabytes.
+
+Running it is easy:
+
+[source,shell]
+----
+$ target/*runner -Dgreeted.subject=Joe
+2020-07-15 12:19:22,810 INFO  [org.apa.cam.qua.cor.CamelBootstrapRecorder] (main) bootstrap runtime: org.apache.camel.quarkus.main.CamelMainRuntime
+2020-07-15 12:19:22,811 INFO  [org.apa.cam.mai.BaseMainSupport] (main) Auto-configuration summary:
+2020-07-15 12:19:22,811 INFO  [org.apa.cam.mai.BaseMainSupport] (main)  camel.main.durationMaxMessages=1
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) is starting
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) StreamCaching is not in use. If using streams then its recommended to enable stream caching. See more details at http://camel.apache.org/stream-caching.html
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.InternalRouteStartupManager] (main) Route: route1 started and consuming from: timer://hello
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Total 1 routes, of which 1 are started
+2020-07-15 12:19:22,812 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (main) Apache Camel 3.4.0 (camel-1) started in 0.000 seconds
+2020-07-15 12:19:22,812 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode 1.1.0-SNAPSHOT native (powered by Quarkus 1.6.0.Final) started in 0.007s.
+2020-07-15 12:19:22,813 INFO  [io.quarkus] (main) Profile prod activated.
+2020-07-15 12:19:22,812 INFO  [hello] (Camel (camel-1) thread #0 - timer://hello) Exchange[ExchangePattern: InOnly, BodyType: String, Body: Hello Joe!]
+2020-07-15 12:19:22,813 INFO  [io.quarkus] (main) Installed features: [camel-core, camel-log, camel-main, camel-policy, camel-support-common, camel-timer, cdi]
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.mai.MainSupport] (camel-main) Waiting until: 1 messages has been processed
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #0 - timer://hello) Duration max messages triggering shutdown of the JVM.
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutting down
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.mai.MainLifecycleStrategy] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) CamelContext: camel-1 has been shutdown, triggering shutdown of the JVM.
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) uptime 0.001 seconds
+2020-07-15 12:19:22,813 INFO  [org.apa.cam.imp.eng.AbstractCamelContext] (Camel (camel-1) thread #1 - CamelMainShutdownCamelContext) Apache Camel 3.4.0 (camel-1) is shutdown in 0.000 seconds
+2020-07-15 12:19:22,813 INFO  [io.quarkus] (main) camel-quarkus-integration-test-main-command-mode stopped in 0.000s
+----
+
+== Source code
+
+The sources of the application used in this blog post are based on the `main-command-mode` integration test in the Camel Quarkus source tree:
+https://github.com/apache/camel-quarkus/tree/master/integration-tests/main-command-mode[https://github.com/apache/camel-quarkus/tree/master/integration-tests/main-command-mode]
+
+Bonus: The integration test module shows a way how to test command line applications.
+
+== Full control over starting Camel by invoking `CamelMainApplication` directly.
+
+If you need perform some custom logic before starting Camel (or even not starting it at all),
+you can do so by implementing a `@QuarkusMain` class and starting `CamelMainApplication` yourself
+after your custom logic is executed.
+
+E.g. you may want to output a joke instead of starting Camel each year on April 1st:
 
 [source,java]
 ----
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import org.apache.camel.quarkus.main.CamelMainApplication;
+import java.time.LocalDate;
 
 @QuarkusMain
 public class Main {
     public static void main(String... args) {
-        //
-        // your logic here
-        //
+        /* Your custom logic is executed before Camel is started */
+        LocalDate now = LocalDate.now();
+        if (now.getDayOfMonth() == 1 && now.getMonthValue() == 4) {
+            System.out.println("Haha!");
+            return;
+        }
 
-        Quarkus.run(CamelMainApplication.class, args); // <1>
+        /* Start Quarkus and the Camel Quarkus runtime */
+        Quarkus.run(CamelMainApplication.class, args);
     }
 }
 ----
-<1> Start Quarkus and the Camel Quarkus runtime
 
 [NOTE]
 ====
-It is recommended to perform very little logic in the Java Main.
+It is recommended to perform very little logic in Java `main()` method.
 ====
 
-Find more details about Camel Quarkus command line applications in this link:/blog/2020/07/command-line-utility-with-camel-quarkus/[blog post].
-
+Read more about Quarkus command mode applications in https://quarkus.io/guides/command-mode-reference[Quarkus command mode guide].
