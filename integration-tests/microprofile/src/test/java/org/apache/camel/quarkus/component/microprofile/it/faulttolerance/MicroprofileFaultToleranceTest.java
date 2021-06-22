@@ -19,10 +19,8 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2696")
 @QuarkusTest
 class MicroprofileFaultToleranceTest {
 
