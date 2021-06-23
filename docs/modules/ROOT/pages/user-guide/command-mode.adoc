@@ -162,7 +162,7 @@ $ java -Dgreeted.subject=Joe -jar target/*-runner.jar
 
 == Compiling the command line utility to a native executable
 
-xref:first-steps.html#_native_mode[As usual with Camel Quarkus], the application can be compiled to native executable by activating the `native` profile.
+xref:first-steps.adoc#_native_mode[As usual with Camel Quarkus], the application can be compiled to native executable by activating the `native` profile.
 GraalVM with `native-image` command installed and `GRAALVM_HOME` environment variable set is required for that, see https://quarkus.io/guides/building-native-image[Building a native executable] section of the Quarkus documentation.
 
 [source,shell]
