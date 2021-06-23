@@ -63,9 +63,9 @@ Check the xref:contributor-guide/extension-metadata.adoc[Extension metadata] pag
 8. Review the dependencies in the generated runtime and deployment modules. In case the given library is supported by
    Quarkus, you may want to add a dependency on the corresponding Quarkus extension.
 
-9. Complete the integration test module under `integration-tests/foo-abc`. Make sure you test both the consumer and the
-   producer of the component (if the component supports both). Make sure the tests are passing both in the JVM mode
-   (`mvn test`) and in the native mode (`mvn verify -Pnative`).
+9. Complete the integration test module under `integration-tests/foo-abc`,
+   following the xref:contributor-guide/extension-testing.adoc[Extension testing] guide.
+   Make sure the tests are passing both in the JVM mode (`mvn test`) and in the native mode (`mvn verify -Pnative`).
 
 10. In case of problems, consult the https://quarkus.io/guides/extension-authors-guide[Quarkus extension author's guide],
    ask for help in the given GitHub issue or via https://camel.zulipchat.com[Camel Quarkus chat].
