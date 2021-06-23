@@ -25,9 +25,11 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
 import org.apache.camel.support.DefaultExchangeHolder;
+import org.jboss.logging.Logger;
 
 class SqlProcessor {
 
+    private static final Logger LOG = Logger.getLogger(SqlProcessor.class);
     private static final String FEATURE = "camel-sql";
 
     @BuildStep
@@ -46,6 +48,8 @@ class SqlProcessor {
             return;
         }
 
+        LOG.warn(
+                "Configuration property quarkus.camel.sql.script-files is deprecated. Please use quarkus.native.resources.includes");
         config.scriptFiles.get()
                 .stream()
                 .map(scriptFile -> new NativeImageResourceBuildItem(scriptFile.replace("classpath:", "")))

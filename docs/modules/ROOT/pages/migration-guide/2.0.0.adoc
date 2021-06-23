@@ -34,3 +34,9 @@ Since that version `camel-quarkus-xml-io` was deprecated and was kept only for b
 
 The `quarkus.camel.native.resources.include-patterns` and `quarkus.camel.native.resources.exclude-patterns` configuration properties were removed in Camel Quarkus 2.0.0.
 Please use `quarkus.native.resources.includes` and `quarkus.native.resources.excludes` instead respectively.
+
+== SQL extension `quarkus.camel.sql.script-files` configuration property is deprecated
+
+The `quarkus.camel.sql.script-files` configuration property provided by the SQL extension is deprecated and will be removed in Camel Quarkus 2.1.0.
+
+If you need to have SQL script files accessible via the classpath for `sql` or `sql-stored` endpoints, please use configuration property `quarkus.native.resources.includes`.

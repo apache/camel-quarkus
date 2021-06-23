@@ -20,5 +20,5 @@ Note that URI schemes such as `file` or `http` do not need to be listed.
 
 [source,properties]
 ----
-quarkus.camel.sql.script-files = queries.sql, classpath:sql/insert.sql
+quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
