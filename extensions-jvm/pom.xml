@@ -34,7 +34,6 @@
 
     <modules>
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>apns</module>
         <module>asn1</module>
         <module>asterisk</module>
         <module>atmos</module>

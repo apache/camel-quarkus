@@ -23,7 +23,6 @@
 ** xref:reference/index.adoc[Extensions]
 // extensions: START
 *** xref:reference/extensions/amqp.adoc[AMQP]
-*** xref:reference/extensions/apns.adoc[APNS]
 *** xref:reference/extensions/as2.adoc[AS2]
 *** xref:reference/extensions/asn1.adoc[ASN.1 File]
 *** xref:reference/extensions/aws2-athena.adoc[AWS 2 Athena]
