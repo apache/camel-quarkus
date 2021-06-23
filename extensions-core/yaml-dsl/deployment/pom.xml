@@ -27,7 +27,7 @@
     </parent>
 
     <artifactId>camel-quarkus-yaml-dsl-deployment</artifactId>
-    <name>Camel Quarkus :: YAML DSL DSL :: Deployment</name>
+    <name>Camel Quarkus :: YAML DSL :: Deployment</name>
 
     <dependencies>
         <dependency>
