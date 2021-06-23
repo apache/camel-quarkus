@@ -4,14 +4,23 @@
 Testing offers a good way to ensure camel routes behave as expected over time.
 Before going deeper in the subject, it is strongly advised to read xref:user-guide/first-steps.adoc[First Steps] and https://quarkus.io/guides/getting-started-testing[Quarkus testing].
 
-When it comes to testing a route in the context of Quarkus, the paved road is to write local integration tests. This way of doing offers the advantage of running both in JVM and native mode. The flip side is that the standard Camel testing approach with `camel-test` and `CamelTestSupport` is not supported.
+When it comes to testing a route in the context of Quarkus, the paved road is to write local integration tests.
+This way of doing offers the advantage of running both in JVM and native mode.
+The flip side is that the standard Camel testing approach with `camel-test` and `CamelTestSupport` is not supported.
 
 Let's enumerate below some points of interest.
 
 == A test running in JVM mode
 
-The key point is to use the `@QuarkusTest` annotation that will bootstrap Quarkus and start Camel routes before the `@Test` logic is executed, like in the example beneath:
+The key point is to use the `@QuarkusTest` annotation that will bootstrap Quarkus and start Camel routes before the `@Test` logic is executed,
+like in the example beneath:
+
+[source,java]
 ----
+
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.Test;
+
 @QuarkusTest
 class MyTest {
     @Test
@@ -26,26 +35,64 @@ An example implementation can be found https://github.com/apache/camel-quarkus/b
 
 == A test running in native mode
 
-Depending on the Quarkus testing features in use, running in native mode is often possible.
-The test logic defined in JVM mode can then be reused in native mode thanks to `@NativeImageTest` and inheritance as shown below:
+As long as all extensions your application depends on are supported in native mode,
+you should definitely test that your application really works in native mode.
+The test logic defined in JVM mode can then be reused in native mode thanks to inheriting from the respective JVM mode test.
+`@NativeImageTest` annotation is there to instruct the Quarkus JUnit extension to compile the application under test to native image
+and start it before running the tests.
 
-[source,shell]
+[source,java]
 ----
+import io.quarkus.test.junit.NativeImageTest;
+
 @NativeImageTest
 class MyIT extends MyTest {
    ...
 }
 ----
 
-An implementation of a native test could help to capture more details https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
+An implementation of a native test may help to capture more details https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
-== A test involving containers
+== `@QuarkusTest` vs. `@NativeImageTest`
 
-Involving containers could be very helpful in order to write local integration tests.
-For instance, one may test a route consuming from a messaging container like nats and producing to a database container like couchdb.
-This common pattern leverages https://www.testcontainers.org/[Testcontainers] and `ContainerResourceLifecycleManager` as shown below:
+JVM mode tests annotated with `@QuarkusTest` are executed in the same JVM as the application under test.
+Thanks to that, `@Inject`-ing beans from the application into the test code is possible.
+You can also define new beans or even override the beans from the application using `@javax.enterprise.inject.Alternative` and `@javax.annotation.Priority`.
 
+However all these tricks won't work in native mode tests annotated with `@NativeImageTest`
+because those are executed in a JVM hosted in a process separate from the running native application.
+
+If you ask why, the answer is actually in the previous sentence: a native executable does not need a JVM to run;
+it even cannot be run by a JVM, because it is native code, not bytecode.
+
+On the other hand, there is no point in compiling tests to native code. So they are run using a traditional JVM.
+
+== Testing with external services
+
+=== Testcontainers
+
+Sometimes your application needs to access some external service, such as messaging broker, database, etc.
+If a container image is available for the service of interest, https://www.testcontainers.org/[Testcontainers]
+come in handy for starting and configuring the services during testing.
+
+For the application to work properly it is often essential to pass the connection configuration data
+(host, port, user, password, etc. of the remote service) to the application before it starts.
+In Quarkus ecosystem, `ContainerResourceLifecycleManager` serves this purpose.
+You can start one or more Testcontainers in its `start()` method
+and you can return the connection configuration from the method in form of a `Map`.
+The entries of this map are then passed to the application either via command line (`-Dkey=value`) in native mode
+or through a special MicroProfile configuration provider in JVM mode.
+Note that these settings have a higher precedence than the settings in `application.properties` file.
+
+[source,java]
 ----
+import java.util.Map;
+import java.util.HashMap;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+
 public class MyTestResource implements ContainerResourceLifecycleManager {
 
     private GenericContainer myContainer;
@@ -53,9 +100,17 @@ public class MyTestResource implements ContainerResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         // Start the needed container(s)
-        myContainer = new GenericContainer(...);
+        myContainer = new GenericContainer(...)
+                .withExposedPorts(1234)
+                .waitingFor(Wait.forListeningPort());
+
         myContainer.start();
-        ...
+
+        // Pass the configuration to the application under test
+        return new HashMap<>() {{
+                put("my-container.host", container.getContainerIpAddress());
+                put("my-container.port", "" + container.getMappedPort(1234));
+        }};
     }
 
     @Override
@@ -67,7 +122,12 @@ public class MyTestResource implements ContainerResourceLifecycleManager {
 ----
 
 The defined test resource needs then to be referenced from the test classes with `@QuarkusTestResource` as shown below:
+
+[source,java]
 ----
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+
 @QuarkusTest
 @QuarkusTestResource(MyTestResource.class)
 class MyTest {
@@ -75,4 +135,4 @@ class MyTest {
 }
 ----
 
-A more concrete implementation could help to understand the subtleties https://github.com/apache/camel-quarkus/blob/main/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[here].
+Please refer to Camel Quarkus source tree for a https://github.com/apache/camel-quarkus/blob/main/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[complete example].
