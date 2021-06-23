@@ -5,6 +5,8 @@ To run the `camel-quarkus-salesforce` integration tests against the real API, yo
 Next create a new 'Connected App' from the app manager page. You may need to adjust the OAuth policy settings for
 `Permitted Users` and also `IP Relaxation` rules, depending on your needs. Also enable Change Data Capture for the 'Account' entity by visiting the Integrations -> Change Data Capture page.
 
+Next create a document named 'test'.
+
 You can find the app OAuth settings by choosing the 'view' option from the app manager page. Then set the following environment variables.
 
 [source,shell]
