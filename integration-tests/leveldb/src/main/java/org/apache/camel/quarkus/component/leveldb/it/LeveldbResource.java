@@ -100,6 +100,7 @@ public class LeveldbResource {
 
         MockEndpoint mockResult = context.getEndpoint(LeveldbRouteBuilder.MOCK_RESULT, MockEndpoint.class);
         mockResult.reset();
+        mockResult.setExpectedMessageCount(1);
 
         byte[] longestBytes = messages[0].getBytes();
         for (String message : messages) {
