@@ -123,6 +123,7 @@ public class XStreamSupportProcessor {
                 "java.awt.Font",
                 "java.awt.font.TextAttribute",
                 "java.io.File",
+                "java.io.InputStream",
                 "java.lang.Boolean",
                 "java.lang.Byte",
                 "java.lang.Character",
