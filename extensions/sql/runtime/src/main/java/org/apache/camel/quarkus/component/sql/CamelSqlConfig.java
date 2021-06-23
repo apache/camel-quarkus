@@ -33,7 +33,11 @@ public class CamelSqlConfig {
      *
      * Paths can either be schemeless (E.g sql/my-script.sql) or be prefixed with the classpath: URI scheme (E.g
      * classpath:sql/my-script.sql). Other URI schemes are not supported.
+     *
+     * @deprecated use configuration property `quarkus.native.resources.includes` to include your SQL scripts in the native
+     *             image.
      */
     @ConfigItem
+    @Deprecated
     public Optional<List<String>> scriptFiles;
 }

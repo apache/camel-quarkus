@@ -99,22 +99,6 @@ Note that URI schemes such as `file` or `http` do not need to be listed.
 
 [source,properties]
 ----
-quarkus.camel.sql.script-files = queries.sql, classpath:sql/insert.sql
+quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
-
-
-[width="100%",cols="80,5,15",options="header"]
-|===
-| Configuration property | Type | Default
-
-
-|icon:lock[title=Fixed at build time] [[quarkus.camel.sql.script-files]]`link:#quarkus.camel.sql.script-files[quarkus.camel.sql.script-files]`
-
-A comma separated list of paths to script files referenced by SQL endpoints. Script files that only need to be accessible from the classpath should be specified on this property. Paths can either be schemeless (E.g sql/my-script.sql) or be prefixed with the classpath: URI scheme (E.g classpath:sql/my-script.sql). Other URI schemes are not supported.
-| `string`
-| 
-|===
-
-[.configuration-legend]
-icon:lock[title=Fixed at build time] Configuration property fixed at build time. All other configuration properties are overridable at runtime.
 
