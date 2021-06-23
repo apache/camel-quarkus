@@ -1,0 +1,86 @@
+= Testing extensions
+
+Testing Camel Quarkus extensions is very similar to xref:user-guide/testing.adoc[testing Camel Quarkus applications].
+In both cases, the tests interact with a Camel Quarkus application.
+The main difference is in the purpose of the tested application:
+when testing extensions, it is there just for the sake of testing.
+We use it as a means to indirectly verify the functionality of the underlying extension(s).
+
+== Where are the integration tests?
+
+Here are the the directories containing integration tests:
+
+* `https://github.com/apache/camel-quarkus/tree/main/integration-tests[integration-tests]`
+* `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups[integration-test-groups/*]`
+* `https://github.com/apache/camel-quarkus/tree/main/extensions-jvm[extensions-jvm/*/integration-test]`
+
+== Anatomy of an extension integration test
+
+=== The application
+
+The application under test lives under `src/main` directory of the test module.
+It should typically contain one or more Camel routes that utilize the Camel component brought by the extension under test.
+If it helps to avoid additional dependencies, using `@ConsumerTemplate` and/or `@ProducerTemplate` may be favorable over having a full-fledged route.
+
+=== Tests
+
+Because xref:user-guide/testing.adoc#jvm-vs-native-tests[native tests run in a process separate] from the JVM running the tests,
+all communication between the tests and the application under test must go over network or some other kind of interprocess communication.
+We typically use JAX-RS endpoints (on the application side) and https://rest-assured.io/[RestAssured] (on the test side) for this purpose.
+
+As suggested in the xref:user-guide/testing.adoc#native-tests[Testing user guide],
+our native tests typically extend their JVM counterparts using the same test code for both JVM and native mode.
+For this reason we abstain from using CDI and direct call of application code in our tests.
+
+Except for https://rest-assured.io/[RestAssured],
+we also use http://www.awaitility.org/[Awaitility] for awaiting some state
+and https://assertj.github.io/doc/[AssertJ] for more advanced assertions.
+
+[TIP]
+====
+As mentioned in xref:contributor-guide/create-new-extension.adoc[Create new extension] section,
+`mvn cq:create -N -Dcq.artifactIdBase=my-component` generates some testing boilerplate for you.
+If you want to add just a new test module for an existing extension,
+`mvn cq:new-test -N -Dcq.artifactIdBase=my-component` is there for you.
+====
+
+== Minimal set of dependencies
+
+Keeping the set of test module dependencies as small as possible has two main advantages:
+
+* Less code is faster to compile to native image
+* Additional code may introduce some side effects, mainly in native compilation.
+  For instance, an extension A may configure the native compiler in such a way that it causes also extension B to work properly in native mode.
+  However, if B was tested in isolation, it would not work.
+
+== Grouping
+
+Some of our test modules have very similar sets of dependencies.
+While it is important to test them in isolation, running each separately takes quite a lot of time, mainly due to native compilation.
+In such cases, it may make sense to create a "grouped" module that unifies (using some tooling) several isolated tests.
+The grouped module may then be preferred in a CI job that validates pull requests, while the isolated tests are run only once a day.
+
+== Coverage
+
+When porting a Camel component to Quarkus, we generally do not want to duplicate all the fine grained tests that are often available in Camel already.
+Our main goal is to make sure that the main use cases work well in native mode.
+But how can you figure out which are those?
+
+The use cases explained in the given components documentation usually give a good guidance.
+For example, when writing tests for the SQL extension, you would go to documentation page of the xref:{cq-camel-components}::sql-component.adoc[SQL component]
+and try to cover the use cases mentioned there:
+xref:{cq-camel-components}::sql-component.adoc#_treatment_of_the_message_body[Treatment of the message body]
+xref:{cq-camel-components}::sql-component.adoc#_result_of_the_query[Result of the query],
+xref:{cq-camel-components}::sql-component.adoc#_using_streamlist[Using StreamList], etc.
+
+In any case, both consumer and producer of the component (if the component supports both) should be covered.
+
+== Lightweight functional tests
+
+Especially when testing various configuration setups, having a separate integration test module for each configuration set would be an overkill.
+`io.quarkus.test.QuarkusUnitTest` may suit well for such situations.
+
+A big advantage of this kind of tests is that they are very lightweight and fast.
+But on the other hand, they are executed only in JVM mode.
+
+Please refer to the https://github.com/apache/camel-quarkus/tree/main/extensions/servlet/deployment/src/test/java/org/apache/camel/quarkus/component/servlet/test[Servlet extension] for an examples.

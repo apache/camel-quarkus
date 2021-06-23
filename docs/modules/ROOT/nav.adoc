@@ -17,6 +17,7 @@
 ** xref:contributor-guide/create-jvm-only-extension.adoc[Create JVM-only extension]
 ** xref:contributor-guide/extension-metadata.adoc[Extension metadata]
 ** xref:contributor-guide/extension-documentation.adoc[Extension documentation]
+** xref:contributor-guide/extension-testing.adoc[Testing extensions]
 ** xref:contributor-guide/ci.adoc[Continuous Integration]
 ** xref:contributor-guide/release-guide.adoc[Release guide]
 * xref:reference/index.adoc[Reference]

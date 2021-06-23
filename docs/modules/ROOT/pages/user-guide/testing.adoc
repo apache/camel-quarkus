@@ -33,6 +33,7 @@ class MyTest {
 
 An example implementation can be found https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageTest.java[here].
 
+[[native-tests]]
 == A test running in native mode
 
 As long as all extensions your application depends on are supported in native mode,
@@ -53,6 +54,7 @@ class MyIT extends MyTest {
 
 An implementation of a native test may help to capture more details https://github.com/apache/camel-quarkus/blob/main/integration-tests/bindy/src/test/java/org/apache/camel/quarkus/component/bindy/it/MessageRecordIT.java[here].
 
+[[jvm-vs-native-tests]]
 == `@QuarkusTest` vs. `@NativeImageTest`
 
 JVM mode tests annotated with `@QuarkusTest` are executed in the same JVM as the application under test.
