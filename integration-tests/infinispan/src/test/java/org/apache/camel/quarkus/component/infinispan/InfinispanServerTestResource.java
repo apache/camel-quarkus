@@ -20,6 +20,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.GenericContainer;
@@ -54,7 +55,7 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
             // Create 2 sets of configuration to test scenarios:
             // - Quarkus Infinispan client bean being autowired into the Camel Infinispan component
             // - Component configuration where the Infinispan client is managed by Camel (E.g Infinispan client autowiring disabled)
-            return CollectionHelper.mapOf(
+            Map<String, String> result = CollectionHelper.mapOf(
                     // quarkus
                     "quarkus.infinispan-client.server-list", serverList,
                     "quarkus.infinispan-client.near-cache-max-entries", "3",
@@ -71,7 +72,13 @@ public class InfinispanServerTestResource implements QuarkusTestResourceLifecycl
                     "camel.component.infinispan.secure", "true",
                     "camel.component.infinispan.security-realm", "default",
                     "camel.component.infinispan.sasl-mechanism", "DIGEST-MD5",
-                    "camel.component.infinispan.security-server-name", "infinispan");
+                    "camel.component.infinispan.security-server-name",
+                    "infinispan");
+            if (SystemUtils.IS_OS_MAC || SystemUtils.IS_OS_WINDOWS) {
+                /* Fix for https://github.com/apache/camel-quarkus/issues/2840 */
+                result.put("quarkus.infinispan-client.client-intelligence", "BASIC");
+            }
+            return result;
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
