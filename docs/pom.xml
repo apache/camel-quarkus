@@ -31,6 +31,12 @@
 
     <name>Camel Quarkus :: Documentation</name>
 
+    <properties>
+        <!-- Disable xref checks as long as there is no 3.11.x branch of Camel docs -->
+        <skip.installyarn>true</skip.installyarn>
+        <skip.yarn>true</skip.yarn>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
