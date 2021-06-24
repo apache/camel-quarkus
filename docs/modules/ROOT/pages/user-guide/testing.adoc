@@ -81,7 +81,7 @@ come in handy for starting and configuring the services during testing.
 
 For the application to work properly it is often essential to pass the connection configuration data
 (host, port, user, password, etc. of the remote service) to the application before it starts.
-In Quarkus ecosystem, `ContainerResourceLifecycleManager` serves this purpose.
+In Quarkus ecosystem, `QuarkusTestResourceLifecycleManager` serves this purpose.
 You can start one or more Testcontainers in its `start()` method
 and you can return the connection configuration from the method in form of a `Map`.
 The entries of this map are then passed to the application either via command line (`-Dkey=value`) in native mode
@@ -97,7 +97,7 @@ import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 
-public class MyTestResource implements ContainerResourceLifecycleManager {
+public class MyTestResource implements QuarkusTestResourceLifecycleManager {
 
     private GenericContainer myContainer;
 
