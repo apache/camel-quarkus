@@ -168,4 +168,16 @@ class RestTest {
                 .body(is("true"));
     }
 
+    @Test
+    public void restLog() throws Throwable {
+        String message = "Camel Quarkus Platform HTTP";
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .when()
+                .post("/rest/log")
+                .then()
+                .statusCode(200)
+                .body(is(message));
+    }
 }

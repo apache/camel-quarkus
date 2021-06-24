@@ -75,6 +75,11 @@ public class RestRoutes extends RouteBuilder {
                 .route()
                 .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
+                .endRest()
+
+                .post("/log")
+                .route()
+                .log("Hello ${body}")
                 .endRest();
     }
 }

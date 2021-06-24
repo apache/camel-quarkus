@@ -99,6 +99,9 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
         from("platform-http:/platform-http/path/prefix?matchOnUriPrefix=true")
                 .setBody(simple("Hello ${header.CamelHttpPath}"));
 
+        from("platform-http:/platform-http/log?httpMethodRestrict=POST&consumes=text/plain")
+                .log("Hello ${body}");
+
         // 204 tests
         from("platform-http:/platform-http/null-body")
                 .setBody(constant(null));
