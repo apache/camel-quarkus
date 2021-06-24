@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -241,6 +242,19 @@ class PlatformHttpTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello Kermit"));
+    }
+
+    @Test
+    public void log() {
+        String message = "Camel Quarkus Platform HTTP";
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .when()
+                .post("/platform-http/log")
+                .then()
+                .statusCode(200)
+                .body(equalTo(message));
     }
 
     @ParameterizedTest

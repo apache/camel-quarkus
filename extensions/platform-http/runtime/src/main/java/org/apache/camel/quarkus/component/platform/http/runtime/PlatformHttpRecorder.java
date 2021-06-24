@@ -26,6 +26,7 @@ import org.apache.camel.component.platform.http.PlatformHttpComponent;
 import org.apache.camel.component.platform.http.spi.PlatformHttpEngine;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpEngine;
 import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpRouter;
+import org.apache.camel.spi.TypeConverterLoader;
 
 @Recorder
 public class PlatformHttpRecorder {
@@ -48,5 +49,9 @@ public class PlatformHttpRecorder {
             }
         };
         return new RuntimeValue<>(vertxPlatformHttpRouter);
+    }
+
+    public RuntimeValue<TypeConverterLoader> createVertxByteBufferConverterLoader() {
+        return new RuntimeValue<>(new VertxByteBufferConverterLoader());
     }
 }
