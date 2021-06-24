@@ -10,11 +10,17 @@
 
 **Closed issues:**
 
+- Salesforce native integration tests throw CNFE for `java.io.InputStream` [\#2831](https://github.com/apache/camel-quarkus/issues/2831)
+- Let quarkus-google-cloud-services or com.google.cloud:libraries-bom align opencensus, perfmark & Co. [\#2816](https://github.com/apache/camel-quarkus/issues/2816)
+- Manage Groovy dependencies with `groovy-bom` import [\#2812](https://github.com/apache/camel-quarkus/issues/2812)
 - Ability to retrieve traceId for observability in routes [\#2802](https://github.com/apache/camel-quarkus/issues/2802)
 - CNFE MapperResultProducerService when com.datastax.oss:java-driver-mapper-runtime is not in the class path [\#2801](https://github.com/apache/camel-quarkus/issues/2801)
 - Expand HTTP extension test coverage [\#2794](https://github.com/apache/camel-quarkus/issues/2794)
 - camel-quarkus-http doesn't build native image - Random/SplittableRandom [\#2793](https://github.com/apache/camel-quarkus/issues/2793)
 - Expand jsonpath test coverage [\#2783](https://github.com/apache/camel-quarkus/issues/2783)
+- Update the Command mode docs page [\#2782](https://github.com/apache/camel-quarkus/issues/2782)
+- Test camel.threadpool.\* set of properties [\#2781](https://github.com/apache/camel-quarkus/issues/2781)
+- Test specifying custom beans in application.properties [\#2778](https://github.com/apache/camel-quarkus/issues/2778)
 - Unable to determine the status of the running process in TimerIT without resteasy [\#2772](https://github.com/apache/camel-quarkus/issues/2772)
 - Solr test doesn't work on RHEL 8 [\#2766](https://github.com/apache/camel-quarkus/issues/2766)
 - camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
@@ -24,6 +30,7 @@
 - hazelcast integration-test failed in native mode\(On Mac\) [\#2719](https://github.com/apache/camel-quarkus/issues/2719)
 - \[infinispan\] Test both camel and quarkus configuration of underlying component quarkus client [\#2713](https://github.com/apache/camel-quarkus/issues/2713)
 - Unmanage unnecessary google dependencies  [\#2689](https://github.com/apache/camel-quarkus/issues/2689)
+- Revisit user guide testing page [\#2679](https://github.com/apache/camel-quarkus/issues/2679)
 - Intermittent failures in MllpIT  [\#2671](https://github.com/apache/camel-quarkus/issues/2671)
 - Adapt Observability docs page to Quarkus 2.0.0 [\#2659](https://github.com/apache/camel-quarkus/issues/2659)
 - kamelet extension: add test for kamelet discovery mechanism [\#2652](https://github.com/apache/camel-quarkus/issues/2652)
@@ -40,6 +47,15 @@
 
 **Merged pull requests:**
 
+- Use a custom NativeImageStartedNotifier for box native tests to work around \#2830 [\#2837](https://github.com/apache/camel-quarkus/pull/2837) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Quarkus 2.0.0.Final [\#2835](https://github.com/apache/camel-quarkus/pull/2835) ([ppalaga](https://github.com/ppalaga))
+- Deprecate quarkus.camel.sql.script-files configuration property [\#2827](https://github.com/apache/camel-quarkus/pull/2827) ([jamesnetherton](https://github.com/jamesnetherton))
+- Update the Command mode docs page [\#2826](https://github.com/apache/camel-quarkus/pull/2826) ([ppalaga](https://github.com/ppalaga))
+- Test camel.threadpool.\* set of properties \#2781 [\#2825](https://github.com/apache/camel-quarkus/pull/2825) ([aldettinger](https://github.com/aldettinger))
+- Migration guide: mention Quarkus 2.0 migration guide, [\#2824](https://github.com/apache/camel-quarkus/pull/2824) ([ppalaga](https://github.com/ppalaga))
+- Manage Groovy dependencies with groovy-bom import [\#2821](https://github.com/apache/camel-quarkus/pull/2821) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Quarkiverse Google Cloud Services 0.8.0.CR1 [\#2820](https://github.com/apache/camel-quarkus/pull/2820) ([ppalaga](https://github.com/ppalaga))
+- Tested and documented the specification of custom beans in applicatio… [\#2818](https://github.com/apache/camel-quarkus/pull/2818) ([aldettinger](https://github.com/aldettinger))
 - Unmanage unnecessary google dependencies  [\#2817](https://github.com/apache/camel-quarkus/pull/2817) ([ppalaga](https://github.com/ppalaga))
 - Replace quarkus.camel.native.resources.\* with quarkus.native.resource… [\#2813](https://github.com/apache/camel-quarkus/pull/2813) ([ppalaga](https://github.com/ppalaga))
 - Remove camel-quarkus-main  [\#2811](https://github.com/apache/camel-quarkus/pull/2811) ([ppalaga](https://github.com/ppalaga))
@@ -622,6 +638,7 @@
 
 **Closed issues:**
 
+- Use EmbeddedActiveMQ in messaging and jta integration tests  [\#2727](https://github.com/apache/camel-quarkus/issues/2727)
 - Register all @JsonView array elements for reflection [\#2708](https://github.com/apache/camel-quarkus/issues/2708)
 - demonstrate how to configure quarkus-jackson extension's own ObjectMapper instance and reuse it in our jackson test [\#2706](https://github.com/apache/camel-quarkus/issues/2706)
 - Expand Saxon test coverage with xpath saxon tests [\#2702](https://github.com/apache/camel-quarkus/issues/2702)
