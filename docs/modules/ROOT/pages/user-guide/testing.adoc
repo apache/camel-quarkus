@@ -140,3 +140,79 @@ class MyTest {
 ----
 
 Please refer to Camel Quarkus source tree for a https://github.com/apache/camel-quarkus/blob/main/integration-tests/nats/src/test/java/org/apache/camel/quarkus/component/nats/it/NatsTestResource.java[complete example].
+
+=== WireMock
+
+It is sometimes useful to stub HTTP interactions with third party services & APIs so that tests do not have to connect to live endpoints, as this can incur costs and the service may not always be 100% available or reliable.
+
+An excellent tool for mocking & recording HTTP interactions is http://wiremock.org/[WireMock]. It is used extensively throughout the Camel Quarkus test suite for various component extensions. Here follows a typical workflow 
+for setting up WireMock.
+
+First set up the WireMock server. Note that it is important to configure the Camel component under test to pass any HTTP interactions through the WireMock proxy. This is usually achieved by configuring a component property 
+that determines the API endpoint URL. Sometimes things are less straightforward and some extra work is required to configure the API client library, as was the case for https://github.com/apache/camel-quarkus/blob/main/integration-tests/twilio/src/main/java/org/apache/camel/quarkus/component/twilio/it/TwilioResource.java#L83[Twilio]. 
+
+[source,java]
+----
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import com.github.tomakehurst.wiremock.WireMockServer;
+
+import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
+
+public class WireMockTestResource implements QuarkusTestResourceLifecycleManager {
+
+    private WireMockServer server;
+
+    @Override
+    public Map<String, String> start() {
+        // Setup & start the server
+        server = new WireMockServer(
+            wireMockConfig().dynamicPort()
+        );
+        server.start();
+
+        // Stub a HTTP endpoint. Note that WireMock also supports a record and playback mode
+        // http://wiremock.org/docs/record-playback/
+        server.stubFor(
+            get(urlEqualTo("/api/greeting"))
+                .willReturn(aResponse()
+                    .withHeader("Content-Type", "application/json")
+                    .withBody("{\"message\": \"Hello World\"}")));
+
+        // Ensure the camel component API client passes requests through the WireMock proxy        
+        Map<String, String> conf = new HashMap<>();
+        conf.put("camel.component.foo.server-url", server.baseUrl());
+        return conf;
+    }
+
+    @Override
+    public void stop() {
+        if (server != null) {
+            server.stop();
+        }
+    }
+}
+----
+
+Finally, ensure your test class has the `@QuarkusTestResource` annotation with the appropriate test resource class specified as the value. The WireMock server will be started before all tests are 
+executed and will be shut down when all tests are finished.
+
+[source,java]
+----
+import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.junit.QuarkusTest;
+
+@QuarkusTest
+@QuarkusTestResource(WireMockTestResource.class)
+class MyTest {
+   ...
+}
+----
+
+More examples of WireMock usage can be found in the Camel Quarkus integration test source tree such as https://github.com/apache/camel-quarkus/tree/main/integration-tests/geocoder[Geocoder].
