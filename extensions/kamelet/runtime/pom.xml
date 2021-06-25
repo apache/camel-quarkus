@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-kamelet</artifactId>
     <name>Camel Quarkus :: Kamelet :: Runtime</name>
-    <description>The Kamelet Component provides support for interacting with the Camel Route Template engine</description>
+    <description>Materialize route templates</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.7.0</camel.quarkus.jvmSince>

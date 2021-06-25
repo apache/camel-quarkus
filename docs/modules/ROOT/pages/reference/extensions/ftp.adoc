@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Upload and download files to/from FTP or SFTP servers.
+:cq-description: Upload and download files to/from SFTP, FTP or SFTP servers
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Upload and download files to/from FTP or SFTP servers.
+Upload and download files to/from SFTP, FTP or SFTP servers
 
 == What's inside
 
