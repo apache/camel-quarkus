@@ -28,9 +28,7 @@ import org.testcontainers.containers.wait.strategy.Wait;
 public class LraTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final Integer LRA_PORT = AvailablePortFinder.getNextAvailable();
-    // TODO: Use a newer lra-coordinator
-    // https://github.com/apache/camel-quarkus/issues/2285
-    private static final String LRA_IMAGE = "jbosstm/lra-coordinator:5.9.3.Final";
+    private static final String LRA_IMAGE = "jbosstm/lra-coordinator:5.12.0.Final";
 
     private GenericContainer container;
     private String hostname;
@@ -43,13 +41,8 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
                 hostname = "localhost";
                 container = new GenericContainer(LRA_IMAGE)
                         .withNetworkMode("host")
-                        .withCommand(
-                                "java",
-                                "-jar",
-                                "/deployments/lra-coordinator-swarm.jar",
-                                "-Djava.net.preferIPv4Stack=true",
-                                "-Dswarm.http.port=" + LRA_PORT)
-                        .waitingFor(Wait.forLogMessage(".*WFSWARM99999.*", 1));
+                        .withEnv("JAVA_OPTS", "-Dquarkus.http.port=" + LRA_PORT)
+                        .waitingFor(Wait.forLogMessage(".*lra-coordinator-quarkus.*", 1));
                 container.start();
                 lraPort = LRA_PORT;
             } else {
@@ -57,13 +50,8 @@ public class LraTestResource implements QuarkusTestResourceLifecycleManager {
                 container = new GenericContainer(LRA_IMAGE)
                         .withNetworkMode("bridge")
                         .withExposedPorts(LRA_PORT)
-                        .withCommand(
-                                "java",
-                                "-jar",
-                                "/deployments/lra-coordinator-swarm.jar",
-                                "-Djava.net.preferIPv4Stack=true",
-                                "-Dswarm.http.port=" + LRA_PORT)
-                        .waitingFor(Wait.forLogMessage(".*WFSWARM99999.*", 1));
+                        .withEnv("JAVA_OPTS", "-Dquarkus.http.port=" + LRA_PORT)
+                        .waitingFor(Wait.forLogMessage(".*lra-coordinator-quarkus.*", 1));
                 container.start();
                 lraPort = container.getMappedPort(LRA_PORT);
             }
