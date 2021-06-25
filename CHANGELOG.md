@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- onException in xml dsl [\#2842](https://github.com/apache/camel-quarkus/issues/2842)
+- Add a section about mocking remote endpoints to Testing page of user guide [\#2834](https://github.com/apache/camel-quarkus/issues/2834)
 - Salesforce native integration tests throw CNFE for `java.io.InputStream` [\#2831](https://github.com/apache/camel-quarkus/issues/2831)
 - Let quarkus-google-cloud-services or com.google.cloud:libraries-bom align opencensus, perfmark & Co. [\#2816](https://github.com/apache/camel-quarkus/issues/2816)
 - Manage Groovy dependencies with `groovy-bom` import [\#2812](https://github.com/apache/camel-quarkus/issues/2812)
@@ -25,10 +27,13 @@
 - Solr test doesn't work on RHEL 8 [\#2766](https://github.com/apache/camel-quarkus/issues/2766)
 - camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
 - Avoid duplicating code in `org.apache.camel.quarkus.core.BaseModel` [\#2752](https://github.com/apache/camel-quarkus/issues/2752)
+- kubernetes integration-test failure in native mode [\#2730](https://github.com/apache/camel-quarkus/issues/2730)
 - Fix JSON Jackson jacksonConversionPojo test [\#2726](https://github.com/apache/camel-quarkus/issues/2726)
 - cassandra-driver-core 3.5.0 managed in Debezium BOM too old for testcontainers 1.15.3 [\#2724](https://github.com/apache/camel-quarkus/issues/2724)
 - hazelcast integration-test failed in native mode\(On Mac\) [\#2719](https://github.com/apache/camel-quarkus/issues/2719)
 - \[infinispan\] Test both camel and quarkus configuration of underlying component quarkus client [\#2713](https://github.com/apache/camel-quarkus/issues/2713)
+- \[Camel 3.11\] Remove vertx-http itest SSL workaround [\#2704](https://github.com/apache/camel-quarkus/issues/2704)
+- \[Camel 3.11\] ThreadPoolBulkhead not available in smallrye-fault-tolerance 5.1.0 [\#2696](https://github.com/apache/camel-quarkus/issues/2696)
 - Unmanage unnecessary google dependencies  [\#2689](https://github.com/apache/camel-quarkus/issues/2689)
 - Revisit user guide testing page [\#2679](https://github.com/apache/camel-quarkus/issues/2679)
 - Intermittent failures in MllpIT  [\#2671](https://github.com/apache/camel-quarkus/issues/2671)
@@ -47,6 +52,9 @@
 
 **Merged pull requests:**
 
+- Add a TypeConverter for platform-http to convert Buffer to ByteBuffer and work around \#2838 [\#2846](https://github.com/apache/camel-quarkus/pull/2846) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add a section about mocking remote endpoints to Testing page of user guide [\#2843](https://github.com/apache/camel-quarkus/pull/2843) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to Camel 3.11 [\#2839](https://github.com/apache/camel-quarkus/pull/2839) ([ppalaga](https://github.com/ppalaga))
 - Use a custom NativeImageStartedNotifier for box native tests to work around \#2830 [\#2837](https://github.com/apache/camel-quarkus/pull/2837) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 2.0.0.Final [\#2835](https://github.com/apache/camel-quarkus/pull/2835) ([ppalaga](https://github.com/ppalaga))
 - Deprecate quarkus.camel.sql.script-files configuration property [\#2827](https://github.com/apache/camel-quarkus/pull/2827) ([jamesnetherton](https://github.com/jamesnetherton))
