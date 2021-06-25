@@ -27,7 +27,7 @@
 
     <artifactId>camel-quarkus-core</artifactId>
     <name>Camel Quarkus :: Core :: Runtime</name>
-    <description>Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokeinze</description>
+    <description>Camel core functionality and basic Camel languages: Constant, ExchangeProperty, Header, Ref, Ref, Simple and Tokenize</description>
 
     <properties>
         <camel.quarkus.jvmSince>0.0.1</camel.quarkus.jvmSince>
