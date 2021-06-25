@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel JTA"
-description: "Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager"
+description: "Enclose Camel routes in transactions using Java Transaction API (JTA) and Narayana transaction manager"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jta.html"
   categories:

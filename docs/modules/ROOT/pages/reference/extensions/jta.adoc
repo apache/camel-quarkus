@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager
+:cq-description: Enclose Camel routes in transactions using Java Transaction API (JTA) and Narayana transaction manager
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Enclose Camel routes in the transactions using Java Transaction API (JTA) and Narayana transaction manager
+Enclose Camel routes in transactions using Java Transaction API (JTA) and Narayana transaction manager
 
 == What's inside
 

@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-ftp</artifactId>
     <name>Camel Quarkus :: FTP :: Runtime</name>
-    <description>Upload and download files to/from FTP or SFTP servers.</description>
+    <description>Upload and download files to/from SFTP, FTP or SFTP servers</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

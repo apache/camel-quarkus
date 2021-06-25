@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-bindy</artifactId>
     <name>Camel Quarkus :: Bindy :: Runtime</name>
+    <description>Marshal and unmarshal between POJOs on one side and Comma separated values (CSV), fixed field length or key-value pair (KVP) formats on the other side using Camel Bindy</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

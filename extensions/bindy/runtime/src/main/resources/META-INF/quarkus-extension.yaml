@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel Bindy"
-description: "Marshal and unmarshal between POJOs and Comma separated values (CSV) format using Camel Bindy Marshal and unmarshal between POJOs and fixed field length format using Camel Bindy Marshal and unmarshal between POJOs and key-value pair (KVP) format using Camel Bindy"
+description: "Marshal and unmarshal between POJOs on one side and Comma separated values (CSV), fixed field length or key-value pair (KVP) formats on the other side using Camel Bindy"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/bindy.html"
   categories:

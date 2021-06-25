@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel FTP"
-description: "Upload and download files to/from FTP or SFTP servers"
+description: "Upload and download files to/from SFTP, FTP or SFTP servers"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/ftp.html"
   categories:

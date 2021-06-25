@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel Kamelet"
-description: "The Kamelet Component provides support for interacting with the Camel Route Template engine"
+description: "Materialize route templates"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/kamelet.html"
   categories:

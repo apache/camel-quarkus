@@ -6,7 +6,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: The Kamelet Component provides support for interacting with the Camel Route Template engine
+:cq-description: Materialize route templates
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0
 :cq-native-since: 1.7.0
@@ -14,7 +14,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.7.0## [.badge-key]##Native since##[.badge-supported]##1.7.0##
 
-The Kamelet Component provides support for interacting with the Camel Route Template engine
+Materialize route templates
 
 == What's inside
 
