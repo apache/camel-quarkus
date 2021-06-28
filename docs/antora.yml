@@ -17,7 +17,7 @@
 
 name: camel-quarkus
 title: Camel Quarkus
-version: latest
+version: 2.0.0
 nav:
 - modules/ROOT/nav.adoc
 asciidoc:
