@@ -1,5 +1,5 @@
 = Camel misc. components supported on Quarkus
-:indexer-version: latest
+:indexer-version: 2.0.0
 :indexer-component: components
 :indexer-module: others
 :indexer-rel-filter: *.adoc
