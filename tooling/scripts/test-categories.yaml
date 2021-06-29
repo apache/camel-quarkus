@@ -96,6 +96,7 @@ group-06:
   - lra
   - micrometer
   - openstack
+  - opentelemetry
   - quartz
   - rabbitmq
   - saga
