@@ -24,4 +24,8 @@ asciidoc:
   attributes:
     cq-camel-components: 3.11.x@components # replace ${camel.docs.components.xref}
     min-maven-version: 3.6.2 # replace ${min-maven-version}
+<<<<<<< HEAD
     quarkus-version: 2.0.1.Final # replace ${quarkus.version}
+=======
+    quarkus-version: 999-SNAPSHOT # replace ${quarkus.version}
+>>>>>>> fe4701c4eb... Upgrade Quarkus to 2.1.0.CR1
