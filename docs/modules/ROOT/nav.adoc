@@ -231,6 +231,7 @@
 *** xref:reference/extensions/olingo4.adoc[Olingo4]
 *** xref:reference/extensions/openapi-java.adoc[OpenAPI Java]
 *** xref:reference/extensions/openstack.adoc[OpenStack]
+*** xref:reference/extensions/opentelemetry.adoc[OpenTelemetry]
 *** xref:reference/extensions/opentracing.adoc[OpenTracing]
 *** xref:reference/extensions/optaplanner.adoc[OptaPlanner]
 *** xref:reference/extensions/pdf.adoc[PDF]
