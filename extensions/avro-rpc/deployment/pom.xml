@@ -42,6 +42,10 @@
             <artifactId>quarkus-avro-deployment</artifactId>
             <groupId>io.quarkus</groupId>
         </dependency>
+        <dependency>
+            <artifactId>quarkus-vertx-http-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+        </dependency>
     </dependencies>
 
     <build>

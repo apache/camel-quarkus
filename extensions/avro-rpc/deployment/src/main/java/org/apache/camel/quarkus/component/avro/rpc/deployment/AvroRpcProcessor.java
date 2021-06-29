@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.avro.rpc.deployment;
 
+import java.nio.file.Paths;
+
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -23,6 +25,8 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.avro.specific.AvroGenerated;
+import org.apache.camel.quarkus.component.avro.rpc.spi.VertxHttpServerFactory;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceBuildItem;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -50,5 +54,11 @@ class AvroRpcProcessor {
     @BuildStep
     void registerDependencyForIndex(BuildProducer<IndexDependencyBuildItem> indexDependency) {
         indexDependency.produce(new IndexDependencyBuildItem("org.apache.avro", "avro-ipc"));
+    }
+
+    @BuildStep
+    CamelServiceBuildItem httpFactory() {
+        return new CamelServiceBuildItem(Paths.get("META-INF/services/org/apache/camel/avro-rpc-http-server-factory"),
+                VertxHttpServerFactory.class.getName());
     }
 }

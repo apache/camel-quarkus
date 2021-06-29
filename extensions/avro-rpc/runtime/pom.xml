@@ -60,19 +60,27 @@
                     <artifactId>*</artifactId>
                     <groupId>org.apache.avro</groupId>
                 </exclusion>
+                <exclusion>
+                    <artifactId>camel-avro-rpc-jetty</artifactId>
+                    <groupId>org.apache.camel</groupId>
+                </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel</groupId>
+            <artifactId>camel-avro-rpc-spi</artifactId>
         </dependency>
         <dependency>
             <artifactId>quarkus-avro</artifactId>
             <groupId>io.quarkus</groupId>
         </dependency>
         <dependency>
-            <groupId>org.apache.avro</groupId>
-            <artifactId>avro-ipc-netty</artifactId>
+            <artifactId>quarkus-vertx-http</artifactId>
+            <groupId>io.quarkus</groupId>
         </dependency>
         <dependency>
             <groupId>org.apache.avro</groupId>
-            <artifactId>avro-ipc-jetty</artifactId>
+            <artifactId>avro-ipc-netty</artifactId>
         </dependency>
         <dependency>
             <groupId>org.graalvm.nativeimage</groupId>
