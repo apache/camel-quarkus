@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
 
 **Merged pull requests:**
 
+- Remove Camel 3.11 staging repository [\#2851](https://github.com/apache/camel-quarkus/pull/2851) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve extension descriptions [\#2848](https://github.com/apache/camel-quarkus/pull/2848) ([ppalaga](https://github.com/ppalaga))
 - Fix \#2285 upgrade to use the lasest narayana lra-coordinator [\#2847](https://github.com/apache/camel-quarkus/pull/2847) ([zhfeng](https://github.com/zhfeng))
 - Add a TypeConverter for platform-http to convert Buffer to ByteBuffer and work around \#2838 [\#2846](https://github.com/apache/camel-quarkus/pull/2846) ([jamesnetherton](https://github.com/jamesnetherton))
