@@ -22,7 +22,7 @@ while it was still kept for backwards compatibility.
 The empty `camel-quarkus-main` artifact was removed completely in Camel Quarkus 2.0.0.
 
 As long as your application depends on any other Camel Quarkus extension, it is enough to remove the `camel-quarkus-main` dependency.
-This is because all Camel Quarkus extensions transitively depend on `camel-quarkus-core` where the the original `camel-quarkus-main` functionality is hosted now.
+This is because all Camel Quarkus extensions transitively depend on `camel-quarkus-core` where the original `camel-quarkus-main` functionality is hosted now.
 
 == `camel-quarkus-xml-io` artifact replaced by `camel-quarkus-xml-io-dsl`
 

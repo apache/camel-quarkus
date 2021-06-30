@@ -8,7 +8,7 @@ We use it as a means to indirectly verify the functionality of the underlying ex
 
 == Where are the integration tests?
 
-Here are the the directories containing integration tests:
+Here are the directories containing integration tests:
 
 * `https://github.com/apache/camel-quarkus/tree/main/integration-tests[integration-tests]`
 * `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups[integration-test-groups/*]`
