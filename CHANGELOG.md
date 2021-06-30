@@ -8,9 +8,11 @@
 
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
+- OpenTelemetry support [\#2084](https://github.com/apache/camel-quarkus/issues/2084)
 
 **Merged pull requests:**
 
+- Add OpenTelemetry extension [\#2854](https://github.com/apache/camel-quarkus/pull/2854) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove Camel 3.11 staging repository [\#2851](https://github.com/apache/camel-quarkus/pull/2851) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve extension descriptions [\#2848](https://github.com/apache/camel-quarkus/pull/2848) ([ppalaga](https://github.com/ppalaga))
 - Fix \#2285 upgrade to use the lasest narayana lra-coordinator [\#2847](https://github.com/apache/camel-quarkus/pull/2847) ([zhfeng](https://github.com/zhfeng))
@@ -625,7 +627,6 @@
 - Update the Command mode docs page [\#2782](https://github.com/apache/camel-quarkus/issues/2782)
 - Unable to determine the status of the running process in TimerIT without resteasy [\#2772](https://github.com/apache/camel-quarkus/issues/2772)
 - Solr test doesn't work on RHEL 8 [\#2766](https://github.com/apache/camel-quarkus/issues/2766)
-- kubernetes integration-test failure in native mode [\#2730](https://github.com/apache/camel-quarkus/issues/2730)
 - Fix JSON Jackson jacksonConversionPojo test [\#2726](https://github.com/apache/camel-quarkus/issues/2726)
 - cassandra-driver-core 3.5.0 managed in Debezium BOM too old for testcontainers 1.15.3 [\#2724](https://github.com/apache/camel-quarkus/issues/2724)
 - hazelcast integration-test failed in native mode\(On Mac\) [\#2719](https://github.com/apache/camel-quarkus/issues/2719)
@@ -644,6 +645,7 @@
 - Test specifying custom beans in application.properties [\#2778](https://github.com/apache/camel-quarkus/issues/2778)
 - camel.main.dump-routes = true does not work [\#2761](https://github.com/apache/camel-quarkus/issues/2761)
 - Avoid duplicating code in `org.apache.camel.quarkus.core.BaseModel` [\#2752](https://github.com/apache/camel-quarkus/issues/2752)
+- kubernetes integration-test failure in native mode [\#2730](https://github.com/apache/camel-quarkus/issues/2730)
 - Use EmbeddedActiveMQ in messaging and jta integration tests  [\#2727](https://github.com/apache/camel-quarkus/issues/2727)
 - \[infinispan\] Test both camel and quarkus configuration of underlying component quarkus client [\#2713](https://github.com/apache/camel-quarkus/issues/2713)
 - Register all @JsonView array elements for reflection [\#2708](https://github.com/apache/camel-quarkus/issues/2708)
