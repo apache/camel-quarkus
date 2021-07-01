@@ -8,10 +8,15 @@
 
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
+- Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
+- Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
+- Add camel-kamelet extension example [\#2630](https://github.com/apache/camel-quarkus/issues/2630)
 - OpenTelemetry support [\#2084](https://github.com/apache/camel-quarkus/issues/2084)
 
 **Merged pull requests:**
 
+- Dependency upgrades [\#2863](https://github.com/apache/camel-quarkus/pull/2863) ([ppalaga](https://github.com/ppalaga))
+- Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 \#2651 [\#2859](https://github.com/apache/camel-quarkus/pull/2859) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add OpenTelemetry extension [\#2854](https://github.com/apache/camel-quarkus/pull/2854) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove Camel 3.11 staging repository [\#2851](https://github.com/apache/camel-quarkus/pull/2851) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve extension descriptions [\#2848](https://github.com/apache/camel-quarkus/pull/2848) ([ppalaga](https://github.com/ppalaga))
