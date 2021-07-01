@@ -16,13 +16,11 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
-import java.util.UUID;
-
+import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
@@ -31,11 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTID", matches = ".+")
-@EnabledIfEnvironmentVariable(named = "SALESFORCE_CLIENTSECRET", matches = ".+")
 @QuarkusTest
+@QuarkusTestResource(SalesforceTestResource.class)
 class SalesforceTest {
 
     @Test
@@ -52,8 +47,8 @@ class SalesforceTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        "id", not(emptyString()),
-                        "accountNumber", not(emptyString()));
+                        "Id", not(emptyString()),
+                        "AccountNumber", not(emptyString()));
     }
 
     @Test
@@ -85,46 +80,5 @@ class SalesforceTest {
 
         state = jobInfo.getString("state");
         assertEquals("ABORTED", state);
-    }
-
-    @Test
-    public void testChangeDataCaptureEvents() {
-        String accountId = null;
-        try {
-            // Start the Salesforce CDC consumer
-            RestAssured.post("/salesforce/cdc/start")
-                    .then()
-                    .statusCode(200);
-
-            // Create an account
-            String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID().toString();
-            accountId = RestAssured.given()
-                    .body(accountName)
-                    .post("/salesforce/account")
-                    .then()
-                    .statusCode(200)
-                    .extract()
-                    .body()
-                    .asString();
-
-            // Verify we captured the account creation event
-            RestAssured.given()
-                    .get("/salesforce/cdc")
-                    .then()
-                    .statusCode(200)
-                    .body("Name", is(accountName));
-        } finally {
-            // Shut down the CDC consumer
-            RestAssured.post("/salesforce/cdc/stop")
-                    .then()
-                    .statusCode(200);
-
-            // Clean up
-            if (accountId != null) {
-                RestAssured.delete("/salesforce/account/" + accountId)
-                        .then()
-                        .statusCode(204);
-            }
-        }
     }
 }

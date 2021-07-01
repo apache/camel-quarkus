@@ -1,0 +1,19 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/oauth2/token",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"instance_url\":\"{{request.baseUrl}}\",\"access_token\":\"token\"}",
+    "transformers": ["response-template"],
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+    },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}
