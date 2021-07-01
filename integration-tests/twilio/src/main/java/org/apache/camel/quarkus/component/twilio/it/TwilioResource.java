@@ -22,7 +22,6 @@ import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -37,7 +36,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.api.v2010.account.Call;
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.rest.api.v2010.account.Message;
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.ProducerTemplate;
 import org.eclipse.microprofile.config.ConfigProvider;
 
@@ -76,9 +74,6 @@ public class TwilioResource {
         return Response.ok(call.getSid()).build();
     }
 
-    @Unremovable
-    @Singleton
-    @Produces
     @Named("restClient")
     public TwilioRestClient restClient() {
         // If mocking is enabled, we need to ensure Twilio API calls are directed to the mock server

@@ -26,12 +26,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.ws.rs.Produces;
 
 import com.hazelcast.collection.ItemEvent;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.topic.impl.DataAwareMessage;
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -89,99 +87,66 @@ public class HazelcastRoutes extends RouteBuilder {
     @Named("hazelcastResults")
     Map<String, List<String>> hazelcastResults;
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-instance")
     HazelcastDefaultComponent hazelcastInstance() {
         final HazelcastInstanceComponent hazelcastComponent = new HazelcastInstanceComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-atomicvalue")
     HazelcastDefaultComponent hazelcastAtomicnumber() {
         final HazelcastAtomicnumberComponent hazelcastComponent = new HazelcastAtomicnumberComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-list")
     HazelcastDefaultComponent hazelcastList() {
         final HazelcastListComponent hazelcastComponent = new HazelcastListComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-map")
     HazelcastDefaultComponent hazelcastMap() {
         final HazelcastMapComponent hazelcastComponent = new HazelcastMapComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-multimap")
     HazelcastDefaultComponent hazelcastMultimap() {
         final HazelcastMultimapComponent hazelcastComponent = new HazelcastMultimapComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-replicatedmap")
     HazelcastDefaultComponent hazelcastReplicatedmap() {
         final HazelcastReplicatedmapComponent hazelcastComponent = new HazelcastReplicatedmapComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-set")
     HazelcastDefaultComponent hazelcastSet() {
         final HazelcastSetComponent hazelcastComponent = new HazelcastSetComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-topic")
     HazelcastDefaultComponent hazelcastTopic() {
         final HazelcastTopicComponent hazelcastComponent = new HazelcastTopicComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-queue")
     HazelcastDefaultComponent hazelcastQueue() {
         final HazelcastQueueComponent hazelcastComponent = new HazelcastQueueComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-ringbuffer")
     HazelcastDefaultComponent hazelcastRingbuffer() {
         final HazelcastRingbufferComponent hazelcastComponent = new HazelcastRingbufferComponent();
         return configureHazelcastComponent(hazelcastComponent);
     }
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("hazelcast-seda")
     HazelcastDefaultComponent hazelcastSeda() {
         final HazelcastSedaComponent hazelcastComponent = new HazelcastSedaComponent();
