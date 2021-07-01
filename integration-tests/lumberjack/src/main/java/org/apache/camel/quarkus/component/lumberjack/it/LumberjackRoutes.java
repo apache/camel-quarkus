@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.lumberjack.it;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.lumberjack.LumberjackComponent;
 import org.apache.camel.support.jsse.KeyManagersParameters;
@@ -47,9 +44,6 @@ public class LumberjackRoutes extends RouteBuilder {
      *
      * @return a configured {@link LumberjackComponent}
      */
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("lumberjack-global-ssl")
     LumberjackComponent lumberjackGlobalSsl() throws IllegalAccessException, NoSuchFieldException, InstantiationException {
         final LumberjackComponent lumberjackComponent = new LumberjackComponent();
@@ -59,7 +53,6 @@ public class LumberjackRoutes extends RouteBuilder {
         return lumberjackComponent;
     }
 
-    @Produces
     @Named("ssl")
     SSLContextParameters ssl() {
         return createServerSSLContextParameters();

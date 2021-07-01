@@ -16,9 +16,7 @@
  */
 package org.apache.camel.quarkus.component.spring.rabbitmq.it;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -38,8 +36,6 @@ public class SpringRabbitmqConnectionFactoryProducer {
     @ConfigProperty(name = SpringRabbitmqResource.PARAMETER_PASSWORD)
     String password;
 
-    @Produces
-    @ApplicationScoped
     @Named("connectionFactory")
     public ConnectionFactory produceConnectionFactory() {
         CachingConnectionFactory cf = new CachingConnectionFactory();

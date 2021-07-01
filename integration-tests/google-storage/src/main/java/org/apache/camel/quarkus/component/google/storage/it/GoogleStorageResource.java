@@ -41,7 +41,6 @@ import com.google.cloud.storage.CopyWriter;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
 import io.quarkiverse.googlecloudservices.storage.runtime.StorageProducer;
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
@@ -84,9 +83,6 @@ public class GoogleStorageResource {
 
     private Storage client;
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named(COMPONENT_GOOGLE_STORAGE)
     GoogleCloudStorageComponent produceComponent() throws IOException {
         GoogleCloudStorageComponent gsc = new GoogleCloudStorageComponent();

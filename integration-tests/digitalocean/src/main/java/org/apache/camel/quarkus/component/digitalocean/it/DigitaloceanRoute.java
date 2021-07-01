@@ -20,10 +20,8 @@ import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
 import com.myjeeva.digitalocean.impl.DigitalOceanClient;
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -39,9 +37,6 @@ public class DigitaloceanRoute extends RouteBuilder {
      *
      * @return a configured {@link DigitalOceanClient}
      */
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("digitalOceanClient")
     DigitalOceanClient initDigitalOceanClient(MockApiService mockApiService) {
         Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
