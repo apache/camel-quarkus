@@ -1,0 +1,19 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/cometd/50.0/handshake",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "body": "[\"ext\": {\"replay\": true,\"payload.format\": true}, \"minimumVersion\": \"1.0\", \"clientId\": \"clientId\",\"supportedConnectionTypes\": [ \"long-polling\" ], \"channel\": \"/meta/handshake\", \"id\": \"{{jsonPath request.body '$[0].id'}}\",\"version\": \"1.0\",\"successful\": \"true\" }]",
+    "transformers": ["response-template"],
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

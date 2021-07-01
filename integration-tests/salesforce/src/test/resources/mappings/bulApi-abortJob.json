@@ -1,0 +1,18 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/async/50.0/job/750x0000000005LAAQ",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<jobInfo\n   xmlns=\"http://www.force.com/2009/06/asyncapi/dataload\">\n  <id>750x0000000005LAAQ</id>\n  <operation>insert</operation>\n  <object>Contact</object>\n  <createdById>005x0000000wPWdAAM</createdById>\n  <createdDate>2009-09-01T16:42:46.000Z</createdDate>\n  <systemModstamp>2009-09-01T16:42:46.000Z</systemModstamp>\n  <state>Aborted</state>\n  <concurrencyMode>Parallel</concurrencyMode>\n  <contentType>CSV</contentType>\n  <numberBatchesQueued>0</numberBatchesQueued>\n  <numberBatchesInProgress>0</numberBatchesInProgress>\n  <numberBatchesCompleted>0</numberBatchesCompleted>\n  <numberBatchesFailed>0</numberBatchesFailed>\n  <numberBatchesTotal>0</numberBatchesTotal>\n  <numberRecordsProcessed>0</numberRecordsProcessed>\n  <numberRetries>0</numberRetries>\n  <apiVersion>52.0</apiVersion>\n  <numberRecordsFailed>0</numberRecordsFailed>\n  <totalProcessingTime>0</totalProcessingTime>\n  <apiActiveProcessingTime>0</apiActiveProcessingTime>\n  <apexProcessingTime>0</apexProcessingTime>\n</jobInfo>",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

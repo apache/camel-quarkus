@@ -1,0 +1,18 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/data/v50.0/query/?q=SELECT%20Id%2CAccountNumber%20from%20Account%20LIMIT%201",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body" : "{\"records\":[{\"Id\":\"someFakeId\", \"AccountNumber\":\"11233\", \"attributes\": {\"type\" : \"Account\"}}]}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

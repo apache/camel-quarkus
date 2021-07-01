@@ -55,6 +55,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- dependencies needed to mock Salesforce API -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-wiremock-support</artifactId>
+            <scope>test</scope>
+        </dependency>
+
 
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>

@@ -16,13 +16,66 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
-import org.apache.camel.builder.RouteBuilder;
+import java.util.Optional;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import javax.ws.rs.Produces;
+
+import io.quarkus.arc.Unremovable;
+import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.salesforce.AuthenticationType;
+import org.apache.camel.component.salesforce.SalesforceComponent;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@ApplicationScoped
 public class SalesforceRoutes extends RouteBuilder {
+
+    @ConfigProperty(name = "SALESFORCE_USERNAME", defaultValue = "username")
+    String username;
+
+    @ConfigProperty(name = "SALESFORCE_PASSWORD", defaultValue = "password")
+    String password;
+
+    @ConfigProperty(name = "SALESFORCE_CLIENTID", defaultValue = "clientId")
+    String clientId;
+
+    @ConfigProperty(name = "SALESFORCE_CLIENTSECRET", defaultValue = "clientSecret")
+    String clientSecret;
+
+    @Produces
+    @ApplicationScoped
+    @Unremovable
+    @Named("salesforce")
+    SalesforceComponent salesforceComponent() {
+        // check if wiremock URL exists
+        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
+
+        SalesforceComponent salesforceComponent = new SalesforceComponent();
+        salesforceComponent.setClientId(clientId);
+        salesforceComponent.setClientSecret(clientSecret);
+        salesforceComponent.setUserName(username);
+        salesforceComponent.setPassword(password);
+
+        // Set URL depending if mock is enabled
+        if (wireMockUrl.isPresent()) {
+            salesforceComponent.setAuthenticationType(AuthenticationType.USERNAME_PASSWORD);
+            salesforceComponent.setRefreshToken("refreshToken");
+            salesforceComponent.setLoginUrl(wireMockUrl.get());
+        } else {
+            salesforceComponent.setLoginUrl("https://login.salesforce.com");
+        }
+        return salesforceComponent;
+    }
 
     @Override
     public void configure() throws Exception {
-        from("salesforce:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
-                .to("seda:events");
+        Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
+        // Wiremock used only with Templates - this Route is used only with Salesforce credentials
+        if (!wireMockUrl.isPresent()) {
+            from("salesforce:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
+                    .to("seda:events");
+        }
     }
 }
