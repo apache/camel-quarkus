@@ -197,6 +197,16 @@
                                     </properties>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>validate-jvm-native-since</id>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/validate-jvm-native-since.groovy</source>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
