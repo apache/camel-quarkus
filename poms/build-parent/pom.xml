@@ -271,6 +271,10 @@
                                 <id>sanity-checks</id>
                                 <phase /><!-- Speedup the check-format profile by skipping the sanity-checks  -->
                             </execution>
+                            <execution>
+                                <id>validate-jvm-native-since</id>
+                                <phase /><!-- Speedup the check-format profile by skipping the validate-jvm-native-since check  -->
+                            </execution>
                         </executions>
                     </plugin>
                 </plugins>
