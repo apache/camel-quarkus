@@ -19,13 +19,11 @@ package org.apache.camel.quarkus.component.bean.method;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
-import io.quarkus.arc.Unremovable;
 import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 
 @ApplicationScoped
 @Named("RegisteredBean")
-@Unremovable
 @RegisterForReflection
 public class RegisteredBean {
 
