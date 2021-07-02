@@ -15,6 +15,7 @@
 
 **Merged pull requests:**
 
+- Fix usage of incorrect @Produces annotation [\#2865](https://github.com/apache/camel-quarkus/pull/2865) ([jamesnetherton](https://github.com/jamesnetherton))
 - Dependency upgrades [\#2863](https://github.com/apache/camel-quarkus/pull/2863) ([ppalaga](https://github.com/ppalaga))
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 \#2651 [\#2859](https://github.com/apache/camel-quarkus/pull/2859) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Add OpenTelemetry extension [\#2854](https://github.com/apache/camel-quarkus/pull/2854) ([jamesnetherton](https://github.com/jamesnetherton))
