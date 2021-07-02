@@ -26,7 +26,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Endpoint;
 import org.apache.camel.Exchange;
@@ -52,13 +51,6 @@ public class RefResource {
         return producerTemplate.requestBody("my-endpoint", message, String.class);
     }
 
-    //
-    // Camel looks up beans using its registry so we need to mark the beans belows
-    // as @Unremovable so ArC is aware that such beans should need to be removed
-    // even when not referenced.
-    //
-
-    @Unremovable
     @Singleton
     @Named("my-endpoint")
     @javax.enterprise.inject.Produces
@@ -66,7 +58,6 @@ public class RefResource {
         return camelContext.getEndpoint("direct:start");
     }
 
-    @Unremovable
     @Singleton
     @Named("my-expression")
     @javax.enterprise.inject.Produces
@@ -79,7 +70,6 @@ public class RefResource {
         };
     }
 
-    @Unremovable
     @Singleton
     @Named("my-route")
     @javax.enterprise.inject.Produces

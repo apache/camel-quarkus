@@ -22,7 +22,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.geocoder.GeoCoderComponent;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -42,7 +41,6 @@ public class GeocoderProducers {
      */
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("geocoder")
     GeoCoderComponent geocoderComponent(CamelContext camelContext, MockApiService mockApiService)
             throws IllegalAccessException, NoSuchFieldException, InstantiationException {

@@ -20,7 +20,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.idempotent.kafka.KafkaIdempotentRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -31,7 +30,6 @@ public class CamelKafkaRoutes extends RouteBuilder {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("kafkaIdempotentRepository")
     KafkaIdempotentRepository kafkaIdempotentRepository() {
         return new KafkaIdempotentRepository("idempotent-topic", brokers);
