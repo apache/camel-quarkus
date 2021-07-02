@@ -35,6 +35,7 @@ import javax.ws.rs.core.Response;
 
 import com.azure.core.http.policy.HttpLogDetailLevel;
 import com.azure.core.http.policy.HttpLogOptions;
+import com.azure.core.util.BinaryData;
 import com.azure.storage.common.StorageSharedKeyCredential;
 import com.azure.storage.queue.QueueServiceClient;
 import com.azure.storage.queue.QueueServiceClientBuilder;
@@ -92,7 +93,10 @@ public class AzureStorageQueueResource {
         List<QueueMessageItem> messages = producerTemplate.requestBody(
                 componentUri(QueueOperationDefinition.receiveMessages),
                 null, List.class);
-        return messages.stream().map(QueueMessageItem::getMessageText).collect(Collectors.joining("\n"));
+        return messages.stream()
+                .map(QueueMessageItem::getBody)
+                .map(BinaryData::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     @Path("/queue/message")
@@ -115,7 +119,7 @@ public class AzureStorageQueueResource {
     }
 
     private String componentUri(final QueueOperationDefinition operation) {
-        return String.format("azure-storage-queue://%s/%s?serviceClient=#azureQueueServiceClient&operation=%s",
+        return String.format("azure-storage-queue://%s/%s?operation=%s",
                 azureStorageAccountName, QUEUE_NAME,
                 operation.name());
     }
