@@ -8,7 +8,7 @@ This guide outlines various ways to create a new Camel Quarkus application.
 * A `git` client
 * An IDE
 * JDK 11+ with JAVA_HOME configured appropriately
-* Apache Maven {min-maven-version}+
+* Apache Maven {min-maven-version}+ ({target-maven-version} is recommended)
 * GraalVM with the `native-image` command installed and the `GRAALVM_HOME` environment variable set. See
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
   documentation.
