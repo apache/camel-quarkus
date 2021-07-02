@@ -38,6 +38,7 @@
         <module>controlbus</module>
         <module>core</module>
         <module>core-annotations</module>
+        <module>core-fault-tolerance</module>
         <module>core-languages</module>
         <module>core-thread-pools</module>
         <module>customized-log-component</module>
