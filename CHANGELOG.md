@@ -8,6 +8,7 @@
 
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
+- Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
 - Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
 - Add camel-kamelet extension example [\#2630](https://github.com/apache/camel-quarkus/issues/2630)
@@ -15,6 +16,7 @@
 
 **Merged pull requests:**
 
+- Fix \#2763 to ensure jvmSince and nativeSince not newer that current v… [\#2866](https://github.com/apache/camel-quarkus/pull/2866) ([zhfeng](https://github.com/zhfeng))
 - Fix usage of incorrect @Produces annotation [\#2865](https://github.com/apache/camel-quarkus/pull/2865) ([jamesnetherton](https://github.com/jamesnetherton))
 - Dependency upgrades [\#2863](https://github.com/apache/camel-quarkus/pull/2863) ([ppalaga](https://github.com/ppalaga))
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 \#2651 [\#2859](https://github.com/apache/camel-quarkus/pull/2859) ([JiriOndrusek](https://github.com/JiriOndrusek))
