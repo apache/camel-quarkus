@@ -101,7 +101,7 @@
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <minio.version>${minio-version}</minio.version><!-- Keep in sync with quarkiverse-minio and Camel, preferring Camel assuming that it is more likely to be up to date -->
         <mvel2.version>${mvel-version}</mvel2.version>
-        <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
+        <nimbus-jose-jwt.version>9.10</nimbus-jose-jwt.version><!-- It's placed here because of mess in hdfs transitive deps, please upgrade when it's possible -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>
         <okio.version>${squareup-okio-version}</okio.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
