@@ -17,13 +17,10 @@
 import java.nio.file.Path
 import java.nio.file.Paths
 
+
+// check bad dependencies
 final List<String> badDeps = []
 final File pomXml = new File(project.basedir, "pom.xml")
-
-/* groupIds that contain extensions */
-final Set<String> extensionGroupIds = ["org.apache.camel.quarkus", "io.quarkus", "org.amqphub.quarkus"] as Set
-/* artifactIds from groups contained in extensionGroupIds that are not extensions */
-final Set<String> nonExtensionArtifactIds = ["quarkus-development-mode-spi", "camel-quarkus-qute-component"] as Set
 
 final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
 final Path relativePomPath = treeRootDir.relativize(pomXml.toPath().normalize())
@@ -50,4 +47,35 @@ if (!badDeps.isEmpty()) {
                 + badDeps.join("\n    "))
     }
     throw new RuntimeException(msg.toString())
+}
+
+// check jvmSince and nativeCheck not newer than current SNAPSHOT version
+final String currentVersion = project.version - '-SNAPSHOT'
+final String jvmSince    = project.properties['camel.quarkus.jvmSince']
+final String nativeSince = project.properties['camel.quarkus.nativeSince']
+
+if (jvmSince != null && compareVersion(jvmSince, currentVersion) > 0) {
+   throw new RuntimeException("jvmSince " + jvmSince + " is newer than " + project.version);
+}
+
+if (nativeSince != null && compareVersion(nativeSince, currentVersion) > 0) {
+   throw new RuntimeException("nativeSince " + nativeSince + " is newer than " + project.version);
+}
+
+int compareVersion(String a, String b) {
+    List verA = a.tokenize('.')
+    List verB = b.tokenize('.')
+
+    def commonIndices = Math.min(verA.size(), verB.size())
+
+    for (int i = 0; i < commonIndices; ++i) {
+       def numA = verA[i].toInteger()
+       def numB = verB[i].toInteger()
+
+       if (numA != numB) {
+          return numA <=> numB
+       }
+    }
+
+    return verA.size() <=> verB.size()
 }
