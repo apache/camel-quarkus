@@ -234,12 +234,12 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-avro-rpc-spi</artifactId>
+                <artifactId>camel-avro-rpc</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-avro-rpc</artifactId>
+                <artifactId>camel-avro-rpc-spi</artifactId>
                 <version>${camel.version}</version>
             </dependency>
             <dependency>
