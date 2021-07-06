@@ -31,20 +31,13 @@ import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.ObjectCodec;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
 import io.quarkus.deployment.util.ServiceUtil;
 import org.codehaus.stax2.validation.XMLValidationSchemaFactory;
 
 public class JacksonDataformatXmlSupportProcessor {
 
-    private static final String FEATURE = "camel-support-jackson-dataformat-xml";
     static final String SERVICES_PREFIX = "META-INF/services/";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 
     @BuildStep
     void serviceProviders(BuildProducer<ServiceProviderBuildItem> serviceProviders) {
