@@ -34,8 +34,6 @@ import io.quarkus.deployment.util.ServiceUtil;
 import org.jboss.jandex.DotName;
 
 public class AzureCoreSupportProcessor {
-    static final String FEATURE = "camel-support-azure-core";
-
     private static final DotName SERVICE_INTERFACE_DOT_NAME = DotName.createSimple(ServiceInterface.class.getName());
 
     @BuildStep

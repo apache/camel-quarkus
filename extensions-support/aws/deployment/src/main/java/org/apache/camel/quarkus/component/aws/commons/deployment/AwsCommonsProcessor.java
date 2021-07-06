@@ -17,17 +17,9 @@
 package org.apache.camel.quarkus.component.aws.commons.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 
 class AwsCommonsProcessor {
-
-    private static final String FEATURE = "camel-aws-commons";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 
     @BuildStep
     NativeImageProxyDefinitionBuildItem httpProxies() {
