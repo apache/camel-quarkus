@@ -26,7 +26,7 @@
     <route>
         <from uri="direct:Johnzon-type-as-attribute"/>
         <unmarshal>
-            <json library="Johnzon" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
+            <json library="Johnzon" unmarshalType="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
         </unmarshal>
     </route>
 
