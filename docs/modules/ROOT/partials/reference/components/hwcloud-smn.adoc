@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.8.0
 :cq-native-since: n/a
 :cq-camel-part-name: hwcloud-smn
-:cq-camel-part-title: Huawei Cloud Simple Message Notification (SMN)
+:cq-camel-part-title: Huawei Simple Message Notification (SMN)
 :cq-camel-part-description: To broadcast messages and connect cloud services through notifications on Huawei Cloud
 :cq-extension-page-title: SimpleNotification

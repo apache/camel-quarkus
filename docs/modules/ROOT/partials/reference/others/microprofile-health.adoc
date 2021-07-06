@@ -9,5 +9,5 @@
 :cq-native-since: 0.3.0
 :cq-camel-part-name: microprofile-health
 :cq-camel-part-title: Microprofile Health
-:cq-camel-part-description: Bridging Eclipse MicroProfile Health with Camel health checks
+:cq-camel-part-description: Expose Camel health checks via MicroProfile Health
 :cq-extension-page-title: MicroProfile Health

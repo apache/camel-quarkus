@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: tokenize
 :cq-camel-part-title: Tokenize
-:cq-camel-part-description: Tokenize text payloads using the specified delimiter patterns.
+:cq-camel-part-description: Tokenize text payloads using delimiter patterns.
 :cq-extension-page-title: Core

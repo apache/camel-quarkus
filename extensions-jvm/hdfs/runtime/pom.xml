@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-hdfs</artifactId>
     <name>Camel Quarkus :: HDFS :: Runtime</name>
-    <description>Read and write from/to an HDFS filesystem using Hadoop 2.x.</description>
+    <description>Read and write from/to an HDFS filesystem using Hadoop 3.x.</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.1.0</camel.quarkus.jvmSince>

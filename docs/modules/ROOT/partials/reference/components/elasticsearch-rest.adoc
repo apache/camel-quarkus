@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: elasticsearch-rest
 :cq-camel-part-title: Elasticsearch Rest
-:cq-camel-part-description: Send requests to with an ElasticSearch via REST API.
+:cq-camel-part-description: Send requests to ElasticSearch via REST API
 :cq-extension-page-title: Elasticsearch Rest
