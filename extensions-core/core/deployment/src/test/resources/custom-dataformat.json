@@ -1,0 +1,53 @@
+{
+  "dataformat": {
+    "kind": "dataformat",
+    "name": "custom-dataformat",
+    "title": "Custom DataFormat",
+    "description": "",
+    "deprecated": false,
+    "firstVersion": "0.0.0",
+    "label": "dataformat",
+    "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$CustomDataFormat",
+    "supportLevel": "Stable",
+    "groupId": "org.apache.camel.quarkus",
+    "artifactId": "camel-quarkus-custom-dataformat",
+    "version": "0.0.0",
+    "modelName": "",
+    "modelJavaType": ""
+  },
+  "properties": {
+    "unremovableDataFormatProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "object",
+      "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$UnremovableDataFormatBean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    },
+    "removableDataFormatPrimitiveProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "boolean",
+      "javaType": "boolean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    },
+    "removableDataFormatJavaDotLangProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "object",
+      "javaType": "java.lang.Exception",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    }
+  }
+}

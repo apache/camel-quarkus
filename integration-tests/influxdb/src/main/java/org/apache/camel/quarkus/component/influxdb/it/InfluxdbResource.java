@@ -29,7 +29,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.influxdb.InfluxDbConstants;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -53,7 +52,6 @@ public class InfluxdbResource {
     @ConfigProperty(name = INFLUXDB_CONNECTION_PROPERTY)
     String connectionUrl;
 
-    @Unremovable
     @Singleton
     @javax.enterprise.inject.Produces
     InfluxDB createInfluxDbConnection() {
