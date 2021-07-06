@@ -6,7 +6,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Read and write from/to an HDFS filesystem using Hadoop 2.x.
+:cq-description: Read and write from/to an HDFS filesystem using Hadoop 3.x.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
 :cq-native-since: n/a
@@ -14,7 +14,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
-Read and write from/to an HDFS filesystem using Hadoop 2.x.
+Read and write from/to an HDFS filesystem using Hadoop 3.x.
 
 == What's inside
 

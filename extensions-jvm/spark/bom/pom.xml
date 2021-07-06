@@ -29,7 +29,7 @@
     <artifactId>camel-quarkus-spark-bom</artifactId>
     <packaging>pom</packaging>
     <name>Camel Quarkus :: Spark :: BOM</name>
-    <description>Camel Quarkus Spark specific dependency managament</description>
+    <description>Camel Quarkus Spark specific dependency management</description>
 
     <dependencyManagement>
         <dependencies>
@@ -73,6 +73,11 @@
             </dependency>
 
             <dependency>
+                <groupId>com.google.inject.extensions</groupId>
+                <artifactId>guice-servlet</artifactId>
+                <version>${guice-servlet.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.sun.jersey</groupId>
                 <artifactId>jersey-core</artifactId>
                 <version>${jersey-sun.version}</version><!-- Replace com.sun.jersey:jersey-core:1.9 that contains old and incompatible javax.ws.rs.* classes -->
@@ -98,9 +103,34 @@
                 <version>${jersey-sun.version}</version><!-- Replace com.sun.jersey:jersey-core:1.9 that contains old and incompatible javax.ws.rs.* classes -->
             </dependency>
             <dependency>
+                <groupId>com.sun.jersey</groupId>
+                <artifactId>jersey-servlet</artifactId>
+                <version>${jersey-sun.version}</version> <!-- Spark -->
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>${commons-net.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.netty</groupId>
                 <artifactId>netty</artifactId>
                 <version>${netty3.version}</version><!-- Managed here because it would conflict with netty 4 used elsewhere -->
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-json</artifactId>
+                <version>${metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.dropwizard.metrics</groupId>
+                <artifactId>metrics-jvm</artifactId>
+                <version>${metrics.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-text</artifactId>
+                <version>${commons-text.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.derby</groupId>
@@ -110,37 +140,42 @@
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-client</artifactId>
-                <version>${hadoop2.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
+                <version>${hadoop3.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-common</artifactId>
-                <version>${hadoop2.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
+                <version>${hadoop3.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-mapreduce-client-core</artifactId>
-                <version>${hadoop2.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
+                <version>${hadoop3.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
             </dependency>
             <dependency>
                 <groupId>org.apache.hadoop</groupId>
                 <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
-                <version>${hadoop2.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
+                <version>${hadoop3.version}</version><!-- Managed here because it would conflict with Hadoop 3 used elsewhere -->
+            </dependency>
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${libthrift-version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-reflect</artifactId>
-                <version>${scala-2.11.version}</version>
+                <version>${scala-2.12.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-library</artifactId>
-                <version>${scala-2.11.version}</version>
+                <version>${scala-2.12.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.scala-lang</groupId>
                 <artifactId>scala-compiler</artifactId>
-                <version>${scala-2.11.version}</version>
+                <version>${scala-2.12.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.xerial.snappy</groupId>

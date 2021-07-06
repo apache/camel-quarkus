@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Socket level networking using TCP or UDP with the Netty 4.x.
+:cq-description: Socket level networking using TCP or UDP with Netty 4.x.
 :cq-deprecated: false
 :cq-jvm-since: 0.4.0
 :cq-native-since: 0.4.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##0.4.0## [.badge-key]##Native since##[.badge-supported]##0.4.0##
 
-Socket level networking using TCP or UDP with the Netty 4.x.
+Socket level networking using TCP or UDP with Netty 4.x.
 
 == What's inside
 

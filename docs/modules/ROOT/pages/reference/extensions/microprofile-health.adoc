@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Bridging Eclipse MicroProfile Health with Camel health checks
+:cq-description: Expose Camel health checks via MicroProfile Health
 :cq-deprecated: false
 :cq-jvm-since: 0.3.0
 :cq-native-since: 0.3.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##0.3.0## [.badge-key]##Native since##[.badge-supported]##0.3.0##
 
-Bridging Eclipse MicroProfile Health with Camel health checks
+Expose Camel health checks via MicroProfile Health
 
 == What's inside
 
