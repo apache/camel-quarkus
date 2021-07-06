@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -40,7 +39,6 @@ import com.azure.storage.common.StorageSharedKeyCredential;
 import com.azure.storage.queue.QueueServiceClient;
 import com.azure.storage.queue.QueueServiceClientBuilder;
 import com.azure.storage.queue.models.QueueMessageItem;
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.azure.storage.queue.QueueOperationDefinition;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -64,8 +62,6 @@ public class AzureStorageQueueResource {
     String azureQueueServiceUrl;
 
     @javax.enterprise.inject.Produces
-    @Named("azureQueueServiceClient")
-    @Unremovable
     public QueueServiceClient createQueueClient() throws Exception {
         final StorageSharedKeyCredential credentials = new StorageSharedKeyCredential(azureStorageAccountName,
                 azureStorageAccountKey);

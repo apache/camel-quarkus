@@ -1,0 +1,53 @@
+{
+  "language": {
+    "kind": "language",
+    "name": "custom-language",
+    "title": "Custom Language",
+    "description": "",
+    "deprecated": false,
+    "firstVersion": "0.0.0",
+    "label": "language,script",
+    "javaType": "org.apache.camel.language.groovy.GroovyLanguage",
+    "supportLevel": "Stable",
+    "groupId": "org.apache.camel.quarkus",
+    "artifactId": "camel-quarkus-custom-language",
+    "version": "0.0.0",
+    "modelName": "",
+    "modelJavaType": ""
+  },
+  "properties": {
+    "unremovableLanguageProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "object",
+      "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$UnremovableLanguageBean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    },
+    "removableLanguagePrimitiveProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "boolean",
+      "javaType": "boolean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    },
+    "removableLanguageJavaDotLangProperty": {
+      "kind": "attribute",
+      "displayName": "",
+      "required": false,
+      "type": "object",
+      "javaType": "java.lang.Exception",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    }
+  }
+}

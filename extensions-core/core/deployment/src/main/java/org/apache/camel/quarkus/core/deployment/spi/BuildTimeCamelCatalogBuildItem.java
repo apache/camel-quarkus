@@ -14,23 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.google.bigquery.deployment;
+package org.apache.camel.quarkus.core.deployment.spi;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.google.bigquery.GoogleBigQueryConnectionFactoryProducer;
+import io.quarkus.builder.item.SimpleBuildItem;
+import org.apache.camel.quarkus.core.deployment.catalog.BuildTimeCamelCatalog;
 
-class GoogleBigqueryProcessor {
-    private static final String FEATURE = "camel-google-bigquery";
+public final class BuildTimeCamelCatalogBuildItem extends SimpleBuildItem {
 
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+    private final BuildTimeCamelCatalog catalog;
+
+    public BuildTimeCamelCatalogBuildItem(BuildTimeCamelCatalog catalog) {
+        this.catalog = catalog;
     }
 
-    @BuildStep
-    public AdditionalBeanBuildItem connectionFactoryProducerBean() {
-        return new AdditionalBeanBuildItem(GoogleBigQueryConnectionFactoryProducer.class);
+    public BuildTimeCamelCatalog getCatalog() {
+        return catalog;
     }
 }
