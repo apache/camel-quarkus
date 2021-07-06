@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
 - Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
@@ -16,6 +17,10 @@
 
 **Merged pull requests:**
 
+- Add test for camel.faulttolerance.\* properties \#2780 [\#2877](https://github.com/apache/camel-quarkus/pull/2877) ([aldettinger](https://github.com/aldettinger))
+- Fix \#2869 to combine build sanity checks into a single scirpt [\#2875](https://github.com/apache/camel-quarkus/pull/2875) ([zhfeng](https://github.com/zhfeng))
+- Clean up unnecessary use of @Unremovable [\#2871](https://github.com/apache/camel-quarkus/pull/2871) ([jamesnetherton](https://github.com/jamesnetherton))
+- Default to JDK 11 source & target compiler options [\#2870](https://github.com/apache/camel-quarkus/pull/2870) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#2763 to ensure jvmSince and nativeSince not newer that current v… [\#2866](https://github.com/apache/camel-quarkus/pull/2866) ([zhfeng](https://github.com/zhfeng))
 - Fix usage of incorrect @Produces annotation [\#2865](https://github.com/apache/camel-quarkus/pull/2865) ([jamesnetherton](https://github.com/jamesnetherton))
 - Dependency upgrades [\#2863](https://github.com/apache/camel-quarkus/pull/2863) ([ppalaga](https://github.com/ppalaga))
