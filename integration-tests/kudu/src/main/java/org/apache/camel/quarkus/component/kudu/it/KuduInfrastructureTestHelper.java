@@ -44,11 +44,10 @@ import org.jboss.logging.Logger;
  * Run integration tests with mvn clean integration-test -P native
  *
  * B) How to run integration tests against the container based setup:
- * The container based setup is activated by default when running on top of OpenJDK and should run out of the box as
- * {@code KuduTestResource} runs master and tablet server containers in a shared network.
- * When NOT running on top of OpenJDK, you can have a try by commenting @EnabledIfSystemProperty statements in
- * {@code KuduTest} and {@code KuduIT}.
- * Run integration tests with mvn clean integration-test -P native
+ * The container based setup should run out of the box as {@code KuduTestResource} runs master and tablet server
+ * containers in a shared network.
+ * Simply run integration tests with mvn clean integration-test -P native
+ * Note that the test harness is NOT guaranteed to work when NOT running on top of OpenJDK.
  *
  * Troubleshooting the container based setup:
  * If a message like "Unknown host kudu-tserver" is issued, it may be that
@@ -75,24 +74,15 @@ public class KuduInfrastructureTestHelper {
 
     public static void overrideTabletServerHostnameResolution() {
         try {
-            if (System.getProperty("java.version").startsWith("1.8")) {
-                /* Warm up the InetAddress cache and get localhost addresses */
-                final InetAddress[] localHostCachedAddresses = InetAddress.getAllByName("localhost");
-                final Method cacheAddressesMethod = InetAddress.class.getDeclaredMethod("cacheAddresses", String.class,
-                        InetAddress[].class, boolean.class);
-                cacheAddressesMethod.setAccessible(true);
-                cacheAddressesMethod.invoke(null, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses, true);
-            } else {
-                // Warm up the InetAddress cache
-                InetAddress.getByName("localhost");
-                final Field cacheField = InetAddress.class.getDeclaredField("cache");
-                cacheField.setAccessible(true);
-                final Object cache = cacheField.get(null);
-                final Method get = ConcurrentHashMap.class.getMethod("get", Object.class);
-                final Object localHostCachedAddresses = get.invoke(cache, "localhost");
-                final Method put = ConcurrentHashMap.class.getMethod("put", Object.class, Object.class);
-                put.invoke(cache, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses);
-            }
+            // Warm up the InetAddress cache
+            InetAddress.getByName("localhost");
+            final Field cacheField = InetAddress.class.getDeclaredField("cache");
+            cacheField.setAccessible(true);
+            final Object cache = cacheField.get(null);
+            final Method get = ConcurrentHashMap.class.getMethod("get", Object.class);
+            final Object localHostCachedAddresses = get.invoke(cache, "localhost");
+            final Method put = ConcurrentHashMap.class.getMethod("put", Object.class, Object.class);
+            put.invoke(cache, KUDU_TABLET_SERVER_HOSTNAME, localHostCachedAddresses);
         } catch (Exception e) {
             throw new IllegalStateException("Could not hack the kudu tablet server hostname resolution", e);
         }
