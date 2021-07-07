@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
 - Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
@@ -13,10 +14,13 @@
 - Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
 - Add camel-kamelet extension example [\#2630](https://github.com/apache/camel-quarkus/issues/2630)
+- Autowiring of beans can cause warning and problem "bean was marked as unused and removed during build" [\#2519](https://github.com/apache/camel-quarkus/issues/2519)
 - OpenTelemetry support [\#2084](https://github.com/apache/camel-quarkus/issues/2084)
+- Turn off bean removal by ArC  [\#1387](https://github.com/apache/camel-quarkus/issues/1387)
 
 **Merged pull requests:**
 
+- kafka : impossible to authenticate with oauth2 [\#2879](https://github.com/apache/camel-quarkus/pull/2879) ([zbendhiba](https://github.com/zbendhiba))
 - Add test for camel.faulttolerance.\* properties \#2780 [\#2877](https://github.com/apache/camel-quarkus/pull/2877) ([aldettinger](https://github.com/aldettinger))
 - Fix \#2869 to combine build sanity checks into a single scirpt [\#2875](https://github.com/apache/camel-quarkus/pull/2875) ([zhfeng](https://github.com/zhfeng))
 - Clean up unnecessary use of @Unremovable [\#2871](https://github.com/apache/camel-quarkus/pull/2871) ([jamesnetherton](https://github.com/jamesnetherton))
