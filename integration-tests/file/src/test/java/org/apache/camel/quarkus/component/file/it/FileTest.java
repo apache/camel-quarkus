@@ -213,7 +213,7 @@ class FileTest {
     @Test
     public void fileReadLock_minLength() throws Exception {
         // Create a new file
-        String fileName = RestAssured.given()
+        String filePath = RestAssured.given()
                 .contentType(ContentType.BINARY)
                 .body(new byte[] {})
                 .post("/file/create/{name}", FileRoutes.READ_LOCK_IN)
@@ -223,13 +223,27 @@ class FileTest {
                 .body()
                 .asString();
 
+        String fileName = Paths.get(filePath).getFileName().toString();
+
         Thread.sleep(10_000L);
 
-        // Read the file that should not be there
+        // Read the file that should not be there (.done folder)
         RestAssured
-                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_OUT, Paths.get(fileName).getFileName())
+                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_IN + "/.done", fileName)
                 .then()
                 .statusCode(204);
+
+        // Read the file that should not be there (output folder)
+        RestAssured
+                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_OUT, fileName)
+                .then()
+                .statusCode(204);
+
+        // Read the file that should be there (input folder)
+        RestAssured
+                .get("/file/get/{folder}/{name}", FileRoutes.READ_LOCK_IN, fileName)
+                .then()
+                .statusCode(200);
     }
 
     @Test
