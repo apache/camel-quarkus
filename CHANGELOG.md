@@ -6,10 +6,13 @@
 
 **Closed issues:**
 
+- kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
 - camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
+- Avoid producing `FeatureBuildItem` in support extensions [\#2873](https://github.com/apache/camel-quarkus/issues/2873)
 - Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
+- Test camel.faulttolerance.\* set of properties [\#2780](https://github.com/apache/camel-quarkus/issues/2780)
 - Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
 - Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
@@ -20,6 +23,9 @@
 
 **Merged pull requests:**
 
+- kudu: remove the useless test harness logic dedicated to Java 8 \#2885 [\#2886](https://github.com/apache/camel-quarkus/pull/2886) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Quarkus to 2.0.1.Final [\#2883](https://github.com/apache/camel-quarkus/pull/2883) ([jamesnetherton](https://github.com/jamesnetherton))
+- Avoid producing FeatureBuildItem in support extensions [\#2882](https://github.com/apache/camel-quarkus/pull/2882) ([jamesnetherton](https://github.com/jamesnetherton))
 - kafka : impossible to authenticate with oauth2 [\#2879](https://github.com/apache/camel-quarkus/pull/2879) ([zbendhiba](https://github.com/zbendhiba))
 - Add test for camel.faulttolerance.\* properties \#2780 [\#2877](https://github.com/apache/camel-quarkus/pull/2877) ([aldettinger](https://github.com/aldettinger))
 - Fix \#2869 to combine build sanity checks into a single scirpt [\#2875](https://github.com/apache/camel-quarkus/pull/2875) ([zhfeng](https://github.com/zhfeng))
