@@ -1031,16 +1031,6 @@
         </profile>
 
         <profile>
-            <id>docker-java8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <properties>
-                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java8</quarkus.native.builder-image>
-            </properties>
-        </profile>
-
-        <profile>
             <id>apache-snapshots</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
