@@ -78,6 +78,11 @@ public class EipResource {
                     .flatMap(e -> e.getMessage().getHeaders().entrySet().stream()
                             .map(entry -> entry.getKey() + "=" + entry.getValue()))
                     .collect(Collectors.joining(","));
+        case "property":
+            return mock.getExchanges().stream()
+                    .flatMap(e -> e.getProperties().entrySet().stream()
+                            .map(entry -> entry.getKey() + "=" + entry.getValue()))
+                    .collect(Collectors.joining(","));
         default:
             throw new IllegalStateException("Unexpected part " + part);
         }
