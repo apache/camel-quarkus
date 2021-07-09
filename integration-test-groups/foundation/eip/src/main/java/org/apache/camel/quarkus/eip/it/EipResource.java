@@ -58,10 +58,11 @@ public class EipResource {
         return producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
     }
 
-    @Path("/mock/{name}/{count}/{timeout}")
+    @Path("/mock/{name}/{count}/{timeout}/{part}")
     @Produces(MediaType.TEXT_PLAIN)
     @GET
-    public String mock(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout) {
+    public String mockHeader(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout,
+            @PathParam("part") String part) {
         MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
         mock.setExpectedMessageCount(count);
         try {
@@ -69,6 +70,17 @@ public class EipResource {
         } catch (InterruptedException e1) {
             Thread.currentThread().interrupt();
         }
-        return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.joining(","));
+        switch (part) {
+        case "body":
+            return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.joining(","));
+        case "header":
+            return mock.getExchanges().stream()
+                    .flatMap(e -> e.getMessage().getHeaders().entrySet().stream()
+                            .map(entry -> entry.getKey() + "=" + entry.getValue()))
+                    .collect(Collectors.joining(","));
+        default:
+            throw new IllegalStateException("Unexpected part " + part);
+        }
     }
+
 }
