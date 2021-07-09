@@ -5,6 +5,7 @@
 ** xref:user-guide/configuration.adoc[Configuration]
 ** xref:user-guide/cdi.adoc[CDI]
 ** xref:user-guide/observability.adoc[Observability]
+** xref:user-guide/messaging.adoc[Messaging]
 ** xref:user-guide/native-mode.adoc[Native mode]
 ** xref:user-guide/command-mode.adoc[Command mode]
 ** xref:user-guide/testing.adoc[Testing]
