@@ -211,4 +211,48 @@ class EipTest {
 
     }
 
+    @Test
+    public void removeProperty() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("baz")
+                .queryParam("propertyToKeep", "keep")
+                .queryParam("propertyToRemove", "bar")
+                .post("/eip/route/removeProperty")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/removeProperty/1/5000/header")
+                .then()
+                .statusCode(200)
+                .body(
+                        Matchers.allOf(
+                                Matchers.containsString("propertyToKeep=keep"),
+                                Matchers.not(Matchers.containsString("propertyToRemove"))));
+
+    }
+
+    @Test
+    public void removeProperties() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("baz")
+                .queryParam("propertyToKeep", "keepProp")
+                .queryParam("propertyToRemove1", "bar1")
+                .queryParam("propertyToRemove2", "bar2")
+                .post("/eip/route/removeProperties")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/removeProperties/1/5000/header")
+                .then()
+                .statusCode(200)
+                .body(
+                        Matchers.allOf(
+                                Matchers.containsString("propertyToKeep=keepProp"),
+                                Matchers.not(Matchers.containsString("propertyToRemove1")),
+                                Matchers.not(Matchers.containsString("propertyToRemove2"))));
+
+    }
+
 }

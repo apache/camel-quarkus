@@ -68,6 +68,10 @@ public class EipRoutes extends RouteBuilder {
 
         from("direct:removeHeaders").removeHeaders("headerToRemove.*").to("mock:removeHeaders");
 
+        from("direct:removeProperty").removeHeader("propertyToRemove").to("mock:removeProperty");
+
+        from("direct:removeProperties").removeHeaders("propertyToRemove.*").to("mock:removeProperties");
+
     }
 
     @Produces
