@@ -38,7 +38,7 @@ class EipTest {
                 .then()
                 .statusCode(200);
 
-        RestAssured.get("/eip/mock/claimCheckByHeader/4/10000")
+        RestAssured.get("/eip/mock/claimCheckByHeader/4/10000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("Bye World,Secret,Hi World,Secret"));
@@ -57,12 +57,12 @@ class EipTest {
                     .statusCode(200);
         }
 
-        RestAssured.get("/eip/mock/customLoadBalancer1/2/10000")
+        RestAssured.get("/eip/mock/customLoadBalancer1/2/10000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,c"));
 
-        RestAssured.get("/eip/mock/customLoadBalancer2/2/10000")
+        RestAssured.get("/eip/mock/customLoadBalancer2/2/10000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("b,d"));
@@ -102,7 +102,7 @@ class EipTest {
                 .then()
                 .statusCode(200);
 
-        RestAssured.get("/eip/mock/loop/3/5000")
+        RestAssured.get("/eip/mock/loop/3/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("foo,foo,foo"));
@@ -121,17 +121,17 @@ class EipTest {
                     .statusCode(200);
         }
 
-        RestAssured.get("/eip/mock/multicast1/4/5000")
+        RestAssured.get("/eip/mock/multicast1/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
 
-        RestAssured.get("/eip/mock/multicast2/4/5000")
+        RestAssured.get("/eip/mock/multicast2/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
 
-        RestAssured.get("/eip/mock/multicast3/4/5000")
+        RestAssured.get("/eip/mock/multicast3/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
@@ -150,20 +150,64 @@ class EipTest {
                     .statusCode(200);
         }
 
-        RestAssured.get("/eip/mock/recipientList1/4/5000")
+        RestAssured.get("/eip/mock/recipientList1/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
 
-        RestAssured.get("/eip/mock/recipientList2/4/5000")
+        RestAssured.get("/eip/mock/recipientList2/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
 
-        RestAssured.get("/eip/mock/recipientList3/4/5000")
+        RestAssured.get("/eip/mock/recipientList3/4/5000/body")
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("a,b,c,d"));
+
+    }
+
+    @Test
+    public void removeHeader() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("baz")
+                .queryParam("headerToKeep", "foo")
+                .queryParam("headerToRemove", "bar")
+                .post("/eip/route/removeHeader")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/removeHeader/1/5000/header")
+                .then()
+                .statusCode(200)
+                .body(
+                        Matchers.allOf(
+                                Matchers.containsString("headerToKeep=foo"),
+                                Matchers.not(Matchers.containsString("headerToRemove"))));
+
+    }
+
+    @Test
+    public void removeHeaders() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("baz")
+                .queryParam("headerToKeep", "keepFoo")
+                .queryParam("headerToRemove1", "bar1")
+                .queryParam("headerToRemove2", "bar2")
+                .post("/eip/route/removeHeaders")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/removeHeaders/1/5000/header")
+                .then()
+                .statusCode(200)
+                .body(
+                        Matchers.allOf(
+                                Matchers.containsString("headerToKeep=keepFoo"),
+                                Matchers.not(Matchers.containsString("headerToRemove1")),
+                                Matchers.not(Matchers.containsString("headerToRemove2"))));
 
     }
 

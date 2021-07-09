@@ -64,6 +64,10 @@ public class EipRoutes extends RouteBuilder {
 
         from("direct:recipientList").recipientList(constant("mock:recipientList1,mock:recipientList2,mock:recipientList3"));
 
+        from("direct:removeHeader").removeHeader("headerToRemove").to("mock:removeHeader");
+
+        from("direct:removeHeaders").removeHeaders("headerToRemove.*").to("mock:removeHeaders");
+
     }
 
     @Produces
