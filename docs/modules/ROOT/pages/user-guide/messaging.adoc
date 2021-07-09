@@ -1,0 +1,74 @@
+= Messaging Support
+
+Camel Quarkus provides support for various messaging platforms, brokers and protocols via a diverse range of component extensions.
+
+
+[%header,cols="1,2"] 
+|===
+|Platform / Broker / Protocol
+|Extension(s)
+
+|AMQP
+|xref:reference/extensions/amqp.adoc[`camel-quarkus-amqp`]
+
+|Apache ActiveMQ 5.x
+|xref:reference/extensions/activemq.adoc[`camel-quarkus-activemq`]
+
+|Apache ActiveMQ Artemis
+|https://quarkus.io/guides/jms#artemis-jms[`quarkus-artemis`] in conjunction with either xref:reference/extensions/jms.adoc[`camel-quarkus-jms`] or xref:reference/extensions/sjms2.adoc[`camel-quarkus-sjms2`]
+
+|Apache Kafka
+|xref:reference/extensions/kafka.adoc[`camel-quarkus-kafka`]
+
+xref:reference/extensions/vertx-kafka.adoc[`camel-quarkus-vertx-kafka`]
+
+|Apache Pulsar
+|xref:reference/extensions/pulsar.adoc[`camel-quarkus-pulsar`]
+
+|AWS Kinesis
+|xref:reference/extensions/aws2-kinesis.adoc[`camel-quarkus-aws2-kinesis`]
+
+|AWS MQ
+|xref:reference/extensions/aws2-mq.adoc[`camel-quarkus-aws2-mq`]
+
+|AWS Simple Notification System (SNS)
+|xref:reference/extensions/aws2-sns.adoc[`camel-quarkus-aws2-sns`]
+
+|AWS Simple Queue Service (SQS)
+|xref:reference/extensions/aws2-sqs.adoc[`camel-quarkus-aws2-sqs`]
+
+|Azure Event Hubs
+|xref:reference/extensions/azure-eventhubs.adoc[`camel-quarkus-azure-eventhubs`]
+
+|Azure Storage Queue
+|xref:reference/extensions/azure-storage-queue.adoc[`camel-quarkus-azure-storage-queue`]
+
+|Google PubSub
+|xref:reference/extensions/google-pubsub.adoc[`camel-quarkus-google-pubsub`]
+
+|Ignite
+|xref:reference/extensions/ignite.adoc[`camel-quarkus-ignite`]
+
+|JT400
+|xref:reference/extensions/jt400.adoc[`camel-quarkus-jt400`]
+
+|MQTT
+|xref:reference/extensions/paho.adoc[`camel-quarkus-paho`]
+
+|MQTT 5
+|xref:reference/extensions/paho-mqtt5.adoc[`camel-quarkus-paho-mqtt5`]
+
+|NATS
+|xref:reference/extensions/nats.adoc[`camel-quarkus-nats`]
+
+|NSQ
+|xref:reference/extensions/nsq.adoc[`camel-quarkus-nsq`]
+
+|RabbitMQ
+|xref:reference/extensions/rabbitmq.adoc[`camel-quarkus-rabbitmq`]
+
+xref:reference/extensions/spring-rabbitmq.adoc[`camel-quarkus-spring-rabbitmq`]
+
+|===
+
+NOTE: For JMS brokers not listed in the table above, use `camel-quarkus-jms` or `camel-quarkus-sjms2`. Then add your preferred JMS client libraries to the project dependencies. Not all third party client libraries are guaranteed to work out of the box in native mode.
