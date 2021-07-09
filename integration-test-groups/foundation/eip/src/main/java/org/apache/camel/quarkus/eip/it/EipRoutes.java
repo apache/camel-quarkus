@@ -62,6 +62,8 @@ public class EipRoutes extends RouteBuilder {
 
         from("direct:multicast").multicast().parallelProcessing().to("mock:multicast1", "mock:multicast2", "mock:multicast3");
 
+        from("direct:recipientList").recipientList(constant("mock:recipientList1,mock:recipientList2,mock:recipientList3"));
+
     }
 
     @Produces
