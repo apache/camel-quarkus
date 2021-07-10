@@ -6,10 +6,12 @@
 
 **Closed issues:**
 
+- openapi-java failure when building native-image [\#2892](https://github.com/apache/camel-quarkus/issues/2892)
 - kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
 - camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
 - Avoid producing `FeatureBuildItem` in support extensions [\#2873](https://github.com/apache/camel-quarkus/issues/2873)
 - Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
+- Give some guidance to end users which messaging extensions they should use in which situation [\#2856](https://github.com/apache/camel-quarkus/issues/2856)
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
 - Document the need of @RegisterForReflection in Bean doc [\#2844](https://github.com/apache/camel-quarkus/issues/2844)
 - InfinispanTest failed on Mac [\#2840](https://github.com/apache/camel-quarkus/issues/2840)
@@ -29,6 +31,7 @@
 
 **Merged pull requests:**
 
+- Add a summary page for messaging extensions [\#2890](https://github.com/apache/camel-quarkus/pull/2890) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove useless docker-java8 profile [\#2887](https://github.com/apache/camel-quarkus/pull/2887) ([aldettinger](https://github.com/aldettinger))
 - kudu: remove the useless test harness logic dedicated to Java 8 \#2885 [\#2886](https://github.com/apache/camel-quarkus/pull/2886) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.0.1.Final [\#2883](https://github.com/apache/camel-quarkus/pull/2883) ([jamesnetherton](https://github.com/jamesnetherton))
