@@ -23,6 +23,7 @@ import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -30,13 +31,19 @@ import javax.ws.rs.core.MediaType;
 import io.opentracing.Tracer;
 import io.opentracing.mock.MockSpan;
 import io.opentracing.mock.MockTracer;
+import org.apache.camel.ProducerTemplate;
+import org.eclipse.microprofile.opentracing.Traced;
 
 @Path("/opentracing")
 @ApplicationScoped
+@Traced(value = false)
 public class OpenTracingResource {
 
     @Inject
     Tracer tracer;
+
+    @Inject
+    ProducerTemplate producerTemplate;
 
     @Path("/spans")
     @GET
@@ -51,6 +58,7 @@ public class OpenTracingResource {
             JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
             objectBuilder.add("spanId", context.spanId());
             objectBuilder.add("traceId", context.traceId());
+            objectBuilder.add("parentId", span.parentId());
 
             span.tags().forEach((k, v) -> objectBuilder.add(k, v.toString()));
 
@@ -58,5 +66,20 @@ public class OpenTracingResource {
         }
 
         return arrayBuilder.build();
+    }
+
+    @Traced
+    @Path("/trace")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceRoute() {
+        return producerTemplate.requestBody("direct:start", null, String.class);
+    }
+
+    @Path("/mock/tracer/reset")
+    @POST
+    public void resetMockTracer() {
+        MockTracer mockTracer = (MockTracer) tracer;
+        mockTracer.reset();
     }
 }

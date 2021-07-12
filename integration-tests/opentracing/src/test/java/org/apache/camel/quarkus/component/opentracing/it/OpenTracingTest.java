@@ -22,14 +22,22 @@ import java.util.Map;
 import io.opentracing.tag.Tags;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class OpenTracingTest {
+
+    @AfterEach
+    public void afterEach() {
+        RestAssured.post("/opentracing/mock/tracer/reset")
+                .then()
+                .statusCode(204);
+    }
 
     @Test
     public void testTraceRoute() {
@@ -47,15 +55,7 @@ class OpenTracingTest {
         }
 
         // Retrieve recorded spans
-        JsonPath jsonPath = RestAssured.given()
-                .get("/opentracing/spans")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
-
-        List<Map<String, String>> spans = jsonPath.get();
+        List<Map<String, String>> spans = getSpans();
         assertEquals(5, spans.size());
 
         for (Map<String, String> span : spans) {
@@ -66,5 +66,46 @@ class OpenTracingTest {
             assertEquals("platform-http:///opentracing/test/trace?httpMethodRestrict=GET", span.get("camel.uri"));
             assertTrue(span.get(Tags.HTTP_URL.getKey()).endsWith("/opentracing/test/trace"));
         }
+    }
+
+    @Test
+    public void testTracedBeanInvokedFromRoute() {
+        RestAssured.get("/opentracing/test/bean")
+                .then()
+                .statusCode(200);
+
+        // Verify the span hierarchy is Platform HTTP Endpoint -> TracedBean
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(2, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(0, spans.get(1).get("parentId"));
+        assertEquals("camel-platform-http", spans.get(1).get(Tags.COMPONENT.getKey()));
+    }
+
+    @Test
+    public void testTracedCamelRouteInvokedFromJaxRsService() {
+        RestAssured.get("/opentracing/trace")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Traced direct:start"));
+
+        // Verify the span hierarchy is JAX-RS Service -> Platform HTTP Endpoint -> TracedBean
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(3, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+        assertEquals(0, spans.get(2).get("parentId"));
+        assertEquals("jaxrs", spans.get(2).get(Tags.COMPONENT.getKey()));
+    }
+
+    private List<Map<String, String>> getSpans() {
+        return RestAssured.given()
+                .get("/opentracing/spans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath()
+                .get();
     }
 }
