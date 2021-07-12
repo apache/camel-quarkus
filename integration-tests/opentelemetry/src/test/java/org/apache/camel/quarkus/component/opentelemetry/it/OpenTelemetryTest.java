@@ -21,14 +21,22 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 class OpenTelemetryTest {
+
+    @AfterEach
+    public void afterEach() {
+        RestAssured.post("/opentelemetry/exporter/spans/reset")
+                .then()
+                .statusCode(204);
+    }
 
     @Test
     public void testTraceRoute() {
@@ -40,21 +48,15 @@ class OpenTelemetryTest {
 
             // No spans should be recorded for this route as they are excluded by camel.opentelemetry.exclude-patterns in
             // application.properties
-            RestAssured.get("/opentelemetry/test/trace/filtered")
-                    .then()
-                    .statusCode(200);
+            // TODO: Reinstate this when platform-http route excludes are fixed. For now, a timer endpoint stands in for filter tests
+            // https://github.com/apache/camel-quarkus/issues/2897
+            // RestAssured.get("/opentelemetry/test/trace/filtered")
+            //        .then()
+            //        .statusCode(200);
         }
 
         // Retrieve recorded spans
-        JsonPath jsonPath = RestAssured.given()
-                .get("/opentelemetry/spans")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .jsonPath();
-
-        List<Map<String, String>> spans = jsonPath.get();
+        List<Map<String, String>> spans = getSpans();
         assertEquals(5, spans.size());
 
         for (Map<String, String> span : spans) {
@@ -64,5 +66,29 @@ class OpenTelemetryTest {
             assertEquals("platform-http:///opentelemetry/test/trace?httpMethodRestrict=GET", span.get("camel.uri"));
             assertTrue(span.get("http.url").endsWith("/opentelemetry/test/trace/"));
         }
+    }
+
+    @Test
+    public void testTracedCamelRouteInvokedFromJaxRsService() {
+        RestAssured.get("/opentelemetry/trace")
+                .then()
+                .statusCode(200)
+                .body(equalTo("Traced direct:start"));
+
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(2, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
+    }
+
+    private List<Map<String, String>> getSpans() {
+        return RestAssured.given()
+                .get("/opentelemetry/exporter/spans")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .jsonPath()
+                .get();
     }
 }

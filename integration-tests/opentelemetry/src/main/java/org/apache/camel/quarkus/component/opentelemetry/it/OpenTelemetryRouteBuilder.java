@@ -29,5 +29,11 @@ public class OpenTelemetryRouteBuilder extends RouteBuilder {
 
         from("platform-http:/opentelemetry/test/trace/filtered")
                 .setBody(constant("GET: /opentelemetry/test/trace/filtered"));
+
+        from("direct:start")
+                .setBody().constant("Traced direct:start");
+
+        from("timer:filtered?repeatCount=5&delay=-1")
+                .setBody().constant("Route filtered from tracing");
     }
 }
