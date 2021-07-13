@@ -31,6 +31,10 @@
 
 **Merged pull requests:**
 
+- Warn users that not all combinations of artifacts managed by [\#2899](https://github.com/apache/camel-quarkus/pull/2899) ([ppalaga](https://github.com/ppalaga))
+- add info about usage of nimbus-jose-jwt [\#2896](https://github.com/apache/camel-quarkus/pull/2896) ([zbendhiba](https://github.com/zbendhiba))
+- Remove extra .Final in plugin version [\#2895](https://github.com/apache/camel-quarkus/pull/2895) ([gastaldi](https://github.com/gastaldi))
+- Remove redundant jdk-8-classpath profile [\#2891](https://github.com/apache/camel-quarkus/pull/2891) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add a summary page for messaging extensions [\#2890](https://github.com/apache/camel-quarkus/pull/2890) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove useless docker-java8 profile [\#2887](https://github.com/apache/camel-quarkus/pull/2887) ([aldettinger](https://github.com/aldettinger))
 - kudu: remove the useless test harness logic dedicated to Java 8 \#2885 [\#2886](https://github.com/apache/camel-quarkus/pull/2886) ([aldettinger](https://github.com/aldettinger))
