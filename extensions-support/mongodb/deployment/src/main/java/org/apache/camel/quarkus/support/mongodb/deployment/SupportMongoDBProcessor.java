@@ -20,19 +20,11 @@ import java.util.List;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.mongodb.deployment.MongoClientBuildItem;
 import io.quarkus.mongodb.runtime.MongoClientBeanUtil;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 
 class SupportMongoDBProcessor {
-
-    private static final String FEATURE = "camel-support-mongodb";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 
     @BuildStep
     void registerCamelMongoClientProducers(

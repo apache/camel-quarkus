@@ -33,7 +33,7 @@ Quarkus provides a Maven plugin that enables you to quickly bootstrap projects. 
 
 [source,shell,subs="attributes"]
 ----
-$ mvn io.quarkus:quarkus-maven-plugin:{quarkus-version}.Final:create \
+$ mvn io.quarkus:quarkus-maven-plugin:{quarkus-version}:create \
     -DprojectGroupId=org.acme \
     -DprojectArtifactId=getting-started \
     -Dextensions=camel-quarkus-log,camel-quarkus-timer

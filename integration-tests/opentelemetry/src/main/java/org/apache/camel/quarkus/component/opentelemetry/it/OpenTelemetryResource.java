@@ -16,50 +16,26 @@
  */
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
-import java.util.Map;
-
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.opentelemetry.api.common.AttributeKey;
-import io.opentelemetry.sdk.testing.exporter.InMemorySpanExporter;
-import io.opentelemetry.sdk.trace.data.SpanData;
+import org.apache.camel.ProducerTemplate;
 
 @Path("/opentelemetry")
 @ApplicationScoped
 public class OpenTelemetryResource {
 
     @Inject
-    InMemorySpanExporter exporter;
+    ProducerTemplate producerTemplate;
 
-    @Path("/spans")
+    @Path("/trace")
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getSpans() {
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-
-        for (SpanData span : exporter.getFinishedSpanItems()) {
-
-            Map<AttributeKey<?>, Object> attributes = span.getAttributes().asMap();
-            if (attributes.containsKey(AttributeKey.stringKey("component"))) {
-                JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
-                objectBuilder.add("spanId", span.getSpanId());
-                objectBuilder.add("traceId", span.getTraceId());
-
-                attributes.forEach((k, v) -> objectBuilder.add(String.valueOf(k), v.toString()));
-
-                arrayBuilder.add(objectBuilder.build());
-            }
-        }
-
-        return arrayBuilder.build();
+    @Produces(MediaType.TEXT_PLAIN)
+    public String traceRoute() {
+        return producerTemplate.requestBody("direct:start", null, String.class);
     }
 }

@@ -48,7 +48,7 @@
         <optaplanner.version>8.0.0.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
         <quarkiverse.freemarker.version>0.3.0</quarkiverse.freemarker.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/freemarker/quarkus-freemarker-parent/ -->
         <quarkiverse-minio.version>2.0.0</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
-        <quarkus.version>2.0.0.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.0.1.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-google-cloud.version>0.8.0</quarkus-google-cloud.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/googlecloudservices/quarkus-google-cloud-services-bom/ -->
         <quarkus-hazelcast-client.version>2.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.25.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
@@ -101,7 +101,7 @@
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <minio.version>${minio-version}</minio.version><!-- Keep in sync with quarkiverse-minio and Camel, preferring Camel assuming that it is more likely to be up to date -->
         <mvel2.version>${mvel-version}</mvel2.version>
-        <nimbus-jose-jwt.version>4.41.1</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps -->
+        <nimbus-jose-jwt.version>9.10</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps, used also by io.strimzi:kafka-oauth-client recommended by https://quarkus.io/guides/kafka#authenticating-with-oauth -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>
         <okio.version>${squareup-okio-version}</okio.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
@@ -158,6 +158,7 @@
         <maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
         <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
+        <maven-plugin-plugin.version>3.6.1</maven-plugin-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -174,8 +175,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
         <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
 
@@ -301,6 +302,12 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
                     <version>${maven-javadoc-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-plugin-plugin</artifactId>
+                    <version>${maven-plugin-plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -691,31 +698,6 @@
             </build>
         </profile>
         <profile>
-            <id>jdk-8-classpath</id>
-            <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <configuration>
-                            <release>8</release>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <configuration>
-                            <release>8</release>
-                            <detectOfflineLinks>false</detectOfflineLinks>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>format</id>
             <build>
                 <plugins>
@@ -1028,16 +1010,6 @@
             <properties>
                 <quarkus.native.container-build>true</quarkus.native.container-build>
                 <quarkus.native.container-runtime>docker</quarkus.native.container-runtime>
-            </properties>
-        </profile>
-
-        <profile>
-            <id>docker-java8</id>
-            <activation>
-                <jdk>1.8</jdk>
-            </activation>
-            <properties>
-                <quarkus.native.builder-image>quay.io/quarkus/ubi-quarkus-native-image:19.3.1-java8</quarkus.native.builder-image>
             </properties>
         </profile>
 

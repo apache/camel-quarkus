@@ -1,0 +1,122 @@
+{
+  "component": {
+    "kind": "component",
+    "name": "custom-component",
+    "title": "Custom Component",
+    "description": "Fake component to test AutoWired bean types are unremovable.",
+    "deprecated": false,
+    "firstVersion": "0.0.0",
+    "label": "testing",
+    "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$CustomComponent",
+    "supportLevel": "Stable",
+    "groupId": "org.apache.camel.quarkus",
+    "artifactId": "camel-quarkus-custom-component",
+    "version": "0.0.0",
+    "scheme": "custom-component",
+    "extendsScheme": "",
+    "syntax": "custom-component:fake",
+    "async": false,
+    "api": false,
+    "consumerOnly": false,
+    "producerOnly": true,
+    "lenientProperties": false
+  },
+  "componentProperties": {
+    "autowiredEnabled": {
+      "kind": "property",
+      "displayName": "Autowired Enabled",
+      "group": "advanced",
+      "label": "advanced",
+      "required": false,
+      "type": "boolean",
+      "javaType": "boolean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "defaultValue": true,
+      "description": "Whether autowiring is enabled. This is used for automatic autowiring options (the option must be marked as autowired) by looking up in the registry to find if there is a single instance of matching type, which then gets configured on the component. This can be used for automatic configuring JDBC data sources, JMS connection factories, AWS Clients, etc."
+    },
+    "unremovableComponentProperty": {
+      "kind": "property",
+      "displayName": "",
+      "group": "advanced",
+      "label": "advanced",
+      "required": false,
+      "type": "object",
+      "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$UnremovableComponentBean",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "defaultValue": true,
+      "description": ""
+    },
+    "removableComponentPrimitiveProperty": {
+      "kind": "property",
+      "displayName": "",
+      "group": "advanced",
+      "label": "advanced",
+      "required": false,
+      "type": "integer",
+      "javaType": "long",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "defaultValue": true,
+      "description": ""
+    },
+    "removableComponentJavaDotLangProperty": {
+      "kind": "property",
+      "displayName": "",
+      "group": "advanced",
+      "label": "advanced",
+      "required": false,
+      "type": "object",
+      "javaType": "java.lang.Exception",
+      "deprecated": false,
+      "autowired": false,
+      "secret": false,
+      "defaultValue": true,
+      "description": ""
+    }
+  },
+  "properties": {
+    "unremovableEndpointProperty": {
+      "kind": "parameter",
+      "displayName": "",
+      "group": "producer",
+      "label": "",
+      "required": false,
+      "type": "object",
+      "javaType": "org.apache.camel.quarkus.core.runtime.CamelBeansUnremovableTest$UnremovableEndpointBean",
+      "deprecated": false,
+      "deprecationNote": "",
+      "autowired": true,
+      "secret": false,
+      "description": ""
+    },
+    "removableEndpointPrimitiveProperty": {
+      "kind": "parameter",
+      "displayName": "",
+      "group": "producer",
+      "label": "",
+      "required": false,
+      "type": "boolean",
+      "javaType": "boolean",
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    },
+    "removableEndpointJavaDotLangProperty": {
+      "kind": "parameter",
+      "displayName": "",
+      "group": "producer",
+      "label": "",
+      "required": false,
+      "type": "object",
+      "javaType": "java.lang.Exception",
+      "autowired": false,
+      "secret": false,
+      "description": ""
+    }
+  }
+}

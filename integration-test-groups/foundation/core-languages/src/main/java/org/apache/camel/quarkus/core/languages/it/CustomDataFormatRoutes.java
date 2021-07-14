@@ -25,7 +25,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.spi.DataFormat;
@@ -41,7 +40,6 @@ public class CustomDataFormatRoutes extends RouteBuilder {
                 .unmarshal().custom("customDataFormat");
     }
 
-    @Unremovable
     @Singleton
     @Named("customDataFormat")
     @Produces

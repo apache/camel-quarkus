@@ -23,6 +23,7 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 import javax.jms.BytesMessage;
@@ -282,6 +283,20 @@ public class JmsResource {
 
         topicResultA.assertIsSatisfied(5000);
         topicResultB.assertIsSatisfied(5000);
+    }
+
+    @Path("/jms/mock/{name}/{count}/{timeout}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @GET
+    public List<String> mock(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout) {
+        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        mock.setExpectedMessageCount(count);
+        try {
+            mock.assertIsSatisfied(timeout);
+        } catch (InterruptedException e1) {
+            Thread.currentThread().interrupt();
+        }
+        return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.toList());
     }
 
     // *****************************

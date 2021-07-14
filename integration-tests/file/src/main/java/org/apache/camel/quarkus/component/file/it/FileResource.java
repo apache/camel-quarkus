@@ -125,4 +125,12 @@ public class FileResource {
                 .entity(response.getMessage().getHeader(Exchange.FILE_NAME_PRODUCED))
                 .build();
     }
+
+    @Path("/route/{route}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String pollEnrich(String body, @PathParam("route") String route) throws Exception {
+        return producerTemplate.requestBody("direct:" + route, body, String.class);
+    }
+
 }

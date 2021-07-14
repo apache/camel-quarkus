@@ -16,10 +16,20 @@
  */
 package org.apache.camel.quarkus.component.opentracing.it;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
+import io.opentracing.Span;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.opentracing.OpenTracingSpanAdapter;
+import org.apache.camel.tracing.ActiveSpanManager;
 
+@ApplicationScoped
 public class OpenTracingRouteBuilder extends RouteBuilder {
+
+    @Inject
+    TracedBean tracedBean;
 
     @Override
     public void configure() throws Exception {
@@ -29,5 +39,24 @@ public class OpenTracingRouteBuilder extends RouteBuilder {
 
         from("platform-http:/opentracing/test/trace/filtered")
                 .setBody(constant("GET: /opentracing/test/trace/filtered"));
+
+        from("platform-http:/opentracing/test/bean")
+                .process(exchange -> {
+                    Span span = getCurrentSpan(exchange);
+                    tracedBean.doTrace(span);
+                })
+                .setHeader(Exchange.HTTP_RESPONSE_CODE, constant(200));
+
+        from("direct:start")
+                .process(exchange -> {
+                    Span span = getCurrentSpan(exchange);
+                    tracedBean.doTrace(span);
+                })
+                .setBody().constant("Traced direct:start");
+    }
+
+    private Span getCurrentSpan(Exchange exchange) {
+        OpenTracingSpanAdapter adapter = (OpenTracingSpanAdapter) ActiveSpanManager.getSpan(exchange);
+        return adapter.getOpenTracingSpan();
     }
 }

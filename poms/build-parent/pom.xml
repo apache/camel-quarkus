@@ -191,20 +191,10 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/validate-dependencies.groovy</source>
+                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/sanity-checks.groovy</source>
                                     <properties>
                                         <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
                                     </properties>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>validate-jvm-native-since</id>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/validate-jvm-native-since.groovy</source>
                                 </configuration>
                             </execution>
                         </executions>
@@ -270,10 +260,6 @@
                             <execution>
                                 <id>sanity-checks</id>
                                 <phase /><!-- Speedup the check-format profile by skipping the sanity-checks  -->
-                            </execution>
-                            <execution>
-                                <id>validate-jvm-native-since</id>
-                                <phase /><!-- Speedup the check-format profile by skipping the validate-jvm-native-since check  -->
                             </execution>
                         </executions>
                     </plugin>

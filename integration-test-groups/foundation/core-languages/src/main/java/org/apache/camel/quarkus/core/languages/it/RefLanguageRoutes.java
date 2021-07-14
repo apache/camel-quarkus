@@ -20,7 +20,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.Exchange;
 import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;
@@ -34,7 +33,6 @@ public class RefLanguageRoutes extends RouteBuilder {
                 .transform().ref("refLanguageExpression");
     }
 
-    @Unremovable
     @Singleton
     @Named("refLanguageExpression")
     @Produces

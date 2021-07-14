@@ -20,17 +20,10 @@ import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 public class ReactorNettySupportProcessor {
-    static final String FEATURE = "camel-support-reactor-netty";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
-    }
 
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {

@@ -20,7 +20,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.Component;
 import org.apache.camel.component.ignite.AbstractIgniteComponent.IgniteLifecycleMode;
 import org.apache.camel.component.ignite.cache.IgniteCacheComponent;
@@ -43,7 +42,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-cache")
     IgniteCacheComponent igniteCacheComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -52,7 +50,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-compute")
     IgniteComputeComponent igniteComputeComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -61,7 +58,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-events")
     IgniteEventsComponent igniteEventsComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -70,7 +66,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-idgen")
     IgniteIdGenComponent igniteIdgenComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -79,7 +74,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-messaging")
     IgniteMessagingComponent igniteMessagingComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -88,7 +82,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-queue")
     IgniteQueueComponent igniteQueueComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);
@@ -97,7 +90,6 @@ public class Components {
 
     @Produces
     @ApplicationScoped
-    @Unremovable
     @Named("ignite-set")
     IgniteSetComponent igniteIgniteSetComponent() {
         final Ignite ignite = Mockito.mock(Ignite.class);

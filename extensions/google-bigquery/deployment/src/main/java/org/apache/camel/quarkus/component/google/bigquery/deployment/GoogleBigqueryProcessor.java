@@ -17,10 +17,8 @@
 package org.apache.camel.quarkus.component.google.bigquery.deployment;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.arc.deployment.UnremovableBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.component.google.bigquery.GoogleBigQueryConnectionFactory;
 import org.apache.camel.quarkus.component.google.bigquery.GoogleBigQueryConnectionFactoryProducer;
 
 class GoogleBigqueryProcessor {
@@ -29,11 +27,6 @@ class GoogleBigqueryProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    UnremovableBeanBuildItem unremovableBeans() {
-        return UnremovableBeanBuildItem.beanTypes(GoogleBigQueryConnectionFactory.class);
     }
 
     @BuildStep
