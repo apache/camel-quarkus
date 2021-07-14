@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.support.bouncycastle.deployment;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,10 +28,16 @@ import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.ShutdownContextBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeReinitializedClassBuildItem;
+import io.quarkus.security.deployment.BouncyCastleProviderBuildItem;
 import org.apache.camel.quarkus.support.bouncycastle.BouncyCastleRecorder;
 import org.jboss.jandex.IndexView;
 
 public class BouncyCastleSupportProcessor {
+
+    @BuildStep
+    void produceBouncyCastleProvider(BuildProducer<BouncyCastleProviderBuildItem> bouncyCastleProvider) {
+        bouncyCastleProvider.produce(new BouncyCastleProviderBuildItem());
+    }
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
@@ -56,13 +61,7 @@ public class BouncyCastleSupportProcessor {
 
     @BuildStep
     void secureRandomConfiguration(BuildProducer<RuntimeReinitializedClassBuildItem> reinitialized) {
-        for (String reinitialziedClassName : Arrays.asList(
-                "java.security.SecureRandom",
-                "org.bouncycastle.crypto.CryptoServicesRegistrar",
-                "org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV",
-                "org.bouncycastle.jcajce.provider.drbg.DRBG$Default")) {
-            reinitialized.produce(new RuntimeReinitializedClassBuildItem(reinitialziedClassName));
-        }
+        reinitialized.produce(new RuntimeReinitializedClassBuildItem("java.security.SecureRandom"));
     }
 
     @BuildStep
