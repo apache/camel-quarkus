@@ -32,6 +32,7 @@
 **Merged pull requests:**
 
 - Warn users that not all combinations of artifacts managed by [\#2899](https://github.com/apache/camel-quarkus/pull/2899) ([ppalaga](https://github.com/ppalaga))
+- Add tests for Quarkus traced beans with Camel routes [\#2898](https://github.com/apache/camel-quarkus/pull/2898) ([jamesnetherton](https://github.com/jamesnetherton))
 - add info about usage of nimbus-jose-jwt [\#2896](https://github.com/apache/camel-quarkus/pull/2896) ([zbendhiba](https://github.com/zbendhiba))
 - Remove extra .Final in plugin version [\#2895](https://github.com/apache/camel-quarkus/pull/2895) ([gastaldi](https://github.com/gastaldi))
 - Remove redundant jdk-8-classpath profile [\#2891](https://github.com/apache/camel-quarkus/pull/2891) ([jamesnetherton](https://github.com/jamesnetherton))
