@@ -119,4 +119,9 @@ public class CoreTest {
     void testCustomBeanResolvedByType() {
         RestAssured.when().get("/core/custom-bean-resolved-by-type").then().body(is("Donkey"));
     }
+
+    @Test
+    void testSerialization() {
+        RestAssured.when().get("/core/serialization").then().body(is("true"));
+    }
 }
