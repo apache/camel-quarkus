@@ -141,6 +141,7 @@
 - Ensure camel-quarkus-integration-wiremock-support is test scope [\#2644](https://github.com/apache/camel-quarkus/pull/2644) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Camel 3.10.0 and Quarkus 2.0.0.Alpha3 [\#2643](https://github.com/apache/camel-quarkus/pull/2643) ([ppalaga](https://github.com/ppalaga))
 - Expand MongoDb test coverage \#2622 [\#2642](https://github.com/apache/camel-quarkus/pull/2642) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Test EIPs DSL methods \#2628 [\#2641](https://github.com/apache/camel-quarkus/pull/2641) ([ppalaga](https://github.com/ppalaga))
 - Use CamelContextCustomizer from camel-api [\#2640](https://github.com/apache/camel-quarkus/pull/2640) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use WireMock for GitHub tests [\#2639](https://github.com/apache/camel-quarkus/pull/2639) ([jamesnetherton](https://github.com/jamesnetherton))
 - \#2633 jacksonxml: add test coverage [\#2635](https://github.com/apache/camel-quarkus/pull/2635) ([ffang](https://github.com/ffang))
