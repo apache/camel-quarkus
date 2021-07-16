@@ -58,10 +58,6 @@
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-js-dsl</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.graalvm.js</groupId>
-            <artifactId>js</artifactId>
-        </dependency>
     </dependencies>
 
     <build>
@@ -69,6 +65,16 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bootstrap-maven-plugin</artifactId>
+                <configuration>
+                    <parentFirstArtifacts>
+                        <parentFirstArtifact>org.graalvm.sdk:graal-sdk</parentFirstArtifact>
+                        <parentFirstArtifact>org.graalvm.nativeimage:svm</parentFirstArtifact>
+                        <parentFirstArtifact>org.graalvm.truffle:truffle-api</parentFirstArtifact>
+                        <parentFirstArtifact>org.graalvm.js:js</parentFirstArtifact>
+                        <parentFirstArtifact>org.graalvm.regex:regex</parentFirstArtifact>
+                        <parentFirstArtifact>com.ibm.icu:icu4j</parentFirstArtifact>
+                    </parentFirstArtifacts>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
