@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Revise DefaultExchangeHolder [\#2905](https://github.com/apache/camel-quarkus/issues/2905)
 - openapi-java failure when building native-image [\#2892](https://github.com/apache/camel-quarkus/issues/2892)
 - kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
 - camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
