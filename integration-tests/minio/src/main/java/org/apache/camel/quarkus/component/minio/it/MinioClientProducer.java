@@ -25,12 +25,14 @@ import org.eclipse.microprofile.config.ConfigProvider;
 
 public class MinioClientProducer {
 
+    public static String MINIO_CLIENT_URL_PARAMETER = MinioClientProducer.class.getSimpleName() + "_url";
+
     @Produces
     @Singleton
     @Named("minioClient")
     public MinioClient produceMinioClient() {
         return MinioClient.builder()
-                .endpoint(ConfigProvider.getConfig().getValue("quarkus.minio.url", String.class))
+                .endpoint(ConfigProvider.getConfig().getValue(MINIO_CLIENT_URL_PARAMETER, String.class))
                 .credentials(MinioResource.SERVER_ACCESS_KEY, MinioResource.SERVER_SECRET_KEY)
                 .build();
     }

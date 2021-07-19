@@ -60,8 +60,7 @@ public class MinioResource {
         final String message = consumerTemplate.receiveBody(
                 "minio://mycamel?moveAfterRead=true&destinationBucketName=camel-kafka-connector&autoCreateBucket=true"
                         + "&accessKey=" + SERVER_ACCESS_KEY
-                        + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                        + "&minioClient=#minioClient",
+                        + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")",
                 5000, String.class);
         return message;
     }
@@ -77,8 +76,7 @@ public class MinioResource {
             @QueryParam(MinioConstants.DESTINATION_BUCKET_NAME) String destinationBucketName) {
 
         String endpoint = "minio:mycamel?accessKey=" + SERVER_ACCESS_KEY
-                + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                + "&minioClient=#minioClient";
+                + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")";
 
         MinioOperations op = (operation != "" && !"".equals(operation) ? MinioOperations.valueOf(operation) : null);
 
@@ -135,8 +133,8 @@ public class MinioResource {
 
         String endpoint = "minio:mycamel?accessKey=" + SERVER_ACCESS_KEY
                 + "&secretKey=RAW(" + SERVER_SECRET_KEY + ")"
-                + "&minioClient=#minioClient"
-                + "&pojoRequest=true";
+                + "&pojoRequest=true"
+                + "&minioClient=#minioClient";
 
         GetObjectArgs.Builder body = GetObjectArgs.builder()
                 .bucket(bucket)
