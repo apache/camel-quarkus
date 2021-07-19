@@ -2,6 +2,11 @@
 
 A specific Camel Quarkus release is supposed to work only with a specific Quarkus release.
 
+== Quarkus BOM 
+
+The core Quarkus dependencies are managed via `io.quarkus:quarkus-bom`. 
+Any additional dependencies for related Quarkus artifacts are not contained in this BOM. 
+
 == Quarkus Universe BOM
 
 The easiest and most straightforward way to get the dependency versions right is to use https://code.quarkus.io/[code.quarkus.io].
@@ -80,6 +85,9 @@ It manages all supported Camel artifacts and imports `io.quarkus:quarkus-bom`.
 When combining `camel-quarkus-bom` or `quarkus-universe-bom` with any other BOM,
 think carefully in which order you import them,
 because the order of imports defines the precedence.
+
+ie. if `quarkus-universe-bom` is imported before `camel-quarkus-bom` then the version defined in
+`quarkus-universe-bom` will take priority. And might lead to incompatible versions of libraries being used.
 
 == What's next?
 
