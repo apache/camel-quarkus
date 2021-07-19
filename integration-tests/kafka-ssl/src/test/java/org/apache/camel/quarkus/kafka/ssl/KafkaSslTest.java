@@ -25,6 +25,7 @@ import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(KafkaSslTestResource.class)
@@ -51,5 +52,15 @@ public class KafkaSslTest {
 
         assertThat(result.getString("topicName")).isEqualTo("outbound");
         assertThat(result.getString("body")).isEqualTo(body);
+    }
+
+    @Test
+    void testQuarkusKafkaClientFactoryNotConfigured() {
+        // quarkus-kubernetes-service-binding is on the classpath but configuration merging is disabled
+        // so there should be no custom KafkaClientFactory in the registry.
+        RestAssured.get("/kafka-ssl/custom/client/factory/missing")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
     }
 }

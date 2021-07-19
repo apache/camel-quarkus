@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.kafka.ssl;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -32,6 +33,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.camel.CamelContext;
+import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestSupport;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -53,6 +56,17 @@ public class KafkaSslResource {
     @Inject
     @Named("kafka-producer-properties")
     Properties producerProperties;
+
+    @Inject
+    CamelContext context;
+
+    @Path("/custom/client/factory/missing")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean kafkaClientFactoryIsMissing() {
+        Set<KafkaClientFactory> factories = context.getRegistry().findByType(KafkaClientFactory.class);
+        return factories.isEmpty();
+    }
 
     @Path("/{topicName}")
     @POST
