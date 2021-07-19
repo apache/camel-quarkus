@@ -20,6 +20,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -40,6 +41,7 @@ import javax.ws.rs.core.Response;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -65,6 +67,14 @@ public class CamelKafkaResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Path("/custom/client/factory/missing")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean kafkaClientFactoryIsMissing() {
+        Set<KafkaClientFactory> factories = context.getRegistry().findByType(KafkaClientFactory.class);
+        return factories.isEmpty();
+    }
 
     @Path("/{topicName}")
     @POST

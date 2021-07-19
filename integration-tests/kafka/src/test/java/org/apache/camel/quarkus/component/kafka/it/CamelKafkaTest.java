@@ -29,6 +29,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
@@ -74,5 +75,15 @@ public class CamelKafkaTest {
         List<String> body = RestAssured.get("/kafka/idempotent").then().extract().body().as(List.class);
         assertEquals(5, body.size());
 
+    }
+
+    @Test
+    void testQuarkusKafkaClientFactoryNotConfigured() {
+        // quarkus-kubernetes-service-binding is not on the classpath so there should be no
+        // custom KafkaClientFactory configured in the registry.
+        RestAssured.get("/kafka/custom/client/factory/missing")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
     }
 }

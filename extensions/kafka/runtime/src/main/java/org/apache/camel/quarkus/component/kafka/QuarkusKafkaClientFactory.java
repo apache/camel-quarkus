@@ -27,7 +27,8 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 
 /**
  * Custom {@link org.apache.camel.component.kafka.KafkaClientFactory} to enable Kafka configuration properties
- * discovered by Quarkus to be merged with those configured from the Camel Kafka component and endpoint URI options.
+ * discovered by the Quarkus Kubernetes Service Binding extension to be merged with those configured from
+ * the Camel Kafka component and endpoint URI options.
  */
 public class QuarkusKafkaClientFactory extends DefaultKafkaClientFactory {
 
@@ -57,9 +58,9 @@ public class QuarkusKafkaClientFactory extends DefaultKafkaClientFactory {
 
     /**
      * Merges kafka configuration properties discovered by Quarkus with those provided via the
-     * component & endpoint URI options.
+     * component & endpoint URI options. This behaviour can be suppressed via a configuration property.
      */
-    private void mergeConfiguration(Properties camelKafkaProperties) {
+    public void mergeConfiguration(Properties camelKafkaProperties) {
         if (quarkusKafkaConfiguration != null) {
             for (Map.Entry<String, Object> entry : quarkusKafkaConfiguration.entrySet()) {
                 camelKafkaProperties.put(entry.getKey(), entry.getValue());

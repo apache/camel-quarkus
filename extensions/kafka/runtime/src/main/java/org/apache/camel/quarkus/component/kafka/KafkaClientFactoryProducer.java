@@ -16,32 +16,30 @@
  */
 package org.apache.camel.quarkus.component.kafka;
 
-import java.util.Collections;
 import java.util.Map;
 
-import javax.enterprise.util.TypeLiteral;
+import javax.enterprise.inject.Produces;
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import io.quarkus.arc.Arc;
-import io.quarkus.arc.InstanceHandle;
-import io.quarkus.runtime.RuntimeValue;
-import io.quarkus.runtime.annotations.Recorder;
+import io.quarkus.arc.DefaultBean;
 import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.component.kafka.KafkaClientFactory;
 
-@Recorder
-public class CamelKafkaRecorder {
+@Singleton
+public class KafkaClientFactoryProducer {
 
-    public RuntimeValue<KafkaClientFactory> createKafkaClientFactory() {
-        @SuppressWarnings("serial")
-        final InstanceHandle<Map<String, Object>> instance = Arc.container()
-                .instance(
-                        new TypeLiteral<Map<String, Object>>() {
-                        },
-                        Identifier.Literal.of("default-kafka-broker"));
+    @Inject
+    @Identifier("default-kafka-broker")
+    Map<String, Object> kafkaConfig;
 
-        final Map<String, Object> kafkaConfig = instance.isAvailable() ? instance.get() : Collections.emptyMap();
-
-        QuarkusKafkaClientFactory quarkusKafkaClientFactory = new QuarkusKafkaClientFactory(kafkaConfig);
-        return new RuntimeValue<>(quarkusKafkaClientFactory);
+    @Produces
+    @Singleton
+    @DefaultBean
+    public KafkaClientFactory kafkaClientFactory(CamelKafkaRuntimeConfig config) {
+        if (kafkaConfig != null && config.kubernetesServiceBinding.mergeConfiguration) {
+            return new QuarkusKafkaClientFactory(kafkaConfig);
+        }
+        return null;
     }
 }

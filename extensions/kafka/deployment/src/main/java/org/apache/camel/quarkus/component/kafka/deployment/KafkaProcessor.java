@@ -16,18 +16,14 @@
  */
 package org.apache.camel.quarkus.component.kafka.deployment;
 
-import java.util.List;
-
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
+import io.quarkus.deployment.Capabilities;
+import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
-import org.apache.camel.component.kafka.KafkaClientFactory;
-import org.apache.camel.quarkus.component.kafka.CamelKafkaRecorder;
-import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
+import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
 import org.apache.kafka.common.security.scram.internals.ScramSaslClient.ScramSaslClientFactory;
 
 class KafkaProcessor {
@@ -39,15 +35,12 @@ class KafkaProcessor {
     }
 
     @BuildStep
-    @Record(ExecutionTime.RUNTIME_INIT)
-    CamelRuntimeBeanBuildItem createKafkaClientFactory(
-            CamelKafkaRecorder recorder,
-            // We want Quarkus to configure the ServiceBindingConverter bits before this step
-            List<ServiceProviderBuildItem> serviceProviders) {
-        return new CamelRuntimeBeanBuildItem(
-                "quarkusKafkaClientFactory",
-                KafkaClientFactory.class.getName(),
-                recorder.createKafkaClientFactory());
+    void createKafkaClientFactoryProducerBean(
+            Capabilities capabilities,
+            BuildProducer<AdditionalBeanBuildItem> additionalBean) {
+        if (capabilities.isPresent(Capability.KUBERNETES_SERVICE_BINDING)) {
+            additionalBean.produce(AdditionalBeanBuildItem.unremovableOf(KafkaClientFactoryProducer.class));
+        }
     }
 
     @BuildStep
