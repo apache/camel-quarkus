@@ -250,10 +250,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '11', '15' ]
+        java: [ '11', '16' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
+      - name: Setup jdk.compiler options for Kotlin Kapt
+        if: matrix.java == '16'
+        run: |
+          # Set additional options for Kotlin Kapt
+          # https://youtrack.jetbrains.com/issue/KT-43704
+          echo "MAVEN_OPTS=${{env.MAVEN_OPTS}} --add-opens jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-opens jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED" >> $GITHUB_ENV
       - name: Setup apache-snapshots profile
         if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
         run: |
@@ -300,7 +306,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: [ '15' ]
+        java: [ '16' ]
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
