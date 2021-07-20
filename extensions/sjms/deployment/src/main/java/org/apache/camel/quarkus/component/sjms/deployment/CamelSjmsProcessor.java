@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.sjms.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 
 public class CamelSjmsProcessor {
     private static final String FEATURE = "camel-sjms";
@@ -25,5 +26,10 @@ public class CamelSjmsProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
+    }
+
+    @BuildStep
+    CamelSerializationBuildItem serialization() {
+        return new CamelSerializationBuildItem();
     }
 }

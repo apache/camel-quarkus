@@ -39,6 +39,19 @@ Or add the coordinates to your existing project:
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Usage
+
+=== Message mapping with `org.w3c.dom.Node`
+
+The Camel ActiveMQ component supports message mapping between `javax.jms.Message` and `org.apache.camel.Message`. When wanting to convert a Camel message body type of `org.w3c.dom.Node`,
+you must ensure that the `camel-quarkus-jaxp` extension is present on the classpath.
+
+=== Native mode support for javax.jms.ObjectMessage
+
+When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotate the relevant classes to be registered for serialization with `@RegisterForReflection(serialization = true)`. 
+Note that this extension automatically sets `quarkus.camel.native.reflection.serialization-enabled = true` for you. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
+
+
 == Camel Quarkus limitations
 
 ActiveMQ https://activemq.apache.org/selectors.html[XPath selectors] are disabled in native mode as the functionality depends on `activemq-broker`. This dependency 

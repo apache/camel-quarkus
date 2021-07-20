@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.jms.deployment;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 
 class JmsProcessor {
 
@@ -28,4 +29,8 @@ class JmsProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
+    @BuildStep
+    CamelSerializationBuildItem serialization() {
+        return new CamelSerializationBuildItem();
+    }
 }

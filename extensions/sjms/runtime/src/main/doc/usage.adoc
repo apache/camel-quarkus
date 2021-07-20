@@ -1,6 +1,6 @@
 === Message mapping with `org.w3c.dom.Node`
 
-The Camel JMS component supports message mapping between `javax.jms.Message` and `org.apache.camel.Message`. When wanting to convert a Camel message body type of `org.w3c.dom.Node`, 
+The Camel SJMS component supports message mapping between `javax.jms.Message` and `org.apache.camel.Message`. When wanting to convert a Camel message body type of `org.w3c.dom.Node`,
 you must ensure that the `camel-quarkus-jaxp` extension is present on the classpath.
 
 === Native mode support for javax.jms.ObjectMessage

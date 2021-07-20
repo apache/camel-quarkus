@@ -18,6 +18,9 @@ package org.apache.camel.quarkus.component.messaging.it;
 
 import java.io.Serializable;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection(serialization = true)
 public class Person implements Serializable {
     String name;
 
