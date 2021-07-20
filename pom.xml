@@ -166,7 +166,7 @@
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-        <rpkgtests-maven-plugin.version>0.9.0</rpkgtests-maven-plugin.version>
+        <rpkgtests-maven-plugin.version>0.10.0</rpkgtests-maven-plugin.version>
 
         <!-- Plugin configuration through properties  -->
 
