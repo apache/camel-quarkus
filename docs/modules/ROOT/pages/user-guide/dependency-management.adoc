@@ -86,8 +86,8 @@ When combining `camel-quarkus-bom` or `quarkus-universe-bom` with any other BOM,
 think carefully in which order you import them,
 because the order of imports defines the precedence.
 
-ie. if `quarkus-universe-bom` is imported before `camel-quarkus-bom` then the version defined in
-`quarkus-universe-bom` will take priority. And might lead to incompatible versions of libraries being used.
+I.e. if `my-foo-bom` is imported before `camel-quarkus-bom` then the versions defined in
+`my-foo-bom` will take the precedence. This might or might not be what you want, depending on whether there are any overlaps between `my-foo-bom` and `camel-quarkus-bom` and depending on whether those versions with higher precedence work with the rest of the artifacts managed in `camel-quarkus-bom`.
 
 == What's next?
 
