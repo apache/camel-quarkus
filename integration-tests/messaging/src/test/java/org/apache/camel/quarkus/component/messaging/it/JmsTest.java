@@ -24,7 +24,6 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -152,7 +151,6 @@ class JmsTest {
     }
 
     @Test
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2599")
     public void testJmsObject() {
         String message = "Mr Test Person";
         RestAssured.given()
@@ -164,7 +162,6 @@ class JmsTest {
     }
 
     @Test
-    @DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/2599")
     public void testJmsTransferExchange() {
         String message = "Test transfer message";
         RestAssured.given()
