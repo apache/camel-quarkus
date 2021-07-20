@@ -14,31 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty;
+package org.apache.camel.quarkus.component.netty.udp;
 
-import javax.enterprise.inject.Produces;
-import javax.inject.Named;
+import io.quarkus.test.junit.NativeImageTest;
 
-import io.netty.channel.ChannelHandler;
-import org.apache.camel.component.netty.ChannelHandlerFactory;
-
-public class NettyBeans {
-    @Produces
-    @Named("tcpNullDelimitedHandler")
-    ChannelHandlerFactory tcpNullDelimitedHandler() {
-        return NettyCodecHelper.createNullDelimitedHandler("tcp");
-    }
-
-    @Produces
-    @Named("bytesDecoder")
-    ChannelHandler bytesDecoder() {
-        return NettyCodecHelper.createBytesDecoder();
-    }
-
-    @Produces
-    @Named("bytesEncoder")
-    private ChannelHandler bytesEncoder() {
-        return NettyCodecHelper.createBytesEncoder();
-    }
+@NativeImageTest
+class NettyUdpIT extends NettyUdpTest {
 
 }

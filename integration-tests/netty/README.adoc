@@ -1,0 +1,4 @@
+== Regenerating Self Signed SSL Certificates
+
+    cd src/main/resources/ssl
+    keytool -genkeypair -keystore keystore.p12 -storetype PKCS12 -storepass changeit -alias localhost -keyalg RSA -keysize 2048 -validity 99999 -dname "CN=localhost"
