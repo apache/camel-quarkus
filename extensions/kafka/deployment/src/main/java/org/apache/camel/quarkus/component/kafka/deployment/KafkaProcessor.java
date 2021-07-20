@@ -22,9 +22,7 @@ import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
-import org.apache.kafka.common.security.scram.internals.ScramSaslClient.ScramSaslClientFactory;
 
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
@@ -42,10 +40,4 @@ class KafkaProcessor {
             additionalBean.produce(AdditionalBeanBuildItem.unremovableOf(KafkaClientFactoryProducer.class));
         }
     }
-
-    @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
-        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, ScramSaslClientFactory.class));
-    }
-
 }
