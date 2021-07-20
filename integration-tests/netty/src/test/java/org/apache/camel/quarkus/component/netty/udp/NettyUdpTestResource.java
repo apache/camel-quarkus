@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty;
+package org.apache.camel.quarkus.component.netty.udp;
 
 import java.util.Map;
 import java.util.Objects;
@@ -22,15 +22,16 @@ import java.util.Objects;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
 
-public class NettyTestResource implements QuarkusTestResourceLifecycleManager {
+public class NettyUdpTestResource implements QuarkusTestResourceLifecycleManager {
     @Override
     public Map<String, String> start() {
         return AvailablePortFinder.reserveNetworkPorts(
                 Objects::toString,
-                "camel.netty.test-tcp-port",
-                "camel.netty.test-codec-tcp-port",
                 "camel.netty.test-udp-port",
-                "camel.netty.test-codec-udp-port");
+                "camel.netty.test-codec-udp-port",
+                "camel.netty.test-server-initializer-udp-port",
+                "camel.netty.test-worker-group-udp-port",
+                "camel.netty.test-serialization-udp-port");
     }
 
     @Override

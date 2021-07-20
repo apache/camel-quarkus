@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty;
+package org.apache.camel.quarkus.component.netty.tcp;
 
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
-class NettyIT extends NettyTest {
+class NettyTcpIT extends NettyTcpTest {
 
 }

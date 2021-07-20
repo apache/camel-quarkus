@@ -14,27 +14,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.netty;
+package org.apache.camel.quarkus.component.netty.udp;
 
 import org.apache.camel.builder.RouteBuilder;
 
-public class NettyRoutes extends RouteBuilder {
+public class NettyUdpRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("netty:tcp://localhost:{{camel.netty.test-tcp-port}}?textline=true&sync=true")
-                .transform().simple("Hello ${body} TCP");
-
         from("netty:udp://localhost:{{camel.netty.test-udp-port}}?sync=true")
                 .transform().simple("Hello ${body} UDP");
-
-        from("netty:tcp://localhost:{{camel.netty.test-codec-tcp-port}}?disconnect=true&sync=false&allowDefaultCodec=false&decoders=#tcpNullDelimitedHandler,#bytesDecoder&encoders=#bytesEncoder")
-                .convertBodyTo(String.class)
-                .transform().simple("Hello ${body} TCP")
-                .to("seda:custom-tcp-codec");
 
         from("netty:udp://localhost:{{camel.netty.test-codec-udp-port}}?udpByteArrayCodec=true&sync=false")
                 .transform().simple("Hello ${body} UDP")
                 .to("seda:custom-udp-codec");
+
+        from("netty:udp://localhost:{{camel.netty.test-server-initializer-udp-port}}?sync=true&serverInitializerFactory=#serverInitializerFactory")
+                .process(exchange -> {
+                    // Do nothing
+                });
+
+        from("netty:udp://localhost:{{camel.netty.test-worker-group-udp-port}}?sync=true&bossGroup=#bossGroup&workerGroup=#workerGroup&usingExecutorService=false")
+                .transform().simple("Hello ${body} UDP Custom Worker Group");
+
+        from("netty:udp://localhost:{{camel.netty.test-serialization-udp-port}}?sync=true&transferExchange=true&encoders=#udpObjectEncoder&decoders=#udpObjectDecoder")
+                .to("mock:udpObjectResult");
     }
 }
