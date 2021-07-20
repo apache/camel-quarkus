@@ -1,0 +1,9 @@
+= Camel Quarkus 2.1.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.1.0 & Quarkus 2.1.0.Final.
+
+== SQL extension `quarkus.camel.sql.script-files` configuration property is removed
+
+The `quarkus.camel.sql.script-files` configuration property was deprecated in the 2.0.0 release and has now been removed.
+
+If you need to have SQL script files accessible via the classpath for `sql` or `sql-stored` endpoints, please use configuration property `quarkus.native.resources.includes`.

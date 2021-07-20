@@ -22,16 +22,12 @@ import java.util.LinkedHashMap;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.support.DefaultExchangeHolder;
-import org.jboss.logging.Logger;
 
 class SqlProcessor {
 
-    private static final Logger LOG = Logger.getLogger(SqlProcessor.class);
     private static final String FEATURE = "camel-sql";
 
     @BuildStep
@@ -48,19 +44,5 @@ class SqlProcessor {
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, Types.class, DefaultExchangeHolder.class));
         reflectiveClass.produce(ReflectiveClassBuildItem.serializationClass(LinkedHashMap.class.getName()));
-    }
-
-    @BuildStep
-    void sqlNativeImageResources(BuildProducer<NativeImageResourceBuildItem> nativeImage, CamelSqlConfig config) {
-        if (!config.scriptFiles.isPresent()) {
-            return;
-        }
-
-        LOG.warn(
-                "Configuration property quarkus.camel.sql.script-files is deprecated. Please use quarkus.native.resources.includes");
-        config.scriptFiles.get()
-                .stream()
-                .map(scriptFile -> new NativeImageResourceBuildItem(scriptFile.replace("classpath:", "")))
-                .forEach(nativeImage::produce);
     }
 }
