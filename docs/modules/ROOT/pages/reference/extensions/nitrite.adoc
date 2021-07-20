@@ -42,7 +42,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 == Usage
 
 If your persistence objects in native mode implement `java.io.Serializable` and are not automatically registered for serialization,
-you have to register them for serialization. Look into xref:extensions/core.adoc#serialization_in_native_mode[documentation]
+you have to register them for serialization. Look into xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation]
 to see which classes are registered and how to register other ones.
 
 

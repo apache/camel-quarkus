@@ -69,8 +69,8 @@ quarkus.native.resources.includes = queries.sql, sql/*.sql
 
 === SQL Aggregator ===
 
-If your exchanges in native mode contain objects, which are not automatically registered for serialization (see xref:extensions/core.adoc#serialization_in_native_mode[documentation]),
-you have to register them manually (see xref:extensions/core.adoc#serialization_in_native_mode[documentation])
+If your exchanges in native mode contain objects, which are not automatically registered for serialization (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation]),
+you have to register them manually (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation])
 
 
 
