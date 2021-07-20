@@ -224,6 +224,14 @@ A comma separated list of Ant-path style patterns to match class names that shou
 | `string`
 | 
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.native.reflection.serialization-enabled]]`link:#quarkus.camel.native.reflection.serialization-enabled[quarkus.camel.native.reflection.serialization-enabled]`
+
+If `true`, basic classes are registered for serialization; otherwise basic classes won't be registered automatically for serialization in native mode. 
+ List of basic classes: `java.lang.Boolean` `java.lang.Byte` `java.lang.Character` `java.lang.Float` `java.lang.Double` `java.lang.Integer` `java.lang.Long` `java.lang.Number` `java.lang.String` `java.math.BigInteger` `java.util.Date` `java.util.HashMap` `java.util.LinkedHashMap` `org.apache.camel.support.DefaultExchangeHolder` 
+ Setting this to `false` helps to reduce the size of the native image. In JVM mode, there is no real benefit of setting this flag to `true` except for making the behavior consistent with native mode.
+| `boolean`
+| `false`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.csimple.on-build-time-analysis-failure]]`link:#quarkus.camel.csimple.on-build-time-analysis-failure[quarkus.camel.csimple.on-build-time-analysis-failure]`
 
 What to do if it is not possible to extract CSimple expressions from a route definition at build time.

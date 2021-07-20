@@ -111,3 +111,26 @@ in {@code application.properties} - e.g.
 quarkus.index-dependency.commons-lang3.group-id = org.apache.commons
 quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
 ----
+
+[[serialization]]
+== Registration for serialization
+
+If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, following classes are registered for serialization:
+
+* `java.lang.Boolean`
+* `java.lang.Byte`
+* `java.lang.Character`
+* `java.lang.Float`
+* `java.lang.Double`
+* `java.lang.Integer`
+* `java.lang.Long`
+* `java.lang.Number`
+* `java.lang.String`
+* `java.math.BigInteger`
+* `java.util.Date`
+* `java.util.HashMap`
+* `java.util.LinkedHashMap`
+* `org.apache.camel.support.DefaultExchangeHolder`
+
+Users can register more classes using `@RegisterForReflection(serialization = true)`.
+

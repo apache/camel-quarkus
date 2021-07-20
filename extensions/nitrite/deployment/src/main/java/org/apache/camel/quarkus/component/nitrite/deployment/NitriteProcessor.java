@@ -16,13 +16,18 @@
  */
 package org.apache.camel.quarkus.component.nitrite.deployment;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
+import org.dizitart.no2.Document;
+import org.dizitart.no2.Index;
+import org.dizitart.no2.NitriteId;
+import org.dizitart.no2.meta.Attributes;
 
 class NitriteProcessor {
 
@@ -34,14 +39,29 @@ class NitriteProcessor {
     }
 
     @BuildStep
+    CamelSerializationBuildItem serialization() {
+        return new CamelSerializationBuildItem();
+    }
+
+    @BuildStep
     RuntimeInitializedClassBuildItem runtimeInitializedClass() {
         // this class uses a SecureRandom which needs to be initialised at run time
         return new RuntimeInitializedClassBuildItem("org.dizitart.no2.Security");
     }
 
     @BuildStep
-    List<ReflectiveClassBuildItem> reflectiveClasses() {
-        return Arrays.asList(new ReflectiveClassBuildItem(false, false, org.h2.store.fs.FilePathNio.class),
-                new ReflectiveClassBuildItem(true, false, "sun.reflect.ReflectionFactory"));
+    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, org.h2.store.fs.FilePathNio.class));
+        reflectiveClasses.produce(new ReflectiveClassBuildItem(true, false, "sun.reflect.ReflectionFactory"));
+
+        String[] dtos = new String[] { NitriteId.class.getName(),
+                Document.class.getName(),
+                Attributes.class.getName(),
+                "org.dizitart.no2.internals.IndexMetaService$IndexMeta",
+                AtomicBoolean.class.getName(),
+                Index.class.getName() };
+
+        reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(dtos));
+
     }
 }

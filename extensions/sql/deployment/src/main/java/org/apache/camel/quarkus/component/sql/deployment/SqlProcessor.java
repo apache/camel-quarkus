@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.sql.deployment;
 
 import java.sql.Types;
+import java.util.LinkedHashMap;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -24,6 +25,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.quarkus.component.sql.CamelSqlConfig;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.support.DefaultExchangeHolder;
 import org.jboss.logging.Logger;
 
@@ -38,8 +40,14 @@ class SqlProcessor {
     }
 
     @BuildStep
+    CamelSerializationBuildItem serialization() {
+        return new CamelSerializationBuildItem();
+    }
+
+    @BuildStep
     void registerForReflection(BuildProducer<ReflectiveClassBuildItem> reflectiveClass) {
         reflectiveClass.produce(new ReflectiveClassBuildItem(false, true, Types.class, DefaultExchangeHolder.class));
+        reflectiveClass.produce(ReflectiveClassBuildItem.serializationClass(LinkedHashMap.class.getName()));
     }
 
     @BuildStep

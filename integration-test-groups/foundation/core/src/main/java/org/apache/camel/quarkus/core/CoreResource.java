@@ -16,9 +16,12 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -254,4 +257,20 @@ public class CoreResource {
     public String customBeanResolvedByType() {
         return myPropertiesCustomBeanResolvedByType.toString();
     }
+
+    @Path("/serialization")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean serialization() throws IOException, ClassNotFoundException {
+        MySerializationObject instance = new MySerializationObject();
+        instance.initValues();
+
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        ObjectOutputStream os = new ObjectOutputStream(out);
+        os.writeObject(instance);
+        ByteArrayInputStream bais = new ByteArrayInputStream(out.toByteArray());
+        ObjectInputStream is = new ObjectInputStream(bais);
+        return ((MySerializationObject) is.readObject()).isCorrect();
+    }
+
 }
