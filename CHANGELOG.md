@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- can't build camel-fhir extension native image [\#2906](https://github.com/apache/camel-quarkus/issues/2906)
 - Revise DefaultExchangeHolder [\#2905](https://github.com/apache/camel-quarkus/issues/2905)
 - openapi-java failure when building native-image [\#2892](https://github.com/apache/camel-quarkus/issues/2892)
 - kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
@@ -21,6 +22,7 @@
 - Test camel.faulttolerance.\* set of properties [\#2780](https://github.com/apache/camel-quarkus/issues/2780)
 - Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
 - Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
+- camel-quarkus-minio: "quarkus.minio.url" is mandatory and must be a valid url [\#2721](https://github.com/apache/camel-quarkus/issues/2721)
 - Test both camel and quarkus configuration of underlying component quarkus client [\#2712](https://github.com/apache/camel-quarkus/issues/2712)
 - Split with AggregationStrategy [\#2690](https://github.com/apache/camel-quarkus/issues/2690)
 - Class loader issues in AvroRpcTest with Quarkus 2.0.0.Alpha3 [\#2651](https://github.com/apache/camel-quarkus/issues/2651)
@@ -32,6 +34,9 @@
 
 **Merged pull requests:**
 
+- camel-quarkus-minio: quarkus.minio.url is not mandatory [\#2911](https://github.com/apache/camel-quarkus/pull/2911) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade Quarkus to 2.1.0.CR1 [\#2910](https://github.com/apache/camel-quarkus/pull/2910) ([jamesnetherton](https://github.com/jamesnetherton))
+- fix  can't build camel-fhir extension native image \#2906 [\#2907](https://github.com/apache/camel-quarkus/pull/2907) ([ffang](https://github.com/ffang))
 - Warn users that not all combinations of artifacts managed by [\#2899](https://github.com/apache/camel-quarkus/pull/2899) ([ppalaga](https://github.com/ppalaga))
 - Add tests for Quarkus traced beans with Camel routes [\#2898](https://github.com/apache/camel-quarkus/pull/2898) ([jamesnetherton](https://github.com/jamesnetherton))
 - add info about usage of nimbus-jose-jwt [\#2896](https://github.com/apache/camel-quarkus/pull/2896) ([zbendhiba](https://github.com/zbendhiba))
