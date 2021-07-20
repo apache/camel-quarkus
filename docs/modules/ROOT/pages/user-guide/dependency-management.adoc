@@ -5,7 +5,7 @@ A specific Camel Quarkus release is supposed to work only with a specific Quarku
 == Quarkus BOM 
 
 The core Quarkus dependencies are managed via `io.quarkus:quarkus-bom`. 
-Any additional dependencies for related Quarkus artifacts are not contained in this BOM. 
+This BOM doesn't manage the additional Quarkus extensions (Camel Quarkus, Kubernetes, ...), so there are other BOMs available for you to use in your projects that contain import `quarkus-bom`.
 
 == Quarkus Universe BOM
 
