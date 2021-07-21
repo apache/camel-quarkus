@@ -115,7 +115,7 @@ quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
 [[serialization]]
 == Registration for serialization
 
-If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, following classes are registered for serialization:
+If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, the following classes are registered for serialization:
 
 * `java.lang.Boolean`
 * `java.lang.Byte`
