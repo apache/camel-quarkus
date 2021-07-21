@@ -1,6 +1,10 @@
 == Camel Quarkus Salesforce Integration Tests
 
-To run the `camel-quarkus-salesforce` integration tests against the real API, you must first create a Salesforce developer account https://developer.salesforce.com/.
+By default, the Salesforce integration tests use WireMock to stub the API interactions.
+
+IMPORTANT: Note that when using Wiremock, the Change Data Capture Events test is disabled.
+
+To run `camel-quarkus-salesforce` integration tests using Salesforce API interactions, you must first create a Salesforce developer account https://developer.salesforce.com/.
 
 Next create a new 'Connected App' from the app manager page. You may need to adjust the OAuth policy settings for
 `Permitted Users` and also `IP Relaxation` rules, depending on your needs. Also enable Change Data Capture for the 'Account' entity by visiting the Integrations -> Change Data Capture page.
