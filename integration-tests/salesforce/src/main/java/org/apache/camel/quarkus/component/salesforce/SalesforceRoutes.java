@@ -44,9 +44,6 @@ public class SalesforceRoutes extends RouteBuilder {
     @ConfigProperty(name = "SALESFORCE_CLIENTSECRET", defaultValue = "clientSecret")
     String clientSecret;
 
-    @Produces
-    @ApplicationScoped
-    @Unremovable
     @Named("salesforce")
     SalesforceComponent salesforceComponent() {
         // check if wiremock URL exists
