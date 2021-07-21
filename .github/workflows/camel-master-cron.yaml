@@ -27,6 +27,7 @@ env:
   MAVEN_OPTS: -Xmx3000m
   MAVEN_ARGS: -V -ntp -Dhttp.keepAlive=false -e
   TESTCONTAINERS_RYUK_DISABLED: true
+  ISSUE_ID: 2927
 
 jobs:
   initial-mvn-install:
@@ -95,7 +96,7 @@ jobs:
             git rebase --abort
           fi
 
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   native-tests:
     name: Native Tests - ${{matrix.category}}
@@ -169,7 +170,7 @@ jobs:
       - name: Report Build Failure
         if: failure()
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=${{ job.status }} -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
 
   handle-build-status:
     needs: native-tests
@@ -201,7 +202,7 @@ jobs:
       - name: Report build status
         id: report
         run: |
-          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
+          ./mvnw ${MAVEN_ARGS} verify -N -Pbuild-notification -Dstatus=verify -DissueId=${{ env.ISSUE_ID }} -Dtoken=${{ secrets.GITHUB_TOKEN }} -DbuildId=$(cat ~/build-data/build-id.txt) -Drepo=${GITHUB_REPOSITORY} -Dbranch=camel-main -Dbranch-commit=$(cat ~/build-data/main-sha.txt)
       - name: Sync branch Main to Camel Main
         if: steps.report.outputs.overall_build_status == 'success'
         run: |
