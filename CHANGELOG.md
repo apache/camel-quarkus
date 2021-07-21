@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.0.0...HEAD)
 
+**Fixed bugs:**
+
+- Cannot re-process old Kafka messages because of Quarkus overriding the group.id [\#2901](https://github.com/apache/camel-quarkus/issues/2901)
+
 **Closed issues:**
 
 - can't build camel-fhir extension native image [\#2906](https://github.com/apache/camel-quarkus/issues/2906)
@@ -20,7 +24,9 @@
 - Leverage catalog metadata to discover unremovable bean types [\#2822](https://github.com/apache/camel-quarkus/issues/2822)
 - add affinity dependency in a mac profile for camel-hazelcast extension [\#2800](https://github.com/apache/camel-quarkus/issues/2800)
 - Test camel.faulttolerance.\* set of properties [\#2780](https://github.com/apache/camel-quarkus/issues/2780)
+- Intermittent failure of testJmsTransaction  [\#2767](https://github.com/apache/camel-quarkus/issues/2767)
 - Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
+- Refactor registration of serialization once support is present in Quarkus [\#2755](https://github.com/apache/camel-quarkus/issues/2755)
 - Add Kamelet example [\#2731](https://github.com/apache/camel-quarkus/issues/2731)
 - camel-quarkus-minio: "quarkus.minio.url" is mandatory and must be a valid url [\#2721](https://github.com/apache/camel-quarkus/issues/2721)
 - Test both camel and quarkus configuration of underlying component quarkus client [\#2712](https://github.com/apache/camel-quarkus/issues/2712)
@@ -29,14 +35,18 @@
 - No consumers available on endpoint [\#2632](https://github.com/apache/camel-quarkus/issues/2632)
 - Add camel-kamelet extension example [\#2630](https://github.com/apache/camel-quarkus/issues/2630)
 - Autowiring of beans can cause warning and problem "bean was marked as unused and removed during build" [\#2519](https://github.com/apache/camel-quarkus/issues/2519)
+- Nitrite - follow up - simplify serialization configuration [\#2255](https://github.com/apache/camel-quarkus/issues/2255)
 - OpenTelemetry support [\#2084](https://github.com/apache/camel-quarkus/issues/2084)
 - Turn off bean removal by ArC  [\#1387](https://github.com/apache/camel-quarkus/issues/1387)
 
 **Merged pull requests:**
 
+- Prevent configuration of QuarkusKafkaClientFactory if quarkus-kubernetes-service-binding is not on the classpath [\#2913](https://github.com/apache/camel-quarkus/pull/2913) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add information about BOMs and precedence of them [\#2912](https://github.com/apache/camel-quarkus/pull/2912) ([mmuzikar](https://github.com/mmuzikar))
 - camel-quarkus-minio: quarkus.minio.url is not mandatory [\#2911](https://github.com/apache/camel-quarkus/pull/2911) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.1.0.CR1 [\#2910](https://github.com/apache/camel-quarkus/pull/2910) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix  can't build camel-fhir extension native image \#2906 [\#2907](https://github.com/apache/camel-quarkus/pull/2907) ([ffang](https://github.com/ffang))
+- Use of serialization feature of Quakus \(includes Sql and Nitrite\) [\#2904](https://github.com/apache/camel-quarkus/pull/2904) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Warn users that not all combinations of artifacts managed by [\#2899](https://github.com/apache/camel-quarkus/pull/2899) ([ppalaga](https://github.com/ppalaga))
 - Add tests for Quarkus traced beans with Camel routes [\#2898](https://github.com/apache/camel-quarkus/pull/2898) ([jamesnetherton](https://github.com/jamesnetherton))
 - add info about usage of nimbus-jose-jwt [\#2896](https://github.com/apache/camel-quarkus/pull/2896) ([zbendhiba](https://github.com/zbendhiba))
@@ -127,6 +137,7 @@
 - Added move and delete tests for FTP extension \#2645 [\#2710](https://github.com/apache/camel-quarkus/pull/2710) ([aldettinger](https://github.com/aldettinger))
 - Fix vertx-http SSL integration test [\#2705](https://github.com/apache/camel-quarkus/pull/2705) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expanded Saxon test coverage with XPath saxon tests and fixed related… [\#2703](https://github.com/apache/camel-quarkus/pull/2703) ([aldettinger](https://github.com/aldettinger))
+- Build with JDK 16 as 15 is EOL [\#2700](https://github.com/apache/camel-quarkus/pull/2700) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document usage of dashed query params with platform-http [\#2699](https://github.com/apache/camel-quarkus/pull/2699) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade SmallRye Reactive Messaging Camel to 3.3.2 [\#2698](https://github.com/apache/camel-quarkus/pull/2698) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix typo [\#2697](https://github.com/apache/camel-quarkus/pull/2697) ([zbendhiba](https://github.com/zbendhiba))
