@@ -37,7 +37,7 @@ public class SolrCloudResource extends SolrCommonResource {
     String solrUrl;
 
     public void init(@Observes StartupEvent startupEvent) {
-        solrComponentURI = String.format("solrCloud://%s", solrUrl);
+        solrComponentURI = String.format("solr://%s", solrUrl);
         solrClient = new HttpSolrClient.Builder(String.format("http://%s", solrUrl)).build();
     }
 }
