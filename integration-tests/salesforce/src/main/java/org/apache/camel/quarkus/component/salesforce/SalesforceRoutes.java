@@ -20,9 +20,7 @@ import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
-import javax.ws.rs.Produces;
 
-import io.quarkus.arc.Unremovable;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.salesforce.AuthenticationType;
 import org.apache.camel.component.salesforce.SalesforceComponent;
