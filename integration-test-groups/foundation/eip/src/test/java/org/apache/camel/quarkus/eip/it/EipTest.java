@@ -222,7 +222,7 @@ class EipTest {
                 .then()
                 .statusCode(200);
 
-        RestAssured.get("/eip/mock/removeProperty/1/5000/header")
+        RestAssured.get("/eip/mock/removeProperty/1/5000/property")
                 .then()
                 .statusCode(200)
                 .body(
@@ -244,7 +244,7 @@ class EipTest {
                 .then()
                 .statusCode(200);
 
-        RestAssured.get("/eip/mock/removeProperties/1/5000/header")
+        RestAssured.get("/eip/mock/removeProperties/1/5000/property")
                 .then()
                 .statusCode(200)
                 .body(
