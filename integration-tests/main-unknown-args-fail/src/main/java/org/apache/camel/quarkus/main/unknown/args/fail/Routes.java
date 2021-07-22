@@ -22,7 +22,7 @@ public class Routes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("timer:tick?repeatCount=1&delay=-1")
+        from("timer:tick?repeatCount=1")
                 .log("Timer tick!");
     }
 }
