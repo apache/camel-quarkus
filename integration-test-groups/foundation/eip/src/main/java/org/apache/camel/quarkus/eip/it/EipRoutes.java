@@ -20,6 +20,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ClaimCheckOperation;
 import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
@@ -68,9 +69,21 @@ public class EipRoutes extends RouteBuilder {
 
         from("direct:removeHeaders").removeHeaders("headerToRemove.*").to("mock:removeHeaders");
 
-        from("direct:removeProperty").removeHeader("propertyToRemove").to("mock:removeProperty");
+        final Processor headersToProperties = e -> {
+            e.getMessage().getHeaders().entrySet().stream()
+                    .filter(en -> en.getKey().contains("roperty"))
+                    .forEach(en -> e.getProperties().put(en.getKey(), en.getValue()));
+            ;
+        };
+        from("direct:removeProperty")
+                .process(headersToProperties)
+                .removeProperty("propertyToRemove")
+                .to("mock:removeProperty");
 
-        from("direct:removeProperties").removeHeaders("propertyToRemove.*").to("mock:removeProperties");
+        from("direct:removeProperties")
+                .process(headersToProperties)
+                .removeProperties("propertyToRemove.*")
+                .to("mock:removeProperties");
 
     }
 
