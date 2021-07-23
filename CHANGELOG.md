@@ -18,6 +18,7 @@
 - camel-quarkus-kafka : Kafka oauth authentication issue with kafka-oauth-client 0.8.x versions [\#2878](https://github.com/apache/camel-quarkus/issues/2878)
 - Avoid producing `FeatureBuildItem` in support extensions [\#2873](https://github.com/apache/camel-quarkus/issues/2873)
 - Combine build sanity checks into a single script [\#2869](https://github.com/apache/camel-quarkus/issues/2869)
+- Promote tags to GitHub releases [\#2864](https://github.com/apache/camel-quarkus/issues/2864)
 - Give some guidance to end users which messaging extensions they should use in which situation [\#2856](https://github.com/apache/camel-quarkus/issues/2856)
 - \[Quarkus 2.1\] Remove reflective class registration for `ScramSaslClientFactory` [\#2850](https://github.com/apache/camel-quarkus/issues/2850)
 - string-template:bean Bean Injection:  camel quarkus cannot find resource error [\#2849](https://github.com/apache/camel-quarkus/issues/2849)
@@ -48,6 +49,11 @@
 
 **Merged pull requests:**
 
+- Upgrade to Quarkus 2.1.0.Final [\#2934](https://github.com/apache/camel-quarkus/pull/2934) ([ppalaga](https://github.com/ppalaga))
+- Upgrade to Optaplanner 8.8.0 & fix removeProperty tests [\#2933](https://github.com/apache/camel-quarkus/pull/2933) ([ppalaga](https://github.com/ppalaga))
+- Use default timer delay for main-unknown-args itest application [\#2931](https://github.com/apache/camel-quarkus/pull/2931) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use static issues to report nightly sync workflow failures [\#2928](https://github.com/apache/camel-quarkus/pull/2928) ([jamesnetherton](https://github.com/jamesnetherton))
+- Make the creation of a GitHub release a part of the release process [\#2924](https://github.com/apache/camel-quarkus/pull/2924) ([ppalaga](https://github.com/ppalaga))
 - Document the options for configuring the ElasticSearch REST client [\#2923](https://github.com/apache/camel-quarkus/pull/2923) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove reflective class registration for ScramSaslClientFactory [\#2920](https://github.com/apache/camel-quarkus/pull/2920) ([jamesnetherton](https://github.com/jamesnetherton))
 - Support JMS ObjectMessage [\#2919](https://github.com/apache/camel-quarkus/pull/2919) ([jamesnetherton](https://github.com/jamesnetherton))
