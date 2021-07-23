@@ -208,7 +208,7 @@ $ target/*runner -Dgreeted.subject=Joe
 == Source code
 
 The sources of the application used in this blog post are based on the `main-command-mode` integration test in the Camel Quarkus source tree:
-https://github.com/apache/camel-quarkus/tree/master/integration-tests/main-command-mode[https://github.com/apache/camel-quarkus/tree/master/integration-tests/main-command-mode]
+https://github.com/apache/camel-quarkus/tree/main/integration-tests/main-command-mode[https://github.com/apache/camel-quarkus/tree/main/integration-tests/main-command-mode]
 
 Bonus: The integration test module shows a way how to test command line applications.
 
