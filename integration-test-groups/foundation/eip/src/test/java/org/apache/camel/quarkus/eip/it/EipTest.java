@@ -70,6 +70,30 @@ class EipTest {
     }
 
     @Test
+    public void roundRobinLoadBalancer() {
+        final List<String> messages = Arrays.asList("a", "b", "c", "d");
+        for (String msg : messages) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body(msg)
+                    .post("/eip/route/roundRobinLoadBalancer")
+                    .then()
+                    .statusCode(200);
+        }
+
+        RestAssured.get("/eip/mock/roundRobinLoadBalancer1/2/10000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,c"));
+
+        RestAssured.get("/eip/mock/roundRobinLoadBalancer2/2/10000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("b,d"));
+
+    }
+
+    @Test
     public void enrich() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
