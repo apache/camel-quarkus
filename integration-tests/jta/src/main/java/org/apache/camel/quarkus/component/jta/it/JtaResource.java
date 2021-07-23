@@ -20,10 +20,10 @@ import java.net.URI;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
+import java.util.stream.Collectors;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
@@ -38,10 +38,9 @@ import javax.ws.rs.core.Response;
 import io.agroal.api.AgroalDataSource;
 import io.quarkus.agroal.DataSource;
 import org.apache.camel.CamelContext;
-import org.apache.camel.Exchange;
-import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.quarkus.main.events.AfterStart;
 import org.jboss.logging.Logger;
 
 @Path("/jta")
@@ -59,16 +58,16 @@ public class JtaResource {
     @Inject
     CamelContext context;
 
-    @PostConstruct
-    void postConstruct() throws SQLException {
+    void postConstruct(@Observes AfterStart event) throws SQLException {
         try (Connection conn = dataSource.getConnection()) {
             try (Statement statement = conn.createStatement()) {
+                LOG.info("Recreating table 'example'");
                 try {
                     statement.execute("drop table example");
                 } catch (Exception ignored) {
                 }
                 statement.execute(
-                        "create table example (id serial primary key, message varchar(255) not null, origin varchar(5) not null)");
+                        "create table example (id serial primary key, message varchar(255) not null, origin varchar(255) not null)");
             }
         }
     }
@@ -96,60 +95,31 @@ public class JtaResource {
         return post(policy, message);
     }
 
-    @Path("/jdbc")
+    @Path("/route/{route}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response jdbc(String message) throws Exception {
-        String response = request("direct:jdbc", message);
-        LOG.infof("Got response from jdbc: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
-    }
-
-    @Path("/sqltx")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Response sqltx(String message) throws Exception {
-        String response = request("direct:sqltx", message);
-        LOG.infof("Got response from sqltx: %s", response);
-        return Response
-                .created(new URI("https://camel.apache.org/"))
-                .entity(response)
-                .build();
-    }
-
-    private String request(String endpoint, String message) throws Exception {
+    public Response route(@PathParam("route") String route, String message) throws Exception {
         LOG.infof("message is %s", message);
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:txResult", MockEndpoint.class);
-        mockEndpoint.reset();
-        if (!message.equals("fail")) {
-            mockEndpoint.expectedMessageCount(1);
-            mockEndpoint.message(0).body().isEqualTo(message);
-        }
-        final String response = producerTemplate.requestBody(endpoint, message, String.class);
-        mockEndpoint.assertIsSatisfied(15000);
-
-        return response;
+        String response = producerTemplate.requestBody("direct:" + route, message, String.class);
+        LOG.infof("Got response from %s: %s", route, response);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
     }
 
-    @Path("/mock")
-    @GET
-    @Consumes(MediaType.TEXT_PLAIN)
+    @Path("/mock/{name}/{count}/{timeout}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response mock() throws Exception {
-        MockEndpoint mockEndpoint = context.getEndpoint("mock:txResult", MockEndpoint.class);
-        List<Exchange> exchanges = mockEndpoint.getExchanges();
-        if (exchanges.isEmpty()) {
-            return Response.ok().entity("empty").build();
-        } else {
-            Message message = exchanges.get(0).getMessage();
-
-            LOG.infof("mock message is " + message.getBody());
-            return Response.ok().entity(message.getBody()).build();
+    @GET
+    public String mock(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout) {
+        MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
+        mock.setExpectedMessageCount(count);
+        try {
+            mock.assertIsSatisfied(timeout);
+        } catch (InterruptedException e1) {
+            Thread.currentThread().interrupt();
         }
+        return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.joining(","));
     }
 }

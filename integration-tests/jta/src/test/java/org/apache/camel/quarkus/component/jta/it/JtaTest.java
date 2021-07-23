@@ -21,6 +21,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.UUID;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
@@ -29,6 +30,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -150,47 +152,65 @@ class JtaTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = { "jdbc", "sqltx" })
-    public void testTx(String url) throws SQLException {
-        final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
+    @ValueSource(strings = { "jdbc", "jdbcRollback", "sqltx", "sqltxRollback" })
+    public void testTx(String endpoint) throws SQLException {
+        final String msg = endpoint + ":" + UUID.randomUUID().toString().replace("-", "");
+
+        assertDBRows(endpoint);
+        RestAssured.get("/jta/mock/" + endpoint + "/0/1000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is(""));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post("/jta/" + url)
+                .post("/jta/route/" + endpoint)
                 .then()
                 .statusCode(201)
                 .body(is(msg + " added"));
 
         // One row inserted
-        assertDBRowCount(url, 1);
+        assertDBRows(endpoint, msg);
+        RestAssured.get("/jta/mock/" + endpoint + "/1/15000")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is(msg));
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .body("fail")
-                .post("/jta/" + url)
+                .body("rollback")
+                .post("/jta/route/" + endpoint)
                 .then()
                 .statusCode(500);
 
         // Should still have the original row as the other insert attempt was rolled back
-        assertDBRowCount(url, 1);
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .get("/jta/mock")
+        assertDBRows(endpoint, msg);
+        RestAssured.get("/jta/mock/" + endpoint + "/1/15000")
                 .then()
                 .statusCode(200)
-                .body(is("empty"))
-                .log();
+                .body(Matchers.is(msg));
     }
 
-    private void assertDBRowCount(String source, int expectedRowCount) throws SQLException {
+    private void assertDBRows(String source, String... expectedMessages) throws SQLException {
         try (Connection connection = DriverManager.getConnection("jdbc:h2:tcp://localhost/mem:test")) {
             try (Statement statement = connection.createStatement()) {
                 try (ResultSet resultSet = statement
-                        .executeQuery("SELECT count(*) FROM example WHERE origin = '" + source + "'")) {
+                        .executeQuery("SELECT message FROM example WHERE origin = '" + source + "' ORDER BY id")) {
+                    int i = 0;
+                    for (; i < expectedMessages.length; i++) {
+                        String expectedMessage = expectedMessages[i];
+                        if (resultSet.next()) {
+                            Assertions.assertEquals(expectedMessage, resultSet.getString(1));
+                        } else {
+                            Assertions
+                                    .fail("Expected message '" + expectedMessage + "' for origin '" + source + "' at index " + i
+                                            + "; found: end of list");
+                        }
+                    }
                     if (resultSet.next()) {
-                        Assertions.assertEquals(expectedRowCount, resultSet.getInt(1));
+                        Assertions.fail("Expected end of list '" + source + "' at index " + i + "; found message: "
+                                + resultSet.getString(1));
                     }
                 }
             }
