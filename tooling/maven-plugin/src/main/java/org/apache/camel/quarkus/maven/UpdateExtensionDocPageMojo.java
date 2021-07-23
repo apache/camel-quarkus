@@ -129,7 +129,11 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("activatesNativeSsl", ext.isNativeSupported() && detectNativeSsl(multiModuleProjectDirectory.toPath(),
                 basePath, ext.getRuntimeArtifactId(), ext.getDependencies(), nativeSslActivators));
         model.put("activatesContextMapAll",
-                ext.isNativeSupported() && detectAllowContextMapAll(catalog, ext.getRuntimeArtifactIdBase()));
+                ext.isNativeSupported()
+                        && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "allowContextMapAll"));
+        model.put("activatesTransferException",
+                ext.isNativeSupported()
+                        && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "transferException"));
         model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
@@ -326,20 +330,19 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         }
     }
 
-    static boolean detectAllowContextMapAll(CqCatalog catalog, String artifactId) {
-        final String allowContextMapAll = "allowContextMapAll";
+    static boolean detectComponentOrEndpointOption(CqCatalog catalog, String artifactId, String option) {
         return catalog.filterModels(artifactId)
                 .filter(m -> m instanceof ComponentModel)
                 .map(m -> (ComponentModel) m)
                 .anyMatch(componentModel -> {
                     for (ComponentModel.ComponentOptionModel model : componentModel.getOptions()) {
-                        if (model.getName().equals(allowContextMapAll)) {
+                        if (model.getName().equals(option)) {
                             return true;
                         }
                     }
 
                     for (ComponentModel.EndpointOptionModel model : componentModel.getEndpointOptions()) {
-                        if (model.getName().equals(allowContextMapAll)) {
+                        if (model.getName().equals(option)) {
                             return true;
                         }
                     }

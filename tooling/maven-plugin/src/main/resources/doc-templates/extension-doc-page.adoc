@@ -68,6 +68,19 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
 `CamelContext` & `Exchange`. This is considered a security risk and thus access to the feature is not provided by default.
 [/#if]
+[#if activatesTransferException ]
+
+== transferException option in native mode
+
+To use the `transferException` option in native mode, you must enable support for object serialization. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide]
+for more information.
+
+You will also need to enable serialization for the exception classes that you intend to serialize. For example.
+[source,java]
+----
+@RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
+----
+[/#if]
 [#if configuration?? || configOptions?size != 0 ]
 
 == Additional Camel Quarkus configuration

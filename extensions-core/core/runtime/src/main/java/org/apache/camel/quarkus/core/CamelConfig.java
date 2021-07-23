@@ -284,24 +284,10 @@ public class CamelConfig {
         /**
          * If {@code true}, basic classes are registered for serialization; otherwise basic classes won't be registered
          * automatically for serialization in native mode.
-         * <p>
-         * List of basic classes:
-         * {@code java.lang.Boolean}
-         * {@code java.lang.Byte}
-         * {@code java.lang.Character}
-         * {@code java.lang.Float}
-         * {@code java.lang.Double}
-         * {@code java.lang.Integer}
-         * {@code java.lang.Long}
-         * {@code java.lang.Number}
-         * {@code java.lang.String}
-         * {@code java.math.BigInteger}
-         * {@code java.util.Date}
-         * {@code java.util.HashMap}
-         * {@code java.util.LinkedHashMap}
-         * {@code org.apache.camel.support.DefaultExchangeHolder}
-         * 
-         * <p>
+         *
+         * The list of classes automatically registered for serialization can be found in <a href=
+         * "https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/CamelSerializationProcessor.java">CamelSerializationProcessor.BASE_SERIALIZATION_CLASSES</a>.
+         *
          * Setting this to {@code false} helps to reduce the size of the native image. In JVM mode, there is no real
          * benefit of setting this flag to {@code true} except for making the behavior consistent with native mode.
          */
