@@ -25,6 +25,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.zookeeper.ClientCnxnSocketNIO;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
@@ -65,6 +66,8 @@ class SolrProcessor {
                     }
                 })
                 .forEach(reflectiveClass::produce);
+
+        reflectiveClass.produce(new ReflectiveClassBuildItem(false, false, ClientCnxnSocketNIO.class.getName()));
     }
 
     @BuildStep
