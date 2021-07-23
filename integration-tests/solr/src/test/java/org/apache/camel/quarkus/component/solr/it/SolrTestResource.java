@@ -16,16 +16,19 @@
  */
 package org.apache.camel.quarkus.component.solr.it;
 
+import java.io.File;
 import java.util.Map;
 
-import com.github.dockerjava.api.command.InspectContainerResponse;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
+import org.testcontainers.containers.DockerComposeContainer;
+import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.SolrContainer;
 import org.testcontainers.containers.output.Slf4jLogConsumer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.DockerImageName;
 
 public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
@@ -35,21 +38,27 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
     private static final DockerImageName SOLR_IMAGE = DockerImageName.parse("solr:8.7.0");
     private static final String COLLECTION_NAME = "collection1";
     private static final String URL_FORMAT = "localhost:%s/solr/collection1";
+    private static final String CLOUD_COMPONENT_URL_FORMAT = "localhost:%s/solr?zkHost=localhost:%s&collection=collection1&username=solr&password=SolrRocks";
+    private static final int ZOOKEEPER_PORT = 2181;
+    private static final int SOLR_PORT = 8983;
 
     private SolrContainer standaloneContainer;
     private SolrContainer sslContainer;
-    private SolrContainer cloudContainer;
+    private DockerComposeContainer cloudContainer;
 
     @Override
     public Map<String, String> start() {
         // creates 3 containers for 3 different modes of using SOLR
         createContainers();
         // start containers
-        startContainers(standaloneContainer, sslContainer, cloudContainer);
+        startContainers(cloudContainer, standaloneContainer, sslContainer);
         // return custom URLs
         return CollectionHelper.mapOf("solr.standalone.url", String.format(URL_FORMAT, standaloneContainer.getSolrPort()),
                 "solr.ssl.url", String.format(URL_FORMAT, sslContainer.getSolrPort()),
-                "solr.cloud.url", String.format(URL_FORMAT, cloudContainer.getSolrPort()));
+                "solr.cloud.url", String.format(URL_FORMAT, cloudContainer.getServicePort("solr1", SOLR_PORT)),
+                "solr.cloud.component.url", String.format(CLOUD_COMPONENT_URL_FORMAT,
+                        cloudContainer.getServicePort("solr1", SOLR_PORT),
+                        cloudContainer.getServicePort("zoo1", ZOOKEEPER_PORT)));
     }
 
     private void createContainers() {
@@ -58,10 +67,12 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
         createCloudContainer();
     }
 
-    private void startContainers(SolrContainer... containers) {
-        for (SolrContainer container : containers) {
+    private void startContainers(DockerComposeContainer dc, GenericContainer... containers) {
+        for (GenericContainer container : containers) {
             container.start();
         }
+
+        dc.start();
     }
 
     /**
@@ -100,38 +111,26 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
      * creates a cloud container with zookeeper
      */
     private void createCloudContainer() {
-        cloudContainer = new SolrContainer(SOLR_IMAGE) {
-            @Override
-            protected void containerIsStarted(InspectContainerResponse containerInfo) {
-                // Retry container setup steps in case of failure
-                int maxRetries = 10;
-                int attempts = 1;
-                do {
-                    try {
-                        super.containerIsStarted(containerInfo);
-                        break;
-                    } catch (Exception e) {
-                        LOGGER.info("Retrying containerIsStarted due to exception: {}", e.getMessage());
-                        attempts++;
-                    }
-                } while (attempts <= maxRetries);
-            }
-        }
-                .withZookeeper(true)
-                .withCollection(COLLECTION_NAME)
-                .withLogConsumer(new Slf4jLogConsumer(LOGGER));
+        cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose.yml"))
+                .withExposedService("solr1", SOLR_PORT)
+                .withExposedService("zoo1", ZOOKEEPER_PORT)
+                .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
     }
 
     @Override
     public void stop() {
-        stopContainers(standaloneContainer, sslContainer, cloudContainer);
+        stopContainers(cloudContainer, standaloneContainer, sslContainer);
     }
 
-    private void stopContainers(SolrContainer... containers) {
-        for (SolrContainer container : containers) {
+    private void stopContainers(DockerComposeContainer dc, GenericContainer... containers) {
+        for (GenericContainer container : containers) {
             if (container != null) {
                 container.stop();
             }
+        }
+
+        if (dc != null) {
+            dc.stop();
         }
     }
 }

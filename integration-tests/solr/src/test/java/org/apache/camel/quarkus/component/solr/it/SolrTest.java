@@ -42,8 +42,7 @@ public class SolrTest {
      * @return
      */
     private static Stream<String> resources() {
-        // TODO: Reactivate cloud tests - https://github.com/apache/camel-quarkus/issues/2814
-        return Stream.of("/solr/standalone", "/solr/ssl"); //, "/solr/cloud");
+        return Stream.of("/solr/standalone", "/solr/ssl", "/solr/cloud");
     }
 
     @ParameterizedTest
