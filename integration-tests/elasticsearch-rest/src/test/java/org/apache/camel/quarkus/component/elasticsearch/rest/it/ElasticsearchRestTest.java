@@ -20,7 +20,8 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.is;
 
@@ -28,12 +29,14 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(ElasticSearchTestResource.class)
 class ElasticsearchRestTest {
 
-    @Test
-    public void testElasticsearchRestComponent() {
+    @ParameterizedTest
+    @MethodSource("componentNames")
+    public void testElasticsearchRestComponent(String component) {
         String message = "Hello Camel Quarkus Elasticsearch";
 
         // Index data
         String indexId = RestAssured.given()
+                .queryParam("component", component)
                 .contentType(ContentType.TEXT)
                 .body(message)
                 .post("/elasticsearch-rest/index")
@@ -45,6 +48,7 @@ class ElasticsearchRestTest {
 
         // Retrieve indexed data
         RestAssured.given()
+                .queryParam("component", component)
                 .queryParam("indexId", indexId)
                 .get("/elasticsearch-rest/get")
                 .then()
@@ -55,6 +59,7 @@ class ElasticsearchRestTest {
         String updatedMessage = message + " Updated";
         RestAssured.given()
                 .contentType(ContentType.TEXT)
+                .queryParam("component", component)
                 .queryParam("indexId", indexId)
                 .body(updatedMessage)
                 .patch("/elasticsearch-rest/update")
@@ -63,6 +68,7 @@ class ElasticsearchRestTest {
 
         // Verify updated data
         RestAssured.given()
+                .queryParam("component", component)
                 .queryParam("indexId", indexId)
                 .get("/elasticsearch-rest/get")
                 .then()
@@ -71,6 +77,7 @@ class ElasticsearchRestTest {
 
         // Delete indexed data
         RestAssured.given()
+                .queryParam("component", component)
                 .queryParam("indexId", indexId)
                 .delete("/elasticsearch-rest/delete")
                 .then()
@@ -78,9 +85,14 @@ class ElasticsearchRestTest {
 
         // Verify data deleted
         RestAssured.given()
+                .queryParam("component", component)
                 .queryParam("indexId", indexId)
                 .get("/elasticsearch-rest/get")
                 .then()
                 .statusCode(404);
+    }
+
+    private static String[] componentNames() {
+        return new String[] { "elasticsearch-rest", "elasticsearch-rest-quarkus" };
     }
 }
