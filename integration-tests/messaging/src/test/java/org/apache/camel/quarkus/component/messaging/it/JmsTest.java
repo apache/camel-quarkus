@@ -173,6 +173,15 @@ class JmsTest {
     }
 
     @Test
+    public void testJmsTransferException() {
+        RestAssured.given()
+                .get("/messaging/jms/transfer/exception")
+                .then()
+                .statusCode(200)
+                .body(is("java.lang.IllegalStateException"));
+    }
+
+    @Test
     public void testJmsTransaction() {
         RestAssured.given()
                 .get("/messaging/jms/transaction")

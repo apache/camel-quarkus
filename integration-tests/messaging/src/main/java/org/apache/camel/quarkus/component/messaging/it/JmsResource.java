@@ -47,6 +47,7 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.component.jms.JmsMessage;
 import org.apache.camel.component.mock.MockEndpoint;
 
@@ -267,6 +268,19 @@ public class JmsResource {
         String result = exchange.getMessage().getBody(String.class);
 
         return Response.ok().entity(result).build();
+    }
+
+    @Path("/jms/transfer/exception")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public Response testTransferException() throws InterruptedException {
+        try {
+            producerTemplate.requestBody("jms:queue:transferException?transferException=true", "bad payload");
+        } catch (RuntimeCamelException e) {
+            Class<? extends Throwable> exception = e.getCause().getClass();
+            return Response.ok().entity(exception.getName()).build();
+        }
+        return Response.serverError().build();
     }
 
     @Path("/jms/topic")

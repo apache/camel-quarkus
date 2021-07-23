@@ -17,16 +17,20 @@
 package org.apache.camel.quarkus.core.deployment;
 
 import java.math.BigInteger;
+import java.util.AbstractCollection;
+import java.util.AbstractList;
 import java.util.AbstractMap;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.CamelExecutionException;
+import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 import org.apache.camel.support.DefaultExchangeHolder;
@@ -35,6 +39,36 @@ import org.slf4j.LoggerFactory;
 
 public class CamelSerializationProcessor {
     private static final Logger LOGGER = LoggerFactory.getLogger(CamelSerializationProcessor.class);
+    private static final String[] BASE_SERIALIZATION_CLASSES = {
+            // JDK classes
+            AbstractCollection.class.getName(),
+            AbstractList.class.getName(),
+            AbstractMap.class.getName(),
+            BigInteger.class.getName(),
+            Boolean.class.getName(),
+            Byte.class.getName(),
+            Character.class.getName(),
+            Collections.EMPTY_LIST.getClass().getName(),
+            Date.class.getName(),
+            Double.class.getName(),
+            Exception.class.getName(),
+            Float.class.getName(),
+            HashMap.class.getName(),
+            Integer.class.getName(),
+            LinkedHashMap.class.getName(),
+            Long.class.getName(),
+            Number.class.getName(),
+            RuntimeException.class.getName(),
+            StackTraceElement.class.getName(),
+            StackTraceElement[].class.getName(),
+            String.class.getName(),
+            Throwable.class.getName(),
+
+            // Camel classes
+            CamelExecutionException.class.getName(),
+            DefaultExchangeHolder.class.getName(),
+            RuntimeCamelException.class.getName(),
+    };
 
     @BuildStep
     void produceSerializationBuildItem(CamelConfig config, BuildProducer<CamelSerializationBuildItem> serializationBuildItems) {
@@ -51,27 +85,9 @@ public class CamelSerializationProcessor {
             BuildProducer<ReflectiveClassBuildItem> reflectiveClasses) {
 
         if (!serializationRequests.isEmpty()) {
-            String[] classes = Stream.of(Boolean.class,
-                    Byte.class,
-                    Character.class,
-                    Double.class,
-                    Float.class,
-                    Integer.class,
-                    Long.class,
-                    Number.class,
-                    Date.class,
-                    String.class,
-                    AbstractMap.class,
-                    HashMap.class,
-                    LinkedHashMap.class,
-                    BigInteger.class,
-                    DefaultExchangeHolder.class)
-                    .map(c -> c.getName()).toArray(String[]::new);
-
             //required for serialization of BigInteger
             reflectiveClasses.produce(new ReflectiveClassBuildItem(false, false, byte[].class));
-
-            reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(classes));
+            reflectiveClasses.produce(ReflectiveClassBuildItem.serializationClass(BASE_SERIALIZATION_CLASSES));
         }
     }
 }

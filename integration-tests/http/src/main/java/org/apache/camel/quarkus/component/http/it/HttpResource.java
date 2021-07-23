@@ -144,6 +144,18 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/ahc/serialized/exception")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String ahcSerializedException(@QueryParam("test-port") int port) {
+        Exchange exchange = producerTemplate
+                .toF("ahc:http://localhost:%d/test/server/serialized/exception?bridgeEndpoint=true&transferException=true",
+                        port)
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .send();
+        return exchange.getException().getClass().getName();
+    }
+
     // *****************************
     //
     // camel-ahc-ws
@@ -261,6 +273,17 @@ public class HttpResource {
                 .request(String.class);
     }
 
+    @Path("/http/serialized/exception")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String httpSerializedException(@QueryParam("test-port") int port) {
+        Exchange exchange = producerTemplate
+                .toF("http://localhost:%d/test/server/serialized/exception?bridgeEndpoint=true&transferException=true", port)
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .send();
+        return exchange.getException().getClass().getName();
+    }
+
     // *****************************
     //
     // camel-netty-http
@@ -344,6 +367,17 @@ public class HttpResource {
         try (GZIPInputStream inputStream = new GZIPInputStream(new ByteArrayInputStream(compressed))) {
             return IOHelper.loadText(inputStream).trim();
         }
+    }
+
+    @Path("/netty-http/serialized/exception")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String nettyHttpSerializedException(@QueryParam("test-port") int port) {
+        Exchange exchange = producerTemplate
+                .toF("netty-http:http://localhost:%d/test/server/serialized/exception?transferException=true", port)
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .send();
+        return exchange.getException().getClass().getName();
     }
 
     // *****************************
@@ -430,6 +464,17 @@ public class HttpResource {
                 .withHeader(Exchange.HTTP_METHOD, "GET")
                 .withHeader("Accept-Encoding", "gzip, deflate")
                 .request(String.class);
+    }
+
+    @Path("/vertx-http/serialized/exception")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String vertxHttpSerializedException(@QueryParam("test-port") int port) {
+        Exchange exchange = producerTemplate
+                .toF("vertx-http:http://localhost:%d/test/server/serialized/exception?transferException=true", port)
+                .withHeader(Exchange.HTTP_METHOD, "GET")
+                .send();
+        return exchange.getException().getClass().getName();
     }
 
     // *****************************

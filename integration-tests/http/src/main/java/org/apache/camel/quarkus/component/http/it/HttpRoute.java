@@ -22,6 +22,7 @@ import java.io.InputStream;
 
 import javax.inject.Named;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
@@ -30,11 +31,15 @@ import org.apache.camel.support.jsse.KeyStoreParameters;
 import org.apache.camel.support.jsse.SSLContextParameters;
 import org.apache.camel.support.jsse.TrustManagersParameters;
 
+@RegisterForReflection(targets = IllegalStateException.class, serialization = true)
 public class HttpRoute extends RouteBuilder {
     @Override
     public void configure() {
         from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/hello")
                 .transform().constant("Netty Hello World");
+
+        from("netty-http:http://0.0.0.0:{{camel.netty-http.test-port}}/test/server/serialized/exception?transferException=true")
+                .throwException(new IllegalStateException("Forced exception"));
 
         from("netty-http:http://0.0.0.0:{{camel.netty-http.compression-test-port}}/compressed?compression=true")
                 .transform().constant("Netty Hello World Compressed");
