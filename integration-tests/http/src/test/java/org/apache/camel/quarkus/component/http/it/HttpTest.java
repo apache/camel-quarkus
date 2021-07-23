@@ -133,7 +133,7 @@ class HttpTest {
 
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
-    public void compression(String component) throws Exception {
+    public void compression(String component) {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.compression-test-port", Integer.class);
         RestAssured
                 .given()
@@ -145,8 +145,22 @@ class HttpTest {
                 .body(is("Netty Hello World Compressed"));
     }
 
+    @ParameterizedTest
+    @MethodSource("getHttpComponentNames")
+    public void transferException(String component) {
+        final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
+        RestAssured
+                .given()
+                .queryParam("test-port", port)
+                .when()
+                .get("/test/client/{component}/serialized/exception", component)
+                .then()
+                .statusCode(200)
+                .body(is("java.lang.IllegalStateException"));
+    }
+
     @Test
-    public void basicNettyHttpServer() throws Exception {
+    public void basicNettyHttpServer() {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
         RestAssured
                 .given()

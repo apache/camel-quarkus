@@ -113,24 +113,8 @@ quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
 ----
 
 [[serialization]]
-== Registration for serialization
+== Registering classes for serialization
 
-If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, the following classes are registered for serialization:
-
-* `java.lang.Boolean`
-* `java.lang.Byte`
-* `java.lang.Character`
-* `java.lang.Float`
-* `java.lang.Double`
-* `java.lang.Integer`
-* `java.lang.Long`
-* `java.lang.Number`
-* `java.lang.String`
-* `java.math.BigInteger`
-* `java.util.Date`
-* `java.util.HashMap`
-* `java.util.LinkedHashMap`
-* `org.apache.camel.support.DefaultExchangeHolder`
+If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, the classes listed in https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/CamelSerializationProcessor.java[CamelSerializationProcessor.BASE_SERIALIZATION_CLASSES] are automatically registered for serialization.
 
 Users can register more classes using `@RegisterForReflection(serialization = true)`.
-

@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.messaging.it;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.ErrorHandlerBuilder;
@@ -23,6 +24,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.jta.JtaTransactionErrorHandlerBuilder;
 import org.apache.camel.processor.errorhandler.RedeliveryPolicy;
 
+@RegisterForReflection(targets = IllegalStateException.class, serialization = true)
 public class JmsRoutes extends RouteBuilder {
 
     @Override
@@ -60,6 +62,9 @@ public class JmsRoutes extends RouteBuilder {
 
         from("jms:queue:transferExchange?transferExchange=true")
                 .to("mock:transferExchangeResult");
+
+        from("jms:queue:transferException?transferException=true")
+                .throwException(new IllegalStateException("Forced exception"));
 
         from("jms:queue:objectTest")
                 .to("mock:objectTestResult");
