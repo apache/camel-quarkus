@@ -279,4 +279,39 @@ class EipTest {
 
     }
 
+    @Test
+    public void routingSlip() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("message-1")
+                .queryParam("routingSlipHeader", "mock:routingSlip1,mock:routingSlip2")
+                .post("/eip/route/routingSlip")
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("message-2")
+                .queryParam("routingSlipHeader", "mock:routingSlip2,mock:routingSlip3")
+                .post("/eip/route/routingSlip")
+                .then()
+                .statusCode(200);
+
+        RestAssured.get("/eip/mock/routingSlip1/1/5000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("message-1"));
+
+        RestAssured.get("/eip/mock/routingSlip2/2/5000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("message-1,message-2"));
+
+        RestAssured.get("/eip/mock/routingSlip3/1/5000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("message-2"));
+
+    }
+
 }
