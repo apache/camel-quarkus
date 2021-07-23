@@ -89,6 +89,9 @@ public class EipRoutes extends RouteBuilder {
                 .removeProperties("propertyToRemove.*")
                 .to("mock:removeProperties");
 
+        from("direct:routingSlip")
+                .routingSlip(header("routingSlipHeader"));
+
     }
 
     @Produces
