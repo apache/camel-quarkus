@@ -44,6 +44,10 @@ public class EipRoutes extends RouteBuilder {
                 .loadBalance().custom("roundRobin")
                 .to("mock:customLoadBalancer1", "mock:customLoadBalancer2");
 
+        from("direct:roundRobinLoadBalancer")
+                .loadBalance().roundRobin()
+                .to("mock:roundRobinLoadBalancer1", "mock:roundRobinLoadBalancer2");
+
         from("direct:enrich")
                 .enrich("direct:prepend-hello");
 
