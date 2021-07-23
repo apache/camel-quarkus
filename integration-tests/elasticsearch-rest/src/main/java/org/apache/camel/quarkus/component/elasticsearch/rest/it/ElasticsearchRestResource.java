@@ -46,10 +46,9 @@ public class ElasticsearchRestResource {
     @Path("/get")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public Response getData(@QueryParam("indexId") String indexId) throws Exception {
-        GetResponse response = producerTemplate
-                .requestBody("elasticsearch-rest://elasticsearch?operation=GetById&indexName=test", indexId, GetResponse.class);
-
+    public Response getData(@QueryParam("component") String component, @QueryParam("indexId") String indexId) {
+        GetResponse response = producerTemplate.requestBodyAndHeader("direct:get", indexId, "component", component,
+                GetResponse.class);
         if (response.getSource() == null) {
             return Response.status(404).build();
         }
@@ -59,10 +58,9 @@ public class ElasticsearchRestResource {
     @Path("/index")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public Response indexData(String indexValue) throws Exception {
+    public Response indexData(@QueryParam("component") String component, String indexValue) throws Exception {
         Map<String, String> data = createIndexedData(indexValue);
-        String indexId = producerTemplate.requestBody("elasticsearch-rest://elasticsearch?operation=Index&indexName=test", data,
-                String.class);
+        String indexId = producerTemplate.requestBodyAndHeader("direct:index", data, "component", component, String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
                 .entity(indexId)
@@ -72,21 +70,22 @@ public class ElasticsearchRestResource {
     @Path("/update")
     @PATCH
     @Produces(MediaType.TEXT_PLAIN)
-    public Response updateData(@QueryParam("indexId") String indexId, String indexValue) throws Exception {
+    public Response updateData(@QueryParam("component") String component, @QueryParam("indexId") String indexId,
+            String indexValue) {
         Map<String, String> data = createIndexedData(indexValue);
         Map<String, Object> headers = new HashMap<>();
         headers.put(ElasticsearchConstants.PARAM_INDEX_ID, indexId);
+        headers.put("component", component);
 
-        producerTemplate.requestBodyAndHeaders("elasticsearch-rest://elasticsearch?operation=Update&indexName=test", data,
-                headers);
+        producerTemplate.requestBodyAndHeaders("direct:update", data, headers);
         return Response.ok().build();
     }
 
     @Path("/delete")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteData(@QueryParam("indexId") String indexId) throws Exception {
-        producerTemplate.requestBody("elasticsearch-rest://elasticsearch?operation=Delete&indexName=test", indexId);
+    public Response deleteData(@QueryParam("component") String component, @QueryParam("indexId") String indexId) {
+        producerTemplate.requestBodyAndHeader("direct:delete", indexId, "component", component);
         return Response.noContent().build();
     }
 

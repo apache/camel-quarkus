@@ -48,9 +48,17 @@ public class ElasticSearchTestResource implements QuarkusTestResourceLifecycleMa
 
             container.start();
 
+            String hostAddresses = String.format("localhost:%s", container.getMappedPort(ELASTICSEARCH_PORT));
+
+            // Create 2 sets of configuration to test scenarios:
+            // - Quarkus ElasticSearch REST client bean being autowired into the Camel ElasticSearch REST component
+            // - Component configuration where the ElasticSearch REST client is managed by Camel (E.g autowiring disabled)
             return CollectionHelper.mapOf(
-                    "quarkus.elasticsearch.hosts",
-                    String.format("localhost:%s", container.getMappedPort(ELASTICSEARCH_PORT)));
+                    // quarkus
+                    "quarkus.elasticsearch.hosts", hostAddresses,
+                    // camel
+                    "camel.component.elasticsearch-rest.autowired-enabled", "false",
+                    "camel.component.elasticsearch-rest.host-addresses", hostAddresses);
 
         } catch (Exception e) {
             throw new RuntimeException(e);
