@@ -51,3 +51,14 @@ you must ensure that the `camel-quarkus-jaxp` extension is present on the classp
 When sending JMS message payloads as `javax.jms.ObjectMessage`, you must annotate the relevant classes to be registered for serialization with `@RegisterForReflection(serialization = true)`. 
 Note that this extension automatically sets `quarkus.camel.native.reflection.serialization-enabled = true` for you. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide] for more information.
 
+
+== transferException option in native mode
+
+To use the `transferException` option in native mode, you must enable support for object serialization. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide]
+for more information.
+
+You will also need to enable serialization for the exception classes that you intend to serialize. For example.
+[source,java]
+----
+@RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
+----

@@ -38,3 +38,14 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== transferException option in native mode
+
+To use the `transferException` option in native mode, you must enable support for object serialization. Refer to the xref:user-guide/native-mode.adoc#serialization[native mode user guide]
+for more information.
+
+You will also need to enable serialization for the exception classes that you intend to serialize. For example.
+[source,java]
+----
+@RegisterForReflection(targets = { IllegalStateException.class, MyCustomException.class }, serialization = true)
+----
