@@ -22,6 +22,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.CamelContext;
@@ -100,4 +101,12 @@ public class MockResource {
 
         mockEndpoint.assertIsSatisfied();
     }
+
+    @Path("/route/{route}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    public String post(String message, @PathParam("route") String route) throws Exception {
+        return producerTemplate.requestBody("direct:" + route, message, String.class);
+    }
+
 }

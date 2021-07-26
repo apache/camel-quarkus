@@ -16,11 +16,19 @@
  */
 package org.apache.camel.quarkus.component.mock.it;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.mock.MockComponent;
 import org.jboss.logging.Logger;
 
+@ApplicationScoped
 public class MockRouteBuilder extends RouteBuilder {
     private static final Logger LOG = Logger.getLogger(MockRouteBuilder.class);
+
+    @Inject
+    MockComponent mock;
 
     @Override
     public void configure() {
@@ -33,5 +41,9 @@ public class MockRouteBuilder extends RouteBuilder {
         from("direct:mockFoo")
                 .process(e -> LOG.info("mockFoo:" + e.getMessage().getBody(String.class)))
                 .transform(constant("Bye World"));
+
+        from("direct:cdiConfig")
+                .setBody(e -> "mockComponent.log = " + mock.isLog());
+
     }
 }
