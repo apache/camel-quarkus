@@ -26,17 +26,41 @@ public class ElasticsearchRestRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("direct:index")
-                .toD("${header.component}://elasticsearch?operation=Index&indexName=test");
+        from("direct:bulk")
+                .toD("${header.component}://elasticsearch?operation=Bulk");
 
-        from("direct:get")
-                .toD("${header.component}://elasticsearch?operation=GetById&indexName=test");
-
-        from("direct:update")
-                .toD("${header.component}://elasticsearch?operation=Update&indexName=test");
+        from("direct:bulkIndex")
+                .toD("${header.component}://elasticsearch?operation=BulkIndex");
 
         from("direct:delete")
-                .toD("${header.component}://elasticsearch?operation=Delete&indexName=test");
+                .toD("${header.component}://elasticsearch?operation=Delete");
+
+        from("direct:deleteIndex")
+                .to("elasticsearch-rest://elasticsearch?operation=DeleteIndex");
+
+        from("direct:exists")
+                .toD("${header.component}://elasticsearch?operation=Exists");
+
+        from("direct:get")
+                .toD("${header.component}://elasticsearch?operation=GetById");
+
+        from("direct:index")
+                .toD("${header.component}://elasticsearch?operation=Index");
+
+        from("direct:multiGet")
+                .toD("${header.component}://elasticsearch?operation=MultiGet");
+
+        from("direct:multiSearch")
+                .toD("${header.component}://elasticsearch?operation=MultiSearch");
+
+        from("direct:ping")
+                .toD("${header.component}://elasticsearch?operation=Ping");
+
+        from("direct:search")
+                .toD("${header.component}://elasticsearch?operation=Search");
+
+        from("direct:update")
+                .toD("${header.component}://elasticsearch?operation=Update");
     }
 
     @Named("elasticsearch-rest-quarkus")
