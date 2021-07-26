@@ -28,12 +28,11 @@ import org.apache.commons.compress.archivers.ArchiveStreamFactory;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class TarfileTest {
 
-    @Test
+    //@Test
     public void test() throws Exception {
         final String encoding = "utf-8";
 

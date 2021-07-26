@@ -17,14 +17,13 @@
 package org.apache.camel.quarkus.component.json.path.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
 
 @QuarkusTest
 class JsonPathSplitTest {
 
-    @Test
+    //@Test
     public void splitBooksShouldReturnTwoPrices() {
         get("/jsonpath/splitBooksShouldReturnTwoPrices").then().statusCode(204);
     }

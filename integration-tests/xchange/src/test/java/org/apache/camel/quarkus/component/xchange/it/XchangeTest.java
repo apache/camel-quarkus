@@ -18,8 +18,6 @@ package org.apache.camel.quarkus.component.xchange.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -30,7 +28,7 @@ import static org.hamcrest.Matchers.not;
 @QuarkusTest
 class XchangeTest {
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @ValueSource(strings = { "binance", "coinbase" })
     public void currencyTicker(String cryptoExchange) {
         RestAssured.given()
@@ -44,7 +42,7 @@ class XchangeTest {
                         "low", greaterThan(0));
     }
 
-    @Test
+    //@Test
     public void currencies() {
         RestAssured.given()
                 .get("/xchange/currency")
@@ -53,7 +51,7 @@ class XchangeTest {
                 .body("currencies", hasItems("BTC", "ETH"));
     }
 
-    @Test
+    //@Test
     public void currencyMetadata() {
         RestAssured.given()
                 .get("/xchange/currency/metadata/BTC")
@@ -62,7 +60,7 @@ class XchangeTest {
                 .body(not(emptyOrNullString()));
     }
 
-    @Test
+    //@Test
     public void currencyPairs() {
         RestAssured.given()
                 .get("/xchange/currency/pairs")
@@ -71,7 +69,7 @@ class XchangeTest {
                 .body("currencyPairs", hasItems("BTC/USDT", "ETH/USDT"));
     }
 
-    @Test
+    //@Test
     public void currencyPairMetadata() {
         RestAssured.given()
                 .queryParam("base", "BTC")

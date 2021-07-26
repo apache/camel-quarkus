@@ -40,7 +40,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
@@ -63,7 +62,7 @@ class Aws2SesTest {
     @Aws2Client(Service.SES)
     SesClient sesClient;
 
-    @Test
+    //@Test
     public void test() throws InterruptedException, ExecutionException, TimeoutException {
 
         /* First create a test mailbox at mailslurp.com */

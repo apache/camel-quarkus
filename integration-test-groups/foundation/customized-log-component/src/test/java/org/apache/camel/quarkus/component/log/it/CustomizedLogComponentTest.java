@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.log.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class CustomizedLogComponentTest {
 
-    @Test
+    //@Test
     public void customLogComponent() {
         RestAssured
                 .get("/customized-log-component/exchange-formatter/show-all")

@@ -18,28 +18,27 @@ package org.apache.camel.quarkus.component.qute.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class QuteTest {
 
-    @Test
+    //@Test
     public void testTemplate() {
         RestAssured.get("/qute/template/World")
                 .then()
                 .body(is("Hello World"));
     }
 
-    @Test
+    //@Test
     public void testInvalidTemplatePath() {
         RestAssured.get("/qute/template/invalid/path")
                 .then()
                 .body(is("Unable to parse Qute template from path: invalid-path"));
     }
 
-    @Test
+    //@Test
     public void tesTemplateContentFromHeader() {
         RestAssured.given()
                 .body("Hello {body}")

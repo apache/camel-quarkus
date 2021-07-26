@@ -20,20 +20,18 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastSedaResource.class)
+//@TestHTTPEndpoint(HazelcastSedaResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastSedaTest {
-    @Test
+    //@Test
     public void testSedaFifo() {
         // add one value First In First Out
         given()
@@ -49,7 +47,7 @@ public class HazelcastSedaTest {
                 .until(() -> RestAssured.get("/fifo").then().extract().body().as(List.class).contains("foo1"));
     }
 
-    @Test
+    //@Test
     public void testSedaInOnly() {
         // add one value In Only
         given()
@@ -65,7 +63,7 @@ public class HazelcastSedaTest {
                 .until(() -> RestAssured.get("/in").then().extract().body().as(List.class).contains("foo1"));
     }
 
-    @Test
+    //@Test
     public void testSedaInOut() {
         given()
                 .contentType(ContentType.JSON)
@@ -80,7 +78,7 @@ public class HazelcastSedaTest {
                 .until(() -> RestAssured.get("/out").then().extract().body().as(List.class).contains("foo1"));
     }
 
-    @Test
+    //@Test
     public void testSedaInOutTransacted() {
         given()
                 .contentType(ContentType.JSON)

@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.dozer.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -27,7 +26,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @QuarkusTest
 class DozerTest {
 
-    @Test
+    //@Test
     public void testDozerTypeConverter() {
         RestAssured.get("/dozer/map/using/converter")
                 .then()
@@ -37,7 +36,7 @@ class DozerTest {
                         "address.street", is("Camel Street"));
     }
 
-    @Test
+    //@Test
     public void testDozerEndpoint() {
         RestAssured.get("/dozer/map")
                 .then()
@@ -52,7 +51,7 @@ class DozerTest {
                         "internal.text", is("hello internal"));
     }
 
-    @Test
+    //@Test
     public void testDozerVariableMapper() {
         RestAssured.get("/dozer/map/using/variable")
                 .then()
@@ -61,7 +60,7 @@ class DozerTest {
                         "lastName", is("Quarkus"));
     }
 
-    @Test
+    //@Test
     public void testDozerExpressionMapper() {
         RestAssured.get("/dozer/map/using/expression")
                 .then()

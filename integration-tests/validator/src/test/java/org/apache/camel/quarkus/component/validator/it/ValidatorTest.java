@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.validator.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class ValidatorTest {
 
-    @Test
+    //@Test
     public void validXML() {
 
         RestAssured.given()
@@ -36,7 +35,7 @@ class ValidatorTest {
 
     }
 
-    @Test
+    //@Test
     public void invalidXML() {
 
         RestAssured.given()

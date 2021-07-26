@@ -18,38 +18,37 @@ package org.apache.camel.quarkus.component.avro.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class AvroTest {
 
-    @Test
+    //@Test
     void genericMarshalUnmarshalUsingBuildTimeAvroDataFormatShouldSucceed() {
         RestAssured.get("/avro/genericMarshalUnmarshalUsingBuildTimeAvroDataFormat/jack").then().statusCode(200)
                 .body(is("jack"));
     }
 
-    @Test
+    //@Test
     void genericMarshalUnmarshalUsingBuildTimeGeneratedClassShouldSucceed() {
         RestAssured.get("/avro/genericMarshalUnmarshalUsingBuildTimeGeneratedClass/bill").then().statusCode(200)
                 .body(is("bill"));
     }
 
-    @Test
+    //@Test
     void genericMarshalUnmarshalUsingConfigureTimeAvroDataFormatShouldSucceed() {
         RestAssured.get("/avro/genericMarshalUnmarshalUsingConfigureTimeAvroDataFormat/elizabeth").then().statusCode(200)
                 .body(is("elizabeth"));
     }
 
-    @Test
+    //@Test
     void valueMarshalUnmarshalUsingInstanceClassNameAvroDslShouldSucceed() {
         RestAssured.get("/avro/valueMarshalUnmarshalUsingInstanceClassNameAvroDsl/william").then().statusCode(200)
                 .body(is("william"));
     }
 
-    @Test
+    //@Test
     void valueMarshalUnmarshalUsingSchemaAvroDslShouldSucceed() {
         RestAssured.get("/avro/valueMarshalUnmarshalUsingSchemaAvroDsl/hector").then().statusCode(200).body(is("hector"));
     }

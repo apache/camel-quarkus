@@ -20,7 +20,6 @@ import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.is;
@@ -32,7 +31,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class SalesforceIntegrationTest {
 
-    @Test
+    //@Test
     public void testChangeDataCaptureEvents() {
         String accountId = null;
         try {

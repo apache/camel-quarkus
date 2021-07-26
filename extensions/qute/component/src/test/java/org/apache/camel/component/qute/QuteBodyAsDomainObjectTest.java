@@ -18,11 +18,10 @@ package org.apache.camel.component.qute;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.jupiter.api.Test;
 
 public class QuteBodyAsDomainObjectTest extends QuteTestBase {
 
-    @Test
+    //@Test
     public void testWithObject() throws Exception {
         String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.", "\n");
 

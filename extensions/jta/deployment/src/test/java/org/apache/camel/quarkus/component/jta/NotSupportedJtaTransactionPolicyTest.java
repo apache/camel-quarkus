@@ -27,7 +27,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.jsoup.helper.Validate.fail;
@@ -56,7 +55,7 @@ public class NotSupportedJtaTransactionPolicyTest {
         reset(transactionManager);
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicy() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         MockTransaction transaction = new MockTransaction();

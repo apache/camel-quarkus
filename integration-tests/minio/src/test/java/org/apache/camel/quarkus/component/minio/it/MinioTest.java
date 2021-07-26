@@ -39,7 +39,6 @@ import org.apache.camel.component.minio.MinioConstants;
 import org.apache.camel.component.minio.MinioOperations;
 import org.apache.camel.util.CollectionHelper;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.containsString;
@@ -54,7 +53,7 @@ class MinioTest {
 
     private MinioClient minioClient;
 
-    @Test
+    //@Test
     public void testConsumer() throws Exception {
         initClient();
 
@@ -69,7 +68,7 @@ class MinioTest {
         });
     }
 
-    @Test
+    //@Test
     public void testDeleteObject() throws Exception {
         initClient();
 
@@ -89,7 +88,7 @@ class MinioTest {
                 .body(equalTo(""));
     }
 
-    @Test
+    //@Test
     public void testDeleteBucket() throws Exception {
         initClient();
 
@@ -105,7 +104,7 @@ class MinioTest {
                 .body(equalTo(""));
     }
 
-    @Test
+    //@Test
     public void testBasicOperations() throws Exception {
         initClient();
 
@@ -123,7 +122,7 @@ class MinioTest {
                 .body(containsString("Hi Sheldon"));
     }
 
-    @Test
+    //@Test
     public void testGetViaPojo() throws Exception {
         initClient();
         initClient(BUCKET_NAME + "2");

@@ -28,10 +28,7 @@ import org.apache.kudu.client.KuduException;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.apache.camel.quarkus.component.kudu.it.KuduInfrastructureTestHelper.KUDU_AUTHORITY_CONFIG_KEY;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTestResource(KuduTestResource.class)
 @QuarkusTest
-@TestMethodOrder(OrderAnnotation.class)
+//@TestMethodOrder(OrderAnnotation.class)
 class KuduTest {
 
     private static final Logger LOG = Logger.getLogger(KuduTest.class);
@@ -52,7 +49,7 @@ class KuduTest {
     }
 
     @Order(1)
-    @Test
+    //@Test
     public void createTableShouldSucceed() throws KuduException {
         LOG.info("Calling createTableShouldSucceed");
 
@@ -65,7 +62,7 @@ class KuduTest {
     }
 
     @Order(2)
-    @Test
+    //@Test
     public void insertShouldSucceed() throws KuduException {
         LOG.info("Calling insertShouldSucceed");
 
@@ -82,7 +79,7 @@ class KuduTest {
     }
 
     @Order(3)
-    @Test
+    //@Test
     public void scanShouldSucceed() {
         LOG.info("Calling scanShouldSucceed");
 

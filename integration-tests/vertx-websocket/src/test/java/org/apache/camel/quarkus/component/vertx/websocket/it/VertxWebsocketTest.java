@@ -27,18 +27,16 @@ import javax.websocket.EndpointConfig;
 import javax.websocket.MessageHandler;
 import javax.websocket.Session;
 
-import io.quarkus.test.common.http.TestHTTPResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class VertxWebsocketTest {
 
-    @TestHTTPResource("/greeting")
+    //@TestHTTPResource("/greeting")
     URI uri;
 
-    @Test
+    //@Test
     public void testWebsocketChat() throws Exception {
         LinkedBlockingDeque<String> message = new LinkedBlockingDeque<>();
         Endpoint endpoint = new Endpoint() {

@@ -21,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -29,49 +28,49 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class XPathTest {
 
-    @Test
+    //@Test
     public void transformShouldSucceed() throws IOException {
         String xml = IOUtils.toString(XPathTest.class.getResourceAsStream("/students.xml"), StandardCharsets.UTF_8);
         given().body(xml).when().get("/xpath/transform").then().statusCode(200).body(is("ClausHadrian"));
     }
 
-    @Test
+    //@Test
     public void whenPredicateShouldMatchWhenIdHasValueA() {
         String xml = "<body id='a'/>";
         given().body(xml).when().get("/xpath/choice").then().statusCode(200).body(is("A"));
     }
 
-    @Test
+    //@Test
     public void concatCoreXPathFunctionShouldPrependFooBeforeMonica() {
         String xml = "<person name='Monica'/>";
         given().body(xml).when().get("/xpath/coreXPathFunctions").then().statusCode(200).body(is("foo-Monica"));
     }
 
-    @Test
+    //@Test
     public void headerCamelXPathFunctionShouldMatchFooHeaderWhenValueIsBar() {
         String fooHeader = "bar";
         given().body(fooHeader).when().get("/xpath/camelXPathFunctions").then().statusCode(200).body(is("BAR"));
     }
 
-    @Test
+    //@Test
     public void xpathLoadedFromResourceShouldSucceed() {
         String xml = "<person><name>Caroline</name></person>";
         given().body(xml).when().get("/xpath/resource").then().statusCode(200).body(is("Caroline"));
     }
 
-    @Test
+    //@Test
     public void xpathAnnotationAppliedOnPriceBeanMethodParameterShouldSucceed() {
         String xml = "<env:Envelope xmlns:env='http://www.w3.org/2003/05/soap-envelope'><env:Body><price>38</price></env:Body></env:Envelope>";
         given().body(xml).when().get("/xpath/annotation").then().statusCode(200).body(is("38.0€"));
     }
 
-    @Test
+    //@Test
     public void xpathWithPropertiesFunctionShouldMatchWhenTypeHeaderHasValueCamel() {
         String typeHeaderValue = "Camel";
         given().body(typeHeaderValue).when().get("/xpath/properties").then().statusCode(200).body(is("FOO"));
     }
 
-    @Test
+    //@Test
     public void xpathWithSimpleFunctionEvaluatingBarPropertyShouldMatchWhenNameIsKong() {
         String xml = "<name>Kong</name>";
         given().body(xml).when().get("/xpath/simple").then().statusCode(200).body(is("BAR"));

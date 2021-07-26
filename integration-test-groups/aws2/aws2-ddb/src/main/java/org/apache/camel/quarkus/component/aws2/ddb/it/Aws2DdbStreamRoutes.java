@@ -29,11 +29,13 @@ import javax.ws.rs.Produces;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import software.amazon.awssdk.services.dynamodb.model.Record;
 import software.amazon.awssdk.services.dynamodb.model.StreamRecord;
 
 @ApplicationScoped
 public class Aws2DdbStreamRoutes extends RouteBuilder {
+    private static final Logger LOG = Logger.getLogger(Aws2DdbStreamRoutes.class);
 
     @ConfigProperty(name = "aws-ddb.table-name")
     String tableName;
@@ -46,8 +48,10 @@ public class Aws2DdbStreamRoutes extends RouteBuilder {
     public void configure() throws Exception {
         from("aws2-ddbstream://" + tableName)
                 .process(e -> {
+                    LOG.info("Processing event " + e);
                     Record record = e.getMessage().getBody(Record.class);
                     StreamRecord item = record.dynamodb();
+                    LOG.info("Got event " + item);
                     Map<String, String> result = new LinkedHashMap<>();
                     result.put("key", item.keys().get("key").s());
                     if (item.hasOldImage()) {

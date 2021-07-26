@@ -28,7 +28,6 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2Client;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.cloudwatch.CloudWatchClient;
 import software.amazon.awssdk.services.cloudwatch.model.Datapoint;
@@ -43,7 +42,7 @@ class Aws2CwTest {
     @Aws2Client(Service.CLOUDWATCH)
     CloudWatchClient client;
 
-    @Test
+    //@Test
     public void metric() {
 
         final Instant startTime = Instant.ofEpochMilli(System.currentTimeMillis() - 10000);

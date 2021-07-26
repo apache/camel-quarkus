@@ -24,7 +24,6 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.JacksonConstants;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +38,7 @@ public class JacksonTypeConverterPojoTest {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Test
+    //@Test
     public void jacksonConversionPojo() throws Exception {
         Order order = new Order();
         order.setAmount(1);

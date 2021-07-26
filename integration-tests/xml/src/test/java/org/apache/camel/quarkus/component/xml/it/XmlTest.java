@@ -23,13 +23,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class XmlTest {
-    @Test
+    //@Test
     public void htmlParse() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
 
@@ -45,7 +44,7 @@ class XmlTest {
 
     private static final String BODY = "<mail><subject>Hey</subject><body>Hello world!</body></mail>";
 
-    @Test
+    //@Test
     public void xslt() {
         final String actual = RestAssured.given()
                 .body(BODY)
@@ -59,7 +58,7 @@ class XmlTest {
                 actual);
     }
 
-    @Test
+    //@Test
     public void htmlTransform() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
 
@@ -77,7 +76,7 @@ class XmlTest {
                 actual);
     }
 
-    @Test
+    //@Test
     public void htmlToText() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
 
@@ -97,7 +96,7 @@ class XmlTest {
                 actual);
     }
 
-    @Test
+    //@Test
     public void xpathLanguage() {
         // Tests a simple xpath driven content based router
         RestAssured.given()
@@ -117,7 +116,7 @@ class XmlTest {
                 .body(is("Invalid country code"));
     }
 
-    @Test
+    //@Test
     public void xtokenizeLanguage() {
         String expectedResult = "<c:child some_attr='a' anotherAttr='a' xmlns:c=\"urn:c\"></c:child>,<c:child some_attr='b' anotherAttr='b' xmlns:c=\"urn:c\"></c:child>";
         String xml = "<?xml version='1.0' encoding='UTF-8'?>"

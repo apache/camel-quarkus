@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.dropbox.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.is;
@@ -29,7 +28,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class DropboxTest {
 
-    @Test
+    //@Test
     public void testDropboxComponent() {
         // Create
         RestAssured.given()

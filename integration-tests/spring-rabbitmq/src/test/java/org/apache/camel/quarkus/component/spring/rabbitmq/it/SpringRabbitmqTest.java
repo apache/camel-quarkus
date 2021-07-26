@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.camel.component.springrabbit.SpringRabbitMQConstants;
-import org.junit.jupiter.api.Test;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.DirectExchange;
@@ -39,12 +38,12 @@ class SpringRabbitmqTest {
     private final static String ROUTING_KEY_POLLING = "pollingKey";
     private ConnectionFactory connectionFactory;
 
-    @Test
+    //@Test
     public void testInOutDMLC() {
         testInOut(SpringRabbitMQConstants.DIRECT_MESSAGE_LISTENER_CONTAINER);
     }
 
-    @Test
+    //@Test
     public void testInOutSMLC() {
         testInOut(SpringRabbitMQConstants.SIMPLE_MESSAGE_LISTENER_CONTAINER);
     }
@@ -59,7 +58,7 @@ class SpringRabbitmqTest {
                 .body(is("Hello Sheldon"));
     }
 
-    @Test
+    //@Test
     public void testPolling() throws InterruptedException {
 
         bindQueue(SpringRabbitmqResource.POLLING_QUEUE_NAME, EXCHANGE_POLLING, ROUTING_KEY_POLLING);

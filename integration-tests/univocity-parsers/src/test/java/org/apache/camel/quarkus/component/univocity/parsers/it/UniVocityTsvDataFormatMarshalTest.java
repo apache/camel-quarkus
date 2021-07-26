@@ -22,7 +22,6 @@ import java.util.Map;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.camel.quarkus.component.univocity.parsers.it.UniVocityTestHelper.asMap;
@@ -32,7 +31,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class UniVocityTsvDataFormatMarshalTest {
 
-    @Test
+    //@Test
     void shouldMarshalWithDefaultConfiguration() {
         List<Map<String, String>> object = Arrays.asList(
                 asMap("A", "1", "B", "2", "C", "3"),
@@ -42,7 +41,7 @@ public class UniVocityTsvDataFormatMarshalTest {
         given().when().contentType(ContentType.JSON).body(object).get(url).then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     void shouldMarshalSingleLine() {
         List<Map<String, String>> object = Arrays.asList(asMap("A", "1", "B", "2", "C", "3"));
         String expected = join("1\t2\t3");
@@ -50,7 +49,7 @@ public class UniVocityTsvDataFormatMarshalTest {
         given().when().contentType(ContentType.JSON).body(object).get(url).then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     void shouldMarshalAndAddNewColumns() {
         List<Map<String, String>> object = Arrays.asList(
                 asMap("A", "1", "B", "2"),
@@ -60,7 +59,7 @@ public class UniVocityTsvDataFormatMarshalTest {
         given().when().contentType(ContentType.JSON).body(object).get(url).then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     void shouldMarshalWithSpecificHeaders() {
         List<Map<String, String>> object = Arrays.asList(
                 asMap("A", "1", "B", "2", "C", "3"),
@@ -70,7 +69,7 @@ public class UniVocityTsvDataFormatMarshalTest {
         given().when().contentType(ContentType.JSON).body(object).get(url).then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     void shouldMarshalUsingAdvancedConfiguration() {
         List<Map<String, String>> object = Arrays.asList(
                 asMap("A", null, "B", "", "C", "_"),

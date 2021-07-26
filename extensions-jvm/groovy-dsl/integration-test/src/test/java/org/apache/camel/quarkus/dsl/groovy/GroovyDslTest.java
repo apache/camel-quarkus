@@ -22,13 +22,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.dsl.groovy.GroovyRoutesBuilderLoader;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 public class GroovyDslTest {
-    @Test
+    //@Test
     public void testMainInstanceWithJavaRoutes() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)

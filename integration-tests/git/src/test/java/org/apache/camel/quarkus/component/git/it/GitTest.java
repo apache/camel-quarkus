@@ -24,7 +24,6 @@ import java.util.UUID;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -33,7 +32,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTest
 class GitTest {
 
-    @Test
+    //@Test
     void initAddCommit() {
         final String repoName = "testRepo-" + UUID.randomUUID().toString();
         final String path = RestAssured.given()

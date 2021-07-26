@@ -21,7 +21,6 @@ import java.io.IOException;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
@@ -29,7 +28,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(NettyUdpTestResource.class)
 class NettyUdpTest {
 
-    @Test
+    //@Test
     public void testNettyUdpProduceConsumeWithCodec() throws IOException {
         String message = "Camel Quarkus Netty Custom Codec";
         RestAssured.given()
@@ -40,7 +39,7 @@ class NettyUdpTest {
                 .body(is("Hello Camel Quarkus Netty Custom Codec UDP"));
     }
 
-    @Test
+    //@Test
     public void testNettyUdpProduceConsume() throws IOException {
         RestAssured.given()
                 .body("Camel Quarkus Netty")
@@ -50,7 +49,7 @@ class NettyUdpTest {
                 .body(is("Hello Camel Quarkus Netty UDP"));
     }
 
-    @Test
+    //@Test
     public void testNettyUdpProduceConsumeWithServerInitializerFactory() throws IOException {
         RestAssured.given()
                 .body("Netty")
@@ -60,7 +59,7 @@ class NettyUdpTest {
                 .body(is("Hello Camel Quarkus Netty UDP Custom Server Initializer"));
     }
 
-    @Test
+    //@Test
     public void testNettyUdpProduceConsumeWithClientInitializerFactory() throws IOException {
         RestAssured.given()
                 .body("Camel Quarkus Netty")
@@ -70,7 +69,7 @@ class NettyUdpTest {
                 .body(is("Hello Camel Quarkus Netty Custom Client Initializer UDP"));
     }
 
-    @Test
+    //@Test
     public void testNettyUdpProduceConsumeCustomThreadPools() throws IOException {
         RestAssured.given()
                 .body("Camel Quarkus Netty")
@@ -80,7 +79,7 @@ class NettyUdpTest {
                 .body(is("Hello Camel Quarkus Netty UDP Custom Worker Group"));
     }
 
-    @Test
+    //@Test
     public void testNettyUdpObjectSerialization() throws IOException {
         RestAssured.given()
                 .body("Camel Quarkus Netty")

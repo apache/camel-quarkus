@@ -17,14 +17,13 @@
 package org.apache.camel.quarkus.core.languages.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class HeaderLanguageTest {
-    @Test
+    //@Test
     public void header() {
         given().body("foo").post("/core-languages/header/myHeaderRoute/myHeader/barbaz").then().statusCode(200)
                 .body(is("barbaz"));

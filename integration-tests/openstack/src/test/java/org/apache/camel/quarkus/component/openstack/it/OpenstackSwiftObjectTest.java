@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,7 +25,7 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackSwiftObjectTest {
 
-    @Test
+    //@Test
     public void getShouldSucceed() {
         post("/openstack/swift/objects/getShouldSucceed").then().statusCode(204);
     }

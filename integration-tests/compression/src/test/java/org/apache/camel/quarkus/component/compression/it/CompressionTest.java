@@ -23,7 +23,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 @QuarkusTest
@@ -34,7 +33,7 @@ class CompressionTest {
         return Stream.of("zipfile", "zip-deflater", "gzip-deflater", "lzf");
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("listJsonDataFormatsToBeTested")
     public void compressAndUncompress(String format) throws Exception {
 

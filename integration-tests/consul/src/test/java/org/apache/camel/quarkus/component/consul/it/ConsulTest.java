@@ -21,14 +21,13 @@ import java.util.UUID;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(ConsulTestResource.class)
 class ConsulTest {
-    @Test
+    //@Test
     public void basic() {
         final String key = UUID.randomUUID().toString();
         final String value = UUID.randomUUID().toString();

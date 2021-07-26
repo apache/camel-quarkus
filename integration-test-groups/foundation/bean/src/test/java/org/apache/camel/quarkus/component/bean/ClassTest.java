@@ -21,11 +21,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.bean.model.Employee;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class ClassTest {
-    @Test
+    //@Test
     public void classMethod() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -36,7 +35,7 @@ public class ClassTest {
                 .body(Matchers.is("Joe"));
     }
 
-    @Test
+    //@Test
     public void classSetInstanceField() {
         RestAssured.given()
                 .contentType(ContentType.JSON)

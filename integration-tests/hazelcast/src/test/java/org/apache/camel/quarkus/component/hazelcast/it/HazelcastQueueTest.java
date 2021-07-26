@@ -21,11 +21,9 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
@@ -34,10 +32,10 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastQueueResource.class)
+//@TestHTTPEndpoint(HazelcastQueueResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastQueueTest {
-    @Test
+    //@Test
     public void testQueue() {
         // add a value using the add method :: non blocking
         given()
@@ -142,7 +140,7 @@ public class HazelcastQueueTest {
     }
 
     @SuppressWarnings("unchecked")
-    @Test
+    //@Test
     public void testPollConsumer() {
         // add all values
         given()

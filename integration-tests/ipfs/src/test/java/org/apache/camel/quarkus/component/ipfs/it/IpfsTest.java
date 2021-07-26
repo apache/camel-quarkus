@@ -25,7 +25,6 @@ import java.nio.file.Paths;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTestResource(IpfsTestResource.class)
 class IpfsTest {
 
-    @Test
+    //@Test
     public void ipfsComponent() throws IOException {
         String fileContent = "Hello Camel Quarkus IPFS";
 

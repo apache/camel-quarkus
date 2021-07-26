@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,32 +25,32 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackKeystoneRegionTest {
 
-    @Test
+    //@Test
     public void createShouldSucceed() {
         post("/openstack/keystone/regions/createShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getShouldSucceed() {
         post("/openstack/keystone/regions/getShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getAllShouldSucceed() {
         post("/openstack/keystone/regions/getAllShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void updateShouldSucceed() {
         post("/openstack/keystone/regions/updateShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void deleteShouldSucceed() {
         post("/openstack/keystone/regions/deleteShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getUnknownShouldReturnNull() {
         post("/openstack/keystone/regions/getUnknownShouldReturnNull").then().statusCode(204);
     }

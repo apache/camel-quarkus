@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,12 +25,12 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackSwiftContainerTest {
 
-    @Test
+    //@Test
     public void getAllShouldSucceed() {
         post("/openstack/swift/containers/getAllShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getMetadataShouldSucceed() {
         post("/openstack/swift/containers/getMetadataShouldSucceed").then().statusCode(204);
     }

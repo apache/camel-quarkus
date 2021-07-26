@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.mock.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class MockTest {
 
-    @Test
+    //@Test
     public void basic() {
         final String msg = java.util.UUID.randomUUID().toString().replace("-", "");
         RestAssured.given()
@@ -35,7 +34,7 @@ class MockTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void advice() {
         RestAssured.get("/mock/advice")
                 .then()

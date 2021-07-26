@@ -22,7 +22,6 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +37,7 @@ class OpenTelemetryTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void testTraceRoute() {
         // Generate messages
         for (int i = 0; i < 5; i++) {
@@ -68,7 +67,7 @@ class OpenTelemetryTest {
         }
     }
 
-    @Test
+    //@Test
     public void testTracedCamelRouteInvokedFromJaxRsService() {
         RestAssured.get("/opentelemetry/trace")
                 .then()

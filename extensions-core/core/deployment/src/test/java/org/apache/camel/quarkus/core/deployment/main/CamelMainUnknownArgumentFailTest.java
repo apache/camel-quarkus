@@ -30,7 +30,6 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +44,7 @@ public class CamelMainUnknownArgumentFailTest {
     @Inject
     CamelMain main;
 
-    @Test
+    //@Test
     public void unknownArgumentThrowsException() {
         Exception exception = Assertions.assertThrows(RuntimeException.class, () -> {
             main.parseArguments(new String[] { "-d", "10", "-foo", "bar", "-t" });

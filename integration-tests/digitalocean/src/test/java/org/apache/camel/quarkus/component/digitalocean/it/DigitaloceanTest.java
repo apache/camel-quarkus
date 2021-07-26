@@ -29,7 +29,6 @@ import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -51,7 +50,7 @@ class DigitaloceanTest {
                 "ssh-rsa AEXAMPLEaC1yc2EAAAADAQABAAAAQQDDHr/jh2Jy4yALcK4JyWbVkPRaWmhck3IgCoeOO3z1e2dBowLh64QAM+Qb72pxekALga2oi4GvT+TlWNhzPH4V example");
     }
 
-    @Test
+    //@Test
     void testAccount() {
         given()
                 .when()
@@ -60,7 +59,7 @@ class DigitaloceanTest {
                 .body("uuid", notNullValue());
     }
 
-    @Test
+    //@Test
     void testSizes() {
         List<Map<String, Object>> sizes = RestAssured.given().contentType(ContentType.JSON)
                 .get("/digitalocean/sizes")
@@ -72,7 +71,7 @@ class DigitaloceanTest {
         assertTrue(size_1Gb.isPresent());
     }
 
-    @Test
+    //@Test
     void testRegions() {
         List<Map<String, Object>> regions = RestAssured.given().contentType(ContentType.JSON)
                 .get("/digitalocean/regions")
@@ -84,7 +83,7 @@ class DigitaloceanTest {
         assertTrue(nyc1Region.isPresent());
     }
 
-    @Test
+    //@Test
     void testKeys() {
         // create a key
         String name = "TestKey1";
@@ -130,7 +129,7 @@ class DigitaloceanTest {
 
     }
 
-    @Test
+    //@Test
     void testTags() {
         // create a tag
         String name = "awesome";

@@ -40,7 +40,6 @@ import org.apache.camel.component.jira.oauth.OAuthAsynchronousJiraRestClientFact
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.equalTo;
@@ -90,7 +89,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void issueCrud() {
         // Start issue consumer
         RestAssured.given()
@@ -194,7 +193,7 @@ public class JiraTest {
         });
     }
 
-    @Test
+    //@Test
     public void comments() {
         // Create issue
         String issueKey = createIssue();
@@ -233,7 +232,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void attachments() {
         // Create issue
         String issueKey = createIssue();
@@ -265,7 +264,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void watchers() {
         // Create issue
         String issueKey = createIssue();
@@ -316,7 +315,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void issueLinks() {
         List<String> issueKeys = new ArrayList<>();
 
@@ -356,7 +355,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void workLog() {
         // Create issue
         String issueKey = createIssue();
@@ -389,7 +388,7 @@ public class JiraTest {
         }
     }
 
-    @Test
+    //@Test
     public void workflowTransition() {
         // Create issue
         String issueKey = createIssue();

@@ -29,7 +29,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -70,7 +69,7 @@ public class CamelMainRoutesIncludePatternWithClasspathPrefixDevModeTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void testRoutesDiscovery() {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();

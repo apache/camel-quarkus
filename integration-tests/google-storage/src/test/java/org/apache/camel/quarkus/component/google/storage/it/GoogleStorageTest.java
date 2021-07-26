@@ -33,7 +33,6 @@ import org.apache.camel.quarkus.test.mock.backend.MockBackendUtils;
 import org.apache.camel.util.CollectionHelper;
 import org.hamcrest.Matcher;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.google.storage.it.GoogleStorageResource.DEST_BUCKET;
 import static org.apache.camel.quarkus.component.google.storage.it.GoogleStorageResource.TEST_BUCKET1;
@@ -62,7 +61,7 @@ class GoogleStorageTest {
         }
     }
 
-    @Test
+    //@Test
     public void testConsumer() throws InterruptedException {
         try {
             //producer - putObject
@@ -91,7 +90,7 @@ class GoogleStorageTest {
         }
     }
 
-    @Test
+    //@Test
     public void testProducer() {
         //delete existing buckets t - only on real account - Deleting buckets is not (yet) supported by fsouza/fake-gcs-server.
         if (!MockBackendUtils.startMockBackend()) {

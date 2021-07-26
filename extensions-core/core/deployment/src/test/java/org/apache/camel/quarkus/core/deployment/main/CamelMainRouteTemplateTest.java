@@ -35,7 +35,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +63,7 @@ public class CamelMainRouteTemplateTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void testRouteTemplate() throws Exception {
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("foo", "one");

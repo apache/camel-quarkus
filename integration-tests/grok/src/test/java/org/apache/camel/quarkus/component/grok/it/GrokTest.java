@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.grok.it;
 
 import io.krakens.grok.api.exception.GrokException;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -33,84 +32,84 @@ class GrokTest {
             + "64.242.88.13 - - [07/Mar/2004:16:11:58 -0800] \"GET /twiki/bin/view/TWiki/WikiSyntax HTTP/1.1\" 200 7352\n"
             + "64.242.88.14 - - [07/Mar/2004:16:20:55 -0800] \"GET /twiki/bin/view/Main/DCCAndPostFix HTTP/1.1\" 200 5253\n";
 
-    @Test
+    //@Test
     public void grokLogShouldCaptureFifthIp() {
         given().body(LOGS).get("/grok/log").then().statusCode(200).body(is("ip: 64.242.88.14"));
     }
 
-    @Test
+    //@Test
     public void grokFooBarShouldCaptureCenterFoosAndBars() {
         final String fooBar = "bar foobar bar -- barbarfoobarfoobar -- barbar";
         given().body(fooBar).get("/grok/fooBar").then().statusCode(200).body(is("-- barbarfoobarfoobar --"));
     }
 
-    @Test
+    //@Test
     public void grokSpaceDelimitedIpsShouldCaptureFirstAndFourthIps() {
         final String ips = "178.21.82.201 178.21.82.202 178.21.82.203 178.21.82.204";
         given().body(ips).get("/grok/ip").then().statusCode(200).body(is("178.21.82.201 -> 178.21.82.204"));
     }
 
-    @Test
+    //@Test
     public void grokMixDelimitedIpsShouldCaptureFirstAndFourthIps() {
         final String ips = "178.21.82.101 178.21.82.102\n178.21.82.103\r\n178.21.82.104";
         given().body(ips).get("/grok/ip").then().statusCode(200).body(is("178.21.82.101 -> 178.21.82.104"));
     }
 
-    @Test
+    //@Test
     public void grokQsShouldCaptureQuotedString() {
         final String qs = "this is some \"quoted string\".";
         given().body(qs).get("/grok/qs").then().statusCode(200).body(is("quoted string"));
     }
 
-    @Test
+    //@Test
     public void grokUuidShouldCaptureUuidAtEnd() {
         final String uuid = "some 123e4567-e89b-12d3-a456-426614174000";
         given().body(uuid).get("/grok/uuid").then().statusCode(200).body(is("123e4567-e89b-12d3-a456-426614174000"));
     }
 
-    @Test
+    //@Test
     public void grokMacShouldCaptureMacAddressAtEnd() {
         final String mac = "some:invalid:prefix:of:eth0:02:00:4c:4f:4f:50";
         given().body(mac).get("/grok/mac").then().statusCode(200).body(is("02:00:4c:4f:4f:50"));
     }
 
-    @Test
+    //@Test
     public void grokPathShouldCaptureMntRelativePath() {
         final String path = "The file with path /home/user/../../mnt has been deleted";
         given().body(path).get("/grok/path").then().statusCode(200).body(is("/home/user/../../mnt"));
     }
 
-    @Test
+    //@Test
     public void grokUriShouldCaptureCamelSiteUri() {
         final String uri = "the site is at https://camel.apache.org/";
         given().body(uri).get("/grok/uri").then().statusCode(200).body(is("https://camel.apache.org/"));
     }
 
-    @Test
+    //@Test
     public void grokNumberShouldCapture123() {
         final String number = "number is 123.";
         given().body(number).get("/grok/num").then().statusCode(200).body(is("123"));
     }
 
-    @Test
+    //@Test
     public void grokTimestampShouldCaptureMay26th() {
         final String timestamp = "This test was created at 2019-05-26T10:54:15Z test convert";
         given().body(timestamp).get("/grok/timestamp").then().statusCode(200).body(is("2019-05-26T10:54:15Z"));
     }
 
-    @Test
+    //@Test
     public void grokFlattenShouldReturnGrokExceptionClassName() {
         final String expected = GrokException.class.getName();
         given().body("1 2").get("/grok/flatten").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void grokNamedOnlyShouldNotCaptureUnamedExpressions() {
         final String body = "https://github.com/apache/camel";
         given().body(body).get("/grok/namedOnly").then().statusCode(200).body(is("false-false+false"));
     }
 
-    @Test
+    //@Test
     public void grokSingleMathPerLineShouldCapture1AndThen3() {
         given().body("1 2 \n 3").get("/grok/singleMatchPerLine").then().statusCode(200).body(is("1-3"));
     }

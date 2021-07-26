@@ -26,7 +26,6 @@ import org.hamcrest.Matcher;
 import org.jboss.logging.Logger;
 import org.junit.Assert;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -60,7 +59,7 @@ public abstract class AbstractDebeziumTest {
         return "COMPANY";
     }
 
-    @Test
+    //@Test
     @Order(1)
     public void testInsert() throws SQLException {
         isInitialized("Test 'testInsert' is skipped, because container is not running.");
@@ -99,7 +98,7 @@ public abstract class AbstractDebeziumTest {
                 name, city));
     }
 
-    @Test
+    //@Test
     @Order(2)
     public void testUpdate() throws SQLException {
         isInitialized("Test 'testUpdate' is skipped, because container is not running.");
@@ -119,7 +118,7 @@ public abstract class AbstractDebeziumTest {
         receiveResponse(200, containsString(COMPANY_2 + "_changed"));
     }
 
-    @Test
+    //@Test
     @Order(3)
     public void testDelete() throws SQLException {
         isInitialized("Test 'testDelete' is skipped, because container is not running.");

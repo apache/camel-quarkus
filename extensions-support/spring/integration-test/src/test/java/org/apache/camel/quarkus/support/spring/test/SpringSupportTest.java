@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.support.spring.test;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class SpringSupportTest {
 
-    @Test
+    //@Test
     public void springClassLoading() {
         // Verify that classes excluded by the Quarkus Spring extensions can be loaded
         // I.e check they are not blacklisted since the camel-quarkus-support-spring-(beans,context,core) jars will provide them

@@ -28,7 +28,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.jsoup.helper.Validate.fail;
@@ -57,7 +56,7 @@ public class RequiresNewJtaTransactionPolicyTest {
         reset(transactionManager);
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicy() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         MockTransaction transaction = new MockTransaction();
@@ -74,7 +73,7 @@ public class RequiresNewJtaTransactionPolicyTest {
         verify(transactionManager, times(1)).resume(transaction);
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyWithException() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_NO_TRANSACTION);

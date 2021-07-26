@@ -20,7 +20,6 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
-import org.junit.jupiter.api.Test;
 
 public class QuteLetterTest extends QuteTestBase {
 
@@ -34,7 +33,7 @@ public class QuteLetterTest extends QuteTestBase {
         return exchange;
     }
 
-    @Test
+    //@Test
     public void testQute() throws Exception {
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(1);

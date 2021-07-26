@@ -25,7 +25,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.kubernetes.client.KubernetesServerTestResource;
 import io.quarkus.test.kubernetes.client.KubernetesTestServer;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
@@ -36,7 +35,7 @@ public class KubernetesTest {
     @KubernetesTestServer
     private KubernetesServer mockServer;
 
-    @Test
+    //@Test
     public void testKubernetesComponent() {
         Container container = new Container();
         container.setImage("busybox:latest");

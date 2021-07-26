@@ -30,7 +30,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -38,7 +37,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2SqsSnsTest {
 
-    @Test
+    //@Test
     public void sqs() {
         final Config config = ConfigProvider.getConfig();
         final String queueName = config.getValue("aws-sqs.queue-name", String.class);
@@ -64,7 +63,7 @@ class Aws2SqsSnsTest {
 
     }
 
-    @Test
+    //@Test
     void sns() {
         final String snsMsg = "sns" + UUID.randomUUID().toString().replace("-", "");
         RestAssured.given()

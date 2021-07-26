@@ -19,14 +19,13 @@ package org.apache.camel.quarkus.component.csimple.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class CSimpleTest {
 
-    @Test
+    //@Test
     public void csimpleHello() {
         RestAssured.given()
                 .body("Joe")
@@ -36,7 +35,7 @@ class CSimpleTest {
                 .body(is("Hello Joe"));
     }
 
-    @Test
+    //@Test
     public void csimpleXml() {
         RestAssured.given()
                 .body("Joe")

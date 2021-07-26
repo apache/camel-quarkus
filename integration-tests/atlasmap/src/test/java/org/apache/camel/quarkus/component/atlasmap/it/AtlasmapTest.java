@@ -16,22 +16,20 @@
  */
 package org.apache.camel.quarkus.component.atlasmap.it;
 
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.atlasmap.it.model.Account;
 import org.apache.camel.quarkus.component.atlasmap.it.model.Person;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
-@TestHTTPEndpoint(AtlasmapResource.class)
+//@TestHTTPEndpoint(AtlasmapResource.class)
 class AtlasmapTest {
 
-    @Test
+    //@Test
     void testJava2JsonWithJson() {
         Person person = new Person("foo", "bar", 35);
         given()
@@ -45,7 +43,7 @@ class AtlasmapTest {
                 .body("age", equalTo(35));
     }
 
-    @Test
+    //@Test
     void testJson2JavaWithJson() {
         String person = "{\"name1\":\"foo\", \"name2\":\"bar\", \"age\":35}";
         given()
@@ -59,7 +57,7 @@ class AtlasmapTest {
                 .body("age", equalTo(35));
     }
 
-    @Test
+    //@Test
     void testXml2XmlWithJson() {
         String request = "<tns:Patient xmlns:tns=\"http://hl7.org/fhir\"><tns:id value=\"101138\"></tns:id></tns:Patient>";
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:id value=\"101138\"/></tns:Person>";
@@ -72,7 +70,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testJson2XmlWithJson() {
         String request = "{\"id\":\"101138\"}";
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:id value=\"101138\"/></tns:Person>";
@@ -85,7 +83,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testXml2JsonWithJson() {
         String request = "<tns:Patient xmlns:tns=\"http://hl7.org/fhir\"><tns:id value=\"101138\"></tns:id></tns:Patient>";
         String expectedResponse = "{\"id\":\"101138\"}";
@@ -98,7 +96,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testJava2XmlWithJson() {
         Person request = new Person("foo", "bar", 35);
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:firstName value=\"foo\"/><tns:lastName value=\"bar\"/><tns:age value=\"35\"/></tns:Person>";
@@ -111,7 +109,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testXml2JavaWithJson() {
         String request = "<tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:firstName value=\"foo\"/><tns:lastName value=\"bar\"/><tns:age value=\"35\"/></tns:Person>";
         given()
@@ -125,7 +123,7 @@ class AtlasmapTest {
                 .body("age", equalTo(35));
     }
 
-    @Test
+    //@Test
     void testXml2XmlWithAdm() {
         String request = "<tns:Patient xmlns:tns=\"http://hl7.org/fhir\"><tns:id>101138</tns:id></tns:Patient>";
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:id>101138</tns:id></tns:Person>";
@@ -138,7 +136,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testJson2JsonWithAdm() {
         String request = "{\"name1\":\"foo\", \"name2\":\"bar\", \"age\":35}";
         String expectedResponse = "{\"age\":35,\"firstName\":\"foo\",\"lastName\":\"bar\"}";
@@ -152,7 +150,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testXml2JsonWithAdm() {
         String request = "<tns:Patient xmlns:tns=\"http://hl7.org/fhir\"><tns:id>101138</tns:id></tns:Patient>";
         String expectedResponse = "{\"id\":\"101138\"}";
@@ -165,7 +163,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testJson2XmlWithAdm() {
         String request = "{\"id\":\"101138\"}";
         String expectedResponse = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><tns:Patient xmlns:tns=\"http://hl7.org/fhir\"><tns:id>101138</tns:id></tns:Patient>";
@@ -178,7 +176,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResponse));
     }
 
-    @Test
+    //@Test
     void testJson2CsvWithJson() {
         String person = "{\"name1\":\"foo\", \"name2\":\"bar\", \"age\":35}";
         String experctedResult = "firstName,lastName,age\r\n" +
@@ -194,7 +192,7 @@ class AtlasmapTest {
         assertEquals(experctedResult, result);
     }
 
-    @Test
+    //@Test
     void testCsv2JsonWithAdm() {
         String request = "foo,bar,35\r\n";
         given()
@@ -206,7 +204,7 @@ class AtlasmapTest {
                 .body(equalTo("{\"firstName\":\"foo\",\"lastName\":\"bar\",\"age\":35}"));
     }
 
-    @Test
+    //@Test
     void testCsv2JsonWithJson() {
         String request = "firstName,lastName,age\r\n" +
                 "foo,bar,35\r\n";
@@ -219,7 +217,7 @@ class AtlasmapTest {
                 .body(equalTo("{\"firstName\":\"foo\",\"lastName\":\"bar\",\"age\":\"35\"}"));
     }
 
-    @Test
+    //@Test
     void testCsv2JavaWithJson() {
         String request = "id,userName\r\n" +
                 "1,user\r\n";
@@ -233,7 +231,7 @@ class AtlasmapTest {
                 .body("userName", equalTo("user"));
     }
 
-    @Test
+    //@Test
     void testCsv2XmlWithJson() {
         String request = "firstName,lastName,age\r\n" +
                 "foo,bar,35\r\n";
@@ -247,7 +245,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResult));
     }
 
-    @Test
+    //@Test
     void testXml2CsvWithJson() {
         String request = "<tns:Person xmlns:tns=\"http://hl7.org/fhir\"><tns:firstName value=\"foo\"/><tns:lastName value=\"bar\"/><tns:age value=\"35\"/></tns:Person>";
         String expectedResult = "firstName,lastName,age\r\n" +
@@ -261,7 +259,7 @@ class AtlasmapTest {
                 .body(equalTo(expectedResult));
     }
 
-    @Test
+    //@Test
     void testJava2CsvWithJson() {
         String expectedResult = "id,userName\r\n" +
                 "1,user\r\n";

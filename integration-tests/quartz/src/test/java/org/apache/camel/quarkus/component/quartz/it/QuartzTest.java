@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.quartz.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
@@ -26,7 +25,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class QuartzTest {
 
-    @ParameterizedTest()
+    //@ParameterizedTest()
     @ValueSource(strings = { "cron", "quartz" })
     public void testSchedulerComponent(String component) {
         RestAssured.given()

@@ -32,7 +32,6 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 //TODO disabled on Localstack, see https://github.com/apache/camel-quarkus/issues/2595
@@ -42,7 +41,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 class Aws2LambdaTest {
     private static final Logger LOG = Logger.getLogger(Aws2LambdaTest.class);
 
-    @Test
+    //@Test
     public void e2e() {
         final String functionName = "cqFunction" + java.util.UUID.randomUUID().toString().replace("-", "");
         final String name = "Joe " + java.util.UUID.randomUUID().toString().replace("-", "");

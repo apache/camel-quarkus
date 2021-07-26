@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.micrometer.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -26,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class MicrometerTest {
 
-    @Test
+    //@Test
     public void testMicrometerMetricsCounter() {
         RestAssured.get("/micrometer/counter")
                 .then()
@@ -34,7 +33,7 @@ class MicrometerTest {
         assertEquals(1, getMetricValue(Integer.class, "counter", "camel-quarkus-counter"));
     }
 
-    @Test
+    //@Test
     public void testMicrometerSummary() {
         RestAssured.get("/micrometer/summary?value=10")
                 .then()
@@ -42,7 +41,7 @@ class MicrometerTest {
         assertEquals(10, getMetricValue(Integer.class, "summary", "camel-quarkus-summary"));
     }
 
-    @Test
+    //@Test
     public void testMicrometerTimer() {
         RestAssured.get("/micrometer/timer")
                 .then()
@@ -50,7 +49,7 @@ class MicrometerTest {
         assertTrue(getMetricValue(Integer.class, "timer", "camel-quarkus-timer") >= 100);
     }
 
-    @Test
+    //@Test
     public void testMicrometerRoutePolicyFactory() {
         RestAssured.get("/micrometer/timer")
                 .then()
@@ -59,7 +58,7 @@ class MicrometerTest {
         assertEquals(0, getMetricValue(Integer.class, "counter", "CamelExchangesFailed", "routeId=micrometer-metrics-timer"));
     }
 
-    @Test
+    //@Test
     public void testMicrometerMessageHistoryFactory() {
         RestAssured.get("/micrometer/log")
                 .then()
@@ -68,13 +67,13 @@ class MicrometerTest {
         assertTrue(getMetricValue(Double.class, "timer", "CamelMessageHistory", tags) > 0.0);
     }
 
-    @Test
+    //@Test
     public void testMicrometerRouteEventNotifier() {
         assertTrue(getMetricValue(Integer.class, "gauge", "CamelRoutesAdded") >= 4);
         assertTrue(getMetricValue(Integer.class, "gauge", "CamelRoutesRunning") >= 4);
     }
 
-    @Test
+    //@Test
     public void testMicrometerExchangeEventNotifier() {
         RestAssured.get("/micrometer/log")
                 .then()

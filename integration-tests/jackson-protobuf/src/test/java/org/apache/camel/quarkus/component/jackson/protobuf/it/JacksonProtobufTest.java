@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.jackson.protobuf.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.jackson.protobuf.it.StringAppendingDeserializer.STRING_TO_APPEND;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 class JacksonProtobufTest {
 
-    @Test
+    //@Test
     public void marshalUnmarshal() {
         String message = "Hello Camel Quarkus Jackson Protobuf";
         byte[] protobufSerialized = RestAssured.given()

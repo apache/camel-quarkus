@@ -21,11 +21,10 @@ import org.apache.camel.Processor;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class QuteTest extends QuteTestBase {
 
-    @Test
+    //@Test
     public void testQuteExample() {
         Exchange exchange = template.request("direct:a", new Processor() {
             @Override

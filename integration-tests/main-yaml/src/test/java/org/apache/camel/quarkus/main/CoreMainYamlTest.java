@@ -23,13 +23,12 @@ import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.dsl.yaml.YamlRoutesBuilderLoader;
 import org.apache.camel.dsl.yaml.common.YamlDeserializationMode;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 public class CoreMainYamlTest {
-    @Test
+    //@Test
     public void testMainInstanceWithYamlRoutes() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)

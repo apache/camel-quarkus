@@ -28,7 +28,6 @@ import org.apache.hadoop.hbase.client.ColumnFamilyDescriptorBuilder;
 import org.apache.hadoop.hbase.client.Connection;
 import org.apache.hadoop.hbase.client.ConnectionFactory;
 import org.apache.hadoop.hbase.client.TableDescriptorBuilder;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -36,7 +35,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(HBaseTestResource.class)
 class HbaseTest {
 
-    @Test
+    //@Test
     public void e2e() throws IOException, InterruptedException {
 
         createTable("testtable", "family-1");

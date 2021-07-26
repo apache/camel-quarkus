@@ -34,7 +34,6 @@ import org.apache.camel.reactive.vertx.VertXReactiveExecutor;
 import org.apache.camel.reactive.vertx.VertXThreadPoolFactory;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.test.Conditions.doesNotStartWith;
 import static org.apache.camel.quarkus.test.Conditions.entry;
@@ -48,13 +47,13 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @QuarkusTest
 public class CoreMainTest {
     @Disabled
-    @Test
+    //@Test
     public void testProperties() {
         RestAssured.when().get("/test/property/camel.context.name").then().body(is("quarkus-camel-example"));
         RestAssured.when().get("/test/property/the.message").then().body(is("test"));
     }
 
-    @Test
+    //@Test
     public void testSetCamelContextName() {
         Response response = RestAssured.get("/test/context/name").andReturn();
 
@@ -67,7 +66,7 @@ public class CoreMainTest {
                 .then().body(is("my-ctx-name"));
     }
 
-    @Test
+    //@Test
     public void testMainInstance() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
@@ -152,7 +151,7 @@ public class CoreMainTest {
 
     }
 
-    @Test
+    //@Test
     public void testReactiveExecutor() {
         JsonPath executor = RestAssured.when().get("/test/context/reactive-executor")
                 .then()
@@ -165,7 +164,7 @@ public class CoreMainTest {
         assertThat(executor.getBoolean("configured")).isTrue();
     }
 
-    @Test
+    //@Test
     public void testThreadPoolFactory() {
         JsonPath executor = RestAssured.when().get("/test/context/thread-pool-factory")
                 .then()
@@ -178,7 +177,7 @@ public class CoreMainTest {
         assertThat(executor.getBoolean("configured")).isTrue();
     }
 
-    @Test
+    //@Test
     public void testCustomTypeConverter() {
         RestAssured.given()
                 .contentType(ContentType.TEXT).body("a:b")
@@ -189,7 +188,7 @@ public class CoreMainTest {
                         "val", is("b"));
     }
 
-    @Test
+    //@Test
     public void testCustomComponent() {
         RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
@@ -202,7 +201,7 @@ public class CoreMainTest {
                         "registry-type", is("org.apache.camel.quarkus.core.RuntimeBeanRepository"));
     }
 
-    @Test
+    //@Test
     public void testGetStringFromRegistry() {
         RestAssured.given()
                 .accept(MediaType.TEXT_PLAIN)

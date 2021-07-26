@@ -22,14 +22,13 @@ import java.util.List;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class AtomTest {
 
-    @Test
+    //@Test
     public void consumeAtomFeed() {
         JsonPath json = RestAssured.given()
                 .queryParam("test-port", RestAssured.port)

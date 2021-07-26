@@ -22,7 +22,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @QuarkusTestResource(CouchdbTestResource.class)
 class CouchdbTest {
 
-    @Test
+    //@Test
     public void crudShouldSucceed() {
 
         // Create the initial revision of the document

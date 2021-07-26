@@ -22,7 +22,6 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.json.path.it.StoreRequest.Book;
 import org.apache.camel.quarkus.component.json.path.it.StoreRequest.Store;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,7 +38,7 @@ class JsonPathContentBasedRouterTest {
         storeRequest.getStore().getBook().setPrice(5.0);
     }
 
-    @Test
+    //@Test
     public void priceLessThan10ShouldReturnCheapLevel() {
         String priceLevel = RestAssured.given() //
                 .contentType(ContentType.JSON).body(storeRequest).get("/jsonpath/getBookPriceLevel").then().statusCode(200)
@@ -47,7 +46,7 @@ class JsonPathContentBasedRouterTest {
         assertEquals("cheap", priceLevel);
     }
 
-    @Test
+    //@Test
     public void priceBetween10And30ShouldReturnAverageLevel() {
         storeRequest.getStore().getBook().setPrice(17.5);
 
@@ -57,7 +56,7 @@ class JsonPathContentBasedRouterTest {
         assertEquals("average", priceLevel);
     }
 
-    @Test
+    //@Test
     public void priceGreaterThan30ShouldReturnExpensiveLevel() {
         storeRequest.getStore().getBook().setPrice(31.7);
 

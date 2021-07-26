@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.zendesk.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -27,7 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(ZendeskTestResource.class)
 class ZendeskTest {
 
-    @Test
+    //@Test
     public void testZendDeskComponent() {
         final String description = "Camel Quarkus Ticket";
 

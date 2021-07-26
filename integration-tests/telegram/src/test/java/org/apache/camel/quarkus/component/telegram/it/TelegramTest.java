@@ -35,7 +35,6 @@ import org.apache.camel.quarkus.test.TrustStoreResource;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalTo;
@@ -56,7 +55,7 @@ public class TelegramTest {
     @MockServer
     WireMockServer server;
 
-    @Test
+    //@Test
     public void postText() {
         final String uuid = UUID.randomUUID().toString().replace("-", "");
         final String msg = "A message from camel-quarkus-telegram"
@@ -72,7 +71,7 @@ public class TelegramTest {
 
     }
 
-    @Test
+    //@Test
     public void getText() {
         // Manually stub the getUpdates response as the addition of the offset query param seems to confuse WireMock
         if (server != null) {
@@ -97,7 +96,7 @@ public class TelegramTest {
         }
     }
 
-    @Test
+    //@Test
     public void png() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.png")) {
             /* Send a message */
@@ -110,7 +109,7 @@ public class TelegramTest {
         }
     }
 
-    @Test
+    //@Test
     public void mp3() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.mp3")) {
             /* Send a message */
@@ -123,7 +122,7 @@ public class TelegramTest {
         }
     }
 
-    @Test
+    //@Test
     public void mp4() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.mp4")) {
             /* Send a message */
@@ -136,7 +135,7 @@ public class TelegramTest {
         }
     }
 
-    @Test
+    //@Test
     public void pdf() throws IOException {
         try (InputStream in = getClass().getClassLoader().getResourceAsStream("camel-quarkus-rocks.pdf")) {
             /* Send a message */
@@ -149,7 +148,7 @@ public class TelegramTest {
         }
     }
 
-    @Test
+    //@Test
     public void location() throws IOException {
 
         final SendLocationMessage sendLoc = new SendLocationMessage(29.974834, 31.138577);
@@ -192,7 +191,7 @@ public class TelegramTest {
                 .statusCode(201);
     }
 
-    @Test
+    //@Test
     public void venue() throws IOException {
         final SendVenueMessage venue = new SendVenueMessage(29.977818, 31.136329, "Pyramid of Queen Henutsen",
                 "El-Hussein Ibn Ali Ln, Nazlet El-Semman, Al Haram, Giza Governorate, Egypt");

@@ -26,7 +26,6 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -46,7 +45,7 @@ class VelocityTest {
             "Regards Apache Camel Riders Bookstore\n" +
             "PS: Next beer is on me";
 
-    @Test
+    //@Test
     public void testTemplateViaFile() throws IOException {
         File template = createFile("velocity_test", "Hi ${headers.name}. You have got ${headers.item}. ${body}");
         RestAssured.given()
@@ -61,7 +60,7 @@ class VelocityTest {
                 .body(equalTo("Hi Sheldon. You have got Camel in Action. PS: Next beer is on me"));
     }
 
-    @Test
+    //@Test
     public void testTemplateViaClasspath() {
         RestAssured.given()
                 .queryParam("name", "Sheldon")
@@ -75,7 +74,7 @@ class VelocityTest {
                 .body(equalTo(MSG));
     }
 
-    @Test
+    //@Test
     public void testTemplateViaClasspathWithProperties() {
         //class loader is forbidden by properties, response should fail
         RestAssured.given()
@@ -92,7 +91,7 @@ class VelocityTest {
                 .body(containsString("Exception"));
     }
 
-    @Test
+    //@Test
     public void testTemplateViaHeader() {
         RestAssured.given()
                 .queryParam("body", "PS: Next beer is on me.")
@@ -106,7 +105,7 @@ class VelocityTest {
                 .body(equalTo("Hi Sheldon. Thanks for Camel in Action. PS: Next beer is on me."));
     }
 
-    @Test
+    //@Test
     public void testSupplementalContext() {
         final String template = "#set( $headers.body = ${body} )\n" + BODY;
         Map result = RestAssured.given()
@@ -125,7 +124,7 @@ class VelocityTest {
         assertEquals(NEW_BODY, result.get("body"));
     }
 
-    @Test
+    //@Test
     public void testBodyAsDomainObject() {
         RestAssured.given()
                 .queryParam("name", "Sheldon")
@@ -138,12 +137,12 @@ class VelocityTest {
                 .body(equalTo("\nHi Sheldon from Earth 2"));
     }
 
-    @Test
+    //@Test
     public void testContentCacheFalse() throws Exception {
         testContentCache(false);
     }
 
-    @Test
+    //@Test
     public void testContentCacheTrue() throws Exception {
         testContentCache(true);
     }

@@ -31,7 +31,6 @@ import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.olingo4.it.Olingo4Resource.TEST_SERVICE_BASE_URL;
 import static org.hamcrest.core.Is.is;
@@ -48,7 +47,7 @@ class Olingo4Test {
         sessionId = getSession();
     }
 
-    @Test
+    //@Test
     public void testOlingo4CrudOperations() {
 
         // Create

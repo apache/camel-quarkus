@@ -22,7 +22,6 @@ import org.apache.camel.dataformat.avro.AvroDataFormat;
 import org.apache.camel.quarkus.component.avro.BuildTimeAvroDataFormat;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,7 +45,7 @@ public class BuildTimeAvroDataFormatTest {
     @BuildTimeAvroDataFormat("schemas/another-user.avsc")
     AvroDataFormat anotherUserBuildTimeAvroDataFormat;
 
-    @Test
+    //@Test
     void buildTimeAvroDataFormatAnnotationsShouldBeProcessed() {
         assertNotNull(aUserBuildTimeAvroDataFormat);
         Object aUserObjectSchema = aUserBuildTimeAvroDataFormat.getSchema();

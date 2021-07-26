@@ -25,7 +25,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -33,7 +32,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2S3Test {
 
-    @Test
+    //@Test
     public void crud() {
 
         final String oid = UUID.randomUUID().toString();
@@ -83,7 +82,7 @@ class Aws2S3Test {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void consumer() {
         final String oid = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid;

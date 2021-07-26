@@ -20,14 +20,13 @@ import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 class FreemarkerTest {
 
-    @Test
+    //@Test
     @DisabledOnNativeImage // requires allowContextMapAll=true which is unsupported in native mode
     public void freemarkerLetter() {
         RestAssured.given()
@@ -39,7 +38,7 @@ class FreemarkerTest {
                 .body(equalTo("Dear Christian. You ordered item 7 on Monday."));
     }
 
-    @Test
+    //@Test
     public void freemarkerDataModel() {
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -50,7 +49,7 @@ class FreemarkerTest {
                 .body(equalTo("Dear Willem. You ordered item 7 on Monday."));
     }
 
-    @Test
+    //@Test
     @DisabledOnNativeImage // requires allowContextMapAll=true which is unsupported in native mode
     public void valuesInProperties() {
         RestAssured.given()
@@ -62,7 +61,7 @@ class FreemarkerTest {
                 .body(equalTo("Dear Christian. You ordered item 7."));
     }
 
-    @Test
+    //@Test
     public void templateInHeader() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -74,7 +73,7 @@ class FreemarkerTest {
                 .body(equalTo("Hello Kermit!"));
     }
 
-    @Test
+    //@Test
     public void bodyAsDomainObject() {
         RestAssured.given()
                 .accept(ContentType.TEXT)

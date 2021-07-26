@@ -20,7 +20,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -37,7 +36,7 @@ public class BeanInjectMockTest {
         when(mockNamedBean.hello(anyString())).thenReturn("Hello * from NamedBean mock (class level)");
     }
 
-    @Test
+    //@Test
     public void namedBeanMockedForAllTests() {
         RestAssured.given()
                 .body("Kermit")
@@ -46,7 +45,7 @@ public class BeanInjectMockTest {
                 .body(is("Hello * from NamedBean mock (class level)"));
     }
 
-    @Test
+    //@Test
     public void namedBeanMockOverrriddenInATest() {
         when(mockNamedBean.hello(anyString())).thenReturn("Hello * from NamedBean mock (test level)");
         RestAssured.given()

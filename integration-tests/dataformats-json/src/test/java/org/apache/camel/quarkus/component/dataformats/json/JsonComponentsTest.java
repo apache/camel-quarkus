@@ -25,8 +25,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject;
 import org.apache.camel.quarkus.component.dataformats.json.model.PojoA;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -39,7 +37,7 @@ public class JsonComponentsTest {
         return Stream.of("Jackson", "Johnzon", "Gson", "Jsonb");
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("listJsonDataFormatsToBeTested")
     public void testRoutes(String jsonComponent) {
         RestAssured.given().contentType(ContentType.TEXT)
@@ -58,7 +56,7 @@ public class JsonComponentsTest {
                 .body(equalTo("{\"dummy_string\":\"value2\"}"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("listJsonDataFormatsToBeTested")
     public void testUnmarshallingDifferentPojos(String jsonComponent) {
         String bodyA = "{\"name\":\"name A\"}";
@@ -88,7 +86,7 @@ public class JsonComponentsTest {
         return listJsonDataFormatsToBeTested().flatMap(s -> Stream.of(s + "-type-as-attribute", s + "-type-as-header"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("listDirectUrisFromXmlRoutesToBeTested")
     public void testUnmarshal(String directId) {
         AnotherObject object = new AnotherObject();
@@ -102,7 +100,7 @@ public class JsonComponentsTest {
                 .body("dummyString", is(object.getDummyString()));
     }
 
-    @Test
+    //@Test
     void jacksonXml() {
         final String xml = "<PojoA>\n  <name>Joe</name>\n</PojoA>\n";
         final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));

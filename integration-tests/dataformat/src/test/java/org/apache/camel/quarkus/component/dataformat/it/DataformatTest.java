@@ -29,8 +29,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -42,7 +40,7 @@ class DataformatTest {
         return Stream.of("dataformat-component", "dsl");
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("snakeyamlRoutes")
     public void snakeYaml(String route) {
         RestAssured.get("/dataformat/snakeyaml/marshal/" + route + "?name=Camel SnakeYAML")
@@ -60,7 +58,7 @@ class DataformatTest {
                 .body(equalTo("Camel SnakeYAML"));
     }
 
-    @Test
+    //@Test
     public void ical() throws ParseException, IOException {
         final ZonedDateTime START = LocalDateTime.of(2007, 12, 3, 10, 15, 30).atZone(ZoneId.systemDefault());
         final ZonedDateTime END = LocalDateTime.of(2007, 12, 03, 11, 16, 31).atZone(ZoneId.systemDefault());

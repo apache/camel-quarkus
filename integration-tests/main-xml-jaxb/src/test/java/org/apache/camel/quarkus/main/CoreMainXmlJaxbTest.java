@@ -31,7 +31,6 @@ import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledXMLRoutesDefinitionLoader;
 import org.apache.camel.xml.jaxb.DefaultModelJAXBContextFactory;
 import org.apache.camel.xml.jaxb.JaxbModelToXMLDumper;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
@@ -39,7 +38,7 @@ import static org.awaitility.Awaitility.await;
 @QuarkusTest
 public class CoreMainXmlJaxbTest {
 
-    @Test
+    //@Test
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
@@ -70,7 +69,7 @@ public class CoreMainXmlJaxbTest {
                 .contains("rest-route");
     }
 
-    @Test
+    //@Test
     public void testDumpRoutes() {
         await().atMost(10L, TimeUnit.SECONDS).pollDelay(100, TimeUnit.MILLISECONDS).until(() -> {
             String log = new String(Files.readAllBytes(Paths.get("target/quarkus.log")), StandardCharsets.UTF_8);

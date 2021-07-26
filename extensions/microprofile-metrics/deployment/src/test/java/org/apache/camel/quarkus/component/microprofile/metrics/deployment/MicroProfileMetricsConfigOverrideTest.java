@@ -34,7 +34,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -51,7 +50,7 @@ public class MicroProfileMetricsConfigOverrideTest {
     @Inject
     CamelContext context;
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsConfiguration() {
         assertTrue(context.getRoutePolicyFactories().isEmpty());
 

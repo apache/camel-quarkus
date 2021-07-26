@@ -22,11 +22,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 public class TokenizeLanguageTest {
-    @Test
+    //@Test
     public void tokenize() {
         RestAssured.given()
                 .body("a,b,c,d,e")
@@ -45,7 +44,7 @@ public class TokenizeLanguageTest {
         ;
     }
 
-    @Test
+    //@Test
     public void tokenizeXml() {
         RestAssured.given()
                 .body("<foo><bar>A</bar><bar>B</bar></foo>")

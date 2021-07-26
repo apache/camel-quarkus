@@ -32,7 +32,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -66,12 +65,12 @@ public class DisabledMainTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void componentAutoConfigurationNotWorking() {
         assertThat(camelContext.getComponent("direct", DirectComponent.class).getTimeout()).isNotEqualTo(TIMEOUT);
     }
 
-    @Test
+    //@Test
     public void mainUnavailable() {
         assertThat(Arc.container().instance(CamelMain.class).isAvailable()).isFalse();
     }

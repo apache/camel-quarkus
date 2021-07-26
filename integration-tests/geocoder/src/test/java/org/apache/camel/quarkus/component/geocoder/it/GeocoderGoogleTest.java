@@ -18,11 +18,9 @@ package org.apache.camel.quarkus.component.geocoder.it;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
-import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.equalToJson;
@@ -32,14 +30,14 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlPathEqualTo;
 import static org.hamcrest.Matchers.hasKey;
 
 @QuarkusTest
-@TestHTTPEndpoint(GeocoderGoogleResource.class)
+//@TestHTTPEndpoint(GeocoderGoogleResource.class)
 @QuarkusTestResource(GeocoderTestResource.class)
 class GeocoderGoogleTest {
 
     @MockServer
     WireMockServer server;
 
-    @Test
+    //@Test
     public void loadCurrentLocation() {
         // We need to manually stub this API call because it invokes multiple API targets:
         // - googleapis.com
@@ -59,7 +57,7 @@ class GeocoderGoogleTest {
                 .body("[0]", hasKey("addressComponents"));
     }
 
-    @Test
+    //@Test
     public void loadAddress() {
         RestAssured.get("/address/calle marie curie, sevilla, sevilla")
                 .then()
@@ -67,7 +65,7 @@ class GeocoderGoogleTest {
                 .body("[0]", hasKey("addressComponents"));
     }
 
-    @Test
+    //@Test
     public void loadLatLong() {
         RestAssured.get("/lat/40.714224/lon/-73.961452")
                 .then()

@@ -23,12 +23,11 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class EipTest {
 
-    @Test
+    //@Test
     public void dynamicRouter() {
         for (int i = 0; i < 4; i++) {
             RestAssured.given()
@@ -57,7 +56,7 @@ class EipTest {
 
     }
 
-    @Test
+    //@Test
     public void dynamicRouterAnnotation() {
         for (int i = 4; i < 8; i++) {
             RestAssured.given()

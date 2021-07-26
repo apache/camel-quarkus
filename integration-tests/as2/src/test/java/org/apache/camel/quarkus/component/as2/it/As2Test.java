@@ -31,7 +31,6 @@ import org.apache.camel.quarkus.component.as2.it.transport.ServerResult;
 import org.apache.http.message.BasicHttpEntityEnclosingRequest;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class As2Test {
     private static final Logger LOG = LoggerFactory.getLogger(As2Test.class);
 
-    @Test
+    //@Test
     public void serverPlainTest() throws Exception {
 
         //prepare component by sending empty request with no wait
@@ -81,17 +80,17 @@ public class As2Test {
         });
     }
 
-    @Test
+    //@Test
     public void clientPlainTest() throws Exception {
         clientTest(As2Helper.createPlainRequest());
     }
 
-    @Test
+    //@Test
     public void clientEncryptionTest() throws Exception {
         clientTest(As2Helper.createEncryptedRequest());
     }
 
-    @Test
+    //@Test
     public void clientMultipartSignedTest() throws Exception {
         ClientResult clientResult = clientTest(As2Helper.createMultipartSignedRequest());
 

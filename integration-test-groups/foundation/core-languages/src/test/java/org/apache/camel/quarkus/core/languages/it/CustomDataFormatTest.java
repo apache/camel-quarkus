@@ -18,13 +18,12 @@ package org.apache.camel.quarkus.core.languages.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
 public class CustomDataFormatTest {
-    @Test
+    //@Test
     public void customDataFormat() {
         given()
                 .body("foo bar")

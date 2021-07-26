@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.component.bean.validator.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class BeanValidatorTest {
 
-    @Test
+    //@Test
     public void test() {
         RestAssured.get("/bean-validator/get/honda/123").then().statusCode(400);
 

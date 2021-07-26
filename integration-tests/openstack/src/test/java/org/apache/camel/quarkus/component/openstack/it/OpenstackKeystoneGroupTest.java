@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,42 +25,42 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackKeystoneGroupTest {
 
-    @Test
+    //@Test
     public void createShouldSucceed() {
         post("/openstack/keystone/groups/createShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getShouldSucceed() {
         post("/openstack/keystone/groups/getShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getAllShouldSucceed() {
         post("/openstack/keystone/groups/getAllShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void updateShouldSucceed() {
         post("/openstack/keystone/groups/updateShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void deleteShouldSucceed() {
         post("/openstack/keystone/groups/deleteShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void addUserToGroupShouldSucceed() {
         post("/openstack/keystone/groups/addUserToGroupShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void checkUserGroupShouldSucceed() {
         post("/openstack/keystone/groups/checkUserGroupShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void removeUserFromGroupShouldSucceed() {
         post("/openstack/keystone/groups/removeUserFromGroupShouldSucceed").then().statusCode(204);
     }

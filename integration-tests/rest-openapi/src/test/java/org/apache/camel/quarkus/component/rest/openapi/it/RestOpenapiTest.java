@@ -19,14 +19,13 @@ package org.apache.camel.quarkus.component.rest.openapi.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
 
 @QuarkusTest
 class RestOpenapiTest {
 
-    @Test
+    //@Test
     public void testInvokeApiEndpoint() {
         RestAssured.given()
                 .queryParam("port", RestAssured.port)

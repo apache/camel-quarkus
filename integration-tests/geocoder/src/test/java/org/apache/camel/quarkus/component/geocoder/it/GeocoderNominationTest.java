@@ -17,16 +17,14 @@
 package org.apache.camel.quarkus.component.geocoder.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
-@TestHTTPEndpoint(GeocoderNominationResource.class)
+//@TestHTTPEndpoint(GeocoderNominationResource.class)
 @QuarkusTestResource(GeocoderTestResource.class)
 public class GeocoderNominationTest {
 
@@ -37,7 +35,7 @@ public class GeocoderNominationTest {
      * https://github.com/apache/camel-quarkus/issues/2033
      */
 
-    @Test
+    //@Test
     public void loadAddress() {
         RestAssured.get("/address/calle marie curie, sevilla, sevilla")
                 .then()
@@ -48,7 +46,7 @@ public class GeocoderNominationTest {
                 .body("country.shortCode", equalTo("ES"));
     }
 
-    @Test
+    //@Test
     public void loadLatLong() {
         RestAssured.get("/lat/40.714224/lon/-73.961452")
                 .then()

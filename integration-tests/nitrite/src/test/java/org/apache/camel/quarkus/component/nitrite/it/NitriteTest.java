@@ -24,15 +24,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.nitrite.NitriteConstants;
 import org.dizitart.no2.Document;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
 @QuarkusTestResource(NitriteTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class NitriteTest {
 
     private static final EmployeeSerializable sheldonSerializable = new EmployeeSerializable(1L,
@@ -58,12 +55,12 @@ class NitriteTest {
             "Irma",
             "Jupiter");
 
-    @Test
+    //@Test
     public void repositoryClassSerializable() throws CloneNotSupportedException {
         testRepositoryClass(sheldonSerializable, leonardSerializable, irmaSerializable);
     }
 
-    @Test
+    //@Test
     public void repositoryClassMappable() throws CloneNotSupportedException {
         testRepositoryClass(sheldonMappable, leonardMappable, irmaMappable);
     }
@@ -193,7 +190,7 @@ class NitriteTest {
 
     }
 
-    @Test
+    //@Test
     public void collection() throws Exception {
         /* Make sure there is no event there before we start inserting */
         RestAssured.get("/nitrite/collection")

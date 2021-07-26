@@ -21,15 +21,13 @@ import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class CaffeineTest {
-    @Test
+    //@Test
     public void loadComponentCaffeineCache() {
         RestAssured.get("/caffeine/component/{componentName}", "caffeine-cache")
                 .then()
@@ -39,7 +37,7 @@ class CaffeineTest {
                 .statusCode(200);
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @ValueSource(strings = { "embedded", CaffeineCaches.SHARED_CACHE_NAME })
     public void putAndGet(String cacheName) {
         final String key = "the-key";
@@ -56,7 +54,7 @@ class CaffeineTest {
                 .body(is(value));
     }
 
-    @Test
+    //@Test
     public void valueIsLoadedByTheCache() {
         final String key = "the-key";
         final String value = "the-key";

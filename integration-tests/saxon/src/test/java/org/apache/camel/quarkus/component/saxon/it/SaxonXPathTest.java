@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.component.saxon.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -25,31 +24,31 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class SaxonXPathTest {
 
-    @Test
+    //@Test
     public void xpathOnboardingSaxonViaFactoryOptionShouldSucceed() {
         String xml = "<items count='2'/>";
         given().body(xml).get("/xpath/factory").then().statusCode(200).body(is("Multiple items via factory option"));
     }
 
-    @Test
+    //@Test
     public void xpathOnboardingSaxonViaObjectModelOptionShouldSucceed() {
         String xml = "<items count='3'/>";
         given().body(xml).get("/xpath/objectModel").then().statusCode(200).body(is("Multiple items via objectModel option"));
     }
 
-    @Test
+    //@Test
     public void xpathOnboardingSaxonViaSaxonOptionShouldSucceed() {
         String xml = "<items count='4'/>";
         given().body(xml).get("/xpath/saxon").then().statusCode(200).body(is("Multiple items via saxon option"));
     }
 
-    @Test
+    //@Test
     public void saxonXpathWithFunctionShouldReturnPriceSumLessThan25() {
         String xml = "<items><item price='1'/><item price='2'/><item price='3'/><item price='4'/></items>";
         given().body(xml).get("/xpath/function").then().statusCode(200).body(is("Price sum <= 25"));
     }
 
-    @Test
+    //@Test
     public void saxonXpathWithFunctionShouldReturnPriceSumGreaterThan25() {
         String xml = "<items><item price='1'/><item price='2'/><item price='3'/><item price='40'/></items>";
         given().body(xml).get("/xpath/function").then().statusCode(200).body(is("Price sum > 25"));

@@ -25,25 +25,24 @@ import org.apache.camel.Message;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 public class QuteTemplateInHeaderTest extends QuteTestBase {
-    @Test
+    //@Test
     public void testReceivesFooResponse() throws Exception {
         assertRespondsWith("cheese", "foo", "<hello>foo</hello>");
     }
 
-    @Test
+    //@Test
     public void testReceivesBarResponse() throws Exception {
         assertRespondsWith("cheese", "bar", "<hello>bar</hello>");
     }
 
-    @Test
+    //@Test
     public void testRespectHeaderNamesUpperCase() throws Exception {
         assertRespondsWith("Cheese", "bar", "<hello>bar</hello>");
     }
 
-    @Test
+    //@Test
     public void testRespectHeaderNamesCamelCase() throws Exception {
         assertRespondsWith("CorrelationID", "bar", "<hello>bar</hello>");
     }

@@ -22,14 +22,13 @@ import java.util.List;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class RssTest {
 
-    @Test
+    //@Test
     public void rssComponentConsumeFeedHttp() {
         JsonPath json = RestAssured.given()
                 .queryParam("test-port", RestAssured.port)
@@ -43,7 +42,7 @@ class RssTest {
         assertFeedContent(json);
     }
 
-    @Test
+    //@Test
     public void rssDataformatMarshalUnmarshal() {
         JsonPath json = RestAssured.get("/rss/dataformat")
                 .then()

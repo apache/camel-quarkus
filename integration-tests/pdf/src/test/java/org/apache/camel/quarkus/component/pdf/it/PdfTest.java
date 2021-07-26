@@ -24,7 +24,6 @@ import io.restassured.http.ContentType;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class PdfTest {
 
     @Order(1)
-    @Test
+    //@Test
     public void createFromTextShouldReturnANewPdfDocument() throws IOException {
         byte[] bytes = RestAssured.given().contentType(ContentType.TEXT)
                 .body("content to be included in the created pdf document").post("/pdf/createFromText").then().statusCode(201)
@@ -48,7 +47,7 @@ class PdfTest {
     }
 
     @Order(2)
-    @Test
+    //@Test
     public void appendTextShouldReturnAnUpdatedPdfDocument() throws IOException {
         byte[] bytes = RestAssured.given().contentType(ContentType.TEXT).body("another line that should be appended")
                 .put("/pdf/appendText").then().statusCode(200).extract().asByteArray();
@@ -63,7 +62,7 @@ class PdfTest {
     }
 
     @Order(3)
-    @Test
+    //@Test
     public void extractTextShouldReturnUpdatedText() {
         String pdfText = RestAssured.get("/pdf/extractText").then().statusCode(200).extract().asString();
 

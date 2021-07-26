@@ -30,15 +30,12 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumMysqlTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMysqlTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumMysqlTest.class);
 
@@ -69,7 +66,7 @@ class DebeziumMysqlTest extends AbstractDebeziumTest {
         }
     }
 
-    @Test
+    //@Test
     @Order(0)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testReceiveEmptyMessages() {
@@ -79,21 +76,21 @@ class DebeziumMysqlTest extends AbstractDebeziumTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     @Order(1)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testInsert() throws SQLException {
         super.testInsert();
     }
 
-    @Test
+    //@Test
     @Order(2)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testUpdate() throws SQLException {
         super.testUpdate();
     }
 
-    @Test
+    //@Test
     @Order(3)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testDelete() throws SQLException {

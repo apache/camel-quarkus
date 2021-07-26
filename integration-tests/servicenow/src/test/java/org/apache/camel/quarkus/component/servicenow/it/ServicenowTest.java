@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.matchesPattern;
 
@@ -28,7 +27,7 @@ import static org.hamcrest.Matchers.matchesPattern;
 @QuarkusTestResource(ServicenowTestResource.class)
 class ServicenowTest {
 
-    @Test
+    //@Test
     public void test() {
         // Create incident
         final String incidentSysId = RestAssured.given()

@@ -27,7 +27,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.cbor.it.model.Author;
 import org.apache.camel.quarkus.component.cbor.it.model.DummyObject;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +37,7 @@ class CborTest {
 
     private static final ObjectMapper CBOR_MAPPER = new ObjectMapper(new CBORFactory());
 
-    @Test
+    //@Test
     void marshalUnmarshalMapShouldSucceed() {
         Map<String, String> in = Collections.singletonMap("name", "Camel");
 
@@ -47,7 +46,7 @@ class CborTest {
         assertEquals(1, out.size());
     }
 
-    @Test
+    //@Test
     void marshalUnmarshalAuthorShouldSucceed() {
         Author in = new Author();
         in.setName("Don");
@@ -59,7 +58,7 @@ class CborTest {
         assertEquals("Winslow", out.getSurname());
     }
 
-    @Test
+    //@Test
     void marshalUnmarshalCborMethod() {
         Author in = new Author();
         in.setName("Joe");
@@ -71,7 +70,7 @@ class CborTest {
         assertEquals("Doe", out.getSurname());
     }
 
-    @Test
+    //@Test
     void unmarshalAuthorViaJmsTypeHeaderShouldSucceed() throws JsonProcessingException {
         Author author = new Author();
         author.setName("David");
@@ -86,7 +85,7 @@ class CborTest {
         assertEquals("Foster Wallace", unmarshalled.getSurname());
     }
 
-    @Test
+    //@Test
     void unmarshalDummyObjectListShouldSucceed() throws JsonProcessingException {
         DummyObject first = new DummyObject();
         first.setDummy("value1");

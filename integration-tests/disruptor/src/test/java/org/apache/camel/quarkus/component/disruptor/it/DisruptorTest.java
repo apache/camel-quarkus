@@ -23,7 +23,6 @@ import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class DisruptorTest {
 
-    @Test
+    //@Test
     public void loadComponent() {
         RestAssured.get("/disruptor/component/{componentName}", DisruptorResource.DISRUPTOR)
                 .then()
@@ -41,7 +40,7 @@ class DisruptorTest {
                 .statusCode(404);
     }
 
-    @Test
+    //@Test
     public void putAndTake() {
         final String id = "the-id";
         final String value = UUID.randomUUID().toString();

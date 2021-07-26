@@ -21,7 +21,6 @@ import java.util.concurrent.TimeoutException;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
-import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.ProcessResult;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @QuarkusTest
 public class MainUnknownArgumentFailTest {
 
-    @Test
+    //@Test
     public void testMainTerminatesOnUnknownArguments() throws InterruptedException, IOException, TimeoutException {
         final ProcessResult result = new QuarkusProcessExecutor(new String[] {}, "-d", "10", "-cp", "foo.jar", "-t").execute();
 

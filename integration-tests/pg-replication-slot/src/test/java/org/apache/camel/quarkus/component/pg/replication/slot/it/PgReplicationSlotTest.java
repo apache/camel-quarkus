@@ -29,7 +29,6 @@ import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.camel.quarkus.component.pg.replication.slot.it.PgReplicationSlotRoute.PG_AUTHORITY_CFG_KEY;
@@ -68,7 +67,7 @@ class PgReplicationSlotTest {
         connection.close();
     }
 
-    @Test
+    //@Test
     public void insertsShouldTriggerReplicationEvents() throws SQLException {
 
         try (Statement statement = connection.createStatement()) {

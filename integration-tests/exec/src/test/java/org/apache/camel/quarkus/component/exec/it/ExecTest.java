@@ -18,14 +18,13 @@ package org.apache.camel.quarkus.component.exec.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class ExecTest {
 
-    @Test
+    //@Test
     public void testEchoExec() {
         RestAssured.get("/exec/echo")
                 .then()

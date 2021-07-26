@@ -21,7 +21,6 @@ import java.io.File;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -31,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTestResource(JfrTestResource.class)
 class JfrTest {
 
-    @Test
+    //@Test
     public void testflightRecorderRecording() {
         // Make sure the flight recorder is configured on the camel context
         RestAssured.when().get("/jfr/startup-step-recorder").then().body(is("true"));

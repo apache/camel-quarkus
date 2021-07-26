@@ -21,8 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.apache.camel.quarkus.component.http.it.HttpResource.USER_ADMIN;
@@ -40,7 +38,7 @@ class HttpTest {
 
     private static final String[] HTTP_COMPONENTS = new String[] { "ahc", "http", "netty-http", "vertx-http" };
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void basicProducer(String component) {
         RestAssured
@@ -63,7 +61,7 @@ class HttpTest {
                 .body(is("MESSAGE"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void httpsProducer(String component) {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.https-test-port", Integer.class);
@@ -78,7 +76,7 @@ class HttpTest {
                 .body(containsString("Czech Republic"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void basicAuth(String component) {
         // No credentials expect 401 response
@@ -117,7 +115,7 @@ class HttpTest {
                 .body(is("Component " + component + " is using basic auth"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void proxyServer(String component) {
         RestAssured
@@ -131,7 +129,7 @@ class HttpTest {
                         "metadata.artifactId", is("camel-quarkus-" + component));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void compression(String component) throws Exception {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.compression-test-port", Integer.class);
@@ -145,7 +143,7 @@ class HttpTest {
                 .body(is("Netty Hello World Compressed"));
     }
 
-    @Test
+    //@Test
     public void basicNettyHttpServer() throws Exception {
         final int port = ConfigProvider.getConfig().getValue("camel.netty-http.test-port", Integer.class);
         RestAssured
@@ -158,7 +156,7 @@ class HttpTest {
                 .body(is("Netty Hello World"));
     }
 
-    @Test
+    //@Test
     public void testAhcWsProducerConsumer() {
         String body = "Camel Quarkus AHC-WS";
         RestAssured
@@ -170,7 +168,7 @@ class HttpTest {
                 .body(is("Hello " + body));
     }
 
-    @Test
+    //@Test
     public void sendDynamic() {
         RestAssured
                 .given()

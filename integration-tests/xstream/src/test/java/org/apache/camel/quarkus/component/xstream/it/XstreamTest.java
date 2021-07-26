@@ -21,7 +21,6 @@ import javax.json.bind.JsonbBuilder;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.endsWith;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,7 +28,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 class XstreamTest {
 
-    @Test
+    //@Test
     void xstream() {
         final String xml = "<org.apache.camel.quarkus.component.xstream.it.PojoA><name>Joe</name></org.apache.camel.quarkus.component.xstream.it.PojoA>";
         final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));

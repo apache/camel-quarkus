@@ -27,14 +27,13 @@ import java.util.stream.Stream;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
 class SmallRyeReactiveMessagingTest {
 
-    @Test
+    //@Test
     public void testSmallRyeReactiveMessagingCamelRouteSubscriber() {
         Path path = Paths.get("target/values.txt");
         try {
@@ -50,7 +49,7 @@ class SmallRyeReactiveMessagingTest {
         }
     }
 
-    @Test
+    //@Test
     public void testSmallRyeReactiveMessagingCamelRoutePublisher() {
         Stream.of("a", "b", "c", "d")
                 .forEach(body -> {
@@ -72,7 +71,7 @@ class SmallRyeReactiveMessagingTest {
         });
     }
 
-    @Test
+    //@Test
     public void testPropertiesConfiguredFileConsumer() throws IOException {
         String content = "Hello Camel Quarkus Reactive Streams Messaging";
         Files.write(Paths.get("target/test/test.txt"), content.getBytes(StandardCharsets.UTF_8));

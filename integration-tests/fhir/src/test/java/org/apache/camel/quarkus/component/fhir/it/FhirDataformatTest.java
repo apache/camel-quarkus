@@ -24,13 +24,12 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class FhirDataformatTest {
     private static final Logger LOG = Logger.getLogger(FhirDataformatTest.class);
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void jsonDstu2() {
         LOG.info("Running DSTU2 JSON test");
@@ -43,7 +42,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void xmlDstu2() {
         LOG.info("Running DSTU2 XML test");
@@ -56,7 +55,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void jsonDstu3() {
         LOG.info("Running DSTU3 JSON test");
@@ -69,7 +68,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void xmlDstu3() {
         LOG.info("Running DSTU3 XML test");
@@ -82,7 +81,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R4Enabled.class)
     public void jsonR4() {
         LOG.info("Running R4 JSON test");
@@ -95,7 +94,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R4Enabled.class)
     public void xmlR4() {
         LOG.info("Running R4 XML test");
@@ -108,7 +107,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R5Enabled.class)
     public void jsonR5() {
         LOG.info("Running R5 JSON test");
@@ -121,7 +120,7 @@ class FhirDataformatTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R5Enabled.class)
     public void xmlR5() {
         LOG.info("Running R5 XML test");

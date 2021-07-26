@@ -24,14 +24,13 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 @QuarkusTestResource(FhirTestResource.class)
 class FhirClientTest {
     private static final Logger LOG = Logger.getLogger(FhirClientTest.class);
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R5Enabled.class)
     public void fhirClientR5() {
         LOG.info("Running R5 Client test");
@@ -44,7 +43,7 @@ class FhirClientTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.R4Enabled.class)
     public void fhirClientR4() {
         LOG.info("Running R4 Client test");
@@ -57,7 +56,7 @@ class FhirClientTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu3Enabled.class)
     public void fhirClientDstu3() {
         LOG.info("Running DSTU3 Client test");
@@ -70,7 +69,7 @@ class FhirClientTest {
                 .then().statusCode(201);
     }
 
-    @Test
+    //@Test
     @EnabledIf(FhirFlags.Dstu2Enabled.class)
     public void fhirClientDstu2() {
         LOG.info("Running DSTU2 CLIENT test");

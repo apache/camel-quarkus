@@ -23,7 +23,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.json.path.it.CarsRequest.Car;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,7 +41,7 @@ class JsonPathTransformTest {
         carsRequest.setCars(Arrays.asList(redCar, greenCar));
     }
 
-    @Test
+    //@Test
     public void getAllCarColorsShouldSucceed() {
         String colors = RestAssured.given() //
                 .contentType(ContentType.JSON).body(carsRequest).get("/jsonpath/getAllCarColors").then().statusCode(200)

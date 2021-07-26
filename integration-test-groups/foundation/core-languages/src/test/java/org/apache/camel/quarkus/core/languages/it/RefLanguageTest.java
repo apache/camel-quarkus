@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.languages.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -29,7 +28,7 @@ import static org.hamcrest.CoreMatchers.is;
  */
 @QuarkusTest
 public class RefLanguageTest {
-    @Test
+    //@Test
     public void ref() {
         given()
                 .body("My very foo")

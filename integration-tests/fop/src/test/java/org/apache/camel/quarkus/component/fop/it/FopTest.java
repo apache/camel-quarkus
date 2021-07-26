@@ -34,7 +34,6 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -68,12 +67,12 @@ class FopTest {
                 });
     }
 
-    @Test
+    //@Test
     public void convertToPdf() throws IOException {
         convertToPdf(msg -> decorateTextWithXSLFO(msg, null), null);
     }
 
-    @Test
+    //@Test
     public void convertToPdfWithCustomFont() throws IOException {
         convertToPdf(msg -> decorateTextWithXSLFO(msg, "Freedom"),
                 tmpDir.resolve("mycfg.xml").toAbsolutePath().toUri().toString());

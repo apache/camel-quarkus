@@ -19,14 +19,13 @@ package org.apache.camel.quarkus.component.mustache.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class MustacheTest {
 
-    @Test
+    //@Test
     void templateFromClassPathResource() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -37,7 +36,7 @@ class MustacheTest {
                 .body(is("\nMessage with body 'FromClassPath' and some header 'value'"));
     }
 
-    @Test
+    //@Test
     void templateFromHeader() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -48,7 +47,7 @@ class MustacheTest {
                 .body(is("Body='FromHeader'"));
     }
 
-    @Test
+    //@Test
     void templateUriFromHeader() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -59,7 +58,7 @@ class MustacheTest {
                 .body(is("\nAnother body 'UriFromHeader'!"));
     }
 
-    @Test
+    //@Test
     void templateWithInheritance() {
         RestAssured.get("/mustache/templateWithInheritance")
                 .then()
@@ -67,7 +66,7 @@ class MustacheTest {
                 .body(is("\n\nStart ContentFrom(Child) End"));
     }
 
-    @Test
+    //@Test
     void templateWithPartials() {
         RestAssured.get("/mustache/templateWithPartials")
                 .then()
@@ -75,7 +74,7 @@ class MustacheTest {
                 .body(is("\nStart-\nIncluded-End"));
     }
 
-    @Test
+    //@Test
     void templateFromRegistry() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)

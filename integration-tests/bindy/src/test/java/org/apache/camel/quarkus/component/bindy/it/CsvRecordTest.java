@@ -18,17 +18,16 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class CsvRecordTest {
 
-    @Test
+    //@Test
     public void marshalCsvRecordShouldSucceed() {
         RestAssured.get("/bindy/marshalCsvRecordShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void unMarshalCsvRecordShouldSucceed() {
         RestAssured.get("/bindy/unMarshalCsvRecordShouldSucceed").then().statusCode(204);
     }

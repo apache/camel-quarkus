@@ -29,7 +29,6 @@ import org.apache.camel.component.kafka.KafkaClientFactory;
 import org.apache.camel.quarkus.component.kafka.QuarkusKafkaClientFactory;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -47,7 +46,7 @@ public class QuarkusKafkaClientFactoryEnabledTest {
     @Inject
     CamelContext context;
 
-    @Test
+    //@Test
     public void quarkusKafkaClientFactoryRegistryBeanNotNull() {
         Set<KafkaClientFactory> factories = context.getRegistry().findByType(KafkaClientFactory.class);
         assertEquals(1, factories.size());

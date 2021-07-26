@@ -29,7 +29,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class MinimalConfigTest {
@@ -39,7 +38,7 @@ public class MinimalConfigTest {
                     .addClass(CustomDefaultServletClassTest.Routes.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
-    @Test
+    //@Test
     public void minimal() throws Exception {
         RestAssured.when().get("/hello")
                 .then().body(IsEqual.equalTo("GET: /hello"));

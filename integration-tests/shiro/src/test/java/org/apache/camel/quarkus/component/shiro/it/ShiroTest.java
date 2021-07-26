@@ -20,7 +20,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.shiro.security.ShiroSecurityToken;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class ShiroTest {
@@ -49,32 +48,32 @@ class ShiroTest {
     private static ShiroSecurityToken SEC_LEVEL3 = FRED_TOKEN;
     private static ShiroSecurityToken WRONG_TOKEN = new ShiroSecurityToken("sheldon", "wrong");
 
-    @Test
+    //@Test
     public void testHeaders() {
         test("headers", SHELDON_TOKEN, AUTHORIZATION.none, true);
         test("headers", WRONG_TOKEN, AUTHORIZATION.none, false);
     }
 
-    @Test
+    //@Test
     public void testToken() {
         test("token", IRMA_TOKEN, AUTHORIZATION.none, true);
         test("token", WRONG_TOKEN, AUTHORIZATION.none, false);
     }
 
-    @Test
+    //@Test
     public void testBase64() {
         test("base64", FRED_TOKEN, AUTHORIZATION.none, true);
         test("base64", WRONG_TOKEN, AUTHORIZATION.none, false);
     }
 
-    @Test
+    //@Test
     public void testTokenWithRoles() {
         test("headers", SEC_LEVEL1, AUTHORIZATION.roles, false);
         test("token", SEC_LEVEL2, AUTHORIZATION.roles, true);
         test("token", SEC_LEVEL3, AUTHORIZATION.roles, true);
     }
 
-    @Test
+    //@Test
     public void testTokenWithPermissions() {
         test("token", SEC_LEVEL1, AUTHORIZATION.permissions, false);
         test("headers", SEC_LEVEL2, AUTHORIZATION.permissions, true);

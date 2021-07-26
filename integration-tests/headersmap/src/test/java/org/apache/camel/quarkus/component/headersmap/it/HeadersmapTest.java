@@ -22,7 +22,6 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.component.headersmap.FastHeadersMapFactory;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class HeadersmapTest {
 
-    @Test
+    //@Test
     public void fastHeadersMapFactoryIsConfigured() {
         RestAssured.get("/headersmap/get")
                 .then()
@@ -41,7 +40,7 @@ class HeadersmapTest {
                 .body(is("true"));
     }
 
-    @Test
+    //@Test
     public void testLookupCaseAgnostic() {
         Map<String, Object> map = new FastHeadersMapFactory().newMap();
         assertNull(map.get("foo"));
@@ -53,7 +52,7 @@ class HeadersmapTest {
         assertEquals("bar", map.get("FOO"));
     }
 
-    @Test
+    //@Test
     public void testConstructFromOther() {
         Map<String, Object> other = new FastHeadersMapFactory().newMap();
         other.put("Foo", "bar");
@@ -70,7 +69,7 @@ class HeadersmapTest {
         assertEquals(123, map.get("OthEr"));
     }
 
-    @Test
+    //@Test
     public void testIsInstance() {
         Map<String, Object> map = new FastHeadersMapFactory().newMap();
         Map<String, Object> other = new FastHeadersMapFactory().newMap(map);

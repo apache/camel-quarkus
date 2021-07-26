@@ -23,7 +23,6 @@ import io.opentracing.tag.Tags;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +38,7 @@ class OpenTracingTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void testTraceRoute() {
         // Generate messages
         for (int i = 0; i < 5; i++) {
@@ -68,7 +67,7 @@ class OpenTracingTest {
         }
     }
 
-    @Test
+    //@Test
     public void testTracedBeanInvokedFromRoute() {
         RestAssured.get("/opentracing/test/bean")
                 .then()
@@ -82,7 +81,7 @@ class OpenTracingTest {
         assertEquals("camel-platform-http", spans.get(1).get(Tags.COMPONENT.getKey()));
     }
 
-    @Test
+    //@Test
     public void testTracedCamelRouteInvokedFromJaxRsService() {
         RestAssured.get("/opentracing/trace")
                 .then()

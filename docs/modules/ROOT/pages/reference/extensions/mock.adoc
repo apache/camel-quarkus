@@ -66,7 +66,7 @@ public class MockJvmTest {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Test
+    //@Test
     public void test() throws InterruptedException {
 
         producerTemplate.sendBody("direct:start", "Hello World");

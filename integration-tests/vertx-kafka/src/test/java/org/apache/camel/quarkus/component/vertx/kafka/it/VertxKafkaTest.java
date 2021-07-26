@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -28,7 +27,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(VertxKafkaTestResource.class)
 class VertxKafkaTest {
 
-    @Test
+    //@Test
     public void testVertxKafka() {
         String message = "Hello Camel Quarkus Vert.x Kafka";
 

@@ -18,17 +18,16 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class FixedLengthRecordTest {
 
-    @Test
+    //@Test
     public void marshalFixedLengthShouldSucceed() {
         RestAssured.get("/bindy/marshalFixedLengthRecordShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void unMarshalFixedLengthRecordShouldSucceed() {
         RestAssured.get("/bindy/unMarshalFixedLengthRecordShouldSucceed").then().statusCode(204);
     }

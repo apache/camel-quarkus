@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.weather.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasKey;
@@ -26,7 +25,7 @@ import static org.hamcrest.Matchers.hasKey;
 @QuarkusTest
 class WeatherTest {
 
-    @Test
+    //@Test
     public void loadByLocationName() {
         RestAssured.given()
                 .get("/weather/location/London,uk")
@@ -37,7 +36,7 @@ class WeatherTest {
                 .body("main", hasKey("temp"));
     }
 
-    @Test
+    //@Test
     public void loadByGeographicCoordinates() {
         RestAssured.given()
                 .get("/weather/lat/48.85/lon/2.35")
@@ -48,7 +47,7 @@ class WeatherTest {
                 .body("main", hasKey("temp"));
     }
 
-    @Test
+    //@Test
     public void loadByZipCode() {
         RestAssured.given()
                 .get("/weather/zip/92130,fr")
@@ -59,7 +58,7 @@ class WeatherTest {
                 .body("main", hasKey("temp"));
     }
 
-    @Test
+    //@Test
     public void loadByIds() {
         RestAssured.given()
                 // ids for Cairns / Rome / Paris / London
@@ -73,7 +72,7 @@ class WeatherTest {
                 .body("list[3].name", equalTo("London"));
     }
 
-    @Test
+    //@Test
     public void loadByPeriod() {
         RestAssured.given()
                 .get("/weather/location/London,uk/period/5")
@@ -92,7 +91,7 @@ class WeatherTest {
                 .body("city.name", equalTo("Paris"));
     }
 
-    @Test
+    //@Test
     public void testConsumer() {
         RestAssured.given()
                 .get("/weather/Paris,fr")

@@ -33,7 +33,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
@@ -45,7 +44,7 @@ class Hl7Test {
 
     private static final String PID_MESSAGE = readPidFile();
 
-    @Test
+    //@Test
     public void nettyMllp() {
         RestAssured.given()
                 .body(PID_MESSAGE)
@@ -63,7 +62,7 @@ class Hl7Test {
                         "phone", is("(818)565-1551"));
     }
 
-    @Test
+    //@Test
     public void hl7DataFormatMarshalUnmarshal() {
         RestAssured.given()
                 .body(PID_MESSAGE)
@@ -73,7 +72,7 @@ class Hl7Test {
                 .body(is(PID_MESSAGE.replace("\n", "\r")));
     }
 
-    @Test
+    //@Test
     public void hl7Terser() {
         RestAssured.given()
                 .body(PID_MESSAGE)
@@ -83,7 +82,7 @@ class Hl7Test {
                 .body(is("00001122"));
     }
 
-    @Test
+    //@Test
     public void hl7TerserBean() {
         RestAssured.given()
                 .body(PID_MESSAGE)
@@ -93,7 +92,7 @@ class Hl7Test {
                 .body(is("00001122"));
     }
 
-    @Test
+    //@Test
     public void hl7Validate() {
         // Make the PID message format invalid
         String message = PID_MESSAGE.replace("\r", "\t");
@@ -106,7 +105,7 @@ class Hl7Test {
                 .body(endsWith("PID is not recognized"));
     }
 
-    @Test
+    //@Test
     public void hl7ValidateCustomParser() {
         RestAssured.given()
                 .body(PID_MESSAGE)
@@ -116,7 +115,7 @@ class Hl7Test {
                 .body(is("Validation failed:  '00009874' requires to be equal to 00009999 at PID-2(0)-1-1"));
     }
 
-    @Test
+    //@Test
     public void hl7Xml() throws HL7Exception {
         ValidationContext validationContext = ValidationContextFactory.noValidation();
         ParserConfiguration parserConfiguration = new ParserConfiguration();
@@ -147,7 +146,7 @@ class Hl7Test {
                         "phone", is("(818)565-1551"));
     }
 
-    @Test
+    //@Test
     public void testGetEncodingFromPid() {
         String[] pidParts = PID_MESSAGE.split("\r");
 
@@ -176,7 +175,7 @@ class Hl7Test {
                 .body(containsString("SMÏTH^JÖHN^M"));
     }
 
-    @Test
+    //@Test
     public void testGetEncodingFromHeader() {
         // Verify the name field got messed up due to the encoding
         String message = PID_MESSAGE.replace("JOHN", "JÖHN").replace("SMITH", "SMÏTH");
@@ -198,7 +197,7 @@ class Hl7Test {
                 .body(containsString("SMÏTH^JÖHN^M"));
     }
 
-    @Test
+    //@Test
     public void hl7CustomAck() {
         RestAssured.given()
                 .body(PID_MESSAGE)

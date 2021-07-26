@@ -31,7 +31,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.camel.quarkus.component.nsq.it.NsqLogger.log;
@@ -70,7 +69,7 @@ class NsqTest {
         log(LOG, "NsqTest.PRODUCER = %s:%s", PRODUCER_HOST, PRODUCER_PORT);
     }
 
-    @Test
+    //@Test
     void nsqProducerShouldSucceed() throws Exception {
 
         CountDownLatch lock = new CountDownLatch(1);
@@ -98,7 +97,7 @@ class NsqTest {
         }
     }
 
-    @Test
+    //@Test
     void nsqConsumerShouldSucceed() throws NSQException, TimeoutException {
         NSQProducer producer = new NSQProducer();
         producer.addAddress(PRODUCER_HOST, PRODUCER_PORT);
@@ -112,7 +111,7 @@ class NsqTest {
         given().get("/nsq/get-messages/testConsumer").then().body(is(TEST_CONSUMER_MSG));
     }
 
-    @Test
+    //@Test
     void nsqConsumerWithExceptionShouldRequeueMessagesThreeTimes() throws NSQException, TimeoutException {
         NSQProducer producer = new NSQProducer();
         producer.addAddress(PRODUCER_HOST, PRODUCER_PORT);

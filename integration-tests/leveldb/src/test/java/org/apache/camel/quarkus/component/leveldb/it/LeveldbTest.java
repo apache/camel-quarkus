@@ -30,7 +30,6 @@ import io.restassured.specification.RequestSpecification;
 import org.apache.camel.Exchange;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -39,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class LeveldbTest {
 
-    @Test
+    //@Test
     public void testAggregate() {
         Map<String, List<Map<String, Object>>> data = testAggregate(LeveldbRouteBuilder.DIRECT_START,
                 Arrays.asList("S", "H", "E", "L", "D", "O", "N"));
@@ -49,7 +48,7 @@ class LeveldbTest {
         assertEquals("direct://start", resultData.get(0).get(LeveldbResource.PARAMETER_FROM_ENDPOINT));
     }
 
-    @Test
+    //@Test
     public void testAggregateRecovery() {
         Map<String, List<Map<String, Object>>> data = testAggregate(LeveldbRouteBuilder.DIRECT_START_WITH_FAILURE,
                 Arrays.asList("S", "H", "E", "L", "D", "O", "N"));
@@ -61,7 +60,7 @@ class LeveldbTest {
         assertEquals("direct://startWithFailure", resultData.get(0).get(LeveldbResource.PARAMETER_FROM_ENDPOINT));
     }
 
-    @Test
+    //@Test
     public void testDeadLetter() {
         Map<String, List<Map<String, Object>>> data = testAggregate(LeveldbRouteBuilder.DIRECT_START_DEAD_LETTER,
                 Arrays.asList("S", "H", "E", "L", "D", "O", "N"),
@@ -90,7 +89,7 @@ class LeveldbTest {
         assertFalse(deadData.get(0).containsKey(Exchange.REDELIVERY_MAX_COUNTER));
     }
 
-    @Test
+    //@Test
     public void testBinaryData() throws Exception {
 
         boolean theSame = RestAssured.given()

@@ -24,7 +24,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.equalTo;
@@ -35,7 +34,7 @@ import static org.hamcrest.Matchers.startsWith;
 @QuarkusTestResource(SyslogTestResource.class)
 class SyslogTest {
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @ValueSource(strings = { "rfc3164", "rfc5425" })
     public void syslogDataFormat(String rfcVersion) throws Exception {
         final String message = readSyslogMessage(rfcVersion);

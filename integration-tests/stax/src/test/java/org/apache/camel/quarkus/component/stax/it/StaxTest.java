@@ -18,14 +18,13 @@ package org.apache.camel.quarkus.component.stax.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class StaxTest {
 
-    @Test
+    //@Test
     public void staxProcessRecords() {
         RestAssured.get("/stax/records")
                 .then()
@@ -33,7 +32,7 @@ class StaxTest {
                 .body(is("11"));
     }
 
-    @Test
+    //@Test
     public void staxProcessRecordsByRef() {
         RestAssured.get("/stax/records/byref")
                 .then()
@@ -41,7 +40,7 @@ class StaxTest {
                 .body(is("11"));
     }
 
-    @Test
+    //@Test
     public void staxSplitRecords() {
         RestAssured.get("/stax/records/split")
                 .then()

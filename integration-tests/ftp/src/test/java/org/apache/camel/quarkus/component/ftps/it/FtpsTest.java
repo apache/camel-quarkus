@@ -20,14 +20,13 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(FtpsTestResource.class)
 class FtpsTest {
-    @Test
+    //@Test
     public void testFtpsComponent() {
         // Create a new file on the FTPS server
         RestAssured.given()

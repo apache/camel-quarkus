@@ -25,7 +25,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -36,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTestResource(KafkaTestResource.class)
 public class CamelKafkaTest {
 
-    @Test
+    //@Test
     void testKafkaBridge() {
         String body = UUID.randomUUID().toString();
 
@@ -59,7 +58,7 @@ public class CamelKafkaTest {
         assertThat(result.getString("body")).isEqualTo(body);
     }
 
-    @Test
+    //@Test
     void testIndempotent() {
 
         for (int i = 0; i < 10; i++) {
@@ -77,7 +76,7 @@ public class CamelKafkaTest {
 
     }
 
-    @Test
+    //@Test
     void testQuarkusKafkaClientFactoryNotConfigured() {
         // quarkus-kubernetes-service-binding is not on the classpath so there should be no
         // custom KafkaClientFactory configured in the registry.

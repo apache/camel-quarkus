@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -30,17 +29,17 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class JoltTest {
 
-    @Test
+    //@Test
     public void defaultrShouldSucceed() {
         given().body("myValue").put("/jolt/defaultr").then().statusCode(200).body(is("aa-bb+myValue"));
     }
 
-    @Test
+    //@Test
     public void removrShouldSucceed() {
         given().body("myOtherValue").put("/jolt/removr").then().statusCode(200).body(is("2-Kept+myOtherValue"));
     }
 
-    @Test
+    //@Test
     public void sampleShouldSucceed() throws IOException {
         final String requestBody = IOUtils.toString(getClass().getResourceAsStream("/sample-input.json"),
                 StandardCharsets.UTF_8);
@@ -51,7 +50,7 @@ class JoltTest {
                 .body(is(expectedResponseBody));
     }
 
-    @Test
+    //@Test
     public void functionShouldSucceed() throws IOException {
         final String requestBody = IOUtils.toString(getClass().getResourceAsStream("/function-input.json"),
                 StandardCharsets.UTF_8);

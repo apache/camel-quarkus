@@ -21,7 +21,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
-import org.junit.jupiter.api.Test;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.get;
@@ -37,7 +36,7 @@ class PubnubTest {
     @MockServer
     WireMockServer server;
 
-    @Test
+    //@Test
     public void testPublishSubscribeShouldReturnSameMessage() {
         String message = "Test PubNub publish";
 
@@ -73,7 +72,7 @@ class PubnubTest {
                 .body(is(message));
     }
 
-    @Test
+    //@Test
     public void testPubNubFire() {
         String message = "Test PubNub fire";
 
@@ -90,7 +89,7 @@ class PubnubTest {
                 .body(matchesPattern("[0-9]+"));
     }
 
-    @Test
+    //@Test
     public void testPubNubPresence() {
         if (server != null) {
             server.stubFor(get(urlPathMatching("/v2/subscribe/(.*)/(.*)/0"))
@@ -114,7 +113,7 @@ class PubnubTest {
                 .body(is("test"));
     }
 
-    @Test
+    //@Test
     public void testPubNubState() {
         if (server != null) {
             server.stubFor(get(urlPathMatching("/v2/presence/sub-key/(.*)/channel/(.*)/uuid/myuuid/data"))
@@ -139,7 +138,7 @@ class PubnubTest {
                 .body(is("test-state-value"));
     }
 
-    @Test
+    //@Test
     public void testPubNubHistory() {
         if (server != null) {
             server.stubFor(post(urlPathMatching("/publish/(.*)/(.*)/0/(.*)/0"))
@@ -162,7 +161,7 @@ class PubnubTest {
                 .body(matchesPattern("^[1-9][0-9]*$"));
     }
 
-    @Test
+    //@Test
     public void testPubNubHereNow() {
         if (server != null) {
             server.stubFor(post(urlPathMatching("/publish/(.*)/(.*)/0/(.*)/0"))

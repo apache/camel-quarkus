@@ -22,7 +22,6 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.json.path.it.StoreRequest.Book;
 import org.apache.camel.quarkus.component.json.path.it.StoreRequest.Store;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,7 +38,7 @@ class JsonPathSetBodyTest {
         storeRequest.getStore().getBook().setPrice(6.0);
     }
 
-    @Test
+    //@Test
     public void getBookPrice() {
         String bookPrice = RestAssured.given() //
                 .contentType(ContentType.JSON).body(storeRequest).get("/jsonpath/getBookPrice").then().statusCode(200).extract()

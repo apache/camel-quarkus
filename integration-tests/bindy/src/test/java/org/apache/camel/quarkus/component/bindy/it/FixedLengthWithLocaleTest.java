@@ -18,12 +18,11 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class FixedLengthWithLocaleTest {
 
-    @Test
+    //@Test
     public void marshalFixedLengthWithLocaleShouldSucceed() {
         RestAssured.get("/bindy/marshalFixedLengthWithLocaleShouldSucceed").then().statusCode(204);
     }

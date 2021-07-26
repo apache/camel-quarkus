@@ -65,7 +65,7 @@ public class DigitaloceanDropletTest {
      * Testing droplet producer and all tests of producers related to an existing droplet
      *
      */
-    @Test
+    //@Test
     void testDroplets() throws InterruptedException {
         // insert multiple droplets
         Integer dropletId = RestAssured.given().contentType(ContentType.JSON).put("/digitalocean/droplet/droplet1")

@@ -26,7 +26,6 @@ import org.apache.camel.quarkus.component.grpc.it.model.PingPongGrpc.PingPongBlo
 import org.apache.camel.quarkus.component.grpc.it.model.PingRequest;
 import org.apache.camel.quarkus.component.grpc.it.model.PongResponse;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -34,7 +33,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTestResource(GrpcServerTestResource.class)
 class GrpcTest {
 
-    @Test
+    //@Test
     public void consumer() {
         ManagedChannel syncRequestChannel = null;
         try {
@@ -57,7 +56,7 @@ class GrpcTest {
         }
     }
 
-    @Test
+    //@Test
     public void producer() {
         int id = 1234;
         RestAssured.given()

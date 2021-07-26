@@ -37,7 +37,6 @@ import org.apache.camel.quarkus.component.avro.rpc.it.specific.generated.Value;
 import org.apache.camel.quarkus.component.avro.rpc.it.specific.impl.KeyValueProtocolImpl;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -57,7 +56,7 @@ abstract class AvroRpcTestSupport {
     private Requestor reflectRequestor, specificRequestor;
     private Transceiver reflectTransceiver, specificTransceiver;
 
-    @Test
+    //@Test
     public void testReflectionProducer() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -78,7 +77,7 @@ abstract class AvroRpcTestSupport {
                 .body(is(NAME));
     }
 
-    @Test
+    //@Test
     public void testSpecificProducer() throws InterruptedException {
         Key key = Key.newBuilder().setKey("1").build();
         Value value = Value.newBuilder().setValue(NAME).build();
@@ -104,7 +103,7 @@ abstract class AvroRpcTestSupport {
                 .body(is(NAME_FROM_KEY_VALUE));
     }
 
-    @Test
+    //@Test
     public void testReflectionConsumer() throws Exception {
         TestPojo testPojo = new TestPojo();
         testPojo.setPojoName(NAME);
@@ -122,7 +121,7 @@ abstract class AvroRpcTestSupport {
                 .body(is(NAME));
     }
 
-    @Test
+    //@Test
     public void testSpecificConsumer() throws Exception {
         Key key = Key.newBuilder().setKey("2").build();
         Value value = Value.newBuilder().setValue(NAME).build();

@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -28,7 +27,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(SftpTestResource.class)
 class SftpTest {
 
-    @Test
+    //@Test
     public void testSftpComponent() {
         // Create a new file on the SFTP server
         RestAssured.given()

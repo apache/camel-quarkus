@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.hystrix.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.hamcrest.core.Is.is;
@@ -30,7 +29,7 @@ import static org.hamcrest.core.Is.is;
 @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 class HystrixTest {
 
-    @Test
+    //@Test
     public void testHystrixFallback() {
 
         // Try a 10 millisecond delay in route processing to be within the allowed circuit breaker tolerance
@@ -46,7 +45,7 @@ class HystrixTest {
                 .body(is("Fallback response"));
     }
 
-    @Test
+    //@Test
     public void testHystrixFallbackViaNetwork() {
 
         RestAssured.get("/hystrix/fallback/network")

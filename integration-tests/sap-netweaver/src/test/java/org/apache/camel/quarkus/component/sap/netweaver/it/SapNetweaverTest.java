@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 
@@ -29,7 +28,7 @@ import static org.hamcrest.Matchers.containsString;
 @QuarkusTestResource(SapNetweaverTestResource.class)
 class SapNetweaverTest {
 
-    @Test
+    //@Test
     public void testSapNetweaverJson() {
         final int port = ConfigProvider.getConfig().getValue("camel.netty.test-port", Integer.class);
         RestAssured.given()
@@ -40,7 +39,7 @@ class SapNetweaverTest {
                 .body(containsString("PRICE=422.94, CURRENCY=USD"));
     }
 
-    @Test
+    //@Test
     public void testSapNetweaverXml() {
         final int port = ConfigProvider.getConfig().getValue("camel.netty.test-port", Integer.class);
         String body = RestAssured.given()

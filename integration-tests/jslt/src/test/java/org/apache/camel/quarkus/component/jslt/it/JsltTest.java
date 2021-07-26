@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.jslt.it;
 import java.io.IOException;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -31,7 +30,7 @@ import static org.hamcrest.Matchers.startsWith;
 @QuarkusTest
 class JsltTest {
 
-    @Test
+    //@Test
     public void transformInputStreamShouldSucceed() throws IOException {
         String expected = resourceToString("/demoPlayground/output.json", UTF_8);
         String input = resourceToString("/demoPlayground/input.json", UTF_8);
@@ -39,13 +38,13 @@ class JsltTest {
         given().when().body(input).get("/jslt/transformInputStream").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformInvalidBodyShouldIssueValidationErrorMessage() {
         given().when().get("/jslt/transformInvalidBody").then().statusCode(200)
                 .body(startsWith("Allowed body types are String or InputStream."));
     }
 
-    @Test
+    //@Test
     public void transformStringShouldSucceed() throws IOException {
         String expected = resourceToString("/demoPlayground/output.json", UTF_8);
         String input = resourceToString("/demoPlayground/input.json", UTF_8);
@@ -53,7 +52,7 @@ class JsltTest {
         given().when().body(input).get("/jslt/transformString").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformFromHeaderWithPrettyPrintShouldSucceed() throws IOException {
         String expected = resourceToString("/demoPlayground/outputPrettyPrint.json", UTF_8);
         String input = resourceToString("/demoPlayground/input.json", UTF_8);
@@ -61,7 +60,7 @@ class JsltTest {
         given().when().body(input).get("/jslt/transformFromHeaderWithPrettyPrint").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformInputStreamWithFilterShouldSucceed() throws IOException {
         String expected = resourceToString("/objectFilter/output.json", UTF_8);
         String input = resourceToString("/objectFilter/input.json", UTF_8);
@@ -69,7 +68,7 @@ class JsltTest {
         given().when().body(input).get("/jslt/transformInputStreamWithFilter").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformInputStreamWithVariablesShouldSucceed() throws IOException {
         String expected = resourceToString("/withVariables/output.json", UTF_8);
         String input = resourceToString("/withVariables/input.json", UTF_8);
@@ -77,7 +76,7 @@ class JsltTest {
         given().when().body(input).get("/jslt/transformInputStreamWithVariables").then().statusCode(200).body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformInputStreamWithVariablesAndPropertiesShouldSucceed() throws IOException {
         String expected = resourceToString("/withVariables/outputWithProperties.json", UTF_8);
         String input = resourceToString("/withVariables/input.json", UTF_8);
@@ -86,7 +85,7 @@ class JsltTest {
                 .body(is(expected));
     }
 
-    @Test
+    //@Test
     public void transformWithFunctionShouldSucceed() {
         given().get("/jslt/transformWithFunction").then().statusCode(200).body(is("1024.0"));
     }

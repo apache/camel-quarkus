@@ -32,7 +32,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -47,7 +46,7 @@ public class CamelMainUnknownArgumentWarnTest {
     @Inject
     CamelMain main;
 
-    @Test
+    //@Test
     public void unknownArgumentLogsWarning() {
         PrintStream oldOut = System.out;
 

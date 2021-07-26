@@ -29,7 +29,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CustomDefaultServletClassTest {
@@ -40,7 +39,7 @@ public class CustomDefaultServletClassTest {
                     .addClass(CustomServlet.class)
                     .addAsResource(applicationProperties(), "application.properties"));
 
-    @Test
+    //@Test
     public void customDefaultServletClass() throws Exception {
         RestAssured.when().get("/custom").then()
                 .body(IsEqual.equalTo("GET: /custom"))

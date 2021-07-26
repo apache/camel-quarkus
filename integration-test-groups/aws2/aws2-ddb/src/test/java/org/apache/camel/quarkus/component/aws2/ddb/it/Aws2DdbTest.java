@@ -126,5 +126,4 @@ class Aws2DdbTest {
                         && newMsg.equals(list.get(2).get("old")));
 
     }
-
 }

@@ -31,7 +31,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -68,7 +67,7 @@ class AzureStorageBlobTest {
         return blobContainer;
     }
 
-    @Test
+    //@Test
     public void crud() {
         String blobContent = "Hello Camel Quarkus Azure Blob";
 

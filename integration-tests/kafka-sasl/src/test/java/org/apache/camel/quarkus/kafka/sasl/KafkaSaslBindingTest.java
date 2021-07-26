@@ -22,7 +22,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -30,7 +29,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @QuarkusTestResource(KafkaSaslTestResource.class)
 public class KafkaSaslBindingTest {
 
-    @Test
+    //@Test
     void testKafkaBridge() {
         String body = UUID.randomUUID().toString();
 

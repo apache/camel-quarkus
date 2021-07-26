@@ -36,7 +36,6 @@ import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -92,7 +91,7 @@ public class CamelMainRoutesIncludePatternWithAbsoluteFilePrefixDevModeTest {
                 StandardCopyOption.REPLACE_EXISTING);
     }
 
-    @Test
+    //@Test
     public void testRoutesDiscovery() throws IOException {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
             Response res = RestAssured.when().get("/test/describe").thenReturn();

@@ -23,7 +23,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.is;
@@ -35,7 +34,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class GoogleComponentsTest {
 
-    @Test
+    //@Test
     public void testGoogleCalendarComponent() {
         String summary = "Camel Quarkus Google Calendar";
         String eventText = summary += " Event";
@@ -119,7 +118,7 @@ class GoogleComponentsTest {
                 });
     }
 
-    @Test
+    //@Test
     public void testGoogleDriveComponent() {
         String title = UUID.randomUUID().toString();
 
@@ -156,7 +155,7 @@ class GoogleComponentsTest {
                 .statusCode(404);
     }
 
-    @Test
+    //@Test
     public void testGoogleMailComponent() {
         String message = "Hello Camel Quarkus Google Mail";
 
@@ -200,7 +199,7 @@ class GoogleComponentsTest {
                 .statusCode(404);
     }
 
-    @Test
+    //@Test
     public void testGoogleSheetsComponent() {
         String title = "Camel Quarkus Google Sheet";
 

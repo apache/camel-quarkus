@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.camel.quarkus.component.univocity.parsers.it.UniVocityTestHelper.asMap;
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 public class UniVocityFixedWidthDataFormatUnmarshalTest {
 
-    @Test
+    //@Test
     void shouldUnmarshalWithDefaultConfiguration() {
         String content = join("A  B  C    ", "1  2  3    ", "onetwothree");
         String url = "/univocity-parsers/unmarshal/fixed-width/default";
@@ -41,7 +40,7 @@ public class UniVocityFixedWidthDataFormatUnmarshalTest {
         assertEquals(Arrays.asList("one", "two", "three"), unmarshalleds.get(2));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalAsMap() {
         String content = join("A  B  C    ", "1  2  3    ", "onetwothree");
         String url = "/univocity-parsers/unmarshal/fixed-width/map";
@@ -51,7 +50,7 @@ public class UniVocityFixedWidthDataFormatUnmarshalTest {
         assertEquals(asMap("A", "one", "B", "two", "C", "three"), unmarshalleds.get(1));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalAsMapWithHeaders() {
         String content = join("1  2  3    ", "onetwothree");
         String url = "/univocity-parsers/unmarshal/fixed-width/mapWithHeaders";
@@ -61,7 +60,7 @@ public class UniVocityFixedWidthDataFormatUnmarshalTest {
         assertEquals(asMap("A", "one", "B", "two", "C", "three"), unmarshalleds.get(1));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalUsingIterator() {
         String content = join("A  B  C    ", "1  2  3    ", "onetwothree");
         String url = "/univocity-parsers/unmarshal/fixed-width/lazy";
@@ -72,7 +71,7 @@ public class UniVocityFixedWidthDataFormatUnmarshalTest {
         assertEquals(Arrays.asList("one", "two", "three"), unmarshalleds.get(2));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalUsingAdvancedConfiguration() {
         String content = join("!This is comment", "!This is comment too", "A__B__", "", "___D__");
         String url = "/univocity-parsers/unmarshal/fixed-width/advanced";

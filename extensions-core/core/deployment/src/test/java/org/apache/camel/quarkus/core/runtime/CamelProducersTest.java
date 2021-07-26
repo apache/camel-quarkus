@@ -28,7 +28,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.spi.Registry;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,7 +48,7 @@ public class CamelProducersTest {
     @Inject
     BeanUsingRegistry usingRegistry;
 
-    @Test
+    //@Test
     public void testInjection() throws Exception {
         usingProducerTemplate.verify();
         usingFluentProducerTemplate.verify();

@@ -24,7 +24,6 @@ import io.restassured.http.ContentType;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @EnabledIfEnvironmentVariable(named = "AZURE_STORAGE_ACCOUNT_NAME", matches = ".+")
@@ -36,7 +35,7 @@ class AzureEventhubsTest {
 
     private static final Logger LOG = Logger.getLogger(AzureEventhubsTest.class);
 
-    @Test
+    //@Test
     public void roundTrip() {
         final String messageBody = RandomStringUtils.randomAlphabetic(30);
 

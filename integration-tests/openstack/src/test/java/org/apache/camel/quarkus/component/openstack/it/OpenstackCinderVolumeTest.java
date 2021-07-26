@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,32 +25,32 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackCinderVolumeTest {
 
-    @Test
+    //@Test
     public void createShouldSucceed() {
         post("/openstack/cinder/volumes/createShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getShouldSucceed() {
         post("/openstack/cinder/volumes/getShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getAllShouldSucceed() {
         post("/openstack/cinder/volumes/getAllShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getAllTypesShouldSucceed() {
         post("/openstack/cinder/volumes/getAllTypesShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void updateShouldSucceed() {
         post("/openstack/cinder/volumes/updateShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void deleteShouldSucceed() {
         post("/openstack/cinder/volumes/deleteShouldSucceed").then().statusCode(204);
     }

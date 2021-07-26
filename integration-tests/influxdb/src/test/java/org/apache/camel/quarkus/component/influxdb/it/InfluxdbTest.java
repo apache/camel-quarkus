@@ -25,10 +25,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.component.influxdb.InfluxDbConstants;
 import org.apache.camel.component.influxdb.converters.CamelInfluxDbConverters;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertFalse;
@@ -36,16 +33,16 @@ import static org.junit.Assert.assertNotNull;
 
 @QuarkusTest
 @QuarkusTestResource(InfluxdbTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class InfluxdbTest {
 
-    @Test
+    //@Test
     @Order(1)
     public void pingTest() {
         RestAssured.given().get("/influxdb/ping").then().body(is(InfluxdbTestResource.INFLUXDB_VERSION));
     }
 
-    @Test
+    //@Test
     @Order(2)
     public void insertTest() {
         Point point = createBatchPoints().getPoints().get(0);
@@ -58,7 +55,7 @@ class InfluxdbTest {
                 .body(is("true"));
     }
 
-    @Test
+    //@Test
     @Order(3)
     public void batchInsertTest() {
         Points points = createBatchPoints();
@@ -71,7 +68,7 @@ class InfluxdbTest {
                 .body(is("2"));
     }
 
-    @Test
+    //@Test
     @Order(4)
     public void queryTest() {
         // result should contain only 1 result with name 'cpu', because 'cpu' is only part of batchInsert, which was executed before
@@ -84,7 +81,7 @@ class InfluxdbTest {
                 .body(is("cpu"));
     }
 
-    @Test
+    //@Test
     @Order(5)
     public void doesNotAddCamelHeaders() {
         Map<String, Object> pointInMapFormat = new HashMap<>();

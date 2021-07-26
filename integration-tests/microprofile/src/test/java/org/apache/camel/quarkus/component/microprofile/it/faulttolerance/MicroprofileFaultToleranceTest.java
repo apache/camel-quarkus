@@ -19,12 +19,11 @@ package org.apache.camel.quarkus.component.microprofile.it.faulttolerance;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class MicroprofileFaultToleranceTest {
 
-    @Test
+    //@Test
     public void testCamelMicroProfileFaultToleranceFallback() {
 
         // First request should trigger the fallback response
@@ -40,7 +39,7 @@ class MicroprofileFaultToleranceTest {
                 .body(Matchers.is(MicroProfileFaultToleranceRoutes.RESULT));
     }
 
-    @Test
+    //@Test
     public void testCamelMicroProfileFaultToleranceFallbackWithTimeout() {
 
         // First request should trigger the fallback response

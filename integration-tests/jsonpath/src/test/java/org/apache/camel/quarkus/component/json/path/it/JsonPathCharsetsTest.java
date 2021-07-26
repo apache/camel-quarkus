@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 class JsonPathCharsetsTest {
 
-    @Test
+    //@Test
     public void transformBooksUTF16BEShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/booksUTF16BE.json");
         String[] authors = given().body(body).get("/jsonpath/getAuthorsFromJsonStream").then().statusCode(200).extract()
@@ -38,7 +37,7 @@ class JsonPathCharsetsTest {
         assertEquals("Sword of Honour", authors[1]);
     }
 
-    @Test
+    //@Test
     public void transformBooksUTF16LEShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/booksUTF16LE.json");
         String[] authors = given().body(body).get("/jsonpath/getAuthorsFromJsonStream").then().statusCode(200).extract()
@@ -48,7 +47,7 @@ class JsonPathCharsetsTest {
         assertEquals("Sword of Honour", authors[1]);
     }
 
-    @Test
+    //@Test
     public void transformBooksIso_8859_1_ShouldReturnTwoAuthors() throws IOException {
         byte[] body = IOUtils.resourceToByteArray("/germanbooks-iso-8859-1.json");
         String[] authors = given().queryParam("encoding", "ISO-8859-1").body(body).get("/jsonpath/getAuthorsFromJsonStream")

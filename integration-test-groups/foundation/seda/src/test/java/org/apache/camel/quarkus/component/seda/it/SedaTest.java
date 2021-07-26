@@ -19,14 +19,13 @@ package org.apache.camel.quarkus.component.seda.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
 class SedaTest {
 
-    @Test
+    //@Test
     public void seda() {
         RestAssured.given()
                 .contentType(ContentType.TEXT).body("Hello World").post("/seda/foo")

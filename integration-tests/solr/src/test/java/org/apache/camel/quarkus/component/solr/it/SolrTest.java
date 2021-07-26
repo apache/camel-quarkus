@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -45,7 +44,7 @@ public class SolrTest {
         return Stream.of("/solr/standalone", "/solr/ssl", "/solr/cloud");
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testSingleBean(String resource) {
         // create a bean item
@@ -75,7 +74,7 @@ public class SolrTest {
                 .body(emptyOrNullString());
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testMultipleBeans(String resource) {
         // create list of beans
@@ -120,7 +119,7 @@ public class SolrTest {
                 .body(emptyOrNullString());
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testInsertId(String resource) {
         Map<String, Object> fields = new HashMap<>();
@@ -142,7 +141,7 @@ public class SolrTest {
 
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testOptimize(String resource) {
         Map<String, Object> fields = new HashMap<>();
@@ -173,7 +172,7 @@ public class SolrTest {
     }
 
     //  Rollback is currently not supported in SolrCloud mode (SOLR-4895). So limiting this test to standalone and standalone with SSL modes
-    @ParameterizedTest
+    //@ParameterizedTest
     @ValueSource(strings = { "/solr/standalone", "/solr/ssl" })
     public void testRollback(String resource) {
         Map<String, Object> fields = new HashMap<>();
@@ -207,7 +206,7 @@ public class SolrTest {
                 .body(emptyOrNullString());
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testSoftCommit(String resource) {
         Map<String, Object> fields = new HashMap<>();
@@ -236,7 +235,7 @@ public class SolrTest {
                 .body(equalTo("com1"));
     }
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @MethodSource("resources")
     public void testInsertStreaming(String resource) throws InterruptedException {
         Map<String, Object> fields = new HashMap<>();

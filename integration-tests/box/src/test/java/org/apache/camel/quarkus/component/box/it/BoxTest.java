@@ -20,7 +20,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @EnabledIfEnvironmentVariable(named = "BOX_USER_NAME", matches = ".+")
@@ -30,7 +29,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 @QuarkusTest
 class BoxTest {
 
-    @Test
+    //@Test
     public void testUploadDownloadDeleteFile() {
         String fileName = "CamelQuarkusTestFile_Upload.txt";
         String content = "This is the CamelQuarkusTestFile.";

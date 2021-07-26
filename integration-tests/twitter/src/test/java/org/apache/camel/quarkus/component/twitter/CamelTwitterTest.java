@@ -25,7 +25,6 @@ import io.restassured.http.ContentType;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.core.StringContains;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 @QuarkusTest
@@ -35,7 +34,7 @@ public class CamelTwitterTest {
     final int testTwitterDelayInitial = ConfigProvider.getConfig().getOptionalValue("test.twitter.delay.initial", Integer.class)
             .orElse(60);
 
-    @Test
+    //@Test
     public void direct() {
         final String uuid = UUID.randomUUID().toString().replace("-", "");
         final String msg = String.format("Direct message from camel-quarkus-twitter %s", uuid);
@@ -56,7 +55,7 @@ public class CamelTwitterTest {
                 });
     }
 
-    @Test
+    //@Test
     public void e2e() {
 
         final String uuid = UUID.randomUUID().toString().replace("-", "");

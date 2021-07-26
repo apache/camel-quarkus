@@ -35,7 +35,6 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileResource.CONSUME_BATCH;
 import static org.apache.camel.quarkus.component.file.it.FileResource.SEPARATOR;
@@ -67,7 +66,7 @@ class FileTest {
         pathsToDelete.clear();
     }
 
-    @Test
+    //@Test
     public void file() throws UnsupportedEncodingException {
         // Create a new file
         String fileName = createFile(FILE_BODY, "/file/create/in");
@@ -80,7 +79,7 @@ class FileTest {
                 .body(equalTo(FILE_BODY));
     }
 
-    @Test
+    //@Test
     public void charset() throws UnsupportedEncodingException {
         // Create a new file
         createFile(FILE_BODY_UTF8, "/file/create/charsetUTF8", "UTF-8", null);
@@ -103,7 +102,7 @@ class FileTest {
                 equalTo(new String(FILE_BODY_UTF8.getBytes(), "ISO-8859-1")));
     }
 
-    @Test
+    //@Test
     public void batch() throws InterruptedException, UnsupportedEncodingException {
         // Create 2 files
         createFile(FILE_CONTENT_01, "/file/create/" + CONSUME_BATCH);
@@ -125,7 +124,7 @@ class FileTest {
         });
     }
 
-    @Test
+    //@Test
     public void idempotent() throws IOException {
         // Create a new file
         String fileName01 = createFile(FILE_CONTENT_01, "/file/create/idempotent");
@@ -156,7 +155,7 @@ class FileTest {
                 equalTo(FILE_CONTENT_02));
     }
 
-    @Test
+    //@Test
     public void filter() throws IOException {
         String fileName = createFile(FILE_CONTENT_01, "/file/create/filter", null, "skip_" + UUID.randomUUID().toString());
         createFile(FILE_CONTENT_02, "/file/create/filter");
@@ -171,7 +170,7 @@ class FileTest {
                 equalTo(FILE_CONTENT_02));
     }
 
-    @Test
+    //@Test
     public void sortBy() throws IOException, InterruptedException {
         createFile(FILE_CONTENT_03, "/file/create/" + SORT_BY, null, "c_" + UUID.randomUUID().toString());
         createFile(FILE_CONTENT_01, "/file/create/" + SORT_BY, null, "a_" + UUID.randomUUID().toString());
@@ -187,7 +186,7 @@ class FileTest {
                 equalTo(FILE_CONTENT_03 + SEPARATOR + FILE_CONTENT_02 + SEPARATOR + FILE_CONTENT_01));
     }
 
-    @Test
+    //@Test
     public void fileWatchCreateUpdate() throws IOException, InterruptedException {
         final Path dir = Files.createTempDirectory(FileTest.class.getSimpleName()).toRealPath();
         RestAssured.given()
@@ -210,7 +209,7 @@ class FileTest {
         awaitEvent(dir, file, "DELETE");
     }
 
-    @Test
+    //@Test
     public void fileReadLock_minLength() throws Exception {
         // Create a new file
         String fileName = RestAssured.given()
@@ -232,7 +231,7 @@ class FileTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void quartzSchedulerFilePollingConsumer() throws InterruptedException, UnsupportedEncodingException {
         String fileName = createFile(FILE_BODY, "/file/create/quartz");
 
@@ -312,7 +311,7 @@ class FileTest {
                 });
     }
 
-    @Test
+    //@Test
     public void pollEnrich() throws IOException {
         final Path file = Paths.get("target/pollEnrich/pollEnrich.txt");
         Files.createDirectories(file.getParent());

@@ -20,7 +20,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.protobuf.it.model.AddressBookProtos.Person;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
 
@@ -35,7 +34,7 @@ class ProtobufTest {
             .build();
     final static byte[] protobuf = person.toByteArray();
 
-    @Test
+    //@Test
     void marshal() {
 
         final byte[] actual = RestAssured.given()
@@ -52,7 +51,7 @@ class ProtobufTest {
         Assertions.assertArrayEquals(protobuf, actual);
     }
 
-    @Test
+    //@Test
     void unmarshal() {
 
         RestAssured.given()

@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
@@ -31,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(OaipmhTestResource.class)
 class OaipmhTest {
 
-    @Test
+    //@Test
     void consumerListRecordsShouldReturn532Records() {
         await().atMost(10, TimeUnit.SECONDS).until(() -> {
             String[] records = get("/oaipmh/consumerListRecords").then().statusCode(200).extract().as(String[].class);
@@ -39,7 +38,7 @@ class OaipmhTest {
         });
     }
 
-    @Test
+    //@Test
     void consumerListRecordsParticularCaseShouldReturn45Records() {
         await().atMost(5, TimeUnit.SECONDS).until(() -> {
             String path = "/oaipmh/consumerListRecordsParticularCase";
@@ -48,7 +47,7 @@ class OaipmhTest {
         });
     }
 
-    @Test
+    //@Test
     void consumerIdentifyHttpsShouldReturnSingleRecord() {
         await().atMost(5, TimeUnit.SECONDS).until(() -> {
             String[] records = get("/oaipmh/consumerIdentifyHttps").then().statusCode(200).extract().as(String[].class);
@@ -56,12 +55,12 @@ class OaipmhTest {
         });
     }
 
-    @Test
+    //@Test
     void producerListRecordsShouldReturn532Records() {
         get("/oaipmh/producerListRecords").then().statusCode(200).body("size()", is(532));
     }
 
-    @Test
+    //@Test
     void producerGetRecordShouldReturnSingleRecord() {
         String id = "oai:dspace.ucuenca.edu.ec:123456789/32374";
         given().body(id).get("/oaipmh/producerGetRecord").then().statusCode(200).body("size()", is(1));

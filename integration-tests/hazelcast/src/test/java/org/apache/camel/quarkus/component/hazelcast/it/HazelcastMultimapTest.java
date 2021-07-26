@@ -21,12 +21,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
@@ -35,12 +33,12 @@ import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastMultimapResource.class)
+//@TestHTTPEndpoint(HazelcastMultimapResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastMultimapTest {
 
     @SuppressWarnings("unchecked")
-    @Test
+    //@Test
     public void testMultimap() {
         // add one value
         HazelcastMapRequest request = new HazelcastMapRequest().withVaLue("val1.1").withId("1");

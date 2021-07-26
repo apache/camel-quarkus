@@ -32,7 +32,6 @@ import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -51,7 +50,7 @@ class Aws2KinesisTest {
     @Aws2Client(Service.S3)
     S3Client client;
 
-    @Test
+    //@Test
     public void kinesis() {
         final String msg = "kinesis-" + java.util.UUID.randomUUID().toString().replace("-", "");
         RestAssured.given() //
@@ -67,7 +66,7 @@ class Aws2KinesisTest {
                 .body(Matchers.is(msg));
     }
 
-    @Test
+    //@Test
     public void firehose() {
         final String msg = RandomStringUtils.randomAlphanumeric(32 * 1024);
         final String msgPrefix = msg.substring(0, 32);

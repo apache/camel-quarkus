@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.Matchers.is;
@@ -30,7 +29,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(MongoDbTestResource.class)
 class MongodbGridfsTest {
 
-    @ParameterizedTest
+    //@ParameterizedTest
     @ValueSource(strings = { MongodbGridfsResource.DEFAULT_MONGO_CLIENT_NAME, MongodbGridfsResource.NAMED_MONGO_CLIENT_NAME })
     public void testMongodbGridfsComponent(String namedClient) {
         final String fileContent = "Hello Camel Quarkus MongoDB GridFS [" + namedClient + "]";

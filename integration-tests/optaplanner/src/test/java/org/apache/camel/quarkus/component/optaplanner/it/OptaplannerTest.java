@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.optaplanner.it.domain.TimeTable;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.awaitility.Awaitility.await;
@@ -32,7 +31,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @QuarkusTest
 class OptaplannerTest {
 
-    @Test
+    //@Test
     public void solveSync() {
         RestAssured.given()
                 .get("/optaplanner/solveSync")
@@ -42,7 +41,7 @@ class OptaplannerTest {
                 .body("lessonList[0].room", notNullValue(null));
     }
 
-    @Test
+    //@Test
     public void solveASyncWithConsumer() {
         // solve async
         RestAssured.given()

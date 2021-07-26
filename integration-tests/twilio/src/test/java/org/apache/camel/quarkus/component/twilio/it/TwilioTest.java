@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.twilio.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @QuarkusTest
 class TwilioTest {
 
-    @Test
+    //@Test
     public void sendMessage() {
         String messageId = RestAssured.given()
                 .body("Hello Camel Quarkus Twilio")
@@ -47,7 +46,7 @@ class TwilioTest {
         assertFalse(messageId.isEmpty());
     }
 
-    @Test
+    //@Test
     public void purchasePhoneNumber() {
         String phoneNumber = RestAssured.given()
                 .post("/twilio/purchase")
@@ -60,7 +59,7 @@ class TwilioTest {
         assertEquals("+15005550006", phoneNumber);
     }
 
-    @Test
+    //@Test
     public void phoneCall() {
         String phoneNumber = RestAssured.given()
                 .post("/twilio/call")

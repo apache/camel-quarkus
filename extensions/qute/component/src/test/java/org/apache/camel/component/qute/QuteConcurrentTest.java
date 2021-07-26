@@ -21,15 +21,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.junit.jupiter.api.Test;
 
 public class QuteConcurrentTest extends QuteTestBase {
-    @Test
+    //@Test
     public void testNoConcurrentProducers() throws Exception {
         doSendMessages(1, 1);
     }
 
-    @Test
+    //@Test
     public void testConcurrentProducers() throws Exception {
         doSendMessages(10, 5);
     }

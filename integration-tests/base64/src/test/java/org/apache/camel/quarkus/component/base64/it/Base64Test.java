@@ -21,12 +21,11 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class Base64Test {
 
-    @Test
+    //@Test
     public void test() {
         byte[] body;
 

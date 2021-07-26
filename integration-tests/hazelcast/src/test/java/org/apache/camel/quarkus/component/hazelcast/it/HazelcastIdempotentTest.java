@@ -21,23 +21,21 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.hazelcast.it.model.HazelcastMapRequest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastIdempotentResource.class)
+//@TestHTTPEndpoint(HazelcastIdempotentResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastIdempotentTest {
 
     @SuppressWarnings("unchecked")
-    @Test
+    //@Test
     public void testIdempotentRepository() {
         // add value with key 1
         HazelcastMapRequest request = new HazelcastMapRequest().withVaLue("val1").withId("1");

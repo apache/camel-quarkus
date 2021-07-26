@@ -22,7 +22,6 @@ import java.util.concurrent.TimeoutException;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.camel.util.StringHelper;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.ProcessResult;
 
@@ -30,7 +29,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandModeTest {
 
-    @Test
+    //@Test
     void hello() throws InvalidExitValueException, IOException, InterruptedException, TimeoutException {
         final ProcessResult result = new QuarkusProcessExecutor("-Dgreeted.subject=Joe").execute();
 
@@ -38,7 +37,7 @@ public class CommandModeTest {
         Assertions.assertThat(result.outputUTF8()).contains("Hello Joe!");
     }
 
-    @Test
+    //@Test
     void testMainWarnsOnUnknownArguments() throws InterruptedException, IOException, TimeoutException {
         // Build a long fake classpath argument
         StringBuilder builder = new StringBuilder();

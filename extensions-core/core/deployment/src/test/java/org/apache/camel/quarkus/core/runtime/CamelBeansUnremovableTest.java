@@ -32,7 +32,6 @@ import org.apache.camel.spi.annotations.Language;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class CamelBeansUnremovableTest {
@@ -50,7 +49,7 @@ public class CamelBeansUnremovableTest {
     @Inject
     CamelContext context;
 
-    @Test
+    //@Test
     public void testComponentBeansUnremovable() {
         Registry registry = context.getRegistry();
 
@@ -61,21 +60,21 @@ public class CamelBeansUnremovableTest {
         Assertions.assertEquals(1, unremovableEndpointBeans.size());
     }
 
-    @Test
+    //@Test
     public void testDataFormatBeansUnremovable() {
         Registry registry = context.getRegistry();
         Set<UnremovableDataFormatBean> unremovableDataFormatBeans = registry.findByType(UnremovableDataFormatBean.class);
         Assertions.assertEquals(1, unremovableDataFormatBeans.size());
     }
 
-    @Test
+    //@Test
     public void testLanguageBeansUnremovable() {
         Registry registry = context.getRegistry();
         Set<UnremovableLanguageBean> unremovableLanguageBeans = registry.findByType(UnremovableLanguageBean.class);
         Assertions.assertEquals(1, unremovableLanguageBeans.size());
     }
 
-    @Test
+    //@Test
     public void testNonUnremovableBeansRemoved() {
         Registry registry = context.getRegistry();
         Set<Exception> nonUnremovableBeans = registry.findByType(Exception.class);

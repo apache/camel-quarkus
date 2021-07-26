@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.emptyOrNullString;
@@ -34,18 +33,18 @@ import static org.hamcrest.core.IsNot.not;
 
 @QuarkusTest
 public class DirectTest {
-    @Test
+    //@Test
     public void catalogComponent() throws IOException {
         RestAssured.when().get("/direct/catalog/component/direct").then().body(not(emptyOrNullString()));
     }
 
-    @Test
+    //@Test
     public void routeTemplate() {
         RestAssured.when().get("/direct/routes/template/myTemplate/World").then().body(is("Hello World"));
         RestAssured.when().get("/direct/routes/template/myTemplate/Earth").then().body(is("Hello Earth"));
     }
 
-    @Test
+    //@Test
     public void directConsumerProducer() {
         final String message1 = UUID.randomUUID().toString();
         final String message2 = UUID.randomUUID().toString();

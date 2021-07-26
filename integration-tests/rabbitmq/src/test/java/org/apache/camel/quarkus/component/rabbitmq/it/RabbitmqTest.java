@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -28,7 +27,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(RabbitmqTestResource.class)
 class RabbitmqTest {
 
-    @Test
+    //@Test
     public void testAmqpComponent() {
         String message = "Hello Camel Quarkus RabbitMQ";
 

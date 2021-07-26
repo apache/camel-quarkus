@@ -29,12 +29,10 @@ import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.TestMethodOrder;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumPostgresTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumPostgresTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumPostgresTest.class);
 

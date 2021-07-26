@@ -21,7 +21,6 @@ import java.util.concurrent.TimeUnit;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.Header;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static io.restassured.RestAssured.given;
@@ -32,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 class NatsTest {
 
-    @Test
+    //@Test
     void basicAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsBasicAuth:test");
         given().when().header(header).body("basic-auth-msg").post("/nats/send").then().statusCode(204);
@@ -46,7 +45,7 @@ class NatsTest {
         assertEquals("basic-auth-msg", messages[0]);
     }
 
-    @Test
+    //@Test
     void noAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsNoAuth:test");
         given().when().header(header).body("no-auth-msg").post("/nats/send").then().statusCode(204);
@@ -60,7 +59,7 @@ class NatsTest {
         assertEquals("no-auth-msg", messages[0]);
     }
 
-    @Test
+    //@Test
     @EnabledIfEnvironmentVariable(named = "ENABLE_TLS_TESTS", matches = "true")
     void tlsAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsTlsAuth:test?sslContextParameters=#ssl&secure=true");
@@ -75,7 +74,7 @@ class NatsTest {
         assertEquals("tls-auth-msg", messages[0]);
     }
 
-    @Test
+    //@Test
     void tokenAuthProduceConsumeRoundTripShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsTokenAuth:test");
         given().when().header(header).body("token-auth-msg").post("/nats/send").then().statusCode(204);
@@ -89,7 +88,7 @@ class NatsTest {
         assertEquals("token-auth-msg", messages[0]);
     }
 
-    @Test
+    //@Test
     void consumeMaxMessagesShouldRetainFirstTwoMessages() {
         Header header = new Header("sendToEndpointUri", "natsNoAuth:max");
         for (int msgNumber = 1; msgNumber <= 10; msgNumber++) {
@@ -106,7 +105,7 @@ class NatsTest {
         assertEquals("msg 2", messages[1]);
     }
 
-    @Test
+    //@Test
     void consumeMaxQueueMessagesShouldRetainRightNumberOfMessages() {
         Header header = new Header("sendToEndpointUri", "natsNoAuth:qmax");
         for (int msgNumber = 1; msgNumber <= 20; msgNumber++) {
@@ -119,7 +118,7 @@ class NatsTest {
         });
     }
 
-    @Test
+    //@Test
     void requestReplyShouldSucceed() {
         Header header = new Header("sendToEndpointUri", "natsNoAuth:request-reply?replySubject=reply");
         given().when().header(header).body("Request").post("/nats/send").then().statusCode(204);

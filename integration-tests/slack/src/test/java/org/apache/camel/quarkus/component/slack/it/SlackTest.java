@@ -25,7 +25,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.wiremock.MockServer;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 
@@ -45,7 +44,7 @@ class SlackTest {
     @MockServer
     WireMockServer server;
 
-    @Test
+    //@Test
     public void testSlackProduceConsumeMessages() {
         final String message = "Hello Camel Quarkus Slack" + (externalSlackEnabled() ? " " + UUID.randomUUID() : "");
         RestAssured.given()

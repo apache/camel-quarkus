@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core.languages.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +24,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 public class ExchangePropertyLanguageTest {
 
-    @Test
+    //@Test
     public void exchangeProperty() {
         given().body("foo").post("/core-languages/exchangeProperty/myExchangePropertyRoute/myExchangeProperty/1234").then()
                 .statusCode(200)

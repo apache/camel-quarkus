@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.openstack.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.post;
 
@@ -26,27 +25,27 @@ import static io.restassured.RestAssured.post;
 @QuarkusTestResource(OpenStackTestResource.class)
 class OpenstackGlanceTest {
 
-    @Test
+    //@Test
     public void createShouldSucceed() {
         post("/openstack/glance/createShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void uploadShouldSucceed() {
         post("/openstack/glance/uploadShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getShouldSucceed() {
         post("/openstack/glance/getShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void getAllShouldSucceed() {
         post("/openstack/glance/getAllShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void deleteShouldSucceed() {
         post("/openstack/glance/deleteShouldSucceed").then().statusCode(204);
     }

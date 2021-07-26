@@ -34,7 +34,6 @@ import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 public class TimerDevModeTest {
@@ -48,7 +47,7 @@ public class TimerDevModeTest {
                     .addAsResource(applicationProperties(), "application.properties"))
             .setLogFileName(LOG_FILE.getFileName().toString());
 
-    @Test
+    //@Test
     void logMessageEdit() throws IOException {
         Awaitility.await()
                 .atMost(1, TimeUnit.MINUTES)

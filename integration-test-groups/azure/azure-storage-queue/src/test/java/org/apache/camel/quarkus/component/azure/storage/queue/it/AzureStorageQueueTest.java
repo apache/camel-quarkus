@@ -21,7 +21,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -29,7 +28,7 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(AzureStorageTestResource.class)
 class AzureStorageQueueTest {
 
-    @Test
+    //@Test
     public void crud() {
         String message = "Hello Camel Quarkus Azure Queue";
 

@@ -34,15 +34,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumSqlserverTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumSqlserverTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTest.class);
 
@@ -89,7 +86,7 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
         return "Test." + super.getCompanyTableName();
     }
 
-    @Test
+    //@Test
     @Order(0)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testReceiveInitCompany() {
@@ -114,21 +111,21 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
         }
     }
 
-    @Test
+    //@Test
     @Order(1)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testInsert() throws SQLException {
         super.testInsert();
     }
 
-    @Test
+    //@Test
     @Order(2)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testUpdate() throws SQLException {
         super.testUpdate();
     }
 
-    @Test
+    //@Test
     @Order(3)
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testDelete() throws SQLException {

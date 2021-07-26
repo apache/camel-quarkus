@@ -23,7 +23,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 
@@ -45,7 +44,7 @@ public class MailTest {
             + "Hello attachment!"
             + "${delimiter}--\r\n";
 
-    @Test
+    //@Test
     public void testSendAsMail() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -68,7 +67,7 @@ public class MailTest {
                 .body(is("Hello World"));
     }
 
-    @Test
+    //@Test
     public void mimeMultipartDataFormat() {
         final String actual = RestAssured.given()
                 .contentType(ContentType.TEXT)

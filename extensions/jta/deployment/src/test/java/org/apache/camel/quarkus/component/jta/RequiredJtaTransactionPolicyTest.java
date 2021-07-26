@@ -28,7 +28,6 @@ import io.quarkus.test.QuarkusUnitTest;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.jsoup.helper.Validate.fail;
@@ -57,7 +56,7 @@ public class RequiredJtaTransactionPolicyTest {
         reset(transactionManager);
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyNoTransaction() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_NO_TRANSACTION);
@@ -71,7 +70,7 @@ public class RequiredJtaTransactionPolicyTest {
         verify(transactionManager, times(1)).commit();
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyMarkedRollback() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_MARKED_ROLLBACK);
@@ -85,7 +84,7 @@ public class RequiredJtaTransactionPolicyTest {
         verify(transactionManager, times(1)).commit();
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyActiveTransaction() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_ACTIVE);
@@ -97,7 +96,7 @@ public class RequiredJtaTransactionPolicyTest {
         assertTrue(latch.await(5, TimeUnit.SECONDS));
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyWithException() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_NO_TRANSACTION);
@@ -113,7 +112,7 @@ public class RequiredJtaTransactionPolicyTest {
         verify(transactionManager, times(1)).rollback();
     }
 
-    @Test
+    //@Test
     public void runTransactionPolicyWithExceptionActiveTransaction() throws Exception {
         CountDownLatch latch = new CountDownLatch(1);
         when(transactionManager.getStatus()).thenReturn(Status.STATUS_ACTIVE);

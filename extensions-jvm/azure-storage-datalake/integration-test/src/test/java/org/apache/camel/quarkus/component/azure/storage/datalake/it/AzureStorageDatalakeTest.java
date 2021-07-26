@@ -23,7 +23,6 @@ import org.apache.camel.quarkus.test.support.azure.AzureStorageTestResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 // Datalake not supported by Azurite https://github.com/Azure/Azurite/issues/553
@@ -35,7 +34,7 @@ class AzureStorageDatalakeTest {
 
     private static final Logger LOG = Logger.getLogger(AzureStorageDatalakeTest.class);
 
-    @Test
+    //@Test
     public void crud() {
         final String filesystem = "cqfs" + RandomStringUtils.randomNumeric(16);
         final String filename = "file" + RandomStringUtils.randomNumeric(16);

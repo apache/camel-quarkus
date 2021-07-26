@@ -30,7 +30,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,7 +60,7 @@ public class CamelMainRoutesFilterTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void testRoutesFilter() {
         assertThat(main.configure().getRoutesBuilders())
                 .hasSize(1)

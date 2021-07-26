@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
@@ -30,7 +29,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 class JsonataTest {
 
-    @Test
+    //@Test
     public void test() throws IOException {
         String input = IOUtils.toString(getClass().getResourceAsStream("/input.json"), StandardCharsets.UTF_8);
         String expected = IOUtils.toString(getClass().getResourceAsStream("/output.json"), StandardCharsets.UTF_8);

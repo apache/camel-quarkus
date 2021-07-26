@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.google.pubsub.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -27,7 +26,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(GooglePubsubTestResource.class)
 class GooglePubsubTest {
 
-    @Test
+    //@Test
     public void pubsubTopicProduceConsume() {
         String message = "Hello Camel Quarkus Google PubSub";
 
@@ -43,7 +42,7 @@ class GooglePubsubTest {
                 .body(is(message));
     }
 
-    @Test
+    //@Test
     public void jacksonSerializer() {
         String fruitName = "Apple";
 

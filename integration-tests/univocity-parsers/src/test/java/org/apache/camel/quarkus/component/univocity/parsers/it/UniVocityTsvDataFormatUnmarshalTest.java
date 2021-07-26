@@ -20,7 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.apache.camel.quarkus.component.univocity.parsers.it.UniVocityTestHelper.asMap;
@@ -30,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @QuarkusTest
 public class UniVocityTsvDataFormatUnmarshalTest {
 
-    @Test
+    //@Test
     void shouldUnmarshalWithDefaultConfiguration() {
         String content = join("A\tB\tC", "1\t2\t3", "one\ttwo\tthree");
         String url = "/univocity-parsers/unmarshal/tsv/default";
@@ -41,7 +40,7 @@ public class UniVocityTsvDataFormatUnmarshalTest {
         assertEquals(Arrays.asList("one", "two", "three"), unmarshalleds.get(2));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalAsMap() {
         String content = join("A\tB\tC", "1\t2\t3", "one\ttwo\tthree");
         String url = "/univocity-parsers/unmarshal/tsv/map";
@@ -51,7 +50,7 @@ public class UniVocityTsvDataFormatUnmarshalTest {
         assertEquals(asMap("A", "one", "B", "two", "C", "three"), unmarshalleds.get(1));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalAsMapWithHeaders() {
         String content = join("1\t2\t3", "one\ttwo\tthree");
         String url = "/univocity-parsers/unmarshal/tsv/mapWithHeaders";
@@ -61,7 +60,7 @@ public class UniVocityTsvDataFormatUnmarshalTest {
         assertEquals(asMap("A", "one", "B", "two", "C", "three"), unmarshalleds.get(1));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalUsingIterator() {
         String content = join("A\tB\tC", "1\t2\t3", "one\ttwo\tthree");
         String url = "/univocity-parsers/unmarshal/tsv/lazy";
@@ -72,7 +71,7 @@ public class UniVocityTsvDataFormatUnmarshalTest {
         assertEquals(Arrays.asList("one", "two", "three"), unmarshalleds.get(2));
     }
 
-    @Test
+    //@Test
     void shouldUnmarshalUsingAdvancedConfiguration() {
         String content = join("!This is comment", "!This is comment too", "A\tB", "", "  \tD  ");
         String url = "/univocity-parsers/unmarshal/tsv/advanced";

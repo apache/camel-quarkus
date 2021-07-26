@@ -22,7 +22,6 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.ServiceStatus;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,7 +31,7 @@ class MicroProfileMetricsTest {
 
     private static final String CAMEL_CONTEXT_METRIC_TAG = ";camelContext=quarkus-camel-example";
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsCounter() {
         RestAssured.get("/microprofile-metrics/counter")
                 .then()
@@ -40,7 +39,7 @@ class MicroProfileMetricsTest {
         assertEquals(1, getMetricIntValue("camel-quarkus-counter"));
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsConcurrentGauge() {
         for (int i = 0; i < 10; i++) {
             RestAssured.get("/microprofile-metrics/gauge/concurrent/increment")
@@ -57,7 +56,7 @@ class MicroProfileMetricsTest {
         assertEquals(7, getMetricIntValue("camel-quarkus-concurrent-gauge.current"));
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsGauge() {
         RestAssured.get("/microprofile-metrics/gauge?value=10")
                 .then()
@@ -65,7 +64,7 @@ class MicroProfileMetricsTest {
         assertEquals(10, getMetricIntValue("camel-quarkus-gauge"));
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsHistogram() {
         RestAssured.get("/microprofile-metrics/histogram?value=10")
                 .then()
@@ -73,7 +72,7 @@ class MicroProfileMetricsTest {
         assertEquals(10, getMetricIntValue("camel-quarkus-histogram.max"));
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsMeter() {
         RestAssured.get("/microprofile-metrics/meter?mark=10")
                 .then()
@@ -81,7 +80,7 @@ class MicroProfileMetricsTest {
         assertEquals(10, getMetricIntValue("camel-quarkus-meter.count"));
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsTimer() {
         RestAssured.get("/microprofile-metrics/timer")
                 .then()
@@ -89,7 +88,7 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricFloatValue("camel-quarkus-timer.max") > 1.0);
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsRoutePolicyFactory() {
         RestAssured.get("/microprofile-metrics/timer")
                 .then()
@@ -97,7 +96,7 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricIntValue("camel.route.exchanges.total", CAMEL_CONTEXT_METRIC_TAG, "routeId=mp-metrics-timer") > 0);
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsMessageHistoryFactory() {
         RestAssured.get("/microprofile-metrics/log")
                 .then()
@@ -111,13 +110,13 @@ class MicroProfileMetricsTest {
         });
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsRouteEventNotifier() {
         assertTrue(getMetricIntValue("camel.route.count") >= 7);
         assertTrue(getMetricIntValue("camel.route.running.count") >= 7);
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsExchangeEventNotifier() {
         RestAssured.get("/microprofile-metrics/log")
                 .then()
@@ -125,13 +124,13 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricIntValue("camel.context.exchanges.total") > 0);
     }
 
-    @Test
+    //@Test
     public void testMicroProfileMetricsCamelContextEventNotifier() {
         assertEquals(ServiceStatus.Started.ordinal(), getMetricIntValue("camel.context.status"));
         assertTrue(getMetricIntValue("camel.context.uptime") > 0);
     }
 
-    @Test
+    //@Test
     public void testAdviceWith() {
         RestAssured.get("/microprofile-metrics/advicewith")
                 .then()
@@ -140,7 +139,7 @@ class MicroProfileMetricsTest {
         assertTrue(getMetricIntValue("camel.route.running.count") >= 7);
     }
 
-    @Test
+    //@Test
     public void testCountedProcessor() {
         for (int i = 0; i < 5; i++) {
             RestAssured.get("/microprofile-metrics/processor")

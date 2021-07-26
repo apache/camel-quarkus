@@ -12,7 +12,7 @@ Let's enumerate below some points of interest.
 
 == A test running in JVM mode
 
-The key point is to use the `@QuarkusTest` annotation that will bootstrap Quarkus and start Camel routes before the `@Test` logic is executed,
+The key point is to use the `@QuarkusTest` annotation that will bootstrap Quarkus and start Camel routes before the `//@Test` logic is executed,
 like in the example beneath:
 
 [source,java]
@@ -23,7 +23,7 @@ import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class MyTest {
-    @Test
+    //@Test
     public void test() {
         // Use any suitable code that send test data to the route and then assert outcomes
         ...

@@ -29,7 +29,6 @@ import io.restassured.specification.RequestSpecification;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -43,7 +42,7 @@ class ArangodbTest {
     protected static ArangoDB arangoDb;
     protected static ArangoCollection collection;
 
-    @Test
+    //@Test
     public void testCreateGetDeleteDocument() {
         // create a new document
         RequestSpecification request = RestAssured.given()
@@ -77,7 +76,7 @@ class ArangodbTest {
         assertNull(documentDeleted);
     }
 
-    @Test
+    //@Test
     public void testUpdateDocument() {
         // insert one Document
         BaseDocument myObject = new BaseDocument();
@@ -103,7 +102,7 @@ class ArangodbTest {
         assertTrue(document.contains("\"gg\":\"42\""));
     }
 
-    @Test
+    //@Test
     public void testAQLQuery() {
         // insert first Document
         BaseDocument myObject1 = new BaseDocument();

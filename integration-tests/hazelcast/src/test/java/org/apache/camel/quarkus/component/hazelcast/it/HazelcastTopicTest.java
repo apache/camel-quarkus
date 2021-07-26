@@ -20,20 +20,18 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastTopicResource.class)
+//@TestHTTPEndpoint(HazelcastTopicResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 public class HazelcastTopicTest {
-    @Test
+    //@Test
     public void testTopic() {
         // publish topic
         given()

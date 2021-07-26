@@ -18,17 +18,16 @@ package org.apache.camel.quarkus.component.bindy.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class MessageTest {
 
-    @Test
+    //@Test
     public void marshalMessageShouldSucceed() {
         RestAssured.get("/bindy/marshalMessageShouldSucceed").then().statusCode(204);
     }
 
-    @Test
+    //@Test
     public void unMarshalMessageShouldSucceed() {
         RestAssured.get("/bindy/unMarshalMessageShouldSucceed").then().statusCode(204);
     }

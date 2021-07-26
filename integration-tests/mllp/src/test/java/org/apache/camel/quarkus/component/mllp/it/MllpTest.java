@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.mllp.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -35,7 +34,7 @@ class MllpTest {
             + "OBR|2|213||GCU^Serum Copper ^ JRH06 |||200808080932||0.100||||||^|G999999^TestDoctor^GPtests^^^^^^NAT|819600|ADM162||||||820|||^^^^^R||||||||\r"
             + "OBR|3|213||THYG^Serum Thyroglobulin ^JRH06|||200808080932||0.100||||||^|G999999^TestDoctor^GPtests^^^^^^NAT|819600|ADM162||||||820|||^^^^^R||||||||\r\n";
 
-    @Test
+    //@Test
     public void validMessage() {
         RestAssured.given()
                 .body(HL7_MESSAGE)
@@ -45,7 +44,7 @@ class MllpTest {
                 .statusCode(200);
     }
 
-    @Test
+    //@Test
     public void invalidMessage() {
         RestAssured.given()
                 .body("invalidMessage")
@@ -54,7 +53,7 @@ class MllpTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void testCharsetFromMsh18() {
         // Set up the message with a charset and some characters that it cannot deal with
         String messageWithCharset = HL7_MESSAGE.replace("NE||", "NE||ISO-8859-1").replace("INHOUSE", "ÏNHOUSE");
@@ -77,7 +76,7 @@ class MllpTest {
                 .statusCode(200);
     }
 
-    @Test
+    //@Test
     public void testDefaultCharsetFromSystemProperty() {
         RestAssured.get("/mllp/charset/default")
                 .then()

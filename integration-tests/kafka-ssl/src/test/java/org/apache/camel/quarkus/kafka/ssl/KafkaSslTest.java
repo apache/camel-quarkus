@@ -22,7 +22,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -31,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(KafkaSslTestResource.class)
 public class KafkaSslTest {
 
-    @Test
+    //@Test
     void testKafkaBridge() {
         String body = UUID.randomUUID().toString();
 
@@ -54,7 +53,7 @@ public class KafkaSslTest {
         assertThat(result.getString("body")).isEqualTo(body);
     }
 
-    @Test
+    //@Test
     void testQuarkusKafkaClientFactoryNotConfigured() {
         // quarkus-kubernetes-service-binding is on the classpath but configuration merging is disabled
         // so there should be no custom KafkaClientFactory in the registry.

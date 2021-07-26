@@ -24,7 +24,6 @@ import javax.management.ObjectInstance;
 import javax.management.ObjectName;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -32,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 class ManagementTest {
 
-    @Test
+    //@Test
     public void testCamelManagement() throws Exception {
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
         ObjectName objectName = new ObjectName("org.apache.camel:type=context,*");

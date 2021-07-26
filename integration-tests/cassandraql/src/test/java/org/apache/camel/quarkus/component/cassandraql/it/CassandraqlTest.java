@@ -21,10 +21,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.hamcrest.Matcher;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.both;
@@ -34,14 +31,14 @@ import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
 @QuarkusTestResource(CassandraqlTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CassandraqlTest {
 
     private Employee sheldon = new Employee(1, "Sheldon", "Alpha Centauri");
     private Employee leonard = new Employee(2, "Leonard", "Earth");
     private Employee irma = new Employee(3, "Irma", "Jupiter");
 
-    @Test
+    //@Test
     @Order(1)
     public void testInsert() {
         insertEmployee(sheldon);
@@ -56,7 +53,7 @@ class CassandraqlTest {
         assertEmployee(irma.getId(), containsString(irma.getName()));
     }
 
-    @Test
+    //@Test
     @Order(2)
     public void testUpdate() throws CloneNotSupportedException {
         Employee updatedSheldon = (Employee) sheldon.clone();
@@ -69,7 +66,7 @@ class CassandraqlTest {
                 .and(not(containsString(sheldon.getAddress()))));
     }
 
-    @Test
+    //@Test
     @Order(3)
     public void testDelete() {
         assertAllEmployees(allOf(

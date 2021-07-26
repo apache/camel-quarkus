@@ -19,13 +19,12 @@ package org.apache.camel.quarkus.core;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
 public class CoreDiscoveryDisabledTest {
-    @Test
+    //@Test
     public void inspect() {
         JsonPath path = RestAssured.when()
                 .get("/test/inspect")

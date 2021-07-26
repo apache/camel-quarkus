@@ -17,18 +17,16 @@
 package org.apache.camel.quarkus.component.hazelcast.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
-import io.quarkus.test.common.http.TestHTTPEndpoint;
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
 @QuarkusTest
-@TestHTTPEndpoint(HazelcastAtomicResource.class)
+//@TestHTTPEndpoint(HazelcastAtomicResource.class)
 @QuarkusTestResource(HazelcastTestResource.class)
 class HazelcastAtomicTest {
-    @Test
+    //@Test
     public void testAtomicLong() {
 
         // set value

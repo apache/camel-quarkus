@@ -23,7 +23,6 @@ import java.util.Date;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.file.it.FileLanguageRoutes.FILE_LANGUAGE;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -33,7 +32,7 @@ class FileLanguageTest {
 
     private static final String FILE_BODY = "Hello Camel Quarkus";
 
-    @Test
+    //@Test
     public void fileLanguageExt() throws UnsupportedEncodingException, InterruptedException {
         // Create a new file
         String txtFileName = FileTest.createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_TXT_IN, null,
@@ -58,7 +57,7 @@ class FileLanguageTest {
                 .statusCode(204);
     }
 
-    @Test
+    //@Test
     public void fileLanguageDate() throws UnsupportedEncodingException, InterruptedException {
         // Create a new file
         FileTest.createFile(FILE_BODY, "/file/create/" + FileLanguageRoutes.FILE_LANG_DATE_IN, null, "in.xml");

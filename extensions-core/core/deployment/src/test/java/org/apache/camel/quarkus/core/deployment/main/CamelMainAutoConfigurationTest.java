@@ -35,7 +35,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -65,7 +64,7 @@ public class CamelMainAutoConfigurationTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void testComponentAutoConfiguration() {
         // ensure that the exchange formatter explicit set to the LogComponent
         // is not overridden by any ExchangeFormatter instance available from

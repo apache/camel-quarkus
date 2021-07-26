@@ -22,7 +22,6 @@ import java.util.Map;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.is;
@@ -31,7 +30,7 @@ import static org.hamcrest.Matchers.is;
 @EnabledIfEnvironmentVariable(named = "GOOGLE_APPLICATION_CREDENTIALS", matches = ".+")
 class GoogleBigqueryTest {
 
-    @Test
+    //@Test
     public void googleBigQueryCrudOperations() {
         try {
             // Create table

@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.braintree.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @EnabledIfEnvironmentVariable(named = "BRAINTREE_PRIVATE_KEY", matches = ".+")
 class BraintreeTest {
 
-    @Test
+    //@Test
     public void testBraintreeComponent() {
         String token = RestAssured
                 .get("/braintree/token")

@@ -22,7 +22,6 @@ import java.nio.file.Path;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -31,7 +30,7 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTestResource(JschTestResource.class)
 class JschTest {
 
-    @Test
+    //@Test
     public void scpFileToServer(@TempDir Path tempDir) throws IOException {
         Path path = tempDir.resolve("file.txt");
         String message = "Hello Camel Quarkus JSCH";

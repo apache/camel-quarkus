@@ -17,14 +17,13 @@
 package org.apache.camel.quarkus.component.json.path.it;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
 
 @QuarkusTest
 class JsonPathSetHeaderTest {
 
-    @Test
+    //@Test
     public void setHeaderWithJsonPathExpressionEvaluatingAnotherHeaderShouldSucceed() {
         get("/jsonpath/setHeaderWithJsonPathExpressionEvaluatingAnotherHeaderShouldSucceed").then().statusCode(204);
     }

@@ -31,7 +31,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static io.smallrye.common.constraint.Assert.assertFalse;
@@ -46,7 +45,7 @@ public class CamelMainUnknownArgumentIgnoreTest {
     @Inject
     CamelMain main;
 
-    @Test
+    //@Test
     public void unknownArgumentIgnored() {
         PrintStream oldOut = System.out;
 

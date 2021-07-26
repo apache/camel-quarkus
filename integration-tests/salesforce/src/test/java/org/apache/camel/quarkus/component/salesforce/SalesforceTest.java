@@ -20,7 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
@@ -33,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTestResource(SalesforceTestResource.class)
 class SalesforceTest {
 
-    @Test
+    //@Test
     public void testGetDocumentRaw() {
         RestAssured.get("/salesforce/document/test")
                 .then()
@@ -41,7 +40,7 @@ class SalesforceTest {
                 .body("attributes.type", is("Document"));
     }
 
-    @Test
+    //@Test
     public void testGetAccountDTO() {
         RestAssured.get("/salesforce/account")
                 .then()
@@ -51,7 +50,7 @@ class SalesforceTest {
                         "AccountNumber", not(emptyString()));
     }
 
-    @Test
+    //@Test
     public void testBulkJobApi() {
         // Create bulk job
         JsonPath jobInfo = RestAssured.given()

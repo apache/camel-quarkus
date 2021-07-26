@@ -34,7 +34,6 @@ import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -64,7 +63,7 @@ public class CamelMainInjectTest {
         return new StringAsset(writer.toString());
     }
 
-    @Test
+    //@Test
     public void testInject() {
         // ensure Camel's DI works
         assertThat(main.configure().getRoutesBuilders())

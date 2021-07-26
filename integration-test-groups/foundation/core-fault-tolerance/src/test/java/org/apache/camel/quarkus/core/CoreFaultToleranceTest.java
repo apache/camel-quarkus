@@ -17,7 +17,6 @@
 package org.apache.camel.quarkus.core;
 
 import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.get;
 import static org.hamcrest.Matchers.is;
@@ -25,7 +24,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTest
 public class CoreFaultToleranceTest {
 
-    @Test
+    //@Test
     public void testFaultTolerancePropertiesAreApplied() {
         get("/core/fault-tolerance-configurations")
                 .then()

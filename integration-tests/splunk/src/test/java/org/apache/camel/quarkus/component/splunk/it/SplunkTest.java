@@ -29,7 +29,6 @@ import io.restassured.http.ContentType;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
 import static org.hamcrest.Matchers.containsString;
@@ -39,7 +38,7 @@ import static org.hamcrest.Matchers.is;
 @QuarkusTestResource(SplunkTestResource.class)
 class SplunkTest {
 
-    @Test
+    //@Test
     public void testWriteTcpAndReadNormal() {
         write("_normal", SplunkTestResource.TEST_INDEX, "tcp");
 
@@ -62,7 +61,7 @@ class SplunkTest {
         Assert.assertEquals("Alpha Centauri\"", result.get(2).get("from"));
     }
 
-    @Test
+    //@Test
     public void testWriteSubmitAndReadRealtime() throws InterruptedException, ExecutionException {
 
         RestAssured.given()
@@ -88,7 +87,7 @@ class SplunkTest {
                 .body(containsString("_realtime"));
     }
 
-    @Test
+    //@Test
     public void testWriteStreamAndReadSaved() throws InterruptedException {
         int defaultPort = RestAssured.port;
         String defaultUri = RestAssured.baseURI;

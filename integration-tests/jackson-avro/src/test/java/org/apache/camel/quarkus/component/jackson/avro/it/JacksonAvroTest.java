@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.jackson.avro.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Test;
 
 import static org.apache.camel.quarkus.component.jackson.avro.it.StringAppendingDeserializer.STRING_TO_APPEND;
 import static org.hamcrest.Matchers.equalTo;
@@ -26,7 +25,7 @@ import static org.hamcrest.Matchers.equalTo;
 @QuarkusTest
 class JacksonAvroTest {
 
-    @Test
+    //@Test
     public void marshalUnmarshal() {
         String message = "Hello Camel Quarkus Jackson Avro";
         byte[] avroSerialized = RestAssured.given()
@@ -64,7 +63,7 @@ class JacksonAvroTest {
                 .body(equalTo(message + STRING_TO_APPEND));
     }
 
-    @Test
+    //@Test
     public void marshalUnmarshalWithList() {
         String message = "Hello Camel Quarkus Jackson Avro";
 
