@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.mock.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
@@ -40,6 +41,17 @@ class MockTest {
         RestAssured.get("/mock/advice")
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    public void cdiConfig() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("foo")
+                .post("/mock/route/cdiConfig")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("mockComponent.log = true"));
     }
 
 }

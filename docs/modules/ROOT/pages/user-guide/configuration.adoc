@@ -40,7 +40,49 @@ camel.component.log.exchange-formatter.show-body-type = false
 
 === CDI
 
-The same can be done programmatically using CDI:
+The same can be done programmatically using CDI.
+
+The best way is to observe the `ComponentAddEvent` and configure the component before the routes and the `CamelContext` are started:
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
+import org.apache.camel.quarkus.core.events.ComponentAddEvent;
+import org.apache.camel.component.log.LogComponent;
+import org.apache.camel.support.processor.DefaultExchangeFormatter;
+
+@ApplicationScoped
+public static class EventHandler {
+    public void onComponentAdd(@Observes ComponentAddEvent event) {
+        if (event.getComponent() instanceof LogComponent) {
+            /* Perform some custom configuration of the component */
+            LogComponent logComponent = ((LogComponent) event.getComponent());
+            DefaultExchangeFormatter formatter = new DefaultExchangeFormatter();
+            formatter.setShowExchangePattern(false);
+            formatter.setShowBodyType(false);
+            logComponent.setExchangeFormatter(formatter);
+        }
+    }
+}
+----
+
+==== Producing a `@Named` component instance
+
+Alternatively, you could create and configure the component yourself in a `@Named` producer method.
+This would work thanks to the fact that Camel uses the component URI scheme to look-up components from its registry.
+E.g. for `LogComponent` it would look for a `log` named bean.
+
+[WARNING]
+====
+Please note that while producing a `@Named` component bean will work in most cases, it may cause subtle issues with some components.
+Camel Quarkus extensions may do one or more of the following:
++
+* Pass custom subtype of the default Camel component type - see e.g. in https://github.com/apache/camel-quarkus/blob/main/extensions/vertx-websocket/runtime/src/main/java/org/apache/camel/quarkus/component/vertx/websocket/VertxWebsocketRecorder.java#L42[Vert.x WebSocket extension]
+* Perform some Quarkus specific customization of the component - see e.g. in https://github.com/apache/camel-quarkus/blob/main/extensions/jpa/runtime/src/main/java/org/apache/camel/quarkus/component/jpa/CamelJpaRecorder.java#L35[JPA extension].
++
+All of these get lost when you produce your own component instance. Therefore configuring components in an observer method should be preferred.
+====
 
 [source,java]
 ----
@@ -68,30 +110,7 @@ public class Configurations {
     }
 }
 ----
-<1> Camel uses the component URI scheme to look-up components from its registry, this requires you to add the `@Named` annotation to the method, otherwise the CDI container would create an anonymous bean and Camel would not be able to look it up.
-The `"log"` argument of the `@Named` annotation can be omitted as long as the name of the method is the same.
-
-In Camel Quarkus, the Camel components are discovered during the augmentation phase.
-Hence producing a new component as shown in the example above would invalidate any optimization that may have been made.
-
-As a better alternative you can use `@Inject` to obtain an instance of a component automatically created by Camel or you can observe one of the https://github.com/apache/camel-quarkus/tree/main/extensions-core/core/runtime/src/main/java/org/apache/camel/quarkus/core/events[events] fired by Camel Quarkus as shown in the following example, in which we use `@Observes` to be notified about components added to the Camel Context:
-
-[source,java]
-----
-import javax.enterprise.context.ApplicationScoped;
-import javax.enterprise.event.Observes;
-import org.apache.camel.quarkus.core.events.ComponentAddEvent;
-import org.apache.camel.component.log.LogComponent;
-
-@ApplicationScoped
-public static class EventHandler {
-    public void onComponentAdd(@Observes ComponentAddEvent event) {
-        if (event.getComponent() instanceof LogComponent) {
-            // do something with the log component
-        }
-    }
-}
-----
+<1> The `"log"` argument of the `@Named` annotation can be omitted as long as the name of the method is the same.
 
 == Configuration by convention
 
