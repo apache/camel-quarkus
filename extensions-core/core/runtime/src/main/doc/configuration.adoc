@@ -3,7 +3,7 @@
 ==== Using the OGNL notation
 When using the OGNL notation from the simple language, the `camel-quarkus-bean` extension should be used.
 
-For instance, the expression below is accessing the `getAddress()` method on the message body of type `Client`.
+For instance, the simple expression below is accessing the `getAddress()` method on the message body of type `Client`.
 [source,java]
 ---
 simple("${body.address}")
@@ -16,7 +16,7 @@ needs to be link:https://quarkus.io/guides/writing-native-applications-tips#regi
 ==== Using dynamic type resolution in native mode
 When dynamically resolving a type from simple expressions like `${mandatoryBodyAs(TYPE)}`, `${type:package.Enum.CONSTANT}` or `${body} is TYPE`, it may be needed to register some classes for reflection manually.
 
-For instance, the simple expressions below is dynamically resolving the type `java.nio.ByteBuffer` at runtime:
+For instance, the simple expression below is dynamically resolving the type `java.nio.ByteBuffer` at runtime:
 [source,java]
 ---
 simple("${body} is 'java.nio.ByteBuffer'")
