@@ -16,24 +16,16 @@
  */
 package org.apache.camel.quarkus.component.groovy.it;
 
-import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.Test;
+import org.apache.camel.builder.RouteBuilder;
 
-@QuarkusTest
-class GroovyTest {
+public class GroovyRoutes extends RouteBuilder {
 
-    @Test
-    public void script() {
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body("world")
-                .post("/groovy/route/scriptGroovy")
-                .then()
-                .statusCode(200)
-                .body(Matchers.is("Hello world from Groovy!"));
+    @Override
+    public void configure() {
+
+        from("direct:scriptGroovy")
+                .script()
+                .groovy("exchange.getMessage().setBody('Hello ' + exchange.getMessage().getBody(String.class) + ' from Groovy!')");
+
     }
-
 }
