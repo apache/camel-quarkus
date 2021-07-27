@@ -22,11 +22,15 @@ import java.util.List;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
+import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 class EipTest {
+
+    private static final Logger LOG = Logger.getLogger(EipTest.class);
 
     @Test
     public void claimCheckByHeader() {
@@ -312,6 +316,37 @@ class EipTest {
                 .statusCode(200)
                 .body(Matchers.is("message-2"));
 
+    }
+
+    @Test
+    public void sample() {
+        final int durationSec = 2;
+        LOG.infof("About to sent messages for %d seconds", durationSec);
+        final long deadline = System.currentTimeMillis() + (durationSec * 1000); // two seconds ahead
+        int i = 0;
+        while (System.currentTimeMillis() < deadline) {
+            /* Send messages for 2 seconds */
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body("message-" + i++)
+                    .post("/eip/route/sample")
+                    .then()
+                    .statusCode(200);
+        }
+        LOG.infof("Sent %d messages", i);
+        /*
+         * We should normally get just 2 samples in 2 seconds using the default sample rate of 1 message per second
+         * But timing is hard in programming, let's allow one more
+         */
+        int overratedSampleUpperBound = durationSec + 1;
+        Assertions.assertThat(i).isGreaterThan(overratedSampleUpperBound);
+        String[] samples = RestAssured.get("/eip/mock/sample/1+/5000/body")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().asString().split(",");
+        LOG.infof("Got %d samples", samples.length);
+        Assertions.assertThat(samples.length).isBetween(1, overratedSampleUpperBound);
     }
 
 }
