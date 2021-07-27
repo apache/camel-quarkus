@@ -92,6 +92,10 @@ public class EipRoutes extends RouteBuilder {
         from("direct:routingSlip")
                 .routingSlip(header("routingSlipHeader"));
 
+        from("direct:sample")
+                .sample()
+                .to("mock:sample");
+
     }
 
     @Produces

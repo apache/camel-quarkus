@@ -61,10 +61,16 @@ public class EipResource {
     @Path("/mock/{name}/{count}/{timeout}/{part}")
     @Produces(MediaType.TEXT_PLAIN)
     @GET
-    public String mockHeader(@PathParam("name") String name, @PathParam("count") int count, @PathParam("timeout") int timeout,
+    public String mockHeader(@PathParam("name") String name, @PathParam("count") String count,
+            @PathParam("timeout") int timeout,
             @PathParam("part") String part) {
         MockEndpoint mock = context.getEndpoint("mock:" + name, MockEndpoint.class);
-        mock.setExpectedMessageCount(count);
+
+        if (count.endsWith("+")) {
+            mock.setMinimumExpectedMessageCount(Integer.valueOf(count.substring(0, count.length() - 1)));
+        } else {
+            mock.setExpectedMessageCount(Integer.valueOf(count));
+        }
         try {
             mock.assertIsSatisfied(timeout);
         } catch (InterruptedException e1) {
