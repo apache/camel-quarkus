@@ -4,8 +4,19 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.1.0...HEAD)
 
+**Closed issues:**
+
+- Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
+- \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
+
 **Merged pull requests:**
 
+- Stress the more preferred way of configuring components via CDI by mo… [\#2947](https://github.com/apache/camel-quarkus/pull/2947) ([ppalaga](https://github.com/ppalaga))
+- Expand ElasticSearch REST test coverage [\#2945](https://github.com/apache/camel-quarkus/pull/2945) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove an outdated sentence from the SQL extension docs, which was re… [\#2944](https://github.com/apache/camel-quarkus/pull/2944) ([ppalaga](https://github.com/ppalaga))
+- Test Quarkus and Camel ElasticSearch REST client configuration [\#2943](https://github.com/apache/camel-quarkus/pull/2943) ([jamesnetherton](https://github.com/jamesnetherton))
+- \[Camel 3.11\] Solr cloud integration tests are failing \#2814 [\#2942](https://github.com/apache/camel-quarkus/pull/2942) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Add native support for transferException [\#2940](https://github.com/apache/camel-quarkus/pull/2940) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus Debezium to 1.6.1.Final and Quarkus Google Cloud to 0… [\#2937](https://github.com/apache/camel-quarkus/pull/2937) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus Qpid JMS to 0.26.0 [\#2936](https://github.com/apache/camel-quarkus/pull/2936) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to Quarkus 2.1.0.Final [\#2934](https://github.com/apache/camel-quarkus/pull/2934) ([ppalaga](https://github.com/ppalaga))
@@ -665,10 +676,12 @@
 - add affinity dependency in a mac profile for camel-hazelcast extension [\#2800](https://github.com/apache/camel-quarkus/issues/2800)
 - Intermittent failure of testJmsTransaction  [\#2767](https://github.com/apache/camel-quarkus/issues/2767)
 - Automatic check to ensure that camel.quarkus.jvmSince and camel.quarkus.nativeSince are not newer than the current SNAPSHOT [\#2763](https://github.com/apache/camel-quarkus/issues/2763)
+- \[elastic-search\] Test both camel and quarkus configuration of underlying component quarkus client [\#2714](https://github.com/apache/camel-quarkus/issues/2714)
 - Test both camel and quarkus configuration of underlying component quarkus client [\#2712](https://github.com/apache/camel-quarkus/issues/2712)
 - Split with AggregationStrategy [\#2690](https://github.com/apache/camel-quarkus/issues/2690)
 - No consumers available on endpoint [\#2632](https://github.com/apache/camel-quarkus/issues/2632)
 - Autowiring of beans can cause warning and problem "bean was marked as unused and removed during build" [\#2519](https://github.com/apache/camel-quarkus/issues/2519)
+- \[Serialization\] transferException URI option does not work in native mode [\#1868](https://github.com/apache/camel-quarkus/issues/1868)
 - Turn off bean removal by ArC  [\#1387](https://github.com/apache/camel-quarkus/issues/1387)
 - js-dsl integration test failure [\#2908](https://github.com/apache/camel-quarkus/issues/2908)
 - kudu: remove the useless test harness logic dedicated to Java 8 [\#2885](https://github.com/apache/camel-quarkus/issues/2885)
