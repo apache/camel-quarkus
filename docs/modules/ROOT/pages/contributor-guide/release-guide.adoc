@@ -158,6 +158,58 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 +
   * Click the green "Publish release" button at the bottom
 
+== Upgrade Camel Quarkus in Quarkus Platform
+
+When: once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
+
+[INFO]
+====
+https://github.com/quarkusio/quarkus-platform[Quarkus Platform] hosts the metadata and Maven BOMs necessary for
+https://code.quarkus.io/[code.quarkus.io] as well as for https://quarkus.io/guides/tooling[Quarkus tools].
+====
+
+* Clone Quarkus Platform unless you have done it in the past
++
+[source,shell]
+----
+$ git clone git@github.com:quarkusio/quarkus-platform.git
+----
++
+* Change `camel-quarkus.version` property in the Quarkus platform top level `https://github.com/quarkusio/quarkus-platform/blob/main/pom.xml#L54[pom.xml]` to the newly released version:
++
+[source,shell]
+----
+$ cd quarkus-platform
+$ export NEW_VERSION=... # the version you just released, e.g. 0.1.0
+$ sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEW_VERSION</camel-quarkus.version>|" pom.xml
+# Make sure that it worked
+$ git status
+----
++
+* Re-generate the BOMs
++
+[source,shell]
+----
+$ mvn clean install -DskipTests
+# ^ This will take a couple of minutes because it resolves
+# every single dependency of every single extension included
+# in the platform
+
+# Then commit the generated changes
+$ git add -A
+$ git commit -m "Upgrade to Camel Quarkus $NEW_VERSION"
+----
++
+* Run Camel Quarkus integration tests at least in JVM mode:
++
+[source,shell]
+----
+cd generated-platform-project/quarkus-camel/integration-tests
+mvn clean test
+----
++
+* If all tests are passing, send a pull request to the Platform
+
 == Further steps
 
 In addition to the above, the following is needed:
