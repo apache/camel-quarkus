@@ -11,6 +11,8 @@
 
 **Merged pull requests:**
 
+- Document upgrading Camel Quarkus in Quarkus platform [\#2950](https://github.com/apache/camel-quarkus/pull/2950) ([ppalaga](https://github.com/ppalaga))
+- Next is 2.2.0 [\#2949](https://github.com/apache/camel-quarkus/pull/2949) ([zbendhiba](https://github.com/zbendhiba))
 - Stress the more preferred way of configuring components via CDI by mo… [\#2947](https://github.com/apache/camel-quarkus/pull/2947) ([ppalaga](https://github.com/ppalaga))
 - Expand ElasticSearch REST test coverage [\#2945](https://github.com/apache/camel-quarkus/pull/2945) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove an outdated sentence from the SQL extension docs, which was re… [\#2944](https://github.com/apache/camel-quarkus/pull/2944) ([ppalaga](https://github.com/ppalaga))
