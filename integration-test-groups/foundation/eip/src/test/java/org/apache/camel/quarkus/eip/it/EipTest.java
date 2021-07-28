@@ -387,4 +387,25 @@ class EipTest {
 
     }
 
+    @Test
+    public void resequenceStream() {
+        final List<String> messages = Arrays.asList("a:2", "b:1", "c:4", "d:3");
+        for (String input : messages) {
+            String[] message = input.split(":");
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .queryParam("seqno", message[1])
+                    .body(message[0])
+                    .post("/eip/route/resequenceStream")
+                    .then()
+                    .statusCode(200);
+        }
+
+        RestAssured.get("/eip/mock/resequenceStream/4/10000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("b,a,d,c"));
+
+    }
+
 }

@@ -104,6 +104,11 @@ public class EipRoutes extends RouteBuilder {
                 .step("foo")
                 .setBody(e -> "Hello " + e.getMessage().getBody(String.class) + " from step!");
 
+        from("direct:resequenceStream")
+                .resequence(header("seqno"))
+                .stream().capacity(4).timeout(3000)
+                .to("mock:resequenceStream");
+
     }
 
     @Produces
