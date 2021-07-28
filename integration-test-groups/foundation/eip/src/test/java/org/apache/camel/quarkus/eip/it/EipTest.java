@@ -98,6 +98,32 @@ class EipTest {
     }
 
     @Test
+    public void stickyLoadBalancer() {
+        final List<String> messages = Arrays.asList("a", "b", "c", "d");
+        int i = 0;
+        for (String msg : messages) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .queryParam("stickyKey", String.valueOf(1 + (i++ % 2)))
+                    .body(msg)
+                    .post("/eip/route/stickyLoadBalancer")
+                    .then()
+                    .statusCode(200);
+        }
+
+        RestAssured.get("/eip/mock/stickyLoadBalancer1/2/10000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("a,c"));
+
+        RestAssured.get("/eip/mock/stickyLoadBalancer2/2/10000/body")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("b,d"));
+
+    }
+
+    @Test
     public void enrich() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
