@@ -40,9 +40,9 @@ camel.component.log.exchange-formatter.show-body-type = false
 
 === CDI
 
-The same can be done programmatically using CDI.
+You can also configure a component programmatically using CDI.
 
-The best way is to observe the `ComponentAddEvent` and configure the component before the routes and the `CamelContext` are started:
+The recommended method is to observe the `ComponentAddEvent` and configure the component before the routes and the `CamelContext` are started:
 
 [source,java]
 ----
@@ -69,19 +69,19 @@ public static class EventHandler {
 
 ==== Producing a `@Named` component instance
 
-Alternatively, you could create and configure the component yourself in a `@Named` producer method.
-This would work thanks to the fact that Camel uses the component URI scheme to look-up components from its registry.
-E.g. for `LogComponent` it would look for a `log` named bean.
+Alternatively, you can create and configure the component yourself in a `@Named` producer method.
+This works as Camel uses the component URI scheme to look-up components from its registry. For example, in the case of a `LogComponent` Camel looks for a `log` named bean.
 
 [WARNING]
 ====
-Please note that while producing a `@Named` component bean will work in most cases, it may cause subtle issues with some components.
+Please note that while producing a `@Named` component bean will usually work, it may cause subtle issues with some components.
+
 Camel Quarkus extensions may do one or more of the following:
-+
-* Pass custom subtype of the default Camel component type - see e.g. in https://github.com/apache/camel-quarkus/blob/main/extensions/vertx-websocket/runtime/src/main/java/org/apache/camel/quarkus/component/vertx/websocket/VertxWebsocketRecorder.java#L42[Vert.x WebSocket extension]
-* Perform some Quarkus specific customization of the component - see e.g. in https://github.com/apache/camel-quarkus/blob/main/extensions/jpa/runtime/src/main/java/org/apache/camel/quarkus/component/jpa/CamelJpaRecorder.java#L35[JPA extension].
-+
-All of these get lost when you produce your own component instance. Therefore configuring components in an observer method should be preferred.
+
+* Pass custom subtype of the default Camel component type. See the https://github.com/apache/camel-quarkus/blob/main/extensions/vertx-websocket/runtime/src/main/java/org/apache/camel/quarkus/component/vertx/websocket/VertxWebsocketRecorder.java#L42[Vert.x WebSocket extension] example.
+* Perform some Quarkus specific customization of the component. See the https://github.com/apache/camel-quarkus/blob/main/extensions/jpa/runtime/src/main/java/org/apache/camel/quarkus/component/jpa/CamelJpaRecorder.java#L35[JPA extension] example.
+
+These actions are not performed when you produce your own component instance, therefore, configuring components in an observer method is the recommended method.
 ====
 
 [source,java]
