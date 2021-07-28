@@ -61,73 +61,91 @@ public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
         }
 
         /* SNS */
-        {
-            final String topicName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
-            envContext.property("aws-sns.topic-name", topicName);
+        customizeSns(envContext, sqsClient, false);
+        customizeSns(envContext, sqsClient, true);
+    }
 
-            final SnsClient snsClient = envContext.client(Service.SNS, SnsClient::builder);
+    private void customizeSns(Aws2TestEnvContext envContext, SqsClient sqsClient, boolean fifo) {
+        final String topicName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT)
+                + (fifo ? ".fifo" : "");
+        envContext.property(fifo ? "aws-sns-fifo.topic-name" : "aws-sns.topic-name", topicName);
 
-            final String topicArn = snsClient.createTopic(CreateTopicRequest.builder().name(topicName).build()).topicArn();
+        final SnsClient snsClient = envContext.client(Service.SNS, SnsClient::builder);
 
-            envContext.closeable(() -> {
-                snsClient.listSubscriptionsByTopic(ListSubscriptionsByTopicRequest.builder().topicArn(topicArn).build())
-                        .subscriptions()
-                        .stream()
-                        .map(Subscription::subscriptionArn)
-                        .forEach(arn -> snsClient.unsubscribe(UnsubscribeRequest.builder().subscriptionArn(arn).build()));
-                snsClient.deleteTopic(DeleteTopicRequest.builder().topicArn(topicArn).build());
-            });
-
-            final String snsReceiverQueueName = "camel-quarkus-sns-receiver-"
-                    + RandomStringUtils.randomAlphanumeric(30).toLowerCase(Locale.ROOT);
-            envContext.property("aws-sqs.sns-receiver-queue-name", snsReceiverQueueName);
-            final String snsReceiverQueueUrl = sqsClient.createQueue(
-                    CreateQueueRequest.builder()
-                            .queueName(snsReceiverQueueName)
-                            .build())
-                    .queueUrl();
-            envContext.property("aws2-sqs.sns-receiver-queue-url", snsReceiverQueueUrl);
-
-            /*
-             * We need queue ARN instead of queue URL when creating a subscription of an SQS Queue to an SNS Topic
-             * See https://stackoverflow.com/a/59255978
-             */
-            final String snsReceiverQueueArn = sqsClient.getQueueAttributes(
-                    GetQueueAttributesRequest.builder()
-                            .queueUrl(snsReceiverQueueUrl)
-                            .attributeNamesWithStrings("All")
-                            .build())
-                    .attributesAsStrings()
-                    .get("QueueArn");
-            envContext.property("aws2-sqs.sns-receiver-queue-arn", snsReceiverQueueArn);
-
-            final String policy = "{"
-                    + "  \"Version\": \"2008-10-17\","
-                    + "  \"Id\": \"policy-" + snsReceiverQueueName + "\","
-                    + "  \"Statement\": ["
-                    + "    {"
-                    + "      \"Sid\": \"sid-" + snsReceiverQueueName + "\","
-                    + "      \"Effect\": \"Allow\","
-                    + "      \"Principal\": {"
-                    + "        \"AWS\": \"*\""
-                    + "      },"
-                    + "      \"Action\": \"SQS:*\","
-                    + "      \"Resource\": \"" + snsReceiverQueueArn + "\""
-                    + "    }"
-                    + "  ]"
-                    + "}";
-            sqsClient.setQueueAttributes(
-                    SetQueueAttributesRequest.builder()
-                            .queueUrl(snsReceiverQueueUrl)
-                            .attributes(
-                                    Collections.singletonMap(
-                                            QueueAttributeName.POLICY,
-                                            policy))
-                            .build());
-
-            envContext
-                    .closeable(() -> sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(snsReceiverQueueUrl).build()));
+        CreateTopicRequest.Builder topicRequestBuilder = CreateTopicRequest.builder()
+                .name(topicName);
+        if (fifo) {
+            topicRequestBuilder.attributes(Collections.singletonMap("FifoTopic", Boolean.TRUE.toString()));
         }
 
+        final String topicArn = snsClient.createTopic(topicRequestBuilder.build()).topicArn();
+
+        envContext.closeable(() -> {
+            snsClient.listSubscriptionsByTopic(ListSubscriptionsByTopicRequest.builder().topicArn(topicArn).build())
+                    .subscriptions()
+                    .stream()
+                    .map(Subscription::subscriptionArn)
+                    .forEach(arn -> snsClient.unsubscribe(UnsubscribeRequest.builder().subscriptionArn(arn).build()));
+            snsClient.deleteTopic(DeleteTopicRequest.builder().topicArn(topicArn).build());
+        });
+
+        final String snsReceiverQueueName = "camel-quarkus-sns-receiver-"
+                + RandomStringUtils.randomAlphanumeric(30).toLowerCase(Locale.ROOT) + (fifo ? ".fifo" : "");
+        ;
+        envContext.property(fifo ? "aws-sqs.sns-fifo-receiver-queue-name" : "aws-sqs.sns-receiver-queue-name",
+                snsReceiverQueueName);
+        CreateQueueRequest.Builder createQueueRequestBuilder = CreateQueueRequest.builder()
+                .queueName(snsReceiverQueueName);
+        if (fifo) {
+            createQueueRequestBuilder
+                    .attributes(Collections.singletonMap(QueueAttributeName.FIFO_QUEUE, Boolean.TRUE.toString()));
+        }
+
+        final String snsReceiverQueueUrl = sqsClient.createQueue(
+                createQueueRequestBuilder.build())
+                .queueUrl();
+        envContext.property(fifo ? "aws2-sqs.sns-fifo-receiver-queue-url" : "aws2-sqs.sns-receiver-queue-url",
+                snsReceiverQueueUrl);
+
+        /*
+         * We need queue ARN instead of queue URL when creating a subscription of an SQS Queue to an SNS Topic
+         * See https://stackoverflow.com/a/59255978
+         */
+        final String snsReceiverQueueArn = sqsClient.getQueueAttributes(
+                GetQueueAttributesRequest.builder()
+                        .queueUrl(snsReceiverQueueUrl)
+                        .attributeNamesWithStrings("All")
+                        .build())
+                .attributesAsStrings()
+                .get("QueueArn");
+        envContext.property(fifo ? "aws2-sqs.sns-fifo-receiver-queue-arn" : "aws2-sqs.sns-receiver-queue-arn",
+                snsReceiverQueueArn);
+
+        final String policy = "{"
+                + "  \"Version\": \"2008-10-17\","
+                + "  \"Id\": \"policy-" + snsReceiverQueueName + "\","
+                + "  \"Statement\": ["
+                + "    {"
+                + "      \"Sid\": \"sid-" + snsReceiverQueueName + "\","
+                + "      \"Effect\": \"Allow\","
+                + "      \"Principal\": {"
+                + "        \"AWS\": \"*\""
+                + "      },"
+                + "      \"Action\": \"SQS:*\","
+                + "      \"Resource\": \"" + snsReceiverQueueArn + "\""
+                + "    }"
+                + "  ]"
+                + "}";
+        sqsClient.setQueueAttributes(
+                SetQueueAttributesRequest.builder()
+                        .queueUrl(snsReceiverQueueUrl)
+                        .attributes(
+                                Collections.singletonMap(
+                                        QueueAttributeName.POLICY,
+                                        policy))
+                        .build());
+
+        envContext
+                .closeable(() -> sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(snsReceiverQueueUrl).build()));
     }
 }
