@@ -117,6 +117,18 @@ public class Configurations {
 In addition to support configuring Camel through properties, `camel-quarkus-core` allows you to use conventions to configure the Camel behavior.
 For example, if there is a single `ExchangeFormatter` instance in the CDI container, then it will automatically wire that bean to the `LogComponent`.
 
+Component options for which this is supported are maked as _Autowired_ on their documentation pages
+- see e.g. the `exchangeFormatter` option on the xref:{cq-camel-components}::log-component.adoc#_options[Log component] page.
+
+You can pass `autowiredEnabled=false` to disable it.
+
+In case autowiring is performed for some component option, you should see a similar INFO-level message in the application log:
+
+[source,shell]
+----
+Autowired property: exchangeFormatter on component: log as exactly one instance of type: software.amazon.org.apache.camel.spi.ExchangeFormatter (org.apache.camel.support.processor.DefaultExchangeFormatter) found in the registry
+----
+
 == What's next?
 
 We recommend to continue with xref:user-guide/cdi.adoc[CDI].
