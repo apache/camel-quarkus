@@ -349,4 +349,16 @@ class EipTest {
         Assertions.assertThat(samples.length).isBetween(1, overratedSampleUpperBound);
     }
 
+    @Test
+    public void step() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Monty")
+                .post("/eip/route/step")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Hello Monty from step!"));
+
+    }
+
 }

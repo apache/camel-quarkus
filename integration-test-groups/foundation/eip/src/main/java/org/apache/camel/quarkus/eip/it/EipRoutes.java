@@ -96,6 +96,10 @@ public class EipRoutes extends RouteBuilder {
                 .sample()
                 .to("mock:sample");
 
+        from("direct:step")
+                .step("foo")
+                .setBody(e -> "Hello " + e.getMessage().getBody(String.class) + " from step!");
+
     }
 
     @Produces
