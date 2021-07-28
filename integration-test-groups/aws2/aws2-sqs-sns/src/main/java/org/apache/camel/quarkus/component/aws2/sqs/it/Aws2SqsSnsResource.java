@@ -22,6 +22,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -50,6 +51,15 @@ public class Aws2SqsSnsResource {
 
     @ConfigProperty(name = "aws-sns.topic-name")
     String topicName;
+
+    @ConfigProperty(name = "aws-sqs.sns-fifo-receiver-queue-name")
+    String snsFifoReceiverQueueName;
+
+    @ConfigProperty(name = "aws2-sqs.sns-fifo-receiver-queue-arn")
+    String snsFifoReceiverQueueArn;
+
+    @ConfigProperty(name = "aws-sns-fifo.topic-name")
+    String fifoTopicName;
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -92,10 +102,15 @@ public class Aws2SqsSnsResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response snsSend(String message, @QueryParam("queueUrl") String queueUrl) throws Exception {
+    public Response snsSend(String message,
+            @QueryParam("queueUrl") String queueUrl,
+            @DefaultValue("false") @QueryParam("fifo") boolean fifo) throws Exception {
 
         final String response = producerTemplate.requestBody(
-                "aws2-sns://" + topicName + "?subscribeSNStoSQS=true&queueUrl=RAW(" + snsReceiverQueueArn + ")", message,
+                String.format("aws2-sns://%s?subscribeSNStoSQS=true&queueUrl=RAW(%s)%s",
+                        fifo ? fifoTopicName : topicName, fifo ? snsFifoReceiverQueueArn : snsReceiverQueueArn,
+                        fifo ? "&messageGroupIdStrategy=useExchangeId" : ""),
+                message,
                 String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -110,4 +125,10 @@ public class Aws2SqsSnsResource {
         return consumerTemplate.receiveBody("aws2-sqs://" + snsReceiverQueueName, 10000, String.class);
     }
 
+    @Path("/snsFifo/receiveViaSqs")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String fifoSqsReceiveViaSqs() throws Exception {
+        return consumerTemplate.receiveBody("aws2-sqs://" + snsFifoReceiverQueueName, 10000, String.class);
+    }
 }

@@ -82,4 +82,22 @@ class Aws2SqsSnsTest {
 
     }
 
+    @Test
+    void snsFifo() {
+        final String snsMsg = "snsFifo" + UUID.randomUUID().toString().replace("-", "");
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("fifo", true)
+                .body(snsMsg)
+                .post("/aws2-sqs-sns/sns/send")
+                .then()
+                .statusCode(201);
+
+        RestAssured
+                .get("/aws2-sqs-sns/snsFifo/receiveViaSqs")
+                .then()
+                .statusCode(200)
+                .body("Message", is(snsMsg));
+    }
+
 }
