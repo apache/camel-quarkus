@@ -35,6 +35,7 @@
         <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
         <module>bean</module>
         <module>browse</module>
+        <module>component-name-resolver</module>
         <module>controlbus</module>
         <module>core</module>
         <module>core-annotations</module>
