@@ -109,6 +109,10 @@ public class EipRoutes extends RouteBuilder {
                 .stream().capacity(4).timeout(3000)
                 .to("mock:resequenceStream");
 
+        from("direct:threads")
+                .threads(2)
+                .setBody(e -> "Hello from thread " + Thread.currentThread().getName());
+
     }
 
     @Produces
