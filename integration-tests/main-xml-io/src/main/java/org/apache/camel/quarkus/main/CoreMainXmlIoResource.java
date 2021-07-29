@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.json.Json;
@@ -25,8 +30,11 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
 
 import org.apache.camel.ExtendedCamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -34,16 +42,16 @@ import org.apache.camel.builder.TemplatedRouteBuilder;
 import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.spi.RoutesBuilderLoader;
 
-@Path("/test")
+@Path("/xml-io")
 @ApplicationScoped
 public class CoreMainXmlIoResource {
     @Inject
     CamelMain main;
 
     @Inject
-    ProducerTemplate template;
+    ProducerTemplate producerTemplate;
 
-    @Path("/main/describe")
+    @Path("/describe")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public JsonObject describeMain() {
@@ -76,12 +84,14 @@ public class CoreMainXmlIoResource {
                 .build();
     }
 
-    @Path("/xml-io/namespace-aware")
+    @Path("/route/{route}")
     @POST
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    @Consumes(MediaType.APPLICATION_XML)
-    public String namespaceAware(String body) {
-        return template.requestBody("direct:namespace-aware", body, String.class);
+    public String route(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
+        final Map<String, Object> headers = uriInfo.getQueryParameters().entrySet().stream()
+                .map(e -> new AbstractMap.SimpleImmutableEntry<String, Object>(e.getKey(), e.getValue().get(0)))
+                .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+        return producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
     }
-
 }
