@@ -141,6 +141,14 @@ public class EipRoutes extends RouteBuilder {
                 .doFinally()
                 .setBody(e -> "Handled by finally: " + e.getMessage().getBody(String.class));
 
+        from("direct:expression")
+                .choice()
+                .when().expression(header("expressionHeader"))
+                .setBody(constant("expressionHeader was true"))
+                .otherwise()
+                .setBody(constant("expressionHeader was false"))
+                .end();
+
     }
 
     @Produces
