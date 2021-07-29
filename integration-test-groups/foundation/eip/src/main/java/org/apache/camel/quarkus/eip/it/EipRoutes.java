@@ -126,6 +126,21 @@ public class EipRoutes extends RouteBuilder {
                 .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).timePeriodMillis(THROTTLE_PERIOD).rejectExecution(true)
                 .to("mock:throttle");
 
+        from("direct:tryCatchFinally")
+                .doTry()
+                .process(e -> {
+                    String body = e.getMessage().getBody(String.class);
+                    if ("throw".equals(body)) {
+                        throw new MyException();
+                    } else {
+                        e.getMessage().setBody("Hello " + body);
+                    }
+                })
+                .doCatch(MyException.class)
+                .setBody(e -> "Caught " + e.getMessage().getBody(String.class))
+                .doFinally()
+                .setBody(e -> "Handled by finally: " + e.getMessage().getBody(String.class));
+
     }
 
     @Produces
