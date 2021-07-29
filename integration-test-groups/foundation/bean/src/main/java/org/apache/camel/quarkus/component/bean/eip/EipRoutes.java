@@ -32,7 +32,7 @@ public class EipRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:dynamicRouter")
-                .dynamicRouter(method("myDynamicRouter", "route"));
+                .dynamicRouter().method("myDynamicRouter", "route");
 
     }
 
