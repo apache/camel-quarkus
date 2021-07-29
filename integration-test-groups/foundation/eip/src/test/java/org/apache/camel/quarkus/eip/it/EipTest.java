@@ -505,4 +505,25 @@ class EipTest {
         Assertions.assertThat(successCount)
                 .isLessThanOrEqualTo(EipRoutes.THROTTLE_PERIOD * EipRoutes.THROTTLE_MAXIMUM_REQUEST_COUNT);
     }
+
+    @Test
+    public void tryCatchFinally() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("foo")
+                .post("/eip/route/tryCatchFinally")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Handled by finally: Hello foo"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("throw")
+                .post("/eip/route/tryCatchFinally")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Handled by finally: Caught throw"));
+
+    }
+
 }
