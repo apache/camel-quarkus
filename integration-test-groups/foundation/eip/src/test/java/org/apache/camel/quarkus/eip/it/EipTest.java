@@ -17,7 +17,9 @@
 package org.apache.camel.quarkus.eip.it;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -405,6 +407,30 @@ class EipTest {
                 .then()
                 .statusCode(200)
                 .body(Matchers.is("b,a,d,c"));
+
+    }
+
+    @Test
+    public void threads() {
+        final Set<String> threadNames = new HashSet<>();
+        final int period = 10000;
+        final long deadline = System.currentTimeMillis() + period;
+        final int expectedThreadCount = 2;
+        do {
+            if (System.currentTimeMillis() >= deadline) {
+                Assertions.fail("Have not seen " + expectedThreadCount + " distict thread names within " + period
+                        + " ms; thread names seen so far: "
+                        + threadNames);
+            }
+            final String threadName = RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body("foo")
+                    .post("/eip/route/threads")
+                    .then()
+                    .statusCode(200)
+                    .extract().body().asString();
+            threadNames.add(threadName);
+        } while (threadNames.size() < expectedThreadCount);
 
     }
 
