@@ -526,4 +526,26 @@ class EipTest {
 
     }
 
+    @Test
+    public void expression() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("expressionHeader", "true")
+                .body("foo")
+                .post("/eip/route/expression")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("expressionHeader was true"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .queryParam("expressionHeader", "false")
+                .body("foo")
+                .post("/eip/route/expression")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("expressionHeader was false"));
+
+    }
+
 }
