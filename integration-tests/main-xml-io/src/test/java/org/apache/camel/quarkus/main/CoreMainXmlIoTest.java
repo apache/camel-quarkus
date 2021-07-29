@@ -28,6 +28,7 @@ import org.apache.camel.dsl.xml.io.XmlRoutesBuilderLoader;
 import org.apache.camel.quarkus.core.DisabledModelJAXBContextFactory;
 import org.apache.camel.quarkus.core.DisabledModelToXMLDumper;
 import org.apache.camel.quarkus.core.DisabledXMLRoutesDefinitionLoader;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -39,7 +40,7 @@ public class CoreMainXmlIoTest {
     public void testMainInstanceWithXmlRoutes() {
         JsonPath p = RestAssured.given()
                 .accept(MediaType.APPLICATION_JSON)
-                .get("/test/main/describe")
+                .get("/xml-io/describe")
                 .then()
                 .statusCode(200)
                 .extract()
@@ -55,7 +56,7 @@ public class CoreMainXmlIoTest {
                 .isEqualTo(XmlRoutesBuilderLoader.class.getName());
 
         assertThat(p.getList("routeBuilders", String.class))
-                .isEmpty();
+                .contains("org.apache.camel.quarkus.main.XmlIoRoutes");
 
         List<String> routes = p.getList("routes", String.class);
         assertThat(routes)
@@ -72,12 +73,31 @@ public class CoreMainXmlIoTest {
                 + "<foo:foo-text xmlns:foo=\"http://camel.apache.org/foo\">bar</foo:foo-text>";
 
         RestAssured.given()
-                .contentType(ContentType.XML)
+                .contentType(ContentType.TEXT)
                 .body(message)
-                .post("/test/xml-io/namespace-aware")
+                .post("/xml-io/route/namespace-aware")
                 .then()
                 .statusCode(200)
                 .body(is("bar"));
+
+    }
+
+    @Test
+    public void validate() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Kermit")
+                .post("/xml-io/route/validate")
+                .then()
+                .statusCode(200)
+                .body(Matchers.is("Hello Kermit you were validated"));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("Cookie Monster") // does not match ^K.*
+                .post("/xml-io/route/validate")
+                .then()
+                .statusCode(500);
 
     }
 
