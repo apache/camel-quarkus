@@ -27,6 +27,9 @@ import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
 
 public class EipRoutes extends RouteBuilder {
 
+    public static final int THROTTLE_PERIOD = 500;
+    public static final int THROTTLE_MAXIMUM_REQUEST_COUNT = 2;
+
     @Override
     public void configure() {
         from("direct:claimCheckByHeader")
@@ -112,6 +115,10 @@ public class EipRoutes extends RouteBuilder {
         from("direct:threads")
                 .threads(2)
                 .setBody(e -> "Hello from thread " + Thread.currentThread().getName());
+
+        from("direct:throttle")
+                .throttle(THROTTLE_MAXIMUM_REQUEST_COUNT).timePeriodMillis(THROTTLE_PERIOD).rejectExecution(true)
+                .to("mock:throttle");
 
     }
 
