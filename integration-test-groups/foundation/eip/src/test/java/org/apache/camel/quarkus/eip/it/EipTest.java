@@ -129,6 +129,41 @@ class EipTest {
     }
 
     @Test
+    public void weightedLoadBalancer() {
+        final int msgCount = 60;
+        LOG.infof("Sending %d messages", msgCount);
+        for (int i = 0; i < msgCount; i++) {
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .body("hello " + i)
+                    .post("/eip/route/weightedLoadBalancer")
+                    .then()
+                    .statusCode(200);
+        }
+
+        final int tolerance = 2;
+
+        final int expectedCount1 = (msgCount / (EipRoutes.WEIGHTED_1 + EipRoutes.WEIGHTED_2)) * EipRoutes.WEIGHTED_1;
+        final int expectedCount2 = msgCount - expectedCount1;
+
+        int actualCount1 = RestAssured.get("/eip/mock/weightedLoadBalancer1/" + (expectedCount1 - tolerance) + "+/10000/body")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().split(",").length;
+
+        int actualCount2 = RestAssured.get("/eip/mock/weightedLoadBalancer2/" + (expectedCount2 - tolerance) + "+/10000/body")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().split(",").length;
+
+        LOG.infof("Expected message distribution %d:%d, got %d:%d", expectedCount1, expectedCount2, actualCount1, actualCount2);
+
+        Assertions.assertThat(actualCount1).isBetween(expectedCount1 - tolerance, expectedCount1 + tolerance);
+        Assertions.assertThat(actualCount2).isBetween(expectedCount2 - tolerance, expectedCount2 + tolerance);
+
+    }
+
+    @Test
     public void enrich() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
