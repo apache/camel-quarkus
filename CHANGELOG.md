@@ -6,11 +6,15 @@
 
 **Closed issues:**
 
+- Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
+- AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
 
 **Merged pull requests:**
 
+- Polish the wording of the Configuration docs page [\#2956](https://github.com/apache/camel-quarkus/pull/2956) ([ppalaga](https://github.com/ppalaga))
+- AWS2 ddb-streams integration tests failures \#2860 [\#2951](https://github.com/apache/camel-quarkus/pull/2951) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Document upgrading Camel Quarkus in Quarkus platform [\#2950](https://github.com/apache/camel-quarkus/pull/2950) ([ppalaga](https://github.com/ppalaga))
 - Next is 2.2.0 [\#2949](https://github.com/apache/camel-quarkus/pull/2949) ([zbendhiba](https://github.com/zbendhiba))
 - Stress the more preferred way of configuring components via CDI by mo… [\#2947](https://github.com/apache/camel-quarkus/pull/2947) ([ppalaga](https://github.com/ppalaga))
