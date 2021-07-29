@@ -26,6 +26,7 @@ import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.catalog.RuntimeCamelCatalog;
 import org.apache.camel.spi.CamelContextCustomizer;
+import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
@@ -42,6 +43,7 @@ public class CamelContextRecorder {
             RuntimeValue<ModelToXMLDumper> xmlModelDumper,
             RuntimeValue<FactoryFinderResolver> factoryFinderResolver,
             RuntimeValue<StartupStepRecorder> startupStepRecorder,
+            RuntimeValue<ComponentNameResolver> componentNameResolver,
             BeanContainer beanContainer,
             String version,
             CamelConfig config) {
@@ -63,6 +65,7 @@ public class CamelContextRecorder {
         context.build();
         context.addLifecycleStrategy(new CamelLifecycleEventBridge());
         context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());
+        context.setComponentNameResolver(componentNameResolver.getValue());
 
         // register to the container
         beanContainer.instance(CamelProducers.class).setContext(context);

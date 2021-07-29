@@ -32,6 +32,7 @@ import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ClassResolver;
+import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.ComponentResolver;
 import org.apache.camel.spi.DataFormat;
 import org.apache.camel.spi.FactoryFinderResolver;
@@ -97,6 +98,12 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
         // operations done by the standard resolver by looking them up directly from the
         // registry
         return (name, context) -> context.getRegistry().lookupByNameAndType(name, Component.class);
+    }
+
+    @Override
+    protected ComponentNameResolver createComponentNameResolver() {
+        // Component names are discovered at build time
+        throw new UnsupportedOperationException();
     }
 
     @Override

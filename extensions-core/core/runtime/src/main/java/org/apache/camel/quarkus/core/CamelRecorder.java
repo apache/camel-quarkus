@@ -34,6 +34,7 @@ import org.apache.camel.quarkus.core.FastFactoryFinderResolver.Builder;
 import org.apache.camel.reifier.ProcessorReifier;
 import org.apache.camel.reifier.validator.ValidatorReifier;
 import org.apache.camel.spi.BeanProxyFactory;
+import org.apache.camel.spi.ComponentNameResolver;
 import org.apache.camel.spi.FactoryFinderResolver;
 import org.apache.camel.spi.ModelJAXBContextFactory;
 import org.apache.camel.spi.ModelToXMLDumper;
@@ -185,4 +186,7 @@ public class CamelRecorder {
         };
     }
 
+    public RuntimeValue<ComponentNameResolver> createComponentNameResolver(Set<String> componentNames) {
+        return new RuntimeValue<>(new FastComponentNameResolver(componentNames));
+    }
 }
