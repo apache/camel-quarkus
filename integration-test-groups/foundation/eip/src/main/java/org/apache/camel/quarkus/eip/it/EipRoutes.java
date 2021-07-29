@@ -29,6 +29,8 @@ public class EipRoutes extends RouteBuilder {
 
     public static final int THROTTLE_PERIOD = 500;
     public static final int THROTTLE_MAXIMUM_REQUEST_COUNT = 2;
+    public static final int WEIGHTED_1 = 2;
+    public static final int WEIGHTED_2 = 1;
 
     @Override
     public void configure() {
@@ -54,6 +56,10 @@ public class EipRoutes extends RouteBuilder {
         from("direct:stickyLoadBalancer")
                 .loadBalance().sticky(header("stickyKey"))
                 .to("mock:stickyLoadBalancer1", "mock:stickyLoadBalancer2");
+
+        from("direct:weightedLoadBalancer")
+                .loadBalance().weighted(false, "" + WEIGHTED_1 + "," + WEIGHTED_2)
+                .to("mock:weightedLoadBalancer1", "mock:weightedLoadBalancer2");
 
         from("direct:enrich")
                 .enrich("direct:prepend-hello");
