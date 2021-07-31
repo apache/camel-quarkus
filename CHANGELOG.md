@@ -11,9 +11,14 @@
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
+- Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
+- \[camel-master branch\] support ComponentNameResolver [\#892](https://github.com/apache/camel-quarkus/issues/892)
 
 **Merged pull requests:**
 
+- Introduce a build time optimized FastComponentNameResolver [\#2963](https://github.com/apache/camel-quarkus/pull/2963) ([jamesnetherton](https://github.com/jamesnetherton))
+- More EIP DSL method tests [\#2962](https://github.com/apache/camel-quarkus/pull/2962) ([ppalaga](https://github.com/ppalaga))
+- Fix foundation core faulttolerance itest package name [\#2961](https://github.com/apache/camel-quarkus/pull/2961) ([aldettinger](https://github.com/aldettinger))
 - Removed static modifier from top level class example [\#2959](https://github.com/apache/camel-quarkus/pull/2959) ([mmuzikar](https://github.com/mmuzikar))
 - Improve the Configuration by convention section of the configuration … [\#2958](https://github.com/apache/camel-quarkus/pull/2958) ([ppalaga](https://github.com/ppalaga))
 - Polish the wording of the Configuration docs page [\#2956](https://github.com/apache/camel-quarkus/pull/2956) ([ppalaga](https://github.com/ppalaga))
