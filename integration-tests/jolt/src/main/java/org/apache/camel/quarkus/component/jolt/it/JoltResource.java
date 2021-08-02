@@ -49,7 +49,9 @@ public class JoltResource {
         Map<String, String> inbody = new HashMap<>();
         inbody.put("key", value);
         Map<?, ?> outBody = template.requestBody("jolt:defaultr.json?transformDsl=Defaultr", inbody, Map.class);
-        return String.format("%s-%s+%s", outBody.get("a"), outBody.get("b"), outBody.get("key"));
+        Map<?, ?> outObject = (Map<?, ?>) outBody.get("object");
+        return String.format("%s-%s-%s-%s-%s-%s+%s", outBody.get("string"), outBody.get("null"), outBody.get("array"),
+                outBody.get("floating"), outBody.get("integer"), outObject.get("boolean"), outBody.get("key"));
     }
 
     @Path("/removr")

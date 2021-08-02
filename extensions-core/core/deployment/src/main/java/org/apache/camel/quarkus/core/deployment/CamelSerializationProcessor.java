@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.util.AbstractCollection;
 import java.util.AbstractList;
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ public class CamelSerializationProcessor {
             AbstractCollection.class.getName(),
             AbstractList.class.getName(),
             AbstractMap.class.getName(),
+            ArrayList.class.getName(),
             BigInteger.class.getName(),
             Boolean.class.getName(),
             Byte.class.getName(),

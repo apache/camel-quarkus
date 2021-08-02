@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelSerializationBuildItem;
 
 class JoltProcessor {
 
@@ -36,5 +37,12 @@ class JoltProcessor {
         ChainrEntry.STOCK_TRANSFORMS.values().stream().forEach(c -> {
             producer.produce(new ReflectiveClassBuildItem(false, false, c));
         });
+    }
+
+    @BuildStep
+    void registerJsonTypesForSerialization(BuildProducer<CamelSerializationBuildItem> producer) {
+        // A JOLT Defaultr transformation spec is a JSON content and it needs to be serialized at some point.
+        // As such, we need to register all JSON base types and super types for serialization.
+        producer.produce(new CamelSerializationBuildItem());
     }
 }

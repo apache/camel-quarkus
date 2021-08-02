@@ -1,4 +1,10 @@
 {
-	"a": "aa",
-	"b": "bb"
+	"string": "myString",
+	"null": null,
+	"array": [1, "2"],
+	"floating": 3.1,
+	"integer": 3,
+	"object" : {
+		"boolean": true
+	}
 }
