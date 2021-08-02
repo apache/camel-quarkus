@@ -18,12 +18,12 @@
 package org.apache.camel.quarkus.component.grpc.it;
 
 import java.util.Map;
+import java.util.Objects;
 
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.quarkus.test.AvailablePortFinder;
-import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +34,23 @@ public class GrpcServerTestResource implements QuarkusTestResourceLifecycleManag
     @Override
     public Map<String, String> start() {
         try {
-            final int port = AvailablePortFinder.getNextAvailable();
-            grpcServer = ServerBuilder.forPort(port).addService(new PingPongImpl()).build().start();
-            return CollectionHelper.mapOf("camel.grpc.test.server.port", String.valueOf(port));
+            Map<String, String> config = AvailablePortFinder.reserveNetworkPorts(
+                    Objects::toString,
+                    "grpc.test.server.port",
+                    "camel.grpc.test.server.port",
+                    "camel.grpc.test.forward.completed.server.port",
+                    "camel.grpc.test.forward.error.server.port",
+                    "camel.grpc.test.route.controlled.server.port",
+                    "camel.grpc.test.tls.server.port",
+                    "camel.grpc.test.jwt.server.port");
+
+            String port = config.get("grpc.test.server.port");
+            grpcServer = ServerBuilder.forPort(Integer.parseInt(port))
+                    .addService(new PingPongImpl())
+                    .build()
+                    .start();
+
+            return config;
         } catch (Exception e) {
             throw new RuntimeException("Could not start gRPC server", e);
         }
