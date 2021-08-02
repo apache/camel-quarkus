@@ -32,7 +32,8 @@ class JoltTest {
 
     @Test
     public void defaultrShouldSucceed() {
-        given().body("myValue").put("/jolt/defaultr").then().statusCode(200).body(is("aa-bb+myValue"));
+        given().body("myValue").put("/jolt/defaultr").then().statusCode(200)
+                .body(is("myString-null-[1, 2]-3.1-3-true+myValue"));
     }
 
     @Test
