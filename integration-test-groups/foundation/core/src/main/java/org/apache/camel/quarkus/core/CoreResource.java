@@ -185,13 +185,14 @@ public class CoreResource {
             @PathParam("methodName") String methodName,
             @PathParam("value") String value) {
         try {
-            final Class<?> cl = Class.forName(className);
+            final Class<?> cl = Class.forName(className, true, Thread.currentThread().getContextClassLoader());
             final Object inst = cl.newInstance();
             final Method method = cl.getDeclaredMethod(methodName, Object.class);
             method.invoke(inst, value);
             return Response.ok(inst.toString()).build();
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException
                 | SecurityException | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
             return Response.serverError().entity(e.getClass().getName() + ": " + e.getMessage()).build();
         }
     }

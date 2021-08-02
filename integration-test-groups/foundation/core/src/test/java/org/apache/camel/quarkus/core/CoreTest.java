@@ -95,6 +95,19 @@ public class CoreTest {
     }
 
     @Test
+    void reflectiveJreClass() {
+        RestAssured.when()
+                .get(
+                        "/core/reflection/{className}/method/{methodName}/{value}",
+                        "java.lang.StringBuffer",
+                        "append",
+                        "This is a StringBuffer")
+                .then()
+                .statusCode(200)
+                .body(is("This is a StringBuffer"));
+    }
+
+    @Test
     void testDefaultHeadersMapFactoryConfigured() {
         RestAssured.when().get("/core/headersmap-factory").then().body(is("true"));
     }
