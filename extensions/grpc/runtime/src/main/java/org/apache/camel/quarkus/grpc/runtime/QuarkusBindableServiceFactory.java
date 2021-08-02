@@ -22,7 +22,6 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import io.grpc.BindableService;
-import io.quarkus.grpc.GrpcService;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.grpc.GrpcConsumer;
 import org.apache.camel.component.grpc.GrpcEndpoint;
@@ -41,7 +40,6 @@ import static org.apache.camel.component.grpc.GrpcConstants.GRPC_BINDABLE_SERVIC
 public class QuarkusBindableServiceFactory implements BindableServiceFactory {
 
     @Inject
-    @GrpcService
     Instance<CamelQuarkusBindableService> bindableServices;
 
     @Override
@@ -58,7 +56,8 @@ public class QuarkusBindableServiceFactory implements BindableServiceFactory {
                 .findFirst()
                 .orElseThrow(() -> new IllegalStateException(
                         "Unable to find generated class for service " + endpoint.getServiceName()));
-        bindableService.setMethodHandler(new GrpcMethodHandler(consumer));
+        GrpcMethodHandler methodHandler = new GrpcMethodHandler(consumer);
+        bindableService.setMethodHandler(methodHandler);
         return bindableService;
     }
 }

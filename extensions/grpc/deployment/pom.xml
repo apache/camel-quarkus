@@ -32,7 +32,7 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-grpc-deployment</artifactId>
+            <artifactId>quarkus-grpc-common-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

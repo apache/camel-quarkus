@@ -76,6 +76,7 @@
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <guava.version>29.0-jre</guava.version>
         <graalvm.version>21.1.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
+        <grpc.version>1.35.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <gson.version>2.8.6</gson.version><!-- @sync com.ibm.jsonata4java:JSONata4Java:${jsonata4java-version} dep:com.google.code.gson:gson -->
         <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
@@ -165,7 +166,9 @@
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <os-maven-plugin.version>${os-maven-plugin-version}</os-maven-plugin.version>
         <properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
+        <protobuf-maven-plugin.version>${protobuf-maven-plugin-version}</protobuf-maven-plugin.version>
         <rpkgtests-maven-plugin.version>0.10.0</rpkgtests-maven-plugin.version>
 
         <!-- Plugin configuration through properties  -->
@@ -414,7 +417,7 @@
                             <type>pom</type>
                             <exclusions>
                                 <exclusion>
-                                    <!-- groovy-testng depends on testng 7.2.0 wich is not on maven central -->
+                                    <!-- groovy-testng depends on testng 7.2.0 which is not on maven central -->
                                     <groupId>org.codehaus.groovy</groupId>
                                     <artifactId>groovy-testng</artifactId>
                                 </exclusion>
@@ -453,6 +456,7 @@
                             <exclude>**/*.graphql</exclude>
                             <exclude>**/*.ics</exclude>
                             <exclude>**/*.jks</exclude>
+                            <exclude>**/*.key</exclude>
                             <exclude>**/*.kts</exclude>
                             <exclude>**/*.lock</exclude>
                             <exclude>**/*.mp3</exclude>

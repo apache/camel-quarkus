@@ -1,0 +1,38 @@
+# gRPC test client & server certificate generation
+
+The certificates used by the client / server for the security integration tests can be generated from within the src/main/resources/certs directory as follows.
+
+Create the certificate authority.
+
+[source,shell]
+----
+openssl genrsa -out ca.key 2048
+openssl req -x509 -new -key ca.key -nodes -out ca.pem -days 3650 -config ca-openssl.conf -extensions v3_req
+----
+
+Create the client certificate. When prompted for the 'common name' use localhost as the value. It's safe to accept the defaults for the other options.
+
+[source,shell]
+----
+openssl genrsa -out client.key.rsa 2048
+openssl pkcs8 -topk8 -in client.key.rsa -out client.key -nocrypt
+openssl req -new -key client.key -out client.csr
+openssl x509 -req -in client.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out client.pem -outform PEM -days 5000
+----
+
+Create the server certificate. When prompted for the 'common name' use localhost as the value. It's safe to accept the defaults for the other options.
+
+[source,shell]
+----
+openssl genrsa -out server.key.rsa 2048
+openssl pkcs8 -topk8 -in server.key.rsa -out server.key -nocrypt
+openssl req -new -key server.key -out server.csr
+openssl x509 -req -in server.csr -CA ca.pem -CAkey ca.key -CAcreateserial -out server.pem -outform PEM -days 5000
+----
+
+Clean up.
+
+[source,shell]
+----
+rm -f *.rsa *.csr *.srl
+----

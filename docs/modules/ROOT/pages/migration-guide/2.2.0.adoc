@@ -1,0 +1,10 @@
+= Camel Quarkus 2.2.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.2.0 & Quarkus 2.2.0.Final.
+
+== camel-quarkus-grpc consumers no longer depends on Quarkus gRPC server configuration
+
+In previous releases, many of the `camel-grpc` consumer configuration options were ignored as the gRPC server configuration was 
+driven by the `quarkus-grpc` extension.
+
+This is no longer the case. All of the `camel-grpc` consumer configuration options are respected.
