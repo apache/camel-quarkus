@@ -249,17 +249,14 @@ public class CamelNativeImageProcessor {
                 .forEach(builder::exclude);
         final PathFilter pathFilter = builder.build();
 
-        for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-            LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths());
-
-            for (Path rootPath : archive.getRootDirs()) {
-                String[] selectedClassNames = pathFilter.scanClassNames(rootPath, CamelSupport.safeWalk(rootPath),
-                        Files::isRegularFile);
-                if (selectedClassNames.length > 0) {
-                    reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
-                }
-            }
+        Stream<Path> archiveRootDirs = archives.getAllApplicationArchives().stream()
+                .peek(archive -> LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths()))
+                .flatMap(archive -> archive.getRootDirs().toList().stream());
+        String[] selectedClassNames = pathFilter.scanClassNames(archiveRootDirs);
+        if (selectedClassNames.length > 0) {
+            reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
         }
+
     }
 
     @BuildStep

@@ -265,9 +265,12 @@ public class CamelConfig {
          * <code>io.quarkus.runtime.annotations.RegisterForReflection</code> annotation
          * in your Java code.
          * <p>
-         * For this option to work properly, the artifacts containing the selected classes
-         * must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
-         * be registered for indexing using the {@code quarkus.index-dependency.*} family
+         * For this option to work properly, at least one of the following conditions must be satisfied:
+         * <ul>
+         * <li>There are no wildcards (<code>*</code> or <code>/</code>) in the patterns</li>
+         * <li>The artifacts containing the selected classes contain a Jandex index ({@code META-INF/jandex.idx})</li>
+         * <li>The artifacts containing the selected classes are registered for indexing using the
+         * {@code quarkus.index-dependency.*} family
          * of options in {@code application.properties} - e.g.
          *
          * <pre>
@@ -276,7 +279,8 @@ public class CamelConfig {
          * </pre>
          *
          * where {@code my-dep} is a label of your choice to tell Quarkus that
-         * {@code org.my-group} and with {@code my-artifact} belong together.
+         * {@code org.my-group} and with {@code my-artifact} belong together.</li>
+         * </ul>
          */
         @ConfigItem
         public Optional<List<String>> includePatterns;
