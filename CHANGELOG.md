@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
@@ -16,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Use quarkus-grpc-common instead of quarkus-grpc in the gRPC extension [\#2971](https://github.com/apache/camel-quarkus/pull/2971) ([jamesnetherton](https://github.com/jamesnetherton))
 - Introduce a build time optimized FastComponentNameResolver [\#2963](https://github.com/apache/camel-quarkus/pull/2963) ([jamesnetherton](https://github.com/jamesnetherton))
 - More EIP DSL method tests [\#2962](https://github.com/apache/camel-quarkus/pull/2962) ([ppalaga](https://github.com/ppalaga))
 - Fix foundation core faulttolerance itest package name [\#2961](https://github.com/apache/camel-quarkus/pull/2961) ([aldettinger](https://github.com/aldettinger))
