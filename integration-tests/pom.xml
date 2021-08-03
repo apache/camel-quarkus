@@ -36,16 +36,6 @@
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.quarkus</groupId>
-                <artifactId>quarkus-junit5-internal</artifactId>
-                <version>${quarkus.version}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <modules>
         <!-- build those first -->
         <module>foundation-grouped</module>
