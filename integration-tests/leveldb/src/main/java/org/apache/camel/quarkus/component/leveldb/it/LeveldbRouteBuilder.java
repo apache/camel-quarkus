@@ -39,7 +39,7 @@ public class LeveldbRouteBuilder extends RouteBuilder {
     private static AtomicInteger counter = new AtomicInteger(0);
 
     @Override
-    public void configure() throws Exception {
+    public void configure() {
         LevelDBAggregationRepository repo = new QuarkusLevelDBAggregationRepository("repo", DATA_FOLDER + "leveldb.dat");
 
         from(DIRECT_START)

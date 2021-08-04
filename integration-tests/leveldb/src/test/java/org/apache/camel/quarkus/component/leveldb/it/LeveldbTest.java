@@ -91,7 +91,7 @@ class LeveldbTest {
     }
 
     @Test
-    public void testBinaryData() throws Exception {
+    public void testBinaryData() {
 
         boolean theSame = RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -128,12 +128,6 @@ class LeveldbTest {
     public static void afterAll() throws Exception {
         File data = new File(LeveldbRouteBuilder.DATA_FOLDER);
         FileUtils.deleteDirectory(data);
-    }
-
-    private byte[] readQuarkusFile(String fileName) throws Exception {
-        try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
-            return readBytes(is);
-        }
     }
 
     static byte[] readBytes(InputStream is) throws Exception {
