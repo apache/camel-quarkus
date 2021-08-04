@@ -25,7 +25,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
-import javax.ws.rs.Produces;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -35,8 +34,8 @@ import software.amazon.awssdk.services.dynamodb.model.StreamRecord;
 @ApplicationScoped
 public class Aws2DdbStreamRoutes extends RouteBuilder {
 
-    @ConfigProperty(name = "aws-ddb.table-name")
-    String tableName;
+    @ConfigProperty(name = "aws-ddb.stream-table-name")
+    String streamTableName;
 
     @Inject
     @Named("aws2DdbStreamReceivedEvents")
@@ -44,20 +43,23 @@ public class Aws2DdbStreamRoutes extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        from("aws2-ddbstream://" + tableName)
-                .process(e -> {
-                    Record record = e.getMessage().getBody(Record.class);
-                    StreamRecord item = record.dynamodb();
-                    Map<String, String> result = new LinkedHashMap<>();
-                    result.put("key", item.keys().get("key").s());
-                    if (item.hasOldImage()) {
-                        result.put("old", item.oldImage().get("value").s());
-                    }
-                    if (item.hasNewImage()) {
-                        result.put("new", item.newImage().get("value").s());
-                    }
-                    aws2DdbStreamReceivedEvents.add(result);
-                });
+        from("aws2-ddbstream://" + streamTableName
+                + "?sequenceNumberProvider=#aws2DdbStreamSequenceNumberProvider&iteratorType=AT_SEQUENCE_NUMBER")
+                        .id("aws2DdbStreamRoute")
+                        .process(e -> {
+                            Record record = e.getMessage().getBody(Record.class);
+                            StreamRecord item = record.dynamodb();
+                            Map<String, String> result = new LinkedHashMap<>();
+                            result.put("key", item.keys().get("key").s());
+                            if (item.hasOldImage()) {
+                                result.put("old", item.oldImage().get("value").s());
+                            }
+                            if (item.hasNewImage()) {
+                                result.put("new", item.newImage().get("value").s());
+                            }
+                            result.put("sequenceNumber", item.sequenceNumber());
+                            aws2DdbStreamReceivedEvents.add(result);
+                        });
     }
 
     static class Producers {

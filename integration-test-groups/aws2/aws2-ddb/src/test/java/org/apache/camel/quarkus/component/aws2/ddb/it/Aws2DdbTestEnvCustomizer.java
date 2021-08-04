@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.aws2.ddb.it;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
@@ -48,38 +51,60 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
         final String tableName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
         envContext.property("aws-ddb.table-name", tableName);
 
+        final String tableNameOperations = "camel-quarkus-operations-"
+                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        envContext.property("aws-ddb.operations-table-name", tableNameOperations);
+
+        final String tableNameStreams = "camel-quarkus-streams-"
+                + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
+        envContext.property("aws-ddb.stream-table-name", tableNameStreams);
+
+        List<String> tableNames = Stream.of(tableName, tableNameStreams, tableNameOperations).collect(Collectors.toList());
+
         final DynamoDbClient client = envContext.client(Service.DYNAMODB, DynamoDbClient::builder);
         {
             final String keyColumn = "key";
-            client.createTable(
-                    CreateTableRequest.builder()
-                            .attributeDefinitions(AttributeDefinition.builder()
-                                    .attributeName(keyColumn)
-                                    .attributeType(ScalarAttributeType.S)
-                                    .build())
-                            .keySchema(KeySchemaElement.builder()
-                                    .attributeName(keyColumn)
-                                    .keyType(KeyType.HASH)
-                                    .build())
-                            .provisionedThroughput(ProvisionedThroughput.builder()
-                                    .readCapacityUnits(new Long(10))
-                                    .writeCapacityUnits(new Long(10))
-                                    .build())
-                            .streamSpecification(StreamSpecification.builder()
-                                    .streamEnabled(true)
-                                    .streamViewType(StreamViewType.NEW_AND_OLD_IMAGES)
-                                    .build())
-                            .tableName(tableName)
-                            .build());
 
-            try (DynamoDbWaiter dbWaiter = client.waiter()) {
-                dbWaiter.waitUntilTableExists(DescribeTableRequest.builder()
-                        .tableName(tableName)
-                        .build());
+            for (String table : tableNames) {
+                client.createTable(
+                        createTableRequest(table, keyColumn)
+                                .build());
             }
 
-            envContext.closeable(() -> client.deleteTable(DeleteTableRequest.builder().tableName(tableName).build()));
+            for (String table : tableNames) {
+                try (DynamoDbWaiter dbWaiter = client.waiter()) {
+                    dbWaiter.waitUntilTableExists(DescribeTableRequest.builder()
+                            .tableName(table)
+                            .build());
+                }
+
+                envContext.closeable(() -> client.deleteTable(DeleteTableRequest.builder().tableName(table).build()));
+            }
+
+        }
+    }
+
+    private CreateTableRequest.Builder createTableRequest(String tableName, String keyColumn) {
+        CreateTableRequest.Builder builder = CreateTableRequest.builder()
+                .attributeDefinitions(AttributeDefinition.builder()
+                        .attributeName(keyColumn)
+                        .attributeType(ScalarAttributeType.S)
+                        .build())
+                .keySchema(KeySchemaElement.builder()
+                        .attributeName(keyColumn)
+                        .keyType(KeyType.HASH)
+                        .build())
+                .provisionedThroughput(ProvisionedThroughput.builder()
+                        .readCapacityUnits(new Long(10))
+                        .writeCapacityUnits(new Long(10))
+                        .build());
+        if (tableName.contains("streams")) {
+            builder.streamSpecification(StreamSpecification.builder()
+                    .streamEnabled(true)
+                    .streamViewType(StreamViewType.NEW_AND_OLD_IMAGES)
+                    .build());
         }
 
+        return builder.tableName(tableName);
     }
 }
