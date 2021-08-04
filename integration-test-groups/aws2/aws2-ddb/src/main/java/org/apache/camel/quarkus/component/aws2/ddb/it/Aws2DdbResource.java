@@ -21,7 +21,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -33,23 +36,40 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.ddb.Ddb2Constants;
 import org.apache.camel.component.aws2.ddb.Ddb2Operations;
+import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
+import software.amazon.awssdk.services.dynamodb.model.ComparisonOperator;
+import software.amazon.awssdk.services.dynamodb.model.Condition;
+import software.amazon.awssdk.services.dynamodb.model.KeysAndAttributes;
+import software.amazon.awssdk.services.dynamodb.model.ProvisionedThroughputDescription;
 
 @Path("/aws2-ddb")
 @ApplicationScoped
 public class Aws2DdbResource {
 
+    public enum Table {
+        basic, operations, stream
+    }
+
     @ConfigProperty(name = "aws-ddb.table-name")
     String tableName;
+
+    @ConfigProperty(name = "aws-ddb.operations-table-name")
+    String operationsTableName;
+
+    @ConfigProperty(name = "aws-ddb.stream-table-name")
+    String streamTableName;
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -59,7 +79,9 @@ public class Aws2DdbResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response post(String message, @PathParam("key") String key) throws Exception {
+    public Response post(String message,
+            @PathParam("key") String key,
+            @QueryParam("table") String table) throws Exception {
         final Map<String, AttributeValue> item = new HashMap<String, AttributeValue>() {
             {
                 put("key", AttributeValue.builder()
@@ -68,7 +90,8 @@ public class Aws2DdbResource {
                         .s(message).build());
             }
         };
-        producerTemplate.sendBodyAndHeaders(componentUri(Ddb2Operations.PutItem),
+        producerTemplate.sendBodyAndHeaders(
+                componentUri(Table.valueOf(table), Ddb2Operations.PutItem),
                 message,
                 new HashMap<String, Object>() {
                     {
@@ -105,9 +128,9 @@ public class Aws2DdbResource {
     @Path("/item/{key}")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public void updateItem(String message, @PathParam("key") String key) throws Exception {
+    public void updateItem(String message, @PathParam("key") String key, @QueryParam("table") String table) throws Exception {
         producerTemplate.sendBodyAndHeaders(
-                componentUri(Ddb2Operations.UpdateItem),
+                componentUri(Table.valueOf(table), Ddb2Operations.UpdateItem),
                 null,
                 new HashMap<String, Object>() {
                     {
@@ -130,9 +153,9 @@ public class Aws2DdbResource {
     @Path("/item/{key}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
-    public void deleteItem(@PathParam("key") String key) throws Exception {
+    public void deleteItem(@PathParam("key") String key, @QueryParam("table") String table) throws Exception {
         producerTemplate.sendBodyAndHeaders(
-                componentUri(Ddb2Operations.DeleteItem),
+                componentUri(Table.valueOf(table), Ddb2Operations.DeleteItem),
                 null,
                 new HashMap<String, Object>() {
                     {
@@ -144,8 +167,136 @@ public class Aws2DdbResource {
                 });
     }
 
-    private String componentUri(Ddb2Operations op) {
-        return "aws2-ddb://" + tableName + "?operation=" + op;
+    @Path("/batchItems")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map batchItems(List<String> keyValues) throws Exception {
+        Map<String, AttributeValue>[] keyAttrs = keyValues.stream()
+                .map(v -> Collections.singletonMap("key", AttributeValue.builder().s(v).build())).toArray(Map[]::new);
+        Map<String, KeysAndAttributes> keysAttrs = Collections.singletonMap(operationsTableName,
+                KeysAndAttributes.builder().keys(keyAttrs).build());
+
+        Map<String, List<Map<AttributeValue, AttributeValue>>> result = (Map<String, List<Map<AttributeValue, AttributeValue>>>) producerTemplate
+                .send(componentUri(Table.operations, Ddb2Operations.BatchGetItems),
+                        e -> e.getIn().setHeader(Ddb2Constants.BATCH_ITEMS, keysAttrs))
+                .getMessage().getHeader(Ddb2Constants.BATCH_RESPONSE);
+
+        Map<String, String> collected = new HashMap<>();
+        for (Map<AttributeValue, AttributeValue> m : result.get(operationsTableName)) {
+            collected.put(m.get("key").s(), m.get("value").s());
+        }
+        return collected;
     }
 
+    @Path("/query")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map query(String keyEq) throws Exception {
+        Map<String, Condition> keyConditions = new HashMap<>();
+        Condition.Builder condition = Condition.builder().comparisonOperator(ComparisonOperator.EQ.toString())
+                .attributeValueList(AttributeValue.builder().s(keyEq).build());
+
+        keyConditions.put("key", condition.build());
+
+        List<Map<AttributeValue, AttributeValue>> result = (List<Map<AttributeValue, AttributeValue>>) producerTemplate
+                .send(componentUri(Table.operations, Ddb2Operations.Query),
+                        e -> {
+                            e.getIn().setHeader(Ddb2Constants.ATTRIBUTE_NAMES,
+                                    Stream.of("key", "value").collect(Collectors.toList()));
+                            e.getIn().setHeader(Ddb2Constants.CONSISTENT_READ, true);
+                            e.getIn().setHeader(Ddb2Constants.LIMIT, 10);
+                            e.getIn().setHeader(Ddb2Constants.SCAN_INDEX_FORWARD, true);
+                            e.getIn().setHeader(Ddb2Constants.KEY_CONDITIONS, keyConditions);
+                        })
+                .getMessage().getHeader(Ddb2Constants.ITEMS);
+
+        Map<String, String> collected = new HashMap<>();
+        for (Map<AttributeValue, AttributeValue> m : result) {
+            collected.put(m.get("key").s(), m.get("value").s());
+        }
+        return collected;
+    }
+
+    @Path("/scan")
+    @GET
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map scan() throws Exception {
+
+        List<Map<AttributeValue, AttributeValue>> result = (List<Map<AttributeValue, AttributeValue>>) producerTemplate
+                .send(componentUri(Table.operations, Ddb2Operations.Scan),
+                        e -> {
+                            e.getIn().setHeader(Ddb2Constants.ATTRIBUTE_NAMES,
+                                    Stream.of("key", "value").collect(Collectors.toList()));
+                            e.getIn().setHeader(Ddb2Constants.CONSISTENT_READ, true);
+                        })
+                .getMessage().getHeader(Ddb2Constants.ITEMS);
+
+        Map<String, String> collected = new HashMap<>();
+        for (Map<AttributeValue, AttributeValue> m : result) {
+            collected.put(m.get("key").s(), m.get("value").s());
+        }
+        return collected;
+    }
+
+    @Path("/updateTable")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response updateTable(int capacity) throws Exception {
+        producerTemplate
+                .send(componentUri(Table.operations, Ddb2Operations.UpdateTable),
+                        e -> {
+                            e.getIn().setHeader(Ddb2Constants.READ_CAPACITY, capacity);
+                            e.getIn().setHeader(Ddb2Constants.WRITE_CAPACITY, capacity);
+                        });
+        return Response.created(new URI("https://camel.apache.org/")).build();
+    }
+
+    @Path("/operation")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map operation(String operation) throws Exception {
+        final Message message = producerTemplate
+                .send(componentUri(Table.operations, Ddb2Operations.valueOf(operation)), e -> {
+                })
+                .getMessage();
+        return message.getHeaders().entrySet().stream().collect(Collectors.toMap(
+                Map.Entry::getKey,
+                e -> {
+                    if (e.getValue() instanceof List) {
+                        return ((List) e.getValue()).size();
+                    }
+                    if (e.getValue() instanceof ProvisionedThroughputDescription) {
+                        ProvisionedThroughputDescription ptd = (ProvisionedThroughputDescription) e.getValue();
+                        return CollectionHelper.mapOf(Ddb2Constants.READ_CAPACITY, ptd.readCapacityUnits(),
+                                Ddb2Constants.WRITE_CAPACITY, ptd.writeCapacityUnits());
+                    }
+                    if (Ddb2Constants.TABLE_NAME.equals(e.getKey()) && operationsTableName.equals(e.getValue())) {
+                        return Table.operations.toString();
+                    }
+                    return e.getValue() == null ? "" : e.getValue().toString();
+                }));
+    }
+
+    private String componentUri(Ddb2Operations op) {
+        return componentUri(Table.basic, op);
+    }
+
+    private String componentUri(Table table, Ddb2Operations op) {
+        String tableName;
+
+        switch (table) {
+        case operations:
+            tableName = this.operationsTableName;
+            break;
+        case stream:
+            tableName = this.streamTableName;
+            break;
+        default:
+            tableName = this.tableName;
+        }
+        return "aws2-ddb://" + tableName + "?operation=" + op;
+    }
 }
