@@ -6,21 +6,27 @@
 
 **Closed issues:**
 
+- Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
 - Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
+- Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
+- \[Serialization\] Jolt: Remove the DeepCopySubstitution when/if graal supports Object serialization [\#1433](https://github.com/apache/camel-quarkus/issues/1433)
 - \[camel-master branch\] support ComponentNameResolver [\#892](https://github.com/apache/camel-quarkus/issues/892)
 
 **Merged pull requests:**
 
+- Skip querying Jandex for quarkus.camel.native.reflection.include-patt… [\#2973](https://github.com/apache/camel-quarkus/pull/2973) ([ppalaga](https://github.com/ppalaga))
+- jolt: remove the DeepCopySubstitution in favor of Quarkus serializati… [\#2972](https://github.com/apache/camel-quarkus/pull/2972) ([aldettinger](https://github.com/aldettinger))
 - Use quarkus-grpc-common instead of quarkus-grpc in the gRPC extension [\#2971](https://github.com/apache/camel-quarkus/pull/2971) ([jamesnetherton](https://github.com/jamesnetherton))
 - Introduce a build time optimized FastComponentNameResolver [\#2963](https://github.com/apache/camel-quarkus/pull/2963) ([jamesnetherton](https://github.com/jamesnetherton))
 - More EIP DSL method tests [\#2962](https://github.com/apache/camel-quarkus/pull/2962) ([ppalaga](https://github.com/ppalaga))
 - Fix foundation core faulttolerance itest package name [\#2961](https://github.com/apache/camel-quarkus/pull/2961) ([aldettinger](https://github.com/aldettinger))
+- Test sending messages to an SNS FIFO topic \#2625 [\#2960](https://github.com/apache/camel-quarkus/pull/2960) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Removed static modifier from top level class example [\#2959](https://github.com/apache/camel-quarkus/pull/2959) ([mmuzikar](https://github.com/mmuzikar))
 - Improve the Configuration by convention section of the configuration … [\#2958](https://github.com/apache/camel-quarkus/pull/2958) ([ppalaga](https://github.com/ppalaga))
 - Polish the wording of the Configuration docs page [\#2956](https://github.com/apache/camel-quarkus/pull/2956) ([ppalaga](https://github.com/ppalaga))
