@@ -89,6 +89,9 @@ jobs:
       - name: mvn clean install -DskipTests
         run: |
           eval ./mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} clean install -DskipTests -Dquarkus.build.skip -Dskip.installyarn -Dskip.yarn
+      - name: Sync Maven properties
+        run: |
+          ./mvnw cq:sync-versions ${MAVEN_ARGS} -N
       - name: Fail if there are uncommitted changes
         shell: bash
         run: |
