@@ -86,6 +86,7 @@
                                         <include>org/springframework/jndi/JndiCallback**</include>
                                         <include>org/springframework/jndi/JndiTemplate.**</include>
                                         <include>org/springframework/jndi/TypeMismatchNamingException**</include>
+                                        <include>org/springframework/remoting/rmi/CodebaseAwareObjectInputStream**</include>
                                         <include>org/springframework/scheduling/**</include>
                                     </includes>
                                 </filter>
