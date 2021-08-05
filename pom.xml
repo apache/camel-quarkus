@@ -141,7 +141,7 @@
         <zt-exec.version>1.11</zt-exec.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>0.36.0</cq-plugin.version>
+        <cq-plugin.version>0.38.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -382,6 +382,7 @@
                     <artifactId>cq-maven-plugin</artifactId>
                     <version>${cq-plugin.version}</version>
                     <configuration>
+                        <simpleElementWhitespace>SPACE</simpleElementWhitespace>
                         <extensionDirectories>
                             <extensionDirectory>${project.basedir}/extensions-core</extensionDirectory>
                             <extensionDirectory>${project.basedir}/extensions</extensionDirectory>
@@ -585,7 +586,7 @@
                 <executions>
                     <execution>
                         <id>default-test</id>
-                        <phase/><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
+                        <phase /><!-- unbound here to speedup -Dquickly build; bound to a phase in camel-quarkus-build-parent-it -->
                     </execution>
                 </executions>
             </plugin>
@@ -596,7 +597,7 @@
                 <executions>
                     <execution>
                         <id>attach-descriptor</id>
-                        <phase/><!-- skip to save time -->
+                        <phase /><!-- skip to save time -->
                     </execution>
                 </executions>
             </plugin>
@@ -630,7 +631,7 @@
                                         <requireJavaVersion>
                                             <version>11</version>
                                         </requireJavaVersion>
-                                        <dependencyConvergence/>
+                                        <dependencyConvergence />
                                         <requireMavenVersion>
                                             <version>${supported-maven-versions}</version>
                                         </requireMavenVersion>
@@ -849,7 +850,7 @@
                         <executions>
                             <execution>
                                 <id>camel-quarkus-enforcer-rules</id>
-                                <phase/><!-- Speedup the check-format profile by skipping the enforcer  -->
+                                <phase /><!-- Speedup the check-format profile by skipping the enforcer  -->
                             </execution>
                         </executions>
                     </plugin>
@@ -872,7 +873,7 @@
                         <executions>
                             <execution>
                                 <id>source-release-assembly</id>
-                                <phase/><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
+                                <phase /><!-- fix https://github.com/apache/camel-quarkus/issues/844 -->
                             </execution>
                             <execution>
                                 <id>camel-quarkus-source-release-assembly</id>
