@@ -47,10 +47,14 @@ import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.Registry;
 import org.apache.camel.support.LRUCacheFactory;
 import org.apache.camel.support.startup.DefaultStartupStepRecorder;
+import org.jboss.logging.Logger;
 
 @Path("/core")
 @ApplicationScoped
 public class CoreResource {
+
+    private static final Logger LOG = Logger.getLogger(CoreResource.class);
+
     @Inject
     Registry registry;
     @Inject
@@ -76,6 +80,8 @@ public class CoreResource {
     public boolean camelContextAwareBeansHaveContextSet() {
         return registry.findByType(CamelContextAware.class).stream()
                 .filter(camelContextAware -> camelContextAware.getCamelContext() == null)
+                .peek(bean -> LOG.warnf("Found a CamelContextAware bean of type %s with null CamelContext",
+                        bean.getClass().getName()))
                 .collect(Collectors.toList())
                 .isEmpty();
     }
