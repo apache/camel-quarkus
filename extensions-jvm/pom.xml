@@ -91,7 +91,6 @@
         <module>jt400</module>
         <module>kamelet-reify</module>
         <module>kotlin-dsl</module>
-        <module>language</module>
         <module>ldap</module>
         <module>ldif</module>
         <module>lucene</module>

@@ -3,16 +3,16 @@
 = Language
 :linkattrs:
 :cq-artifact-id: camel-quarkus-language
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Execute scripts in any of the languages supported by Camel.
 :cq-deprecated: false
 :cq-jvm-since: 1.1.0
-:cq-native-since: n/a
+:cq-native-since: 2.2.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##2.2.0##
 
 Execute scripts in any of the languages supported by Camel.
 
@@ -24,6 +24,10 @@ Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 
+https://code.quarkus.io/?extension-search=camel-quarkus-language[Create a new project with this extension on code.quarkus.io, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -33,3 +37,8 @@ Please refer to the above link for usage and configuration details.
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== allowContextMapAll option in native mode
+
+The `allowContextMapAll` option is not supported in native mode as it requires reflective access to security sensitive camel core classes such as
+`CamelContext` & `Exchange`. This is considered a security risk and thus access to the feature is not provided by default.

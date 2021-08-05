@@ -150,6 +150,7 @@
         <module>kotlin</module>
         <module>kubernetes</module>
         <module>kudu</module>
+        <module>language</module>
         <module>leveldb</module>
         <module>log</module>
         <module>lra</module>
