@@ -67,7 +67,8 @@ The grouped module may then be preferred in a CI job that validates pull request
   E.g. for `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups/azure[integration-test-groups/azure]` there is `https://github.com/apache/camel-quarkus/tree/main/integration-tests/azure-grouped[integration-tests/azure-grouped]`.
 * Grouped modules dynamically pull all sources from their associated isolated test modules to their `target/[test-]classes` directories respectively.
 * `application.properties` files and service descriptors are concatenated using a Groovy script.
-* The dependencies in the grouped `pom.xml` need to be updated manually via `mvn process-resources -Pformat -N`.
+* The dependencies in the grouped `pom.xml` need to be updated manually via `mvn process-resources -Pformat -N`
+  run from the root directory of the source tree.
 
 == Coverage
 

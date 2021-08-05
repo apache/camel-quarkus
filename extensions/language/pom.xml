@@ -18,42 +18,20 @@
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-integration-test-groups</artifactId>
+        <artifactId>camel-quarkus-build-parent</artifactId>
         <version>2.2.0-SNAPSHOT</version>
+        <relativePath>../../poms/build-parent/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-tests-foundation</artifactId>
+    <artifactId>camel-quarkus-language-parent</artifactId>
+    <name>Camel Quarkus :: Language</name>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Foundation Integration Tests</name>
-
     <modules>
-        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>bean</module>
-        <module>browse</module>
-        <module>component-name-resolver</module>
-        <module>controlbus</module>
-        <module>core</module>
-        <module>core-annotations</module>
-        <module>core-fault-tolerance</module>
-        <module>core-languages</module>
-        <module>core-thread-pools</module>
-        <module>customized-log-component</module>
-        <module>direct</module>
-        <module>eip</module>
-        <module>language</module>
-        <module>log</module>
-        <module>mock</module>
-        <module>ref</module>
-        <module>scheduler</module>
-        <module>seda</module>
-        <module>stream</module>
-        <module>timer</module>
-        <module>type-converter</module>
+        <module>deployment</module>
+        <module>runtime</module>
     </modules>
-
 </project>

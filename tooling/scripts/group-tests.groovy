@@ -34,9 +34,11 @@ import groovy.ant.AntBuilder
 final Path sourceDir = Paths.get(properties['group-tests.source.dir'])
 final String[] concatRelPaths = properties['group-tests.concat.rel.paths'].split('[\\s,]+')
 final Path destinationModuleDir = Paths.get(properties['group-tests.dest.module.dir'])
+/* Property names whose values originating from distinct application.properties files can be concatenated using comma as a separator */
+final Set<String> commaConcatenatePropertyNames = ["quarkus.native.resources.includes", "quarkus.native.resources.excludes"] as Set;
 
 final Map<String, ResourceConcatenator> mergedFiles = new HashMap<>()
-concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator()) }
+concatRelPaths.each {relPath -> mergedFiles.put(relPath, new ResourceConcatenator(commaConcatenatePropertyNames)) }
 
 Files.list(sourceDir)
     .filter { p -> Files.exists(p.resolve('pom.xml')) }
@@ -69,7 +71,11 @@ class ResourceConcatenator {
     private final StringBuilder sb = new StringBuilder()
     private final Properties props = new Properties()
     private final List<Path> visitedPaths = new ArrayList<>()
+    private final Set<String> commaConcatenatePropertyNames;
 
+    public ResourceConcatenator(Set<String> commaConcatenatePropertyNames) {
+        this.commaConcatenatePropertyNames = commaConcatenatePropertyNames;
+    }
     public ResourceConcatenator append(Path path) {
         if (Files.exists(path)) {
             if (path.getFileName().toString().endsWith(".properties")) {
@@ -79,10 +85,15 @@ class ResourceConcatenator {
                 }
                 newProps.each { key, val ->
                     if (props.containsKey(key) && !props.get(key).equals(val)) {
-                        throw new IllegalStateException("Conflicting property value "+ key +" = "+ val +": found in "+ path + " conflicting with some of " + visitedPaths);
+                        if (commaConcatenatePropertyNames.contains(key)) {
+                            props.put(key, props.get(key) + "," + val);
+                        } else {
+                            throw new IllegalStateException("Conflicting property value "+ key +" = "+ val +": found in "+ path + " conflicting with some of " + visitedPaths);
+                        }
+                    } else {
+                        props.put(key, val);
                     }
                 }
-                props.putAll(newProps)
             } else {
                 sb.append(path.getText('UTF-8') + '\n')
             }
