@@ -68,4 +68,11 @@ public class SimpleTest {
                 .body(is("BYTE_BUFFER"));
     }
 
+    @Test
+    public void languageSimple() {
+        given().body("Frankenstein").when().post("/core-languages/route/languageSimple/String").then()
+                .statusCode(200)
+                .body(is("Hello Frankenstein from language().simple()"));
+    }
+
 }
