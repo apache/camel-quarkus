@@ -32,7 +32,6 @@ import org.apache.camel.quarkus.component.platform.http.runtime.PlatformHttpReco
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterLoaderBuildItem;
 
 class PlatformHttpProcessor {
     private static final String FEATURE = "camel-platform-http";
@@ -85,13 +84,5 @@ class PlatformHttpProcessor {
                 PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME,
                 PlatformHttpComponent.class.getName(),
                 recorder.createComponent(engine.getInstance()));
-    }
-
-    // TODO: Remove this when the underlying issue is fixed in VertxPlatformHttpSupport.writeResponse
-    // https://github.com/apache/camel-quarkus/issues/2838
-    @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
-    CamelTypeConverterLoaderBuildItem vertxByteBufferConverterLoader(PlatformHttpRecorder recorder) {
-        return new CamelTypeConverterLoaderBuildItem(recorder.createVertxByteBufferConverterLoader());
     }
 }
