@@ -13,13 +13,18 @@
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
+- Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
+- Nightly branch sync issue reporting sometimes does not work [\#2367](https://github.com/apache/camel-quarkus/issues/2367)
+- LevelDB:  mapped bytebuffer cleaner update for jdk 9+ needs workaround to work in native mode [\#1908](https://github.com/apache/camel-quarkus/issues/1908)
 - \[Serialization\] Jolt: Remove the DeepCopySubstitution when/if graal supports Object serialization [\#1433](https://github.com/apache/camel-quarkus/issues/1433)
 - \[camel-master branch\] support ComponentNameResolver [\#892](https://github.com/apache/camel-quarkus/issues/892)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.1.1.Final [\#2986](https://github.com/apache/camel-quarkus/pull/2986) ([jamesnetherton](https://github.com/jamesnetherton))
+- leveldb: remove useless substitutions in favor of graalvm built-in Me… [\#2984](https://github.com/apache/camel-quarkus/pull/2984) ([aldettinger](https://github.com/aldettinger))
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patt… [\#2973](https://github.com/apache/camel-quarkus/pull/2973) ([ppalaga](https://github.com/ppalaga))
 - jolt: remove the DeepCopySubstitution in favor of Quarkus serializati… [\#2972](https://github.com/apache/camel-quarkus/pull/2972) ([aldettinger](https://github.com/aldettinger))
 - Use quarkus-grpc-common instead of quarkus-grpc in the gRPC extension [\#2971](https://github.com/apache/camel-quarkus/pull/2971) ([jamesnetherton](https://github.com/jamesnetherton))
