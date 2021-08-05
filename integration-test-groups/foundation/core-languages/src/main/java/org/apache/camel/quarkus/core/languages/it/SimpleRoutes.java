@@ -33,6 +33,9 @@ public class SimpleRoutes extends RouteBuilder {
 
         from("direct:bodyIs-simple").filter().simple("${body} is 'java.nio.ByteBuffer'").setBody(constant("BYTE_BUFFER"));
 
+        from("direct:languageSimple")
+                .transform().language("simple", "Hello ${body} from language().simple()");
+
     }
 
 }
