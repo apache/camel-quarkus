@@ -1,20 +1,4 @@
 == Azure grouped integration tests
 
 This module allows executing all tests from `integration-test-groups/azure/*` grouped together.
-
-While grouping brings the benefit of faster native compilation
-(compared to the sum of compilation times of all modules under `integration-test-groups/azure/*`)
-it is methodologically not as clean as running those tests in isolation.
-Hence, this module is intended to be run instead of the tests under `integration-test-groups/azure/*`
-if, in the given situation, the speed matters more than isolation.
-
-=== How the grouping works
-
-* The grouped module dynamically pulls all sources from the individual AWS test modules to its
-* `target/[test-]classes` directories.
-* `application.properties` files and service descriptors are concatenated using a Groovy script.
-* The dependencies in the grouped `pom.xml` can be updated via `mvn process-resources -Pformat -N`.
-
-=== Mock backend vs. real service
-
-Please refer to link:../../integration-tests-azure/README.adoc[integration-test-groups/azure/README.adoc] for more details.
+See the https://camel.apache.org/camel-quarkus/latest/contributor-guide/extension-testing.html#_grouping[Grouping section] of the Contributor guide for more details.

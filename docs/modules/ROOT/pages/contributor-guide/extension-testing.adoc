@@ -60,6 +60,15 @@ While it is important to test them in isolation, running each separately takes q
 In such cases, it may make sense to create a "grouped" module that unifies (using some tooling) several isolated tests.
 The grouped module may then be preferred in a CI job that validates pull requests, while the isolated tests are run only once a day.
 
+=== How grouping works
+
+* The isolated test modules are located under `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups[integration-test-groups]` directory of the source tree.
+* For each subdirectory of `integration-test-groups` there is a grouped test module under `integration-tests`.
+  E.g. for `https://github.com/apache/camel-quarkus/tree/main/integration-test-groups/azure[integration-test-groups/azure]` there is `https://github.com/apache/camel-quarkus/tree/main/integration-tests/azure-grouped[integration-tests/azure-grouped]`.
+* Grouped modules dynamically pull all sources from their associated isolated test modules to their `target/[test-]classes` directories respectively.
+* `application.properties` files and service descriptors are concatenated using a Groovy script.
+* The dependencies in the grouped `pom.xml` need to be updated manually via `mvn process-resources -Pformat -N`.
+
 == Coverage
 
 When porting a Camel component to Quarkus, we generally do not want to duplicate all the fine grained tests that are often available in Camel already.
