@@ -30,6 +30,7 @@ import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
@@ -134,6 +135,11 @@ class XchangeProcessor {
         Stream.of(Order.class.getName())
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClasses::produce);
+    }
+
+    @BuildStep
+    void registerResourceBundles(BuildProducer<NativeImageResourceBundleBuildItem> producer) {
+        producer.produce(new NativeImageResourceBundleBuildItem("sun.util.resources.CurrencyNames"));
     }
 
 }
