@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -36,14 +38,23 @@ import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
+import org.apache.camel.Exchange;
 import org.apache.camel.FluentProducerTemplate;
 import org.apache.camel.component.salesforce.SalesforceEndpointConfig;
 import org.apache.camel.component.salesforce.api.dto.CreateSObjectResult;
+import org.apache.camel.component.salesforce.api.dto.GlobalObjects;
+import org.apache.camel.component.salesforce.api.dto.Limits;
+import org.apache.camel.component.salesforce.api.dto.RestResources;
+import org.apache.camel.component.salesforce.api.dto.SObjectBasicInfo;
+import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
+import org.apache.camel.component.salesforce.api.dto.Version;
 import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
 import org.apache.camel.component.salesforce.api.dto.bulk.JobInfo;
 import org.apache.camel.component.salesforce.api.dto.bulk.OperationEnum;
+import org.apache.camel.component.salesforce.api.utils.QueryHelper;
 import org.apache.camel.quarkus.component.salesforce.generated.Account;
 import org.apache.camel.quarkus.component.salesforce.generated.QueryRecordsAccount;
+import org.apache.camel.quarkus.component.salesforce.model.GlobalObjectsAndHeaders;
 import org.apache.camel.spi.RouteController;
 
 @Path("/salesforce")
@@ -80,6 +91,19 @@ public class SalesforceResource {
         return request.getRecords().get(0);
     }
 
+    @Path("/account/query")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Account getAccountByQueryHelper() {
+        String generatedQuery = QueryHelper.queryToFetchAllFieldsOf(new Account());
+        QueryRecordsAccount request = template
+                .toF("salesforce:query?sObjectQuery=%s LIMIT 1&sObjectClass=%s",
+                        generatedQuery,
+                        QueryRecordsAccount.class.getName())
+                .request(QueryRecordsAccount.class);
+        return request.getRecords().get(0);
+    }
+
     @Path("/account")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
@@ -106,6 +130,17 @@ public class SalesforceResource {
                 .send();
 
         return Response.noContent().build();
+    }
+
+    @Path("/account/{id}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Account getAccountById(@PathParam("id") String accountId) {
+        Account account = template
+                .to("salesforce:getSObjectWithId?sObjectName=Account&sObjectIdName=Id&sObjectClass=" + Account.class.getName())
+                .withBody(accountId)
+                .request(Account.class);
+        return account;
     }
 
     @Path("/bulk")
@@ -165,4 +200,53 @@ public class SalesforceResource {
         objectBuilder.add("state", jobInfo.getState().value().toUpperCase(Locale.US));
         return objectBuilder.build();
     }
+
+    @Path("sobjects/force-limit")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public GlobalObjectsAndHeaders getSObjectsWithForceLimitInfo() {
+        // Testing producer with headers
+        Exchange exchange = template.to("salesforce:getGlobalObjects")
+                .withHeader("Sforce-Limit-Info", Collections.singletonList("api-usage")).send();
+        GlobalObjectsAndHeaders objectsAndHeaders = new GlobalObjectsAndHeaders(
+                exchange.getMessage().getBody(GlobalObjects.class))
+                        .withHeader("Sforce-Limit-Info", exchange.getMessage().getHeader("Sforce-Limit-Info", String.class));
+        return objectsAndHeaders;
+    }
+
+    @Path("versions")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Version> getListVersions() {
+        return template.to("salesforce:getVersions").request(List.class);
+    }
+
+    @Path("resources")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestResources getListResources() {
+        return template.to("salesforce:getResources").request(RestResources.class);
+    }
+
+    @Path("basic-info/account")
+    @GET
+    public SObjectBasicInfo getAccountBasicInfo() {
+        return template.to("salesforce:getBasicInfo?sObjectName=Account")
+                .request(SObjectBasicInfo.class);
+    }
+
+    @Path("describe/account")
+    @GET
+    public SObjectDescription getAccountDescription() {
+        return template.to("salesforce:getDescription?sObjectName=Account")
+                .request(SObjectDescription.class);
+    }
+
+    @Path("limits")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Limits getLimits() {
+        return template.to("salesforce:limits").request(Limits.class);
+    }
+
 }

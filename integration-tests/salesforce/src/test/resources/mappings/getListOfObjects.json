@@ -1,0 +1,19 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/data/v50.0/sobjects/",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body" : "{\"encoding\":\"UTF-8\",\"maxBatchSize\":200,\"sobjects\":[{\"activateable\":false,\"custom\":false,\"customSetting\":false,\"createable\":true,\"deletable\":true,\"deprecatedAndHidden\":false,\"feedEnabled\":true,\"keyPrefix\":\"001\",\"label\":\"Account\",\"labelPlural\":\"Accounts\",\"layoutable\":true,\"mergeable\":true,\"mruEnabled\":true,\"name\":\"Account\",\"queryable\":true,\"replicateable\":true,\"retrieveable\":true,\"searchable\":true,\"triggerable\":true,\"undeletable\":true,\"updateable\":true,\"urls\":{\"sobject\":\"\/services\/data\/v50.0\/sobjects\/Account\",\"describe\":\"\/services\/data\/v50.0\/sobjects\/Account\/describe\",\"rowTemplate\":\"\/services\/data\/v50.0\/sobjects\/Account\/{ID}\"}}]}",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Sforce-Limit-Info": "api-usage=18/5000"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

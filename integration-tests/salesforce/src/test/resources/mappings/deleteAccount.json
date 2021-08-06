@@ -1,0 +1,14 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/data/v52.0/sobjects/Account/001D000000IqhSLIAZ",
+    "method": "DELETE"
+  },
+  "response": {
+    "status": 200
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

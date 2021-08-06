@@ -1,0 +1,19 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "salesforce_api_json",
+  "request": {
+    "url": "/services/data/",
+    "method": "GET"
+  },
+  "response": {
+    "status": 200,
+    "body": "[{\"label\":\"Spring '11\",\"url\":\"\/services\/data\/v21.0\",\"version\":\"21.0\"},{\"label\":\"Summer '11\",\"url\":\"\/services\/data\/v22.0\",\"version\":\"22.0\"},{\"label\":\"Winter '12\",\"url\":\"\/services\/data\/v23.0\",\"version\":\"23.0\"}]",
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8",
+      "Sforce-Limit-Info": "api-usage=18/5000"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}
