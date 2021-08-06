@@ -4,6 +4,11 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.1.0...HEAD)
 
+**Fixed bugs:**
+
+- \[Quarkus 2.2.0\] XChange native itest fails to find `CurrencyNames` resource bundle [\#2983](https://github.com/apache/camel-quarkus/issues/2983)
+- \[Quarkus 2.2.0\] Spring RabbitMQ native build fails [\#2980](https://github.com/apache/camel-quarkus/issues/2980)
+
 **Closed issues:**
 
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
@@ -11,8 +16,11 @@
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
+- Cannot convert buffer types in platform-http [\#2838](https://github.com/apache/camel-quarkus/issues/2838)
+- Box native integration test failure [\#2830](https://github.com/apache/camel-quarkus/issues/2830)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
+- Expand AWS DDB tests [\#2776](https://github.com/apache/camel-quarkus/issues/2776)
 - Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
@@ -23,7 +31,14 @@
 
 **Merged pull requests:**
 
+- Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
+- Upgrade Camel to 3.11.1 [\#2994](https://github.com/apache/camel-quarkus/pull/2994) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve grouped test modules READMEs [\#2993](https://github.com/apache/camel-quarkus/pull/2993) ([ppalaga](https://github.com/ppalaga))
+- xchange: explicitly register the CurrencyNames bundle at build time \#… [\#2992](https://github.com/apache/camel-quarkus/pull/2992) ([aldettinger](https://github.com/aldettinger))
+- Expand AWS DDB tests \#2776 [\#2988](https://github.com/apache/camel-quarkus/pull/2988) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Run cq:sync-versions in the CI build to verify properties are in sync [\#2987](https://github.com/apache/camel-quarkus/pull/2987) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.1.1.Final [\#2986](https://github.com/apache/camel-quarkus/pull/2986) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use shaded spring support dependencies in Spring RabbitMQ extension [\#2985](https://github.com/apache/camel-quarkus/pull/2985) ([jamesnetherton](https://github.com/jamesnetherton))
 - leveldb: remove useless substitutions in favor of graalvm built-in Me… [\#2984](https://github.com/apache/camel-quarkus/pull/2984) ([aldettinger](https://github.com/aldettinger))
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patt… [\#2973](https://github.com/apache/camel-quarkus/pull/2973) ([ppalaga](https://github.com/ppalaga))
 - jolt: remove the DeepCopySubstitution in favor of Quarkus serializati… [\#2972](https://github.com/apache/camel-quarkus/pull/2972) ([aldettinger](https://github.com/aldettinger))
