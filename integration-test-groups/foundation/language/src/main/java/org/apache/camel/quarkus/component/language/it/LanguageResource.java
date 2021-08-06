@@ -38,7 +38,7 @@ public class LanguageResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String resource(String body, @PathParam("route") String route) {
+    public String route(String body, @PathParam("route") String route) {
         return template.requestBody("direct:" + route, body, String.class);
     }
 }
