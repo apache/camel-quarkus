@@ -22,13 +22,8 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
-import org.apache.camel.component.salesforce.api.MultiSelectPicklistConverter;
-import org.apache.camel.component.salesforce.api.MultiSelectPicklistDeserializer;
-import org.apache.camel.component.salesforce.api.MultiSelectPicklistSerializer;
 import org.apache.camel.component.salesforce.api.PicklistEnumConverter;
 import org.apache.camel.component.salesforce.api.dto.AbstractDescribedSObjectBase;
 import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
@@ -634,6 +629,18 @@ public class Account extends AbstractDescribedSObjectBase {
         this.DandbCompanyId = DandbCompanyId;
     }
 
+    private String OperatingHoursId;
+
+    @JsonProperty("OperatingHoursId")
+    public String getOperatingHoursId() {
+        return this.OperatingHoursId;
+    }
+
+    @JsonProperty("OperatingHoursId")
+    public void setOperatingHoursId(String OperatingHoursId) {
+        this.OperatingHoursId = OperatingHoursId;
+    }
+
     @XStreamConverter(PicklistEnumConverter.class)
     private Account_CustomerPriorityEnum CustomerPriority__c;
 
@@ -720,21 +727,6 @@ public class Account extends AbstractDescribedSObjectBase {
     @JsonProperty("SLAExpirationDate__c")
     public void setSLAExpirationDate__c(java.time.LocalDate SLAExpirationDate__c) {
         this.SLAExpirationDate__c = SLAExpirationDate__c;
-    }
-
-    @XStreamConverter(MultiSelectPicklistConverter.class)
-    private Account_MyMultiselectEnum[] MyMultiselect__c;
-
-    @JsonProperty("MyMultiselect__c")
-    @JsonSerialize(using = MultiSelectPicklistSerializer.class)
-    public Account_MyMultiselectEnum[] getMyMultiselect__c() {
-        return this.MyMultiselect__c;
-    }
-
-    @JsonProperty("MyMultiselect__c")
-    @JsonDeserialize(using = MultiSelectPicklistDeserializer.class)
-    public void setMyMultiselect__c(Account_MyMultiselectEnum[] MyMultiselect__c) {
-        this.MyMultiselect__c = MyMultiselect__c;
     }
 
     private QueryRecordsAccount ChildAccounts;
@@ -934,29 +926,29 @@ public class Account extends AbstractDescribedSObjectBase {
         final SObjectField sObjectField58 = createField("DandbCompanyId", "D&B Company ID", "reference", "tns:ID", 18, false,
                 true, false, false, false, false, false);
         fields1.add(sObjectField58);
-        final SObjectField sObjectField59 = createField("CustomerPriority__c", "Customer Priority", "picklist", "xsd:string",
-                255, false, true, false, false, true, false, false);
+        final SObjectField sObjectField59 = createField("OperatingHoursId", "Operating Hour ID", "reference", "tns:ID", 18,
+                false, true, false, false, false, false, false);
         fields1.add(sObjectField59);
-        final SObjectField sObjectField60 = createField("SLA__c", "SLA", "picklist", "xsd:string", 255, false, true, false,
-                false, true, false, false);
-        fields1.add(sObjectField60);
-        final SObjectField sObjectField61 = createField("Active__c", "Active", "picklist", "xsd:string", 255, false, true,
-                false, false, true, false, false);
-        fields1.add(sObjectField61);
-        final SObjectField sObjectField62 = createField("NumberofLocations__c", "Number of Locations", "double", "xsd:double",
-                0, false, true, false, false, true, false, false);
-        fields1.add(sObjectField62);
-        final SObjectField sObjectField63 = createField("UpsellOpportunity__c", "Upsell Opportunity", "picklist", "xsd:string",
+        final SObjectField sObjectField60 = createField("CustomerPriority__c", "Customer Priority", "picklist", "xsd:string",
                 255, false, true, false, false, true, false, false);
+        fields1.add(sObjectField60);
+        final SObjectField sObjectField61 = createField("SLA__c", "SLA", "picklist", "xsd:string", 255, false, true, false,
+                false, true, false, false);
+        fields1.add(sObjectField61);
+        final SObjectField sObjectField62 = createField("Active__c", "Active", "picklist", "xsd:string", 255, false, true,
+                false, false, true, false, false);
+        fields1.add(sObjectField62);
+        final SObjectField sObjectField63 = createField("NumberofLocations__c", "Number of Locations", "double", "xsd:double",
+                0, false, true, false, false, true, false, false);
         fields1.add(sObjectField63);
-        final SObjectField sObjectField64 = createField("SLASerialNumber__c", "SLA Serial Number", "string", "xsd:string", 10,
-                false, true, false, false, true, false, false);
+        final SObjectField sObjectField64 = createField("UpsellOpportunity__c", "Upsell Opportunity", "picklist", "xsd:string",
+                255, false, true, false, false, true, false, false);
         fields1.add(sObjectField64);
-        final SObjectField sObjectField65 = createField("SLAExpirationDate__c", "SLA Expiration Date", "date", "xsd:date", 0,
+        final SObjectField sObjectField65 = createField("SLASerialNumber__c", "SLA Serial Number", "string", "xsd:string", 10,
                 false, true, false, false, true, false, false);
         fields1.add(sObjectField65);
-        final SObjectField sObjectField66 = createField("MyMultiselect__c", "MyMultiselect", "multipicklist", "xsd:string",
-                4099, false, true, false, false, true, false, false);
+        final SObjectField sObjectField66 = createField("SLAExpirationDate__c", "SLA Expiration Date", "date", "xsd:date", 0,
+                false, true, false, false, true, false, false);
         fields1.add(sObjectField66);
 
         description.setLabel("Account");
@@ -966,7 +958,6 @@ public class Account extends AbstractDescribedSObjectBase {
         final SObjectDescriptionUrls sObjectDescriptionUrls1 = new SObjectDescriptionUrls();
         sObjectDescriptionUrls1.setApprovalLayouts("/services/data/v50.0/sobjects/Account/describe/approvalLayouts");
         sObjectDescriptionUrls1.setCompactLayouts("/services/data/v50.0/sobjects/Account/describe/compactLayouts");
-        sObjectDescriptionUrls1.setDefaultValues("/services/data/v50.0/sobjects/Account/defaultValues?recordTypeId&fields");
         sObjectDescriptionUrls1.setDescribe("/services/data/v50.0/sobjects/Account/describe");
         sObjectDescriptionUrls1.setLayouts("/services/data/v50.0/sobjects/Account/describe/layouts");
         sObjectDescriptionUrls1.setListviews("/services/data/v50.0/sobjects/Account/listviews");
