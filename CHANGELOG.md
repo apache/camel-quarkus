@@ -28,9 +28,11 @@
 - LevelDB:  mapped bytebuffer cleaner update for jdk 9+ needs workaround to work in native mode [\#1908](https://github.com/apache/camel-quarkus/issues/1908)
 - \[Serialization\] Jolt: Remove the DeepCopySubstitution when/if graal supports Object serialization [\#1433](https://github.com/apache/camel-quarkus/issues/1433)
 - \[camel-master branch\] support ComponentNameResolver [\#892](https://github.com/apache/camel-quarkus/issues/892)
+- Language component native support [\#817](https://github.com/apache/camel-quarkus/issues/817)
 
 **Merged pull requests:**
 
+-  Test language\(\) DSL method & Language component native support [\#2996](https://github.com/apache/camel-quarkus/pull/2996) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Camel to 3.11.1 [\#2994](https://github.com/apache/camel-quarkus/pull/2994) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve grouped test modules READMEs [\#2993](https://github.com/apache/camel-quarkus/pull/2993) ([ppalaga](https://github.com/ppalaga))
