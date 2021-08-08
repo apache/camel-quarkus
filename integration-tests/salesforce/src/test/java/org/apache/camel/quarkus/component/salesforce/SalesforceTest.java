@@ -156,35 +156,33 @@ class SalesforceTest {
                 .body()
                 .asString();
 
-        if (accountId != null) {
-            // get Account basic info
-            SObjectBasicInfo accountBasicInfo = RestAssured.given()
-                    .get("/salesforce/basic-info/account")
-                    .then()
-                    .statusCode(200)
-                    .extract()
-                    .body()
-                    .as(SObjectBasicInfo.class);
-            assertNotNull(accountBasicInfo);
-            List<RecentItem> recentItems = accountBasicInfo.getRecentItems();
-            assertNotNull(recentItems);
-            // make sure the created account is referenced
-            assertTrue(recentItems.stream().anyMatch(recentItem -> recentItem.getAttributes().getUrl().contains(accountId)));
+        // get Account basic info
+        SObjectBasicInfo accountBasicInfo = RestAssured.given()
+                .get("/salesforce/basic-info/account")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(SObjectBasicInfo.class);
+        assertNotNull(accountBasicInfo);
+        List<RecentItem> recentItems = accountBasicInfo.getRecentItems();
+        assertNotNull(recentItems);
+        // make sure the created account is referenced
+        assertTrue(recentItems.stream().anyMatch(recentItem -> recentItem.getAttributes().getUrl().contains(accountId)));
 
-            // Get Account - querying Sobject by ID
-            RestAssured.get("/salesforce/account/" + accountId)
-                    .then()
-                    .statusCode(200)
-                    .body(
-                            "Id", not(emptyString()),
-                            "AccountNumber", not(emptyString()));
+        // Get Account - querying Sobject by ID
+        RestAssured.get("/salesforce/account/" + accountId)
+                .then()
+                .statusCode(200)
+                .body(
+                        "Id", not(emptyString()),
+                        "AccountNumber", not(emptyString()));
 
-            // delete the account
-            // Clean up
-            RestAssured.delete("/salesforce/account/" + accountId)
-                    .then()
-                    .statusCode(204);
-        }
+        // delete the account
+        // Clean up
+        RestAssured.delete("/salesforce/account/" + accountId)
+                .then()
+                .statusCode(204);
     }
 
     @Test
