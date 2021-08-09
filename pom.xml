@@ -129,6 +129,7 @@
         <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
+        <geronimo.jms.version>${geronimo-jms2-spec-version}</geronimo.jms.version>
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>${jakarta-mail-version}</jakarta.mail.version>
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>

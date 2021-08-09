@@ -18,32 +18,10 @@ package org.apache.camel.quarkus.component.activemq.it;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import org.junit.jupiter.api.Test;
-
-import static org.hamcrest.core.Is.is;
+import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 
 @QuarkusTest
 @QuarkusTestResource(ActiveMQTestResource.class)
-class ActiveMQTest {
+class ActiveMQTest extends AbstractJmsMessagingTest {
 
-    @Test
-    public void testActiveMQComponent() {
-        String message = "Hello Camel Quarkus ActiveMQ";
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(message)
-                .post("/activemq/{queueName}", "test-queue")
-                .then()
-                .statusCode(201);
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .get("/activemq/{queueName}", "test-queue")
-                .then()
-                .statusCode(200)
-                .body(is(message));
-    }
 }

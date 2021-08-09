@@ -25,6 +25,7 @@ group-01:
   - http
   - infinispan
   - ipfs
+  - jms-artemis-client
   - jsch
   - kafka
   - kafka-sasl
@@ -67,11 +68,13 @@ group-04:
   - couchdb
   - influxdb
   - jdbc
+  - jms-qpid-amqp-client
   - jpa
   - kudu
   - leveldb
   - minio
   - mongodb
+  - sjms-artemis-client
 group-05:
   - avro
   - base64
@@ -100,6 +103,7 @@ group-06:
   - quartz
   - rabbitmq
   - saga
+  - sjms-qpid-amqp-client
 group-07:
   - dataformats-json
   - dropbox
@@ -111,6 +115,8 @@ group-07:
   - olingo4
   - optaplanner
   - pg-replication-slot
+  - sjms2-artemis-client
+  - sjms2-qpid-amqp-client
   - stax
   - weather
 group-08:
@@ -133,7 +139,7 @@ group-09:
   - graphql
   - kafka-sasl-ssl
   - kafka-ssl
-  - messaging
+  - paho
   - nats
   - splunk
   - spring-rabbitmq
