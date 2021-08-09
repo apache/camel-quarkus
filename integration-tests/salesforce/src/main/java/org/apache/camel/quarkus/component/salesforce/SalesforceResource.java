@@ -52,6 +52,8 @@ import org.apache.camel.component.salesforce.api.dto.bulk.ContentType;
 import org.apache.camel.component.salesforce.api.dto.bulk.JobInfo;
 import org.apache.camel.component.salesforce.api.dto.bulk.OperationEnum;
 import org.apache.camel.component.salesforce.api.utils.QueryHelper;
+import org.apache.camel.component.salesforce.internal.dto.PushTopic;
+import org.apache.camel.component.salesforce.internal.dto.QueryRecordsPushTopic;
 import org.apache.camel.quarkus.component.salesforce.generated.Account;
 import org.apache.camel.quarkus.component.salesforce.generated.QueryRecordsAccount;
 import org.apache.camel.quarkus.component.salesforce.model.GlobalObjectsAndHeaders;
@@ -249,4 +251,42 @@ public class SalesforceResource {
         return template.to("salesforce:limits").request(Limits.class);
     }
 
+    @Path("streaming")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getSubscribedObjects() {
+        Account account = consumerTemplate.receiveBody("seda:CamelTestTopic", 10000, Account.class);
+        return account.getName();
+    }
+
+    @Path("streaming/raw")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getRawSubscribedObjects() {
+        return consumerTemplate.receiveBody("seda:RawPayloadCamelTestTopic", 10000, String.class);
+    }
+
+    @Path("/topic/{id}")
+    @DELETE
+    public Response deleteTopic(@PathParam("id") String topicId) {
+        PushTopic topic = new PushTopic();
+        topic.setId(topicId);
+
+        template.to("salesforce:deleteSObject")
+                .withBody(topic)
+                .send();
+
+        return Response.noContent().build();
+    }
+
+    @Path("/topic")
+    @GET
+    public String getTopicId() {
+        QueryRecordsPushTopic queryRecordsPushTopic = template
+                .to("salesforce:query?sObjectQuery=SELECT Id FROM PushTopic WHERE Name = 'CamelTestTopic'&"
+                        + "sObjectClass=" + QueryRecordsPushTopic.class.getName())
+                .request(QueryRecordsPushTopic.class);
+
+        return queryRecordsPushTopic.getRecords().get(0).getId();
+    }
 }

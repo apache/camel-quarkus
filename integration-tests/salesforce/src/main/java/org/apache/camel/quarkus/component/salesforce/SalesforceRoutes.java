@@ -24,6 +24,7 @@ import javax.inject.Named;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.salesforce.AuthenticationType;
 import org.apache.camel.component.salesforce.SalesforceComponent;
+import org.apache.camel.quarkus.component.salesforce.generated.Account;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -69,8 +70,23 @@ public class SalesforceRoutes extends RouteBuilder {
         Optional<String> wireMockUrl = ConfigProvider.getConfig().getOptionalValue("wiremock.url", String.class);
         // Wiremock used only with Templates - this Route is used only with Salesforce credentials
         if (!wireMockUrl.isPresent()) {
+
+            // Change Data Capture
             from("salesforce:/data/AccountChangeEvent?replayId=-1").routeId("cdc").autoStartup(false)
                     .to("seda:events");
+
+            // Streaming API : topic consumer - getting Account object
+            from("salesforce:CamelTestTopic?notifyForFields=ALL&"
+                    + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
+                    + "sObjectClass=" + Account.class.getName() + "&updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
+                            .to("seda:CamelTestTopic");
+
+            // Streaming API : topic consumer with RAW Payload - getting json as String
+            from("salesforce:CamelTestTopic?rawPayload=true&notifyForFields=ALL&"
+                    + "notifyForOperationCreate=true&notifyForOperationDelete=true&notifyForOperationUpdate=true&"
+                    + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
+                            .to("seda:RawPayloadCamelTestTopic");
+
         }
     }
 }
