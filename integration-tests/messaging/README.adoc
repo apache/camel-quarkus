@@ -1,0 +1,78 @@
+# Common Messaging Extension Tests
+
+This module contains a set of common integration tests that can be reused to test different messaging component extensions and JMS clients.
+
+## Module structure
+The module contains sub-modules which are described as follows.
+
+### common
+The place to add routes, JAX-RS resources & test cases common to *all* messaging component extensions.
+
+For the routes to be configured in a generic way, the component scheme to use is dynamically determined and exposed as an injectable CDI bean like:
+
+[source,java]
+-----
+@Inject
+ComponentScheme scheme;
+-----
+
+Which can then be used in a route to prefix the component scheme (either with String concatenation or `fromF` / `toF`).
+
+### jms
+
+The place to add routes, JAX-RS resources & test cases common to messaging component extensions that extend the `camel-jms` component.
+
+### sjms
+
+The place to add routes, JAX-RS resources & test cases common to messaging component extensions that extend the `camel-sjms` component (currently only `camel-sjms2`).
+
+## Usage
+
+To use the common tests in a integration test module, first add the required dependencies.
+
+[source,xml]
+-----
+<!-- Messaging extension to test - there should only be one of these on the classpath -->
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-jms</artifactId>
+</dependency>
+
+<!-- Include the 'common' routes and JAX-RS resources -->
+<!-- Note: If the extension under test extends the sjms component use camel-quarkus-integration-test-messaging-sjms -->
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
+</dependency>
+
+<!-- The JMS client library to test with (if required) -->
+<dependency>
+    <groupId>io.quarkus</groupId>
+    <artifactId>quarkus-artemis-jms</artifactId>
+</dependency>
+
+<!-- Include the common test resources -->
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+    <type>test-jar</type>
+    <scope>test</scope>
+</dependency>
+
+<!-- Note: If the extension under test extends the sjms component use camel-quarkus-integration-test-messaging-sjms -->
+<dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
+    <type>test-jar</type>
+    <scope>test</scope>
+</dependency>
+-----
+
+Next create your test class and extend the common test base class. You can add your extension specific tests as normal if required.
+[source,java]
+-----
+@QuarkusTest
+class JmsTest extends AbstractJmsMessagingTest {
+}
+-----
+

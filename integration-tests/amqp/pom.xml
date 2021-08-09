@@ -34,9 +34,11 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-amqp</artifactId>
         </dependency>
+
+        <!-- Inherit base messaging routes -->
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
         </dependency>
 
         <!-- test dependencies -->
@@ -53,6 +55,20 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-activemq</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Inherit base messaging tests -->
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-test-messaging-common</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-integration-test-messaging-jms</artifactId>
+            <type>test-jar</type>
             <scope>test</scope>
         </dependency>
 

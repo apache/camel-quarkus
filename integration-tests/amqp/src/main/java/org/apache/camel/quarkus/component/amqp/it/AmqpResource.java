@@ -16,42 +16,23 @@
  */
 package org.apache.camel.quarkus.component.amqp.it;
 
-import java.net.URI;
-
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
+import javax.jms.ConnectionFactory;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.apache.camel.ConsumerTemplate;
-import org.apache.camel.ProducerTemplate;
 
 @Path("/amqp")
 public class AmqpResource {
 
     @Inject
-    ProducerTemplate producerTemplate;
+    ConnectionFactory connectionFactory;
 
-    @Inject
-    ConsumerTemplate consumerTemplate;
-
-    @Path("/{queueName}")
     @GET
+    @Path("/connection/factory")
     @Produces(MediaType.TEXT_PLAIN)
-    public String consumeAmqpMessage(@PathParam("queueName") String queueName) {
-        return consumerTemplate.receiveBody("amqp:queue:" + queueName, 5000, String.class);
-    }
-
-    @Path("/{queueName}")
-    @POST
-    @Consumes(MediaType.TEXT_PLAIN)
-    public Response produceAmqpMessage(@PathParam("queueName") String queueName, String message) throws Exception {
-        producerTemplate.sendBody("amqp:queue:" + queueName, message);
-        return Response.created(new URI("https://camel.apache.org/")).build();
+    public String connectionFactoryImplementation() {
+        return connectionFactory.getClass().getName();
     }
 }

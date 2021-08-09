@@ -20,34 +20,23 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
-import static org.hamcrest.core.Is.is;
+import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.qpid-jms")
 }, value = ActiveMQTestResource.class)
-class AmqpTest {
+class AmqpTest extends AbstractJmsMessagingTest {
 
     @Test
-    public void testAmqpComponent() {
-        String message = "Hello Camel Quarkus Amqp";
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(message)
-                .post("/amqp/amqp-test-queue")
-                .then()
-                .statusCode(201);
-
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .get("/amqp/amqp-test-queue")
+    public void connectionFactoryImplementation() {
+        RestAssured.get("/amqp/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(is(message));
+                .body(startsWith("org.amqphub.quarkus.qpid.jms"));
     }
 }

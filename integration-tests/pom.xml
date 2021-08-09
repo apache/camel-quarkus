@@ -126,6 +126,8 @@
         <module>jdbc</module>
         <module>jing</module>
         <module>jira</module>
+        <module>jms-artemis-client</module>
+        <module>jms-qpid-amqp-client</module>
         <module>jolt</module>
         <module>jpa</module>
         <module>js-dsl</module>
@@ -168,6 +170,7 @@
         <module>opentelemetry</module>
         <module>opentracing</module>
         <module>optaplanner</module>
+        <module>paho</module>
         <module>paho-mqtt5</module>
         <module>pdf</module>
         <module>pg-replication-slot</module>
@@ -189,6 +192,10 @@
         <module>servicenow</module>
         <module>servlet</module>
         <module>shiro</module>
+        <module>sjms-artemis-client</module>
+        <module>sjms-qpid-amqp-client</module>
+        <module>sjms2-artemis-client</module>
+        <module>sjms2-qpid-amqp-client</module>
         <module>slack</module>
         <module>smallrye-reactive-messaging</module>
         <module>soap</module>

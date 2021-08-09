@@ -59,7 +59,8 @@
                                 <exclude>master/pom.xml</exclude>
                                 <exclude>main-command-mode/pom.xml</exclude>
                                 <exclude>main-unknown-args-fail/pom.xml</exclude>
-                                <exclude>main-unknown-args-ignore/pom.xml</exclude>
+                                <exclude>main-unknown-args-fail/pom.xml</exclude>
+                                <exclude>messaging/pom.xml</exclude>
                             </excludes>
                         </fileSet>
                     </fileSets>

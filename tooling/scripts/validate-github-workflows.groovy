@@ -30,7 +30,7 @@ final Set<String> executedBaseNames = [] as Set
 
 // Add any ignored itest modules here. Or prefix the module name with '#' to disable it
 // hystrix - https://github.com/apache/camel-quarkus/issues/1146
-final List<String> excludedModules = ['hystrix', 'nats'] as List
+final List<String> excludedModules = ['hystrix', 'messaging', 'nats'] as List
 
 final Yaml parser = new Yaml()
 def testCategoryConfig = parser.load((jobDefPath.toFile()).text)
