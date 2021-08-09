@@ -23,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
+import org.apache.camel.component.salesforce.internal.dto.PushTopic;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
@@ -58,8 +59,13 @@ class SalesforceProcessor {
                 .stream()
                 .map(classInfo -> classInfo.name().toString())
                 .filter(className -> className.startsWith("org.apache.camel.component.salesforce.internal.dto"))
+                // it is registred below with fields accessible
+                .filter(className -> className != PushTopic.class.getName())
                 .toArray(String[]::new);
 
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, false, internalDtoClasses));
+
+        // enabling the search for private fields : related to issue https://issues.apache.org/jira/browse/CAMEL-16860
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, PushTopic.class));
     }
 }

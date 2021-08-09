@@ -23,7 +23,9 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
@@ -33,8 +35,9 @@ import static org.hamcrest.Matchers.is;
 public class SalesforceIntegrationTest {
 
     @Test
-    public void testChangeDataCaptureEvents() {
+    public void testCDCAndStreamingEvents() {
         String accountId = null;
+        String topicId = null;
         try {
             // Start the Salesforce CDC consumer
             RestAssured.post("/salesforce/cdc/start")
@@ -42,7 +45,7 @@ public class SalesforceIntegrationTest {
                     .statusCode(200);
 
             // Create an account
-            String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID().toString();
+            String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();
             accountId = RestAssured.given()
                     .body(accountName)
                     .post("/salesforce/account")
@@ -58,6 +61,30 @@ public class SalesforceIntegrationTest {
                     .then()
                     .statusCode(200)
                     .body("Name", is(accountName));
+
+            // Verify we can stream the Account as Object
+            RestAssured.given()
+                    .get("/salesforce/streaming")
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo(accountName));
+
+            // Verify we can stream the Account as Raw payload
+            RestAssured.given()
+                    .get("/salesforce/streaming/raw")
+                    .then()
+                    .statusCode(200)
+                    .body("Name", equalTo(accountName));
+
+            // Get the topic ID
+            topicId = RestAssured.given()
+                    .get("/salesforce/topic")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString();
+            assertNotNull(topicId);
         } finally {
             // Shut down the CDC consumer
             RestAssured.post("/salesforce/cdc/stop")
@@ -70,6 +97,14 @@ public class SalesforceIntegrationTest {
                         .then()
                         .statusCode(204);
             }
+
+            // delete the topic
+            if (topicId != null) {
+                RestAssured.delete("/salesforce/topic/" + topicId)
+                        .then()
+                        .statusCode(204);
+            }
         }
     }
+
 }
