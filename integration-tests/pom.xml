@@ -87,6 +87,7 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
+        <module>cxf</module>
         <module>dataformat</module>
         <module>dataformats-json</module>
         <module>debezium</module>

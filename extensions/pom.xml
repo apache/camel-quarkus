@@ -83,6 +83,7 @@
         <module>crypto</module>
         <module>csimple</module>
         <module>csv</module>
+        <module>cxf</module>
         <module>dataformat</module>
         <module>debezium-mongodb</module>
         <module>debezium-mysql</module>
