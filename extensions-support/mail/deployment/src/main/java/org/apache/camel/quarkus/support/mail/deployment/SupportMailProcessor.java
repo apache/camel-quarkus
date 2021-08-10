@@ -31,7 +31,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import javax.inject.Inject;
 import javax.mail.Provider;
 
 import io.quarkus.deployment.annotations.BuildProducer;
@@ -41,14 +40,9 @@ import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class SupportMailProcessor {
 
-    @Inject
-    BuildProducer<ReflectiveClassBuildItem> reflectiveClass;
-
-    @Inject
-    BuildProducer<NativeImageResourceBuildItem> resource;
-
     @BuildStep
-    void process() throws IOException {
+    void process(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
+            BuildProducer<NativeImageResourceBuildItem> resource) {
         List<String> providers = resources("META-INF/services/javax.mail.Provider")
                 .flatMap(this::lines)
                 .filter(s -> !s.startsWith("#"))
