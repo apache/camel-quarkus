@@ -69,12 +69,14 @@ public class PathFilterTest {
 
     @Test
     public void pathFilter() {
+        // windows support need trick with PAth to handle File.separator
         Predicate<Path> predicate = new PathFilter.Builder()
-                .include("/foo/bar/*")
-                .include("moo/mar/*")
-                .exclude("/foo/baz/*")
-                .exclude("moo/maz/*")
+                .include(Paths.get("/foo/bar/star").toString().replace("star", "*"))
+                .include(Paths.get("moo/mar/star").toString().replace("star", "*"))
+                .exclude(Paths.get("/foo/baz/star").toString().replace("star", "*"))
+                .exclude(Paths.get("moo/maz/star").toString().replace("star", "*"))
                 .build().asPathPredicate();
+        Assertions.assertEquals("foo\\bar\\*", Paths.get("foo/bar/star").toString().replace("star", "*"));
         assertTrue(predicate.test(Paths.get("/foo/bar/file")));
         assertTrue(predicate.test(Paths.get("foo/bar/file")));
         assertFalse(predicate.test(Paths.get("/foo/baz/file")));
@@ -103,10 +105,10 @@ public class PathFilterTest {
     @Test
     void scanClassNames() {
         final PathFilter filter = new PathFilter.Builder()
-                .include("org/p1/*")
-                .include("org/p2/**")
-                .exclude("org/p1/ExcludedClass")
-                .exclude("org/p2/excludedpackage/**")
+                .include(Paths.get("org/p1/star").toString().replace("star", "*"))
+                .include(Paths.get("org/p2/starstar").toString().replaceAll("star", "*"))
+                .exclude(Paths.get("org/p1/ExcludedClass").toString())
+                .exclude(Paths.get("org/p2/excludedpackage/starstar").toString().replaceAll("star", "*"))
                 .build();
         final Path rootPath = Paths.get("/foo");
         final Stream<Path> pathStream = Stream.of(

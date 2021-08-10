@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment.util;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -119,7 +120,7 @@ public class PathFilter {
                 .map(Path::toString)
                 .map(stringPath -> stringPath.substring(0, stringPath.length() - CLASS_SUFFIX_LENGTH))
                 .filter(stringPredicate)
-                .map(slashClassName -> slashClassName.replace('/', '.'))
+                .map(slashClassName -> slashClassName.replace(File.separator, "."))
                 .forEach(resultConsumer::accept);
     }
 
@@ -134,7 +135,7 @@ public class PathFilter {
 
     static String sanitize(String path) {
         path = path.trim();
-        return (!path.isEmpty() && path.charAt(0) == '/')
+        return (!path.isEmpty() && path.charAt(0) == File.separator.charAt(0))
                 ? path.substring(1)
                 : path;
     }
