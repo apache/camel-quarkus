@@ -24,6 +24,8 @@
 - Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
+- \[CI\] - Camel Master Branch Build Failure [\#2393](https://github.com/apache/camel-quarkus/issues/2393)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2375](https://github.com/apache/camel-quarkus/issues/2375)
 - Nightly branch sync issue reporting sometimes does not work [\#2367](https://github.com/apache/camel-quarkus/issues/2367)
 - LevelDB:  mapped bytebuffer cleaner update for jdk 9+ needs workaround to work in native mode [\#1908](https://github.com/apache/camel-quarkus/issues/1908)
 - \[Serialization\] Jolt: Remove the DeepCopySubstitution when/if graal supports Object serialization [\#1433](https://github.com/apache/camel-quarkus/issues/1433)
@@ -32,6 +34,7 @@
 
 **Merged pull requests:**
 
+- Salesforce : Expand producer test coverage [\#2998](https://github.com/apache/camel-quarkus/pull/2998) ([zbendhiba](https://github.com/zbendhiba))
 -  Test language\(\) DSL method & Language component native support [\#2996](https://github.com/apache/camel-quarkus/pull/2996) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Camel to 3.11.1 [\#2994](https://github.com/apache/camel-quarkus/pull/2994) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -976,6 +979,7 @@
 
 **Closed issues:**
 
+- \[CI\] - Camel Master Branch Build Failure [\#2392](https://github.com/apache/camel-quarkus/issues/2392)
 - Stop CI testing on Java 8 [\#2287](https://github.com/apache/camel-quarkus/issues/2287)
 - camel-nats intermittently failing on quarkus-platform [\#2061](https://github.com/apache/camel-quarkus/issues/2061)
 - Make camel-quarkus-xml-io work again after we broke it with camel-quarkus-xml-io-dsl in 1.8.0 [\#2431](https://github.com/apache/camel-quarkus/issues/2431)
@@ -1003,12 +1007,21 @@
 **Closed issues:**
 
 - Direct component example [\#2363](https://github.com/apache/camel-quarkus/issues/2363)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2360](https://github.com/apache/camel-quarkus/issues/2360)
 - Test autowiring of beans available in the CDI container to CamelContext and components [\#2350](https://github.com/apache/camel-quarkus/issues/2350)
+- \[CI\] - Camel Master Branch Build Failure [\#2349](https://github.com/apache/camel-quarkus/issues/2349)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2336](https://github.com/apache/camel-quarkus/issues/2336)
+- \[CI\] - Camel Master Branch Build Failure [\#2332](https://github.com/apache/camel-quarkus/issues/2332)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2331](https://github.com/apache/camel-quarkus/issues/2331)
 - quarkus 1.7.0 DocumentBuilderFactoryImpl not found [\#2323](https://github.com/apache/camel-quarkus/issues/2323)
 - Camel DSL Azure - Storage Blob Service doesn't work as native build. [\#2318](https://github.com/apache/camel-quarkus/issues/2318)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2314](https://github.com/apache/camel-quarkus/issues/2314)
 - Azure Storage Data Lake listFileSystem operation causes an infinte loop of requests [\#2304](https://github.com/apache/camel-quarkus/issues/2304)
 - CI job integration-tests-alternative-jvm \(15\) failing against a valid PR [\#2300](https://github.com/apache/camel-quarkus/issues/2300)
+- \[CI\] - Camel Master Branch Build Failure [\#2284](https://github.com/apache/camel-quarkus/issues/2284)
 - plugin update-extension-doc-page fails when running extensions-jvm tests [\#2276](https://github.com/apache/camel-quarkus/issues/2276)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2275](https://github.com/apache/camel-quarkus/issues/2275)
+- \[CI\] - Camel Master Branch Build Failure [\#2261](https://github.com/apache/camel-quarkus/issues/2261)
 - Perform basic testing of aws extension through localstack [\#1071](https://github.com/apache/camel-quarkus/issues/1071)
 - LRA native support [\#793](https://github.com/apache/camel-quarkus/issues/793)
 - Think about consolidating enforcing rules [\#293](https://github.com/apache/camel-quarkus/issues/293)
@@ -1045,9 +1058,21 @@
 **Closed issues:**
 
 - Building native fails for Quarkus 1.11.3.Final [\#2250](https://github.com/apache/camel-quarkus/issues/2250)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2249](https://github.com/apache/camel-quarkus/issues/2249)
+- \[CI\] - Camel Master Branch Build Failure [\#2248](https://github.com/apache/camel-quarkus/issues/2248)
+- \[CI\] - Camel Master Branch Build Failure [\#2239](https://github.com/apache/camel-quarkus/issues/2239)
 - \[camel-master\] azure-storage-\* integration tests fail [\#2215](https://github.com/apache/camel-quarkus/issues/2215)
 - FHIR tests don't work with all possible options [\#2201](https://github.com/apache/camel-quarkus/issues/2201)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2194](https://github.com/apache/camel-quarkus/issues/2194)
 - Red [\#2188](https://github.com/apache/camel-quarkus/issues/2188)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2183](https://github.com/apache/camel-quarkus/issues/2183)
+- \[CI\] - Camel Master Branch Build Failure [\#2182](https://github.com/apache/camel-quarkus/issues/2182)
+- \[CI\] - Camel Master Branch Build Failure [\#2175](https://github.com/apache/camel-quarkus/issues/2175)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2170](https://github.com/apache/camel-quarkus/issues/2170)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2161](https://github.com/apache/camel-quarkus/issues/2161)
+- \[CI\] - Camel Master Branch Build Failure [\#2157](https://github.com/apache/camel-quarkus/issues/2157)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2153](https://github.com/apache/camel-quarkus/issues/2153)
+- \[CI\] - Camel Master Branch Build Failure [\#2144](https://github.com/apache/camel-quarkus/issues/2144)
 - Figure out how we could leverage Quarkus Developer Console [\#2007](https://github.com/apache/camel-quarkus/issues/2007)
 - XML Tokenize language native support [\#780](https://github.com/apache/camel-quarkus/issues/780)
 - Docs xref checks failure with Camel 3.8.0 [\#2226](https://github.com/apache/camel-quarkus/issues/2226)
@@ -1091,6 +1116,8 @@
 - Document the correct usage of BoMs [\#2135](https://github.com/apache/camel-quarkus/issues/2135)
 - camel-quarkus-csimple package not exists but presented in documentation [\#2131](https://github.com/apache/camel-quarkus/issues/2131)
 - Could not find artifact com.google.protobuf:protoc:exe:osx-x86\_64:3.13.0 in nexus [\#2097](https://github.com/apache/camel-quarkus/issues/2097)
+- \[CI\] - Camel Master Branch Build Failure [\#2077](https://github.com/apache/camel-quarkus/issues/2077)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2065](https://github.com/apache/camel-quarkus/issues/2065)
 - Release: Update Apache Committee Report Helper for camel-quarkus-1.6.0 released on 2021-01-18 [\#2149](https://github.com/apache/camel-quarkus/issues/2149)
 - Minio: Observe issue in quarkiverse-minio [\#2120](https://github.com/apache/camel-quarkus/issues/2120)
 - Remove changelog gh action [\#2119](https://github.com/apache/camel-quarkus/issues/2119)
@@ -1118,7 +1145,18 @@
 
 **Closed issues:**
 
+- \[CI\] - Camel Master Branch Build Failure [\#2071](https://github.com/apache/camel-quarkus/issues/2071)
 - Camel import not working [\#2068](https://github.com/apache/camel-quarkus/issues/2068)
+- \[CI\] - Camel Master Branch Build Failure [\#2064](https://github.com/apache/camel-quarkus/issues/2064)
+- \[CI\] - Camel Master Branch Build Failure [\#2059](https://github.com/apache/camel-quarkus/issues/2059)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2058](https://github.com/apache/camel-quarkus/issues/2058)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2049](https://github.com/apache/camel-quarkus/issues/2049)
+- \[CI\] - Camel Master Branch Build Failure [\#2046](https://github.com/apache/camel-quarkus/issues/2046)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2044](https://github.com/apache/camel-quarkus/issues/2044)
+- \[CI\] - Camel Master Branch Build Failure [\#2037](https://github.com/apache/camel-quarkus/issues/2037)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2031](https://github.com/apache/camel-quarkus/issues/2031)
+- \[CI\] - Camel Master Branch Build Failure [\#2019](https://github.com/apache/camel-quarkus/issues/2019)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2013](https://github.com/apache/camel-quarkus/issues/2013)
 - FastHeadersMapFactory ClassNotFoundException since 1.0.0-M6 [\#1086](https://github.com/apache/camel-quarkus/issues/1086)
 - JSch native support [\#797](https://github.com/apache/camel-quarkus/issues/797)
 - Protobuf dataformat native support [\#789](https://github.com/apache/camel-quarkus/issues/789)
@@ -1127,6 +1165,7 @@
 - Micrometer component support [\#2034](https://github.com/apache/camel-quarkus/issues/2034)
 - Polish how we pass -Djavax.net.ssl.trustStore to the Solr test [\#2029](https://github.com/apache/camel-quarkus/issues/2029)
 - timer-log-main example: The example is not working in dev mode [\#2024](https://github.com/apache/camel-quarkus/issues/2024)
+- \[CI\] - Camel Master Branch Build Failure [\#2022](https://github.com/apache/camel-quarkus/issues/2022)
 - \[Camel 3.7\] Camel main autowire properties by type has been removed  [\#2002](https://github.com/apache/camel-quarkus/issues/2002)
 - Antora xref check fails on camel-master branch [\#1996](https://github.com/apache/camel-quarkus/issues/1996)
 - \[Camel 3.7\] Investigate reason of the explicit registration of some resources in CamelProcessor [\#1995](https://github.com/apache/camel-quarkus/issues/1995)
@@ -1153,8 +1192,20 @@
 
 **Closed issues:**
 
+- \[CI\] - Camel Master Branch Build Failure [\#2012](https://github.com/apache/camel-quarkus/issues/2012)
+- \[CI\] - Quarkus Master Branch Build Failure [\#2006](https://github.com/apache/camel-quarkus/issues/2006)
+- \[CI\] - Camel Master Branch Build Failure [\#2003](https://github.com/apache/camel-quarkus/issues/2003)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1998](https://github.com/apache/camel-quarkus/issues/1998)
+- \[CI\] - Camel Master Branch Build Failure [\#1997](https://github.com/apache/camel-quarkus/issues/1997)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1987](https://github.com/apache/camel-quarkus/issues/1987)
 - Data Format : Unable marshal LinkedHashMap to Protobuf [\#1983](https://github.com/apache/camel-quarkus/issues/1983)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1971](https://github.com/apache/camel-quarkus/issues/1971)
+- \[CI\] - Camel Master Branch Build Failure [\#1970](https://github.com/apache/camel-quarkus/issues/1970)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1959](https://github.com/apache/camel-quarkus/issues/1959)
+- \[CI\] - Camel Master Branch Build Failure [\#1945](https://github.com/apache/camel-quarkus/issues/1945)
 - How to add startHistoryId queryParameter to google-mail:history/list \(camel-quarkus-google-mail\) [\#1927](https://github.com/apache/camel-quarkus/issues/1927)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1922](https://github.com/apache/camel-quarkus/issues/1922)
+- \[CI\] - Camel Master Branch Build Failure [\#1912](https://github.com/apache/camel-quarkus/issues/1912)
 - SnappyCompression fails while building native image [\#1910](https://github.com/apache/camel-quarkus/issues/1910)
 - Log with KafkaProducer does not work [\#1862](https://github.com/apache/camel-quarkus/issues/1862)
 - Hipchat native support [\#1652](https://github.com/apache/camel-quarkus/issues/1652)
@@ -1217,8 +1268,19 @@
 
 **Closed issues:**
 
+- \[CI\] - Camel Master Branch Build Failure [\#1900](https://github.com/apache/camel-quarkus/issues/1900)
 - IllegalArgumentException thrown on itest application startup  [\#1891](https://github.com/apache/camel-quarkus/issues/1891)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1886](https://github.com/apache/camel-quarkus/issues/1886)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1865](https://github.com/apache/camel-quarkus/issues/1865)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1850](https://github.com/apache/camel-quarkus/issues/1850)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1830](https://github.com/apache/camel-quarkus/issues/1830)
+- \[CI\] - Camel Master Branch Build Failure [\#1826](https://github.com/apache/camel-quarkus/issues/1826)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1810](https://github.com/apache/camel-quarkus/issues/1810)
+- \[CI\] - Camel Master Branch Build Failure [\#1805](https://github.com/apache/camel-quarkus/issues/1805)
 - NATS tests do not work on the platform [\#1803](https://github.com/apache/camel-quarkus/issues/1803)
+- \[CI\] - Camel Master Branch Build Failure [\#1798](https://github.com/apache/camel-quarkus/issues/1798)
+- \[CI\] - Camel Master Branch Build Failure [\#1779](https://github.com/apache/camel-quarkus/issues/1779)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1773](https://github.com/apache/camel-quarkus/issues/1773)
 - Add more examples [\#310](https://github.com/apache/camel-quarkus/issues/310)
 - Add Camel-Aws-SSM extension [\#108](https://github.com/apache/camel-quarkus/issues/108)
 - \[QUARKUS 1.9\] Remove the driver registration workaround from Postgres Replication Slot extension [\#1885](https://github.com/apache/camel-quarkus/issues/1885)
@@ -1280,6 +1342,7 @@
 
 **Closed issues:**
 
+- \[CI\] - Camel Master Branch Build Failure [\#1532](https://github.com/apache/camel-quarkus/issues/1532)
 - camel-quarkus-main - Uses reflection for setting its name [\#1765](https://github.com/apache/camel-quarkus/issues/1765)
 - Add TLS based authentication support to the nats extension [\#1761](https://github.com/apache/camel-quarkus/issues/1761)
 - @Simple annotated bean parameter binding not working in native mode [\#1685](https://github.com/apache/camel-quarkus/issues/1685)
@@ -1325,6 +1388,9 @@
 
 - IPFS native support [\#1623](https://github.com/apache/camel-quarkus/issues/1623)
 - Browse component native support [\#1582](https://github.com/apache/camel-quarkus/issues/1582)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1566](https://github.com/apache/camel-quarkus/issues/1566)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1530](https://github.com/apache/camel-quarkus/issues/1530)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1522](https://github.com/apache/camel-quarkus/issues/1522)
 - Add support for Azure SDK12 components [\#1494](https://github.com/apache/camel-quarkus/issues/1494)
 - Git support [\#765](https://github.com/apache/camel-quarkus/issues/765)
 - Provide aggregated tests for quarkus-platform [\#413](https://github.com/apache/camel-quarkus/issues/413)
@@ -1350,9 +1416,16 @@
 
 **Closed issues:**
 
+- \[CI\] - Quarkus Master Branch Build Failure [\#1509](https://github.com/apache/camel-quarkus/issues/1509)
 - @BindToRegistry not working with @ApplicationScoped route builders [\#1505](https://github.com/apache/camel-quarkus/issues/1505)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1502](https://github.com/apache/camel-quarkus/issues/1502)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1487](https://github.com/apache/camel-quarkus/issues/1487)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1482](https://github.com/apache/camel-quarkus/issues/1482)
 - Add camel-master extension [\#1476](https://github.com/apache/camel-quarkus/issues/1476)
 - Running a Camel-main batch application [\#1474](https://github.com/apache/camel-quarkus/issues/1474)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1472](https://github.com/apache/camel-quarkus/issues/1472)
+- \[CI\] - Camel Master Branch Build Failure [\#1456](https://github.com/apache/camel-quarkus/issues/1456)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1451](https://github.com/apache/camel-quarkus/issues/1451)
 - Quarkus And XML Routes [\#1436](https://github.com/apache/camel-quarkus/issues/1436)
 - \[Quarkus 1.6.1.Final\] platform-http: dev mode breaking with log "Request has already been read" [\#1373](https://github.com/apache/camel-quarkus/issues/1373)
 - Kafka Component Writing Messages with ProducerTemplate [\#743](https://github.com/apache/camel-quarkus/issues/743)
@@ -1417,7 +1490,15 @@
 **Closed issues:**
 
 - Question regarding AWS Credentials without XML beans [\#1431](https://github.com/apache/camel-quarkus/issues/1431)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1427](https://github.com/apache/camel-quarkus/issues/1427)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1417](https://github.com/apache/camel-quarkus/issues/1417)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1381](https://github.com/apache/camel-quarkus/issues/1381)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1345](https://github.com/apache/camel-quarkus/issues/1345)
 - Commit cannot be completed since the group has already rebalanced and assigned the partitions to another member [\#1328](https://github.com/apache/camel-quarkus/issues/1328)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1297](https://github.com/apache/camel-quarkus/issues/1297)
+- \[CI\] - Camel Master Branch Build Failure [\#1284](https://github.com/apache/camel-quarkus/issues/1284)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1283](https://github.com/apache/camel-quarkus/issues/1283)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1271](https://github.com/apache/camel-quarkus/issues/1271)
 - camel-quarkus-avro: Remove ObjectSubstitution when/if quarkus serialization has been fixed [\#1247](https://github.com/apache/camel-quarkus/issues/1247)
 - Tests fail on integration-tests/platform-http for 1.0.0-M5 [\#906](https://github.com/apache/camel-quarkus/issues/906)
 - camel-quarkus - Optimize to not allow adding new routes [\#726](https://github.com/apache/camel-quarkus/issues/726)
@@ -1608,13 +1689,21 @@
 **Closed issues:**
 
 - Unregister unnecessary Camel configuration classes from reflection [\#1266](https://github.com/apache/camel-quarkus/issues/1266)
+- \[CI\] - Camel Master Branch Build Failure [\#1261](https://github.com/apache/camel-quarkus/issues/1261)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1251](https://github.com/apache/camel-quarkus/issues/1251)
 - REST OpenApi native support [\#1235](https://github.com/apache/camel-quarkus/issues/1235)
 - Add support for MicroProfile Fault Tolerance [\#1234](https://github.com/apache/camel-quarkus/issues/1234)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1218](https://github.com/apache/camel-quarkus/issues/1218)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1210](https://github.com/apache/camel-quarkus/issues/1210)
 - Kudu IT failing [\#1206](https://github.com/apache/camel-quarkus/issues/1206)
+- \[CI\] - Camel Master Branch Build Failure [\#1205](https://github.com/apache/camel-quarkus/issues/1205)
 - NullPointerException with telegram webhook [\#1200](https://github.com/apache/camel-quarkus/issues/1200)
 - ClassNotFoundException: CamelCronService [\#1195](https://github.com/apache/camel-quarkus/issues/1195)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1179](https://github.com/apache/camel-quarkus/issues/1179)
+- \[CI\] - Camel Master Branch Build Failure [\#1174](https://github.com/apache/camel-quarkus/issues/1174)
 - Remove Elasticsearch Rest doc title fix when upgrading to Camel 3.3.0 [\#1167](https://github.com/apache/camel-quarkus/issues/1167)
 - ActiveMQ XalanXPathEvaluator CNFE warning [\#1160](https://github.com/apache/camel-quarkus/issues/1160)
+- \[CI\] - Quarkus Master Branch Build Failure [\#1148](https://github.com/apache/camel-quarkus/issues/1148)
 - MethodAccessorGenerator reachable error in camel-activemq tests with jdk11u-dev [\#1145](https://github.com/apache/camel-quarkus/issues/1145)
 - Remove register for reflection in file/ftp when upgrading to Camel 3.3 [\#1113](https://github.com/apache/camel-quarkus/issues/1113)
 - Test Azure extension with Azurite [\#1072](https://github.com/apache/camel-quarkus/issues/1072)
@@ -1836,6 +1925,7 @@
 
 **Closed issues:**
 
+- \[CI\] - Quarkus Master Branch Build Failure [\#1136](https://github.com/apache/camel-quarkus/issues/1136)
 - Added AWS2-CW native extension [\#1133](https://github.com/apache/camel-quarkus/issues/1133)
 - Quarkus Master - Classes that should be initialized at run time got initialized during image building  [\#1126](https://github.com/apache/camel-quarkus/issues/1126)
 - Kudu native build fails [\#1121](https://github.com/apache/camel-quarkus/issues/1121)
