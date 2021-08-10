@@ -56,8 +56,7 @@ public class MockResource {
                 new AdviceWithRouteBuilder() {
                     @Override
                     public void configure() throws Exception {
-                        // mock all endpoints
-                        mockEndpoints();
+                        mockEndpoints("direct:mock.*", "log:mock.*");
                     }
                 });
 
