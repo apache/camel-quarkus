@@ -540,7 +540,7 @@
 
                 -->
                 <configuration>
-                    <templatesUriBase>file:///${project.basedir}/tooling/create-extension-templates</templatesUriBase>
+                    <templatesUriBase>file:${project.basedir}/tooling/create-extension-templates</templatesUriBase>
                     <extensionDirs>
                         <extensionDir>
                             <path>extensions</path>
