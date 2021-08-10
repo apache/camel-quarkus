@@ -27,8 +27,10 @@ import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.NativeImageSecurityProviderBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.jcp.xml.dsig.internal.dom.XMLDSigRI;
 import org.apache.xml.security.c14n.CanonicalizerSpi;
 import org.apache.xml.security.stax.ext.XMLSecurityConstants;
 import org.apache.xml.security.transforms.TransformSpi;
@@ -76,5 +78,10 @@ class XmlsecurityProcessor {
         Stream.of(XMLSecurityConstants.class.getName())
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClasses::produce);
+    }
+
+    @BuildStep
+    NativeImageSecurityProviderBuildItem saslSecurityProvider() {
+        return new NativeImageSecurityProviderBuildItem(XMLDSigRI.class.getName());
     }
 }
