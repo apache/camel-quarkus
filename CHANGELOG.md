@@ -34,6 +34,8 @@
 
 **Merged pull requests:**
 
+- Avoid deprecated BuildProducer injection [\#3004](https://github.com/apache/camel-quarkus/pull/3004) ([jamesnetherton](https://github.com/jamesnetherton))
+- Be more specific about which endpoints are mocked in AdviceWith test [\#3003](https://github.com/apache/camel-quarkus/pull/3003) ([jamesnetherton](https://github.com/jamesnetherton))
 - Salesforce : Expand producer test coverage [\#2998](https://github.com/apache/camel-quarkus/pull/2998) ([zbendhiba](https://github.com/zbendhiba))
 -  Test language\(\) DSL method & Language component native support [\#2996](https://github.com/apache/camel-quarkus/pull/2996) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
