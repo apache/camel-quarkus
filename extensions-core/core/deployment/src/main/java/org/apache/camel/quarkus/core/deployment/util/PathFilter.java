@@ -79,7 +79,7 @@ public class PathFilter {
         if (ObjectHelper.isEmpty(excludePatterns) && ObjectHelper.isEmpty(includePatterns)) {
             return dotName -> true;
         } else {
-            return dotName -> stringPredicate.test(dotName.toString().replace('.', '/'));
+            return dotName -> stringPredicate.test(dotName.toString().replace(".", File.separator));
         }
     }
 
@@ -105,7 +105,7 @@ public class PathFilter {
         if (!includePaths.isEmpty()) {
             for (String path : includePaths) {
                 if (!selectedPaths.contains(path) && !matchesAny(path, excludePatterns)) {
-                    selectedPaths.add(path.replace('/', '.'));
+                    selectedPaths.add(path.replace(File.separator, "."));
                 }
             }
         }

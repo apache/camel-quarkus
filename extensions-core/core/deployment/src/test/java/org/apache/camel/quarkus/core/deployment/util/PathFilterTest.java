@@ -91,8 +91,8 @@ public class PathFilterTest {
     @Test
     public void dotNameFilter() {
         Predicate<DotName> predicate = new PathFilter.Builder()
-                .include("foo/bar/*")
-                .exclude("foo/baz/*")
+                .include(Paths.get("/foo/bar/star").toString().replace("star", "*"))
+                .exclude(Paths.get("foo/baz/star").toString().replace("star", "*"))
                 .build().asDotNamePredicate();
         assertTrue(predicate.test(DotName.createSimple("foo.bar.Class")));
         assertFalse(predicate.test(DotName.createSimple("foo.baz.Class")));
@@ -136,11 +136,11 @@ public class PathFilterTest {
     @Test
     void addNonPatternPaths() {
         final PathFilter pathFilter = new PathFilter.Builder()
-                .include("org/p1/*")
-                .include("org/p2/**")
-                .include("org/p3/NonPatternClass")
-                .exclude("org/p1/ExcludedClass")
-                .exclude("org/p2/excludedpackage/**")
+                .include(Paths.get("org/p1/star").toString().replace("star", "*"))
+                .include(Paths.get("org/p2/starstar").toString().replaceAll("star", "*"))
+                .include(Paths.get("org/p3/NonPatternClass").toString())
+                .exclude(Paths.get("org/p1/ExcludedClass").toString())
+                .exclude(Paths.get("org/p2/excludedpackage/starstar").toString().replaceAll("star", "*"))
                 .build();
         Set<String> selectedPaths = new TreeSet<>();
         pathFilter.addNonPatternPaths(selectedPaths);

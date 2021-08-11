@@ -16,6 +16,8 @@
  */
 package org.apache.camel.component.qute;
 
+import java.lang.System;
+
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.Test;
@@ -24,7 +26,8 @@ public class QuteBodyAsDomainObjectTest extends QuteTestBase {
 
     @Test
     public void testWithObject() throws Exception {
-        String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.", "\n");
+        String msg = String.format("Hi Claus how are you? Its a nice day.%sGive my regards to the family Ibsen.",
+                System.lineSeparator());
 
         MockEndpoint mock = getMockEndpoint("mock:result");
         mock.expectedMessageCount(1);
