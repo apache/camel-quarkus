@@ -17,21 +17,20 @@
 package org.apache.camel.quarkus.component.cxf.it;
 
 import javax.inject.Inject;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.xml.ws.BindingType;
 
-import io.quarkiverse.cxf.annotation.CXFClient;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-@QuarkusTest
-class CxfTest {
+@WebService(endpointInterface = "org.apache.camel.quarkus.component.cxf.it.GreetingWebService", serviceName = "GreetingWebService")
+@BindingType(javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
+public class GreetingWebServiceImpl implements GreetingWebService {
 
     @Inject
-    @CXFClient("greetingclient")
-    GreetingClientWebService greetingClient;
+    public HelloResource helloResource;
 
-    @Test
-    public void testPing() {
-        Assertions.assertEquals("Hello world", greetingClient.ping("world"));
+    @Override
+    public String ping(@WebParam(name = "text") String text) {
+        return helloResource.getHello() + text;
     }
+
 }

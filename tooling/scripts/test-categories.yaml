@@ -86,6 +86,7 @@ group-05:
   - syslog
   - xmlsecurity
   - xstream
+  - cxf
 group-06:
   - exec
   - file

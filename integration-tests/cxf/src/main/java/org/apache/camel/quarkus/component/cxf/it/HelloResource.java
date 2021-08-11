@@ -16,22 +16,11 @@
  */
 package org.apache.camel.quarkus.component.cxf.it;
 
-import javax.inject.Inject;
+import javax.inject.Singleton;
 
-import io.quarkiverse.cxf.annotation.CXFClient;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-@QuarkusTest
-class CxfTest {
-
-    @Inject
-    @CXFClient("greetingclient")
-    GreetingClientWebService greetingClient;
-
-    @Test
-    public void testPing() {
-        Assertions.assertEquals("Hello world", greetingClient.ping("world"));
+@Singleton
+public class HelloResource {
+    public String getHello() {
+        return "Hello ";
     }
 }

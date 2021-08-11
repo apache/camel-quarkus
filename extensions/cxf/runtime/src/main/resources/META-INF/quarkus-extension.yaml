@@ -24,6 +24,9 @@
 name: "Camel CXF"
 description: "Expose SOAP WebServices using Apache CXF or connect to external WebServices using CXF WS client"
 metadata:
+  keywords:
+  - "Cxf"
+  - "SOAP"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/cxf.html"
   categories:
   - "integration"

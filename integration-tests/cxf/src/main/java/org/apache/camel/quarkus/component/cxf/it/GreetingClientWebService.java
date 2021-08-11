@@ -16,22 +16,15 @@
  */
 package org.apache.camel.quarkus.component.cxf.it;
 
-import javax.inject.Inject;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import javax.xml.ws.RequestWrapper;
 
-import io.quarkiverse.cxf.annotation.CXFClient;
-import io.quarkus.test.junit.QuarkusTest;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+@WebService
+public interface GreetingClientWebService {
 
-@QuarkusTest
-class CxfTest {
-
-    @Inject
-    @CXFClient("greetingclient")
-    GreetingClientWebService greetingClient;
-
-    @Test
-    public void testPing() {
-        Assertions.assertEquals("Hello world", greetingClient.ping("world"));
-    }
+    @WebMethod
+    @RequestWrapper(localName = "Ping", targetNamespace = "http://it.cxf.component.quarkus.camel.apache.org/", className = "org.apache.camel.quarkus.component.cxf.it.Ping")
+    String ping(@WebParam(name = "text") String text);
 }
