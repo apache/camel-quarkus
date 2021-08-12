@@ -11,10 +11,12 @@
 
 **Closed issues:**
 
+- creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
 - Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
+- Provide a common set of JMS tests to test different combinations of JMS extension, client & broker [\#2914](https://github.com/apache/camel-quarkus/issues/2914)
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
 - Cannot convert buffer types in platform-http [\#2838](https://github.com/apache/camel-quarkus/issues/2838)
 - Box native integration test failure [\#2830](https://github.com/apache/camel-quarkus/issues/2830)
@@ -34,8 +36,11 @@
 
 **Merged pull requests:**
 
+- fix extension creation on Windows [\#3008](https://github.com/apache/camel-quarkus/pull/3008) ([dufoli](https://github.com/dufoli))
+- Upgrade to cassandra-quarkus 1.1.1 [\#3007](https://github.com/apache/camel-quarkus/pull/3007) ([ppalaga](https://github.com/ppalaga))
 - Avoid deprecated BuildProducer injection [\#3004](https://github.com/apache/camel-quarkus/pull/3004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Be more specific about which endpoints are mocked in AdviceWith test [\#3003](https://github.com/apache/camel-quarkus/pull/3003) ([jamesnetherton](https://github.com/jamesnetherton))
+- Introduce a common set of extendable messaging tests [\#3000](https://github.com/apache/camel-quarkus/pull/3000) ([jamesnetherton](https://github.com/jamesnetherton))
 - Salesforce : Expand producer test coverage [\#2998](https://github.com/apache/camel-quarkus/pull/2998) ([zbendhiba](https://github.com/zbendhiba))
 -  Test language\(\) DSL method & Language component native support [\#2996](https://github.com/apache/camel-quarkus/pull/2996) ([ppalaga](https://github.com/ppalaga))
 - Upgrade to cq-maven-plugin 0.38.0, keep spaces in simple XML elements [\#2995](https://github.com/apache/camel-quarkus/pull/2995) ([ppalaga](https://github.com/ppalaga))
@@ -95,6 +100,7 @@
 - Remove extra .Final in plugin version [\#2895](https://github.com/apache/camel-quarkus/pull/2895) ([gastaldi](https://github.com/gastaldi))
 - Remove redundant jdk-8-classpath profile [\#2891](https://github.com/apache/camel-quarkus/pull/2891) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add a summary page for messaging extensions [\#2890](https://github.com/apache/camel-quarkus/pull/2890) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix read-lock tests [\#2889](https://github.com/apache/camel-quarkus/pull/2889) ([philschaller](https://github.com/philschaller))
 - Remove useless docker-java8 profile [\#2887](https://github.com/apache/camel-quarkus/pull/2887) ([aldettinger](https://github.com/aldettinger))
 - kudu: remove the useless test harness logic dedicated to Java 8 \#2885 [\#2886](https://github.com/apache/camel-quarkus/pull/2886) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.0.1.Final [\#2883](https://github.com/apache/camel-quarkus/pull/2883) ([jamesnetherton](https://github.com/jamesnetherton))
