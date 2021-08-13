@@ -38,6 +38,7 @@
 
 - fix extension creation on Windows [\#3008](https://github.com/apache/camel-quarkus/pull/3008) ([dufoli](https://github.com/dufoli))
 - Upgrade to cassandra-quarkus 1.1.1 [\#3007](https://github.com/apache/camel-quarkus/pull/3007) ([ppalaga](https://github.com/ppalaga))
+- Salesforce: Expand Consumer integration tests : add tests for Streami… [\#3005](https://github.com/apache/camel-quarkus/pull/3005) ([zbendhiba](https://github.com/zbendhiba))
 - Avoid deprecated BuildProducer injection [\#3004](https://github.com/apache/camel-quarkus/pull/3004) ([jamesnetherton](https://github.com/jamesnetherton))
 - Be more specific about which endpoints are mocked in AdviceWith test [\#3003](https://github.com/apache/camel-quarkus/pull/3003) ([jamesnetherton](https://github.com/jamesnetherton))
 - Introduce a common set of extendable messaging tests [\#3000](https://github.com/apache/camel-quarkus/pull/3000) ([jamesnetherton](https://github.com/jamesnetherton))
