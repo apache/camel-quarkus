@@ -31,9 +31,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.mock.MockEndpoint;
 
@@ -51,11 +53,16 @@ public class EipResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String route(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
+    public Response route(String statement, @PathParam("route") String route, @Context UriInfo uriInfo) {
         final Map<String, Object> headers = uriInfo.getQueryParameters().entrySet().stream()
                 .map(e -> new AbstractMap.SimpleImmutableEntry<String, Object>(e.getKey(), e.getValue().get(0)))
                 .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
-        return producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
+        try {
+            String result = producerTemplate.requestBodyAndHeaders("direct:" + route, statement, headers, String.class);
+            return Response.ok(result).build();
+        } catch (CamelExecutionException e) {
+            return Response.serverError().entity(e.getMessage()).build();
+        }
     }
 
     @Path("/mock/{name}/{count}/{timeout}/{part}")
