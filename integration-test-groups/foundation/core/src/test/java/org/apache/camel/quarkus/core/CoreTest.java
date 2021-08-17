@@ -22,6 +22,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.support.DefaultLRUCacheFactory;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.IsNot.not;
@@ -35,6 +36,8 @@ public class CoreTest {
         RestAssured.when().get("/core/registry/lookup-context").then().body(is("true"));
     }
 
+    // https://github.com/apache/camel-quarkus/issues/3002
+    @DisabledIfEnvironmentVariable(named = "CI", matches = "true")
     @Test
     public void testCamelContextAwareRegistryBeansInitialized() {
         RestAssured.when().get("/core/registry/camel-context-aware/initialized").then().body(is("true"));
