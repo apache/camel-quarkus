@@ -44,7 +44,7 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
             container = new GenericContainer<>(ACTIVEMQ_IMAGE)
                     .withExposedPorts(TCP_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
-                    .waitingFor(Wait.forListeningPort());
+                    .waitingFor(Wait.forLogMessage(".*ActiveMQ.*started.*", 1));
 
             container.start();
 
