@@ -8,9 +8,11 @@
 
 - \[Quarkus 2.2.0\] XChange native itest fails to find `CurrencyNames` resource bundle [\#2983](https://github.com/apache/camel-quarkus/issues/2983)
 - \[Quarkus 2.2.0\] Spring RabbitMQ native build fails [\#2980](https://github.com/apache/camel-quarkus/issues/2980)
+- \[Quarkus 2.2.0\] Infinispan itests fail in native mode [\#2975](https://github.com/apache/camel-quarkus/issues/2975)
 
 **Closed issues:**
 
+- Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
 - creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
 - Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
@@ -24,6 +26,7 @@
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
 - Expand AWS DDB tests [\#2776](https://github.com/apache/camel-quarkus/issues/2776)
 - Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
+- Quarkus Native: SQS to Mongo fails to compile with NoClassDefFoundError: jnr/unixsocket/UnixSocket [\#2678](https://github.com/apache/camel-quarkus/issues/2678)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
 - \[CI\] - Camel Master Branch Build Failure [\#2393](https://github.com/apache/camel-quarkus/issues/2393)
@@ -36,6 +39,9 @@
 
 **Merged pull requests:**
 
+- Ensure ActiveMQ container is fully started before running tests [\#3014](https://github.com/apache/camel-quarkus/pull/3014) ([jamesnetherton](https://github.com/jamesnetherton))
+- Reduce console log output from EipTest.throttle [\#3012](https://github.com/apache/camel-quarkus/pull/3012) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add dev mode support to camel-quarkus-kotlin [\#3011](https://github.com/apache/camel-quarkus/pull/3011) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix extension creation on Windows [\#3008](https://github.com/apache/camel-quarkus/pull/3008) ([dufoli](https://github.com/dufoli))
 - Upgrade to cassandra-quarkus 1.1.1 [\#3007](https://github.com/apache/camel-quarkus/pull/3007) ([ppalaga](https://github.com/ppalaga))
 - Salesforce: Expand Consumer integration tests : add tests for Streami… [\#3005](https://github.com/apache/camel-quarkus/pull/3005) ([zbendhiba](https://github.com/zbendhiba))
