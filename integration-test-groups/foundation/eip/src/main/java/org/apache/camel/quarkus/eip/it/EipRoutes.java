@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.eip.it;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -25,6 +26,7 @@ import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.ClaimCheckOperation;
 import org.apache.camel.processor.loadbalancer.RoundRobinLoadBalancer;
 
+@ApplicationScoped
 public class EipRoutes extends RouteBuilder {
 
     public static final int THROTTLE_PERIOD = 500;

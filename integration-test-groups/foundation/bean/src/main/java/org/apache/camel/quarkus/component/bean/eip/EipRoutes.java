@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.bean.eip;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -27,6 +28,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.Consume;
 import org.apache.camel.builder.RouteBuilder;
 
+@ApplicationScoped
 public class EipRoutes extends RouteBuilder {
 
     @Override

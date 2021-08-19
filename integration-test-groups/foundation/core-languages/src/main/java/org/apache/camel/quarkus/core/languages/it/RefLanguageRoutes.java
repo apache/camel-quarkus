@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.languages.it;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -25,6 +26,7 @@ import org.apache.camel.Expression;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.support.ExpressionAdapter;
 
+@ApplicationScoped
 public class RefLanguageRoutes extends RouteBuilder {
 
     @Override
