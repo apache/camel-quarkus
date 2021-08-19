@@ -45,7 +45,7 @@
 
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-vertx-web-deployment</artifactId>
+            <artifactId>quarkus-vertx-http-deployment</artifactId>
         </dependency>
     </dependencies>
 

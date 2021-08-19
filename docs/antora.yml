@@ -25,4 +25,4 @@ asciidoc:
     cq-camel-components: 3.11.x@components # replace ${camel.docs.components.xref}
     min-maven-version: 3.6.2 # replace ${min-maven-version}
     target-maven-version: 3.8.1 # replace ${target-maven-version}
-    quarkus-version: 2.2.3.Final # replace ${quarkus.version}
+    quarkus-version: 2.3.0.CR1 # replace ${quarkus.version}
