@@ -18,7 +18,6 @@ package org.apache.camel.quarkus.component.xchange.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -28,12 +27,14 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.not;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/3016")
 @QuarkusTest
 class XchangeTest {
 
+    // TODO: Reinstate binance as the default crypto exchange and kraken as the secondary
+    // https://github.com/apache/camel-quarkus/issues/3016
+    // @ValueSource(strings = { DEFAULT_CRYPTO_EXCHANGE, "kraken" })
     @ParameterizedTest
-    @ValueSource(strings = { "binance", "coinbase" })
+    @ValueSource(strings = { "kraken" })
     public void currencyTicker(String cryptoExchange) {
         RestAssured.given()
                 .queryParam("currencyPair", "BTC/USDT")
@@ -41,9 +42,9 @@ class XchangeTest {
                 .then()
                 .statusCode(200)
                 .body(
-                        "open", greaterThan(0),
-                        "high", greaterThan(0),
-                        "low", greaterThan(0));
+                        "last", greaterThan(0),
+                        "bid", greaterThan(0),
+                        "ask", greaterThan(0));
     }
 
     @Test

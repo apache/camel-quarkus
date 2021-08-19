@@ -41,6 +41,10 @@ import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 @ApplicationScoped
 public class XchangeResource {
 
+    // TODO: Reinstate binance as the default crypto exchange and kraken as the secondary
+    // https://github.com/apache/camel-quarkus/issues/3016
+    public static final String DEFAULT_CRYPTO_EXCHANGE = "kraken";
+
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -53,9 +57,9 @@ public class XchangeResource {
                 "xchange:" + cryptoExchange + "?service=marketdata&method=ticker&currencyPair=" + currencyPair, null,
                 Ticker.class);
         return Json.createObjectBuilder()
-                .add("open", ticker.getOpen().longValue())
-                .add("high", ticker.getHigh().longValue())
-                .add("low", ticker.getLow().longValue())
+                .add("last", ticker.getLast().longValue())
+                .add("bid", ticker.getBid().longValue())
+                .add("ask", ticker.getAsk().longValue())
                 .build();
     }
 
@@ -64,7 +68,8 @@ public class XchangeResource {
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
     public JsonObject currencies() {
-        List<Currency> currencies = producerTemplate.requestBody("xchange:binance?service=metadata&method=currencies", null,
+        List<Currency> currencies = producerTemplate.requestBody(
+                "xchange:" + DEFAULT_CRYPTO_EXCHANGE + "?service=metadata&method=currencies", null,
                 List.class);
         JsonArrayBuilder builder = Json.createArrayBuilder();
         currencies.forEach(c -> builder.add(c.getSymbol()));
@@ -75,9 +80,10 @@ public class XchangeResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String currencyMetadata(@PathParam("symbol") String symbol) {
-        CurrencyMetaData metaData = producerTemplate.requestBody("xchange:binance?service=metadata&method=currencyMetaData",
+        CurrencyMetaData metaData = producerTemplate.requestBody(
+                "xchange:" + DEFAULT_CRYPTO_EXCHANGE + "?service=metadata&method=currencyMetaData",
                 Currency.getInstance(symbol), CurrencyMetaData.class);
-        return metaData.getWithdrawalFee().toPlainString();
+        return metaData.getScale().toString();
     }
 
     @Path("/currency/pairs")
@@ -85,7 +91,8 @@ public class XchangeResource {
     @Produces(MediaType.APPLICATION_JSON)
     @SuppressWarnings("unchecked")
     public JsonObject currencyPairs() {
-        List<CurrencyPair> currencyPairs = producerTemplate.requestBody("xchange:binance?service=metadata&method=currencyPairs",
+        List<CurrencyPair> currencyPairs = producerTemplate.requestBody(
+                "xchange:" + DEFAULT_CRYPTO_EXCHANGE + "?service=metadata&method=currencyPairs",
                 null, List.class);
         JsonArrayBuilder builder = Json.createArrayBuilder();
         currencyPairs.forEach(cp -> builder.add(cp.toString()));
@@ -97,7 +104,8 @@ public class XchangeResource {
     @Produces(MediaType.TEXT_PLAIN)
     public String currencyPairsMetadata(@QueryParam("base") String base, @QueryParam("counter") String counter) {
         CurrencyPairMetaData metaData = producerTemplate.requestBody(
-                "xchange:binance?service=metadata&method=currencyPairMetaData", new CurrencyPair(base, counter),
+                "xchange:" + DEFAULT_CRYPTO_EXCHANGE + "?service=metadata&method=currencyPairMetaData",
+                new CurrencyPair(base, counter),
                 CurrencyPairMetaData.class);
         return metaData.getTradingFee().toPlainString();
     }

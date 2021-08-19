@@ -58,7 +58,7 @@
         <!-- Test adding additional crypto exchanges -->
         <dependency>
             <groupId>org.knowm.xchange</groupId>
-            <artifactId>xchange-coinbase</artifactId>
+            <artifactId>xchange-kraken</artifactId>
         </dependency>
 
         <!-- test dependencies -->
