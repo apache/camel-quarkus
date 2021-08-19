@@ -208,7 +208,7 @@
             </dependency>
             <dependency>
                 <groupId>org.knowm.xchange</groupId>
-                <artifactId>xchange-coinbase</artifactId>
+                <artifactId>xchange-kraken</artifactId>
                 <version>${xchange.version}</version>
             </dependency>
             <dependency>

@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.xchange.it;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
 
-@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3016")
 @NativeImageTest
 class XchangeIT extends XchangeTest {
 
