@@ -25,6 +25,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -78,7 +79,11 @@ public class CoreResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public boolean camelContextAwareBeansHaveContextSet() {
-        return registry.findByType(CamelContextAware.class).stream()
+        Set<CamelContextAware> contextAwareBeans = registry.findByType(CamelContextAware.class);
+        if (contextAwareBeans.isEmpty()) {
+            throw new IllegalStateException("Some CamelContextAware beans expected in Camel registry");
+        }
+        return contextAwareBeans.stream()
                 .filter(camelContextAware -> camelContextAware.getCamelContext() == null)
                 .peek(bean -> LOG.warnf("Found a CamelContextAware bean of type %s with null CamelContext",
                         bean.getClass().getName()))

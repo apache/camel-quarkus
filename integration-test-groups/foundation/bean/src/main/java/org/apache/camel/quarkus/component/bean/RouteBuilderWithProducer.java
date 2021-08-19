@@ -25,6 +25,7 @@ import org.apache.camel.builder.RouteBuilder;
  * A {@link RouteBuilder} with a @Produces method that makes it a CDI bean. It would normally get removed from the CDI
  * container.
  */
+@ApplicationScoped
 public class RouteBuilderWithProducer extends RouteBuilder {
 
     @Override
