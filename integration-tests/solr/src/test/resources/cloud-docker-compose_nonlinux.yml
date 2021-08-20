@@ -1,0 +1,58 @@
+#
+# Licensed to the Apache Software Foundation (ASF) under one or more
+# contributor license agreements.  See the NOTICE file distributed with
+# this work for additional information regarding copyright ownership.
+# The ASF licenses this file to You under the Apache License, Version 2.0
+# (the "License"); you may not use this file except in compliance with
+# the License.  You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+# based on https://raw.githubusercontent.com/docker-solr/docker-solr-examples/master/docker-compose/docker-compose.yml
+version: '3.7'
+services:
+  solr1:
+    image: solr:8.7.0
+    ports:
+     - "8983:8983"
+    environment:
+      - ZK_HOST=zoo1:2181
+      - SOLR_PORT=8983
+      - SOLR_HOST=localhost
+    networks:
+      - solr
+    depends_on:
+      - zoo1
+
+  zoo1:
+    image: zookeeper:3.6.2
+    restart: always
+    hostname: zoo1
+    environment:
+      ZOO_MY_ID: 1
+      ZOO_SERVERS: server.1=zoo1:2888:3888;2181
+    networks:
+      - solr
+      
+  create-collection:
+    image: solr:8.7.0
+    environment:
+      - SOLR_HOST=solr1
+    networks:
+      - solr
+    command:
+      - bash
+      - "-e"
+      - "-x"
+      - "-c"
+      - "wait-for-solr.sh --max-attempts 10 --wait-seconds 5 --solr-url http://$$SOLR_HOST:8983/; solr create_collection -c collection1 -p 8983"
+
+networks:
+  solr:
