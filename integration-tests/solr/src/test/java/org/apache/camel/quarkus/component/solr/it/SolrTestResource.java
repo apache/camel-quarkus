@@ -21,6 +21,7 @@ import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
+import org.apache.commons.lang3.SystemUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.BindMode;
@@ -111,10 +112,17 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
      * creates a cloud container with zookeeper
      */
     private void createCloudContainer() {
-        cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose.yml"))
-                .withExposedService("solr1", SOLR_PORT)
-                .withExposedService("zoo1", ZOOKEEPER_PORT)
-                .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
+        if (SystemUtils.IS_OS_LINUX) {
+            cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose.yml"))
+                    .withExposedService("solr1", SOLR_PORT)
+                    .withExposedService("zoo1", ZOOKEEPER_PORT)
+                    .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
+        } else {
+            cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose_nonlinux.yml"))
+                    .withExposedService("solr1", SOLR_PORT)
+                    .withExposedService("zoo1", ZOOKEEPER_PORT)
+                    .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
+        }
     }
 
     @Override
