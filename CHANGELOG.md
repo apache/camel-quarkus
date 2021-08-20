@@ -12,8 +12,10 @@
 
 **Closed issues:**
 
+- Exception when configuring camel-kafka with environment variables in native mode [\#3017](https://github.com/apache/camel-quarkus/issues/3017)
 - Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
 - creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
+- \[Quarkus 2.2.0\] XmlSecurity itests fail in native mode [\#2977](https://github.com/apache/camel-quarkus/issues/2977)
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
 - Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
@@ -39,6 +41,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.2.0.CR1 [\#3015](https://github.com/apache/camel-quarkus/pull/3015) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ActiveMQ container is fully started before running tests [\#3014](https://github.com/apache/camel-quarkus/pull/3014) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reduce console log output from EipTest.throttle [\#3012](https://github.com/apache/camel-quarkus/pull/3012) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add dev mode support to camel-quarkus-kotlin [\#3011](https://github.com/apache/camel-quarkus/pull/3011) ([jamesnetherton](https://github.com/jamesnetherton))
