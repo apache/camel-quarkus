@@ -9,10 +9,12 @@
 - \[Quarkus 2.2.0\] XChange native itest fails to find `CurrencyNames` resource bundle [\#2983](https://github.com/apache/camel-quarkus/issues/2983)
 - \[Quarkus 2.2.0\] Spring RabbitMQ native build fails [\#2980](https://github.com/apache/camel-quarkus/issues/2980)
 - \[Quarkus 2.2.0\] Infinispan itests fail in native mode [\#2975](https://github.com/apache/camel-quarkus/issues/2975)
+- Camel-Infinispan consumer doesn't work [\#2344](https://github.com/apache/camel-quarkus/issues/2344)
 
 **Closed issues:**
 
 - Exception when configuring camel-kafka with environment variables in native mode [\#3017](https://github.com/apache/camel-quarkus/issues/3017)
+- `CoreTest.testCamelContextAwareRegistryBeansInitialized` failing after RouteBuilder started implementing CamelContextAware [\#3002](https://github.com/apache/camel-quarkus/issues/3002)
 - Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
 - creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
 - \[Quarkus 2.2.0\] XmlSecurity itests fail in native mode [\#2977](https://github.com/apache/camel-quarkus/issues/2977)
@@ -41,6 +43,8 @@
 
 **Merged pull requests:**
 
+- Test camel-xchange with kraken until binance issues are resolved [\#3020](https://github.com/apache/camel-quarkus/pull/3020) ([jamesnetherton](https://github.com/jamesnetherton))
+- CoreTest.testCamelContextAwareRegistryBeansInitialized failing after … [\#3019](https://github.com/apache/camel-quarkus/pull/3019) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 2.2.0.CR1 [\#3015](https://github.com/apache/camel-quarkus/pull/3015) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ensure ActiveMQ container is fully started before running tests [\#3014](https://github.com/apache/camel-quarkus/pull/3014) ([jamesnetherton](https://github.com/jamesnetherton))
 - Reduce console log output from EipTest.throttle [\#3012](https://github.com/apache/camel-quarkus/pull/3012) ([jamesnetherton](https://github.com/jamesnetherton))
