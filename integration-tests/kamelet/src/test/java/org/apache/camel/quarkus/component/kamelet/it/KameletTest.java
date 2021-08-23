@@ -102,4 +102,13 @@ class KameletTest {
         assertTrue(jsonAsArrayList.contains("injector"));
         assertTrue(jsonAsArrayList.contains("logger"));
     }
+
+    @Test
+    public void testKameletLocationAtRuntime() {
+        RestAssured.given()
+                .post("/kamelet/locationAtRuntime/Hello")
+                .then()
+                .statusCode(200)
+                .body(is("HELLO"));
+    }
 }

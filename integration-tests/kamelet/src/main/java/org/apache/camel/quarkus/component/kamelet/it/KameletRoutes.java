@@ -62,6 +62,9 @@ public class KameletRoutes extends RouteBuilder {
         from("direct:chain")
                 .to("kamelet:echo/1?prefix=Camel Quarkus&suffix=Chained")
                 .to("kamelet:echo/2?prefix=Hello&suffix=Route");
+
+        from("direct:kamelet-location-at-runtime")
+                .kamelet("upper?location=classpath:kamelets-runtime/upper-kamelet.xml");
     }
 
     @RegisterForReflection
@@ -70,5 +73,9 @@ public class KameletRoutes extends RouteBuilder {
         public void process(Exchange exchange) {
             exchange.getMessage().setBody(exchange.getMessage().getBody(String.class) + "-suffix");
         }
+    }
+
+    @RegisterForReflection(fields = false, targets = { String.class })
+    public static class StringUpperCaseReflectionForUpperKamelet {
     }
 }
