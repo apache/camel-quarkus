@@ -96,4 +96,12 @@ public class KameletResource {
 
         return builder.build();
     }
+
+    @Path("/locationAtRuntime/{name}")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String kameletLocationAtRuntime(@PathParam("name") String name) {
+        return fluentProducerTemplate.to("direct:kamelet-location-at-runtime").withBody(name).request(String.class);
+    }
+
 }
