@@ -142,4 +142,31 @@ public abstract class AbstractMessagingTest {
         Assertions.assertEquals(messages, actual);
     }
 
+    @Test
+    public void testJmsReplyTo() {
+        String message = "JMS Reply To Message";
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/reply/to")
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
+    public void testJmsPojoConsumer() {
+        String message = "Camel Quarkus JMS POJO Consumer";
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(message)
+                .post("/messaging/{queueName}", "pojoConsume")
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .get("/messaging/pojo/consumer")
+                .then()
+                .statusCode(200)
+                .body(is("Hello " + message));
+    }
 }

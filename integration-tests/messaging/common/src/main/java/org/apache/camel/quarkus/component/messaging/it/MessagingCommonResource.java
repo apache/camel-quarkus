@@ -69,6 +69,9 @@ public class MessagingCommonResource {
     @Inject
     ComponentScheme componentScheme;
 
+    @Inject
+    MessagingPojoConsumer pojoConsumer;
+
     @Path("/{queueName}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
@@ -255,5 +258,31 @@ public class MessagingCommonResource {
             Thread.currentThread().interrupt();
         }
         return mock.getExchanges().stream().map(e -> e.getMessage().getBody(String.class)).collect(Collectors.toList());
+    }
+
+    @Path("/reply/to")
+    @Consumes(MediaType.TEXT_PLAIN)
+    @POST
+    public void replyTo(String message) throws InterruptedException {
+        MockEndpoint mockEndpointA = context.getEndpoint("mock:replyToStart", MockEndpoint.class);
+        MockEndpoint mockEndpointB = context.getEndpoint("mock:replyToEnd", MockEndpoint.class);
+        MockEndpoint mockEndpointC = context.getEndpoint("mock:replyToDone", MockEndpoint.class);
+
+        mockEndpointA.expectedBodiesReceived(message);
+        mockEndpointB.expectedBodiesReceived("Hello " + message);
+        mockEndpointC.expectedBodiesReceived(message);
+
+        producerTemplate.sendBody("direct:replyTo", message);
+
+        mockEndpointA.assertIsSatisfied(5000L);
+        mockEndpointB.assertIsSatisfied(5000L);
+        mockEndpointC.assertIsSatisfied(5000L);
+    }
+
+    @Path("/pojo/consumer")
+    @Produces(MediaType.TEXT_PLAIN)
+    @GET
+    public String pojoConsumer() {
+        return pojoConsumer.getMessage(5000);
     }
 }

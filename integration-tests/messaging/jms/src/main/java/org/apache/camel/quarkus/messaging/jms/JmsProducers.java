@@ -16,7 +16,12 @@
  */
 package org.apache.camel.quarkus.messaging.jms;
 
+import java.util.Set;
+
 import javax.inject.Named;
+import javax.jms.Connection;
+import javax.jms.ConnectionFactory;
+import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
@@ -24,6 +29,10 @@ import javax.jms.TextMessage;
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.component.jms.JmsConstants;
 import org.apache.camel.component.jms.MessageListenerContainerFactory;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.support.converter.MessageConversionException;
@@ -82,5 +91,45 @@ public class JmsProducers {
                 return null;
             }
         };
+    }
+
+    @Named
+    public DestinationHeaderSetter destinationHeaderSetter() {
+        return new DestinationHeaderSetter();
+    }
+
+    @RegisterForReflection(fields = false)
+    static final class DestinationHeaderSetter {
+
+        public void setJmsDestinationHeader(Exchange exchange) {
+            org.apache.camel.Message message = exchange.getMessage();
+            String destinationHeaderType = message.getHeader("DestinationHeaderType", String.class);
+            String destinationName = message.getHeader("DestinationName", String.class);
+            if (destinationHeaderType.equals(String.class.getName())) {
+                message.setHeader(JmsConstants.JMS_DESTINATION_NAME, destinationName);
+            } else {
+                CamelContext camelContext = exchange.getContext();
+                Set<ConnectionFactory> factories = camelContext.getRegistry().findByType(ConnectionFactory.class);
+                ConnectionFactory connectionFactory = factories.iterator().next();
+
+                Connection connection = null;
+                try {
+                    connection = connectionFactory.createConnection();
+                    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+                    Destination destination = session.createQueue(destinationName);
+                    message.setHeader(JmsConstants.JMS_DESTINATION, destination);
+                } catch (JMSException e) {
+                    throw new IllegalStateException("Failed to create JMS connection", e);
+                } finally {
+                    if (connection != null) {
+                        try {
+                            connection.close();
+                        } catch (JMSException e) {
+                            // Ignore
+                        }
+                    }
+                }
+            }
+        }
     }
 }

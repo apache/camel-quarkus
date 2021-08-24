@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.messaging.sjms;
 
+import java.util.UUID;
+
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.messaging.it.AbstractMessagingTest;
 import org.junit.jupiter.api.Test;
+
+import static org.hamcrest.core.Is.is;
 
 public class AbstractSjmsMessagingTest extends AbstractMessagingTest {
 
@@ -29,5 +34,26 @@ public class AbstractSjmsMessagingTest extends AbstractMessagingTest {
                 .get("/messaging/sjms/selector")
                 .then()
                 .statusCode(204);
+    }
+
+    @Test
+    public void testJmsCustomDestination() {
+        String message = UUID.randomUUID().toString();
+
+        // Send a message
+        String destination = "queue-" + UUID.randomUUID().toString().split("-")[0];
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/sjms/custom/destination/{destinationName}", destination)
+                .then()
+                .statusCode(201);
+
+        // Verify message sent to destination
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/messaging/{destinationName}", destination)
+                .then()
+                .statusCode(200)
+                .body(is(message));
     }
 }

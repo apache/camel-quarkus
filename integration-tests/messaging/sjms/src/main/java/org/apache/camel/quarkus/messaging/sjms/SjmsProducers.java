@@ -16,28 +16,26 @@
  */
 package org.apache.camel.quarkus.messaging.sjms;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.inject.Named;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme;
+import io.quarkus.runtime.annotations.RegisterForReflection;
+import org.apache.camel.Exchange;
+import org.apache.camel.component.sjms.SjmsConstants;
 
-@ApplicationScoped
-public class SjmsRoutes extends RouteBuilder {
+public class SjmsProducers {
 
-    @Inject
-    ComponentScheme componentScheme;
+    @Named
+    public DestinationHeaderSetter destinationHeaderSetter() {
+        return new DestinationHeaderSetter();
+    }
 
-    @Override
-    public void configure() throws Exception {
-        fromF("%s:queue:selectorA", componentScheme)
-                .toF("%s:queue:selectorB", componentScheme);
+    @RegisterForReflection(fields = false)
+    static final class DestinationHeaderSetter {
 
-        fromF("%s:queue:selectorB?messageSelector=foo='bar'", componentScheme)
-                .to("mock:selectorResult");
-
-        from("direct:computedDestination")
-                .bean("destinationHeaderSetter")
-                .toF("%s:queue:override", componentScheme);
+        public void setJmsDestinationHeader(Exchange exchange) {
+            org.apache.camel.Message message = exchange.getMessage();
+            String destinationName = message.getHeader("DestinationName", String.class);
+            message.setHeader(SjmsConstants.JMS_DESTINATION_NAME, destinationName);
+        }
     }
 }
