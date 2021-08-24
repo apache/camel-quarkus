@@ -89,6 +89,17 @@ public class MessagingCommonRoutes extends RouteBuilder {
                 .resequence(body()).batch().timeout(10000).allowDuplicates().reverse()
                 .to("mock:resequence");
 
+        from("direct:replyTo")
+                .toF("%s:queue:replyQueueA?replyTo=replyQueueB&preserveMessageQos=true", componentScheme)
+                .to("mock:replyToDone");
+
+        fromF("%s:queue:replyQueueA", componentScheme)
+                .to("mock:replyToStart")
+                .transform(body().prepend("Hello "));
+
+        fromF("%s:queue:replyQueueB?disableReplyTo=true", componentScheme)
+                .to("mock:replyToEnd");
+
     }
 
     private ErrorHandlerBuilder setUpJtaErrorHandler() {

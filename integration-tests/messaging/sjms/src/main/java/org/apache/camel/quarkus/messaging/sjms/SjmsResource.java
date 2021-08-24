@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.messaging.sjms;
 
+import java.net.URI;
+
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
@@ -48,5 +53,14 @@ public class SjmsResource {
         producerTemplate.sendBodyAndHeader(uri, "Camel SJMS Selector Match", "foo", "bar");
 
         mockEndpoint.assertIsSatisfied(5000L);
+    }
+
+    @Path("/custom/destination/{destinationName}")
+    @POST
+    public Response produceMessageWithCustomDestination(
+            @PathParam("destinationName") String destinationName,
+            String message) throws Exception {
+        producerTemplate.sendBodyAndHeader("direct:computedDestination", message, "DestinationName", destinationName);
+        return Response.created(new URI("https://camel.apache.org/")).build();
     }
 }

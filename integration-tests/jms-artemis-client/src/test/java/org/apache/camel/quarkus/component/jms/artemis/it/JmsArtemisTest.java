@@ -24,6 +24,7 @@ import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
@@ -37,5 +38,21 @@ class JmsArtemisTest extends AbstractJmsMessagingTest {
                 .then()
                 .statusCode(200)
                 .body(startsWith("javax.jms.ConnectionFactory"));
+    }
+
+    @Test
+    public void testPojoProducer() {
+        String message = "Camel Quarkus Artemis JMS Pojo Producer";
+
+        RestAssured.given()
+                .body(message)
+                .post("/messaging/jms/artemis/pojo/producer")
+                .then()
+                .statusCode(204);
+
+        RestAssured.get("/messaging/{queueName}", "pojoProduce")
+                .then()
+                .statusCode(200)
+                .body(is(message));
     }
 }

@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.messaging.jms;
 
+import java.util.UUID;
+
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.messaging.it.AbstractMessagingTest;
 import org.junit.jupiter.api.Test;
 
@@ -80,5 +83,43 @@ public class AbstractJmsMessagingTest extends AbstractMessagingTest {
 
         assertTrue(result.startsWith("converter prefix"));
         assertTrue(result.endsWith("converter suffix"));
+    }
+
+    @Test
+    public void testJmsCustomDestination() {
+        String message = UUID.randomUUID().toString();
+
+        // Send a message with java.lang.String destination header
+        String destinationA = "queue-" + UUID.randomUUID().toString().split("-")[0];
+        RestAssured.given()
+                .queryParam("isStringDestination", "true")
+                .body(message)
+                .post("/messaging/jms/custom/destination/{destinationName}", destinationA)
+                .then()
+                .statusCode(201);
+
+        // Send a message with javax.jms.Destination destination header
+        String destinationB = "queue-" + UUID.randomUUID().toString().split("-")[0];
+        RestAssured.given()
+                .queryParam("isStringDestination", "false")
+                .body(message)
+                .post("/messaging/jms/custom/destination/{destinationName}", destinationB)
+                .then()
+                .statusCode(201);
+
+        // Verify messages sent to destinations
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/messaging/{destinationName}", destinationA)
+                .then()
+                .statusCode(200)
+                .body(is(message));
+
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/messaging/{destinationName}", destinationB)
+                .then()
+                .statusCode(200)
+                .body(is(message));
     }
 }

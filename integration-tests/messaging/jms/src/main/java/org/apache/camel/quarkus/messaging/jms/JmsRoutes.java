@@ -36,5 +36,9 @@ public class JmsRoutes extends RouteBuilder {
 
         fromF("%s:queue:transferException?transferException=true", componentScheme)
                 .throwException(new IllegalStateException("Forced exception"));
+
+        from("direct:computedDestination")
+                .bean("destinationHeaderSetter")
+                .toF("%s:queue:override", componentScheme);
     }
 }
