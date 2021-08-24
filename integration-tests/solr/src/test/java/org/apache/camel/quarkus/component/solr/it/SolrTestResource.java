@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.solr.it;
 
 import java.io.File;
+import java.net.URI;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -112,17 +113,21 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
      * creates a cloud container with zookeeper
      */
     private void createCloudContainer() {
-        if (SystemUtils.IS_OS_LINUX) {
-            cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose.yml"))
+        URI uri = null;
+        try {
+            if (SystemUtils.IS_OS_LINUX) {
+                uri = this.getClass().getClassLoader().getResource("cloud-docker-compose.yml").toURI();
+            } else {
+                uri = this.getClass().getClassLoader().getResource("cloud-docker-compose_nonlinux.yml").toURI();
+            }
+            cloudContainer = new DockerComposeContainer(new File(uri))
                     .withExposedService("solr1", SOLR_PORT)
                     .withExposedService("zoo1", ZOOKEEPER_PORT)
                     .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
-        } else {
-            cloudContainer = new DockerComposeContainer(new File("src/test/resources/cloud-docker-compose_nonlinux.yml"))
-                    .withExposedService("solr1", SOLR_PORT)
-                    .withExposedService("zoo1", ZOOKEEPER_PORT)
-                    .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
+        } catch (Exception e) {
+            LOGGER.warn("can't create Cloud Container", e);
         }
+
     }
 
     @Override
