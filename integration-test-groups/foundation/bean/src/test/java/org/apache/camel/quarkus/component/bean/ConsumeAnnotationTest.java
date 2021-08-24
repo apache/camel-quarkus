@@ -36,6 +36,46 @@ public class ConsumeAnnotationTest {
     }
 
     @Test
+    public void consumeAnnotationWithExplicitProperty() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("bar")
+                .post("/bean/route/consumeAnnotationWithExplicitProperty")
+                .then()
+                .body(equalTo("Consumed bar via direct:consumeAnnotationWithExplicitProperty"));
+    }
+
+    @Test
+    public void consumeAnnotationWithImplicitGetter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("baz")
+                .post("/bean/route/consumeAnnotationWithImplicitGetter")
+                .then()
+                .body(equalTo("Consumed baz via direct:consumeAnnotationWithImplicitGetter"));
+    }
+
+    @Test
+    public void consumeAnnotationWithImplicitEndpointGetter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("boo")
+                .post("/bean/route/consumeAnnotationWithImplicitEndpointGetter")
+                .then()
+                .body(equalTo("Consumed boo via direct:consumeAnnotationWithImplicitEndpointGetter"));
+    }
+
+    @Test
+    public void consumeAnnotationWithImplicitOnGetter() {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body("boo")
+                .post("/bean/route/consumeAnnotationWithImplicitOnGetter")
+                .then()
+                .body(equalTo("Consumed boo via direct:consumeAnnotationWithImplicitOnGetter"));
+    }
+
+    @Test
     public void defaultNamedConsumeAnnotation() {
         RestAssured.given()
                 .contentType(ContentType.TEXT)

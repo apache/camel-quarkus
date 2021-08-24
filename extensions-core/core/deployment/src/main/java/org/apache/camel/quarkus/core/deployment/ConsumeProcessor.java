@@ -16,12 +16,16 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.decorator.Decorator;
 import javax.enterprise.context.ApplicationScoped;
@@ -50,6 +54,7 @@ import org.apache.camel.model.RoutesDefinition;
 import org.apache.camel.quarkus.core.ConsumeRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.support.common.CamelCapabilities;
+import org.apache.camel.util.StringHelper;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.AnnotationTarget.Kind;
@@ -157,13 +162,36 @@ public class ConsumeProcessor {
                 switch (target.kind()) {
                 case METHOD: {
                     final MethodInfo methodInfo = target.asMethod();
-                    final String uri = annot.value().asString();
+                    String uri = null;
+                    RuntimeValue<Object> runtimeUriOrEndpoint = null;
                     final ClassInfo declaringClass = methodInfo.declaringClass();
-                    if (uri.isEmpty()) {
-                        throw new IllegalStateException("@" + Consume.class.getName()
-                                + " requires a Camel endpoint URI in its value, e.g. @Consume(\"direct:myDirect\"): "
-                                + methodInfo
-                                + " in " + declaringClass.name());
+                    String beanName = namedValue(declaringClass);
+                    if (beanName == null) {
+                        beanName = ConsumeProcessor.uniqueBeanName(declaringClass);
+                    }
+                    if (annot.value() != null) {
+                        uri = annot.value().asString();
+                    } else if (annot.value("uri") != null) {
+                        uri = annot.value("uri").asString();
+                    } else if (annot.value("property") != null) {
+                        runtimeUriOrEndpoint = recorder.getEndpointUri(
+                                camelContext.getCamelContext(),
+                                beanName,
+                                findEndpointMethodName(annot.value("property").asString(), declaringClass, new ArrayList<>()));
+                    } else {
+                        runtimeUriOrEndpoint = recorder.getEndpointUri(
+                                camelContext.getCamelContext(),
+                                beanName,
+                                findEndpointMethodName(methodInfo.name(), declaringClass, new ArrayList<>()));
+                    }
+                    if (uri == null && runtimeUriOrEndpoint == null) {
+                        throw new IllegalStateException("@" + Consume.class.getName() + " on " + methodInfo + " in "
+                                + declaringClass.name()
+                                + " requires to specify a Camel Endpoint or endpoint URI through one of the following options:\n"
+                                + " * via @Consume value, e.g. @Consume(\"direct:myDirect\")\n"
+                                + " * via explicit @Consume property parameter, e.g. @Consume(property = \"myUriProperty\") and getMyUriProperty() or getMyUriPropertyEndpoint() in the same class must exist and return a String or org.apache.camel.Endpoint\n"
+                                + " * via naming convention: if your @Consume method is called myEvent or onMyEvent then getMyEvent() or getMyEventEndpoint() must exist in the same class and return a String or org.apache.camel.Endpoint\n"
+                                + "See https://camel.apache.org/manual/latest/pojo-consuming.html for more details");
                     }
                     if (!beanCapabilityAvailable) {
                         throw new IllegalStateException(
@@ -172,11 +200,8 @@ public class ConsumeProcessor {
                                         + methodInfo
                                         + " in " + declaringClass.name());
                     }
-                    String beanName = namedValue(declaringClass);
-                    if (beanName == null) {
-                        beanName = ConsumeProcessor.uniqueBeanName(declaringClass);
-                    }
-                    recorder.addConsumeRoute(routesDefinition, uri, beanName, methodInfo.name());
+                    recorder.addConsumeRoute(camelContext.getCamelContext(), routesDefinition, uri, runtimeUriOrEndpoint,
+                            beanName, methodInfo.name());
                     break;
                 }
                 default:
@@ -185,6 +210,28 @@ public class ConsumeProcessor {
             }
             recorder.addConsumeRoutesToContext(camelContext.getCamelContext(), routesDefinition);
         }
+    }
+
+    private String findEndpointMethodName(final String propertyName, ClassInfo declaringClass, List<String> triedMethods) {
+        /* Here we attempt to mimic what Camel does
+         * in org.apache.camel.impl.engine.CamelPostProcessorHelper.doGetEndpointInjection(Object, String, String) */
+        final String isGetter = "is" + StringHelper.capitalize(propertyName, false);
+        final String getGetter = "get" + StringHelper.capitalize(propertyName, false);
+        Optional<MethodInfo> method = Stream.of(isGetter, getGetter, isGetter + "Endpoint", getGetter + "Endpoint")
+                .peek(triedMethods::add)
+                .map(declaringClass::method)
+                .filter(m -> m != null)
+                .findFirst();
+        if (method.isEmpty()) {
+            if (propertyName.startsWith("on")) {
+                // retry but without the on as prefix
+                return findEndpointMethodName(propertyName.substring(2), declaringClass, triedMethods);
+            }
+            throw new IllegalStateException("Could not find any endpoint URI or Endpoint returning getter. Looked for " +
+                    triedMethods.stream().map(m -> m + "()").collect(Collectors.joining(", ")) + " in "
+                    + declaringClass.name().toString());
+        }
+        return method.get().name();
     }
 
     @BuildStep
