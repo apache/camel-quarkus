@@ -27,11 +27,13 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import ca.uhn.hl7v2.model.AbstractMessage;
 import ca.uhn.hl7v2.model.v22.datatype.AD;
 import ca.uhn.hl7v2.model.v22.datatype.CK;
 import ca.uhn.hl7v2.model.v22.datatype.PN;
@@ -148,6 +150,17 @@ public class Hl7Resource {
     @Produces(MediaType.TEXT_PLAIN)
     public String validateWithAck(String message) {
         return producerTemplate.requestBody("direct:ack", message, String.class);
+    }
+
+    @Path("/convert/{version}")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String convertStringToAdt(@PathParam("version") String version, String message) throws ClassNotFoundException {
+        String adtClassName = "ca.uhn.hl7v2.model." + version.toLowerCase() + ".message.ADT_A01";
+        Class<?> adtClass = Class.forName(adtClassName);
+        AbstractMessage result = (AbstractMessage) context.getTypeConverter().convertTo(adtClass, message);
+        return result.getMessage().getVersion();
     }
 
     private JsonObject adtToJsonObject(ADT_A01 result) {

@@ -188,6 +188,49 @@
                 </plugins>
             </build>
         </profile>
+
+        <!--
+            To enable testing with additional HAPI model versions supported by Camel
+            Disabled by default due to the impact on native build times
+        -->
+        <profile>
+            <id>hapi.all</id>
+            <activation>
+                <property>
+                    <name>hapi.all</name>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v21</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v23</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v231</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v24</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v25</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v251</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>ca.uhn.hapi</groupId>
+                    <artifactId>hapi-structures-v26</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
     </profiles>
 
 </project>

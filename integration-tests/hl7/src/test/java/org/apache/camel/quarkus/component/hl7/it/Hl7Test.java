@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 
 import ca.uhn.hl7v2.DefaultHapiContext;
 import ca.uhn.hl7v2.HL7Exception;
+import ca.uhn.hl7v2.Version;
 import ca.uhn.hl7v2.model.Message;
 import ca.uhn.hl7v2.parser.DefaultModelClassFactory;
 import ca.uhn.hl7v2.parser.GenericParser;
@@ -34,6 +35,8 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.endsWith;
@@ -206,6 +209,24 @@ class Hl7Test {
                 .then()
                 .statusCode(200)
                 .body(containsString("MSA|CA"));
+    }
+
+    @ParameterizedTest
+    @MethodSource("hapiVersions")
+    public void hl7TypeConverter(String version) {
+        RestAssured.given()
+                .body(PID_MESSAGE)
+                .post("/hl7/convert/" + version)
+                .then()
+                .statusCode(200)
+                .body(is(Version.valueOf(version).getVersion()));
+    }
+
+    public static String[] hapiVersions() {
+        return Version.availableVersions()
+                .stream()
+                .map(Version::toString)
+                .toArray(String[]::new);
     }
 
     private static final String readPidFile() {
