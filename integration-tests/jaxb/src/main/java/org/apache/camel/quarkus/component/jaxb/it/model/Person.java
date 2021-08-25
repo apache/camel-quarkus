@@ -23,9 +23,9 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "person")
 public class Person {
 
-    @XmlElement(required = true)
+    @XmlElement(required = true, namespace = "http://example.com/a")
     protected String firstName = "John";
-    @XmlElement(required = true)
+    @XmlElement(required = true, namespace = "http://example.com/a")
     protected String lastName = "Doe";
     @XmlElement(required = true, type = Integer.class, nillable = true)
     protected Integer age = 33;
