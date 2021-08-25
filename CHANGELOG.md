@@ -14,6 +14,8 @@
 **Closed issues:**
 
 - kamelet: Test the kamelet location option [\#3025](https://github.com/apache/camel-quarkus/issues/3025)
+- Salesforce test failure [\#3022](https://github.com/apache/camel-quarkus/issues/3022)
+- `property` attribute with `@Consume` does not work [\#3021](https://github.com/apache/camel-quarkus/issues/3021)
 - Exception when configuring camel-kafka with environment variables in native mode [\#3017](https://github.com/apache/camel-quarkus/issues/3017)
 - `CoreTest.testCamelContextAwareRegistryBeansInitialized` failing after RouteBuilder started implementing CamelContextAware [\#3002](https://github.com/apache/camel-quarkus/issues/3002)
 - Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
@@ -44,6 +46,8 @@
 
 **Merged pull requests:**
 
+- Fix failure of SalesforceTest.testGetAccountByQueryHelper [\#3030](https://github.com/apache/camel-quarkus/pull/3030) ([jamesnetherton](https://github.com/jamesnetherton))
+- property attribute with @Consume does not work  [\#3029](https://github.com/apache/camel-quarkus/pull/3029) ([ppalaga](https://github.com/ppalaga))
 - Test setting the kamelet from an external file provided at runtime \#3025 [\#3026](https://github.com/apache/camel-quarkus/pull/3026) ([aldettinger](https://github.com/aldettinger))
 - Test camel-xchange with kraken until binance issues are resolved [\#3020](https://github.com/apache/camel-quarkus/pull/3020) ([jamesnetherton](https://github.com/jamesnetherton))
 - CoreTest.testCamelContextAwareRegistryBeansInitialized failing after … [\#3019](https://github.com/apache/camel-quarkus/pull/3019) ([ppalaga](https://github.com/ppalaga))
@@ -840,6 +844,7 @@
 - jacksonxml: add test coverage [\#2633](https://github.com/apache/camel-quarkus/issues/2633)
 - Kafka - add Kafka Idempotent repository test [\#2626](https://github.com/apache/camel-quarkus/issues/2626)
 - Expand Sql test coverage [\#2623](https://github.com/apache/camel-quarkus/issues/2623)
+- Reinstate camel integration tests to the Quarkus Platform nightly SNAPSHOT build [\#2621](https://github.com/apache/camel-quarkus/issues/2621)
 - \[camel 3.10\] load selected list of kamelets definitions at build time [\#2618](https://github.com/apache/camel-quarkus/issues/2618)
 - camel-jackson-protobuf data format native support [\#2615](https://github.com/apache/camel-quarkus/issues/2615)
 - camel-jackson-avro data format native support [\#2610](https://github.com/apache/camel-quarkus/issues/2610)
