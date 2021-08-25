@@ -21,7 +21,9 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.camel.converter.jaxb.mapper.SunJaxb21NamespacePrefixMapper;
 import org.apache.camel.quarkus.component.jaxb.JaxbRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
 
@@ -37,6 +39,11 @@ class JaxbProcessor {
     @BuildStep
     RuntimeInitializedClassBuildItem fastInfosetStreamWriterOutput() {
         return new RuntimeInitializedClassBuildItem(FastInfosetStreamWriterOutput.class.getCanonicalName());
+    }
+
+    @BuildStep
+    ReflectiveClassBuildItem mapper() {
+        return new ReflectiveClassBuildItem(false, false, SunJaxb21NamespacePrefixMapper.class);
     }
 
     @BuildStep

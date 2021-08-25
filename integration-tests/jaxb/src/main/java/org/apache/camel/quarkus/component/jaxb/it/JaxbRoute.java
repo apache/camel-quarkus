@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.jaxb.it;
 
+import java.util.Map;
+
 import javax.xml.bind.JAXBContext;
 
 import org.apache.camel.builder.RouteBuilder;
@@ -30,6 +32,7 @@ public class JaxbRoute extends RouteBuilder {
         JaxbDataFormat xml = new JaxbDataFormat();
         JAXBContext context = JAXBContext.newInstance(Person.class);
         xml.setContext(context);
+        xml.setNamespacePrefix(Map.of("http://example.com/a", "test"));
 
         JaxbDataFormat jaxbFromScheme = new JaxbDataFormat();
         jaxbFromScheme.setSchema("classpath:person.xsd");

@@ -50,7 +50,7 @@ class JaxbTest {
                 .body("Foo")
                 .post("/jaxb/marshal-firstname")
                 .then().statusCode(201).extract().asString();
-        assertThat(name).contains("<firstName>Foo</firstName>");
+        assertThat(name).contains("<ns2:firstName>Foo</ns2:firstName>");
     }
 
     @Test
@@ -59,14 +59,14 @@ class JaxbTest {
                 .body("Bar")
                 .post("/jaxb/marshal-lastname")
                 .then().statusCode(201).extract().asString();
-        assertThat(name).contains("<lastName>Bar</lastName>");
+        assertThat(name).contains("<test:lastName>Bar</test:lastName>");
     }
 
     private static String getPersonXml(String name, String lastName, Integer age) {
         return String.format(
-                "<person>" +
-                        "<firstName>%s</firstName>" +
-                        "<lastName>%s</lastName>" +
+                "<person xmlns:ns2=\"http://example.com/a\">" +
+                        "<ns2:firstName>%s</ns2:firstName>" +
+                        "<ns2:lastName>%s</ns2:lastName>" +
                         "<age>%d</age>" +
                         "</person>",
                 name, lastName, age);
