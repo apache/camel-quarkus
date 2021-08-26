@@ -17,7 +17,10 @@
 package org.apache.camel.quarkus.component.solr.it;
 
 import java.io.File;
-import java.net.URI;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
@@ -113,19 +116,21 @@ public class SolrTestResource implements QuarkusTestResourceLifecycleManager {
      * creates a cloud container with zookeeper
      */
     private void createCloudContainer() {
-        URI uri = null;
+        final String resource = SystemUtils.IS_OS_LINUX ? "cloud-docker-compose.yml" : "cloud-docker-compose_nonlinux.yml";
         try {
-            if (SystemUtils.IS_OS_LINUX) {
-                uri = this.getClass().getClassLoader().getResource("cloud-docker-compose.yml").toURI();
-            } else {
-                uri = this.getClass().getClassLoader().getResource("cloud-docker-compose_nonlinux.yml").toURI();
+            final File file = File.createTempFile(SolrTestResource.class.getSimpleName() + "-", resource);
+            file.deleteOnExit();
+            try (InputStream in = this.getClass().getClassLoader().getResourceAsStream(resource)) {
+                Files.copy(in, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                throw new RuntimeException("Could not copy class path resource " + resource + " to " + file, e);
             }
-            cloudContainer = new DockerComposeContainer(new File(uri))
+            cloudContainer = new DockerComposeContainer(file)
                     .withExposedService("solr1", SOLR_PORT)
                     .withExposedService("zoo1", ZOOKEEPER_PORT)
                     .waitingFor("create-collection", Wait.forLogMessage(".*Created collection 'collection1'.*", 1));
-        } catch (Exception e) {
-            LOGGER.warn("can't create Cloud Container", e);
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create temporary file", e);
         }
 
     }
