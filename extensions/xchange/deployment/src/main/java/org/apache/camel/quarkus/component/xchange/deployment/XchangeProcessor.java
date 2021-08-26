@@ -99,7 +99,11 @@ class XchangeProcessor {
                 .map(classInfo -> classInfo.name().toString())
                 .filter(className -> className.matches("^org\\.knowm\\.xchange.*dto.*"))
                 .toArray(String[]::new);
-        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, dtoClasses));
+        reflectiveClass.produce(ReflectiveClassBuildItem.builder(dtoClasses).constructors(true)
+                .fields(true)
+                .methods(true)
+                .finalFieldsWritable(true)
+                .weak(false).build());
 
         // rescu REST framework needs reflective access to the value method on some JAX-RS annotations
         String[] jaxrsAnnotations = index.getKnownClasses()
