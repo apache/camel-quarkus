@@ -164,6 +164,7 @@
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-scm-plugin.version>1.11.3</maven-scm-plugin.version>
         <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
         <!-- NOTE: We pin to this version due to https://github.com/apache/camel-quarkus/issues/723 -->
         <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
@@ -320,14 +321,14 @@
                     <version>${maven-release-plugin.version}</version>
                     <configuration>
                         <!-- release:prepare config -->
-                        <preparationGoals>clean package</preparationGoals>
-                        <waitBeforeTagging>10</waitBeforeTagging>
+                        <preparationGoals>clean validate -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Prepare release" -N</preparationGoals>
+                        <completionGoals>clean validate -Pcommit-release-changes "-Dcq.commit.message.prefix=[maven-release-plugin] Set next development version" -N</completionGoals>
                         <!-- release:perform config -->
                         <useReleaseProfile>true</useReleaseProfile>
                         <releaseProfiles>apache-release</releaseProfiles>
                         <goals>deploy</goals>
                         <!-- Both release:prepare and release:perform config -->
-                        <arguments>-DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip</arguments>
+                        <arguments>-DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn</arguments>
                     </configuration>
                 </plugin>
 
@@ -335,6 +336,12 @@
                   <groupId>org.apache.maven.plugins</groupId>
                   <artifactId>maven-resources-plugin</artifactId>
                   <version>${maven-resources-plugin.version}</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-scm-plugin</artifactId>
+                    <version>${maven-scm-plugin.version}</version>
                 </plugin>
 
                 <plugin>
@@ -953,7 +960,62 @@
                 </plugins>
             </build>
         </profile>
-
+        <profile>
+            <id>commit-release-changes</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.gmaven</groupId>
+                        <artifactId>groovy-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>update-antora-yaml</id>
+                                <inherited>false</inherited>
+                                <goals>
+                                    <goal>execute</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
+                                    <properties>
+                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
+                                    </properties>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-scm-plugin</artifactId>
+                        <inherited>false</inherited>
+                        <executions>
+                            <execution>
+                                <id>add-changed-files-to-scm</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>add</goal>
+                                </goals>
+                                <configuration>
+                                    <basedir>${basedir}</basedir>
+                                    <includes>docs/antora.yml</includes>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>commit-changed-files-to-scm</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>checkin</goal>
+                                </goals>
+                                <configuration>
+                                    <message>${cq.commit.message.prefix} ${project.version}</message>
+                                    <pushChanges>false</pushChanges>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>deploy</id>
             <activation>
