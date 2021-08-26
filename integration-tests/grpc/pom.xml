@@ -29,6 +29,10 @@
     <name>Camel Quarkus :: Integration Tests :: gRPC</name>
     <description>Integration tests for Camel Quarkus gRPC extension</description>
 
+    <properties>
+        <cq.skip.protobuf>false</cq.skip.protobuf><!-- set to true via groovy below on unsupported platforms or if -Dquickly is available -->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -138,7 +142,9 @@
                         </goals>
                         <configuration>
                             <source>
-                                project.properties['skipTests']=project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
+                                String platformUnsupported = project.properties['os.detected.classifier'].matches('^.*?(linux|windows|osx)-x86.*$') ? 'false' : 'true'
+                                project.properties['skipTests'] = platformUnsupported
+                                project.properties['cq.skip.protobuf'] = platformUnsupported || project.properties.containsKey('quickly')
                             </source>
                         </configuration>
                     </execution>
@@ -160,7 +166,7 @@
                             <pluginId>grpc-java</pluginId>
                             <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>
                             <checkStaleness>true</checkStaleness>
-                            <skip>${skipTests}</skip>
+                            <skip>${cq.skip.protobuf}</skip>
                         </configuration>
                     </execution>
                 </executions>
@@ -176,7 +182,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                            <skipMain>${skipTests}</skipMain>
+                            <skipMain>${cq.skip.protobuf}</skipMain>
                         </configuration>
                     </execution>
                     <execution>
@@ -186,7 +192,7 @@
                             <goal>testCompile</goal>
                         </goals>
                         <configuration>
-                            <skip>${skipTests}</skip>
+                            <skip>${cq.skip.protobuf}</skip>
                         </configuration>
                     </execution>
                 </executions>
