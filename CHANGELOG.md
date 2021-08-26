@@ -8,6 +8,7 @@
 
 - \[Quarkus 2.2.0\] XChange native itest fails to find `CurrencyNames` resource bundle [\#2983](https://github.com/apache/camel-quarkus/issues/2983)
 - \[Quarkus 2.2.0\] Spring RabbitMQ native build fails [\#2980](https://github.com/apache/camel-quarkus/issues/2980)
+- \[Quarkus 2.2.0\] `quarkus-google-cloud-services` dependent extensions native image build fails  [\#2979](https://github.com/apache/camel-quarkus/issues/2979)
 - \[Quarkus 2.2.0\] Infinispan itests fail in native mode [\#2975](https://github.com/apache/camel-quarkus/issues/2975)
 - Camel-Infinispan consumer doesn't work [\#2344](https://github.com/apache/camel-quarkus/issues/2344)
 
@@ -20,8 +21,10 @@
 - `CoreTest.testCamelContextAwareRegistryBeansInitialized` failing after RouteBuilder started implementing CamelContextAware [\#3002](https://github.com/apache/camel-quarkus/issues/3002)
 - Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
 - creation of extension on windows failed [\#2999](https://github.com/apache/camel-quarkus/issues/2999)
+- Upgrade to to GraalVM 21.2 [\#2981](https://github.com/apache/camel-quarkus/issues/2981)
 - \[Quarkus 2.2.0\] XmlSecurity itests fail in native mode [\#2977](https://github.com/apache/camel-quarkus/issues/2977)
 - Skip querying Jandex for quarkus.camel.native.reflection.include-patterns that have no wildcards [\#2970](https://github.com/apache/camel-quarkus/issues/2970)
+- Automatically register for reflection: org.apache.camel.converter.jaxb.mapper.SunJaxb21NamespacePrefixMapper [\#2965](https://github.com/apache/camel-quarkus/issues/2965)
 - Multiple gRPC consumers for the same service class does not work [\#2954](https://github.com/apache/camel-quarkus/issues/2954)
 - NPE when testing serviceCall EIP [\#2952](https://github.com/apache/camel-quarkus/issues/2952)
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
@@ -33,6 +36,7 @@
 - \[Camel 3.11\] Solr cloud integration tests are failing [\#2814](https://github.com/apache/camel-quarkus/issues/2814)
 - Expand AWS DDB tests [\#2776](https://github.com/apache/camel-quarkus/issues/2776)
 - Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
+- Add ability to test HL7 extension with multiple HAPI implementations [\#2744](https://github.com/apache/camel-quarkus/issues/2744)
 - Quarkus Native: SQS to Mongo fails to compile with NoClassDefFoundError: jnr/unixsocket/UnixSocket [\#2678](https://github.com/apache/camel-quarkus/issues/2678)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
@@ -46,6 +50,12 @@
 
 **Merged pull requests:**
 
+- Upgrade Qpid JMS & Quarkiverse Google Cloud Services [\#3038](https://github.com/apache/camel-quarkus/pull/3038) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.2.0.Final [\#3035](https://github.com/apache/camel-quarkus/pull/3035) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add ability to test HL7 extension with multiple HAPI implementations [\#3034](https://github.com/apache/camel-quarkus/pull/3034) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#2965 to register SunJaxb21NamespacePrefixMapp for reflection [\#3033](https://github.com/apache/camel-quarkus/pull/3033) ([zhfeng](https://github.com/zhfeng))
+- Enable Kubernetes extension native tests on CI [\#3032](https://github.com/apache/camel-quarkus/pull/3032) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add additional test coverage to messaging extesnions [\#3031](https://github.com/apache/camel-quarkus/pull/3031) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix failure of SalesforceTest.testGetAccountByQueryHelper [\#3030](https://github.com/apache/camel-quarkus/pull/3030) ([jamesnetherton](https://github.com/jamesnetherton))
 - property attribute with @Consume does not work  [\#3029](https://github.com/apache/camel-quarkus/pull/3029) ([ppalaga](https://github.com/ppalaga))
 - Test setting the kamelet from an external file provided at runtime \#3025 [\#3026](https://github.com/apache/camel-quarkus/pull/3026) ([aldettinger](https://github.com/aldettinger))
