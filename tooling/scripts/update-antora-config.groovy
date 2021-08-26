@@ -57,7 +57,15 @@ replaceInFiles.each { path ->
             m.appendReplacement(newContent, '$1 ' + Matcher.quoteReplacement(newValue) + ' # replace ' + Matcher.quoteReplacement('${' + property + '}'))
         }
         m.appendTail(newContent)
-        final String newContentString = newContent.toString()
+        String newContentString = newContent.toString()
+
+        if (path.getFileName().toString().equals('antora.yml')) {
+            final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
+            println ' - seting '+ versionReplacement
+            final Pattern versionPattern = ~'version: [^\\s]+'
+            newContentString = versionPattern.matcher(newContentString).replaceFirst(versionReplacement)
+        }
+
         if (!newContentString.equals(content)) {
             println 'Updated ' + path
             Files.write(path, newContentString.getBytes('UTF-8'))
