@@ -38,8 +38,7 @@ public class SplunkTestResource implements QuarkusTestResourceLifecycleManager {
 
         try {
             container = new GenericContainer("splunk/splunk:8.1.2")
-                    .withExposedPorts(REMOTE_PORT)
-                    .withExposedPorts(SplunkResource.LOCAL_TCP_PORT)
+                    .withExposedPorts(REMOTE_PORT, SplunkResource.LOCAL_TCP_PORT)
                     .withEnv("SPLUNK_START_ARGS", "--accept-license")
                     .withEnv("SPLUNK_PASSWORD", "changeit")
                     .withEnv("SPLUNK_LICENSE_URI", "Free")
