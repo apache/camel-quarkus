@@ -17,6 +17,7 @@
 - kamelet: Test the kamelet location option [\#3025](https://github.com/apache/camel-quarkus/issues/3025)
 - Salesforce test failure [\#3022](https://github.com/apache/camel-quarkus/issues/3022)
 - `property` attribute with `@Consume` does not work [\#3021](https://github.com/apache/camel-quarkus/issues/3021)
+- Add test coverage to messaging extesnions [\#3018](https://github.com/apache/camel-quarkus/issues/3018)
 - Exception when configuring camel-kafka with environment variables in native mode [\#3017](https://github.com/apache/camel-quarkus/issues/3017)
 - `CoreTest.testCamelContextAwareRegistryBeansInitialized` failing after RouteBuilder started implementing CamelContextAware [\#3002](https://github.com/apache/camel-quarkus/issues/3002)
 - Reduce console log output from `EipTest.throttle` [\#3001](https://github.com/apache/camel-quarkus/issues/3001)
@@ -30,6 +31,7 @@
 - Solr: Investigate, why native tests fail in openjdk 11 \(not in graalvm jdk\) [\#2941](https://github.com/apache/camel-quarkus/issues/2941)
 - Provide a common set of JMS tests to test different combinations of JMS extension, client & broker [\#2914](https://github.com/apache/camel-quarkus/issues/2914)
 - AWS2 ddb-streams integration tests failures [\#2860](https://github.com/apache/camel-quarkus/issues/2860)
+- Make `quarkus.google.cloud.project-id` optional [\#2858](https://github.com/apache/camel-quarkus/issues/2858)
 - Cannot convert buffer types in platform-http [\#2838](https://github.com/apache/camel-quarkus/issues/2838)
 - Box native integration test failure [\#2830](https://github.com/apache/camel-quarkus/issues/2830)
 - Expand ElasticSearch REST test coverage [\#2819](https://github.com/apache/camel-quarkus/issues/2819)
@@ -38,6 +40,7 @@
 - Apple M1 cannot build the camel-quarkus project [\#2762](https://github.com/apache/camel-quarkus/issues/2762)
 - Add ability to test HL7 extension with multiple HAPI implementations [\#2744](https://github.com/apache/camel-quarkus/issues/2744)
 - Quarkus Native: SQS to Mongo fails to compile with NoClassDefFoundError: jnr/unixsocket/UnixSocket [\#2678](https://github.com/apache/camel-quarkus/issues/2678)
+- Test EIPs DSL methods [\#2628](https://github.com/apache/camel-quarkus/issues/2628)
 - Test sending messages to an SNS FIFO topic [\#2625](https://github.com/apache/camel-quarkus/issues/2625)
 - Test creating a subscription of an SQS Queue to an SNS Topic [\#2624](https://github.com/apache/camel-quarkus/issues/2624)
 - \[CI\] - Camel Master Branch Build Failure [\#2393](https://github.com/apache/camel-quarkus/issues/2393)
@@ -50,6 +53,9 @@
 
 **Merged pull requests:**
 
+- Fix Splunk container exposed ports configuration [\#3041](https://github.com/apache/camel-quarkus/pull/3041) ([jamesnetherton](https://github.com/jamesnetherton))
+- Exclude grpc-netty-shaded in favour of grpc-netty as it is not supported by quarkus-opentelemetry [\#3040](https://github.com/apache/camel-quarkus/pull/3040) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove dummy quarkus.google.cloud.project-id after it was made option… [\#3039](https://github.com/apache/camel-quarkus/pull/3039) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Qpid JMS & Quarkiverse Google Cloud Services [\#3038](https://github.com/apache/camel-quarkus/pull/3038) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.2.0.Final [\#3035](https://github.com/apache/camel-quarkus/pull/3035) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add ability to test HL7 extension with multiple HAPI implementations [\#3034](https://github.com/apache/camel-quarkus/pull/3034) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -59,6 +65,7 @@
 - Fix failure of SalesforceTest.testGetAccountByQueryHelper [\#3030](https://github.com/apache/camel-quarkus/pull/3030) ([jamesnetherton](https://github.com/jamesnetherton))
 - property attribute with @Consume does not work  [\#3029](https://github.com/apache/camel-quarkus/pull/3029) ([ppalaga](https://github.com/ppalaga))
 - Test setting the kamelet from an external file provided at runtime \#3025 [\#3026](https://github.com/apache/camel-quarkus/pull/3026) ([aldettinger](https://github.com/aldettinger))
+- fix SolrTest failure when using CloundContainer \#2967 [\#3024](https://github.com/apache/camel-quarkus/pull/3024) ([ffang](https://github.com/ffang))
 - Test camel-xchange with kraken until binance issues are resolved [\#3020](https://github.com/apache/camel-quarkus/pull/3020) ([jamesnetherton](https://github.com/jamesnetherton))
 - CoreTest.testCamelContextAwareRegistryBeansInitialized failing after … [\#3019](https://github.com/apache/camel-quarkus/pull/3019) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 2.2.0.CR1 [\#3015](https://github.com/apache/camel-quarkus/pull/3015) ([jamesnetherton](https://github.com/jamesnetherton))
