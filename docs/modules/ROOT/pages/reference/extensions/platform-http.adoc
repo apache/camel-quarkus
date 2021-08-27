@@ -90,17 +90,6 @@ rest()
 
 === Handling `multipart/form-data` file uploads
 
-If you want Camel Quarkus to attach uploaded files to Camel messages for you, you need to add the following optional
-dependency to your `pom.xml`:
-
-[source,xml]
-----
-<dependency>
-    <groupId>org.apache.camel.quarkus</groupId>
-    <artifactId>camel-quarkus-attachments</artifactId>
-</dependency>
-----
-
 You can restrict the uploads to certain file extensions by white listing them:
 
 [source,java]
