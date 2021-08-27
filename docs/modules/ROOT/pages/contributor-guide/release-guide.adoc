@@ -10,8 +10,9 @@ xref:latest@manual::release-guide.adoc[Camel Release guide].
 
 == Pre release tasks
 
-* Check for an updated release of the https://github.com/amqphub/quarkus-qpid-jms[Quarkus Qpid JMS Extension] that aligns with the Quarkus version that Camel Quarkus is using. If one is available, update the `quarkus-qpid-jms.version` property in the project root `pom.xml`.
-
+* When releasing after a recent Quarkus release, check for new releases of third party Quarkus extensions we depend on.
+  They are listed in the https://github.com/apache/camel-quarkus/blob/main/pom.xml#L46-L54[Primary dependencies] section of the top level `pom.xml`.
+  If there are new releases, upgrade the versions accordingly and run `mvn cq:sync-versions -N` from the root directory of the source tree.
 * Close the GitHub release https://github.com/apache/camel-quarkus/milestones[milestone] and assign any remaining issues that aren't covered by the release to the next milestone
 
 == Create a release branch
@@ -19,11 +20,12 @@ xref:latest@manual::release-guide.adoc[Camel Release guide].
 [source,shell]
 ----
 $ export VERSION=... # the version you are releasing, e.g. 0.1.0
-$ export NEXT_VERSION=... # the next development iteration, e.g. 0.1.1-SNAPSHOT
+$ export NEXT_VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF++;print}') # the next development iteration, e.g. 0.1.1-SNAPSHOT
+$ export BRANCH=$(echo $VERSION | sed 's|.[0-9][0-9]*$|.x|') # the release branch, e.g. 0.1.x
 $ git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
 $ git checkout main # main is the branch from which you want to release
 $ git reset --hard upstream/main # make sure you are in sync with upstream
-$ git checkout -b release/$VERSION
+$ git checkout -b $BRANCH
 ----
 
 == `release:prepare` and `release:perform`
@@ -38,19 +40,22 @@ The Maven command to release is as follows:
 $ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -DdevelopmentVersion=$NEXT_VERSION -B release:perform
 ----
 
-In case `release:prepare` is successful but an issue occurs during `release:perform`, it could be worth trying to resume from the failing artifact.
-For instance, would an issue occurs while performing the release of `camel-quarkus-openapi-java`, first of all you need to identify which directory `release:perform` used for the release process, usually it is `<root_of_the_project>/target/checkout`:
-
+In case `release:prepare` is successful but an issue occurs during `release:perform`, you can resume from the failing artifact to save some time:
+* First find out from the console output, in which module the `release:perform` task failed.
+  Say that there was an upload timeout in `camel-quarkus-openapi-java` module.
+* Then locate the directory `mvn release:perform` used for checking out the tag and running the `deploy` goal.
+  It is usually `<root_of_the_project>/target/checkout`:
++
 [source,shell]
 ----
 $ cd target/checkout
 ----
-
-then a resume attempt could be triggered as below:
-
++
+* And finally resume the `deploy` build as follows:
++
 [source,shell]
 ----
-$ mvn -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip deploy -Papache-release -rf :camel-quarkus-openapi-java
+$ mvn deploy -Papache-release -DskipTests -Denforcer.skip -Dquarkus.build.skip -Dformatter.skip -Dimpsort.skip -Dskip.installyarn -Dskip.yarn -rf :camel-quarkus-openapi-java
 ----
 
 == Next version in Camel Quarkus main branch
