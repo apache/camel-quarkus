@@ -19,8 +19,8 @@ xref:latest@manual::release-guide.adoc[Camel Release guide].
 
 [source,shell]
 ----
-$ export VERSION=... # the version you are releasing, e.g. 0.1.0
-$ export NEXT_VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF++;print}') # the next development iteration, e.g. 0.1.1-SNAPSHOT
+$ export VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout | sed 's|-SNAPSHOT||') # the version you are releasing, e.g. 0.1.0
+$ export NEXT_VERSION=$(echo ${VERSION} | awk -F. -v OFS=. '{$NF++;print}')-SNAPSHOT # the next development iteration, e.g. 0.1.1-SNAPSHOT
 $ export BRANCH=$(echo $VERSION | sed 's|.[0-9][0-9]*$|.x|') # the release branch, e.g. 0.1.x
 $ git fetch upstream # upstream is git@github.com:apache/camel-quarkus.git
 $ git checkout main # main is the branch from which you want to release
