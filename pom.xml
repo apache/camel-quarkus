@@ -1008,7 +1008,6 @@
                                 </goals>
                                 <configuration>
                                     <message>${cq.commit.message.prefix} ${project.version}</message>
-                                    <pushChanges>false</pushChanges>
                                 </configuration>
                             </execution>
                         </executions>
