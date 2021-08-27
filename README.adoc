@@ -7,9 +7,9 @@ image:https://img.shields.io/badge/zulip-join_chat-brightgreen.svg["Chat on Zuli
 ==== CI Branch Status
 [width="50%"]
 |===
-|master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=master["Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
-|camel-master | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-master"]
-|quarkus-master| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Master Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-master"]
+|main | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=master["Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22"]
+|camel-main | image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=camel-master["Camel Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Acamel-main"]
+|quarkus-main| image:https://github.com/apache/camel-quarkus/workflows/Camel%20Quarkus%20CI/badge.svg?branch=quarkus-master["Quarkus Main Branch Build", link="https://github.com/apache/camel-quarkus/actions?query=workflow%3A%22Camel+Quarkus+CI%22+branch%3Aquarkus-main"]
 |===
 
 == What is this
