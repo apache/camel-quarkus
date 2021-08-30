@@ -27,6 +27,8 @@ public class RestRoutes extends RouteBuilder {
 
     @Override
     public void configure() {
+        final String personJson = "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"age\": 64}";
+        final String personXml = "<person firstName=\"John\" lastName=\"Doe\" age=\"64\"/>";
         restConfiguration()
                 .enableCORS(true)
                 .corsAllowCredentials(true)
@@ -68,6 +70,11 @@ public class RestRoutes extends RouteBuilder {
                 .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
                 .endRest()
 
+                .get("/binding/json/producer")
+                .route()
+                .setBody(constant(personJson))
+                .endRest()
+
                 .post("/pojo/binding/xml")
                 .bindingMode(RestBindingMode.xml)
                 .type(Person.class)
@@ -75,6 +82,11 @@ public class RestRoutes extends RouteBuilder {
                 .route()
                 .setBody(simple("Name: ${body.firstName} ${body.lastName}, Age: ${body.age}"))
                 .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
+                .endRest()
+
+                .get("/binding/xml/producer")
+                .route()
+                .setBody(constant(personXml))
                 .endRest()
 
                 .post("/log")

@@ -25,9 +25,11 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.matchesPattern;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @QuarkusTest
 class RestTest {
+    private static final Person person = new Person("John", "Doe", 64);
 
     @Test
     public void inspectConfiguration() {
@@ -107,11 +109,6 @@ class RestTest {
 
     @Test
     public void jsonBinding() {
-        Person person = new Person();
-        person.setFirstName("John");
-        person.setLastName("Doe");
-        person.setAge(64);
-
         String result = String.format(
                 "Name: %s %s, Age: %d",
                 person.getFirstName(),
@@ -128,12 +125,20 @@ class RestTest {
     }
 
     @Test
-    public void xmlBinding() {
-        Person person = new Person();
-        person.setFirstName("John");
-        person.setLastName("Doe");
-        person.setAge(64);
+    public void jsonBindingProducer() {
+        Person respondPerson = RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .get("/rest/producer/binding/mode/json")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(Person.class);
+        assertEquals(respondPerson, person);
+    }
 
+    @Test
+    public void xmlBinding() {
         String result = String.format(
                 "Name: %s %s, Age: %d",
                 person.getFirstName(),
@@ -147,6 +152,19 @@ class RestTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(result));
+    }
+
+    @Test
+    public void xmlBindingProducer() {
+        Person respondPerson = RestAssured.given()
+                .queryParam("port", RestAssured.port)
+                .get("/rest/producer/binding/mode/xml")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(Person.class);
+        assertEquals(respondPerson, person);
     }
 
     @Test
