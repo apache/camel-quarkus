@@ -68,4 +68,26 @@ public class RestResource {
         return producerTemplate.requestBodyAndHeaders(
                 "rest:get:/rest/template/{messageStart}/{messageEnd}?host=localhost:" + port, null, headers, String.class);
     }
+
+    @Path("/producer/binding/mode/json")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person restProducerBindingModeJson(@QueryParam("port") int port) {
+        String query = "rest:get:/rest/binding/json/producer" +
+                "?bindingMode=json" +
+                "&outType=org.apache.camel.quarkus.component.rest.it.Person" +
+                "&host=localhost:" + port;
+        return producerTemplate.requestBody(query, null, Person.class);
+    }
+
+    @Path("/producer/binding/mode/xml")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Person restProducerBindingModeXml(@QueryParam("port") int port) {
+        String query = "rest:get:/rest/binding/xml/producer" +
+                "?bindingMode=xml" +
+                "&outType=org.apache.camel.quarkus.component.rest.it.Person" +
+                "&host=localhost:" + port;
+        return producerTemplate.requestBody(query, null, Person.class);
+    }
 }
