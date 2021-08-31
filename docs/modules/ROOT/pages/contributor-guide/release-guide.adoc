@@ -233,13 +233,61 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 +
   * Click the green "Publish release" button at the bottom
 
+== Upgrade and tag Examples
+
+* Make sure all https://github.com/apache/camel-quarkus-examples/pulls[PRs] against `camel-quarkus-main` branch are merged.
+* Upgrade to the Camel Quarkus version you just released
++
+[source,shell]
+----
+$ NEW_CQ_VERSION=... # E.g. 2.2.0
+$ git fetch upstream
+$ git checkout camel-quarkus-main
+$ git reset --hard upstream/camel-quarkus-main
+$ find . -type f -name pom.xml -exec sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEW_CQ_VERSION</camel-quarkus.version>|g" {} \;
+$ ./mvnw-for-each.sh org.l2x6.cq:cq-maven-plugin:0.25.0:sync-example-properties
+$ git commit -m "Upgrade to Camel Quarkus $NEW_CQ_VERSION"
+----
++
+* Make sure that the tests are still passing:
++
+[source,shell]
+----
+$ ./mvnw-for-each.sh clean verify -Pnative
+----
++
+* If everything works for you locally, open a PR to merge `camel-quarkus-main` to `main`
+* Once the PR is merged, tag the `main` branch with the `$NEW_CQ_VERSION`:
++
+[source,shell]
+----
+$ git checkout main
+$ git fetch upstream
+$ git reset --hard upstream/main
+$ ./mvnw-for-each.sh versions:set -DnewVersion=$NEW_CQ_VERSION
+$ git add -A
+$ git commit -m "Tag $NEW_CQ_VERSION"
+$ git tag $NEW_CQ_VERSION
+$ git push upstream main
+----
++
+* Prepare the `camel-quarkus-main` branch for the next development iteration:
++
+[source,shell]
+----
+$ NEXT_CQ_VERSION=... # E.g. 2.3.0-SNAPSHOT
+$ git checkout camel-quarkus-main
+$ git reset --hard main
+$ ./mvnw-for-each.sh versions:set -DnewVersion=$NEXT_CQ_VERSION
+$ git add -A
+$ git commit -m "Next is $NEXT_CQ_VERSION"
+$ git push upstream camel-quarkus-main --force-with-lease
+----
+
 == Further steps
 
 In addition to the above, the following is needed:
 
-* Check the state of `camel-quarkus-main` branch in the
-  https://github.com/apache/camel-quarkus-examples[Examples repository]. If the version properties are in sync with
-  new Camel Quarkus release and if the tests are passing, merge `camel-quarkus-main` to `main`.
 * https://github.com/apache/camel-quarkus/issues/new[Create a ticket] asking a https://projects.apache.org/committee.html?camel[PMC member] to update the https://reporter.apache.org/addrelease.html?camel[Apache Committee Report Helper]. The ticket title could be as follow.
   Release: The Apache Committee Report Helper should be updated by a PMC member as camel-quarkus-X.Y.Z has been released on YYYY-MM-DD.
 * When writing the release announcement blog post, do not forget to add the release note section in https://github.com/apache/camel-website/tree/main/content/releases/q
