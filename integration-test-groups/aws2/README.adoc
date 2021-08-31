@@ -1,10 +1,8 @@
-== AWS 2 isolated integration tests
+= AWS 2 isolated integration tests
 
 === Localstack
 
-The tests not impacted by https://github.com/apache/camel-quarkus/issues/2216 are run against Localstack by default.
-
-The tests impacted by https://github.com/apache/camel-quarkus/issues/2216 are ignored by default.
+The tests able to run against Localstack are run against Localstack by default.
 
 The SES test is ignored unless `MAILSLURP_API_KEY` variable is set.
 
