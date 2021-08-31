@@ -142,30 +142,27 @@ $ svn add --force .
 $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 ----
 
-== Create a GitHub release
-
-This will trigger sending a notification to folks watching the Camel Quarkus github repository,
-so it should ideally happen once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
-
-The following needs to be done:
-
-* Go to https://github.com/apache/camel-quarkus/releases[https://github.com/apache/camel-quarkus/releases].
-* Click the tag you want to promote to a GitHub release
-* Click "Edit Tag" button
-* In the "New release" form:
-  * Leave "Release title" empty
-  * Add something meaningful to the description, e.g. something like
-+
-[source,markdown]
-----
-Check the full [release announcement](https://camel.apache.org/blog/2021/06/camel-quarkus-release-2.0.0/)
-----
-+
-  * Click the green "Publish release" button at the bottom
-
 == Upgrade Camel Quarkus in Quarkus Platform
 
-When: once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
+You can proceed with upgrading Camel Quarkus in Quarkus Platform
+once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
+
+[TIP]
+====
+Synchronization between Apache Maven repository and Maven Central may take hours.
+You may find the `await-release` mojo of `cq-maven-plugin` handy if you need to upgrade Camel Quarkus in the Platform as soon as possible:
++
++
+[source,shell]
+----
+$ cd camel-quarkus
+$ mvn cq:await-release -Dcq.version=$VERSION
+----
++
+The mojo first lists the artifacts having `groupId` `org.apache.camel.quarkus` and the given `$VERSION`
+from the local Maven repository and then checks that they are available in Maven Central.
+As long as there are unavailable artifacts, the requests are re-tried with a (configurable) delay of 60 seconds.
+====
 
 [INFO]
 ====
@@ -214,6 +211,27 @@ mvn clean test
 ----
 +
 * If all tests are passing, send a pull request to the Platform
+
+== Create a GitHub release
+
+This will trigger sending a notification to folks watching the Camel Quarkus github repository,
+so it should ideally happen once the newly released artifacts are available on https://repo1.maven.org/maven2/org/apache/camel/quarkus/camel-quarkus-bom/[Maven Central].
+
+The following needs to be done:
+
+* Go to https://github.com/apache/camel-quarkus/releases[https://github.com/apache/camel-quarkus/releases].
+* Click the tag you want to promote to a GitHub release
+* Click "Edit Tag" button
+* In the "New release" form:
+  * Leave "Release title" empty
+  * Add something meaningful to the description, e.g. something like
++
+[source,markdown]
+----
+Check the full [release announcement](https://camel.apache.org/blog/2021/06/camel-quarkus-release-2.0.0/)
+----
++
+  * Click the green "Publish release" button at the bottom
 
 == Further steps
 
