@@ -56,6 +56,10 @@
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-multipart</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-cw</artifactId>
         </dependency>

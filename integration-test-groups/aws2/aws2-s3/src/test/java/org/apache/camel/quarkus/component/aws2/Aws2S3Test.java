@@ -16,8 +16,12 @@
  */
 package org.apache.camel.quarkus.component.aws2;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.stream.Stream;
+
+import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
@@ -123,6 +127,158 @@ class Aws2S3Test {
                     .body().as(String[].class);
             Assertions.assertTrue(Stream.of(objects).noneMatch(key -> key.equals(oid)));
         }
+    }
+
+    @Test
+    public void upload() throws Exception {
+        String fileName = "test.txt";
+        InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
+        String content = new String(file.readAllBytes(), StandardCharsets.UTF_8);
+
+        String oid = RestAssured.given()
+                .contentType(ContentType.MULTIPART)
+                .multiPart("fileName", fileName)
+                .multiPart("file", content, MediaType.APPLICATION_OCTET_STREAM)
+                .post("/aws2/s3/upload")
+                .then()
+                .statusCode(200)
+                .extract().asString();
+
+        RestAssured.get("/aws2/s3/object/" + oid)
+                .then()
+                .statusCode(200)
+                .body(is(content));
+    }
+
+    @Test
+    public void copyObject() throws Exception {
+        final String oid1 = UUID.randomUUID().toString();
+        final String oid2 = UUID.randomUUID().toString();
+        final String blobContent = "Hello " + oid1;
+        final String bucket = "mycamel";
+
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(blobContent)
+                .post("/aws2/s3/object/" + oid1)
+                .then()
+                .statusCode(201);
+
+        // Check the dest bucket does not contain oid2
+        final String[] objects = getAllObjects(bucket);
+        Assertions.assertTrue(Stream.of(objects).noneMatch(key -> key.equals(oid2)));
+
+        // Copy
+        RestAssured.given()
+                .contentType(ContentType.URLENC)
+                .formParam("dest_key", oid2)
+                .formParam("dest_bucket", bucket)
+                .post("/aws2/s3/copy/" + oid1)
+                .then()
+                .statusCode(204);
+
+        // Verify the object
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/aws2/s3/object/" + oid2 + "?bucket=" + bucket)
+                .then()
+                .statusCode(200)
+                .body(is(blobContent));
+
+    }
+
+    @Test
+    void listBuckets() throws Exception {
+        final String[] buckets = getAllBuckets();
+
+        Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.startsWith("camel-quarkus")));
+    }
+
+    @Test
+    void deleteBucket() throws Exception {
+        final String bucket = "mycamel-delete";
+
+        String[] objects = getAllObjects(bucket);
+        Assertions.assertTrue(objects.length == 0);
+
+        String[] buckets = getAllBuckets();
+        Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.equals("mycamel-delete")));
+
+        RestAssured.delete("/aws2/s3/bucket/" + bucket)
+                .then()
+                .statusCode(204);
+
+        buckets = getAllBuckets();
+        Assertions.assertTrue(Stream.of(buckets).noneMatch(key -> key.equals("mycamel-delete")));
+    }
+
+    @Test
+    public void downloadLink() throws Exception {
+        final String oid = UUID.randomUUID().toString();
+        final String blobContent = "Hello " + oid;
+
+        // Create
+        createObject(oid, blobContent);
+
+        // Download link
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/aws2/s3/downloadlink/" + oid)
+                .then()
+                .statusCode(200);
+
+    }
+
+    @Test
+    public void objectRange() {
+        final String oid = UUID.randomUUID().toString();
+        final String blobContent = "Hello " + oid;
+
+        // Create
+        createObject(oid, blobContent);
+
+        // Object range
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .param("start", "0").param("end", "4")
+                .get("/aws2/s3/object/range/" + oid)
+                .then()
+                .statusCode(200)
+                .body(is("Hello"));
+    }
+
+    private void createObject(String oid, String blobContent) {
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(blobContent)
+                .post("/aws2/s3/object/" + oid)
+                .then()
+                .statusCode(201);
+    }
+
+    private String[] getAllObjects(String bucket) {
+        final String[] objects = RestAssured.given()
+                .param("bucket", bucket)
+                .get("/aws2/s3/object-keys")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().as(String[].class);
+
+        return objects;
+    }
+
+    private String[] getAllBuckets() {
+        String[] buckets = RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .get("/aws2/s3/bucket")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().as(String[].class);
+
+        return buckets;
     }
 
 }
