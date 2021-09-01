@@ -21,6 +21,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.hamcrest.Matchers.hasKey;
 import static org.hamcrest.Matchers.is;
@@ -51,4 +52,133 @@ class OpenApiTest {
                         "paths.'/fruits/list'.get.operationId", is("list"));
     }
 
+    @Test
+    public void openApiEndpointSecurity() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "paths.'/security/scopes'", hasKey("get"),
+                        "paths.'/security/scopes'.get.security[0].OAuth2", contains("scope1", "scope2", "scope3"));
+
+    }
+
+    @Test
+    public void openApiKeySecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("X-API-Key"),
+                        "components.securitySchemes.X-API-Key.type", is("apiKey"),
+                        "components.securitySchemes.X-API-Key.description", is("The API key"),
+                        "components.securitySchemes.X-API-Key.name", is("X-API-KEY"),
+                        "components.securitySchemes.X-API-Key.in", is("header"));
+
+    }
+
+    @Test
+    public void openApiBasicAuthSecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("basicAuth"),
+                        "components.securitySchemes.basicAuth.scheme", is("basic"),
+                        "components.securitySchemes.basicAuth.type", is("http"),
+                        "components.securitySchemes.basicAuth.description", is("Basic Authentication"));
+
+    }
+
+    @Test
+    public void openApiBearerAuthSecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("bearerAuth"),
+                        "components.securitySchemes.bearerAuth.scheme", is("bearer"),
+                        "components.securitySchemes.bearerAuth.type", is("http"),
+                        "components.securitySchemes.bearerAuth.bearerFormat", is("Bearer Token Authentication"));
+    }
+
+    @Test
+    public void openApiMutualTlsSecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("mutualTLS"),
+                        "components.securitySchemes.mutualTLS.type", is("mutualTLS"));
+    }
+
+    @Test
+    public void openApiOauth2SecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("oauth2"),
+                        "components.securitySchemes.oauth2.flows.implicit.authorizationUrl",
+                        is("https://secure.apache.org/fake/oauth2/authorize"),
+                        "components.securitySchemes.oauth2.flows.implicit.scopes.scope1", is("Scope 1"),
+                        "components.securitySchemes.oauth2.flows.implicit.scopes.scope2", is("Scope 2"),
+                        "components.securitySchemes.oauth2.flows.implicit.scopes.scope3", is("Scope 3"));
+    }
+
+    @Test
+    public void openApiOpenIdSecurityDefinition() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "components.securitySchemes", hasKey("openId"),
+                        "components.securitySchemes.openId.openIdConnectUrl",
+                        is("https://secure.apache.org/fake/openid-configuration"),
+                        "components.securitySchemes.openId.type", is("openIdConnect"));
+    }
+
+    @Test
+    public void openApiOperationSpecification() {
+        RestAssured.given()
+                .get("/openapi.json")
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(200)
+                .body(
+                        "paths.'/operation/spec'", hasKey("get"),
+                        "paths.'/operation/spec'.get.parameters[0].name", is("header_number"),
+                        "paths.'/operation/spec'.get.parameters[0].description", is("Header Param Number"),
+                        "paths.'/operation/spec'.get.parameters[0].schema.default", is("1"),
+                        "paths.'/operation/spec'.get.parameters[0].schema.enum", contains("1", "2", "3"),
+                        "paths.'/operation/spec'.get.parameters[0].schema.type", is("integer"),
+                        "paths.'/operation/spec'.get.parameters[0].in", is("header"),
+                        "paths.'/operation/spec'.get.parameters[0].required", is(true),
+                        "paths.'/operation/spec'.get.parameters[1].style", is("multi"),
+                        "paths.'/operation/spec'.get.parameters[1].name", is("query_letter"),
+                        "paths.'/operation/spec'.get.parameters[1].description", is("Query Param Letter"),
+                        "paths.'/operation/spec'.get.parameters[1].schema.default", is("B"),
+                        "paths.'/operation/spec'.get.parameters[1].schema.enum", contains("A", "B", "C"),
+                        "paths.'/operation/spec'.get.parameters[1].schema.type", is("string"),
+                        "paths.'/operation/spec'.get.parameters[1].in", is("query"),
+                        "paths.'/operation/spec'.get.parameters[1].required", is(false),
+                        "paths.'/operation/spec'.get.responses.418.headers.rate.schema.type", is("integer"),
+                        "paths.'/operation/spec'.get.responses.418.headers.rate.description", is("API Rate Limit"),
+                        "paths.'/operation/spec'.get.responses.418.description", is("I am a teapot"),
+                        "paths.'/operation/spec'.get.responses.error.description", is("Response Error"));
+    }
 }
