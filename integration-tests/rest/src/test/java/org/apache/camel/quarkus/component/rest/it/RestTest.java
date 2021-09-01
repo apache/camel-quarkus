@@ -16,11 +16,18 @@
  */
 package org.apache.camel.quarkus.component.rest.it;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
 import org.apache.camel.component.platform.http.PlatformHttpConstants;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.Matchers.is;
@@ -40,21 +47,27 @@ class RestTest {
                 .body("component", is(PlatformHttpConstants.PLATFORM_HTTP_COMPONENT_NAME));
     }
 
-    @Test
-    public void rest() {
-        RestAssured.get("/rest/get")
+    @ParameterizedTest
+    @ValueSource(strings = { "DELETE", "GET", "HEAD", "PATCH", "POST", "PUT" })
+    public void rest(String method) {
+        String body = method.matches("PATCH|POST|PUT") ? method : "";
+
+        ValidatableResponse response = RestAssured.given()
+                .body(body)
+                .request(method, "/rest")
                 .then()
                 .header("Access-Control-Allow-Headers", matchesPattern(".*Access-Control.*"))
                 .header("Access-Control-Allow-Methods", matchesPattern("GET, POST"))
-                .header("Access-Control-Allow-Credentials", equalTo("true"))
-                .body(equalTo("GET: /rest/get"));
+                .header("Access-Control-Allow-Credentials", equalTo("true"));
 
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .post("/rest/post")
-                .then()
-                .statusCode(200)
-                .body(equalTo("POST: /rest/post"));
+        if (method.equals("HEAD")) {
+            // Response body is ignored for HEAD so verify response headers
+            response.statusCode(204);
+            response.header("Content-Type", ContentType.TEXT.toString());
+        } else {
+            response.statusCode(200);
+            response.body(is(method + ": /rest"));
+        }
     }
 
     @Test
@@ -178,7 +191,7 @@ class RestTest {
     }
 
     @Test
-    public void lightweight() throws Throwable {
+    public void lightweight() {
         RestAssured.when()
                 .get("/rest/inspect/camel-context/lightweight")
                 .then()
@@ -187,7 +200,7 @@ class RestTest {
     }
 
     @Test
-    public void restLog() throws Throwable {
+    public void restLog() {
         String message = "Camel Quarkus Platform HTTP";
         RestAssured.given()
                 .contentType(ContentType.TEXT)
@@ -197,5 +210,40 @@ class RestTest {
                 .then()
                 .statusCode(200)
                 .body(is(message));
+    }
+
+    @Test
+    public void customVerb() {
+        RestAssured.given()
+                .head("/rest/custom/verb")
+                .then()
+                .statusCode(204)
+                .header("Content-Type", is(ContentType.TEXT.toString()));
+    }
+
+    @Test
+    public void multiPartUpload() throws IOException {
+        Path txtFile = Files.createTempFile("multipartUpload", ".txt");
+        Path csvFile = Files.createTempFile("multipartUpload", ".csv");
+
+        try {
+            RestAssured.given()
+                    .multiPart(txtFile.toFile())
+                    .post("/rest/multipart/upload")
+                    .then()
+                    .statusCode(200)
+                    .body(is("1"));
+
+            // fileNameExtWhitelist config will only allow the txt file extension
+            RestAssured.given()
+                    .multiPart(csvFile.toFile())
+                    .post("/rest/multipart/upload")
+                    .then()
+                    .statusCode(200)
+                    .body(is("0"));
+        } finally {
+            Files.deleteIfExists(txtFile);
+            Files.deleteIfExists(csvFile);
+        }
     }
 }

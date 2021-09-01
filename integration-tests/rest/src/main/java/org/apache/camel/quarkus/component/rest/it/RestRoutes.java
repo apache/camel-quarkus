@@ -16,34 +16,67 @@
  */
 package org.apache.camel.quarkus.component.rest.it;
 
+import java.util.Map;
+
+import javax.activation.DataHandler;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.Exchange;
+import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.RestBindingMode;
 import org.apache.camel.model.rest.RestParamType;
 
 public class RestRoutes extends RouteBuilder {
 
+    private static final String PERSON_JSON = "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"age\": 64}";
+    private static final String PERSON_XML = "<person firstName=\"John\" lastName=\"Doe\" age=\"64\"/>";
+
     @Override
     public void configure() {
-        final String personJson = "{\"firstName\": \"John\", \"lastName\": \"Doe\", \"age\": 64}";
-        final String personXml = "<person firstName=\"John\" lastName=\"Doe\" age=\"64\"/>";
         restConfiguration()
                 .enableCORS(true)
                 .corsAllowCredentials(true)
-                .corsHeaderProperty("Access-Control-Allow-Methods", "GET, POST");
+                .corsHeaderProperty("Access-Control-Allow-Methods", "GET, POST")
+                .endpointProperty("fileNameExtWhitelist", ".txt");
 
         rest("/rest")
-                .get("/get")
+                .delete()
+                .produces("text/plain")
                 .route()
-                .setBody(constant("GET: /rest/get"))
+                .setBody(constant("DELETE: /rest"))
                 .endRest()
 
-                .post("/post")
-                .consumes("text/plain").produces("text/plain")
+                .get()
+                .produces("text/plain")
                 .route()
-                .setBody(constant("POST: /rest/post"))
+                .setBody(constant("GET: /rest"))
+                .endRest()
+
+                .head()
+                .route()
+                .setHeader(Exchange.CONTENT_TYPE).constant("text/plain")
+                .endRest()
+
+                .patch()
+                .consumes("text/plain")
+                .produces("text/plain")
+                .route()
+                .setBody(simple("${body}: /rest"))
+                .endRest()
+
+                .post()
+                .consumes("text/plain")
+                .produces("text/plain")
+                .route()
+                .setBody(simple("${body}: /rest"))
+                .endRest()
+
+                .put()
+                .consumes("text/plain")
+                .produces("text/plain")
+                .route()
+                .setBody(simple("${body}: /rest"))
                 .endRest()
 
                 .post("/validation")
@@ -72,7 +105,7 @@ public class RestRoutes extends RouteBuilder {
 
                 .get("/binding/json/producer")
                 .route()
-                .setBody(constant(personJson))
+                .setBody(constant(PERSON_JSON))
                 .endRest()
 
                 .post("/pojo/binding/xml")
@@ -86,12 +119,31 @@ public class RestRoutes extends RouteBuilder {
 
                 .get("/binding/xml/producer")
                 .route()
-                .setBody(constant(personXml))
+                .setBody(constant(PERSON_XML))
                 .endRest()
 
                 .post("/log")
                 .route()
                 .log("Hello ${body}")
+                .endRest()
+
+                .verb("head", "/custom/verb")
+                .route()
+                .setHeader(Exchange.CONTENT_TYPE, constant("text/plain"))
+                .endRest()
+
+                .post("/multipart/upload")
+                .route()
+                .process(exchange -> {
+                    AttachmentMessage attachmentMessage = exchange.getMessage(AttachmentMessage.class);
+                    Map<String, DataHandler> attachments = attachmentMessage.getAttachments();
+                    if (attachments != null) {
+                        int size = attachments.size();
+                        exchange.getMessage().setBody(String.valueOf(size));
+                    } else {
+                        exchange.getMessage().setBody("0");
+                    }
+                })
                 .endRest();
     }
 }
