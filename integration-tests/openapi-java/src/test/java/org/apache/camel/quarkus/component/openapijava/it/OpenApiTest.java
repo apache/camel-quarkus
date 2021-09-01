@@ -19,7 +19,10 @@ package org.apache.camel.quarkus.component.openapijava.it;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -28,6 +31,12 @@ import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class OpenApiTest {
+
+    @BeforeAll
+    public static void beforeAll() {
+        RestAssured.filters(new YamlToJsonFilter());
+    }
+
     @Test
     public void invokeApiEndpoint() {
         RestAssured.given()
@@ -40,10 +49,13 @@ class OpenApiTest {
                         "name", containsInAnyOrder("Apple", "Pineapple"));
     }
 
-    @Test
-    public void invokeApiDocumentEndpoint() {
-        RestAssured.given()
-                .get("/openapi.json")
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void invokeApiDocumentEndpoint(String contentType) {
+        RestAssured
+                .given()
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -52,10 +64,12 @@ class OpenApiTest {
                         "paths.'/fruits/list'.get.operationId", is("list"));
     }
 
-    @Test
-    public void openApiEndpointSecurity() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiEndpointSecurity(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -65,10 +79,12 @@ class OpenApiTest {
 
     }
 
-    @Test
-    public void openApiKeySecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiKeySecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -81,10 +97,12 @@ class OpenApiTest {
 
     }
 
-    @Test
-    public void openApiBasicAuthSecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiBasicAuthSecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -96,10 +114,12 @@ class OpenApiTest {
 
     }
 
-    @Test
-    public void openApiBearerAuthSecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiBearerAuthSecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -110,10 +130,12 @@ class OpenApiTest {
                         "components.securitySchemes.bearerAuth.bearerFormat", is("Bearer Token Authentication"));
     }
 
-    @Test
-    public void openApiMutualTlsSecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiMutualTlsSecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -122,10 +144,12 @@ class OpenApiTest {
                         "components.securitySchemes.mutualTLS.type", is("mutualTLS"));
     }
 
-    @Test
-    public void openApiOauth2SecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiOauth2SecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -138,10 +162,12 @@ class OpenApiTest {
                         "components.securitySchemes.oauth2.flows.implicit.scopes.scope3", is("Scope 3"));
     }
 
-    @Test
-    public void openApiOpenIdSecurityDefinition() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiOpenIdSecurityDefinition(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -152,10 +178,12 @@ class OpenApiTest {
                         "components.securitySchemes.openId.type", is("openIdConnect"));
     }
 
-    @Test
-    public void openApiOperationSpecification() {
+    @ParameterizedTest
+    @MethodSource("getOpenApiContentTypes")
+    public void openApiOperationSpecification(String contentType) {
         RestAssured.given()
-                .get("/openapi.json")
+                .header("Accept", contentType)
+                .get("/openapi")
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(200)
@@ -180,5 +208,9 @@ class OpenApiTest {
                         "paths.'/operation/spec'.get.responses.418.headers.rate.description", is("API Rate Limit"),
                         "paths.'/operation/spec'.get.responses.418.description", is("I am a teapot"),
                         "paths.'/operation/spec'.get.responses.error.description", is("Response Error"));
+    }
+
+    static String[] getOpenApiContentTypes() {
+        return new String[] { "application/json", "text/yaml" };
     }
 }
