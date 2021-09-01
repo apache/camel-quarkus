@@ -36,40 +36,32 @@ import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
 import org.apache.camel.util.CollectionHelper;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
+import org.testcontainers.containers.PubSubEmulatorContainer;
+import org.testcontainers.utility.DockerImageName;
 
 public class GooglePubsubTestResource implements QuarkusTestResourceLifecycleManager {
 
     private static final String PROJECT_ID = "test-project";
     private static final String TOPIC = "test-topic";
     private static final String SUBSCRIPTION = TOPIC + "-subscription";
-    private static final String GOOGLE_PUBSUB_IMAGE = "google/cloud-sdk:latest";
-    private static final int GOOGLE_PUBSUB_PORT = 8383;
+    private static final String GOOGLE_PUBSUB_IMAGE = "gcr.io/google.com/cloudsdktool/cloud-sdk:emulators";
 
-    private GenericContainer<?> container;
+    private PubSubEmulatorContainer container;
 
     @Override
     public Map<String, String> start() {
         try {
-            container = new GenericContainer<>(GOOGLE_PUBSUB_IMAGE)
-                    .withCommand("/bin/sh", "-c",
-                            String.format("gcloud beta emulators pubsub start --project %s --host-port=0.0.0.0:%d",
-                                    PROJECT_ID, GOOGLE_PUBSUB_PORT))
-                    .withExposedPorts(GOOGLE_PUBSUB_PORT)
-                    .waitingFor(new LogMessageWaitStrategy().withRegEx("(?s).*started.*$"));
-
+            DockerImageName imageName = DockerImageName.parse(GOOGLE_PUBSUB_IMAGE);
+            container = new PubSubEmulatorContainer(imageName);
             container.start();
 
             createTopicSubscriptionPair(TOPIC, SUBSCRIPTION);
-
-            String endpointAddress = String.format("%s:%s", container.getContainerIpAddress(), container.getFirstMappedPort());
 
             return CollectionHelper.mapOf(
                     "project.id", PROJECT_ID,
                     "topic.name", TOPIC,
                     "subscription.name", SUBSCRIPTION,
-                    "camel.component.google-pubsub.endpoint", endpointAddress);
+                    "camel.component.google-pubsub.endpoint", container.getEmulatorEndpoint());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
