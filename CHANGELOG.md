@@ -4,8 +4,15 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.0...HEAD)
 
+**Closed issues:**
+
+- Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
+
 **Merged pull requests:**
 
+- Document mvn cq:await-release -Dcq.version=$VERSION [\#3057](https://github.com/apache/camel-quarkus/pull/3057) ([ppalaga](https://github.com/ppalaga))
+- Exclude main-unknown-args-ignore test from the list of tests for the platform again [\#3055](https://github.com/apache/camel-quarkus/pull/3055) ([ppalaga](https://github.com/ppalaga))
+- \[\#3028\] Increase test coverage of a binding mode of camel-rest component [\#3052](https://github.com/apache/camel-quarkus/pull/3052) ([VratislavHais](https://github.com/VratislavHais))
 - Upgrade to OptaPlanner Quarkus 8.9.1.Final [\#3051](https://github.com/apache/camel-quarkus/pull/3051) ([ppalaga](https://github.com/ppalaga))
 - Document the usage of partial Quarkus BOMs  [\#3050](https://github.com/apache/camel-quarkus/pull/3050) ([ppalaga](https://github.com/ppalaga))
 - Fix branch names in CI builds section [\#3049](https://github.com/apache/camel-quarkus/pull/3049) ([jamesnetherton](https://github.com/jamesnetherton))
