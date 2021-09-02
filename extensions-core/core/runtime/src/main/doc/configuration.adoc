@@ -14,7 +14,7 @@ Note that in native mode, some classes may need to be registered for reflection.
 needs to be link:https://quarkus.io/guides/writing-native-applications-tips#registering-for-reflection[registered for reflection].
 
 ==== Using dynamic type resolution in native mode
-When dynamically resolving a type from simple expressions like `${mandatoryBodyAs(TYPE)}`, `${type:package.Enum.CONSTANT}` or `${body} is TYPE`, it may be needed to register some classes for reflection manually.
+When dynamically resolving a type from simple expressions like `${mandatoryBodyAs(TYPE)}`, `${type:package.Enum.CONSTANT}` or `$\{body} is TYPE`, it may be needed to register some classes for reflection manually.
 
 For instance, the simple expression below is dynamically resolving the type `java.nio.ByteBuffer` at runtime:
 [source,java]
