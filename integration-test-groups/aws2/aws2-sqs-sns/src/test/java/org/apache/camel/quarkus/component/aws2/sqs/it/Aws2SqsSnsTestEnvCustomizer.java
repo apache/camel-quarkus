@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.aws2.sqs.it;
 
 import java.util.Collections;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
@@ -35,6 +36,8 @@ import software.amazon.awssdk.services.sqs.model.DeleteQueueRequest;
 import software.amazon.awssdk.services.sqs.model.GetQueueAttributesRequest;
 import software.amazon.awssdk.services.sqs.model.QueueAttributeName;
 import software.amazon.awssdk.services.sqs.model.SetQueueAttributesRequest;
+
+import static java.util.Map.entry;
 
 public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
@@ -55,6 +58,7 @@ public class Aws2SqsSnsTestEnvCustomizer implements Aws2TestEnvCustomizer {
             final String queueUrl = sqsClient.createQueue(
                     CreateQueueRequest.builder()
                             .queueName(queueName)
+                            .attributes(Map.ofEntries(entry(QueueAttributeName.VISIBILITY_TIMEOUT, "0")))
                             .build())
                     .queueUrl();
             envContext.closeable(() -> sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build()));
