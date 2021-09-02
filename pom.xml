@@ -145,7 +145,7 @@
         <maven-utils.version>0.1.0</maven-utils.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>0.40.0</cq-plugin.version>
+        <cq-plugin.version>1.0.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -394,17 +394,9 @@
                     <version>${cq-plugin.version}</version>
                     <configuration>
                         <simpleElementWhitespace>SPACE</simpleElementWhitespace>
-                        <extensionDirectories>
-                            <extensionDirectory>${project.basedir}/extensions-core</extensionDirectory>
-                            <extensionDirectory>${project.basedir}/extensions</extensionDirectory>
-                            <extensionDirectory>${project.basedir}/extensions-jvm</extensionDirectory>
-                        </extensionDirectories>
                         <skipArtifactIdBases>
                             <skipArtifactIdBase>http-common</skipArtifactIdBase>
-                            <skipArtifactIdBase>integration-test-support-custom-log-component</skipArtifactIdBase>
-                            <skipArtifactIdBase>integration-test-support-custom-main-listener</skipArtifactIdBase>
-                            <skipArtifactIdBase>integration-test-support-custom-routes-collector</skipArtifactIdBase>
-                            <skipArtifactIdBase>integration-test-support-custom-type-converter</skipArtifactIdBase>
+                            <skipArtifactIdBase>integration-tests?-support-.*</skipArtifactIdBase>
                         </skipArtifactIdBases>
                     </configuration>
                     <dependencies>
@@ -773,28 +765,6 @@
                                             </includes>
                                         </updateVirtualDependenciesAllExtension>
                                     </updateVirtualDependenciesAllExtensions>
-                                    <extensionDirs>
-                                        <extensionDir>
-                                            <path>extensions</path>
-                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
-                                        </extensionDir>
-                                        <extensionDir>
-                                            <path>extensions-core</path>
-                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
-                                        </extensionDir>
-                                        <extensionDir>
-                                            <path>extensions-jvm</path>
-                                            <artifactIdPrefix>camel-quarkus-</artifactIdPrefix>
-                                        </extensionDir>
-                                        <extensionDir>
-                                            <path>extensions-support</path>
-                                            <artifactIdPrefix>camel-quarkus-support-</artifactIdPrefix>
-                                        </extensionDir>
-                                        <extensionDir>
-                                            <path>integration-tests-support</path>
-                                            <artifactIdPrefix>camel-quarkus-integration-test-support-</artifactIdPrefix>
-                                        </extensionDir>
-                                    </extensionDirs>
                                     <removeEmptyApplicationProperties>
                                         <directory>${basedir}</directory>
                                         <includes>
