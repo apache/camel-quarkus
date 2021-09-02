@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.aws2.sqs.it;
 
 import java.net.URI;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -112,7 +114,7 @@ public class Aws2SqsSnsResource {
     public String sqsReceive(@PathParam("queueName") String queueName, @PathParam("deleteMessage") String deleteMessage)
             throws Exception {
         return consumerTemplate.receiveBody(componentUri(queueName)
-                + "?deleteAfterRead=" + deleteMessage + "&deleteIfFiltered=" + deleteMessage + "&defaultVisibilityTimeout=1",
+                + "?deleteAfterRead=" + deleteMessage + "&deleteIfFiltered=" + deleteMessage + "&defaultVisibilityTimeout=0",
                 10000,
                 String.class);
     }
@@ -158,7 +160,7 @@ public class Aws2SqsSnsResource {
         producerTemplate.sendBodyAndHeader(componentUri(queueName) + "?operation=deleteMessage",
                 null,
                 Sqs2Constants.RECEIPT_HANDLE,
-                receipt);
+                URLDecoder.decode(receipt, StandardCharsets.UTF_8));
         return Response.ok().build();
     }
 
@@ -179,11 +181,13 @@ public class Aws2SqsSnsResource {
     public List<String> autoCreateDelayedQueue(@PathParam("queueName") String queueName, @PathParam("delay") String delay)
             throws Exception {
         // queue creation without any operation resulted in 405 status code
-        return producerTemplate.requestBody(
-                "aws2-sqs://" + queueName
-                        + "?autoCreateQueue=true&delayQueue=true&delaySeconds=" + delay + "&operation=listQueues",
-                null,
-                ListQueuesResponse.class).queueUrls();
+        return producerTemplate
+                .requestBody(
+                        "aws2-sqs://" + queueName
+                                + "?autoCreateQueue=true&delayQueue=true&delaySeconds=" + delay + "&operation=listQueues",
+                        null,
+                        ListQueuesResponse.class)
+                .queueUrls();
     }
 
     private String componentUri() {
