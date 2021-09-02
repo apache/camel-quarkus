@@ -16,11 +16,14 @@
  */
 package org.apache.camel.quarkus.component.aws2.sqs.it;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -30,10 +33,12 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.hamcrest.Matchers;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.anyOf;
@@ -42,6 +47,25 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2SqsSnsTest {
+
+    @AfterEach
+    public void purgeQueueAndWait() {
+        String qName = getPredefinedQueueName();
+        purgeQueue(qName);
+        // purge takes up to 60 seconds
+        // all messages delivered within those 60 seconds might get deleted
+        try {
+            TimeUnit.SECONDS.sleep(60);
+        } catch (InterruptedException ignored) {
+        }
+        Assertions.assertEquals(receiveMessageFromQueue(qName, false), "");
+    }
+
+    private void purgeQueue(String queueName) {
+        RestAssured.delete("/aws2-sqs-sns/sqs/purge/queue/" + queueName)
+                .then()
+                .statusCode(200);
+    }
 
     @Test
     public void sqs() {
@@ -65,10 +89,15 @@ class Aws2SqsSnsTest {
     @Test
     public void sqsDeleteMessage() {
         final String qName = getPredefinedQueueName();
-        final String msg = sendSingleMessageToQueue(qName);
+        sendSingleMessageToQueue(qName);
         final String receipt = receiveReceiptOfMessageFromQueue(qName);
+        final String msg = sendSingleMessageToQueue(qName);
         deleteMessageFromQueue(qName, receipt);
-        Assertions.assertNotEquals(receiveMessageFromQueue(qName), msg);
+        // assertion is here twice because in case delete wouldn't work in our queue would be two messages
+        // it's possible that the first retrieval would retrieve the correct message and therefore the test
+        // would incorrectly pass. By receiving message twice we check if the message was really deleted.
+        Assertions.assertEquals(receiveMessageFromQueue(qName, false), msg);
+        Assertions.assertEquals(receiveMessageFromQueue(qName, false), msg);
     }
 
     private String getPredefinedQueueName() {
@@ -87,7 +116,8 @@ class Aws2SqsSnsTest {
     }
 
     private String receiveReceiptOfMessageFromQueue(String queueName) {
-        return RestAssured.get("/aws2-sqs-sns/sqs/receive/receipt/" + queueName)
+        return RestAssured
+                .get("/aws2-sqs-sns/sqs/receive/receipt/" + queueName)
                 .then()
                 .statusCode(200)
                 .extract()
@@ -96,34 +126,47 @@ class Aws2SqsSnsTest {
     }
 
     private void deleteMessageFromQueue(String queueName, String receipt) {
-        RestAssured.delete("/aws2-sqs-sns/sqs/delete/message/" + queueName + "/" + receipt)
+        RestAssured
+                .delete("/aws2-sqs-sns/sqs/delete/message/" + queueName + "/"
+                        + URLEncoder.encode(receipt, StandardCharsets.UTF_8))
                 .then()
                 .statusCode(200);
     }
 
     @Test
+    @Disabled
     public void sqsAutoCreateDelayedQueue() {
-        final String qName = "delayQueue";
-        final int delay = 10;
-        createDelayQueueAndVerifyExistence("delayQueue", delay);
-        final String msgSent = sendSingleMessageToQueue(qName);
-        Instant start = Instant.now();
-        awaitMessageWithExpectedContentFromQueue(msgSent, qName);
-        Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
-        deleteQueue(qName);
+        final String qName = "delayQueue-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        final int delay = 20;
+        try {
+            createDelayQueueAndVerifyExistence(qName, delay);
+            Instant start = Instant.now();
+            final String msgSent = sendSingleMessageToQueue(qName);
+            awaitMessageWithExpectedContentFromQueue(msgSent, qName);
+            System.out.println(Duration.between(start, Instant.now()).getSeconds());
+            Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
+        } catch (AssertionError e) {
+            e.printStackTrace();
+            Assertions.fail();
+        } finally {
+            deleteQueue(qName);
+        }
     }
 
     private void createDelayQueueAndVerifyExistence(String queueName, int delay) {
         RestAssured.post("/aws2-sqs-sns/sqs/queue/autocreate/delayed/" + queueName + "/" + delay)
                 .then()
-                .statusCode(200);
-        Assertions.assertTrue(Stream.of(listQueues()).anyMatch(url -> url.contains(queueName)));
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(String[].class);
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
+                () -> Stream.of(listQueues()).anyMatch(url -> url.contains(queueName)));
     }
 
     private void awaitMessageWithExpectedContentFromQueue(String expectedContent, String queueName) {
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
-                () -> receiveMessageFromQueue(queueName),
-                Matchers.is(expectedContent));
+                () -> receiveMessageFromQueue(queueName, false).equals(expectedContent));
     }
 
     private void deleteQueue(String queueName) {
@@ -136,10 +179,6 @@ class Aws2SqsSnsTest {
     private void awaitQueueDeleted(String queueName) {
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
                 () -> Stream.of(listQueues()).noneMatch(url -> url.contains(queueName)));
-    }
-
-    private String receiveMessageFromQueue(String queueName) {
-        return receiveMessageFromQueue(queueName, true);
     }
 
     private String receiveMessageFromQueue(String queueName, boolean deleteMessage) {
@@ -172,27 +211,6 @@ class Aws2SqsSnsTest {
                 .extract()
                 .body()
                 .asString());
-    }
-
-    @Test
-    public void sqsPurgeQueue() {
-        final String qName = getPredefinedQueueName();
-        sendSingleMessageToQueue(qName);
-        purgeQueue(qName);
-        awaitAllMessagesDeletedFromQueue(qName);
-    }
-
-    private void purgeQueue(String queueName) {
-        RestAssured.delete("/aws2-sqs-sns/sqs/purge/queue/" + queueName)
-                .then()
-                .statusCode(200);
-    }
-
-    private void awaitAllMessagesDeletedFromQueue(String queueName) {
-        // it can take up to 60 seconds to purge all messages in queue as stated in documentation
-        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(60, TimeUnit.SECONDS).until(
-                () -> receiveMessageFromQueue(queueName, false),
-                Matchers.emptyOrNullString());
     }
 
     @Test
