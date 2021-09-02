@@ -18,12 +18,14 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -38,17 +40,20 @@ import org.apache.camel.catalog.impl.CatalogHelper;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
+import org.apache.camel.tooling.model.JsonMapper;
+import org.apache.camel.tooling.model.LanguageModel;
+import org.apache.camel.tooling.model.OtherModel;
 
 public class CqCatalog {
 
     public enum Flavor {
-        camel("org.apache.camel", "camel-catalog") {
+        camel("org.apache.camel", "camel-catalog", "org/apache/camel/catalog") {
             @Override
             public RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c) {
                 return new DefaultRuntimeProvider(c);
             }
         },
-        camelQuarkus("org.apache.camel.quarkus", "camel-quarkus-catalog") {
+        camelQuarkus("org.apache.camel.quarkus", "camel-quarkus-catalog", CQ_CATALOG_DIR) {
             @Override
             public RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c) {
                 return new CqRuntimeProvider(c);
@@ -57,10 +62,12 @@ public class CqCatalog {
 
         private final String groupId;
         private final String artifactId;
+        private final String catalogDir;
 
-        private Flavor(String groupId, String artifactId) {
+        private Flavor(String groupId, String artifactId, String catalogDir) {
             this.groupId = groupId;
             this.artifactId = artifactId;
+            this.catalogDir = catalogDir;
         }
 
         public abstract RuntimeProvider createRuntimeProvider(DefaultCamelCatalog c);
@@ -75,6 +82,8 @@ public class CqCatalog {
     }
 
     private final DefaultCamelCatalog catalog;
+    private final Flavor flavor;
+    public static final String CQ_CATALOG_DIR = "org/apache/camel/catalog/quarkus";
 
     private static final ThreadLocal<CqCatalog> threadLocalCamelCatalog = ThreadLocal.withInitial(CqCatalog::new);
 
@@ -82,16 +91,38 @@ public class CqCatalog {
         return threadLocalCamelCatalog.get();
     }
 
+    public static CqCatalog findFirstFromClassPath() {
+        try {
+            Class.forName("org.apache.camel.catalog.quarkus.QuarkusRuntimeProvider");
+            return new CqCatalog(Flavor.camelQuarkus,
+                    name -> Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
+        } catch (ClassNotFoundException e) {
+            return new CqCatalog(Flavor.camel,
+                    name -> Thread.currentThread().getContextClassLoader().getResourceAsStream(name));
+        }
+    }
+
     public CqCatalog(Path baseDir, Flavor flavor) {
-        super();
+        this(flavor, name -> {
+            try {
+                return Files.newInputStream(baseDir.resolve(name));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public CqCatalog(Flavor flavor, Function<String, InputStream> resourceLocator) {
+        this.flavor = flavor;
         final DefaultCamelCatalog c = new DefaultCamelCatalog(true);
         c.setRuntimeProvider(flavor.createRuntimeProvider(c));
-        c.setVersionManager(new CqVersionManager(c, baseDir));
+        c.setVersionManager(new CqVersionManager(c, resourceLocator));
         this.catalog = c;
     }
 
     public CqCatalog() {
         super();
+        this.flavor = Flavor.camel;
         this.catalog = new DefaultCamelCatalog(true);
     }
 
@@ -107,17 +138,26 @@ public class CqCatalog {
 
     public Stream<ArtifactModel<?>> filterModels(String cqArtifactIdBase) {
         final Predicate<ArtifactModel<?>> filter;
-        if ("core".equals(cqArtifactIdBase)) {
-            filter = model -> ("camel-base".equals(model.getArtifactId())
-                    || "camel-core-languages".equals(model.getArtifactId())) && !"csimple".equals(model.getName());
-        } else if ("csimple".equals(cqArtifactIdBase)) {
-            filter = model -> "camel-core-languages".equals(model.getArtifactId()) && "csimple".equals(model.getName());
-        } else if ("reactive-executor".equals(cqArtifactIdBase)) {
-            filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
-        } else if ("qute".equals(cqArtifactIdBase)) {
-            filter = model -> "camel-quarkus-qute-component".equals(model.getArtifactId());
-        } else {
-            filter = model -> ("camel-" + cqArtifactIdBase).equals(model.getArtifactId());
+        switch (flavor) {
+        case camel:
+            if ("core".equals(cqArtifactIdBase)) {
+                filter = model -> ("camel-base".equals(model.getArtifactId())
+                        || "camel-core-languages".equals(model.getArtifactId())) && !"csimple".equals(model.getName());
+            } else if ("csimple".equals(cqArtifactIdBase)) {
+                filter = model -> "camel-core-languages".equals(model.getArtifactId()) && "csimple".equals(model.getName());
+            } else if ("reactive-executor".equals(cqArtifactIdBase)) {
+                filter = model -> "camel-reactive-executor-vertx".equals(model.getArtifactId());
+            } else if ("qute".equals(cqArtifactIdBase)) {
+                filter = model -> "camel-quarkus-qute-component".equals(model.getArtifactId());
+            } else {
+                filter = model -> ("camel-" + cqArtifactIdBase).equals(model.getArtifactId());
+            }
+            break;
+        case camelQuarkus:
+            filter = model -> ("camel-quarkus-" + cqArtifactIdBase).equals(model.getArtifactId());
+            break;
+        default:
+            throw new IllegalStateException("Unexpected " + Flavor.class.getName() + " " + flavor);
         }
         return models().filter(filter);
     }
@@ -133,6 +173,43 @@ public class CqCatalog {
 
     public void addComponent(String name, String className, String jsonSchema) {
         catalog.addComponent(name, className, jsonSchema);
+    }
+
+    public void store(Path baseDir) {
+        models().forEach(m -> serialize(baseDir.resolve(flavor.catalogDir), m));
+    }
+
+    static void serialize(final Path catalogPath, ArtifactModel<?> model) {
+        final Path out = catalogPath.resolve(model.getKind() + "s")
+                .resolve(model.getName() + ".json");
+        try {
+            Files.createDirectories(out.getParent());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not create " + out.getParent(), e);
+        }
+        String rawJson;
+        switch (Kind.valueOf(model.getKind())) {
+        case component:
+            rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
+            break;
+        case language:
+            rawJson = JsonMapper.createParameterJsonSchema((LanguageModel) model);
+            break;
+        case dataformat:
+            rawJson = JsonMapper.createParameterJsonSchema((DataFormatModel) model);
+            break;
+        case other:
+            rawJson = JsonMapper.createJsonSchema((OtherModel) model);
+            break;
+        default:
+            throw new IllegalStateException("Cannot serialize kind " + model.getKind());
+        }
+
+        try {
+            Files.write(out, rawJson.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException("Could not write to " + out, e);
+        }
     }
 
     public static Stream<Kind> kinds() {
@@ -192,7 +269,10 @@ public class CqCatalog {
     public static List<ArtifactModel<?>> primaryModel(Stream<ArtifactModel<?>> input) {
         final List<ArtifactModel<?>> models = input
                 .filter(CqCatalog::isFirstScheme)
-                .filter(m -> !m.getName().startsWith("google-") || !m.getName().endsWith("-stream")) // ignore the google stream component variants
+                .filter(m -> !m.getName().startsWith("google-") || !m.getName().endsWith("-stream")) // ignore the
+                // google stream
+                // component
+                // variants
                 .collect(Collectors.toList());
         if (models.size() > 1) {
             List<ArtifactModel<?>> componentModels = models.stream()
@@ -222,34 +302,30 @@ public class CqCatalog {
     }
 
     static class CqVersionManager extends DefaultVersionManager {
-        private final Path baseDir;
+        private final Function<String, InputStream> resourceLocator;
 
-        public CqVersionManager(CamelCatalog camelCatalog, Path baseDir) {
+        public CqVersionManager(CamelCatalog camelCatalog, Function<String, InputStream> resourceLocator) {
             super(camelCatalog);
-            this.baseDir = baseDir;
+            this.resourceLocator = resourceLocator;
         }
 
         @Override
         public InputStream getResourceAsStream(String name) {
-            try {
-                return Files.newInputStream(baseDir.resolve(name));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+            return resourceLocator.apply(name);
         }
 
     }
 
     static class CqRuntimeProvider implements RuntimeProvider {
 
-        private static final String COMPONENT_DIR = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/components";
-        private static final String DATAFORMAT_DIR = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/dataformats";
-        private static final String LANGUAGE_DIR = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/languages";
-        private static final String OTHER_DIR = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/others";
-        private static final String COMPONENTS_CATALOG = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/components.properties";
-        private static final String DATA_FORMATS_CATALOG = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/dataformats.properties";
-        private static final String LANGUAGE_CATALOG = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/languages.properties";
-        private static final String OTHER_CATALOG = PrepareCatalogQuarkusMojo.CQ_CATALOG_DIR + "/others.properties";
+        private static final String COMPONENT_DIR = CQ_CATALOG_DIR + "/components";
+        private static final String DATAFORMAT_DIR = CQ_CATALOG_DIR + "/dataformats";
+        private static final String LANGUAGE_DIR = CQ_CATALOG_DIR + "/languages";
+        private static final String OTHER_DIR = CQ_CATALOG_DIR + "/others";
+        private static final String COMPONENTS_CATALOG = CQ_CATALOG_DIR + "/components.properties";
+        private static final String DATA_FORMATS_CATALOG = CQ_CATALOG_DIR + "/dataformats.properties";
+        private static final String LANGUAGE_CATALOG = CQ_CATALOG_DIR + "/languages.properties";
+        private static final String OTHER_CATALOG = CQ_CATALOG_DIR + "/others.properties";
 
         private CamelCatalog camelCatalog;
 

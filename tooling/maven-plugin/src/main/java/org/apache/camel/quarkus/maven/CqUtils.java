@@ -19,13 +19,16 @@ package org.apache.camel.quarkus.maven;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.Reader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -43,7 +46,10 @@ import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.apache.maven.plugin.logging.Log;
+import org.codehaus.plexus.util.xml.pull.XmlPullParserException;
+import org.l2x6.maven.utils.MavenSourceTree.Module;
 
 public class CqUtils {
     public static final String CLASSPATH_PREFIX = "classpath:";
@@ -80,16 +86,39 @@ public class CqUtils {
         }
     }
 
+    public static Stream<ExtensionModule> findExtensions(Path basePath, Collection<Module> modules,
+            Predicate<String> artifactIdBaseFilter) {
+        return modules.stream()
+                .filter(p -> p.getGav().getArtifactId().asConstant().endsWith("-deployment"))
+                .map(p -> {
+                    final Path extensionDir = basePath.resolve(p.getPomPath()).getParent().getParent().toAbsolutePath()
+                            .normalize();
+                    final String deploymentArtifactId = p.getGav().getArtifactId().asConstant();
+                    if (!deploymentArtifactId.startsWith("camel-quarkus-")) {
+                        throw new IllegalStateException("Should start with 'camel-quarkus-': " + deploymentArtifactId);
+                    }
+                    final String artifactIdBase = deploymentArtifactId.substring("camel-quarkus-".length(),
+                            deploymentArtifactId.length() - "-deployment".length());
+                    return new ExtensionModule(extensionDir, artifactIdBase);
+                })
+                .filter(e -> artifactIdBaseFilter.test(e.getArtifactIdBase()))
+                .sorted();
+    }
+
     public static Stream<String> findExtensionArtifactIdBases(Path extensionDir) {
-        try {
-            return Files.list(extensionDir)
-                    .filter(path -> Files.isDirectory(path)
-                            && Files.exists(path.resolve("pom.xml"))
-                            && Files.exists(path.resolve("runtime")))
-                    .map(dir -> dir.getFileName().toString());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        final Path extListPomPath = extensionDir.resolve("pom.xml");
+        final List<String> modules;
+        try (Reader r = Files.newBufferedReader(extListPomPath, StandardCharsets.UTF_8)) {
+            final MavenXpp3Reader rxppReader = new MavenXpp3Reader();
+            final Model extListPom = rxppReader.read(r);
+            modules = extListPom.getModules();
+        } catch (IOException | XmlPullParserException e) {
+            throw new RuntimeException("Could not read " + extListPomPath);
         }
+
+        return modules.stream()
+                .filter(m -> Files.isRegularFile(extensionDir.resolve(m + "/pom.xml"))
+                        && Files.isDirectory(extensionDir.resolve(m + "/runtime")));
     }
 
     public static Configuration getTemplateConfig(Path basePath, String defaultUriBase, String templatesUriBase,
