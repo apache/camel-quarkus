@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,11 +32,9 @@ import org.apache.camel.catalog.Kind;
 import org.apache.camel.tooling.model.ArtifactModel;
 import org.apache.camel.tooling.model.ComponentModel;
 import org.apache.camel.tooling.model.DataFormatModel;
-import org.apache.camel.tooling.model.JsonMapper;
 import org.apache.camel.tooling.model.LanguageModel;
 import org.apache.camel.tooling.model.OtherModel;
 import org.apache.camel.tooling.model.SupportLevel;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -49,9 +46,8 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @since 0.1.0
  */
 @Mojo(name = "prepare-catalog-quarkus", threadSafe = true)
-public class PrepareCatalogQuarkusMojo extends AbstractMojo {
+public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
 
-    public static final String CQ_CATALOG_DIR = "org/apache/camel/catalog/quarkus";
     public static final String CAMEL_ARTIFACT = "camelArtifact";
     /**
      * The output directory where the catalog files should be written.
@@ -60,104 +56,94 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
     File catalogBaseDir;
 
     /**
-     * List of directories that contain extensions
+     * If {@code true}, the Catalog available in the class path will be first dumped to {@link #catalogBaseDir}
+     * and then some of its options will be overwritten by this mojo; otherwise no dump happens and this mojo writes to
+     * {@link #catalogBaseDir} as usual.
+     *
+     * @since 2.3.0
      */
-    @Parameter(property = "cq.extensionDirectories", required = true)
-    List<File> extensionDirectories;
-
-    /**
-     * A set of artifactIdBases that are not extensions and should be excluded from the catalog
-     */
-    @Parameter(property = "cq.skipArtifactIdBases")
-    Set<String> skipArtifactIdBases;
+    @Parameter(property = "cq.extendClassPathCatalog", defaultValue = "false")
+    boolean extendClassPathCatalog;
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        final Path catalogPath = catalogBaseDir.toPath().resolve(CQ_CATALOG_DIR);
-        if (skipArtifactIdBases == null) {
-            skipArtifactIdBases = Collections.emptySet();
-        }
+        final Path catalogPath = catalogBaseDir.toPath().resolve(CqCatalog.CQ_CATALOG_DIR);
 
         final Map<String, Set<String>> schemesByKind = new LinkedHashMap<>();
         CqCatalog.kinds().forEach(kind -> schemesByKind.put(kind.name(), new TreeSet<>()));
 
-        final CqCatalog catalog = new CqCatalog();
-        extensionDirectories.stream()
-                .map(File::toPath)
-                .forEach(extDir -> {
+        final CqCatalog catalog = CqCatalog.findFirstFromClassPath();
+        if (extendClassPathCatalog) {
+            catalog.store(catalogBaseDir.toPath());
+        }
 
-                    /* Discover local components, such as Qute and add them to the catalog */
-                    CqUtils.findExtensionArtifactIdBases(extDir)
-                            .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
-                            .forEach(artifactIdBase -> {
-                                final Path schemaFile = extDir
-                                        .resolve(artifactIdBase)
-                                        .resolve("component/src/generated/resources/org/apache/camel/component/"
-                                                + artifactIdBase + "/" + artifactIdBase + ".json")
-                                        .toAbsolutePath().normalize();
-                                if (Files.isRegularFile(schemaFile)) {
-                                    try {
-                                        final String schema = new String(Files.readAllBytes(schemaFile),
-                                                StandardCharsets.UTF_8);
-                                        final String capBase = artifactIdBase.substring(0, 1).toUpperCase()
-                                                + artifactIdBase.substring(1);
-                                        getLog().debug("Adding an extra component " + artifactIdBase + " " +
-                                                "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component " +
-                                                schema);
-                                        catalog.addComponent(artifactIdBase,
-                                                "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component",
-                                                schema);
-                                    } catch (IOException e) {
-                                        throw new RuntimeException("Could not read " + schemaFile, e);
-                                    }
-                                }
-                            });
+        findExtensions()
+                .forEach(ext -> {
+                    final String artifactIdBase = ext.getArtifactIdBase();
+                    final Path schemaFile = ext
+                            .getExtensionDir()
+                            .resolve("component/src/generated/resources/org/apache/camel/component/"
+                                    + artifactIdBase + "/" + artifactIdBase + ".json")
+                            .toAbsolutePath().normalize();
+                    if (Files.isRegularFile(schemaFile)) {
+                        try {
+                            final String schema = new String(Files.readAllBytes(schemaFile),
+                                    StandardCharsets.UTF_8);
+                            final String capBase = artifactIdBase.substring(0, 1).toUpperCase()
+                                    + artifactIdBase.substring(1);
+                            getLog().debug("Adding an extra component " + artifactIdBase + " " +
+                                    "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component " +
+                                    schema);
+                            catalog.addComponent(artifactIdBase,
+                                    "org.apache.camel.component." + artifactIdBase + "." + capBase + "Component",
+                                    schema);
+                        } catch (IOException e) {
+                            throw new RuntimeException("Could not read " + schemaFile, e);
+                        }
+                    }
                 });
 
-        extensionDirectories.stream()
-                .map(File::toPath)
-                .forEach(extDir -> {
-                    CqUtils.findExtensionArtifactIdBases(extDir)
-                            .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
-                            .forEach(artifactIdBase -> {
-                                final List<ArtifactModel<?>> models = catalog.filterModels(artifactIdBase)
-                                        .collect(Collectors.toList());
-                                final Path runtimePomXmlPath = extDir.resolve(artifactIdBase).resolve("runtime/pom.xml")
-                                        .toAbsolutePath().normalize();
-                                final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimePomXmlPath);
-                                final boolean nativeSupported = ext.isNativeSupported();
-                                if (models.isEmpty()) {
-                                    final ArtifactModel<?> model;
-                                    final Kind extKind = ext.getKind();
-                                    if (extKind == Kind.component) {
-                                        model = new ComponentModel();
-                                    } else if (extKind == Kind.language) {
-                                        model = new LanguageModel();
-                                    } else if (extKind == Kind.dataformat) {
-                                        model = new DataFormatModel();
-                                    } else {
-                                        model = new OtherModel();
-                                    }
-                                    final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
-                                    model.setName(name);
-                                    final String title = ext.getName().orElseThrow(() -> new RuntimeException(
-                                            "name is missing in " + ext.getRuntimePomXmlPath()));
-                                    model.setTitle(title);
-                                    model.setDescription(ext.getDescription().orElseThrow(() -> new RuntimeException(
-                                            "description is missing in " + ext.getRuntimePomXmlPath())));
-                                    model.setDeprecated(CqUtils.isDeprecated(title, models));
-                                    model.setLabel(ext.getLabel().orElse("quarkus"));
-                                    update(model, ext, nativeSupported);
-                                    serialize(catalogPath, model);
-                                    schemesByKind.get(model.getKind()).add(model.getName());
-                                } else {
-                                    for (ArtifactModel<?> model : models) {
-                                        update(model, ext, nativeSupported);
-                                        serialize(catalogPath, model);
-                                        schemesByKind.get(model.getKind()).add(model.getName());
-                                    }
-                                }
-                            });
+        findExtensions()
+                .forEach(extPath -> {
+                    final String artifactIdBase = extPath.getArtifactIdBase();
+                    final List<ArtifactModel<?>> models = catalog.filterModels(artifactIdBase)
+                            .collect(Collectors.toList());
+                    final Path runtimePomXmlPath = extPath
+                            .getExtensionDir().resolve("runtime/pom.xml")
+                            .toAbsolutePath().normalize();
+                    final CamelQuarkusExtension ext = CamelQuarkusExtension.read(runtimePomXmlPath);
+                    final boolean nativeSupported = ext.isNativeSupported();
+                    if (models.isEmpty()) {
+                        final ArtifactModel<?> model;
+                        final Kind extKind = ext.getKind();
+                        if (extKind == Kind.component) {
+                            model = new ComponentModel();
+                        } else if (extKind == Kind.language) {
+                            model = new LanguageModel();
+                        } else if (extKind == Kind.dataformat) {
+                            model = new DataFormatModel();
+                        } else {
+                            model = new OtherModel();
+                        }
+                        final String name = ext.getRuntimeArtifactId().replace("camel-quarkus-", "");
+                        model.setName(name);
+                        final String title = ext.getName().orElseThrow(() -> new RuntimeException(
+                                "name is missing in " + ext.getRuntimePomXmlPath()));
+                        model.setTitle(title);
+                        model.setDescription(ext.getDescription().orElseThrow(() -> new RuntimeException(
+                                "description is missing in " + ext.getRuntimePomXmlPath())));
+                        model.setDeprecated(CqUtils.isDeprecated(title, models));
+                        model.setLabel(ext.getLabel().orElse("quarkus"));
+                        update(model, ext, nativeSupported);
+                        CqCatalog.serialize(catalogPath, model);
+                        schemesByKind.get(model.getKind()).add(model.getName());
+                    } else {
+                        for (ArtifactModel<?> model : models) {
+                            update(model, ext, nativeSupported);
+                            CqCatalog.serialize(catalogPath, model);
+                            schemesByKind.get(model.getKind()).add(model.getName());
+                        }
+                    }
                 });
 
         CqCatalog.kinds().forEach(kind -> {
@@ -172,39 +158,6 @@ public class PrepareCatalogQuarkusMojo extends AbstractMojo {
             }
         });
 
-    }
-
-    private void serialize(final Path catalogPath, ArtifactModel<?> model) {
-        final Path out = catalogPath.resolve(model.getKind() + "s")
-                .resolve(model.getName() + ".json");
-        try {
-            Files.createDirectories(out.getParent());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not create " + out.getParent(), e);
-        }
-        String rawJson;
-        switch (Kind.valueOf(model.getKind())) {
-        case component:
-            rawJson = JsonMapper.createParameterJsonSchema((ComponentModel) model);
-            break;
-        case language:
-            rawJson = JsonMapper.createParameterJsonSchema((LanguageModel) model);
-            break;
-        case dataformat:
-            rawJson = JsonMapper.createParameterJsonSchema((DataFormatModel) model);
-            break;
-        case other:
-            rawJson = JsonMapper.createJsonSchema((OtherModel) model);
-            break;
-        default:
-            throw new IllegalStateException("Cannot serialize kind " + model.getKind());
-        }
-
-        try {
-            Files.write(out, rawJson.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            throw new RuntimeException("Could not write to " + out);
-        }
     }
 
     private static void update(ArtifactModel<?> model, CamelQuarkusExtension ext, boolean nativeSupported) {

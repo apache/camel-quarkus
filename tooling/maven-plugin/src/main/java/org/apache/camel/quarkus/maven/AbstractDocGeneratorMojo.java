@@ -24,13 +24,12 @@ import java.util.Map;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
-import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * Base for {@link CheckExtensionPagesMojo} and {@link UpdateExtensionDocPageMojo}.
  */
-abstract class AbstractDocGeneratorMojo extends AbstractMojo {
+abstract class AbstractDocGeneratorMojo extends AbstractExtensionListMojo {
     public static final String DEFAULT_TEMPLATES_URI_BASE = "classpath:/doc-templates";
     /**
      */
@@ -41,19 +40,6 @@ abstract class AbstractDocGeneratorMojo extends AbstractMojo {
      */
     @Parameter(property = "camel-quarkus.basedir", defaultValue = "${project.basedir}")
     File baseDir;
-
-    /**
-     * Encoding to read and write files in the current source tree
-     */
-    @Parameter(defaultValue = "${project.build.sourceEncoding}", required = true, property = "camel-quarkus.encoding")
-    String encoding;
-    /**
-     * The root directory of the Camel Quarkus source tree.
-     *
-     * @since 1.0.0-M8
-     */
-    @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}", required = true, property = "camel-quarkus.multiModuleProjectDirectory")
-    File multiModuleProjectDirectory;
 
     protected static <T extends Writer> T evalTemplate(Configuration cfg, String templateUri, Map<String, Object> model,
             T out) {

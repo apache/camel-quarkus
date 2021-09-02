@@ -23,10 +23,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
@@ -62,7 +60,7 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     /**
      * The directory relative to which the catalog data is read.
      */
-    @Parameter(defaultValue = "${project.build.directory}/classes", property = "camel-quarkus.catalogBaseDir")
+    @Parameter(defaultValue = "${project.build.directory}/classes", property = "cq.catalogBaseDir")
     File catalogBaseDir;
 
     /**
@@ -70,18 +68,6 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
      */
     @Parameter(defaultValue = "${maven.multiModuleProjectDirectory}/docs")
     File docsBaseDir;
-
-    /**
-     * List of directories that contain extensions
-     */
-    @Parameter(property = "cq.extensionDirectories", required = true)
-    List<File> extensionDirectories;
-
-    /**
-     * A set of artifactIdBases that are not extensions and should be excluded from the catalog
-     */
-    @Parameter(property = "cq.skipArtifactIdBases")
-    Set<String> skipArtifactIdBases;
 
     /**
      * The version of Camel we depend on
@@ -108,9 +94,6 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         final Path docsBasePath = docsBaseDir.toPath();
-        if (skipArtifactIdBases == null) {
-            skipArtifactIdBases = Collections.emptySet();
-        }
 
         camelBits(docsBasePath);
         extensions(docsBasePath);
@@ -186,17 +169,13 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
 
         final Set<String> artifactIdBases = new HashSet<>();
         final Set<CamelQuarkusExtension> extensions = new TreeSet<>(Comparator.comparing(e -> e.getName().get()));
-        extensionDirectories.stream()
-                .map(File::toPath)
-                .forEach(extDir -> {
-                    CqUtils.findExtensionArtifactIdBases(extDir)
-                            .filter(artifactIdBase -> !skipArtifactIdBases.contains(artifactIdBase))
-                            .forEach(artifactIdBase -> {
-                                artifactIdBases.add(artifactIdBase);
-                                final Path runtimePomXmlPath = extDir.resolve(artifactIdBase).resolve("runtime/pom.xml")
-                                        .toAbsolutePath().normalize();
-                                extensions.add(CamelQuarkusExtension.read(runtimePomXmlPath));
-                            });
+        findExtensions()
+                .forEach(ext -> {
+                    final String artifactIdBase = ext.getArtifactIdBase();
+                    artifactIdBases.add(artifactIdBase);
+                    final Path runtimePomXmlPath = ext.getExtensionDir().resolve("runtime/pom.xml")
+                            .toAbsolutePath().normalize();
+                    extensions.add(CamelQuarkusExtension.read(runtimePomXmlPath));
                 });
 
         final String extLinks = extensions.stream()
@@ -223,12 +202,14 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
 
     void replace(Path path, String replacementKey, String value) {
         try {
-            String document = new String(Files.readAllBytes(path), encoding);
-            document = replace(document, path, replacementKey, value);
-            try {
-                Files.write(path, document.getBytes(encoding));
-            } catch (IOException e) {
-                throw new RuntimeException("Could not write to " + path, e);
+            final String oldDocument = new String(Files.readAllBytes(path), encoding);
+            final String newDocument = replace(oldDocument, path, replacementKey, value);
+            if (!oldDocument.equals(newDocument)) {
+                try {
+                    Files.write(path, newDocument.getBytes(encoding));
+                } catch (IOException e) {
+                    throw new RuntimeException("Could not write to " + path, e);
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException("Could not read from " + path, e);
