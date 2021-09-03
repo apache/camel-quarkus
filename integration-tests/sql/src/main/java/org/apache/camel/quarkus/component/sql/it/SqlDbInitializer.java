@@ -16,7 +16,10 @@
  */
 package org.apache.camel.quarkus.component.sql.it;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,17 +28,27 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
 import io.agroal.api.AgroalDataSource;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ApplicationScoped
 public class SqlDbInitializer {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SqlDbInitializer.class);
+
     @Inject
     AgroalDataSource dataSource;
 
+    @ConfigProperty(name = "quarkus.datasource.db-kind")
+    String dbKind;
+
     public void initDb() throws SQLException, IOException {
+
         try (Connection conn = dataSource.getConnection()) {
             try (Statement statement = conn.createStatement()) {
-                try (InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream("sql/initDb.sql");
+                try (InputStream is = Thread.currentThread().getContextClassLoader()
+                        .getResourceAsStream("sql/" + dbKind + "/initDb.sql");
                         InputStreamReader isr = new InputStreamReader(is);
                         BufferedReader reader = new BufferedReader(isr)) {
 
@@ -43,12 +56,16 @@ public class SqlDbInitializer {
                         try {
                             statement.execute(s);
                         } catch (SQLException e) {
-                            throw new RuntimeException(e);
+                            if (!s.toUpperCase().startsWith("DROP TABLE")) {
+                                throw new RuntimeException(e);
+                            } else {
+                                LOGGER.debug(String.format("Command '%s' failed.", s)); //use debug logging
+                            }
                         }
                     });
                 }
             }
         }
-    }
 
+    }
 }

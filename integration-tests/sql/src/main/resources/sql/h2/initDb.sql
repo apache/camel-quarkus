@@ -15,19 +15,23 @@
 -- limitations under the License.
 --
 
-DROP TABLE IF EXISTS camel
-CREATE TABLE camel (id int AUTO_INCREMENT, species VARCHAR(255))
-CREATE ALIAS ADD_NUMS FOR "org.apache.camel.quarkus.component.sql.it.storedproc.NumberAddStoredProcedure.addNumbers"
+DROP TABLE IF EXISTS camel;
+CREATE TABLE camel (id int AUTO_INCREMENT, species VARCHAR(255));
+CREATE ALIAS ADD_NUMS FOR "org.apache.camel.quarkus.component.sql.it.storedproc.NumberAddStoredProcedure.addNumbers";
 
 -- for consumer
-DROP TABLE IF EXISTS projects
-create table projects (id integer primary key, project varchar(25), license varchar(5), processed BOOLEAN);
+DROP TABLE IF EXISTS projectsViaClasspath;
+create table projectsViaClasspath (id integer primary key, project varchar(25), license varchar(5), processed BOOLEAN);
+DROP TABLE IF EXISTS projectsViaSql;
+create table projectsViaSql (id integer primary key, project varchar(25), license varchar(5), processed BOOLEAN);
+DROP TABLE IF EXISTS projectsViaFile;
+create table projectsViaFile(id integer primary key, project varchar(25), license varchar(5), processed BOOLEAN);
 
 -- idempotent repo
-DROP TABLE IF EXISTS CAMEL_MESSAGEPROCESSED
+DROP TABLE IF EXISTS CAMEL_MESSAGEPROCESSED;
 
 -- aggregation repo
-DROP TABLE IF EXISTS aggregation
+DROP TABLE IF EXISTS aggregation;
 CREATE TABLE aggregation (id varchar(255) NOT NULL, exchange blob NOT NULL, version BIGINT NOT NULL, constraint aggregation_pk PRIMARY KEY (id));
-DROP TABLE IF EXISTS aggregation_completed
+DROP TABLE IF EXISTS aggregation_completed;
 CREATE TABLE aggregation_completed (id varchar(255) NOT NULL, exchange blob NOT NULL, version BIGINT NOT NULL, constraint aggregation_completed_pk PRIMARY KEY (id));

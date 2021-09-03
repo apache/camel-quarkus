@@ -27,7 +27,10 @@
 
     <artifactId>camel-quarkus-integration-test-sql</artifactId>
     <name>Camel Quarkus :: Integration Tests :: SQL</name>
-    <description>Integration tests for Camel Quarkus SQL extension</description>
+
+    <properties>
+        <cq.sqlJdbcKind>h2</cq.sqlJdbcKind>
+    </properties>
 
     <dependencies>
         <dependency>
@@ -44,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-jdbc-h2</artifactId>
+            <artifactId>quarkus-jdbc-${cq.sqlJdbcKind}</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -144,5 +147,4 @@
             </build>
         </profile>
     </profiles>
-
 </project>

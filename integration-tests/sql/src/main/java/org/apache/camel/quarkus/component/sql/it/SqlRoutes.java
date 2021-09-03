@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.sql.it;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -37,10 +38,14 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.aggregate.jdbc.JdbcAggregationRepository;
 import org.apache.camel.processor.idempotent.jdbc.JdbcMessageIdRepository;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.transaction.jta.JtaTransactionManager;
 
 @ApplicationScoped
 public class SqlRoutes extends RouteBuilder {
+
+    @ConfigProperty(name = "quarkus.datasource.db-kind")
+    String dbKind;
 
     @Inject
     @Named("results")
@@ -63,18 +68,25 @@ public class SqlRoutes extends RouteBuilder {
         //db has to be initialized before routes are started
         sqlDbInitializer.initDb();
 
-        from("sql:select * from projects where processed = false order by id?initialDelay=0&delay=50&consumer.onConsume=update projects set processed = true where id = :#id")
-                .id("consumerRoute").autoStartup(false)
-                .process(e -> results.get("consumerRoute").add(e.getMessage().getBody(Map.class)));
+        String representationOfTrue = SqlHelper.convertBooleanToSqlDialect(dbKind, true);
+        String representationOfFalse = SqlHelper.convertBooleanToSqlDialect(dbKind, false);
+        String selectProjectsScriptName = SqlHelper.getSelectProjectsScriptName(dbKind);
 
-        from("sql:classpath:sql/selectProjects.sql?initialDelay=0&delay=50&consumer.onConsume=update projects set processed = true")
-                .id("consumerClasspathRoute").autoStartup(false)
-                .process(e -> results.get("consumerClasspathRoute").add(e.getMessage().getBody(Map.class)));
+        from(String.format("sql:select * from projectsViaSql where processed = %s"
+                + " order by id?initialDelay=0&delay=50&consumer.onConsume=update projectsViaSql set processed = %s"
+                + " where id = :#id", representationOfFalse, representationOfTrue))
+                        .process(e -> results.get("consumerRoute").add(e.getMessage().getBody(Map.class)));
 
-        Path tmpFile = createTmpFileFrom("sql/selectProjects.sql");
-        from("sql:file:" + tmpFile
-                + "?initialDelay=0&delay=50&consumer.onConsume=update projects set processed = true")
-                        .id("consumerFileRoute").autoStartup(false)
+        from(String.format("sql:classpath:sql/common/%s?initialDelay=0&delay=50&" +
+                "consumer.onConsume=update projectsViaClasspath set processed = %s", selectProjectsScriptName,
+                representationOfTrue))
+                        .process(e -> results.get("consumerClasspathRoute").add(e.getMessage().getBody(Map.class)));
+
+        //File `sql/common/selectProjectsAs*.sql` is copied and modified to create tmp file for another test case
+        // (to have different file for the sql request from file and from classpath)
+        Path tmpFile = createTmpFileFrom("sql/common/" + selectProjectsScriptName);
+        from(String.format("sql:file:%s?initialDelay=0&delay=50&" +
+                "consumer.onConsume=update projectsViaFile set processed = %s", tmpFile, representationOfTrue))
                         .process(e -> results.get("consumerFileRoute").add(e.getMessage().getBody(Map.class)));
 
         from("direct:transacted")
@@ -114,7 +126,9 @@ public class SqlRoutes extends RouteBuilder {
             while ((c = is.read()) >= 0) {
                 baos.write(c);
             }
-            fos.write(baos.toByteArray());
+            String content = new String(baos.toByteArray(), StandardCharsets.UTF_8);
+            content = content.replaceAll("projectsViaClasspath", "projectsViaFile");
+            fos.write(content.getBytes(StandardCharsets.UTF_8));
         }
         return tmpFile.toPath();
     }
