@@ -27,7 +27,11 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import org.apache.camel.component.sql.SqlConstants;
 import org.apache.camel.util.CollectionHelper;
+import org.hamcrest.Matcher;
+import org.hamcrest.collection.IsMapContaining;
+import org.hamcrest.text.IsEqualIgnoringCase;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty;
 
 import static io.restassured.RestAssured.given;
 import static org.awaitility.Awaitility.await;
@@ -51,7 +55,7 @@ class SqlTest {
         RestAssured.get("/sql/get/Dromedarius")
                 .then()
                 .statusCode(200)
-                .body(is("[{ID=1, SPECIES=Dromedarius}]"));
+                .body(containsStringIgnoringCase("[{ID=1, SPECIES=Dromedarius}]"));
 
         // Retrieve camel species as list
         RestAssured.get("/sql/get/Dromedarius/list")
@@ -67,6 +71,7 @@ class SqlTest {
     }
 
     @Test
+    @DisabledIfSystemProperty(named = "cq.sqlJdbcKind", matches = "[^h][^2].*", disabledReason = "https://github.com/apache/camel-quarkus/issues/3080")
     public void testSqlStoredComponent() {
         // Invoke ADD_NUMS stored procedure
         RestAssured.given()
@@ -80,82 +85,80 @@ class SqlTest {
 
     @Test
     public void testConsumer() throws InterruptedException {
-        testConsumer(1, "consumerRoute");
+        testConsumer(1, "consumerRoute", "ViaSql");
     }
 
     @Test
     public void testClasspathConsumer() throws InterruptedException {
-        testConsumer(2, "consumerClasspathRoute");
+        testConsumer(2, "consumerClasspathRoute", "ViaClasspath");
     }
 
     @Test
     public void testFileConsumer() throws InterruptedException {
-        testConsumer(3, "consumerFileRoute");
+        testConsumer(3, "consumerFileRoute", "ViaFile");
     }
 
-    private void testConsumer(int id, String routeId) throws InterruptedException {
-        route(routeId, "start", "Started");
-
+    @SuppressWarnings("unchecked")
+    private void testConsumer(int id, String routeId, String via) throws InterruptedException {
         Map project = CollectionHelper.mapOf("ID", id, "PROJECT", routeId, "LICENSE", "222", "PROCESSED", false);
         Map updatedProject = CollectionHelper.mapOf("ID", id, "PROJECT", routeId, "LICENSE", "XXX", "PROCESSED", false);
 
         postMapWithParam("/sql/insert",
-                "table", "projects",
+                "table", "projects" + via,
                 project)
                         .statusCode(201);
 
         //wait for the record to be caught
-        await().atMost(5, TimeUnit.SECONDS).until(() -> (Iterable<Object>) RestAssured
+        await().atMost(30, TimeUnit.SECONDS).until(() -> (Iterable<Object>) RestAssured
                 .get("/sql/get/results/" + routeId).then().extract().as(List.class),
-                both(iterableWithSize(1)).and(contains(project)));
+                hasItem(matchMapIgnoringCase(project)));
 
         //update
         postMapWithParam("/sql/update",
-                "table", "projects",
+                "table", "projects" + via,
                 updatedProject)
                         .statusCode(201);
 
         //wait for the record to be caught
-        await().atMost(5, TimeUnit.SECONDS).until(() -> (Iterable<Object>) RestAssured
+        await().atMost(30, TimeUnit.SECONDS).until(() -> (Iterable<Object>) RestAssured
                 .get("/sql/get/results/" + routeId).then().extract().as(List.class),
-                both(iterableWithSize(1)).and(contains(updatedProject)));
-
-        route(routeId, "stop", "Stopped");
+                hasItem(matchMapIgnoringCase(updatedProject)));
     }
 
     @Test
     public void testTransacted() throws InterruptedException {
 
         postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY,
-                "insert into projects values (5, 'Transacted', 'ASF', false)",
+                "insert into projectsViaSql values (5, 'Transacted', 'ASF', BOOLEAN_FALSE)",
                 "rollback", false))
                         .statusCode(204);
 
         postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY,
-                "select * from projects where project = 'Transacted'"))
+                "select * from projectsViaSql where project = 'Transacted'"))
                         .statusCode(200)
                         .body("size()", is(1));
 
         postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY,
-                "insert into projects values (6, 'Transacted', 'ASF', false)",
+                "insert into projectsViaSql values (6, 'Transacted', 'ASF', BOOLEAN_FALSE)",
                 "rollback", true))
                         .statusCode(200)
                         .body(is("java.lang.Exception:forced Exception"));
 
         postMap("/sql/toDirect/transacted",
-                CollectionHelper.mapOf(SqlConstants.SQL_QUERY, "select * from projects where project = 'Transacted'"))
+                CollectionHelper.mapOf(SqlConstants.SQL_QUERY, "select * from projectsViaSql where project = 'Transacted'"))
                         .statusCode(200)
                         .body("size()", is(1));
     }
 
     @Test
     public void testDefaultErrorCode() throws InterruptedException {
-        postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY, "select * from NOT_EXIST order id"))
+        postMap("/sql/toDirect/transacted", CollectionHelper.mapOf(SqlConstants.SQL_QUERY, "select * from NOT_EXIST"))
                 .statusCode(200)
                 .body(startsWith("org.springframework.jdbc.BadSqlGrammarException"));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testIdempotentRepository() {
         // add value with key 1
         postMapWithParam("/sql/toDirect/idempotent",
@@ -188,6 +191,7 @@ class SqlTest {
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     public void testAggregationRepository() {
         postMapWithParam("/sql/toDirect/aggregation", "body", "A", CollectionHelper.mapOf("messageId", "123"))
                 .statusCode(200);
@@ -224,16 +228,26 @@ class SqlTest {
                 .then();
     }
 
-    private void route(String routeId, String operation, String expectedOutput) {
-        RestAssured.given()
-                .get("/sql/route/" + routeId + "/" + operation)
-                .then().statusCode(204);
+    @SuppressWarnings("unchecked")
+    public static org.hamcrest.Matcher<java.util.Map<String, Object>> matchMapIgnoringCase(Map<String, Object> map) {
+        Matcher m = null;
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Matcher fieldCondition;
+            if (entry.getValue() instanceof Boolean) {
+                //it is boolean type and different dbs return different representations of boolean
+                fieldCondition = either(new IsMapContaining(new IsEqualIgnoringCase(entry.getKey()), is(entry.getValue())))
+                        .or(new IsMapContaining(new IsEqualIgnoringCase(entry.getKey()),
+                                is((Boolean) entry.getValue() ? 1 : 0)));
+            } else {
+                fieldCondition = new IsMapContaining(new IsEqualIgnoringCase(entry.getKey()), is(entry.getValue()));
+            }
 
-        if (expectedOutput != null) {
-            await().atMost(5, TimeUnit.SECONDS).until(() -> RestAssured
-                    .get("/sql/route/" + routeId + "/status")
-                    .then()
-                    .extract().asString(), equalTo(expectedOutput));
+            if (m == null) {
+                m = fieldCondition;
+            } else {
+                m = both(m).and(fieldCondition);
+            }
         }
+        return m;
     }
 }

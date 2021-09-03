@@ -37,12 +37,17 @@ import io.agroal.api.AgroalDataSource;
 import org.apache.camel.CamelContext;
 import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.sql.SqlConstants;
 import org.apache.camel.quarkus.component.sql.it.model.Camel;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.springframework.util.LinkedCaseInsensitiveMap;
 
 @Path("/sql")
 @ApplicationScoped
 public class SqlResource {
+
+    @ConfigProperty(name = "quarkus.datasource.db-kind")
+    String dbKind;
 
     @Inject
     AgroalDataSource dataSource;
@@ -64,7 +69,7 @@ public class SqlResource {
         Map<String, Object> params = new HashMap<>();
         params.put("species", species);
 
-        return producerTemplate.requestBodyAndHeaders("sql:classpath:sql/get-camels.sql",
+        return producerTemplate.requestBodyAndHeaders("sql:classpath:sql/common/get-camels.sql",
                 null, params,
                 String.class);
     }
@@ -110,6 +115,7 @@ public class SqlResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.TEXT_PLAIN)
+    @SuppressWarnings("unchecked")
     public Response insert(@QueryParam("table") String table, Map<String, Object> values) throws Exception {
         LinkedHashMap linkedHashMap = new LinkedHashMap(values);
 
@@ -168,33 +174,18 @@ public class SqlResource {
         return list;
     }
 
-    @GET
-    @Path("/route/{routeId}/{operation}")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String route(@PathParam("routeId") String routeId, @PathParam("operation") String operation)
-            throws Exception {
-        //is start enough
-        switch (operation) {
-        case "stop":
-            camelContext.getRouteController().stopRoute(routeId);
-            break;
-        case "start":
-            camelContext.getRouteController().startRoute(routeId);
-            break;
-        case "status":
-            return camelContext.getRouteController().getRouteStatus(routeId).name();
-
-        }
-
-        return null;
-    }
-
     @Path("/toDirect/{directId}")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Object toDirect(@PathParam("directId") String directId, @QueryParam("body") String body, Map<String, Object> headers)
             throws Exception {
+        String sql = (String) headers.get(SqlConstants.SQL_QUERY);
+        if (sql != null) {
+            headers.put(SqlConstants.SQL_QUERY,
+                    sql.replaceAll("BOOLEAN_FALSE", SqlHelper.convertBooleanToSqlDialect(dbKind, false)));
+        }
+
         try {
             return producerTemplate.requestBodyAndHeaders("direct:" + directId, body, headers, Object.class);
         } catch (CamelExecutionException e) {

@@ -16,6 +16,6 @@
 --
 
 select *
-from projects
-where processed = false
+from projectsViaClasspath
+where processed = 0
 order by id
