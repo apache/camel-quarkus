@@ -6,10 +6,16 @@
 
 **Closed issues:**
 
+- JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
+- Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
 
 **Merged pull requests:**
 
+- Test OpenAPI with YAML responses [\#3062](https://github.com/apache/camel-quarkus/pull/3062) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use testcontainers gcloud for Google PubSub itest [\#3061](https://github.com/apache/camel-quarkus/pull/3061) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add additional test coverage for REST DSL methods [\#3060](https://github.com/apache/camel-quarkus/pull/3060) ([jamesnetherton](https://github.com/jamesnetherton))
+- Document tagging examples in the Release Guide [\#3059](https://github.com/apache/camel-quarkus/pull/3059) ([ppalaga](https://github.com/ppalaga))
 - Document mvn cq:await-release -Dcq.version=$VERSION [\#3057](https://github.com/apache/camel-quarkus/pull/3057) ([ppalaga](https://github.com/ppalaga))
 - Exclude main-unknown-args-ignore test from the list of tests for the platform again [\#3055](https://github.com/apache/camel-quarkus/pull/3055) ([ppalaga](https://github.com/ppalaga))
 - \[\#3028\] Increase test coverage of a binding mode of camel-rest component [\#3052](https://github.com/apache/camel-quarkus/pull/3052) ([VratislavHais](https://github.com/VratislavHais))
