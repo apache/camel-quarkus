@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
+- Allow extending an existing Catalog [\#3063](https://github.com/apache/camel-quarkus/pull/3063) ([ppalaga](https://github.com/ppalaga))
 - Test OpenAPI with YAML responses [\#3062](https://github.com/apache/camel-quarkus/pull/3062) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use testcontainers gcloud for Google PubSub itest [\#3061](https://github.com/apache/camel-quarkus/pull/3061) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add additional test coverage for REST DSL methods [\#3060](https://github.com/apache/camel-quarkus/pull/3060) ([jamesnetherton](https://github.com/jamesnetherton))
