@@ -20,12 +20,15 @@ import java.util.UUID;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_USERNAME", matches = ".+")
 @EnabledIfEnvironmentVariable(named = "SALESFORCE_PASSWORD", matches = ".+")
@@ -105,6 +108,15 @@ public class SalesforceIntegrationTest {
                         .statusCode(204);
             }
         }
+    }
+
+    @Test
+    void testPlatformEvents() {
+        String event = given()
+                .contentType(ContentType.JSON)
+                .get("/salesforce/platform/event")
+                .asString();
+        assertTrue(event.contains("channel=/event/TestEvent__e"));
     }
 
 }

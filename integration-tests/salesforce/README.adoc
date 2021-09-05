@@ -11,6 +11,8 @@ Next create a new 'Connected App' from the app manager page. You may need to adj
 
 Next create a document named 'test'.
 
+Next create a new Platform Event named `TestEvent`. Set Publish Behavior to `Publish Immediately`. Save and make sure the API name is `TestEvent__e`.
+
 You can find the app OAuth settings by choosing the 'view' option from the app manager page. Then set the following environment variables.
 
 [source,shell]
