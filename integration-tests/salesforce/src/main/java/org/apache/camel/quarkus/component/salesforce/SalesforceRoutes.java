@@ -87,6 +87,12 @@ public class SalesforceRoutes extends RouteBuilder {
                     + "updateTopic=true&sObjectQuery=SELECT Id, Name FROM Account")
                             .to("seda:RawPayloadCamelTestTopic");
 
+            // it takes some time for the subscriber to subscribe, so we'll try to
+            // send repeated platform events and wait until the first one is
+            // received
+            from("timer:platform")
+                    .setBody().simple("{}")
+                    .to("salesforce:createSObject?sObjectName=TestEvent__e");
         }
     }
 }
