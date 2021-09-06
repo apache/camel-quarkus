@@ -5,7 +5,7 @@ This extension allows to pre-load a set of Kamelets at build time using the `qua
 === Using the Kamelet Catalog
 
 A set of pre-made Kamelets can be found on the /camel-kamelets/latest[Kamelet Catalog].
-To use the Kamelet from the catalog you need to copy their yaml definition (that you can find https://github.com/apache/camel-kamelets/[in the camel-kamelet repo]) on your project in the classpath. Alternatively you can add the `camel-quarkus-kamelets-catalog` artifact to your `pom.xml`:
+To use the Kamelet from the catalog you need to copy their yaml definition (that you can find https://github.com/apache/camel-kamelets/[in the camel-kamelet repo]) on your project in the classpath. Alternatively you can add the `camel-kamelets-catalog` artifact to your `pom.xml`:
 
 [source,xml]
 ----
