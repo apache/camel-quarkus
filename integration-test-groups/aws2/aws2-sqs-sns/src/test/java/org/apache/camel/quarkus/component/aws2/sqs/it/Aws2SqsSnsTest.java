@@ -16,6 +16,11 @@
  */
 package org.apache.camel.quarkus.component.aws2.sqs.it;
 
+import java.time.Duration;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -26,12 +31,12 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.awaitility.Awaitility;
-import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.CoreMatchers.anyOf;
 import static org.hamcrest.core.Is.is;
 
 @QuarkusTest
@@ -40,28 +45,157 @@ class Aws2SqsSnsTest {
 
     @Test
     public void sqs() {
-        final Config config = ConfigProvider.getConfig();
-        final String queueName = config.getValue("aws-sqs.queue-name", String.class);
+        final String queueName = getPredefinedQueueName();
 
-        String[] queues = RestAssured.get("/aws2-sqs-sns/sqs/queues")
+        final String[] queues = listQueues();
+        Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
+
+        final String msg = sendSingleMessageToQueue(queueName);
+        awaitMessageFromQueue(msg, queueName);
+    }
+
+    private String[] listQueues() {
+        return RestAssured.get("/aws2-sqs-sns/sqs/queues")
                 .then()
                 .statusCode(200)
                 .extract()
                 .body().as(String[].class);
-        Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
+    }
 
+    @Test
+    public void sqsDeleteMessage() {
+        final String qName = getPredefinedQueueName();
+        final String msg = sendSingleMessageToQueue(qName);
+        final String receipt = receiveReceiptOfMessageFromQueue(qName);
+        deleteMessageFromQueue(qName, receipt);
+        Assertions.assertNotEquals(receiveMessageFromQueue(qName), msg);
+    }
+
+    private String getPredefinedQueueName() {
+        return ConfigProvider.getConfig().getValue("aws-sqs.queue-name", String.class);
+    }
+
+    private String sendSingleMessageToQueue(String queueName) {
         final String msg = "sqs" + UUID.randomUUID().toString().replace("-", "");
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .post("/aws2-sqs-sns/sqs/send")
+                .post("/aws2-sqs-sns/sqs/send/" + queueName)
                 .then()
                 .statusCode(201);
+        return msg;
+    }
 
+    private String receiveReceiptOfMessageFromQueue(String queueName) {
+        return RestAssured.get("/aws2-sqs-sns/sqs/receive/receipt/" + queueName)
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+    }
+
+    private void deleteMessageFromQueue(String queueName, String receipt) {
+        RestAssured.delete("/aws2-sqs-sns/sqs/delete/message/" + queueName + "/" + receipt)
+                .then()
+                .statusCode(200);
+    }
+
+    @Test
+    public void sqsAutoCreateDelayedQueue() {
+        final String qName = "delayQueue";
+        final int delay = 10;
+        createDelayQueueAndVerifyExistence("delayQueue", 10);
+        final String msgSent = sendSingleMessageToQueue(qName);
+        Instant start = Instant.now();
+        awaitMessageFromQueue(msgSent, qName);
+        Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
+        deleteQueue(qName);
+    }
+
+    private void createDelayQueueAndVerifyExistence(String queueName, int delay) {
+        final String[] queues = RestAssured.get("/aws2-sqs-sns/sqs/queue/autocreate/delayed/" + queueName + "/" + delay)
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .as(String[].class);
+        Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
+    }
+
+    private void awaitMessageFromQueue(String expectedContent, String queueName) {
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
-                () -> RestAssured.get("/aws2-sqs-sns/sqs/receive").then().statusCode(200).extract().body().asString(),
-                Matchers.is(msg));
+                () -> receiveMessageFromQueue(queueName),
+                Matchers.is(expectedContent));
+    }
 
+    private void deleteQueue(String queueName) {
+        RestAssured.get("/aws2-sqs-sns/sqs/delete/queue/" + queueName)
+                .then()
+                .statusCode(200);
+        awaitQueueDeleted(queueName);
+    }
+
+    private void awaitQueueDeleted(String queueName) {
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
+                () -> Stream.of(listQueues()).peek(System.out::println).noneMatch(url -> url.contains(queueName)));
+    }
+
+    private String receiveMessageFromQueue(String queueName) {
+        return receiveMessageFromQueue(queueName, true);
+    }
+
+    private String receiveMessageFromQueue(String queueName, boolean deleteMessage) {
+        return RestAssured.get("/aws2-sqs-sns/sqs/receive/" + queueName + "/" + deleteMessage)
+                .then()
+                .statusCode(anyOf(is(200), is(204)))
+                .extract()
+                .body()
+                .asString();
+    }
+
+    @Test
+    public void sqsSendBatchMessage() {
+        final List<String> messages = new ArrayList<>(Arrays.asList(
+                "Hello from camel-quarkus",
+                "This is a batch message test",
+                "Let's add few more messages",
+                "Next message will be last",
+                "Goodbye from camel-quarkus"));
+        Assertions.assertEquals(messages.size(), sendMessageBatchAndRetrieveSuccessCount(messages));
+    }
+
+    private int sendMessageBatchAndRetrieveSuccessCount(List<String> batch) {
+        return Integer.parseInt(RestAssured.given()
+                .contentType(ContentType.JSON)
+                .body(batch)
+                .post("/aws2-sqs-sns/sqs/batch")
+                .then()
+                .statusCode(201)
+                .extract()
+                .body()
+                .asString());
+    }
+
+    @Test
+    public void sqsPurgeQueue() {
+        final String qName = getPredefinedQueueName();
+        sendSingleMessageToQueue(qName);
+        purgeQueue(qName);
+        awaitAllMessagesDeletedFromQueue(qName);
+    }
+
+    private void purgeQueue(String queueName) {
+        RestAssured.delete("/aws2-sqs-sns/sqs/purge/queue/" + queueName)
+                .then()
+                .statusCode(200);
+    }
+
+    private void awaitAllMessagesDeletedFromQueue(String queueName) {
+        // it can take up to 60 seconds to purge all messages in queue as stated in documentation
+        Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(60, TimeUnit.SECONDS).until(
+                () -> receiveMessageFromQueue(queueName, false),
+                Matchers.emptyOrNullString());
     }
 
     @Test
