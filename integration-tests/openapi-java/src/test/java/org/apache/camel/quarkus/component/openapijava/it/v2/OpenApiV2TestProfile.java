@@ -14,10 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.openapijava.it;
+package org.apache.camel.quarkus.component.openapijava.it.v2;
 
-import io.quarkus.test.junit.NativeImageTest;
+import java.util.Map;
 
-@NativeImageTest
-class OpenApiIT extends OpenApiTest {
+import io.quarkus.test.junit.QuarkusTestProfile;
+import org.apache.camel.util.CollectionHelper;
+
+public class OpenApiV2TestProfile implements QuarkusTestProfile {
+
+    @Override
+    public Map<String, String> getConfigOverrides() {
+        return CollectionHelper.mapOf("openapi.version", "2.0.0");
+    }
 }
