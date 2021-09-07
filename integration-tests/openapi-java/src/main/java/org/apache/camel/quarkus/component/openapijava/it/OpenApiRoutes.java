@@ -20,19 +20,50 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.rest.CollectionFormat;
 import org.apache.camel.model.rest.RestParamType;
 import org.apache.camel.quarkus.component.openapijava.it.model.Fruit;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
+@ApplicationScoped
 public class OpenApiRoutes extends RouteBuilder {
+
+    @ConfigProperty(name = "openapi.version")
+    String openApiVersion;
+
     @Override
     public void configure() throws Exception {
 
-        rest()
+        restConfiguration()
+                .apiVendorExtension(true)
+                .useXForwardHeaders(false)
+                .host("localhost")
+                .port(8080)
+                .apiProperty("api.title", "Camel Quarkus API")
+                .apiProperty("api.description", "The Awesome Camel Quarkus REST API")
+                .apiProperty("api.version", "1.2.3")
+                .apiProperty("openapi.version", openApiVersion)
+                .apiProperty("cors", "true")
+                .apiProperty("schemes", "http,https")
+                .apiProperty("api.path", "/api-docs")
+                .apiProperty("base.path", "/api")
+                .apiProperty("api.termsOfService", "https://camel.apache.org");
+
+        // TODO: Enable license and contact config
+        // https://issues.apache.org/jira/browse/CAMEL-16923
+        // .apiProperty("api.contact.name", "Mr Camel Quarkus")
+        // .apiProperty("api.contact.email", "mrcq@cq.org")
+        // .apiProperty("api.contact.url", "https://camel.apache.org")
+        // .apiProperty("api.license.name", "Apache V2")
+        // .apiProperty("api.license.url", "https://www.apache.org/licenses/LICENSE-2.0");
+
+        rest("/api")
                 .get("/fruits/list")
+                .description("Gets a list of fruits")
                 .id("list")
                 .produces(MediaType.APPLICATION_JSON)
                 .route()
@@ -101,22 +132,6 @@ public class OpenApiRoutes extends RouteBuilder {
                 .basicAuth("basicAuth", "Basic Authentication")
                 .end()
 
-                .get("/security/bearer/token")
-                .route()
-                .setBody().constant("/security/bearer/token")
-                .endRest()
-                .securityDefinitions()
-                .bearerToken("bearerAuth", "Bearer Token Authentication")
-                .end()
-
-                .get("/security/mutual/tls")
-                .route()
-                .setBody().constant("/security/mutual/tls")
-                .endRest()
-                .securityDefinitions()
-                .mutualTLS("mutualTLS")
-                .end()
-
                 .get("/security/oauth2")
                 .route()
                 .setBody().constant("/security/oauth2")
@@ -129,15 +144,34 @@ public class OpenApiRoutes extends RouteBuilder {
                 .withScope("scope2", "Scope 2")
                 .withScope("scope3", "Scope 3")
                 .end()
-                .end()
-
-                .get("/security/openid")
-                .route()
-                .setBody().constant("/security/openid")
-                .endRest()
-                .securityDefinitions()
-                .openIdConnect("openId", "https://secure.apache.org/fake/openid-configuration")
                 .end();
+
+        if (openApiVersion.equals("3.0.0")) {
+            rest()
+                    .get("/security/bearer/token")
+                    .route()
+                    .setBody().constant("/security/bearer/token")
+                    .endRest()
+                    .securityDefinitions()
+                    .bearerToken("bearerAuth", "Bearer Token Authentication")
+                    .end()
+
+                    .get("/security/mutual/tls")
+                    .route()
+                    .setBody().constant("/security/mutual/tls")
+                    .endRest()
+                    .securityDefinitions()
+                    .mutualTLS("mutualTLS")
+                    .end()
+
+                    .get("/security/openid")
+                    .route()
+                    .setBody().constant("/security/openid")
+                    .endRest()
+                    .securityDefinitions()
+                    .openIdConnect("openId", "https://secure.apache.org/fake/openid-configuration")
+                    .end();
+        }
     }
 
     private Set<Fruit> getFruits() {
