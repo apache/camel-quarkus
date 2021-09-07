@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
+- Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
 - \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
 - Allow extending an existing Catalog [\#3063](https://github.com/apache/camel-quarkus/pull/3063) ([ppalaga](https://github.com/ppalaga))
 - Test OpenAPI with YAML responses [\#3062](https://github.com/apache/camel-quarkus/pull/3062) ([jamesnetherton](https://github.com/jamesnetherton))
