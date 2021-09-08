@@ -6,12 +6,14 @@
 
 **Closed issues:**
 
+- Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
 - Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
 
 **Merged pull requests:**
 
+- Expand OpenApi Java test coverage [\#3073](https://github.com/apache/camel-quarkus/pull/3073) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
 - Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
 - \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
