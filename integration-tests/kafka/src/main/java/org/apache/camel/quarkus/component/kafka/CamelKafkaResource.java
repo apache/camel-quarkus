@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.kafka;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
@@ -39,16 +40,22 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.Exchange;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.kafka.KafkaClientFactory;
+import org.apache.camel.component.kafka.KafkaConstants;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.quarkus.component.kafka.model.KafkaMessage;
+import org.apache.camel.quarkus.component.kafka.model.Price;
+import org.apache.camel.spi.RouteController;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
+import org.apache.kafka.common.header.internals.RecordHeader;
 
 @Path("/kafka")
 @ApplicationScoped
@@ -67,6 +74,9 @@ public class CamelKafkaResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    ConsumerTemplate consumerTemplate;
 
     @Path("/custom/client/factory/missing")
     @GET
@@ -127,4 +137,66 @@ public class CamelKafkaResource {
                 .map(m -> m.getBody(String.class))
                 .collect(Collectors.toList());
     }
+
+    @Path("/foo/{action}")
+    @POST
+    public Response modifyFooConsumerState(@PathParam("action") String action) throws Exception {
+        RouteController controller = context.getRouteController();
+        if (action.equals("start")) {
+            controller.startRoute("foo");
+        } else if (action.equals("stop")) {
+            controller.stopRoute("foo");
+        } else {
+            throw new IllegalArgumentException("Unknown action: " + action);
+        }
+        return Response.ok().build();
+    }
+
+    @Path("/seda/{queue}")
+    @GET
+    public String getSedaMessage(@PathParam("queue") String queueName) {
+        return consumerTemplate.receiveBody(String.format("seda:%s", queueName), 10000, String.class);
+    }
+
+    @Path("price/{key}")
+    @POST
+    public Response postPrice(@PathParam("key") Integer key, Double price) {
+        String routeURI = "kafka:test-serializer?autoOffsetReset=earliest&keySerializer=org.apache.kafka.common.serialization.IntegerSerializer"
+                +
+                "&valueSerializer=org.apache.kafka.common.serialization.DoubleSerializer";
+        producerTemplate.sendBodyAndHeader(routeURI, price, KafkaConstants.KEY, key);
+        return Response.ok().build();
+    }
+
+    @Path("price")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Price getPrice() {
+        Exchange exchange = consumerTemplate.receive("seda:serializer", 10000);
+        Integer key = exchange.getMessage().getHeader(KafkaConstants.KEY, Integer.class);
+        Double price = exchange.getMessage().getBody(Double.class);
+        return new Price(key, price);
+    }
+
+    @Path("propagate/{id}")
+    @POST
+    public Response postMessageWithHeader(@PathParam("id") Integer id, String message) {
+        try (Producer<Integer, String> producer = new KafkaProducer<>(producerProperties)) {
+            ProducerRecord data = new ProducerRecord<>("test-propagation", id, message);
+            data.headers().add(new RecordHeader("id", BigInteger.valueOf(id).toByteArray()));
+            producer.send(data);
+        }
+        return Response.ok().build();
+    }
+
+    @Path("propagate")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public KafkaMessage getKafkaMessage() {
+        Exchange exchange = consumerTemplate.receive("seda:propagation", 10000);
+        String id = exchange.getMessage().getHeader("id", String.class);
+        String message = exchange.getMessage().getBody(String.class);
+        return new KafkaMessage(id, message);
+    }
+
 }
