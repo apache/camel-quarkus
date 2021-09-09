@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.jaeger.deployment.JaegerEnabled;
 import org.apache.camel.opentracing.OpenTracingTracer;
 import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingConfig;
 import org.apache.camel.quarkus.component.opentracing.CamelOpenTracingRecorder;
@@ -35,7 +36,7 @@ class OpenTracingProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
+    @BuildStep(onlyIf = JaegerEnabled.class)
     @Record(ExecutionTime.STATIC_INIT)
     CamelBeanBuildItem setupCamelOpenTracingTracer(CamelOpenTracingConfig config, CamelOpenTracingRecorder recorder,
             BeanContainerBuildItem beanContainer) {
