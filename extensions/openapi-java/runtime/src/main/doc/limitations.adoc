@@ -1,0 +1,3 @@
+The `apiContextIdListing` configuration option is not supported. Since multiple `CamelContext`s are not supported and Quarkus applications run standalone, there
+is no scenario where attempting to resolve OpenApi specifications for a specific `CamelContext` would be useful. It also introduces some additional overhead of
+requiring JMX (which is not supported in native mode) & additional Camel Quarkus extensions for processing XML.
