@@ -73,7 +73,7 @@ group-04:
   - kudu
   - leveldb
   - minio
-  - mongodb
+  - mongodb-grouped
   - sjms-artemis-client
 group-05:
   - avro
