@@ -65,4 +65,4 @@ from("platform-http:/upload/multipart?fileNameExtWhitelist=adoc,txt&httpMethodRe
 ----
 
 Also check the `quarkus.http.body.*` configuration options in
-https://quarkus.io/guides/all-config[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.
+https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.
