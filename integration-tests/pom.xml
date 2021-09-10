@@ -145,7 +145,7 @@
         <module>microprofile</module>
         <module>minio</module>
         <module>mllp</module>
-        <module>mongodb</module>
+        <module>mongodb-grouped</module>
         <module>msv</module>
         <module>mustache</module>
         <module>nagios</module>
