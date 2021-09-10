@@ -18,19 +18,16 @@ package org.apache.camel.quarkus.component.aws2;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URI;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.StandardOpenOption;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -52,9 +49,6 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.component.aws2.s3.AWS2S3Operations;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
-import org.jboss.resteasy.plugins.providers.multipart.InputPart;
-import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import software.amazon.awssdk.core.ResponseInputStream;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -135,32 +129,17 @@ public class Aws2S3Resource {
         return objects.stream().map(S3Object::key).collect(Collectors.toList());
     }
 
-    @Path("s3/upload")
+    @Path("s3/upload/{key}")
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public String multipartUpload(@MultipartForm MultipartFormDataInput input) throws Exception {
-
-        Map<String, List<InputPart>> formDataMap = input.getFormDataMap();
-        String fileName = formDataMap.get("fileName").get(0).getBodyAsString();
-
-        if (fileName == null) {
-            throw new FileNotFoundException();
-        }
-
+    public String upload(@PathParam("key") String key, String content) throws Exception {
         File file = File.createTempFile("aws2-", ".tmp");
+        Files.writeString(file.toPath(), content, StandardOpenOption.WRITE);
+        int partSize = 5 * 1024 * 1024;
 
-        List<InputPart> inputParts = formDataMap.get("file");
-        for (InputPart inputPart : inputParts) {
-            InputStream inputStream = inputPart.getBody(InputStream.class, null);
-            Files.copy(inputStream, file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        }
-
-        input.close();
-
-        String key = fileName + UUID.randomUUID().toString();
         producerTemplate.sendBodyAndHeader(
-                componentUri() + "?multiPartUpload=true&autoCreateBucket=true",
+                componentUri() + "?multiPartUpload=true&partSize=" + partSize + "&autoCreateBucket=true",
                 file,
                 AWS2S3Constants.KEY,
                 key);

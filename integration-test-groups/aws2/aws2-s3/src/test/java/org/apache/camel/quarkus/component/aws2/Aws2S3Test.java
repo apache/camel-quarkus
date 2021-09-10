@@ -16,22 +16,20 @@
  */
 package org.apache.camel.quarkus.component.aws2;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 import java.util.stream.Stream;
-
-import javax.ws.rs.core.MediaType;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -131,23 +129,24 @@ class Aws2S3Test {
 
     @Test
     public void upload() throws Exception {
-        String fileName = "test.txt";
-        InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName);
-        String content = new String(file.readAllBytes(), StandardCharsets.UTF_8);
+        final String oid = UUID.randomUUID().toString();
+        final String content = RandomStringUtils.randomAlphabetic(8 * 1024 * 1024);
 
-        String oid = RestAssured.given()
-                .contentType(ContentType.MULTIPART)
-                .multiPart("fileName", fileName)
-                .multiPart("file", content, MediaType.APPLICATION_OCTET_STREAM)
-                .post("/aws2/s3/upload")
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(content)
+                .post("/aws2/s3/upload/" + oid)
+                .then()
+                .statusCode(200);
+
+        String result = RestAssured.get("/aws2/s3/object/" + oid)
                 .then()
                 .statusCode(200)
                 .extract().asString();
 
-        RestAssured.get("/aws2/s3/object/" + oid)
-                .then()
-                .statusCode(200)
-                .body(is(content));
+        // strip the chuck-signature
+        result = result.replaceAll("\\s*[0-9]+;chunk-signature=\\w{64}\\s*", "");
+        assertEquals(content, result);
     }
 
     @Test
