@@ -4,18 +4,31 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.0...HEAD)
 
+**Fixed bugs:**
+
+- Opentracing can't be disabled via config [\#3084](https://github.com/apache/camel-quarkus/issues/3084)
+
 **Closed issues:**
 
+- Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
 - Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
+- Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
 - Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
+- Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
 
 **Merged pull requests:**
 
+- Remove superfluous xml-jaxb dependency from the REST test [\#3090](https://github.com/apache/camel-quarkus/pull/3090) ([ppalaga](https://github.com/ppalaga))
+- Only configure OpenTracingTracer if Quarkus Jaeger tracing is enabled [\#3085](https://github.com/apache/camel-quarkus/pull/3085) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add documentation to OpenApi Java extension about apiContextIdListing limitations [\#3082](https://github.com/apache/camel-quarkus/pull/3082) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove redundant dependencies from openapi-java extension [\#3081](https://github.com/apache/camel-quarkus/pull/3081) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#2745 Expand AWS S3 test coverage [\#3077](https://github.com/apache/camel-quarkus/pull/3077) ([zhfeng](https://github.com/zhfeng))
 - Expand OpenApi Java test coverage [\#3073](https://github.com/apache/camel-quarkus/pull/3073) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
 - Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
+- Sql - enable test with different databases \#3053 [\#3066](https://github.com/apache/camel-quarkus/pull/3066) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
 - Allow extending an existing Catalog [\#3063](https://github.com/apache/camel-quarkus/pull/3063) ([ppalaga](https://github.com/ppalaga))
 - Test OpenAPI with YAML responses [\#3062](https://github.com/apache/camel-quarkus/pull/3062) ([jamesnetherton](https://github.com/jamesnetherton))
