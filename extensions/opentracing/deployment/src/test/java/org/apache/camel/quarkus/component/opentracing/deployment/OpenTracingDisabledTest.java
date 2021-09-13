@@ -14,22 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
+package org.apache.camel.quarkus.component.opentracing.deployment;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
-import org.apache.camel.quarkus.core.CamelManagementEventBridge;
-import org.apache.camel.spi.EventNotifier;
-import org.apache.camel.spi.MessageHistoryFactory;
+import org.apache.camel.opentracing.OpenTracingTracer;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -37,11 +34,9 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileMetricsConfigOverrideTest {
+public class OpenTracingDisabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -52,28 +47,16 @@ public class MicroProfileMetricsConfigOverrideTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
-        assertTrue(context.getRoutePolicyFactories().isEmpty());
-
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof MicroProfileMetricsMessageHistoryFactory);
-
-        // There should always be one event notifier added by core for CamelManagementEventBridge
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(1, eventNotifiers.size());
-        assertTrue(eventNotifiers.get(0) instanceof CamelManagementEventBridge);
+    public void camelOpenTracingTracerRegistryBeanNull() {
+        Set<OpenTracingTracer> tracers = context.getRegistry().findByType(OpenTracingTracer.class);
+        assertTrue(tracers.isEmpty());
     }
 
     public static final Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.metrics.enable-route-policy", "false");
-        props.setProperty("quarkus.camel.metrics.enable-message-history", "true");
-        props.setProperty("quarkus.camel.metrics.enable-exchange-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-route-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-camel-context-event-notifier", "false");
+        props.setProperty("quarkus.jaeger.enabled", "false");
 
         try {
             props.store(writer, "");

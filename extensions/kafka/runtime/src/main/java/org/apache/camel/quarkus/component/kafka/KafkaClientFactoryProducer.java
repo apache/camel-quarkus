@@ -37,7 +37,7 @@ public class KafkaClientFactoryProducer {
     @Singleton
     @DefaultBean
     public KafkaClientFactory kafkaClientFactory(CamelKafkaRuntimeConfig config) {
-        if (kafkaConfig != null && config.kubernetesServiceBinding.mergeConfiguration) {
+        if (kafkaConfig != null && !kafkaConfig.isEmpty() && config.kubernetesServiceBinding.mergeConfiguration) {
             return new QuarkusKafkaClientFactory(kafkaConfig);
         }
         return null;

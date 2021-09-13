@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
+package org.apache.camel.quarkus.component.micrometer.deployment;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -26,7 +26,7 @@ import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
+import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
 import org.apache.camel.quarkus.core.CamelManagementEventBridge;
 import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.spi.MessageHistoryFactory;
@@ -41,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileMetricsConfigOverrideTest {
+public class MicrometerMetricsConfigOverrideTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -57,7 +57,7 @@ public class MicroProfileMetricsConfigOverrideTest {
 
         MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
         assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof MicroProfileMetricsMessageHistoryFactory);
+        assertTrue(messageHistoryFactory instanceof MicrometerMessageHistoryFactory);
 
         // There should always be one event notifier added by core for CamelManagementEventBridge
         List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
