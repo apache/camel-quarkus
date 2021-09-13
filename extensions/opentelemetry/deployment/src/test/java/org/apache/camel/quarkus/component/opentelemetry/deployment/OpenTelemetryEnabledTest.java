@@ -14,29 +14,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
+package org.apache.camel.quarkus.component.opentelemetry.deployment;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
-import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
-import org.apache.camel.spi.EventNotifier;
-import org.apache.camel.spi.MessageHistoryFactory;
-import org.apache.camel.spi.RoutePolicyFactory;
+import org.apache.camel.opentelemetry.CamelQuarkusOpenTelemetryTracer;
+import org.apache.camel.opentelemetry.OpenTelemetryTracer;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileMetricsConfigDefaultsTest {
+public class OpenTelemetryEnabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -46,16 +42,11 @@ public class MicroProfileMetricsConfigDefaultsTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
-        List<RoutePolicyFactory> routePolicyFactories = context.getRoutePolicyFactories();
-        assertEquals(1, routePolicyFactories.size());
-        assertTrue(routePolicyFactories.get(0) instanceof MicroProfileMetricsRoutePolicyFactory);
+    public void camelOpenTelemetryTracerRegistryBeanNotNull() {
+        Set<OpenTelemetryTracer> tracers = context.getRegistry().findByType(OpenTelemetryTracer.class);
+        assertEquals(1, tracers.size());
 
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
-
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(4, eventNotifiers.size());
+        OpenTelemetryTracer factory = tracers.iterator().next();
+        assertTrue(factory instanceof CamelQuarkusOpenTelemetryTracer);
     }
 }
