@@ -21,6 +21,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.micrometer.deployment.MicrometerProcessor.MicrometerEnabled;
 import io.quarkus.micrometer.deployment.RootMeterRegistryBuildItem;
 import org.apache.camel.component.micrometer.MicrometerConstants;
 import org.apache.camel.quarkus.component.micrometer.CamelMicrometerConfig;
@@ -38,7 +39,7 @@ class MicrometerProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
+    @BuildStep(onlyIf = MicrometerEnabled.class)
     CamelBeanBuildItem meterRegistry(RootMeterRegistryBuildItem registry) {
         return new CamelBeanBuildItem(
                 MicrometerConstants.METRICS_REGISTRY_NAME,
@@ -47,7 +48,7 @@ class MicrometerProcessor {
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep
+    @BuildStep(onlyIf = MicrometerEnabled.class)
     CamelContextCustomizerBuildItem contextCustomizer(
             CamelMicrometerRecorder recorder,
             CamelMicrometerConfig config) {
@@ -56,7 +57,7 @@ class MicrometerProcessor {
     }
 
     @Record(ExecutionTime.RUNTIME_INIT)
-    @BuildStep
+    @BuildStep(onlyIf = MicrometerEnabled.class)
     RuntimeCamelContextCustomizerBuildItem runtimeContextCustomizer(
             CamelMicrometerRecorder recorder,
             CamelMicrometerConfig config) {

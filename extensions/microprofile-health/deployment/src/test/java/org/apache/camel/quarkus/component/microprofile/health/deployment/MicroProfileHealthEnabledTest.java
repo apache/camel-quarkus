@@ -14,29 +14,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
+package org.apache.camel.quarkus.component.microprofile.health.deployment;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
-import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
-import org.apache.camel.spi.EventNotifier;
-import org.apache.camel.spi.MessageHistoryFactory;
-import org.apache.camel.spi.RoutePolicyFactory;
+import org.apache.camel.health.HealthCheckRegistry;
+import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
+import org.eclipse.microprofile.health.HealthCheck;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileMetricsConfigDefaultsTest {
+public class MicroProfileHealthEnabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -46,16 +43,18 @@ public class MicroProfileMetricsConfigDefaultsTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
-        List<RoutePolicyFactory> routePolicyFactories = context.getRoutePolicyFactories();
-        assertEquals(1, routePolicyFactories.size());
-        assertTrue(routePolicyFactories.get(0) instanceof MicroProfileMetricsRoutePolicyFactory);
+    public void healthCheckRegistryBeanNotNull() {
+        Set<HealthCheckRegistry> registries = context.getRegistry().findByType(HealthCheckRegistry.class);
+        assertEquals(1, registries.size());
 
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
-
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(4, eventNotifiers.size());
+        HealthCheckRegistry registry = registries.iterator().next();
+        assertTrue(registry instanceof DefaultHealthCheckRegistry);
     }
+
+    @Test
+    public void camelMicroProfileHealthCheckBeansNotNull() {
+        Set<HealthCheck> healthChecks = context.getRegistry().findByType(HealthCheck.class);
+        assertEquals(2, healthChecks.size());
+    }
+
 }
