@@ -33,10 +33,7 @@ import org.awaitility.Awaitility;
 import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
-//TODO disabled on Localstack, see https://github.com/apache/camel-quarkus/issues/2595
-@EnabledIfEnvironmentVariable(named = "AWS_ACCESS_KEY", matches = "[a-zA-Z0-9]+")
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2LambdaTest {
@@ -96,8 +93,8 @@ class Aws2LambdaTest {
                                     .post("/aws2-lambda/invoke/" + functionName)
                                     .then()
                                     .extract();
-                            System.out.println("Function " + functionName + " returned " + response.statusCode()
-                                    + "; will retry until timeout");
+                            String format = "Execution of aws2-lambda/invoke/%s returned status %d and content %s";
+                            System.out.println(String.format(format, functionName, response.statusCode(), response.asString()));
                             switch (response.statusCode()) {
                             case 200:
                                 final String greetings = response.jsonPath().getString("greetings");
@@ -118,7 +115,7 @@ class Aws2LambdaTest {
     static byte[] createFunctionZip() {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (ZipOutputStream out = new ZipOutputStream(baos)) {
-            out.putNextEntry(new ZipEntry("index.js"));
+            out.putNextEntry(new ZipEntry("index.py"));
             out.write(FUNCTION_SOURCE.getBytes(StandardCharsets.UTF_8));
             out.closeEntry();
         } catch (IOException e) {
@@ -127,12 +124,9 @@ class Aws2LambdaTest {
         return baos.toByteArray();
     }
 
-    private static final String FUNCTION_SOURCE = "exports.handler = function(event, context, callback) {\n"
-            + "   console.log(\"Received event: \", event);\n"
-            + "   var data = {\n"
-            + "       \"greetings\": \"Hello \" + event.firstName\n"
-            + "   };\n"
-            + "   callback(null, data);\n"
-            + "}\n";
-
+    private static final String FUNCTION_SOURCE = "def handler(event, context):\n" +
+            "    message = 'Hello {}'.format(event['firstName'])\n" +
+            "    return {\n" +
+            "        'greetings' : message\n" +
+            "    }\n";
 }

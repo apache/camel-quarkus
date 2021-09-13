@@ -43,6 +43,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
 import software.amazon.awssdk.services.lambda.model.InvalidParameterValueException;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
+import software.amazon.awssdk.services.lambda.model.Runtime;
 
 @Path("/aws2-lambda")
 @ApplicationScoped
@@ -64,7 +65,7 @@ public class Aws2LambdaResource {
                 new LinkedHashMap<String, Object>() {
                     {
                         put(Lambda2Constants.ROLE, roleArn);
-                        put(Lambda2Constants.RUNTIME, "nodejs12.x");
+                        put(Lambda2Constants.RUNTIME, Runtime.PYTHON3_9);
                         put(Lambda2Constants.HANDLER, "index.handler");
                     }
                 },
