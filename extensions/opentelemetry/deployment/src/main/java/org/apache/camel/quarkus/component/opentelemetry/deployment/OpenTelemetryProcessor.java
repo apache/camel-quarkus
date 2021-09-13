@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.opentelemetry.deployment;
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
+import io.quarkus.opentelemetry.deployment.tracing.TracerProcessor.TracerEnabled;
 import org.apache.camel.quarkus.component.opentelemetry.OpenTelemetryTracerProducer;
 
 class OpenTelemetryProcessor {
@@ -30,7 +31,7 @@ class OpenTelemetryProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
+    @BuildStep(onlyIf = TracerEnabled.class)
     AdditionalBeanBuildItem openTelemetryTracerProducerBean() {
         return AdditionalBeanBuildItem.builder()
                 .setUnremovable()

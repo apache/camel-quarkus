@@ -48,10 +48,3 @@ public final class CamelOpenTelemetryConfig {
     @ConfigItem
     public Optional<List<String>> excludePatterns;
 }
-
-/*
- * <li>exact match, returns true</li>
- * <li>wildcard match (pattern ends with a * and the uri starts with the pattern), returns true</li>
- * <li>regular expression match, returns true</li>
- * <li>exact match with uri normalization of the pattern if possible, returns true</li>
- */

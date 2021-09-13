@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
+package org.apache.camel.quarkus.component.micrometer.deployment;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.microprofile.metrics.route.policy.MicroProfileMetricsRoutePolicyFactory;
+import org.apache.camel.component.micrometer.routepolicy.MicrometerRoutePolicyFactory;
 import org.apache.camel.impl.engine.DefaultMessageHistoryFactory;
 import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.spi.MessageHistoryFactory;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileMetricsConfigDefaultsTest {
+public class MicrometerMetricsConfigDefaultsTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -46,16 +46,16 @@ public class MicroProfileMetricsConfigDefaultsTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
+    public void testMicrometerMetricsConfiguration() {
         List<RoutePolicyFactory> routePolicyFactories = context.getRoutePolicyFactories();
         assertEquals(1, routePolicyFactories.size());
-        assertTrue(routePolicyFactories.get(0) instanceof MicroProfileMetricsRoutePolicyFactory);
+        assertTrue(routePolicyFactories.get(0) instanceof MicrometerRoutePolicyFactory);
 
         MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
         assertNotNull(messageHistoryFactory);
         assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
 
         List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(4, eventNotifiers.size());
+        assertEquals(3, eventNotifiers.size());
     }
 }
