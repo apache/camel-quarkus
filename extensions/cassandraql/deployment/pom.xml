@@ -31,6 +31,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-vertx-deployment</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core-deployment</artifactId>
         </dependency>
@@ -41,6 +45,12 @@
         <dependency>
             <groupId>com.datastax.oss.quarkus</groupId>
             <artifactId>cassandra-quarkus-client-deployment</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.quarkus</groupId>
+                    <artifactId>quarkus-vertx-core-deployment</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
