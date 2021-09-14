@@ -183,15 +183,12 @@ public abstract class OpenApiTest {
                         "info.title", is("Camel Quarkus API"),
                         "info.version", is("1.2.3"),
                         "info.description", is("The Awesome Camel Quarkus REST API"),
-                        "info.termsOfService", is("https://camel.apache.org")
-                // TODO: Verify license and contact config
-                // https://issues.apache.org/jira/browse/CAMEL-16923
-                // "info.contact.name", is("Mr Camel Quarkus"),
-                // "info.contact.url", is("https://camel.apache.org"),
-                // "info.contact.email", is("mrcq@cq.org"),
-                // "info.license.name", is("Apache V2"),
-                // "info.license.url", is("https://www.apache.org/licenses/LICENSE-2.0")
-                );
+                        "info.termsOfService", is("https://camel.apache.org"),
+                        "info.contact.name", is("Mr Camel Quarkus"),
+                        "info.contact.url", is("https://camel.apache.org"),
+                        "info.contact.email", is("mrcq@cq.org"),
+                        "info.license.name", is("Apache V2"),
+                        "info.license.url", is("https://www.apache.org/licenses/LICENSE-2.0"));
     }
 
     @ParameterizedTest

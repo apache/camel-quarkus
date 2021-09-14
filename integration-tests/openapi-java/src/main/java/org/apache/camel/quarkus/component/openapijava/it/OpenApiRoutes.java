@@ -51,15 +51,12 @@ public class OpenApiRoutes extends RouteBuilder {
                 .apiProperty("schemes", "http,https")
                 .apiProperty("api.path", "/api-docs")
                 .apiProperty("base.path", "/api")
-                .apiProperty("api.termsOfService", "https://camel.apache.org");
-
-        // TODO: Enable license and contact config
-        // https://issues.apache.org/jira/browse/CAMEL-16923
-        // .apiProperty("api.contact.name", "Mr Camel Quarkus")
-        // .apiProperty("api.contact.email", "mrcq@cq.org")
-        // .apiProperty("api.contact.url", "https://camel.apache.org")
-        // .apiProperty("api.license.name", "Apache V2")
-        // .apiProperty("api.license.url", "https://www.apache.org/licenses/LICENSE-2.0");
+                .apiProperty("api.termsOfService", "https://camel.apache.org")
+                .apiProperty("api.contact.name", "Mr Camel Quarkus")
+                .apiProperty("api.contact.email", "mrcq@cq.org")
+                .apiProperty("api.contact.url", "https://camel.apache.org")
+                .apiProperty("api.license.name", "Apache V2")
+                .apiProperty("api.license.url", "https://www.apache.org/licenses/LICENSE-2.0");
 
         rest("/api")
                 .get("/fruits/list")
