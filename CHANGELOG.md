@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
 - Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
 - Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
@@ -20,6 +21,9 @@
 
 **Merged pull requests:**
 
+- Fixup 9788fb65 Remove leftover extensions-jvm/digitalocean [\#3098](https://github.com/apache/camel-quarkus/pull/3098) ([ppalaga](https://github.com/ppalaga))
+- Add notes on how to configure the Platform HTTP server [\#3096](https://github.com/apache/camel-quarkus/pull/3096) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use test grouping for MongoDB extensions [\#3092](https://github.com/apache/camel-quarkus/pull/3092) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove superfluous xml-jaxb dependency from the REST test [\#3090](https://github.com/apache/camel-quarkus/pull/3090) ([ppalaga](https://github.com/ppalaga))
 - Only configure OpenTracingTracer if Quarkus Jaeger tracing is enabled [\#3085](https://github.com/apache/camel-quarkus/pull/3085) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add documentation to OpenApi Java extension about apiContextIdListing limitations [\#3082](https://github.com/apache/camel-quarkus/pull/3082) ([jamesnetherton](https://github.com/jamesnetherton))
