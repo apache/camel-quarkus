@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.inject.Named;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObject;
@@ -31,6 +32,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.component.xchange.XChangeComponent;
 import org.knowm.xchange.currency.Currency;
 import org.knowm.xchange.currency.CurrencyPair;
 import org.knowm.xchange.dto.marketdata.Ticker;
@@ -41,9 +43,7 @@ import org.knowm.xchange.dto.meta.CurrencyPairMetaData;
 @ApplicationScoped
 public class XchangeResource {
 
-    // TODO: Reinstate binance as the default crypto exchange and kraken as the secondary
-    // https://github.com/apache/camel-quarkus/issues/3016
-    public static final String DEFAULT_CRYPTO_EXCHANGE = "kraken";
+    public static final String DEFAULT_CRYPTO_EXCHANGE = "binance";
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -51,10 +51,14 @@ public class XchangeResource {
     @Path("/ticker/{exchange}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject currencyTicker(@PathParam("exchange") String cryptoExchange,
+    public JsonObject currencyTicker(
+            @PathParam("exchange") String cryptoExchange,
             @QueryParam("currencyPair") String currencyPair) {
+
+        String component = cryptoExchange.equals(DEFAULT_CRYPTO_EXCHANGE) ? "xchange" : "xchange-" + cryptoExchange;
+
         Ticker ticker = producerTemplate.requestBody(
-                "xchange:" + cryptoExchange + "?service=marketdata&method=ticker&currencyPair=" + currencyPair, null,
+                component + ":" + cryptoExchange + "?service=marketdata&method=ticker&currencyPair=" + currencyPair, null,
                 Ticker.class);
         return Json.createObjectBuilder()
                 .add("last", ticker.getLast().longValue())
@@ -108,5 +112,12 @@ public class XchangeResource {
                 new CurrencyPair(base, counter),
                 CurrencyPairMetaData.class);
         return metaData.getTradingFee().toPlainString();
+    }
+
+    @Named("xchange-kraken")
+    public XChangeComponent xChangeComponent() {
+        // We are forced to create a dedicated component instance to work with multiple crypto exchanges
+        // https://issues.apache.org/jira/browse/CAMEL-16978
+        return new XChangeComponent();
     }
 }
