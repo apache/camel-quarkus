@@ -118,6 +118,18 @@ class HttpTest {
                 .body(is("Component " + component + " is using basic auth"));
     }
 
+    @Test
+    public void basicAuthCache() {
+        RestAssured
+                .given()
+                .queryParam("test-port", RestAssured.port)
+                .when()
+                .get("/test/client/http/auth/basic/cache")
+                .then()
+                .statusCode(200)
+                .body(is("Component http is using basic auth"));
+    }
+
     @ParameterizedTest
     @MethodSource("getHttpComponentNames")
     public void proxyServer(String component) {

@@ -19,6 +19,15 @@ package org.apache.camel.quarkus.component.http.it;
 import javax.inject.Named;
 
 import org.apache.camel.component.netty.ClientInitializerFactory;
+import org.apache.http.HttpHost;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.impl.auth.BasicScheme;
+import org.apache.http.impl.client.BasicAuthCache;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.protocol.HttpContext;
 import org.asynchttpclient.AsyncHttpClient;
 import org.asynchttpclient.AsyncHttpClientConfig;
 import org.asynchttpclient.DefaultAsyncHttpClient;
@@ -57,5 +66,24 @@ public class HttpProducers {
                 .build();
 
         return new DefaultAsyncHttpClient(config);
+    }
+
+    @Named
+    HttpContext basicAuthContext() {
+        Integer port = ConfigProvider.getConfig().getValue("quarkus.http.test-port", Integer.class);
+
+        UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(USER_ADMIN, USER_ADMIN_PASSWORD);
+        CredentialsProvider provider = new BasicCredentialsProvider();
+        provider.setCredentials(AuthScope.ANY, credentials);
+
+        BasicAuthCache authCache = new BasicAuthCache();
+        BasicScheme basicAuth = new BasicScheme();
+        authCache.put(new HttpHost("localhost", port), basicAuth);
+
+        HttpClientContext context = HttpClientContext.create();
+        context.setAuthCache(authCache);
+        context.setCredentialsProvider(provider);
+
+        return context;
     }
 }
