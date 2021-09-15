@@ -60,7 +60,7 @@
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.10.2</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
-        <azure-sdk-bom.version>1.0.3</azure-sdk-bom.version><!-- Revert back to ${azure-sdk-bom-version} with Camel 3.11 see https://github.com/apache/camel/pull/5642 -->
+        <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
         <bouncycastle.version>1.69</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
