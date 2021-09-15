@@ -87,7 +87,7 @@ public class Aws2SqsSnsResource {
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.TEXT_PLAIN)
-    public Response sqsSendSpecificQueue(@PathParam("queueName") String queueName, String message) throws Exception {
+    public Response sqsSendToSpecificQueue(@PathParam("queueName") String queueName, String message) throws Exception {
         final String response = producerTemplate.requestBody(componentUri(queueName), message, String.class);
         return Response
                 .created(new URI("https://camel.apache.org/"))
@@ -179,13 +179,11 @@ public class Aws2SqsSnsResource {
     public List<String> autoCreateDelayedQueue(@PathParam("queueName") String queueName, @PathParam("delay") String delay)
             throws Exception {
         // queue creation without any operation resulted in 405 status code
-        return producerTemplate
-                .requestBody(
-                        "aws2-sqs://" + queueName
-                                + "?autoCreateQueue=true&delayQueue=true&delaySeconds=" + delay + "&operation=listQueues",
-                        null,
-                        ListQueuesResponse.class)
-                .queueUrls();
+        return producerTemplate.requestBody(
+                "aws2-sqs://" + queueName
+                        + "?autoCreateQueue=true&delayQueue=true&delaySeconds=" + delay + "&operation=listQueues",
+                null,
+                ListQueuesResponse.class).queueUrls();
     }
 
     private String componentUri() {
