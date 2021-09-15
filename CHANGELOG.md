@@ -17,6 +17,7 @@
 - Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
 - Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
+- Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
 - Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
 
 **Merged pull requests:**
@@ -32,6 +33,7 @@
 - Expand OpenApi Java test coverage [\#3073](https://github.com/apache/camel-quarkus/pull/3073) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
 - Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
+- Salesforce : add Platform events test fixes \#2938 [\#3068](https://github.com/apache/camel-quarkus/pull/3068) ([zbendhiba](https://github.com/zbendhiba))
 - Sql - enable test with different databases \#3053 [\#3066](https://github.com/apache/camel-quarkus/pull/3066) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - \[Website\] fix attribute syntax [\#3064](https://github.com/apache/camel-quarkus/pull/3064) ([djencks](https://github.com/djencks))
 - Allow extending an existing Catalog [\#3063](https://github.com/apache/camel-quarkus/pull/3063) ([ppalaga](https://github.com/ppalaga))
