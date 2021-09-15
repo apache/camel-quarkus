@@ -27,6 +27,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -40,10 +41,15 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.lambda.Lambda2Constants;
 import org.apache.camel.component.aws2.lambda.Lambda2Operations;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
+import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
 import software.amazon.awssdk.services.lambda.model.InvalidParameterValueException;
+import software.amazon.awssdk.services.lambda.model.LastUpdateStatus;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
 import software.amazon.awssdk.services.lambda.model.Runtime;
+import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
+import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
 
 @Path("/aws2-lambda")
 @ApplicationScoped
@@ -54,14 +60,14 @@ public class Aws2LambdaResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/create/{functionName}")
+    @Path("/function/create/{functionName}")
     @POST
     @Consumes("application/zip")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response createFunction(byte[] message, @PathParam("functionName") String functionName) throws Exception {
+    public Response createFunction(byte[] zipFunctionBytes, @PathParam("functionName") String functionName) throws Exception {
         final String response = producerTemplate.requestBodyAndHeaders(
                 componentUri(functionName, Lambda2Operations.createFunction),
-                message,
+                zipFunctionBytes,
                 new LinkedHashMap<String, Object>() {
                     {
                         put(Lambda2Constants.ROLE, roleArn);
@@ -76,10 +82,36 @@ public class Aws2LambdaResource {
                 .build();
     }
 
-    @Path("/listFunctions")
+    @Path("/function/get/{functionName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> listFunctions() throws Exception {
+    public String getFunction(@PathParam("functionName") String functionName) {
+        return producerTemplate
+                .requestBody(componentUri(functionName, Lambda2Operations.getFunction), null, GetFunctionResponse.class)
+                .configuration().functionName();
+    }
+
+    @Path("/function/update/{functionName}")
+    @PUT
+    @Consumes("application/zip")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateFunction(byte[] zipFunctionBytes, @PathParam("functionName") String functionName) {
+        String uri = componentUri(functionName, Lambda2Operations.updateFunction) + "&pojoRequest=true";
+        UpdateFunctionCodeRequest ufcRequest = UpdateFunctionCodeRequest.builder().functionName(functionName)
+                .zipFile(SdkBytes.fromByteArray(zipFunctionBytes)).build();
+        UpdateFunctionCodeResponse ufcResponse = producerTemplate.requestBody(uri, ufcRequest,
+                UpdateFunctionCodeResponse.class);
+        if (ufcResponse.lastUpdateStatus() == LastUpdateStatus.SUCCESSFUL) {
+            return Response.ok().build();
+        }
+        throw new IllegalStateException(
+                ufcResponse.lastUpdateStatusReasonCodeAsString() + ": " + ufcResponse.lastUpdateStatusReason());
+    }
+
+    @Path("/function/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> listFunctions() {
         return producerTemplate.requestBody(
                 componentUri("foo", Lambda2Operations.listFunctions),
                 null,
@@ -89,21 +121,21 @@ public class Aws2LambdaResource {
                 .collect(Collectors.toList());
     }
 
-    @Path("/invoke/{functionName}")
+    @Path("/function/invoke/{functionName}")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public String invoke(byte[] message, @PathParam("functionName") String functionName) throws Exception {
+    public String invokeFunction(byte[] message, @PathParam("functionName") String functionName) {
         return producerTemplate.requestBody(
                 componentUri(functionName, Lambda2Operations.invokeFunction),
                 message,
                 String.class);
     }
 
-    @Path("/delete/{functionName}")
+    @Path("/function/delete/{functionName}")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("functionName") String functionName) throws Exception {
+    public void delete(@PathParam("functionName") String functionName) {
         producerTemplate.requestBody(
                 componentUri(functionName, Lambda2Operations.deleteFunction),
                 null,

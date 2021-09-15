@@ -40,7 +40,7 @@ class Aws2LambdaTest {
     private static final Logger LOG = Logger.getLogger(Aws2LambdaTest.class);
 
     @Test
-    public void e2e() {
+    public void performingOperationsOnLambdaFunctionShouldSucceed() {
         final String functionName = "cqFunction" + java.util.UUID.randomUUID().toString().replace("-", "");
         final String name = "Joe " + java.util.UUID.randomUUID().toString().replace("-", "");
 
@@ -53,29 +53,43 @@ class Aws2LambdaTest {
                         () -> {
                             ExtractableResponse<?> response = RestAssured.given()
                                     .contentType("application/zip")
-                                    .body(createFunctionZip())
-                                    .post("/aws2-lambda/create/" + functionName)
+                                    .body(createInitialLambdaFunctionZip())
+                                    .post("/aws2-lambda/function/create/" + functionName)
                                     .then()
                                     .extract();
                             switch (response.statusCode()) {
                             case 201:
-                                LOG.infof("Function %s created", functionName);
+                                LOG.infof("Lambda function %s created", functionName);
                                 return true;
                             case 400:
-                                LOG.infof("Could not create function %s yet (will retry): %d %s", functionName,
+                                LOG.infof("Could not create Lambda function %s yet (will retry): %d %s", functionName,
                                         response.statusCode(),
                                         response.body().asString());
                                 return false;
                             default:
                                 throw new RuntimeException(
-                                        "Unexpected status from /aws2-lambda/create " + response.statusCode() + " "
+                                        "Unexpected status from /aws2-lambda/function/create " + response.statusCode() + " "
                                                 + response.body().asString());
                             }
                         });
 
         RestAssured.given()
                 .accept(ContentType.JSON)
-                .get("/aws2-lambda/listFunctions")
+                .get("/aws2-lambda/function/get/" + functionName)
+                .then()
+                .statusCode(200)
+                .body(Matchers.is(functionName));
+
+        RestAssured.given()
+                .contentType("application/zip")
+                .body(createUpdatedLambdaFunctionZip())
+                .put("/aws2-lambda/function/update/" + functionName)
+                .then()
+                .statusCode(200);
+
+        RestAssured.given()
+                .accept(ContentType.JSON)
+                .get("/aws2-lambda/function/list")
                 .then()
                 .statusCode(200)
                 .body("$", Matchers.hasItem(functionName));
@@ -90,7 +104,7 @@ class Aws2LambdaTest {
                             ExtractableResponse<?> response = RestAssured.given()
                                     .contentType(ContentType.JSON)
                                     .body("{ \"firstName\": \"" + name + "\"}")
-                                    .post("/aws2-lambda/invoke/" + functionName)
+                                    .post("/aws2-lambda/function/invoke/" + functionName)
                                     .then()
                                     .extract();
                             String format = "Execution of aws2-lambda/invoke/%s returned status %d and content %s";
@@ -103,20 +117,28 @@ class Aws2LambdaTest {
                                 return null;
                             }
                         },
-                        Matchers.is("Hello " + name));
+                        Matchers.is("Hello updated " + name));
 
         RestAssured.given()
-                .delete("/aws2-lambda/delete/" + functionName)
+                .delete("/aws2-lambda/function/delete/" + functionName)
                 .then()
                 .statusCode(204);
 
     }
 
-    static byte[] createFunctionZip() {
+    static byte[] createInitialLambdaFunctionZip() {
+        return createLambdaFunctionZip(INITIAL_FUNCTION_SOURCE);
+    }
+
+    static byte[] createUpdatedLambdaFunctionZip() {
+        return createLambdaFunctionZip(UPDATED_FUNCTION_SOURCE);
+    }
+
+    static byte[] createLambdaFunctionZip(String source) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         try (ZipOutputStream out = new ZipOutputStream(baos)) {
             out.putNextEntry(new ZipEntry("index.py"));
-            out.write(FUNCTION_SOURCE.getBytes(StandardCharsets.UTF_8));
+            out.write(source.getBytes(StandardCharsets.UTF_8));
             out.closeEntry();
         } catch (IOException e) {
             throw new RuntimeException("Could not create a zip file", e);
@@ -124,8 +146,14 @@ class Aws2LambdaTest {
         return baos.toByteArray();
     }
 
-    private static final String FUNCTION_SOURCE = "def handler(event, context):\n" +
+    private static final String INITIAL_FUNCTION_SOURCE = "def handler(event, context):\n" +
             "    message = 'Hello {}'.format(event['firstName'])\n" +
+            "    return {\n" +
+            "        'greetings' : message\n" +
+            "    }\n";
+
+    private static final String UPDATED_FUNCTION_SOURCE = "def handler(event, context):\n" +
+            "    message = 'Hello updated {}'.format(event['firstName'])\n" +
             "    return {\n" +
             "        'greetings' : message\n" +
             "    }\n";
