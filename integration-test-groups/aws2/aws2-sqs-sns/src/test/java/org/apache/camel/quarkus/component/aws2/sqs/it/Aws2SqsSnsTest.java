@@ -34,6 +34,7 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.anyOf;
@@ -51,7 +52,7 @@ class Aws2SqsSnsTest {
         Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
 
         final String msg = sendSingleMessageToQueue(queueName);
-        awaitMessageFromQueue(msg, queueName);
+        awaitMessageWithExpectedContentFromQueue(msg, queueName);
     }
 
     private String[] listQueues() {
@@ -102,28 +103,26 @@ class Aws2SqsSnsTest {
     }
 
     @Test
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3097")
     public void sqsAutoCreateDelayedQueue() {
         final String qName = "delayQueue";
         final int delay = 10;
-        createDelayQueueAndVerifyExistence("delayQueue", 10);
+        createDelayQueueAndVerifyExistence("delayQueue", delay);
         final String msgSent = sendSingleMessageToQueue(qName);
         Instant start = Instant.now();
-        awaitMessageFromQueue(msgSent, qName);
+        awaitMessageWithExpectedContentFromQueue(msgSent, qName);
         Assertions.assertTrue(Duration.between(start, Instant.now()).getSeconds() >= delay);
         deleteQueue(qName);
     }
 
     private void createDelayQueueAndVerifyExistence(String queueName, int delay) {
-        final String[] queues = RestAssured.get("/aws2-sqs-sns/sqs/queue/autocreate/delayed/" + queueName + "/" + delay)
+        RestAssured.post("/aws2-sqs-sns/sqs/queue/autocreate/delayed/" + queueName + "/" + delay)
                 .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(String[].class);
-        Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(queueName)));
+                .statusCode(200);
+        Assertions.assertTrue(Stream.of(listQueues()).anyMatch(url -> url.contains(queueName)));
     }
 
-    private void awaitMessageFromQueue(String expectedContent, String queueName) {
+    private void awaitMessageWithExpectedContentFromQueue(String expectedContent, String queueName) {
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
                 () -> receiveMessageFromQueue(queueName),
                 Matchers.is(expectedContent));
