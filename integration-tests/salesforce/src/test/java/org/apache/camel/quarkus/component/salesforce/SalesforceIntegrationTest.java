@@ -16,7 +16,9 @@
  */
 package org.apache.camel.quarkus.component.salesforce;
 
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
@@ -25,8 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.awaitility.Awaitility.await;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -59,25 +60,31 @@ public class SalesforceIntegrationTest {
                     .asString();
 
             // Verify we captured the account creation event
-            RestAssured.given()
-                    .get("/salesforce/cdc")
-                    .then()
-                    .statusCode(200)
-                    .body("Name", is(accountName));
+            await().atMost(30, TimeUnit.SECONDS).until(() -> {
+                Map result = RestAssured.given()
+                        .get("/salesforce/cdc")
+                        .body()
+                        .as(Map.class);
+                return result != null && accountName.equals(result.get(("Name")));
+            });
 
             // Verify we can stream the Account as Object
-            RestAssured.given()
-                    .get("/salesforce/streaming")
-                    .then()
-                    .statusCode(200)
-                    .body(equalTo(accountName));
+            await().atMost(30, TimeUnit.SECONDS).until(() -> {
+                String result = RestAssured.given()
+                        .get("/salesforce/streaming")
+                        .body()
+                        .asString();
+                return accountName.equals(result);
+            });
 
             // Verify we can stream the Account as Raw payload
-            RestAssured.given()
-                    .get("/salesforce/streaming/raw")
-                    .then()
-                    .statusCode(200)
-                    .body("Name", equalTo(accountName));
+            await().atMost(30, TimeUnit.SECONDS).until(() -> {
+                String result = RestAssured.given()
+                        .get("/salesforce/streaming/raw")
+                        .body()
+                        .asString();
+                return result != null && result.contains(accountName);
+            });
 
             // Get the topic ID
             topicId = RestAssured.given()
