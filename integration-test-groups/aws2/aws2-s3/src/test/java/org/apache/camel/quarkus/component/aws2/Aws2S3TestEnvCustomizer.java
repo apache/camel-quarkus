@@ -40,7 +40,13 @@ public class Aws2S3TestEnvCustomizer implements Aws2TestEnvCustomizer {
         final String bucketName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
         envContext.property("aws-s3.bucket-name", bucketName);
+        envContext.property("AWS_S3_CLIENT_URL",
+                envContext.getProperies().get("camel.component.aws2-s3.uri-endpoint-override"));
+        envContext.property("AWS_ACCESS_KEY",
+                envContext.getProperies().get("camel.component.aws2-s3.access-key"));
+        envContext.property("AWS_SECRET_KEY",
+                envContext.getProperies().get("camel.component.aws2-s3.secret-key"));
+
         envContext.closeable(() -> s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build()));
     }
-
 }
