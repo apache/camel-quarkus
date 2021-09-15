@@ -245,6 +245,23 @@ public class HttpResource {
         return Response.status(status).entity(body).build();
     }
 
+    @Path("/http/auth/basic/cache")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response httpBasicAuthCache(@QueryParam("test-port") int port) {
+
+        Exchange result = producerTemplate
+                .withHeader(Exchange.HTTP_QUERY, "component=http")
+                .toF("http://localhost:%d/test/client/auth/basic"
+                        + "?throwExceptionOnFailure=false"
+                        + "&httpContext=#basicAuthContext", port)
+                .send();
+
+        Integer status = result.getMessage().getHeader(Exchange.HTTP_RESPONSE_CODE, Integer.class);
+        String body = result.getMessage().getBody(String.class);
+        return Response.status(status).entity(body).build();
+    }
+
     @Path("/http/proxy")
     @GET
     @Produces(MediaType.APPLICATION_XML)
