@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
 - Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
 - Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
 - Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
@@ -22,6 +23,8 @@
 
 **Merged pull requests:**
 
+- Improve handling of quarkus.\*.enabled configuration properties [\#3100](https://github.com/apache/camel-quarkus/pull/3100) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade to the latest Camel & Quarkus releases [\#3099](https://github.com/apache/camel-quarkus/pull/3099) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup 9788fb65 Remove leftover extensions-jvm/digitalocean [\#3098](https://github.com/apache/camel-quarkus/pull/3098) ([ppalaga](https://github.com/ppalaga))
 - Add notes on how to configure the Platform HTTP server [\#3096](https://github.com/apache/camel-quarkus/pull/3096) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use test grouping for MongoDB extensions [\#3092](https://github.com/apache/camel-quarkus/pull/3092) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -30,6 +33,7 @@
 - Add documentation to OpenApi Java extension about apiContextIdListing limitations [\#3082](https://github.com/apache/camel-quarkus/pull/3082) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundant dependencies from openapi-java extension [\#3081](https://github.com/apache/camel-quarkus/pull/3081) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#2745 Expand AWS S3 test coverage [\#3077](https://github.com/apache/camel-quarkus/pull/3077) ([zhfeng](https://github.com/zhfeng))
+- WIP: \[\#2777\] Increase test coverage of aws2sqs component [\#3074](https://github.com/apache/camel-quarkus/pull/3074) ([VratislavHais](https://github.com/VratislavHais))
 - Expand OpenApi Java test coverage [\#3073](https://github.com/apache/camel-quarkus/pull/3073) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixed reference to camel-kamelets-catalog [\#3071](https://github.com/apache/camel-quarkus/pull/3071) ([oscerd](https://github.com/oscerd))
 - Fixed reference to Kamelets catalog [\#3070](https://github.com/apache/camel-quarkus/pull/3070) ([oscerd](https://github.com/oscerd))
