@@ -117,7 +117,7 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <arguments>run antora --generator @antora/xref-validator --fetch antora-playbook.yml --stacktrace</arguments>
+                                    <arguments>run checks</arguments>
                                 </configuration>
                             </execution>
                         </executions>

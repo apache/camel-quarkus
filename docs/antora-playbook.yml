@@ -19,16 +19,19 @@ site:
   title: Apache Camel extensions for Quarkus
   url: https://camel.apache.org
   start_page: camel-quarkus::index.adoc
+
 content:
   sources:
   - url: ./../
     branches: HEAD
     start_path: docs
+
   - url: git@github.com:apache/camel.git
     branches:
       - camel-3.11.x # replace ${camel.docs.branch}
     start_paths:
       - docs/components
+
   - url: git@github.com:apache/camel.git
     branches:
       - main
@@ -36,6 +39,14 @@ content:
       - docs/user-manual
       - docs/components
       - core/camel-core-engine/src/main/docs
+
+  - url: https://github.com/apache/camel-spring-boot.git
+    branches:
+      - main
+      - camel-spring-boot-3.11.x
+#      - camel-spring-boot-3.7.x
+#      - camel-spring-boot-3.4.x
+    start_path: docs
 
 asciidoc:
   extensions:
@@ -47,7 +58,14 @@ ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
+
 output:
   dir: ./target/site
+
 urls:
   redirect_facility: httpd
+
+runtime:
+  log:
+    level: info
+    failure_level: warn
