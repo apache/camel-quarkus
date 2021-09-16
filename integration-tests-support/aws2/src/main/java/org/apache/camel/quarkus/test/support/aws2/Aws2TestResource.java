@@ -71,7 +71,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
                     .distinct()
                     .toArray(Service[]::new);
 
-            LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.11"))
+            LocalStackContainer localstack = new LocalStackContainer(DockerImageName.parse("localstack/localstack:0.12.17.5"))
                     .withServices(services);
             localstack.withEnv("LAMBDA_EXECUTOR", "local");
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
