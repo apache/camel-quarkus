@@ -80,7 +80,21 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
                 envContext.closeable(() -> client.deleteTable(DeleteTableRequest.builder().tableName(table).build()));
             }
+        }
 
+        //copy local properties for the quarkus client
+        copyEnvPropertyAs(envContext, "camel.component.aws2-ddb.access-key",
+                "AWS_ACCESS_KEY");
+        copyEnvPropertyAs(envContext, "camel.component.aws2-ddb.secret-key",
+                "AWS_SECRET_KEY");
+        copyEnvPropertyAs(envContext, "camel.component.aws2-ddb.uri-endpoint-override",
+                "AWS_CONTAINER_CREDENTIALS_FULL_URI");
+    }
+
+    private void copyEnvPropertyAs(Aws2TestEnvContext envContext, String oldKey, String newKey) {
+        String value = envContext.getProperies().get(oldKey);
+        if (value != null) {
+            envContext.property(newKey, value);
         }
     }
 

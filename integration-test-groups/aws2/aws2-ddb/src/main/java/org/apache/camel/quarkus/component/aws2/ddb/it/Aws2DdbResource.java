@@ -46,6 +46,7 @@ import org.apache.camel.component.aws2.ddb.Ddb2Constants;
 import org.apache.camel.component.aws2.ddb.Ddb2Operations;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
@@ -73,6 +74,12 @@ public class Aws2DdbResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    /**
+     * Triggers creation of dynamoDb client via quarkus extension
+     */
+    @Inject
+    DynamoDbClient dynamoDB;
 
     @SuppressWarnings("serial")
     @Path("/item/{key}")

@@ -1,0 +1,50 @@
+The aws2-ddb extension is using a DynamoDB client under the hood.
+The underlying DynamoDB client could either be created by this extension itself or by the `quarkus-amazon-dynamobdb`.
+
+=== Client created by this extension
+
+In that case fill following properties:
+
+
+[source,properties]
+----
+camel.component.aws2-ddb.access-key=${AWS_ACCESS_KEY}
+camel.component.aws2-ddb.secret-key=${AWS_SECRET_KEY}
+camel.component.aws2-ddb.region=${AWS_REGION:us-east-1}
+----
+
+or
+
+[source,properties]
+----
+camel.component.aws2-ddbstream.access-key=${AWS_ACCESS_KEY}
+camel.component.aws2-ddbstream.secret-key=${AWS_SECRET_KEY}
+camel.component.aws2-ddbstream.region=${AWS_REGION:us-east-1}
+----
+
+=== Client created by `quarkus-amazon-dynamodb`
+
+To use client created by `quarkus-amazon-dynamodb` extension, follow the  https://quarkus.io/guides/amazon-dynamodb#configuring-dynamodb-clients[documentation] with some restrictions:
+
+- Apache client type has to be selected
+[source,properties]
+----
+quarkus.dynamodb.sync-client.type=apache
+----
+
+- All required dependencies are already part of the extension.
+There is no need to add them.
+
+- `DynamoDbClient` has to be injected somewhere in the application - this triggers creation of client via `quarkus-amazon-dynamodb`:
+
+[source,java]
+----
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
+
+@Inject
+DynamoDbClient dynamoDB;
+----
+
+
+
+
