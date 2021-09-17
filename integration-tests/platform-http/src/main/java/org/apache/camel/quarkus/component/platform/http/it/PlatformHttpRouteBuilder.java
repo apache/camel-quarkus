@@ -104,7 +104,7 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
 
         // 204 tests
         from("platform-http:/platform-http/null-body")
-                .setBody(constant(null));
+                .setBody().constant(null);
         from("platform-http:/platform-http/empty-string-body")
                 .setBody().constant("");
         from("platform-http:/platform-http/some-string")

@@ -24,6 +24,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.http.Method;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -32,6 +33,12 @@ import static org.hamcrest.CoreMatchers.equalTo;
 
 @QuarkusTest
 class PlatformHttpTest {
+
+    @BeforeAll
+    public static void beforeAll() {
+        RestAssured.trustStore("truststore.p12", "s3cr3t");
+    }
+
     @Test
     public void basic() {
         RestAssured.given()
