@@ -23,6 +23,7 @@ import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import org.apache.camel.component.salesforce.api.dto.AbstractDTOBase;
+import org.apache.camel.component.salesforce.api.dto.PlatformEvent;
 import org.apache.camel.component.salesforce.internal.dto.PushTopic;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -67,5 +68,7 @@ class SalesforceProcessor {
 
         // enabling the search for private fields : related to issue https://issues.apache.org/jira/browse/CAMEL-16860
         reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, PushTopic.class));
+        // enabling custom fields : related to issue https://github.com/apache/camel-quarkus/issues/3067
+        reflectiveClass.produce(new ReflectiveClassBuildItem(true, true, PlatformEvent.class));
     }
 }

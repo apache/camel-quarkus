@@ -117,6 +117,7 @@ public class SalesforceIntegrationTest {
                 .get("/salesforce/platform/event")
                 .asString();
         assertTrue(event.contains("channel=/event/TestEvent__e"));
+        assertTrue(event.contains("Test_Field__c=data"));
     }
 
 }
