@@ -91,7 +91,7 @@ public class SalesforceRoutes extends RouteBuilder {
             // send repeated platform events and wait until the first one is
             // received
             from("timer:platform")
-                    .setBody().simple("{}")
+                    .setBody().simple("{\"Test_Field__c\": \"data\"}")
                     .to("salesforce:createSObject?sObjectName=TestEvent__e");
         }
     }
