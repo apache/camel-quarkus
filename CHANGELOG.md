@@ -7,12 +7,15 @@
 **Fixed bugs:**
 
 - Opentracing can't be disabled via config [\#3084](https://github.com/apache/camel-quarkus/issues/3084)
+- XchangeTest failure due to deprecated binance WAPI endpoints [\#3016](https://github.com/apache/camel-quarkus/issues/3016)
 
 **Closed issues:**
 
+- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
 - Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
 - Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
+- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3079](https://github.com/apache/camel-quarkus/issues/3079)
 - Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
 - Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
@@ -20,9 +23,16 @@
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
 - Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
 - Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
+- AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
 
 **Merged pull requests:**
 
+- use Antora 3.0.0-alpha.9 and fail build on warn to check xrefs [\#3110](https://github.com/apache/camel-quarkus/pull/3110) ([djencks](https://github.com/djencks))
+- Upgrade aws localstack version \#2749 [\#3108](https://github.com/apache/camel-quarkus/pull/3108) ([aldettinger](https://github.com/aldettinger))
+- Reinstate binance in xchange tests [\#3106](https://github.com/apache/camel-quarkus/pull/3106) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3104](https://github.com/apache/camel-quarkus/pull/3104) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix lambda tests on localstack \#2595 [\#3102](https://github.com/apache/camel-quarkus/pull/3102) ([aldettinger](https://github.com/aldettinger))
+- Revert back to taking the azure-sdk-bom version from Camel [\#3101](https://github.com/apache/camel-quarkus/pull/3101) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve handling of quarkus.\*.enabled configuration properties [\#3100](https://github.com/apache/camel-quarkus/pull/3100) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade to the latest Camel & Quarkus releases [\#3099](https://github.com/apache/camel-quarkus/pull/3099) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup 9788fb65 Remove leftover extensions-jvm/digitalocean [\#3098](https://github.com/apache/camel-quarkus/pull/3098) ([ppalaga](https://github.com/ppalaga))
