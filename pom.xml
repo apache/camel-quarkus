@@ -113,6 +113,8 @@
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
+        <!-- TODO: Remove this when netty-bom issues are resolved https://github.com/apache/camel-quarkus/issues/3115 -->
+        <tcnative.version>2.0.43.Final</tcnative.version>
         <threetenbp.version>1.4.0</threetenbp.version>
         <xalan.version>${xalan-version}</xalan.version>
         <xchange.version>${xchange-version}</xchange.version>
