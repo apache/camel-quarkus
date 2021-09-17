@@ -75,6 +75,7 @@ public class PrepareCatalogQuarkusMojo extends AbstractExtensionListMojo {
         final CqCatalog catalog = CqCatalog.findFirstFromClassPath();
         if (extendClassPathCatalog) {
             catalog.store(catalogBaseDir.toPath());
+            catalog.models().forEach(model -> schemesByKind.get(model.getKind()).add(model.getName()));
         }
 
         findExtensions()
