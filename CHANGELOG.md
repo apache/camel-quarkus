@@ -16,17 +16,21 @@
 - Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
 - Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
 - Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3079](https://github.com/apache/camel-quarkus/issues/3079)
+- \[Camel 3.11.2 / Camel 3.12.0\] Enable tests for OpenApi license and contact info [\#3076](https://github.com/apache/camel-quarkus/issues/3076)
 - Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
 - Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
 - Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
 - Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
+- Read-lock tests are flawed [\#2888](https://github.com/apache/camel-quarkus/issues/2888)
+- Google PubSub Extension is not working in camel-k [\#2796](https://github.com/apache/camel-quarkus/issues/2796)
 - Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
 - AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
 
 **Merged pull requests:**
 
+- Fixup 68be716 Allow extending an existing Catalog [\#3113](https://github.com/apache/camel-quarkus/pull/3113) ([ppalaga](https://github.com/ppalaga))
 - use Antora 3.0.0-alpha.9 and fail build on warn to check xrefs [\#3110](https://github.com/apache/camel-quarkus/pull/3110) ([djencks](https://github.com/djencks))
 - Upgrade aws localstack version \#2749 [\#3108](https://github.com/apache/camel-quarkus/pull/3108) ([aldettinger](https://github.com/aldettinger))
 - Reinstate binance in xchange tests [\#3106](https://github.com/apache/camel-quarkus/pull/3106) ([jamesnetherton](https://github.com/jamesnetherton))
