@@ -41,6 +41,7 @@
         <module>aws2</module>
         <module>azure</module>
         <module>foundation</module>
+        <module>mongodb</module>
     </modules>
 
 </project>
