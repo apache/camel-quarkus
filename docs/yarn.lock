@@ -200,7 +200,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@antora/user-require-helper@npm:~2.0":
+"@antora/user-require-helper@npm:^2.0.0, @antora/user-require-helper@npm:~2.0":
   version: 2.0.0
   resolution: "@antora/user-require-helper@npm:2.0.0"
   dependencies:
@@ -231,6 +231,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@djencks/asciidoctor-jsonpath@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@djencks/asciidoctor-jsonpath@npm:0.0.4"
+  dependencies:
+    "@antora/user-require-helper": ^2.0.0
+    "@iarna/toml": ^2.2.5
+    esprima: ^4.0.1
+    js-yaml: ^4.1.0
+    json5: ^2.2.0
+    jsonpath: ^1.1.1
+    static-eval: ^2.1.0
+  checksum: ba33c6567cb4814f778aeafc4a9519a0b9acc27c832c542143294bff69684cdeb2d2c2bbf69fdadb13493a6fd8be7c6de32247e954f85b11ead12bc2af649da0
+  languageName: node
+  linkType: hard
+
 "@hapi/bourne@npm:^2.0.0":
   version: 2.0.0
   resolution: "@hapi/bourne@npm:2.0.0"
@@ -238,7 +253,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@iarna/toml@npm:~2.2":
+"@iarna/toml@npm:^2.2.5, @iarna/toml@npm:~2.2":
   version: 2.2.5
   resolution: "@iarna/toml@npm:2.2.5"
   checksum: 929a8516a24996b75768f7e0591815e37004f2cdda12b245c9a5ae64f423b4bd2bdd6943fc80e9bb5360a7be0b6d05bac57c178578d9a73acfb2eab125c594ee
@@ -808,6 +823,7 @@ __metadata:
     "@antora/cli": ^3.0.0-alpha.9
     "@antora/site-generator-default": ^3.0.0-alpha.9
     "@djencks/asciidoctor-antora-indexer": ^0.0.6
+    "@djencks/asciidoctor-jsonpath": ^0.0.4
     lite-server: ^2.4.0
     pino-pretty: ^5.0.0
   dependenciesMeta:
@@ -1516,7 +1532,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"escodegen@npm:^1.11.1":
+"escodegen@npm:^1.11.1, escodegen@npm:^1.8.1":
   version: 1.14.3
   resolution: "escodegen@npm:1.14.3"
   dependencies:
@@ -1532,6 +1548,16 @@ __metadata:
     escodegen: bin/escodegen.js
     esgenerate: bin/esgenerate.js
   checksum: 548c5a83a81a51122f1006309a392e1412bb00657f15aca60f01f9d4553851bdaf0519d898fd3ee2bb46f116e03ee48757f4d9a28a7b58bc8c096fd4b33f6cbc
+  languageName: node
+  linkType: hard
+
+"esprima@npm:1.2.2":
+  version: 1.2.2
+  resolution: "esprima@npm:1.2.2"
+  bin:
+    esparse: ./bin/esparse.js
+    esvalidate: ./bin/esvalidate.js
+  checksum: 8cb4d8a7f61db2a4ba4d58ad5fcf91079e760f7e46bd302a64b5a543f0460a3c642dfc87dd185d7195bdf7a6cc7ffc06a1c690b9ef24237b508255d4ed5251d9
   languageName: node
   linkType: hard
 
@@ -2570,7 +2596,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"js-yaml@npm:~4.1":
+"js-yaml@npm:^4.1.0, js-yaml@npm:~4.1":
   version: 4.1.0
   resolution: "js-yaml@npm:4.1.0"
   dependencies:
@@ -2588,7 +2614,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"json5@npm:~2.2":
+"json5@npm:^2.2.0, json5@npm:~2.2":
   version: 2.2.0
   resolution: "json5@npm:2.2.0"
   dependencies:
@@ -2608,6 +2634,17 @@ fsevents@^1.2.7:
     graceful-fs:
       optional: true
   checksum: 65eab8507d0cc5be465a7a4a2813c12610507aecc31501a608be0272a1f6bbddf66fae0f418e617d901f84fbcabbccbb079afdcb1622151a64b3ef52cdddfb05
+  languageName: node
+  linkType: hard
+
+"jsonpath@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "jsonpath@npm:1.1.1"
+  dependencies:
+    esprima: 1.2.2
+    static-eval: 2.0.2
+    underscore: 1.12.1
+  checksum: 4741e517f425e4b7c004c1c1452d8bf13084784cd75a1fd011fb1fa824d07675d1dc2b69111ffb45ada74266e289eef78efb7adccc9022e1e3ab6dea68ad0539
   languageName: node
   linkType: hard
 
@@ -4389,6 +4426,15 @@ resolve@^1.10.0:
   languageName: node
   linkType: hard
 
+"static-eval@npm:2.0.2":
+  version: 2.0.2
+  resolution: "static-eval@npm:2.0.2"
+  dependencies:
+    escodegen: ^1.8.1
+  checksum: 58a3e85b2e1ee16e1b779bb1440da71dc515b76d086e811bf31d399b998b0ad42ebd30ac6eef54971708f059f1c393efe2146fceb6c2b413c2ed48e27d5f5a53
+  languageName: node
+  linkType: hard
+
 "static-eval@npm:^2.1.0":
   version: 2.1.0
   resolution: "static-eval@npm:2.1.0"
@@ -4713,6 +4759,13 @@ resolve@^1.10.0:
   version: 0.1.2
   resolution: "unc-path-regex@npm:0.1.2"
   checksum: 585e29357917a8b529e05db14a3f2e9486258a5826ca9c0eb4f9173c006968ceffba201766d2ff08d38a1e014b69c519294981b29e669a81ea357c0ffd6e326b
+  languageName: node
+  linkType: hard
+
+"underscore@npm:1.12.1":
+  version: 1.12.1
+  resolution: "underscore@npm:1.12.1"
+  checksum: b53ae924fe3608ac7875a0eec20988611a02dc174bad40680dbb9fe994c40fc457b6d4f618f8b9af930c31549809c27f70dddccd83957a32bab27b1eea858c1b
   languageName: node
   linkType: hard
 
