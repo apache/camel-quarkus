@@ -26,13 +26,17 @@ content:
     branches: HEAD
     start_path: docs
 
-  - url: git@github.com:apache/camel.git
+  - url: https://github.com/apache/camel-quarkus-examples.git
+    branches: HEAD
+    start_path: docs
+
+  - url: https://github.com/apache/camel.git
     branches:
       - camel-3.11.x # replace ${camel.docs.branch}
     start_paths:
       - docs/components
 
-  - url: git@github.com:apache/camel.git
+  - url: https://github.com/apache/camel.git
     branches:
       - main
     start_paths:
@@ -67,5 +71,9 @@ urls:
 
 runtime:
   log:
-    level: info
+    level: warn
     failure_level: warn
+
+pipeline:
+  extensions:
+    - require: '@djencks/asciidoctor-jsonpath'
