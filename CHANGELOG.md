@@ -11,7 +11,6 @@
 
 **Closed issues:**
 
-- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
 - Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
 - Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
@@ -32,6 +31,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.2.3.Final [\#3118](https://github.com/apache/camel-quarkus/pull/3118) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup 0be98ea Use test grouping for MongoDB extensions \#3089 [\#3117](https://github.com/apache/camel-quarkus/pull/3117) ([ppalaga](https://github.com/ppalaga))
 - Fixup 68be716 Allow extending an existing Catalog [\#3113](https://github.com/apache/camel-quarkus/pull/3113) ([ppalaga](https://github.com/ppalaga))
 - Test platform-http with SSL enabled [\#3112](https://github.com/apache/camel-quarkus/pull/3112) ([jamesnetherton](https://github.com/jamesnetherton))
