@@ -31,6 +31,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -41,11 +42,17 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.lambda.Lambda2Constants;
 import org.apache.camel.component.aws2.lambda.Lambda2Operations;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.jboss.logging.Logger;
 import software.amazon.awssdk.core.SdkBytes;
+import software.amazon.awssdk.services.lambda.model.AliasConfiguration;
 import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
+import software.amazon.awssdk.services.lambda.model.GetAliasRequest;
+import software.amazon.awssdk.services.lambda.model.GetAliasResponse;
 import software.amazon.awssdk.services.lambda.model.GetFunctionResponse;
 import software.amazon.awssdk.services.lambda.model.InvalidParameterValueException;
 import software.amazon.awssdk.services.lambda.model.LastUpdateStatus;
+import software.amazon.awssdk.services.lambda.model.ListAliasesRequest;
+import software.amazon.awssdk.services.lambda.model.ListAliasesResponse;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
 import software.amazon.awssdk.services.lambda.model.Runtime;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
@@ -54,6 +61,9 @@ import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
 @Path("/aws2-lambda")
 @ApplicationScoped
 public class Aws2LambdaResource {
+
+    private static final Logger LOG = Logger.getLogger(Aws2LambdaResource.class);
+
     @ConfigProperty(name = "aws-lambda.role-arn")
     String roleArn;
 
@@ -134,12 +144,93 @@ public class Aws2LambdaResource {
 
     @Path("/function/delete/{functionName}")
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public void delete(@PathParam("functionName") String functionName) {
+    public void deleteFunction(@PathParam("functionName") String functionName) {
         producerTemplate.requestBody(
                 componentUri(functionName, Lambda2Operations.deleteFunction),
                 null,
                 Object.class);
+    }
+
+    @Path("/alias/create")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createAlias(@QueryParam("functionName") String functionName,
+            @QueryParam("functionVersion") String functionVersion, @QueryParam("aliasName") String aliasName) throws Exception {
+        try {
+            final String response = producerTemplate.requestBodyAndHeaders(
+                    componentUri(functionName, Lambda2Operations.createAlias),
+                    null,
+                    new LinkedHashMap<String, Object>() {
+                        {
+                            put(Lambda2Constants.FUNCTION_ALIAS_NAME, aliasName);
+                            put(Lambda2Constants.FUNCTION_VERSION, functionVersion);
+                        }
+                    },
+                    String.class);
+            return Response
+                    .created(new URI("https://camel.apache.org/"))
+                    .entity(response)
+                    .build();
+        } catch (Exception e) {
+            LOG.info("Exception caught in alias/create", e);
+            LOG.info("Exception cause in alias/create", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/alias/get")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getAlias(@QueryParam("functionName") String functionName, @QueryParam("aliasName") String aliasName) {
+        try {
+            GetAliasRequest getAliasRequest = GetAliasRequest.builder().functionName(functionName).name(aliasName).build();
+            String endpointUri = componentUri(functionName, Lambda2Operations.getAlias) + "&pojoRequest=true";
+
+            return producerTemplate
+                    .requestBody(endpointUri, getAliasRequest, GetAliasResponse.class)
+                    .functionVersion();
+        } catch (Exception e) {
+            LOG.info("Exception caught in alias/get", e);
+            LOG.info("Exception cause in alias/get", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/alias/delete")
+    @DELETE
+    public void deleteAlias(@QueryParam("functionName") String functionName, @QueryParam("aliasName") String aliasName) {
+        try {
+            producerTemplate.requestBodyAndHeader(
+                    componentUri(functionName, Lambda2Operations.deleteAlias),
+                    null,
+                    Lambda2Constants.FUNCTION_ALIAS_NAME,
+                    aliasName,
+                    Object.class);
+        } catch (Exception e) {
+            LOG.info("Exception caught in alias/delete", e);
+            LOG.info("Exception cause in alias/delete", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/alias/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> listAliases(@QueryParam("functionName") String functionName) {
+        try {
+            ListAliasesRequest listAliasesReq = ListAliasesRequest.builder().functionName(functionName).build();
+            return producerTemplate.requestBody(
+                    componentUri(functionName, Lambda2Operations.listAliases) + "&pojoRequest=true",
+                    listAliasesReq,
+                    ListAliasesResponse.class)
+                    .aliases().stream()
+                    .map(AliasConfiguration::name)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            LOG.info("Exception caught in alias/list", e);
+            LOG.info("Exception cause in alias/list", e.getCause());
+            throw e;
+        }
     }
 
     private static String componentUri(String functionName, Lambda2Operations operation) {
