@@ -31,6 +31,7 @@
 
 **Merged pull requests:**
 
+- aws2-lambda: Added updateFunction and getFunction tests  \#2749 [\#3120](https://github.com/apache/camel-quarkus/pull/3120) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.2.3.Final [\#3118](https://github.com/apache/camel-quarkus/pull/3118) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixup 0be98ea Use test grouping for MongoDB extensions \#3089 [\#3117](https://github.com/apache/camel-quarkus/pull/3117) ([ppalaga](https://github.com/ppalaga))
 - Fixup 68be716 Allow extending an existing Catalog [\#3113](https://github.com/apache/camel-quarkus/pull/3113) ([ppalaga](https://github.com/ppalaga))
