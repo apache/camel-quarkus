@@ -29,10 +29,13 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageProxyDefinitionBui
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
+import org.apache.fop.fonts.Base14Font;
 import org.apache.fop.render.RendererEventProducer;
 import org.apache.fop.render.pdf.PDFDocumentHandlerMaker;
 import org.apache.fop.render.pdf.extensions.PDFExtensionHandlerFactory;
+import org.apache.fop.util.ColorUtil;
 import org.apache.xmlgraphics.image.loader.spi.ImageImplRegistry;
+import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
 
 class FopProcessor {
@@ -83,8 +86,17 @@ class FopProcessor {
     }
 
     @BuildStep
-    public void registerRuntimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> resource) {
-        resource.produce(new RuntimeInitializedClassBuildItem(ImageImplRegistry.class.getName()));
-    }
+    public void registerRuntimeInitializedClasses(
+            CombinedIndexBuildItem combinedIndex,
+            BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
 
+        combinedIndex.getIndex()
+                .getAllKnownSubclasses(DotName.createSimple(Base14Font.class.getName()))
+                .stream().map(classInfo -> classInfo.name().toString())
+                .map(RuntimeInitializedClassBuildItem::new)
+                .forEach(runtimeInitializedClass::produce);
+
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ImageImplRegistry.class.getName()));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem(ColorUtil.class.getName()));
+    }
 }

@@ -53,7 +53,7 @@ public class CamelContextCustomizerTest {
                     public void execute(BuildContext context) {
                         String methodName = "execute";
                         BytecodeRecorderImpl bri = new BytecodeRecorderImpl(true, getClass().getSimpleName(), methodName,
-                                Integer.toString(methodName.hashCode()));
+                                Integer.toString(methodName.hashCode()), true);
                         RuntimeValue<CamelContextCustomizer> value = bri
                                 .newInstance(RestConfigurationCustomizer.class.getName());
                         context.produce(new CamelContextCustomizerBuildItem(value));

@@ -55,6 +55,7 @@ class PdfProcessor {
             "org.apache.pdfbox.pdmodel.font.PDType1Font",
             "org.apache.camel.component.pdf.PdfConfiguration",
             "org.apache.camel.component.pdf.Standard14Fonts",
+            "org.apache.pdfbox.pdmodel.PDDocument",
     };
 
     @BuildStep
