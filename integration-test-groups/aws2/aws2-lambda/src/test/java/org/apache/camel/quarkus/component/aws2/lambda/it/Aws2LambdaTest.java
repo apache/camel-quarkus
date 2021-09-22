@@ -29,10 +29,13 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ExtractableResponse;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
-import org.awaitility.Awaitility;
-import org.hamcrest.Matchers;
 import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
+
+import static org.awaitility.Awaitility.await;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -42,43 +45,50 @@ class Aws2LambdaTest {
     @Test
     public void performingOperationsOnLambdaFunctionShouldSucceed() {
         final String functionName = "cqFunction" + java.util.UUID.randomUUID().toString().replace("-", "");
-        final String name = "Joe " + java.util.UUID.randomUUID().toString().replace("-", "");
 
-        /* The role is not created immediately, so we need to retry */
-        Awaitility.await()
-                .pollDelay(6, TimeUnit.SECONDS) // never succeeded earlier than 6 seconds after creating the role
+        // The required role to create a function is not created immediately, so we need to retry
+        await().pollDelay(6, TimeUnit.SECONDS) // never succeeded earlier than 6 seconds after creating the role
                 .pollInterval(1, TimeUnit.SECONDS)
                 .atMost(120, TimeUnit.SECONDS)
-                .until(
-                        () -> {
-                            ExtractableResponse<?> response = RestAssured.given()
-                                    .contentType("application/zip")
-                                    .body(createInitialLambdaFunctionZip())
-                                    .post("/aws2-lambda/function/create/" + functionName)
-                                    .then()
-                                    .extract();
-                            switch (response.statusCode()) {
-                            case 201:
-                                LOG.infof("Lambda function %s created", functionName);
-                                return true;
-                            case 400:
-                                LOG.infof("Could not create Lambda function %s yet (will retry): %d %s", functionName,
-                                        response.statusCode(),
-                                        response.body().asString());
-                                return false;
-                            default:
-                                throw new RuntimeException(
-                                        "Unexpected status from /aws2-lambda/function/create " + response.statusCode() + " "
-                                                + response.body().asString());
-                            }
-                        });
+                .until(() -> {
+                    ExtractableResponse<?> response = RestAssured.given()
+                            .contentType("application/zip")
+                            .body(createInitialLambdaFunctionZip())
+                            .post("/aws2-lambda/function/create/" + functionName)
+                            .then()
+                            .extract();
+                    switch (response.statusCode()) {
+                    case 201:
+                        LOG.infof("Lambda function %s created", functionName);
+                        return true;
+                    case 400:
+                        LOG.infof("Could not create Lambda function %s yet (will retry): %d %s", functionName,
+                                response.statusCode(), response.body().asString());
+                        return false;
+                    default:
+                        throw new RuntimeException("Unexpected status from /aws2-lambda/function/create "
+                                + response.statusCode() + " " + response.body().asString());
+                    }
+                });
+
+        getUpdateListAndInvokeFunctionShouldSucceed(functionName);
+        createGetDeleteAndListAliasShouldSucceed(functionName);
+
+        RestAssured.given()
+                .delete("/aws2-lambda/function/delete/" + functionName)
+                .then()
+                .statusCode(204);
+    }
+
+    public void getUpdateListAndInvokeFunctionShouldSucceed(String functionName) {
+        final String name = "Joe " + java.util.UUID.randomUUID().toString().replace("-", "");
 
         RestAssured.given()
                 .accept(ContentType.JSON)
                 .get("/aws2-lambda/function/get/" + functionName)
                 .then()
                 .statusCode(200)
-                .body(Matchers.is(functionName));
+                .body(is(functionName));
 
         RestAssured.given()
                 .contentType("application/zip")
@@ -92,38 +102,66 @@ class Aws2LambdaTest {
                 .get("/aws2-lambda/function/list")
                 .then()
                 .statusCode(200)
-                .body("$", Matchers.hasItem(functionName));
+                .body("$", hasItem(functionName));
 
         /* Sometimes this does not succeed immediately */
-        Awaitility.await()
-                .pollDelay(200, TimeUnit.MILLISECONDS)
+        await().pollDelay(200, TimeUnit.MILLISECONDS)
                 .pollInterval(500, TimeUnit.MILLISECONDS)
                 .atMost(120, TimeUnit.SECONDS)
-                .until(
-                        () -> {
-                            ExtractableResponse<?> response = RestAssured.given()
-                                    .contentType(ContentType.JSON)
-                                    .body("{ \"firstName\": \"" + name + "\"}")
-                                    .post("/aws2-lambda/function/invoke/" + functionName)
-                                    .then()
-                                    .extract();
-                            String format = "Execution of aws2-lambda/invoke/%s returned status %d and content %s";
-                            System.out.println(String.format(format, functionName, response.statusCode(), response.asString()));
-                            switch (response.statusCode()) {
-                            case 200:
-                                final String greetings = response.jsonPath().getString("greetings");
-                                return greetings;
-                            default:
-                                return null;
-                            }
-                        },
-                        Matchers.is("Hello updated " + name));
+                .until(() -> {
+                    ExtractableResponse<?> response = RestAssured.given()
+                            .contentType(ContentType.JSON)
+                            .body("{ \"firstName\": \"" + name + "\"}")
+                            .post("/aws2-lambda/function/invoke/" + functionName)
+                            .then()
+                            .extract();
+                    String format = "Execution of aws2-lambda/invoke/%s returned status %d and content %s";
+                    LOG.infof(format, functionName, response.statusCode(), response.asString());
+                    switch (response.statusCode()) {
+                    case 200:
+                        final String greetings = response.jsonPath().getString("greetings");
+                        return greetings;
+                    default:
+                        return null;
+                    }
+                }, is("Hello updated " + name));
+    }
+
+    public void createGetDeleteAndListAliasShouldSucceed(String functionName) {
+
+        String functionVersion = "$LATEST";
+        String aliasName = "alias_LATEST_" + functionName;
 
         RestAssured.given()
-                .delete("/aws2-lambda/function/delete/" + functionName)
+                .queryParam("functionName", functionName)
+                .queryParam("functionVersion", functionVersion)
+                .queryParam("aliasName", aliasName)
+                .post("/aws2-lambda/alias/create/")
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .queryParam("aliasName", aliasName)
+                .get("/aws2-lambda/alias/get/")
+                .then()
+                .statusCode(200)
+                .body(is("$LATEST"));
+
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .queryParam("aliasName", aliasName)
+                .delete("/aws2-lambda/alias/delete")
                 .then()
                 .statusCode(204);
 
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .accept(ContentType.JSON)
+                .get("/aws2-lambda/alias/list")
+                .then()
+                .statusCode(200)
+                .body("$", not(hasItem(aliasName)));
     }
 
     static byte[] createInitialLambdaFunctionZip() {
@@ -146,15 +184,15 @@ class Aws2LambdaTest {
         return baos.toByteArray();
     }
 
-    private static final String INITIAL_FUNCTION_SOURCE = "def handler(event, context):\n" +
-            "    message = 'Hello {}'.format(event['firstName'])\n" +
-            "    return {\n" +
-            "        'greetings' : message\n" +
-            "    }\n";
+    private static final String INITIAL_FUNCTION_SOURCE = "def handler(event, context):\n"
+            + "    message = 'Hello {}'.format(event['firstName'])\n"
+            + "    return {\n"
+            + "        'greetings' : message\n"
+            + "    }\n";
 
-    private static final String UPDATED_FUNCTION_SOURCE = "def handler(event, context):\n" +
-            "    message = 'Hello updated {}'.format(event['firstName'])\n" +
-            "    return {\n" +
-            "        'greetings' : message\n" +
+    private static final String UPDATED_FUNCTION_SOURCE = "def handler(event, context):\n"
+            + "    message = 'Hello updated {}'.format(event['firstName'])\n"
+            + "    return {\n"
+            + "        'greetings' : message\n" +
             "    }\n";
 }
