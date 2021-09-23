@@ -54,7 +54,7 @@
         </dependency>
         <dependency>
           <groupId>org.jboss.logmanager</groupId>
-          <artifactId>log4j2-jboss-logmanager</artifactId> 
+          <artifactId>log4j2-jboss-logmanager</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
