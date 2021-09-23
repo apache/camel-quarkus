@@ -23,9 +23,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>[#if nativeSupported][=itestParentArtifactId][#else]camel-quarkus-build-parent-it[/#if]</artifactId>
+        <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>[=version]</version>
-        <relativePath>[#if nativeSupported]../pom.xml[#else]../../../poms/build-parent-it/pom.xml[/#if]</relativePath>
+        <relativePath>[#if nativeSupported]../../poms/build-parent-it/pom.xml[#else]../../../poms/build-parent-it/pom.xml[/#if]</relativePath>
     </parent>
 
     <artifactId>camel-quarkus-[#if nativeSupported]integration-test-[=artifactIdBase][#else][=artifactIdBase]-integration-test[/#if]</artifactId>
