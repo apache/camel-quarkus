@@ -14,6 +14,10 @@ quarkus.datasource.jdbc.max-size=16
 The Camel SQL component will automatically resolve the `DataSource` bean from the registry. When configuring multiple datasources, you can specify which one is to be used on an SQL endpoint via
 the URI options `datasource` or `dataSourceRef`. Refer to the SQL component documentation for more details.
 
+==== Zero configuration with Quarkus Dev Services
+
+In dev and test mode you can take advantage of https://quarkus.io/guides/datasource#dev-services-configuration-free-databases[Configuration Free Databases]. The Camel SQL component will be automatically configured to use a `DataSource` that points to a local containerized instance of the database matching the JDBC driver type that you have selected.
+
 === SQL scripts
 
 When configuring `sql` or `sql-stored` endpoints to reference script files from the classpath, set the following configuration property to ensure that they are available in native mode.
@@ -23,7 +27,7 @@ When configuring `sql` or `sql-stored` endpoints to reference script files from 
 quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
 
-=== SQL Aggregator ===
+=== SQL Aggregator
 
 If your exchanges in native mode contain objects, which are not automatically registered for serialization (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation]),
 you have to register them manually (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation])
