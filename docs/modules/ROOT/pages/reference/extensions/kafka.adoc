@@ -39,6 +39,19 @@ Or add the coordinates to your existing project:
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Usage
+
+=== Quarkus Kafka Dev Services
+
+Camel Quarkus Kafka can take advantage of https://quarkus.io/guides/kafka-dev-services[Quarkus Kafka Dev services] to simplify development and testing with a local containerized Kafka broker.
+
+Kafka Dev Services is enabled by default in dev & test mode.
+The Camel Kafka component is automatically configured so that the `brokers` component option is set to point at the local containerized Kafka broker.
+Meaning that there's no need to configure this option yourself.
+
+This functionality can be disabled with the configuration property `quarkus.kafka.devservices.enabled=false`.
+
+
 == Additional Camel Quarkus configuration
 
 [width="100%",cols="80,5,15",options="header"]
