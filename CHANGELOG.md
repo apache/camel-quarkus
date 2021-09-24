@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
 - Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
 - Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
