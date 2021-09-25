@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
 - Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
 - Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
@@ -32,6 +33,10 @@
 
 **Merged pull requests:**
 
+- Use camel-quarkus-build-parent-it as a direct parent of each test module [\#3128](https://github.com/apache/camel-quarkus/pull/3128) ([ppalaga](https://github.com/ppalaga))
+- Add notes on Quarkus Dev Services to JDBC & SQL extension docs [\#3127](https://github.com/apache/camel-quarkus/pull/3127) ([jamesnetherton](https://github.com/jamesnetherton))
+- aws2-lambda: Add alias tests  \#2749 [\#3126](https://github.com/apache/camel-quarkus/pull/3126) ([aldettinger](https://github.com/aldettinger))
+- Improve Kafka integration with Quarkus dev services [\#3125](https://github.com/apache/camel-quarkus/pull/3125) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.3.0.CR1 [\#3122](https://github.com/apache/camel-quarkus/pull/3122) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Added updateFunction and getFunction tests  \#2749 [\#3120](https://github.com/apache/camel-quarkus/pull/3120) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.2.3.Final [\#3118](https://github.com/apache/camel-quarkus/pull/3118) ([jamesnetherton](https://github.com/jamesnetherton))
