@@ -28,6 +28,7 @@
 - Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
 - Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
 - Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
+- Kafka - add test coverage [\#2627](https://github.com/apache/camel-quarkus/issues/2627)
 - AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
 - Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
 
@@ -37,6 +38,7 @@
 - Add notes on Quarkus Dev Services to JDBC & SQL extension docs [\#3127](https://github.com/apache/camel-quarkus/pull/3127) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Add alias tests  \#2749 [\#3126](https://github.com/apache/camel-quarkus/pull/3126) ([aldettinger](https://github.com/aldettinger))
 - Improve Kafka integration with Quarkus dev services [\#3125](https://github.com/apache/camel-quarkus/pull/3125) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve Kafka test coverage [\#3124](https://github.com/apache/camel-quarkus/pull/3124) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus to 2.3.0.CR1 [\#3122](https://github.com/apache/camel-quarkus/pull/3122) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Added updateFunction and getFunction tests  \#2749 [\#3120](https://github.com/apache/camel-quarkus/pull/3120) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Quarkus to 2.2.3.Final [\#3118](https://github.com/apache/camel-quarkus/pull/3118) ([jamesnetherton](https://github.com/jamesnetherton))
