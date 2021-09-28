@@ -32,10 +32,6 @@
 
     <name>Camel Quarkus :: BOM</name>
 
-    <properties>
-        <camel-quarkus.version>2.3.0-SNAPSHOT</camel-quarkus.version><!-- kept in sync with project.version by the release plugin -->
-    </properties>
-
     <dependencyManagement>
         <dependencies>
 

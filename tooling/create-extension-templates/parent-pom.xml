@@ -23,9 +23,9 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-build-parent</artifactId>
+        <artifactId>camel-quarkus-extensions[#if !nativeSupported ]-jvm[/#if]</artifactId>
         <version>[=version]</version>
-        <relativePath>../../poms/build-parent/pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>[=artifactId]-parent</artifactId>

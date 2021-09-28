@@ -294,9 +294,9 @@ jobs:
           echo "HOSTS_LINE=$HOSTS_LINE"
           echo "${HOSTS_LINE}" | sudo tee -a /etc/hosts
           cat /etc/hosts
-      - name: cd extensions-jvm && mvn clean test
+      - name: cd integration-tests-jvm && mvn clean test
         run: |
-          cd extensions-jvm
+          cd integration-tests-jvm
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \

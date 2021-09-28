@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+         http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apache.camel.quarkus</groupId>
+        <artifactId>camel-quarkus</artifactId>
+        <version>2.3.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>camel-quarkus-integration-tests-jvm</artifactId>
+    <packaging>pom</packaging>
+
+    <name>Camel Quarkus :: Integration Tests :: JVM</name>
+
+    <modules>
+        <module>asn1</module>
+        <module>asterisk</module>
+        <module>atmos</module>
+        <module>atomix</module>
+        <module>aws-secrets-manager</module>
+        <module>aws-xray</module>
+        <module>azure-cosmosdb</module>
+        <module>azure-storage-datalake</module>
+        <module>barcode</module>
+        <module>beanio</module>
+        <module>beanstalk</module>
+        <module>bonita</module>
+        <module>chatscript</module>
+        <module>chunk</module>
+        <module>cm-sms</module>
+        <module>cmis</module>
+        <module>coap</module>
+        <module>cometd</module>
+        <module>corda</module>
+        <module>couchbase</module>
+        <module>djl</module>
+        <module>dns</module>
+        <module>drill</module>
+        <module>ehcache</module>
+        <module>elsql</module>
+        <module>etcd</module>
+        <module>etcd3</module>
+        <module>facebook</module>
+        <module>fastjson</module>
+        <module>flink</module>
+        <module>ganglia</module>
+        <module>google-functions</module>
+        <module>groovy</module>
+        <module>groovy-dsl</module>
+        <module>guava-eventbus</module>
+        <module>hbase</module>
+        <module>hdfs</module>
+        <module>huaweicloud-smn</module>
+        <module>iec60870</module>
+        <module>ignite</module>
+        <module>iota</module>
+        <module>irc</module>
+        <module>jasypt</module>
+        <module>java-joor-dsl</module>
+        <module>jbpm</module>
+        <module>jcache</module>
+        <module>jclouds</module>
+        <module>jcr</module>
+        <module>jfr</module>
+        <module>jgroups</module>
+        <module>jgroups-raft</module>
+        <module>jooq</module>
+        <module>joor</module>
+        <module>jsonapi</module>
+        <module>jt400</module>
+        <module>kamelet-reify</module>
+        <module>kotlin-dsl</module>
+        <module>ldap</module>
+        <module>ldif</module>
+        <module>lucene</module>
+        <module>management</module>
+        <module>milo</module>
+        <module>mvel</module>
+        <module>mybatis</module>
+        <module>ognl</module>
+        <module>printer</module>
+        <module>pulsar</module>
+        <module>quickfix</module>
+        <module>redis</module>
+        <module>ribbon</module>
+        <module>robotframework</module>
+        <module>schematron</module>
+        <module>sip</module>
+        <module>smpp</module>
+        <module>snmp</module>
+        <module>soroush</module>
+        <module>spark</module>
+        <module>splunk-hec</module>
+        <module>stitch</module>
+        <module>stomp</module>
+        <module>stub</module>
+        <module>thrift</module>
+        <module>web3j</module>
+        <module>weka</module>
+        <module>wordpress</module>
+        <module>workday</module>
+        <module>xj</module>
+        <module>xmpp</module>
+        <module>xslt-saxon</module>
+        <module>yammer</module>
+        <module>zookeeper</module>
+        <module>zookeeper-master</module>
+    </modules>
+</project>

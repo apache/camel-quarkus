@@ -29,18 +29,6 @@
     <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
     <name>Camel Quarkus :: Integration Tests :: Support :: AWS 2</name>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
