@@ -1,0 +1,31 @@
+= Camel Quarkus AWS 2 with Quarkus AWS 2 client extensions isolated integration tests
+
+=== Localstack
+
+The tests able to run against Localstack are run against Localstack by default.
+
+The SES test is ignored unless `MAILSLURP_API_KEY` variable is set.
+
+=== Real AWS API
+
+To run the tests against the real AWS API, you need to
+
+* Export Your
+  https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html#access-keys-and-secret-access-keys[AWS credentials]
+  (access key ID and secret access key)
+* Export our preferred
+  https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions[AWS region].
+* For SES, you additionally need a https://app.mailslurp.com/[MailSlurp account] and API key
+  (the free dev account should be enough)
+
+[source,shell]
+----
+export AWS_ACCESS_KEY=<your-access-key-id>
+export AWS_SECRET_KEY=<your-secret-access-key>
+export AWS_REGION=eu-central-1
+# for SES
+export MAILSLURP_API_KEY=<your-mailslurp-api-key>
+----
+
+You may want to `export CAMEL_QUARKUS_START_MOCK_BACKEND=false` to force testing against
+the real AWS API.

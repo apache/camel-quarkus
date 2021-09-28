@@ -147,6 +147,7 @@ group-09:
   - xpath
 group-10:
   - as2
+  - aws2-quarkus-client-grouped
   - atlasmap
   - braintree
   - consul

@@ -37,14 +37,13 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 import software.amazon.awssdk.services.dynamodb.model.TableStatus;
 
-import static org.apache.camel.quarkus.component.aws2.ddb.it.Aws2DdbResource.Table;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
-class Aws2DdbTest {
+class Aws2DdbQuarkusClientTest {
 
-    private static final Logger LOG = Logger.getLogger(Aws2DdbTest.class);
+    private static final Logger LOG = Logger.getLogger(Aws2DdbQuarkusClientTest.class);
 
     @Test
     public void crud() {
@@ -60,7 +59,7 @@ class Aws2DdbTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg)
-                .queryParam("table", Table.basic)
+                .queryParam("table", Aws2DdbResource.Table.basic)
                 .post("/aws2-ddb/item/" + key)
                 .then()
                 .statusCode(201);
@@ -79,7 +78,7 @@ class Aws2DdbTest {
         /* Update */
         final String newMsg = "newVal" + UUID.randomUUID().toString().replace("-", "");
         RestAssured.given()
-                .queryParam("table", Table.basic)
+                .queryParam("table", Aws2DdbResource.Table.basic)
                 .body(newMsg)
                 .put("/aws2-ddb/item/" + key)
                 .then()
@@ -97,7 +96,7 @@ class Aws2DdbTest {
 
         /* Delete */
         RestAssured.given()
-                .queryParam("table", Table.basic)
+                .queryParam("table", Aws2DdbResource.Table.basic)
                 .delete("/aws2-ddb/item/" + key)
                 .then()
                 .statusCode(204);
@@ -126,7 +125,7 @@ class Aws2DdbTest {
 
         RestAssured.given()
                 .contentType(ContentType.TEXT)
-                .queryParam("table", Table.operations)
+                .queryParam("table", Aws2DdbResource.Table.operations)
                 .body(msg1)
                 .post("/aws2-ddb/item/" + key1)
                 .then()
@@ -135,7 +134,7 @@ class Aws2DdbTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg2)
-                .queryParam("table", Table.operations)
+                .queryParam("table", Aws2DdbResource.Table.operations)
                 .post("/aws2-ddb/item/" + key2)
                 .then()
                 .statusCode(201);
@@ -143,7 +142,7 @@ class Aws2DdbTest {
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(msg3)
-                .queryParam("table", Table.operations)
+                .queryParam("table", Aws2DdbResource.Table.operations)
                 .post("/aws2-ddb/item/" + key3)
                 .then()
                 .statusCode(201);
@@ -227,7 +226,8 @@ class Aws2DdbTest {
                         && map.containsKey(Ddb2Constants.TABLE_SIZE)
                         && map.containsKey(Ddb2Constants.KEY_SCHEMA)
                         && map.containsKey(Ddb2Constants.ITEM_COUNT)
-                        && Table.operations == Table.valueOf((String) map.get(Ddb2Constants.TABLE_NAME)));
+                        && Aws2DdbResource.Table.operations == Aws2DdbResource.Table
+                                .valueOf((String) map.get(Ddb2Constants.TABLE_NAME)));
 
         /* Update table */
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
@@ -266,7 +266,8 @@ class Aws2DdbTest {
                         && map.containsKey(Ddb2Constants.TABLE_SIZE)
                         && map.containsKey(Ddb2Constants.KEY_SCHEMA)
                         && map.containsKey(Ddb2Constants.ITEM_COUNT)
-                        && Table.operations == Table.valueOf((String) map.get(Ddb2Constants.TABLE_NAME))
+                        && Aws2DdbResource.Table.operations == Aws2DdbResource.Table
+                                .valueOf((String) map.get(Ddb2Constants.TABLE_NAME))
                         //previous update changed throughput capacity from 10 to 5
                         && ((Map) map.get(Ddb2Constants.PROVISIONED_THROUGHPUT)).size() == 2
                         && ((Map) map.get(Ddb2Constants.PROVISIONED_THROUGHPUT)).get(Ddb2Constants.READ_CAPACITY).equals(5)
@@ -291,4 +292,11 @@ class Aws2DdbTest {
                 map -> map.isEmpty());
     }
 
+    @Test
+    public void quarkusManagesDynamoDbClient() {
+        RestAssured.get("/aws2-ddb/verify/client")
+                .then()
+                .statusCode(200)
+                .body(is("true"));
+    }
 }

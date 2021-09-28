@@ -40,12 +40,15 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.camel.CamelContext;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.ddb.Ddb2Constants;
+import org.apache.camel.component.aws2.ddb.Ddb2Endpoint;
 import org.apache.camel.component.aws2.ddb.Ddb2Operations;
 import org.apache.camel.util.CollectionHelper;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeAction;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValueUpdate;
@@ -73,6 +76,12 @@ public class Aws2DdbResource {
 
     @Inject
     ProducerTemplate producerTemplate;
+
+    @Inject
+    CamelContext context;
+
+    @Inject
+    DynamoDbClient dynamoDB;
 
     @SuppressWarnings("serial")
     @Path("/item/{key}")
@@ -112,9 +121,9 @@ public class Aws2DdbResource {
                         e -> {
                             e.getMessage().setHeader(Ddb2Constants.CONSISTENT_READ, true);
                             e.getMessage().setHeader(Ddb2Constants.ATTRIBUTE_NAMES,
-                                    new HashSet<String>(Arrays.asList("key", "value")));
+                                    new HashSet<>(Arrays.asList("key", "value")));
                             e.getMessage().setHeader(Ddb2Constants.KEY,
-                                    Collections.<String, AttributeValue> singletonMap("key",
+                                    Collections.singletonMap("key",
                                             AttributeValue.builder().s(key).build()));
 
                         })
@@ -124,11 +133,10 @@ public class Aws2DdbResource {
         return val == null ? null : val.s();
     }
 
-    @SuppressWarnings("serial")
     @Path("/item/{key}")
     @PUT
     @Produces(MediaType.TEXT_PLAIN)
-    public void updateItem(String message, @PathParam("key") String key, @QueryParam("table") String table) throws Exception {
+    public void updateItem(String message, @PathParam("key") String key, @QueryParam("table") String table) {
         producerTemplate.sendBodyAndHeaders(
                 componentUri(Table.valueOf(table), Ddb2Operations.UpdateItem),
                 null,
@@ -149,11 +157,10 @@ public class Aws2DdbResource {
                 });
     }
 
-    @SuppressWarnings("serial")
     @Path("/item/{key}")
     @DELETE
     @Produces(MediaType.TEXT_PLAIN)
-    public void deleteItem(@PathParam("key") String key, @QueryParam("table") String table) throws Exception {
+    public void deleteItem(@PathParam("key") String key, @QueryParam("table") String table) {
         producerTemplate.sendBodyAndHeaders(
                 componentUri(Table.valueOf(table), Ddb2Operations.DeleteItem),
                 null,
@@ -227,6 +234,7 @@ public class Aws2DdbResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Map<String, String> scan() {
+
         List<Map<AttributeValue, AttributeValue>> result = (List<Map<AttributeValue, AttributeValue>>) producerTemplate
                 .send(componentUri(Table.operations, Ddb2Operations.Scan),
                         e -> {
@@ -280,6 +288,15 @@ public class Aws2DdbResource {
                     }
                     return e.getValue() == null ? "" : e.getValue().toString();
                 }));
+    }
+
+    @Path("/verify/client")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public boolean quarkusManagesDynamoDbClient() {
+        Ddb2Endpoint endpoint = context.getEndpoint(componentUri(Ddb2Operations.GetItem), Ddb2Endpoint.class);
+        DynamoDbClient camelDynamoDbClient = endpoint.getConfiguration().getAmazonDDBClient();
+        return camelDynamoDbClient != null && camelDynamoDbClient.equals(dynamoDB);
     }
 
     private String componentUri(Ddb2Operations op) {

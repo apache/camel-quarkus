@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.aws2.ddb.it;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -80,7 +82,28 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
                 envContext.closeable(() -> client.deleteTable(DeleteTableRequest.builder().tableName(table).build()));
             }
+        }
 
+        Map<String, String> envContextProperties = envContext.getProperies();
+        String accessKey = envContextProperties.get("camel.component.aws2-ddb.access-key");
+        String secretKey = envContextProperties.get("camel.component.aws2-ddb.secret-key");
+        String region = envContextProperties.get("camel.component.aws2-ddb.region");
+
+        envContext.property("quarkus.dynamodb.aws.credentials.static-provider.access-key-id", accessKey);
+        envContext.property("quarkus.dynamodb.aws.credentials.static-provider.secret-access-key", secretKey);
+        envContext.property("quarkus.dynamodb.aws.region", region);
+        envContext.property("quarkus.dynamodb.aws.credentials.type", "static");
+
+        // Propagate localstack environment config to Quarkus AWS if required
+        Optional<String> overrideEndpoint = envContextProperties
+                .keySet()
+                .stream()
+                .filter(key -> key.endsWith("uri-endpoint-override"))
+                .findFirst();
+
+        if (overrideEndpoint.isPresent()) {
+            String endpoint = envContextProperties.get(overrideEndpoint.get());
+            envContext.property("quarkus.dynamodb.endpoint-override", endpoint);
         }
     }
 
