@@ -1,0 +1,8 @@
+== Camel Quarkus AWS 2 With Quarkus AW2 Client extensions grouped integration tests
+
+This module allows executing all tests from `integration-test-groups/aws2-quarkus-client/*` grouped together.
+See the https://camel.apache.org/camel-quarkus/latest/contributor-guide/extension-testing.html#_grouping[Grouping section] of the Contributor guide for more details.
+
+=== Mock backend vs. real service
+
+Please refer to link:../../integration-test-groups/aws2-quarkus-client/README.adoc[integration-test-groups/aws2-quarkus-client/README.adoc] for more details.

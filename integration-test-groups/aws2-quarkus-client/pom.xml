@@ -22,27 +22,23 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus</artifactId>
+        <artifactId>camel-quarkus-integration-test-groups</artifactId>
         <version>2.3.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-groups</artifactId>
+    <artifactId>camel-quarkus-integration-tests-aws2-quarkus-client</artifactId>
     <packaging>pom</packaging>
 
-    <name>Camel Quarkus :: Integration Test Groups</name>
+    <name>Camel Quarkus :: AWS 2 Quarkus Client Integration Tests</name>
+    <description>Camel Quarkus AWS 2 Integration Tests Using Quarkus AWS extensions</description>
 
     <properties>
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
 
     <modules>
-        <!-- test groups a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
-        <module>aws2</module>
-        <module>aws2-quarkus-client</module>
-        <module>azure</module>
-        <module>foundation</module>
-        <module>mongodb</module>
+        <!-- extensions a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
+        <module>aws2-ddb</module>
     </modules>
 
 </project>
