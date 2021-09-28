@@ -32,19 +32,8 @@
 
     <name>Camel Quarkus :: Test BOM</name>
 
-    <properties>
-        <camel-quarkus.version>2.3.0-SNAPSHOT</camel-quarkus.version><!-- kept in sync with camel-quarkus.version by the release plugin -->
-    </properties>
-
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${camel-quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
             <dependency>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-bom-test</artifactId>

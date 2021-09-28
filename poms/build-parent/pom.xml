@@ -37,19 +37,6 @@
         <!-- maven-surefire-plugin -->
         <failIfNoTests>false</failIfNoTests>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <!-- Import BOM -->
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom</artifactId>
-                <version>${project.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
     <build>
         <pluginManagement>
             <plugins>
@@ -88,6 +75,11 @@
                         <doclint>none</doclint>
                         <show>package</show>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>${build-helper-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.jboss.jandex</groupId>

@@ -25,19 +25,26 @@
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
         <version>[=version]</version>
-        <relativePath>[#if nativeSupported]../../poms/build-parent-it/pom.xml[#else]../../../poms/build-parent-it/pom.xml[/#if]</relativePath>
+        <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-[#if nativeSupported]integration-test-[=artifactIdBase][#else][=artifactIdBase]-integration-test[/#if]</artifactId>
-    <name>Camel Quarkus :: [#if nativeSupported]Integration Tests :: [=nameBase][#else][=nameBase] :: Integration Test[/#if]</name>
+    <artifactId>camel-quarkus-integration-test-[=artifactIdBase]</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: [=nameBase]</name>
     <description>Integration tests for Camel Quarkus [=nameBase] extension</description>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>${quarkus.platform.group-id}</groupId>
+                <artifactId>${quarkus.platform.artifact-id}</artifactId>
+                <version>${quarkus.platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>

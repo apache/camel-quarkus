@@ -37,6 +37,10 @@
     <inceptionYear>2019</inceptionYear>
 
     <properties>
+        <!-- This property is kept in sync with project.version by the release plugin -->
+        <!-- Do not change to project.version because otherwise the end user apps having our BOM as parent (rather than importing it) will stop working -->
+        <camel-quarkus.version>2.3.0-SNAPSHOT</camel-quarkus.version>
+
         <!-- Primary dependencies - maintained manually -->
         <camel.major.minor>3.11</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.2</camel.version>
@@ -52,6 +56,15 @@
         <quarkus-google-cloud.version>0.10.0</quarkus-google-cloud.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/googlecloudservices/quarkus-google-cloud-services-bom/ -->
         <quarkus-hazelcast-client.version>2.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.27.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
+
+        <!-- Allow running our tests against alternative BOMs, such as io.quarkus.platform:quarkus-camel-bom https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-camel-bom/ -->
+        <!-- The BOM GAVs below are swapped as a workaround for https://github.com/quarkusio/quarkus/issues/20461 -->
+        <quarkus.platform.group-id>org.apache.camel.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.artifact-id>camel-quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.version>${camel-quarkus.version}</quarkus.platform.version>
+        <camel-quarkus.platform.group-id>io.quarkus</camel-quarkus.platform.group-id>
+        <camel-quarkus.platform.artifact-id>quarkus-bom</camel-quarkus.platform.artifact-id>
+        <camel-quarkus.platform.version>${quarkus.version}</camel-quarkus.platform.version>
 
         <!-- Compile dependency versions (keep sorted alphabetically) -->
         <!-- Items annotated with @sync can be updated by running mvn cq:sync-versions -N -e -->
@@ -147,7 +160,7 @@
         <maven-utils.version>0.1.0</maven-utils.version>
 
         <!-- Maven plugin versions (keep sorted alphabetically) -->
-        <cq-plugin.version>1.0.0</cq-plugin.version>
+        <cq-plugin.version>2.7.0</cq-plugin.version>
         <build-helper-maven-plugin.version>3.1.0</build-helper-maven-plugin.version>
         <exec-maven-plugin.version>3.0.0</exec-maven-plugin.version>
         <formatter-maven-plugin.version>2.11.0</formatter-maven-plugin.version>
@@ -211,6 +224,7 @@
         <module>integration-tests</module>
         <module>integration-test-groups</module>
         <module>docs</module>
+        <module>integration-tests-jvm</module>
     </modules>
 
     <developers>
@@ -741,6 +755,7 @@
                                         <sortModulesPath>extensions/pom.xml</sortModulesPath>
                                         <sortModulesPath>extensions-jvm/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-tests/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-tests-jvm/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2-quarkus-client/pom.xml</sortModulesPath>
@@ -755,9 +770,9 @@
                                         <updateVirtualDependency>
                                             <basedir>${project.basedir}</basedir>
                                             <includes>
-                                                <include>extensions-jvm/*/integration-test/pom.xml</include>
                                                 <include>integration-tests/*/pom.xml</include>
                                                 <include>integration-test-groups/*/*/pom.xml</include>
+                                                <include>integration-tests-jvm/*/pom.xml</include>
                                             </includes>
                                         </updateVirtualDependency>
                                     </updateVirtualDependencies>
