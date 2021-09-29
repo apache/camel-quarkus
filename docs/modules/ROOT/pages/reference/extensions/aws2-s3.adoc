@@ -44,3 +44,29 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 This extension auto-enables SSL support in native mode. Hence you do not need to add
 `quarkus.ssl.native=true` to your `application.properties` yourself. See also
 https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
+
+== Additional Camel Quarkus configuration
+
+=== Optional integration with Quarkus Amazon S3
+
+If desired, it is possible to use the Quarkus Amazon S3 Client extension in conjunction with Camel Quarkus AWS2 S3.
+Note that this optional and not at all mandatory.
+Follow the https://quarkus.io/guides/amazon-s3#configuring-s3-clients[documentation] with some caveats.
+
+1. The Apache client type has to be selected by configuring the following property.
++
+[source,properties]
+----
+quarkus.s3.sync-client.type=apache
+----
+
+2. The `S3Client` has to be injected somewhere in the application. This triggers its creation so that the Camel component can discover it.
++
+[source,java]
+----
+import software.amazon.awssdk.services.s3.S3Client;
+
+@Inject
+S3Client s3Client;
+----
+
