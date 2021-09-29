@@ -33,9 +33,11 @@ import org.jboss.logging.Logger;
 import org.junit.jupiter.api.Test;
 
 import static org.awaitility.Awaitility.await;
+import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
@@ -71,8 +73,17 @@ class Aws2LambdaTest {
                     }
                 });
 
+        String functionArn = RestAssured.given()
+                .accept(ContentType.JSON)
+                .get("/aws2-lambda/function/getArn/" + functionName)
+                .then()
+                .statusCode(200)
+                .extract().asString();
+        assertNotNull(functionArn);
+
         getUpdateListAndInvokeFunctionShouldSucceed(functionName);
         createGetDeleteAndListAliasShouldSucceed(functionName);
+        createListDeleteFunctionTagsShouldSucceed(functionName, functionArn);
 
         RestAssured.given()
                 .delete("/aws2-lambda/function/delete/" + functionName)
@@ -162,6 +173,42 @@ class Aws2LambdaTest {
                 .then()
                 .statusCode(200)
                 .body("$", not(hasItem(aliasName)));
+    }
+
+    public void createListDeleteFunctionTagsShouldSucceed(String functionName, String functionArn) {
+
+        String uuid = java.util.UUID.randomUUID().toString().replace("-", "");
+        String tagResourceKey = functionName + "-tagKey-" + uuid;
+        String tagResourceValue = functionName + "-tagValue-" + uuid;
+
+        RestAssured.given()
+                .queryParam("functionArn", functionArn)
+                .queryParam("tagResourceKey", tagResourceKey)
+                .queryParam("tagResourceValue", tagResourceValue)
+                .post("/aws2-lambda/tag/create")
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .queryParam("functionArn", functionArn)
+                .get("/aws2-lambda/tag/list")
+                .then()
+                .statusCode(200)
+                .body(tagResourceKey, is(tagResourceValue));
+
+        RestAssured.given()
+                .queryParam("functionArn", functionArn)
+                .queryParam("tagResourceKey", tagResourceKey)
+                .delete("/aws2-lambda/tag/delete")
+                .then()
+                .statusCode(204);
+
+        RestAssured.given()
+                .queryParam("functionArn", functionArn)
+                .get("/aws2-lambda/tag/list")
+                .then()
+                .statusCode(200)
+                .body(tagResourceKey, is(emptyOrNullString()));
     }
 
     static byte[] createInitialLambdaFunctionZip() {
