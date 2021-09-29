@@ -11,6 +11,7 @@
 
 **Closed issues:**
 
+- \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
 - Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
 - Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
@@ -34,6 +35,7 @@
 
 **Merged pull requests:**
 
+- Test Quarkus DynamoDB extension with Camel Quarkus AWS 2 DDB [\#3133](https://github.com/apache/camel-quarkus/pull/3133) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use camel-quarkus-build-parent-it as a direct parent of each test module [\#3128](https://github.com/apache/camel-quarkus/pull/3128) ([ppalaga](https://github.com/ppalaga))
 - Add notes on Quarkus Dev Services to JDBC & SQL extension docs [\#3127](https://github.com/apache/camel-quarkus/pull/3127) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Add alias tests  \#2749 [\#3126](https://github.com/apache/camel-quarkus/pull/3126) ([aldettinger](https://github.com/aldettinger))
