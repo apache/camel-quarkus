@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.aws2.lambda.it;
 import java.net.URI;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -54,6 +55,7 @@ import software.amazon.awssdk.services.lambda.model.LastUpdateStatus;
 import software.amazon.awssdk.services.lambda.model.ListAliasesRequest;
 import software.amazon.awssdk.services.lambda.model.ListAliasesResponse;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
+import software.amazon.awssdk.services.lambda.model.ListTagsResponse;
 import software.amazon.awssdk.services.lambda.model.Runtime;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
@@ -99,6 +101,15 @@ public class Aws2LambdaResource {
         return producerTemplate
                 .requestBody(componentUri(functionName, Lambda2Operations.getFunction), null, GetFunctionResponse.class)
                 .configuration().functionName();
+    }
+
+    @Path("/function/getArn/{functionName}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getFunctionArn(@PathParam("functionName") String functionName) {
+        return producerTemplate
+                .requestBody(componentUri(functionName, Lambda2Operations.getFunction), null, GetFunctionResponse.class)
+                .configuration().functionArn();
     }
 
     @Path("/function/update/{functionName}")
@@ -231,6 +242,60 @@ public class Aws2LambdaResource {
             LOG.info("Exception cause in alias/list", e.getCause());
             throw e;
         }
+    }
+
+    @Path("/tag/create")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response tagLambdaFunction(@QueryParam("functionArn") String functionArn,
+            @QueryParam("tagResourceKey") String tagResourceKey, @QueryParam("tagResourceValue") String tagResourceValue)
+            throws Exception {
+        Map<String, String> resourceTags = Map.of(tagResourceKey, tagResourceValue);
+        final String response = producerTemplate.requestBodyAndHeaders(
+                componentUri(null, Lambda2Operations.tagResource),
+                null,
+                new LinkedHashMap<String, Object>() {
+                    {
+                        put(Lambda2Constants.RESOURCE_ARN, functionArn);
+                        put(Lambda2Constants.RESOURCE_TAGS, resourceTags);
+                    }
+                },
+                String.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/tag/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> listLambdaFunctionTags(@QueryParam("functionArn") String functionArn) {
+        return producerTemplate.requestBodyAndHeaders(
+                componentUri(null, Lambda2Operations.listTags),
+                null,
+                new LinkedHashMap<String, Object>() {
+                    {
+                        put(Lambda2Constants.RESOURCE_ARN, functionArn);
+                    }
+                },
+                ListTagsResponse.class)
+                .tags();
+    }
+
+    @Path("/tag/delete")
+    @DELETE
+    public void untagLambdaFunction(@QueryParam("functionArn") String functionArn,
+            @QueryParam("tagResourceKey") String tagResourceKey) {
+        producerTemplate.requestBodyAndHeaders(
+                componentUri(null, Lambda2Operations.untagResource),
+                null,
+                new LinkedHashMap<String, Object>() {
+                    {
+                        put(Lambda2Constants.RESOURCE_ARN, functionArn);
+                        put(Lambda2Constants.RESOURCE_TAG_KEYS, List.of(tagResourceKey));
+                    }
+                });
     }
 
     private static String componentUri(String functionName, Lambda2Operations operation) {
