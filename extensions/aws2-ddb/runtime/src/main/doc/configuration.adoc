@@ -5,13 +5,14 @@ Note that this optional and not at all mandatory.
 Follow the https://quarkus.io/guides/amazon-dynamodb#configuring-dynamodb-clients[documentation] with some caveats.
 
 1. The Apache client type has to be selected by configuring the following property.
++
 [source,properties]
 ----
 quarkus.dynamodb.sync-client.type=apache
 ----
 
 2. The `DynamoDbClient` has to be injected somewhere in the application. This triggers its creation so that the Camel component can discover it.
-
++
 [source,java]
 ----
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
