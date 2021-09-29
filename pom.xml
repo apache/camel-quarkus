@@ -743,8 +743,10 @@
                                         <sortModulesPath>integration-tests/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/aws2/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/aws2-quarkus-client/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/azure/pom.xml</sortModulesPath>
                                         <sortModulesPath>integration-test-groups/foundation/pom.xml</sortModulesPath>
+                                        <sortModulesPath>integration-test-groups/mongodb/pom.xml</sortModulesPath>
                                     </sortModulesPaths>
                                     <sortDependencyManagementPaths>
                                         <sortDependencyManagementPath>poms/bom/pom.xml</sortDependencyManagementPath>
@@ -786,6 +788,15 @@
                                         </mergePom>
                                         <mergePom>
                                             <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/aws2-quarkus-client</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/aws2-quarkus-client-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
                                                 <directory>${basedir}/integration-test-groups/azure</directory>
                                                 <includes>
                                                     <include>*/pom.xml</include>
@@ -801,6 +812,15 @@
                                                 </includes>
                                             </sourcePoms>
                                             <destinationPom>${basedir}/integration-tests/foundation-grouped/pom.xml</destinationPom>
+                                        </mergePom>
+                                        <mergePom>
+                                            <sourcePoms>
+                                                <directory>${basedir}/integration-test-groups/mongodb</directory>
+                                                <includes>
+                                                    <include>*/pom.xml</include>
+                                                </includes>
+                                            </sourcePoms>
+                                            <destinationPom>${basedir}/integration-tests/mongodb-grouped/pom.xml</destinationPom>
                                         </mergePom>
                                     </mergePoms>
                                 </configuration>
