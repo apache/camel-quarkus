@@ -58,7 +58,7 @@ Please refer to https://quarkus.io/guides/building-native-image#quarkus-native-p
 [[using-onexception-clause-in-native-mode]]
 == Using the onException clause in native mode
 
-When using xref:latest@manual::exception-clause.adoc[Camel `onException` handling] in native mode, it is the application developers responsibility to register the exception classes for reflection.
+When using xref:manual::exception-clause.adoc[Camel `onException` handling] in native mode, it is the application developers responsibility to register the exception classes for reflection.
 
 For instance, with an exception handler like this
 

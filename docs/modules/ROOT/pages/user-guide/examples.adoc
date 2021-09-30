@@ -1,6 +1,4 @@
 = Camel Quarkus Examples
-:page-aliases: examples.adoc
-:quarkus-examples-version: latest
 
 We offer several examples in https://github.com/apache/camel-quarkus-examples[Camel Quarkus examples repository]. To
 learn how to use them, please follow the xref:user-guide/first-steps.adoc[First steps] chapter of the User guide.
@@ -11,4 +9,4 @@ Number of Examples: jsonpathCount:{quarkus-examples-version}@camel-quarkus-examp
 | Example | Description
 |===
 
-jsonpathTable::{quarkus-examples-version}@camel-quarkus-examples:ROOT:attachment$examples.json['$[*]', '$\{link}[$\{title}],description']
+jsonpathTable::{quarkus-examples-version}@camel-quarkus-examples:ROOT:attachment$examples.json["$[*]",cellformats= "`$\{link}[$\{title}]`|description"]
