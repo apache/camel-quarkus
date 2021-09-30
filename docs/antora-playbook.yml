@@ -56,8 +56,6 @@ content:
 asciidoc:
   extensions:
     - "@djencks/asciidoctor-antora-indexer"
-  attributes:
-    eip-vc: latest@components
 
 ui:
   bundle:

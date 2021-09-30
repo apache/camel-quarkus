@@ -1,12 +1,11 @@
-[[ReleaseGuide-ReleaseGuide]]
 = Apache Camel Quarkus release process
 :page-aliases: release-guide.adoc
 
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see the
-xref:latest@manual::release-guide.adoc[Release guide] page of the Camel documentation.
+xref:manual::release-guide.adoc[Release guide] page of the Camel documentation.
 
 Here, just a sketch of the repeating part, after you have performed the initial setup following the
-xref:latest@manual::release-guide.adoc[Camel Release guide].
+xref:manual::release-guide.adoc[Camel Release guide].
 
 == Pre release tasks
 
@@ -164,11 +163,9 @@ from the local Maven repository and then checks that they are available in Maven
 As long as there are unavailable artifacts, the requests are re-tried with a (configurable) delay of 60 seconds.
 ====
 
-[INFO]
-====
-https://github.com/quarkusio/quarkus-platform[Quarkus Platform] hosts the metadata and Maven BOMs necessary for
+INFO: https://github.com/quarkusio/quarkus-platform[Quarkus Platform] hosts the metadata and Maven BOMs necessary for
 https://code.quarkus.io/[code.quarkus.io] as well as for https://quarkus.io/guides/tooling[Quarkus tools].
-====
+
 
 * Clone Quarkus Platform unless you have done it in the past
 +
