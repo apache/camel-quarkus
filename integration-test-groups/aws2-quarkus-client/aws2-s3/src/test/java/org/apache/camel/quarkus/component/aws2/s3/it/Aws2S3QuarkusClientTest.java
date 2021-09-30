@@ -20,6 +20,7 @@ import java.util.UUID;
 import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -32,7 +33,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@QuarkusTestResource(value = Aws2TestResource.class, initArgs = {
+        @ResourceArg(name = "awsQuarkusClientTest", value = "true")
+})
 class Aws2S3QuarkusClientTest {
 
     @Test

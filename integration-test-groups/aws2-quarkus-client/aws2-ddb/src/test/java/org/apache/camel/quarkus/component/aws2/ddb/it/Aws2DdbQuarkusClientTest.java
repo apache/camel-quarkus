@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import io.quarkus.test.common.QuarkusTestResource;
+import io.quarkus.test.common.ResourceArg;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -40,7 +41,9 @@ import software.amazon.awssdk.services.dynamodb.model.TableStatus;
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
-@QuarkusTestResource(Aws2TestResource.class)
+@QuarkusTestResource(value = Aws2TestResource.class, initArgs = {
+        @ResourceArg(name = "awsQuarkusClientTest", value = "true")
+})
 class Aws2DdbQuarkusClientTest {
 
     private static final Logger LOG = Logger.getLogger(Aws2DdbQuarkusClientTest.class);
