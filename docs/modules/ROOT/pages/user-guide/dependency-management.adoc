@@ -8,13 +8,10 @@ The easiest and most straightforward way to get the dependency versions right is
 It will produce a project with the `io.quarkus:quarkus-universe-bom` set up in the `<depependencyManagement>` section
 of your `pom.xml` file.
 
-[NOTE]
-====
-BOM stands for "Bill of Materials" - it is a `pom.xml` whose main purpose is to manage the versions of artifacts
+NOTE: BOM stands for "Bill of Materials" - it is a `pom.xml` whose main purpose is to manage the versions of artifacts
 so that end users importing the BOM in their projects do not need to care which particular versions of the artifacts
 are supposed to work together. In other words, having a BOM imported in the `<depependencyManagement>` section
 of your `pom.xml` allows you to avoid specifying versions for the dependencies managed by the given BOM.
-====
 
 `quarkus-universe-bom` manages the artifacts from Quarkus, Camel Quarkus and other participating projects,
 such as Hazelcast, Cassandra, Kogito, Optaplanner, etc.

@@ -4,7 +4,7 @@
 
 Health & liveness checks are supported via the
 xref:reference/extensions/microprofile-health.adoc[MicroProfile Health] extension. They can be configured via the
-xref:latest@manual::health-check.adoc[Camel Health] API or via
+xref:manual::health-check.adoc[Camel Health] API or via
 https://quarkus.io/guides/microprofile-health[Quarkus MicroProfile Health].
 
 All configured checks are available on the standard MicroProfile Health endpoint URLs:
