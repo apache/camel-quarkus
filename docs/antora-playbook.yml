@@ -27,9 +27,10 @@ content:
     start_path: docs
 
   - url: https://github.com/apache/camel-quarkus-examples.git
-    branches: HEAD
+    branches: main
     start_path: docs
 
+# The version/branch of main camel 'components' this version of camel-quarkus uses
   - url: https://github.com/apache/camel.git
     branches:
       - camel-3.11.x # replace ${camel.docs.branch}
@@ -39,20 +40,17 @@ content:
       # main components doc
       - docs/components
 
+# There is only one version of the user manual
   - url: https://github.com/apache/camel.git
     branches:
       - main
     start_paths:
       - docs/user-manual
-      - docs/components
-      - core/camel-core-engine/src/main/docs
 
+# The camel-spring-boot version corresponding to the main camel 'components' version/branch
   - url: https://github.com/apache/camel-spring-boot.git
     branches:
-      - main
-      - camel-spring-boot-3.11.x
-#      - camel-spring-boot-3.7.x
-#      - camel-spring-boot-3.4.x
+      - camel-spring-boot-3.11.x # keep aligned with camel branch
     start_path: docs
 
 asciidoc:
