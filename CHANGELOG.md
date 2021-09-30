@@ -12,7 +12,9 @@
 **Closed issues:**
 
 - \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
+- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
 - Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
+- Finish expanding of AWS DDB tests [\#3114](https://github.com/apache/camel-quarkus/issues/3114)
 - Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
 - Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
 - Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
@@ -35,6 +37,10 @@
 
 **Merged pull requests:**
 
+- aws2-lambda: Add lambda function tag operations test \#2749 [\#3139](https://github.com/apache/camel-quarkus/pull/3139) ([aldettinger](https://github.com/aldettinger))
+- Fix list continuation in aws2-ddb docs [\#3138](https://github.com/apache/camel-quarkus/pull/3138) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add missing grouped test modules to formatting steps [\#3136](https://github.com/apache/camel-quarkus/pull/3136) ([jamesnetherton](https://github.com/jamesnetherton))
+- Make integration tests runnable against Quarkus Platform BOM  [\#3134](https://github.com/apache/camel-quarkus/pull/3134) ([ppalaga](https://github.com/ppalaga))
 - Test Quarkus DynamoDB extension with Camel Quarkus AWS 2 DDB [\#3133](https://github.com/apache/camel-quarkus/pull/3133) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use camel-quarkus-build-parent-it as a direct parent of each test module [\#3128](https://github.com/apache/camel-quarkus/pull/3128) ([ppalaga](https://github.com/ppalaga))
 - Add notes on Quarkus Dev Services to JDBC & SQL extension docs [\#3127](https://github.com/apache/camel-quarkus/pull/3127) ([jamesnetherton](https://github.com/jamesnetherton))
