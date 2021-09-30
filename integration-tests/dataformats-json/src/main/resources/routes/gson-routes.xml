@@ -26,7 +26,7 @@
     <route>
         <from uri="direct:Gson-type-as-attribute"/>
         <unmarshal>
-            <json library="Gson" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
+            <json library="Gson" unmarshalType="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
         </unmarshal>
     </route>
 

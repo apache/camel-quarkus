@@ -26,7 +26,7 @@
     <route>
         <from uri="direct:Jsonb-type-as-attribute"/>
         <unmarshal>
-            <json library="Jsonb" unmarshalTypeName="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
+            <json library="Jsonb" unmarshalType="org.apache.camel.quarkus.component.dataformats.json.model.AnotherObject"/>
         </unmarshal>
     </route>
 

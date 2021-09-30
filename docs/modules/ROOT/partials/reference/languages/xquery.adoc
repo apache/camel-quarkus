@@ -9,5 +9,5 @@
 :cq-native-since: 2.0.0
 :cq-camel-part-name: xquery
 :cq-camel-part-title: XQuery
-:cq-camel-part-description: Evaluate an XQuery expressions against an XML payload.
+:cq-camel-part-description: Evaluates an XQuery expressions against an XML payload.
 :cq-extension-page-title: XQuery

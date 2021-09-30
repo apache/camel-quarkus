@@ -7,7 +7,7 @@
 :cq-native-supported: false
 :cq-status: Preview
 :cq-status-deprecation: Preview
-:cq-description: Evaluate a Groovy script.
+:cq-description: Evaluates a Groovy script.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: n/a
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
 
-Evaluate a Groovy script.
+Evaluates a Groovy script.
 
 == What's inside
 

@@ -61,6 +61,7 @@ public class GooglePubsubTestResource implements QuarkusTestResourceLifecycleMan
                     "project.id", PROJECT_ID,
                     "topic.name", TOPIC,
                     "subscription.name", SUBSCRIPTION,
+                    "camel.component.google-pubsub.authenticate", "false",
                     "camel.component.google-pubsub.endpoint", container.getEmulatorEndpoint());
         } catch (Exception e) {
             throw new RuntimeException(e);

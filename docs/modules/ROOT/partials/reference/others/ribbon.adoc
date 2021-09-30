@@ -4,7 +4,7 @@
 :cq-artifact-id-base: ribbon
 :cq-native-supported: false
 :cq-status: Preview
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.2.0
 :cq-native-since: n/a
 :cq-camel-part-name: ribbon

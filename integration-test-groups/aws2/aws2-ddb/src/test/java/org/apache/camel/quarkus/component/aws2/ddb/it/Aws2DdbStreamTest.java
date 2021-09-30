@@ -116,8 +116,6 @@ class Aws2DdbStreamTest {
 
                         && put2SeqNumber.length() > 0);
 
-        /* SequenceNumber */
-
         RestAssured.given()
                 .get("/aws2-ddbstream/clear")
                 .then()
@@ -126,12 +124,6 @@ class Aws2DdbStreamTest {
         /* Restart route and clear results */
         routeController("stop", null);
         routeController("status", ServiceStatus.Stopped.name());
-
-        RestAssured.given()
-                .body(put2SeqNumber.toString())
-                .post("/aws2-ddbstream/setSequenceNumber")
-                .then()
-                .statusCode(204);
 
         routeController("start", null);
         routeController("status", ServiceStatus.Started.name());
@@ -153,7 +145,7 @@ class Aws2DdbStreamTest {
                 .then()
                 .statusCode(204);
 
-        /* There should be only key2 and key3, because route is started with parameter "AT_SEQUENCE_NUMBER" of put #2. */
+        /* There should be put & update events for key 3 */
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
                 () -> {
                     ExtractableResponse<Response> result = RestAssured.get("/aws2-ddbstream/change")
@@ -167,20 +159,16 @@ class Aws2DdbStreamTest {
                     retVal = retVal.stream().filter(m -> !String.valueOf(m.get("key")).startsWith("initKey"))
                             .collect(Collectors.toList());
 
-                    LOG.info("Expecting 3 events, got " + result.statusCode() + ": " + retVal);
+                    LOG.info("Expecting 2 events, got " + result.statusCode() + ": " + retVal);
 
                     return retVal;
                 },
-                list -> list.size() == 3
-
-                        && key2.equals(list.get(0).get("key"))
-                        && msg2.equals(list.get(0).get("new"))
+                list -> list.size() == 2
+                        && key3.equals(list.get(0).get("key"))
+                        && msg3.equals(list.get(0).get("new"))
 
                         && key3.equals(list.get(1).get("key"))
-                        && msg3.equals(list.get(1).get("new"))
-
-                        && key3.equals(list.get(2).get("key"))
-                        && msg3.equals(list.get(2).get("old")));
+                        && msg3.equals(list.get(1).get("old")));
     }
 
     private void waitForStreamConsumerToStart() {

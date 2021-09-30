@@ -9,5 +9,5 @@
 :cq-native-since: 0.4.0
 :cq-camel-part-name: netty
 :cq-camel-part-title: Netty
-:cq-camel-part-description: Socket level networking using TCP or UDP with the Netty 4.x.
+:cq-camel-part-description: Socket level networking using TCP or UDP with Netty 4.x.
 :cq-extension-page-title: Netty

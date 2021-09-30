@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
 :cq-camel-part-name: jsonpath
-:cq-camel-part-title: JsonPath
-:cq-camel-part-description: Evaluate a JsonPath expression against a JSON message body.
+:cq-camel-part-title: JSONPath
+:cq-camel-part-description: Evaluates a JSONPath expression against a JSON message body.
 :cq-extension-page-title: JSON Path

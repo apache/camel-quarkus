@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: header
 :cq-camel-part-title: Header
-:cq-camel-part-description: Get the value of the named Camel Message header.
+:cq-camel-part-description: Gets a header from the Exchange.
 :cq-extension-page-title: Core

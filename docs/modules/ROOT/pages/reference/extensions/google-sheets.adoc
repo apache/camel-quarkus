@@ -20,7 +20,7 @@ Manage spreadsheets in Google Sheets. Poll for changes in Google Sheets.
 == What's inside
 
 * xref:{cq-camel-components}::google-sheets-component.adoc[Google Sheets component], URI syntax: `google-sheets:apiName/methodName`
-* xref:{cq-camel-components}::google-sheets-stream-component.adoc[Google Sheets Stream component], URI syntax: `google-sheets-stream:apiName`
+* xref:{cq-camel-components}::google-sheets-stream-component.adoc[Google Sheets Stream component], URI syntax: `google-sheets-stream:spreadsheetId`
 
 Please refer to the above links for usage and configuration details.
 

@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: ref
 :cq-camel-part-title: Ref
-:cq-camel-part-description: Look up an expression in the Camel Registry and evaluate it.
+:cq-camel-part-description: Uses an existing expression from the registry.
 :cq-extension-page-title: Core

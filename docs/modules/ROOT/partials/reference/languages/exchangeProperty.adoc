@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: exchangeProperty
 :cq-camel-part-title: ExchangeProperty
-:cq-camel-part-description: Get the value of named Camel Exchange property.
+:cq-camel-part-description: Gets a property from the Exchange.
 :cq-extension-page-title: Core
