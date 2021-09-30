@@ -19,7 +19,7 @@ with a command line utility may suit much better in situations like this.
 There is just one thing where it would differ from a stock Camel Quarkus application:
 setting an exit condition in `application.properties`.
 
-The rest of the application - most notably the xref:latest@manual::routes.adoc[Route]
+The rest of the application - most notably the xref:manual::routes.adoc[Route]
 that performs the actual data transformation and transfer - will look the same like with a traditional Camel service.
 
 == A minimal Hello World!

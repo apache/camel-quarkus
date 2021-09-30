@@ -1,19 +1,7 @@
 = Camel misc. components supported on Quarkus
-:indexer-version: latest
-:indexer-component: components
 :indexer-module: others
 :indexer-rel-filter: *.adoc
 :indexer-human-readable-kind: Misc. component
 :indexer-human-readable-kind-plural: misc. components
 
-There are indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes=cq-artifact-id] {indexer-human-readable-kind-plural} (indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes='cq-artifact-id,cq-deprecated=true'] deprecated, indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes='cq-artifact-id,cq-native-supported=false'] JVM only)
-
-[.counted-table,width="100%",cols="4,1,1,1,1,5",options="header"]
-|===
-| {indexer-human-readable-kind} | Artifact | JVM +
-since | Native +
-since | Support +
-level | Description
-|===
-
-indexTable::[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes=cq-artifact-id,cells="=`xref:reference/extensions/$\{cqArtifactIdBase}.adoc[$\{cqCamelPartTitle}]`,cq-artifact-id,cq-jvm-since,cq-native-since,cq-status-deprecation,cq-camel-part-description"]
+include::partial$reference/summary-table.adoc[]

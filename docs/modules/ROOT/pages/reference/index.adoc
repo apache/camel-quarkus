@@ -18,10 +18,15 @@ There are indexCount:[relative=reference/extensions/\*.adoc] extensions (indexCo
 
 [.counted-table,width="100%",cols="4,1,1,1,1,5",options="header"]
 |===
-| Extension | Artifact | JVM +
-since | Native +
-since | Support +
-level | Description
+| Extension
+| Artifact
+| JVM +
+since
+| Native +
+since
+| Support +
+level
+| Description
 |===
 
-indexTable::[relative='reference/extensions/*.adoc',cells="$xref,cq-artifact-id,cq-jvm-since,cq-native-since,cq-status-deprecation,cq-description"]
+indexTable::[relative='reference/extensions/*.adoc',cellformats="$xref|cqArtifactId|cqJvmSince|cqNativeSince|cqStatusDeprecation|cqDescription"]
