@@ -68,7 +68,7 @@ public class MyBean {
 == `@EndpointInject` and `@Produce`
 
 If you are used to `@org.apache.camel.EndpointInject` and `@org.apache.camel.Produce` from
-xref:latest@manual::pojo-producing.adoc[plain Camel] or from Camel on SpringBoot, you can continue using them on Quarkus too.
+xref:manual::pojo-producing.adoc[plain Camel] or from Camel on SpringBoot, you can continue using them on Quarkus too.
 This is supported since Camel Quarkus 2.0.0.
 
 The following use cases are supported by `org.apache.camel.quarkus:camel-quarkus-core`:
@@ -178,16 +178,13 @@ public class CamelRoute extends RouteBuilder {
 }
 ----
 
-[INFO]
-====
-We aim at supporting all use cases listed in xref:latest@manual::bean-binding.adoc[Bean binding] section of Camel documentation.
+INFO: We aim at supporting all use cases listed in xref:manual::bean-binding.adoc[Bean binding] section of Camel documentation.
 Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue] if some bean binding scenario does not work for you.
-====
 
 === `@Consume`
 
 Since Camel Quarkus 2.0.0, the `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
-- see the xref:latest@manual:ROOT:pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
+- see the xref:manual:ROOT:pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
 
 Declaring a class like the following
 
