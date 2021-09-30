@@ -24,12 +24,8 @@ import javax.annotation.Generated;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-import com.thoughtworks.xstream.annotations.XStreamConverter;
-import org.apache.camel.component.salesforce.api.MultiSelectPicklistConverter;
 import org.apache.camel.component.salesforce.api.MultiSelectPicklistDeserializer;
 import org.apache.camel.component.salesforce.api.MultiSelectPicklistSerializer;
-import org.apache.camel.component.salesforce.api.PicklistEnumConverter;
 import org.apache.camel.component.salesforce.api.dto.AbstractDescribedSObjectBase;
 import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
 import org.apache.camel.component.salesforce.api.dto.SObjectDescriptionUrls;
@@ -39,7 +35,6 @@ import org.apache.camel.component.salesforce.api.dto.SObjectField;
  * Salesforce DTO for SObject Account
  */
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
-@XStreamAlias("Account")
 public class Account extends AbstractDescribedSObjectBase {
 
     public Account() {
@@ -60,7 +55,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.MasterRecordId = MasterRecordId;
     }
 
-    @XStreamAlias("MasterRecord")
     private Account MasterRecord;
 
     @JsonProperty("MasterRecord")
@@ -73,7 +67,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.MasterRecord = MasterRecord;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_TypeEnum Type;
 
     @JsonProperty("Type")
@@ -98,7 +91,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.ParentId = ParentId;
     }
 
-    @XStreamAlias("Parent")
     private Account Parent;
 
     @JsonProperty("Parent")
@@ -195,7 +187,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.BillingLongitude = BillingLongitude;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_BillingGeocodeAccuracyEnum BillingGeocodeAccuracy;
 
     @JsonProperty("BillingGeocodeAccuracy")
@@ -304,7 +295,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.ShippingLongitude = ShippingLongitude;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_ShippingGeocodeAccuracyEnum ShippingGeocodeAccuracy;
 
     @JsonProperty("ShippingGeocodeAccuracy")
@@ -401,7 +391,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.Sic = Sic;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_IndustryEnum Industry;
 
     @JsonProperty("Industry")
@@ -438,7 +427,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.NumberOfEmployees = NumberOfEmployees;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_OwnershipEnum Ownership;
 
     @JsonProperty("Ownership")
@@ -475,7 +463,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.Description = Description;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_RatingEnum Rating;
 
     @JsonProperty("Rating")
@@ -524,7 +511,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.JigsawCompanyId = JigsawCompanyId;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_CleanStatusEnum CleanStatus;
 
     @JsonProperty("CleanStatus")
@@ -537,7 +523,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.CleanStatus = CleanStatus;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_AccountSourceEnum AccountSource;
 
     @JsonProperty("AccountSource")
@@ -634,7 +619,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.DandbCompanyId = DandbCompanyId;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_CustomerPriorityEnum CustomerPriority__c;
 
     @JsonProperty("CustomerPriority__c")
@@ -647,7 +631,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.CustomerPriority__c = CustomerPriority__c;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_SLAEnum SLA__c;
 
     @JsonProperty("SLA__c")
@@ -660,7 +643,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.SLA__c = SLA__c;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_ActiveEnum Active__c;
 
     @JsonProperty("Active__c")
@@ -685,7 +667,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.NumberofLocations__c = NumberofLocations__c;
     }
 
-    @XStreamConverter(PicklistEnumConverter.class)
     private Account_UpsellOpportunityEnum UpsellOpportunity__c;
 
     @JsonProperty("UpsellOpportunity__c")
@@ -722,7 +703,6 @@ public class Account extends AbstractDescribedSObjectBase {
         this.SLAExpirationDate__c = SLAExpirationDate__c;
     }
 
-    @XStreamConverter(MultiSelectPicklistConverter.class)
     private Account_MyMultiselectEnum[] MyMultiselect__c;
 
     @JsonProperty("MyMultiselect__c")

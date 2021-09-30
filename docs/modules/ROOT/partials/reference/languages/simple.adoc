@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: simple
 :cq-camel-part-title: Simple
-:cq-camel-part-description: Evaluate Camel's built-in Simple language expression against the Camel Exchange.
+:cq-camel-part-description: Evaluates a Camel simple expression.
 :cq-extension-page-title: Core

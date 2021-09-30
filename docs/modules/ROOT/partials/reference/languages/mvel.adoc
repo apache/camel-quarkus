@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: mvel
 :cq-camel-part-title: MVEL
-:cq-camel-part-description: Evaluate an MVEL template against the Camel Exchange.
+:cq-camel-part-description: Evaluates a MVEL template.
 :cq-extension-page-title: MVEL

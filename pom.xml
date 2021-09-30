@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.11.2</version>
+        <version>3.12.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,8 +39,8 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>3.11</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
-        <camel.version>${camel.major.minor}.2</camel.version>
+        <camel.major.minor>3.12</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.xref>${camel.major.minor}.x@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
         <camel.sb.docs.branch>camel-spring-boot-${camel.major.minor}.x</camel.sb.docs.branch><!-- The stable camel-spring-boot branch on which our Antora docs depends -->
@@ -69,6 +69,8 @@
         <commons-collections.version>3.2.2</commons-collections.version><!-- used by hbase, should be pretty stable as commons-collections are not developed actively anymore -->
         <commons-lang.version>2.6</commons-lang.version><!-- used by hbase, should be pretty stable as commons-lang is not developed actively anymore -->
         <commons-math3.version>3.6.1</commons-math3.version><!-- Mess in the transitive dependencies of Spark and hbase-testing-util -->
+        <commons-net.version>${commons-net-version}</commons-net.version> <!-- Spark -->
+        <commons-text.version>${commons-text-version}</commons-text.version> <!-- Spark -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
         <eddsa.version>${eddsa-version}</eddsa.version>
@@ -80,7 +82,8 @@
         <graalvm.version>21.2.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
         <grpc.version>1.40.1</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <gson.version>2.8.6</gson.version><!-- @sync com.ibm.jsonata4java:JSONata4Java:${jsonata4java-version} dep:com.google.code.gson:gson -->
-        <hadoop2.version>${hadoop2-version}</hadoop2.version><!-- Spark -->
+        <guice-servlet.version>4.0</guice-servlet.version><!-- Spark -->
+        <hadoop3.version>${hadoop3-version}</hadoop3.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
         <hapi-fhir.version>${hapi-fhir-version}</hapi-fhir.version>
         <hbase.version>${hbase-version}</hbase.version>
@@ -101,8 +104,10 @@
         <kafka.version>2.8.1</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.5.30</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
+        <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
-        <minio.version>${minio-version}</minio.version><!-- Keep in sync with quarkiverse-minio and Camel, preferring Camel assuming that it is more likely to be up to date -->
+        <metrics.version>${metrics-version}</metrics.version><!-- Spark -->
+        <minio.version>8.2.2</minio.version><!-- Keep in sync with quarkiverse-minio and Camel, preferring Camel assuming that it is more likely to be up to date. Keep quarkiverse version, until the okhttp dependeny version inherited from quarkus-bom is resolved as described here https://github.com/quarkiverse/quarkus-minio/pull/72  -->
         <mvel2.version>${mvel-version}</mvel2.version>
         <nimbus-jose-jwt.version>9.10</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps, used also by io.strimzi:kafka-oauth-client recommended by https://quarkus.io/guides/kafka#authenticating-with-oauth -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>
@@ -110,7 +115,7 @@
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
-        <scala-2.11.version>2.11.12</scala-2.11.version><!-- Spark -->
+        <scala-2.12.version>2.12.14</scala-2.12.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>3.9.1</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>

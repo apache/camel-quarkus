@@ -9,5 +9,5 @@
 :cq-native-since: 1.8.0
 :cq-camel-part-name: hl7terser
 :cq-camel-part-title: HL7 Terser
-:cq-camel-part-description: Get the value of an HL7 message field specified by terse location specification syntax.
+:cq-camel-part-description: Get the value of a HL7 message field specified by terse location specification syntax.
 :cq-extension-page-title: HL7

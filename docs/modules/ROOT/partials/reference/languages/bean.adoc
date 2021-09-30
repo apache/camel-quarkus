@@ -8,6 +8,6 @@
 :cq-jvm-since: 0.1.0
 :cq-native-since: 0.1.0
 :cq-camel-part-name: bean
-:cq-camel-part-title: Bean method
-:cq-camel-part-description: Call a method of the specified Java bean passing the Exchange, Body or specific headers to it.
+:cq-camel-part-title: Bean Method
+:cq-camel-part-description: Calls a Java bean method.
 :cq-extension-page-title: Bean

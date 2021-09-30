@@ -44,7 +44,7 @@ public class As2Sender {
                 As2Helper.AS2_NAME,
                 As2Helper.AS2_NAME, AS2MessageStructure.PLAIN,
                 ContentType.create(AS2MediaType.APPLICATION_EDIFACT, AS2Charset.US_ASCII), null, null, null, null,
-                null, As2Helper.DISPOSITION_NOTIFICATION_TO, As2Helper.SIGNED_RECEIPT_MIC_ALGORITHMS, null, null);
+                null, As2Helper.DISPOSITION_NOTIFICATION_TO, As2Helper.SIGNED_RECEIPT_MIC_ALGORITHMS, null, null, null);
     }
 
     public interface As2SenderClient {

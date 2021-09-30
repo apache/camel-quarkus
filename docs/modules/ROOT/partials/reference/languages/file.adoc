@@ -9,5 +9,5 @@
 :cq-native-since: 0.0.1
 :cq-camel-part-name: file
 :cq-camel-part-title: File
-:cq-camel-part-description: For expressions and predicates using the file/simple language.
+:cq-camel-part-description: File related capabilities for the Simple language
 :cq-extension-page-title: Core

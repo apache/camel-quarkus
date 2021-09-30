@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: aws2-sqs
 :cq-camel-part-title: AWS Simple Queue Service (SQS)
-:cq-camel-part-description: Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x.
+:cq-camel-part-description: Send and receive messages to/from AWS SQS service using AWS SDK version 2.x.
 :cq-extension-page-title: AWS 2 Simple Queue Service (SQS)

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Evaluate a JsonPath expression against a JSON message body.
+:cq-description: Evaluates a JSONPath expression against a JSON message body.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,11 +15,11 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Evaluate a JsonPath expression against a JSON message body.
+Evaluates a JSONPath expression against a JSON message body.
 
 == What's inside
 
-* xref:{cq-camel-components}:languages:jsonpath-language.adoc[JsonPath language]
+* xref:{cq-camel-components}:languages:jsonpath-language.adoc[JSONPath language]
 
 Please refer to the above link for usage and configuration details.
 

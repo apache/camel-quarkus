@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: xtokenize
 :cq-camel-part-title: XML Tokenize
-:cq-camel-part-description: Tokenize XML payloads using the specified path expression.
+:cq-camel-part-description: Tokenize XML payloads.
 :cq-extension-page-title: XML JAXP

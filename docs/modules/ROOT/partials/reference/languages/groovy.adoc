@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: groovy
 :cq-camel-part-title: Groovy
-:cq-camel-part-description: Evaluate a Groovy script.
+:cq-camel-part-description: Evaluates a Groovy script.
 :cq-extension-page-title: Groovy

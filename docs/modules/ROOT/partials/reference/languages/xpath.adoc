@@ -9,5 +9,5 @@
 :cq-native-since: 1.0.0
 :cq-camel-part-name: xpath
 :cq-camel-part-title: XPath
-:cq-camel-part-description: Evaluate an XPath expression against an XML payload.
+:cq-camel-part-description: Evaluates an XPath expression against an XML payload.
 :cq-extension-page-title: XPath

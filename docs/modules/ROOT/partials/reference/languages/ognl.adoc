@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: ognl
 :cq-camel-part-title: OGNL
-:cq-camel-part-description: Evaluate an Apache Commons Object Graph Navigation Library (OGNL) expression against the Camel Exchange.
+:cq-camel-part-description: Evaluates an OGNL expression (Apache Commons OGNL).
 :cq-extension-page-title: OGNL

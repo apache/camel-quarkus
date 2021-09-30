@@ -20,7 +20,6 @@ import java.util.List;
 
 import javax.annotation.Generated;
 
-import com.thoughtworks.xstream.annotations.XStreamImplicit;
 import org.apache.camel.component.salesforce.api.dto.AbstractQueryRecordsBase;
 
 /**
@@ -29,7 +28,6 @@ import org.apache.camel.component.salesforce.api.dto.AbstractQueryRecordsBase;
 @Generated("org.apache.camel.maven.CamelSalesforceMojo")
 public class QueryRecordsAccount extends AbstractQueryRecordsBase {
 
-    @XStreamImplicit
     private List<Account> records;
 
     public List<Account> getRecords() {

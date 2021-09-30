@@ -44,7 +44,7 @@ public class Aws2DdbStreamRoutes extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         from("aws2-ddbstream://" + streamTableName
-                + "?sequenceNumberProvider=#aws2DdbStreamSequenceNumberProvider&iteratorType=AT_SEQUENCE_NUMBER")
+                + "?streamIteratorType=FROM_LATEST")
                         .id("aws2DdbStreamRoute")
                         .process(e -> {
                             Record record = e.getMessage().getBody(Record.class);

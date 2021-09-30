@@ -23,7 +23,6 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,10 +36,6 @@ public class Aws2DdbStreamResource {
 
     @Inject
     CamelContext camelContext;
-
-    @Inject
-    @Named("aws2DdbStreamSequenceNumberProvider")
-    TestSequenceNumberProvider sequenceNumberProvider;
 
     @Inject
     @Named("aws2DdbStreamReceivedEvents")
@@ -57,12 +52,6 @@ public class Aws2DdbStreamResource {
     @GET
     public void clear() {
         aws2DdbStreamReceivedEvents.clear();
-    }
-
-    @Path("/setSequenceNumber")
-    @POST
-    public void setSequenceNumber(String newSn) {
-        sequenceNumberProvider.setLastSequenceNumber(newSn);
     }
 
     @GET

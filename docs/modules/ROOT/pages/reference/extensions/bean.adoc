@@ -20,7 +20,7 @@ Invoke methods of Java beans
 == What's inside
 
 * xref:{cq-camel-components}::bean-component.adoc[Bean component], URI syntax: `bean:beanName`
-* xref:{cq-camel-components}:languages:bean-language.adoc[Bean method language]
+* xref:{cq-camel-components}:languages:bean-language.adoc[Bean Method language]
 * xref:{cq-camel-components}::class-component.adoc[Class component], URI syntax: `class:beanName`
 
 Please refer to the above links for usage and configuration details.

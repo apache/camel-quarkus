@@ -9,5 +9,5 @@
 :cq-native-since: n/a
 :cq-camel-part-name: joor
 :cq-camel-part-title: jOOR
-:cq-camel-part-description: Evaluate a jOOR (Java compiled once at runtime) expression language.
+:cq-camel-part-description: Evaluates a jOOR (Java compiled once at runtime) expression.
 :cq-extension-page-title: jOOR

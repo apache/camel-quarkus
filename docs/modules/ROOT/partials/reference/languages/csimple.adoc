@@ -9,5 +9,5 @@
 :cq-native-since: 1.5.0
 :cq-camel-part-name: csimple
 :cq-camel-part-title: CSimple
-:cq-camel-part-description: Evaluate a compile simple expression language.
+:cq-camel-part-description: Evaluate a compiled simple expression.
 :cq-extension-page-title: CSimple
