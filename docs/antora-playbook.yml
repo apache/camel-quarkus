@@ -34,6 +34,9 @@ content:
     branches:
       - camel-3.11.x # replace ${camel.docs.branch}
     start_paths:
+      # eip
+      - core/camel-core-engine/src/main/docs
+      # main components doc
       - docs/components
 
   - url: https://github.com/apache/camel.git
