@@ -1,0 +1,16 @@
+There are indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes=cq-artifact-id] {indexer-human-readable-kind-plural} (indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes='cq-artifact-id,cq-deprecated=true'] deprecated, indexCount:[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes='cq-artifact-id,cq-native-supported=false'] JVM only)
+
+[.counted-table,width="100%",cols="4,1,1,1,1,5",options="header"]
+|===
+| {indexer-human-readable-kind}
+| Artifact
+| JVM +
+since
+| Native +
+since
+| Support +
+level
+| Description
+|===
+
+indexTable::[version="{indexer-version}",component="{indexer-component}",module="{indexer-module}",relative="{indexer-rel-filter}",attributes=cq-artifact-id,cellformats="`xref:reference/extensions/$\{cqArtifactIdBase}.adoc[$\{cqCamelPartTitle}]`|cqArtifactId|cqJvmSince|cqNativeSince|cqStatus|cqCamelPartDescription"]

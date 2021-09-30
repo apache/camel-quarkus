@@ -54,7 +54,7 @@ In case of the above example, it would be `camel-quarkus-timer`.
 In order to configure Camel routes, rests or templates in XML, you must add a Camel XML parser dependency to the classpath.
 Since Camel Quarkus 1.8.0, `xref:reference/extensions/xml-io-dsl.adoc[camel-quarkus-xml-io-dsl]` is the best choice.
 
-With Camel Main, you can set a property that points to the location of resources XML files such as routes, xref:latest@manual::rest-dsl.adoc[REST DSL] and xref:latest@manual::route-template.adoc[Route templates]:
+With Camel Main, you can set a property that points to the location of resources XML files such as routes, xref:manual::rest-dsl.adoc[REST DSL] and xref:manual::route-template.adoc[Route templates]:
 
 [source,properties]
 ----

@@ -41,7 +41,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Usage
 
-You can register health checks for your applications with the xref:latest@manual::health-check.adoc[Camel health check API].
+You can register health checks for your applications with the xref:manual::health-check.adoc[Camel health check API].
 
 By default, classes extending `AbstractHealthCheck` are registered as both liveness and readiness checks. You can override the `isReadiness` method to control this behaviour.
 

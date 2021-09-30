@@ -1,6 +1,6 @@
 = Apache Camel extensions for Quarkus
 
-This project aims to bring the awesome integration capabilities of xref:latest@manual::index.adoc[Apache Camel]
+This project aims to bring the awesome integration capabilities of xref:manual::index.adoc[Apache Camel]
 and its vast xref:{cq-camel-components}::index.adoc[component library] to the
 https://quarkus.io/[Quarkus runtime].
 
