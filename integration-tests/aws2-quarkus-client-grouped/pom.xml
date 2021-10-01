@@ -30,32 +30,6 @@
     <name>Camel Quarkus :: Integration Tests :: AWS2 Quarkus Client Grouped</name>
     <description>AWS 2 tests from ../integration-test-groups/aws2-quarkus-client merged together</description>
 
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>${camel-quarkus.platform.group-id}</groupId>
-                <artifactId>${camel-quarkus.platform.artifact-id}</artifactId>
-                <version>${camel-quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${camel-quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
     <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
     <dependencies>
         <dependency>

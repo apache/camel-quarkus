@@ -50,27 +50,6 @@
                 <artifactId>guava</artifactId>
                 <version>20.0</version><!-- The last version that contains com.google.common.util.concurrent.Futures.addCallback(com.google.common.util.concurrent.ListenableFuture, com.google.common.util.concurrent.FutureCallback) required by hbase-test-util -->
             </dependency>
-            <dependency>
-                <groupId>${quarkus.platform.group-id}</groupId>
-                <artifactId>${quarkus.platform.artifact-id}</artifactId>
-                <version>${quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>${camel-quarkus.platform.group-id}</groupId>
-                <artifactId>${camel-quarkus.platform.artifact-id}</artifactId>
-                <version>${camel-quarkus.platform.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${camel-quarkus.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
