@@ -33,13 +33,17 @@
 - Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
 - Kafka - add test coverage [\#2627](https://github.com/apache/camel-quarkus/issues/2627)
 - AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
+- Test camel-quarkus-aws2-s3 together with quarkus-amazon-s3 [\#2590](https://github.com/apache/camel-quarkus/issues/2590)
 - Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
 
 **Merged pull requests:**
 
+- Fixes \#3143: Add latest non-prerelease eips [\#3146](https://github.com/apache/camel-quarkus/pull/3146) ([djencks](https://github.com/djencks))
+- Upgrade Quarkus to 2.3.0.Final [\#3140](https://github.com/apache/camel-quarkus/pull/3140) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Add lambda function tag operations test \#2749 [\#3139](https://github.com/apache/camel-quarkus/pull/3139) ([aldettinger](https://github.com/aldettinger))
 - Fix list continuation in aws2-ddb docs [\#3138](https://github.com/apache/camel-quarkus/pull/3138) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing grouped test modules to formatting steps [\#3136](https://github.com/apache/camel-quarkus/pull/3136) ([jamesnetherton](https://github.com/jamesnetherton))
+- Test Quarkus S3 extension with Camel Quarkus AWS 2 S3 [\#3135](https://github.com/apache/camel-quarkus/pull/3135) ([zhfeng](https://github.com/zhfeng))
 - Make integration tests runnable against Quarkus Platform BOM  [\#3134](https://github.com/apache/camel-quarkus/pull/3134) ([ppalaga](https://github.com/ppalaga))
 - Test Quarkus DynamoDB extension with Camel Quarkus AWS 2 DDB [\#3133](https://github.com/apache/camel-quarkus/pull/3133) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use camel-quarkus-build-parent-it as a direct parent of each test module [\#3128](https://github.com/apache/camel-quarkus/pull/3128) ([ppalaga](https://github.com/ppalaga))
