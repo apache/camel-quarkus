@@ -2,43 +2,15 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.0...HEAD)
-
-**Fixed bugs:**
-
-- Opentracing can't be disabled via config [\#3084](https://github.com/apache/camel-quarkus/issues/3084)
-- XchangeTest failure due to deprecated binance WAPI endpoints [\#3016](https://github.com/apache/camel-quarkus/issues/3016)
-
-**Closed issues:**
-
-- \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
-- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
-- Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
-- Finish expanding of AWS DDB tests [\#3114](https://github.com/apache/camel-quarkus/issues/3114)
-- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
-- Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
-- Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
-- Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
-- Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
-- Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
-- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3079](https://github.com/apache/camel-quarkus/issues/3079)
-- \[Camel 3.11.2 / Camel 3.12.0\] Enable tests for OpenApi license and contact info [\#3076](https://github.com/apache/camel-quarkus/issues/3076)
-- Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
-- Salesforce : Impossible to custom fields for Platform events [\#3067](https://github.com/apache/camel-quarkus/issues/3067)
-- JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
-- Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
-- Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
-- Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
-- Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
-- Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
-- Kafka - add test coverage [\#2627](https://github.com/apache/camel-quarkus/issues/2627)
-- AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
-- Test camel-quarkus-aws2-s3 together with quarkus-amazon-s3 [\#2590](https://github.com/apache/camel-quarkus/issues/2590)
-- Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.3.0...HEAD)
 
 **Merged pull requests:**
 
+- Avoid release:prepare failure "The version could not be updated: [\#3150](https://github.com/apache/camel-quarkus/pull/3150) ([ppalaga](https://github.com/ppalaga))
+- Enable auto replacement of camel-spring-boot docs branch reference [\#3148](https://github.com/apache/camel-quarkus/pull/3148) ([jamesnetherton](https://github.com/jamesnetherton))
+- Issue 3143 fix eip xrefs some more [\#3147](https://github.com/apache/camel-quarkus/pull/3147) ([djencks](https://github.com/djencks))
 - Fixes \#3143: Add latest non-prerelease eips [\#3146](https://github.com/apache/camel-quarkus/pull/3146) ([djencks](https://github.com/djencks))
+- Enable Aws2TestEnvContext to handle setting up Quarkus AWS configuration properties [\#3141](https://github.com/apache/camel-quarkus/pull/3141) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.3.0.Final [\#3140](https://github.com/apache/camel-quarkus/pull/3140) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Add lambda function tag operations test \#2749 [\#3139](https://github.com/apache/camel-quarkus/pull/3139) ([aldettinger](https://github.com/aldettinger))
 - Fix list continuation in aws2-ddb docs [\#3138](https://github.com/apache/camel-quarkus/pull/3138) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -792,6 +764,44 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.3.0](https://github.com/apache/camel-quarkus/tree/2.3.0) (2021-10-01)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.0...2.3.0)
+
+**Fixed bugs:**
+
+- Opentracing can't be disabled via config [\#3084](https://github.com/apache/camel-quarkus/issues/3084)
+- XchangeTest failure due to deprecated binance WAPI endpoints [\#3016](https://github.com/apache/camel-quarkus/issues/3016)
+
+**Closed issues:**
+
+- RestClient and Opentracing runs into StackOverflowError [\#3145](https://github.com/apache/camel-quarkus/issues/3145)
+- Enable `Aws2TestEnvContext` to handle setting up Quarkus AWS configuration properties [\#3137](https://github.com/apache/camel-quarkus/issues/3137)
+- \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
+- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
+- Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
+- Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
+- JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
+- Sql - enable test with different databases [\#3053](https://github.com/apache/camel-quarkus/issues/3053)
+- Unsatisfying test coverage of binding mode in rest component [\#3028](https://github.com/apache/camel-quarkus/issues/3028)
+- Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
+- Improve Kafka integration with Quarkus dev services [\#3121](https://github.com/apache/camel-quarkus/issues/3121)
+- Finish expanding of AWS DDB tests [\#3114](https://github.com/apache/camel-quarkus/issues/3114)
+- Docs xref check failures [\#3109](https://github.com/apache/camel-quarkus/issues/3109)
+- Salesforce integration tests: possible failures [\#3103](https://github.com/apache/camel-quarkus/issues/3103)
+- Test `platform-http` with SSL enabled [\#3093](https://github.com/apache/camel-quarkus/issues/3093)
+- Improve handling of `quarkus.*.enabled` configuration properties [\#3091](https://github.com/apache/camel-quarkus/issues/3091)
+- Improve native support for `org.apache.http.impl.client.BasicAuthCache` [\#3079](https://github.com/apache/camel-quarkus/issues/3079)
+- \[Camel 3.11.2 / Camel 3.12.0\] Enable tests for OpenApi license and contact info [\#3076](https://github.com/apache/camel-quarkus/issues/3076)
+- Expand OpenAPI Java test coverage [\#3072](https://github.com/apache/camel-quarkus/issues/3072)
+- Salesforce : Impossible to custom fields for Platform events [\#3067](https://github.com/apache/camel-quarkus/issues/3067)
+- Expand REST DSL test coverage [\#3036](https://github.com/apache/camel-quarkus/issues/3036)
+- Salesforce : add test coverage  [\#2938](https://github.com/apache/camel-quarkus/issues/2938)
+- Expand AWS S3 test coverage [\#2745](https://github.com/apache/camel-quarkus/issues/2745)
+- Kafka - add test coverage [\#2627](https://github.com/apache/camel-quarkus/issues/2627)
+- AWS2 Lambda integration timeouts on Localstack [\#2595](https://github.com/apache/camel-quarkus/issues/2595)
+- Test camel-quarkus-aws2-s3 together with quarkus-amazon-s3 [\#2590](https://github.com/apache/camel-quarkus/issues/2590)
 
 ## [2.2.0](https://github.com/apache/camel-quarkus/tree/2.2.0) (2021-08-27)
 
