@@ -18,13 +18,8 @@ package org.apache.camel.quarkus.core.cloud.deployment;
 
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.model.cloud.ServiceCallConfiguration;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
-import org.jboss.jandex.DotName;
-import org.jboss.jandex.IndexView;
 
 class CloudProcessor {
     @BuildStep
@@ -35,16 +30,4 @@ class CloudProcessor {
                 "META-INF/services/org/apache/camel/cloud/*"));
 
     }
-
-    @BuildStep
-    void reflectiveClasses(BuildProducer<ReflectiveClassBuildItem> reflectiveClass,
-            CombinedIndexBuildItem combinedIndexBuildItem) {
-        // TODO: remove when https://github.com/apache/camel-quarkus/issues/2955 is fixed
-        IndexView index = combinedIndexBuildItem.getIndex();
-        index.getAllKnownSubclasses(DotName.createSimple(ServiceCallConfiguration.class.getName()))
-                .stream()
-                .map(classInfo -> new ReflectiveClassBuildItem(true, false, classInfo.name().toString()))
-                .forEach(reflectiveClass::produce);
-    }
-
 }
