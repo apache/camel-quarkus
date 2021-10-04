@@ -56,6 +56,6 @@ public class MicroProfileMetricsConfigDefaultsTest {
         assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
 
         List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(4, eventNotifiers.size());
+        assertEquals(3, eventNotifiers.size());
     }
 }

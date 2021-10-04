@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Set;
+
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
@@ -63,8 +65,6 @@ public class CamelContextRecorder {
         context.setModelJAXBContextFactory(contextFactory.getValue());
         context.adapt(ExtendedCamelContext.class).setStartupStepRecorder(startupStepRecorder.getValue());
         context.build();
-        context.addLifecycleStrategy(new CamelLifecycleEventBridge());
-        context.getManagementStrategy().addEventNotifier(new CamelManagementEventBridge());
         context.setComponentNameResolver(componentNameResolver.getValue());
 
         // register to the container
@@ -121,5 +121,15 @@ public class CamelContextRecorder {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void registerLifecycleEventBridge(RuntimeValue<CamelContext> context, Set<String> observedLifecycleEvents) {
+        context.getValue().addLifecycleStrategy(new CamelLifecycleEventBridge(observedLifecycleEvents));
+    }
+
+    public void registerManagementEventBridge(RuntimeValue<CamelContext> camelContext, Set<String> observedManagementEvents) {
+        camelContext.getValue()
+                .getManagementStrategy()
+                .addEventNotifier(new CamelManagementEventBridge(observedManagementEvents));
     }
 }
