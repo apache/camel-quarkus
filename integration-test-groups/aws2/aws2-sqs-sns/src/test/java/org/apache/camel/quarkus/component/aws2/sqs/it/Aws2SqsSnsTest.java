@@ -34,7 +34,6 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.anyOf;
@@ -103,7 +102,6 @@ class Aws2SqsSnsTest {
     }
 
     @Test
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3097")
     public void sqsAutoCreateDelayedQueue() {
         final String qName = "delayQueue";
         final int delay = 10;
@@ -129,7 +127,7 @@ class Aws2SqsSnsTest {
     }
 
     private void deleteQueue(String queueName) {
-        RestAssured.get("/aws2-sqs-sns/sqs/delete/queue/" + queueName)
+        RestAssured.delete("/aws2-sqs-sns/sqs/delete/queue/" + queueName)
                 .then()
                 .statusCode(200);
         awaitQueueDeleted(queueName);
@@ -137,7 +135,7 @@ class Aws2SqsSnsTest {
 
     private void awaitQueueDeleted(String queueName) {
         Awaitility.await().pollInterval(1, TimeUnit.SECONDS).atMost(120, TimeUnit.SECONDS).until(
-                () -> Stream.of(listQueues()).peek(System.out::println).noneMatch(url -> url.contains(queueName)));
+                () -> Stream.of(listQueues()).noneMatch(url -> url.contains(queueName)));
     }
 
     private String receiveMessageFromQueue(String queueName) {
