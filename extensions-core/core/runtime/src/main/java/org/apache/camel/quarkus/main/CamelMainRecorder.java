@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.main;
 
 import java.util.List;
+import java.util.Set;
 
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
@@ -41,7 +42,6 @@ public class CamelMainRecorder {
             FailureRemedy failureRemedy) {
         CamelMain main = new CamelMain(runtime.getValue(), failureRemedy);
         main.setRoutesCollector(routesCollector.getValue());
-        main.addMainListener(new CamelMainEventBridge());
 
         // properties are loaded through MicroProfile Config so there's
         // no need to look for sources.
@@ -94,5 +94,9 @@ public class CamelMainRecorder {
         beanContainer.instance(CamelProducers.class).setRuntime(runtime);
 
         return new RuntimeValue<>(runtime);
+    }
+
+    public void registerCamelMainEventBridge(RuntimeValue<CamelMain> main, Set<String> observedMainEvents) {
+        main.getValue().addMainListener(new CamelMainEventBridge(observedMainEvents));
     }
 }

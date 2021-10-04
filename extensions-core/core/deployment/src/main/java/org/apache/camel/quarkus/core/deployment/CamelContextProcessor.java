@@ -16,9 +16,14 @@
  */
 package org.apache.camel.quarkus.core.deployment;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.BeanDiscoveryFinishedBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
@@ -162,5 +167,55 @@ public class CamelContextProcessor {
         return new CamelRuntimeBuildItem(
                 recorder.createRuntime(beanContainer.getValue(), context.getCamelContext()),
                 config.bootstrap.enabled);
+    }
+
+    /**
+     * Registers Camel CDI event bridges if quarkus.camel.event-bridge.enabled=true and if
+     * the relevant events have CDI observers configured for them.
+     *
+     * @param beanDiscovery build item containing the results of bean discovery
+     * @param context       build item containing the CamelContext instance
+     * @param recorder      the CamelContext recorder instance
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = EventBridgeEnabled.class)
+    public void registerCamelEventBridges(
+            BeanDiscoveryFinishedBuildItem beanDiscovery,
+            CamelContextBuildItem context,
+            CamelContextRecorder recorder) {
+
+        Set<String> observedLifecycleEvents = beanDiscovery.getObservers()
+                .stream()
+                .map(observerInfo -> observerInfo.getObservedType().name().toString())
+                .filter(observedType -> observedType.startsWith("org.apache.camel.quarkus.core.events"))
+                .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), HashSet::new));
+
+        // For management events the event class simple name is collected as users can
+        // observe events on either the Camel event interface or the concrete event class, and
+        // these are located in different packages
+        Set<String> observedManagementEvents = beanDiscovery.getObservers()
+                .stream()
+                .map(observerInfo -> observerInfo.getObservedType().name().toString())
+                .filter(className -> className.matches("org.apache.camel(?!.quarkus).*Event$"))
+                .map(className -> CamelSupport.loadClass(className, Thread.currentThread().getContextClassLoader()))
+                .map(observedEventClass -> observedEventClass.getSimpleName())
+                .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), HashSet::new));
+
+        if (!observedLifecycleEvents.isEmpty()) {
+            recorder.registerLifecycleEventBridge(context.getCamelContext(), observedLifecycleEvents);
+        }
+
+        if (!observedManagementEvents.isEmpty()) {
+            recorder.registerManagementEventBridge(context.getCamelContext(), observedManagementEvents);
+        }
+    }
+
+    public static final class EventBridgeEnabled implements BooleanSupplier {
+        CamelConfig config;
+
+        @Override
+        public boolean getAsBoolean() {
+            return config.eventBridge.enabled;
+        }
     }
 }

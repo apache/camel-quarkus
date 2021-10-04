@@ -31,6 +31,7 @@ import org.apache.camel.impl.event.RouteStartedEvent;
 import org.apache.camel.quarkus.core.events.ComponentAddEvent;
 import org.apache.camel.quarkus.core.events.EndpointAddEvent;
 import org.apache.camel.quarkus.core.events.ServiceAddEvent;
+import org.apache.camel.spi.CamelEvent;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ import org.junit.jupiter.api.extension.RegisterExtension;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.awaitility.Awaitility.await;
 
-public class CamelObserversTest {
+public class CamelEventBridgeTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
@@ -50,7 +51,9 @@ public class CamelObserversTest {
     @Test
     public void testObservers() {
         await().atMost(10, TimeUnit.SECONDS).untilAsserted(() -> {
-            assertThat(handler.routes())
+            assertThat(handler.routesAdded())
+                    .contains(MyRoutes.ROUTE_ID);
+            assertThat(handler.routesStarted())
                     .contains(MyRoutes.ROUTE_ID);
             assertThat(handler.components())
                     .contains(DirectComponent.class.getName());
@@ -63,13 +66,18 @@ public class CamelObserversTest {
 
     @ApplicationScoped
     public static class EventHandler {
-        private final Set<String> routes = new CopyOnWriteArraySet<>();
+        private final Set<String> routesAdded = new CopyOnWriteArraySet<>();
+        private final Set<String> routesStarted = new CopyOnWriteArraySet<>();
         private final Set<String> endpoints = new CopyOnWriteArraySet<>();
         private final Set<String> components = new CopyOnWriteArraySet<>();
         private final Set<String> service = new CopyOnWriteArraySet<>();
 
+        public void onRouteAdded(@Observes CamelEvent.RouteAddedEvent event) {
+            routesAdded.add(event.getRoute().getRouteId());
+        }
+
         public void onRouteStarted(@Observes RouteStartedEvent event) {
-            routes.add(event.getRoute().getRouteId());
+            routesStarted.add(event.getRoute().getRouteId());
         }
 
         public void onComponentAdd(@Observes ComponentAddEvent event) {
@@ -84,8 +92,12 @@ public class CamelObserversTest {
             service.add(event.getService().getClass().getName());
         }
 
-        public Set<String> routes() {
-            return routes;
+        public Set<String> routesAdded() {
+            return routesAdded;
+        }
+
+        public Set<String> routesStarted() {
+            return routesStarted;
         }
 
         public Set<String> components() {

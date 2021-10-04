@@ -66,6 +66,12 @@ public class CamelConfig {
     @ConfigItem
     public CSimpleConfig csimple;
 
+    /**
+     * Build time configuration options for the Camel CDI event bridge.
+     */
+    @ConfigItem
+    public EventBridgeConfig eventBridge;
+
     @ConfigGroup
     public static class BootstrapConfig {
         /**
@@ -352,5 +358,22 @@ public class CamelConfig {
         /** What to do if it is not possible to extract CSimple expressions from a route definition at build time. */
         @ConfigItem(defaultValue = "warn")
         public FailureRemedy onBuildTimeAnalysisFailure;
+    }
+
+    @ConfigGroup
+    public static class EventBridgeConfig {
+
+        /**
+         * Whether to enable the bridging of Camel events to CDI events.
+         * <p>
+         * This allows CDI observers to be configured for Camel events. E.g. those belonging to the
+         * {@code org.apache.camel.quarkus.core.events}, {@code org.apache.camel.quarkus.main.events} &
+         * {@code org.apache.camel.impl.event} packages.
+         * <p>
+         * Note that this configuration item only has any effect when observers configured for Camel events
+         * are present in the application.
+         */
+        @ConfigItem(defaultValue = "true")
+        public boolean enabled;
     }
 }

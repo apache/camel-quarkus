@@ -56,6 +56,6 @@ public class MicrometerMetricsConfigDefaultsTest {
         assertTrue(messageHistoryFactory instanceof DefaultMessageHistoryFactory);
 
         List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(3, eventNotifiers.size());
+        assertEquals(2, eventNotifiers.size());
     }
 }

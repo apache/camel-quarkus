@@ -239,6 +239,14 @@ What to do if it is not possible to extract CSimple expressions from a route def
 | `org.apache.camel.quarkus.core.CamelConfig.FailureRemedy`
 | `warn`
 
+|icon:lock[title=Fixed at build time] [[quarkus.camel.event-bridge.enabled]]`link:#quarkus.camel.event-bridge.enabled[quarkus.camel.event-bridge.enabled]`
+
+Whether to enable the bridging of Camel events to CDI events. 
+ This allows CDI observers to be configured for Camel events. E.g. those belonging to the `org.apache.camel.quarkus.core.events`, `org.apache.camel.quarkus.main.events` & `org.apache.camel.impl.event` packages. 
+ Note that this configuration item only has any effect when observers configured for Camel events are present in the application.
+| `boolean`
+| `true`
+
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.enabled]]`link:#quarkus.camel.main.enabled[quarkus.camel.main.enabled]`
 
 If `true` all `camel-main` features are enabled; otherwise no `camel-main` features are enabled. See described the xref:user-guide/configuration.adoc[Configuration] section of Camel Quarkus documentation for more details.
