@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.main;
 
+import java.util.Set;
 import java.util.function.Supplier;
 
 import javax.enterprise.inject.spi.BeanManager;
@@ -40,24 +41,32 @@ import org.apache.camel.util.function.Suppliers;
  */
 public class CamelMainEventBridge implements MainListener {
     private final Supplier<BeanManager> beanManager;
+    private final Set<String> observedMainEvents;
 
-    public CamelMainEventBridge() {
+    public CamelMainEventBridge(Set<String> observedMainEvents) {
         this.beanManager = Suppliers.memorize(Arc.container()::beanManager);
+        this.observedMainEvents = observedMainEvents;
     }
 
     @Override
     public void beforeInitialize(BaseMainSupport main) {
-        fireEvent(new BeforeInitialize(main));
+        if (observedMainEvents.contains(BeforeInitialize.class.getName())) {
+            fireEvent(new BeforeInitialize(main));
+        }
     }
 
     @Override
     public void beforeConfigure(BaseMainSupport main) {
-        fireEvent(new BeforeConfigure(main));
+        if (observedMainEvents.contains(BeforeConfigure.class.getName())) {
+            fireEvent(new BeforeConfigure(main));
+        }
     }
 
     @Override
     public void afterConfigure(BaseMainSupport main) {
-        fireEvent(new AfterConfigure(main));
+        if (observedMainEvents.contains(AfterConfigure.class.getName())) {
+            fireEvent(new AfterConfigure(main));
+        }
     }
 
     @Override
@@ -67,22 +76,30 @@ public class CamelMainEventBridge implements MainListener {
 
     @Override
     public void beforeStart(BaseMainSupport main) {
-        fireEvent(new BeforeStart(main));
+        if (observedMainEvents.contains(BeforeStart.class.getName())) {
+            fireEvent(new BeforeStart(main));
+        }
     }
 
     @Override
     public void afterStart(BaseMainSupport main) {
-        fireEvent(new AfterStart(main));
+        if (observedMainEvents.contains(AfterStart.class.getName())) {
+            fireEvent(new AfterStart(main));
+        }
     }
 
     @Override
     public void beforeStop(BaseMainSupport main) {
-        fireEvent(new BeforeStop(main));
+        if (observedMainEvents.contains(BeforeStop.class.getName())) {
+            fireEvent(new BeforeStop(main));
+        }
     }
 
     @Override
     public void afterStop(BaseMainSupport main) {
-        fireEvent(new AfterStop(main));
+        if (observedMainEvents.contains(AfterStop.class.getName())) {
+            fireEvent(new AfterStop(main));
+        }
     }
 
     private <T extends MainEvent> void fireEvent(T event) {

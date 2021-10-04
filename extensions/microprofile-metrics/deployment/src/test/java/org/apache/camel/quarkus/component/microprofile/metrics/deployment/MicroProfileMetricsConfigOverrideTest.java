@@ -19,7 +19,6 @@ package org.apache.camel.quarkus.component.microprofile.metrics.deployment;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.List;
 import java.util.Properties;
 
 import javax.inject.Inject;
@@ -27,8 +26,6 @@ import javax.inject.Inject;
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.microprofile.metrics.message.history.MicroProfileMetricsMessageHistoryFactory;
-import org.apache.camel.quarkus.core.CamelManagementEventBridge;
-import org.apache.camel.spi.EventNotifier;
 import org.apache.camel.spi.MessageHistoryFactory;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
@@ -37,7 +34,6 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -58,11 +54,6 @@ public class MicroProfileMetricsConfigOverrideTest {
         MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
         assertNotNull(messageHistoryFactory);
         assertTrue(messageHistoryFactory instanceof MicroProfileMetricsMessageHistoryFactory);
-
-        // There should always be one event notifier added by core for CamelManagementEventBridge
-        List<EventNotifier> eventNotifiers = context.getManagementStrategy().getEventNotifiers();
-        assertEquals(1, eventNotifiers.size());
-        assertTrue(eventNotifiers.get(0) instanceof CamelManagementEventBridge);
     }
 
     public static final Asset applicationProperties() {
