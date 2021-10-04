@@ -46,7 +46,6 @@ import io.quarkus.gizmo.ResultHandle;
 import org.apache.camel.component.grpc.GrpcComponent;
 import org.apache.camel.component.grpc.server.GrpcMethodHandler;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
-import org.apache.camel.quarkus.grpc.runtime.CamelGrpcRecorder;
 import org.apache.camel.quarkus.grpc.runtime.CamelQuarkusBindableService;
 import org.apache.camel.quarkus.grpc.runtime.QuarkusBindableServiceFactory;
 import org.jboss.jandex.ClassInfo;
@@ -87,15 +86,6 @@ class GrpcProcessor {
     @BuildStep
     void quarkusBindableServiceFactoryBean(BuildProducer<AdditionalBeanBuildItem> additionalBeans) {
         additionalBeans.produce(AdditionalBeanBuildItem.unremovableOf(QuarkusBindableServiceFactory.class));
-    }
-
-    @BuildStep
-    @Record(ExecutionTime.STATIC_INIT)
-    CamelBeanBuildItem createGrpcComponent(CamelGrpcRecorder recorder) {
-        return new CamelBeanBuildItem(
-                "grpc",
-                GrpcComponent.class.getName(),
-                recorder.createGrpcComponent());
     }
 
     @BuildStep
