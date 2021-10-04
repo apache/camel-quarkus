@@ -24,7 +24,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.main.ThreadPoolProfileConfigurationProperties;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.AntPathMatcher;
@@ -45,9 +44,6 @@ public class CamelMainNativeImageProcessor {
                 org.apache.camel.model.Resilience4jConfigurationCommon.class,
                 org.apache.camel.spi.RestConfiguration.class,
                 org.apache.camel.quarkus.main.CamelMainApplication.class));
-
-        // Needed for camel.threadpool.* properties
-        producer.produce(new ReflectiveClassBuildItem(true, false, ThreadPoolProfileConfigurationProperties.class));
     }
 
     @BuildStep(onlyIf = CamelMainEnabled.class)
