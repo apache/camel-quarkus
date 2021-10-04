@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.core;
 
 import java.util.Collection;
+import java.util.Set;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.function.Supplier;
 
@@ -45,7 +46,7 @@ import org.apache.camel.util.function.Suppliers;
 
 /**
  * Bridges {@link org.apache.camel.spi.LifecycleStrategy} callbacks and CDI by producing the correspondent
- * events.
+ * events. Events are only fired if a corresponding CDI observer is configured for them.
  * <p>
  * Note that this class does not implement all the callback as some notifications them are already covered
  * by management events {@link CamelManagementEventBridge}
@@ -64,9 +65,11 @@ import org.apache.camel.util.function.Suppliers;
  */
 public class CamelLifecycleEventBridge implements LifecycleStrategy {
     private final Supplier<BeanManager> beanManager;
+    private final Set<String> observedLifecycleEvents;
 
-    public CamelLifecycleEventBridge() {
+    public CamelLifecycleEventBridge(Set<String> observedLifecycleEvents) {
         this.beanManager = Suppliers.memorize(Arc.container()::beanManager);
+        this.observedLifecycleEvents = observedLifecycleEvents;
     }
 
     private <T extends CamelEvent> void fireEvent(T event) {
@@ -75,43 +78,59 @@ public class CamelLifecycleEventBridge implements LifecycleStrategy {
 
     @Override
     public void onComponentAdd(String name, Component component) {
-        fireEvent(new ComponentAddEvent(component));
+        if (observedLifecycleEvents.contains(ComponentAddEvent.class.getName())) {
+            fireEvent(new ComponentAddEvent(component));
+        }
     }
 
     @Override
     public void onComponentRemove(String name, Component component) {
-        fireEvent(new ComponentRemoveEvent(component));
+        if (observedLifecycleEvents.contains(ComponentRemoveEvent.class.getName())) {
+            fireEvent(new ComponentRemoveEvent(component));
+        }
     }
 
     @Override
     public void onEndpointAdd(Endpoint endpoint) {
-        fireEvent(new EndpointAddEvent(endpoint));
+        if (observedLifecycleEvents.contains(EndpointAddEvent.class.getName())) {
+            fireEvent(new EndpointAddEvent(endpoint));
+        }
     }
 
     @Override
     public void onEndpointRemove(Endpoint endpoint) {
-        fireEvent(new EndpointRemoveEvent(endpoint));
+        if (observedLifecycleEvents.contains(EndpointRemoveEvent.class.getName())) {
+            fireEvent(new EndpointRemoveEvent(endpoint));
+        }
     }
 
     @Override
     public void onThreadPoolAdd(CamelContext camelContext, ThreadPoolExecutor threadPool, String id,
             String sourceId, String routeId, String threadPoolProfileId) {
-        fireEvent(new ThreadPoolAddEvent(camelContext, threadPool, id, sourceId, routeId, threadPoolProfileId));
+        if (observedLifecycleEvents.contains(ThreadPoolAddEvent.class.getName())) {
+            fireEvent(new ThreadPoolAddEvent(camelContext, threadPool, id, sourceId, routeId, threadPoolProfileId));
+        }
     }
 
     @Override
     public void onThreadPoolRemove(CamelContext camelContext, ThreadPoolExecutor threadPool) {
-        fireEvent(new ThreadPoolRemoveEvent(camelContext, threadPool));
+        if (observedLifecycleEvents.contains(ThreadPoolRemoveEvent.class.getName())) {
+            fireEvent(new ThreadPoolRemoveEvent(camelContext, threadPool));
+        }
     }
 
     @Override
     public void onServiceAdd(CamelContext context, Service service, org.apache.camel.Route route) {
-        fireEvent(new ServiceAddEvent(context, service, route));
+        if (observedLifecycleEvents.contains(ServiceAddEvent.class.getName())) {
+            fireEvent(new ServiceAddEvent(context, service, route));
+        }
     }
 
     @Override
     public void onServiceRemove(CamelContext context, Service service, org.apache.camel.Route route) {
-        fireEvent(new ServiceRemoveEvent(context, service, route));
+        if (observedLifecycleEvents.contains(ServiceAddEvent.class.getName())) {
+            fireEvent(new ServiceRemoveEvent(context, service, route));
+        }
     }
 
     @Override
@@ -121,25 +140,21 @@ public class CamelLifecycleEventBridge implements LifecycleStrategy {
 
     @Override
     public void onContextStop(CamelContext context) {
-
         // superseded by management events
     }
 
     @Override
     public void onRoutesAdd(Collection<Route> routes) {
-
         // superseded by management events
     }
 
     @Override
     public void onRoutesRemove(Collection<Route> routes) {
-
         // superseded by management events
     }
 
     @Override
     public void onRouteContextCreate(Route route) {
-
         // superseded by management events
     }
 

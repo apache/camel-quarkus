@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.micrometer.deployment;
+package org.apache.camel.quarkus.core.runtime;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -25,8 +25,7 @@ import javax.inject.Inject;
 
 import io.quarkus.test.QuarkusUnitTest;
 import org.apache.camel.CamelContext;
-import org.apache.camel.component.micrometer.messagehistory.MicrometerMessageHistoryFactory;
-import org.apache.camel.spi.MessageHistoryFactory;
+import org.apache.camel.quarkus.core.CamelLifecycleEventBridge;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.Asset;
 import org.jboss.shrinkwrap.api.asset.StringAsset;
@@ -34,10 +33,10 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicrometerMetricsConfigOverrideTest {
+public class CamelEventBridgeDisabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
@@ -48,23 +47,19 @@ public class MicrometerMetricsConfigOverrideTest {
     CamelContext context;
 
     @Test
-    public void testMicroProfileMetricsConfiguration() {
-        assertTrue(context.getRoutePolicyFactories().isEmpty());
-
-        MessageHistoryFactory messageHistoryFactory = context.getMessageHistoryFactory();
-        assertNotNull(messageHistoryFactory);
-        assertTrue(messageHistoryFactory instanceof MicrometerMessageHistoryFactory);
+    public void camelEventBridgeNotConfigured() {
+        // No CDI observers for camel events are configured so event bridging support should not be present
+        assertFalse(context.getLifecycleStrategies()
+                .stream()
+                .anyMatch(lifecycleStrategy -> lifecycleStrategy.getClass().equals(CamelLifecycleEventBridge.class)));
+        assertTrue(context.getManagementStrategy().getEventNotifiers().isEmpty());
     }
 
-    public static final Asset applicationProperties() {
+    public static Asset applicationProperties() {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.setProperty("quarkus.camel.metrics.enable-route-policy", "false");
-        props.setProperty("quarkus.camel.metrics.enable-message-history", "true");
-        props.setProperty("quarkus.camel.metrics.enable-exchange-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-route-event-notifier", "false");
-        props.setProperty("quarkus.camel.metrics.enable-camel-context-event-notifier", "false");
+        props.setProperty("quarkus.banner.enabled", "false");
 
         try {
             props.store(writer, "");

@@ -16,11 +16,14 @@
  */
 package org.apache.camel.quarkus.core.deployment.main;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
+import io.quarkus.arc.deployment.BeanDiscoveryFinishedBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
@@ -36,6 +39,7 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.quarkus.core.CamelConfig;
 import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
+import org.apache.camel.quarkus.core.deployment.CamelContextProcessor.EventBridgeEnabled;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
@@ -189,6 +193,32 @@ public class CamelMainProcessor {
                         main.getInstance(),
                         camelMainConfig.shutdown.timeout.toMillis()),
                 index.getIndex().getAnnotations(DotName.createSimple(QuarkusMain.class.getName())).isEmpty());
+    }
+
+    /**
+     * Registers Camel Main CDI event bridges if quarkus.camel.event-bridge.enabled=true and if
+     * the relevant events have CDI observers configured for them.
+     *
+     * @param beanDiscovery build item containing the results of bean discovery
+     * @param main          build item containing the CamelMain instance
+     * @param recorder      the CamelContext recorder instance
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = { CamelMainEnabled.class, EventBridgeEnabled.class })
+    public void registerCamelMainEventBridge(
+            BeanDiscoveryFinishedBuildItem beanDiscovery,
+            CamelMainBuildItem main,
+            CamelMainRecorder recorder) {
+
+        Set<String> observedMainEvents = beanDiscovery.getObservers()
+                .stream()
+                .map(observerInfo -> observerInfo.getObservedType().name().toString())
+                .filter(observedType -> observedType.startsWith("org.apache.camel.quarkus.main.events"))
+                .collect(Collectors.collectingAndThen(Collectors.toUnmodifiableSet(), HashSet::new));
+
+        if (!observedMainEvents.isEmpty()) {
+            recorder.registerCamelMainEventBridge(main.getInstance(), observedMainEvents);
+        }
     }
 
     @BuildStep(onlyIf = CamelMainEnabled.class)

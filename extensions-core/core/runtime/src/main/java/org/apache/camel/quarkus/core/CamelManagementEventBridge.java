@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.Set;
+
 import javax.enterprise.inject.spi.BeanManager;
 
 import io.quarkus.arc.Arc;
@@ -29,7 +31,12 @@ import org.apache.camel.support.EventNotifierSupport;
  * @see EventNotifier
  */
 public class CamelManagementEventBridge extends EventNotifierSupport {
+    private final Set<String> observedManagementEvents;
     private BeanManager beanManager;
+
+    public CamelManagementEventBridge(Set<String> observedManagementEvents) {
+        this.observedManagementEvents = observedManagementEvents;
+    }
 
     @Override
     protected void doInit() {
@@ -43,6 +50,6 @@ public class CamelManagementEventBridge extends EventNotifierSupport {
 
     @Override
     public boolean isEnabled(CamelEvent event) {
-        return true;
+        return observedManagementEvents.contains(event.getClass().getSimpleName());
     }
 }
