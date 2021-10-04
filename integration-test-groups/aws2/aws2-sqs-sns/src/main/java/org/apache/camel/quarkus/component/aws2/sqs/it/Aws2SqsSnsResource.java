@@ -174,7 +174,7 @@ public class Aws2SqsSnsResource {
     }
 
     @Path("/sqs/queue/autocreate/delayed/{queueName}/{delay}")
-    @GET
+    @POST
     @Produces(MediaType.APPLICATION_JSON)
     public List<String> autoCreateDelayedQueue(@PathParam("queueName") String queueName, @PathParam("delay") String delay)
             throws Exception {
