@@ -38,13 +38,6 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
     private static final Logger LOG = LoggerFactory.getLogger(Aws2TestResource.class);
 
     private Aws2TestEnvContext envContext;
-    private boolean awsQuarkusClientTest;
-
-    @Override
-    public void init(Map<String, String> initArgs) {
-        String awsQuarkusClientTest = initArgs.get("awsQuarkusClientTest");
-        this.awsQuarkusClientTest = awsQuarkusClientTest != null && awsQuarkusClientTest.equals("true");
-    }
 
     @SuppressWarnings("resource")
     @Override
@@ -84,17 +77,16 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
             localstack.withLogConsumer(new Slf4jLogConsumer(LOG));
             localstack.start();
 
-            Aws2TestConfig config = new Aws2TestConfig(localstack.getAccessKey(), localstack.getSecretKey(),
-                    localstack.getRegion(), awsQuarkusClientTest);
-            envContext = new Aws2TestEnvContext(config, Optional.of(localstack), exportCredentialsServices);
+            envContext = new Aws2TestEnvContext(localstack.getAccessKey(), localstack.getSecretKey(), localstack.getRegion(),
+                    Optional.of(localstack), exportCredentialsServices);
+
         } else {
             if (!startMockBackend && !realCredentialsProvided) {
                 throw new IllegalStateException(
                         "Set AWS_ACCESS_KEY, AWS_SECRET_KEY and AWS_REGION env vars if you set CAMEL_QUARKUS_START_MOCK_BACKEND=false");
             }
             MockBackendUtils.logRealBackendUsed();
-            Aws2TestConfig config = new Aws2TestConfig(realKey, realSecret, realRegion, awsQuarkusClientTest);
-            envContext = new Aws2TestEnvContext(config, Optional.empty(), new Service[0]);
+            envContext = new Aws2TestEnvContext(realKey, realSecret, realRegion, Optional.empty(), new Service[0]);
         }
 
         customizers.forEach(customizer -> customizer.customize(envContext));
@@ -104,9 +96,7 @@ public final class Aws2TestResource implements QuarkusTestResourceLifecycleManag
 
     @Override
     public void stop() {
-        if (envContext != null) {
-            envContext.close();
-        }
+        envContext.close();
     }
 
     @Override

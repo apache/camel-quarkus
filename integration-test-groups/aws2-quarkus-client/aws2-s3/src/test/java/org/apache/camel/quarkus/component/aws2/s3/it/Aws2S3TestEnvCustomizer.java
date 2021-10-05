@@ -17,6 +17,8 @@
 package org.apache.camel.quarkus.component.aws2.s3.it;
 
 import java.util.Locale;
+import java.util.Map;
+import java.util.Optional;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
@@ -41,5 +43,27 @@ public class Aws2S3TestEnvCustomizer implements Aws2TestEnvCustomizer {
         s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
         envContext.property("aws-s3.bucket-name", bucketName);
         envContext.closeable(() -> s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build()));
+
+        Map<String, String> envContextProperties = envContext.getProperies();
+        String accessKey = envContextProperties.get("camel.component.aws2-s3.access-key");
+        String secretKey = envContextProperties.get("camel.component.aws2-s3.secret-key");
+        String region = envContextProperties.get("camel.component.aws2-s3.region");
+
+        envContext.property("quarkus.s3.aws.credentials.static-provider.access-key-id", accessKey);
+        envContext.property("quarkus.s3.aws.credentials.static-provider.secret-access-key", secretKey);
+        envContext.property("quarkus.s3.aws.region", region);
+        envContext.property("quarkus.s3.aws.credentials.type", "static");
+
+        // Propagate localstack environment config to Quarkus AWS if required
+        Optional<String> overrideEndpoint = envContextProperties
+                .keySet()
+                .stream()
+                .filter(key -> key.endsWith("uri-endpoint-override"))
+                .findFirst();
+
+        if (overrideEndpoint.isPresent()) {
+            String endpoint = envContextProperties.get(overrideEndpoint.get());
+            envContext.property("quarkus.s3.endpoint-override", endpoint);
+        }
     }
 }
