@@ -84,6 +84,7 @@ class Aws2LambdaTest {
         getUpdateListAndInvokeFunctionShouldSucceed(functionName);
         createGetDeleteAndListAliasShouldSucceed(functionName);
         createListDeleteFunctionTagsShouldSucceed(functionName, functionArn);
+        publishAndListVersionShouldSucceed(functionName);
 
         RestAssured.given()
                 .delete("/aws2-lambda/function/delete/" + functionName)
@@ -209,6 +210,29 @@ class Aws2LambdaTest {
                 .then()
                 .statusCode(200)
                 .body(tagResourceKey, is(emptyOrNullString()));
+    }
+
+    public void publishAndListVersionShouldSucceed(String functionName) {
+
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .get("/aws2-lambda/version/list")
+                .then()
+                .statusCode(200)
+                .body("$", not(hasItem("1")));
+
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .post("/aws2-lambda/version/publish")
+                .then()
+                .statusCode(201);
+
+        RestAssured.given()
+                .queryParam("functionName", functionName)
+                .get("/aws2-lambda/version/list")
+                .then()
+                .statusCode(200)
+                .body("$", hasItem("1"));
     }
 
     static byte[] createInitialLambdaFunctionZip() {
