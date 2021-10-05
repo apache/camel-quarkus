@@ -56,6 +56,7 @@ import software.amazon.awssdk.services.lambda.model.ListAliasesRequest;
 import software.amazon.awssdk.services.lambda.model.ListAliasesResponse;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
 import software.amazon.awssdk.services.lambda.model.ListTagsResponse;
+import software.amazon.awssdk.services.lambda.model.ListVersionsByFunctionResponse;
 import software.amazon.awssdk.services.lambda.model.Runtime;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeRequest;
 import software.amazon.awssdk.services.lambda.model.UpdateFunctionCodeResponse;
@@ -296,6 +297,40 @@ public class Aws2LambdaResource {
                         put(Lambda2Constants.RESOURCE_TAG_KEYS, List.of(tagResourceKey));
                     }
                 });
+    }
+
+    @Path("/version/publish")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response publishVersion(@QueryParam("functionName") String functionName,
+            @QueryParam("versionDescription") String versionDescription) throws Exception {
+        final String response = producerTemplate.requestBody(
+                componentUri(functionName, Lambda2Operations.publishVersion),
+                null,
+                String.class);
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(response)
+                .build();
+    }
+
+    @Path("/version/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<String> listVersions(@QueryParam("functionName") String functionName) {
+        try {
+            return producerTemplate.requestBody(
+                    componentUri(functionName, Lambda2Operations.listVersions),
+                    null,
+                    ListVersionsByFunctionResponse.class)
+                    .versions().stream()
+                    .map(FunctionConfiguration::version)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            LOG.info("Exception caught in version/list", e);
+            LOG.info("Exception cause in version/list", e.getCause());
+            throw e;
+        }
     }
 
     private static String componentUri(String functionName, Lambda2Operations operation) {
