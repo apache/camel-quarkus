@@ -4,12 +4,17 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.3.0...HEAD)
 
+**Closed issues:**
+
+- \[Camel 3.12\] UnmarshalTypeName should be renamed to unmarshalType [\#2874](https://github.com/apache/camel-quarkus/issues/2874)
+
 **Merged pull requests:**
 
 - Avoid release:prepare failure "The version could not be updated: [\#3150](https://github.com/apache/camel-quarkus/pull/3150) ([ppalaga](https://github.com/ppalaga))
 - Enable auto replacement of camel-spring-boot docs branch reference [\#3148](https://github.com/apache/camel-quarkus/pull/3148) ([jamesnetherton](https://github.com/jamesnetherton))
 - Issue 3143 fix eip xrefs some more [\#3147](https://github.com/apache/camel-quarkus/pull/3147) ([djencks](https://github.com/djencks))
 - Fixes \#3143: Add latest non-prerelease eips [\#3146](https://github.com/apache/camel-quarkus/pull/3146) ([djencks](https://github.com/djencks))
+- Upgrade Camel to 3.12.0 [\#3144](https://github.com/apache/camel-quarkus/pull/3144) ([jamesnetherton](https://github.com/jamesnetherton))
 - Enable Aws2TestEnvContext to handle setting up Quarkus AWS configuration properties [\#3141](https://github.com/apache/camel-quarkus/pull/3141) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.3.0.Final [\#3140](https://github.com/apache/camel-quarkus/pull/3140) ([jamesnetherton](https://github.com/jamesnetherton))
 - aws2-lambda: Add lambda function tag operations test \#2749 [\#3139](https://github.com/apache/camel-quarkus/pull/3139) ([aldettinger](https://github.com/aldettinger))
