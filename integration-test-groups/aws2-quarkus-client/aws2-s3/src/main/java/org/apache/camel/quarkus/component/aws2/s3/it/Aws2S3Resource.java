@@ -32,7 +32,6 @@ import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -49,20 +48,13 @@ import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.component.aws2.s3.AWS2S3Operations;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
-import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
-import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.core.ResponseInputStream;
-import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.S3ClientBuilder;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
 import software.amazon.awssdk.services.s3.model.S3Object;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 
 @Path("/aws2")
 @ApplicationScoped
@@ -79,22 +71,6 @@ public class Aws2S3Resource {
 
     @ConfigProperty(name = "aws-s3.bucket-name")
     String bucketName;
-
-    @javax.enterprise.inject.Produces
-    @Named
-    public S3Presigner s3Presigner(S3ClientBuilder clientBuilder) {
-        // createDownloadLink operations require the presigner
-        // This could be simplified via https://github.com/quarkusio/quarkus/issues/13611
-        Config config = ConfigProvider.getConfig();
-        String accessKey = config.getValue("quarkus.s3.aws.credentials.static-provider.access-key-id", String.class);
-        String secretKey = config.getValue("quarkus.s3.aws.credentials.static-provider.secret-access-key", String.class);
-        String region = config.getValue("quarkus.s3.aws.region", String.class);
-
-        return S3Presigner.builder().credentialsProvider(StaticCredentialsProvider.create(
-                AwsBasicCredentials.create(accessKey, secretKey)))
-                .region(Region.of(region))
-                .build();
-    }
 
     @Path("s3/object/{key}")
     @POST

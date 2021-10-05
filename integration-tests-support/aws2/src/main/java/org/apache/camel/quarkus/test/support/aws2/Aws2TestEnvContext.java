@@ -46,36 +46,32 @@ public class Aws2TestEnvContext {
     private final ArrayList<AutoCloseable> closeables = new ArrayList<>();
     private final Map<Service, ? extends SdkClient> clients = new EnumMap<>(Service.class);
     private final Map<String, String> properties = new LinkedHashMap<>();
+    private final String accessKey;
+    private final String secretKey;
+    private final String region;
     private final Optional<LocalStackContainer> localstack;
-    private final Aws2TestConfig aws2TestConfig;
 
-    public Aws2TestEnvContext(Aws2TestConfig aws2TestConfig, Optional<LocalStackContainer> localstack,
+    public Aws2TestEnvContext(String accessKey, String secretKey, String region, Optional<LocalStackContainer> localstack,
             Service[] exportCredentialsServices) {
+        this.accessKey = accessKey;
+        this.secretKey = secretKey;
+        this.region = region;
         this.localstack = localstack;
-        this.aws2TestConfig = aws2TestConfig;
 
-        for (Service service : exportCredentialsServices) {
-            if (aws2TestConfig.isAwsQuarkusClientTest()) {
-                String prefix = String.format("quarkus.%s", service.getName());
-                properties.put(prefix + ".aws.credentials.static-provider.access-key-id", aws2TestConfig.getAccessKey());
-                properties.put(prefix + ".aws.credentials.static-provider.secret-access-key",
-                        aws2TestConfig.getAccessSecret());
-                properties.put(prefix + ".aws.region", aws2TestConfig.getRegion());
-                properties.put(prefix + ".aws.credentials.type", "static");
-                localstack.ifPresent(ls -> {
-                    properties.put(prefix + ".endpoint-override", ls.getEndpointOverride(service).toString());
-                });
-            } else {
-                String prefix = String.format("camel.component.aws2-%s", camelServiceAcronym(service));
-                properties.put(prefix + ".access-key", aws2TestConfig.getAccessSecret());
-                properties.put(prefix + ".secret-key", aws2TestConfig.getAccessSecret());
-                properties.put(prefix + ".region", aws2TestConfig.getRegion());
-                properties.put(prefix + ".override-endpoint", "true");
-                localstack.ifPresent(ls -> {
-                    properties.put(prefix + ".uri-endpoint-override", ls.getEndpointOverride(service).toString());
-                });
+        localstack.ifPresent(ls -> {
+            for (Service service : exportCredentialsServices) {
+                String s = camelServiceAcronym(service);
+                if (s != null) {
+                    properties.put("camel.component.aws2-" + s + ".access-key", accessKey);
+                    properties.put("camel.component.aws2-" + s + ".secret-key", secretKey);
+                    properties.put("camel.component.aws2-" + s + ".region", region);
+
+                    properties.put("camel.component.aws2-" + s + ".override-endpoint", "true");
+                    properties.put("camel.component.aws2-" + s + ".uri-endpoint-override",
+                            ls.getEndpointOverride(service).toString());
+                }
             }
-        }
+        });
     }
 
     /**
@@ -145,13 +141,13 @@ public class Aws2TestEnvContext {
             Supplier<B> builderSupplier) {
         B builder = builderSupplier.get()
                 .credentialsProvider(StaticCredentialsProvider.create(AwsBasicCredentials.create(
-                        aws2TestConfig.getAccessKey(), aws2TestConfig.getAccessSecret())));
-        builder.region(Region.of(aws2TestConfig.getRegion()));
+                        accessKey, secretKey)));
+        builder.region(Region.of(region));
 
         if (localstack.isPresent()) {
             builder
                     .endpointOverride(localstack.get().getEndpointOverride(service))
-                    .region(Region.of(aws2TestConfig.getRegion()));
+                    .region(Region.of(region));
         } else if (service == Service.IAM) {
             /* Avoid UnknownHostException: iam.eu-central-1.amazonaws.com */
             builder.endpointOverride(URI.create("https://iam.amazonaws.com"));
@@ -192,5 +188,9 @@ public class Aws2TestEnvContext {
         default:
             return service.name().toLowerCase(Locale.ROOT);
         }
+    }
+
+    public String getRegion() {
+        return region;
     }
 }
