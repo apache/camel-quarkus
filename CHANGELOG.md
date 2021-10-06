@@ -4,12 +4,23 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.3.0...HEAD)
 
+**Fixed bugs:**
+
+- gRPC producers with TLS enabled do not work [\#2966](https://github.com/apache/camel-quarkus/issues/2966)
+
 **Closed issues:**
 
+- Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
+- \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
+- \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
+- \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
 - \[Camel 3.12\] UnmarshalTypeName should be renamed to unmarshalType [\#2874](https://github.com/apache/camel-quarkus/issues/2874)
+- \[camel 3.12\] core: camel.threadpools.config\[\*\] properties should not need reflection anymore [\#2828](https://github.com/apache/camel-quarkus/issues/2828)
 
 **Merged pull requests:**
 
+- Revert Aws2TestEnvContext changes in order to extend aws lambda function version operations test coverage [\#3158](https://github.com/apache/camel-quarkus/pull/3158) ([aldettinger](https://github.com/aldettinger))
+- Camel 3.12 follow-up fixes [\#3153](https://github.com/apache/camel-quarkus/pull/3153) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid release:prepare failure "The version could not be updated: [\#3150](https://github.com/apache/camel-quarkus/pull/3150) ([ppalaga](https://github.com/ppalaga))
 - Enable auto replacement of camel-spring-boot docs branch reference [\#3148](https://github.com/apache/camel-quarkus/pull/3148) ([jamesnetherton](https://github.com/jamesnetherton))
 - Issue 3143 fix eip xrefs some more [\#3147](https://github.com/apache/camel-quarkus/pull/3147) ([djencks](https://github.com/djencks))
@@ -782,7 +793,6 @@
 **Closed issues:**
 
 - RestClient and Opentracing runs into StackOverflowError [\#3145](https://github.com/apache/camel-quarkus/issues/3145)
-- Enable `Aws2TestEnvContext` to handle setting up Quarkus AWS configuration properties [\#3137](https://github.com/apache/camel-quarkus/issues/3137)
 - \[Camel 3.12\] Remove the reflection register for SunJaxb21NamespacePrefixMapper [\#3132](https://github.com/apache/camel-quarkus/issues/3132)
 - Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
 - Split MongoDB test into MongoDB and Mongo Grid FS [\#3089](https://github.com/apache/camel-quarkus/issues/3089)
