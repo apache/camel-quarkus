@@ -154,7 +154,7 @@ class Aws2S3Test {
         final String oid1 = UUID.randomUUID().toString();
         final String oid2 = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid1;
-        final String bucket = "mycamel";
+        final String bucket = "mycamel" + UUID.randomUUID().toString();
 
         // Create
         RestAssured.given()
@@ -196,20 +196,20 @@ class Aws2S3Test {
 
     @Test
     void deleteBucket() throws Exception {
-        final String bucket = "mycamel-delete";
+        final String bucket = "mycamel-delete" + UUID.randomUUID().toString();
 
         String[] objects = getAllObjects(bucket);
         Assertions.assertTrue(objects.length == 0);
 
         String[] buckets = getAllBuckets();
-        Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.equals("mycamel-delete")));
+        Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.equals(bucket)));
 
         RestAssured.delete("/aws2/s3/bucket/" + bucket)
                 .then()
                 .statusCode(204);
 
         buckets = getAllBuckets();
-        Assertions.assertTrue(Stream.of(buckets).noneMatch(key -> key.equals("mycamel-delete")));
+        Assertions.assertTrue(Stream.of(buckets).noneMatch(key -> key.equals(bucket)));
     }
 
     @Test
