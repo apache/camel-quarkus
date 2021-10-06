@@ -238,18 +238,20 @@ Check the full [release announcement](https://camel.apache.org/blog/2021/06/came
 
 == Upgrade and tag Examples
 
+When: right after the newest Quarkus Platform becomes available on https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-bom/[Maven Central].
+
 * Make sure all https://github.com/apache/camel-quarkus-examples/pulls[PRs] against `camel-quarkus-main` branch are merged.
-* Upgrade to the Camel Quarkus version you just released
+* Since Camel Quarkus 2.3.0, the examples should use Quarkus Platform BOMs in the `main` branch. To set it do the following:
 +
 [source,shell]
 ----
-$ NEW_CQ_VERSION=... # E.g. 2.2.0
+$ NEW_PLATFORM_VERSION=... # E.g. 2.2.0.Final
 $ git fetch upstream
 $ git checkout camel-quarkus-main
 $ git reset --hard upstream/camel-quarkus-main
-$ find . -type f -name pom.xml -exec sed -i "s|<camel-quarkus.version>[^<]*</camel-quarkus.version>|<camel-quarkus.version>$NEW_CQ_VERSION</camel-quarkus.version>|g" {} \;
-$ ./mvnw-for-each.sh org.l2x6.cq:cq-maven-plugin:0.25.0:sync-example-properties
-$ git commit -m "Upgrade to Camel Quarkus $NEW_CQ_VERSION"
+$ mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.quarkus.platform.version=$NEW_PLATFORM_VERSION
+$ git add -A
+$ git commit -m "Upgrade to Quarkus Platform $NEW_PLATFORM_VERSION"
 ----
 +
 * Make sure that the tests are still passing:
@@ -264,6 +266,7 @@ $ ./mvnw-for-each.sh clean verify -Pnative
 +
 [source,shell]
 ----
+$ NEW_CQ_VERSION=... # the recent release of Camel Quarkus; e.g. 2.2.0
 $ git checkout main
 $ git fetch upstream
 $ git reset --hard upstream/main
@@ -272,16 +275,17 @@ $ git add -A
 $ git commit -m "Tag $NEW_CQ_VERSION"
 $ git tag $NEW_CQ_VERSION
 $ git push upstream main
+$ git push upstream $NEW_CQ_VERSION
 ----
 +
 * Prepare the `camel-quarkus-main` branch for the next development iteration:
 +
 [source,shell]
 ----
-$ NEXT_CQ_VERSION=... # E.g. 2.3.0-SNAPSHOT
+$ NEXT_CQ_VERSION=... # The version used in the current Camel Quarkus main branch without the -SNAPSHOT suffix; e.g. 2.3.0
 $ git checkout camel-quarkus-main
 $ git reset --hard main
-$ ./mvnw-for-each.sh versions:set -DnewVersion=$NEXT_CQ_VERSION
+$ mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
 $ git add -A
 $ git commit -m "Next is $NEXT_CQ_VERSION"
 $ git push upstream camel-quarkus-main --force-with-lease
