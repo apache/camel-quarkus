@@ -210,7 +210,10 @@ cd generated-platform-project/quarkus-camel/integration-tests
 mvn clean test
 ----
 +
-* If all tests are passing, send a pull request to the Platform
+* If all tests are passing, send a pull request to the Platform.
+  If there are some new features, fixes, etc. in the release that would be worth to mention in the upcoming Quarkus announcement,
+  you can tag the pull request with `release/noteworthy-feature` label and provide a short text about those features in the PR description.
+
 
 == Create a GitHub release
 
