@@ -17,6 +17,7 @@
 package org.apache.camel.quarkus.component.kafka;
 
 import java.util.Map;
+import java.util.Optional;
 
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -25,6 +26,7 @@ import javax.inject.Singleton;
 import io.quarkus.arc.DefaultBean;
 import io.smallrye.common.annotation.Identifier;
 import org.apache.camel.component.kafka.KafkaClientFactory;
+import org.eclipse.microprofile.config.Config;
 
 @Singleton
 public class KafkaClientFactoryProducer {
@@ -33,13 +35,30 @@ public class KafkaClientFactoryProducer {
     @Identifier("default-kafka-broker")
     Map<String, Object> kafkaConfig;
 
+    @Inject
+    CamelKafkaRuntimeConfig camelKafkaRuntimeConfig;
+
+    @Inject
+    Config config;
+
     @Produces
     @Singleton
     @DefaultBean
-    public KafkaClientFactory kafkaClientFactory(CamelKafkaRuntimeConfig config) {
-        if (kafkaConfig != null && !kafkaConfig.isEmpty() && config.kubernetesServiceBinding.mergeConfiguration) {
+    public KafkaClientFactory kafkaClientFactory() {
+        if (isQuarkusKafkaClientFactoryRequired()) {
             return new QuarkusKafkaClientFactory(kafkaConfig);
         }
         return null;
+    }
+
+    private boolean isQuarkusKafkaClientFactoryRequired() {
+        Optional<Boolean> serviceBindingEnabled = config.getOptionalValue(
+                "quarkus.kubernetes-service-binding.enabled",
+                Boolean.class);
+        return kafkaConfig != null
+                && !kafkaConfig.isEmpty()
+                && camelKafkaRuntimeConfig.kubernetesServiceBinding.mergeConfiguration
+                && serviceBindingEnabled.isPresent()
+                && serviceBindingEnabled.get();
     }
 }
