@@ -383,9 +383,12 @@ jobs:
           df -h /
           tar -xzf ../maven-repo.tgz -C ~
           df -h /
+      - name: set CQ_VERSION
+        run: echo "CQ_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       - name: clone and verify examples
         run: |
           git clone --depth 1 --branch camel-quarkus-main https://github.com/apache/camel-quarkus-examples.git \
             && cd camel-quarkus-examples \
             && echo "Current Examples commit:" $(git rev-parse HEAD) \
+            && mvn ${MAVEN_ARGS} ${BRANCH_OPTIONS} org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${CQ_VERSION} \
             && ./mvnw-for-each.sh ${MAVEN_ARGS} ${BRANCH_OPTIONS} -Pnative,docker clean verify
