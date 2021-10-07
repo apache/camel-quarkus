@@ -16,25 +16,24 @@
  */
 package org.apache.camel.quarkus.test.support.activemq;
 
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
-import org.apache.activemq.artemis.core.server.embedded.EmbeddedActiveMQ;
-import org.apache.camel.quarkus.test.AvailablePortFinder;
-import org.apache.commons.io.FileUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.utility.DockerImageName;
 
 public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ActiveMQTestResource.class);
+    private static final String ACTIVEMQ_IMAGE_NAME = System.getProperty("activemq.container.image",
+            "quay.io/artemiscloud/activemq-artemis-broker:0.1.4");
     private static final String ACTIVEMQ_USERNAME = "artemis";
     private static final String ACTIVEMQ_PASSWORD = "simetraehcapa";
+    private static final int ACTIVEMQ_PORT = 61616;
 
-    private QuarkusEmbeddedMQ embedded;
+    private GenericContainer<?> container;
     private String[] modules;
 
     @Override
@@ -48,66 +47,51 @@ public class ActiveMQTestResource implements QuarkusTestResourceLifecycleManager
 
     @Override
     public Map<String, String> start() {
-        LOGGER.info("start embedded ActiveMQ server");
+        DockerImageName imageName = DockerImageName.parse(ACTIVEMQ_IMAGE_NAME);
+        container = new GenericContainer<>(imageName)
+                .withExposedPorts(ACTIVEMQ_PORT)
+                .withLogConsumer(frame -> System.out.print(frame.getUtf8String()))
+                .withEnv("AMQ_USER", ACTIVEMQ_USERNAME)
+                .withEnv("AMQ_PASSWORD", ACTIVEMQ_PASSWORD)
+                .waitingFor(Wait.forLogMessage(".*AMQ241001.*", 1));
 
-        try {
-            FileUtils.deleteDirectory(Paths.get("./target/artemis").toFile());
-            int port = AvailablePortFinder.getNextAvailable();
-            String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", port);
-            String brokerUrlWs = String.format("ws://127.0.0.1:%d", port);
-            String brokerUrlAmqp = String.format("amqp://127.0.0.1:%d", port);
+        container.start();
 
-            embedded = new QuarkusEmbeddedMQ();
+        int containerPort = container.getMappedPort(ACTIVEMQ_PORT);
 
-            embedded.init();
-            embedded.getActiveMQServer().getConfiguration().addAcceptorConfiguration("activemq", brokerUrlTcp);
-            embedded.getActiveMQServer().getConfiguration().addConnectorConfiguration("activemq", brokerUrlTcp);
-            embedded.start();
+        String brokerUrlTcp = String.format("tcp://127.0.0.1:%d", containerPort);
+        String brokerUrlWs = String.format("ws://127.0.0.1:%d", containerPort);
+        String brokerUrlAmqp = String.format("amqp://127.0.0.1:%d", containerPort);
 
-            Map<String, String> result = new LinkedHashMap<>();
+        Map<String, String> result = new LinkedHashMap<>();
 
-            if (modules != null) {
-                Arrays.stream(modules).forEach(module -> {
-                    if (module.equals("quarkus.artemis")) {
-                        LOGGER.info("add module " + module);
-                        result.put("quarkus.artemis.url", brokerUrlTcp);
-                        result.put("quarkus.artemis.username", ACTIVEMQ_USERNAME);
-                        result.put("quarkus.artemis.password", ACTIVEMQ_PASSWORD);
-                    } else if (module.equals("quarkus.qpid-jms")) {
-                        result.put("quarkus.qpid-jms.url", brokerUrlAmqp);
-                        result.put("quarkus.qpid-jms.username", ACTIVEMQ_USERNAME);
-                        result.put("quarkus.qpid-jms.password", ACTIVEMQ_PASSWORD);
-                    } else if (module.startsWith("camel.component")) {
-                        result.put(module + ".brokerUrl", brokerUrlTcp);
-                        result.put(module + ".username", ACTIVEMQ_USERNAME);
-                        result.put(module + ".password", ACTIVEMQ_PASSWORD);
-                    } else if (module.equals("broker-url.ws")) {
-                        result.put("broker-url.ws", brokerUrlWs);
-                    }
-                });
-            }
-
-            return result;
-        } catch (Exception e) {
-            throw new RuntimeException("Could not start embedded ActiveMQ server", e);
+        if (modules != null) {
+            Arrays.stream(modules).forEach(module -> {
+                if (module.equals("quarkus.artemis")) {
+                    result.put("quarkus.artemis.url", brokerUrlTcp);
+                    result.put("quarkus.artemis.username", ACTIVEMQ_USERNAME);
+                    result.put("quarkus.artemis.password", ACTIVEMQ_PASSWORD);
+                } else if (module.equals("quarkus.qpid-jms")) {
+                    result.put("quarkus.qpid-jms.url", brokerUrlAmqp);
+                    result.put("quarkus.qpid-jms.username", ACTIVEMQ_USERNAME);
+                    result.put("quarkus.qpid-jms.password", ACTIVEMQ_PASSWORD);
+                } else if (module.startsWith("camel.component")) {
+                    result.put(module + ".brokerUrl", brokerUrlTcp);
+                    result.put(module + ".username", ACTIVEMQ_USERNAME);
+                    result.put(module + ".password", ACTIVEMQ_PASSWORD);
+                } else if (module.equals("broker-url.ws")) {
+                    result.put("broker-url.ws", brokerUrlWs);
+                }
+            });
         }
+
+        return result;
     }
 
     @Override
     public void stop() {
-        if (embedded == null) {
-            return;
+        if (container != null) {
+            container.stop();
         }
-        try {
-            embedded.stop();
-        } catch (Exception e) {
-            throw new RuntimeException("Could not stop embedded ActiveMQ server", e);
-        }
-    }
-}
-
-class QuarkusEmbeddedMQ extends EmbeddedActiveMQ {
-    public void init() throws Exception {
-        super.initStart();
     }
 }
