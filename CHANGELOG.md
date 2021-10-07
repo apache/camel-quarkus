@@ -10,7 +10,10 @@
 
 **Closed issues:**
 
+- Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
+- QuarkusKafkaClientFactoryDisabledViaPropertiesTest is broken [\#3154](https://github.com/apache/camel-quarkus/issues/3154)
 - Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
+- Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
 - \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
 - \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
 - \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
@@ -19,8 +22,12 @@
 
 **Merged pull requests:**
 
+- CI build should test example projects with camel-quarkus SNAPSHOT \#3160 [\#3165](https://github.com/apache/camel-quarkus/pull/3165) ([ppalaga](https://github.com/ppalaga))
+- Document how to pass parts of release announcement to Quarkus team [\#3162](https://github.com/apache/camel-quarkus/pull/3162) ([ppalaga](https://github.com/ppalaga))
+- Check whether service binding is enabled before creating QuarkusKafkaClientFactory [\#3161](https://github.com/apache/camel-quarkus/pull/3161) ([jamesnetherton](https://github.com/jamesnetherton))
 - Revert Aws2TestEnvContext changes in order to extend aws lambda function version operations test coverage [\#3158](https://github.com/apache/camel-quarkus/pull/3158) ([aldettinger](https://github.com/aldettinger))
 - Camel 3.12 follow-up fixes [\#3153](https://github.com/apache/camel-quarkus/pull/3153) ([jamesnetherton](https://github.com/jamesnetherton))
+- Register CDI event bridges only when required [\#3151](https://github.com/apache/camel-quarkus/pull/3151) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid release:prepare failure "The version could not be updated: [\#3150](https://github.com/apache/camel-quarkus/pull/3150) ([ppalaga](https://github.com/ppalaga))
 - Enable auto replacement of camel-spring-boot docs branch reference [\#3148](https://github.com/apache/camel-quarkus/pull/3148) ([jamesnetherton](https://github.com/jamesnetherton))
 - Issue 3143 fix eip xrefs some more [\#3147](https://github.com/apache/camel-quarkus/pull/3147) ([djencks](https://github.com/djencks))
