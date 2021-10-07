@@ -114,19 +114,43 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
+    @Path("s3/bucket/{bucketName}/object/{key}")
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response read(@PathParam("bucketName") String bucketName, @PathParam("key") String key) throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                componentUri(bucketName, AWS2S3Operations.deleteObject),
+                null,
+                AWS2S3Constants.KEY,
+                key);
+        return Response.noContent().build();
+    }
+
     @Path("s3/object-keys")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> objectKey(@QueryParam("bucket") String bucket) throws Exception {
-        if (bucket == null) {
-            bucket = bucketName;
-        }
-
+    public List<String> objectKey() throws Exception {
         final List<S3Object> objects = (List<S3Object>) producerTemplate.requestBody(
-                componentUri(bucket, AWS2S3Operations.listObjects) + "&autoCreateBucket=true",
+                componentUri(AWS2S3Operations.listObjects),
                 null,
                 List.class);
         return objects.stream().map(S3Object::key).collect(Collectors.toList());
+    }
+
+    /**
+     * Do not forget to delete every bucket created through this endpoint after the test.
+     *
+     * @param  newBucketName
+     * @return
+     */
+    @Path("s3/autoCreateBucket/{newBucketName}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response autoCreateBucket(@PathParam("newBucketName") String newBucketName) {
+        producerTemplate.sendBody(
+                componentUri(newBucketName, AWS2S3Operations.listObjects) + "&autoCreateBucket=true",
+                null);
+        return Response.noContent().build();
     }
 
     @Path("s3/upload/{key}")
