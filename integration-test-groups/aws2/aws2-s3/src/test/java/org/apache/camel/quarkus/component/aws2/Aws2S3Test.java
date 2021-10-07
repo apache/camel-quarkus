@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.component.aws2;
 
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -150,13 +151,14 @@ class Aws2S3Test {
     }
 
     @Test
-    public void copyObject() throws Exception {
+    public void copyObjectDeleteBucket() throws Exception {
         final String oid1 = UUID.randomUUID().toString();
         final String oid2 = UUID.randomUUID().toString();
         final String blobContent = "Hello " + oid1;
-        final String bucket = "mycamel" + UUID.randomUUID().toString();
+        final String destinationBucket = "camel-quarkus-copy-object-"
+                + RandomStringUtils.randomAlphanumeric(32).toLowerCase(Locale.ROOT);
 
-        // Create
+        // Create an object to copy
         RestAssured.given()
                 .contentType(ContentType.TEXT)
                 .body(blobContent)
@@ -164,26 +166,49 @@ class Aws2S3Test {
                 .then()
                 .statusCode(201);
 
-        // Check the dest bucket does not contain oid2
-        final String[] objects = getAllObjects(bucket);
-        Assertions.assertTrue(Stream.of(objects).noneMatch(key -> key.equals(oid2)));
+        try {
+            autoCreateBucket(destinationBucket);
 
-        // Copy
-        RestAssured.given()
-                .contentType(ContentType.URLENC)
-                .formParam("dest_key", oid2)
-                .formParam("dest_bucket", bucket)
-                .post("/aws2/s3/copy/" + oid1)
-                .then()
-                .statusCode(204);
+            // Make sure the bucket was created
+            String[] buckets = getAllBuckets();
+            Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.equals(destinationBucket)));
 
-        // Verify the object
-        RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .get("/aws2/s3/object/" + oid2 + "?bucket=" + bucket)
-                .then()
-                .statusCode(200)
-                .body(is(blobContent));
+            // Copy
+            RestAssured.given()
+                    .contentType(ContentType.URLENC)
+                    .formParam("dest_key", oid2)
+                    .formParam("dest_bucket", destinationBucket)
+                    .post("/aws2/s3/copy/" + oid1)
+                    .then()
+                    .statusCode(204);
+
+            // Verify the object
+            RestAssured.given()
+                    .contentType(ContentType.TEXT)
+                    .get("/aws2/s3/object/" + oid2 + "?bucket=" + destinationBucket)
+                    .then()
+                    .statusCode(200)
+                    .body(is(blobContent));
+
+        } finally {
+            // Delete the object before deleting the bucket
+            try {
+                RestAssured.delete("/aws2/s3/bucket/" + destinationBucket + "/object/" + oid2)
+                        .then()
+                        .statusCode(204);
+            } catch (Exception ignored) {
+            }
+
+            // Delete the bucket
+            RestAssured.delete("/aws2/s3/bucket/" + destinationBucket)
+                    .then()
+                    .statusCode(204);
+
+            // Make sure destinationBucket was really deleted
+            final String[] buckets = getAllBuckets();
+            Assertions.assertTrue(Stream.of(buckets).noneMatch(key -> key.equals(destinationBucket)));
+
+        }
 
     }
 
@@ -192,24 +217,6 @@ class Aws2S3Test {
         final String[] buckets = getAllBuckets();
 
         Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.startsWith("camel-quarkus")));
-    }
-
-    @Test
-    void deleteBucket() throws Exception {
-        final String bucket = "mycamel-delete" + UUID.randomUUID().toString();
-
-        String[] objects = getAllObjects(bucket);
-        Assertions.assertTrue(objects.length == 0);
-
-        String[] buckets = getAllBuckets();
-        Assertions.assertTrue(Stream.of(buckets).anyMatch(key -> key.equals(bucket)));
-
-        RestAssured.delete("/aws2/s3/bucket/" + bucket)
-                .then()
-                .statusCode(204);
-
-        buckets = getAllBuckets();
-        Assertions.assertTrue(Stream.of(buckets).noneMatch(key -> key.equals(bucket)));
     }
 
     @Test
@@ -256,16 +263,16 @@ class Aws2S3Test {
                 .statusCode(201);
     }
 
-    private String[] getAllObjects(String bucket) {
-        final String[] objects = RestAssured.given()
-                .param("bucket", bucket)
-                .get("/aws2/s3/object-keys")
+    /**
+     * Do not forget to delete every bucket you create!
+     *
+     * @param newBucketName
+     */
+    private void autoCreateBucket(String newBucketName) {
+        RestAssured.given()
+                .get("/aws2/s3/autoCreateBucket/" + newBucketName)
                 .then()
-                .statusCode(200)
-                .extract()
-                .body().as(String[].class);
-
-        return objects;
+                .statusCode(204);
     }
 
     private String[] getAllBuckets() {
