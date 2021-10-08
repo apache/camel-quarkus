@@ -76,7 +76,10 @@ class AzureEventhubsProcessor {
 
     @BuildStep
     void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClasses) {
-        Stream.of("com.azure.messaging.eventhubs.PartitionBasedLoadBalancer")
+        Stream.of(
+                "com.azure.messaging.eventhubs.PartitionBasedLoadBalancer",
+                "com.microsoft.azure.proton.transport.proxy.impl.DigestProxyChallengeProcessorImpl",
+                "com.microsoft.azure.proton.transport.ws.impl.Utils")
                 .map(RuntimeInitializedClassBuildItem::new)
                 .forEach(runtimeInitializedClasses::produce);
     }

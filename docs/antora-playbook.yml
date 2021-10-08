@@ -33,7 +33,7 @@ content:
 # The version/branch of main camel 'components' this version of camel-quarkus uses
   - url: https://github.com/apache/camel.git
     branches:
-      - camel-3.12.x # replace ${camel.docs.branch}
+      - camel-3.13.x # replace ${camel.docs.branch}
     start_paths:
       # eip
       - core/camel-core-engine/src/main/docs
@@ -50,7 +50,7 @@ content:
 # The camel-spring-boot version corresponding to the main camel 'components' version/branch
   - url: https://github.com/apache/camel-spring-boot.git
     branches:
-      - camel-spring-boot-3.12.x # replace ${camel.sb.docs.branch}
+      - camel-spring-boot-3.13.x # replace ${camel.sb.docs.branch}
     start_path: docs/components
 
 asciidoc:
