@@ -10,6 +10,8 @@
 
 **Closed issues:**
 
+- AWS S3 tests should delete all buckets they create [\#3167](https://github.com/apache/camel-quarkus/issues/3167)
+- Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts [\#3163](https://github.com/apache/camel-quarkus/issues/3163)
 - Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
 - QuarkusKafkaClientFactoryDisabledViaPropertiesTest is broken [\#3154](https://github.com/apache/camel-quarkus/issues/3154)
 - Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
@@ -22,7 +24,10 @@
 
 **Merged pull requests:**
 
+- AWS S3 tests should delete all buckets they create [\#3168](https://github.com/apache/camel-quarkus/pull/3168) ([ppalaga](https://github.com/ppalaga))
+- Switch back to using containers for ActiveMQ messaging tests [\#3166](https://github.com/apache/camel-quarkus/pull/3166) ([jamesnetherton](https://github.com/jamesnetherton))
 - CI build should test example projects with camel-quarkus SNAPSHOT \#3160 [\#3165](https://github.com/apache/camel-quarkus/pull/3165) ([ppalaga](https://github.com/ppalaga))
+- fix  Aws2S3Test could fail with real AWS S3 service caused by bucket … [\#3164](https://github.com/apache/camel-quarkus/pull/3164) ([ffang](https://github.com/ffang))
 - Document how to pass parts of release announcement to Quarkus team [\#3162](https://github.com/apache/camel-quarkus/pull/3162) ([ppalaga](https://github.com/ppalaga))
 - Check whether service binding is enabled before creating QuarkusKafkaClientFactory [\#3161](https://github.com/apache/camel-quarkus/pull/3161) ([jamesnetherton](https://github.com/jamesnetherton))
 - Revert Aws2TestEnvContext changes in order to extend aws lambda function version operations test coverage [\#3158](https://github.com/apache/camel-quarkus/pull/3158) ([aldettinger](https://github.com/aldettinger))
