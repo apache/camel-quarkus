@@ -20,7 +20,7 @@ Expose REST services and their OpenAPI Specification or call external REST servi
 == What's inside
 
 * xref:{cq-camel-components}::rest-component.adoc[REST component], URI syntax: `rest:method:path:uriTemplate`
-* xref:{cq-camel-components}::rest-api-component.adoc[REST API component], URI syntax: `rest-api:path/contextIdPattern`
+* xref:{cq-camel-components}::rest-api-component.adoc[REST API component], URI syntax: `rest-api:path`
 
 Please refer to the above links for usage and configuration details.
 

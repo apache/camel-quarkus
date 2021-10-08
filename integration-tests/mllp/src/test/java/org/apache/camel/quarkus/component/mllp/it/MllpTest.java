@@ -21,7 +21,6 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class MllpTest {
@@ -74,14 +73,6 @@ class MllpTest {
                 .post("/mllp/charset/msh18")
                 .then()
                 .body(containsString("ÏNHOUSE"))
-                .statusCode(200);
-    }
-
-    @Test
-    public void testDefaultCharsetFromSystemProperty() {
-        RestAssured.get("/mllp/charset/default")
-                .then()
-                .body(is("UTF-8"))
                 .statusCode(200);
     }
 }

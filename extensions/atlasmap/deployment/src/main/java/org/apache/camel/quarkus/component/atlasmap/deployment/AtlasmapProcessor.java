@@ -25,7 +25,6 @@ import java.util.stream.Stream;
 import io.atlasmap.core.DefaultAtlasContextFactory;
 import io.atlasmap.core.DefaultAtlasModuleInfo;
 import io.atlasmap.csv.module.CsvModule;
-import io.atlasmap.dfdl.module.DfdlModule;
 import io.atlasmap.java.module.JavaModule;
 import io.atlasmap.json.module.JsonModule;
 import io.atlasmap.mxbean.AtlasContextFactoryMXBean;
@@ -63,7 +62,6 @@ class AtlasmapProcessor {
         items.add(new ReflectiveClassBuildItem(false, false, DefaultAtlasModuleInfo.class));
         items.add(new ReflectiveClassBuildItem(true, false, JsonModule.class));
         items.add(new ReflectiveClassBuildItem(true, false, CsvModule.class));
-        items.add(new ReflectiveClassBuildItem(true, false, DfdlModule.class));
         items.add(new ReflectiveClassBuildItem(true, false, JavaModule.class));
         items.add(new ReflectiveClassBuildItem(true, false, XmlModule.class));
         items.add(new ReflectiveClassBuildItem(false, true, false, AtlasContextFactoryMXBean.class));
@@ -85,7 +83,6 @@ class AtlasmapProcessor {
         indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-java-model"));
         indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-json-model"));
         indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-csv-model"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-dfdl-model"));
     }
 
     @BuildStep
