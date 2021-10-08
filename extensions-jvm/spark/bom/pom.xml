@@ -113,11 +113,6 @@
                 <version>${commons-net.version}</version>
             </dependency>
             <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty</artifactId>
-                <version>${netty3.version}</version><!-- Managed here because it would conflict with netty 4 used elsewhere -->
-            </dependency>
-            <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-json</artifactId>
                 <version>${metrics.version}</version>
