@@ -29,7 +29,7 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 
 public class InfinispanServerTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(InfinispanServerTestResource.class);
-    private static final String CONTAINER_IMAGE = "infinispan/server:12.1";
+    private static final String CONTAINER_IMAGE = "infinispan/server:13.0";
     private static final int HOTROD_PORT = 11222;
     private static final String USER = "camel";
     private static final String PASS = "camel";

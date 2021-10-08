@@ -1171,7 +1171,7 @@
                 <exclusions>
                     <exclusion>
                         <groupId>org.infinispan</groupId>
-                        <artifactId>*</artifactId>
+                        <artifactId>infinispan-core</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>

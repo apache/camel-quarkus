@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-dependencies</artifactId>
-        <version>3.12.0</version>
+        <version>3.13.0</version>
     </parent>
 
     <groupId>org.apache.camel.quarkus</groupId>
@@ -39,13 +39,12 @@
     <properties>
 
         <!-- Primary dependencies - maintained manually -->
-        <camel.major.minor>3.12</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
+        <camel.major.minor>3.13</camel.major.minor> <!-- run after each change: cd docs && mvnd validate -->
         <camel.version>${camel.major.minor}.0</camel.version>
         <camel.docs.components.version>${camel.major.minor}.x</camel.docs.components.version><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.components.xref>${camel.docs.components.version}@components</camel.docs.components.xref><!-- the version in Camel's docs/components/antora.yml -->
         <camel.docs.branch>camel-${camel.major.minor}.x</camel.docs.branch><!-- The stable camel branch on which our Antora docs depends -->
         <camel.sb.docs.branch>camel-spring-boot-${camel.major.minor}.x</camel.sb.docs.branch><!-- The stable camel-spring-boot branch on which our Antora docs depends -->
-
         <cassandra-quarkus.version>1.1.1</cassandra-quarkus.version><!-- https://repo1.maven.org/maven2/com/datastax/oss/quarkus/cassandra-quarkus-bom/ -->
         <debezium.version>1.6.1.Final</debezium.version><!-- May go back to Camel's ${debezium-version} when they are in sync https://repo1.maven.org/maven2/io/debezium/debezium-bom/ -->
         <optaplanner.version>8.9.1.Final</optaplanner.version><!-- May go back to Camel's ${optaplanner-version} when they are in sync https://repo1.maven.org/maven2/org/optaplanner/optaplanner-quarkus/ -->
@@ -62,7 +61,7 @@
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.0</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
-        <azure-sdk-bom.version>${azure-sdk-bom-version}</azure-sdk-bom.version>
+        <azure-core.version>1.21.0</azure-core.version><!-- @sync com.azure:azure-storage-blob:${azure-storage-blob-version} dep:com.azure:azure-core -->
         <bouncycastle.version>1.69</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
         <commons-beanutils.version>${commons-beanutils-version}</commons-beanutils.version>
         <commons-cli.version>1.4</commons-cli.version><!-- keep in sync with Quarkus, via quarkus-bootstrap-core -->
@@ -73,7 +72,7 @@
         <commons-text.version>${commons-text-version}</commons-text.version> <!-- Spark -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
-        <dropwizard-metrics.version>4.1.19</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
+        <dropwizard-metrics.version>4.1.0</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
@@ -108,7 +107,6 @@
         <kudu.version>${kudu-version}</kudu.version>
         <kotlin.version>1.5.31</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
-        <netty3.version>${netty3-version}</netty3.version><!-- Spark -->
         <metrics.version>${metrics-version}</metrics.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version>
         <nimbus-jose-jwt.version>9.10</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps, used also by io.strimzi:kafka-oauth-client recommended by https://quarkus.io/guides/kafka#authenticating-with-oauth -->

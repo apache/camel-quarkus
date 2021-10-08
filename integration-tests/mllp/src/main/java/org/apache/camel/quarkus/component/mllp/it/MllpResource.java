@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.component.mllp.it;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
+import javax.inject.Named;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -43,16 +41,6 @@ public class MllpResource {
     @Inject
     CamelContext context;
 
-    @PostConstruct
-    public void init() {
-        System.setProperty(MllpComponent.MLLP_DEFAULT_CHARSET_PROPERTY, "UTF-8");
-    }
-
-    @PreDestroy
-    public void preDestroy() {
-        System.clearProperty(MllpComponent.MLLP_DEFAULT_CHARSET_PROPERTY);
-    }
-
     @Path("/send")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -72,13 +60,6 @@ public class MllpResource {
         mockEndpoint.assertIsSatisfied(5000);
     }
 
-    @Path("/charset/default")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String getDefaultCharset() {
-        return MllpComponent.getDefaultCharset().name();
-    }
-
     @Path("/charset/msh18")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
@@ -87,5 +68,12 @@ public class MllpResource {
         Exchange exchange = producerTemplate.request(mllpHostPort, e -> e.getMessage().setBody(message));
         String ack = exchange.getMessage().getHeader(MllpConstants.MLLP_ACKNOWLEDGEMENT_STRING, String.class);
         return ack.split("\r")[0];
+    }
+
+    @Named("mllp")
+    MllpComponent component() {
+        MllpComponent component = new MllpComponent();
+        component.setDefaultCharset("UTF-8");
+        return component;
     }
 }
