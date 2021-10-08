@@ -37,14 +37,18 @@ import software.amazon.awssdk.core.SdkClient;
 public final class Aws2TestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOG = LoggerFactory.getLogger(Aws2TestResource.class);
 
+    public static final String AWS_ACCESS_KEY = "AWS_ACCESS_KEY";
+    public static final String AWS_SECRET_KEY = "AWS_SECRET_KEY";
+    public static final String AWS_REGION = "AWS_REGION";
+
     private Aws2TestEnvContext envContext;
 
     @SuppressWarnings("resource")
     @Override
     public Map<String, String> start() {
-        final String realKey = System.getenv("AWS_ACCESS_KEY");
-        final String realSecret = System.getenv("AWS_SECRET_KEY");
-        final String realRegion = System.getenv("AWS_REGION");
+        final String realKey = System.getenv(AWS_ACCESS_KEY);
+        final String realSecret = System.getenv(AWS_SECRET_KEY);
+        final String realRegion = System.getenv(AWS_REGION);
         final boolean realCredentialsProvided = realKey != null && realSecret != null && realRegion != null;
         final boolean startMockBackend = MockBackendUtils.startMockBackend(false);
         final boolean usingMockBackend = startMockBackend && !realCredentialsProvided;

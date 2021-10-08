@@ -25,6 +25,7 @@ import java.util.stream.Stream;
 
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
+import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
@@ -85,9 +86,12 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
         }
 
         Map<String, String> envContextProperties = envContext.getProperies();
-        String accessKey = envContextProperties.get("camel.component.aws2-ddb.access-key");
-        String secretKey = envContextProperties.get("camel.component.aws2-ddb.secret-key");
-        String region = envContextProperties.get("camel.component.aws2-ddb.region");
+        String accessKey = envContextProperties.getOrDefault("camel.component.aws2-ddb.access-key",
+                System.getenv(Aws2TestResource.AWS_ACCESS_KEY));
+        String secretKey = envContextProperties.getOrDefault("camel.component.aws2-ddb.secret-key",
+                System.getenv(Aws2TestResource.AWS_SECRET_KEY));
+        String region = envContextProperties.getOrDefault("camel.component.aws2-ddb.region",
+                System.getenv(Aws2TestResource.AWS_REGION));
 
         envContext.property("quarkus.dynamodb.aws.credentials.static-provider.access-key-id", accessKey);
         envContext.property("quarkus.dynamodb.aws.credentials.static-provider.secret-access-key", secretKey);
