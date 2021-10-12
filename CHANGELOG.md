@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- OpenAPI Java integration tests fail with Camel 3.13.0-SNAPSHOT [\#3171](https://github.com/apache/camel-quarkus/issues/3171)
 - AWS S3 tests should delete all buckets they create [\#3167](https://github.com/apache/camel-quarkus/issues/3167)
 - Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts [\#3163](https://github.com/apache/camel-quarkus/issues/3163)
 - Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
