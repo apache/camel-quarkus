@@ -28,12 +28,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -72,11 +74,16 @@ public class Aws2S3Resource {
     @ConfigProperty(name = "aws-s3.bucket-name")
     String bucketName;
 
+    @ConfigProperty(name = "aws-s3.kms-key-id")
+    Optional<String> kmsKeyId;
+
     @Path("s3/object/{key}")
     @POST
     @Consumes(MediaType.TEXT_PLAIN)
-    public Response post(String message, @PathParam("key") String key) throws Exception {
-        producerTemplate.sendBodyAndHeader(componentUri(),
+    public Response post(String message, @PathParam("key") String key,
+            @QueryParam("useKms") @DefaultValue("false") boolean useKms) throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                componentUri() + (useKms && kmsKeyId.isPresent() ? "?useAwsKMS=true&awsKMSKeyId=" + kmsKeyId : ""),
                 message,
                 AWS2S3Constants.KEY,
                 key);
@@ -86,13 +93,15 @@ public class Aws2S3Resource {
     @Path("s3/object/{key}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String get(@PathParam("key") String key, @QueryParam("bucket") String bucket) throws Exception {
+    public String get(@PathParam("key") String key, @QueryParam("bucket") String bucket,
+            @QueryParam("useKms") @DefaultValue("false") boolean useKms) throws Exception {
         if (bucket == null) {
             bucket = bucketName;
         }
 
         return producerTemplate.requestBodyAndHeader(
-                componentUri(bucket, AWS2S3Operations.getObject),
+                componentUri(bucket, AWS2S3Operations.getObject)
+                        + (useKms && kmsKeyId.isPresent() ? "&useAwsKMS=true&awsKMSKeyId=" + kmsKeyId : ""),
                 null,
                 AWS2S3Constants.KEY,
                 key,
@@ -118,19 +127,43 @@ public class Aws2S3Resource {
         return Response.noContent().build();
     }
 
+    @Path("s3/bucket/{bucketName}/object/{key}")
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response read(@PathParam("bucketName") String bucketName, @PathParam("key") String key) throws Exception {
+        producerTemplate.sendBodyAndHeader(
+                componentUri(bucketName, AWS2S3Operations.deleteObject),
+                null,
+                AWS2S3Constants.KEY,
+                key);
+        return Response.noContent().build();
+    }
+
     @Path("s3/object-keys")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> objectKey(@QueryParam("bucket") String bucket) throws Exception {
-        if (bucket == null) {
-            bucket = bucketName;
-        }
-
+    public List<String> objectKey() throws Exception {
         final List<S3Object> objects = (List<S3Object>) producerTemplate.requestBody(
-                componentUri(bucket, AWS2S3Operations.listObjects) + "&autoCreateBucket=true",
+                componentUri(AWS2S3Operations.listObjects),
                 null,
                 List.class);
         return objects.stream().map(S3Object::key).collect(Collectors.toList());
+    }
+
+    /**
+     * Do not forget to delete every bucket created through this endpoint after the test.
+     *
+     * @param  newBucketName
+     * @return
+     */
+    @Path("s3/autoCreateBucket/{newBucketName}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response autoCreateBucket(@PathParam("newBucketName") String newBucketName) {
+        producerTemplate.sendBody(
+                componentUri(newBucketName, AWS2S3Operations.listObjects) + "&autoCreateBucket=true",
+                null);
+        return Response.noContent().build();
     }
 
     @Path("s3/upload/{key}")

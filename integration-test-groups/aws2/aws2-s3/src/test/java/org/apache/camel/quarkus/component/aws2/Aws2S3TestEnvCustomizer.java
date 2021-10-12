@@ -22,6 +22,8 @@ import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvContext;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testcontainers.containers.localstack.LocalStackContainer.Service;
+import software.amazon.awssdk.services.kms.KmsClient;
+import software.amazon.awssdk.services.kms.model.CreateKeyRequest;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
 import software.amazon.awssdk.services.s3.model.DeleteBucketRequest;
@@ -30,17 +32,24 @@ public class Aws2S3TestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
-        return new Service[] { Service.S3 };
+        return new Service[] { Service.S3, Service.KMS };
     }
 
     @Override
     public void customize(Aws2TestEnvContext envContext) {
         final S3Client s3Client = envContext.client(Service.S3, S3Client::builder);
+        final KmsClient kmsClient = envContext.client(Service.KMS, KmsClient::builder);
 
         final String bucketName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         s3Client.createBucket(CreateBucketRequest.builder().bucket(bucketName).build());
         envContext.property("aws-s3.bucket-name", bucketName);
         envContext.closeable(() -> s3Client.deleteBucket(DeleteBucketRequest.builder().bucket(bucketName).build()));
+
+        if (envContext.isLocalStack()) {
+            final String kmsKeyId = kmsClient.createKey(CreateKeyRequest.builder().description("Test_key").build())
+                    .keyMetadata().keyId();
+            envContext.property("aws-s3.kms-key-id", kmsKeyId);
+        }
     }
 
 }

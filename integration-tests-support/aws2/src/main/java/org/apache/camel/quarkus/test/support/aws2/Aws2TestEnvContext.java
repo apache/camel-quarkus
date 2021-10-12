@@ -193,4 +193,8 @@ public class Aws2TestEnvContext {
     public String getRegion() {
         return region;
     }
+
+    public boolean isLocalStack() {
+        return localstack.isPresent();
+    }
 }

@@ -129,6 +129,31 @@ class Aws2S3Test {
     }
 
     @Test
+    public void testKms() throws Exception {
+        final String oid = UUID.randomUUID().toString();
+        final String blobContent = "Hello KMS " + oid;
+
+        // Create
+        RestAssured.given()
+                .contentType(ContentType.TEXT)
+                .body(blobContent)
+                .post("/aws2/s3/object/" + oid + "?useKms=true")
+                .then()
+                .statusCode(201);
+
+        // Read
+        RestAssured.get("/aws2/s3/object/" + oid + "?useKms=true")
+                .then()
+                .statusCode(200)
+                .body(is(blobContent));
+
+        // Delete
+        RestAssured.delete("/aws2/s3/object/" + oid)
+                .then()
+                .statusCode(204);
+    }
+
+    @Test
     public void upload() throws Exception {
         final String oid = UUID.randomUUID().toString();
         final String content = RandomStringUtils.randomAlphabetic(8 * 1024 * 1024);
