@@ -10,7 +10,10 @@
 
 **Closed issues:**
 
+- AWS Aws2DdbQuarkusClientTest fails with real AWS [\#3174](https://github.com/apache/camel-quarkus/issues/3174)
+- io.quarkus.deployment.builditem.CapabilityBuildItem\(name\) is deprecated [\#3172](https://github.com/apache/camel-quarkus/issues/3172)
 - OpenAPI Java integration tests fail with Camel 3.13.0-SNAPSHOT [\#3171](https://github.com/apache/camel-quarkus/issues/3171)
+- Test AWS S3 encryption using KMS [\#3169](https://github.com/apache/camel-quarkus/issues/3169)
 - AWS S3 tests should delete all buckets they create [\#3167](https://github.com/apache/camel-quarkus/issues/3167)
 - Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts [\#3163](https://github.com/apache/camel-quarkus/issues/3163)
 - Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
@@ -25,6 +28,10 @@
 
 **Merged pull requests:**
 
+- Update declaring Bean Capability [\#3178](https://github.com/apache/camel-quarkus/pull/3178) ([zbendhiba](https://github.com/zbendhiba))
+- Fix path to spring boot docs [\#3177](https://github.com/apache/camel-quarkus/pull/3177) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3169 to add S3 KMS encryption test [\#3176](https://github.com/apache/camel-quarkus/pull/3176) ([zhfeng](https://github.com/zhfeng))
+- AWS Aws2DdbQuarkusClientTest fails with real AWS \#3174 [\#3175](https://github.com/apache/camel-quarkus/pull/3175) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - AWS S3 tests should delete all buckets they create [\#3168](https://github.com/apache/camel-quarkus/pull/3168) ([ppalaga](https://github.com/ppalaga))
 - Switch back to using containers for ActiveMQ messaging tests [\#3166](https://github.com/apache/camel-quarkus/pull/3166) ([jamesnetherton](https://github.com/jamesnetherton))
 - CI build should test example projects with camel-quarkus SNAPSHOT \#3160 [\#3165](https://github.com/apache/camel-quarkus/pull/3165) ([ppalaga](https://github.com/ppalaga))
