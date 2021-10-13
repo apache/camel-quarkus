@@ -19,7 +19,9 @@ package org.apache.camel.quarkus.component.activemq.it;
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
+import org.junit.jupiter.api.Disabled;
 
+@Disabled("https://github.com/apache/camel-quarkus/issues/3173")
 @QuarkusTest
 @QuarkusTestResource(ActiveMQTestResource.class)
 class ActiveMQTest extends AbstractJmsMessagingTest {
