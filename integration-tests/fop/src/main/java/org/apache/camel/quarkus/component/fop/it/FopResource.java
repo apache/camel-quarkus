@@ -16,7 +16,6 @@
  */
 package org.apache.camel.quarkus.component.fop.it;
 
-import java.io.InputStream;
 import java.net.URI;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -52,14 +51,11 @@ public class FopResource {
     public Response post(String message, @QueryParam("userConfigURL") String userConfigURL) throws Exception {
         LOG.infof("Sending to fop: %s", message);
         String endpointUri = userConfigURL == null ? "fop:pdf" : "fop:application/pdf?userConfigURL=" + userConfigURL;
-        try (InputStream response = producerTemplate.requestBody(
-                endpointUri, message, InputStream.class)) {
-            LOG.info("Got response from fop.");
-            return Response
-                    .created(new URI("https://camel.apache.org/"))
-                    .entity(response)
-                    .build();
-        }
-
+        byte[] bytes = producerTemplate.requestBody(endpointUri, message, byte[].class);
+        LOG.info("Got response from fop.");
+        return Response
+                .created(new URI("https://camel.apache.org/"))
+                .entity(bytes)
+                .build();
     }
 }
