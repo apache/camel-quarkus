@@ -46,6 +46,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 import software.amazon.awssdk.core.SdkBytes;
 import software.amazon.awssdk.services.lambda.model.AliasConfiguration;
+import software.amazon.awssdk.services.lambda.model.CreateEventSourceMappingResponse;
+import software.amazon.awssdk.services.lambda.model.EventSourceMappingConfiguration;
 import software.amazon.awssdk.services.lambda.model.FunctionConfiguration;
 import software.amazon.awssdk.services.lambda.model.GetAliasRequest;
 import software.amazon.awssdk.services.lambda.model.GetAliasResponse;
@@ -54,6 +56,7 @@ import software.amazon.awssdk.services.lambda.model.InvalidParameterValueExcepti
 import software.amazon.awssdk.services.lambda.model.LastUpdateStatus;
 import software.amazon.awssdk.services.lambda.model.ListAliasesRequest;
 import software.amazon.awssdk.services.lambda.model.ListAliasesResponse;
+import software.amazon.awssdk.services.lambda.model.ListEventSourceMappingsResponse;
 import software.amazon.awssdk.services.lambda.model.ListFunctionsResponse;
 import software.amazon.awssdk.services.lambda.model.ListTagsResponse;
 import software.amazon.awssdk.services.lambda.model.ListVersionsByFunctionResponse;
@@ -69,6 +72,9 @@ public class Aws2LambdaResource {
 
     @ConfigProperty(name = "aws-lambda.role-arn")
     String roleArn;
+
+    @ConfigProperty(name = "aws-lambda.event-source-arn")
+    String eventSourceArn;
 
     @Inject
     ProducerTemplate producerTemplate;
@@ -329,6 +335,61 @@ public class Aws2LambdaResource {
         } catch (Exception e) {
             LOG.info("Exception caught in version/list", e);
             LOG.info("Exception cause in version/list", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/event-source-mapping/create")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response createEventSourceMapping(@QueryParam("functionName") String functionName) throws Exception {
+        try {
+            CreateEventSourceMappingResponse response = producerTemplate
+                    .requestBodyAndHeader(
+                            componentUri(functionName, Lambda2Operations.createEventSourceMapping),
+                            null,
+                            Lambda2Constants.EVENT_SOURCE_ARN,
+                            eventSourceArn,
+                            CreateEventSourceMappingResponse.class);
+
+            return Response.created(new URI("https://camel.apache.org/")).entity(response.uuid()).build();
+        } catch (Exception e) {
+            LOG.info("Exception caught in event-source-mapping/create", e);
+            LOG.info("Exception cause in event-source-mapping/create", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/event-source-mapping/list")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Map<String, String> listEventSourceMappings(@QueryParam("functionName") String functionName) {
+        try {
+            ListEventSourceMappingsResponse response = producerTemplate.requestBody(
+                    componentUri(functionName, Lambda2Operations.listEventSourceMapping),
+                    null,
+                    ListEventSourceMappingsResponse.class);
+            return response.eventSourceMappings().stream()
+                    .collect(Collectors.toMap(EventSourceMappingConfiguration::uuid, EventSourceMappingConfiguration::state));
+        } catch (Exception e) {
+            LOG.info("Exception caught in event-source-mapping/list", e);
+            LOG.info("Exception cause in event-source-mapping/list", e.getCause());
+            throw e;
+        }
+    }
+
+    @Path("/event-source-mapping/delete")
+    @DELETE
+    public void deleteEventSourceMapping(@QueryParam("eventSourceMappingUuid") String eventSourceMappingUuid) {
+        try {
+            producerTemplate.requestBodyAndHeader(
+                    componentUri(null, Lambda2Operations.deleteEventSourceMapping),
+                    null,
+                    Lambda2Constants.EVENT_SOURCE_UUID,
+                    eventSourceMappingUuid);
+        } catch (Exception e) {
+            LOG.info("Exception caught in event-source-mapping/delete", e);
+            LOG.info("Exception cause in event-source-mapping/delete", e.getCause());
             throw e;
         }
     }
