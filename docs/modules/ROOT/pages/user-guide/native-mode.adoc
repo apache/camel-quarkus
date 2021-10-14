@@ -65,9 +65,9 @@ Please refer to https://quarkus.io/guides/building-native-image#quarkus-native-p
 [[using-onexception-clause-in-native-mode]]
 == Using the onException clause in native mode
 
-When using xref:latest@manual::exception-clause.adoc[camel onException handling] in native mode, it is the application developers responsibility to register exception classes for reflection.
+When using xref:latest@manual::exception-clause.adoc[Camel `onException` handling] in native mode, it is the application developers responsibility to register the exception classes for reflection.
 
-For instance, having a camel context with onException handling as below:
+For instance, with an exception handler like this
 
 [source,java]
 ----
@@ -75,7 +75,7 @@ onException(MyException.class).handled(true);
 from("direct:route-that-could-produce-my-exception").throw(MyException.class);
 ----
 
-The class `mypackage.MyException` should be registered for reflection, see more in xref:user-guide/native-mode.adoc#reflection[Registering classes for reflection].
+the class `MyException` should be registered for reflection, see more in xref:user-guide/native-mode.adoc#reflection[Registering classes for reflection].
 
 [[reflection]]
 == Registering classes for reflection
@@ -84,7 +84,7 @@ By default, dynamic reflection is not available in native mode. Classes for whic
 registered for reflection at compile time.
 
 In many cases, application developers do not need to care because Quarkus extensions are able to detect the classes that
-require the reflection and register them automatically.
+require reflection and register them automatically.
 
 However, in some situations, Quarkus extensions may miss some classes and it is up to the application developer to
 register them. There are two ways to do that:
@@ -92,6 +92,26 @@ register them. There are two ways to do that:
 1. The `https://quarkus.io/guides/writing-native-applications-tips#alternative-with-registerforreflection[@io.quarkus.runtime.annotations.RegisterForReflection]`
 annotation can be used to register classes on which it is used, or it can also register third party classes via
 its `targets` attribute.
++
+[source,java]
+----
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
+class MyClassAccessedReflectively {
+}
+
+@RegisterForReflection(
+    targets = {
+        org.third-party.Class1.class,
+        org.third-party.Class2.class
+    }
+)
+class ReflectionRegistrations {
+}
+
+----
+
 
 2. The `quarkus.camel.native.reflection` options in `application.properties`:
 +
@@ -102,9 +122,9 @@ quarkus.camel.native.reflection.exclude-patterns = org.apache.commons.lang3.tupl
 ----
 +
 For these options to work properly, the artifacts containing the selected classes
-must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
-be registered for indexing using the {@code quarkus.index-dependency.*} options
-in {@code application.properties} - e.g.
+must either contain a Jandex index (`META-INF/jandex.idx`) or they must
+be registered for indexing using the `quarkus.index-dependency.*` options
+in `application.properties` - e.g.
 +
 [source,properties]
 ----
@@ -117,4 +137,4 @@ quarkus.index-dependency.commons-lang3.artifact-id = commons-lang3
 
 If serialization support is requested via `quarkus.camel.native.reflection.serialization-enabled`, the classes listed in https://github.com/apache/camel-quarkus/blob/main/extensions-core/core/deployment/src/main/java/org/apache/camel/quarkus/core/deployment/CamelSerializationProcessor.java[CamelSerializationProcessor.BASE_SERIALIZATION_CLASSES] are automatically registered for serialization.
 
-Users can register more classes using `@RegisterForReflection(serialization = true)`.
+Users can register more classes using `@io.quarkus.runtime.annotations.RegisterForReflection(serialization = true)`.

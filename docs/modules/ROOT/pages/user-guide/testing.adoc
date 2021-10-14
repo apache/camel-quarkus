@@ -5,10 +5,10 @@ Testing offers a good way to ensure camel routes behave as expected over time.
 Before going deeper in the subject, it is strongly advised to read xref:user-guide/first-steps.adoc[First Steps] and https://quarkus.io/guides/getting-started-testing[Quarkus testing].
 
 When it comes to testing a route in the context of Quarkus, the paved road is to write local integration tests.
-This way of doing offers the advantage of running both in JVM and native mode.
+This has the advantage of covering both JVM and native mode.
 The flip side is that the standard Camel testing approach with `camel-test` and `CamelTestSupport` is not supported.
 
-Let's enumerate below some points of interest.
+Let's enumerate some points of interest below.
 
 == A test running in JVM mode
 
@@ -38,7 +38,7 @@ An example implementation can be found https://github.com/apache/camel-quarkus/b
 
 As long as all extensions your application depends on are supported in native mode,
 you should definitely test that your application really works in native mode.
-The test logic defined in JVM mode can then be reused in native mode thanks to inheriting from the respective JVM mode test.
+The test logic defined in JVM mode can then be reused in native mode thanks to inheriting from the respective JVM mode class.
 `@NativeImageTest` annotation is there to instruct the Quarkus JUnit extension to compile the application under test to native image
 and start it before running the tests.
 
@@ -71,7 +71,7 @@ On the other hand, there is no point in compiling tests to native code. So they 
 
 An important consequence of this setup is that all communication between tests and the application
 must go over network (HTTP/REST, or any other protocol your application speaks)
-or through watching filesystem (log files, etc.) or any kind of interprocess communication.
+or through watching filesystem (log files, etc.) or any other kind of interprocess communication.
 
 == Testing with external services
 
@@ -147,11 +147,11 @@ Please refer to Camel Quarkus source tree for a https://github.com/apache/camel-
 
 It is sometimes useful to stub HTTP interactions with third party services & APIs so that tests do not have to connect to live endpoints, as this can incur costs and the service may not always be 100% available or reliable.
 
-An excellent tool for mocking & recording HTTP interactions is http://wiremock.org/[WireMock]. It is used extensively throughout the Camel Quarkus test suite for various component extensions. Here follows a typical workflow 
+An excellent tool for mocking & recording HTTP interactions is http://wiremock.org/[WireMock]. It is used extensively throughout the Camel Quarkus test suite for various component extensions. Here follows a typical workflow
 for setting up WireMock.
 
-First set up the WireMock server. Note that it is important to configure the Camel component under test to pass any HTTP interactions through the WireMock proxy. This is usually achieved by configuring a component property 
-that determines the API endpoint URL. Sometimes things are less straightforward and some extra work is required to configure the API client library, as was the case for https://github.com/apache/camel-quarkus/blob/main/integration-tests/twilio/src/main/java/org/apache/camel/quarkus/component/twilio/it/TwilioResource.java#L83[Twilio]. 
+First set up the WireMock server. Note that it is important to configure the Camel component under test to pass any HTTP interactions through the WireMock proxy. This is usually achieved by configuring a component property
+that determines the API endpoint URL. Sometimes things are less straightforward and some extra work is required to configure the API client library, as was the case for https://github.com/apache/camel-quarkus/blob/main/integration-tests/twilio/src/main/java/org/apache/camel/quarkus/component/twilio/it/TwilioResource.java#L83[Twilio].
 
 [source,java]
 ----
@@ -187,7 +187,7 @@ public class WireMockTestResource implements QuarkusTestResourceLifecycleManager
                     .withHeader("Content-Type", "application/json")
                     .withBody("{\"message\": \"Hello World\"}")));
 
-        // Ensure the camel component API client passes requests through the WireMock proxy        
+        // Ensure the camel component API client passes requests through the WireMock proxy
         Map<String, String> conf = new HashMap<>();
         conf.put("camel.component.foo.server-url", server.baseUrl());
         return conf;
@@ -202,7 +202,7 @@ public class WireMockTestResource implements QuarkusTestResourceLifecycleManager
 }
 ----
 
-Finally, ensure your test class has the `@QuarkusTestResource` annotation with the appropriate test resource class specified as the value. The WireMock server will be started before all tests are 
+Finally, ensure your test class has the `@QuarkusTestResource` annotation with the appropriate test resource class specified as the value. The WireMock server will be started before all tests are
 executed and will be shut down when all tests are finished.
 
 [source,java]

@@ -164,7 +164,7 @@ from the local Maven repository and then checks that they are available in Maven
 As long as there are unavailable artifacts, the requests are re-tried with a (configurable) delay of 60 seconds.
 ====
 
-[INFO]
+[NOTE]
 ====
 https://github.com/quarkusio/quarkus-platform[Quarkus Platform] hosts the metadata and Maven BOMs necessary for
 https://code.quarkus.io/[code.quarkus.io] as well as for https://quarkus.io/guides/tooling[Quarkus tools].

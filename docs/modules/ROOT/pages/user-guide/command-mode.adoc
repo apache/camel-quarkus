@@ -207,14 +207,14 @@ $ target/*runner -Dgreeted.subject=Joe
 
 == Source code
 
-The sources of the application used in this blog post are based on the `main-command-mode` integration test in the Camel Quarkus source tree:
+The sources of the application used in this section are based on the `main-command-mode` integration test in the Camel Quarkus source tree:
 https://github.com/apache/camel-quarkus/tree/main/integration-tests/main-command-mode[https://github.com/apache/camel-quarkus/tree/main/integration-tests/main-command-mode]
 
 Bonus: The integration test module shows a way how to test command line applications.
 
 == Full control over starting Camel by invoking `CamelMainApplication` directly.
 
-If you need perform some custom logic before starting Camel (or even not starting it at all),
+If you need to perform some custom logic before starting Camel (or even not starting it at all),
 you can do so by implementing a `@QuarkusMain` class and starting `CamelMainApplication` yourself
 after your custom logic is executed.
 

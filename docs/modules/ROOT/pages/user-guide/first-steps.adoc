@@ -7,7 +7,7 @@ This guide outlines various ways to create a new Camel Quarkus application.
 
 * A `git` client
 * An IDE
-* JDK 11+ with JAVA_HOME configured appropriately
+* JDK 11+ with `JAVA_HOME` configured appropriately
 * Apache Maven {min-maven-version}+ ({target-maven-version} is recommended)
 * GraalVM with the `native-image` command installed and the `GRAALVM_HOME` environment variable set. See
   https://quarkus.io/guides/building-native-image-guide[Building a native executable] section of the Quarkus
@@ -18,7 +18,7 @@ This guide outlines various ways to create a new Camel Quarkus application.
 == code.quarkus.io
 
 Projects can be generated at https://code.quarkus.io[code.quarkus.io].
-All of the Camel Quarkus extensions can be found under the 'Integration' heading.
+All of the Camel Quarkus extensions can be found under the 'Integration' category.
 Use the 'search' field to help with finding extensions that you are interested in.
 
 Simply select the component extensions that you want to work with
@@ -76,14 +76,14 @@ The main branch is always aligned with the latest Camel Quarkus release.
 
 === Step by step with the `rest-json` example
 
-1. Clone the Camel Quarkus example projects.
+1. Clone the Camel Quarkus examples repository:
 +
 [source,shell]
 ----
 $ git clone https://github.com/apache/camel-quarkus-examples.git
 ----
 
-2. Copy the `rest-json` example out of the source tree.
+2. Copy the `rest-json` example out of the source tree:
 +
 [source,shell]
 ----
@@ -95,7 +95,7 @@ $ cd rest-json
 
 ==== Explore the application code
 
-The application has three compile dependencies:
+The application has two compile dependencies:
 
 [source,xml,subs="attributes+"]
 ----
@@ -109,7 +109,7 @@ The application has three compile dependencies:
 </dependency>
 ----
 
-They are managed within the `camel-quarkus-bom` that is imported in `<dependencyManagement>`.
+They are managed within the `io.quarkus.platform:quarkus-camel-bom` that is imported in `<dependencyManagement>`.
 
 [NOTE]
 ====
@@ -135,12 +135,12 @@ for the `rest-json` example
 
 Then change something in the code and see the changes applied by refreshing the browser.
 
-Please refer to https://quarkus.io/guides/maven-tooling#development-mode[Quarkus documentation] for more details.
+Please refer to https://quarkus.io/guides/maven-tooling#dev-mode[Quarkus documentation] for more details about the development mode.
 
 ==== Testing
 
-There are two test classes in our example: `RestJsonTest` is for the JVM mode while `RestJsonIT` is there for the native
-mode.
+There are two test classes in our example: `RestJsonTest` is for the JVM mode
+while `RestJsonIT` is there for the native mode.
 
 The JVM mode tests are run by `maven-surefire-plugin` in the `test` Maven phase:
 
