@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.aws2.lambda.it;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -85,6 +86,7 @@ class Aws2LambdaTest {
         createGetDeleteAndListAliasShouldSucceed(functionName);
         createListDeleteFunctionTagsShouldSucceed(functionName, functionArn);
         publishAndListVersionShouldSucceed(functionName);
+        createListAndDeleteEventSourceMappingShouldSucceed(functionName);
 
         RestAssured.given()
                 .delete("/aws2-lambda/function/delete/" + functionName)
@@ -233,6 +235,68 @@ class Aws2LambdaTest {
                 .then()
                 .statusCode(200)
                 .body("$", hasItem("1"));
+    }
+
+    public void createListAndDeleteEventSourceMappingShouldSucceed(String functionName) {
+        String eventSourceMappingUuid = RestAssured.given()
+                .queryParam("functionName", functionName)
+                .post("/aws2-lambda/event-source-mapping/create")
+                .then()
+                .statusCode(201)
+                .extract().asString();
+        assertNotNull(eventSourceMappingUuid);
+
+        await().pollDelay(10L, TimeUnit.SECONDS)
+                .pollInterval(1L, TimeUnit.SECONDS)
+                .atMost(120, TimeUnit.SECONDS)
+                .until(() -> {
+                    Map<String, String> eventSourceMappingStatuses = RestAssured.given()
+                            .queryParam("functionName", functionName)
+                            .get("/aws2-lambda/event-source-mapping/list")
+                            .then()
+                            .statusCode(200)
+                            .extract().jsonPath().getMap("$", String.class, String.class);
+
+                    if (!eventSourceMappingStatuses.containsKey(eventSourceMappingUuid)) {
+                        LOG.infof("Found no event source mapping with id '%s', so retrying", eventSourceMappingUuid);
+                        return false;
+                    }
+                    String status = eventSourceMappingStatuses.get(eventSourceMappingUuid);
+                    if (!"Enabled".equals(status)) {
+                        String format = "The event source mapping with id '%s' has status '%s', so retrying";
+                        LOG.infof(format, eventSourceMappingUuid, status);
+                        return false;
+                    } else {
+                        String format = "The event source mapping with id '%s' has status 'Enabled', so moving to next step";
+                        LOG.infof(format, eventSourceMappingUuid);
+                        return true;
+                    }
+                });
+
+        RestAssured.given()
+                .queryParam("eventSourceMappingUuid", eventSourceMappingUuid)
+                .delete("/aws2-lambda/event-source-mapping/delete")
+                .then()
+                .statusCode(204);
+
+        await().pollDelay(16L, TimeUnit.SECONDS)
+                .pollInterval(1L, TimeUnit.SECONDS)
+                .atMost(120, TimeUnit.SECONDS)
+                .until(() -> {
+                    Map<String, String> eventSourceMappingStatuses = RestAssured.given()
+                            .queryParam("functionName", functionName)
+                            .get("/aws2-lambda/event-source-mapping/list")
+                            .then()
+                            .statusCode(200)
+                            .extract().jsonPath().getMap("$", String.class, String.class);
+
+                    if (eventSourceMappingStatuses.containsKey(eventSourceMappingUuid)) {
+                        String format = "The event source mapping with id '%s' is still present with status '%s', so retrying";
+                        LOG.infof(format, eventSourceMappingUuid, eventSourceMappingStatuses.get(eventSourceMappingUuid));
+                        return false;
+                    }
+                    return true;
+                });
     }
 
     static byte[] createInitialLambdaFunctionZip() {
