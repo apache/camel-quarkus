@@ -28,6 +28,7 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.4.0.CR1 [\#3180](https://github.com/apache/camel-quarkus/pull/3180) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update declaring Bean Capability [\#3178](https://github.com/apache/camel-quarkus/pull/3178) ([zbendhiba](https://github.com/zbendhiba))
 - Fix path to spring boot docs [\#3177](https://github.com/apache/camel-quarkus/pull/3177) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3169 to add S3 KMS encryption test [\#3176](https://github.com/apache/camel-quarkus/pull/3176) ([zhfeng](https://github.com/zhfeng))
