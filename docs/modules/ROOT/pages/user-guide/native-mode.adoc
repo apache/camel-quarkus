@@ -102,9 +102,9 @@ quarkus.camel.native.reflection.exclude-patterns = org.apache.commons.lang3.tupl
 ----
 +
 For these options to work properly, the artifacts containing the selected classes
-must either contain a Jandex index ({@code META-INF/jandex.idx}) or they must
-be registered for indexing using the {@code quarkus.index-dependency.*} options
-in {@code application.properties} - e.g.
+must either contain a Jandex index (`META-INF/jandex.idx`) or they must
+be registered for indexing using the `quarkus.index-dependency.*` options
+in `application.properties` - e.g.
 +
 [source,properties]
 ----
