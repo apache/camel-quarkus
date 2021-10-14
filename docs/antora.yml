@@ -24,7 +24,7 @@ asciidoc:
   attributes:
     min-maven-version: 3.6.2 # replace ${min-maven-version}
     target-maven-version: 3.8.1 # replace ${target-maven-version}
-    quarkus-version: 2.4.0.Final # replace ${quarkus.version}
+    quarkus-version: 999-SNAPSHOT # replace ${quarkus.version}
     # attributes used in xrefs to other Antora components
     cq-camel-components: 3.12.x@components # replace ${camel.docs.components.xref}
     quarkus-examples-version: latest
