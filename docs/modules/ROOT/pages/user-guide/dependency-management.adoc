@@ -5,6 +5,7 @@ A specific Camel Quarkus release is supposed to work only with a specific Quarku
 == Quarkus tooling for starting a new project
 
 The easiest and most straightforward way to get the dependency versions right in a new project is to use one of the Quarkus tools:
+
 * https://code.quarkus.io/[code.quarkus.io] - an online project generator,
 * https://quarkus.io/guides/cli-tooling[Quarkus CLI tool]
 * https://quarkus.io/guides/maven-tooling[Quarkus Maven plugin]
@@ -12,7 +13,7 @@ The easiest and most straightforward way to get the dependency versions right in
 
 All of these allow you to select extensions and scaffold a new Maven or Gradle project.
 
-[INFO]
+[TIP]
 ====
 The universe of available extensions spans over Quarkus Core, Camel Quarkus and several other third party participating projects,
 such as Hazelcast, Cassandra, Kogito, OptaPlanner, etc.
@@ -89,7 +90,7 @@ As long as you do not plan to use any dependencies beyond those from Quarkus and
 you may consider switching to `org.apache.camel.quarkus:camel-quarkus-bom`.
 It manages all supported Camel artifacts and imports `io.quarkus:quarkus-bom`.
 
-[INFO]
+[NOTE]
 ====
 `io.quarkus:quarkus-bom` manages the core Quarkus dependencies,
 such as `io.quarkus:quarkus-arc` (CDI), `io.quarkus:quarkus-hibernate-orm`, `io.quarkus:quarkus-resteasy` (JAX-RS), etc.

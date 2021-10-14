@@ -178,7 +178,7 @@ public class CamelRoute extends RouteBuilder {
 }
 ----
 
-[INFO]
+[NOTE]
 ====
 We aim at supporting all use cases listed in xref:latest@manual::bean-binding.adoc[Bean binding] section of Camel documentation.
 Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue] if some bean binding scenario does not work for you.
