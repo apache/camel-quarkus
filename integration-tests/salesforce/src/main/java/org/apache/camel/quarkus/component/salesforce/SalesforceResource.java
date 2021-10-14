@@ -74,12 +74,12 @@ public class SalesforceResource {
     @Path("/document/{id}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Object getDocument(@PathParam("id") String id) {
+    public String getDocument(@PathParam("id") String id) {
         return template.withBody(id)
                 .withHeader(SalesforceEndpointConfig.SOBJECT_EXT_ID_NAME, "Name")
                 .withHeader(SalesforceEndpointConfig.SOBJECT_NAME, "Document")
                 .to("salesforce:getSObjectWithId?rawPayload=true")
-                .request();
+                .request(String.class);
     }
 
     @Path("/account")

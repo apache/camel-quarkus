@@ -35,5 +35,6 @@ class OptaplannerProcessor {
         runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.drools.core.util.Drools$XSTreamChekcer"));
         runtimeInitializedClass
                 .produce(new RuntimeInitializedClassBuildItem("org.drools.compiler.kproject.models.KieModuleMarshaller"));
+        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.drools.core.rule.JavaDialectRuntimeData"));
     }
 }
