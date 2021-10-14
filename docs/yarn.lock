@@ -219,15 +219,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@djencks/asciidoctor-antora-indexer@npm:^0.0.6":
-  version: 0.0.6
-  resolution: "@djencks/asciidoctor-antora-indexer@npm:0.0.6"
+"@djencks/asciidoctor-antora-indexer@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "@djencks/asciidoctor-antora-indexer@npm:0.0.7"
   dependencies:
     camelcase-keys: ^6.2.2
     esprima: ^4.0.1
     picomatch: ~2.1
     static-eval: ^2.1.0
-  checksum: 70a23e188556933524608702c30635400852e8b0d59940f74d41fdc0220f667510d3d98681f94eb11c8d6fc60209da1216b93667852a36099de35b0b774b69d2
+  checksum: d25279cdb2906d003c0db2e9a2c5ffc7fbad9ea9761b6420046030f30825235f27bc788a22a50acb39997ccef240eefa79ff03abf2e9254a9eed17282411e411
   languageName: node
   linkType: hard
 
@@ -822,7 +822,7 @@ __metadata:
   dependencies:
     "@antora/cli": ^3.0.0-alpha.9
     "@antora/site-generator-default": ^3.0.0-alpha.9
-    "@djencks/asciidoctor-antora-indexer": ^0.0.6
+    "@djencks/asciidoctor-antora-indexer": ^0.0.7
     "@djencks/asciidoctor-jsonpath": ^0.0.4
     lite-server: ^2.4.0
     pino-pretty: ^5.0.0

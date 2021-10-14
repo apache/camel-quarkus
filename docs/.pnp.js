@@ -39,7 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@antora/cli", "npm:3.0.0-alpha.9"],
             ["@antora/site-generator-default", "npm:3.0.0-alpha.9"],
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.7"],
             ["@djencks/asciidoctor-jsonpath", "npm:0.0.4"],
             ["lite-server", "npm:2.5.4"],
             ["pino-pretty", "npm:5.1.3"]
@@ -278,10 +278,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@djencks/asciidoctor-antora-indexer", [
-        ["npm:0.0.6", {
-          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-antora-indexer-npm-0.0.6-4db3f3a720-70a23e1885.zip/node_modules/@djencks/asciidoctor-antora-indexer/",
+        ["npm:0.0.7", {
+          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-antora-indexer-npm-0.0.7-b6037c8242-d25279cdb2.zip/node_modules/@djencks/asciidoctor-antora-indexer/",
           "packageDependencies": [
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.7"],
             ["camelcase-keys", "npm:6.2.2"],
             ["esprima", "npm:4.0.1"],
             ["picomatch", "npm:2.1.1"],
@@ -968,7 +968,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["camel-quarkus-docs", "workspace:."],
             ["@antora/cli", "npm:3.0.0-alpha.9"],
             ["@antora/site-generator-default", "npm:3.0.0-alpha.9"],
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.7"],
             ["@djencks/asciidoctor-jsonpath", "npm:0.0.4"],
             ["lite-server", "npm:2.5.4"],
             ["pino-pretty", "npm:5.1.3"]
