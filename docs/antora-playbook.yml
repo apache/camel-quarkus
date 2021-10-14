@@ -54,10 +54,10 @@ content:
     start_path: docs/components
 
 asciidoc:
+  attributes:
+    requires@: "'util=util/jsonpath-util.js'"
   extensions:
     - "@djencks/asciidoctor-antora-indexer"
-  attributes:
-    eip-vc: latest@components
 
 ui:
   bundle:

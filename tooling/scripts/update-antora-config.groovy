@@ -61,7 +61,7 @@ replaceInFiles.each { path ->
 
         if (path.getFileName().toString().equals('antora.yml')) {
             final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
-            println ' - seting '+ versionReplacement
+            println ' - setting '+ versionReplacement
             final Pattern versionPattern = ~'version: [^\\s]+'
             newContentString = versionPattern.matcher(newContentString).replaceFirst(versionReplacement)
         }

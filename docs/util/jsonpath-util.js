@@ -27,14 +27,20 @@ module.exports = {
     return ''
   },
 
+  boldLink: (text, idPrefix, suffix = '') => {
+    const idText = `_${idPrefix}_${text.split('.').join('_')}`
+    text = suffix ? `*${text}* (${suffix})` : `*${text}*`
+    return  `[#${idText}]\nxref:#${idText}['',role=anchor]${text}`
+  },
+
   description: (value) => {
     try {
-      return module.exports.strong(value, "Autowired")
-        + module.exports.strong(value, "Required")
-        + module.exports.strong(value, "Deprecated")
-        + module.exports.escapeAttributes(value.description) + (value.description.endsWith(".") ? "" : ".")
-        + (value.deprecatedNote ? `\n\nNOTE: ${value.deprecatedNote}` : "")
-        + (value.enum ? `${["\n\nEnum values:\n"].concat(value.enum).join("\n* ")}` : "")
+      return module.exports.strong(value, 'Autowired')
+        + module.exports.strong(value, 'Required')
+        + module.exports.strong(value, 'Deprecated')
+        + (value.description ? module.exports.escapeAttributes(value.description) + (value.description.endsWith('.') ? '' : '.') : '')
+        + (value.deprecatedNote ? `\n\nNOTE: ${value.deprecatedNote}` : '')
+        + (value.enum ? `${['\n\nEnum values:\n'].concat(value.enum).join('\n* ')}` : '')
     } catch (e) {
       console.log('error', e)
       return e.msg()
@@ -42,7 +48,7 @@ module.exports = {
   },
 
   escapeAttributes: (text) => {
-    return text.split('{').join('\\{')
+    return text ? text.split('{').join('\\{') : text
   },
 
   formatSignature: (signature) => {
@@ -71,6 +77,10 @@ module.exports = {
 
   strong: (data, text) => {
     return data[text.toLowerCase()] ? `*${text}* ` : ''
+  },
+
+  valueAsString: (value) => {
+    return value === undefined ? '' : `${value}`
   },
 }
 
