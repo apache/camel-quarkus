@@ -49,24 +49,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>native-image-support</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-google-storage</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>google-cloud-storage</artifactId>
-                    <groupId>com.google.cloud</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.googlecloudservices</groupId>
-            <artifactId>quarkus-google-cloud-storage</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>

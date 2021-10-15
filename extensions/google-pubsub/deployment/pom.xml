@@ -35,8 +35,8 @@
             <artifactId>quarkus-jackson-deployment</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkiverse.googlecloudservices</groupId>
-            <artifactId>quarkus-google-cloud-pubsub-deployment</artifactId>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-grpc-common-deployment</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

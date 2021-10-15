@@ -43,18 +43,3 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 This extension auto-enables SSL support in native mode. Hence you do not need to add
 `quarkus.ssl.native=true` to your `application.properties` yourself. See also
 https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
-
-== Additional Camel Quarkus configuration
-
-There are two different configuration approaches:
-
-* Google storage client can be defined via quarkus properties leveraging the Quarkiverse - Google Cloud Services - Storage (see https://github.com/quarkiverse/quarkus-google-cloud-services/blob/main/storage[extension git page]).
-Camel will autowire client into the Google-storage component.
-This configuration allows definition of only one storage client, therefore it isn't possible to define several different endpoints, which run together.
-
-* When multiple storage clients are needed, one or more storage client bean need to be registered in the registry (e.g. via a CDI bean producer). Each storage client bean could then be referenced from distinct endpoints.
-[source,properties]
-----
-google-storage://bucket?storageClient=#my_client
-----
-

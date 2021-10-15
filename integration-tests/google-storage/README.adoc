@@ -14,10 +14,6 @@ You can find more info in the https://cloud.google.com/storage/docs/reference/li
 
 When you have the **service account key** you can provide authentication credentials to your application code by setting the environment variable:
 
-`export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/my-key.json"`
-`export GOOGLE_PROJECT_ID="#name of project"`
-
-or for windows:
-
-`$Env:GOOGLE_APPLICATION_CREDENTIALS = "/home/user/Downloads/my-key.json"`
-`$Env:GOOGLE_PROJECT_ID="#name of project"`
+```
+export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/my-key.json"
+```
