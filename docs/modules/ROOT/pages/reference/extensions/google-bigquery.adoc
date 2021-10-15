@@ -42,11 +42,6 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Usage
 
-This extension leverages the Quarkiverse Google Cloud Services extension.
-The https://github.com/quarkiverse/quarkiverse-google-cloud-services[documentation] describes how to configure authentication for Google cloud services.
-
-For convenience, a `GoogleBigQueryConnectionFactory` for use by the `google-bigquery` & `google-bigquery-sql` component is automatically configured.
-
 If you want to read SQL scripts from the classpath with `google-bigquery-sql` in native mode,
 then you will need to ensure that they are added to the native image via the `quarkus.native.resources.includes` configuration property.
 Please check https://quarkus.io/guides/building-native-image#quarkus-native-pkg-native-config_quarkus.native.resources.includes[Quarkus documentation] for more details.

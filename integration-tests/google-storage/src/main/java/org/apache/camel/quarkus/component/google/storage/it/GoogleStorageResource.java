@@ -40,11 +40,10 @@ import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.CopyWriter;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import io.quarkiverse.googlecloudservices.storage.runtime.StorageProducer;
+import io.quarkus.arc.Arc;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.google.storage.GoogleCloudStorageComponent;
 import org.apache.camel.component.google.storage.GoogleCloudStorageConstants;
 import org.apache.camel.component.google.storage.GoogleCloudStorageOperations;
 import org.eclipse.microprofile.config.ConfigProvider;
@@ -67,8 +66,6 @@ public class GoogleStorageResource {
     public static final String QUERY_BUCKET = "bucketName";
     public static final String QUERY_OPERATION = "operation";
 
-    private static final String COMPONENT_GOOGLE_STORAGE = "google-storage";
-
     @Inject
     ProducerTemplate producerTemplate;
 
@@ -76,29 +73,23 @@ public class GoogleStorageResource {
     ConsumerTemplate consumerTemplate;
 
     @Inject
-    StorageProducer sp;
-
-    @Inject
     CamelContext camelContext;
 
-    private Storage client;
-
-    @Named(COMPONENT_GOOGLE_STORAGE)
-    GoogleCloudStorageComponent produceComponent() throws IOException {
-        GoogleCloudStorageComponent gsc = new GoogleCloudStorageComponent();
+    @Named
+    Storage storageClient() throws IOException {
+        Storage storage;
         if (GoogleStorageHelper.usingMockBackend()) {
             String port = ConfigProvider.getConfig().getValue(GoogleStorageResource.PARAM_PORT, String.class);
-            client = StorageOptions.newBuilder()
+            storage = StorageOptions.newBuilder()
                     .setHost("http://localhost:" + port)
                     .setProjectId("dummy-project-for-testing")
                     .build()
                     .getService();
         } else {
-            client = sp.storage();
+            storage = StorageOptions.getDefaultInstance().getService();
         }
 
-        gsc.getConfiguration().setStorageClient(client);
-        return gsc;
+        return storage;
     }
 
     @Path("/operation")
@@ -165,7 +156,7 @@ public class GoogleStorageResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteBuckets() throws Exception {
-
+        Storage client = Arc.container().instance(Storage.class).get();
         List<String> buckets = new LinkedList<>();
         for (Bucket bucket : client.list().iterateAll()) {
             buckets.add(bucket.getName());

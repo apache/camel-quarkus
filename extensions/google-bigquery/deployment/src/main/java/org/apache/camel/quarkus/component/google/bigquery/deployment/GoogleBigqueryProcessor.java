@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.google.bigquery.deployment;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.google.bigquery.GoogleBigQueryConnectionFactoryProducer;
 
 class GoogleBigqueryProcessor {
     private static final String FEATURE = "camel-google-bigquery";
@@ -27,10 +25,5 @@ class GoogleBigqueryProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    public AdditionalBeanBuildItem connectionFactoryProducerBean() {
-        return new AdditionalBeanBuildItem(GoogleBigQueryConnectionFactoryProducer.class);
     }
 }

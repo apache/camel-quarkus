@@ -16,11 +16,9 @@
  */
 package org.apache.camel.quarkus.component.google.storage.deployment;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.ExtensionSslNativeSupportBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.google.storage.GoogleStorageEnforcer;
 
 class GoogleStorageProcessor {
 
@@ -34,10 +32,5 @@ class GoogleStorageProcessor {
     @BuildStep
     ExtensionSslNativeSupportBuildItem activateSslNativeSupport() {
         return new ExtensionSslNativeSupportBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    public AdditionalBeanBuildItem storageEnforcer() {
-        return new AdditionalBeanBuildItem(GoogleStorageEnforcer.class);
     }
 }

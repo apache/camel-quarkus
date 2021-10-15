@@ -6,11 +6,10 @@ mode does not provide the required capabilities (streaming inserts & queries) th
 The simplest means of setting up authentication is via a https://cloud.google.com/docs/authentication/getting-started[service account]. Use the GCP UI to export
 a JSON representation of your credentials.
 
-You should now set the following environment variable:
+You should now set the following environment variables:
 
 [source,shell]
 ----
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/credentials.json
+export GOOGLE_PROJECT_ID=your-gcloud-project-id
 ----
-
-You should also modify `application.properties` so that `quarkus.google.cloud.project-id` is correct for your GCP project.

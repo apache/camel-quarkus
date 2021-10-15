@@ -38,11 +38,6 @@
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-google-storage</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.googlecloudservices</groupId>
-            <artifactId>quarkus-google-cloud-storage-deployment</artifactId>
-        </dependency>
-
     </dependencies>
 
     <build>
