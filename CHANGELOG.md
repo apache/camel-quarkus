@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Error: @antora/user-require-helper tried to access {requires} [\#3184](https://github.com/apache/camel-quarkus/issues/3184)
 - AWS Aws2DdbQuarkusClientTest fails with real AWS [\#3174](https://github.com/apache/camel-quarkus/issues/3174)
 - io.quarkus.deployment.builditem.CapabilityBuildItem\(name\) is deprecated [\#3172](https://github.com/apache/camel-quarkus/issues/3172)
 - OpenAPI Java integration tests fail with Camel 3.13.0-SNAPSHOT [\#3171](https://github.com/apache/camel-quarkus/issues/3171)
@@ -20,6 +21,7 @@
 - QuarkusKafkaClientFactoryDisabledViaPropertiesTest is broken [\#3154](https://github.com/apache/camel-quarkus/issues/3154)
 - Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
 - Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
+- Docs xref check failures [\#3143](https://github.com/apache/camel-quarkus/issues/3143)
 - \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
 - \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
 - \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
@@ -28,6 +30,10 @@
 
 **Merged pull requests:**
 
+- Fixes \#3184: Add requires attribute to playbook [\#3187](https://github.com/apache/camel-quarkus/pull/3187) ([djencks](https://github.com/djencks))
+- Improve the User guide [\#3185](https://github.com/apache/camel-quarkus/pull/3185) ([ppalaga](https://github.com/ppalaga))
+- Fix source code formatting in native mode reflection docs [\#3183](https://github.com/apache/camel-quarkus/pull/3183) ([jamesnetherton](https://github.com/jamesnetherton))
+- Simplify native mode locale docs section [\#3182](https://github.com/apache/camel-quarkus/pull/3182) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.4.0.CR1 [\#3180](https://github.com/apache/camel-quarkus/pull/3180) ([jamesnetherton](https://github.com/jamesnetherton))
 - Update declaring Bean Capability [\#3178](https://github.com/apache/camel-quarkus/pull/3178) ([zbendhiba](https://github.com/zbendhiba))
 - Fix path to spring boot docs [\#3177](https://github.com/apache/camel-quarkus/pull/3177) ([jamesnetherton](https://github.com/jamesnetherton))
