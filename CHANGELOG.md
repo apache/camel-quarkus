@@ -27,10 +27,12 @@
 - \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
 - \[Camel 3.12\] UnmarshalTypeName should be renamed to unmarshalType [\#2874](https://github.com/apache/camel-quarkus/issues/2874)
 - \[camel 3.12\] core: camel.threadpools.config\[\*\] properties should not need reflection anymore [\#2828](https://github.com/apache/camel-quarkus/issues/2828)
+- Expand AWS Lambda test coverage [\#2749](https://github.com/apache/camel-quarkus/issues/2749)
 
 **Merged pull requests:**
 
 - Fixes \#3184: Add requires attribute to playbook [\#3187](https://github.com/apache/camel-quarkus/pull/3187) ([djencks](https://github.com/djencks))
+- Aws2-lambda: Add event source mapping test \#2749 [\#3186](https://github.com/apache/camel-quarkus/pull/3186) ([aldettinger](https://github.com/aldettinger))
 - Improve the User guide [\#3185](https://github.com/apache/camel-quarkus/pull/3185) ([ppalaga](https://github.com/ppalaga))
 - Fix source code formatting in native mode reflection docs [\#3183](https://github.com/apache/camel-quarkus/pull/3183) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify native mode locale docs section [\#3182](https://github.com/apache/camel-quarkus/pull/3182) ([jamesnetherton](https://github.com/jamesnetherton))
