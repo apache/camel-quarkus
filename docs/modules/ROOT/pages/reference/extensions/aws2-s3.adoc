@@ -50,8 +50,8 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 === Optional integration with Quarkus Amazon S3
 
 If desired, it is possible to use the Quarkus Amazon S3 Client extension in conjunction with Camel Quarkus AWS2 S3.
-Note that this optional and not at all mandatory.
-Follow the https://quarkus.io/guides/amazon-s3#configuring-s3-clients[documentation] with some caveats.
+Note that this is fully optional and not at all mandatory.
+Follow the https://quarkus.io/guides/amazon-s3#configuring-s3-clients[Quarkus documentation] with some caveats.
 
 1. The Apache client type has to be selected by configuring the following property.
 +
@@ -60,13 +60,20 @@ Follow the https://quarkus.io/guides/amazon-s3#configuring-s3-clients[documentat
 quarkus.s3.sync-client.type=apache
 ----
 
-2. The `S3Client` has to be injected somewhere in the application. This triggers its creation so that the Camel component can discover it.
+2. The `S3Client` has to be "unremovable" in the sense of https://quarkus.io/guides/cdi-reference#remove_unused_beans[Quarkus CDI reference] so that Camel Quarkus is able to look it up at runtime.
+You can reach that e.g. by adding a dummy bean injecting `S3Client`:
 +
 [source,java]
 ----
+import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.arc.Unremovable;
 import software.amazon.awssdk.services.s3.S3Client;
 
-@Inject
-S3Client s3Client;
+@ApplicationScoped
+@Unremovable
+class UnremovableS3Client {
+    @Inject
+    S3Client s3Client;
+}
 ----
 
