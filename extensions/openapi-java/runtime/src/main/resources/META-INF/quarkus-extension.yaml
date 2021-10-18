@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel OpenAPI Java"
-description: "Rest-dsl support for using OpenAPI doc"
+description: "Expose OpenAPI resources defined in Camel REST DSL"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/openapi-java.html"
   categories:
