@@ -28,7 +28,7 @@
 
     <artifactId>camel-quarkus-openapi-java</artifactId>
     <name>Camel Quarkus :: OpenAPI Java :: Runtime</name>
-    <description>Rest-dsl support for using OpenAPI doc</description>
+    <description>Expose OpenAPI resources defined in Camel REST DSL</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
