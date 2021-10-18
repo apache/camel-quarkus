@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel MicroProfile Health"
-description: "Bridging Eclipse MicroProfile Health with Camel health checks"
+description: "Expose Camel health checks via MicroProfile Health"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/microprofile-health.html"
   categories:

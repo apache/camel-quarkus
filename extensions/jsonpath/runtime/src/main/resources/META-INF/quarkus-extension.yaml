@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel JSON Path"
-description: "Evaluate a JsonPath expression against a JSON message body"
+description: "Evaluate a JSONPath expression against a JSON message body"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jsonpath.html"
   categories:

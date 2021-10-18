@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-groovy</artifactId>
     <name>Camel Quarkus :: Groovy :: Runtime</name>
+    <description>Evaluate a Groovy script</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

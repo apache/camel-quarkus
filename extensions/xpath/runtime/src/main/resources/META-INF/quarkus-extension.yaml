@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel XPath"
-description: "Evaluate an XPath expression against an XML payload"
+description: "Evaluates an XPath expression against an XML payload"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/xpath.html"
   categories:
