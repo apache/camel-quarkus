@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel AWS 2 Simple Queue Service (SQS)"
-description: "Sending and receive messages to/from AWS SQS service using AWS SDK version 2.x"
+description: "Send and receive messages to/from AWS SQS service using AWS SDK version 2.x"
 metadata:
   keywords:
   - "Amazon"

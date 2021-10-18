@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-xpath</artifactId>
     <name>Camel Quarkus :: XPath :: Runtime</name>
+    <description>Evaluates an XPath expression against an XML payload</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>

@@ -28,6 +28,7 @@
 
     <artifactId>camel-quarkus-ognl</artifactId>
     <name>Camel Quarkus :: OGNL :: Runtime</name>
+    <description>Evaluate an OGNL expression using Apache Commons OGNL</description>
 
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
