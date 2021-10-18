@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel SQL"
-description: "Perform SQL queries using Spring JDBC"
+description: "Perform SQL queries"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/sql.html"
   categories:
