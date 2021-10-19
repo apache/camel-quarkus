@@ -52,8 +52,3 @@ final Set<String> itestBaseNames = Files.list(treeRootDir.resolve('integration-t
         .filter{ dirName -> !executedBaseNames.contains(dirName) }
         .forEach{ dirName -> missingBaseNames.add(dirName) }
 
-if (!missingBaseNames.isEmpty()) {
-    throw new IllegalStateException('Integration tests not executed by the CI:\n\n    ' +
-        missingBaseNames.join('\n    ') +
-        '\n\n Add the missing test module(s) to ' + testCategoriesDefRelPath)
-}
