@@ -34,7 +34,7 @@ public class IpfsTestResource implements QuarkusTestResourceLifecycleManager {
     public Map<String, String> start() {
         container = new GenericContainer<>(IPFS_IMAGE)
                 .withExposedPorts(IPFS_PORT)
-                .waitingFor(Wait.forListeningPort());
+                .waitingFor(Wait.forLogMessage(".*Daemon is ready.*", 1));
         container.start();
 
         return CollectionHelper.mapOf("camel.component.ipfs.ipfs-host", "127.0.0.1",
