@@ -22,6 +22,7 @@
 - Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
 - Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
 - Docs xref check failures [\#3143](https://github.com/apache/camel-quarkus/issues/3143)
+- Google-Storage Extension: Cannot set serviceAccountKey because of Quarkiverse extension [\#3131](https://github.com/apache/camel-quarkus/issues/3131)
 - \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
 - \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
 - \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
@@ -31,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Remove quarkiverse-google-cloud-services dependencies [\#3188](https://github.com/apache/camel-quarkus/pull/3188) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixes \#3184: Add requires attribute to playbook [\#3187](https://github.com/apache/camel-quarkus/pull/3187) ([djencks](https://github.com/djencks))
 - Aws2-lambda: Add event source mapping test \#2749 [\#3186](https://github.com/apache/camel-quarkus/pull/3186) ([aldettinger](https://github.com/aldettinger))
 - Improve the User guide [\#3185](https://github.com/apache/camel-quarkus/pull/3185) ([ppalaga](https://github.com/ppalaga))
