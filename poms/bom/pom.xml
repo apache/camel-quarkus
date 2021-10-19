@@ -1609,6 +1609,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-minio</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.minio</groupId>
+                        <artifactId>minio</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5900,11 +5906,6 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>${minio.version}</version>
             </dependency>
             <!-- TODO: Remove this when netty-bom issues are resolved https://github.com/apache/camel-quarkus/issues/3115 -->
             <dependency>
