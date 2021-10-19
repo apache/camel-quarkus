@@ -52,6 +52,9 @@ class Aws2DdbStreamTest {
         final String key3 = "key-3-" + UUID.randomUUID().toString().replace("-", "");
         final String msg3 = "val-3-" + UUID.randomUUID().toString().replace("-", "");
 
+        routeController("start", null);
+        routeController("status", ServiceStatus.Started.name());
+
         waitForStreamConsumerToStart();
 
         /* Put #1 */
