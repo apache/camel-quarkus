@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.shiro.deployment;
 
+import java.io.File;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.net.URL;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -50,23 +54,54 @@ class ShiroProcessor {
 
     @BuildStep
     ReflectiveClassBuildItem registerForReflection(CombinedIndexBuildItem combinedIndex) {
-        List<String> dtos = combinedIndex.getIndex()
+        List<String> reflectiveClasses = combinedIndex.getIndex()
                 .getAllKnownSubclasses(SHIRO_EXCEPTION_NAME)
                 .stream()
                 .map(c -> c.name().toString())
                 .filter(n -> n.startsWith("org.apache.shiro.auth"))
                 .collect(Collectors.toList());
 
-        dtos.add(CamelAuthorizationException.class.getName());
-        dtos.add(Boolean[].class.getName());
-        dtos.add(Float[].class.getName());
-        dtos.add(java.util.Date[].class.getName());
-        dtos.add(Calendar[].class.getName());
-        dtos.add(java.sql.Date[].class.getName());
-        dtos.add(Time[].class.getName());
-        dtos.add(Timestamp[].class.getName());
+        reflectiveClasses.add(CamelAuthorizationException.class.getName());
 
-        return new ReflectiveClassBuildItem(false, false, dtos.toArray(new String[dtos.size()]));
+        // commons-beanutils converter types and their array counterparts need to be registered for reflection
+        reflectiveClasses.add(BigDecimal.class.getName());
+        reflectiveClasses.add(BigDecimal[].class.getName());
+        reflectiveClasses.add(BigInteger.class.getName());
+        reflectiveClasses.add(BigInteger[].class.getName());
+        reflectiveClasses.add(Boolean.class.getName());
+        reflectiveClasses.add(Boolean[].class.getName());
+        reflectiveClasses.add(Byte.class.getName());
+        reflectiveClasses.add(Byte[].class.getName());
+        reflectiveClasses.add(Calendar.class.getName());
+        reflectiveClasses.add(Calendar[].class.getName());
+        reflectiveClasses.add(Character.class.getName());
+        reflectiveClasses.add(Character[].class.getName());
+        reflectiveClasses.add(java.util.Date.class.getName());
+        reflectiveClasses.add(java.util.Date[].class.getName());
+        reflectiveClasses.add(java.sql.Date.class.getName());
+        reflectiveClasses.add(java.sql.Date[].class.getName());
+        reflectiveClasses.add(Double.class.getName());
+        reflectiveClasses.add(Double[].class.getName());
+        reflectiveClasses.add(File.class.getName());
+        reflectiveClasses.add(File[].class.getName());
+        reflectiveClasses.add(Float.class.getName());
+        reflectiveClasses.add(Float[].class.getName());
+        reflectiveClasses.add(Integer.class.getName());
+        reflectiveClasses.add(Integer[].class.getName());
+        reflectiveClasses.add(Long.class.getName());
+        reflectiveClasses.add(Long[].class.getName());
+        reflectiveClasses.add(Short.class.getName());
+        reflectiveClasses.add(Short[].class.getName());
+        reflectiveClasses.add(String.class.getName());
+        reflectiveClasses.add(String[].class.getName());
+        reflectiveClasses.add(Time.class.getName());
+        reflectiveClasses.add(Time[].class.getName());
+        reflectiveClasses.add(Timestamp.class.getName());
+        reflectiveClasses.add(Timestamp[].class.getName());
+        reflectiveClasses.add(URL.class.getName());
+        reflectiveClasses.add(URL[].class.getName());
+
+        return new ReflectiveClassBuildItem(false, false, reflectiveClasses.toArray(new String[reflectiveClasses.size()]));
     }
 
     @BuildStep
