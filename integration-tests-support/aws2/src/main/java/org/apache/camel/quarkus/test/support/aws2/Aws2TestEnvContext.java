@@ -194,7 +194,16 @@ public class Aws2TestEnvContext {
         return region;
     }
 
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public String getSecretKey() {
+        return secretKey;
+    }
+
     public boolean isLocalStack() {
         return localstack.isPresent();
     }
+
 }
