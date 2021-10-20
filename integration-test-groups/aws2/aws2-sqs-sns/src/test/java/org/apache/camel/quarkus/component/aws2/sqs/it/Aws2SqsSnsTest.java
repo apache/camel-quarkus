@@ -32,6 +32,7 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.apache.camel.quarkus.test.support.aws2.Aws2LocalStack;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.awaitility.Awaitility;
@@ -48,6 +49,9 @@ import static org.hamcrest.core.Is.is;
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2SqsSnsTest {
 
+    @Aws2LocalStack
+    private boolean localStack;
+
     @AfterEach
     public void purgeQueueAndWait() {
         String qName = getPredefinedQueueName();
@@ -55,7 +59,9 @@ class Aws2SqsSnsTest {
         // purge takes up to 60 seconds
         // all messages delivered within those 60 seconds might get deleted
         try {
-            TimeUnit.SECONDS.sleep(60);
+            if (!localStack) {
+                TimeUnit.SECONDS.sleep(60);
+            }
         } catch (InterruptedException ignored) {
         }
         Assertions.assertEquals(receiveMessageFromQueue(qName, false), "");
