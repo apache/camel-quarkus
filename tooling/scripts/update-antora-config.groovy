@@ -59,12 +59,13 @@ replaceInFiles.each { path ->
         m.appendTail(newContent)
         String newContentString = newContent.toString()
 
-        if (path.getFileName().toString().equals('antora.yml')) {
-            final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
-            println ' - seting '+ versionReplacement
-            final Pattern versionPattern = ~'version: [^\\s]+'
-            newContentString = versionPattern.matcher(newContentString).replaceFirst(versionReplacement)
-        }
+    //This can only possibly work on main branch.
+//        if (path.getFileName().toString().equals('antora.yml')) {
+//            final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
+//            println ' - seting '+ versionReplacement
+//            final Pattern versionPattern = ~'version: [^\\s]+'
+//            newContentString = versionPattern.matcher(newContentString).replaceFirst(versionReplacement)
+//        }
 
         if (!newContentString.equals(content)) {
             println 'Updated ' + path
