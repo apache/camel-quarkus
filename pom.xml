@@ -116,7 +116,7 @@
         <protobuf.version>${protobuf-version}</protobuf.version>
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
-        <scala-2.12.version>2.12.14</scala-2.12.version><!-- Spark -->
+        <scala-2.12.version>2.12.15</scala-2.12.version><!-- Spark -->
         <smallrye.reactive.messaging.camel.version>3.10.1</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
