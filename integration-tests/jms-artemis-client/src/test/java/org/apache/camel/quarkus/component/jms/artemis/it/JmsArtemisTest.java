@@ -22,13 +22,11 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.startsWith;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/3173")
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
         @ResourceArg(name = "modules", value = "quarkus.artemis") }, value = ActiveMQTestResource.class)
