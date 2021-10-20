@@ -24,21 +24,18 @@ import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.IsNormal;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.ExecutionTime;
-import io.quarkus.deployment.annotations.Record;
+import io.quarkus.deployment.builditem.DevServicesConfigResultBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
 import io.quarkus.kafka.client.deployment.DevServicesKafkaBrokerBuildItem;
 import io.quarkus.kafka.client.deployment.KafkaBuildTimeConfig;
-import org.apache.camel.component.kafka.KafkaComponent;
-import org.apache.camel.quarkus.component.kafka.CamelKafkaRecorder;
 import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
-import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
+    private static final String CAMEL_KAFKA_BROKERS = "camel.component.kafka.brokers";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -54,21 +51,18 @@ class KafkaProcessor {
         }
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
     @BuildStep(onlyIfNot = IsNormal.class, onlyIf = GlobalDevServicesConfig.Enabled.class)
     public void configureKafkaComponentForDevServices(
             DevServicesKafkaBrokerBuildItem kafkaBrokerBuildItem,
             KafkaBuildTimeConfig kafkaBuildTimeConfig,
-            BuildProducer<CamelBeanBuildItem> camelBean,
-            CamelKafkaRecorder recorder) {
+            BuildProducer<DevServicesConfigResultBuildItem> devServiceConfig) {
 
         Config config = ConfigProvider.getConfig();
-        Optional<String> brokers = config.getOptionalValue("camel.component.kafka.brokers", String.class);
+        Optional<String> brokers = config.getOptionalValue(CAMEL_KAFKA_BROKERS, String.class);
+
         if (brokers.isEmpty() && kafkaBuildTimeConfig.devservices.enabled.orElse(true)) {
-            camelBean.produce(new CamelBeanBuildItem(
-                    "kafka",
-                    KafkaComponent.class.getName(),
-                    recorder.createKafkaComponentForDevServices(kafkaBrokerBuildItem.getBootstrapServers())));
+            devServiceConfig.produce(new DevServicesConfigResultBuildItem(CAMEL_KAFKA_BROKERS,
+                    kafkaBrokerBuildItem.getBootstrapServers()));
         }
     }
 }
