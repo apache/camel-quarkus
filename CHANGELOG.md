@@ -18,6 +18,7 @@
 - AWS S3 tests should delete all buckets they create [\#3167](https://github.com/apache/camel-quarkus/issues/3167)
 - Aws2S3Test could fail with real AWS S3 service caused by bucket name conflicts [\#3163](https://github.com/apache/camel-quarkus/issues/3163)
 - Split package usage warning with camel-quarkus [\#3159](https://github.com/apache/camel-quarkus/issues/3159)
+- URL to the Kafka brokers must be configured with the brokers option in native mode [\#3157](https://github.com/apache/camel-quarkus/issues/3157)
 - QuarkusKafkaClientFactoryDisabledViaPropertiesTest is broken [\#3154](https://github.com/apache/camel-quarkus/issues/3154)
 - Unify package names for the for the test in camel-quarkus-examples [\#3152](https://github.com/apache/camel-quarkus/issues/3152)
 - Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
@@ -32,6 +33,9 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkiverse Minio to 2.3.0 [\#3205](https://github.com/apache/camel-quarkus/pull/3205) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use log await strategy for ipfs container [\#3202](https://github.com/apache/camel-quarkus/pull/3202) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3157 to make sure the brokers option is configured in native mode [\#3198](https://github.com/apache/camel-quarkus/pull/3198) ([zhfeng](https://github.com/zhfeng))
 - Remove quarkiverse-google-cloud-services dependencies [\#3188](https://github.com/apache/camel-quarkus/pull/3188) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fixes \#3184: Add requires attribute to playbook [\#3187](https://github.com/apache/camel-quarkus/pull/3187) ([djencks](https://github.com/djencks))
 - Aws2-lambda: Add event source mapping test \#2749 [\#3186](https://github.com/apache/camel-quarkus/pull/3186) ([aldettinger](https://github.com/aldettinger))
