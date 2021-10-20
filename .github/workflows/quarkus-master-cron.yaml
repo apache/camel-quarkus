@@ -39,9 +39,10 @@ jobs:
       matrix: ${{ steps.set-native-matrix.outputs.matrix }}
     steps:
       - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
+        uses: actions/setup-java@v2
         with:
-          version: '11'
+          distribution: 'temurin'
+          java-version: '11'
       - name: Clean VM
         run: |
           echo "Removing unwanted SDKs"
@@ -116,9 +117,10 @@ jobs:
       matrix: ${{ fromJson(needs.initial-mvn-install.outputs.matrix) }}
     steps:
       - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
+        uses: actions/setup-java@v2
         with:
-          version: '11'
+          distribution: 'temurin'
+          java-version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
@@ -186,9 +188,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up JDK 11
-        uses: AdoptOpenJDK/install-jdk@v1
+        uses: actions/setup-java@v2
         with:
-          version: '11'
+          distribution: 'temurin'
+          java-version: '11'
       - name: Download Maven Repo
         uses: actions/download-artifact@v2
         with:
