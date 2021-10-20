@@ -78,7 +78,7 @@
         </dependency>
     </dependencies>
 
-    <!-- TODO: Enable native build again https://github.com/apache/camel-quarkus/issues/3130
+
     <profiles>
         <profile>
             <id>native</id>
@@ -108,5 +108,4 @@
             </build>
         </profile>
     </profiles>
-    -->
 </project>
