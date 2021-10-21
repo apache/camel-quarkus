@@ -36,8 +36,6 @@ content:
       - docs/user-manual
       - docs/components
       - core/camel-core-engine/src/main/docs
-    branches: HEAD
-    start_path: docs/components
   #- url: ./../../camel-quarkus-examples
   - url: git@github.com:apache/camel-quarkus-examples.git
     branches: HEAD
