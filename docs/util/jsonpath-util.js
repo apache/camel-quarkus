@@ -15,6 +15,8 @@
  * limitations under the License.
  */
 
+const RESOURCEID_RX = /[^$]*\$json\/(.*)\.json/
+
 module.exports = {
   alias: (name, aliases) => {
     for (expr of (aliases || '').split(',')) {
@@ -51,6 +53,11 @@ module.exports = {
     return text ? text.split('{').join('\\{') : text
   },
 
+  extractSBName: (resourceid) => {
+    const m =resourceid.match(RESOURCEID_RX)
+    return m ? m[1] : 'no match'
+  },
+
   formatSignature: (signature) => {
     return signature.split('$').join('.') + ';'
   },
@@ -73,6 +80,10 @@ module.exports = {
     if (consumerOnly) return 'Only consumer is supported'
     if (producerOnly) return 'Only producer is supported'
     return 'Both producer and consumer are supported'
+  },
+
+  starterArtifactId: (data) => {
+    return data['starter-artifactid'] ? data['starter-artifactid'] : `${data.artifactid}-starter`
   },
 
   strong: (data, text) => {
