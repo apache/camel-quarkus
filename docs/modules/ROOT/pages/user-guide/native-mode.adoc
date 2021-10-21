@@ -6,24 +6,17 @@ Things to consider before you run your application in native mode.
 [[charsets]]
 == Character encodings
 
-By default only the following `Charsets` are available in native mode (https://github.com/oracle/graal/blob/vm-19.3.0/substratevm/src/com.oracle.svm.core/src/com/oracle/svm/core/jdk/LocalizationFeature.java#L149-L163[source]):
+By default, not all `Charsets` are available in native mode.
 
-[source,text]
-----
-Charset.defaultCharset(), US-ASCII, ISO-8859-1, UTF-8, UTF-16BE, UTF-16LE, UTF-16
-----
-
-If you expect your application to need any encoding not included in this set or if you see
-an `UnsupportedCharsetException` thrown in the native mode, please add the following entry to your
-`application.properties`:
+As such, you may face situations where an encoding is missing in native mode, for instance an application throwing `UnsupportedCharsetException`.
+In such a case, you may consider using the configuration option below:
 
 [source,properties]
 ----
 quarkus.native.add-all-charsets = true
 ----
 
-See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets]
-in Quarkus documentation.
+See also https://quarkus.io/guides/all-config#quarkus-core_quarkus.native.add-all-charsets[quarkus.native.add-all-charsets] in Quarkus documentation.
 
 [[locale]]
 == Locale
