@@ -10,8 +10,11 @@
 
 **Closed issues:**
 
+- `ShiroProcessor` is missing reflective class configuration for `commons-beanutils` converters [\#3208](https://github.com/apache/camel-quarkus/issues/3208)
+- Test AWS Kinesis with Quarkus client [\#3200](https://github.com/apache/camel-quarkus/issues/3200)
 - Error: @antora/user-require-helper tried to access {requires} [\#3184](https://github.com/apache/camel-quarkus/issues/3184)
 - AWS Aws2DdbQuarkusClientTest fails with real AWS [\#3174](https://github.com/apache/camel-quarkus/issues/3174)
+- \[Quarkus 2.4.0\] Messaging tests fail with ambiguous dependencies for `org.apache.camel.quarkus.component.messaging.it.util.scheme.ComponentScheme` [\#3173](https://github.com/apache/camel-quarkus/issues/3173)
 - io.quarkus.deployment.builditem.CapabilityBuildItem\(name\) is deprecated [\#3172](https://github.com/apache/camel-quarkus/issues/3172)
 - OpenAPI Java integration tests fail with Camel 3.13.0-SNAPSHOT [\#3171](https://github.com/apache/camel-quarkus/issues/3171)
 - Test AWS S3 encryption using KMS [\#3169](https://github.com/apache/camel-quarkus/issues/3169)
@@ -24,15 +27,19 @@
 - Register camel \<--\> CDI event bridges only when observers for the events are detected  [\#3149](https://github.com/apache/camel-quarkus/issues/3149)
 - Docs xref check failures [\#3143](https://github.com/apache/camel-quarkus/issues/3143)
 - Google-Storage Extension: Cannot set serviceAccountKey because of Quarkiverse extension [\#3131](https://github.com/apache/camel-quarkus/issues/3131)
+- \[Quarkus 2.4.0\] AWT packages forced to be runtime initialized [\#3130](https://github.com/apache/camel-quarkus/issues/3130)
 - \[Camel 3.12\] enable autoCreate CI integration tests [\#3097](https://github.com/apache/camel-quarkus/issues/3097)
 - \[Camel 3.11.2, 3.12.0\] Consider usage of `IgnoreSplitPackageBuildItem` [\#2997](https://github.com/apache/camel-quarkus/issues/2997)
 - \[Camel 3.12\] Subclasses of ServiceCallConfiguration should not need to be registered for reflection [\#2955](https://github.com/apache/camel-quarkus/issues/2955)
 - \[Camel 3.12\] UnmarshalTypeName should be renamed to unmarshalType [\#2874](https://github.com/apache/camel-quarkus/issues/2874)
 - \[camel 3.12\] core: camel.threadpools.config\[\*\] properties should not need reflection anymore [\#2828](https://github.com/apache/camel-quarkus/issues/2828)
 - Expand AWS Lambda test coverage [\#2749](https://github.com/apache/camel-quarkus/issues/2749)
+- DigitalOcean native support [\#1594](https://github.com/apache/camel-quarkus/issues/1594)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.4.0.Final [\#3210](https://github.com/apache/camel-quarkus/pull/3210) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add missing shiro reflective class configuration for commons-beanutils converters [\#3209](https://github.com/apache/camel-quarkus/pull/3209) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkiverse Minio to 2.3.0 [\#3205](https://github.com/apache/camel-quarkus/pull/3205) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use log await strategy for ipfs container [\#3202](https://github.com/apache/camel-quarkus/pull/3202) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3157 to make sure the brokers option is configured in native mode [\#3198](https://github.com/apache/camel-quarkus/pull/3198) ([zhfeng](https://github.com/zhfeng))
@@ -47,6 +54,7 @@
 - Fix path to spring boot docs [\#3177](https://github.com/apache/camel-quarkus/pull/3177) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3169 to add S3 KMS encryption test [\#3176](https://github.com/apache/camel-quarkus/pull/3176) ([zhfeng](https://github.com/zhfeng))
 - AWS Aws2DdbQuarkusClientTest fails with real AWS \#3174 [\#3175](https://github.com/apache/camel-quarkus/pull/3175) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Aws sqs test fix [\#3170](https://github.com/apache/camel-quarkus/pull/3170) ([VratislavHais](https://github.com/VratislavHais))
 - AWS S3 tests should delete all buckets they create [\#3168](https://github.com/apache/camel-quarkus/pull/3168) ([ppalaga](https://github.com/ppalaga))
 - Switch back to using containers for ActiveMQ messaging tests [\#3166](https://github.com/apache/camel-quarkus/pull/3166) ([jamesnetherton](https://github.com/jamesnetherton))
 - CI build should test example projects with camel-quarkus SNAPSHOT \#3160 [\#3165](https://github.com/apache/camel-quarkus/pull/3165) ([ppalaga](https://github.com/ppalaga))
