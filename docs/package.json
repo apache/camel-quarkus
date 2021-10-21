@@ -7,19 +7,15 @@
     "preview": "yarn unplug opn -AR && cd target/site && lite-server -c ../../bs-config.json",
     "build": "yarn antora --fetch antora-playbook.yml --stacktrace",
     "dev": "yarn build && yarn preview",
-    "checks": "yarn antora --generator @antora/xref-validator antora-playbook.yml"
+    "checks": "yarn build"
   },
   "devDependencies": {
-    "@antora/asciidoc-loader": "^3.0.0-alpha.1",
-    "@antora/cli": "^3.0.0-alpha.1",
-    "@antora/content-aggregator": "^3.0.0-alpha.1",
-    "@antora/content-classifier": "^3.0.0-alpha.1",
-    "@antora/document-converter": "^3.0.0-alpha.1",
-    "@antora/playbook-builder": "^3.0.0-alpha.1",
-    "@antora/site-generator-default": "^3.0.0-alpha.1",
-    "@antora/xref-validator": "https://gitlab.com/antora/xref-validator.git#v1.0.0-alpha.13",
-    "@djencks/asciidoctor-antora-indexer": "^0.0.6",
-    "lite-server": "^2.4.0"
+    "@antora/cli": "^3.0.0-alpha.9",
+    "@antora/site-generator-default": "^3.0.0-alpha.9",
+    "@djencks/asciidoctor-antora-indexer": "^0.1.0-alpha.1",
+    "@djencks/asciidoctor-jsonpath": "^0.1.0-alpha.1",
+    "lite-server": "^2.4.0",
+    "pino-pretty": "^5.0.0"
   },
   "dependenciesMeta": {
     "opn@5.3.0": {
