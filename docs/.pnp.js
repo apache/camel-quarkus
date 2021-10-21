@@ -39,8 +39,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@antora/cli", "npm:3.0.0-alpha.9"],
             ["@antora/site-generator-default", "npm:3.0.0-alpha.9"],
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
-            ["@djencks/asciidoctor-jsonpath", "npm:0.0.4"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.1.0-alpha.1"],
+            ["@djencks/asciidoctor-jsonpath", "npm:0.1.0-alpha.1"],
             ["lite-server", "npm:2.5.4"],
             ["pino-pretty", "npm:5.1.3"]
           ],
@@ -278,10 +278,11 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@djencks/asciidoctor-antora-indexer", [
-        ["npm:0.0.6", {
-          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-antora-indexer-npm-0.0.6-4db3f3a720-70a23e1885.zip/node_modules/@djencks/asciidoctor-antora-indexer/",
+        ["npm:0.1.0-alpha.1", {
+          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-antora-indexer-npm-0.1.0-alpha.1-015913d711-cbc7c0da4d.zip/node_modules/@djencks/asciidoctor-antora-indexer/",
           "packageDependencies": [
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.1.0-alpha.1"],
+            ["@djencks/asciidoctor-report-support", "npm:0.1.0-alpha.1"],
             ["camelcase-keys", "npm:6.2.2"],
             ["esprima", "npm:4.0.1"],
             ["picomatch", "npm:2.1.1"],
@@ -291,16 +292,27 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@djencks/asciidoctor-jsonpath", [
-        ["npm:0.0.4", {
-          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-jsonpath-npm-0.0.4-daa788a548-ba33c6567c.zip/node_modules/@djencks/asciidoctor-jsonpath/",
+        ["npm:0.1.0-alpha.1", {
+          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-jsonpath-npm-0.1.0-alpha.1-7faec6e075-36431697f1.zip/node_modules/@djencks/asciidoctor-jsonpath/",
           "packageDependencies": [
-            ["@djencks/asciidoctor-jsonpath", "npm:0.0.4"],
+            ["@djencks/asciidoctor-jsonpath", "npm:0.1.0-alpha.1"],
             ["@antora/user-require-helper", "npm:2.0.0"],
+            ["@djencks/asciidoctor-report-support", "npm:0.1.0-alpha.1"],
             ["@iarna/toml", "npm:2.2.5"],
-            ["esprima", "npm:4.0.1"],
             ["js-yaml", "npm:4.1.0"],
             ["json5", "npm:2.2.0"],
-            ["jsonpath", "npm:1.1.1"],
+            ["jsonpath", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@djencks/asciidoctor-report-support", [
+        ["npm:0.1.0-alpha.1", {
+          "packageLocation": "./.yarn/cache/@djencks-asciidoctor-report-support-npm-0.1.0-alpha.1-8796513cc6-12900388ef.zip/node_modules/@djencks/asciidoctor-report-support/",
+          "packageDependencies": [
+            ["@djencks/asciidoctor-report-support", "npm:0.1.0-alpha.1"],
+            ["@antora/user-require-helper", "npm:2.0.0"],
+            ["esprima", "npm:4.0.1"],
             ["static-eval", "npm:2.1.0"]
           ],
           "linkType": "HARD",
@@ -968,8 +980,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["camel-quarkus-docs", "workspace:."],
             ["@antora/cli", "npm:3.0.0-alpha.9"],
             ["@antora/site-generator-default", "npm:3.0.0-alpha.9"],
-            ["@djencks/asciidoctor-antora-indexer", "npm:0.0.6"],
-            ["@djencks/asciidoctor-jsonpath", "npm:0.0.4"],
+            ["@djencks/asciidoctor-antora-indexer", "npm:0.1.0-alpha.1"],
+            ["@djencks/asciidoctor-jsonpath", "npm:0.1.0-alpha.1"],
             ["lite-server", "npm:2.5.4"],
             ["pino-pretty", "npm:5.1.3"]
           ],
