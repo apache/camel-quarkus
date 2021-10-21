@@ -24,28 +24,49 @@ content:
   - url: ./../
     branches: HEAD
     start_path: docs
-  - url: git@github.com:apache/camel.git
+
+  - url: https://github.com/apache/camel.git
     branches:
       - camel-3.11.x # replace ${camel.docs.branch}
     start_paths:
       - docs/components
-  - url: git@github.com:apache/camel.git
+      - core/camel-core-engine/src/main/docs
+
+  - url: https://github.com/apache/camel.git
     branches:
       - main
     start_paths:
       - docs/user-manual
+
+  - url: https://github.com/apache/camel-spring-boot.git
+    branches:
+      - camel-spring-boot-3.11.x # replace ${camel.sb.docs.branch}
+    start_paths:
       - docs/components
-      - core/camel-core-engine/src/main/docs
 
 asciidoc:
-  extensions:
-    - "@djencks/asciidoctor-antora-indexer"
+  attributes:
+    requires@: "'util=util/jsonpath-util.js'"
 
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
+
 output:
   dir: ./target/site
+
 urls:
   redirect_facility: httpd
+
+runtime:
+  log:
+    level: warn
+    failure_level: warn
+
+pipeline:
+  extensions:
+    - require: '@djencks/asciidoctor-jsonpath'
+    #      trace: true
+    - require: '@djencks/asciidoctor-antora-indexer'
+#      trace: true
