@@ -110,16 +110,17 @@
                                     <arguments>install --immutable</arguments>
                                 </configuration>
                             </execution>
-                            <execution>
-                                <id>antora-xref-check</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <arguments>run antora --fetch antora-playbook.yml --stacktrace</arguments>
-                                </configuration>
-                            </execution>
+<!-- It is impractical to get this partial build to work   -->
+<!--                            <execution>-->
+<!--                                <id>antora-xref-check</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <configuration>-->
+<!--                                    <arguments>run antora &#45;&#45;fetch antora-playbook.yml &#45;&#45;stacktrace</arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
                         </executions>
                     </plugin>
                 </plugins>
