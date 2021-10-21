@@ -219,30 +219,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@djencks/asciidoctor-antora-indexer@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "@djencks/asciidoctor-antora-indexer@npm:0.0.7"
+"@djencks/asciidoctor-antora-indexer@npm:^0.1.0-alpha.1":
+  version: 0.1.0-alpha.1
+  resolution: "@djencks/asciidoctor-antora-indexer@npm:0.1.0-alpha.1"
   dependencies:
+    "@djencks/asciidoctor-report-support": ^0.1.0-alpha.1
     camelcase-keys: ^6.2.2
     esprima: ^4.0.1
     picomatch: ~2.1
     static-eval: ^2.1.0
-  checksum: d25279cdb2906d003c0db2e9a2c5ffc7fbad9ea9761b6420046030f30825235f27bc788a22a50acb39997ccef240eefa79ff03abf2e9254a9eed17282411e411
+  checksum: cbc7c0da4d1b829a2bedabaf7da36b3d6c59467f306ca69851a4caaebb96859ddaa6242aa4a2821d7f5b24eb9ed8729c90f5c799d59a458d0fe9a29e1aaf9d71
   languageName: node
   linkType: hard
 
-"@djencks/asciidoctor-jsonpath@npm:^0.0.4":
-  version: 0.0.4
-  resolution: "@djencks/asciidoctor-jsonpath@npm:0.0.4"
+"@djencks/asciidoctor-jsonpath@npm:^0.1.0-alpha.1":
+  version: 0.1.0-alpha.1
+  resolution: "@djencks/asciidoctor-jsonpath@npm:0.1.0-alpha.1"
   dependencies:
     "@antora/user-require-helper": ^2.0.0
+    "@djencks/asciidoctor-report-support": ^0.1.0-alpha.1
     "@iarna/toml": ^2.2.5
-    esprima: ^4.0.1
     js-yaml: ^4.1.0
     json5: ^2.2.0
     jsonpath: ^1.1.1
+  checksum: 36431697f1bda79356c1eb61d01657c605d0ca3e21dcd3874411219ee720569e3d976fc7eb2e5527fd6f1b31cc36339e702275e44cd77d4f845d1e2e66c9454e
+  languageName: node
+  linkType: hard
+
+"@djencks/asciidoctor-report-support@npm:^0.1.0-alpha.1":
+  version: 0.1.0-alpha.1
+  resolution: "@djencks/asciidoctor-report-support@npm:0.1.0-alpha.1"
+  dependencies:
+    "@antora/user-require-helper": ^2.0.0
+    esprima: ^4.0.1
     static-eval: ^2.1.0
-  checksum: ba33c6567cb4814f778aeafc4a9519a0b9acc27c832c542143294bff69684cdeb2d2c2bbf69fdadb13493a6fd8be7c6de32247e954f85b11ead12bc2af649da0
+  checksum: 12900388efc2624e6e2cb700c412a12c0298fc01c6d4a59b249e41e3d71cd8aeeb248590032d261724c9da7240a647c902ecb66f255b14278d7ef59c24e70f8a
   languageName: node
   linkType: hard
 
@@ -822,8 +833,8 @@ __metadata:
   dependencies:
     "@antora/cli": ^3.0.0-alpha.9
     "@antora/site-generator-default": ^3.0.0-alpha.9
-    "@djencks/asciidoctor-antora-indexer": ^0.0.7
-    "@djencks/asciidoctor-jsonpath": ^0.0.4
+    "@djencks/asciidoctor-antora-indexer": ^0.1.0-alpha.1
+    "@djencks/asciidoctor-jsonpath": ^0.1.0-alpha.1
     lite-server: ^2.4.0
     pino-pretty: ^5.0.0
   dependenciesMeta:
