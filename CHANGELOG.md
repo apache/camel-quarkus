@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- doc: rephrase the section about charsets in native mode [\#3219](https://github.com/apache/camel-quarkus/issues/3219)
 - `ShiroProcessor` is missing reflective class configuration for `commons-beanutils` converters [\#3208](https://github.com/apache/camel-quarkus/issues/3208)
 - Test AWS Kinesis with Quarkus client [\#3200](https://github.com/apache/camel-quarkus/issues/3200)
 - Error: @antora/user-require-helper tried to access {requires} [\#3184](https://github.com/apache/camel-quarkus/issues/3184)
@@ -38,6 +39,9 @@
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.29.0 [\#3221](https://github.com/apache/camel-quarkus/pull/3221) ([jamesnetherton](https://github.com/jamesnetherton))
+- doc: rephrase the section about charsets in native mode to remove lin… [\#3220](https://github.com/apache/camel-quarkus/pull/3220) ([aldettinger](https://github.com/aldettinger))
+- Use JDK 17 in alternative JVM jobs [\#3212](https://github.com/apache/camel-quarkus/pull/3212) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.4.0.Final [\#3210](https://github.com/apache/camel-quarkus/pull/3210) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add missing shiro reflective class configuration for commons-beanutils converters [\#3209](https://github.com/apache/camel-quarkus/pull/3209) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkiverse Minio to 2.3.0 [\#3205](https://github.com/apache/camel-quarkus/pull/3205) ([jamesnetherton](https://github.com/jamesnetherton))
