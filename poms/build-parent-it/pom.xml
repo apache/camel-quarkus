@@ -36,13 +36,12 @@
 
     <properties>
         <!-- Allow running our tests against alternative BOMs, such as io.quarkus.platform:quarkus-camel-bom https://repo1.maven.org/maven2/io/quarkus/platform/quarkus-camel-bom/ -->
-        <!-- The BOM GAVs below are swapped as a workaround for https://github.com/quarkusio/quarkus/issues/20461 -->
-        <quarkus.platform.group-id>org.apache.camel.quarkus</quarkus.platform.group-id>
-        <quarkus.platform.artifact-id>camel-quarkus-bom</quarkus.platform.artifact-id>
-        <quarkus.platform.version>2.5.0-SNAPSHOT</quarkus.platform.version>
-        <camel-quarkus.platform.group-id>io.quarkus</camel-quarkus.platform.group-id>
-        <camel-quarkus.platform.artifact-id>quarkus-bom</camel-quarkus.platform.artifact-id>
-        <camel-quarkus.platform.version>${quarkus.version}</camel-quarkus.platform.version>
+        <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
+        <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
+        <quarkus.platform.version>${quarkus.version}</quarkus.platform.version>
+        <camel-quarkus.platform.group-id>org.apache.camel.quarkus</camel-quarkus.platform.group-id>
+        <camel-quarkus.platform.artifact-id>camel-quarkus-bom</camel-quarkus.platform.artifact-id>
+        <camel-quarkus.platform.version>2.5.0-SNAPSHOT</camel-quarkus.platform.version>
 
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
