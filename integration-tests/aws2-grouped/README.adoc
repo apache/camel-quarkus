@@ -1,7 +1,7 @@
 == AWS 2 grouped integration tests
 
 This module allows executing all tests from `integration-test-groups/aws2/*` grouped together.
-See the https://camel.apache.org/camel-quarkus/latest/contributor-guide/extension-testing.html#_grouping[Grouping section] of the Contributor guide for more details.
+See the https://camel.apache.org/camel-kamelets/latest/index.html#_grouping[Grouping section] of the Contributor guide for more details.
 
 === Mock backend vs. real service
 

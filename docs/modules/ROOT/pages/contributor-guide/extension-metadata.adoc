@@ -5,14 +5,14 @@
 
 This file contains metadata used by Quarkus project generator https://code.quarkus.io/[https://code.quarkus.io/].
 It is located in the `src/main/resources/META-INF` directory of the runtime module.
-Here is an https://github.com/apache/camel-quarkus/blob/main/extensions/activemq/runtime/src/main/resources/META-INF/quarkus-extension.yaml[example from the ActiveMQ extension]:
+Here is an https://github.com/apache/camel-quarkus/blob/2.4.x/extensions/activemq/runtime/src/main/resources/META-INF/quarkus-extension.yaml[example from the ActiveMQ extension]:
 
 [source,yaml]
 ----
 name: "Camel ActiveMQ"
 description: "Send messages to (or consume from) Apache ActiveMQ. This component extends the Camel JMS component"
 metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/extensions/activemq.html"
+  guide: "https://camel.apache.org/camel-quarkus/2.4.x/extensions/activemq.html"
   categories:
   - "integration"
 ----
@@ -30,7 +30,7 @@ The data comes from the following
 sources:
 
 * `name`: comes from `pom.xml`'s `<name>`
-* `description`: taken from xref:latest@manual::camel-catalog.adoc[Camel Catalog]. If the given
+* `description`: taken from xref:manual::camel-catalog.adoc[Camel Catalog]. If the given
   extension contains more than one component, language or data format, their descriptions are concatenated and a warning
   is issued in the log. The value from Camel Catalog can be overridden by setting a `<description>` in the
   `pom.xml` of the given extension's runtime module.

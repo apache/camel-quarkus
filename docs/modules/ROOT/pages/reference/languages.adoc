@@ -1,6 +1,4 @@
 = Camel languages supported on Quarkus
-:indexer-version: latest
-:indexer-component: components
 :indexer-module: languages
 :indexer-rel-filter: *-language.adoc
 :indexer-human-readable-kind: Language
