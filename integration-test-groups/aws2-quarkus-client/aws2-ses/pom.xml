@@ -22,35 +22,22 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
-        <version>2.5.0-SNAPSHOT</version>
-        <relativePath>../../poms/build-parent-it/pom.xml</relativePath>
+        <version>2.4.0-SNAPSHOT</version>
+        <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-aws2-quarkus-client-grouped</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: AWS2 Quarkus Client Grouped</name>
-    <description>AWS 2 tests from ../integration-test-groups/aws2-quarkus-client merged together</description>
+    <artifactId>camel-quarkus-integration-test-aws2-ses-quarkus-client</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: Simple Email Service (SES) Quarkus Client</name>
+    <description>Integration tests for Camel Quarkus AWS Simple Email Service (SES) extension with the Quarkus AWS SES client</description>
 
-    <!-- Regenerate the dependencies via `mvn process-resources -Pformat -N` from the source tree root directory -->
     <dependencies>
         <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-amazon-dynamodb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-amazon-s3</artifactId>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-aws2-ses</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-amazon-ses</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-amazon-sns</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-amazon-sqs</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -60,30 +47,8 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy-jackson</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-ddb</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-kms</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-ses</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-sns</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-sqs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-s3</artifactId>
-        </dependency>
+
+        <!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5</artifactId>
@@ -113,72 +78,7 @@
         <!-- The following dependencies guarantee that this module is built after them. You can update them by running `mvn process-resources -Pformat -N` from the source tree root directory -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-ddb-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-kms-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-s3-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-aws2-ses-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-sns-deployment</artifactId>
-            <version>${project.version}</version>
-            <type>pom</type>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>*</groupId>
-                    <artifactId>*</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-sqs-deployment</artifactId>
             <version>${project.version}</version>
             <type>pom</type>
             <scope>test</scope>
@@ -234,39 +134,9 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
-                            <properties>
-                                <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2-quarkus-client</group-tests.source.dir>
-                                <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
-                                <group-tests.concat.rel.paths>src/main/resources/application.properties,src/test/resources/META-INF/services/org.apache.camel.quarkus.test.support.aws2.Aws2TestEnvCustomizer</group-tests.concat.rel.paths>
-                            </properties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-client-test-sources-ses</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
                             <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ses</copy-tests.source.dir>
-                                <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
-                                <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
-                            </properties>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-client-test-sources-sqs</id>
-                        <goals>
-                            <goal>execute</goal>
-                        </goals>
-                        <phase>generate-sources</phase>
-                        <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
-                            <properties>
-                                <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
                             </properties>
