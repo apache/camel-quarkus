@@ -3,10 +3,10 @@
 :page-aliases: release-guide.adoc
 
 The process is _mutatis mutandis_ the same as for the main Apache Camel repository - see the
-xref:latest@manual::release-guide.adoc[Release guide] page of the Camel documentation.
+xref:manual::release-guide.adoc[Release guide] page of the Camel documentation.
 
 Here, just a sketch of the repeating part, after you have performed the initial setup following the
-xref:latest@manual::release-guide.adoc[Camel Release guide].
+xref:manual::release-guide.adoc[Camel Release guide].
 
 == Pre release tasks
 
