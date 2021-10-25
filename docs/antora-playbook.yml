@@ -56,8 +56,6 @@ content:
 asciidoc:
   attributes:
     requires@: "'util=util/jsonpath-util.js'"
-  extensions:
-    - "@djencks/asciidoctor-antora-indexer"
 
 ui:
   bundle:
@@ -78,3 +76,5 @@ runtime:
 pipeline:
   extensions:
     - require: '@djencks/asciidoctor-jsonpath'
+    - require: '@djencks/asciidoctor-antora-indexer'
+
