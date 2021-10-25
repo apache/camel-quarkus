@@ -34,8 +34,7 @@ public class KafkaDevServicesDisabledTest {
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
             .withConfigurationResource("application-configuration-devservices-disabled.properties")
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class))
-            .overrideConfigKey("camel.component.kafka.brokers", "");
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
 
     @Inject
     CamelContext context;
