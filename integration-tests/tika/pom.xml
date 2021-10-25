@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Tika</name>
     <description>Integration tests for Camel Quarkus Tika extension</description>
 
+    <properties>
+        <!-- Spends too much memory on GH actions https://github.com/apache/camel-quarkus/issues/3230 -->
+        <ci.native.tests.skip>true</ci.native.tests.skip>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
