@@ -22,13 +22,13 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-build-parent-it</artifactId>
-        <version>2.4.0-SNAPSHOT</version>
+        <version>2.5.0-SNAPSHOT</version>
         <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-aws2-ses-quarkus-client</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: Simple Email Service (SES) Quarkus Client</name>
-    <description>Integration tests for Camel Quarkus AWS Simple Email Service (SES) extension with the Quarkus AWS SES client</description>
+    <artifactId>camel-quarkus-integration-test-aws2-sqs-sns-quarkus-client</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS 2 SQS and SNS Quarkus Client</name>
+    <description>Integration tests for SQS and SNS extensions with the Quarkus AWS clients</description>
 
     <dependencies>
         <dependency>
