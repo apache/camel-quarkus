@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.component.mllp.it;
 
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
@@ -53,6 +54,7 @@ class MllpTest {
                 .statusCode(204);
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3225")
     @Test
     public void testCharsetFromMsh18() {
         // Set up the message with a charset and some characters that it cannot deal with
