@@ -97,7 +97,7 @@
                                 </goals>
                                 <configuration>
                                     <nodeVersion>v14.16.0</nodeVersion>
-                                    <yarnVersion>v1.22.5</yarnVersion>
+                                    <yarnVersion>v2.4.0</yarnVersion>
                                 </configuration>
                             </execution>
                             <execution>

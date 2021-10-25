@@ -10,10 +10,10 @@
     "checks": "yarn build"
   },
   "devDependencies": {
-    "@antora/cli": "^3.0.0-alpha.9",
-    "@antora/site-generator-default": "^3.0.0-alpha.9",
-    "@djencks/asciidoctor-antora-indexer": "^0.0.7",
-    "@djencks/asciidoctor-jsonpath": "^0.0.4",
+    "@antora/cli": "^3.0.0-alpha.10",
+    "@antora/site-generator-default": "^3.0.0-alpha.10",
+    "@djencks/asciidoctor-antora-indexer": "^0.1.0-alpha.1",
+    "@djencks/asciidoctor-jsonpath": "^0.1.0-alpha.1",
     "lite-server": "^2.4.0",
     "pino-pretty": "^5.0.0"
   },
