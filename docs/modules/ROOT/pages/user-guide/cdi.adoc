@@ -178,16 +178,13 @@ public class CamelRoute extends RouteBuilder {
 }
 ----
 
-[NOTE]
-====
-We aim at supporting all use cases listed in xref:manual::bean-binding.adoc[Bean binding] section of Camel documentation.
+NOTE: We aim at supporting all use cases listed in xref:manual::bean-binding.adoc[Bean binding] section of Camel documentation.
 Do not hesitate to https://github.com/apache/camel-quarkus/issues[file an issue] if some bean binding scenario does not work for you.
-====
 
 === `@Consume`
 
 Since Camel Quarkus 2.0.0, the `camel-quarkus-bean` artifact brings support for `@org.apache.camel.Consume`
-- see the xref:manual:ROOT:pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
+- see the xref:manual::pojo-consuming.adoc[Pojo consuming] section of Camel documentation.
 
 Declaring a class like the following
 
