@@ -17,7 +17,9 @@
 
 name: camel-quarkus
 title: Camel Quarkus
-version: latest
+version: next
+prerelease: true
+display-version: Next (Pre-release)
 nav:
 - modules/ROOT/nav.adoc
 asciidoc:
@@ -28,6 +30,7 @@ asciidoc:
     # attributes used in xrefs to other Antora components
     cq-camel-components: 3.12.x@components # replace ${camel.docs.components.xref}
     quarkus-examples-version: latest
+    camel-k-version: next # is this correct? Can it be replaced from pom.xml?
     # indexTable common
     indexer-version: 3.12.x # replace ${camel.docs.components.version}
     indexer-component: components
