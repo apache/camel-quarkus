@@ -1,0 +1,32 @@
+{
+  "place_id": 169146043,
+  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+  "osm_type": "way",
+  "osm_id": 279767995,
+  "lat": "40.714128099999996",
+  "lon": "-73.96131110000002",
+  "place_rank": 30,
+  "category": "building",
+  "type": "yes",
+  "importance": 0,
+  "addresstype": "building",
+  "name": null,
+  "display_name": "281, Bedford Avenue, Brooklyn, Kings County, New York, 11211, United States",
+  "address": {
+    "house_number": "281",
+    "road": "Bedford Avenue",
+    "suburb": "Brooklyn",
+    "city_district": "Kings County",
+    "city": "New York",
+    "state": "New York",
+    "postcode": "11211",
+    "country": "United States",
+    "country_code": "us"
+  },
+  "boundingbox": [
+    "40.714064",
+    "40.7141922",
+    "-73.9614164",
+    "-73.9612058"
+  ]
+}

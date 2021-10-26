@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.geocoder.it;
 
+import java.util.Optional;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -24,11 +26,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import io.quarkus.runtime.LaunchMode;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.component.geocoder.GeoCoderConstants;
 import org.apache.camel.component.geocoder.GeocoderStatus;
+import org.eclipse.microprofile.config.Config;
+import org.eclipse.microprofile.config.ConfigProvider;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.jboss.logging.Logger;
 
 @Path("/nomination")
@@ -36,16 +42,22 @@ import org.jboss.logging.Logger;
 public class GeocoderNominationResource {
     private static final Logger LOG = Logger.getLogger(GeocoderNominationResource.class);
 
+    @ConfigProperty(name = "quarkus.http.test-port")
+    Optional<Integer> httpTestPort;
+
+    @ConfigProperty(name = "quarkus.http.port")
+    Optional<Integer> httpPort;
+
     @Inject
     ProducerTemplate producerTemplate;
 
     @Path("address/{address}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public GeocoderResult getByCurrentLocation(@PathParam("address") String address) {
+    public GeocoderResult getByCurrentLocation(@PathParam("address") String address) throws Exception {
         LOG.infof("Retrieve info from address %s", address);
         Exchange result = producerTemplate.request("geocoder:address:" + address +
-                "?type=NOMINATIM&serverUrl=RAW(https://nominatim.openstreetmap.org)", exchange -> {
+                "?type=NOMINATIM&serverUrl=RAW(" + getServerUrl() + ")", exchange -> {
                     exchange.getMessage().setBody("Hello Body");
                 });
         return extractResult(result);
@@ -54,10 +66,11 @@ public class GeocoderNominationResource {
     @Path("lat/{lat}/lon/{lon}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public GeocoderResult getByCoordinate(@PathParam("lat") String latitude, @PathParam("lon") String longitude) {
+    public GeocoderResult getByCoordinate(@PathParam("lat") String latitude, @PathParam("lon") String longitude)
+            throws Exception {
         LOG.infof("Retrieve info from georgraphic coordinates latitude : %s, longitude %s", latitude, longitude);
         Exchange result = producerTemplate.request("geocoder:latlng:" + latitude + "," + longitude +
-                "?type=NOMINATIM&serverUrl=RAW(https://nominatim.openstreetmap.org)", exchange -> {
+                "?type=NOMINATIM&serverUrl=RAW(" + getServerUrl() + ")", exchange -> {
                     exchange.getMessage().setBody("Hello Body");
                 });
         return extractResult(result);
@@ -69,7 +82,12 @@ public class GeocoderNominationResource {
      * @param  exchange
      * @return
      */
-    private GeocoderResult extractResult(Exchange exchange) {
+    private GeocoderResult extractResult(Exchange exchange) throws Exception {
+        Exception exception = exchange.getException();
+        if (exception != null) {
+            throw exception;
+        }
+
         Message message = exchange.getIn();
         return new GeocoderResult()
                 .withLat(extractString(message, GeoCoderConstants.LAT))
@@ -96,4 +114,13 @@ public class GeocoderNominationResource {
         return message.getHeader(name, String.class);
     }
 
+    private String getServerUrl() {
+        Config config = ConfigProvider.getConfig();
+        Optional<String> wiremockUrl = config.getOptionalValue("wiremock.url", String.class);
+        if (wiremockUrl.isPresent()) {
+            int port = LaunchMode.current().equals(LaunchMode.TEST) ? httpTestPort.get() : httpPort.get();
+            return String.format("http://localhost:%d/fake/nominatim/api", port);
+        }
+        return "https://nominatim.openstreetmap.org";
+    }
 }

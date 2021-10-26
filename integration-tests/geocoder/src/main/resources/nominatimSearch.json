@@ -1,0 +1,32 @@
+[
+  {
+    "place_id": 107106886,
+    "licence": "Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "osm_type": "way",
+    "osm_id": 26663743,
+    "boundingbox": [
+      "37.3695898",
+      "37.3724355",
+      "-6.0562787",
+      "-6.0555991"
+    ],
+    "lat": "37.3709153",
+    "lon": "-6.0559655",
+    "display_name": "Calle Marie Curie, Urbanización Valdovina, Residencial Andana, Tomares, Sevilla, Andalucía, 41940, España",
+    "place_rank": 26,
+    "category": "highway",
+    "type": "residential",
+    "importance": 0.6,
+    "address": {
+      "road": "Calle Marie Curie",
+      "neighbourhood": "Urbanización Valdovina",
+      "hamlet": "Residencial Andana",
+      "town": "Tomares",
+      "state_district": "Sevilla",
+      "state": "Andalucía",
+      "postcode": "41940",
+      "country": "España",
+      "country_code": "es"
+    }
+  }
+]
