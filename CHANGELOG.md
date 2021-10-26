@@ -4,8 +4,14 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.4.0...HEAD)
 
+**Closed issues:**
+
+- Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
+
 **Merged pull requests:**
 
+- 2592 aws2 quarkus clients tests [\#3224](https://github.com/apache/camel-quarkus/pull/3224) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Import quarkus-bom before camel-quarkus-bom in tests  [\#3223](https://github.com/apache/camel-quarkus/pull/3223) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.29.0 [\#3221](https://github.com/apache/camel-quarkus/pull/3221) ([jamesnetherton](https://github.com/jamesnetherton))
 - doc: rephrase the section about charsets in native mode to remove lin… [\#3220](https://github.com/apache/camel-quarkus/pull/3220) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3206 to produce RunTimeConfigurationDefaultBuildItem with camel.… [\#3218](https://github.com/apache/camel-quarkus/pull/3218) ([zhfeng](https://github.com/zhfeng))
