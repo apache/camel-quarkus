@@ -131,9 +131,6 @@ xref:reference/extensions/yaml-dsl.adoc[YAML],
 xref:reference/extensions/kotlin-dsl.adoc[Kotlin] or
 xref:reference/extensions/js-dsl.adoc[JavaScript] for defining Camel routes.
 
-These are mostly motivated by xref:{camel-k-version}@camel-k::index.adoc[] and its project-less approach to defining Camel routes.
-With Camel K, all you need to run an integration is a file where the routes are defined using one of the supported DSLs.
-With Camel Quarkus you still need a `pom.xml` file with the appropriate dependencies in addition to the route definition files.
 Except for YAML, these DSLs are supported only in JVM mode, because they load and compile the routes at runtime.
 
 == What's next?
