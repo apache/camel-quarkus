@@ -7,9 +7,14 @@
 **Closed issues:**
 
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
+- Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Stub GeoCoder nominatim APIs [\#3235](https://github.com/apache/camel-quarkus/pull/3235) ([jamesnetherton](https://github.com/jamesnetherton))
+- Disable MongoDB dev services in slack itest [\#3234](https://github.com/apache/camel-quarkus/pull/3234) ([jamesnetherton](https://github.com/jamesnetherton))
+- camel quarkus main latest to next [\#3232](https://github.com/apache/camel-quarkus/pull/3232) ([djencks](https://github.com/djencks))
+- Temporary disable Tika native tests \#3230 [\#3231](https://github.com/apache/camel-quarkus/pull/3231) ([ppalaga](https://github.com/ppalaga))
 - 2592 aws2 quarkus clients tests [\#3224](https://github.com/apache/camel-quarkus/pull/3224) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Import quarkus-bom before camel-quarkus-bom in tests  [\#3223](https://github.com/apache/camel-quarkus/pull/3223) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus Qpid JMS to 0.29.0 [\#3221](https://github.com/apache/camel-quarkus/pull/3221) ([jamesnetherton](https://github.com/jamesnetherton))
