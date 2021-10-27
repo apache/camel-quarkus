@@ -16,10 +16,10 @@
  */
 package org.apache.camel.quarkus.kafka.sasl;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.Disabled;
 
-@Disabled("https://github.com/apache/camel-quarkus/issues/2729")
+@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3239")
 @NativeImageTest
 public class KafkaSaslSslIT extends KafkaSaslSslTest {
 }
