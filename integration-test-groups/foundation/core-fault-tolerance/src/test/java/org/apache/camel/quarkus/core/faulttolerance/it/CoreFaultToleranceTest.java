@@ -37,11 +37,7 @@ public class CoreFaultToleranceTest {
                         "failureRatio", is(94),
                         "timeoutEnabled", is(true),
                         "timeoutDuration", is(3000),
-                        "timeoutPoolSize", is(3),
-                        "bulkheadEnabled", is(false),
-                        "bulkheadMaxConcurrentCalls", is(20),
-                        "bulkheadWaitingTaskQueue", is(21),
-                        "isCustomBulkheadExecutorServiceRef", is(true));
+                        "timeoutPoolSize", is(3));
     }
 
 }
