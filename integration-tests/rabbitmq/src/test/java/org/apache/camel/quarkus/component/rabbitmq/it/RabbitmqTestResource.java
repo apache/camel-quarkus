@@ -45,7 +45,7 @@ public class RabbitmqTestResource implements QuarkusTestResourceLifecycleManager
             container = new GenericContainer<>(RABBITMQ_IMAGE)
                     .withExposedPorts(RABBITMQ_PORT)
                     .withLogConsumer(new Slf4jLogConsumer(LOGGER))
-                    .waitingFor(Wait.forListeningPort());
+                    .waitingFor(Wait.forLogMessage(".*Server startup complete.*", 1));
 
             container.start();
 
