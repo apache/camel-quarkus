@@ -77,3 +77,36 @@ class UnremovableS3Client {
 }
 ----
 
+=== Multipart Upload
+When you use multipart uploads with a file size larger than xref:{cq-camel-components}::aws2-s3-component.adoc#_component_option_partSize[partSize] (the default is 25M, and the low limit is 5M according to https://docs.aws.amazon.com/AmazonS3/latest/API/API_UploadPart.html).
+The getObject operation after uploading returns a result which contains ```chunk_signature```.
+
+If you want to get rid of these signatures, you have to create your own instance of ```S3Client``` just like
+
+[source,java]
+----
+import javax.enterprise.inject.Produces;
+
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.S3ClientBuilder;
+import software.amazon.awssdk.services.s3.S3Configuration;
+
+@Produces
+public S3Client getClient() {
+    S3ClientBuilder builder = S3Client.builder();
+    S3Configuration.Builder s3ConfigBuilder = S3Configuration.builder()
+            .checksumValidationEnabled(false)
+            .chunkedEncodingEnabled(false);
+    builder.serviceConfiguration(s3ConfigBuilder.build());
+
+    return builder.build();
+}
+----
+
+or if you use the Quarkus Amazon S3 Client extension, you need to set
+[source,properties]
+----
+quarkus.s3.chunked-encoding=false
+quarkus.s3.checksum-validation=false
+----
+
