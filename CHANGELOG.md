@@ -6,11 +6,16 @@
 
 **Closed issues:**
 
+- \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
+- Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Use log await strategy for RabbitMQ container [\#3240](https://github.com/apache/camel-quarkus/pull/3240) ([jamesnetherton](https://github.com/jamesnetherton))
+- Simplify `defining-camel-routes.adoc` and remove camel-k-version property [\#3238](https://github.com/apache/camel-quarkus/pull/3238) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3095 improve the aws2-s3 doc to explain chunk\_signature in multi… [\#3237](https://github.com/apache/camel-quarkus/pull/3237) ([zhfeng](https://github.com/zhfeng))
 - Stub GeoCoder nominatim APIs [\#3235](https://github.com/apache/camel-quarkus/pull/3235) ([jamesnetherton](https://github.com/jamesnetherton))
 - Disable MongoDB dev services in slack itest [\#3234](https://github.com/apache/camel-quarkus/pull/3234) ([jamesnetherton](https://github.com/jamesnetherton))
 - camel quarkus main latest to next [\#3232](https://github.com/apache/camel-quarkus/pull/3232) ([djencks](https://github.com/djencks))
