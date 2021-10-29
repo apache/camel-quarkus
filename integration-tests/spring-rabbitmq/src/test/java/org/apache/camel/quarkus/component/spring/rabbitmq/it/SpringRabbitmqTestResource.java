@@ -39,7 +39,7 @@ public class SpringRabbitmqTestResource implements QuarkusTestResourceLifecycleM
         try {
             container = new RabbitMQContainer(RABBITMQ_IMAGE)
                     .withExposedPorts(RABBITMQ_PORT)
-                    .waitingFor(Wait.forListeningPort());
+                    .waitingFor(Wait.forLogMessage(".*Server startup complete.*", 1));
             container.start();
 
             return CollectionHelper.mapOf(
