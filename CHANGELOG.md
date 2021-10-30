@@ -13,6 +13,9 @@
 
 **Merged pull requests:**
 
+- Align Azurite container version with Camel [\#3244](https://github.com/apache/camel-quarkus/pull/3244) ([jamesnetherton](https://github.com/jamesnetherton))
+- Use log await strategy for Spring RabbitMQ container [\#3242](https://github.com/apache/camel-quarkus/pull/3242) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove bulkhead related tests as this is not yet implemented in Camel… [\#3241](https://github.com/apache/camel-quarkus/pull/3241) ([aldettinger](https://github.com/aldettinger))
 - Use log await strategy for RabbitMQ container [\#3240](https://github.com/apache/camel-quarkus/pull/3240) ([jamesnetherton](https://github.com/jamesnetherton))
 - Simplify `defining-camel-routes.adoc` and remove camel-k-version property [\#3238](https://github.com/apache/camel-quarkus/pull/3238) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3095 improve the aws2-s3 doc to explain chunk\_signature in multi… [\#3237](https://github.com/apache/camel-quarkus/pull/3237) ([zhfeng](https://github.com/zhfeng))
