@@ -16,20 +16,19 @@
  */
 package org.apache.camel.quarkus.component.atlasmap.it;
 
-import org.apache.camel.builder.endpoint.EndpointRouteBuilder;
-import org.apache.camel.quarkus.component.atlasmap.it.model.Account;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
-public class Route extends EndpointRouteBuilder {
-    @Override
-    public void configure() throws Exception {
+import org.apache.camel.builder.component.ComponentsBuilderFactory;
+import org.apache.camel.component.atlasmap.AtlasMapComponent;
 
-        // example of Routes that need the class Account to be registred for reflection
-        from("platform-http:/atlasmap/json/java2csv?httpMethodRestrict=POST")
-                .unmarshal().json(Account.class)
-                .to(atlasmap("mapping/json/atlasmapping-java-to-csv.json"));
-
-        from("platform-http:/atlasmap/json/csv2java?httpMethodRestrict=POST")
-                .to("atlasmap:mapping/json/atlasmapping-csv-to-java.json")
-                .marshal().json(Account.class);
+@ApplicationScoped
+public class AtlasmapComponentDsl {
+    @Singleton
+    @Named
+    AtlasMapComponent atlasmap() {
+        /* Make sure that Component DSL works for Atlasmap */
+        return ComponentsBuilderFactory.atlasmap().build();
     }
 }
