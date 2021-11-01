@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.kafka.sasl;
 
-import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
 
-@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3239")
 @NativeImageTest
 public class KafkaSaslIT extends KafkaSaslBindingTest {
 }
