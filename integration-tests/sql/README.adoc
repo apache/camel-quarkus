@@ -42,4 +42,4 @@ $Env:SQL_JDBC_USERNAME="#username"
 $Env:SQL_JDBC_PASSWORD="#password"
 ```
 
-Oracle database could be used as external db. In that case use parameter `-DSQL_JDBC_DB_KIND=oracle`.
+Oracle database could be used as external db. In that case use parameter `-Dcq.sqlJdbcKind=oracle`.
