@@ -39,6 +39,41 @@ Or add the coordinates to your existing project:
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Usage
+
+=== Generating Salesforce DTOs with the `salesforce-maven-plugin`
+
+To generate Salesforce DTOs for your project, use the `salesforce-maven-plugin`. The example code snippet below creates a single DTO for the `Account` object.
+
+[source,xml,subs="attributes+"]
+----
+<plugin>
+    <groupId>org.apache.camel.maven</groupId>
+    <artifactId>camel-salesforce-maven-plugin</artifactId>
+    <version>{camel-version}</version>
+    <executions>
+        <execution>
+            <goals>
+                <goal>generate</goal>
+            </goals>
+            <configuration>
+                <clientId>${env.SALESFORCE_CLIENTID}</clientId>
+                <clientSecret>${env.SALESFORCE_CLIENTSECRET}</clientSecret>
+                <userName>${env.SALESFORCE_USERNAME}</userName>
+                <password>${env.SALESFORCE_PASSWORD}</password>
+                <loginUrl>https://login.salesforce.com</loginUrl>
+                <packageName>org.apache.camel.quarkus.component.salesforce.generated</packageName>
+                <outputDirectory>src/main/java</outputDirectory>
+                <includes>
+                    <include>Account</include>
+                </includes>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+
 == SSL in native mode
 
 This extension auto-enables SSL support in native mode. Hence you do not need to add
