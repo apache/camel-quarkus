@@ -43,3 +43,11 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 This extension auto-enables SSL support in native mode. Hence you do not need to add
 `quarkus.ssl.native=true` to your `application.properties` yourself. See also
 https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
+
+== Additional Camel Quarkus configuration
+
+=== Not possible to leverage quarkus-amazon-lambda by Camel aws2-lambda extension
+
+Quarkus-amazon-lambda extension allows you to use Quarkus to build your AWS Lambdas, whereas Camel component manages (deploy, undeploy, …​) existing functions.
+Therefore, it is not possible to use `quarkus-amazon-lambda` as a client for Camel `aws2-lambda` extension.
+

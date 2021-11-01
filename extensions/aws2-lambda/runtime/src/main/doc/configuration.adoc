@@ -1,0 +1,4 @@
+=== Not possible to leverage quarkus-amazon-lambda by Camel aws2-lambda extension
+
+Quarkus-amazon-lambda extension allows you to use Quarkus to build your AWS Lambdas, whereas Camel component manages (deploy, undeploy, …​) existing functions.
+Therefore, it is not possible to use `quarkus-amazon-lambda` as a client for Camel `aws2-lambda` extension.
