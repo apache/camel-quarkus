@@ -44,3 +44,35 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 This extension auto-enables SSL support in native mode. Hence you do not need to add
 `quarkus.ssl.native=true` to your `application.properties` yourself. See also
 https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
+
+== Additional Camel Quarkus configuration
+
+=== Optional integration with Quarkus Amazon SNS
+
+If desired, it is possible to use the Quarkus Amazon SNS extension in conjunction with Camel Quarkus AWS 2 Simple Notification System (SNS).
+Note that this is fully optional and not mandatory at all.
+Please follow the https://quarkus.io/guides/amazon-sns#configuring-sns-clients[Quarkus documentation] but beware of the following caveats:
+
+1. The client type `apache` has to be selected by configuring the following property:
++
+[source,properties]
+----
+quarkus.sns.sync-client.type=apache
+----
+
+2. The `SnsClient` has to be made "unremovable" in the sense of https://quarkus.io/guides/cdi-reference#remove_unused_beans[Quarkus CDI reference] so that Camel Quarkus is able to look it up at runtime.
+You can reach that e.g. by adding a dummy bean injecting `SnsClient`:
++
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import io.quarkus.arc.Unremovable;
+import software.amazon.awssdk.services.sns.SnsClient;
+
+@ApplicationScoped
+@Unremovable
+class UnremovableSnsClient {
+    @Inject
+    SnsClient snsClient;
+}
+----

@@ -33,6 +33,8 @@
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
         <quarkus.metadata.keywords>Amazon</quarkus.metadata.keywords>
+        <cq.quarkus.aws.client.baseName>S3</cq.quarkus.aws.client.baseName>
+        <cq.quarkus.aws.client.fqClassName>software.amazon.awssdk.services.s3.S3Client</cq.quarkus.aws.client.fqClassName>
     </properties>
 
     <dependencyManagement>

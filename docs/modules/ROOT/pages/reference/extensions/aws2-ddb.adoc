@@ -50,18 +50,18 @@ https://quarkus.io/guides/native-and-ssl[Quarkus SSL guide].
 
 === Optional integration with Quarkus Amazon DynamoDB
 
-If desired, it is possible to use the Quarkus Amazon DynamoDB Client extension in conjunction with Camel Quarkus AWS2 DDB.
-Note that this is fully optional and not at all mandatory.
-Follow the https://quarkus.io/guides/amazon-dynamodb#configuring-dynamodb-clients[Quarkus documentation] with some caveats.
+If desired, it is possible to use the Quarkus Amazon DynamoDB extension in conjunction with Camel Quarkus AWS 2 DynamoDB.
+Note that this is fully optional and not mandatory at all.
+Please follow the https://quarkus.io/guides/amazon-dynamodb#configuring-dynamodb-clients[Quarkus documentation] but beware of the following caveats:
 
-1. The Apache client type has to be selected by configuring the following property.
+1. The client type `apache` has to be selected by configuring the following property:
 +
 [source,properties]
 ----
 quarkus.dynamodb.sync-client.type=apache
 ----
 
-2. The `DynamoDbClient` has to be "unremovable" in the sense of https://quarkus.io/guides/cdi-reference#remove_unused_beans[Quarkus CDI reference] so that Camel Quarkus is able to look it up at runtime.
+2. The `DynamoDbClient` has to be made "unremovable" in the sense of https://quarkus.io/guides/cdi-reference#remove_unused_beans[Quarkus CDI reference] so that Camel Quarkus is able to look it up at runtime.
 You can reach that e.g. by adding a dummy bean injecting `DynamoDbClient`:
 +
 [source,java]
@@ -74,7 +74,6 @@ import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 @Unremovable
 class UnremovableDynamoDbClient {
     @Inject
-    DynamoDbClient dynamoDB;
+    DynamoDbClient dynamoDbClient;
 }
 ----
-

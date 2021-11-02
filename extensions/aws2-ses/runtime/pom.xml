@@ -32,6 +32,8 @@
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
+        <cq.quarkus.aws.client.baseName>SES</cq.quarkus.aws.client.baseName>
+        <cq.quarkus.aws.client.fqClassName>software.amazon.awssdk.services.ses.SesClient</cq.quarkus.aws.client.fqClassName>
     </properties>
 
     <dependencyManagement>
