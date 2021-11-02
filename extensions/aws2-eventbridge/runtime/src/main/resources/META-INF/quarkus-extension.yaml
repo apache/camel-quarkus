@@ -24,6 +24,8 @@
 name: "Camel AWS 2 Eventbridge"
 description: "Manage AWS Eventbridge cluster instances using AWS SDK version 2.x"
 metadata:
+  keywords:
+  - "Amazon"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-eventbridge.html"
   categories:
   - "integration"
