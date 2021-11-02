@@ -93,7 +93,9 @@ public class CamelQuarkusExtension {
                     status,
                     unlisted,
                     deps == null ? Collections.emptyList() : Collections.unmodifiableList(deps),
-                    kind);
+                    kind,
+                    props.getProperty("cq.quarkus.aws.client.baseName"),
+                    props.getProperty("cq.quarkus.aws.client.fqClassName"));
         } catch (IOException | XmlPullParserException e) {
             throw new RuntimeException("Could not read " + runtimePomXmlPath, e);
         }
@@ -113,6 +115,8 @@ public class CamelQuarkusExtension {
     private final ExtensionStatus status;
     private final boolean unlisted;
     private final Kind kind;
+    private final String quarkusAwsClientBaseName;
+    private final String quarkusAwsClientFqClassName;
 
     public CamelQuarkusExtension(
             Path runtimePomXmlPath,
@@ -128,7 +132,9 @@ public class CamelQuarkusExtension {
             ExtensionStatus status,
             boolean unlisted,
             List<Dependency> dependencies,
-            Kind kind) {
+            Kind kind,
+            String quarkusAwsClientBaseName,
+            String quarkusAwsClientFqClassName) {
         super();
         this.runtimePomXmlPath = runtimePomXmlPath;
         this.camelComponentArtifactId = camelComponentArtifactId;
@@ -144,6 +150,8 @@ public class CamelQuarkusExtension {
         this.unlisted = unlisted;
         this.dependencies = dependencies;
         this.kind = kind;
+        this.quarkusAwsClientBaseName = quarkusAwsClientBaseName;
+        this.quarkusAwsClientFqClassName = quarkusAwsClientFqClassName;
     }
 
     public String getVersion() {
@@ -204,6 +212,14 @@ public class CamelQuarkusExtension {
 
     public Kind getKind() {
         return kind;
+    }
+
+    public Optional<String> getQuarkusAwsClientBaseName() {
+        return Optional.ofNullable(quarkusAwsClientBaseName);
+    }
+
+    public Optional<String> getQuarkusAwsClientFqClassName() {
+        return Optional.ofNullable(quarkusAwsClientFqClassName);
     }
 
 }

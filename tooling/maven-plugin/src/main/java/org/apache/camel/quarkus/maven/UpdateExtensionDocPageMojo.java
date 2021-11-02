@@ -27,7 +27,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -82,6 +84,8 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
 
         final Path multiModuleProjectDirectoryPath = multiModuleProjectDirectory.toPath();
         final CamelQuarkusExtension ext = CamelQuarkusExtension.read(basePath.resolve("pom.xml"));
+        final Path quarkusAwsClienTestsDir = multiModuleProjectDirectoryPath
+                .resolve("integration-test-groups/aws2-quarkus-client");
 
         final Path pomRelPath = multiModuleProjectDirectoryPath.relativize(basePath).resolve("pom.xml");
         if (!ext.getJvmSince().isPresent()) {
@@ -134,6 +138,14 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         model.put("activatesTransferException",
                 ext.isNativeSupported()
                         && detectComponentOrEndpointOption(catalog, ext.getRuntimeArtifactIdBase(), "transferException"));
+        model.put(
+                "quarkusAwsClient",
+                getQuarkusAwsClient(
+                        quarkusAwsClienTestsDir,
+                        ext.getRuntimeArtifactIdBase(),
+                        ext.getQuarkusAwsClientBaseName(),
+                        ext.getQuarkusAwsClientFqClassName(),
+                        ext.getRuntimePomXmlPath()));
         model.put("configOptions", listConfigOptions(basePath, multiModuleProjectDirectory.toPath()));
         model.put("humanReadableKind", new TemplateMethodModelEx() {
             @Override
@@ -304,6 +316,26 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
         return false;
     }
 
+    static QuarkusAwsClient getQuarkusAwsClient(Path quarkusAwsClienTestsDir, String artifactIdBase,
+            Optional<String> quarkusAwsClientBaseName, Optional<String> quarkusAwsClientFqClassName, Path runtimePomPath) {
+        if (quarkusAwsClientBaseName.isPresent() && quarkusAwsClientFqClassName.isPresent()) {
+            return new QuarkusAwsClient(quarkusAwsClientBaseName.get(), quarkusAwsClientFqClassName.get());
+        }
+        /* We assume Quarkus client exists if there is a test under integration-test-groups/aws2-quarkus-client */
+        final Path quarkusClientTestPath = quarkusAwsClienTestsDir.resolve(artifactIdBase + "/pom.xml");
+        if (Files.isRegularFile(quarkusClientTestPath)) {
+            if (!quarkusAwsClientBaseName.isPresent()) {
+                throw new IllegalStateException(quarkusClientTestPath
+                        + " exists but cq.quarkus.aws.client.baseName propertly is not defined in " + runtimePomPath);
+            }
+            if (!quarkusAwsClientFqClassName.isPresent()) {
+                throw new IllegalStateException(quarkusClientTestPath
+                        + " exists but cq.quarkus.aws.client.fqClassName propertly is not defined in " + runtimePomPath);
+            }
+        }
+        return null;
+    }
+
     static boolean detectNativeSsl(Path deploymentBasePath) {
         final Path deploymentPackageDir = deploymentBasePath.resolve("src/main/java/org/apache/camel/quarkus")
                 .toAbsolutePath()
@@ -415,6 +447,46 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                     .collect(Collectors.toList());
         } catch (IOException e) {
             throw new RuntimeException("Could not read from " + configRootsListPath, e);
+        }
+    }
+
+    public static class QuarkusAwsClient {
+        public QuarkusAwsClient(String nameBase, String clientClassFqName) {
+            super();
+            this.nameBase = nameBase;
+            this.clientClassFqName = clientClassFqName;
+        }
+
+        private final String nameBase; // DynamoDB
+        private final String clientClassFqName; // software.amazon.awssdk.services.dynamodb.DynamoDbClient
+
+        public String getExtensionName() {
+            return "Quarkus Amazon " + nameBase;
+        }
+
+        public String getConfigurationUrl() {
+            String lowerCaseName = nameBase.toLowerCase(Locale.ROOT);
+            return "https://quarkus.io/guides/amazon-" + lowerCaseName + "#configuring-" + lowerCaseName + "-clients";
+        }
+
+        public String getConfigBase() {
+            return "quarkus." + nameBase.toLowerCase(Locale.ROOT);
+        }
+
+        public String getClientClassSimpleName() {
+            final int lastPeriod = clientClassFqName.lastIndexOf('.');
+            return clientClassFqName.substring(lastPeriod + 1);
+        }
+
+        public String getClientClassFqName() {
+            return clientClassFqName;
+        }
+
+        public String getClientFieldName() {
+            /* Just lowercase the first letter of getClientClassSimpleName() */
+            char c[] = getClientClassSimpleName().toCharArray();
+            c[0] += 32;
+            return new String(c);
         }
     }
 

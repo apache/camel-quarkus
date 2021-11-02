@@ -33,6 +33,8 @@
     <properties>
         <camel.quarkus.jvmSince>1.0.0</camel.quarkus.jvmSince>
         <camel.quarkus.nativeSince>1.0.0</camel.quarkus.nativeSince>
+        <cq.quarkus.aws.client.baseName>DynamoDB</cq.quarkus.aws.client.baseName>
+        <cq.quarkus.aws.client.fqClassName>software.amazon.awssdk.services.dynamodb.DynamoDbClient</cq.quarkus.aws.client.fqClassName>
     </properties>
 
     <dependencyManagement>
