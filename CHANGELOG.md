@@ -13,6 +13,9 @@
 
 **Merged pull requests:**
 
+- Add notes about the salesforce-maven-plugin to the Salesforce extension docs [\#3250](https://github.com/apache/camel-quarkus/pull/3250) ([jamesnetherton](https://github.com/jamesnetherton))
+- Assert that Component DSL and Endpoint DSL work for AtlasMap [\#3246](https://github.com/apache/camel-quarkus/pull/3246) ([ppalaga](https://github.com/ppalaga))
+- Added explanation that Quarkus-amazon-lambda can not be used by aws2-… [\#3245](https://github.com/apache/camel-quarkus/pull/3245) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Align Azurite container version with Camel [\#3244](https://github.com/apache/camel-quarkus/pull/3244) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use log await strategy for Spring RabbitMQ container [\#3242](https://github.com/apache/camel-quarkus/pull/3242) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove bulkhead related tests as this is not yet implemented in Camel… [\#3241](https://github.com/apache/camel-quarkus/pull/3241) ([aldettinger](https://github.com/aldettinger))
