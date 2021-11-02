@@ -49,6 +49,7 @@
         <module>log</module>
         <module>mock</module>
         <module>ref</module>
+        <module>route-configurations</module>
         <module>scheduler</module>
         <module>seda</module>
         <module>stream</module>
