@@ -28,6 +28,7 @@ import com.github.dockerjava.api.command.InspectContainerResponse;
 import org.apache.camel.quarkus.test.support.kafka.KafkaTestResource;
 import org.apache.camel.util.CollectionHelper;
 import org.apache.commons.io.FileUtils;
+import org.apache.kafka.clients.CommonClientConfigs;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.images.builder.Transferable;
@@ -66,6 +67,7 @@ public class KafkaSslTestResource extends KafkaTestResource {
         container.start();
 
         return CollectionHelper.mapOf(
+                "kafka." + CommonClientConfigs.BOOTSTRAP_SERVERS_CONFIG, container.getBootstrapServers(),
                 "camel.component.kafka.brokers", container.getBootstrapServers(),
                 "camel.component.kafka.security-protocol", "SSL",
                 "camel.component.kafka.ssl-key-password", KAFKA_KEYSTORE_PASSWORD,
