@@ -24,6 +24,8 @@
 name: "Camel AWS 2 Lambda"
 description: "Manage and invoke AWS Lambda functions using AWS SDK version 2.x"
 metadata:
+  keywords:
+  - "Amazon"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-lambda.html"
   categories:
   - "integration"

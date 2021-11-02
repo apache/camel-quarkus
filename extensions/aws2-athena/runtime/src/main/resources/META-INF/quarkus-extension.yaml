@@ -24,6 +24,8 @@
 name: "Camel AWS 2 Athena"
 description: "Access AWS Athena service using AWS SDK version 2.x"
 metadata:
+  keywords:
+  - "Amazon"
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/aws2-athena.html"
   categories:
   - "integration"
