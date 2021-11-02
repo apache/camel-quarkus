@@ -83,7 +83,7 @@ public class KafkaSaslTestResource extends KafkaTestResource {
         SaslKafkaContainer(final DockerImageName dockerImageName) {
             super(dockerImageName);
 
-            String protocolMap = "SASL_PLAINTEXT:SASL_PLAINTEXT,BROKER:SASL_PLAINTEXT";
+            String protocolMap = "SASL_PLAINTEXT:SASL_PLAINTEXT,BROKER:PLAINTEXT";
             String listeners = "SASL_PLAINTEXT://0.0.0.0:" + KAFKA_PORT + ",BROKER://0.0.0.0:9092";
 
             withEnv("KAFKA_OPTS", "-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf");
@@ -100,6 +100,15 @@ public class KafkaSaslTestResource extends KafkaTestResource {
         @Override
         public String getBootstrapServers() {
             return String.format("SASL_PLAINTEXT://%s:%s", getHost(), getMappedPort(KAFKA_PORT));
+        }
+
+        @Override
+        protected void configure() {
+            super.configure();
+
+            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
+            withEnv("KAFKA_ADVERTISED_LISTENERS",
+                    String.format("SASL_PLAINTEXT://%s:9093,BROKER://%s:9092", host, host));
         }
 
         @Override

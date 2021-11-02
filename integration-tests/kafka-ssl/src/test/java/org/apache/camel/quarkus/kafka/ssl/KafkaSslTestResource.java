@@ -122,6 +122,15 @@ public class KafkaSslTestResource extends KafkaTestResource {
         }
 
         @Override
+        protected void configure() {
+            super.configure();
+
+            String host = getNetwork() != null ? getNetworkAliases().get(0) : "localhost";
+            withEnv("KAFKA_ADVERTISED_LISTENERS",
+                    String.format("SSL://%s:9093,BROKER://%s:9092", host, host));
+        }
+
+        @Override
         protected void containerIsStarting(InspectContainerResponse containerInfo, boolean reused) {
             super.containerIsStarting(containerInfo, reused);
             copyFileToContainer(
