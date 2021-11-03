@@ -36,3 +36,4 @@ CREATE TABLE aggregation (id varchar(255) NOT NULL, exchange BYTEA NOT NULL, ver
 DROP TABLE IF EXISTS aggregation_completed
 CREATE TABLE aggregation_completed (id varchar(255) NOT NULL, exchange BYTEA NOT NULL, version BIGINT NOT NULL, constraint aggregation_completed_pk PRIMARY KEY (id));
 
+CREATE OR REPLACE FUNCTION ADD_NUMS(a integer,b integer) RETURNS integer AS 'BEGIN RETURN a + b; END;' LANGUAGE plpgsql

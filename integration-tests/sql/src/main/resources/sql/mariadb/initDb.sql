@@ -35,3 +35,11 @@ DROP TABLE IF EXISTS aggregation
 CREATE TABLE aggregation (id VARCHAR(255) NOT NULL, exchange BLOB NOT NULL, version BIGINT NOT NULL, constraint aggregation_pk PRIMARY KEY (id));
 DROP TABLE IF EXISTS aggregation_completed
 CREATE TABLE aggregation_completed (id VARCHAR(255) NOT NULL, exchange BLOB NOT NULL, version BIGINT NOT NULL, constraint aggregation_completed_pk PRIMARY KEY (id));
+
+
+
+DROP TABLE IF EXISTS ADD_NUMS_RESULTS
+CREATE TABLE ADD_NUMS_RESULTS (id INT PRIMARY KEY, value INT NOT NULL);
+
+DROP PROCEDURE IF EXISTS ADD_NUMS
+CREATE PROCEDURE ADD_NUMS(a integer,b integer) insert into ADD_NUMS_RESULTS (id, value) VALUES (1, a + b);

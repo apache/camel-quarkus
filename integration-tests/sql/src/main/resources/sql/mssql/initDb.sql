@@ -36,3 +36,10 @@ CREATE TABLE aggregation (id varchar(255), exchange Image, version bigint);
 
 DROP TABLE aggregation_completed
 CREATE TABLE aggregation_completed (id varchar(255), exchange Image, version bigint);
+
+-- stored procedure
+DROP TABLE ADD_NUMS_RESULTS
+CREATE TABLE ADD_NUMS_RESULTS (id int NOT NULL IDENTITY PRIMARY KEY, value int not null )
+
+DROP PROCEDURE ADD_NUMS
+CREATE PROCEDURE ADD_NUMS(@A INT, @B INT) AS BEGIN SET NOCOUNT ON insert into ADD_NUMS_RESULTS (value) VALUES (@A + @B); END

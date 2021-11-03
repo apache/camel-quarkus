@@ -71,7 +71,7 @@ class SqlTest {
     }
 
     @Test
-    @DisabledIfSystemProperty(named = "cq.sqlJdbcKind", matches = "[^h][^2].*", disabledReason = "https://github.com/apache/camel-quarkus/issues/3080")
+    @DisabledIfSystemProperty(named = "cq.sqlJdbcKind", matches = "derby", disabledReason = "https://github.com/apache/camel-quarkus/issues/3260")
     public void testSqlStoredComponent() {
         // Invoke ADD_NUMS stored procedure
         RestAssured.given()
