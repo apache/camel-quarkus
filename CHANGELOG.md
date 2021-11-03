@@ -6,14 +6,20 @@
 
 **Closed issues:**
 
+- Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
+- Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
 - \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
+- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Fix \#3254 to re-enable KafkaSaslSslIT and KafkaSslIT native tests [\#3255](https://github.com/apache/camel-quarkus/pull/3255) ([zhfeng](https://github.com/zhfeng))
+- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3253](https://github.com/apache/camel-quarkus/pull/3253) ([ppalaga](https://github.com/ppalaga))
 - Add notes about the salesforce-maven-plugin to the Salesforce extension docs [\#3250](https://github.com/apache/camel-quarkus/pull/3250) ([jamesnetherton](https://github.com/jamesnetherton))
+- Sql - native tests fail on NPE during db initialization \#3247 [\#3248](https://github.com/apache/camel-quarkus/pull/3248) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Assert that Component DSL and Endpoint DSL work for AtlasMap [\#3246](https://github.com/apache/camel-quarkus/pull/3246) ([ppalaga](https://github.com/ppalaga))
 - Added explanation that Quarkus-amazon-lambda can not be used by aws2-… [\#3245](https://github.com/apache/camel-quarkus/pull/3245) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Align Azurite container version with Camel [\#3244](https://github.com/apache/camel-quarkus/pull/3244) ([jamesnetherton](https://github.com/jamesnetherton))
