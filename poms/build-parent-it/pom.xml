@@ -43,6 +43,7 @@
         <camel-quarkus.platform.group-id>io.quarkus</camel-quarkus.platform.group-id>
         <camel-quarkus.platform.artifact-id>quarkus-bom</camel-quarkus.platform.artifact-id>
         <camel-quarkus.platform.version>${quarkus.version}</camel-quarkus.platform.version>
+        <camel-quarkus.version>${project.version}</camel-quarkus.version><!-- This needs to be set to the underlying CQ version from command line when testing against Platform BOMs -->
 
         <quarkus.banner.enabled>false</quarkus.banner.enabled>
     </properties>
@@ -66,7 +67,7 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-bom-test</artifactId>
-                <version>${project.version}</version>
+                <version>${camel-quarkus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
