@@ -9,7 +9,7 @@ When the tests are executed without any special configuration, dev-service `H2` 
 As is described  in the https://quarkus.io/guides/datasource#dev-services[documentation], several database types could be started in dev-service mode.
 Running the tests against a database in dev-service mode could be achieved by addition of build property `cq.sqlJdbcKind`. Example of usage:
 
-`mvn clean test -f integration-tests/sql/ -cq.sqlJdbcKind=postgresql`
+`mvn clean test -f integration-tests/sql/ -Dcq.sqlJdbcKind=postgresql`
 
 Following databases could be started in the dev-service mode:
 

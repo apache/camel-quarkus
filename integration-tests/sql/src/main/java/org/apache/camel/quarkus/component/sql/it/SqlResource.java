@@ -162,7 +162,21 @@ public class SqlResource {
                 .requestBodyAndHeaders("sql-stored:ADD_NUMS(INTEGER ${headers.num1},INTEGER ${headers.num2})", null, args,
                         Map.class);
 
-        return results.get("#result-set-1").get(0).get("PUBLIC.ADD_NUMS(?1, ?2)").toString();
+        //different db types behaves differently
+        switch (dbKind) {
+        case "db2":
+        case "mssql":
+        case "mariadb":
+        case "mysql":
+            List<LinkedCaseInsensitiveMap> addNumsResults = producerTemplate.requestBody(
+                    "sql:SELECT * FROM ADD_NUMS_RESULTS WHERE id = 1?outputType=SelectList",
+                    null,
+                    List.class);
+
+            return String.valueOf(addNumsResults.get(0).get("value"));
+        default:
+            return results.get("#result-set-1").get(0).values().iterator().next().toString();
+        }
     }
 
     @Path("/get/results/{resultId}")

@@ -56,7 +56,7 @@ public class SqlDbInitializer {
                         try {
                             statement.execute(s);
                         } catch (SQLException e) {
-                            if (!s.toUpperCase().startsWith("DROP TABLE")) {
+                            if (!s.toUpperCase().startsWith("DROP")) {
                                 throw new RuntimeException(e);
                             } else {
                                 LOGGER.debug(String.format("Command '%s' failed.", s)); //use debug logging
