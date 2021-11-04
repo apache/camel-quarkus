@@ -37,7 +37,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -47,9 +46,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumSqlserverTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumSqlserverTest.class);
-
-    //has to be constant and has to be equal to Type.mysql.getJdbcProperty
-    public static final String PROPERTY_JDBC = "sqlserver_jdbc";
 
     private static Connection connection;
 
@@ -61,6 +57,9 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
     public static void setUp() throws SQLException {
         Config config = ConfigProvider.getConfig();
         final Optional<String> jdbcUrl = config.getOptionalValue(Type.sqlserver.getPropertyJdbc(), String.class);
+
+        assumeTrue(jdbcUrl.isPresent(),
+                "Ms SQL EULA is not accepted. Container won't start.");
 
         if (jdbcUrl.isPresent()) {
             connection = DriverManager.getConnection(jdbcUrl.get());
@@ -93,8 +92,10 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
 
     @Test
     @Order(0)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testReceiveInitCompany() {
+        Config config = ConfigProvider.getConfig();
+        assumeTrue(config.getOptionalValue(Type.sqlserver.getPropertyJdbc(), String.class).isPresent());
+
         int i = 0;
 
         while (i++ < AbstractDebeziumTest.REPEAT_COUNT) {
@@ -115,26 +116,4 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
             break;
         }
     }
-
-    @Test
-    @Order(1)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
-    public void testInsert() throws SQLException {
-        super.testInsert();
-    }
-
-    @Test
-    @Order(2)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
-    public void testUpdate() throws SQLException {
-        super.testUpdate();
-    }
-
-    @Test
-    @Order(3)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
-    public void testDelete() throws SQLException {
-        super.testDelete();
-    }
-
 }
