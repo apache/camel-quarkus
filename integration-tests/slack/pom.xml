@@ -96,7 +96,7 @@
             <id>virtualDependencies</id>
             <activation>
                 <property>
-                    <name>!virtualDependencies</name>
+                    <name>!noVirtualDependencies</name>
                 </property>
             </activation>
             <dependencies>
