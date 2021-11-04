@@ -16,6 +16,7 @@
 
 **Merged pull requests:**
 
+- Expand route configurations test coverage \#2978 [\#3257](https://github.com/apache/camel-quarkus/pull/3257) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3254 to re-enable KafkaSaslSslIT and KafkaSslIT native tests [\#3255](https://github.com/apache/camel-quarkus/pull/3255) ([zhfeng](https://github.com/zhfeng))
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3253](https://github.com/apache/camel-quarkus/pull/3253) ([ppalaga](https://github.com/ppalaga))
 - Add notes about the salesforce-maven-plugin to the Salesforce extension docs [\#3250](https://github.com/apache/camel-quarkus/pull/3250) ([jamesnetherton](https://github.com/jamesnetherton))
