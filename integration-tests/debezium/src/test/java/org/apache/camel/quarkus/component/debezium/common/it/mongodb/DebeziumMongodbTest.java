@@ -40,12 +40,12 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
@@ -53,9 +53,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class DebeziumMongodbTest extends AbstractDebeziumTest {
     private static final Logger LOG = Logger.getLogger(DebeziumMongodbTest.class);
-
-    //constant with value of Type.mongodb.getJdbcProperty
-    public static final String PROPERTY_JDBC = "mongodb_jdbc";
 
     private static MongoClient mongoClient;
 
@@ -74,10 +71,10 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
         if (mongoUrl.isPresent()) {
             mongoClient = MongoClients.create(mongoUrl.get());
         } else {
-            LOG.warn("Container is not running. Connection is not created.");
+            fail("Container is not running. Connection is not created.");
         }
 
-        assumeTrue(mongoClient != null);
+        assertNotNull(mongoClient, String.format("Can not create client for url '%s'.", mongoUrl.get()));
 
         MongoDatabase db = mongoClient.getDatabase("test");
 
@@ -108,7 +105,6 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
     @Test
     @Order(0)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testReceiveInit() {
         receiveResponse()
                 .then()
@@ -131,14 +127,12 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
     @Test
     @Order(1)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testInsert() throws SQLException {
         super.testInsert();
     }
 
     @Test
     @Order(2)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testUpdate() throws SQLException {
         Document doc = new Document().append("name", COMPANY_2).append("city", CITY_2);
         companies.insertOne(doc);
@@ -156,7 +150,6 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
     @Test
     @Order(3)
-    @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testDelete() throws SQLException {
         DeleteResult dr = companies.deleteMany(new Document().append("name", COMPANY_2));
         assertEquals(1, dr.getDeletedCount(), "Only one company should be deleted.");
