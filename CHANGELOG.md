@@ -6,16 +6,23 @@
 
 **Closed issues:**
 
+- Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
 - Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
 - Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
 - \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
+- GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
+- Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
+- Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtu… [\#3263](https://github.com/apache/camel-quarkus/pull/3263) ([ppalaga](https://github.com/ppalaga))
+- Cannot run tests against alternative BOMs  [\#3262](https://github.com/apache/camel-quarkus/pull/3262) ([ppalaga](https://github.com/ppalaga))
+- Sql - enable stored procedure test for different db types \#3080 [\#3261](https://github.com/apache/camel-quarkus/pull/3261) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Expand route configurations test coverage \#2978 [\#3257](https://github.com/apache/camel-quarkus/pull/3257) ([aldettinger](https://github.com/aldettinger))
 - Fix \#3254 to re-enable KafkaSaslSslIT and KafkaSslIT native tests [\#3255](https://github.com/apache/camel-quarkus/pull/3255) ([zhfeng](https://github.com/zhfeng))
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3253](https://github.com/apache/camel-quarkus/pull/3253) ([ppalaga](https://github.com/ppalaga))
