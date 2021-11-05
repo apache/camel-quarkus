@@ -2,7 +2,7 @@ Beyond standard usages known from vanilla Camel, Camel Quarkus adds the possibil
 
 Since Camel Quarkus 2.0.0, the preferred approach to generate Avro classes from Avro schema files is the one coined by the `quarkus-avro`  extension. It requires the following:
 
-1. Store `*.avsc` files in a resource folder named `avro`.
+1. Store `*.avsc` files in a folder named `src/main/avro` or `src/test/avro`
 2. In addition to the usual `build` goal of `quarkus-maven-plugin`, add the `generate-code` goal:
 +
 [source,xml]
