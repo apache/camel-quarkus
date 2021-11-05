@@ -166,6 +166,7 @@ public class SqlResource {
         switch (dbKind) {
         case "db2":
         case "mssql":
+        case "oracle":
         case "mariadb":
         case "mysql":
             List<LinkedCaseInsensitiveMap> addNumsResults = producerTemplate.requestBody(
