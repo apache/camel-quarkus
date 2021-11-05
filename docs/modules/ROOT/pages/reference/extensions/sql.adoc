@@ -40,6 +40,14 @@ Or add the coordinates to your existing project:
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Camel Quarkus limitations
+
+Oracle JDBC driver brings some GraalVM native-image configuration that breaks the serialization support in Camel Quarkus and Quarkus in general.
+See this https://github.com/quarkusio/quarkus/issues/20396[quarkus issue] for more details.
+
+xref:{cq-camel-components}::sql-component.adoc#_using_the_jdbc_based_aggregation_repository[Aggregation repository] does not work in native mode with Oracle db, because of this issue.
+
+
 == Additional Camel Quarkus configuration
 
 === Configuring a DataSource
