@@ -24,6 +24,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.awaitility.Awaitility;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -157,6 +158,7 @@ class MicroProfileHealthTest {
         }
     }
 
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3277")
     @Test
     public void testFailureThreshold() {
         try {
