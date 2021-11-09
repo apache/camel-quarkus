@@ -6,12 +6,14 @@
 
 **Closed issues:**
 
+- \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
 - Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
 - Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
 - Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
 - \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
 - GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
+- \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
