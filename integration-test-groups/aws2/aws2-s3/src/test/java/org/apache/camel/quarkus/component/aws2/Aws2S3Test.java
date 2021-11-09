@@ -26,8 +26,11 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.test.support.aws2.Aws2TestResource;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertEquals;
@@ -35,6 +38,34 @@ import static org.junit.Assert.assertEquals;
 @QuarkusTest
 @QuarkusTestResource(Aws2TestResource.class)
 class Aws2S3Test {
+    private int objects_num_before;
+    private int objects_num_after;
+
+    @BeforeEach
+    public void before() {
+        objects_num_before = getObjects().length;
+    }
+
+    @AfterEach
+    public void after(TestInfo testInfo) {
+
+        // Make sure all create objects have been deleted after test
+        objects_num_after = getObjects().length;
+        if (objects_num_after != objects_num_before) {
+            Assertions.fail("There is object leak after " + testInfo.getTestMethod().get().getName());
+        }
+    }
+
+    private String[] getObjects() {
+        final String[] objects = RestAssured.given()
+                .get("/aws2/s3/object-keys")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body().as(String[].class);
+
+        return objects;
+    }
 
     @Test
     public void crud() {
@@ -148,9 +179,7 @@ class Aws2S3Test {
                 .body(is(blobContent));
 
         // Delete
-        RestAssured.delete("/aws2/s3/object/" + oid)
-                .then()
-                .statusCode(204);
+        deleteObject(oid);
     }
 
     @Test
@@ -169,6 +198,9 @@ class Aws2S3Test {
                 .then()
                 .statusCode(200)
                 .extract().asString();
+
+        // Delete
+        deleteObject(oid);
 
         // strip the chuck-signature
         result = result.replaceAll("\\s*[0-9]+;chunk-signature=\\w{64}\\s*", "");
@@ -216,6 +248,9 @@ class Aws2S3Test {
                     .body(is(blobContent));
 
         } finally {
+            // Delete oid1
+            deleteObject(oid1);
+
             // Delete the object before deleting the bucket
             try {
                 RestAssured.delete("/aws2/s3/bucket/" + destinationBucket + "/object/" + oid2)
@@ -259,6 +294,8 @@ class Aws2S3Test {
                 .then()
                 .statusCode(200);
 
+        // Delete
+        deleteObject(oid);
     }
 
     @Test
@@ -277,6 +314,9 @@ class Aws2S3Test {
                 .then()
                 .statusCode(200)
                 .body(is("Hello"));
+
+        // Delete
+        deleteObject(oid);
     }
 
     private void createObject(String oid, String blobContent) {
@@ -286,6 +326,12 @@ class Aws2S3Test {
                 .post("/aws2/s3/object/" + oid)
                 .then()
                 .statusCode(201);
+    }
+
+    private void deleteObject(String oid) {
+        RestAssured.delete("/aws2/s3/object/" + oid)
+                .then()
+                .statusCode(204);
     }
 
     /**
