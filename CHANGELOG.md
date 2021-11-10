@@ -22,6 +22,7 @@
 
 **Merged pull requests:**
 
+- Fixup 218bef4 Special fix for Solr - Cannot run tests against [\#3278](https://github.com/apache/camel-quarkus/pull/3278) ([ppalaga](https://github.com/ppalaga))
 - avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
 - Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
 - Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtu… [\#3263](https://github.com/apache/camel-quarkus/pull/3263) ([ppalaga](https://github.com/ppalaga))
