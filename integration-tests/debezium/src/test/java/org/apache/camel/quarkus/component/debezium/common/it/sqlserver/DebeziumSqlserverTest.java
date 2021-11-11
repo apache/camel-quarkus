@@ -30,15 +30,17 @@ import org.apache.camel.quarkus.component.debezium.common.it.Type;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumSqlserverTestResource.class)
@@ -67,9 +69,9 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
         }
     }
 
-    @Before
+    @BeforeEach
     public void before() {
-        org.junit.Assume.assumeTrue(connection != null);
+        assumeTrue(connection != null);
     }
 
     @AfterAll
@@ -108,8 +110,8 @@ class DebeziumSqlserverTest extends AbstractDebeziumTest {
                 continue;
             }
 
-            Assert.assertEquals("r", record.getOperation());
-            Assert.assertEquals("Struct{NAME=init,CITY=init}", record.getValue());
+            assertEquals("r", record.getOperation());
+            assertEquals("Struct{NAME=init,CITY=init}", record.getValue());
             break;
         }
     }

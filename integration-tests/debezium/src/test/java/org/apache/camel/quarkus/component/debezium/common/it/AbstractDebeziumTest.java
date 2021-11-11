@@ -24,13 +24,14 @@ import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.hamcrest.Matcher;
 import org.jboss.logging.Logger;
-import org.junit.Assert;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyOrNullString;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Abstract parent for debezium based tests.
@@ -86,12 +87,11 @@ public abstract class AbstractDebeziumTest {
             break;
         }
 
-        Assert.assertTrue("Debezium does not respond (consider changing timeout in AbstractDebeziumResource).",
-                i < REPEAT_COUNT);
+        assertTrue(i < REPEAT_COUNT, "Debezium does not respond (consider changing timeout in AbstractDebeziumResource).");
     }
 
     protected void isInitialized(String s) {
-        Assert.assertNotNull(s, getConnection());
+        assertNotNull(getConnection(), s);
     }
 
     protected void insertCompany(String name, String city) throws SQLException {
@@ -130,7 +130,7 @@ public abstract class AbstractDebeziumTest {
             //validate that event for delete is in queue
             receiveResponse(204, is(emptyOrNullString()));
         }
-        Assert.assertTrue("No records were deleted", i > 1);
+        assertTrue(i > 1, "No records were deleted");
     }
 
     protected Response receiveResponse() {
