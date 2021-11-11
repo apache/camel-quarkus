@@ -24,10 +24,10 @@ import io.quarkus.deployment.Capability;
 import io.quarkus.deployment.IsNormal;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.deployment.builditem.DevServicesLauncherConfigResultBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
 import io.quarkus.deployment.builditem.RunTimeConfigurationDefaultBuildItem;
 import io.quarkus.deployment.dev.devservices.GlobalDevServicesConfig;
-import io.quarkus.kafka.client.deployment.DevServicesKafkaBrokerBuildItem;
 import io.quarkus.kafka.client.deployment.KafkaBuildTimeConfig;
 import org.apache.camel.quarkus.component.kafka.KafkaClientFactoryProducer;
 import org.eclipse.microprofile.config.Config;
@@ -36,6 +36,7 @@ import org.eclipse.microprofile.config.ConfigProvider;
 class KafkaProcessor {
     private static final String FEATURE = "camel-kafka";
     private static final String CAMEL_KAFKA_BROKERS = "camel.component.kafka.brokers";
+    private static final String KAFKA_BOOTSTRAP_SERVERS = "kafka.bootstrap.servers";
 
     @BuildStep
     FeatureBuildItem feature() {
@@ -53,7 +54,7 @@ class KafkaProcessor {
 
     @BuildStep(onlyIfNot = IsNormal.class, onlyIf = GlobalDevServicesConfig.Enabled.class)
     public void configureKafkaComponentForDevServices(
-            DevServicesKafkaBrokerBuildItem kafkaBrokerBuildItem,
+            DevServicesLauncherConfigResultBuildItem devServiceResult,
             KafkaBuildTimeConfig kafkaBuildTimeConfig,
             BuildProducer<RunTimeConfigurationDefaultBuildItem> runTimeConfig) {
 
@@ -62,7 +63,7 @@ class KafkaProcessor {
 
         if (brokers.isEmpty() && kafkaBuildTimeConfig.devservices.enabled.orElse(true)) {
             runTimeConfig.produce(new RunTimeConfigurationDefaultBuildItem(CAMEL_KAFKA_BROKERS,
-                    kafkaBrokerBuildItem.getBootstrapServers()));
+                    devServiceResult.getConfig().get(KAFKA_BOOTSTRAP_SERVERS)));
         }
     }
 }
