@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
 - \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
 - Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
@@ -22,6 +23,9 @@
 
 **Merged pull requests:**
 
+- Fixup 218bef4 Special fix for JMS extensions depending on [\#3286](https://github.com/apache/camel-quarkus/pull/3286) ([ppalaga](https://github.com/ppalaga))
+- Remove BOM reference to non existent camel-quarkus-xstream-common-deployment dependency [\#3285](https://github.com/apache/camel-quarkus/pull/3285) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3276 to make sure all objects have been deleted after each test … [\#3279](https://github.com/apache/camel-quarkus/pull/3279) ([zhfeng](https://github.com/zhfeng))
 - Fixup 218bef4 Special fix for Solr - Cannot run tests against [\#3278](https://github.com/apache/camel-quarkus/pull/3278) ([ppalaga](https://github.com/ppalaga))
 - avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
 - Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
