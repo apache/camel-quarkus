@@ -33,10 +33,9 @@ import org.bson.Document;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -45,6 +44,9 @@ import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 @QuarkusTest
 @QuarkusTestResource(DebeziumMongodbTestResource.class)
@@ -75,16 +77,16 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
             LOG.warn("Container is not running. Connection is not created.");
         }
 
-        org.junit.Assume.assumeTrue(mongoClient != null);
+        assumeTrue(mongoClient != null);
 
         MongoDatabase db = mongoClient.getDatabase("test");
 
         companies = db.getCollection("companies");
     }
 
-    @Before
+    @BeforeEach
     public void before() {
-        org.junit.Assume.assumeTrue(mongoClient != null);
+        assumeTrue(mongoClient != null);
     }
 
     @AfterAll
@@ -124,7 +126,7 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
 
     @Override
     protected void isInitialized(String s) {
-        Assert.assertNotNull(s, mongoClient);
+        assertNotNull(mongoClient, s);
     }
 
     @Test
@@ -157,7 +159,7 @@ class DebeziumMongodbTest extends AbstractDebeziumTest {
     @EnabledIfSystemProperty(named = PROPERTY_JDBC, matches = ".*")
     public void testDelete() throws SQLException {
         DeleteResult dr = companies.deleteMany(new Document().append("name", COMPANY_2));
-        Assert.assertEquals("Only one company should be deleted.", 1, dr.getDeletedCount());
+        assertEquals(1, dr.getDeletedCount(), "Only one company should be deleted.");
 
         //validate that event for delete is in queue
         receiveResponse(200, equalTo("d"), "/receiveOperation");
