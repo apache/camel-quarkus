@@ -44,10 +44,6 @@
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-resteasy</artifactId>
         </dependency>
-        <dependency>
-            <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-tika</artifactId>
-        </dependency>
 
         <!-- test dependencies -->
         <dependency>

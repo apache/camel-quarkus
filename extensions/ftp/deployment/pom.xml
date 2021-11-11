@@ -43,7 +43,7 @@
             <artifactId>camel-quarkus-ftp</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.jsch</groupId>
             <artifactId>quarkus-jsch-deployment</artifactId>
         </dependency>
     </dependencies>

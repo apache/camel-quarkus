@@ -45,7 +45,7 @@
 
         <!-- The JMS client library to test with -->
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.artemis</groupId>
             <artifactId>quarkus-artemis-jms</artifactId>
         </dependency>
 

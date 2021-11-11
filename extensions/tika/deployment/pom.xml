@@ -45,7 +45,7 @@
             <artifactId>camel-quarkus-tika</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.tika</groupId>
             <artifactId>quarkus-tika-deployment</artifactId>
         </dependency>
         <dependency>
