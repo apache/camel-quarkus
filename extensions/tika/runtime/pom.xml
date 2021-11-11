@@ -71,7 +71,7 @@
             <artifactId>camel-quarkus-support-xalan</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.tika</groupId>
             <artifactId>quarkus-tika</artifactId>
         </dependency>
     </dependencies>

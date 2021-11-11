@@ -5977,12 +5977,32 @@
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
-                <version>${quarkiverse.freemarker.version}</version>
+                <version>${quarkiverse-freemarker.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker-deployment</artifactId>
-                <version>${quarkiverse.freemarker.version}</version>
+                <version>${quarkiverse-freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.jgit</groupId>
+                <artifactId>quarkus-jgit</artifactId>
+                <version>${quarkiverse-jgit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.jgit</groupId>
+                <artifactId>quarkus-jgit-deployment</artifactId>
+                <version>${quarkiverse-jgit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.jsch</groupId>
+                <artifactId>quarkus-jsch</artifactId>
+                <version>${quarkiverse-jsch.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.jsch</groupId>
+                <artifactId>quarkus-jsch-deployment</artifactId>
+                <version>${quarkiverse-jsch.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.quarkiverse.minio</groupId>
@@ -5993,6 +6013,16 @@
                 <groupId>io.quarkiverse.minio</groupId>
                 <artifactId>quarkus-minio-deployment</artifactId>
                 <version>${quarkiverse-minio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.tika</groupId>
+                <artifactId>quarkus-tika</artifactId>
+                <version>${quarkiverse-tika.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.tika</groupId>
+                <artifactId>quarkus-tika-deployment</artifactId>
+                <version>${quarkiverse-tika.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.smallrye.reactive</groupId>
@@ -6028,6 +6058,18 @@
                 <groupId>net.minidev</groupId>
                 <artifactId>json-smart</artifactId>
                 <version>${json-smart.version}</version>
+            </dependency>
+            <!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/3366 -->
+            <dependency>
+                <groupId>software.amazon.awssdk</groupId>
+                <artifactId>apache-client</artifactId>
+                <version>${awssdk.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>commons-logging</groupId>
+                        <artifactId>commons-logging</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.antlr</groupId>

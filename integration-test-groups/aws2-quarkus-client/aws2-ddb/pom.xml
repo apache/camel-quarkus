@@ -36,7 +36,7 @@
             <artifactId>camel-quarkus-aws2-ddb</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.amazonservices</groupId>
             <artifactId>quarkus-amazon-dynamodb</artifactId>
         </dependency>
         <dependency>

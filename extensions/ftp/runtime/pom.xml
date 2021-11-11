@@ -57,7 +57,7 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.quarkus</groupId>
+            <groupId>io.quarkiverse.jsch</groupId>
             <artifactId>quarkus-jsch</artifactId>
         </dependency>
         <dependency>

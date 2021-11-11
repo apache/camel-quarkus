@@ -310,8 +310,9 @@ class CSimpleProcessor {
                 csimpleClassesDir.toFile(),
                 StandardCharsets.UTF_8.name(),
                 Collections.emptyList(),
-                "1.8",
-                "1.8",
+                null,
+                "11",
+                "11",
                 Collections.emptyList(),
                 Collections.emptyList());
     }
