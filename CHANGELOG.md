@@ -6,12 +6,16 @@
 
 **Closed issues:**
 
+- Debezium tests are using JUnit 4 Assertions and Assumptions [\#3289](https://github.com/apache/camel-quarkus/issues/3289)
+- quarkus:dev NPE KafkaProcessor.configureKafkaComponentForDevServices\(KafkaProcessor.java:65\) [\#3284](https://github.com/apache/camel-quarkus/issues/3284)
 - AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
 - \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
+- Fix of issue \#3080 \(Sql - enable stored procedure test for different db types\) misses Oracle db type [\#3268](https://github.com/apache/camel-quarkus/issues/3268)
 - Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
 - Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
 - Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
+- \[Quarkus 2.5.0\] Kafka SASL / SSL tests are failing [\#3239](https://github.com/apache/camel-quarkus/issues/3239)
 - \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
 - GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
 - \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
@@ -23,11 +27,15 @@
 
 **Merged pull requests:**
 
+- Debezium tests are using JUnit 4 Assertions and Assumptions \#3289 [\#3290](https://github.com/apache/camel-quarkus/pull/3290) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- Upgrade Quarkus to 2.5.0.CR1 [\#3288](https://github.com/apache/camel-quarkus/pull/3288) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix \#3284 to get kafka.bootstrap.servers from DevServicesLauncherConf… [\#3287](https://github.com/apache/camel-quarkus/pull/3287) ([zhfeng](https://github.com/zhfeng))
 - Fixup 218bef4 Special fix for JMS extensions depending on [\#3286](https://github.com/apache/camel-quarkus/pull/3286) ([ppalaga](https://github.com/ppalaga))
 - Remove BOM reference to non existent camel-quarkus-xstream-common-deployment dependency [\#3285](https://github.com/apache/camel-quarkus/pull/3285) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3276 to make sure all objects have been deleted after each test … [\#3279](https://github.com/apache/camel-quarkus/pull/3279) ([zhfeng](https://github.com/zhfeng))
 - Fixup 218bef4 Special fix for Solr - Cannot run tests against [\#3278](https://github.com/apache/camel-quarkus/pull/3278) ([ppalaga](https://github.com/ppalaga))
 - avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
+- Added missing stored procedure test for oracle [\#3269](https://github.com/apache/camel-quarkus/pull/3269) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
 - Fixup 218bef4 Deactivate the virtualDepenencies profile via -DnoVirtu… [\#3263](https://github.com/apache/camel-quarkus/pull/3263) ([ppalaga](https://github.com/ppalaga))
 - Cannot run tests against alternative BOMs  [\#3262](https://github.com/apache/camel-quarkus/pull/3262) ([ppalaga](https://github.com/ppalaga))
