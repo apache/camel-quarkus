@@ -25,15 +25,15 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.apache.camel.component.salesforce.api.dto.RecentItem;
-import org.apache.camel.component.salesforce.api.dto.RestResources;
 import org.apache.camel.component.salesforce.api.dto.SObjectBasicInfo;
-import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
 import org.apache.camel.component.salesforce.api.dto.Versions;
-import org.apache.camel.quarkus.component.salesforce.model.GlobalObjectsAndHeaders;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.matchesPattern;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -54,22 +54,62 @@ class SalesforceTest {
 
     @Test
     public void testGetAccountDTO() {
-        RestAssured.get("/salesforce/account")
-                .then()
-                .statusCode(200)
-                .body(
-                        "Id", not(emptyString()),
-                        "AccountNumber", not(emptyString()));
+        String accountId = null;
+        String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();
+
+        try {
+            accountId = RestAssured.given()
+                    .body(accountName)
+                    .post("/salesforce/account")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString();
+
+            RestAssured.get("/salesforce/account/" + accountId)
+                    .then()
+                    .statusCode(200)
+                    .body(
+                            "Id", is(accountId),
+                            "AccountNumber", not(emptyString()));
+        } finally {
+            if (accountId != null) {
+                RestAssured.delete("/salesforce/account/" + accountId)
+                        .then()
+                        .statusCode(204);
+            }
+        }
     }
 
     @Test
-    public void testGetAccountByQueryHelper() {
-        RestAssured.get("/salesforce/account/query")
-                .then()
-                .statusCode(200)
-                .body(
-                        "Id", not(emptyString()),
-                        "AccountNumber", not(emptyString()));
+    public void testGetAccountByQueryRecords() {
+        String accountId = null;
+        String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();
+
+        try {
+            accountId = RestAssured.given()
+                    .body(accountName)
+                    .post("/salesforce/account")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString();
+
+            RestAssured.get("/salesforce/account/query/" + accountId)
+                    .then()
+                    .statusCode(200)
+                    .body(
+                            "Id", not(emptyString()),
+                            "AccountNumber", not(emptyString()));
+        } finally {
+            if (accountId != null) {
+                RestAssured.delete("/salesforce/account/" + accountId)
+                        .then()
+                        .statusCode(204);
+            }
+        }
     }
 
     @Test
@@ -105,20 +145,15 @@ class SalesforceTest {
 
     @Test
     void testGlobalObjectsWithHeaders() {
-        GlobalObjectsAndHeaders globalObjectsAndHeaders = RestAssured.given()
+        RestAssured.given()
                 .get("/salesforce/sobjects/force-limit")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .as(GlobalObjectsAndHeaders.class);
-
-        assertNotNull(globalObjectsAndHeaders);
-        assertNotNull(globalObjectsAndHeaders.getGlobalObjects());
-        assertTrue(globalObjectsAndHeaders.getHeader("Sforce-Limit-Info").contains("api-usage="));
+                .body(containsString("api-usage="));
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void testGetVersions() {
         List<Versions> versions = RestAssured.given()
                 .get("/salesforce/versions")
@@ -133,73 +168,82 @@ class SalesforceTest {
 
     @Test
     void testGetRestResources() {
-        RestResources restResources = RestAssured.given()
+        RestAssured.given()
                 .get("/salesforce/resources")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .as(RestResources.class);
-        assertNotNull(restResources);
+                .body(matchesPattern("/services/data/.*/sobjects"));
     }
 
     @Test
     void testAccountWithBasicInfo() {
-        // create an object of type Account
-        String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID().toString();
-        final String accountId = RestAssured.given()
-                .body(accountName)
-                .post("/salesforce/account")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .asString();
+        String accountId = null;
+        String accountName = "Camel Quarkus Account Test: " + UUID.randomUUID();
 
-        // get Account basic info
-        SObjectBasicInfo accountBasicInfo = RestAssured.given()
-                .get("/salesforce/basic-info/account")
-                .then()
-                .statusCode(200)
-                .extract()
-                .body()
-                .as(SObjectBasicInfo.class);
-        assertNotNull(accountBasicInfo);
-        List<RecentItem> recentItems = accountBasicInfo.getRecentItems();
-        assertNotNull(recentItems);
-        // make sure the created account is referenced
-        assertTrue(recentItems.stream().anyMatch(recentItem -> recentItem.getAttributes().getUrl().contains(accountId)));
+        try {
+            // create an object of type Account
+            accountId = RestAssured.given()
+                    .body(accountName)
+                    .post("/salesforce/account")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .asString();
 
-        // Get Account - querying Sobject by ID
-        RestAssured.get("/salesforce/account/" + accountId)
-                .then()
-                .statusCode(200)
-                .body(
-                        "Id", not(emptyString()),
-                        "AccountNumber", not(emptyString()));
+            // get Account basic info
+            SObjectBasicInfo accountBasicInfo = RestAssured.given()
+                    .get("/salesforce/basic-info/account")
+                    .then()
+                    .statusCode(200)
+                    .extract()
+                    .body()
+                    .as(SObjectBasicInfo.class);
+            assertNotNull(accountBasicInfo);
+            List<RecentItem> recentItems = accountBasicInfo.getRecentItems();
+            assertNotNull(recentItems);
 
-        // delete the account
-        // Clean up
-        RestAssured.delete("/salesforce/account/" + accountId)
-                .then()
-                .statusCode(204);
+            // make sure the created account is referenced
+            boolean accountIdMatched = false;
+            for (RecentItem recentItem : recentItems) {
+                if (recentItem.getAttributes().getUrl().contains(accountId)) {
+                    accountIdMatched = true;
+                    break;
+                }
+            }
+            assertTrue(accountIdMatched);
+
+            // Get Account - querying Sobject by ID
+            RestAssured.get("/salesforce/account/" + accountId)
+                    .then()
+                    .statusCode(200)
+                    .body(
+                            "Id", not(emptyString()),
+                            "AccountNumber", not(emptyString()));
+        } finally {
+            if (accountId != null) {
+                // delete the account
+                // Clean up
+                RestAssured.delete("/salesforce/account/" + accountId)
+                        .then()
+                        .statusCode(204);
+            }
+        }
     }
 
     @Test
     void testGetAccountDescription() {
-        SObjectDescription accountDescription = RestAssured.given()
+        RestAssured.given()
                 .get("/salesforce/describe/account")
                 .then()
                 .statusCode(200)
-                .extract()
-                .body()
-                .as(SObjectDescription.class);
-        assertNotNull(accountDescription);
+                .body(notNullValue());
     }
 
     @Test
+    @SuppressWarnings("unchecked")
     void testLimits() {
-        final Map<String, Object> limits = RestAssured.given()
+        final Map<String, Integer> limits = RestAssured.given()
                 .get("/salesforce/limits")
                 .then()
                 .statusCode(200)
@@ -208,11 +252,11 @@ class SalesforceTest {
                 .as(Map.class);
 
         assertNotNull(limits, "Should fetch limits from Salesforce REST API");
-        assertNotNull(limits.get("concurrentAsyncGetReportInstances"));
-        assertNotNull(limits.get("concurrentSyncReportRuns"));
-        assertNotNull(limits.get("dailyApiRequests"));
-        assertNotNull(limits.get("dailyAsyncApexExecutions"));
-        assertNotNull(limits.get("dailyBulkApiRequests"));
+        assertNotNull(limits.get("ConcurrentAsyncGetReportInstances"));
+        assertNotNull(limits.get("ConcurrentSyncReportRuns"));
+        assertNotNull(limits.get("DailyApiRequests"));
+        assertNotNull(limits.get("DailyAsyncApexExecutions"));
+        assertNotNull(limits.get("DailyBulkApiRequests"));
     }
 
 }
