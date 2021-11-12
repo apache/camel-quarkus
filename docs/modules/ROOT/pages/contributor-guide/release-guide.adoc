@@ -40,6 +40,7 @@ $ mvn clean release:clean release:prepare -DreleaseVersion=$VERSION -Ddevelopmen
 ----
 
 In case `release:prepare` is successful but an issue occurs during `release:perform`, you can resume from the failing artifact to save some time:
+
 * First find out from the console output, in which module the `release:perform` task failed.
   Say that there was an upload timeout in `camel-quarkus-openapi-java` module.
 * Then locate the directory `mvn release:perform` used for checking out the tag and running the `deploy` goal.
@@ -125,18 +126,20 @@ Typically, when releasing e.g. 1.4.0, you may need to delete e.g. 1.3.0:
 
 [source,shell]
 ----
-$ cd .. && ls
-$ rm -fr 1.3.0
+$ cd ..
+$ ls
+1.3.0 1.4.0
+$ svn remove 1.3.0
 ----
 Review the changes:
 [source,shell]
 ----
+$ cd ..
 $ svn diff
 ----
 Commit the changes:
 [source,shell]
 ----
-$ cd camel-releases-dist
 $ svn add --force .
 $ svn commit -m "Apache Camel Quarkus $VERSION released artifacts"
 ----
@@ -155,7 +158,7 @@ You may find the `await-release` mojo of `cq-maven-plugin` handy if you need to 
 [source,shell]
 ----
 $ cd camel-quarkus
-$ mvn cq:await-release -Dcq.version=$VERSION
+$ mvn cq:await-release -Dcq.version=$(git describe --tags `git rev-list --tags --max-count=1`)
 ----
 +
 The mojo first lists the artifacts having `groupId` `org.apache.camel.quarkus` and the given `$VERSION`
@@ -272,6 +275,10 @@ $ git commit -m "Tag $NEW_CQ_VERSION"
 $ git tag $NEW_CQ_VERSION
 $ git push upstream main
 $ git push upstream $NEW_CQ_VERSION
+# Create a maintenance branch for the release unless this is a micro release
+$ export BRANCH=$(echo $NEW_CQ_VERSION | sed 's|.[0-9][0-9]*$|.x|')
+$ git checkout -b $BRANCH $NEW_CQ_VERSION
+$ git push upstream $BRANCH
 ----
 +
 * Prepare the `camel-quarkus-main` branch for the next development iteration:
