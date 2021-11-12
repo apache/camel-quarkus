@@ -5902,12 +5902,6 @@
                 <artifactId>commons-lang</artifactId>
                 <version>${commons-lang.version}</version>
             </dependency>
-            <!-- TODO: Remove this when netty-bom issues are resolved https://github.com/apache/camel-quarkus/issues/3115 -->
-            <dependency>
-                <groupId>io.netty</groupId>
-                <artifactId>netty-tcnative-boringssl-static</artifactId>
-                <version>${tcnative.version}</version>
-            </dependency>
             <dependency>
                 <groupId>io.quarkiverse.freemarker</groupId>
                 <artifactId>quarkus-freemarker</artifactId>
