@@ -218,6 +218,25 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>quarkus-platform</id>
+            <activation>
+                <property>
+                    <name>quarkus.platform.version</name>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.redhat.quarkus</groupId>
+                        <artifactId>quarkus-universe-bom</artifactId>
+                        <version>${quarkus.platform.version}</version>
+                        <type>pom</type>
+                        <scope>import</scope>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
     </profiles>
 
 </project>
