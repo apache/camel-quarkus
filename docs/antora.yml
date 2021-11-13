@@ -26,8 +26,8 @@ asciidoc:
     target-maven-version: 3.8.1 # replace ${target-maven-version}
     quarkus-version: 2.4.0.Final # replace ${quarkus.version}
     # attributes used in xrefs to other Antora components
-    cq-camel-components: 3.12.x@components # replace ${camel.docs.components.xref}
+    cq-camel-components: 3.13.x@components # replace ${camel.docs.components.xref}
     quarkus-examples-version: latest
     # indexTable common
-    indexer-version: 3.12.x # replace ${camel.docs.components.version}
+    indexer-version: 3.13.x # replace ${camel.docs.components.version}
     indexer-component: components
