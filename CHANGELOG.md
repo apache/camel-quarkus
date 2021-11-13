@@ -8,10 +8,13 @@
 
 - Debezium tests are using JUnit 4 Assertions and Assumptions [\#3289](https://github.com/apache/camel-quarkus/issues/3289)
 - quarkus:dev NPE KafkaProcessor.configureKafkaComponentForDevServices\(KafkaProcessor.java:65\) [\#3284](https://github.com/apache/camel-quarkus/issues/3284)
+- Camel-quarkus-couchbase Consumer is not working [\#3283](https://github.com/apache/camel-quarkus/issues/3283)
+- Document that a maintenance branch should be created also in examples for each minor release [\#3281](https://github.com/apache/camel-quarkus/issues/3281)
 - AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
 - \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
 - Fix of issue \#3080 \(Sql - enable stored procedure test for different db types\) misses Oracle db type [\#3268](https://github.com/apache/camel-quarkus/issues/3268)
+- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3259](https://github.com/apache/camel-quarkus/issues/3259)
 - Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
 - Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
 - Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
@@ -22,11 +25,15 @@
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
+- Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Remove management of netty-tcnative-boringssl-static [\#3293](https://github.com/apache/camel-quarkus/pull/3293) ([jamesnetherton](https://github.com/jamesnetherton))
+- Improve Release guide [\#3292](https://github.com/apache/camel-quarkus/pull/3292) ([ppalaga](https://github.com/ppalaga))
+- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3291](https://github.com/apache/camel-quarkus/pull/3291) ([jamesnetherton](https://github.com/jamesnetherton))
 - Debezium tests are using JUnit 4 Assertions and Assumptions \#3289 [\#3290](https://github.com/apache/camel-quarkus/pull/3290) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Upgrade Quarkus to 2.5.0.CR1 [\#3288](https://github.com/apache/camel-quarkus/pull/3288) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3284 to get kafka.bootstrap.servers from DevServicesLauncherConf… [\#3287](https://github.com/apache/camel-quarkus/pull/3287) ([zhfeng](https://github.com/zhfeng))
