@@ -23,6 +23,7 @@
 - GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
 - \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
+- clientRequestValidation not working with camel REST DSL [\#3129](https://github.com/apache/camel-quarkus/issues/3129)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
 - Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
