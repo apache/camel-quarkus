@@ -97,7 +97,7 @@
                                 </goals>
                                 <configuration>
                                     <nodeVersion>v14.16.0</nodeVersion>
-                                    <yarnVersion>v1.22.5</yarnVersion>
+                                    <yarnVersion>v3.1.0</yarnVersion>
                                 </configuration>
                             </execution>
                             <execution>
@@ -117,7 +117,7 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <arguments>run checks</arguments>
+                                    <arguments>build:antora</arguments>
                                 </configuration>
                             </execution>
                         </executions>
