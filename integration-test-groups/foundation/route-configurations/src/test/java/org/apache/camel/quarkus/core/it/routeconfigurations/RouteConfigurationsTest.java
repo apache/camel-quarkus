@@ -70,6 +70,17 @@ public class RouteConfigurationsTest {
     }
 
     @Test
+    public void sendExceptionContentToEndpointRouteConfigurationWithExplicitIdShouldTriggerOnException() {
+        String expected = "onException has been triggered in endpointRouteConfigurationWithExplicitId";
+        RestAssured.given()
+                .body("explicit-endpoint-exception")
+                .when()
+                .get("/core/route-configurations/endpointRouteConfigurationWithExplicitId")
+                .then()
+                .body(is(expected));
+    }
+
+    @Test
     public void sendContentToYamlRouteShouldTriggerOnExceptionInXmlRouteConfiguration() {
         String expected = "onException has been triggered in xmlRouteConfiguration";
         RestAssured.given()

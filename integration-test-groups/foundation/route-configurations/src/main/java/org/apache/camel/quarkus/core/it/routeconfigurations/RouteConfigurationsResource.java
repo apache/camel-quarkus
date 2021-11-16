@@ -49,6 +49,14 @@ public class RouteConfigurationsResource {
         return producerTemplate.requestBody("direct:fallbackRouteConfiguration", content, String.class);
     }
 
+    @Path("/route-configurations/endpointRouteConfigurationWithExplicitId")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String endpointRouteConfigurationWithExplicitId(String content) {
+        return producerTemplate.requestBody("direct:endpointRouteConfigurationWithExplicitId", content, String.class);
+    }
+
     @Path("/route-configurations/xmlRoute")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
