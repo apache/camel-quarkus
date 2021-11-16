@@ -57,7 +57,7 @@ class AtlasmapProcessor {
 
     @BuildStep
     List<ReflectiveClassBuildItem> registerReflectiveClasses() {
-        List<ReflectiveClassBuildItem> items = new ArrayList<ReflectiveClassBuildItem>();
+        List<ReflectiveClassBuildItem> items = new ArrayList<>();
         items.add(new ReflectiveClassBuildItem(false, false, DefaultAtlasContextFactory.class));
         items.add(new ReflectiveClassBuildItem(false, false, DefaultAtlasModuleInfo.class));
         items.add(new ReflectiveClassBuildItem(true, false, JsonModule.class));
@@ -66,8 +66,7 @@ class AtlasmapProcessor {
         items.add(new ReflectiveClassBuildItem(true, false, XmlModule.class));
         items.add(new ReflectiveClassBuildItem(false, true, false, AtlasContextFactoryMXBean.class));
         items.add(new ReflectiveClassBuildItem(false, true, false, AtlasModuleInfoMXBean.class));
-        // that class needs reflection on both methods and fields : see issue https://github.com/atlasmap/atlasmap/issues/2722
-        items.add(new ReflectiveClassBuildItem(false, true, true, DataSourceMetadata.class));
+        items.add(new ReflectiveClassBuildItem(false, true, false, DataSourceMetadata.class));
         return items;
     }
 
