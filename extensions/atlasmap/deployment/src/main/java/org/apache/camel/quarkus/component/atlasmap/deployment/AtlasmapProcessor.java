@@ -38,7 +38,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.IndexDependencyBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ServiceProviderBuildItem;
@@ -73,15 +72,6 @@ class AtlasmapProcessor {
     @BuildStep
     NativeImageResourceBuildItem resource() {
         return new NativeImageResourceBuildItem("META-INF/services/atlas/module/atlas.module");
-    }
-
-    @BuildStep
-    void addDependencies(BuildProducer<IndexDependencyBuildItem> indexDependency) {
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-model"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-xml-model"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-java-model"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-json-model"));
-        indexDependency.produce(new IndexDependencyBuildItem("io.atlasmap", "atlas-csv-model"));
     }
 
     @BuildStep
