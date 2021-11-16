@@ -1,25 +1,49 @@
 {
-  "name": "camel-quarkus-docs",
-  "version": "1.0.0",
-  "description": "Apache Camel extensions for Quarkus Documentation",
+  "name": "apache-camel-website",
+  "version": "1.0.0-SNAPSHOT",
   "license": "Apache-2.0",
   "scripts": {
-    "preview": "yarn unplug opn -AR && cd target/site && lite-server -c ../../bs-config.json",
-    "build": "yarn antora --fetch antora-playbook.yml --stacktrace",
-    "dev": "yarn build && yarn preview",
-    "checks": "yarn build"
+    "antora:version": "antora --version",
+    "build": "run-s build:antora build:hugo build:sitemap build:minify",
+    "build-all": "yarn workspaces foreach --topological-dev run build",
+    "build:antora": "antora --clean --fetch antora-playbook.yml --stacktrace",
+    "build:hugo": "hugo --cacheDir ${HUGO_CACHE_DIR:-$(pwd)/.hugo_data} ${HUGO_OPTIONS:-}",
+    "build:minify": "gulp minify",
+    "build:sitemap": "gulp sitemap",
+    "check:html": "html-validate public",
+    "check:links": "deadlinks-linux public",
+    "checks": "run-s check:links check:html",
+    "clean": "gulp clean",
+    "check:dependencies": "run-p check:cache check:dedupe",
+    "check:cache": "yarn workspaces foreach install --immutable --immutable-cache --check-cache",
+    "check:dedupe": "yarn workspaces foreach dedupe --check",
+    "update:dependencies": "run-s update:dedupe update:cache",
+    "update:cache": "yarn workspaces foreach install --check-cache",
+    "update:dedupe": "yarn workspaces foreach dedupe",
+    "preview": "run-s preview:antora preview:hugo",
+    "preview:antora": "antora --clean --fetch antora-playbook.yml",
+    "preview:hugo": "hugo server -D",
+    "preview:netlify": "netlify deploy --dir public"
   },
   "devDependencies": {
-    "@antora/cli": "^3.0.0-alpha.9",
-    "@antora/site-generator-default": "^3.0.0-alpha.9",
-    "@djencks/asciidoctor-antora-indexer": "^0.1.0-alpha.1",
-    "@djencks/asciidoctor-jsonpath": "^0.1.0-alpha.1",
-    "lite-server": "^2.4.0",
-    "pino-pretty": "^5.0.0"
+    "@antora/cli": "3.0.0-beta.1",
+    "@antora/site-generator-default": "3.0.0-beta.1",
+    "@djencks/antora-aggregate-collector": "0.1.0-beta.1",
+    "@djencks/asciidoctor-antora-indexer": "0.1.0-beta.1",
+    "@djencks/asciidoctor-jsonpath": "0.1.0-beta.1",
+    "@oclif/errors": "^1.3.4",
+    "del": "^6.0.0",
+    "escape-string-regexp": "~2.0",
+    "gulp": "~4.0",
+    "gulp-cheerio": "~1.0",
+    "gulp-htmlmin": "~5.0",
+    "html-validate": "~4",
+    "hugo-extended": "^0.84.3",
+    "netlify-cli": "^6.14.10",
+    "npm-run-all": "~4",
+    "opal-runtime": "1.0.11",
+    "pino-pretty": "^5.0.0",
+    "toml": "~3.0"
   },
-  "dependenciesMeta": {
-    "opn@5.3.0": {
-      "unplugged": true
-    }
-  }
+  "packageManager": "yarn@3.1.0"
 }

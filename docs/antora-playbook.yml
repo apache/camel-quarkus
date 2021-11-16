@@ -1,80 +1,144 @@
-#
-# Licensed to the Apache Software Foundation (ASF) under one or more
-# contributor license agreements.  See the NOTICE file distributed with
-# this work for additional information regarding copyright ownership.
-# The ASF licenses this file to You under the Apache License, Version 2.0
-# (the "License"); you may not use this file except in compliance with
-# the License.  You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
-
 site:
-  title: Apache Camel extensions for Quarkus
+  title: Apache Camel
   url: https://camel.apache.org
-  start_page: camel-quarkus::index.adoc
+  start_page: _@manual::index.adoc
 
 content:
   sources:
-  - url: ./../
-    branches: HEAD
-    start_path: docs
 
-  - url: https://github.com/apache/camel-quarkus-examples.git
-    branches: main
-    start_path: docs
+    - url: https://github.com/apache/camel.git
+      branches: main
+      start_paths:
+        # manual
+        - docs/user-manual
 
-# The version/branch of main camel 'components' this version of camel-quarkus uses
-  - url: https://github.com/apache/camel.git
-    branches:
-      - camel-3.13.x # replace ${camel.docs.branch}
-    start_paths:
-      # eip
-      - core/camel-core-engine/src/main/docs
-      # main components doc
-      - docs/components
+    - url: https://github.com/apache/camel.git
+      branches:
+#        - main
+        - camel-3.13.x
+#        - camel-3.12.x
+#        - camel-3.11.x
+#        - camel-3.7.x
+      start_paths:
+        # eip
+        - core/camel-core-engine/src/main/docs
+        # main components doc
+        - docs/components
 
-# There is only one version of the user manual
-  - url: https://github.com/apache/camel.git
-    branches:
-      - main
-    start_paths:
-      - docs/user-manual
+#    - url: https://github.com/apache/camel.git
+#      branches: camel-2.x
+#      start_paths:
+#        # main components doc
+#        - docs/components
+#        # languages
+#        - camel-core/src/main/docs
 
-# The camel-spring-boot version corresponding to the main camel 'components' version/branch
-  - url: https://github.com/apache/camel-spring-boot.git
-    branches:
-      - camel-spring-boot-3.13.x # replace ${camel.sb.docs.branch}
-    start_path: docs/components
+# sub-projects
+#    - url: https://github.com/apache/camel-k.git
+#      branches:
+#        - main
+#        - release-1.6.x
+#        - release-1.4.x
+#      start_path: docs
+#
+#    - url: https://github.com/apache/camel-k-runtime.git
+#      branches:
+#        - main
+#        - release-1.9.x
+#      start_path: docs
+#
+#    - url: https://github.com/apache/camel-kamelets.git
+#      branches:
+#        - main
+#      start_path: docs
 
-asciidoc:
-  attributes:
-    requires@: "'util=util/jsonpath-util.js'"
-  extensions:
-    - "@djencks/asciidoctor-antora-indexer"
+#    - url: https://github.com/apache/camel-quarkus.git
+    - url: ./..
+      branches:
+        - HEAD
+#        - 2.4.x
+      start_path: docs
+
+    - url: https://github.com/apache/camel-quarkus-examples.git
+      branches: main
+      start_path: docs
+
+#    - url: https://github.com/apache/camel-kafka-connector.git
+#      branches:
+#        - main
+#        - camel-kafka-connector-0.11.x
+#      start_paths:
+#        - docs
+#        - connectors
+
+    - url: https://github.com/apache/camel-spring-boot.git
+      branches:
+#        - main
+        - camel-spring-boot-3.13.x
+#        - camel-spring-boot-3.12.x
+#        - camel-spring-boot-3.11.x
+#        - camel-spring-boot-3.7.x
+      start_paths:
+        - components-starter
+        - core
+        - docs/components
+        - docs/spring-boot
+
+#    - url: https://github.com/apache/camel-karaf.git
+#      branches:
+#        - main
+#        - camel-karaf-3.13.x
+#        - camel-karaf-3.12.x
+#        - camel-karaf-3.11.x
+#        - camel-karaf-3.7.x
+#      start_path: docs
 
 ui:
   bundle:
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
     snapshot: true
 
-output:
-  dir: ./target/site
-
 urls:
-  redirect_facility: httpd
+  redirect_facility: disabled
+#  latest_version_segment_strategy: redirect:from
+#  latest_version_segment: latest
+
+
+output:
+  dir: ./documentation
+
+asciidoc:
+  attributes:
+    requires@: "'util=util/jsonpath-util.js'"
+#    uncomment sb-statistics to see more info on camel spring boot list page such as non-spring-boot components.
+#    This also tests the output of unused camel-spring-boot json detection and fails the Antora build with errors.
+#    sb-statistics: on
+  extensions:
+    - '@djencks/asciidoctor-jsonpath'
+    - '@djencks/asciidoctor-antora-indexer'
+#    - ./extensions/table.js
+#    - ./extensions/inline-styles.js
 
 runtime:
   log:
     level: warn
     failure_level: warn
-
-pipeline:
+    format: json
+    
+antora:
   extensions:
+    - require: '@djencks/antora-aggregate-collector'
+#      log_level: trace
+      componentversions:
+        - name: components
+          version: '*'
+          local-mappings: ac-mappings.yml
+        - name: camel-spring-boot
+          version: '*'
+          local-mappings: ac-mappings.yml
+
     - require: '@djencks/asciidoctor-jsonpath'
+      log_level: trace
+
+    - require: '@djencks/asciidoctor-antora-indexer'
+      log_level: trace
