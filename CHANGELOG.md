@@ -32,6 +32,7 @@
 
 **Merged pull requests:**
 
+- Revert "Fixup 218bef4 Special fix for JMS extensions depending on" [\#3300](https://github.com/apache/camel-quarkus/pull/3300) ([ppalaga](https://github.com/ppalaga))
 - Remove management of netty-tcnative-boringssl-static [\#3293](https://github.com/apache/camel-quarkus/pull/3293) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve Release guide [\#3292](https://github.com/apache/camel-quarkus/pull/3292) ([ppalaga](https://github.com/ppalaga))
 - Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3291](https://github.com/apache/camel-quarkus/pull/3291) ([jamesnetherton](https://github.com/jamesnetherton))
