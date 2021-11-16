@@ -73,6 +73,7 @@
         <commons-text.version>${commons-text-version}</commons-text.version> <!-- Spark -->
         <curator.version>4.3.0</curator.version><!-- Mess in the transitive dependencies of Spark, Zookeeper and other hadoop related components -->
         <derby.version>10.15.2.0</derby.version><!-- Spark -->
+        <dropwizard-metrics.version>4.1.19</dropwizard-metrics.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:io.dropwizard.metrics:metrics-core -->
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
