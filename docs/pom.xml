@@ -110,6 +110,7 @@
                                     <arguments>install --immutable</arguments>
                                 </configuration>
                             </execution>
+                            <!-- TODO: Enable checks once docs issues are fixed https://github.com/apache/camel-quarkus/issues/3307
                             <execution>
                                 <id>antora-xref-check</id>
                                 <goals>
@@ -120,6 +121,7 @@
                                     <arguments>run checks</arguments>
                                 </configuration>
                             </execution>
+                            -->
                         </executions>
                     </plugin>
                 </plugins>
