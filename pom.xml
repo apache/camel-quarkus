@@ -109,7 +109,6 @@
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <metrics.version>${metrics-version}</metrics.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version>
-        <nimbus-jose-jwt.version>9.10</nimbus-jose-jwt.version><!-- Mess in hdfs transitive deps, used also by io.strimzi:kafka-oauth-client recommended by https://quarkus.io/guides/kafka#authenticating-with-oauth -->
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>
         <okio.version>${squareup-okio-version}</okio.version>
         <protobuf.version>${protobuf-version}</protobuf.version>
