@@ -65,7 +65,6 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilter;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServiceFilterBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelStartupStepRecorderBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterLoaderBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
@@ -332,13 +331,6 @@ class CamelProcessor {
         });
 
         return new CamelFactoryFinderResolverBuildItem(recorder.factoryFinderResolver(builder));
-    }
-
-    @Overridable
-    @BuildStep
-    @Record(value = ExecutionTime.STATIC_INIT, optional = true)
-    public CamelStartupStepRecorderBuildItem createStartupStepRecorder(CamelRecorder recorder) {
-        return new CamelStartupStepRecorderBuildItem(recorder.newDefaultStartupStepRecorder());
     }
 
     @BuildStep

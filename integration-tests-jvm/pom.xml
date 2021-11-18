@@ -81,7 +81,6 @@
         <module>jcache</module>
         <module>jclouds</module>
         <module>jcr</module>
-        <module>jfr</module>
         <module>jgroups</module>
         <module>jgroups-raft</module>
         <module>jooq</module>

@@ -47,7 +47,6 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelStartupStepRecorderBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelTypeConverterRegistryBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
@@ -81,7 +80,6 @@ public class CamelContextProcessor {
             CamelModelToXMLDumperBuildItem modelDumper,
             CamelFactoryFinderResolverBuildItem factoryFinderResolver,
             List<CamelContextCustomizerBuildItem> customizers,
-            CamelStartupStepRecorderBuildItem startupStepRecorder,
             CamelComponentNameResolverBuildItem componentNameResolver,
             CamelConfig config) {
 
@@ -91,7 +89,6 @@ public class CamelContextProcessor {
                 modelJAXBContextFactory.getContextFactory(),
                 modelDumper.getValue(),
                 factoryFinderResolver.getFactoryFinderResolver(),
-                startupStepRecorder.getValue(),
                 componentNameResolver.getComponentNameResolver(),
                 beanContainer.getValue(),
                 CamelSupport.getCamelVersion(),

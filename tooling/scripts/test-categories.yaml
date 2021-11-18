@@ -38,6 +38,7 @@ group-02:
   - grpc
   - jackson-avro
   - jackson-protobuf
+  - jfr
   - oaipmh
   - pubnub
   - protobuf

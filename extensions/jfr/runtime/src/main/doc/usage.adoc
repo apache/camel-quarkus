@@ -1,0 +1,33 @@
+### Starting flight recording
+
+To enable Java Flight Recorder to start a recording and automatically dump the recording to disk after Camel startup is complete, use the following configuration in `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.jfr.startup-recorder-recording=true
+----
+
+Alternatively you can pass some Java options to the runnable application JAR or the native executable to enable flight recording at application startup.
+
+In JVM mode the application runnable JAR can be executed as follows.
+
+[source,shell]
+----
+$ java -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr -jar quarkus-run.jar
+----
+
+In native mode, the native executable can be executed as follows.
+
+[source,shell]
+----
+$ ./my-application-runner -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr
+----
+
+### Flight recording in native mode
+
+To build a native image with Java Flight Recorder support, it is mandatory to enable VM inspection via the following configuration property in `application.properties`.
+
+[source,properties]
+----
+quarkus.native.enable-vm-inspection=true
+----
