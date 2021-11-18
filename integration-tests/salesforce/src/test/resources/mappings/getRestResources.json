@@ -2,12 +2,12 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
   "name": "salesforce_api_json",
   "request": {
-    "url": "/services/data/v50.0/",
+    "url": "/services/data/v53.0/",
     "method": "GET"
   },
   "response": {
     "status": 200,
-    "body": "{\"sobjects\":\"\/services\/data\/v50.0\/sobjects\",\"licensing\":\"\/services\/data\/v50.0\/licensing\",\"connect\":\"\/services\/data\/v50.0\/connect\",\"search\":\"\/services\/data\/v50.0\/search\",\"query\":\"\/services\/data\/v50.0\/query\",\"tooling\":\"\/services\/data\/v50.0\/tooling\",\"chatter\":\"\/services\/data\/v50.0\/chatter\",\"recent\":\"\/services\/data\/v50.0\/recent\"}",
+    "body": "{\"sobjects\":\"\/services\/data\/v53.0\/sobjects\",\"licensing\":\"\/services\/data\/v53.0\/licensing\",\"connect\":\"\/services\/data\/v53.0\/connect\",\"search\":\"\/services\/data\/v53.0\/search\",\"query\":\"\/services\/data\/v53.0\/query\",\"tooling\":\"\/services\/data\/v53.0\/tooling\",\"chatter\":\"\/services\/data\/v53.0\/chatter\",\"recent\":\"\/services\/data\/v53.0\/recent\"}",
     "headers": {
       "Content-Type": "application/json; charset=UTF-8",
       "Sforce-Limit-Info": "api-usage=18/5000"

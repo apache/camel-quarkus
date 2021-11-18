@@ -39,7 +39,6 @@ import org.awaitility.Awaitility;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.anyOf;
@@ -140,7 +139,6 @@ class Aws2SqsTest {
     }
 
     @Test
-    @Disabled
     void sqsAutoCreateDelayedQueue() {
         final String qName = "delayQueue-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         final int delay = 20;

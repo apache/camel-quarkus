@@ -18,7 +18,7 @@ Camel Azure Datalake Gen2 Component
 
 == What's inside
 
-* xref:{cq-camel-components}::azure-storage-datalake-component.adoc[Azure storage datalake service component], URI syntax: `azure-storage-datalake:accountName/fileSystemName`
+* xref:{cq-camel-components}::azure-storage-datalake-component.adoc[Azure Storage Datalake Service component], URI syntax: `azure-storage-datalake:accountName/fileSystemName`
 
 Please refer to the above link for usage and configuration details.
 
