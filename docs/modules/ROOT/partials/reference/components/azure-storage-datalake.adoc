@@ -8,6 +8,6 @@
 :cq-jvm-since: 1.8.0
 :cq-native-since: n/a
 :cq-camel-part-name: azure-storage-datalake
-:cq-camel-part-title: Azure storage datalake service
+:cq-camel-part-title: Azure Storage Datalake Service
 :cq-camel-part-description: Camel Azure Datalake Gen2 Component
 :cq-extension-page-title: Azure storage datalake service

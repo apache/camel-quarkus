@@ -2,7 +2,7 @@
   "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
   "name": "salesforce_api_json",
   "request": {
-    "url": "/cometd/50.0/handshake",
+    "url": "/cometd/53.0/handshake",
     "method": "POST"
   },
   "response": {

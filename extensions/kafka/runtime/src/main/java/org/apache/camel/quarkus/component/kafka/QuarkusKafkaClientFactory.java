@@ -22,8 +22,8 @@ import java.util.Properties;
 import org.apache.camel.component.kafka.DefaultKafkaClientFactory;
 import org.apache.camel.component.kafka.KafkaConfiguration;
 import org.apache.kafka.clients.CommonClientConfigs;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
+import org.apache.kafka.clients.consumer.Consumer;
+import org.apache.kafka.clients.producer.Producer;
 
 /**
  * Custom {@link org.apache.camel.component.kafka.KafkaClientFactory} to enable Kafka configuration properties
@@ -39,13 +39,13 @@ public class QuarkusKafkaClientFactory extends DefaultKafkaClientFactory {
     }
 
     @Override
-    public KafkaProducer getProducer(Properties camelKafkaProperties) {
+    public Producer getProducer(Properties camelKafkaProperties) {
         mergeConfiguration(camelKafkaProperties);
         return super.getProducer(camelKafkaProperties);
     }
 
     @Override
-    public KafkaConsumer getConsumer(Properties camelKafkaProperties) {
+    public Consumer getConsumer(Properties camelKafkaProperties) {
         mergeConfiguration(camelKafkaProperties);
         return super.getConsumer(camelKafkaProperties);
     }

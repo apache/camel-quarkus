@@ -4,7 +4,7 @@
 :cq-artifact-id-base: vertx-kafka
 :cq-native-supported: true
 :cq-status: Stable
-:cq-deprecated: false
+:cq-deprecated: true
 :cq-jvm-since: 1.6.0
 :cq-native-since: 1.6.0
 :cq-camel-part-name: vertx-kafka
