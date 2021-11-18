@@ -23,15 +23,23 @@
 - GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
 - \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
 - Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
+- \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
 - Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
+- \[camel 3.13\] Atlasmap : use jandex index for atlasmap bean discovery [\#2578](https://github.com/apache/camel-quarkus/issues/2578)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus Qpid JMS to 0.30.0 [\#3308](https://github.com/apache/camel-quarkus/pull/3308) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix broken links to SmallRye Reactive Messaging documentation [\#3306](https://github.com/apache/camel-quarkus/pull/3306) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.5.0.Final [\#3305](https://github.com/apache/camel-quarkus/pull/3305) ([jamesnetherton](https://github.com/jamesnetherton))
+- Make the dependency management more consistent [\#3303](https://github.com/apache/camel-quarkus/pull/3303) ([ppalaga](https://github.com/ppalaga))
+- Add route configuration test coverage for endpoint route builder \#2078 [\#3301](https://github.com/apache/camel-quarkus/pull/3301) ([aldettinger](https://github.com/aldettinger))
 - Revert "Fixup 218bef4 Special fix for JMS extensions depending on" [\#3300](https://github.com/apache/camel-quarkus/pull/3300) ([ppalaga](https://github.com/ppalaga))
+- Upgrade Camel to 3.13.0 [\#3299](https://github.com/apache/camel-quarkus/pull/3299) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove management of netty-tcnative-boringssl-static [\#3293](https://github.com/apache/camel-quarkus/pull/3293) ([jamesnetherton](https://github.com/jamesnetherton))
 - Improve Release guide [\#3292](https://github.com/apache/camel-quarkus/pull/3292) ([ppalaga](https://github.com/ppalaga))
 - Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3291](https://github.com/apache/camel-quarkus/pull/3291) ([jamesnetherton](https://github.com/jamesnetherton))
