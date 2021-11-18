@@ -132,6 +132,7 @@
         <module>jacksonxml</module>
         <module>jaxb</module>
         <module>jdbc</module>
+        <module>jfr</module>
         <module>jing</module>
         <module>jira</module>
         <module>jms</module>

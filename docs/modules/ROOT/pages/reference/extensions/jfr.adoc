@@ -3,16 +3,16 @@
 = Jfr
 :linkattrs:
 :cq-artifact-id: camel-quarkus-jfr
-:cq-native-supported: false
-:cq-status: Preview
-:cq-status-deprecation: Preview
+:cq-native-supported: true
+:cq-status: Stable
+:cq-status-deprecation: Stable
 :cq-description: Diagnose Camel applications with Java Flight Recorder
 :cq-deprecated: false
 :cq-jvm-since: 1.7.0
-:cq-native-since: n/a
+:cq-native-since: 2.6.0
 
 [.badges]
-[.badge-key]##JVM since##[.badge-supported]##1.7.0## [.badge-key]##Native##[.badge-unsupported]##unsupported##
+[.badge-key]##JVM since##[.badge-supported]##1.7.0## [.badge-key]##Native since##[.badge-supported]##2.6.0##
 
 Diagnose Camel applications with Java Flight Recorder
 
@@ -24,6 +24,10 @@ Please refer to the above link for usage and configuration details.
 
 == Maven coordinates
 
+https://code.quarkus.io/?extension-search=camel-quarkus-jfr[Create a new project with this extension on code.quarkus.io, window="_blank"]
+
+Or add the coordinates to your existing project:
+
 [source,xml]
 ----
 <dependency>
@@ -34,6 +38,43 @@ Please refer to the above link for usage and configuration details.
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
 
+== Usage
+
+### Starting flight recording
+
+To enable Java Flight Recorder to start a recording and automatically dump the recording to disk after Camel startup is complete, use the following configuration in `application.properties`.
+
+[source,properties]
+----
+quarkus.camel.jfr.startup-recorder-recording=true
+----
+
+Alternatively you can pass some Java options to the runnable application JAR or the native executable to enable flight recording at application startup.
+
+In JVM mode the application runnable JAR can be executed as follows.
+
+[source,shell]
+----
+$ java -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr -jar quarkus-run.jar
+----
+
+In native mode, the native executable can be executed as follows.
+
+[source,shell]
+----
+$ ./my-application-runner -XX:+FlightRecorder -XX:StartFlightRecording=filename=recording.jfr
+----
+
+### Flight recording in native mode
+
+To build a native image with Java Flight Recorder support, it is mandatory to enable VM inspection via the following configuration property in `application.properties`.
+
+[source,properties]
+----
+quarkus.native.enable-vm-inspection=true
+----
+
+
 == Additional Camel Quarkus configuration
 
 [width="100%",cols="80,5,15",options="header"]
@@ -41,31 +82,31 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 | Configuration property | Type | Default
 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-dir]]`link:#quarkus.camel.jfr.startup-recorder-dir[quarkus.camel.jfr.startup-recorder-dir]`
+| [[quarkus.camel.jfr.startup-recorder-dir]]`link:#quarkus.camel.jfr.startup-recorder-dir[quarkus.camel.jfr.startup-recorder-dir]`
 
 Directory to store the recording. By default the current directory will be used. Use false to turn off saving the recording to disk.
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-duration]]`link:#quarkus.camel.jfr.startup-recorder-duration[quarkus.camel.jfr.startup-recorder-duration]`
+| [[quarkus.camel.jfr.startup-recorder-duration]]`link:#quarkus.camel.jfr.startup-recorder-duration[quarkus.camel.jfr.startup-recorder-duration]`
 
 How long time to run the startup recorder. Use 0 (default) to keep the recorder running until the JVM is exited. Use -1 to stop the recorder right after Camel has been started (to only focus on potential Camel startup performance bottlenecks) Use a positive value to keep recording for N seconds. When the recorder is stopped then the recording is auto saved to disk (note: save to disk can be disabled by setting startupRecorderDir to false).
 | `java.lang.Long`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-max-depth]]`link:#quarkus.camel.jfr.startup-recorder-max-depth[quarkus.camel.jfr.startup-recorder-max-depth]`
+| [[quarkus.camel.jfr.startup-recorder-max-depth]]`link:#quarkus.camel.jfr.startup-recorder-max-depth[quarkus.camel.jfr.startup-recorder-max-depth]`
 
 To filter our sub steps at a maximum depth. Use -1 for no maximum. Use 0 for no sub steps. Use 1 for max 1 sub step, and so forth. The default is -1.
 | `java.lang.Integer`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-profile]]`link:#quarkus.camel.jfr.startup-recorder-profile[quarkus.camel.jfr.startup-recorder-profile]`
+| [[quarkus.camel.jfr.startup-recorder-profile]]`link:#quarkus.camel.jfr.startup-recorder-profile[quarkus.camel.jfr.startup-recorder-profile]`
 
 To use a specific Java Flight Recorder profile configuration, such as default or profile. The default is default.
 | `string`
 | 
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.jfr.startup-recorder-recording]]`link:#quarkus.camel.jfr.startup-recorder-recording[quarkus.camel.jfr.startup-recorder-recording]`
+| [[quarkus.camel.jfr.startup-recorder-recording]]`link:#quarkus.camel.jfr.startup-recorder-recording[quarkus.camel.jfr.startup-recorder-recording]`
 
 To enable Java Flight Recorder to start a recording and automatic dump the recording to disk after startup is complete. This requires that camel-jfr is on the classpath. The default is false.
 | `java.lang.Boolean`
