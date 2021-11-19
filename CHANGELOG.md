@@ -33,6 +33,7 @@
 
 **Merged pull requests:**
 
+- Bump nimbus-jose-jwt version from Quarkus bom [\#3309](https://github.com/apache/camel-quarkus/pull/3309) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus Qpid JMS to 0.30.0 [\#3308](https://github.com/apache/camel-quarkus/pull/3308) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix broken links to SmallRye Reactive Messaging documentation [\#3306](https://github.com/apache/camel-quarkus/pull/3306) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.5.0.Final [\#3305](https://github.com/apache/camel-quarkus/pull/3305) ([jamesnetherton](https://github.com/jamesnetherton))
