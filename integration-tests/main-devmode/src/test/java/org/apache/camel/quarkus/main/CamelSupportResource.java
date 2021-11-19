@@ -45,4 +45,11 @@ public class CamelSupportResource {
                 .add("routes", routes)
                 .build();
     }
+
+    @Path("/getShutdownStrategy")
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getShutdownStrategy() {
+        return context.getShutdownStrategy().getClass().getSimpleName();
+    }
 }

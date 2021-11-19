@@ -29,6 +29,7 @@ import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
+import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ClassResolver;
@@ -89,7 +90,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
 
     @Override
     protected ShutdownStrategy createShutdownStrategy() {
-        return new NoShutdownStrategy();
+        return new DefaultShutdownStrategy();
     }
 
     @Override
