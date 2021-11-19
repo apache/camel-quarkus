@@ -98,7 +98,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <jvmTarget>${maven.compiler.target}</jvmTarget>
+                    <jvmTarget>${maven.compiler.release}</jvmTarget>
                 </configuration>
             </plugin>
         </plugins>
