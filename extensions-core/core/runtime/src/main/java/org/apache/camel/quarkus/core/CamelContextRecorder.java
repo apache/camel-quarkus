@@ -86,6 +86,10 @@ public class CamelContextRecorder {
         return new RuntimeValue<>(runtime);
     }
 
+    public RuntimeValue<CamelContextCustomizer> createNoShutdownStrategyCustomizer() {
+        return new RuntimeValue((CamelContextCustomizer) context -> context.setShutdownStrategy(new NoShutdownStrategy()));
+    }
+
     public void addRoutes(RuntimeValue<CamelContext> context, String typeName) {
         try {
             addRoutes(

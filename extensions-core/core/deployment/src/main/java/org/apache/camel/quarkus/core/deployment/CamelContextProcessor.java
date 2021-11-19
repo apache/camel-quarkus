@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 import io.quarkus.arc.deployment.BeanContainerBuildItem;
 import io.quarkus.arc.deployment.BeanDiscoveryFinishedBuildItem;
 import io.quarkus.arc.deployment.SyntheticBeansRuntimeInitBuildItem;
+import io.quarkus.deployment.IsDevelopment;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Consume;
 import io.quarkus.deployment.annotations.ExecutionTime;
@@ -100,6 +102,24 @@ public class CamelContextProcessor {
         }
 
         return new CamelContextBuildItem(context);
+    }
+
+    /**
+     * This step customizes camel context for development mode.
+     *
+     * @param recorder the recorder
+     * @param producer producer of context customizer build item
+     */
+    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = IsDevelopment.class)
+    public void devModeCamelContextCustomizations(
+            CamelContextRecorder recorder,
+            BuildProducer<CamelContextCustomizerBuildItem> producer) {
+        String val = CamelSupport.getOptionalConfigValue("camel.main.shutdownTimeout", String.class, null);
+        if (val == null) {
+            //if no graceful timeout is set in development mode, graceful shutdown is replaced with no shutdown
+            producer.produce(new CamelContextCustomizerBuildItem(recorder.createNoShutdownStrategyCustomizer()));
+        }
     }
 
     /**
