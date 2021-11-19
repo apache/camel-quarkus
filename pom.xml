@@ -189,10 +189,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- maven-compiler-plugin -->
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.testTarget>${maven.compiler.target}</maven.compiler.testTarget>
-        <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
+        <maven.compiler.release>11</maven.compiler.release>
 
         <!-- maven-enforcer-plugin -->
         <min-maven-version>3.6.2</min-maven-version>
