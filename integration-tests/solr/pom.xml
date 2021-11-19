@@ -31,6 +31,7 @@
     <description>Integration tests for Camel Quarkus Solr extension</description>
 
     <properties>
+        <camel-quarkus.version>2.5.0-SNAPSHOT</camel-quarkus.version>
         <solr.trust-store>${project.basedir}/target/ssl/trust-store.jks</solr.trust-store>
     </properties>
 
@@ -83,9 +84,6 @@
                     <name>!quickly</name>
                 </property>
             </activation>
-            <properties>
-                <camel-quarkus.version>${project.version}</camel-quarkus.version>
-            </properties>
             <build>
                 <plugins>
                     <plugin>
