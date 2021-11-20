@@ -2,37 +2,11 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.4.0...HEAD)
-
-**Closed issues:**
-
-- Debezium tests are using JUnit 4 Assertions and Assumptions [\#3289](https://github.com/apache/camel-quarkus/issues/3289)
-- quarkus:dev NPE KafkaProcessor.configureKafkaComponentForDevServices\(KafkaProcessor.java:65\) [\#3284](https://github.com/apache/camel-quarkus/issues/3284)
-- Camel-quarkus-couchbase Consumer is not working [\#3283](https://github.com/apache/camel-quarkus/issues/3283)
-- Document that a maintenance branch should be created also in examples for each minor release [\#3281](https://github.com/apache/camel-quarkus/issues/3281)
-- AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
-- \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
-- avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
-- Fix of issue \#3080 \(Sql - enable stored procedure test for different db types\) misses Oracle db type [\#3268](https://github.com/apache/camel-quarkus/issues/3268)
-- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3259](https://github.com/apache/camel-quarkus/issues/3259)
-- Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
-- Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
-- Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
-- \[Quarkus 2.5.0\] Kafka SASL / SSL tests are failing [\#3239](https://github.com/apache/camel-quarkus/issues/3239)
-- \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
-- GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
-- \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
-- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
-- \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
-- Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
-- Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
-- Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
-- Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
-- \[camel 3.13\] Atlasmap : use jandex index for atlasmap bean discovery [\#2578](https://github.com/apache/camel-quarkus/issues/2578)
-- Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.5.0...HEAD)
 
 **Merged pull requests:**
 
+- Make building possible with Java 11 through 17 [\#3313](https://github.com/apache/camel-quarkus/pull/3313) ([ppalaga](https://github.com/ppalaga))
 - Bump nimbus-jose-jwt version from Quarkus bom [\#3309](https://github.com/apache/camel-quarkus/pull/3309) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus Qpid JMS to 0.30.0 [\#3308](https://github.com/apache/camel-quarkus/pull/3308) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix broken links to SmallRye Reactive Messaging documentation [\#3306](https://github.com/apache/camel-quarkus/pull/3306) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -868,6 +842,38 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [2.5.0](https://github.com/apache/camel-quarkus/tree/2.5.0) (2021-11-19)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.4.0...2.5.0)
+
+**Closed issues:**
+
+- Debezium tests are using JUnit 4 Assertions and Assumptions [\#3289](https://github.com/apache/camel-quarkus/issues/3289)
+- quarkus:dev NPE KafkaProcessor.configureKafkaComponentForDevServices\(KafkaProcessor.java:65\) [\#3284](https://github.com/apache/camel-quarkus/issues/3284)
+- Camel-quarkus-couchbase Consumer is not working [\#3283](https://github.com/apache/camel-quarkus/issues/3283)
+- Document that a maintenance branch should be created also in examples for each minor release [\#3281](https://github.com/apache/camel-quarkus/issues/3281)
+- AWS Integration test doesn't clean bucket [\#3276](https://github.com/apache/camel-quarkus/issues/3276)
+- \[camel 3.13.0\]compilation failure in ftp integration test which is caused by recent SSHD upgrade in Camel 3.13 [\#3274](https://github.com/apache/camel-quarkus/issues/3274)
+- Fix of issue \#3080 \(Sql - enable stored procedure test for different db types\) misses Oracle db type [\#3268](https://github.com/apache/camel-quarkus/issues/3268)
+- Avoid using Camel Salesforce DTO types as the return type or method parameters in integration tests [\#3259](https://github.com/apache/camel-quarkus/issues/3259)
+- Cannot run tests against alternative BOMs [\#3258](https://github.com/apache/camel-quarkus/issues/3258)
+- Re-enable KafkaSaslSslIT and KafkaSslIT [\#3254](https://github.com/apache/camel-quarkus/issues/3254)
+- Sql - native tests fail on NPE during db initialization [\#3247](https://github.com/apache/camel-quarkus/issues/3247)
+- \[Quarkus 2.5.0\] Kafka SASL / SSL tests are failing [\#3239](https://github.com/apache/camel-quarkus/issues/3239)
+- \[Quarkus-Main\] Kafka DevService properties  [\#3227](https://github.com/apache/camel-quarkus/issues/3227)
+- GraalVM 21.2.0 + Java 16 - Native build fails [\#3226](https://github.com/apache/camel-quarkus/issues/3226)
+- \[camel 3.13.0\] `MllpTest.testCharsetFromMsh18` failure [\#3225](https://github.com/apache/camel-quarkus/issues/3225)
+- Make sure all AWS extensions tested with Quarkus clients have the option documented [\#3201](https://github.com/apache/camel-quarkus/issues/3201)
+- Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
+- Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
+- Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
+- Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
+- avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
+- \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
+- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
+- Aws2-ddb: Document usage of quarkus-amazon-dynamodb for client creation \(and limitations\) [\#2989](https://github.com/apache/camel-quarkus/issues/2989)
+- \[camel 3.13\] Atlasmap : use jandex index for atlasmap bean discovery [\#2578](https://github.com/apache/camel-quarkus/issues/2578)
+
 ## [2.4.0](https://github.com/apache/camel-quarkus/tree/2.4.0) (2021-10-22)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.3.0...2.4.0)
@@ -920,7 +926,6 @@
 **Closed issues:**
 
 - RestClient and Opentracing runs into StackOverflowError [\#3145](https://github.com/apache/camel-quarkus/issues/3145)
-- Make integration tests runnable against Quarkus Platform BOM [\#3123](https://github.com/apache/camel-quarkus/issues/3123)
 - Split Quartz test into Quartz and Cron [\#3086](https://github.com/apache/camel-quarkus/issues/3086)
 - JdbcAggregationRepository build error by spring JtaTransactionManager  [\#3054](https://github.com/apache/camel-quarkus/issues/3054)
 - Examples should have use Quarkus Main Application  [\#1280](https://github.com/apache/camel-quarkus/issues/1280)
