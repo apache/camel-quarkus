@@ -42,6 +42,7 @@
         <module>core-discovery-disabled</module>
         <module>main</module>
         <module>main-devmode</module>
+        <module>main-disabled</module>
         <module>main-discovery-disabled</module>
         <module>main-xml-jaxb</module>
         <module>main-xml-io</module>
