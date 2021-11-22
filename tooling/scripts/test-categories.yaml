@@ -198,6 +198,7 @@ group-13:
   - jira
   - js-dsl
   - kubernetes
+  - main-disabled
   - salesforce
   - sap-netweaver
   - servicenow

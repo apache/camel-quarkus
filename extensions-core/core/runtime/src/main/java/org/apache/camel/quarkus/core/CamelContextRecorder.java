@@ -16,12 +16,15 @@
  */
 package org.apache.camel.quarkus.core;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import io.quarkus.arc.runtime.BeanContainer;
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
 import org.apache.camel.CamelContext;
+import org.apache.camel.RouteConfigurationsBuilder;
 import org.apache.camel.RoutesBuilder;
 import org.apache.camel.builder.LambdaRouteBuilder;
 import org.apache.camel.builder.RouteBuilder;
@@ -86,37 +89,39 @@ public class CamelContextRecorder {
         return new RuntimeValue((CamelContextCustomizer) context -> context.setShutdownStrategy(new NoShutdownStrategy()));
     }
 
-    public void addRoutes(RuntimeValue<CamelContext> context, String typeName) {
-        try {
-            addRoutes(
-                    context,
-                    context.getValue().getClassResolver().resolveClass(typeName, RoutesBuilder.class));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+    public void addRoutes(RuntimeValue<CamelContext> context, List<String> nonCdiRoutesBuilderClassNames) {
+        List<RoutesBuilder> allRoutesBuilders = new ArrayList<>();
 
-    public void addRoutes(RuntimeValue<CamelContext> context, Class<? extends RoutesBuilder> type) {
         try {
-            context.getValue().addRoutes(
-                    context.getValue().getInjector().newInstance(type));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+            for (String nonCdiRoutesBuilderClassName : nonCdiRoutesBuilderClassNames) {
+                Class<RoutesBuilder> nonCdiRoutesBuilderClass = context.getValue().getClassResolver()
+                        .resolveClass(nonCdiRoutesBuilderClassName, RoutesBuilder.class);
+                allRoutesBuilders.add(context.getValue().getInjector().newInstance(nonCdiRoutesBuilderClass));
+            }
 
-    public void addRoutesFromContainer(RuntimeValue<CamelContext> context) {
-        try {
             for (LambdaRouteBuilder builder : context.getValue().getRegistry().findByType(LambdaRouteBuilder.class)) {
-                context.getValue().addRoutes(new RouteBuilder() {
+                allRoutesBuilders.add(new RouteBuilder() {
                     @Override
                     public void configure() throws Exception {
                         builder.accept(this);
                     }
                 });
             }
-            for (RoutesBuilder builder : context.getValue().getRegistry().findByType(RoutesBuilder.class)) {
-                context.getValue().addRoutes(builder);
+
+            for (RoutesBuilder cdiRoutesBuilder : context.getValue().getRegistry().findByType(RoutesBuilder.class)) {
+                allRoutesBuilders.add(cdiRoutesBuilder);
+            }
+
+            // Add RouteConfigurationsBuilders before RoutesBuilders
+            for (RoutesBuilder routesBuilder : allRoutesBuilders) {
+                if (routesBuilder instanceof RouteConfigurationsBuilder) {
+                    context.getValue().addRoutesConfigurations((RouteConfigurationsBuilder) routesBuilder);
+                }
+            }
+            for (RoutesBuilder routesBuilder : allRoutesBuilders) {
+                if (!(routesBuilder instanceof RouteConfigurationsBuilder)) {
+                    context.getValue().addRoutes(routesBuilder);
+                }
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -164,7 +164,7 @@ public class CamelMainProcessor {
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     /*
      * @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
-     * fully initialized. This is required as under the hoods the camel registry may look-up beans form the
+     * fully initialized. This is required as under the hoods the camel registry may look-up beans from the
      * container thus we need it to be fully initialized to avoid unexpected behaviors.
      */
     @Consume(SyntheticBeansRuntimeInitBuildItem.class)

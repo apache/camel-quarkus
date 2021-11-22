@@ -149,7 +149,7 @@ public class CamelContextProcessor {
     @BuildStep(onlyIfNot = CamelMainEnabled.class)
     @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
     /* @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
-     * fully initialized. This is required as under the hoods the camel registry may look-up beans form the
+     * fully initialized. This is required as under the hoods the camel registry may look-up beans from the
      * container thus we need it to be fully initialized to avoid unexpected behaviors. */
     @Consume(SyntheticBeansRuntimeInitBuildItem.class)
     public CamelRuntimeBuildItem runtime(
@@ -162,17 +162,12 @@ public class CamelContextProcessor {
             List<CamelRuntimeTaskBuildItem> runtimeTasks,
             CamelConfig config) {
 
-        for (CamelRoutesBuilderClassBuildItem item : routesBuilderClasses) {
-            // don't add routes builders that are known by the container
-            if (containerBeans.getClasses().contains(item.getDotName())) {
-                continue;
-            }
-
-            recorder.addRoutes(context.getCamelContext(), item.getDotName().toString());
-        }
-
         if (config.routesDiscovery.enabled) {
-            recorder.addRoutesFromContainer(context.getCamelContext());
+            List<String> nonCdiRoutesBuilderClassNames = routesBuilderClasses.stream()
+                    .filter(item -> !containerBeans.getClasses().contains(item.getDotName()))
+                    .map(item -> item.getDotName().toString())
+                    .collect(Collectors.toList());
+            recorder.addRoutes(context.getCamelContext(), nonCdiRoutesBuilderClassNames);
         }
 
         // run the customizer before starting the context to give a last second
