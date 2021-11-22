@@ -16,7 +16,11 @@
  */
 package org.apache.camel.quarkus.component.sql.it;
 
+import java.io.File;
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -153,14 +157,28 @@ public class SqlResource {
     @Path("/storedproc")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String callStoredProcedure(@QueryParam("numA") int numA, @QueryParam("numB") int numB) {
+    public String callStoredProcedure(@QueryParam("numA") int numA, @QueryParam("numB") int numB) throws Exception {
         Map<String, Object> args = new HashMap<>();
         args.put("num1", numA);
         args.put("num2", numB);
 
-        Map<String, List<LinkedCaseInsensitiveMap>> results = producerTemplate
-                .requestBodyAndHeaders("sql-stored:ADD_NUMS(INTEGER ${headers.num1},INTEGER ${headers.num2})", null, args,
-                        Map.class);
+        String fileName = null;
+        String url;
+        if ("derby".equals(dbKind)) {
+
+            File f = File.createTempFile("storedProcedureDerby", ".txt", Paths.get("target").toFile());
+            f.deleteOnExit();
+            fileName = f.getName();
+
+            args.put("fileName", fileName);
+
+            url = "sql-stored:ADD_NUMS(INTEGER ${headers.num1},INTEGER ${headers.num2}, CHAR ${headers.fileName})";
+        } else {
+            url = "sql-stored:ADD_NUMS(INTEGER ${headers.num1},INTEGER ${headers.num2})";
+        }
+
+        Map<String, List<LinkedCaseInsensitiveMap>> results = producerTemplate.requestBodyAndHeaders(url, null, args,
+                Map.class);
 
         //different db types behaves differently
         switch (dbKind) {
@@ -175,6 +193,8 @@ public class SqlResource {
                     List.class);
 
             return String.valueOf(addNumsResults.get(0).get("value"));
+        case "derby":
+            return Files.readString(Paths.get("target", fileName), StandardCharsets.UTF_8);
         default:
             return results.get("#result-set-1").get(0).values().iterator().next().toString();
         }
