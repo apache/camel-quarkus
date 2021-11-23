@@ -24,7 +24,6 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.awaitility.Awaitility;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.containsInAnyOrder;
@@ -51,7 +50,9 @@ class MicroProfileHealthTest {
     @Test
     public void testHealthDownStatus() {
         try {
-            RestAssured.get("/microprofile-health/checks/failing/true")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "true")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
 
@@ -64,7 +65,9 @@ class MicroProfileHealthTest {
                             containsInAnyOrder("camel-readiness-checks", "camel-liveness-checks"),
                             "checks.data.context", containsInAnyOrder(null, "UP"));
         } finally {
-            RestAssured.get("/microprofile-health/checks/failing/false")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "false")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
         }
@@ -85,7 +88,9 @@ class MicroProfileHealthTest {
     @Test
     public void testLivenessDownStatus() {
         try {
-            RestAssured.get("/microprofile-health/checks/failing/true")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "true")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
 
@@ -99,7 +104,9 @@ class MicroProfileHealthTest {
                             "checks.data.test-liveness", containsInAnyOrder("UP"),
                             "checks.data.failing-check", containsInAnyOrder("DOWN"));
         } finally {
-            RestAssured.get("/microprofile-health/checks/failing/false")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "false")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
         }
@@ -120,7 +127,9 @@ class MicroProfileHealthTest {
     @Test
     public void testReadinessDownStatus() {
         try {
-            RestAssured.get("/microprofile-health/checks/failing/true")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "true")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
 
@@ -133,7 +142,9 @@ class MicroProfileHealthTest {
                             "checks.data.context", containsInAnyOrder("UP"),
                             "checks.data.test-readiness", containsInAnyOrder("UP"));
         } finally {
-            RestAssured.get("/microprofile-health/checks/failing/false")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "false")
+                    .post("/microprofile-health/failing-check")
                     .then()
                     .statusCode(204);
         }
@@ -142,7 +153,7 @@ class MicroProfileHealthTest {
     @Test
     public void testRouteStoppedDownStatus() {
         try {
-            RestAssured.get("/microprofile-health/route/healthyRoute/stop")
+            RestAssured.post("/microprofile-health/route/healthyRoute/stop")
                     .then()
                     .statusCode(204);
 
@@ -152,17 +163,18 @@ class MicroProfileHealthTest {
                     .body("status", is("DOWN"),
                             "checks.data.'route:healthyRoute'", containsInAnyOrder(null, "DOWN"));
         } finally {
-            RestAssured.get("/microprofile-health/route/healthyRoute/start")
+            RestAssured.post("/microprofile-health/route/healthyRoute/start")
                     .then()
                     .statusCode(204);
         }
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3277")
     @Test
     public void testFailureThreshold() {
         try {
-            RestAssured.get("/microprofile-health/route/checkIntervalThreshold/stop")
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "true")
+                    .post("/microprofile-health/failure-threshold")
                     .then()
                     .statusCode(204);
 
@@ -171,7 +183,7 @@ class MicroProfileHealthTest {
                     .contentType(ContentType.JSON)
                     .header("Content-Type", containsString("charset=UTF-8"))
                     .body("status", is("UP"),
-                            "checks.data.'route:checkIntervalThreshold'", containsInAnyOrder(null, "UP"));
+                            "checks.data.failure-threshold", containsInAnyOrder("UP", "UP"));
 
             // Poll the health endpoint until the threshold / interval is exceeded and the health state transitions to DOWN
             Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
@@ -182,15 +194,17 @@ class MicroProfileHealthTest {
                         .jsonPath();
 
                 String status = result.getString("status");
-                List<String> routeStatus = result.getList("checks.data.'route:checkIntervalThreshold'");
+                List<String> routeStatus = result.getList("checks.data.failure-threshold");
                 return status.equals("DOWN") && routeStatus.contains("DOWN");
             });
-        } finally {
-            RestAssured.get("/microprofile-health/route/checkIntervalThreshold/start")
+
+            RestAssured.given()
+                    .queryParam("returnStatusUp", true)
+                    .post("/microprofile-health/failure-threshold/return/status")
                     .then()
                     .statusCode(204);
 
-            // Wait for the threshold check to report status UP
+            // Try again with a poll delay > the failure interval and wait for the health state to transition to UP
             Awaitility.await().atMost(10, TimeUnit.SECONDS).pollDelay(50, TimeUnit.MILLISECONDS).until(() -> {
                 JsonPath result = RestAssured.when().get("/q/health").then()
                         .contentType(ContentType.JSON)
@@ -199,9 +213,21 @@ class MicroProfileHealthTest {
                         .jsonPath();
 
                 String status = result.getString("status");
-                List<String> routeStatus = result.getList("checks.data.'route:checkIntervalThreshold'");
+                List<String> routeStatus = result.getList("checks.data.failure-threshold");
                 return status.equals("UP") && routeStatus.contains("UP");
             });
+        } finally {
+            RestAssured.given()
+                    .queryParam("returnStatusUp", false)
+                    .post("/microprofile-health/failure-threshold/return/status")
+                    .then()
+                    .statusCode(204);
+
+            RestAssured.given()
+                    .queryParam("healthCheckEnabled", "false")
+                    .post("/microprofile-health/failure-threshold")
+                    .then()
+                    .statusCode(204);
         }
     }
 }
