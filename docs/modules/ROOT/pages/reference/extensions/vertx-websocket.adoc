@@ -14,7 +14,10 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.1.0## [.badge-key]##Native since##[.badge-supported]##1.1.0##
 
-Camel WebSocket support with Vert.x
+This extension enables you to create WebSocket endpoints to that act as either a WebSocket server, or as a client to connect an existing WebSocket .
+
+It is built on top of the Eclipse Vert.x HTTP server provided by the `quarkus-vertx-http` extension.
+
 
 == What's inside
 
@@ -37,3 +40,36 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Usage
+
+=== Vert.x WebSocket consumers
+
+When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
+the Quarkus HTTP server.
+
+The configuration of the consumer can be simplified to only include the resource path of the WebSocket. For example.
+
+[source,java]
+----
+from("vertx-websocket://my-websocket-path")
+    .setBody().constant("Hello World");
+----
+
+
+
+== Additional Camel Quarkus configuration
+
+=== Vert.x WebSocket server configuration
+
+Configuration of the Vert.x WebSocket server is managed by Quarkus. Refer to the https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus HTTP configuration guide]
+for the full list of configuration options.
+
+To configure SSL for the Vert.x WebSocket server, follow the https://quarkus.io/guides/http-reference#ssl[secure connections with SSL guide].
+Note that configuring the server for SSL with `SSLContextParameters` is not currently supported.
+
+=== Character encodings
+
+Check the xref:user-guide/native-mode.adoc#charsets[Character encodings section] of the Native mode guide if you expect
+your application to send or receive requests using non-default encodings.
+

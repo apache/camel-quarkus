@@ -1,0 +1,3 @@
+This extension enables you to create WebSocket endpoints to that act as either a WebSocket server, or as a client to connect an existing WebSocket .
+
+It is built on top of the Eclipse Vert.x HTTP server provided by the `quarkus-vertx-http` extension.

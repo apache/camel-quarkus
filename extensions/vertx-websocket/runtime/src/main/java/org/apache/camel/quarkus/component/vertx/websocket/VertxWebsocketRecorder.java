@@ -55,7 +55,7 @@ public class VertxWebsocketRecorder {
 
         @Override
         public void start() throws InterruptedException, ExecutionException {
-            // Noop as quarkus-vertx-web handles the server lifecycle
+            // Noop as quarkus-vertx-http handles the server lifecycle
         }
     }
 }
