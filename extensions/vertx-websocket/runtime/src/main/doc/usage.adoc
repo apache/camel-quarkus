@@ -1,0 +1,13 @@
+=== Vert.x WebSocket consumers
+
+When you create a Vert.x WebSocket consumer (E.g with `from("vertx-websocket")`), the host and port configuration in the URI are redundant since the WebSocket will always be hosted on 
+the Quarkus HTTP server.
+
+The configuration of the consumer can be simplified to only include the resource path of the WebSocket. For example.
+
+[source,java]
+----
+from("vertx-websocket://my-websocket-path")
+    .setBody().constant("Hello World");
+----
+
