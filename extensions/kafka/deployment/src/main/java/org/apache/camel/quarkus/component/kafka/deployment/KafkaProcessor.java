@@ -62,8 +62,10 @@ class KafkaProcessor {
         Optional<String> brokers = config.getOptionalValue(CAMEL_KAFKA_BROKERS, String.class);
 
         if (brokers.isEmpty() && kafkaBuildTimeConfig.devservices.enabled.orElse(true)) {
-            runTimeConfig.produce(new RunTimeConfigurationDefaultBuildItem(CAMEL_KAFKA_BROKERS,
-                    devServiceResult.getConfig().get(KAFKA_BOOTSTRAP_SERVERS)));
+            String kafkaBootstrapServers = devServiceResult.getConfig().get(KAFKA_BOOTSTRAP_SERVERS);
+            if (kafkaBootstrapServers != null) {
+                runTimeConfig.produce(new RunTimeConfigurationDefaultBuildItem(CAMEL_KAFKA_BROKERS, kafkaBootstrapServers));
+            }
         }
     }
 }
