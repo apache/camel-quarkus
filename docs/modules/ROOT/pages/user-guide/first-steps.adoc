@@ -200,8 +200,6 @@ $ ls -lh target/*.jar
 ...
 ----
 
-Instead of including every depenency refered to in the pom and their depenencies, this single jar containers only the class files your application actually uses.
-
 ===== Native mode
 
 To prepare a native executable using GraalVM, run the following command:
