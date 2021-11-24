@@ -4,11 +4,11 @@ The following guide outlines how to adapt your code to changes that were made in
 
 == Graceful shutdown strategy is used by default
 
-In previous releases, graceful shutdown strategy (default strategy in Camel, see https://camel.apache.org/manual/graceful-shutdown.html[documentation] ) wasn't used by default.
+In previous releases, graceful shutdown strategy (default strategy in Camel) wasn't used by default.
 Shutdown wasn't controlled by any strategy.
 
 This is no longer the case.
-Graceful shutdown strategy is enabled by default (see https://camel.apache.org/manual/graceful-shutdown.html[documentation]) with one exception only.
+Graceful shutdown strategy is enabled by default with one exception only.
 If timeout for graceful shutdown is not set and application runs in a development mode, no shutdown strategy is used (behavior for the development mode without timeout for graceful timeout wasn't changed).
 
 `DefaultShutdownStrategy` could be configured via `application.properties`.
