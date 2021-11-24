@@ -6,11 +6,15 @@
 
 **Closed issues:**
 
+- Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
 - FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
+- \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
 - `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
 
 **Merged pull requests:**
 
+- Fix `MicroProfileHealthTest.testFailureThreshold` test failure [\#3322](https://github.com/apache/camel-quarkus/pull/3322) ([jamesnetherton](https://github.com/jamesnetherton))
+- Document that vertx-websocket consumers run on the Quarkus Vert.x web server [\#3320](https://github.com/apache/camel-quarkus/pull/3320) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.6.0 [\#3317](https://github.com/apache/camel-quarkus/pull/3317) ([zbendhiba](https://github.com/zbendhiba))
 - Disable FOP integration test failed in native mode on Mac OS \#3280 [\#3314](https://github.com/apache/camel-quarkus/pull/3314) ([ffang](https://github.com/ffang))
 - Make building possible with Java 11 through 17 [\#3313](https://github.com/apache/camel-quarkus/pull/3313) ([ppalaga](https://github.com/ppalaga))
