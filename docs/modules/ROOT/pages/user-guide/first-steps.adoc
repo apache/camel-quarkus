@@ -189,6 +189,19 @@ Notice the boot time around a second.
 
 The thin `jar` contains just the application code. To run it, the dependencies in `target/quarkus-app/lib` are required too.
 
+There's also the option to create a 'fat' runnable `jar` file:
+
+[source,shell]
+----
+$ mvn clean package -Dquarkus.package.type=uber-jar
+$ ls -lh target/*.jar
+...
+-rw-r--r--. 1 ppalaga ppalaga 24M Oct 11 19:12  my-app-0.0.1-SNAPSHOT-runner.jar
+...
+----
+
+Instead of including every depenency refered to in the pom and their depenencies, this single jar containers only the class files your application actually uses.
+
 ===== Native mode
 
 To prepare a native executable using GraalVM, run the following command:
