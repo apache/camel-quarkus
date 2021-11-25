@@ -56,10 +56,6 @@
             <artifactId>quarkus-arc</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-common</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-development-mode-spi</artifactId>
         </dependency>
