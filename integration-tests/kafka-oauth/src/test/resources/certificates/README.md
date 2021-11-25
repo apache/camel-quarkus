@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,17 +16,33 @@
 # limitations under the License.
 #
 
-# This is a generated file. Do not edit directly!
-# To re-generate, run the following command from the top level directory:
+## 
+# Inspired from https://github.com/quarkusio/quarkus/tree/main/integration-tests/kafka-oauth-keycloak/
 #
-#   mvn -N cq:update-quarkus-metadata
-#
----
-name: "Camel Jfr"
-description: "Diagnose Camel applications with Java Flight Recorder"
-metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jfr.html"
-  categories:
-  - "integration"
-  status:
-  - "stable"
+# Generating the certificates and keystore
+
+## Creating a self-signed CA certificate and truststore
+
+```bash
+./gen-ca.sh
+```
+
+This creates `crt.ca` and adds the certificate to the keystore `ca-truststore.p12`.
+
+## Creating a server certificate and add it to keystore
+
+```bash
+./gen-keycloak-certs.sh
+```
+
+This creates server certificate for Keycloak, signs it and adds it to keystore `keycloak.server.keystore.p12`.
+
+## Cleanup
+
+```bash
+rm ca.srl
+rm ca.crt
+rm ca.key
+rm cert-file
+rm cert-signed
+```

@@ -39,6 +39,7 @@ group-02:
   - jackson-avro
   - jackson-protobuf
   - jfr
+  - kafka-oauth
   - oaipmh
   - pubnub
   - protobuf
