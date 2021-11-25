@@ -6,16 +6,25 @@
 
 **Closed issues:**
 
+- Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
+- camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
 - Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
 - FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
 - \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
+- Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called [\#3260](https://github.com/apache/camel-quarkus/issues/3260)
 - `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
+- \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
 
 **Merged pull requests:**
 
+- Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services [\#3330](https://github.com/apache/camel-quarkus/pull/3330) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add manifest to camel-quarkus-support-spring source JARs [\#3328](https://github.com/apache/camel-quarkus/pull/3328) ([jamesnetherton](https://github.com/jamesnetherton))
+- Sql test using derby doesn't start dev service and stored procedure is not working on derby db [\#3324](https://github.com/apache/camel-quarkus/pull/3324) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Fix `MicroProfileHealthTest.testFailureThreshold` test failure [\#3322](https://github.com/apache/camel-quarkus/pull/3322) ([jamesnetherton](https://github.com/jamesnetherton))
 - Document that vertx-websocket consumers run on the Quarkus Vert.x web server [\#3320](https://github.com/apache/camel-quarkus/pull/3320) ([jamesnetherton](https://github.com/jamesnetherton))
+- JFR Native support [\#3319](https://github.com/apache/camel-quarkus/pull/3319) ([jamesnetherton](https://github.com/jamesnetherton))
 - Next is 2.6.0 [\#3317](https://github.com/apache/camel-quarkus/pull/3317) ([zbendhiba](https://github.com/zbendhiba))
+- core: Add RouteConfigurationsBuilder before regular RoutesBuilder whe… [\#3316](https://github.com/apache/camel-quarkus/pull/3316) ([aldettinger](https://github.com/aldettinger))
 - Disable FOP integration test failed in native mode on Mac OS \#3280 [\#3314](https://github.com/apache/camel-quarkus/pull/3314) ([ffang](https://github.com/ffang))
 - Make building possible with Java 11 through 17 [\#3313](https://github.com/apache/camel-quarkus/pull/3313) ([ppalaga](https://github.com/ppalaga))
 - Graceful shutdown strategy used as default one [\#3310](https://github.com/apache/camel-quarkus/pull/3310) ([JiriOndrusek](https://github.com/JiriOndrusek))
@@ -879,6 +888,7 @@
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
+- JFR Native support [\#2151](https://github.com/apache/camel-quarkus/issues/2151)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
 - \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
