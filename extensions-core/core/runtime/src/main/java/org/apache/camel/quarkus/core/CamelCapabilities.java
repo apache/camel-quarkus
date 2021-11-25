@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.support.common;
+package org.apache.camel.quarkus.core;
 
 public final class CamelCapabilities {
     public static final String BEAN = "org.apache.camel.bean";

@@ -39,7 +39,6 @@
         <module>aws2</module>
         <module>azure-core</module>
         <module>bouncycastle</module>
-        <module>common</module>
         <module>commons-logging</module>
         <module>consul-client</module>
         <module>debezium</module>

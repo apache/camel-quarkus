@@ -41,11 +41,6 @@
         <!-- camel -->
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-common-deployment</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
 
