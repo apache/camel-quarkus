@@ -111,7 +111,7 @@
         <mvel2.version>${mvel-version}</mvel2.version>
         <okhttp.version>${squareup-okhttp-version}</okhttp.version>
         <okio.version>${squareup-okio-version}</okio.version>
-        <protobuf.version>${protobuf-version}</protobuf.version>
+        <protobuf.version>3.19.1</protobuf.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:com.google.protobuf:protobuf-java -->
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.12.version>2.12.15</scala-2.12.version><!-- Spark -->
