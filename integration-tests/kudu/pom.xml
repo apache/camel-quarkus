@@ -30,6 +30,11 @@
     <name>Camel Quarkus :: Integration Tests :: Kudu</name>
     <description>Integration tests for Camel Quarkus Kudu extension</description>
 
+    <properties>
+        <!-- This is to allow the "deep reflection" we do in KuduInfrastructureTestHelper -->
+        <argLine>--add-opens java.base/java.net=ALL-UNNAMED</argLine>
+    </properties>
+
     <dependencies>
          <dependency>
             <groupId>io.quarkus</groupId>
@@ -94,24 +99,6 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <!-- Required by KuduInfrastructureTestHelper.overrideTabletServerHostnameResolution -->
-        <profile>
-            <id>jdk16-workarounds</id>
-            <activation>
-                <jdk>[16,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <configuration>
-                            <argLine>--add-opens java.base/java.net=ALL-UNNAMED</argLine>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
