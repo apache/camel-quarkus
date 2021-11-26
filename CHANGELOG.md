@@ -6,17 +6,21 @@
 
 **Closed issues:**
 
+- Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
 - Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
 - camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
 - Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
 - FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
 - \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
 - Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called [\#3260](https://github.com/apache/camel-quarkus/issues/3260)
+- Consider removing `camel-quarkus-support-common` [\#3243](https://github.com/apache/camel-quarkus/issues/3243)
 - `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
 - \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
 
 **Merged pull requests:**
 
+- Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
+- Remove `camel-quarkus-support-common` [\#3334](https://github.com/apache/camel-quarkus/pull/3334) ([jamesnetherton](https://github.com/jamesnetherton))
 - Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services [\#3330](https://github.com/apache/camel-quarkus/pull/3330) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add manifest to camel-quarkus-support-spring source JARs [\#3328](https://github.com/apache/camel-quarkus/pull/3328) ([jamesnetherton](https://github.com/jamesnetherton))
 - Sql test using derby doesn't start dev service and stored procedure is not working on derby db [\#3324](https://github.com/apache/camel-quarkus/pull/3324) ([JiriOndrusek](https://github.com/JiriOndrusek))
