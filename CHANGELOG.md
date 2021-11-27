@@ -16,9 +16,11 @@
 - Consider removing `camel-quarkus-support-common` [\#3243](https://github.com/apache/camel-quarkus/issues/3243)
 - `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
 - \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
+- Camel-Catalog-Quarkus: It is missing for release-1.0.0-M5 [\#904](https://github.com/apache/camel-quarkus/issues/904)
 
 **Merged pull requests:**
 
+- Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
 - Remove `camel-quarkus-support-common` [\#3334](https://github.com/apache/camel-quarkus/pull/3334) ([jamesnetherton](https://github.com/jamesnetherton))
 - Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services [\#3330](https://github.com/apache/camel-quarkus/pull/3330) ([jamesnetherton](https://github.com/jamesnetherton))
