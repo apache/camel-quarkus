@@ -38,6 +38,8 @@ import org.jboss.jandex.IndexView;
 import org.jboss.jandex.ParameterizedType;
 import org.jboss.logging.Logger;
 
+import static com.ibm.icu.util.VersionInfo.ICU_VERSION;
+
 class BindyProcessor {
 
     private static final Logger LOG = Logger.getLogger(BindyProcessor.class);
@@ -51,7 +53,8 @@ class BindyProcessor {
 
     @BuildStep
     NativeImageResourceDirectoryBuildItem resourceBundles() {
-        return new NativeImageResourceDirectoryBuildItem("com/ibm/icu/impl/data/icudt69b/brkitr");
+        String resourcePath = String.format("com/ibm/icu/impl/data/icudt%db/brkitr", ICU_VERSION.getMajor());
+        return new NativeImageResourceDirectoryBuildItem(resourcePath);
     }
 
     @BuildStep
