@@ -186,6 +186,21 @@
                         <configuration>
                             <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
+                                <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs</copy-tests.source.dir>
+                                <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
+                                <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
+                            </properties>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-client-test-sources-sqs-sns</id>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>

@@ -41,6 +41,7 @@
         <module>aws2-ddb</module>
         <module>aws2-s3</module>
         <module>aws2-ses</module>
+        <module>aws2-sqs</module>
         <module>aws2-sqs-sns</module>
     </modules>
 
