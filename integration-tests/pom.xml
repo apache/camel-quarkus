@@ -131,6 +131,7 @@
         <module>jsonpath</module>
         <module>jta</module>
         <module>kafka</module>
+        <module>kafka-oauth</module>
         <module>kafka-sasl</module>
         <module>kafka-sasl-ssl</module>
         <module>kafka-ssl</module>

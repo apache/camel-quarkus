@@ -511,6 +511,7 @@
                             <exclude>**/k8s-sb/**</exclude>
                         </excludes>
                         <mapping>
+                            <cli>CAMEL_PROPERTIES_STYLE</cli>
                             <groovy>SLASHSTAR_STYLE</groovy>
                             <java>SLASHSTAR_STYLE</java>
                             <Jenkinsfile>SLASHSTAR_STYLE</Jenkinsfile>

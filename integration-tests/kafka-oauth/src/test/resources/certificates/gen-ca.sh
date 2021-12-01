@@ -1,3 +1,4 @@
+#!/bin/sh
 #
 # Licensed to the Apache Software Foundation (ASF) under one or more
 # contributor license agreements.  See the NOTICE file distributed with
@@ -15,17 +16,16 @@
 # limitations under the License.
 #
 
-# This is a generated file. Do not edit directly!
-# To re-generate, run the following command from the top level directory:
-#
-#   mvn -N cq:update-quarkus-metadata
-#
----
-name: "Camel Jfr"
-description: "Diagnose Camel applications with Java Flight Recorder"
-metadata:
-  guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jfr.html"
-  categories:
-  - "integration"
-  status:
-  - "stable"
+set -e
+
+# create CA key
+openssl genrsa -out ca.key 4096
+
+# create CA certificate
+openssl req -x509 -new -nodes -sha256 -days 3650 -subj "/CN=quarkus.io" -key ca.key -out ca.crt
+
+
+PASSWORD=changeit
+
+# create p12 truststore
+keytool -keystore ca-truststore.p12 -storetype pkcs12 -alias ca -storepass $PASSWORD -keypass $PASSWORD -import -file ca.crt -noprompt
