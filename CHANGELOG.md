@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
 - Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
 - Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
 - camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
@@ -20,6 +21,7 @@
 
 **Merged pull requests:**
 
+- Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` [\#3349](https://github.com/apache/camel-quarkus/pull/3349) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
 - Remove `camel-quarkus-support-common` [\#3334](https://github.com/apache/camel-quarkus/pull/3334) ([jamesnetherton](https://github.com/jamesnetherton))
