@@ -159,17 +159,17 @@ jobs:
       - name: Integration Tests
         run: |
           for MODULE in $(cat tooling/scripts/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
-            if [ "${MODULE}" == "-" ]; then
+            if [[ "${MODULE}" == "-" ]]; then
               continue
             fi
             MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
-            if [ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]; then
+            if [[ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
               JVM_MODULES+=("${MODULE}")
             else
               NATIVE_MODULES+=("${MODULE}")
             fi
           done
-          if [ ${#JVM_MODULES[@]} -eq 0 && ${#NATIVE_MODULES[@]} -eq 0 ]; then
+          if [[ ${#JVM_MODULES[@]} -eq 0 ]] && [[ ${#NATIVE_MODULES[@]} -eq 0 ]]; then
             echo "No test modules were found for category ${{ matrix.category }}"
             exit 1
           fi
