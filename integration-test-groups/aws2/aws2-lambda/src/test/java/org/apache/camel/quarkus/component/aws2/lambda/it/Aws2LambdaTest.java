@@ -97,12 +97,26 @@ class Aws2LambdaTest {
     public void getUpdateListAndInvokeFunctionShouldSucceed(String functionName) {
         final String name = "Joe " + java.util.UUID.randomUUID().toString().replace("-", "");
 
-        RestAssured.given()
-                .accept(ContentType.JSON)
-                .get("/aws2-lambda/function/get/" + functionName)
-                .then()
-                .statusCode(200)
-                .body(is(functionName));
+        await().pollDelay(1L, TimeUnit.SECONDS)
+                .pollInterval(1L, TimeUnit.SECONDS)
+                .atMost(120, TimeUnit.SECONDS)
+                .until(() -> {
+                    String state = RestAssured.given()
+                            .get("/aws2-lambda/function/getState/" + functionName)
+                            .then()
+                            .statusCode(200)
+                            .extract().asString();
+
+                    if (!"Active".equals(state)) {
+                        String format = "The function with name '%s' has state '%s', so retrying";
+                        LOG.infof(format, functionName, state);
+                        return false;
+                    } else {
+                        String format = "The function with name '%s' has state 'Active', so moving to next step";
+                        LOG.infof(format, functionName);
+                        return true;
+                    }
+                });
 
         RestAssured.given()
                 .contentType("application/zip")

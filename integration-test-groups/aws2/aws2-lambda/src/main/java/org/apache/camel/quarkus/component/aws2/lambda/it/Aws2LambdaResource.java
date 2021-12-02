@@ -101,13 +101,13 @@ public class Aws2LambdaResource {
                 .build();
     }
 
-    @Path("/function/get/{functionName}")
+    @Path("/function/getState/{functionName}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getFunction(@PathParam("functionName") String functionName) {
         return producerTemplate
                 .requestBody(componentUri(functionName, Lambda2Operations.getFunction), null, GetFunctionResponse.class)
-                .configuration().functionName();
+                .configuration().stateAsString();
     }
 
     @Path("/function/getArn/{functionName}")
@@ -129,7 +129,9 @@ public class Aws2LambdaResource {
                 .zipFile(SdkBytes.fromByteArray(zipFunctionBytes)).build();
         UpdateFunctionCodeResponse ufcResponse = producerTemplate.requestBody(uri, ufcRequest,
                 UpdateFunctionCodeResponse.class);
-        if (ufcResponse.lastUpdateStatus() == LastUpdateStatus.SUCCESSFUL) {
+
+        if (ufcResponse.lastUpdateStatus() == LastUpdateStatus.SUCCESSFUL
+                || ufcResponse.lastUpdateStatus() == LastUpdateStatus.IN_PROGRESS) {
             return Response.ok().build();
         }
         throw new IllegalStateException(
