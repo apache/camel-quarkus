@@ -20,12 +20,14 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 @QuarkusTestResource(VertxKafkaTestResource.class)
+@Disabled("https://github.com/apache/camel-quarkus/issues/3358")
 class VertxKafkaTest {
 
     @Test

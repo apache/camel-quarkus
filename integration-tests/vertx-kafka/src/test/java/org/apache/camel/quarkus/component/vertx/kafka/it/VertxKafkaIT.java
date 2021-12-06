@@ -16,9 +16,11 @@
  */
 package org.apache.camel.quarkus.component.vertx.kafka.it;
 
+import io.quarkus.test.junit.DisabledOnNativeImage;
 import io.quarkus.test.junit.NativeImageTest;
 
 @NativeImageTest
+@DisabledOnNativeImage("https://github.com/apache/camel-quarkus/issues/3358")
 class VertxKafkaIT extends VertxKafkaTest {
 
 }
