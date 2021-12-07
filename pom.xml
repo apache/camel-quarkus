@@ -652,6 +652,7 @@
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>org.apache.geronimo.specs:geronimo-jms_1.1_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
                                                 <exclude>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
+                                                <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                             </excludes>
                                         </bannedDependencies>
                                     </rules>
