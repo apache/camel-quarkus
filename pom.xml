@@ -76,7 +76,6 @@
         <eddsa.version>${eddsa-version}</eddsa.version>
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
-        <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-native-image-support.version>0.8.0</google-native-image-support.version>
         <google-auth-library-credentials.version>0.22.2</google-auth-library-credentials.version><!-- @sync io.grpc:grpc-auth:${grpc.version} dep:com.google.auth:google-auth-library-credentials -->
@@ -92,9 +91,11 @@
         <htrace.version>4.2.0-incubating</htrace.version><!-- Mess in hbase transitive deps -->
         <influxdb.version>${influx-java-driver-version}</influxdb.version>
         <jackson-asl.version>1.9.13</jackson-asl.version><!-- Mess in the transitive dependencies of spark and hbase-testing-util -->
+        <jakarta.jms-api.version>2.0.3</jakarta.jms-api.version>
         <jakarta.jws.ws.api.version>2.1.0</jakarta.jws.ws.api.version>
         <jakarta.xml.ws.api.version>2.3.3</jakarta.xml.ws.api.version>
         <jcodings.version>1.0.55</jcodings.version><!-- used by hbase -->
+        <jodatime.version>2.10.6</jodatime.version><!-- Mess in transitive dependencies of Spark and Splunk -->
         <joni.version>2.1.31</joni.version><!-- used by json-validator -->
         <jsoup.version>1.12.1</jsoup.version><!-- used by oaipmh -->
         <jaxen.version>1.2.0</jaxen.version>
@@ -135,7 +136,6 @@
         <commons-logging.version>1.2</commons-logging.version><!-- Mess in the transitive dependencies of hbase-testing-util -->
         <consul-client.version>${consul-client-version}</consul-client.version>
         <ftpserver.version>1.1.1</ftpserver.version>
-        <geronimo.jms.version>${geronimo-jms2-spec-version}</geronimo.jms.version>
         <istack-commons-runtime.version>3.0.10</istack-commons-runtime.version>
         <jakarta.mail.version>${jakarta-mail-version}</jakarta.mail.version>
         <htmlunit-driver.version>2.47.1</htmlunit-driver.version>
@@ -653,6 +653,8 @@
                                                 <exclude>com.google.code.findbugs:jsr305</exclude>
                                                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
+                                                <exclude>org.apache.geronimo.specs:geronimo-jms_1.1_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
+                                                <exclude>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
                                             </excludes>
                                         </bannedDependencies>
                                     </rules>
