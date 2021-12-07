@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
 - Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
 - Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
@@ -23,6 +24,7 @@
 
 **Merged pull requests:**
 
+- Fix AWS Lambda failing itest \#3356 [\#3357](https://github.com/apache/camel-quarkus/pull/3357) ([aldettinger](https://github.com/aldettinger))
 - Fix bash syntax error in CI integration tests step [\#3351](https://github.com/apache/camel-quarkus/pull/3351) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` [\#3349](https://github.com/apache/camel-quarkus/pull/3349) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
