@@ -648,6 +648,8 @@
                                         <bannedDependencies>
                                             <excludes>
                                                 <exclude>com.google.code.findbugs:jsr305</exclude>
+                                                <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
+                                                <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                             </excludes>
                                         </bannedDependencies>
                                     </rules>
