@@ -78,6 +78,12 @@
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-artemis-jms</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.geronimo.specs</groupId>
+                    <artifactId>geronimo-jms_2.0_spec</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- test dependencies -->
