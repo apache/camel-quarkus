@@ -62,6 +62,7 @@
             <plugin>
                 <groupId>io.quarkus</groupId>
                 <artifactId>quarkus-maven-plugin</artifactId>
+                <extensions>true</extensions><!-- Workaround for https://github.com/quarkusio/quarkus/issues/21718 -->
                 <executions>
                     <execution>
                         <id>generate-code</id>
