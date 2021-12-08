@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
 - Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
@@ -24,9 +25,12 @@
 
 **Merged pull requests:**
 
+- Ban com.sun.activation:javax.activation  [\#3362](https://github.com/apache/camel-quarkus/pull/3362) ([ppalaga](https://github.com/ppalaga))
+- Workaround for NoSuchFileException: .../target/classes when executing a [\#3359](https://github.com/apache/camel-quarkus/pull/3359) ([ppalaga](https://github.com/ppalaga))
 - Fix AWS Lambda failing itest \#3356 [\#3357](https://github.com/apache/camel-quarkus/pull/3357) ([aldettinger](https://github.com/aldettinger))
 - Fix bash syntax error in CI integration tests step [\#3351](https://github.com/apache/camel-quarkus/pull/3351) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` [\#3349](https://github.com/apache/camel-quarkus/pull/3349) ([jamesnetherton](https://github.com/jamesnetherton))
+- fix  \[JDK17\]kudu:integration test failed in native mode \#3340 [\#3341](https://github.com/apache/camel-quarkus/pull/3341) ([ffang](https://github.com/ffang))
 - Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
 - :white\_check\_mark: Kafka Oauth Integration test with Strimzi and Keyc… [\#3336](https://github.com/apache/camel-quarkus/pull/3336) ([zbendhiba](https://github.com/zbendhiba))
