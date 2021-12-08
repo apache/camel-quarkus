@@ -85,10 +85,8 @@ jobs:
       - name: Setup Native Test Matrix
         id: set-native-matrix
         run: |
-          sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
-          sudo chmod +x /usr/local/bin/yq
-          CATEGORIES=$(cat tooling/scripts/test-categories.yaml | yq r - --printMode p "*." | sed "s/\(.*\)/'\1'/" | sed ':a;N;$!ba;s/\n/,/g')
-          echo "::set-output name=matrix::{'category': [${CATEGORIES}]}"
+          CATEGORIES=$(yq -M -N -I 0 -o=json e 'keys' tooling/scripts/test-categories.yaml | tr '"' "'")
+          echo "::set-output name=matrix::{'category': ${CATEGORIES}}"
       - name: Report Build Failure
         if: failure()
         run: |
@@ -131,25 +129,23 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git fetch origin main
           git rebase $(cat ~/build-data/main-sha.txt)
-      - name: Install yq
-        run: |
-          sudo wget -O /usr/local/bin/yq "https://github.com/mikefarah/yq/releases/download/3.2.1/yq_linux_amd64"
-          sudo chmod +x /usr/local/bin/yq
       - name: Integration Tests
         run: |
-          set -x
-          for MODULE in $(cat tooling/scripts/test-categories.yaml | yq r - "${{ matrix.category }}.*"); do
-            if [ "${MODULE}" == "-" ]; then
+          for MODULE in $(yq -M -N e ".${{ matrix.category }}" tooling/scripts/test-categories.yaml | cut -f2 -d' '); do
+            if [[ "${MODULE}" == "null" ]]; then
               continue
             fi
+
             MODULE="integration-tests/$(echo ${MODULE} | sed 's/^[ \t]*//;s/[ \t]*$//')"
-            if [ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]; then
+
+            if [[ "x$(mvn org.apache.maven.plugins:maven-help-plugin:3.2.0:evaluate -Dexpression=ci.native.tests.skip -DforceStdout -q -f ${MODULE})" == "xtrue" ]]; then
               JVM_MODULES+=("${MODULE}")
             else
               NATIVE_MODULES+=("${MODULE}")
             fi
           done
-          if [ ${#JVM_MODULES[@]} -eq 0 && ${#NATIVE_MODULES[@]} -eq 0 ]; then
+
+          if [[ ${#JVM_MODULES[@]} -eq 0 && ${#NATIVE_MODULES[@]} -eq 0 ]]; then
             echo "No test modules were found for category ${{ matrix.category }}"
             exit 1
           fi
