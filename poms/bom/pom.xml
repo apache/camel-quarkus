@@ -78,6 +78,16 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>com.couchbase</groupId>
+                <artifactId>quarkus-couchbase</artifactId>
+                <version>${quarkus-couchbase.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.couchbase</groupId>
+                <artifactId>quarkus-couchbase-deployment</artifactId>
+                <version>${quarkus-couchbase.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.hazelcast</groupId>
                 <artifactId>quarkus-hazelcast-client-bom</artifactId>
                 <version>${quarkus-hazelcast-client.version}</version>

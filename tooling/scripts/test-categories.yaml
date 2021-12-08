@@ -123,6 +123,7 @@ group-07:
   - weather
 group-08:
   - azure-grouped
+  - couchbase
   - crypto
   - dozer
   - master

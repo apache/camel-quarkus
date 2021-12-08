@@ -54,7 +54,6 @@
         <module>coap</module>
         <module>cometd</module>
         <module>corda</module>
-        <module>couchbase</module>
         <module>djl</module>
         <module>dns</module>
         <module>drill</module>

@@ -79,6 +79,7 @@
         <module>cbor</module>
         <module>consul</module>
         <module>controlbus</module>
+        <module>couchbase</module>
         <module>couchdb</module>
         <module>cron</module>
         <module>crypto</module>
