@@ -5807,17 +5807,6 @@
                 <version>${hapi-fhir.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-swf-libraries</artifactId>
-                <version>${awssdk1-swf-libs.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.amazonaws</groupId>
-                        <artifactId>aws-java-sdk-simpleworkflow</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
                 <groupId>com.fasterxml.woodstox</groupId>
                 <artifactId>woodstox-core</artifactId>
                 <version>${woodstox-core.version}</version>
