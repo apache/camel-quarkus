@@ -26,9 +26,9 @@
         <relativePath>../../../poms/build-parent-it/pom.xml</relativePath>
     </parent>
 
-    <artifactId>camel-quarkus-integration-test-aws2-sqs-sns-quarkus-client</artifactId>
-    <name>Camel Quarkus :: Integration Tests :: AWS 2 SQS and SNS Quarkus Client</name>
-    <description>Integration tests for SQS and SNS extensions with the Quarkus AWS clients</description>
+    <artifactId>camel-quarkus-integration-test-aws2-sqs-quarkus-client</artifactId>
+    <name>Camel Quarkus :: Integration Tests :: AWS 2 SQS Quarkus Client</name>
+    <description>Integration tests for SQS extensions with the Quarkus AWS clients</description>
 
     <dependencies>
         <dependency>
@@ -36,16 +36,8 @@
             <artifactId>camel-quarkus-aws2-sqs</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-aws2-sns</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.quarkiverse.amazonservices</groupId>
             <artifactId>quarkus-amazon-sqs</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.quarkiverse.amazonservices</groupId>
-            <artifactId>quarkus-amazon-sns</artifactId>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
@@ -70,6 +62,11 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-integration-tests-support-aws2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.awaitility</groupId>
+            <artifactId>awaitility</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -124,7 +121,7 @@
                         <configuration>
                             <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
-                                <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
+                                <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
                                 <copy-tests.excludes>**/*TestEnvCustomizer,**/*application.properties</copy-tests.excludes>
                             </properties>
@@ -175,19 +172,6 @@
                 <dependency>
                     <groupId>org.apache.camel.quarkus</groupId>
                     <artifactId>camel-quarkus-aws2-sqs-deployment</artifactId>
-                    <version>${project.version}</version>
-                    <type>pom</type>
-                    <scope>test</scope>
-                    <exclusions>
-                        <exclusion>
-                            <groupId>*</groupId>
-                            <artifactId>*</artifactId>
-                        </exclusion>
-                    </exclusions>
-                </dependency>
-                <dependency>
-                    <groupId>org.apache.camel.quarkus</groupId>
-                    <artifactId>camel-quarkus-aws2-sns-deployment</artifactId>
                     <version>${project.version}</version>
                     <type>pom</type>
                     <scope>test</scope>
