@@ -65,7 +65,7 @@
         <animal-sniffer.version>1.18</animal-sniffer.version>
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.0</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
-        <awssdk.version>2.17.90</awssdk.version><!-- TODO: Remove this https://github.com/apache/camel-quarkus/issues/3366 -->
+        <awssdk.version>2.17.90</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>1.0.5</azure-sdk-bom.version><!-- Keep in sync with camel-azure component versions -->
         <bouncycastle.version>1.69</bouncycastle.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.bouncycastle:bcprov-jdk15on -->
