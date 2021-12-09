@@ -8,6 +8,7 @@
 
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
+- Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
 - Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
 - Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
@@ -25,6 +26,8 @@
 
 **Merged pull requests:**
 
+- Use yq installed on the GitHub actions VM instead of downloading and installing it [\#3368](https://github.com/apache/camel-quarkus/pull/3368) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade Quarkus to 2.6.0.CR1 [\#3367](https://github.com/apache/camel-quarkus/pull/3367) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.sun.activation:javax.activation  [\#3362](https://github.com/apache/camel-quarkus/pull/3362) ([ppalaga](https://github.com/ppalaga))
 - Workaround for NoSuchFileException: .../target/classes when executing a [\#3359](https://github.com/apache/camel-quarkus/pull/3359) ([ppalaga](https://github.com/ppalaga))
 - Fix AWS Lambda failing itest \#3356 [\#3357](https://github.com/apache/camel-quarkus/pull/3357) ([aldettinger](https://github.com/aldettinger))
