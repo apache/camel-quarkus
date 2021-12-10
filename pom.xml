@@ -653,6 +653,10 @@
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>org.apache.geronimo.specs:geronimo-jms_1.1_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
                                                 <exclude>org.apache.geronimo.specs:geronimo-jms_2.0_spec</exclude><!-- use jakarta.jms:jakarta.jms-api instead -->
+                                                <!-- Note that log4j-api should be always excluded and org.jboss.logmanager:log4j2-jboss-logmanager added instead -->
+                                                <!-- so that the version of log4j-api prefered by log4j2-jboss-logmanager is used -->
+                                                <exclude>org.apache.logging.log4j:log4j-core</exclude><!-- not needed on Quarkus -->
+                                                <exclude>org.apache.logging.log4j:log4j-slf4j-impl</exclude><!-- not needed on Quarkus -->
                                             </excludes>
                                         </bannedDependencies>
                                     </rules>
