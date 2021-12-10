@@ -53,8 +53,8 @@
             <artifactId>camel-quarkus-core</artifactId>
         </dependency>
         <dependency>
-          <groupId>org.jboss.logmanager</groupId>
-          <artifactId>log4j2-jboss-logmanager</artifactId>
+            <groupId>org.jboss.logmanager</groupId>
+            <artifactId>log4j2-jboss-logmanager</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel</groupId>
@@ -63,6 +63,10 @@
                 <exclusion>
                     <groupId>org.apache.logging.log4j</groupId>
                     <artifactId>log4j-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
