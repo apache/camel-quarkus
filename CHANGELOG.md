@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.5.0...HEAD)
 
+**Fixed bugs:**
+
+- Exclude maven-artifact from camel-quarkus-debezium-mongodb [\#3372](https://github.com/apache/camel-quarkus/issues/3372)
+
 **Closed issues:**
 
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
@@ -22,15 +26,19 @@
 - `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
 - \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
 - \[Quarkus 2.5\] Example with kafka + Oauth2 needs the stimzi Oauth client [\#2872](https://github.com/apache/camel-quarkus/issues/2872)
+- Test AWS2 SQS in isolation [\#2606](https://github.com/apache/camel-quarkus/issues/2606)
 - Camel-Catalog-Quarkus: It is missing for release-1.0.0-M5 [\#904](https://github.com/apache/camel-quarkus/issues/904)
 
 **Merged pull requests:**
 
+- Exclude maven-artifact from camel-quarkus-debezium-mongodb  [\#3373](https://github.com/apache/camel-quarkus/pull/3373) ([ppalaga](https://github.com/ppalaga))
+- Ensure consistent version of `software.amazon.awssdk` dependencies [\#3371](https://github.com/apache/camel-quarkus/pull/3371) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use yq installed on the GitHub actions VM instead of downloading and installing it [\#3368](https://github.com/apache/camel-quarkus/pull/3368) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.6.0.CR1 [\#3367](https://github.com/apache/camel-quarkus/pull/3367) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.sun.activation:javax.activation  [\#3362](https://github.com/apache/camel-quarkus/pull/3362) ([ppalaga](https://github.com/ppalaga))
 - Workaround for NoSuchFileException: .../target/classes when executing a [\#3359](https://github.com/apache/camel-quarkus/pull/3359) ([ppalaga](https://github.com/ppalaga))
 - Fix AWS Lambda failing itest \#3356 [\#3357](https://github.com/apache/camel-quarkus/pull/3357) ([aldettinger](https://github.com/aldettinger))
+- ✅ Test AWS2 SQS in isolation [\#3352](https://github.com/apache/camel-quarkus/pull/3352) ([zbendhiba](https://github.com/zbendhiba))
 - Fix bash syntax error in CI integration tests step [\#3351](https://github.com/apache/camel-quarkus/pull/3351) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid hard coding Bindy resource path for `NativeImageResourceDirectoryBuildItem` [\#3349](https://github.com/apache/camel-quarkus/pull/3349) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix  \[JDK17\]kudu:integration test failed in native mode \#3340 [\#3341](https://github.com/apache/camel-quarkus/pull/3341) ([ffang](https://github.com/ffang))
