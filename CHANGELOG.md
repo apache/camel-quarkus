@@ -10,10 +10,13 @@
 
 **Closed issues:**
 
+- Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
+- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
+- \[JDK17\]kudu:integration test failed in native mode [\#3340](https://github.com/apache/camel-quarkus/issues/3340)
 - Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
 - Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
 - camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
@@ -31,6 +34,8 @@
 
 **Merged pull requests:**
 
+- Ban log4j-core and log4j-slf4j-impl  [\#3378](https://github.com/apache/camel-quarkus/pull/3378) ([ppalaga](https://github.com/ppalaga))
+- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  [\#3376](https://github.com/apache/camel-quarkus/pull/3376) ([ppalaga](https://github.com/ppalaga))
 - Exclude maven-artifact from camel-quarkus-debezium-mongodb  [\#3373](https://github.com/apache/camel-quarkus/pull/3373) ([ppalaga](https://github.com/ppalaga))
 - Ensure consistent version of `software.amazon.awssdk` dependencies [\#3371](https://github.com/apache/camel-quarkus/pull/3371) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use yq installed on the GitHub actions VM instead of downloading and installing it [\#3368](https://github.com/apache/camel-quarkus/pull/3368) ([jamesnetherton](https://github.com/jamesnetherton))
