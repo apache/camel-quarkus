@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
 - Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
