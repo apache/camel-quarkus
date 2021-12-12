@@ -91,8 +91,8 @@ class XmlTest {
                 .extract().body().asString().trim();
 
         Assertions.assertEquals(
-                "= Title\n"
-                        + "\n"
+                "= Title" + System.lineSeparator()
+                        + System.lineSeparator()
                         + "Paragraph Contents",
                 actual);
     }
