@@ -16,9 +16,13 @@
  */
 package org.apache.camel.quarkus.component.protobuf.it;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.dataformat.protobuf.ProtobufDataFormat;
 import org.apache.camel.quarkus.component.protobuf.it.model.AddressBookProtos.Person;
 
+@RegisterForReflection(targets = {
+        org.apache.camel.quarkus.component.protobuf.it.model.AddressBookProtos.Person.Builder.class })
 public class ProtobufRoute extends RouteBuilder {
 
     @Override
@@ -31,5 +35,15 @@ public class ProtobufRoute extends RouteBuilder {
                 .unmarshal()
                 .protobuf(Person.class.getName());
 
+        ProtobufDataFormat protobufJsonDataFormat = new ProtobufDataFormat(Person.getDefaultInstance(),
+                ProtobufDataFormat.CONTENT_TYPE_FORMAT_JSON);
+
+        from("direct:protobuf-marshal-json")
+                .marshal(protobufJsonDataFormat)
+                .end();
+
+        from("direct:protobuf-unmarshal-json")
+                .unmarshal(protobufJsonDataFormat)
+                .end();
     }
 }
