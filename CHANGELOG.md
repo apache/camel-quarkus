@@ -13,6 +13,7 @@
 - Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
 - Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
+- XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
@@ -35,6 +36,7 @@
 
 **Merged pull requests:**
 
+- Fix \#3374 to use File.separatorChar when get fqcn from generated … [\#3380](https://github.com/apache/camel-quarkus/pull/3380) ([zhfeng](https://github.com/zhfeng))
 - Ban log4j-core and log4j-slf4j-impl  [\#3378](https://github.com/apache/camel-quarkus/pull/3378) ([ppalaga](https://github.com/ppalaga))
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  [\#3376](https://github.com/apache/camel-quarkus/pull/3376) ([ppalaga](https://github.com/ppalaga))
 - Exclude maven-artifact from camel-quarkus-debezium-mongodb  [\#3373](https://github.com/apache/camel-quarkus/pull/3373) ([ppalaga](https://github.com/ppalaga))
