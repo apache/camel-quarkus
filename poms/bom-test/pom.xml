@@ -54,6 +54,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>io.quarkiverse.artemis</groupId>
+                <artifactId>quarkus-artemis-bom</artifactId>
+                <version>${quarkiverse-artemis.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
@@ -159,28 +166,6 @@
                 <version>${camel-quarkus.version}</version>
                 <type>test-jar</type>
             </dependency>
-
-            <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-core</artifactId>
-                <version>${quarkiverse-artemis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-core-deployment</artifactId>
-                <version>${quarkiverse-artemis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-jms</artifactId>
-                <version>${quarkiverse-artemis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.quarkiverse.artemis</groupId>
-                <artifactId>quarkus-artemis-jms-deployment</artifactId>
-                <version>${quarkiverse-artemis.version}</version>
-            </dependency>
-
             <dependency>
                 <groupId>org.apache.ftpserver</groupId>
                 <artifactId>ftpserver-core</artifactId>
