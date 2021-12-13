@@ -41,6 +41,7 @@ Check the xref:user-guide/index.adoc[User guide] for more information about writ
 
 == Additional Camel Quarkus configuration
 
+=== Generate classes from protobuf `.proto` files
 Use the `generate-code` goal of `quarkus-maven-plugin` to generate Java classes from your `*.proto`
 service and message definitions stored in the `src/main/proto` directory:
 
@@ -64,6 +65,25 @@ service and message definitions stored in the `src/main/proto` directory:
 </build>
 ----
 
-You may want to check the https://github.com/apache/camel-quarkus/tree/main/integration-tests/protobuf[integration test]
-in our source tree as an example.
+The https://github.com/apache/camel-quarkus/tree/main/integration-tests/protobuf[camel-quarkus-protobuf integration test] is a good way to learn more.
+
+=== Serialize/Deserialize Java beans using JSON fields representation
+Please note that some additional configurations might be needed when using `contentTypeFormat=json`.
+Indeed, in such a case, the generated `Builder` class needs to be registered for reflection.
+
+For instance, let's examine the `ProtobufDataFormat` below:
+
+[source,java]
+----
+ProtobufDataFormat protobufJsonDataFormat = new ProtobufDataFormat(Person.getDefaultInstance(), ProtobufDataFormat.CONTENT_TYPE_FORMAT_JSON);
+----
+
+In such a case, the `Person.Builder` class should be xref:user-guide/native-mode.adoc#reflection[registered for reflection], for instance as below:
+
+[source,java]
+----
+@RegisterForReflection(targets = { org.apache.camel.quarkus.component.protobuf.it.model.AddressBookProtos.Person.Builder.class })
+----
+
+A concrete implementation of such a scenario is present in the https://github.com/apache/camel-quarkus/tree/main/integration-tests/protobuf[camel-quarkus-protobuf integration test].
 

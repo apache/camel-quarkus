@@ -39,7 +39,7 @@ public class ProtobufResource {
     @Path("/marshal")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public byte[] xstreamXmlMarshal(@QueryParam("id") int id, @QueryParam("name") String name) {
+    public byte[] marshal(@QueryParam("id") int id, @QueryParam("name") String name) {
         final Person person = Person.newBuilder()
                 .setId(id)
                 .setName(name)
@@ -54,6 +54,26 @@ public class ProtobufResource {
     public String unmarshal(byte[] body) {
         final Person person = producerTemplate.requestBody("direct:protobuf-unmarshal", body, Person.class);
         return "{\"name\": \"" + person.getName() + "\",\"id\": " + person.getId() + "}";
+    }
+
+    @Path("/marshal-json")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String marshalJson(@QueryParam("id") int id, @QueryParam("name") String name) {
+        final Person person = Person.newBuilder()
+                .setId(id)
+                .setName(name)
+                .build();
+        return producerTemplate.requestBody("direct:protobuf-marshal-json", person, String.class);
+    }
+
+    @Path("/unmarshal-json")
+    @POST
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.TEXT_PLAIN)
+    public String unmarshalJson(String body) {
+        final Person person = producerTemplate.requestBody("direct:protobuf-unmarshal-json", body, Person.class);
+        return person.getName() + " - " + person.getId();
     }
 
 }

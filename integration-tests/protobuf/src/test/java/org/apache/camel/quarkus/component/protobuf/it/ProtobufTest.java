@@ -23,6 +23,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 
 @QuarkusTest
 class ProtobufTest {
@@ -62,6 +63,32 @@ class ProtobufTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo(json));
+
+    }
+
+    @Test
+    void marshalJson() {
+
+        RestAssured.given()
+                .queryParam("name", name)
+                .queryParam("id", id)
+                .get("/protobuf/marshal-json")
+                .then()
+                .statusCode(200)
+                .body("name", equalTo(name))
+                .body("id", equalTo(id));
+
+    }
+
+    @Test
+    void unmarshalJson() {
+
+        RestAssured.given()
+                .body(json)
+                .post("/protobuf/unmarshal-json")
+                .then()
+                .statusCode(200)
+                .body(is("Joe - 2345"));
 
     }
 }
