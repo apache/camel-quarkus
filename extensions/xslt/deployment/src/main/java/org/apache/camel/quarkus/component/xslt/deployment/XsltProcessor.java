@@ -120,7 +120,8 @@ class XsltProcessor {
                     .forEach(path -> {
                         try {
                             final Path rel = destination.relativize(path);
-                            final String fqcn = StringUtils.removeEnd(rel.toString(), ".class").replace('/', '.');
+                            final String fqcn = StringUtils.removeEnd(rel.toString(), ".class").replace(File.separatorChar,
+                                    '.');
                             final byte[] data = Files.readAllBytes(path);
 
                             generatedClasses.produce(new GeneratedClassBuildItem(false, fqcn, data));
