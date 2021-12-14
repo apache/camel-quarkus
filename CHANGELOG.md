@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Use the Quarkiverse Artemis BOM and upgrade to 1.0.2 [\#3381](https://github.com/apache/camel-quarkus/issues/3381)
 - Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
 - Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
@@ -36,6 +37,7 @@
 
 **Merged pull requests:**
 
+- ⬆️ Use the Quarkus Artemis BOM and upgrade to 1.0.2 [\#3383](https://github.com/apache/camel-quarkus/pull/3383) ([zbendhiba](https://github.com/zbendhiba))
 - Fix \#3374 to use File.separatorChar when get fqcn from generated … [\#3380](https://github.com/apache/camel-quarkus/pull/3380) ([zhfeng](https://github.com/zhfeng))
 - Ban log4j-core and log4j-slf4j-impl  [\#3378](https://github.com/apache/camel-quarkus/pull/3378) ([ppalaga](https://github.com/ppalaga))
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM  [\#3376](https://github.com/apache/camel-quarkus/pull/3376) ([ppalaga](https://github.com/ppalaga))
