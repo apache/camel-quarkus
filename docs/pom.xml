@@ -85,45 +85,45 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <version>${frontend-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>install node and yarn</id>
-                                <goals>
-                                    <goal>install-node-and-yarn</goal>
-                                </goals>
-                                <configuration>
-                                    <nodeVersion>v14.16.0</nodeVersion>
-                                    <yarnVersion>v1.22.5</yarnVersion>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>yarn install</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <arguments>install --immutable</arguments>
-                                </configuration>
-                            </execution>
-                            <!-- TODO: Enable checks once docs issues are fixed https://github.com/apache/camel-quarkus/issues/3307
-                            <execution>
-                                <id>antora-xref-check</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <arguments>run checks</arguments>
-                                </configuration>
-                            </execution>
-                            -->
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>com.github.eirslett</groupId>-->
+<!--                        <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                        <version>${frontend-maven-plugin.version}</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>install node and yarn</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>install-node-and-yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <nodeVersion>v14.16.0</nodeVersion>-->
+<!--                                    <yarnVersion>v1.22.5</yarnVersion>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            <execution>-->
+<!--                                <id>yarn install</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <configuration>-->
+<!--                                    <arguments>install &#45;&#45;immutable</arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            &lt;!&ndash; TODO: Enable checks once docs issues are fixed https://github.com/apache/camel-quarkus/issues/3307-->
+<!--                            <execution>-->
+<!--                                <id>antora-xref-check</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <configuration>-->
+<!--                                    <arguments>run checks</arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            &ndash;&gt;-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
