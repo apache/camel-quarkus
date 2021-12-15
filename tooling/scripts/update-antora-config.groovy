@@ -30,8 +30,6 @@ import java.util.regex.Matcher
 final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
 
 final List<Path> replaceInFiles = [
-    treeRootDir.resolve('docs/antora-playbook.yml'),
-    treeRootDir.resolve('docs/antora-playbook-dev.yml'),
     treeRootDir.resolve('docs/antora.yml')
 ] as List
 
