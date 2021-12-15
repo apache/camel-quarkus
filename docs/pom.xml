@@ -85,43 +85,43 @@
             </activation>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>com.github.eirslett</groupId>
-                        <artifactId>frontend-maven-plugin</artifactId>
-                        <version>${frontend-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>install node and yarn</id>
-                                <goals>
-                                    <goal>install-node-and-yarn</goal>
-                                </goals>
-                                <configuration>
-                                    <nodeVersion>v14.16.0</nodeVersion>
-                                    <yarnVersion>v2.4.1</yarnVersion>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>yarn install</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <arguments>install</arguments>
-                                </configuration>
-                            </execution>
-                            <execution>
-                                <id>antora-xref-check</id>
-                                <goals>
-                                    <goal>yarn</goal>
-                                </goals>
-                                <phase>verify</phase>
-                                <configuration>
-                                    <arguments>run checks</arguments>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>com.github.eirslett</groupId>-->
+<!--                        <artifactId>frontend-maven-plugin</artifactId>-->
+<!--                        <version>${frontend-maven-plugin.version}</version>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>install node and yarn</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>install-node-and-yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <configuration>-->
+<!--                                    <nodeVersion>v14.16.0</nodeVersion>-->
+<!--                                    <yarnVersion>v2.4.1</yarnVersion>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            <execution>-->
+<!--                                <id>yarn install</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <configuration>-->
+<!--                                    <arguments>install</arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                            <execution>-->
+<!--                                <id>antora-xref-check</id>-->
+<!--                                <goals>-->
+<!--                                    <goal>yarn</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>verify</phase>-->
+<!--                                <configuration>-->
+<!--                                    <arguments>run checks</arguments>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                 </plugins>
             </build>
         </profile>
