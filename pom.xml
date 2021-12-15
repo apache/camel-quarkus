@@ -112,7 +112,7 @@
         <json-smart.version>2.4.7</json-smart.version>
         <kafka.version>3.0.0</kafka.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.kafka:kafka-clients -->
         <kudu.version>${kudu-version}</kudu.version>
-        <kotlin.version>1.6.0</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
+        <kotlin.version>1.6.10</kotlin.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.jetbrains.kotlin:kotlin-stdlib -->
         <libthrift.version>${libthrift-version}</libthrift.version> <!-- Spark -->
         <metrics.version>${metrics-version}</metrics.version><!-- Spark -->
         <mvel2.version>${mvel-version}</mvel2.version>
