@@ -10,12 +10,14 @@
 
 **Closed issues:**
 
+- protobuf: Missing method "getName" when using contentTypeFormat=json in native mode [\#3382](https://github.com/apache/camel-quarkus/issues/3382)
 - Use the Quarkiverse Artemis BOM and upgrade to 1.0.2 [\#3381](https://github.com/apache/camel-quarkus/issues/3381)
 - Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
 - Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
 - XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
+- Using camel-quarkus-xslt-saxon in native mode ends up with java.lang.NoSuchMethodException at runtime  [\#3360](https://github.com/apache/camel-quarkus/issues/3360)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
@@ -37,6 +39,7 @@
 
 **Merged pull requests:**
 
+- protobuf: Missing method "getName" when using contentTypeFormat=json … [\#3384](https://github.com/apache/camel-quarkus/pull/3384) ([aldettinger](https://github.com/aldettinger))
 - ⬆️ Use the Quarkus Artemis BOM and upgrade to 1.0.2 [\#3383](https://github.com/apache/camel-quarkus/pull/3383) ([zbendhiba](https://github.com/zbendhiba))
 - Fix \#3374 to use File.separatorChar when get fqcn from generated … [\#3380](https://github.com/apache/camel-quarkus/pull/3380) ([zhfeng](https://github.com/zhfeng))
 - Ban log4j-core and log4j-slf4j-impl  [\#3378](https://github.com/apache/camel-quarkus/pull/3378) ([ppalaga](https://github.com/ppalaga))
@@ -85,6 +88,7 @@
 - Remove BOM reference to non existent camel-quarkus-xstream-common-deployment dependency [\#3285](https://github.com/apache/camel-quarkus/pull/3285) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix \#3276 to make sure all objects have been deleted after each test … [\#3279](https://github.com/apache/camel-quarkus/pull/3279) ([zhfeng](https://github.com/zhfeng))
 - Fixup 218bef4 Special fix for Solr - Cannot run tests against [\#3278](https://github.com/apache/camel-quarkus/pull/3278) ([ppalaga](https://github.com/ppalaga))
+- Sql doc update because of the failure with external oracle database \#… [\#3272](https://github.com/apache/camel-quarkus/pull/3272) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - avro: Fix the documentation about avro schema build time parsing \#3270 [\#3271](https://github.com/apache/camel-quarkus/pull/3271) ([aldettinger](https://github.com/aldettinger))
 - Added missing stored procedure test for oracle [\#3269](https://github.com/apache/camel-quarkus/pull/3269) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Remove not needed anymore BeansWeakCache substitution. Closes \#3226 [\#3264](https://github.com/apache/camel-quarkus/pull/3264) ([vladimirfx](https://github.com/vladimirfx))
