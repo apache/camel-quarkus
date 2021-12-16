@@ -1,6 +1,6 @@
 = Camel misc. components supported on Quarkus
-:indexer-module: others
-:indexer-rel-filter: *.adoc
+:indexer-module: ROOT
+:indexer-rel-filter: others/*.yml
 :indexer-human-readable-kind: Misc. component
 :indexer-human-readable-kind-plural: misc. components
 
