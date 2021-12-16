@@ -24,6 +24,8 @@ nav:
 - modules/ROOT/nav.adoc
 asciidoc:
   attributes:
+    requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
+
     min-maven-version: 3.6.2 # replace ${min-maven-version}
     target-maven-version: 3.8.4 # replace ${target-maven-version}
     camel-version: 3.14.0 # replace ${camel.version}
@@ -33,4 +35,4 @@ asciidoc:
     quarkus-examples-version: latest
     # indexTable common
     indexer-version: 3.14.x # replace ${camel.docs.components.version}
-    indexer-component: components
+    indexer-component: camel-quarkus

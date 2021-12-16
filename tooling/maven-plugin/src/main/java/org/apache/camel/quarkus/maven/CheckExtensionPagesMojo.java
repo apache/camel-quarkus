@@ -18,11 +18,9 @@ package org.apache.camel.quarkus.maven;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
@@ -44,9 +42,7 @@ import org.apache.maven.plugins.annotations.Parameter;
  * Performs the following tasks:
  * <ul>
  * <li>Deletes extension pages whose extensions do not exist anymore
- * <li>Creates dummy partials for Camel bits that Camel Quarkus does not support, so that there are no warnings when
- * they are included from the Camel component pages
- * <li>Deletes Camel bit partials that do not exist anymore.
+ * <li>Deletes yml descriptors for extensions that do not exist anymore.
  * <li>Synchronizes nav.adoc with the reality
  * <ul>
  */
@@ -54,8 +50,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
 
     private static final Pattern ADOC_ENDING_PATTERN = Pattern.compile("\\.adoc$");
-    private static final byte[] DUMMY_COMPONENT_FILE_COMMENT = "// Empty partial for a Camel bit unsupported by Camel Quarkus to avoid warnings when this file is included from a Camel page\n"
-            .getBytes(StandardCharsets.UTF_8);
+    private static final Pattern YML_ENDING_PATTERN = Pattern.compile("\\.yml$");
 
     /**
      * The directory relative to which the catalog data is read.
@@ -103,7 +98,7 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
     void camelBits(Path docsBasePath) {
         final CqCatalog cqCatalog = new CqCatalog(catalogBaseDir.toPath(), Flavor.camelQuarkus);
 
-        final Path referenceDir = docsBasePath.resolve("modules/ROOT/partials/reference");
+        final Path referenceDir = docsBasePath.resolve("modules/ROOT/examples");
         try (GavCqCatalog camelCatalog = GavCqCatalog.open(Paths.get(localRepository), Flavor.camel, camelVersion)) {
 
             CqCatalog.kinds().forEach(kind -> {
@@ -126,18 +121,10 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
                 }
                 try (Stream<Path> kindFiles = Files.list(kindDir)) {
                     kindFiles.forEach(kindFile -> {
-                        final String artifactIdBase = ADOC_ENDING_PATTERN.matcher(kindFile.getFileName().toString())
+                        final String artifactIdBase = YML_ENDING_PATTERN.matcher(kindFile.getFileName().toString())
                                 .replaceAll("");
                         if (cqNames.contains(artifactIdBase)) {
                             /* Nothing to do, this should have been done by UpdateExtensionDocPageMojo */
-                        } else if (camelNames.contains(artifactIdBase)) {
-                            try {
-                                if (!Arrays.equals(DUMMY_COMPONENT_FILE_COMMENT, Files.readAllBytes(kindFile))) {
-                                    Files.write(kindFile, DUMMY_COMPONENT_FILE_COMMENT);
-                                }
-                            } catch (IOException e) {
-                                throw new RuntimeException("Could not read or write " + kindFile, e);
-                            }
                         } else {
                             try {
                                 Files.delete(kindFile);
@@ -148,17 +135,6 @@ public class CheckExtensionPagesMojo extends AbstractDocGeneratorMojo {
                     });
                 } catch (IOException e) {
                     throw new RuntimeException("Could not list " + kindDir, e);
-                }
-
-                for (String name : camelNames) {
-                    final Path kindFile = kindDir.resolve(name + ".adoc");
-                    if (!Files.isRegularFile(kindFile)) {
-                        try {
-                            Files.write(kindFile, DUMMY_COMPONENT_FILE_COMMENT);
-                        } catch (IOException e) {
-                            throw new RuntimeException("Could not write " + kindFile, e);
-                        }
-                    }
                 }
             });
         }

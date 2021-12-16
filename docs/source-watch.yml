@@ -19,11 +19,7 @@
 #      log_level: trace
       sources:
         - url: ./../camel-quarkus
-          component: camel-quarkus
-          version: next
         - url: https://github.com/apache/camel-quarkus-examples.git
-          component: camel-quarkus-examples
-          version: latest
 
     - require: "@djencks/antora-site-manifest"
       import-manifests:
