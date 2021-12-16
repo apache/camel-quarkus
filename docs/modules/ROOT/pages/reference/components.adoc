@@ -1,6 +1,6 @@
 = Camel components supported on Quarkus
 :indexer-module: ROOT
-:indexer-rel-filter: *-component.adoc
+:indexer-rel-filter: components/*.yml
 :indexer-human-readable-kind: Component
 :indexer-human-readable-kind-plural: components
 
