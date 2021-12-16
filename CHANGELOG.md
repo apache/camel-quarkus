@@ -39,6 +39,7 @@
 
 **Merged pull requests:**
 
+- ⬆️ Upgrade Quarkus 2.6.0.Final [\#3388](https://github.com/apache/camel-quarkus/pull/3388) ([zbendhiba](https://github.com/zbendhiba))
 - protobuf: Missing method "getName" when using contentTypeFormat=json … [\#3384](https://github.com/apache/camel-quarkus/pull/3384) ([aldettinger](https://github.com/aldettinger))
 - ⬆️ Use the Quarkus Artemis BOM and upgrade to 1.0.2 [\#3383](https://github.com/apache/camel-quarkus/pull/3383) ([zbendhiba](https://github.com/zbendhiba))
 - Fix \#3374 to use File.separatorChar when get fqcn from generated … [\#3380](https://github.com/apache/camel-quarkus/pull/3380) ([zhfeng](https://github.com/zhfeng))
