@@ -2,7 +2,7 @@ Parameters `tikaConfig` and `tikaConfigUri` are not available in quarkus camel t
 can be changed only via `application.properties`.
 
 While you can use any of the available https://tika.apache.org/1.24.1/formats.html[Tika parsers] in JVM mode,
-only some of those are supported in native mode - see the https://quarkus.io/guides/tika[Quarkus Tika guide].
+only some of those are supported in native mode - see the https://quarkiverse.github.io/quarkiverse-docs/quarkus-tika/dev/index.html[Quarkus Tika guide].
 
 Use of the Tika parser without any configuration will initialize all available parsers. Unfortunately as some of them
 don't work in the native mode, the whole execution will fail.
@@ -21,5 +21,7 @@ quarkus.tika.parsers = pdf,odf,office
 quarkus.tika.parser.office = org.apache.tika.parser.microsoft.OfficeParser
 ----
 
-For more information about selecting parsers see the https://quarkus.io/guides/tika[Quarkus Tika guide].
+For more information about selecting parsers see the https://quarkiverse.github.io/quarkiverse-docs/quarkus-tika/dev/index.html[Quarkus Tika guide].
+
+You may need to add the `quarkus-awt` extension to build the native image. For more information, see https://quarkiverse.github.io/quarkiverse-docs/quarkus-tika/dev/index.html[Quarkus Tika guide].
 
