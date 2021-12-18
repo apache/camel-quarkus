@@ -17,7 +17,7 @@
 
 name: camel-quarkus
 title: Camel Quarkus
-version: 2.6.0
+version: latest
 prerelease: true
 display-version: Next (Pre-release)
 nav:
