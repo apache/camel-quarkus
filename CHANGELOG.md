@@ -39,6 +39,8 @@
 
 **Merged pull requests:**
 
+- ⬆️ Upgrade Tika version [\#3395](https://github.com/apache/camel-quarkus/pull/3395) ([zbendhiba](https://github.com/zbendhiba))
+- ⬆️ Upgrade Quarkiverse jgit and Amazon services [\#3393](https://github.com/apache/camel-quarkus/pull/3393) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Quarkus 2.6.0.Final [\#3388](https://github.com/apache/camel-quarkus/pull/3388) ([zbendhiba](https://github.com/zbendhiba))
 - POC/WIP local build setup [\#3385](https://github.com/apache/camel-quarkus/pull/3385) ([djencks](https://github.com/djencks))
 - protobuf: Missing method "getName" when using contentTypeFormat=json … [\#3384](https://github.com/apache/camel-quarkus/pull/3384) ([aldettinger](https://github.com/aldettinger))
