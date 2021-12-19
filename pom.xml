@@ -459,6 +459,8 @@
                         <header>header.txt</header>
                         <excludes>
                             <exclude>**/*.adoc</exclude>
+                            <exclude>modules/**/*.yml</exclude>
+                            <exclude>src/main/resources/doc-templates/extensions-camel-bits.yml</exclude>
                             <exclude>**/*.adm</exclude>
                             <exclude>**/*.avsc</exclude>
                             <exclude>**/*.avpr</exclude>
