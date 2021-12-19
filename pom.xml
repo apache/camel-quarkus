@@ -988,26 +988,26 @@
             <id>commit-release-changes</id>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.gmaven</groupId>
-                        <artifactId>groovy-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>update-antora-yaml</id>
-                                <inherited>false</inherited>
-                                <goals>
-                                    <goal>execute</goal>
-                                </goals>
-                                <phase>validate</phase>
-                                <configuration>
-                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
-                                    <properties>
-                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
-                                    </properties>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.codehaus.gmaven</groupId>-->
+<!--                        <artifactId>groovy-maven-plugin</artifactId>-->
+<!--                        <executions>-->
+<!--                            <execution>-->
+<!--                                <id>update-antora-yaml</id>-->
+<!--                                <inherited>false</inherited>-->
+<!--                                <goals>-->
+<!--                                    <goal>execute</goal>-->
+<!--                                </goals>-->
+<!--                                <phase>validate</phase>-->
+<!--                                <configuration>-->
+<!--                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>-->
+<!--                                    <properties>-->
+<!--                                        <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>-->
+<!--                                    </properties>-->
+<!--                                </configuration>-->
+<!--                            </execution>-->
+<!--                        </executions>-->
+<!--                    </plugin>-->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-scm-plugin</artifactId>

@@ -34,7 +34,7 @@ final Path path = treeRootDir.resolve('docs/antora.yml')
 println 'Updating ' + path
 final String content = path.getText('UTF-8')
 final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
-println ' - seting '+ versionReplacement
+println ' - setting '+ versionReplacement
 final Pattern versionPattern = ~'version: [^\\s]+'
 final String newContentString = versionPattern.matcher(content).replaceFirst(versionReplacement)
 
