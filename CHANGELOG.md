@@ -2,45 +2,13 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.5.0...HEAD)
-
-**Fixed bugs:**
-
-- Exclude maven-artifact from camel-quarkus-debezium-mongodb [\#3372](https://github.com/apache/camel-quarkus/issues/3372)
-
-**Closed issues:**
-
-- protobuf: Missing method "getName" when using contentTypeFormat=json in native mode [\#3382](https://github.com/apache/camel-quarkus/issues/3382)
-- Use the Quarkiverse Artemis BOM and upgrade to 1.0.2 [\#3381](https://github.com/apache/camel-quarkus/issues/3381)
-- Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
-- Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
-- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
-- XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
-- Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
-- Using camel-quarkus-xslt-saxon in native mode ends up with java.lang.NoSuchMethodException at runtime  [\#3360](https://github.com/apache/camel-quarkus/issues/3360)
-- aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
-- Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
-- Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
-- \[JDK17\]kudu:integration test failed in native mode [\#3340](https://github.com/apache/camel-quarkus/issues/3340)
-- Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
-- Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
-- camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
-- Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
-- \[Camel 3.14.0\] Kafka integration test never completes [\#3312](https://github.com/apache/camel-quarkus/issues/3312)
-- FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
-- \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
-- Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called [\#3260](https://github.com/apache/camel-quarkus/issues/3260)
-- Consider removing `camel-quarkus-support-common` [\#3243](https://github.com/apache/camel-quarkus/issues/3243)
-- `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
-- \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
-- \[Quarkus 2.5\] Example with kafka + Oauth2 needs the stimzi Oauth client [\#2872](https://github.com/apache/camel-quarkus/issues/2872)
-- Test AWS2 SQS in isolation [\#2606](https://github.com/apache/camel-quarkus/issues/2606)
-- Camel-Catalog-Quarkus: It is missing for release-1.0.0-M5 [\#904](https://github.com/apache/camel-quarkus/issues/904)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...HEAD)
 
 **Merged pull requests:**
 
 - ⬆️ Upgrade Tika version [\#3395](https://github.com/apache/camel-quarkus/pull/3395) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Quarkiverse jgit and Amazon services [\#3393](https://github.com/apache/camel-quarkus/pull/3393) ([zbendhiba](https://github.com/zbendhiba))
+- ⬆️ Upgrade Camel to 3.14.0 [\#3392](https://github.com/apache/camel-quarkus/pull/3392) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Quarkus 2.6.0.Final [\#3388](https://github.com/apache/camel-quarkus/pull/3388) ([zbendhiba](https://github.com/zbendhiba))
 - POC/WIP local build setup [\#3385](https://github.com/apache/camel-quarkus/pull/3385) ([djencks](https://github.com/djencks))
 - protobuf: Missing method "getName" when using contentTypeFormat=json … [\#3384](https://github.com/apache/camel-quarkus/pull/3384) ([aldettinger](https://github.com/aldettinger))
@@ -61,7 +29,6 @@
 - fix  \[JDK17\]kudu:integration test failed in native mode \#3340 [\#3341](https://github.com/apache/camel-quarkus/pull/3341) ([ffang](https://github.com/ffang))
 - Fix misalignment of protobuf dependencies [\#3338](https://github.com/apache/camel-quarkus/pull/3338) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban com.google.code.findbugs:jsr305 unconditionally  [\#3337](https://github.com/apache/camel-quarkus/pull/3337) ([ppalaga](https://github.com/ppalaga))
-- :white\_check\_mark: Kafka Oauth Integration test with Strimzi and Keyc… [\#3336](https://github.com/apache/camel-quarkus/pull/3336) ([zbendhiba](https://github.com/zbendhiba))
 - Remove `camel-quarkus-support-common` [\#3334](https://github.com/apache/camel-quarkus/pull/3334) ([jamesnetherton](https://github.com/jamesnetherton))
 - Verify that `kafka.bootstrap.servers` property is available before attempting to use it for dev services [\#3330](https://github.com/apache/camel-quarkus/pull/3330) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add manifest to camel-quarkus-support-spring source JARs [\#3328](https://github.com/apache/camel-quarkus/pull/3328) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -910,6 +877,48 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
+## [2.6.0](https://github.com/apache/camel-quarkus/tree/2.6.0) (2021-12-18)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.5.0...2.6.0)
+
+**Fixed bugs:**
+
+- Exclude maven-artifact from camel-quarkus-debezium-mongodb [\#3372](https://github.com/apache/camel-quarkus/issues/3372)
+
+**Closed issues:**
+
+- Testing transacted routes with Quarkus and CamelTestSupport fails [\#3379](https://github.com/apache/camel-quarkus/issues/3379)
+- Using camel-quarkus-xslt-saxon in native mode ends up with java.lang.NoSuchMethodException at runtime  [\#3360](https://github.com/apache/camel-quarkus/issues/3360)
+- Remove CI workflow steps to install `yq` [\#3355](https://github.com/apache/camel-quarkus/issues/3355)
+- \[Camel 3.14.0\] Kafka integration test never completes [\#3312](https://github.com/apache/camel-quarkus/issues/3312)
+- \[Camel 3.13.0\] `MicroProfileHealthTest.testFailureThreshold` test failure [\#3277](https://github.com/apache/camel-quarkus/issues/3277)
+- Sql test using derby doesn't start dev service and shows class loading issue if stored procedure is called [\#3260](https://github.com/apache/camel-quarkus/issues/3260)
+- Camel-Catalog-Quarkus: It is missing for release-1.0.0-M5 [\#904](https://github.com/apache/camel-quarkus/issues/904)
+- protobuf: Missing method "getName" when using contentTypeFormat=json in native mode [\#3382](https://github.com/apache/camel-quarkus/issues/3382)
+- Use the Quarkiverse Artemis BOM and upgrade to 1.0.2 [\#3381](https://github.com/apache/camel-quarkus/issues/3381)
+- Ban log4j-core and log4j-slf4j-impl [\#3377](https://github.com/apache/camel-quarkus/issues/3377)
+- Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
+- XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
+- Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
+- aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
+- Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
+- \[JDK17\]kudu:integration test failed in native mode [\#3340](https://github.com/apache/camel-quarkus/issues/3340)
+- Ban com.google.code.findbugs:jsr305 unconditionally [\#3335](https://github.com/apache/camel-quarkus/issues/3335)
+- Camel Quarkus Kafka extension dev services support should check for the availability of `kafka.bootstrap.servers` [\#3329](https://github.com/apache/camel-quarkus/issues/3329)
+- camel-quarkus-support-\* source JARs should have manifests [\#3321](https://github.com/apache/camel-quarkus/issues/3321)
+- Document that `vertx-websocket` consumers run on the Quarkus Vert.x web server [\#3318](https://github.com/apache/camel-quarkus/issues/3318)
+- FOP integration test failed in native mode [\#3280](https://github.com/apache/camel-quarkus/issues/3280)
+- Consider removing `camel-quarkus-support-common` [\#3243](https://github.com/apache/camel-quarkus/issues/3243)
+- `quarkus.camel.main.shutdown.timeout`  doesn't work as intended [\#3179](https://github.com/apache/camel-quarkus/issues/3179)
+- \[Camel 3.12\] New feature: route configurations [\#2978](https://github.com/apache/camel-quarkus/issues/2978)
+- \[Quarkus 2.5\] Example with kafka + Oauth2 needs the stimzi Oauth client [\#2872](https://github.com/apache/camel-quarkus/issues/2872)
+- Test AWS2 SQS in isolation [\#2606](https://github.com/apache/camel-quarkus/issues/2606)
+- JFR Native support [\#2151](https://github.com/apache/camel-quarkus/issues/2151)
+
+**Merged pull requests:**
+
+- :white\_check\_mark: Kafka Oauth Integration test with Strimzi and Keyc… [\#3336](https://github.com/apache/camel-quarkus/pull/3336) ([zbendhiba](https://github.com/zbendhiba))
+
 ## [2.5.0](https://github.com/apache/camel-quarkus/tree/2.5.0) (2021-11-19)
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.4.0...2.5.0)
@@ -935,7 +944,6 @@
 - Investigate the large size of content uploading with camel-quarkus-aws2-s3 [\#3095](https://github.com/apache/camel-quarkus/issues/3095)
 - Sql - enable stored procedure test for different db types [\#3080](https://github.com/apache/camel-quarkus/issues/3080)
 - Check whether/how the clients for Quarkus AWS extension can be used in Camel routes [\#2592](https://github.com/apache/camel-quarkus/issues/2592)
-- JFR Native support [\#2151](https://github.com/apache/camel-quarkus/issues/2151)
 - Stub nominatim.openstreetmap.org APIs with WireMock for GeocoderNominationTest [\#2033](https://github.com/apache/camel-quarkus/issues/2033)
 - avro: fix the documentation about avro schema build time parsing [\#3270](https://github.com/apache/camel-quarkus/issues/3270)
 - \[camel 3.13\] NativeImageResourceBuildItem fails for Atlasmap extension [\#3189](https://github.com/apache/camel-quarkus/issues/3189)
