@@ -25,12 +25,12 @@ import org.apache.camel.Component;
 import org.apache.camel.TypeConverter;
 import org.apache.camel.component.microprofile.config.CamelMicroProfilePropertiesSource;
 import org.apache.camel.impl.DefaultCamelContext;
-import org.apache.camel.impl.engine.DefaultCamelBeanPostProcessor;
 import org.apache.camel.impl.engine.DefaultComponentResolver;
 import org.apache.camel.impl.engine.DefaultDataFormatResolver;
 import org.apache.camel.impl.engine.DefaultLanguageResolver;
 import org.apache.camel.impl.engine.DefaultShutdownStrategy;
 import org.apache.camel.model.ModelCamelContext;
+import org.apache.camel.quarkus.CamelQuarkusBeanPostProcessor;
 import org.apache.camel.spi.CamelBeanPostProcessor;
 import org.apache.camel.spi.ClassResolver;
 import org.apache.camel.spi.ComponentNameResolver;
@@ -123,7 +123,7 @@ public class FastCamelContext extends DefaultCamelContext implements CatalogCame
     protected CamelBeanPostProcessor createBeanPostProcessor() {
         // TODO: Investigate optimizing this
         // https://github.com/apache/camel-quarkus/issues/2171
-        return new DefaultCamelBeanPostProcessor(this);
+        return new CamelQuarkusBeanPostProcessor(this);
     }
 
     @Override

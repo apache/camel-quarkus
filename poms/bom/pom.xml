@@ -662,6 +662,10 @@
                         <artifactId>jsr305</artifactId>
                     </exclusion>
                     <exclusion>
+                        <groupId>org.apache.activemq</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>org.jboss.logmanager</groupId>
                         <artifactId>jboss-logmanager</artifactId>
                     </exclusion>
