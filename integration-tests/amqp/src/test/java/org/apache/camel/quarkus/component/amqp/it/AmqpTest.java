@@ -37,6 +37,6 @@ class AmqpTest extends AbstractJmsMessagingTest {
         RestAssured.get("/amqp/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("org.amqphub.quarkus.qpid.jms"));
+                .body(startsWith("javax.jms.QpidJms"));
     }
 }

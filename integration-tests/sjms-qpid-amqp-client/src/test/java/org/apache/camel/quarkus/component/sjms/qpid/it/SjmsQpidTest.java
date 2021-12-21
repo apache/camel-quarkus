@@ -36,6 +36,6 @@ class SjmsQpidTest extends AbstractSjmsMessagingTest {
         RestAssured.get("/messaging/sjms/qpid/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("org.amqphub.quarkus.qpid"));
+                .body(startsWith("javax.jms.QpidJms"));
     }
 }
