@@ -6,6 +6,7 @@
 
 **Merged pull requests:**
 
+- See \#3396 Main content-as tables [\#3397](https://github.com/apache/camel-quarkus/pull/3397) ([djencks](https://github.com/djencks))
 - ⬆️ Upgrade Tika version [\#3395](https://github.com/apache/camel-quarkus/pull/3395) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Quarkiverse jgit and Amazon services [\#3393](https://github.com/apache/camel-quarkus/pull/3393) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Camel to 3.14.0 [\#3392](https://github.com/apache/camel-quarkus/pull/3392) ([zbendhiba](https://github.com/zbendhiba))
