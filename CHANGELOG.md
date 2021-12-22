@@ -4,8 +4,16 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...HEAD)
 
+**Closed issues:**
+
+- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
+- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
+- \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
+
 **Merged pull requests:**
 
+- Ban commons-logging and commons-logging-api [\#3406](https://github.com/apache/camel-quarkus/pull/3406) ([ppalaga](https://github.com/ppalaga))
+- Next is 2.7.0 [\#3404](https://github.com/apache/camel-quarkus/pull/3404) ([zbendhiba](https://github.com/zbendhiba))
 - See \#3396 Main content-as tables [\#3397](https://github.com/apache/camel-quarkus/pull/3397) ([djencks](https://github.com/djencks))
 - ⬆️ Upgrade Tika version [\#3395](https://github.com/apache/camel-quarkus/pull/3395) ([zbendhiba](https://github.com/zbendhiba))
 - ⬆️ Upgrade Quarkiverse jgit and Amazon services [\#3393](https://github.com/apache/camel-quarkus/pull/3393) ([zbendhiba](https://github.com/zbendhiba))
