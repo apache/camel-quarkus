@@ -9,5 +9,5 @@ cqJvmSince: 1.7.0
 cqNativeSince: 1.7.0
 cqCamelPartName: azure-eventhubs
 cqCamelPartTitle: Azure Event Hubs
-cqCamelPartDescription: The azure-eventhubs component that integrates Azure Event Hubs using AMQP protocol. Azure EventHubs is a highly scalable publish-subscribe service that can ingest millions of events per second and stream them to multiple consumers.
+cqCamelPartDescription: Send and receive events to/from Azure Event Hubs using AMQP protocol.
 cqExtensionPageTitle: Azure Event Hubs
