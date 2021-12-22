@@ -16,6 +16,12 @@
 
 JMX management strategy and associated managed resources.
 
+== What's inside
+
+* xref:{cq-camel-components}:others:management.adoc[Management]
+
+Please refer to the above link for usage and configuration details.
+
 == Maven coordinates
 
 [source,xml]

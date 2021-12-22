@@ -86,11 +86,11 @@ public class JsonDataformatsRoute extends RouteBuilder {
 
         from("direct:jacksonxml-marshal")
                 .marshal()
-                .jacksonxml(true);
+                .jacksonXml(true);
 
         from("direct:jacksonxml-unmarshal")
                 .unmarshal()
-                .jacksonxml(PojoA.class);
+                .jacksonXml(PojoA.class);
 
     }
 

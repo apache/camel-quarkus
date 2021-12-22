@@ -9,5 +9,5 @@ cqJvmSince: 1.8.0
 cqNativeSince: n/a
 cqCamelPartName: azure-storage-datalake
 cqCamelPartTitle: Azure Storage Datalake Service
-cqCamelPartDescription: Camel Azure Datalake Gen2 Component
+cqCamelPartDescription: Sends and receives files to/from Azure DataLake Storage.
 cqExtensionPageTitle: Azure storage datalake service

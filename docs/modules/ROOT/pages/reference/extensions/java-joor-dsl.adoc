@@ -16,6 +16,12 @@
 
 Support for parsing Java route definitions at runtime
 
+== What's inside
+
+* xref:{cq-camel-components}:others:java-joor-dsl.adoc[Java DSL (runtime compiled)]
+
+Please refer to the above link for usage and configuration details.
+
 == Maven coordinates
 
 [source,xml]

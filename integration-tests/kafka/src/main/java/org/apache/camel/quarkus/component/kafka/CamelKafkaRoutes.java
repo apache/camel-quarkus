@@ -22,7 +22,7 @@ import javax.inject.Named;
 
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.kafka.KafkaConstants;
-import org.apache.camel.component.kafka.KafkaManualCommit;
+import org.apache.camel.component.kafka.consumer.KafkaManualCommit;
 import org.apache.camel.processor.idempotent.kafka.KafkaIdempotentRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -78,7 +78,7 @@ public class CamelKafkaRoutes extends RouteBuilder {
                     if (counter % 2 != 0) {
                         KafkaManualCommit manual = e.getMessage().getHeader(KafkaConstants.MANUAL_COMMIT,
                                 KafkaManualCommit.class);
-                        manual.commitSync();
+                        manual.commit();
                     }
                 });
 

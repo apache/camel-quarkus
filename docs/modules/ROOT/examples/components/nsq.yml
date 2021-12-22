@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-nsq
 cqArtifactIdBase: nsq
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: 1.2.0
 cqCamelPartName: nsq

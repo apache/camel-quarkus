@@ -22,7 +22,8 @@
         to: "direct:rest"
 - route:
     id: "rest-route"
-    from: "direct:rest"
-    steps:
-      - set-body:
-          constant: "Hello World!!!"
+    from:
+      uri: "direct:rest"
+      steps:
+        - set-body:
+            constant: "Hello World!!!"

@@ -22,10 +22,6 @@ import java.util.List;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
-import javax.enterprise.inject.Vetoed;
-
-import io.quarkus.arc.deployment.AnnotationsTransformerBuildItem;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.ExecutionTime;
 import io.quarkus.deployment.annotations.Record;
@@ -39,19 +35,16 @@ import org.apache.camel.impl.health.ConsumersHealthCheckRepository;
 import org.apache.camel.impl.health.ContextHealthCheck;
 import org.apache.camel.impl.health.HealthCheckRegistryRepository;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
-import org.apache.camel.microprofile.health.AbstractCamelMicroProfileHealthCheck;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthConfig;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelContextCustomizerBuildItem;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
+import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.util.ObjectHelper;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.eclipse.microprofile.health.Liveness;
-import org.eclipse.microprofile.health.Readiness;
-import org.jboss.jandex.AnnotationInstance;
-import org.jboss.jandex.AnnotationTarget;
-import org.jboss.jandex.AnnotationValue;
 import org.jboss.jandex.ClassInfo;
 import org.jboss.jandex.DotName;
 import org.jboss.jandex.IndexView;
@@ -61,9 +54,6 @@ class MicroProfileHealthProcessor {
     private static final DotName CAMEL_HEALTH_CHECK_DOTNAME = DotName.createSimple(HealthCheck.class.getName());
     private static final DotName CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME = DotName
             .createSimple(HealthCheckRepository.class.getName());
-    private static final DotName MICROPROFILE_LIVENESS_DOTNAME = DotName.createSimple(Liveness.class.getName());
-    private static final DotName MICROPROFILE_READINESS_DOTNAME = DotName.createSimple(Readiness.class.getName());
-    private static final DotName VETOED_DOTNAME = DotName.createSimple(Vetoed.class.getName());
     private static final String FEATURE = "camel-microprofile-health";
 
     static final class HealthEnabled implements BooleanSupplier {
@@ -99,13 +89,17 @@ class MicroProfileHealthProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @Record(ExecutionTime.STATIC_INIT)
+    @BuildStep(onlyIf = HealthEnabled.class)
+    CamelServicePatternBuildItem excludeDefaultHealthCheckRegistry() {
+        // Prevent camel main from overwriting the HealthCheckRegistry configured by this extension
+        return new CamelServicePatternBuildItem(CamelServiceDestination.DISCOVERY, false,
+                "META-INF/services/org/apache/camel/" + HealthCheckRegistry.FACTORY);
+    }
+
     @BuildStep(onlyIf = { HealthEnabled.class, HealthRegistryEnabled.class })
-    CamelBeanBuildItem healthCheckRegistry(CamelMicroProfileHealthRecorder recorder, CamelMicroProfileHealthConfig config) {
-        return new CamelBeanBuildItem(
-                "HealthCheckRegistry",
-                HealthCheckRegistry.class.getName(),
-                recorder.createHealthCheckRegistry(config));
+    @Record(ExecutionTime.STATIC_INIT)
+    CamelContextCustomizerBuildItem customizeHealthCheckRegistry(CamelMicroProfileHealthRecorder recorder) {
+        return new CamelContextCustomizerBuildItem(recorder.createHealthCheckRegistry());
     }
 
     @BuildStep(onlyIf = HealthEnabled.class)
@@ -158,28 +152,6 @@ class MicroProfileHealthProcessor {
                 .forEach(buildItems::add);
 
         return buildItems;
-    }
-
-    @BuildStep(onlyIfNot = HealthEnabled.class)
-    void disableCamelMicroProfileHealthChecks(BuildProducer<AnnotationsTransformerBuildItem> transformers) {
-        // Veto the Camel MicroProfile checks to disable them
-        transformers.produce(new AnnotationsTransformerBuildItem(context -> {
-            if (context.isClass()) {
-                AnnotationTarget target = context.getTarget();
-                if (isCamelMicroProfileHealthCheck(target.asClass())) {
-                    AnnotationInstance annotationInstance = AnnotationInstance.create(VETOED_DOTNAME, target,
-                            new AnnotationValue[0]);
-                    context.transform().add(annotationInstance).done();
-                }
-            }
-        }));
-    }
-
-    private boolean isCamelMicroProfileHealthCheck(ClassInfo classInfo) {
-        String className = classInfo.name().toString();
-        return className.startsWith(AbstractCamelMicroProfileHealthCheck.class.getPackage().getName())
-                && (classInfo.classAnnotation(MICROPROFILE_LIVENESS_DOTNAME) != null
-                        || classInfo.classAnnotation(MICROPROFILE_READINESS_DOTNAME) != null);
     }
 
     private CamelBeanBuildItem createHealthCamelBeanBuildItem(ClassInfo classInfo) {

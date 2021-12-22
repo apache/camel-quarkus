@@ -17,8 +17,9 @@
 
 - route:
     route-configuration-id: "xmlRouteConfiguration"
-    from: "direct:yamlRoute"
-    steps:
-      - throw-exception:
-          exception-type: "org.apache.camel.quarkus.core.it.routeconfigurations.RouteConfigurationsException"
-          message: "Intentional exception to trigger onException in xmlRouteConfiguration"
+    from:
+        uri: "direct:yamlRoute"
+        steps:
+          - throw-exception:
+              exception-type: "org.apache.camel.quarkus.core.it.routeconfigurations.RouteConfigurationsException"
+              message: "Intentional exception to trigger onException in xmlRouteConfiguration"

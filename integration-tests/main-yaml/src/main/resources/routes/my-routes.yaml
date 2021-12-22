@@ -17,8 +17,9 @@
 
 - route:
     id: "my-yaml-route"
-    from: "timer:from-xml?period=3000"
-    steps:
-      - set-body:
-          constant: "Hello World!!!"
-      - to: "log:from-yaml"
+    from:
+      uri: "timer:from-xml?period=3000"
+      steps:
+        - set-body:
+            constant: "Hello World!!!"
+        - to: "log:from-yaml"

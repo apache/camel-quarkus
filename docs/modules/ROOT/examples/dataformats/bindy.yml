@@ -7,7 +7,7 @@ cqStatus: Stable
 cqDeprecated: false
 cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
-cqCamelPartName: bindy-kvp
+cqCamelPartName: bindyKvp
 cqCamelPartTitle: Bindy Key Value Pair
 cqCamelPartDescription: Marshal and unmarshal between POJOs and key-value pair (KVP) format using Camel Bindy
 cqExtensionPageTitle: Bindy

@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.7.0
 cqCamelPartName: azure-storage-queue
 cqCamelPartTitle: Azure Storage Queue Service
-cqCamelPartDescription: The azure-storage-queue component is used for storing and retrieving the messages to/from Azure Storage Queue using Azure SDK v12.
+cqCamelPartDescription: Stores and retrieves messages to/from Azure Storage Queue.
 cqExtensionPageTitle: Azure Storage Queue Service

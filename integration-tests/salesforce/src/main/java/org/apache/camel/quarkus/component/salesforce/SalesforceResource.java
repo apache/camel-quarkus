@@ -50,7 +50,6 @@ import org.apache.camel.component.salesforce.api.dto.CreateSObjectResult;
 import org.apache.camel.component.salesforce.api.dto.GlobalObjects;
 import org.apache.camel.component.salesforce.api.dto.Limits;
 import org.apache.camel.component.salesforce.api.dto.RecentItem;
-import org.apache.camel.component.salesforce.api.dto.RestResources;
 import org.apache.camel.component.salesforce.api.dto.SObjectBasicInfo;
 import org.apache.camel.component.salesforce.api.dto.SObjectDescription;
 import org.apache.camel.component.salesforce.api.dto.Version;
@@ -213,9 +212,9 @@ public class SalesforceResource {
     @Path("resources")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getListResources() {
-        RestResources restResources = template.to("salesforce:getResources").request(RestResources.class);
-        return restResources.getSobjects();
+    @SuppressWarnings("unchecked")
+    public Map<String, String> getListResources() {
+        return template.to("salesforce:getResources").request(Map.class);
     }
 
     @Path("basic-info/account")

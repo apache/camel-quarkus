@@ -16,6 +16,12 @@
 
 Support for parsing Groovy route definitions at runtime
 
+== What's inside
+
+* xref:{cq-camel-components}:others:groovy-dsl.adoc[Groovy Dsl]
+
+Please refer to the above link for usage and configuration details.
+
 == Maven coordinates
 
 [source,xml]

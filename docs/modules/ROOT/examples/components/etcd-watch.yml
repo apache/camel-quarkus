@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-etcd
 cqArtifactIdBase: etcd
 cqNativeSupported: false
 cqStatus: Preview
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: etcd-watch

@@ -21,7 +21,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.soap.SoapJaxbDataFormat;
+import org.apache.camel.dataformat.soap.SoapDataFormat;
 import org.apache.camel.dataformat.soap.name.QNameStrategy;
 import org.apache.camel.dataformat.soap.name.ServiceInterfaceStrategy;
 import org.apache.camel.dataformat.soap.name.TypeNameStrategy;
@@ -62,26 +62,26 @@ public class SoapRoutes extends RouteBuilder {
                 .marshal("soapDataFormatWithServiceInterfaceStrategy");
 
         from("direct:marshalQnameStrategy")
-                .marshal().soapjaxb(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
+                .marshal().soap(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
                         new QName("http://service.it.soap.component.quarkus.camel.apache.org/", "getCustomersByName")));
 
         from("direct:unmarshalQnameStrategy")
-                .unmarshal().soapjaxb(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
+                .unmarshal().soap(SERVICE_CUSTOMERS_BY_NAME_PACKAGE, new QNameStrategy(
                         new QName("http://service.it.soap.component.quarkus.camel.apache.org/", "getCustomersByName")));
 
         from("direct:marshal-soap1.2")
-                .marshal().soapjaxb12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
+                .marshal().soap12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
 
         from("direct:unmarshal-soap1.2")
-                .unmarshal().soapjaxb12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
+                .unmarshal().soap12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
 
         from("direct:unmarshal-fault-soap1.2")
-                .unmarshal().soapjaxb12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
+                .unmarshal().soap12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE);
 
         from("direct:marshal-fault-soap1.2")
                 .onException(Exception.class)
                 .handled(true)
-                .marshal().soapjaxb12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE)
+                .marshal().soap12(SERVICE_CUSTOMERS_BY_NAME_PACKAGE)
                 .end()
                 .process(createSoapFaultProcessor());
 
@@ -93,22 +93,22 @@ public class SoapRoutes extends RouteBuilder {
     }
 
     @Named("soapDataFormat")
-    public SoapJaxbDataFormat soapJaxbDataFormat() {
-        SoapJaxbDataFormat soapJaxbDataFormat = new SoapJaxbDataFormat(SERVICE_CUSTOMERS_BY_NAME_PACKAGE,
+    public SoapDataFormat soapJaxbDataFormat() {
+        SoapDataFormat soapJaxbDataFormat = new SoapDataFormat(SERVICE_CUSTOMERS_BY_NAME_PACKAGE,
                 new TypeNameStrategy());
         soapJaxbDataFormat.setSchema("classpath:/schema/CustomerService.xsd,classpath:/soap.xsd");
         return soapJaxbDataFormat;
     }
 
     @Named("soapDataFormatWithServiceInterfaceStrategy")
-    public SoapJaxbDataFormat soapJaxbDataFormatServiceInterfaceStrategy() {
-        return new SoapJaxbDataFormat(SERVICE_CUSTOMERS_BY_NAME_PACKAGE,
+    public SoapDataFormat soapJaxbDataFormatServiceInterfaceStrategy() {
+        return new SoapDataFormat(SERVICE_CUSTOMERS_BY_NAME_PACKAGE,
                 new ServiceInterfaceStrategy(CustomerService.class, true));
     }
 
     @Named("soapJaxbDataFormatMultipart")
-    public SoapJaxbDataFormat soapJaxbDataFormatMultipart() {
-        return new SoapJaxbDataFormat(MULTIPART_CUSTOMERS_BY_NAME_PACKAGE,
+    public SoapDataFormat soapJaxbDataFormatMultipart() {
+        return new SoapDataFormat(MULTIPART_CUSTOMERS_BY_NAME_PACKAGE,
                 new ServiceInterfaceStrategy(MultiPartCustomerService.class, true));
     }
 

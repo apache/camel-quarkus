@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.univocity.UniVocityFixedWidthDataFormat;
+import org.apache.camel.dataformat.univocity.UniVocityFixedDataFormat;
 import org.apache.camel.spi.DataFormat;
 
 public class UniVocityFixedWidthDataFormatUnmarshalRoute extends RouteBuilder {
@@ -30,28 +30,28 @@ public class UniVocityFixedWidthDataFormatUnmarshalRoute extends RouteBuilder {
         final Map<String, DataFormat> testsDataformat = new HashMap<>();
 
         // Default reading of fixed-width
-        testsDataformat.put("default", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("default", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3, 5 }));
 
         // Reading fixed-width as Map
-        testsDataformat.put("map", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("map", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3, 5 })
                 .setAsMap(true)
                 .setHeaderExtractionEnabled(true));
 
         // Reading fixed-width as Map with specific headers
-        testsDataformat.put("mapWithHeaders", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("mapWithHeaders", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3, 5 })
                 .setAsMap(true)
                 .setHeaders(new String[] { "A", "B", "C" }));
 
         // Reading fixed-width using an iterator
-        testsDataformat.put("lazy", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("lazy", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3, 5 })
                 .setLazyLoad(true));
 
         // Reading fixed-width using advanced configuration
-        testsDataformat.put("advanced", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("advanced", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3 })
                 .setNullValue("N/A")
                 .setPadding('_')

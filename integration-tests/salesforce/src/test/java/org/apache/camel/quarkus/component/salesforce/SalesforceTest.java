@@ -32,7 +32,6 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.emptyString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsNot.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -168,11 +167,19 @@ class SalesforceTest {
 
     @Test
     void testGetRestResources() {
-        RestAssured.given()
+        JsonPath resources = RestAssured.given()
                 .get("/salesforce/resources")
                 .then()
                 .statusCode(200)
-                .body(matchesPattern("/services/data/.*/sobjects"));
+                .extract()
+                .body()
+                .jsonPath();
+
+        resources.getMap("$.")
+                .values()
+                .stream()
+                .map(Object::toString)
+                .forEach(value -> assertTrue(value.matches("/services/data/.*/.*")));
     }
 
     @Test

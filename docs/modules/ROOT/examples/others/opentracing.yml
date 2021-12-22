@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-opentracing
 cqArtifactIdBase: opentracing
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 0.3.0
 cqNativeSince: 0.3.0
 cqCamelPartName: opentracing

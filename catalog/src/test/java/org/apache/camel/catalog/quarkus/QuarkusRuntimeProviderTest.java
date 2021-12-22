@@ -81,8 +81,8 @@ public class QuarkusRuntimeProviderTest {
         assertFalse(names.isEmpty());
 
         assertTrue(names.contains("csv"));
-        assertTrue(names.contains("mime-multipart"));
-        assertTrue(names.contains("zipfile"));
+        assertTrue(names.contains("mimeMultipart"));
+        assertTrue(names.contains("zipFile"));
     }
 
     @Test
