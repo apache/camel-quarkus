@@ -19,7 +19,7 @@ Marshal and unmarshal POJOs to/from XML or JSON using XStream library.
 
 == What's inside
 
-* xref:{cq-camel-components}:dataformats:json-xstream-dataformat.adoc[JSON XStream data format]
+* xref:{cq-camel-components}:dataformats:xstreamJson-dataformat.adoc[JSON XStream data format]
 * xref:{cq-camel-components}:dataformats:xstream-dataformat.adoc[XStream data format]
 
 Please refer to the above links for usage and configuration details.

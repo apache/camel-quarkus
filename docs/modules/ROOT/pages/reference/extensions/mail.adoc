@@ -21,7 +21,7 @@ Send and receive emails using imap, pop3 and smtp protocols. Marshal Camel messa
 
 * xref:{cq-camel-components}::mail-component.adoc[IMAP component], URI syntax: `imap:host:port`
 * xref:{cq-camel-components}::mail-component.adoc[IMAPS (Secure) component], URI syntax: `imaps:host:port`
-* xref:{cq-camel-components}:dataformats:mime-multipart-dataformat.adoc[MIME Multipart data format]
+* xref:{cq-camel-components}:dataformats:mimeMultipart-dataformat.adoc[MIME Multipart data format]
 * xref:{cq-camel-components}::mail-component.adoc[POP3 component], URI syntax: `pop3:host:port`
 * xref:{cq-camel-components}::mail-component.adoc[POP3S component], URI syntax: `pop3s:host:port`
 * xref:{cq-camel-components}::mail-component.adoc[SMTP component], URI syntax: `smtp:host:port`

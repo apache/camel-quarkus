@@ -30,6 +30,7 @@ public class ReadinessCheck extends AbstractHealthCheck {
     @Override
     protected void doCall(HealthCheckResultBuilder builder, Map<String, Object> options) {
         builder.up();
+        builder.detail("isReady", "true");
     }
 
     @Override

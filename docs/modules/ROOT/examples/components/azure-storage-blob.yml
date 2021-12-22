@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: azure-storage-blob
 cqCamelPartTitle: Azure Storage Blob Service
-cqCamelPartDescription: Store and retrieve blobs from Azure Storage Blob Service using SDK v12.
+cqCamelPartDescription: Store and retrieve blobs from Azure Storage Blob Service.
 cqExtensionPageTitle: Azure Storage Blob Service

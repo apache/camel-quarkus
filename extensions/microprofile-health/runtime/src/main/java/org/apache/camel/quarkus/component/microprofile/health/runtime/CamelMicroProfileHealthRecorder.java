@@ -18,17 +18,25 @@ package org.apache.camel.quarkus.component.microprofile.health.runtime;
 
 import io.quarkus.runtime.RuntimeValue;
 import io.quarkus.runtime.annotations.Recorder;
+import org.apache.camel.CamelContext;
 import org.apache.camel.health.HealthCheckRegistry;
-import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
+import org.apache.camel.microprofile.health.CamelMicroProfileHealthCheckRegistry;
+import org.apache.camel.spi.CamelContextCustomizer;
 
 @Recorder
 public class CamelMicroProfileHealthRecorder {
 
-    public RuntimeValue<HealthCheckRegistry> createHealthCheckRegistry(CamelMicroProfileHealthConfig config) {
-        HealthCheckRegistry answer = new DefaultHealthCheckRegistry();
-        answer.setId("camel-microprofile-health");
-        answer.setEnabled(config.enabled);
-        return new RuntimeValue<>(answer);
-    }
+    public RuntimeValue<CamelContextCustomizer> createHealthCheckRegistry() {
 
+        return new RuntimeValue<>(new CamelContextCustomizer() {
+            @Override
+            public void configure(CamelContext camelContext) {
+                HealthCheckRegistry registry = new CamelMicroProfileHealthCheckRegistry(camelContext);
+                registry.setId("camel-microprofile-health");
+                registry.setEnabled(true);
+
+                camelContext.setExtension(HealthCheckRegistry.class, registry);
+            }
+        });
+    }
 }

@@ -51,7 +51,7 @@ public class JacksonXmlRoute extends RouteBuilder {
 
         JacksonXMLDataFormat marshalContentTypeformat = new JacksonXMLDataFormat();
         from("direct:jacksonxml-marshal-ct-yes").marshal(marshalContentTypeformat);
-        from("direct:jacksonxml-marshal-ct-yes2").marshal().jacksonxml();
+        from("direct:jacksonxml-marshal-ct-yes2").marshal().jacksonXml();
         JacksonXMLDataFormat marshalContentTypeFormatNoHeader = new JacksonXMLDataFormat();
         marshalContentTypeFormatNoHeader.setContentTypeHeader(false);
         from("direct:jacksonxml-marshal-ct-no").marshal(marshalContentTypeFormatNoHeader);
@@ -77,9 +77,9 @@ public class JacksonXmlRoute extends RouteBuilder {
         jacksonXmlMarshalModuleformat.setModuleClassNames("org.apache.camel.quarkus.component.dataformats.json.model.MyModule");
         from("direct:jacksonxml-marshal-module").marshal(jacksonXmlMarshalModuleformat).to("mock:jacksonxml-marshal-module");
 
-        from("direct:jacksonxml-marshal-concurrent-start").marshal().jacksonxml().to("log:marshalled")
+        from("direct:jacksonxml-marshal-concurrent-start").marshal().jacksonXml().to("log:marshalled")
                 .to("direct:jacksonxml-marshal-concurrent-marshalled");
-        from("direct:jacksonxml-marshal-concurrent-marshalled").unmarshal().jacksonxml(TestPojo.class)
+        from("direct:jacksonxml-marshal-concurrent-marshalled").unmarshal().jacksonXml(TestPojo.class)
                 .to("mock:jacksonxml-marshal-concurrent-result");
         this.getContext().getGlobalOptions().put(JacksonXMLConstants.ENABLE_TYPE_CONVERTER, "true");
         from("direct:jacksonxml-marshal-conversion").convertBodyTo(TestPojo.class);
@@ -96,11 +96,11 @@ public class JacksonXmlRoute extends RouteBuilder {
         from("direct:jacksonxml-jaxbannotation-backPojo").unmarshal(jacksonXmlJaxbAnnotationformatPojo)
                 .to("mock:jacksonxml-jaxbannotation-reversePojo");
 
-        from("direct:jacksonxml-jsonview-inPojoAgeView").marshal().jacksonxml(TestPojoView.class, Views.Age.class);
-        from("direct:jacksonxml-jsonview-backPojoAgeView").unmarshal().jacksonxml(TestPojoView.class)
+        from("direct:jacksonxml-jsonview-inPojoAgeView").marshal().jacksonXml(TestPojoView.class, Views.Age.class);
+        from("direct:jacksonxml-jsonview-backPojoAgeView").unmarshal().jacksonXml(TestPojoView.class)
                 .to("mock:jacksonxml-jsonview-reversePojoAgeView");
-        from("direct:jacksonxml-jsonview-inPojoWeightView").marshal().jacksonxml(TestPojoView.class, Views.Weight.class);
-        from("direct:jacksonxml-jsonview-backPojoWeightView").unmarshal().jacksonxml(TestPojoView.class)
+        from("direct:jacksonxml-jsonview-inPojoWeightView").marshal().jacksonXml(TestPojoView.class, Views.Weight.class);
+        from("direct:jacksonxml-jsonview-backPojoWeightView").unmarshal().jacksonXml(TestPojoView.class)
                 .to("mock:jacksonxml-jsonview-reversePojoWeightView");
 
         this.getContext().getRegistry().bind("myJacksonModule", new MyModule());

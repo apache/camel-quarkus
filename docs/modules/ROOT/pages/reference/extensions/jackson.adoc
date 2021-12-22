@@ -19,7 +19,7 @@ Marshal POJOs to JSON and back using Jackson
 
 == What's inside
 
-* xref:{cq-camel-components}:dataformats:json-jackson-dataformat.adoc[JSON Jackson data format]
+* xref:{cq-camel-components}:dataformats:jackson-dataformat.adoc[JSON Jackson data format]
 
 Please refer to the above link for usage and configuration details.
 

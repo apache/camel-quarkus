@@ -110,7 +110,7 @@
                         <goals>
                             <goal>generate-component</goal>
                         </goals>
-                        <phase>process-classes</phase>
+                        <phase>process-resources</phase>
                     </execution>
                 </executions>
             </plugin>

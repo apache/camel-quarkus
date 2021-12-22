@@ -33,7 +33,7 @@ public class FastjsonResource {
 
     private static final Logger LOG = Logger.getLogger(FastjsonResource.class);
 
-    private static final String DATAFORMAT_JSON_FASTJSON = "json-fastjson";
+    private static final String DATAFORMAT_JSON_FASTJSON = "fastjson";
     @Inject
     CamelContext context;
 

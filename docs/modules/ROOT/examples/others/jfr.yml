@@ -8,6 +8,6 @@ cqDeprecated: false
 cqJvmSince: 1.7.0
 cqNativeSince: 2.6.0
 cqCamelPartName: jfr
-cqCamelPartTitle: Jfr
+cqCamelPartTitle: JFR
 cqCamelPartDescription: Diagnose Camel applications with Java Flight Recorder
 cqExtensionPageTitle: Jfr

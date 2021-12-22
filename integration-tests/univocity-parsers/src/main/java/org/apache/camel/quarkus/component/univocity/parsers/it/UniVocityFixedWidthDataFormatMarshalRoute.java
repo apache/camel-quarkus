@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.dataformat.univocity.UniVocityFixedWidthDataFormat;
+import org.apache.camel.dataformat.univocity.UniVocityFixedDataFormat;
 import org.apache.camel.spi.DataFormat;
 
 public class UniVocityFixedWidthDataFormatMarshalRoute extends RouteBuilder {
@@ -30,16 +30,16 @@ public class UniVocityFixedWidthDataFormatMarshalRoute extends RouteBuilder {
         final Map<String, DataFormat> testsDataformat = new HashMap<>();
 
         // Default writing of fixed-width
-        testsDataformat.put("default", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("default", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 3, 5 }));
 
         // Write a fixed-width with specific headers
-        testsDataformat.put("header", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("header", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 3, 5 })
                 .setHeaders(new String[] { "A", "C" }));
 
         // Write a fixed-width with an advanced configuration
-        testsDataformat.put("advanced", new UniVocityFixedWidthDataFormat()
+        testsDataformat.put("advanced", new UniVocityFixedDataFormat()
                 .setFieldLengths(new int[] { 5, 5 })
                 .setNullValue("N/A")
                 .setEmptyValue("empty")

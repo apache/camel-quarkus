@@ -9,5 +9,5 @@ cqJvmSince: 2.7.0
 cqNativeSince: n/a
 cqCamelPartName: json-patch
 cqCamelPartTitle: JsonPatch
-cqCamelPartDescription: JsonPatch component which transform JSON using JSON patch (RFC 6902).
+cqCamelPartDescription: Transforms JSON using JSON patch (RFC 6902).
 cqExtensionPageTitle: JsonPatch

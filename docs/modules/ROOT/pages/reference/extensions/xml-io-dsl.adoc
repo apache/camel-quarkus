@@ -16,6 +16,12 @@
 
 An XML stack for parsing XML route definitions
 
+== What's inside
+
+* xref:{cq-camel-components}:others:xml-io-dsl.adoc[XML DSL]
+
+Please refer to the above link for usage and configuration details.
+
 == Maven coordinates
 
 https://code.quarkus.io/?extension-search=camel-quarkus-xml-io-dsl[Create a new project with this extension on code.quarkus.io, window="_blank"]
