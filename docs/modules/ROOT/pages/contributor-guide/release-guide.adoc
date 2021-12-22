@@ -191,10 +191,14 @@ $ git status
 +
 [source,shell]
 ----
-$ mvn clean install -DskipTests
+$ ./mvnw clean install -DskipTests
 # ^ This will take a couple of minutes because it resolves
 # every single dependency of every single extension included
 # in the platform
+#
+# double check files are well formatted
+$ ./mvnw -Dsync
+
 
 # Then commit the generated changes
 $ git add -A
