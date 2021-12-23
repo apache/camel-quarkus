@@ -12,6 +12,7 @@
 
 **Merged pull requests:**
 
+- 📝 Use Quarkus Platform Maven Wrapper [\#3409](https://github.com/apache/camel-quarkus/pull/3409) ([zbendhiba](https://github.com/zbendhiba))
 - Ban commons-logging and commons-logging-api [\#3406](https://github.com/apache/camel-quarkus/pull/3406) ([ppalaga](https://github.com/ppalaga))
 - Next is 2.7.0 [\#3404](https://github.com/apache/camel-quarkus/pull/3404) ([zbendhiba](https://github.com/zbendhiba))
 - See \#3396 Main content-as tables [\#3397](https://github.com/apache/camel-quarkus/pull/3397) ([djencks](https://github.com/djencks))
