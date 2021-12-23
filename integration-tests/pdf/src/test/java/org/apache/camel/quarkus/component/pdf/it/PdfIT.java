@@ -17,8 +17,12 @@
 package org.apache.camel.quarkus.component.pdf.it;
 
 import io.quarkus.test.junit.NativeImageTest;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 @NativeImageTest
+//https://github.com/apache/camel-quarkus/issues/3417
+@DisabledOnOs(OS.MAC)
 class PdfIT extends PdfTest {
 
 }
