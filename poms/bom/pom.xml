@@ -85,13 +85,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>com.hazelcast</groupId>
-                <artifactId>quarkus-hazelcast-client-bom</artifactId>
-                <version>${quarkus-hazelcast-client.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
                 <groupId>com.datastax.oss.quarkus</groupId>
                 <artifactId>cassandra-quarkus-bom</artifactId>
                 <version>${cassandra-quarkus.version}</version>
@@ -104,6 +97,18 @@
                 <version>${debezium.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.hazelcast</groupId>
+                <artifactId>quarkus-hazelcast-client-bom</artifactId>
+                <version>${quarkus-hazelcast-client.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.jcraft</groupId>
+                <artifactId>jzlib</artifactId>
+                <version>${jzlib.version}</version>
             </dependency>
 
             <!-- Dependencies a..z; do not remove this comment, it is important when sorting via  mvn process-resources -Pformat -->
@@ -6179,6 +6184,11 @@
                 <groupId>org.codehaus.woodstox</groupId>
                 <artifactId>stax2-api</artifactId>
                 <version>${stax2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.jgit</groupId>
+                <artifactId>org.eclipse.jgit</artifactId>
+                <version>${jgit.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.graalvm.js</groupId>
