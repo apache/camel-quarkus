@@ -126,7 +126,6 @@
         <module>js-dsl</module>
         <module>jsch</module>
         <module>jslt</module>
-        <module>json-patch</module>
         <module>json-validator</module>
         <module>jsonata</module>
         <module>jsonpath</module>
