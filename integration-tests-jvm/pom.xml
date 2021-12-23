@@ -85,8 +85,8 @@
         <module>jgroups-raft</module>
         <module>jooq</module>
         <module>joor</module>
-        <module>jsonapi</module>
         <module>json-patch</module>
+        <module>jsonapi</module>
         <module>jt400</module>
         <module>kamelet-reify</module>
         <module>kotlin-dsl</module>
