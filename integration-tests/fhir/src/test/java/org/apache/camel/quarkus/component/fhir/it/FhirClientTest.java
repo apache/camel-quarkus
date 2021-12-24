@@ -24,10 +24,12 @@ import io.restassured.http.ContentType;
 import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
 @QuarkusTestResource(FhirTestResource.class)
+@Disabled //https://github.com/apache/camel-quarkus/issues/3416
 class FhirClientTest {
     private static final Logger LOG = Logger.getLogger(FhirClientTest.class);
 

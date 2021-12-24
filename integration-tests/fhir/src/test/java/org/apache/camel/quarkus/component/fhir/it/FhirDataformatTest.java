@@ -24,9 +24,11 @@ import org.apache.camel.quarkus.component.fhir.FhirFlags;
 import org.apache.camel.quarkus.test.EnabledIf;
 import org.hl7.fhir.dstu3.model.Patient;
 import org.jboss.logging.Logger;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
+@Disabled //https://github.com/apache/camel-quarkus/issues/3416
 class FhirDataformatTest {
     private static final Logger LOG = Logger.getLogger(FhirDataformatTest.class);
 
