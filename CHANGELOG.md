@@ -12,6 +12,8 @@
 
 **Merged pull requests:**
 
+- 📝Add released branch to official documentation [\#3413](https://github.com/apache/camel-quarkus/pull/3413) ([zbendhiba](https://github.com/zbendhiba))
+- Force Bouncycastle dependency bcutil-jdk15on version [\#3412](https://github.com/apache/camel-quarkus/pull/3412) ([zbendhiba](https://github.com/zbendhiba))
 - 📝 Use Quarkus Platform Maven Wrapper [\#3409](https://github.com/apache/camel-quarkus/pull/3409) ([zbendhiba](https://github.com/zbendhiba))
 - Ban commons-logging and commons-logging-api [\#3406](https://github.com/apache/camel-quarkus/pull/3406) ([ppalaga](https://github.com/ppalaga))
 - Next is 2.7.0 [\#3404](https://github.com/apache/camel-quarkus/pull/3404) ([zbendhiba](https://github.com/zbendhiba))
