@@ -6,12 +6,16 @@
 
 **Closed issues:**
 
+- Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
 - Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
+- Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
 - \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
 - \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
 
 **Merged pull requests:**
 
+- Added Json-Patch JVM Extension  [\#3419](https://github.com/apache/camel-quarkus/pull/3419) ([oscerd](https://github.com/oscerd))
+- Manage Eclipse jgit version and jzlib version [\#3415](https://github.com/apache/camel-quarkus/pull/3415) ([zbendhiba](https://github.com/zbendhiba))
 - 📝Add released branch to official documentation [\#3413](https://github.com/apache/camel-quarkus/pull/3413) ([zbendhiba](https://github.com/zbendhiba))
 - Force Bouncycastle dependency bcutil-jdk15on version [\#3412](https://github.com/apache/camel-quarkus/pull/3412) ([zbendhiba](https://github.com/zbendhiba))
 - 📝 Use Quarkus Platform Maven Wrapper [\#3409](https://github.com/apache/camel-quarkus/pull/3409) ([zbendhiba](https://github.com/zbendhiba))
