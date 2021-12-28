@@ -20,14 +20,3 @@
       sources:
         - url: ./../camel-quarkus
         - url: https://github.com/apache/camel-quarkus-examples.git
-
-    - require: "@djencks/antora-site-manifest"
-      import-manifests:
-        - primary-site-manifest-url: ./documentation/site-manifest.json
-      partial-components: true
-      local-urls: true
-
-    - require: '@djencks/antora-timer'
-      log_level: info
-
-  generator: '@djencks/antora-source-watch'
