@@ -31,6 +31,3 @@ asciidoc:
     # attributes used in xrefs to other Antora components
     cq-camel-components: 3.14.x@components # replace ${camel.docs.components.xref}
     quarkus-examples-version: latest
-    # indexTable common
-    indexer-version: 3.14.x # replace ${camel.docs.components.version}
-    indexer-component: camel-quarkus
