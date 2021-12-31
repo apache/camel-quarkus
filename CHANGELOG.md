@@ -14,6 +14,7 @@
 
 **Merged pull requests:**
 
+- main update to docs local build v2 [\#3422](https://github.com/apache/camel-quarkus/pull/3422) ([djencks](https://github.com/djencks))
 - Added Json-Patch JVM Extension  [\#3419](https://github.com/apache/camel-quarkus/pull/3419) ([oscerd](https://github.com/oscerd))
 - Manage Eclipse jgit version and jzlib version [\#3415](https://github.com/apache/camel-quarkus/pull/3415) ([zbendhiba](https://github.com/zbendhiba))
 - 📝Add released branch to official documentation [\#3413](https://github.com/apache/camel-quarkus/pull/3413) ([zbendhiba](https://github.com/zbendhiba))
