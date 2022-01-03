@@ -1,5 +1,19 @@
 = Apache Camel extensions for Quarkus
 
+[NOTE]
+--
+This version ({page-component-display-version}) of {page-component-title} depends on:
+
+* xref:{camel-docs-version}@components::index.adoc[Camel] at version {camel-version}
+* https://quarkus.io[Quarkus] at version {quarkus-version}
+
+ifdef::lts[This long term service release will be supported until {lts}.]
+ifndef::lts[]
+ifdef::prerelease[This is the development version of {page-component-title}. It should not be used in production.]
+ifndef::prerelease[This release will not be updated, but rather replaced by a new release.]
+endif::[]
+--
+
 This project aims to bring the awesome integration capabilities of xref:manual::index.adoc[Apache Camel]
 and its vast xref:{cq-camel-components}::index.adoc[component library] to the
 https://quarkus.io/[Quarkus runtime].
