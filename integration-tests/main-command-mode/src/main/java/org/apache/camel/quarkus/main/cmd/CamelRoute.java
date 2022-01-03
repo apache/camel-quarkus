@@ -18,6 +18,7 @@ package org.apache.camel.quarkus.main.cmd;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -29,8 +30,8 @@ public class CamelRoute extends RouteBuilder {
 
     @Override
     public void configure() {
-        from("timer:hello?delay=-1&repeatCount=1")
+        from("timer:hello?delay=-1&repeatCount=3")
                 .setBody().constant("Hello " + greetedSubject + "!")
-                .to("log:hello");
+                .log("Logging ${body} - from timer named ${headers." + Exchange.TIMER_NAME + "}");
     }
 }
