@@ -37,4 +37,14 @@ Or add the coordinates to your existing project:
 </dependency>
 ----
 
+[source,xml]
+----
+<dependency>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-quartz</artifactId>
+    </dependency>
+----
+
+    
+
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
