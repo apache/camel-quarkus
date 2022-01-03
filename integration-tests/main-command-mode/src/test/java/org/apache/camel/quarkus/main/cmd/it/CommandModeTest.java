@@ -17,25 +17,32 @@
 package org.apache.camel.quarkus.main.cmd.it;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.camel.util.StringHelper;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.ProcessResult;
+import org.zeroturnaround.exec.StartedProcess;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandModeTest {
 
     @Test
-    void hello() throws InvalidExitValueException, IOException, InterruptedException, TimeoutException {
-        final ProcessResult result = new QuarkusProcessExecutor("-Dgreeted.subject=Joe").execute();
+    void testMainStopsAfterFirstMessage()
+            throws InvalidExitValueException, IOException, InterruptedException, TimeoutException {
+        final ProcessResult result = new QuarkusProcessExecutor("-Dgreeted.subject=Joe", "-Dcamel.main.duration-max-messages=1")
+                .execute();
 
         Assertions.assertThat(result.getExitValue()).isEqualTo(0);
-        Assertions.assertThat(result.outputUTF8()).contains("Hello Joe!");
+        Assertions.assertThat(result.outputUTF8()).contains("Logging Hello Joe! - from timer named hello");
+        Assertions.assertThat(result.outputUTF8()).contains("Duration max messages triggering shutdown of the JVM");
     }
 
     @Test
@@ -47,7 +54,7 @@ public class CommandModeTest {
         }
         String classpathArg = builder.toString();
 
-        final String[] jvmArgs = new String[] { "-Dgreeted.subject=Joe" };
+        final String[] jvmArgs = new String[] { "-Dgreeted.subject=Jane", "-Dcamel.main.duration-max-messages=1" };
         final String[] applicationArgs = new String[] {
                 "-d",
                 "10",
@@ -60,11 +67,28 @@ public class CommandModeTest {
 
         // Verify the application ran successfully
         assertThat(result.getExitValue()).isEqualTo(0);
-        assertThat(result.outputUTF8()).contains("Hello Joe!");
+        Assertions.assertThat(result.outputUTF8()).contains("Logging Hello Jane! - from timer named hello");
+        Assertions.assertThat(result.outputUTF8()).contains("Duration max messages triggering shutdown of the JVM");
 
         // Verify warning for unknown arguments was printed to the console
         String truncatedCpArg = String.format("%s...", StringHelper.limitLength(classpathArg, 97));
         assertThat(result.outputUTF8()).contains("Unknown option: -cp " + truncatedCpArg);
         assertThat(result.outputUTF8()).contains("Apache Camel Runner takes the following options");
+    }
+
+    @Disabled("https://github.com/apache/camel-quarkus/issues/3394")
+    @Test
+    void testMainStopsAfterMaxSeconds() throws IOException, InterruptedException, ExecutionException {
+        final StartedProcess process = new QuarkusProcessExecutor("-Dgreeted.subject=Jade",
+                "-Dcamel.main.duration-max-seconds=3").start();
+        try {
+            ProcessResult result = process.getFuture().get(4, TimeUnit.SECONDS);
+            Assertions.assertThat(result.getExitValue()).isEqualTo(0);
+            Assertions.assertThat(result.outputUTF8()).contains("Waiting until complete: Duration max 3 seconds");
+            Assertions.assertThat(result.outputUTF8()).contains("Logging Hello Jade! - from timer named hello");
+            Assertions.assertThat(result.outputUTF8()).contains("Duration max seconds triggering shutdown of the JVM");
+        } catch (TimeoutException e) {
+            Assertions.fail("The process should not take so long as camel.main.duration-max-seconds is set");
+        }
     }
 }
