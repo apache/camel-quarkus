@@ -38,3 +38,10 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+The cron component is a generic interface component, as such Camel Quarkus users will need to use the cron extension together with another extension offering an implementation.
+For instance, one can use the xref:reference/extensions/quartz.adoc[Quartz Extension] and cron extension together in its project.
+
+
