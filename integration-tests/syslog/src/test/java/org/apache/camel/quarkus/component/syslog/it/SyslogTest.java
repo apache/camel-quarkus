@@ -16,14 +16,14 @@
  */
 package org.apache.camel.quarkus.component.syslog.it;
 
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+import java.time.Year;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
@@ -35,10 +35,17 @@ import static org.hamcrest.Matchers.startsWith;
 @QuarkusTestResource(SyslogTestResource.class)
 class SyslogTest {
 
+    private static final Map<String, String> SYSLOG_MESSAGES = new HashMap<>() {
+        {
+            put("rfc3164", "<1>Feb  2 10:11:12 localhost Test SysLog RFC3164 Message");
+            put("rfc5425", "<1>1 " + Year.now() + "-02-02T10:11:12Z localhost test - ID01 - Test SysLog RFC5425 Message");
+        }
+    };
+
     @ParameterizedTest
     @ValueSource(strings = { "rfc3164", "rfc5425" })
     public void syslogDataFormat(String rfcVersion) throws Exception {
-        final String message = readSyslogMessage(rfcVersion);
+        final String message = SYSLOG_MESSAGES.get(rfcVersion);
 
         // Send message
         RestAssured.given()
@@ -55,16 +62,12 @@ class SyslogTest {
                 .body(
                         "hostname", equalTo("localhost"),
                         "logMessage", equalTo("Test SysLog " + rfcVersion.toUpperCase(Locale.US) + " Message"),
-                        "timestamp", startsWith("2021-02-02T10:11:12"));
+                        "timestamp", startsWith(Year.now() + "-02-02T10:11:12"));
 
         // Get the raw SyslogMessage marshalled message
         RestAssured.get("/syslog/messages/raw")
                 .then()
                 .statusCode(200)
                 .body(is(message));
-    }
-
-    private String readSyslogMessage(String rfcVersion) throws IOException {
-        return IOUtils.toString(SyslogTest.class.getResourceAsStream("/" + rfcVersion + ".txt"), StandardCharsets.UTF_8);
     }
 }
