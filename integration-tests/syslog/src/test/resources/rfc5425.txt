@@ -1,1 +1,0 @@
-<1>1 2021-02-02T10:11:12Z localhost test - ID01 - Test SysLog RFC5425 Message
