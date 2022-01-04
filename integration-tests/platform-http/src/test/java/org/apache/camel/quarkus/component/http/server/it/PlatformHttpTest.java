@@ -30,6 +30,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 class PlatformHttpTest {
@@ -316,6 +317,34 @@ class PlatformHttpTest {
                 .then()
                 .statusCode(200)
                 .body(equalTo("Hello Camel Quarkus Webhook"));
+    }
+
+    @Test
+    public void testPathSecuredWithBasicAuth() {
+        // No credentials
+        RestAssured.given()
+                .when()
+                .get("/platform-http/secure/basic")
+                .then()
+                .statusCode(401);
+
+        // Invalid credentials
+        RestAssured.given()
+                .auth()
+                .basic("camel", "s3cr3t")
+                .get("/platform-http/secure/basic")
+                .then()
+                .statusCode(401);
+
+        // Valid credentials
+        RestAssured.given()
+                .auth()
+                .basic("camel", "p4ssw0rd")
+                .get("/platform-http/secure/basic")
+                .then()
+                .statusCode(200)
+                .header("Authorization", notNullValue())
+                .body(equalTo("camel:Admin"));
     }
 
     private static Method[] httpMethods() {

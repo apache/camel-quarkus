@@ -64,5 +64,22 @@ from("platform-http:/upload/multipart?fileNameExtWhitelist=adoc,txt&httpMethodRe
     });
 ----
 
+=== Securing `platform-http` endpoints
+
+Quarkus provides a variety of security and authentication mechanisms which can be used to secure `platform-http` endpoints. Refer to the https://quarkus.io/guides/security[Quarkus Security documentation] for further details.
+
+Within a route, it is possible to obtain the authenticated user and its associated `SecurityIdentity` and `Principal`:
+[source,java]
+----
+from("platform-http:/secure")
+    .process(e -> {
+        Message message = e.getMessage();
+        QuarkusHttpUser user = message.getHeader(VertxPlatformHttpConstants.AUTHENTICATED_USER, QuarkusHttpUser.class);
+        SecurityIdentity securityIdentity = user.getSecurityIdentity();
+        Principal principal = securityIdentity.getPrincipal();
+        // Do something useful with SecurityIdentity / Principal. E.g check user roles etc.
+    });
+----
+
 Also check the `quarkus.http.body.*` configuration options in
 https://quarkus.io/guides/all-config#quarkus-vertx-http_quarkus-vertx-http-eclipse-vert.x-http[Quarkus documentation], esp. `quarkus.http.body.handle-file-uploads`, `quarkus.http.body.uploads-directory` and `quarkus.http.body.delete-uploaded-files-on-end`.
