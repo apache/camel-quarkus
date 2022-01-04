@@ -17,15 +17,20 @@
 package org.apache.camel.quarkus.component.platform.http.it;
 
 import java.io.ByteArrayOutputStream;
+import java.security.Principal;
 import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.activation.DataHandler;
 
+import io.quarkus.security.identity.SecurityIdentity;
+import io.quarkus.vertx.http.runtime.security.QuarkusHttpUser;
 import org.apache.camel.Exchange;
+import org.apache.camel.Message;
 import org.apache.camel.attachment.AttachmentMessage;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.platform.http.vertx.VertxPlatformHttpConstants;
 import org.apache.camel.component.webhook.WebhookConfiguration;
 import org.apache.camel.model.rest.RestBindingMode;
 
@@ -127,5 +132,16 @@ public class PlatformHttpRouteBuilder extends RouteBuilder {
 
         from("webhook:webhook-delegate://test")
                 .transform(body().prepend("Hello "));
+
+        // Basic auth security tests
+        from("platform-http:/platform-http/secure/basic")
+                .process(exchange -> {
+                    Message message = exchange.getMessage();
+                    QuarkusHttpUser user = message.getHeader(VertxPlatformHttpConstants.AUTHENTICATED_USER,
+                            QuarkusHttpUser.class);
+                    SecurityIdentity securityIdentity = user.getSecurityIdentity();
+                    Principal principal = securityIdentity.getPrincipal();
+                    message.setBody(principal.getName() + ":" + securityIdentity.getRoles().iterator().next());
+                });
     }
 }
