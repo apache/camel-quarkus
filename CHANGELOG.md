@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
 - Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
 - Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
 - Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
@@ -14,6 +15,8 @@
 
 **Merged pull requests:**
 
+- Explicit that the cron extension should be used in conjunction with a… [\#3431](https://github.com/apache/camel-quarkus/pull/3431) ([aldettinger](https://github.com/aldettinger))
+- camel-website \#701: RI info \(main\) [\#3426](https://github.com/apache/camel-quarkus/pull/3426) ([djencks](https://github.com/djencks))
 - main update to docs local build v2 [\#3422](https://github.com/apache/camel-quarkus/pull/3422) ([djencks](https://github.com/djencks))
 - Added Json-Patch JVM Extension  [\#3419](https://github.com/apache/camel-quarkus/pull/3419) ([oscerd](https://github.com/oscerd))
 - Manage Eclipse jgit version and jzlib version [\#3415](https://github.com/apache/camel-quarkus/pull/3415) ([zbendhiba](https://github.com/zbendhiba))
@@ -57,6 +60,7 @@
 - core: Add RouteConfigurationsBuilder before regular RoutesBuilder whe… [\#3316](https://github.com/apache/camel-quarkus/pull/3316) ([aldettinger](https://github.com/aldettinger))
 - Disable FOP integration test failed in native mode on Mac OS \#3280 [\#3314](https://github.com/apache/camel-quarkus/pull/3314) ([ffang](https://github.com/ffang))
 - Make building possible with Java 11 through 17 [\#3313](https://github.com/apache/camel-quarkus/pull/3313) ([ppalaga](https://github.com/ppalaga))
+- Bump Optaplanner version to 8.14.0.Final [\#3311](https://github.com/apache/camel-quarkus/pull/3311) ([zbendhiba](https://github.com/zbendhiba))
 - Graceful shutdown strategy used as default one [\#3310](https://github.com/apache/camel-quarkus/pull/3310) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Bump nimbus-jose-jwt version from Quarkus bom [\#3309](https://github.com/apache/camel-quarkus/pull/3309) ([zbendhiba](https://github.com/zbendhiba))
 - Upgrade Quarkus Qpid JMS to 0.30.0 [\#3308](https://github.com/apache/camel-quarkus/pull/3308) ([jamesnetherton](https://github.com/jamesnetherton))
