@@ -191,7 +191,6 @@
 *** xref:reference/extensions/json-patch.adoc[JsonPatch]
 *** xref:reference/extensions/kafka.adoc[Kafka]
 *** xref:reference/extensions/kamelet.adoc[Kamelet]
-*** xref:reference/extensions/kamelet-reify.adoc[Kamelet Reify]
 *** xref:reference/extensions/kotlin.adoc[Kotlin]
 *** xref:reference/extensions/kotlin-dsl.adoc[Kotlin DSL]
 *** xref:reference/extensions/kubernetes.adoc[Kubernetes]

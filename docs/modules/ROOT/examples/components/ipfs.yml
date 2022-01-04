@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-ipfs
 cqArtifactIdBase: ipfs
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: 1.7.0
 cqCamelPartName: ipfs

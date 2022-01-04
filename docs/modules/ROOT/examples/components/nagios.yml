@@ -4,7 +4,7 @@ cqArtifactId: camel-quarkus-nagios
 cqArtifactIdBase: nagios
 cqNativeSupported: true
 cqStatus: Stable
-cqDeprecated: false
+cqDeprecated: true
 cqJvmSince: 1.1.0
 cqNativeSince: 1.4.0
 cqCamelPartName: nagios
