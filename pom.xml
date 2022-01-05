@@ -645,6 +645,11 @@
                                         <requireMavenVersion>
                                             <version>${supported-maven-versions}</version>
                                         </requireMavenVersion>
+                                        <bannedDependencies>
+                                            <excludes>
+                                                <exclude>com.google.code.findbugs:jsr305</exclude>
+                                            </excludes>
+                                        </bannedDependencies>
                                     </rules>
                                 </configuration>
                             </execution>
