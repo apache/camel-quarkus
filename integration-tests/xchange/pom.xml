@@ -59,6 +59,12 @@
         <dependency>
             <groupId>org.knowm.xchange</groupId>
             <artifactId>xchange-kraken</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- test dependencies -->

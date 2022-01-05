@@ -52,6 +52,10 @@
             <artifactId>quarkus-grpc-common</artifactId>
             <exclusions>
                 <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>io.vertx</groupId>
                     <artifactId>vertx-grpc</artifactId>
                 </exclusion>
