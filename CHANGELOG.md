@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...HEAD)
 
+**Fixed bugs:**
+
+- SecurityIdentity is not propagated to Camel route [\#3353](https://github.com/apache/camel-quarkus/issues/3353)
+
 **Closed issues:**
 
 - camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
@@ -15,6 +19,10 @@
 
 **Merged pull requests:**
 
+- Exclude commons-logging from htmlunit-driver [\#3438](https://github.com/apache/camel-quarkus/pull/3438) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix timestamp validation in syslog integration tests [\#3437](https://github.com/apache/camel-quarkus/pull/3437) ([jamesnetherton](https://github.com/jamesnetherton))
+- Add test coverage for Quarkus SecurityIdentity & Principal in platform-http routes [\#3435](https://github.com/apache/camel-quarkus/pull/3435) ([jamesnetherton](https://github.com/jamesnetherton))
+- Setup a reproducer showing that camel.main.durationMaxSeconds is not … [\#3434](https://github.com/apache/camel-quarkus/pull/3434) ([aldettinger](https://github.com/aldettinger))
 - Explicit that the cron extension should be used in conjunction with a… [\#3431](https://github.com/apache/camel-quarkus/pull/3431) ([aldettinger](https://github.com/aldettinger))
 - camel-website \#701: RI info \(main\) [\#3426](https://github.com/apache/camel-quarkus/pull/3426) ([djencks](https://github.com/djencks))
 - main update to docs local build v2 [\#3422](https://github.com/apache/camel-quarkus/pull/3422) ([djencks](https://github.com/djencks))
