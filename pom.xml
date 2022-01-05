@@ -378,9 +378,11 @@
                     <version>${maven-surefire-plugin.version}</version>
                     <configuration>
                         <failIfNoTests>false</failIfNoTests>
-                        <systemProperties>
+                        <systemPropertyVariables>
                             <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                        </systemProperties>
+                            <maven.home>${maven.home}</maven.home>
+                            <maven.settings>${session.request.userSettingsFile.path}</maven.settings>
+                        </systemPropertyVariables>
                     </configuration>
                 </plugin>
 
