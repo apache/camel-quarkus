@@ -81,6 +81,21 @@ class OpenTelemetryTest {
         assertEquals(spans.get(0).get("parentId"), spans.get(1).get("spanId"));
     }
 
+    @Test
+    public void testTracedBean() {
+        String name = "Camel Quarkus OpenTelemetry";
+        RestAssured.get("/opentelemetry/greet/" + name)
+                .then()
+                .statusCode(200)
+                .body(equalTo("Hello " + name));
+
+        // Verify the span hierarchy is JAX-RS Service -> Direct Endpoint -> Bean Method
+        List<Map<String, String>> spans = getSpans();
+        assertEquals(3, spans.size());
+        assertEquals(spans.get(0).get("parentId"), spans.get(1).get("parentId"));
+        assertEquals(spans.get(1).get("parentId"), spans.get(2).get("spanId"));
+    }
+
     private List<Map<String, String>> getSpans() {
         return RestAssured.given()
                 .get("/opentelemetry/exporter/spans")
