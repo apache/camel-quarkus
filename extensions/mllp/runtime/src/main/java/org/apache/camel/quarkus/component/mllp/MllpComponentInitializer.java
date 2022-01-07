@@ -14,29 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.mllp.deployment;
+package org.apache.camel.quarkus.component.mllp;
 
-import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
-import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.builditem.FeatureBuildItem;
-import org.apache.camel.quarkus.component.mllp.MllpComponentInitializer;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.event.Observes;
 
-class MllpProcessor {
+import org.apache.camel.component.mllp.MllpComponent;
+import org.apache.camel.quarkus.core.events.ComponentAddEvent;
 
-    private static final String FEATURE = "camel-mllp";
-
-    @BuildStep
-    FeatureBuildItem feature() {
-        return new FeatureBuildItem(FEATURE);
+/**
+ * A workaround for https://github.com/apache/camel-quarkus/issues/3442
+ * Camel 3.11.x specific
+ */
+@ApplicationScoped
+public class MllpComponentInitializer {
+    public void onComponentAdd(@Observes ComponentAddEvent event) {
+        if (event.getComponent() instanceof MllpComponent) {
+            MllpComponent.setLogPhi(MllpComponent.isLogPhi());
+        }
     }
-
-    /**
-     * A workaround for https://github.com/apache/camel-quarkus/issues/3442
-     * Camel 3.11.x specific
-     */
-    @BuildStep
-    public AdditionalBeanBuildItem additionalBeans() {
-        return new AdditionalBeanBuildItem(MllpComponentInitializer.class);
-    }
-
 }
