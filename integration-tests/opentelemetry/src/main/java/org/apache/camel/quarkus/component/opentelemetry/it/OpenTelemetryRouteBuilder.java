@@ -33,6 +33,9 @@ public class OpenTelemetryRouteBuilder extends RouteBuilder {
         from("direct:start")
                 .setBody().constant("Traced direct:start");
 
+        from("direct:greet")
+                .bean("greetingsBean");
+
         from("timer:filtered?repeatCount=5&delay=-1")
                 .setBody().constant("Route filtered from tracing");
     }

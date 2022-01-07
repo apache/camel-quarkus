@@ -17,33 +17,16 @@
 package org.apache.camel.quarkus.component.opentelemetry.it;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.inject.Named;
 
-import org.apache.camel.ProducerTemplate;
+import io.opentelemetry.extension.annotations.WithSpan;
 
-@Path("/opentelemetry")
 @ApplicationScoped
-public class OpenTelemetryResource {
+@Named("greetingsBean")
+public class GreetingsBean {
 
-    @Inject
-    ProducerTemplate producerTemplate;
-
-    @Path("/trace")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String traceRoute() {
-        return producerTemplate.requestBody("direct:start", null, String.class);
-    }
-
-    @Path("/greet/{name}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String traceRoute(@PathParam("name") String name) {
-        return producerTemplate.requestBody("direct:greet", name, String.class);
+    @WithSpan
+    public String greet(String name) {
+        return "Hello " + name;
     }
 }
