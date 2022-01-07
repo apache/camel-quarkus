@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-replicatedmap
 cqCamelPartTitle: Hazelcast Replicated Map
-cqCamelPartDescription: Perform operations on Hazelcast replicated map.
+cqCamelPartDescription: Perform operations on replicated map.
 cqExtensionPageTitle: Hazelcast Atomic Number

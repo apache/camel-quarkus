@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-set
 cqCamelPartTitle: Ignite Sets
-cqCamelPartDescription: Interact with Ignite Set data structures.
+cqCamelPartDescription: Interact with .
 cqExtensionPageTitle: Ignite Cache

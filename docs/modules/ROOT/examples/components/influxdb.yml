@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: influxdb
 cqCamelPartTitle: InfluxDB
-cqCamelPartDescription: Interact with InfluxDB, a time series database.
+cqCamelPartDescription: Interact with , a time series database.
 cqExtensionPageTitle: InfluxDB

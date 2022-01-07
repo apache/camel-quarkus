@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: json-fastjson
 cqCamelPartTitle: JSON Fastjson
-cqCamelPartDescription: Marshal POJOs to JSON and back using Fastjson
+cqCamelPartDescription: Marshal POJOs to JSON and back using
 cqExtensionPageTitle: JSON Fastjson

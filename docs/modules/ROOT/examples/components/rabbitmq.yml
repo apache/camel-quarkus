@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.1.0
 cqCamelPartName: rabbitmq
 cqCamelPartTitle: RabbitMQ
-cqCamelPartDescription: Send and receive messages from RabbitMQ instances.
+cqCamelPartDescription: Send and receive messages from instances.
 cqExtensionPageTitle: RabbitMQ

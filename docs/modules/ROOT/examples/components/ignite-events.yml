@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-events
 cqCamelPartTitle: Ignite Events
-cqCamelPartDescription: Receive events from an Ignite cluster by creating a local event listener.
+cqCamelPartDescription: from an Ignite cluster by creating a local event listener.
 cqExtensionPageTitle: Ignite Cache

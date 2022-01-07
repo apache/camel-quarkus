@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.1.0
 cqCamelPartName: nats
 cqCamelPartTitle: Nats
-cqCamelPartDescription: Send and receive messages from NATS messaging system.
+cqCamelPartDescription: Send and receive messages from messaging system.
 cqExtensionPageTitle: Nats

@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-topic
 cqCamelPartTitle: Hazelcast Topic
-cqCamelPartDescription: Send and receive messages to/from Hazelcast distributed topic.
+cqCamelPartDescription: Send and receive messages to/from distributed topic.
 cqExtensionPageTitle: Hazelcast Atomic Number

@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-compute
 cqCamelPartTitle: Ignite Compute
-cqCamelPartDescription: Run compute operations on an Ignite cluster.
+cqCamelPartDescription: Run on an Ignite cluster.
 cqExtensionPageTitle: Ignite Cache

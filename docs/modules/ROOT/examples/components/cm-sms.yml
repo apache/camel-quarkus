@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: cm-sms
 cqCamelPartTitle: CM SMS Gateway
-cqCamelPartDescription: Send SMS messages via CM SMS Gateway.
+cqCamelPartDescription: Send SMS messages via .
 cqExtensionPageTitle: CM SMS Gateway

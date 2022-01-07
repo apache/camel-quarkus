@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: json-gson
 cqCamelPartTitle: JSON Gson
-cqCamelPartDescription: Marshal POJOs to JSON and back using Gson
+cqCamelPartDescription: Marshal POJOs to JSON and back using
 cqExtensionPageTitle: Gson

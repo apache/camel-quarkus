@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: atomix-set
 cqCamelPartTitle: Atomix Set
-cqCamelPartDescription: Access Atomix's distributed set.
+cqCamelPartDescription: Access Atomix's .
 cqExtensionPageTitle: Atomix Map

@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Interact with ServiceNow via its REST API.
+:cq-description: Interact with via its REST API.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Interact with ServiceNow via its REST API.
+Interact with via its REST API.
 
 == What's inside
 

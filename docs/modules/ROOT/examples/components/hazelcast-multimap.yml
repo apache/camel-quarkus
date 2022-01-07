@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-multimap
 cqCamelPartTitle: Hazelcast Multimap
-cqCamelPartDescription: Perform operations on Hazelcast distributed multimap.
+cqCamelPartDescription: Perform operations on distributed multimap.
 cqExtensionPageTitle: Hazelcast Atomic Number

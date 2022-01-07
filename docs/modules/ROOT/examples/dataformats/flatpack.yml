@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.1.0
 cqCamelPartName: flatpack
 cqCamelPartTitle: Flatpack
-cqCamelPartDescription: Marshal and unmarshal Java lists and maps to/from flat files (such as CSV, delimited, or fixed length formats) using Flatpack library.
+cqCamelPartDescription: Marshal and unmarshal Java lists and maps to/from flat files (such as CSV, delimited, or fixed length formats) using library.
 cqExtensionPageTitle: Flatpack

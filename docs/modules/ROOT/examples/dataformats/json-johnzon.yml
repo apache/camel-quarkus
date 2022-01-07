@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: json-johnzon
 cqCamelPartTitle: JSON Johnzon
-cqCamelPartDescription: Marshal POJOs to JSON and back using Johnzon
+cqCamelPartDescription: Marshal POJOs to JSON and back using
 cqExtensionPageTitle: Johnzon

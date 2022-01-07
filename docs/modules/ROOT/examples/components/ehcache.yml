@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ehcache
 cqCamelPartTitle: Ehcache
-cqCamelPartDescription: Perform caching operations using Ehcache.
+cqCamelPartDescription: Perform caching operations using .
 cqExtensionPageTitle: Ehcache

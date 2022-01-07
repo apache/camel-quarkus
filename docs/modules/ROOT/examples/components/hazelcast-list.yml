@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-list
 cqCamelPartTitle: Hazelcast List
-cqCamelPartDescription: Perform operations on Hazelcast distributed list.
+cqCamelPartDescription: Perform operations on distributed list.
 cqExtensionPageTitle: Hazelcast Atomic Number

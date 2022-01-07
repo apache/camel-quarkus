@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: 1.6.0
 cqCamelPartName: hazelcast-set
 cqCamelPartTitle: Hazelcast Set
-cqCamelPartDescription: Perform operations on Hazelcast distributed set.
+cqCamelPartDescription: Perform operations on distributed set.
 cqExtensionPageTitle: Hazelcast Atomic Number

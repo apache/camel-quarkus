@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: ahc
 cqCamelPartTitle: Async HTTP Client (AHC)
-cqCamelPartDescription: Call external HTTP services using Async Http Client.
+cqCamelPartDescription: Call external HTTP services using .
 cqExtensionPageTitle: Async HTTP Client (AHC)

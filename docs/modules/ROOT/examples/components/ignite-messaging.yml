@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-messaging
 cqCamelPartTitle: Ignite Messaging
-cqCamelPartDescription: Send and receive messages from an Ignite topic.
+cqCamelPartDescription: Send and receive messages from an .
 cqExtensionPageTitle: Ignite Cache
