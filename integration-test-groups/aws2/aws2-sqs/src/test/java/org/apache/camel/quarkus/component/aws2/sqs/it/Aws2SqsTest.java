@@ -55,6 +55,14 @@ class Aws2SqsTest {
         return ConfigProvider.getConfig().getValue("aws-sqs.queue-name", String.class);
     }
 
+    private String getPredefinedFailingQueueName() {
+        return ConfigProvider.getConfig().getValue("aws-sqs.failing-name", String.class);
+    }
+
+    private String getPredefinedDeadletterQueueName() {
+        return ConfigProvider.getConfig().getValue("aws-sqs.deadletter-name", String.class);
+    }
+
     @AfterEach
     void purgeQueueAndWait() {
         String qName = getPredefinedQueueName();
@@ -93,6 +101,18 @@ class Aws2SqsTest {
                 .statusCode(200)
                 .extract()
                 .body().as(String[].class);
+    }
+
+    @Test
+    void deadletter() {
+        final String failingQueueName = getPredefinedFailingQueueName();
+        final String deadletterQueueName = getPredefinedDeadletterQueueName();
+
+        final String[] queues = listQueues();
+        Assertions.assertTrue(Stream.of(queues).anyMatch(url -> url.contains(failingQueueName)));
+
+        final String msg = sendSingleMessageToQueue(failingQueueName);
+        awaitMessageWithExpectedContentFromQueue(msg, deadletterQueueName);
     }
 
     @Test
