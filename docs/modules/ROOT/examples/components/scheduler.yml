@@ -9,5 +9,5 @@ cqJvmSince: 0.4.0
 cqNativeSince: 0.4.0
 cqCamelPartName: scheduler
 cqCamelPartTitle: Scheduler
-cqCamelPartDescription: Generate messages in specified intervals using <code>java.util.concurrent.ScheduledExecutorService.
+cqCamelPartDescription: Generate messages in specified intervals using java.util.concurrent.ScheduledExecutorService.
 cqExtensionPageTitle: Scheduler

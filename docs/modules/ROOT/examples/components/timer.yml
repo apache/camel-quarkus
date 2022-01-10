@@ -9,5 +9,5 @@ cqJvmSince: 0.2.0
 cqNativeSince: 0.0.2
 cqCamelPartName: timer
 cqCamelPartTitle: Timer
-cqCamelPartDescription: Generate messages in specified intervals using <code>java.util.Timer.
+cqCamelPartDescription: Generate messages in specified intervals using java.util.Timer.
 cqExtensionPageTitle: Timer

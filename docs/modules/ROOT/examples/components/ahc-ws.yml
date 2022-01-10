@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: ahc-ws
 cqCamelPartTitle: Async HTTP Client (AHC) Websocket
-cqCamelPartDescription: Exchange data with external Websocket servers using .
+cqCamelPartDescription: Exchange data with external Websocket servers using Async Http Client.
 cqExtensionPageTitle: Async HTTP Client (AHC) Websocket

@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: telegram
 cqCamelPartTitle: Telegram
-cqCamelPartDescription: Send and receive messages acting as a Telegram Bot .
+cqCamelPartDescription: Send and receive messages acting as a Telegram Bot Telegram Bot API.
 cqExtensionPageTitle: Telegram

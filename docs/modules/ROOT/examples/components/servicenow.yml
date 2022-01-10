@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: servicenow
 cqCamelPartTitle: ServiceNow
-cqCamelPartDescription: Interact with via its REST API.
+cqCamelPartDescription: Interact with ServiceNow via its REST API.
 cqExtensionPageTitle: ServiceNow

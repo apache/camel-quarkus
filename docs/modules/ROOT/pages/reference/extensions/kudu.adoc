@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Interact with , a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+:cq-description: Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Interact with , a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 
 == What's inside
 

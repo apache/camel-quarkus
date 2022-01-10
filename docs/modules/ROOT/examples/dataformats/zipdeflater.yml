@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: zipdeflater
 cqCamelPartTitle: Zip Deflate Compression
-cqCamelPartDescription: Compress and decompress streams using <code>java.util.zip.Deflater and <code>java.util.zip.Inflater.
+cqCamelPartDescription: Compress and decompress streams using java.util.zip.Deflater and java.util.zip.Inflater.
 cqExtensionPageTitle: Zip Deflate Compression

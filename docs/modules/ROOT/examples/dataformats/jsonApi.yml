@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: jsonApi
 cqCamelPartTitle: JSonApi
-cqCamelPartDescription: Marshal and unmarshal .
+cqCamelPartDescription: Marshal and unmarshal JSON:API resources using JSONAPI-Converter library.
 cqExtensionPageTitle: JSonApi

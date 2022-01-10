@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: atomix-map
 cqCamelPartTitle: Atomix Map
-cqCamelPartDescription: Access Atomix's .
+cqCamelPartDescription: Access Atomix's distributed map.
 cqExtensionPageTitle: Atomix Map

@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: consul
 cqCamelPartTitle: Consul
-cqCamelPartDescription: Integrate with service discovery and configuration store.
+cqCamelPartDescription: Integrate with Consul service discovery and configuration store.
 cqExtensionPageTitle: Consul

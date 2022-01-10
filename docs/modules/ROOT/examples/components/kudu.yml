@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: kudu
 cqCamelPartTitle: Kudu
-cqCamelPartDescription: Interact with , a free and open source column-oriented data store of the Apache Hadoop ecosystem.
+cqCamelPartDescription: Interact with Apache Kudu, a free and open source column-oriented data store of the Apache Hadoop ecosystem.
 cqExtensionPageTitle: Kudu

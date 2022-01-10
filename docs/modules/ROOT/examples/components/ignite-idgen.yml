@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-idgen
 cqCamelPartTitle: Ignite ID Generator
-cqCamelPartDescription: Interact with .
+cqCamelPartDescription: Interact with Ignite Atomic Sequences and ID Generators .
 cqExtensionPageTitle: Ignite Cache

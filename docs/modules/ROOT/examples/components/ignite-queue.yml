@@ -9,5 +9,5 @@ cqJvmSince: 1.1.0
 cqNativeSince: n/a
 cqCamelPartName: ignite-queue
 cqCamelPartTitle: Ignite Queues
-cqCamelPartDescription: Interact with .
+cqCamelPartDescription: Interact with Ignite Queue data structures.
 cqExtensionPageTitle: Ignite Cache

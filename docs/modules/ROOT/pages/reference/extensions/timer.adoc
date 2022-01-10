@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Generate messages in specified intervals using <code>java.util.Timer.
+:cq-description: Generate messages in specified intervals using java.util.Timer.
 :cq-deprecated: false
 :cq-jvm-since: 0.2.0
 :cq-native-since: 0.0.2
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##0.2.0## [.badge-key]##Native since##[.badge-supported]##0.0.2##
 
-Generate messages in specified intervals using <code>java.util.Timer.
+Generate messages in specified intervals using java.util.Timer.
 
 == What's inside
 

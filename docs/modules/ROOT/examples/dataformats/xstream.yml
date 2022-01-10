@@ -9,5 +9,5 @@ cqJvmSince: 1.0.0
 cqNativeSince: 1.0.0
 cqCamelPartName: xstream
 cqCamelPartTitle: XStream
-cqCamelPartDescription: Marshal and unmarshal POJOs to/from XML using library.
+cqCamelPartDescription: Marshal and unmarshal POJOs to/from XML using XStream library.
 cqExtensionPageTitle: XStream
