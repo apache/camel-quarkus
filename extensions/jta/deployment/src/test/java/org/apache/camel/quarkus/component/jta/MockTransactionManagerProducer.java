@@ -22,14 +22,14 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Singleton;
 import javax.transaction.TransactionManager;
 
-import io.quarkus.arc.AlternativePriority;
+import io.quarkus.arc.Priority;
 import org.mockito.Mockito;
 
 @ApplicationScoped
 public class MockTransactionManagerProducer {
 
     @Alternative
-    @AlternativePriority(1)
+    @Priority(1)
     @Produces
     @Singleton
     public TransactionManager transactionManager() {
