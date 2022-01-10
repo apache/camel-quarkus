@@ -38,6 +38,10 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
         /* SQS */
         final String queueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
         envContext.property("aws-sqs.queue-name", queueName);
+        final String failingQueueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        envContext.property("aws-sqs.failing-name", failingQueueName);
+        final String deadletterQueueName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(49).toLowerCase(Locale.ROOT);
+        envContext.property("aws-sqs.deadletter-name", deadletterQueueName);
 
         final SqsClient sqsClient = envContext.client(Service.SQS, SqsClient::builder);
         {
@@ -46,7 +50,24 @@ public class Aws2SqsTestEnvCustomizer implements Aws2TestEnvCustomizer {
                             .queueName(queueName)
                             .build())
                     .queueUrl();
-            envContext.closeable(() -> sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build()));
+
+            final String failingUrl = sqsClient.createQueue(
+                    CreateQueueRequest.builder()
+                            .queueName(failingQueueName)
+                            .build())
+                    .queueUrl();
+
+            final String deadletterUrl = sqsClient.createQueue(
+                    CreateQueueRequest.builder()
+                            .queueName(deadletterQueueName)
+                            .build())
+                    .queueUrl();
+
+            envContext.closeable(() -> {
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(queueUrl).build());
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(failingUrl).build());
+                sqsClient.deleteQueue(DeleteQueueRequest.builder().queueUrl(deadletterUrl).build());
+            });
 
         }
     }
