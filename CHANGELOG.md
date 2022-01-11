@@ -19,7 +19,9 @@
 
 **Merged pull requests:**
 
+- Avoid usage of deprecated io.quarkus.arc.AlternativePriority [\#3445](https://github.com/apache/camel-quarkus/pull/3445) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for OpenTelemetry `@WithSpan` annotation [\#3443](https://github.com/apache/camel-quarkus/pull/3443) ([jamesnetherton](https://github.com/jamesnetherton))
+- Remove redundancy in pom description [\#3440](https://github.com/apache/camel-quarkus/pull/3440) ([apupier](https://github.com/apupier))
 - Exclude commons-logging from htmlunit-driver [\#3438](https://github.com/apache/camel-quarkus/pull/3438) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix timestamp validation in syslog integration tests [\#3437](https://github.com/apache/camel-quarkus/pull/3437) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for Quarkus SecurityIdentity & Principal in platform-http routes [\#3435](https://github.com/apache/camel-quarkus/pull/3435) ([jamesnetherton](https://github.com/jamesnetherton))
