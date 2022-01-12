@@ -189,7 +189,6 @@ group-12:
   - reactive-streams
   - rest
   - rest-openapi
-  - vertx-kafka
   - vertx-websocket
 group-13:
   - box

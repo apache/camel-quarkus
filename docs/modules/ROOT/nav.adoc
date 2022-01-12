@@ -309,7 +309,6 @@
 *** xref:reference/extensions/velocity.adoc[Velocity]
 *** xref:reference/extensions/vertx.adoc[Vert.x]
 *** xref:reference/extensions/vertx-http.adoc[Vert.x HTTP Client]
-*** xref:reference/extensions/vertx-kafka.adoc[Vert.x Kafka]
 *** xref:reference/extensions/vertx-websocket.adoc[Vert.x WebSocket]
 *** xref:reference/extensions/weather.adoc[Weather]
 *** xref:reference/extensions/web3j.adoc[Web3j Ethereum Blockchain]

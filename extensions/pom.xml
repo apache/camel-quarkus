@@ -236,7 +236,6 @@
         <module>velocity</module>
         <module>vertx</module>
         <module>vertx-http</module>
-        <module>vertx-kafka</module>
         <module>vertx-websocket</module>
         <module>vm</module>
         <module>weather</module>
