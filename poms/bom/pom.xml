@@ -2258,11 +2258,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
-                <artifactId>camel-vertx-kafka</artifactId>
-                <version>${camel.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel</groupId>
                 <artifactId>camel-vertx-websocket</artifactId>
                 <version>${camel.version}</version>
             </dependency>
@@ -5517,16 +5512,6 @@
             <dependency>
                 <groupId>org.apache.camel.quarkus</groupId>
                 <artifactId>camel-quarkus-vertx-http-deployment</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-vertx-kafka</artifactId>
-                <version>${camel-quarkus.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.camel.quarkus</groupId>
-                <artifactId>camel-quarkus-vertx-kafka-deployment</artifactId>
                 <version>${camel-quarkus.version}</version>
             </dependency>
             <dependency>

@@ -20,8 +20,6 @@ Camel Quarkus provides support for various messaging platforms, brokers and prot
 |Apache Kafka
 |xref:reference/extensions/kafka.adoc[`camel-quarkus-kafka`]
 
-xref:reference/extensions/vertx-kafka.adoc[`camel-quarkus-vertx-kafka`]
-
 |Apache Pulsar
 |xref:reference/extensions/pulsar.adoc[`camel-quarkus-pulsar`]
 
