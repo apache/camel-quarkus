@@ -52,7 +52,6 @@ import org.apache.camel.component.aws2.s3.AWS2S3Constants;
 import org.apache.camel.component.aws2.s3.AWS2S3Operations;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 import software.amazon.awssdk.core.ResponseInputStream;
-import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.Bucket;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.NoSuchBucketException;
@@ -67,9 +66,6 @@ public class Aws2S3Resource {
 
     @Inject
     ConsumerTemplate consumerTemplate;
-
-    @Inject
-    S3Client s3Client;
 
     @ConfigProperty(name = "aws-s3.bucket-name")
     String bucketName;
@@ -239,7 +235,7 @@ public class Aws2S3Resource {
         }
 
         String link = producerTemplate.requestBodyAndHeader(
-                componentUri(bucket, AWS2S3Operations.createDownloadLink),
+                componentUri(bucket, AWS2S3Operations.createDownloadLink) + "&accessKey=xxx&secretKey=yyy&region=eu-west-1",
                 null,
                 AWS2S3Constants.KEY,
                 key,

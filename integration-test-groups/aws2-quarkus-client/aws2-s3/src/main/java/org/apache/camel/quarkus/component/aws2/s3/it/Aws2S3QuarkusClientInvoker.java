@@ -16,9 +16,15 @@
  */
 package org.apache.camel.quarkus.component.aws2.s3.it;
 
-import io.quarkus.test.junit.NativeImageTest;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 
-@NativeImageTest
-class Aws2S3QuarkusClientIT extends Aws2S3QuarkusClientTest {
+import software.amazon.awssdk.services.s3.S3Client;
+
+@ApplicationScoped
+public class Aws2S3QuarkusClientInvoker {
+
+    @Inject
+    S3Client s3;
 
 }
