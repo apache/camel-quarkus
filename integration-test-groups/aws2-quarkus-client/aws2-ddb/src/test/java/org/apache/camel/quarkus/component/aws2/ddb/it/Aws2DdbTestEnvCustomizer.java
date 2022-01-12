@@ -50,6 +50,9 @@ public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
     @Override
     public void customize(Aws2TestEnvContext envContext) {
 
+        //remove camel properties for client creation to ensure that client is not created by camel component
+        envContext.removeClient(localstackServices());
+
         final String tableName = "camel-quarkus-" + RandomStringUtils.randomAlphanumeric(16).toLowerCase(Locale.ROOT);
         envContext.property("aws-ddb.table-name", tableName);
 

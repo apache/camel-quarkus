@@ -87,6 +87,20 @@ public class Aws2TestEnvContext {
     }
 
     /**
+     * Removes client properties to be not seen by AWS 2 tests
+     *
+     * @param services
+     */
+    public void removeClient(Service[] services) {
+        for (Service service : services) {
+            String s = camelServiceAcronym(service);
+            properties.remove("camel.component.aws2-" + s + ".access-key");
+            properties.remove("camel.component.aws2-" + s + ".secret-key");
+            properties.remove("camel.component.aws2-" + s + ".region");
+        }
+    }
+
+    /**
      * Add an {@link AutoCloseable} to be closed after running AWS 2 tests
      *
      * @param  closeable the {@link AutoCloseable} to add

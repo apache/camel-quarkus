@@ -1,1 +1,1 @@
-org.apache.camel.quarkus.component.aws2.Aws2S3TestEnvCustomizer
+org.apache.camel.quarkus.component.aws2.s3.it.Aws2S3TestEnvCustomizer

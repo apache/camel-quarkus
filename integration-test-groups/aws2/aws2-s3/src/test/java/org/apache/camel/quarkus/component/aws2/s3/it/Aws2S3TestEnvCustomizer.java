@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.aws2;
+package org.apache.camel.quarkus.component.aws2.s3.it;
 
 import java.util.Locale;
 
@@ -37,6 +37,7 @@ public class Aws2S3TestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public void customize(Aws2TestEnvContext envContext) {
+
         final S3Client s3Client = envContext.client(Service.S3, S3Client::builder);
         final KmsClient kmsClient = envContext.client(Service.KMS, KmsClient::builder);
 
