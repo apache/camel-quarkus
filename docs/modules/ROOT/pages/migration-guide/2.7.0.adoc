@@ -1,0 +1,7 @@
+= Camel Quarkus 2.7.0 Migration Guide
+
+The following guide outlines how to adapt your code to changes that were made in Camel Quarkus 2.7.0 & Quarkus 2.7.0.Final.
+
+== Deprecated vertx-kafka extension has been removed
+
+The deprecated `vertx-kafka` extension has been removed. Any routes using this component will need modifying to use the xref:reference/extensions/kafka.adoc[`kafka`] extension.
