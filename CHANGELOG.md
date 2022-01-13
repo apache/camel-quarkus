@@ -10,6 +10,7 @@
 
 **Closed issues:**
 
+- Ban log4j 1.x [\#3451](https://github.com/apache/camel-quarkus/issues/3451)
 - camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
 - Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
 - Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
@@ -19,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Ban log4j 1.x  [\#3452](https://github.com/apache/camel-quarkus/pull/3452) ([ppalaga](https://github.com/ppalaga))
 - Avoid usage of deprecated io.quarkus.arc.AlternativePriority [\#3445](https://github.com/apache/camel-quarkus/pull/3445) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for OpenTelemetry `@WithSpan` annotation [\#3443](https://github.com/apache/camel-quarkus/pull/3443) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundancy in pom description [\#3440](https://github.com/apache/camel-quarkus/pull/3440) ([apupier](https://github.com/apupier))
