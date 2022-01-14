@@ -20,7 +20,10 @@
 
 **Merged pull requests:**
 
+- Make local maven settings applied to surefire plugin so that Quarkus … [\#3455](https://github.com/apache/camel-quarkus/pull/3455) ([ppalaga](https://github.com/ppalaga))
+- Add 2.7.0 migration guide [\#3454](https://github.com/apache/camel-quarkus/pull/3454) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban log4j 1.x  [\#3452](https://github.com/apache/camel-quarkus/pull/3452) ([ppalaga](https://github.com/ppalaga))
+- Remove vertx-kafka extension [\#3450](https://github.com/apache/camel-quarkus/pull/3450) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid usage of deprecated io.quarkus.arc.AlternativePriority [\#3445](https://github.com/apache/camel-quarkus/pull/3445) ([jamesnetherton](https://github.com/jamesnetherton))
 - Add test coverage for OpenTelemetry `@WithSpan` annotation [\#3443](https://github.com/apache/camel-quarkus/pull/3443) ([jamesnetherton](https://github.com/jamesnetherton))
 - Remove redundancy in pom description [\#3440](https://github.com/apache/camel-quarkus/pull/3440) ([apupier](https://github.com/apupier))
@@ -934,6 +937,7 @@
 - Remove com.amazonaws:aws-java-sdk-swf-libraries from the BOM [\#3375](https://github.com/apache/camel-quarkus/issues/3375)
 - XSLT integration-test fails on Windows 10 [\#3374](https://github.com/apache/camel-quarkus/issues/3374)
 - Ban com.sun.activation:javax.activation [\#3361](https://github.com/apache/camel-quarkus/issues/3361)
+- `vertx-kafka` extension incompatible with `kafka-clients` 3.0.0 [\#3358](https://github.com/apache/camel-quarkus/issues/3358)
 - aws-lambda: itest failing when run against the real AWS API [\#3356](https://github.com/apache/camel-quarkus/issues/3356)
 - Bindy extension should avoid hard coding the resource path for `NativeImageResourceDirectoryBuildItem` [\#3348](https://github.com/apache/camel-quarkus/issues/3348)
 - \[JDK17\]kudu:integration test failed in native mode [\#3340](https://github.com/apache/camel-quarkus/issues/3340)
