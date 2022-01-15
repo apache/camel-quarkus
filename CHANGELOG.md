@@ -2,21 +2,7 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...HEAD)
-
-**Fixed bugs:**
-
-- SecurityIdentity is not propagated to Camel route [\#3353](https://github.com/apache/camel-quarkus/issues/3353)
-
-**Closed issues:**
-
-- Ban log4j 1.x [\#3451](https://github.com/apache/camel-quarkus/issues/3451)
-- camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
-- Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
-- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
-- Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
-- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
-- \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...HEAD)
 
 **Merged pull requests:**
 
@@ -913,6 +899,24 @@
 - Fix \#1428 to add the usage.adoc [\#1457](https://github.com/apache/camel-quarkus/pull/1457) ([zhfeng](https://github.com/zhfeng))
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
+
+## [2.2.1](https://github.com/apache/camel-quarkus/tree/2.2.1) (2022-01-14)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...2.2.1)
+
+**Fixed bugs:**
+
+- SecurityIdentity is not propagated to Camel route [\#3353](https://github.com/apache/camel-quarkus/issues/3353)
+
+**Closed issues:**
+
+- Ban log4j 1.x [\#3451](https://github.com/apache/camel-quarkus/issues/3451)
+- camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
+- Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
+- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
+- Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
+- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
+- \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
 
 ## [2.6.0](https://github.com/apache/camel-quarkus/tree/2.6.0) (2021-12-18)
 
