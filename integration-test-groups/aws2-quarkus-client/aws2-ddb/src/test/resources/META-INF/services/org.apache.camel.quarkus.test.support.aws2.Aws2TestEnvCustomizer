@@ -1,1 +1,1 @@
-org.apache.camel.quarkus.component.aws2.ddb.it.Aws2DdbTestEnvCustomizer
+org.apache.camel.quarkus.component.aws2.ddb.it.Aws2DdbQuarkusClientTestEnvCustomizer
