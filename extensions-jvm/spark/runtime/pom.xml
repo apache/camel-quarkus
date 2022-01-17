@@ -81,6 +81,10 @@
             <artifactId>camel-spark</artifactId>
             <exclusions>
                 <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>javax.activation</groupId>
                     <artifactId>activation</artifactId>
                 </exclusion>
