@@ -58,6 +58,16 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-hdfs</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.netty</groupId>
+                    <artifactId>netty-all</artifactId>
+                </exclusion>
+             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-netty</artifactId>
         </dependency>
     </dependencies>
 
