@@ -40,7 +40,7 @@ import software.amazon.awssdk.services.dynamodb.model.StreamSpecification;
 import software.amazon.awssdk.services.dynamodb.model.StreamViewType;
 import software.amazon.awssdk.services.dynamodb.waiters.DynamoDbWaiter;
 
-public class Aws2DdbTestEnvCustomizer implements Aws2TestEnvCustomizer {
+public class Aws2DdbQuarkusClientTestEnvCustomizer implements Aws2TestEnvCustomizer {
 
     @Override
     public Service[] localstackServices() {
