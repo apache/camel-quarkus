@@ -668,6 +668,7 @@
                                                 <exclude>com.sun.activation:javax.activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>commons-logging:commons-logging</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
                                                 <exclude>commons-logging:commons-logging-api</exclude><!-- use org.jboss.logging:commons-logging-jboss-logging instead of commons-logging and commons-logging-api -->
+                                                <exclude>io.netty:netty-all</exclude><!-- Use more fine grained netty artifacts or even io.quarkus:quarkus-netty instead -->
                                                 <exclude>javax.activation:activation</exclude><!-- use com.sun.activation:jakarta.activation instead -->
                                                 <exclude>javax.enterprise:cdi-api</exclude><!-- use jakarta.enterprise:jakarta.enterprise.cdi-api instead -->
                                                 <exclude>log4j:log4j</exclude><!-- use org.jboss.logmanager:log4j-jboss-logmanager instead -->
