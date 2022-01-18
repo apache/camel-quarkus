@@ -11,7 +11,7 @@ Next create a new 'Connected App' from the app manager page. You may need to adj
 
 Next create a document named 'test'.
 
-Next create a new Platform Event named `TestEvent`. Set Publish Behavior to `Publish Immediately`. Save and make sure the API name is `TestEvent__e`. Update the Platform Event, add a new Custom Field of type `Text`, named `Test_Field`. Set its length to 30. Save and make sure the API name of the field is `Test_Field__c`.
+Next create a new Platform Event named `TestEvent`  by visiting the Integrations -> Platform Events. Set Publish Behavior to `Publish Immediately`. Update the Platform Event, add a new Custom Field of type `Text`, named `Test_Field`. Set its length to 30.
 
 You can find the app OAuth settings by choosing the 'view' option from the app manager page. Then set the following environment variables.
 
