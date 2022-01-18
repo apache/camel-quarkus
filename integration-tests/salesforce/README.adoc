@@ -2,16 +2,23 @@
 
 By default, the Salesforce integration tests use WireMock to stub the API interactions.
 
-IMPORTANT: Note that when using Wiremock, the Change Data Capture Events test is disabled.
+IMPORTANT: Note that when using Wiremock, the Change Data Capture Events test, and the Platform event test are disabled.
 
 To run `camel-quarkus-salesforce` integration tests using Salesforce API interactions, you must first create a Salesforce developer account https://developer.salesforce.com/.
 
-Next create a new 'Connected App' from the app manager page. You may need to adjust the OAuth policy settings for
-`Permitted Users` and also `IP Relaxation` rules, depending on your needs. Also enable Change Data Capture for the 'Account' entity by visiting the Integrations -> Change Data Capture page.
+Next create a new 'Connected App' by visiting Apps  -> App Manager page. In the form, enable OAuth Settings, and set those fields.
+* Set a value for the callback URL (example : https://login.salesforce.com/oauth2/callback](https://login.salesforce.com/oauth2/callback)
+* Add OAuth Scopes: (example Full access (Full))
 
-Next create a document named 'test'.
+You may need to adjust the OAuth policy settings for `Permitted Users` and also `IP Relaxation` rules, depending on your needs. If needed, this can be achieved by visiting  Apps  -> Connected Apps -> Manage connected apps page.
 
-Next create a new Platform Event named `TestEvent`  by visiting the Integrations -> Platform Events. Set Publish Behavior to `Publish Immediately`. Update the Platform Event, add a new Custom Field of type `Text`, named `Test_Field`. Set its length to 30.
+Next add your profile to the list of authorized profiles. Go to App -> App Manager page. Select your connected app, and click on Manage. Scroll to Profiles, and select Manage Profiles. Add your profile to the list.
+
+Next enable 'Change Data Capture' for the 'Account' entity by visiting the Integrations -> Change Data Capture page.
+
+Next create a new 'Platform Event' named `TestEvent`  by visiting the Integrations -> Platform Events. Set Publish Behavior to `Publish Immediately`. Update the Platform Event, add a new Custom Field of type `Text`, named `Test_Field`. Set its length to 30.
+
+Next create a document named 'test'. This can be accessed from the Global Actions menu. In case you can't find it, you can switch to Salesforce classical view.
 
 You can find the app OAuth settings by choosing the 'view' option from the app manager page. Then set the following environment variables.
 
