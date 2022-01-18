@@ -4,6 +4,10 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...HEAD)
 
+**Closed issues:**
+
+- quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
+
 **Merged pull requests:**
 
 - Make local maven settings applied to surefire plugin so that Quarkus … [\#3455](https://github.com/apache/camel-quarkus/pull/3455) ([ppalaga](https://github.com/ppalaga))
