@@ -6,10 +6,18 @@
 
 **Closed issues:**
 
+- Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
 - quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
+- aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
+- Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
 
 **Merged pull requests:**
 
+- 📝 Improve documentation on setting up the Salesforce developer account [\#3469](https://github.com/apache/camel-quarkus/pull/3469) ([zbendhiba](https://github.com/zbendhiba))
+- Update Salesforce Integration tests to Salesforce API upgrade [\#3467](https://github.com/apache/camel-quarkus/pull/3467) ([zbendhiba](https://github.com/zbendhiba))
+- Ban netty-all  [\#3465](https://github.com/apache/camel-quarkus/pull/3465) ([ppalaga](https://github.com/ppalaga))
+- Aws2  quarkus client ddb refactor [\#3462](https://github.com/apache/camel-quarkus/pull/3462) ([JiriOndrusek](https://github.com/JiriOndrusek))
+- aws2-quarkus-client Verify that no client except quarkus one is used  [\#3458](https://github.com/apache/camel-quarkus/pull/3458) ([JiriOndrusek](https://github.com/JiriOndrusek))
 - Make local maven settings applied to surefire plugin so that Quarkus … [\#3455](https://github.com/apache/camel-quarkus/pull/3455) ([ppalaga](https://github.com/ppalaga))
 - Add 2.7.0 migration guide [\#3454](https://github.com/apache/camel-quarkus/pull/3454) ([jamesnetherton](https://github.com/jamesnetherton))
 - Ban log4j 1.x  [\#3452](https://github.com/apache/camel-quarkus/pull/3452) ([ppalaga](https://github.com/ppalaga))
