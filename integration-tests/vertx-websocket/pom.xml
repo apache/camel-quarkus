@@ -39,7 +39,7 @@
 	<!-- test dependencies -->
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-undertow-websockets</artifactId>
+            <artifactId>quarkus-websockets</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

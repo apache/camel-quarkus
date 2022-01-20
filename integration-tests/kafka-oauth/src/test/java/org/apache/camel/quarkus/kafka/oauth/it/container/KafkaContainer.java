@@ -16,17 +16,20 @@
  */
 package org.apache.camel.quarkus.kafka.oauth.it.container;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.json.Json;
+import javax.json.stream.JsonParser;
+
 import com.github.dockerjava.api.command.InspectContainerResponse;
-import io.strimzi.StrimziKafkaContainer;
+import io.strimzi.test.container.StrimziKafkaContainer;
+import org.apache.commons.io.IOUtils;
 import org.jboss.logging.Logger;
 import org.testcontainers.containers.FixedHostPortGenericContainer;
 import org.testcontainers.containers.Network;
@@ -45,19 +48,22 @@ public class KafkaContainer extends FixedHostPortGenericContainer<KafkaContainer
     private static final int KAFKA_PORT = 9092;
     private static final String LATEST_KAFKA_VERSION;
 
-    private static final List<String> supportedKafkaVersions = new ArrayList<>(3);
+    private static final List<String> supportedKafkaVersions = new ArrayList<>();
 
     static {
-        InputStream inputStream = StrimziKafkaContainer.class.getResourceAsStream("/kafka-versions.txt");
-        InputStreamReader streamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-
-        try (BufferedReader bufferedReader = new BufferedReader(streamReader)) {
-            String kafkaVersion;
-            while ((kafkaVersion = bufferedReader.readLine()) != null) {
-                supportedKafkaVersions.add(kafkaVersion);
+        InputStream inputStream = StrimziKafkaContainer.class.getResourceAsStream("/kafka_versions.json");
+        try {
+            String json = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+            try (JsonParser parser = Json.createParser(new StringReader(json))) {
+                parser.next();
+                parser.getObject()
+                        .get("kafkaVersions")
+                        .asJsonObject()
+                        .keySet()
+                        .forEach(supportedKafkaVersions::add);
             }
         } catch (IOException e) {
-            LOGGER.error("Unable to load the supported Kafka versions", e);
+            throw new RuntimeException(e);
         }
 
         // sort kafka version from low to high
