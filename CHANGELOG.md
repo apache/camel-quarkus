@@ -9,10 +9,12 @@
 - Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
 - quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
 - aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
+- \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
 - Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
 
 **Merged pull requests:**
 
+- Upgrade Quarkus to 2.7.0.CR1 [\#3473](https://github.com/apache/camel-quarkus/pull/3473) ([jamesnetherton](https://github.com/jamesnetherton))
 - 📝 Improve documentation on setting up the Salesforce developer account [\#3469](https://github.com/apache/camel-quarkus/pull/3469) ([zbendhiba](https://github.com/zbendhiba))
 - Update Salesforce Integration tests to Salesforce API upgrade [\#3467](https://github.com/apache/camel-quarkus/pull/3467) ([zbendhiba](https://github.com/zbendhiba))
 - Ban netty-all  [\#3465](https://github.com/apache/camel-quarkus/pull/3465) ([ppalaga](https://github.com/ppalaga))
