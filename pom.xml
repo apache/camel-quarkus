@@ -56,7 +56,7 @@
         <quarkiverse-minio.version>2.3.0</quarkiverse-minio.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/minio/quarkus-minio-parent/ -->
         <quarkiverse-mybatis.version>1.0.1</quarkiverse-mybatis.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/mybatis/quarkus-mybatis-parent/ -->
         <quarkiverse-tika.version>1.0.3</quarkiverse-tika.version><!-- https://repo1.maven.org/maven2/io/quarkiverse/tika/quarkus-tika-parent/ -->
-        <quarkus.version>2.7.5.Final</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
+        <quarkus.version>2.8.0.CR1</quarkus.version><!-- https://repo1.maven.org/maven2/io/quarkus/quarkus-bom/ -->
         <quarkus-hazelcast-client.version>3.0.0</quarkus-hazelcast-client.version><!-- https://repo1.maven.org/maven2/com/hazelcast/quarkus-hazelcast-client-bom/ -->
         <quarkus-qpid-jms.version>0.32.0</quarkus-qpid-jms.version><!-- https://repo1.maven.org/maven2/org/amqphub/quarkus/quarkus-qpid-jms-bom/ -->
 
@@ -67,6 +67,7 @@
         <antlr3.version>3.5.2</antlr3.version><!-- Spark, Stringtemplate and probably others -->
         <avro.version>1.11.0</avro.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.apache.avro:avro -->
         <awssdk.version>2.17.127</awssdk.version><!-- @sync io.quarkiverse.amazonservices:quarkus-amazon-services-parent:${quarkiverse-amazonservices.version} prop:awssdk.version -->
+        <assertj.version>3.22.0</assertj.version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:assertj.version -->
         <aws-java-sdk.version>1.11.714</aws-java-sdk.version>
         <azure-sdk-bom.version>1.0.5</azure-sdk-bom.version><!-- Keep in sync with camel-azure component versions -->
         <azure-core.version>1.21.0</azure-core.version><!-- @sync com.azure:azure-sdk-bom:${azure-sdk-bom.version} dep:com.azure:azure-core -->
@@ -87,9 +88,9 @@
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
         <google-native-image-support.version>0.8.0</google-native-image-support.version>
-        <google-auth-library-credentials.version>0.22.2</google-auth-library-credentials.version><!-- @sync io.grpc:grpc-auth:${grpc.version} dep:com.google.auth:google-auth-library-credentials -->
-        <graalvm.version>21.3.1</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
-        <grpc.version>1.43.2</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
+        <google-auth-library-credentials.version>1.4.0</google-auth-library-credentials.version><!-- @sync io.grpc:grpc-auth:${grpc.version} dep:com.google.auth:google-auth-library-credentials -->
+        <graalvm.version>22.0.0.2</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
+        <grpc.version>1.45.0</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <guice-servlet.version>4.0</guice-servlet.version><!-- Spark -->
         <hadoop3.version>${hadoop3-version}</hadoop3.version><!-- Spark -->
         <hapi.version>${hapi-version}</hapi.version>
@@ -125,7 +126,7 @@
         <retrofit.version>2.5.0</retrofit.version>
         <saaj.impl.version>1.5.3</saaj.impl.version>
         <scala-2.12.version>2.12.15</scala-2.12.version><!-- Spark -->
-        <smallrye.reactive.messaging.camel.version>3.13.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
+        <smallrye.reactive.messaging.camel.version>3.15.0</smallrye.reactive.messaging.camel.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.smallrye.reactive:smallrye-reactive-messaging-provider -->
         <spring.version>${spring5-version}</spring.version>
         <snakeyaml.version>${snakeyaml-version}</snakeyaml.version>
         <snappy.version>1.1.7.7</snappy.version><!-- Spark -->
