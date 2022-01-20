@@ -16,6 +16,10 @@
  */
 package org.apache.camel.quarkus.component.microprofile.health.deployment;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -25,52 +29,68 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.impl.health.ConsumersHealthCheckRepository;
 import org.apache.camel.impl.health.ContextHealthCheck;
-import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
 import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.Asset;
+import org.jboss.shrinkwrap.api.asset.StringAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class MicroProfileHealthEnabledTest {
+public class MicroProfileHealthCamelChecksDisabledTest {
 
     @RegisterExtension
     static final QuarkusUnitTest CONFIG = new QuarkusUnitTest()
-            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class));
+            .setArchiveProducer(() -> ShrinkWrap.create(JavaArchive.class)
+                    .addAsResource(applicationProperties(), "application.properties"));
 
     @Inject
     CamelContext context;
 
-    @Test
-    public void healthCheckRegistryBeanNotNull() {
-        Set<HealthCheckRegistry> registries = context.getRegistry().findByType(HealthCheckRegistry.class);
-        assertEquals(1, registries.size());
+    public static final Asset applicationProperties() {
+        Writer writer = new StringWriter();
 
-        HealthCheckRegistry registry = registries.iterator().next();
-        assertTrue(registry instanceof DefaultHealthCheckRegistry);
+        Properties props = new Properties();
+        props.put("camel.health.contextEnabled", "false");
+        props.put("camel.health.routesEnabled", "false");
+        props.put("camel.health.consumersEnabled", "false");
+        props.put("camel.health.registryEnabled", "false");
+
+        try {
+            props.store(writer, "");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return new StringAsset(writer.toString());
     }
 
     @Test
-    public void contextHealthCheckNotNull() {
+    public void contextHealthCheckNull() {
         ContextHealthCheck contextHealthCheck = context.getRegistry().lookupByNameAndType("context", ContextHealthCheck.class);
-        assertNotNull(contextHealthCheck);
+        assertNull(contextHealthCheck);
     }
 
     @Test
-    public void routesHealthCheckNotNull() {
+    public void routesHealthCheckNull() {
         RoutesHealthCheckRepository routesRepository = context.getRegistry().lookupByNameAndType("routes",
                 RoutesHealthCheckRepository.class);
-        assertNotNull(routesRepository);
+        assertNull(routesRepository);
     }
 
     @Test
-    public void consumersHealthCheckNotNull() {
+    public void consumersHealthCheckNull() {
         ConsumersHealthCheckRepository consumersRepository = context.getRegistry().lookupByNameAndType("consumers",
                 ConsumersHealthCheckRepository.class);
-        assertNotNull(consumersRepository);
+        assertNull(consumersRepository);
+    }
+
+    @Test
+    public void healthRegistryNull() {
+        Set<HealthCheckRegistry> healthCheckRegistries = context.getRegistry().findByType(HealthCheckRegistry.class);
+        assertTrue(healthCheckRegistries.isEmpty());
     }
 }
