@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BooleanSupplier;
+import java.util.function.Predicate;
 
 import javax.enterprise.inject.Vetoed;
 
@@ -34,12 +35,17 @@ import io.quarkus.smallrye.health.deployment.HealthBuildTimeConfig;
 import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRegistry;
 import org.apache.camel.health.HealthCheckRepository;
-import org.apache.camel.impl.health.DefaultHealthCheckRegistry;
+import org.apache.camel.impl.health.ConsumersHealthCheckRepository;
+import org.apache.camel.impl.health.ContextHealthCheck;
+import org.apache.camel.impl.health.HealthCheckRegistryRepository;
+import org.apache.camel.impl.health.RoutesHealthCheckRepository;
 import org.apache.camel.microprofile.health.AbstractCamelMicroProfileHealthCheck;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthConfig;
 import org.apache.camel.quarkus.component.microprofile.health.runtime.CamelMicroProfileHealthRecorder;
 import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
+import org.apache.camel.util.ObjectHelper;
+import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.eclipse.microprofile.health.Liveness;
 import org.eclipse.microprofile.health.Readiness;
@@ -79,14 +85,23 @@ class MicroProfileHealthProcessor {
         }
     }
 
+    static final class HealthRegistryEnabled implements BooleanSupplier {
+        @Override
+        public boolean getAsBoolean() {
+            return ConfigProvider.getConfig()
+                    .getOptionalValue("camel.health.registryEnabled", boolean.class)
+                    .orElse(true);
+        }
+    }
+
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
     }
 
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = HealthEnabled.class)
-    CamelBeanBuildItem metricRegistry(CamelMicroProfileHealthRecorder recorder, CamelMicroProfileHealthConfig config) {
+    @BuildStep(onlyIf = { HealthEnabled.class, HealthRegistryEnabled.class })
+    CamelBeanBuildItem healthCheckRegistry(CamelMicroProfileHealthRecorder recorder, CamelMicroProfileHealthConfig config) {
         return new CamelBeanBuildItem(
                 "HealthCheckRegistry",
                 HealthCheckRegistry.class.getName(),
@@ -94,22 +109,43 @@ class MicroProfileHealthProcessor {
     }
 
     @BuildStep(onlyIf = HealthEnabled.class)
-    List<CamelBeanBuildItem> camelHealthDiscovery(
-            CombinedIndexBuildItem combinedIndex,
-            CamelMicroProfileHealthConfig config) {
-
+    List<CamelBeanBuildItem> camelHealthDiscovery(CombinedIndexBuildItem combinedIndex) {
         IndexView index = combinedIndex.getIndex();
         List<CamelBeanBuildItem> buildItems = new ArrayList<>();
         Collection<ClassInfo> healthChecks = index.getAllKnownImplementors(CAMEL_HEALTH_CHECK_DOTNAME);
         Collection<ClassInfo> healthCheckRepositories = index
                 .getAllKnownImplementors(CAMEL_HEALTH_CHECK_REPOSITORY_DOTNAME);
 
+        Config config = ConfigProvider.getConfig();
+        Predicate<ClassInfo> healthCheckFilter = classInfo -> {
+            String className = classInfo.name().toString();
+            if (className.equals(HealthCheckRegistryRepository.class.getName())) {
+                // HealthCheckRegistryRepository is created internally by Camel
+                return false;
+            }
+
+            if (className.equals(ContextHealthCheck.class.getName())) {
+                return config.getOptionalValue("camel.health.contextEnabled", boolean.class).orElse(true);
+            }
+
+            if (className.equals(RoutesHealthCheckRepository.class.getName())) {
+                return config.getOptionalValue("camel.health.routesEnabled", boolean.class).orElse(true);
+            }
+
+            if (className.equals(ConsumersHealthCheckRepository.class.getName())) {
+                return config.getOptionalValue("camel.health.consumersEnabled", boolean.class).orElse(true);
+            }
+
+            return true;
+        };
+
         // Create CamelBeanBuildItem to bind instances of HealthCheck to the camel registry
         healthChecks.stream()
                 .filter(CamelSupport::isConcrete)
                 .filter(CamelSupport::isPublic)
                 .filter(ClassInfo::hasNoArgsConstructor)
-                .map(classInfo -> new CamelBeanBuildItem(classInfo.simpleName(), classInfo.name().toString()))
+                .filter(healthCheckFilter)
+                .map(this::createHealthCamelBeanBuildItem)
                 .forEach(buildItems::add);
 
         // Create CamelBeanBuildItem to bind instances of HealthCheckRepository to the camel registry
@@ -117,8 +153,8 @@ class MicroProfileHealthProcessor {
                 .filter(CamelSupport::isConcrete)
                 .filter(CamelSupport::isPublic)
                 .filter(ClassInfo::hasNoArgsConstructor)
-                .filter(classInfo -> !classInfo.simpleName().equals(DefaultHealthCheckRegistry.class.getSimpleName()))
-                .map(classInfo -> new CamelBeanBuildItem(classInfo.simpleName(), classInfo.name().toString()))
+                .filter(healthCheckFilter)
+                .map(this::createHealthCamelBeanBuildItem)
                 .forEach(buildItems::add);
 
         return buildItems;
@@ -144,5 +180,31 @@ class MicroProfileHealthProcessor {
         return className.startsWith(AbstractCamelMicroProfileHealthCheck.class.getPackage().getName())
                 && (classInfo.classAnnotation(MICROPROFILE_LIVENESS_DOTNAME) != null
                         || classInfo.classAnnotation(MICROPROFILE_READINESS_DOTNAME) != null);
+    }
+
+    private CamelBeanBuildItem createHealthCamelBeanBuildItem(ClassInfo classInfo) {
+        String beanName;
+        String className = classInfo.name().toString();
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+
+        try {
+            Class<?> clazz = classLoader.loadClass(className);
+            Object health = clazz.getDeclaredConstructor().newInstance();
+            if (health instanceof HealthCheck) {
+                beanName = ((HealthCheck) health).getId();
+            } else if (health instanceof HealthCheckRepository) {
+                beanName = ((HealthCheckRepository) health).getId();
+            } else {
+                throw new IllegalArgumentException("Unknown health type " + className);
+            }
+
+            if (ObjectHelper.isEmpty(beanName)) {
+                beanName = className;
+            }
+
+            return new CamelBeanBuildItem(beanName, className);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
