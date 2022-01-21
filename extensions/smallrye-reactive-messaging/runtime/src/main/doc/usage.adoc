@@ -1,4 +1,10 @@
 This extension leverages https://www.smallrye.io/smallrye-reactive-messaging/[SmallRye Reactive Messaging].
 Examples for how to use the Camel connector are outlined within the https://www.smallrye.io/smallrye-reactive-messaging/[documentation].
-Note that where the documentation makes references to Camel component maven dependencies, you should ensure that the corresponding camel-quarkus extension is used.
+
+[NOTE]
+====
+Where the SmallRye Reactive Messaging documentation makes references to Camel component maven dependencies, you should ensure that the corresponding camel-quarkus extension is used.
 E.g `<artifactId>camel-file</artifactId>` should be `<artifactId>camel-quarkus-file</artifactId>`.
+
+When using this extension, there is no need to explictly add `io.smallrye.reactive:smallrye-reactive-messaging-camel` or `io.quarkus:quarkus-quarkus-smallrye-reactive-messaging` to your project.
+====
