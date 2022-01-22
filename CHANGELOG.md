@@ -17,6 +17,7 @@
 
 **Merged pull requests:**
 
+- Add NOTE section for smallrye-reactive-messaging usage docs [\#3476](https://github.com/apache/camel-quarkus/pull/3476) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid creating `CamelBeanBuildItem` for health checks if they are disabled [\#3475](https://github.com/apache/camel-quarkus/pull/3475) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.0.CR1 [\#3473](https://github.com/apache/camel-quarkus/pull/3473) ([jamesnetherton](https://github.com/jamesnetherton))
 - 📝 Improve documentation on setting up the Salesforce developer account [\#3469](https://github.com/apache/camel-quarkus/pull/3469) ([zbendhiba](https://github.com/zbendhiba))
