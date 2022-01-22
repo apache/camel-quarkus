@@ -32,6 +32,8 @@ asciidoc:
     camel-version: 3.14.0 # replace ${camel.version}
     camel-docs-version: 3.14.x # replace ${camel.docs.components.version}
     quarkus-version: 2.7.0.CR1 # replace ${quarkus.version}
+    graalvm-version: 21.3.0 # replace ${graalvm.version}
+    graalvm-docs-version: 21.3
     # attributes used in xrefs to other Antora components
     cq-camel-components: 3.14.x@components # replace ${camel.docs.components.xref}
     quarkus-examples-version: latest
