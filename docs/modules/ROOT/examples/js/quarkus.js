@@ -30,6 +30,10 @@ module.exports = {
 
   jvmOnlyFilter: function (items) {
     return items.filter((item) => item.$.cqNativeSupported === false)
-  }
+  },
 
+//  Compatibility table support
+  branch: (version) =>  version === 'next' ?
+    'https://github.com/apache/camel-quarkus[main]' :
+    `https://github.com/apache/camel-quarkus/tree/${version}[${version}]`,
 }
