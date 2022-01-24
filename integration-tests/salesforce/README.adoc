@@ -12,6 +12,8 @@ Next create a new 'Connected App' by visiting Apps  -> App Manager page. In the 
 
 You may need to adjust the OAuth policy settings for `Permitted Users` and also `IP Relaxation` rules, depending on your needs. If needed, this can be achieved by visiting  Apps  -> Connected Apps -> Manage connected apps page.
 
+IMPORTANT: If you use defaults settings of a developer account : set `Permitted Users` to `Admin approved users are pre-authorized` and `IP Relaxation` rules to `Relax IP restrictions`.
+
 Next add your profile to the list of authorized profiles. Go to App -> App Manager page. Select your connected app, and click on Manage. Scroll to Profiles, and select Manage Profiles. Add your profile to the list.
 
 Next enable 'Change Data Capture' for the 'Account' entity by visiting the Integrations -> Change Data Capture page.
