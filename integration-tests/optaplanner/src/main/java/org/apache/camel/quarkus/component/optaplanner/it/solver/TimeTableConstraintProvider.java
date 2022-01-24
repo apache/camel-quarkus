@@ -27,7 +27,7 @@ import org.optaplanner.core.api.score.stream.Joiners;
 
 /**
  * adapted from optaplanner quarkus quickstart :
- * https://github.com/quarkusio/quarkus-quickstarts/blob/master/optaplanner-quickstart/src/main/java/org/acme/optaplanner/solver/TimeTableConstraintProvider.java
+ * https://github.com/kiegroup/optaplanner-quickstarts/tree/stable/use-cases/school-timetabling
  */
 public class TimeTableConstraintProvider implements ConstraintProvider {
 

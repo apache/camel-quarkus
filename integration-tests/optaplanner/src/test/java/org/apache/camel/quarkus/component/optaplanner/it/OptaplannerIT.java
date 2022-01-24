@@ -17,10 +17,7 @@
 package org.apache.camel.quarkus.component.optaplanner.it;
 
 import io.quarkus.test.junit.NativeImageTest;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
-// https://github.com/apache/camel-quarkus/issues/2205
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 @NativeImageTest
 class OptaplannerIT extends OptaplannerTest {
 

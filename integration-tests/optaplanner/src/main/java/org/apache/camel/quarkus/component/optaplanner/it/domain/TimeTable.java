@@ -27,7 +27,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 
 /**
  * adapted from optaplanner quarkus quickstart :
- * https://github.com/kiegroup/optaplanner-quickstarts/blob/stable/quarkus-school-timetabling/src/main/java/org/acme/schooltimetabling/domain/TimeTable.java
+ * https://github.com/kiegroup/optaplanner-quickstarts/tree/stable/use-cases/school-timetabling
  */
 @PlanningSolution
 public class TimeTable {
