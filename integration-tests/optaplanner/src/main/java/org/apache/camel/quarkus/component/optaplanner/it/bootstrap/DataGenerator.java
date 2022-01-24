@@ -32,8 +32,8 @@ import org.apache.camel.quarkus.component.optaplanner.it.domain.Timeslot;
 
 /**
  * adapted from optaplanner quarkus quickstart :
- * https://github.com/kiegroup/optaplanner-quickstarts/blob/stable/quarkus-school-timetabling/src/main/java/org/acme/schooltimetabling/bootstrap/DemoDataGenerator.java
- */
+ * https://github.com/kiegroup/optaplanner-quickstarts/tree/stable/use-cases/school-timetabling
+ **/
 @ApplicationScoped
 public class DataGenerator {
 

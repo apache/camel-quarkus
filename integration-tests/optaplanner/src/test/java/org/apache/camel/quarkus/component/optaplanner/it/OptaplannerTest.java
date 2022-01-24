@@ -22,13 +22,10 @@ import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.apache.camel.quarkus.component.optaplanner.it.domain.TimeTable;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 
 import static org.awaitility.Awaitility.await;
 import static org.hamcrest.Matchers.notNullValue;
 
-// https://github.com/apache/camel-quarkus/issues/2205
-@DisabledIfEnvironmentVariable(named = "CI", matches = "true")
 @QuarkusTest
 class OptaplannerTest {
 

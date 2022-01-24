@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.optaplanner.deployment;
 
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 
 class OptaplannerProcessor {
 
@@ -30,11 +28,4 @@ class OptaplannerProcessor {
         return new FeatureBuildItem(FEATURE);
     }
 
-    @BuildStep
-    void runtimeInitializedClasses(BuildProducer<RuntimeInitializedClassBuildItem> runtimeInitializedClass) {
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.drools.core.util.Drools$XSTreamChekcer"));
-        runtimeInitializedClass
-                .produce(new RuntimeInitializedClassBuildItem("org.drools.compiler.kproject.models.KieModuleMarshaller"));
-        runtimeInitializedClass.produce(new RuntimeInitializedClassBuildItem("org.drools.core.rule.JavaDialectRuntimeData"));
-    }
 }
