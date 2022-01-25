@@ -14,9 +14,11 @@
 - \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
 - \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
 - Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
+- jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
 
 **Merged pull requests:**
 
+- camel-website \#701 camel-quarkus RI table setup \(main\) [\#3477](https://github.com/apache/camel-quarkus/pull/3477) ([djencks](https://github.com/djencks))
 - Add NOTE section for smallrye-reactive-messaging usage docs [\#3476](https://github.com/apache/camel-quarkus/pull/3476) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid creating `CamelBeanBuildItem` for health checks if they are disabled [\#3475](https://github.com/apache/camel-quarkus/pull/3475) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade Quarkus to 2.7.0.CR1 [\#3473](https://github.com/apache/camel-quarkus/pull/3473) ([jamesnetherton](https://github.com/jamesnetherton))
