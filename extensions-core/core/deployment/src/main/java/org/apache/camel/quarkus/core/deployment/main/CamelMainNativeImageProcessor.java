@@ -24,7 +24,6 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.support.ResourceHelper;
 import org.apache.camel.util.AntPathMatcher;
 import org.jboss.logging.Logger;
@@ -32,7 +31,7 @@ import org.jboss.logging.Logger;
 public class CamelMainNativeImageProcessor {
     private static final Logger LOG = Logger.getLogger(CamelMainNativeImageProcessor.class);
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     void reflectiveCLasses(BuildProducer<ReflectiveClassBuildItem> producer) {
         // TODO: The classes below are needed to fix https://github.com/apache/camel-quarkus/issues/1005
         //       but we need to investigate why it does not fail with Java 1.8
@@ -46,7 +45,7 @@ public class CamelMainNativeImageProcessor {
                 org.apache.camel.quarkus.main.CamelMainApplication.class));
     }
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     private void camelNativeImageResources(
             Capabilities capabilities,
             BuildProducer<NativeImageResourceBuildItem> nativeResource) {

@@ -25,7 +25,7 @@ import org.apache.camel.quarkus.main.runtime.support.CustomRoutesCollectorRecord
 public class CustomRoutesCollectorProcessor {
     @Record(ExecutionTime.STATIC_INIT)
     @BuildStep
-    CamelRoutesCollectorBuildItem listener(CustomRoutesCollectorRecorder recorder) {
+    CamelRoutesCollectorBuildItem collector(CustomRoutesCollectorRecorder recorder) {
         return new CamelRoutesCollectorBuildItem(recorder.createSupportCollector());
     }
 }

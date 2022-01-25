@@ -5,3 +5,8 @@ The following guide outlines how to adapt your code to changes that were made in
 == Deprecated vertx-kafka extension has been removed
 
 The deprecated `vertx-kafka` extension has been removed. Any routes using this component will need modifying to use the xref:reference/extensions/kafka.adoc[`kafka`] extension.
+
+== Removal of configuration property `quarkus.camel.main.enabled`
+
+xref:{cq-camel-components}:others:main.adoc[Camel Main] has been enabled as the default bootstrap mode since Camel Quarkus 1.8.0. The configuration property `quarkus.camel.main.enabled` 
+has now been removed as there are no major benefits to disabling Camel Main.

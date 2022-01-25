@@ -116,10 +116,6 @@
                 <configuration>
                     <capabilities>
                         <provides>org.apache.camel</provides>
-                        <providesIf>
-                            <positive>org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled</positive>
-                            <name>org.apache.camel.main</name>
-                        </providesIf>
                     </capabilities>
                 </configuration>
             </plugin>

@@ -41,7 +41,6 @@ import org.apache.camel.quarkus.core.CamelRecorder;
 import org.apache.camel.quarkus.core.CamelRuntime;
 import org.apache.camel.quarkus.core.deployment.CamelContextProcessor.EventBridgeEnabled;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainBuildItem;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainListenerBuildItem;
 import org.apache.camel.quarkus.core.deployment.main.spi.CamelRoutesCollectorBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
@@ -49,8 +48,6 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuild
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesLoaderBuildItems;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRuntimeTaskBuildItem;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServiceDestination;
-import org.apache.camel.quarkus.core.deployment.spi.CamelServicePatternBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RuntimeCamelContextCustomizerBuildItem;
 import org.apache.camel.quarkus.main.CamelMain;
@@ -63,12 +60,12 @@ import org.jboss.jandex.IndexView;
 
 public class CamelMainProcessor {
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     void unremovableBeans(BuildProducer<AdditionalBeanBuildItem> beanProducer) {
         beanProducer.produce(AdditionalBeanBuildItem.unremovableOf(CamelMainProducers.class));
     }
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesLoaderBuildItems.Registry routesLoader(CamelConfig config, CamelRecorder recorder) {
         return config.routesDiscovery.enabled
@@ -77,7 +74,7 @@ public class CamelMainProcessor {
     }
 
     @Overridable
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     @Record(value = ExecutionTime.STATIC_INIT, optional = true)
     public CamelRoutesCollectorBuildItem routesCollector(
             CamelMainRecorder recorder,
@@ -100,7 +97,7 @@ public class CamelMainProcessor {
      * @return                      a build item holding a {@link CamelMain} instance.
      */
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     CamelMainBuildItem main(
             BeanContainerBuildItem beanContainer,
             ContainerBeansBuildItem containerBeans,
@@ -160,8 +157,8 @@ public class CamelMainProcessor {
      * @param  camelMainConfig a {@link CamelMainConfig}
      * @return                 a build item holding a {@link CamelRuntime} instance.
      */
-    @BuildStep(onlyIf = CamelMainEnabled.class)
-    @Record(value = ExecutionTime.RUNTIME_INIT, optional = true)
+    @BuildStep
+    @Record(value = ExecutionTime.RUNTIME_INIT)
     /*
      * @Consume(SyntheticBeansRuntimeInitBuildItem.class) makes sure that camel-main starts after the ArC container is
      * fully initialized. This is required as under the hoods the camel registry may look-up beans from the
@@ -204,7 +201,7 @@ public class CamelMainProcessor {
      * @param recorder      the CamelContext recorder instance
      */
     @Record(ExecutionTime.STATIC_INIT)
-    @BuildStep(onlyIf = { CamelMainEnabled.class, EventBridgeEnabled.class })
+    @BuildStep(onlyIf = EventBridgeEnabled.class)
     public void registerCamelMainEventBridge(
             BeanDiscoveryFinishedBuildItem beanDiscovery,
             CamelMainBuildItem main,
@@ -221,17 +218,9 @@ public class CamelMainProcessor {
         }
     }
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     AdditionalIndexedClassesBuildItem indexCamelMainApplication() {
         // Required for launching CamelMain based applications from the IDE
         return new AdditionalIndexedClassesBuildItem(CamelMainApplication.class.getName());
-    }
-
-    @BuildStep(onlyIfNot = CamelMainEnabled.class)
-    void coreServicePatterns(BuildProducer<CamelServicePatternBuildItem> services) {
-        services.produce(new CamelServicePatternBuildItem(
-                CamelServiceDestination.DISCOVERY,
-                false,
-                "META-INF/services/org/apache/camel/configurer/org.apache.camel.main.*"));
     }
 }

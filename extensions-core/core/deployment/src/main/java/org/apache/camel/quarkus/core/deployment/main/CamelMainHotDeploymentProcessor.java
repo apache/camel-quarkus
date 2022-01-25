@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.HotDeploymentWatchedFileBuildItem;
-import org.apache.camel.quarkus.core.deployment.main.spi.CamelMainEnabled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,7 +32,7 @@ class CamelMainHotDeploymentProcessor {
     private static final String FILE_PREFIX = "file:";
     private static final String CLASSPATH_PREFIX = "classpath:";
 
-    @BuildStep(onlyIf = CamelMainEnabled.class)
+    @BuildStep
     List<HotDeploymentWatchedFileBuildItem> locations() {
         List<HotDeploymentWatchedFileBuildItem> items = CamelMainHelper.routesIncludePattern()
                 .map(CamelMainHotDeploymentProcessor::routesIncludePatternToLocation)

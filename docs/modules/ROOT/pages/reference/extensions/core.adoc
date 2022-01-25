@@ -247,12 +247,6 @@ Whether to enable the bridging of Camel events to CDI events.
 | `boolean`
 | `true`
 
-|icon:lock[title=Fixed at build time] [[quarkus.camel.main.enabled]]`link:#quarkus.camel.main.enabled[quarkus.camel.main.enabled]`
-
-If `true` all `camel-main` features are enabled; otherwise no `camel-main` features are enabled. See described the xref:user-guide/configuration.adoc[Configuration] section of Camel Quarkus documentation for more details.
-| `boolean`
-| `true`
-
 |icon:lock[title=Fixed at build time] [[quarkus.camel.main.shutdown.timeout]]`link:#quarkus.camel.main.shutdown.timeout[quarkus.camel.main.shutdown.timeout]`
 
 A timeout (with millisecond precision) to wait for `CamelMain++#++stop()` to finish
