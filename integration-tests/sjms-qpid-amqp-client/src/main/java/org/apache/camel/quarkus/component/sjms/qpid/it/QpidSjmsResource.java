@@ -35,7 +35,7 @@ public class QpidSjmsResource {
     @Path("/connection/factory")
     @Produces(MediaType.TEXT_PLAIN)
     public String connectionFactoryImplementation() {
-        return connectionFactory.getClass().getName();
+        return connectionFactory.getClass().getName().toLowerCase();
     }
 
 }

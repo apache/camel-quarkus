@@ -24,8 +24,8 @@ import org.apache.camel.quarkus.messaging.jms.AbstractJmsMessagingTest;
 import org.apache.camel.quarkus.test.support.activemq.ActiveMQTestResource;
 import org.junit.jupiter.api.Test;
 
+import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.startsWith;
 
 @QuarkusTest
 @QuarkusTestResource(initArgs = {
@@ -37,7 +37,7 @@ class JmsQpidTest extends AbstractJmsMessagingTest {
         RestAssured.get("/messaging/jms/qpid/connection/factory")
                 .then()
                 .statusCode(200)
-                .body(startsWith("javax.jms.QpidJms"));
+                .body(containsString("qpid"));
     }
 
     @Test
