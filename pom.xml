@@ -76,7 +76,7 @@
         <freemarker.version>2.3.31</freemarker.version><!-- @sync io.quarkiverse.freemarker:quarkus-freemarker-parent:${quarkiverse.freemarker.version} prop:freemarker.version -->
         <fommil.netlib.core.version>1.1.2</fommil.netlib.core.version><!-- Mess in Weka transitive deps -->
         <github-api.version>1.111</github-api.version><!-- Used in a Groovy script bellow -->
-        <guava.version>29.0-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version><!-- @sync io.quarkus:quarkus-bootstrap-bom:${quarkus.version} prop:guava.version -->
         <graalvm.version>21.3.0</graalvm.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:org.graalvm.nativeimage:svm -->
         <grpc.version>1.38.1</grpc.version><!-- @sync io.quarkus:quarkus-bom:${quarkus.version} dep:io.grpc:grpc-core -->
         <gson.version>2.8.6</gson.version><!-- @sync com.ibm.jsonata4java:JSONata4Java:${jsonata4java-version} dep:com.google.code.gson:gson -->
