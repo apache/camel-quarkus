@@ -190,7 +190,7 @@
         <maven.compiler.testSource>${maven.compiler.source}</maven.compiler.testSource>
 
         <!-- maven-enforcer-plugin -->
-        <min-maven-version>3.6.2</min-maven-version>
+        <min-maven-version>3.8.1</min-maven-version>
         <target-maven-version>3.8.1</target-maven-version><!-- @sync io.quarkus:quarkus-build-parent:${quarkus.version} prop:proposed-maven-version -->
         <supported-maven-versions>[${min-maven-version},)</supported-maven-versions>
 
