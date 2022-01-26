@@ -6,18 +6,25 @@
 
 **Closed issues:**
 
+- \[Quarkus 2.7\] Otplanner tests failing with latest Optaplanner version [\#3483](https://github.com/apache/camel-quarkus/issues/3483)
 - java.lang.IllegalStateException: The stream has no active subscriptions smallrye-reactive-messaging-camel [\#3474](https://github.com/apache/camel-quarkus/issues/3474)
 - Health check `CamelBeanBuildItem` should use the check id as the name [\#3470](https://github.com/apache/camel-quarkus/issues/3470)
 - Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
 - quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
 - aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
+- Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
 - \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
 - \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
 - Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
 - jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
+- Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
 
 **Merged pull requests:**
 
+- Dependency management tweaks [\#3486](https://github.com/apache/camel-quarkus/pull/3486) ([ppalaga](https://github.com/ppalaga))
+- Remove quarkus.camel.main.enabled configuration property [\#3485](https://github.com/apache/camel-quarkus/pull/3485) ([jamesnetherton](https://github.com/jamesnetherton))
+- Bump Optaplanner to 8.16.0.Final and enable CI tests [\#3484](https://github.com/apache/camel-quarkus/pull/3484) ([zbendhiba](https://github.com/zbendhiba))
+- 📝 Update Salesforce doc, with more details on setting developer account [\#3482](https://github.com/apache/camel-quarkus/pull/3482) ([zbendhiba](https://github.com/zbendhiba))
 - camel-website \#701 camel-quarkus RI table setup \(main\) [\#3477](https://github.com/apache/camel-quarkus/pull/3477) ([djencks](https://github.com/djencks))
 - Add NOTE section for smallrye-reactive-messaging usage docs [\#3476](https://github.com/apache/camel-quarkus/pull/3476) ([jamesnetherton](https://github.com/jamesnetherton))
 - Avoid creating `CamelBeanBuildItem` for health checks if they are disabled [\#3475](https://github.com/apache/camel-quarkus/pull/3475) ([jamesnetherton](https://github.com/jamesnetherton))
