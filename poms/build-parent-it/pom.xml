@@ -77,6 +77,11 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>${quarkus.platform.group-id}</groupId>
+                    <artifactId>quarkus-maven-plugin</artifactId>
+                    <version>${quarkus.platform.version}</version>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-failsafe-plugin</artifactId>
                     <executions>
@@ -152,7 +157,7 @@
                     </plugin>
 
                     <plugin>
-                        <groupId>io.quarkus</groupId>
+                        <groupId>${quarkus.platform.group-id}</groupId>
                         <artifactId>quarkus-maven-plugin</artifactId>
                         <executions>
                             <execution>
