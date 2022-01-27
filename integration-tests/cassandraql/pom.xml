@@ -61,6 +61,10 @@
             <scope>test</scope>
             <exclusions>
                 <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>com.github.jnr</groupId>
                     <artifactId>jnr-posix</artifactId>
                 </exclusion>

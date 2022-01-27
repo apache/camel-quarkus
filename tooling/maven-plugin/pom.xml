@@ -88,6 +88,10 @@
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
+                    <groupId>com.google.code.findbugs</groupId>
+                    <artifactId>jsr305</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>org.codehaus.plexus</groupId>
                     <artifactId>plexus-classworlds</artifactId>
                 </exclusion>
