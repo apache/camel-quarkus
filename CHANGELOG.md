@@ -15,12 +15,16 @@
 - Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
 - \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
 - \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
+- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to use Quarkus Platform BOMs [\#3347](https://github.com/apache/camel-quarkus/issues/3347)
 - Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
 - jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
 - Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
 
 **Merged pull requests:**
 
+- Require Maven 3.8.1+ to build Camel Quarkus [\#3492](https://github.com/apache/camel-quarkus/pull/3492) ([ppalaga](https://github.com/ppalaga))
+- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to [\#3490](https://github.com/apache/camel-quarkus/pull/3490) ([ppalaga](https://github.com/ppalaga))
+- Upgrade Quarkus to 2.7.0.Final [\#3489](https://github.com/apache/camel-quarkus/pull/3489) ([jamesnetherton](https://github.com/jamesnetherton))
 - Dependency management tweaks [\#3486](https://github.com/apache/camel-quarkus/pull/3486) ([ppalaga](https://github.com/ppalaga))
 - Remove quarkus.camel.main.enabled configuration property [\#3485](https://github.com/apache/camel-quarkus/pull/3485) ([jamesnetherton](https://github.com/jamesnetherton))
 - Bump Optaplanner to 8.16.0.Final and enable CI tests [\#3484](https://github.com/apache/camel-quarkus/pull/3484) ([zbendhiba](https://github.com/zbendhiba))
