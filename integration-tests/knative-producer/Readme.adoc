@@ -1,0 +1,11 @@
+= Knative Producer tests
+
+The tests able to run against Mocked Knative HTTP API.
+
+If you wish to test this application in knative environment, follow these steps :
+* Create an InMemory Knative Channel named `channel-test`
+* Create an InMemory Knative Broker named `broker-test`
+* Deploy a Knative Service named `endpoint-test`
+* Deploy this application within the Kubernetes cluster
+* Make sure the application can use secrets containing the URLs : KNATIVE_CHANNEL_URL, KNATIVE_CHANNEL_URL, KNATIVE_SERVICE_URL
+* On native mode, you may need to set `quarkus.ssl.native=true` in case one those URLs uses `https` instead of `http`

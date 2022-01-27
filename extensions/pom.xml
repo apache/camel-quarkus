@@ -75,6 +75,7 @@
         <module>caffeine</module>
         <module>cassandraql</module>
         <module>cbor</module>
+        <module>cloudevents</module>
         <module>consul</module>
         <module>controlbus</module>
         <module>couchdb</module>
@@ -149,6 +150,9 @@
         <module>jta</module>
         <module>kafka</module>
         <module>kamelet</module>
+        <module>knative</module>
+        <module>knative-consumer</module>
+        <module>knative-producer</module>
         <module>kotlin</module>
         <module>kubernetes</module>
         <module>kudu</module>

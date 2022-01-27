@@ -1,0 +1,8 @@
+= Knative Endpoint Consumer tests
+
+These integration tests the HTTP routes only.
+
+If you wish to test this application in real Knative environment, follow the next steps.
+
+* Deploy the app https://knative.dev/docs/getting-started/first-service/[as a Knative Service] named `endpoint-test`.
+* Send CloudEvents to the URL of the service.

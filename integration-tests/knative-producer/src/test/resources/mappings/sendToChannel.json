@@ -1,0 +1,17 @@
+{
+  "id": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "name": "knative-http_api",
+  "request": {
+    "url": "/channel-test",
+    "method": "POST"
+  },
+  "response": {
+    "status": 202,
+    "headers": {
+      "Content-Type": "application/json; charset=UTF-8"
+    }
+  },
+  "uuid": "09aa79df-8a19-41df-8655-e414d390d6ed",
+  "persistent": true,
+  "insertionIndex": 2
+}

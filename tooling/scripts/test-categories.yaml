@@ -182,6 +182,11 @@ group-12:
   - aws2-grouped
   - csimple
   - quartz-clustered
+  - knative
+  - knative-channel-consumer
+  - knative-endpoint-consumer
+  - knative-event-consumer
+  - knative-producer
   - microprofile
   - openapi-java
   - opentracing
