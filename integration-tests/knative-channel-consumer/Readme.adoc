@@ -1,0 +1,8 @@
+= Knative Channel Consumer tests
+
+These integration tests the HTTP routes only.
+
+If you wish to test this application in real Knative environment, follow the next steps.
+* Create an InMemory Knative Channel named `channel-test`
+* Deploy the app https://quarkus.io/guides/deploying-to-kubernetes#knative[as a Serverless deployment].
+* Send CloudEvents to the channel.
