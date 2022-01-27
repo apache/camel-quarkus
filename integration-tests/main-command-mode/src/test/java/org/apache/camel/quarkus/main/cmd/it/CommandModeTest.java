@@ -24,7 +24,6 @@ import java.util.concurrent.TimeoutException;
 import org.apache.camel.quarkus.test.support.process.QuarkusProcessExecutor;
 import org.apache.camel.util.StringHelper;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.zeroturnaround.exec.InvalidExitValueException;
 import org.zeroturnaround.exec.ProcessResult;
@@ -76,13 +75,12 @@ public class CommandModeTest {
         assertThat(result.outputUTF8()).contains("Apache Camel Runner takes the following options");
     }
 
-    @Disabled("https://github.com/apache/camel-quarkus/issues/3394")
     @Test
     void testMainStopsAfterMaxSeconds() throws IOException, InterruptedException, ExecutionException {
         final StartedProcess process = new QuarkusProcessExecutor("-Dgreeted.subject=Jade",
                 "-Dcamel.main.duration-max-seconds=3").start();
         try {
-            ProcessResult result = process.getFuture().get(4, TimeUnit.SECONDS);
+            ProcessResult result = process.getFuture().get(10, TimeUnit.SECONDS);
             Assertions.assertThat(result.getExitValue()).isEqualTo(0);
             Assertions.assertThat(result.outputUTF8()).contains("Waiting until complete: Duration max 3 seconds");
             Assertions.assertThat(result.outputUTF8()).contains("Logging Hello Jade! - from timer named hello");

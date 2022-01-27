@@ -135,6 +135,7 @@ public final class CamelMain extends MainCommandLineSupport implements HasCamelC
     public void startEngine() throws Exception {
         if (shutdownStrategy.isRunAllowed() && engineStarted.compareAndSet(false, true)) {
             init();
+            internalBeforeStart();
             beforeStart();
             start();
             afterStart();
