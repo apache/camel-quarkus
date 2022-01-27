@@ -26,12 +26,6 @@ import static org.hamcrest.Matchers.is;
 class AvroTest {
 
     @Test
-    void genericMarshalUnmarshalUsingBuildTimeAvroDataFormatShouldSucceed() {
-        RestAssured.get("/avro/genericMarshalUnmarshalUsingBuildTimeAvroDataFormat/jack").then().statusCode(200)
-                .body(is("jack"));
-    }
-
-    @Test
     void genericMarshalUnmarshalUsingBuildTimeGeneratedClassShouldSucceed() {
         RestAssured.get("/avro/genericMarshalUnmarshalUsingBuildTimeGeneratedClass/bill").then().statusCode(200)
                 .body(is("bill"));

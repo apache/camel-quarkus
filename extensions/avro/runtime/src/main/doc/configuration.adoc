@@ -1,6 +1,6 @@
 Beyond standard usages known from vanilla Camel, Camel Quarkus adds the possibility to parse the Avro schema at build time both in JVM and Native mode.
 
-Since Camel Quarkus 2.0.0, the preferred approach to generate Avro classes from Avro schema files is the one coined by the `quarkus-avro`  extension. It requires the following:
+The approach to generate Avro classes from Avro schema files is the one coined by the `quarkus-avro`  extension. It requires the following:
 
 1. Store `*.avsc` files in a folder named `src/main/avro` or `src/test/avro`
 2. In addition to the usual `build` goal of `quarkus-maven-plugin`, add the `generate-code` goal:
@@ -23,24 +23,3 @@ Since Camel Quarkus 2.0.0, the preferred approach to generate Avro classes from 
 ----
 
 Please see a working configuration in link:https://github.com/apache/camel-quarkus/tree/main/integration-tests/avro[Camel Quarkus Avro integration test] and link:https://github.com/quarkusio/quarkus/tree/main/integration-tests/avro-reload/src/test/avro[Quarkus Avro integration test].
-
-=== Deprecated: `@BuildTimeAvroDataFormat` annotation.
-
-Before Camel Quarkus 2.0.0, the `@BuildTimeAvroDataFormat` annotation was the preferred way to generate Avro entities from Avro schema files.
-
-In the example below, the `user.avsc` schema resource is first parsed at build time.
-Then, an `AvroDataFormat` instance using the previously parsed schema is injected in the `buildTimeAvroDataFormat` field at runtime.
-At the end of the day, the injected data format is used from the `configure()` method in order to marshal an incoming message.
-
-[source,java]
-----
-import org.apache.camel.quarkus.component.avro.BuildTimeAvroDataFormat;
-...
-@BuildTimeAvroDataFormat("user.avsc")
-AvroDataFormat buildTimeAvroDataFormat;
-
-@Override
-public void configure() {
-  from("direct:marshalUsingBuildTimeAvroDataFormat").marshal(buildTimeAvroDataFormat);
-}
-----

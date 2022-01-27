@@ -38,18 +38,6 @@ public class AvroResource {
     @Inject
     ProducerTemplate producerTemplate;
 
-    @Path("/genericMarshalUnmarshalUsingBuildTimeAvroDataFormat/{value}")
-    @GET
-    @Produces(MediaType.TEXT_PLAIN)
-    public String genericMarshalUnmarshalUsingBuildTimeAvroDataFormat(@PathParam("value") String value) {
-        GenericRecord input = new GenericData.Record(getSchema());
-        input.put("name", value);
-        Object marshalled = producerTemplate.requestBody("direct:marshalUsingBuildTimeAvroDataFormat", input);
-        GenericRecord output = producerTemplate.requestBody("direct:unmarshalUsingBuildTimeAvroDataFormat", marshalled,
-                GenericRecord.class);
-        return output.get("name").toString();
-    }
-
     @Path("/genericMarshalUnmarshalUsingBuildTimeGeneratedClass/{value}")
     @GET
     @Produces(MediaType.TEXT_PLAIN)
