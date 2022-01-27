@@ -197,6 +197,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-asterisk</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -600,6 +606,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-cassandraql</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1268,6 +1280,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-iec60870</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1360,6 +1378,10 @@
                 <artifactId>camel-jclouds</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>javax.ws.rs</groupId>
                         <artifactId>javax.ws.rs-api</artifactId>
@@ -1736,6 +1758,10 @@
                 <version>${camel.version}</version>
                 <exclusions>
                     <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                    <exclusion>
                         <groupId>io.minio</groupId>
                         <artifactId>minio</artifactId>
                     </exclusion>
@@ -1828,6 +1854,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-nsq</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1952,6 +1984,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-protobuf</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -1963,6 +2001,10 @@
                 <artifactId>camel-pulsar</artifactId>
                 <version>${camel.version}</version>
                 <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
                     <exclusion>
                         <groupId>com.google.j2objc</groupId>
                         <artifactId>j2objc-annotations</artifactId>
@@ -2309,6 +2351,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-twilio</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.google.code.findbugs</groupId>
+                        <artifactId>jsr305</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
@@ -5970,17 +6018,6 @@
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
                 <version>${gson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>jsr305</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
             <dependency>
                 <groupId>com.google.protobuf</groupId>
