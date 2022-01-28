@@ -56,23 +56,10 @@ Here is an example: If your application's resources look like this
 [source,shell]
 ----
 $ tree src/main/resources
-src/main/resources
+src/main/resources/freemarker
 └── templates
-    ├── email.ftl
-    ├── page.html
-    └── unwanted-file.txt
+    └── email.ftl
 ----
-
-and if your configuration is like this
-
-[source,properties]
-----
-quarkus.native.resources.includes = templates/*.ftl,templates/*.html
-quarkus.native.resources.excludes = templates/unwanted*
-----
-
-then, resources `templates/email.ftl` and `templates/page.ftl` will be available in the native image,
-while file `unwanted-file.txt` will not be available.
 
 You can thus use the available templates in a Camel route, e.g.:
 
@@ -82,7 +69,7 @@ public class MyRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:example")
-            .to("freemarker:templates/email.ftl")
+            .to("freemarker:/email.ftl")
     }
 }
 ----
@@ -124,7 +111,7 @@ public class MyRoutes extends RouteBuilder {
     @Override
     public void configure() {
         from("direct:example")
-            .to("freemarker:templates/email.ftl?configuration=myFreemarkerConfig")
+            .to("freemarker:/email.ftl?configuration=myFreemarkerConfig")
 
     }
 }
