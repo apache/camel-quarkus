@@ -23,7 +23,7 @@
     <parent>
         <groupId>org.apache.camel.quarkus</groupId>
         <artifactId>camel-quarkus-poms</artifactId>
-        <version>2.7.0-SNAPSHOT</version>
+        <version>2.8.0-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -35,7 +35,7 @@
     <properties>
         <!-- This property is kept in sync with project.version by the release plugin -->
         <!-- Do not change to project.version because otherwise the end user apps having our BOM as parent (rather than importing it) will stop working -->
-        <camel-quarkus.version>2.7.0-SNAPSHOT</camel-quarkus.version>
+        <camel-quarkus.version>2.8.0-SNAPSHOT</camel-quarkus.version>
     </properties>
 
     <dependencyManagement>
