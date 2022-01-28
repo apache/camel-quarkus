@@ -4,8 +4,13 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...HEAD)
 
+**Fixed bugs:**
+
+- camel.main.durationMaxSeconds is not honoured [\#3394](https://github.com/apache/camel-quarkus/issues/3394)
+
 **Closed issues:**
 
+- CVE-2020-8908 guava: local information disclosure via temporary directory created with unsafe permissions [\#3494](https://github.com/apache/camel-quarkus/issues/3494)
 - \[Quarkus 2.7\] Otplanner tests failing with latest Optaplanner version [\#3483](https://github.com/apache/camel-quarkus/issues/3483)
 - java.lang.IllegalStateException: The stream has no active subscriptions smallrye-reactive-messaging-camel [\#3474](https://github.com/apache/camel-quarkus/issues/3474)
 - Health check `CamelBeanBuildItem` should use the check id as the name [\#3470](https://github.com/apache/camel-quarkus/issues/3470)
@@ -14,14 +19,22 @@
 - aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
 - Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
 - \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
+- \[Quarkus 2.7.0\]\[MAC OS\]java.lang.UnsatisfiedLinkError: no awt in java.library.path in native tests [\#3417](https://github.com/apache/camel-quarkus/issues/3417)
 - \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
 - Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to use Quarkus Platform BOMs [\#3347](https://github.com/apache/camel-quarkus/issues/3347)
 - Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
+- Import quarkus-bom before camel-quarkus-bom in tests [\#3222](https://github.com/apache/camel-quarkus/issues/3222)
+- Could not find io.netty:netty-tcnative-boringssl-static [\#3115](https://github.com/apache/camel-quarkus/issues/3115)
+- avro: Remove the deprecated @BuildTimeAvroDataFormat [\#2791](https://github.com/apache/camel-quarkus/issues/2791)
 - jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
 - Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
 
 **Merged pull requests:**
 
+- Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin [\#3501](https://github.com/apache/camel-quarkus/pull/3501) ([ppalaga](https://github.com/ppalaga))
+- Removed the deprecated @BuildTimeAvroDataFormat annotation \#2791 [\#3500](https://github.com/apache/camel-quarkus/pull/3500) ([aldettinger](https://github.com/aldettinger))
+- Upgrade Camel to 3.14.1 [\#3497](https://github.com/apache/camel-quarkus/pull/3497) ([jamesnetherton](https://github.com/jamesnetherton))
+- CVE-2020-8908 guava: local information disclosure via temporary direc… [\#3495](https://github.com/apache/camel-quarkus/pull/3495) ([ppalaga](https://github.com/ppalaga))
 - Require Maven 3.8.1+ to build Camel Quarkus [\#3492](https://github.com/apache/camel-quarkus/pull/3492) ([ppalaga](https://github.com/ppalaga))
 - Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to [\#3490](https://github.com/apache/camel-quarkus/pull/3490) ([ppalaga](https://github.com/ppalaga))
 - Upgrade Quarkus to 2.7.0.Final [\#3489](https://github.com/apache/camel-quarkus/pull/3489) ([jamesnetherton](https://github.com/jamesnetherton))
