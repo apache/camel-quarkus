@@ -2,35 +2,11 @@
 
 ## [Unreleased](https://github.com/apache/camel-quarkus/tree/HEAD)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...HEAD)
-
-**Fixed bugs:**
-
-- camel.main.durationMaxSeconds is not honoured [\#3394](https://github.com/apache/camel-quarkus/issues/3394)
-
-**Closed issues:**
-
-- CVE-2020-8908 guava: local information disclosure via temporary directory created with unsafe permissions [\#3494](https://github.com/apache/camel-quarkus/issues/3494)
-- \[Quarkus 2.7\] Otplanner tests failing with latest Optaplanner version [\#3483](https://github.com/apache/camel-quarkus/issues/3483)
-- java.lang.IllegalStateException: The stream has no active subscriptions smallrye-reactive-messaging-camel [\#3474](https://github.com/apache/camel-quarkus/issues/3474)
-- Health check `CamelBeanBuildItem` should use the check id as the name [\#3470](https://github.com/apache/camel-quarkus/issues/3470)
-- Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
-- quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
-- aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
-- Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
-- \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
-- \[Quarkus 2.7.0\]\[MAC OS\]java.lang.UnsatisfiedLinkError: no awt in java.library.path in native tests [\#3417](https://github.com/apache/camel-quarkus/issues/3417)
-- \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
-- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to use Quarkus Platform BOMs [\#3347](https://github.com/apache/camel-quarkus/issues/3347)
-- Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
-- Import quarkus-bom before camel-quarkus-bom in tests [\#3222](https://github.com/apache/camel-quarkus/issues/3222)
-- Could not find io.netty:netty-tcnative-boringssl-static [\#3115](https://github.com/apache/camel-quarkus/issues/3115)
-- avro: Remove the deprecated @BuildTimeAvroDataFormat [\#2791](https://github.com/apache/camel-quarkus/issues/2791)
-- jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
-- Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...HEAD)
 
 **Merged pull requests:**
 
+- Next is 2.8.0 [\#3502](https://github.com/apache/camel-quarkus/pull/3502) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin [\#3501](https://github.com/apache/camel-quarkus/pull/3501) ([ppalaga](https://github.com/ppalaga))
 - Removed the deprecated @BuildTimeAvroDataFormat annotation \#2791 [\#3500](https://github.com/apache/camel-quarkus/pull/3500) ([aldettinger](https://github.com/aldettinger))
 - Upgrade Camel to 3.14.1 [\#3497](https://github.com/apache/camel-quarkus/pull/3497) ([jamesnetherton](https://github.com/jamesnetherton))
@@ -945,23 +921,49 @@
 - org.apache.camel.quarkus.main.CamelMainApplication should be registered for reflection [\#1454](https://github.com/apache/camel-quarkus/pull/1454) ([lburgazzoli](https://github.com/lburgazzoli))
 - Document how to use mock in JVM mode tests \#1449 [\#1452](https://github.com/apache/camel-quarkus/pull/1452) ([JiriOndrusek](https://github.com/JiriOndrusek))
 
-## [2.2.1](https://github.com/apache/camel-quarkus/tree/2.2.1) (2022-01-14)
+## [2.7.0](https://github.com/apache/camel-quarkus/tree/2.7.0) (2022-01-28)
 
-[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...2.2.1)
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.2.1...2.7.0)
 
 **Fixed bugs:**
 
+- camel.main.durationMaxSeconds is not honoured [\#3394](https://github.com/apache/camel-quarkus/issues/3394)
 - SecurityIdentity is not propagated to Camel route [\#3353](https://github.com/apache/camel-quarkus/issues/3353)
 
 **Closed issues:**
 
+- CVE-2020-8908 guava: local information disclosure via temporary directory created with unsafe permissions [\#3494](https://github.com/apache/camel-quarkus/issues/3494)
+- java.lang.IllegalStateException: The stream has no active subscriptions smallrye-reactive-messaging-camel [\#3474](https://github.com/apache/camel-quarkus/issues/3474)
+- quarkus 2.6 - debezium mysql error [\#3463](https://github.com/apache/camel-quarkus/issues/3463)
+- aws2-quarkus-client Verify that no client except quarkus one is used during test [\#3447](https://github.com/apache/camel-quarkus/issues/3447)
+- \[quarkus-main\]crypto test failure in native mode [\#3402](https://github.com/apache/camel-quarkus/issues/3402)
+- Manage camel-quarkus-catalog in camel-quarkus-bom to allow Camel K to use Quarkus Platform BOMs [\#3347](https://github.com/apache/camel-quarkus/issues/3347)
+- Refactor aws2-quarkus-client-ddb\(s3\) by copying files \(not duplicating\) [\#3236](https://github.com/apache/camel-quarkus/issues/3236)
+- \[Quarkus 2.7\] Otplanner tests failing with latest Optaplanner version [\#3483](https://github.com/apache/camel-quarkus/issues/3483)
+- Health check `CamelBeanBuildItem` should use the check id as the name [\#3470](https://github.com/apache/camel-quarkus/issues/3470)
+- Ban netty-all [\#3464](https://github.com/apache/camel-quarkus/issues/3464)
 - Ban log4j 1.x [\#3451](https://github.com/apache/camel-quarkus/issues/3451)
+- Deprecate / remove `quarkus.camel.main.enabled` configuration property [\#3446](https://github.com/apache/camel-quarkus/issues/3446)
 - camel.main.durationMaxSeconds is not honoured [\#3433](https://github.com/apache/camel-quarkus/issues/3433)
+- \[Quarkus 2.7.0\] :  CI : Found Banned Dependency: commons-logging:commons-logging [\#3421](https://github.com/apache/camel-quarkus/issues/3421)
+- \[Quarkus 2.7.0\]\[MAC OS\]java.lang.UnsatisfiedLinkError: no awt in java.library.path in native tests [\#3417](https://github.com/apache/camel-quarkus/issues/3417)
 - Manage Eclipse jgit version and jzlib version [\#3414](https://github.com/apache/camel-quarkus/issues/3414)
-- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
 - Create a Json-patch extension [\#3403](https://github.com/apache/camel-quarkus/issues/3403)
-- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
 - \[Quarkus 2.6.0.Final\] Remove `software.amazon.awssdk:apache-client` dependency override  [\#3366](https://github.com/apache/camel-quarkus/issues/3366)
+- Import quarkus-bom before camel-quarkus-bom in tests [\#3222](https://github.com/apache/camel-quarkus/issues/3222)
+- Could not find io.netty:netty-tcnative-boringssl-static [\#3115](https://github.com/apache/camel-quarkus/issues/3115)
+- avro: Remove the deprecated @BuildTimeAvroDataFormat [\#2791](https://github.com/apache/camel-quarkus/issues/2791)
+- jsonpath : Unexpected character \('r' \(code 114\)\): was expecting double-quote to start field name [\#2676](https://github.com/apache/camel-quarkus/issues/2676)
+- Use Micrometer instead of MP metrics in observability example [\#2487](https://github.com/apache/camel-quarkus/issues/2487)
+
+## [2.2.1](https://github.com/apache/camel-quarkus/tree/2.2.1) (2022-01-14)
+
+[Full Changelog](https://github.com/apache/camel-quarkus/compare/2.6.0...2.2.1)
+
+**Closed issues:**
+
+- Ban `commons-logging` and `commons-logging-api` [\#3405](https://github.com/apache/camel-quarkus/issues/3405)
+- \[Docs\] Self-contained way of generating components/dataformats/etc tables [\#3396](https://github.com/apache/camel-quarkus/issues/3396)
 
 ## [2.6.0](https://github.com/apache/camel-quarkus/tree/2.6.0) (2021-12-18)
 
