@@ -69,6 +69,16 @@
         <dependency>
             <groupId>org.apache.camel</groupId>
             <artifactId>camel-avro-rpc-spi</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
         </dependency>
         <dependency>
             <artifactId>quarkus-avro</artifactId>
