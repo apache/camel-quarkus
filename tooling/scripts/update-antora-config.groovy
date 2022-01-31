@@ -57,14 +57,6 @@ replaceInFiles.each { path ->
         m.appendTail(newContent)
         String newContentString = newContent.toString()
 
-        // This can only work on main branch or during a release. Otherwise it will break antora.yml.
-        if (path.getFileName().toString().equals('antora.yml')) {
-            final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'next' : project.version)
-            println ' - setting '+ versionReplacement
-            final Pattern versionPattern = ~'version: [^\\s]+'
-            newContentString = versionPattern.matcher(newContentString).replaceFirst(versionReplacement)
-        }
-
         if (!newContentString.equals(content)) {
             println 'Updated ' + path
             Files.write(path, newContentString.getBytes('UTF-8'))
