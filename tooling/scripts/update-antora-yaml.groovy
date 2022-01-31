@@ -16,31 +16,61 @@
  */
 
 /**
- * Replace property values (defined in pom.xml files) in Antora yaml config
+ * Update the version in antora.yml
  */
 import java.nio.file.Path
 import java.nio.file.Paths
 import java.nio.file.Files
-import java.util.stream.Stream
-import java.util.stream.Collectors
 import java.util.regex.Pattern
 import java.util.regex.Matcher
 
+final String PROJECT_BRANCH_ROOT = ''
 
 final Path treeRootDir = Paths.get(properties['maven.multiModuleProjectDirectory'])
 
-final Path path = treeRootDir.resolve('docs/antora.yml')
+final Path antoraYmlPath = treeRootDir.resolve('docs/antora.yml')
+final Path sourceMapPath = treeRootDir.resolve('docs/source-map.yml')
 
-println 'Updating ' + path
-final String content = path.getText('UTF-8')
-final String versionReplacement = 'version: ' + (project.version.endsWith('-SNAPSHOT') ? 'latest' : project.version)
-println ' - seting '+ versionReplacement
-final Pattern versionPattern = ~'version: [^\\s]+'
-final String newContentString = versionPattern.matcher(content).replaceFirst(versionReplacement)
+println 'Examining ' + antoraYmlPath
+final String antoraYmlContent = antoraYmlPath.getText('UTF-8')
+final Pattern versionPattern = ~'version: ([^\\s]+)'
+final Matcher versionMatcher = versionPattern.matcher(antoraYmlContent)
+if (versionMatcher.find()) {
+    final String originalVersion = versionMatcher.group(1)
+    if (originalVersion.equals('next') && !project.version.endsWith('-SNAPSHOT')) {
+        final String docVersion = project.version.substring(0, project.version.lastIndexOf('.') + 1) + 'x'
+        final String versionReplacement = 'version: ' + docVersion
 
-if (!newContentString.equals(content)) {
-    println 'Updated ' + path
-    Files.write(path, newContentString.getBytes('UTF-8'))
+        String newContentString = versionMatcher.replaceFirst(versionReplacement)
+
+        final Pattern removePattern = ~'(display-version: [^\\n]+\\n)|([ \\t]*prerelease: [^\\s]+\\n)'
+        final Matcher removeMatcher = removePattern.matcher(newContentString)
+        newContentString = removeMatcher.replaceAll('')
+
+        println ' - setting ' + versionReplacement + ' in ' + antoraYmlPath
+
+        Files.write(antoraYmlPath, newContentString.getBytes('UTF-8'))
+
+        final String sourceMapContent = sourceMapPath.getText('UTF-8')
+        final Pattern branchPattern = ~'([ \\t]*- branch: )([^\\s]+)'
+        final Matcher branchMatcher = branchPattern.matcher(sourceMapContent)
+        if (branchMatcher.find()) {
+            final String originalBranch = branchMatcher.group(2)
+            if ('main'.equals(originalBranch)) {
+                final String newBranch = PROJECT_BRANCH_ROOT + docVersion
+                final String branchReplacement = branchMatcher.group(1) + newBranch
+                final String newSourceMapContent = branchMatcher.replaceFirst(branchReplacement)
+
+                println ' - setting ' + branchReplacement + ' in ' + sourceMapPath
+
+                Files.write(sourceMapPath, newSourceMapContent.getBytes('UTF-8'))
+            }
+        } else {
+            println 'expected branch not found in ' + sourceMapPath + ': please examine!'
+        }
+   } else {
+        println 'Version is already correct in ' + antoraYmlPath
+    }
 } else {
-    println 'No change in ' + path
+    println 'No version found in ' + antoraYmlPath
 }

@@ -45,6 +45,7 @@
                         <phase>validate</phase>
                         <configuration>
                             <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-config.groovy</source>
+                            <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
                             <properties>
                                 <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
                             </properties>
