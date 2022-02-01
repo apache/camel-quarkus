@@ -23,6 +23,7 @@ nav:
 asciidoc:
   attributes:
     requires: "'util=camel-website-util,quarkus=xref:js/quarkus.js'"
+    lts: January 2023
 
     min-maven-version: 3.8.1 # replace ${min-maven-version}
     target-maven-version: 3.8.4 # replace ${target-maven-version}
