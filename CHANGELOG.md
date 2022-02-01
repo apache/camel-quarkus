@@ -4,8 +4,13 @@
 
 [Full Changelog](https://github.com/apache/camel-quarkus/compare/2.7.0...HEAD)
 
+**Closed issues:**
+
+- Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
+
 **Merged pull requests:**
 
+- Fix \#3496 Ban javax.servlet:javax.servlet-api in favor of jakarta.ser… [\#3506](https://github.com/apache/camel-quarkus/pull/3506) ([zhfeng](https://github.com/zhfeng))
 - Next is 2.8.0 [\#3502](https://github.com/apache/camel-quarkus/pull/3502) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin [\#3501](https://github.com/apache/camel-quarkus/pull/3501) ([ppalaga](https://github.com/ppalaga))
 - Removed the deprecated @BuildTimeAvroDataFormat annotation \#2791 [\#3500](https://github.com/apache/camel-quarkus/pull/3500) ([aldettinger](https://github.com/aldettinger))
