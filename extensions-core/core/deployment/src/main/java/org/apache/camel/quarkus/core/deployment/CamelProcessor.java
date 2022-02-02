@@ -43,6 +43,7 @@ import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
+import io.quarkus.maven.dependency.ArtifactKey;
 import io.quarkus.runtime.RuntimeValue;
 import org.apache.camel.Converter;
 import org.apache.camel.impl.converter.BaseTypeConverterRegistry;
@@ -259,8 +260,9 @@ class CamelProcessor {
         Set<String> internalConverters = new HashSet<>();
         //ignore all @converters from org.apache.camel:camel-* dependencies
         for (ApplicationArchive archive : applicationArchives.getAllApplicationArchives()) {
-            if (archive.getArtifactKey() != null && "org.apache.camel".equals(archive.getArtifactKey().getGroupId())
-                    && archive.getArtifactKey().getArtifactId().startsWith("camel-")) {
+            ArtifactKey artifactKey = archive.getKey();
+            if (artifactKey != null && "org.apache.camel".equals(artifactKey.getGroupId())
+                    && artifactKey.getArtifactId().startsWith("camel-")) {
                 internalConverters.addAll(archive.getIndex().getAnnotations(DotName.createSimple(Converter.class.getName()))
                         .stream().filter(a -> a.target().kind() == AnnotationTarget.Kind.CLASS)
                         .map(a -> a.target().asClass().name().toString())
