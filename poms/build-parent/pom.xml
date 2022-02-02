@@ -97,6 +97,7 @@
                     <version>${formatter-maven-plugin.version}</version>
                     <configuration>
                         <configFile>${maven.multiModuleProjectDirectory}/tooling/eclipse-formatter-config.xml</configFile>
+                        <lineEnding>LF</lineEnding>
                         <skip>${format.skip}</skip>
                     </configuration>
                 </plugin>
