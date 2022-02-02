@@ -190,7 +190,7 @@ public class CamelNativeImageProcessor {
 
         if (config.runtimeCatalog.models) {
             for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-                for (Path root : archive.getRootDirs()) {
+                for (Path root : archive.getRootDirectories()) {
                     final Path resourcePath = root.resolve(CamelContextHelper.MODEL_DOCUMENTATION_PREFIX);
 
                     if (!Files.isDirectory(resourcePath)) {
@@ -250,8 +250,9 @@ public class CamelNativeImageProcessor {
         final PathFilter pathFilter = builder.build();
 
         Stream<Path> archiveRootDirs = archives.getAllApplicationArchives().stream()
-                .peek(archive -> LOGGER.debug("Scanning resources for native inclusion from archive at {}", archive.getPaths()))
-                .flatMap(archive -> archive.getRootDirs().toList().stream());
+                .peek(archive -> LOGGER.debug("Scanning resources for native inclusion from archive at {}",
+                        archive.getResolvedPaths()))
+                .flatMap(archive -> archive.getRootDirectories().stream());
         String[] selectedClassNames = pathFilter.scanClassNames(archiveRootDirs);
         if (selectedClassNames.length > 0) {
             reflectiveClasses.produce(new ReflectiveClassBuildItem(true, true, selectedClassNames));
