@@ -65,7 +65,7 @@ public final class CamelSupport {
         final Predicate<Path> filter = pathFilter.asPathPredicate();
 
         for (ApplicationArchive archive : archives.getAllApplicationArchives()) {
-            for (Path root : archive.getRootDirs()) {
+            for (Path root : archive.getRootDirectories()) {
                 final Path resourcePath = root.resolve(CAMEL_SERVICE_BASE_PATH);
 
                 if (!Files.isDirectory(resourcePath)) {

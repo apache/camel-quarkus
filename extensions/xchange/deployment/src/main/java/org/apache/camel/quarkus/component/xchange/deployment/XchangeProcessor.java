@@ -17,11 +17,9 @@
 package org.apache.camel.quarkus.component.xchange.deployment;
 
 import java.lang.reflect.Modifier;
-import java.util.List;
 import java.util.stream.Stream;
 
-import io.quarkus.bootstrap.model.AppArtifact;
-import io.quarkus.bootstrap.model.AppDependency;
+import io.quarkus.bootstrap.model.ApplicationModel;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -34,6 +32,7 @@ import io.quarkus.deployment.builditem.nativeimage.NativeImageResourceBundleBuil
 import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 import io.quarkus.deployment.builditem.nativeimage.RuntimeInitializedClassBuildItem;
 import io.quarkus.deployment.pkg.builditem.CurateOutcomeBuildItem;
+import io.quarkus.maven.dependency.ResolvedDependency;
 import org.jboss.jandex.AnnotationInstance;
 import org.jboss.jandex.AnnotationTarget;
 import org.jboss.jandex.ClassInfo;
@@ -62,14 +61,12 @@ class XchangeProcessor {
             BuildProducer<NativeImageResourceBuildItem> nativeImageResource,
             CurateOutcomeBuildItem curateOutcome) {
 
-        List<AppDependency> userDependencies = curateOutcome.getEffectiveModel().getUserDependencies();
-        for (AppDependency dependency : userDependencies) {
-            AppArtifact artifact = dependency.getArtifact();
-
-            if (artifact.getGroupId().equals("org.knowm.xchange")) {
+        ApplicationModel applicationModel = curateOutcome.getApplicationModel();
+        for (ResolvedDependency dependency : applicationModel.getDependencies()) {
+            if (dependency.getGroupId().equals("org.knowm.xchange")) {
                 // Index any org.knowm.xchange dependencies present on the classpath as they contain the APIs for interacting with each crypto exchange
-                String artifactId = artifact.getArtifactId();
-                indexedDependency.produce(new IndexDependencyBuildItem(artifact.getGroupId(), artifactId));
+                String artifactId = dependency.getArtifactId();
+                indexedDependency.produce(new IndexDependencyBuildItem(dependency.getGroupId(), artifactId));
 
                 // Include crypto exchange metadata resources
                 String[] split = artifactId.split("-");
