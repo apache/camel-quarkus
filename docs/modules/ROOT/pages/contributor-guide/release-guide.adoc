@@ -274,6 +274,8 @@ $ git checkout main
 $ git fetch upstream
 $ git reset --hard upstream/main
 $ ./mvnw-for-each.sh versions:set -DnewVersion=$NEW_CQ_VERSION
+# Update version labels in Kubernetes resources
+$ ./mvnw process-sources -f file-bindy-ftp/pom.xml
 $ git add -A
 $ git commit -m "Tag $NEW_CQ_VERSION"
 $ git tag $NEW_CQ_VERSION
@@ -292,7 +294,9 @@ $ git push upstream $BRANCH
 $ NEXT_CQ_VERSION=... # The version used in the current Camel Quarkus main branch without the -SNAPSHOT suffix; e.g. 2.3.0
 $ git checkout camel-quarkus-main
 $ git reset --hard main
-$ mvn org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
+$ ./mvnw org.l2x6.cq:cq-maven-plugin:2.10.0:examples-set-platform -Dcq.camel-quarkus.version=${NEXT_CQ_VERSION}-SNAPSHOT -Dcq.newVersion=${NEXT_CQ_VERSION}-SNAPSHOT
+# Update version labels in Kubernetes resources
+$ ./mvnw process-sources -f file-bindy-ftp/pom.xml
 $ git add -A
 $ git commit -m "Next is $NEXT_CQ_VERSION"
 $ git push upstream camel-quarkus-main --force-with-lease
