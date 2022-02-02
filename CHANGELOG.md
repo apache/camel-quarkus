@@ -7,9 +7,11 @@
 **Closed issues:**
 
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
+- A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
 
 **Merged pull requests:**
 
+- fix update script [\#3508](https://github.com/apache/camel-quarkus/pull/3508) ([djencks](https://github.com/djencks))
 - Fix \#3496 Ban javax.servlet:javax.servlet-api in favor of jakarta.ser… [\#3506](https://github.com/apache/camel-quarkus/pull/3506) ([zhfeng](https://github.com/zhfeng))
 - Next is 2.8.0 [\#3502](https://github.com/apache/camel-quarkus/pull/3502) ([jamesnetherton](https://github.com/jamesnetherton))
 - Use parametrized groupId for quarkus-maven-plugin so that it is possible to run our tests with io.quarkus.platform:quarkus-maven-plugin [\#3501](https://github.com/apache/camel-quarkus/pull/3501) ([ppalaga](https://github.com/ppalaga))
