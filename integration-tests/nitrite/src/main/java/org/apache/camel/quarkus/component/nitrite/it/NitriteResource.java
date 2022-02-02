@@ -106,8 +106,8 @@ public class NitriteResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Object collection() throws Exception {
-        final Exchange exchange = consumerTemplate.receiveNoWait(String.format("nitrite://%s?collection=collection",
-                dbFile));
+        final Exchange exchange = consumerTemplate.receive(String.format("nitrite://%s?collection=collection",
+                dbFile), 5000);
         LOG.debugf("Received from nitrite: %s", exchange == null ? null : exchange.getIn().getBody());
         if (exchange == null) {
             return Response.noContent().build();
