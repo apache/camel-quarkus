@@ -16,11 +16,8 @@
  */
 package org.apache.camel.quarkus.component.hl7.deployment;
 
-import java.util.List;
-
 import ca.uhn.hl7v2.model.Structure;
 import ca.uhn.hl7v2.model.Type;
-import io.quarkus.bootstrap.model.AppDependency;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CombinedIndexBuildItem;
@@ -48,9 +45,9 @@ class Hl7Processor {
     @BuildStep
     void indexDependencies(BuildProducer<IndexDependencyBuildItem> indexedDependency, CurateOutcomeBuildItem curateOutcome) {
         // Index any optional hapi-structures dependencies present on the classpath
-        List<AppDependency> userDependencies = curateOutcome.getEffectiveModel().getUserDependencies();
-        userDependencies.stream()
-                .map(appDependency -> appDependency.getArtifact())
+        curateOutcome.getApplicationModel()
+                .getDependencies()
+                .stream()
                 .filter(appArtifact -> appArtifact.getGroupId().equals(CA_UHN_HAPI_GROUP_ID)
                         && appArtifact.getArtifactId().startsWith("hapi-structures-"))
                 .map(appArtifact -> new IndexDependencyBuildItem(appArtifact.getGroupId(), appArtifact.getArtifactId()))
