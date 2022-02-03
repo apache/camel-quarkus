@@ -11,6 +11,10 @@
 
 **Merged pull requests:**
 
+- Fix nitrate collection tests on slow machines [\#3515](https://github.com/apache/camel-quarkus/pull/3515) ([jamesnetherton](https://github.com/jamesnetherton))
+- Clean up usage of deprecated Quarkus APIs [\#3513](https://github.com/apache/camel-quarkus/pull/3513) ([jamesnetherton](https://github.com/jamesnetherton))
+- Upgrade formatter-maven-plugin to 2.17.1 [\#3512](https://github.com/apache/camel-quarkus/pull/3512) ([jamesnetherton](https://github.com/jamesnetherton))
+- Fix deprecation warnings and typos in csimple extension [\#3510](https://github.com/apache/camel-quarkus/pull/3510) ([jamesnetherton](https://github.com/jamesnetherton))
 - fix update script [\#3508](https://github.com/apache/camel-quarkus/pull/3508) ([djencks](https://github.com/djencks))
 - Fix \#3496 Ban javax.servlet:javax.servlet-api in favor of jakarta.ser… [\#3506](https://github.com/apache/camel-quarkus/pull/3506) ([zhfeng](https://github.com/zhfeng))
 - Next is 2.8.0 [\#3502](https://github.com/apache/camel-quarkus/pull/3502) ([jamesnetherton](https://github.com/jamesnetherton))
