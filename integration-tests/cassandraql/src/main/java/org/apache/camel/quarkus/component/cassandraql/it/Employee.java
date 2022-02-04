@@ -20,6 +20,9 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection(fields = false, serialization = true)
 public class Employee implements Serializable, Cloneable {
 
     private int id;
@@ -74,8 +77,11 @@ public class Employee implements Serializable, Cloneable {
         return super.clone();
     }
 
-    List getValue() {
+    List<?> getValueForInsert() {
         return Arrays.asList(id, name, address);
     }
 
+    List<?> getValueForUpdate() {
+        return Arrays.asList(name, address, id);
+    }
 }

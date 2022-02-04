@@ -16,10 +16,8 @@
  */
 package org.apache.camel.quarkus.component.cassandraql.deployment;
 
-import com.datastax.oss.driver.internal.core.metrics.DropwizardMetricsFactory;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.FeatureBuildItem;
-import io.quarkus.deployment.builditem.nativeimage.ReflectiveClassBuildItem;
 
 class CassandraqlProcessor {
 
@@ -28,10 +26,5 @@ class CassandraqlProcessor {
     @BuildStep
     FeatureBuildItem feature() {
         return new FeatureBuildItem(FEATURE);
-    }
-
-    @BuildStep
-    ReflectiveClassBuildItem registerForReflection() {
-        return new ReflectiveClassBuildItem(false, false, DropwizardMetricsFactory.class);
     }
 }
