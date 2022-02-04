@@ -38,3 +38,12 @@ Or add the coordinates to your existing project:
 ----
 
 Check the xref:user-guide/index.adoc[User guide] for more information about writing Camel Quarkus applications.
+
+== Additional Camel Quarkus configuration
+
+=== Cassandra aggregation repository in native mode
+
+In order to use Cassandra aggregation repositories like `CassandraAggregationRepository` in native mode, you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].
+
+In addition, if your exchange bodies are custom types, then they must be registered for serialization by annotating their class declaration with `@RegisterForReflection(serialization = true)`.
+
