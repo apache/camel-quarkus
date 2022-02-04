@@ -6,11 +6,13 @@
 
 **Closed issues:**
 
+- Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
 
 **Merged pull requests:**
 
+- Prevent various plugins from resolving commons-logging:commons-logging [\#3518](https://github.com/apache/camel-quarkus/pull/3518) ([ppalaga](https://github.com/ppalaga))
 - Fix nitrate collection tests on slow machines [\#3515](https://github.com/apache/camel-quarkus/pull/3515) ([jamesnetherton](https://github.com/jamesnetherton))
 - Clean up usage of deprecated Quarkus APIs [\#3513](https://github.com/apache/camel-quarkus/pull/3513) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade formatter-maven-plugin to 2.17.1 [\#3512](https://github.com/apache/camel-quarkus/pull/3512) ([jamesnetherton](https://github.com/jamesnetherton))
