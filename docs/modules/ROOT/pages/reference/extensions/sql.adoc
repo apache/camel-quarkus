@@ -79,12 +79,9 @@ When configuring `sql` or `sql-stored` endpoints to reference script files from 
 quarkus.native.resources.includes = queries.sql, sql/*.sql
 ----
 
-=== SQL Aggregator
+=== SQL aggregation repository in native mode
 
-If your exchanges in native mode contain objects, which are not automatically registered for serialization (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation]),
-you have to register them manually (see xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[documentation])
+In order to use SQL aggregation repositories like `JdbcAggregationRepository` in native mode, you must xref:extensions/core.adoc#quarkus.camel.native.reflection.serialization-enabled[enable native serialization support].
 
-
-
-
+In addition, if your exchange bodies are custom types, they must be registered for serialization by annotating their class declaration with `@RegisterForReflection(serialization = true)`.
 
