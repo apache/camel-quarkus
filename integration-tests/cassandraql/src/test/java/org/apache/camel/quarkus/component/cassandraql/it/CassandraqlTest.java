@@ -16,16 +16,17 @@
  */
 package org.apache.camel.quarkus.component.cassandraql.it;
 
+import java.util.stream.Stream;
+
 import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import org.hamcrest.Matcher;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.apache.camel.quarkus.component.cassandraql.it.CassandraqlResource.EMPTY_LIST;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.both;
 import static org.hamcrest.Matchers.containsString;
@@ -34,7 +35,6 @@ import static org.hamcrest.Matchers.not;
 
 @QuarkusTest
 @QuarkusTestResource(CassandraqlTestResource.class)
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CassandraqlTest {
 
     private Employee sheldon = new Employee(1, "Sheldon", "Alpha Centauri");
@@ -42,61 +42,163 @@ class CassandraqlTest {
     private Employee irma = new Employee(3, "Irma", "Jupiter");
 
     @Test
-    @Order(1)
-    public void testInsert() {
-        insertEmployee(sheldon);
-        assertEmployee(sheldon.getId(), containsString(sheldon.getName()));
+    public void testCassandraCrudOperations() throws Exception {
+        try {
+            // Create / read
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                insertEmployee(employee, "direct:create");
+                assertEmployee(employee.getId(), containsString(employee.getName()));
+            });
 
-        insertEmployee(leonard);
-        assertEmployee(leonard.getId(), containsString(leonard.getName()));
+            // Read all
+            assertAllEmployees(allOf(
+                    containsString(sheldon.getName()),
+                    containsString(leonard.getName()),
+                    containsString(irma.getName())));
 
-        assertEmployee(irma.getId(), equalTo(CassandraqlResource.EMPTY_LIST));
+            // Update
+            Employee updatedSheldon = (Employee) sheldon.clone();
+            updatedSheldon.setAddress("Earth 2.0");
 
-        insertEmployee(irma);
-        assertEmployee(irma.getId(), containsString(irma.getName()));
+            assertEmployee(sheldon.getId(), both(containsString(sheldon.getAddress()))
+                    .and(not(containsString(updatedSheldon.getAddress()))));
+            updateEmployee(updatedSheldon);
+            assertEmployee(sheldon.getId(), both(containsString(updatedSheldon.getAddress()))
+                    .and(not(containsString(sheldon.getAddress()))));
+        } finally {
+            // Delete
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                deleteEmployee(employee.getId());
+                assertEmployee(employee.getId(), equalTo(EMPTY_LIST));
+            });
+        }
     }
 
     @Test
-    @Order(2)
-    public void testUpdate() throws CloneNotSupportedException {
-        Employee updatedSheldon = (Employee) sheldon.clone();
-        updatedSheldon.setAddress("Earth 2.0");
+    public void customSession() {
+        try {
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                insertEmployee(employee, "direct:createCustomSession");
+            });
 
-        assertEmployee(sheldon.getId(), both(containsString(sheldon.getAddress()))
-                .and(not(containsString(updatedSheldon.getAddress()))));
-        updateEmployee(updatedSheldon);
-        assertEmployee(sheldon.getId(), both(containsString(updatedSheldon.getAddress()))
-                .and(not(containsString(sheldon.getAddress()))));
+            assertAllEmployees(allOf(
+                    containsString(sheldon.getName()),
+                    containsString(leonard.getName()),
+                    containsString(irma.getName())));
+        } finally {
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                deleteEmployee(employee.getId());
+            });
+        }
     }
 
     @Test
-    @Order(3)
-    public void testDelete() {
-        assertAllEmployees(allOf(
-                containsString(sheldon.getName()),
-                containsString(leonard.getName()),
-                containsString(irma.getName())));
-        deleteEmployee(sheldon.getId());
-        deleteEmployee(leonard.getId());
-        assertAllEmployees(allOf(
-                not(containsString(sheldon.getName())),
-                not(containsString(leonard.getName())),
-                containsString(irma.getName())));
-        deleteEmployee(irma.getId());
-        assertAllEmployees(equalTo(CassandraqlResource.EMPTY_LIST));
+    public void quarkusCassandraSession() {
+        try {
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                insertEmployee(employee, "direct:createQuarkusSession");
+            });
+
+            assertAllEmployees(allOf(
+                    containsString(sheldon.getName()),
+                    containsString(leonard.getName()),
+                    containsString(irma.getName())));
+        } finally {
+            Stream.of(sheldon, leonard, irma).forEach(employee -> {
+                deleteEmployee(employee.getId());
+            });
+        }
     }
 
-    private void assertEmployee(int id, Matcher matcher) {
+    @Test
+    public void idempotent() {
+        try {
+            for (int i = 0; i < 5; i++) {
+                insertEmployee(sheldon, "direct:createIdempotent");
+            }
+
+            assertAllEmployees(equalTo("[id:1, address:'Alpha Centauri', name:'Sheldon']"));
+        } finally {
+            deleteEmployee(sheldon.getId());
+        }
+    }
+
+    @Test
+    public void aggregate() {
+        Stream.of("foo", "bar", "cheese").forEach(name -> {
+            Employee employee = new Employee(1, name, name + " address");
+            RestAssured.given()
+                    .queryParam("id", employee.getId())
+                    .queryParam("name", employee.getName())
+                    .queryParam("address", employee.getAddress())
+                    .post("/cassandraql/aggregate")
+                    .then()
+                    .statusCode(204);
+        });
+
+        assertAllEmployees(equalTo("foo,bar,cheese"));
+    }
+
+    @Test
+    public void resultSetConversionStrategy() {
+        try {
+            insertEmployee(sheldon, "direct:create");
+            assertEmployee(sheldon.getId(), containsString(sheldon.getName()));
+
+            RestAssured.given()
+                    .queryParam("id", sheldon.getId())
+                    .get("/cassandraql/getEmployeeWithStrategy")
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo(sheldon.getName() + " modified"));
+        } finally {
+            deleteEmployee(sheldon.getId());
+        }
+    }
+
+    @Test
+    public void loadBalancingPolicy() {
+        try {
+            insertEmployee(sheldon, "direct:createCustomLoadBalancingPolicy");
+            RestAssured.given()
+                    .get("/cassandraql/checkLoadBalancingPolicy")
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo("true"));
+        } finally {
+            deleteEmployee(sheldon.getId());
+        }
+    }
+
+    @ParameterizedTest
+    @ValueSource(booleans = { false, true })
+    public void cqlStatementViaHeader(boolean queryAsSimpleStatement) {
+        try {
+            insertEmployee(sheldon, "direct:create");
+
+            RestAssured.given()
+                    .queryParam("id", sheldon.getId())
+                    .queryParam("cql", "SELECT * FROM employee WHERE id = ?")
+                    .queryParam("queryAsSimpleStatement", queryAsSimpleStatement)
+                    .get("/cassandraql/cqlHeaderQuery")
+                    .then()
+                    .statusCode(200)
+                    .body(equalTo(("[id:1, address:'Alpha Centauri', name:'Sheldon']")));
+        } finally {
+            deleteEmployee(sheldon.getId());
+        }
+    }
+
+    private void assertEmployee(int id, Matcher<?> matcher) {
         RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(id)
-                .post("/cassandraql/getEmployee")
+                .queryParam("id", id)
+                .get("/cassandraql/getEmployee")
                 .then()
                 .statusCode(200)
                 .body(matcher);
     }
 
-    private void assertAllEmployees(Matcher matcher) {
+    private void assertAllEmployees(Matcher<?> matcher) {
         RestAssured
                 .get("/cassandraql/getAllEmployees")
                 .then()
@@ -104,10 +206,12 @@ class CassandraqlTest {
                 .body(matcher);
     }
 
-    private void insertEmployee(Employee employee) {
+    private void insertEmployee(Employee employee, String endpointUri) {
         RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(employee)
+                .queryParam("id", employee.getId())
+                .queryParam("name", employee.getName())
+                .queryParam("address", employee.getAddress())
+                .queryParam("endpointUri", endpointUri)
                 .post("/cassandraql/insertEmployee")
                 .then()
                 .statusCode(204);
@@ -115,9 +219,10 @@ class CassandraqlTest {
 
     private void updateEmployee(Employee employee) {
         RestAssured.given()
-                .contentType(ContentType.JSON)
-                .body(employee)
-                .post("/cassandraql/updateEmployee")
+                .queryParam("id", employee.getId())
+                .queryParam("name", employee.getName())
+                .queryParam("address", employee.getAddress())
+                .patch("/cassandraql/updateEmployee")
                 .then()
                 .statusCode(200)
                 .body(equalTo(String.valueOf(true)));
@@ -125,9 +230,8 @@ class CassandraqlTest {
 
     private void deleteEmployee(int id) {
         RestAssured.given()
-                .contentType(ContentType.TEXT)
-                .body(id)
-                .post("/cassandraql/deleteEmployeeById")
+                .queryParam("id", id)
+                .delete("/cassandraql/deleteEmployeeById")
                 .then()
                 .statusCode(204);
     }

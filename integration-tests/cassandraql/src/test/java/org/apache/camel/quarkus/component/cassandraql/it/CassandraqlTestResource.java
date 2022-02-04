@@ -26,30 +26,41 @@ import org.apache.camel.util.CollectionHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.containers.CassandraContainer;
-import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.utility.TestcontainersConfiguration;
+
+import static org.testcontainers.containers.CassandraContainer.CQL_PORT;
 
 public class CassandraqlTestResource implements QuarkusTestResourceLifecycleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(CassandraqlTestResource.class);
     private static final int PORT = 9042;
-    private static final String DOCKER_IMAGE_NAME = "cassandra:3.11.2";
+    private static final String DOCKER_IMAGE_NAME = "cassandra:4.0.1";
 
-    protected GenericContainer container;
+    protected CassandraContainer<?> container;
 
     @Override
     public Map<String, String> start() {
         LOGGER.info(TestcontainersConfiguration.getInstance().toString());
         try {
-            container = new CassandraContainer(DOCKER_IMAGE_NAME)
-                    .withExposedPorts(PORT);
+            container = new CassandraContainer<>(DOCKER_IMAGE_NAME)
+                    .withExposedPorts(PORT)
+                    .waitingFor(Wait.forLogMessage(".*Created default superuser role.*", 1))
+                    .withConfigurationOverride("/cassandra");
 
             container.start();
 
-            initDB((CassandraContainer) container);
+            initDB(container);
 
+            String cassandraUrl = container.getContainerIpAddress() + ":" + container.getMappedPort(PORT);
             return CollectionHelper.mapOf(
-                    "db.cassandra.url",
-                    container.getContainerIpAddress() + ":" + container.getMappedPort(PORT));
+                    // Note: The cassandra component does not depend on any of these being set.
+                    // They're added to test the component with the (optional) QuarkusCqlSession
+                    // produced by the Quarkus extension
+                    "quarkus.cassandra.contact-points", cassandraUrl,
+                    "quarkus.cassandra.local-datacenter", "datacenter1",
+                    "quarkus.cassandra.auth.username", container.getUsername(),
+                    "quarkus.cassandra.auth.password", container.getPassword(),
+                    "quarkus.cassandra.keyspace", CassandraqlRoutes.KEYSPACE);
 
         } catch (Exception e) {
             LOGGER.error("Container does not start", e);
@@ -57,19 +68,37 @@ public class CassandraqlTestResource implements QuarkusTestResourceLifecycleMana
         }
     }
 
-    private void initDB(CassandraContainer cc) {
-        Cluster cluster = cc.getCluster();
+    private void initDB(CassandraContainer<?> container) {
+        Cluster cluster = Cluster.builder()
+                .addContactPoint(container.getHost())
+                .withPort(container.getMappedPort(CQL_PORT))
+                .withCredentials(container.getUsername(), container.getPassword())
+                .withoutJMXReporting()
+                .build();
 
         try (Session session = cluster.connect()) {
-
-            session.execute("CREATE KEYSPACE IF NOT EXISTS " + CassandraqlResource.KEYSPACE + " WITH replication = \n" +
+            session.execute("CREATE KEYSPACE IF NOT EXISTS " + CassandraqlRoutes.KEYSPACE + " WITH replication = \n" +
                     "{'class':'SimpleStrategy','replication_factor':'1'};");
 
-            session.execute("CREATE TABLE " + CassandraqlResource.KEYSPACE + ".employee(\n" +
+            session.execute("CREATE TABLE " + CassandraqlRoutes.KEYSPACE + ".employee(\n" +
                     "   id int PRIMARY KEY,\n" +
                     "   name text,\n" +
                     "   address text\n" +
                     "   );");
+
+            session.execute("CREATE TABLE " + CassandraqlRoutes.KEYSPACE + ".CAMEL_IDEMPOTENT (\n" +
+                    "  NAME varchar,\n" +
+                    "  KEY varchar,\n" +
+                    "  PRIMARY KEY (NAME, KEY)\n" +
+                    ");");
+
+            session.execute("CREATE TABLE " + CassandraqlRoutes.KEYSPACE + ".CAMEL_AGGREGATION (\n" +
+                    "  NAME varchar,\n" +
+                    "  KEY varchar,\n" +
+                    "  EXCHANGE_ID varchar,\n" +
+                    "  EXCHANGE blob,\n" +
+                    "  PRIMARY KEY (NAME, KEY)\n" +
+                    ");");
         }
     }
 
