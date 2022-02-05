@@ -7,11 +7,15 @@
 **Closed issues:**
 
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
+- Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
 - A tool to check/sync dependency versions with camel & quarkus  [\#1684](https://github.com/apache/camel-quarkus/issues/1684)
 
 **Merged pull requests:**
 
+- Clean up usage of `quarkus.test.flat-class-path` [\#3524](https://github.com/apache/camel-quarkus/pull/3524) ([jamesnetherton](https://github.com/jamesnetherton))
+- Build with Maven 3.8.4 [\#3523](https://github.com/apache/camel-quarkus/pull/3523) ([jamesnetherton](https://github.com/jamesnetherton))
+- Expand Cassandra CQL extension test coverage [\#3522](https://github.com/apache/camel-quarkus/pull/3522) ([jamesnetherton](https://github.com/jamesnetherton))
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3518](https://github.com/apache/camel-quarkus/pull/3518) ([ppalaga](https://github.com/ppalaga))
 - Fix nitrate collection tests on slow machines [\#3515](https://github.com/apache/camel-quarkus/pull/3515) ([jamesnetherton](https://github.com/jamesnetherton))
 - Clean up usage of deprecated Quarkus APIs [\#3513](https://github.com/apache/camel-quarkus/pull/3513) ([jamesnetherton](https://github.com/jamesnetherton))
