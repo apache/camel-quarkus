@@ -6,6 +6,7 @@
 
 **Closed issues:**
 
+- Incorrect version of `quarkus-maven-plugin` may be resolved [\#3520](https://github.com/apache/camel-quarkus/issues/3520)
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3517](https://github.com/apache/camel-quarkus/issues/3517)
 - Expand Cassandra CQL extension test coverage [\#3514](https://github.com/apache/camel-quarkus/issues/3514)
 - Ban javax.servlet:servlet-api in favor of jakarta.servlet:jakarta.servlet-api [\#3496](https://github.com/apache/camel-quarkus/issues/3496)
