@@ -16,6 +16,7 @@
  */
 package org.apache.camel.quarkus.core.deployment.util;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ import java.util.TreeSet;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+import org.apache.camel.util.FileUtil;
 import org.jboss.jandex.DotName;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -69,7 +71,24 @@ public class PathFilterTest {
 
     @Test
     public void pathFilter() {
-        Predicate<Path> predicate = new PathFilter.Builder()
+        PathFilter.Builder builder = new PathFilter.Builder();
+        Stream.of("/foo/bar/*", "moo/mar/*")
+                .forEach(path -> {
+                    if (FileUtil.isWindows()) {
+                        path = path.replace("/", File.pathSeparator);
+                    }
+                    builder.include(path);
+                });
+
+        Stream.of("/foo/baz/*", "moo/maz/*")
+                .forEach(path -> {
+                    if (FileUtil.isWindows()) {
+                        path = path.replace("/", File.pathSeparator);
+                    }
+                    builder.exclude(path);
+                });
+
+        Predicate<Path> predicate = builder
                 .include("/foo/bar/*")
                 .include("moo/mar/*")
                 .exclude("/foo/baz/*")

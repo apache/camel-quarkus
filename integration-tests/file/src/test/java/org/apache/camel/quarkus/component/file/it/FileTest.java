@@ -33,6 +33,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.ValidatableResponse;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -275,7 +276,7 @@ class FileTest {
     }
 
     static String createFile(byte[] content, String path, String charset, String fileName) {
-        return RestAssured.given()
+        String createdFilePath = RestAssured.given()
                 .urlEncodingEnabled(true)
                 .queryParam("charset", charset)
                 .contentType(ContentType.BINARY)
@@ -287,6 +288,8 @@ class FileTest {
                 .extract()
                 .body()
                 .asString();
+
+        return FileUtils.nixifyPath(createdFilePath);
     }
 
     static void startRouteAndWait(String routeId) throws InterruptedException {
@@ -322,7 +325,9 @@ class FileTest {
                         final JsonPath json = response
                                 .extract()
                                 .jsonPath();
-                        return file.toString().equals(json.getString("path")) && type.equals(json.getString("type"));
+                        String expectedPath = FileUtils.nixifyPath(file);
+                        String actualPath = json.getString("path");
+                        return expectedPath.equals(actualPath) && type.equals(json.getString("type"));
                     default:
                         throw new RuntimeException("Unexpected status code " + response.extract().statusCode());
                     }

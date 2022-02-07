@@ -73,6 +73,7 @@ import org.apache.camel.quarkus.core.deployment.spi.ContainerBeansBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.RoutesBuilderClassExcludeBuildItem;
 import org.apache.camel.quarkus.core.deployment.util.CamelSupport;
 import org.apache.camel.quarkus.core.deployment.util.PathFilter;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.spi.TypeConverterLoader;
 import org.apache.camel.spi.TypeConverterRegistry;
 import org.jboss.jandex.AnnotationTarget;
@@ -328,7 +329,7 @@ class CamelProcessor {
         camelServices.forEach(service -> {
             recorder.factoryFinderResolverEntry(
                     builder,
-                    service.path.toString(),
+                    FileUtils.nixifyPath(service.path),
                     CamelSupport.loadClass(service.type, TCCL));
         });
 
