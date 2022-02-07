@@ -16,6 +16,8 @@
  */
 package org.apache.camel.quarkus.component.dozer.it;
 
+import java.io.File;
+
 import io.quarkus.test.junit.QuarkusTest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
@@ -46,7 +48,7 @@ class DozerTest {
                         "address.zip", is("12345"),
                         "address.street", is("Camel Street"),
                         "created", containsString("1990"),
-                        "internalFileAsString", is("/test"),
+                        "internalFileAsString", is(File.separator + "test"),
                         "internalClassAsString", is("java.lang.String"),
                         "internalUrl", is("http://customer"),
                         "internal.text", is("hello internal"));

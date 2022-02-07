@@ -194,7 +194,7 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/sanity-checks.groovy</source>
+                                    <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/sanity-checks.groovy</source>
                                     <properties>
                                         <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
                                     </properties>

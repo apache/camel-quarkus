@@ -198,7 +198,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
                             <properties>
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/foundation</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>

@@ -154,7 +154,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/group-tests.groovy</source>
                             <properties>
                                 <group-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2-quarkus-client</group-tests.source.dir>
                                 <group-tests.dest.module.dir>${project.basedir}</group-tests.dest.module.dir>
@@ -169,7 +169,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ses</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
@@ -184,7 +184,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-ddb</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
@@ -199,7 +199,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-s3</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
@@ -214,7 +214,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
@@ -229,7 +229,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>

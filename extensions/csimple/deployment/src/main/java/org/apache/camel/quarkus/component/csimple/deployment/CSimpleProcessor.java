@@ -78,6 +78,7 @@ import org.apache.camel.quarkus.core.deployment.spi.CamelBeanBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelContextBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CamelRoutesBuilderClassBuildItem;
 import org.apache.camel.quarkus.core.deployment.spi.CompiledCSimpleExpressionBuildItem;
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.util.PropertiesHelper;
 import org.jboss.logging.Logger;
 
@@ -230,7 +231,7 @@ class CSimpleProcessor {
                         .filter(p -> p.getFileName().toString().endsWith(CLASS_EXT))
                         .forEach(p -> {
                             final Path relPath = csimpleClassesDir.relativize(p);
-                            String className = relPath.toString();
+                            String className = FileUtils.nixifyPath(relPath.toString());
                             className = className.substring(0, className.length() - CLASS_EXT.length());
                             try {
                                 final GeneratedClassBuildItem item = new GeneratedClassBuildItem(true, className,

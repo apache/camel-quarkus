@@ -104,7 +104,7 @@ public class JsonComponentsTest {
 
     @Test
     void jacksonXml() {
-        final String xml = "<PojoA>\n  <name>Joe</name>\n</PojoA>\n";
+        final String xml = "<PojoA><name>Joe</name></PojoA>";
         final String json = JsonbBuilder.create().toJson(new PojoA("Joe"));
         RestAssured.given()
                 .contentType(ContentType.JSON)
@@ -112,7 +112,7 @@ public class JsonComponentsTest {
                 .post("/dataformats-json/jacksonxml/marshal")
                 .then()
                 .statusCode(200)
-                .body(equalTo(xml));
+                .body("PojoA.name", equalTo("Joe"));
 
         RestAssured.given()
                 .contentType("text/xml")

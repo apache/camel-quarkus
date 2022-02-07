@@ -29,6 +29,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.apache.camel.quarkus.core.util.FileUtils;
 import org.apache.camel.util.AntPathMatcher;
 import org.apache.camel.util.ObjectHelper;
 import org.jboss.jandex.DotName;
@@ -118,6 +119,7 @@ public class PathFilter {
                 .map(rootPath::relativize)
                 .map(Path::toString)
                 .map(stringPath -> stringPath.substring(0, stringPath.length() - CLASS_SUFFIX_LENGTH))
+                .map(FileUtils::nixifyPath)
                 .filter(stringPredicate)
                 .map(slashClassName -> slashClassName.replace('/', '.'))
                 .forEach(resultConsumer::accept);
@@ -133,7 +135,7 @@ public class PathFilter {
     }
 
     static String sanitize(String path) {
-        path = path.trim();
+        path = FileUtils.nixifyPath(path.trim());
         return (!path.isEmpty() && path.charAt(0) == '/')
                 ? path.substring(1)
                 : path;
