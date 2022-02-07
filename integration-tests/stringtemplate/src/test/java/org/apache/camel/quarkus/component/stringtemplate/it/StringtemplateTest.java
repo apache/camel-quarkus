@@ -108,7 +108,7 @@ class StringtemplateTest {
                 .then()
                 .statusCode(201)
                 .body(containsString(
-                        text + "WORKS!\n"));
+                        text + "WORKS!"));
     }
 
     @Test

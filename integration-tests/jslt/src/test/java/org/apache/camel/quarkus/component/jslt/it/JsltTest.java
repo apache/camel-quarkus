@@ -19,6 +19,7 @@ package org.apache.camel.quarkus.component.jslt.it;
 import java.io.IOException;
 
 import io.quarkus.test.junit.QuarkusTest;
+import org.apache.camel.util.FileUtil;
 import org.junit.jupiter.api.Test;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -57,6 +58,11 @@ class JsltTest {
     public void transformFromHeaderWithPrettyPrintShouldSucceed() throws IOException {
         String expected = resourceToString("/demoPlayground/outputPrettyPrint.json", UTF_8);
         String input = resourceToString("/demoPlayground/input.json", UTF_8);
+
+        if (FileUtil.isWindows()) {
+            // Jackson ObjectMapper pretty printing uses platform line endings by default
+            expected = expected.replace("\n", System.lineSeparator());
+        }
 
         given().when().body(input).get("/jslt/transformFromHeaderWithPrettyPrint").then().statusCode(200).body(is(expected));
     }

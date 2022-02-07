@@ -63,7 +63,8 @@ class FlatpackTest {
         secondRow.put("LAST_RECV_DT", "20040601");
         data.add(secondRow);
 
-        String expected = "ITEM_DESC,IN_STOCK,PRICE,LAST_RECV_DT\nAN ENGINE,100,1000.00,20040601\n";
+        String expected = "ITEM_DESC,IN_STOCK,PRICE,LAST_RECV_DT" + System.lineSeparator() + "AN ENGINE,100,1000.00,20040601"
+                + System.lineSeparator();
         given().contentType(ContentType.JSON).body(data).when().get("/flatpack/delimited-marshal").then().statusCode(200)
                 .body(is(expected));
     }
