@@ -1,9 +1,9 @@
-You can use this extension to expose REST DSL services to quarkus openapi. With
-the `quarkus-smallrye-openapi`, you can access them by `/q/openapi?format=json`.
+You can use this extension to expose REST DSL services to Quarkus OpenAPI. With
+`quarkus-smallrye-openapi`, you can access them by `/q/openapi?format=json`.
 
 Refer to the https://quarkus.io/guides/openapi-swaggerui[Quarkus OpenAPI guide] for further information.
 
-By default, this experimental feature disable. You can enable it by
+This is an experimental feature. You can enable it by
 [source, properties]
 ----
 quarkus.camel.openapi.expose.enabled=true
@@ -11,6 +11,6 @@ quarkus.camel.openapi.expose.enabled=true
 
 [WARNING]
 ====
-It doesn't support the rests services used in `org.apache.camel.builder.LambdaRouteBuilder` right now.
-Also, it can not use CDI injection in the RouteBuilder `configure()` since we get the rest definitions at build time while the CDI is unavailable.
+It doesn't support the rest services used in `org.apache.camel.builder.LambdaRouteBuilder` right now.
+Also, it can not use CDI injection in the RouteBuilder `configure()` since we get the rest definitions at build time while CDI is unavailable.
 ====
