@@ -516,6 +516,7 @@
                             <exclude>.envrc</exclude>
                             <exclude>**/.idea/**</exclude>
                             <exclude>**/k8s-sb/**</exclude>
+                            <exclude>.gitattributes</exclude>
                         </excludes>
                         <mapping>
                             <cli>CAMEL_PROPERTIES_STYLE</cli>
@@ -692,7 +693,7 @@
                                 </goals>
                                 <phase>process-resources</phase>
                                 <configuration>
-                                    <source>file:///${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
+                                    <source>file:${project.basedir}/tooling/scripts/validate-github-workflows.groovy</source>
                                 </configuration>
                             </execution>
                             <execution>
@@ -703,7 +704,7 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <source>file:///${project.basedir}/tooling/scripts/validate-extension-metadata.groovy</source>
+                                    <source>file:${project.basedir}/tooling/scripts/validate-extension-metadata.groovy</source>
                                     <properties>
                                         <extensionDirs>extensions-core,extensions-support,extensions</extensionDirs>
                                     </properties>
@@ -1007,7 +1008,7 @@
                                 </goals>
                                 <phase>validate</phase>
                                 <configuration>
-                                    <source>file://${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
+                                    <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/update-antora-yaml.groovy</source>
                                     <properties>
                                         <maven.multiModuleProjectDirectory>${maven.multiModuleProjectDirectory}</maven.multiModuleProjectDirectory>
                                     </properties>
@@ -1190,7 +1191,7 @@
                                 </goals>
                                 <phase>verify</phase>
                                 <configuration>
-                                    <source>file:///${project.basedir}/tooling/scripts/report-build-status.groovy</source>
+                                    <source>file:${project.basedir}/tooling/scripts/report-build-status.groovy</source>
                                 </configuration>
                             </execution>
                         </executions>

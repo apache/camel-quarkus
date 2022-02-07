@@ -122,7 +122,7 @@
                         </goals>
                         <phase>generate-sources</phase>
                         <configuration>
-                            <source>file:///${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
+                            <source>file:${maven.multiModuleProjectDirectory}/tooling/scripts/copy-tests.groovy</source>
                             <properties>
                                 <copy-tests.source.dir>${maven.multiModuleProjectDirectory}/integration-test-groups/aws2/aws2-sqs-sns</copy-tests.source.dir>
                                 <copy-tests.dest.module.dir>${project.basedir}</copy-tests.dest.module.dir>
