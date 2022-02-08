@@ -2352,6 +2352,12 @@
                 <groupId>org.apache.camel</groupId>
                 <artifactId>camel-slack</artifactId>
                 <version>${camel.version}</version>
+                <exclusions>
+                    <exclusion><!-- Can be removed when the fix for https://issues.apache.org/jira/browse/CAMEL-17619 reaches us, probably with Camel 3.16 -->
+                        <groupId>com.googlecode.json-simple</groupId>
+                        <artifactId>json-simple</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.camel</groupId>
