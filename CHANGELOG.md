@@ -18,6 +18,7 @@
 - Build with Maven 3.8.4 [\#3523](https://github.com/apache/camel-quarkus/pull/3523) ([jamesnetherton](https://github.com/jamesnetherton))
 - Expand Cassandra CQL extension test coverage [\#3522](https://github.com/apache/camel-quarkus/pull/3522) ([jamesnetherton](https://github.com/jamesnetherton))
 - Prevent various plugins from resolving commons-logging:commons-logging [\#3518](https://github.com/apache/camel-quarkus/pull/3518) ([ppalaga](https://github.com/ppalaga))
+- Add release guide notes for updating k8s version labels in example projects [\#3516](https://github.com/apache/camel-quarkus/pull/3516) ([jamesnetherton](https://github.com/jamesnetherton))
 - Fix nitrate collection tests on slow machines [\#3515](https://github.com/apache/camel-quarkus/pull/3515) ([jamesnetherton](https://github.com/jamesnetherton))
 - Clean up usage of deprecated Quarkus APIs [\#3513](https://github.com/apache/camel-quarkus/pull/3513) ([jamesnetherton](https://github.com/jamesnetherton))
 - Upgrade formatter-maven-plugin to 2.17.1 [\#3512](https://github.com/apache/camel-quarkus/pull/3512) ([jamesnetherton](https://github.com/jamesnetherton))
