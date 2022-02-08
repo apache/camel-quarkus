@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.xml.transform.TransformerException;
@@ -102,6 +103,11 @@ class XsltProcessor {
 
                 try {
                     TransformerFactory tf = new XalanTransformerFactory();
+
+                    for (Map.Entry<String, Boolean> entry : config.features.entrySet()) {
+                        tf.setFeature(entry.getKey(), entry.getValue());
+                    }
+
                     tf.setAttribute("generate-translet", true);
                     tf.setAttribute("translet-name", resolvedUri.transletClassName);
                     tf.setAttribute("package-name", config.packageName);
