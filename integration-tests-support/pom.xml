@@ -50,6 +50,7 @@
         <module>test-support</module>
         <module>mock-backend</module>
         <module>wiremock</module>
+        <module>xslt-support</module>
     </modules>
 
     <dependencyManagement>

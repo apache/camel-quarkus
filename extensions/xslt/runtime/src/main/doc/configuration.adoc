@@ -11,6 +11,26 @@ Scheme-less URIs are interpreted as `classpath:` URIs.
 
 Only `classpath:` URIs are supported on Quarkus. `file:`, `http:` and other kinds of URIs do not work by design.
 
+=== Configuration
+TransformerFactory features can be configured using following property:
+[source,properties]
+----
+quarkus.camel.xslt.features."http\://javax.xml.XMLConstants/feature/secure-processing"=false
+----
+=== Extension functions support
+https://xml.apache.org/xalan-j/extensions.html[Xalan's extension functions]
+do work properly only when:
+
+1. Secure-processing is disabled
+2. Functions are defined in a separate jar
+3. Functions are augmented during native build phase. For example, they can be registered for reflection:
+[source,java]
+----
+@RegisterForReflection(targets = { my.Functions.class })
+public class FunctionsConfiguration {
+}
+----
+
 [NOTE]
 ====
 The content of the XSLT source URIs is parsed and compiled into Java classes at build time. These Java classes are the
