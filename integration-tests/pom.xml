@@ -110,7 +110,6 @@
         <module>hystrix</module>
         <module>infinispan</module>
         <module>influxdb</module>
-        <module>ipfs</module>
         <module>jackson-avro</module>
         <module>jackson-protobuf</module>
         <module>jaxb</module>
