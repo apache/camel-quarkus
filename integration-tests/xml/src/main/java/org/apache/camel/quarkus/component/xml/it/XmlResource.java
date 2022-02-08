@@ -57,8 +57,15 @@ public class XmlResource {
     @Path("/xslt")
     @POST
     @Produces(MediaType.TEXT_PLAIN)
-    public String classpath(String body) throws Exception {
+    public String classpath(String body) {
         return producerTemplate.requestBody("xslt:xslt/classpath-transform.xsl", body, String.class);
+    }
+
+    @Path("/xslt-extension-function")
+    @POST
+    @Produces(MediaType.TEXT_PLAIN)
+    public String extensionFunction(String body) {
+        return producerTemplate.requestBody("xslt:xslt/extension-function.xsl", body, String.class);
     }
 
     @Path("/html-transform")

@@ -14,33 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.apache.camel.quarkus.component.xslt;
+package org.apache.camel.quarkus.component.xml.it;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import io.quarkus.runtime.annotations.RegisterForReflection;
 
-import io.quarkus.runtime.annotations.ConfigItem;
-import io.quarkus.runtime.annotations.ConfigPhase;
-import io.quarkus.runtime.annotations.ConfigRoot;
-
-@ConfigRoot(name = "camel.xslt", phase = ConfigPhase.BUILD_AND_RUN_TIME_FIXED)
-public class CamelXsltConfig {
-    /**
-     * A comma separated list of templates to compile.
-     */
-    @ConfigItem
-    public Optional<List<String>> sources;
-
-    /**
-     * The package name for the generated classes.
-     */
-    @ConfigItem(defaultValue = "org.apache.camel.quarkus.component.xslt.generated")
-    public String packageName;
-
-    /**
-     * TransformerFactory features.
-     */
-    @ConfigItem
-    public Map<String, Boolean> features;
+@RegisterForReflection(targets = { org.apache.camel.quarkus.test.support.xslt.Functions.class })
+public class FunctionsConfiguration {
 }
