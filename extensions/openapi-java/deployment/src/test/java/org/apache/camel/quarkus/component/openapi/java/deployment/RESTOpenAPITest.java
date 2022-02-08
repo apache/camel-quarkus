@@ -56,9 +56,9 @@ public class RESTOpenAPITest {
                 .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("servers[0].url", is("http://localhost:8080/"),
-                        "paths.'/quarkus/camel/api'.get.operationId", is("get"),
-                        "paths.'/quarkus/camel/api'.get.summary", is("get test"),
-                        "paths.'/quarkus/camel/xml'.get.operationId", is("camel_xml_rest"),
+                        "paths.'/api'.get.operationId", is("get"),
+                        "paths.'/api'.get.summary", is("get test"),
+                        "paths.'/xml'.get.operationId", is("camel_xml_rest"),
                         "paths.'/quarkus/hello'.get.tags[0]", is("Quarkus Resource"));
 
         RestAssured.given()
