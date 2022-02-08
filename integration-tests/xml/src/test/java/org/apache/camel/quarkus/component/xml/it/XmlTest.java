@@ -60,6 +60,20 @@ class XmlTest {
     }
 
     @Test
+    public void xsltExtensionFunction() {
+        final String actual = RestAssured.given()
+                .body(BODY)
+                .post("/xml/xslt-extension-function")
+                .then()
+                .statusCode(200)
+                .extract().body().asString().trim().replaceAll(">\\s+<", "><");
+
+        Assertions.assertEquals(
+                "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><extension-function-xsl>Hey-Hello world!</extension-function-xsl>",
+                actual);
+    }
+
+    @Test
     public void htmlTransform() throws Exception {
         String html = IOUtils.toString(getClass().getResourceAsStream("/test.html"), Charset.forName("UTF-8"));
 

@@ -16,6 +16,9 @@
  */
 package org.apache.camel.quarkus.component.xslt;
 
+import java.util.Map;
+
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 
 import io.quarkus.runtime.RuntimeValue;
@@ -27,11 +30,12 @@ import org.apache.camel.quarkus.support.xalan.XalanTransformerFactory;
 
 @Recorder
 public class CamelXsltRecorder {
+
     public RuntimeValue<XsltComponent> createXsltComponent(CamelXsltConfig config,
             RuntimeValue<RuntimeUriResolver.Builder> uriResolverBuilder) {
         final RuntimeUriResolver uriResolver = uriResolverBuilder.getValue().build();
         final QuarkusTransformerFactoryConfigurationStrategy strategy = new QuarkusTransformerFactoryConfigurationStrategy(
-                config.packageName, uriResolver);
+                config.packageName, config.features, uriResolver);
         final XsltComponent component = new XsltComponent();
         component.setUriResolver(uriResolver);
         component.setTransformerFactoryConfigurationStrategy(strategy);
@@ -52,15 +56,27 @@ public class CamelXsltRecorder {
 
         private final String packageName;
         private final RuntimeUriResolver uriResolver;
+        private final Map<String, Boolean> features;
 
-        public QuarkusTransformerFactoryConfigurationStrategy(String packageName, RuntimeUriResolver uriResolver) {
+        public QuarkusTransformerFactoryConfigurationStrategy(String packageName, Map<String, Boolean> features,
+                RuntimeUriResolver uriResolver) {
             this.uriResolver = uriResolver;
             this.packageName = packageName;
+            this.features = features;
         }
 
         @Override
         public void configure(TransformerFactory tf, XsltEndpoint endpoint) {
             final String className = uriResolver.getTransletClassName(endpoint.getResourceUri());
+
+            for (Map.Entry<String, Boolean> entry : features.entrySet()) {
+                try {
+                    tf.setFeature(entry.getKey(), entry.getValue());
+                } catch (TransformerException e) {
+                    throw new RuntimeException("Could not set TransformerFactory feature '"
+                            + entry.getKey() + "' = " + entry.getValue(), e);
+                }
+            }
 
             tf.setAttribute("use-classpath", true);
             tf.setAttribute("translet-name", className);
