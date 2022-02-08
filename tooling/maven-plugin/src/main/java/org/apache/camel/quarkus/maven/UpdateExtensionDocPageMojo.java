@@ -102,6 +102,7 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
                 templatesUriBase, encoding);
 
         final List<ArtifactModel<?>> models = catalog.filterModels(ext.getRuntimeArtifactIdBase())
+                .filter(artifactModel -> !artifactModel.getArtifactId().equals("camel-management"))
                 .sorted(BaseModel.compareTitle())
                 .collect(Collectors.toList());
 
@@ -177,8 +178,12 @@ public class UpdateExtensionDocPageMojo extends AbstractDocGeneratorMojo {
             private String camelBitLink(ArtifactModel<?> model) {
                 model = CqCatalog.toCamelDocsModel(model);
                 final String kind = model.getKind();
+                String name = model.getName();
+                if (name.equals("xml-io-dsl")) {
+                    name = "java-xml-io-dsl";
+                }
                 return "xref:{cq-camel-components}:" + (!"component".equals(kind) ? kind + "s:" : ":")
-                        + model.getName() + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
+                        + name + (!"other".equals(kind) ? "-" + kind : "") + ".adoc";
             }
         });
         model.put("toAnchor", new TemplateMethodModelEx() {
