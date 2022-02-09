@@ -37,6 +37,7 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -54,7 +55,6 @@ public class MicroProfileHealthCamelChecksDisabledTest {
         Writer writer = new StringWriter();
 
         Properties props = new Properties();
-        props.put("camel.health.contextEnabled", "false");
         props.put("camel.health.routesEnabled", "false");
         props.put("camel.health.consumersEnabled", "false");
         props.put("camel.health.registryEnabled", "false");
@@ -69,9 +69,9 @@ public class MicroProfileHealthCamelChecksDisabledTest {
     }
 
     @Test
-    public void contextHealthCheckNull() {
+    public void contextHealthCheckNotNull() {
         ContextHealthCheck contextHealthCheck = context.getRegistry().lookupByNameAndType("context", ContextHealthCheck.class);
-        assertNull(contextHealthCheck);
+        assertNotNull(contextHealthCheck);
     }
 
     @Test

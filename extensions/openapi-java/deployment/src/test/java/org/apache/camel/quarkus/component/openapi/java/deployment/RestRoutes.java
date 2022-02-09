@@ -29,8 +29,9 @@ public class RestRoutes extends RouteBuilder {
                 .description("get test")
                 .id("get")
                 .produces("text/plain")
-                .route()
-                .setBody(constant("GET: /rest"))
-                .endRest();
+                .to("direct:output");
+
+        from("direct:output")
+                .setBody().constant("GET: /rest");
     }
 }

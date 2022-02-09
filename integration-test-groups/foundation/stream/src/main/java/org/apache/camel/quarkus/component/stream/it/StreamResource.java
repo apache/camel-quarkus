@@ -42,7 +42,7 @@ public class StreamResource {
     public String greetingStream(String message) throws Exception {
         try (ByteArrayOutputStream stream = new ByteArrayOutputStream()) {
             producerTemplate.sendBodyAndHeader("stream:header", message.getBytes(), "stream", stream);
-            return "Hello " + stream.toString();
+            return "Hello " + stream;
         }
     }
 }

@@ -16,10 +16,10 @@
 #
 
 - rest:
-    path: "/greeting"
-    verb:
-      - method: "get"
+    get:
+      - path: "/greeting"
         to: "direct:rest"
+
 - route:
     id: "rest-route"
     from:

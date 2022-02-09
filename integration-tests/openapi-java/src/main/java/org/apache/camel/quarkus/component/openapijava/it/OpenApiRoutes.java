@@ -64,10 +64,7 @@ public class OpenApiRoutes extends RouteBuilder {
                 .description("Gets a list of fruits")
                 .id("list")
                 .produces(MediaType.APPLICATION_JSON)
-                .route()
-                .setBody().constant(getFruits())
-                .marshal().json()
-                .endRest()
+                .to("direct:fruits")
 
                 .get("/operation/spec")
                 .param()
@@ -102,20 +99,14 @@ public class OpenApiRoutes extends RouteBuilder {
                 .code("error")
                 .message("Response Error")
                 .endResponseMessage()
-                .route()
-                .setBody().constant("GET: /operation/spec")
-                .endRest()
+                .to("direct:echoMethodPath")
 
                 .get("/security/scopes")
                 .security("OAuth2", "scope1,scope2,scope3")
-                .route()
-                .setBody().constant("GET: /security/scopes")
-                .endRest()
+                .to("direct:echoMethodPath")
 
                 .get("/security/api/key")
-                .route()
-                .setBody().constant("GET: /security/api/key/header")
-                .endRest()
+                .to("direct:echoMethodPath")
                 .securityDefinitions()
                 .apiKey("X-API-Key", "The API key")
                 .withHeader("X-API-KEY")
@@ -123,17 +114,13 @@ public class OpenApiRoutes extends RouteBuilder {
                 .end()
 
                 .get("/security/basic/auth")
-                .route()
-                .setBody().constant("/security/basic/auth")
-                .endRest()
+                .to("direct:echoMethodPath")
                 .securityDefinitions()
                 .basicAuth("basicAuth", "Basic Authentication")
                 .end()
 
                 .get("/security/oauth2")
-                .route()
-                .setBody().constant("/security/oauth2")
-                .endRest()
+                .to("direct:echoMethodPath")
                 .securityDefinitions()
                 .oauth2("oauth2", "OAuth2 Authentication")
                 .flow("implicit")
@@ -147,29 +134,30 @@ public class OpenApiRoutes extends RouteBuilder {
         if (openApiVersion.equals("3.0.0")) {
             rest()
                     .get("/security/bearer/token")
-                    .route()
-                    .setBody().constant("/security/bearer/token")
-                    .endRest()
+                    .to("direct:echoMethodPath")
                     .securityDefinitions()
                     .bearerToken("bearerAuth", "Bearer Token Authentication")
                     .end()
 
                     .get("/security/mutual/tls")
-                    .route()
-                    .setBody().constant("/security/mutual/tls")
-                    .endRest()
+                    .to("direct:echoMethodPath")
                     .securityDefinitions()
                     .mutualTLS("mutualTLS")
                     .end()
 
                     .get("/security/openid")
-                    .route()
-                    .setBody().constant("/security/openid")
-                    .endRest()
+                    .to("direct:echoMethodPath")
                     .securityDefinitions()
                     .openIdConnect("openId", "https://secure.apache.org/fake/openid-configuration")
                     .end();
         }
+
+        from("direct:fruits")
+                .setBody().constant(getFruits())
+                .marshal().json();
+
+        from("direct:echoMethodPath")
+                .setBody().simple("${header.CamelHttpMethod}: ${header.CamelHttpPath}");
     }
 
     private Set<Fruit> getFruits() {

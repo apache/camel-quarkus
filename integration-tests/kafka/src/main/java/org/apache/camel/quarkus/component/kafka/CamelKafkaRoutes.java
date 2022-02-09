@@ -61,7 +61,7 @@ public class CamelKafkaRoutes extends RouteBuilder {
 
         from("direct:idempotent")
                 .idempotentConsumer(header("id"))
-                .messageIdRepositoryRef("kafkaIdempotentRepository")
+                .idempotentRepository("kafkaIdempotentRepository")
                 .to("mock:idempotent-results")
                 .end();
 

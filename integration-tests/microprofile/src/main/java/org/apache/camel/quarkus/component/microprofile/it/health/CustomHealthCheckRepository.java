@@ -16,12 +16,10 @@
  */
 package org.apache.camel.quarkus.component.microprofile.it.health;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.stream.Stream;
 
 import org.apache.camel.health.HealthCheck;
-import org.apache.camel.health.HealthCheckConfiguration;
 import org.apache.camel.health.HealthCheckRepository;
 import org.apache.camel.health.HealthCheckResultBuilder;
 import org.apache.camel.impl.health.AbstractHealthCheck;
@@ -40,21 +38,6 @@ public class CustomHealthCheckRepository implements HealthCheckRepository {
 
     @Override
     public void setEnabled(boolean enabled) {
-        // Noop
-    }
-
-    @Override
-    public void setConfigurations(Map<String, HealthCheckConfiguration> configurations) {
-        // Noop
-    }
-
-    @Override
-    public Map<String, HealthCheckConfiguration> getConfigurations() {
-        return Collections.emptyMap();
-    }
-
-    @Override
-    public void addConfiguration(String id, HealthCheckConfiguration configuration) {
         // Noop
     }
 

@@ -26,7 +26,7 @@ import io.smallrye.faulttolerance.core.FaultToleranceStrategy;
 import io.smallrye.faulttolerance.core.InvocationContext;
 import io.smallrye.faulttolerance.core.circuit.breaker.CircuitBreaker;
 import io.smallrye.faulttolerance.core.stopwatch.SystemStopwatch;
-import io.smallrye.faulttolerance.core.util.SetOfThrowables;
+import io.smallrye.faulttolerance.core.util.ExceptionDecision;
 
 public class CoreFaultToleranceProducers {
 
@@ -39,7 +39,7 @@ public class CoreFaultToleranceProducers {
                 return null;
             }
         };
-        return new CircuitBreaker<Integer>(delegate, "description", SetOfThrowables.EMPTY, SetOfThrowables.EMPTY, 10, 40, 0.1,
+        return new CircuitBreaker<Integer>(delegate, "description", ExceptionDecision.ALWAYS_FAILURE, 10, 40, 0.1,
                 2, new SystemStopwatch()) {
             @Override
             public String toString() {

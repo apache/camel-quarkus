@@ -7,7 +7,7 @@
 :cq-native-supported: true
 :cq-status: Stable
 :cq-status-deprecation: Stable
-:cq-description: Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
+:cq-description: Unmarshal an XML payloads to POJOs and back using XMLMapper extension of Jackson.
 :cq-deprecated: false
 :cq-jvm-since: 1.0.0
 :cq-native-since: 1.0.0
@@ -15,7 +15,7 @@
 [.badges]
 [.badge-key]##JVM since##[.badge-supported]##1.0.0## [.badge-key]##Native since##[.badge-supported]##1.0.0##
 
-Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson.
+Unmarshal an XML payloads to POJOs and back using XMLMapper extension of Jackson.
 
 == What's inside
 

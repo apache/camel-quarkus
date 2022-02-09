@@ -22,7 +22,7 @@
 #
 ---
 name: "Camel JacksonXML"
-description: "Unmarshal a XML payloads to POJOs and back using XMLMapper extension of Jackson"
+description: "Unmarshal an XML payloads to POJOs and back using XMLMapper extension of Jackson"
 metadata:
   guide: "https://camel.apache.org/camel-quarkus/latest/reference/extensions/jacksonxml.html"
   categories:
