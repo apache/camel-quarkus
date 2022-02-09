@@ -195,8 +195,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
-    strategy:
-      fail-fast: false
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -301,12 +299,10 @@ jobs:
             --fail-at-end \
             clean test
 
-  integration-tests-alternative-jvm:
+  integration-tests-alternative-jdk:
     runs-on: ubuntu-latest
     needs: initial-mvn-install
     if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
-    strategy:
-      fail-fast: false
     env:
       MAVEN_OPTS: -Xmx3000m
     steps:
@@ -348,6 +344,51 @@ jobs:
           cd integration-tests
           ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
             -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
+            --fail-at-end \
+            clean verify
+
+  integration-tests-alternative-platform:
+    runs-on: ${{ matrix.os }}
+    needs: initial-mvn-install
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 'windows-latest' ]
+    if: github.event_name != 'pull_request' || !contains(github.event.pull_request.labels.*.name, 'JVM')
+    env:
+      MAVEN_OPTS: -Xmx3000m
+    steps:
+      - name: Setup apache-snapshots profile
+        shell: bash
+        if: github.ref == 'refs/heads/camel-main' || github.base_ref == 'camel-main'
+        run: |
+          echo "BRANCH_OPTIONS=-Papache-snapshots" >> $GITHUB_ENV
+      - name: Setup oss-snapshots profile
+        shell: bash
+        if: github.ref == 'refs/heads/quarkus-main' || github.base_ref == 'quarkus-main'
+        run: |
+          echo "BRANCH_OPTIONS=-Poss-snapshots -Dquarkus.version=999-SNAPSHOT" >> $GITHUB_ENV
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+      - name: Download Maven Repo
+        uses: actions/download-artifact@v2
+        with:
+          name: maven-repo
+          path: ..
+      - name: Extract Maven Repo
+        shell: bash
+        run: |
+          tar -xzf ../maven-repo.tgz -C ~
+      - name: cd integration-tests && mvn clean verify
+        shell: bash
+        run: |
+          cd integration-tests
+          ../mvnw ${MAVEN_ARGS} ${BRANCH_OPTIONS} \
+            -Dskip-testcontainers-tests -Dformatter.skip -Dimpsort.skip -Denforcer.skip \
             --fail-at-end \
             clean verify
 
