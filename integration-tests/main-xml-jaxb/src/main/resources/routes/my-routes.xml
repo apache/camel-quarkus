@@ -23,6 +23,13 @@
             http://camel.apache.org/schema/spring
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
+    <route id="rest-route">
+        <from uri="direct:greet"/>
+        <setBody>
+            <constant>Hello World!</constant>
+        </setBody>
+    </route>
+
     <route id="my-xml-route">
         <from uri="timer:from-xml?period=3000"/>
         <setBody>

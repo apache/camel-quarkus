@@ -24,7 +24,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.health.HealthCheck;
 import org.apache.camel.health.HealthCheckRegistry;
 
 @Path("/microprofile-health")
@@ -52,26 +51,12 @@ public class MicroProfileHealthResource {
             @QueryParam("healthCheckEnabled") boolean isHealthCheckEnabled) {
         HealthCheckRegistry registry = camelContext.getExtension(HealthCheckRegistry.class);
         registry.getCheck(healthCheckId).ifPresent(healthCheck -> {
-            healthCheck.getConfiguration().setEnabled(isHealthCheckEnabled);
+            healthCheck.setEnabled(isHealthCheckEnabled);
             if (isHealthCheckEnabled) {
                 registry.register(healthCheck);
             } else {
                 registry.unregister(healthCheck);
             }
         });
-    }
-
-    @Path("/{healthCheckId}/return/status")
-    @POST
-    public void modifyHealthCheckStatus(
-            @PathParam("healthCheckId") String healthCheckId,
-            @QueryParam("returnStatusUp") boolean isReturnStatusUp) {
-        HealthCheck healthCheck = camelContext
-                .getExtension(HealthCheckRegistry.class)
-                .getCheck(healthCheckId)
-                .get();
-
-        FailureThresholdHealthCheck failureThresholdHealthCheck = (FailureThresholdHealthCheck) healthCheck;
-        failureThresholdHealthCheck.setReturnStatusUp(isReturnStatusUp);
     }
 }

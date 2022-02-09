@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!--
 
     Licensed to the Apache Software Foundation (ASF) under one or more
@@ -17,10 +16,10 @@
     limitations under the License.
 
 -->
-<rests xmlns="http://camel.apache.org/schema/spring">
-    <rest id="greet" path="/greeting">
-        <get path="/hello">
-            <to uri="direct:greet"/>
+<rests>
+    <rest id="camel_xml_rest" path="/xml">
+        <get>
+            <to uri="direct:outputXML" />
         </get>
     </rest>
 </rests>

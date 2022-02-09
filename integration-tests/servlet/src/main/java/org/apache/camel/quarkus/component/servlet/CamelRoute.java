@@ -18,6 +18,8 @@ package org.apache.camel.quarkus.component.servlet;
 
 import javax.enterprise.context.ApplicationScoped;
 
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 @ApplicationScoped
@@ -33,13 +35,10 @@ public class CamelRoute extends RouteBuilder {
 
         rest()
                 .get("/rest-get")
-                .route()
-                .setBody(constant("GET: /rest-get"))
-                .endRest()
+                .to("direct:echoMethodPath")
+
                 .post("/rest-post")
-                .route()
-                .setBody(constant("POST: /rest-post"))
-                .endRest();
+                .to("direct:echoMethodPath");
 
         from("servlet://hello?matchOnUriPrefix=true")
                 .setBody(constant("GET: /hello"));
@@ -50,6 +49,14 @@ public class CamelRoute extends RouteBuilder {
         from("servlet://favorite?servletName=my-favorite-servlet")
                 .setBody(constant("GET: /favorite"));
 
+        from("direct:echoMethodPath")
+                .process(new Processor() {
+                    @Override
+                    public void process(Exchange exchange) throws Exception {
+                        exchange.toString();
+                    }
+                })
+                .setBody().simple("${header.CamelHttpMethod}: ${header.CamelServletContextPath}");
     }
 
 }

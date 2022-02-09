@@ -16,10 +16,12 @@
     limitations under the License.
 
 -->
-<rests xmlns="http://camel.apache.org/schema/spring">
-    <rest id="camel_xml_rest" path="/xml">
-        <get>
-            <route><transform><constant>Camel XML Rest</constant></transform></route>
-        </get>
-    </rest>
-</rests>
+
+<routes xmlns="http://camel.apache.org/schema/spring">
+    <route>
+        <from uri="direct:outputXML"/>
+        <setBody>
+            <constant>Camel XML Rest</constant>
+        </setBody>
+    </route>
+</routes>
